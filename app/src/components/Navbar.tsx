@@ -3,16 +3,16 @@ import Image from "next/image";
 import Dropdown, { NavbarOption } from "./Dropdown";
 
 const NGODropdownOptions = [
-  { text: "Team", url: "/team" },
-  { text: "Goals", url: "/" },
   { text: "Quem Somos", url: "/about" },
-  { text: "Partners", url: "/" },
+  { text: "Team", url: "/team" },
+  { text: "Visão", url: "/" },
+  { text: "Parceiros", url: "/" },
 ] as NavbarOption[];
 
 const AtivitiesDropdownOptions = [
   { text: "Oportunidades", url: "/" },
-  { text: "Eventos Passados", url: "/" },
   { text: "Voluntariado", url: "/" },
+  { text: "Projectos Decorridos", url: "/" },
 ] as NavbarOption[];
 
 const GlobalVillageOptions = [
@@ -44,7 +44,7 @@ const Navbar = () => {
             <Dropdown title="NGO" options={NGODropdownOptions} />
           </li>
           <li>
-            <Dropdown title="Ativities" options={AtivitiesDropdownOptions} />
+            <Dropdown title="Atividades" options={AtivitiesDropdownOptions} />
           </li>
           <li>
             <Dropdown
@@ -53,10 +53,10 @@ const Navbar = () => {
             />
           </li>
           <li>
-            <p>Be a member</p>
+            <p>Sê um membro</p>
           </li>
           <li>
-            <p>Donate</p>
+            <p>Doações</p>
           </li>
         </ul>
       </div>
