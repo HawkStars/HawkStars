@@ -12,13 +12,16 @@ const NGODropdownOptions = [
 const AtivitiesDropdownOptions = [
   { text: "Oportunidades", url: "/" },
   { text: "Voluntariado", url: "/" },
+  { text: "Eventos", url: "/" },
   { text: "Projectos Decorridos", url: "/" },
 ] as NavbarOption[];
 
 const GlobalVillageOptions = [
+  { text: "Pinhel", url: "/" },
   { text: "O Projecto", url: "/" },
   { text: "Missão e Valores", url: "/" },
   { text: "Objectivos", url: "/" },
+  { text: "Donate", url: "/" },
 ] as NavbarOption[];
 
 const Navbar = () => {
@@ -41,7 +44,7 @@ const Navbar = () => {
       <div>
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Dropdown title="NGO" options={NGODropdownOptions} />
+            <Dropdown title="ONG" options={NGODropdownOptions} />
           </li>
           <li>
             <Dropdown title="Atividades" options={AtivitiesDropdownOptions} />
@@ -53,10 +56,20 @@ const Navbar = () => {
             />
           </li>
           <li>
-            <p>Sê um membro</p>
+            <p>Gaming</p>
+            {/* DROPDOWN COM - TEAM, logos, twitch, media */}
           </li>
           <li>
-            <p>Doações</p>
+            <p>Notícias</p>
+          </li>
+          <li>
+            <p>Contactos</p>
+          </li>
+          <li>
+            <p>Ser membro</p>
+          </li>
+          <li>
+            <p>Doar</p>
           </li>
         </ul>
       </div>
