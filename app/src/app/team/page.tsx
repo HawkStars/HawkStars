@@ -1,4 +1,3 @@
-import Navbar from "../../components/Navbar";
 import Image from "next/image";
 
 const teamMembers = [
@@ -7,18 +6,16 @@ const teamMembers = [
   { name: "Paulo G" },
 ];
 
-const WIPPage = () => {
+const TeamPage = () => {
   return (
     <>
-      <Navbar />
-
-      <div className="flex flex-col m-7 gap-3">
+      <div className="m-7 flex flex-col gap-3">
         <h6 className="flex justify-center text-3xl">Equipa</h6>
-        <div className="grid grid-cols-3 mt-3 gap-3">
+        <div className="mt-3 grid grid-cols-3 gap-3">
           {teamMembers.map((member, index) => (
             <div key={index} className="flex flex-col justify-center gap-3">
               <div className="avatar flex justify-center">
-                <div className="w-24 rounded bg-black-100 border">
+                <div className="bg-black-100 w-24 rounded border">
                   <Image
                     src="/logo.png"
                     alt="HawkStars Board member"
@@ -37,4 +34,4 @@ const WIPPage = () => {
   );
 };
 
-export default WIPPage;
+export default TeamPage;

@@ -1,13 +1,8 @@
-import Navbar from "../../components/Navbar";
-import Image from "next/image";
-
 const WIPPage = () => {
   return (
     <>
-      <Navbar />
-
-      <div className="flex flex-col m-7 gap-3">
-        <h6 className="flex justify-center text-3xl mt-3">Quem Somos?</h6>
+      <div className="m-7 flex flex-col gap-3">
+        <h6 className="mt-3 flex justify-center text-3xl">Quem Somos?</h6>
         <p className="mt-3">
           {`A HAWK STARS – Associação para Educação, Inovação e Desenvolvimento
           Social é um grupo intergeracional cujo os seus membros são
