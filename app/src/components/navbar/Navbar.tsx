@@ -5,29 +5,29 @@ import MenuItem, { NavbarOption } from "./MenuItem";
 
 const NGODropdownOptions = [
   { text: "Quem Somos", url: "/about" },
-  { text: "Team", url: "/team" },
-  { text: "Visão", url: "/" },
-  { text: "Parceiros", url: "/" },
+  { text: "Team" },
+  { text: "Visão" },
+  { text: "Parceiros" },
 ] as NavbarOption[];
 
 const AtivitiesDropdownOptions = [
-  { text: "Oportunidades", url: "/", disabled: false },
-  { text: "Voluntariado", url: "/", disabled: false },
-  { text: "Eventos", url: "/", disabled: false },
-  { text: "Projectos Decorridos", url: "/", disabled: false },
+  { text: "Oportunidades", disabled: false },
+  { text: "Voluntariado", disabled: false },
+  { text: "Eventos", disabled: false },
+  { text: "Projectos Decorridos", disabled: false },
 ] as NavbarOption[];
 
 const GlobalVillageOptions = [
-  { text: "Pinhel", url: "/", disabled: false },
-  { text: "O Projecto", url: "/", disabled: false },
-  { text: "Missão e Valores", url: "/", disabled: false },
-  { text: "Objectivos", url: "/", disabled: false },
-  { text: "Donate", url: "/", disabled: false },
+  { text: "Pinhel", disabled: false },
+  { text: "O Projecto", disabled: false },
+  { text: "Missão e Valores", disabled: false },
+  { text: "Objectivos", disabled: false },
+  { text: "Donate", disabled: false },
 ] as NavbarOption[];
 
 const Navbar = () => {
   return (
-    <div className="navbar flex gap-3 bg-orange-100 px-14">
+    <div className="flex gap-3 bg-orange-100 px-14">
       <div className="my-auto flex justify-center py-3">
         <Link href="/" className="text-xl normal-case">
           <div className="flex gap-1">
@@ -42,14 +42,14 @@ const Navbar = () => {
           </div>
         </Link>
       </div>
-      <div className="ml-auto">
-        <ul className="menu menu-horizontal px-1">
+      <div className="my-auto ml-auto flex gap-3">
+        <ul className="flex flex-row gap-8 px-1">
           <li>
             <MenuItem title="ONG" options={NGODropdownOptions} />
           </li>
-          <li>
+          {/* <li>
             <MenuItem title="Atividades" options={AtivitiesDropdownOptions} />
-          </li>
+          </li> */}
           {/* <li>
             <p>Gaming</p>
             {/* DROPDOWN COM - TEAM, logos, twitch, media 
