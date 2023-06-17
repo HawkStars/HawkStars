@@ -9,6 +9,8 @@ module.exports = {
     extend: {
       colors: {
         success: "#0A7558",
+        navbar: "#FAE7D0",
+        body: "FEF9F6",
       },
     },
   },

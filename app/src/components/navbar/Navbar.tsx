@@ -27,7 +27,7 @@ const GlobalVillageOptions = [
 
 const Navbar = () => {
   return (
-    <div className="flex gap-3 bg-orange-100 px-14">
+    <div className="flex gap-3 bg-navbar bg-orange-100 px-14">
       <div className="my-auto flex justify-center py-3">
         <Link href="/" className="text-xl normal-case">
           <div className="flex gap-1">
