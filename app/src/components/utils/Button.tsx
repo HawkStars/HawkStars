@@ -3,21 +3,50 @@ import React, { ReactNode } from "react";
 import Spinner from "./Spinner";
 
 interface ButtonProps {
+  /**
+   * Optional click handler
+   */
   onClick?: (e: React.MouseEvent) => void;
+  /**
+   * Type of button
+   */
   type: "submit" | "button" | "reset";
+  /**
+   * Elements inside the button
+   */
   children: ReactNode;
+  /**
+   * Loading state
+   */
   loading?: boolean;
+  /**
+   * Disabled state
+   */
   disabled?: boolean;
-  variant?: "success";
+  /**
+   * Type of Button
+   */
+  variant?: "success" | "informative";
+  /**
+   * Rounded Values
+   */
   rounded?: "xl" | "full";
+  /**
+   * Padding of the button
+   */
   padding?: "sm" | "md" | "lg";
+  /**
+   * Only has the lines of the variant
+   */
+  outline?: boolean;
 }
 
 const buttonProps = variantProps({
-  base: tw`w-full text-center focus:outline-none focus:ring-0 cursor-pointer`,
+  base: tw`w-fit text-center focus:outline-none focus:ring-0 cursor-pointer`,
   variants: {
     variant: {
-      success: "bg-success",
+      success: "bg-success border border-success text-white fill-white",
+      informative: "",
     },
     rounded: {
       none: tw`rounded-none`,
@@ -25,12 +54,15 @@ const buttonProps = variantProps({
       full: tw`rounded-full`,
     },
     disabled: {
-      true: tw`opacity-60`,
+      true: tw`opacity-50`,
     },
     padding: {
       sm: tw`px-3 py-2`,
       md: tw`px-4 py-3`,
       lg: tw`px-5 py-4`,
+    },
+    outline: {
+      true: tw`!bg-transparent`,
     },
   },
   defaultVariants: {
@@ -38,22 +70,15 @@ const buttonProps = variantProps({
     rounded: "none",
     disabled: false,
     padding: "sm",
+    outline: false,
   },
 });
 
-const Button = ({
-  children,
-  onClick,
-  loading = false,
-  disabled,
-  variant = "success",
-  rounded = "xl",
-  padding = "sm",
-  type,
-}: ButtonProps): JSX.Element => {
+const Button = (props: ButtonProps): JSX.Element => {
+  const { disabled, type, children, onClick, loading } = props;
   return (
     <button
-      {...buttonProps({ variant, rounded, padding })}
+      {...buttonProps({ ...props })}
       onClick={onClick}
       disabled={disabled}
       type={type}
