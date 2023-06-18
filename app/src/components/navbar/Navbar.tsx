@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import Socials from "../utils/Socials";
 import MenuItem, { NavbarOption } from "./MenuItem";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { useState } from "react";
 
 const NGODropdownOptions = [
   { text: "Quem Somos", url: "/about" },
@@ -26,31 +30,36 @@ const GlobalVillageOptions = [
 ] as NavbarOption[];
 
 const Navbar = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+
   return (
-    <div className="flex gap-3 bg-navbar bg-orange-100 px-14">
-      <div className="my-auto flex justify-center py-3">
-        <Link href="/" className="text-xl normal-case">
-          <div className="flex gap-1">
-            <Image
-              src="/logo.png"
-              alt="Hawk Stars Logo"
-              // className="dark:invert"
-              width={150}
-              height={100}
-              priority
-            />
-          </div>
-        </Link>
-      </div>
-      <div className="my-auto ml-auto flex gap-3">
-        <ul className="flex flex-row gap-8 px-1">
-          <li>
-            <MenuItem title="ONG" options={NGODropdownOptions} />
-          </li>
-          {/* <li>
+    <div className="bg-navbar px-2 lg:px-14">
+      <div className="flex gap-3">
+        <div className="my-auto flex justify-center py-3">
+          <Link href="/" className="text-xl normal-case">
+            <div className="flex gap-1">
+              <Image
+                src="/logo.png"
+                alt="Hawk Stars Logo"
+                // className="dark:invert"
+                width={150}
+                height={100}
+                priority
+              />
+            </div>
+          </Link>
+        </div>
+        {/* NAVBAR DESKTOP */}
+        <div className="my-auto ml-auto hidden lg:block">
+          <div className="ml-auto flex gap-3">
+            <ul className="flex flex-row gap-8 px-1">
+              <li>
+                <MenuItem title="ONG" options={NGODropdownOptions} />
+              </li>
+              {/* <li>
             <MenuItem title="Atividades" options={AtivitiesDropdownOptions} />
           </li> */}
-          {/* <li>
+              {/* <li>
             <p>Gaming</p>
             {/* DROPDOWN COM - TEAM, logos, twitch, media 
           </li>
@@ -60,17 +69,27 @@ const Navbar = () => {
           <li>
             <p>Contactos</p>
           </li> */}
-          {/* <li>
+              {/* <li>
             <p>Ser membro</p>
           </li> */}
-          {/* <li>
+              {/* <li>
             <Button type={"submit"}>Doar</Button>
           </li> */}
-        </ul>
-        <div className="ml-5">
-          <Socials />
+            </ul>
+            <div className="ml-5">
+              <Socials />
+            </div>
+          </div>
+        </div>
+        {/* NAVBAR MOBILE */}
+        <div className="my-auto ml-auto block lg:hidden">
+          <RxHamburgerMenu
+            size={28}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          />
         </div>
       </div>
+      {mobileMenuOpen && <div></div>}
     </div>
   );
 };

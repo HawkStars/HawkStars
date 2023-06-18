@@ -1,14 +1,11 @@
 import Button from "@/components/utils/Button";
-import Spinner from "@/components/utils/Spinner";
 
 export default function Home() {
   return (
     <section className="mt-36 flex flex-col">
       <div className="flex gap-1">
-        <div className="flex w-1/2 flex-col gap-2">
-          <h6>
-            A Hawk Stars <Spinner />
-          </h6>
+        <div className="flex flex-col gap-2 lg:w-1/2">
+          <h6>A Hawk Stars</h6>
           <h4 className="text-4xl font-black">
             Associação para Educação, Inovação e Desenvolvimento Social.
           </h4>
