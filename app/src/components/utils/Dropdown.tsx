@@ -20,7 +20,7 @@ const Dropdown = ({ title, options, tabIndex }: DropdownProps) => {
         tabIndex={tabIndex}
         className="dropdown-content menu z-50 flex flex-col gap-2 p-2"
       >
-        {options.map((option, index) => (
+        {options?.map((option, index) => (
           <li key={index}>
             {option.url ? (
               <Link href={option.url}>{option.text}</Link>
