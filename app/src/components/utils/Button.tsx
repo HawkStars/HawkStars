@@ -16,27 +16,27 @@ interface ButtonProps {
    */
   children: ReactNode;
   /**
-   * Loading state
+   * Styling - Loading state
    */
   loading?: boolean;
   /**
-   * Disabled state
+   * Styling -  Disabled state
    */
   disabled?: boolean;
   /**
-   * Type of Button
+   * Styling - Type of Button
    */
   variant?: "success" | "informative";
   /**
-   * Rounded Values
+   * Styling -  Rounded Values
    */
   rounded?: "xl" | "full";
   /**
-   * Padding of the button
+   * Styling - Padding of the button
    */
   padding?: "sm" | "md" | "lg";
   /**
-   * Only has the lines of the variant
+   * Styling - Only has the lines of the variant
    */
   outline?: boolean;
 }

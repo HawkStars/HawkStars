@@ -22,7 +22,7 @@ export default function Home() {
               </Button>
             </div>
             <div className="w-fit">
-              <Button disabled={true} type={"button"}>
+              <Button outline={true} type={"button"}>
                 Sê um membro
               </Button>
             </div>
