@@ -9,7 +9,7 @@ import { useState } from "react";
 
 const NGODropdownOptions = [
   { text: "Quem Somos", url: "/about" },
-  { text: "Team" },
+  { text: "Equipa", url: "/team" },
   { text: "Visão" },
   { text: "Parceiros" },
 ] as NavbarOption[];

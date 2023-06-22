@@ -11,7 +11,7 @@ type TeamCardProps = {
 
 const TeamCard = ({ name, position, photo, url }: TeamCardProps) => {
   return (
-    <div className="flex h-60 w-56 flex-col bg-bege-light px-2 py-4 text-center">
+    <div className="flex h-72 w-56 flex-col bg-bege-light px-2 py-4 text-center">
       <div className="mt-2 flex justify-center">
         <Avatar url={photo} size="medium" />
       </div>

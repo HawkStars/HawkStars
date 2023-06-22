@@ -58,6 +58,7 @@ const Avatar = (props: AvatarProps) => {
           src={url}
           fill={true}
           {...imageAvatarProps({ ...props })}
+          style={{ objectFit: "cover" }}
         />
       ) : (
         <div className="flex justify-center rounded-full bg-bege-dark p-2">
