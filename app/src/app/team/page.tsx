@@ -1,38 +1,42 @@
-import Image from "next/image";
+"use client";
+
+import TeamCard from "@/components/team/TeamCard";
+import classNames from "classnames";
 import { useState } from "react";
 import {
   boardSections,
   OrgSection,
+  sectionLabels,
   TeamMembers,
-  TeamPageSections,
 } from "./config";
 
 const TeamPage = () => {
   const [selectedSection, setSelectedSection] = useState<OrgSection>("geral");
   return (
     <>
-      <div className="flex flex-row gap-4 underline">
-        {boardSections.map((section) => section)}
-      </div>
-      <div className="m-7 flex flex-col gap-3">
-        <h6 className="flex justify-center text-3xl">Equipa</h6>
-        <div className="mt-3 grid grid-cols-3 gap-3">
-          {/* {TeamMembers.map((member, index) => (
-            <div key={index} className="flex flex-col justify-center gap-3">
-              <div className="avatar flex justify-center">
-                <div className="bg-black-100 w-24 rounded border">
-                  <Image
-                    src="/logo.png"
-                    alt="HawkStars Board member"
-                    width={64}
-                    height={64}
-                    className="rounded"
-                  />
-                </div>
-              </div>
-              <h6 className="text-center">{member.name}</h6>
+      <div className="flex flex-row gap-8 border-b">
+        {boardSections.map((section, index) => {
+          return (
+            <div
+              onClick={() => setSelectedSection(section)}
+              key={index}
+              className={classNames({
+                "text-disabled": selectedSection != section,
+                "border-b-2 border-black": selectedSection == section,
+              })}
+            >
+              {sectionLabels[section]}
             </div>
-          ))} */}
+          );
+        })}
+      </div>
+      <div className="flex flex-col gap-3 py-10">
+        <div className="mt-3 flex flex-wrap gap-5">
+          {TeamMembers[selectedSection].map((member, index) => (
+            <div key={index} className="flex flex-col justify-center gap-3">
+              <TeamCard {...member} />
+            </div>
+          ))}
         </div>
       </div>
     </>

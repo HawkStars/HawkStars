@@ -33,7 +33,7 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   return (
-    <div className="bg-navbar px-2 lg:px-14">
+    <div className="bg-bege-dark px-2 lg:px-14">
       <div className="flex gap-3">
         <div className="my-auto flex justify-center py-3">
           <Link href="/" className="text-xl normal-case">
