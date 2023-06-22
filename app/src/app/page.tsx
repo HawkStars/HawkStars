@@ -31,13 +31,13 @@ export default function Home() {
             </div>
           </div>
           <div className="relative h-96 w-full py-20 lg:w-1/2 lg:py-0">
-            <div className="absolute right-60 top-5 lg:right-32 lg:top-4">
+            <div className="absolute right-24 top-5 lg:right-32 lg:top-4">
               <Avatar url={"/frontpage/banner_2.png"} size="large" />
             </div>
-            <div className="absolute left-10 top-8 lg:left-20 lg:top-8">
+            <div className="lg:left-1/6 absolute left-10 top-8 lg:top-8">
               <Avatar url={"/frontpage/banner_3.png"} size="large" />
             </div>
-            <div className="absolute bottom-2 left-40 lg:bottom-10 lg:left-72">
+            <div className="absolute bottom-2 left-0 lg:bottom-10 lg:left-1/4">
               <Avatar url={"/frontpage/banner_4.png"} size="large" />
             </div>
             <div className="absolute bottom-0 right-8 lg:bottom-2 lg:right-5">
