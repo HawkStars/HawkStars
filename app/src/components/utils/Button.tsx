@@ -45,7 +45,7 @@ const buttonProps = variantProps({
   base: tw`w-fit text-center focus:outline-none focus:ring-0 cursor-pointer`,
   variants: {
     variant: {
-      success: "bg-success border border-success text-white fill-white",
+      success: "bg-green border border-green text-white fill-white",
       informative: "",
     },
     rounded: {
@@ -67,7 +67,7 @@ const buttonProps = variantProps({
   },
   defaultVariants: {
     variant: "success",
-    rounded: "none",
+    rounded: "xl",
     disabled: false,
     padding: "sm",
     outline: false,

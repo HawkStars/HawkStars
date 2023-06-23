@@ -51,7 +51,7 @@ export default function Home() {
       <section>
         <div className="mt-5 flex flex-col gap-10 px-8 pb-10 lg:mt-20 lg:flex-row-reverse lg:px-14 lg:pl-20">
           <div className="flex flex-col gap-2 lg:w-1/2">
-            <h4 className="text-success text-2xl font-black">Quem somos</h4>
+            <h4 className="text-2xl font-black text-green">Quem somos</h4>
             <h4 className="text-xl font-black">
               A Hawk Stars tem como seus principais objetivos:
             </h4>
@@ -74,17 +74,19 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section>
-        <h4 className="flex justify-center font-black text-green">Valores</h4>
+      <section className="py-10">
+        <h4 className="flex justify-center text-2xl font-black text-green">
+          Valores
+        </h4>
         <h6 className="flex justify-center">
           Os valores representam aquilo que inspira os membros da Associação
         </h6>
-        <div className="mx-auto mt-10 grid w-1/2 grid-cols-1 lg:grid-cols-3">
+        <div className="mx-auto mt-10 grid w-2/3 grid-cols-1 gap-3 lg:grid-cols-3">
           {config.vision.map((option, index) => (
             <div key={index} className="flex flex-col items-center gap-2">
               <div></div>
               <h5 className="font-black text-green">{option.title}</h5>
-              <h6 className="flex justify-center">{option.description}</h6>
+              <h6 className="text-center">{option.description}</h6>
             </div>
           ))}
         </div>

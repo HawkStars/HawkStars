@@ -76,9 +76,6 @@ const Navbar = () => {
             <Button type={"submit"}>Doar</Button>
           </li> */}
             </ul>
-            <div className="ml-5">
-              <Socials />
-            </div>
           </div>
         </div>
         {/* NAVBAR MOBILE */}
