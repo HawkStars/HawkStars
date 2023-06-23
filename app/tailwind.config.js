@@ -8,13 +8,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        success: "#0A7558",
-        body: "FEF9F6",
-        disabled: "#AAA9A9",
+        green: "#0A7558",
+        disabled: "#5B5B5B",
         bege: {
           dark: "#FAE7D0",
           light: "#FEF9F6",
         },
+        linkedin: "#0A66C2",
       },
     },
   },
