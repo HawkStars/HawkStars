@@ -2,4 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-/* texts */
+/**
+ * Font Size 
+ */
+
+.font-title {
+  @apply text-5xl font-semibold;
+}
+
+.font-subtitle {
+  @apply text-2xl font-light tracking-wide;
+}
+
+.font-subtitle-bold {
+  @apply subtitle !font-subtitle-bold;
+}
+
+.font-body {
+  @apply text-base font-semibold;
+}
+
+.font-body-bold {
+  @apply font-body !font-semibold;
+}
