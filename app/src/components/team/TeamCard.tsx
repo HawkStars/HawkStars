@@ -11,21 +11,21 @@ type TeamCardProps = {
 
 const TeamCard = ({ name, position, photo, url }: TeamCardProps) => {
   return (
-    <div className="flex h-72 w-56 flex-col bg-bege-light px-2 py-4 text-center">
+    <div className="flex w-full gap-4 bg-bege-light px-2 py-4 text-center lg:h-64 lg:w-56 lg:flex-col lg:gap-0">
       <div className="mt-2 flex justify-center">
         <Avatar url={photo} size="medium" />
       </div>
-      <div className="mt-7">
+      <div className="mt-3 flex h-full flex-col gap-1 text-left lg:mt-6 lg:text-center">
         <h4 className="font-black">{name}</h4>
         <h6>{position}</h6>
+        {url && (
+          <div className="flex lg:mt-auto lg:justify-center">
+            <Link href={url}>
+              <BsLinkedin size={32} color="#0072b1" />
+            </Link>
+          </div>
+        )}
       </div>
-      {url && (
-        <div className="mt-auto flex justify-center">
-          <Link href={url}>
-            <BsLinkedin size={32} color="#0072b1" />
-          </Link>
-        </div>
-      )}
     </div>
   );
 };

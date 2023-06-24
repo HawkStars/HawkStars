@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import Socials from "../utils/Socials";
-import MenuItem, { NavbarOption } from "./MenuItem";
+import MenuItem, { NavbarOption } from "../menu/MenuItem";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useState } from "react";
 
@@ -86,7 +85,6 @@ const Navbar = () => {
           />
         </div>
       </div>
-      {mobileMenuOpen && <div></div>}
     </div>
   );
 };

@@ -29,9 +29,9 @@ export const TeamMembers = {
       url: "https://www.linkedin.com/in/fatimaduarteamaro",
     },
     {
-      name: "António Rui Campos",
+      name: "António Campos",
       position: "Suplente",
-      photo: undefined,
+      photo: "/team/rui_campos.jpg",
       url: "https://www.linkedin.com/in/rui-campos-fotografia",
     },
     {
@@ -113,13 +113,14 @@ export const TeamMembers = {
     {
       name: "Manuel Ladeiro",
       position: "Vogal",
-      photo: "/team/manuel_matos.jpg",
+      photo: undefined,
       url: "https://www.linkedin.com/in/merckmoon-team-7975a6210",
     },
     {
       name: "Manuel Matos dos Santos",
       position: "Suplente",
-      photo: undefined,
+
+      photo: "/team/manuel_matos.jpg",
       url: "https://www.linkedin.com/in/manuel-matos-dos-santos",
     },
     {

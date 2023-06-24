@@ -8,7 +8,7 @@ export const MenuSections = [
       },
       {
         label: "Team",
-        url: "",
+        url: "/team",
       },
       {
         label: "Visão",
