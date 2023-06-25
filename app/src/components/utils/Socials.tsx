@@ -4,7 +4,7 @@ import { FaFacebookF } from "react-icons/fa";
 
 const Socials = () => {
   return (
-    <div className="flex justify-center gap-1">
+    <div className="flex gap-1">
       <Link target="_blank" href="https://www.instagram.com/hawk.starsngo/">
         <AiOutlineInstagram size={24} />
       </Link>

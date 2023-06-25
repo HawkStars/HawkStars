@@ -15,7 +15,7 @@
 }
 
 .font-subtitle-bold {
-  @apply subtitle !font-subtitle-bold;
+  @apply text-2xl font-bold tracking-wide;
 }
 
 .font-body {
@@ -23,5 +23,5 @@
 }
 
 .font-body-bold {
-  @apply font-body !font-semibold;
+  @apply text-base font-semibold;
 }
