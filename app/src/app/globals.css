@@ -6,22 +6,45 @@
  * Font Size 
  */
 
-.font-title {
-  @apply text-5xl font-semibold;
+@layer components {
+  .font-title {
+    @apply text-5xl font-semibold;
+    line-height: 103%;
+  }
+
+  .font-subtitle {
+    @apply text-2xl font-light tracking-wide;
+    line-height: 113%;
+  }
+
+  .font-subtitle-bold {
+    @apply text-2xl font-bold tracking-wide;
+    line-height: 113%;
+  }
+
+  .font-body {
+    @apply text-base font-light;
+  }
+
+  .font-body-bold {
+    @apply text-base font-semibold;
+  }
 }
 
-.font-subtitle {
-  @apply text-2xl font-light tracking-wide;
-}
+@layer base {
+  body {
+    font-family: "Inter", sans serif;
+  }
 
-.font-subtitle-bold {
-  @apply text-2xl font-bold tracking-wide;
-}
+  h1 {
+    @apply font-title;
+  }
 
-.font-body {
-  @apply text-base font-semibold;
-}
+  h2 {
+    @apply font-subtitle-bold;
+  }
 
-.font-body-bold {
-  @apply text-base font-semibold;
+  h3 {
+    @apply font-subtitle;
+  }
 }

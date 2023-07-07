@@ -19,6 +19,9 @@ const WIPPage = () => {
           estrangeiros para o desenvolvimento de atividades de educação
           não-formal com e para o meio envolvente.`}
         </p>
+        <div>
+          <h6 className="flex justify-center text-green">A Hawk Stars</h6>
+        </div>
         <p>{`A Hawk Stars compromete-se a
           desenvolver atividades com os seguintes fins e objetivos:`}</p>
         <ol>
