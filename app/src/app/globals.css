@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    font-family: "Inter", sans serif;
+  }
+
+  h1 {
+    @apply font-title;
+  }
+
+  h2 {
+    @apply font-subtitle-bold;
+  }
+
+  h3 {
+    @apply font-subtitle;
+  }
+}
+
 /**
  * Font Size 
  */
@@ -31,20 +49,8 @@
   }
 }
 
-@layer base {
-  body {
-    font-family: "Inter", sans serif;
-  }
-
-  h1 {
-    @apply font-title;
-  }
-
-  h2 {
-    @apply font-subtitle-bold;
-  }
-
-  h3 {
-    @apply font-subtitle;
+@layer utilities {
+  .container-hawk {
+    padding: 0 10vw;
   }
 }
