@@ -16,7 +16,6 @@
 /build
 
 # misc
-*.DS_Store
 *.pem
 
 # debug
@@ -35,6 +34,8 @@ yarn-error.log*
 next-env.d.ts
 
 # mac 
+*.DS_Store
+*/.DS_Store
 .DS_Store
 .DS_Store?
 
