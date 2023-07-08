@@ -32,19 +32,13 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="relative h-96 w-full py-20 lg:w-1/2 lg:py-0">
-            <div className="absolute right-[calc(100%_-_11rem)] top-5 md:right-[calc(100%_-_22rem)] lg:right-[calc(100%_-_11rem)] lg:top-4">
-              <Avatar url={"/frontpage/banner_2.png"} size="large" />
-            </div>
-            <div className="absolute left-[calc(100%_-_13rem)] top-8 md:left-[calc(100%_-_18rem)] lg:left-[calc(100%_-_15rem)] lg:top-8">
-              <Avatar url={"/frontpage/banner_3.png"} size="large" />
-            </div>
-            <div className="absolute bottom-2 left-[calc(100%_-_10rem)] md:left-[calc(100%_-_21rem)] lg:bottom-10">
-              <Avatar url={"/frontpage/banner_4.png"} size="large" />
-            </div>
-            <div className="absolute bottom-0 right-[calc(100%_-_15rem)] md:right-[calc(100%_-_18rem)] lg:bottom-2">
-              <Avatar url={"/frontpage/banner_5.png"} size="large" />
-            </div>
+          <div className="relative mt-2 h-96 w-full py-20 lg:mt-0 lg:w-1/2 lg:py-0">
+            <Image
+              src="/frontpage/hero.png"
+              fill={true}
+              style={{ objectFit: "contain" }}
+              alt="Main Image Index"
+            />
           </div>
         </div>
       </section>
