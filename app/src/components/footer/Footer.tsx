@@ -7,18 +7,20 @@ import Button from "../utils/Button";
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className="bg-bege-light">
       <div className="mt-4 block px-5 lg:hidden">
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-5">
           <Image
             src="/logo.png"
             alt="hawkstars"
             height="200"
             width="200"
           ></Image>
-          <Socials />
+          <div>
+            <Socials />
+          </div>
         </div>
-        <div className="grid grid-cols-2">
+        <div className="mt-10 grid grid-cols-2 gap-10">
           <Menus />
         </div>
       </div>
@@ -33,13 +35,17 @@ const Footer = () => {
         </div>
         <Menus />
       </div>
-      <div className="borber-t flex px-10 pb-10">
+      <div className="mt-10 flex flex-col px-5 pb-10 lg:mt-0 lg:flex-row lg:gap-1 lg:border-t lg:px-10">
         <p className="text-sm">
           Designed by{" "}
           <Link href={"http://rodrigorossellini.com/"} className="underline">
             @Rodrigo Rosselini
           </Link>
-          . Built by{" "}
+          .
+        </p>
+        <p className="text-sm">
+          {" "}
+          Built by{" "}
           <Link
             href={"https://www.linkedin.com/in/pcardosolei/"}
             className="underline"
@@ -47,7 +53,7 @@ const Footer = () => {
             @Paulo Cardoso
           </Link>
         </p>
-        <div className="ml-auto">
+        <div className="ml-auto hidden lg:block">
           <Socials />
         </div>
       </div>
@@ -65,7 +71,9 @@ const Menus = () => {
             key={index}
             className="text-terciary-100 ml-0 text-left lg:text-left"
           >
-            <h3 className="mb-3 text-xl font-bold lg:text-lg">{title}</h3>
+            <h3 className="mb-1 text-base font-semibold lg:mb-3 lg:text-lg lg:font-bold">
+              {title}
+            </h3>
             {options.map((option, index) => (
               <div className="py-1" key={index}>
                 <Link href={option.url} className="fs-300 clr-white">
@@ -77,7 +85,9 @@ const Menus = () => {
         );
       })}
       <div className="flex flex-col">
-        <Link href={"/"}>Sê um membro</Link>
+        <Link href={"/"} className="mb-2 text-lg font-black">
+          Sê um membro
+        </Link>
         <Button type={"button"} variant="success">
           Doações
         </Button>
