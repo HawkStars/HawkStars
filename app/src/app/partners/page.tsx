@@ -2,6 +2,7 @@ import { CURRENT_PARTNERS, PartnersInfo } from "./config";
 import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import { SocialIcon, SocialType } from "@/models/social";
 
 const PartnersPage = () => {
   const nationalPartners = CURRENT_PARTNERS.filter(
@@ -14,12 +15,11 @@ const PartnersPage = () => {
 
   return (
     <section>
-      <div>
+      <div className="relative h-60 md:h-96 lg:h-[500px]">
         <Image
           src="/partners/hero.jpg"
           alt="Hero Partners Page"
-          height={400}
-          width={1920}
+          fill={true}
           style={{ objectFit: "cover" }}
         />
       </div>
@@ -69,7 +69,7 @@ const PartnerCard = ({
         <Image
           src={image}
           alt={`${title} logo`}
-          fill={true}
+          fill
           style={{ objectFit: "contain" }}
         />
       </div>
@@ -81,15 +81,21 @@ const PartnerCard = ({
 
       {/* Contacts */}
       {contacts && contacts.length > 0 && (
-        <div className="flex gap-3">
-          <h6 className="font-body-bold">Contacts:</h6>
-          {contacts.map((contact, index) => (
-            <div key={index}>
-              <Link href={contact.url} className="underline">
-                ICON
-              </Link>
-            </div>
-          ))}
+        <div className="flex gap-2">
+          <>
+            <h6 className="font-body-bold">Contacts:</h6>
+            {contacts.map((contact, index) => {
+              const icon = contact && SocialIcon[contact.type as SocialType];
+
+              return (
+                <div key={index}>
+                  <Link href={contact.url} className="underline">
+                    {icon && icon({ size: 24, color: "#0A7558" })}
+                  </Link>
+                </div>
+              );
+            })}
+          </>
         </div>
       )}
       <div className="mt-5 h-5 bg-bege-light"></div>
