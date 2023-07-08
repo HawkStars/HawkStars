@@ -33,16 +33,16 @@ export default function Home() {
             </div>
           </div>
           <div className="relative h-96 w-full py-20 lg:w-1/2 lg:py-0">
-            <div className="absolute right-[calc(100%_-_11rem)] top-5 lg:top-4">
+            <div className="absolute right-[calc(100%_-_11rem)] top-5 md:right-[calc(100%_-_22rem)] lg:right-[calc(100%_-_11rem)] lg:top-4">
               <Avatar url={"/frontpage/banner_2.png"} size="large" />
             </div>
-            <div className="absolute left-[calc(100%_-_13rem)] top-8 lg:left-[calc(100%_-_20rem)] lg:top-8">
+            <div className="absolute left-[calc(100%_-_13rem)] top-8 md:left-[calc(100%_-_18rem)] lg:left-[calc(100%_-_15rem)] lg:top-8">
               <Avatar url={"/frontpage/banner_3.png"} size="large" />
             </div>
-            <div className="absolute bottom-2 left-[calc(100%_-_10rem)] lg:bottom-10">
+            <div className="absolute bottom-2 left-[calc(100%_-_10rem)] md:left-[calc(100%_-_21rem)] lg:bottom-10">
               <Avatar url={"/frontpage/banner_4.png"} size="large" />
             </div>
-            <div className="absolute bottom-0 right-[calc(100%_-_16rem)] lg:bottom-2">
+            <div className="absolute bottom-0 right-[calc(100%_-_15rem)] md:right-[calc(100%_-_18rem)] lg:bottom-2">
               <Avatar url={"/frontpage/banner_5.png"} size="large" />
             </div>
           </div>
@@ -84,7 +84,14 @@ export default function Home() {
         <div className="mx-auto mt-10 grid w-2/3 grid-cols-1 gap-3 lg:grid-cols-3">
           {config.vision.map((option, index) => (
             <div key={index} className="flex flex-col items-center gap-2">
-              <div></div>
+              <div>
+                <Image
+                  src={option.icon}
+                  alt={`${option.title} icon`}
+                  width={32}
+                  height={32}
+                />
+              </div>
               <h5 className="font-black text-green">{option.title}</h5>
               <h6 className="text-center">{option.description}</h6>
             </div>

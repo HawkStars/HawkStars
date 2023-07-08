@@ -42,7 +42,7 @@ interface ButtonProps {
 }
 
 const buttonProps = variantProps({
-  base: tw`w-fit text-center focus:outline-none focus:ring-0 cursor-pointer`,
+  base: tw`w-fit text-center focus:outline-none focus:ring-0 cursor-pointer font-black`,
   variants: {
     variant: {
       success: "bg-green border border-green text-white fill-white",
@@ -65,6 +65,15 @@ const buttonProps = variantProps({
       true: tw`!bg-transparent`,
     },
   },
+  compoundVariants: [
+    {
+      variants: {
+        variant: "success",
+        outline: true,
+      },
+      className: "!text-green",
+    },
+  ],
   defaultVariants: {
     variant: "success",
     rounded: "xl",

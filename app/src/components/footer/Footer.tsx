@@ -7,7 +7,7 @@ import Button from "../utils/Button";
 
 const Footer = () => {
   return (
-    <footer className="bg-bege-light">
+    <footer>
       <div className="mt-4 block px-5 lg:hidden">
         <div className="flex flex-col gap-5">
           <Image
