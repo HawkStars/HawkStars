@@ -16,6 +16,9 @@ module.exports = {
         },
         linkedin: "#0A66C2",
       },
+      zIndex: {
+        900: 900,
+      },
     },
   },
   plugins: [],

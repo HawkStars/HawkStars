@@ -68,11 +68,11 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="py-10">
+      <section className="px-2 py-10">
         <h4 className="flex justify-center text-2xl font-black text-green">
           Valores
         </h4>
-        <h6 className="flex justify-center">
+        <h6 className="flex text-center">
           Os valores representam aquilo que inspira os membros da Associação
         </h6>
         <div className="mx-auto mt-10 grid w-2/3 grid-cols-1 gap-3 lg:grid-cols-3">

@@ -39,10 +39,14 @@ interface ButtonProps {
    * Styling - Only has the lines of the variant
    */
   outline?: boolean;
+  /**
+   * Size - size of the button
+   */
+  size?: "fit" | "full";
 }
 
 const buttonProps = variantProps({
-  base: tw`w-fit text-center focus:outline-none focus:ring-0 cursor-pointer font-black`,
+  base: tw`text-center focus:outline-none focus:ring-0 cursor-pointer font-black`,
   variants: {
     variant: {
       success: "bg-green border border-green text-white fill-white",
@@ -64,6 +68,10 @@ const buttonProps = variantProps({
     outline: {
       true: tw`!bg-transparent`,
     },
+    size: {
+      fit: "w-fit",
+      full: "w-full",
+    },
   },
   compoundVariants: [
     {
@@ -76,6 +84,7 @@ const buttonProps = variantProps({
   ],
   defaultVariants: {
     variant: "success",
+    size: "fit",
     rounded: "xl",
     disabled: false,
     padding: "sm",

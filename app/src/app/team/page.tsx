@@ -2,8 +2,9 @@
 
 import TeamCard from "@/components/team/TeamCard";
 import Select, { Option } from "@/components/utils/Select";
+import Spinner from "@/components/utils/Spinner";
 import classNames from "classnames";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import {
   boardSections,
   OrgSection,
@@ -25,7 +26,7 @@ const TeamPage = () => {
 
   return (
     <>
-      <div className="block w-1/3 lg:hidden">
+      <div className="block w-fit lg:hidden">
         <Select
           options={selectOptions}
           defaultOption={selectOptions.find(
@@ -51,16 +52,18 @@ const TeamPage = () => {
         })}
       </div>
       <div className="flex flex-col gap-3 py-10">
-        <div className="mt-3 flex flex-wrap gap-5">
-          {TeamMembers[selectedSection].map((member, index) => (
-            <div
-              key={index}
-              className="flex w-full flex-col justify-center gap-3 lg:w-fit"
-            >
-              <TeamCard {...member} />
-            </div>
-          ))}
-        </div>
+        <Suspense fallback={<Spinner />}>
+          <div className="mt-3 flex flex-wrap gap-5">
+            {TeamMembers[selectedSection].map((member, index) => (
+              <div
+                key={index}
+                className="flex w-full flex-col justify-center gap-3 lg:w-fit"
+              >
+                <TeamCard {...member} />
+              </div>
+            ))}
+          </div>
+        </Suspense>
       </div>
     </>
   );

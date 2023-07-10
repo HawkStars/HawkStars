@@ -1,0 +1,59 @@
+"use client";
+
+import { useSetMobileNavbarOpen } from "@/contexts/AppProvider";
+import classNames from "classnames";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { PiCaretRightThin, PiCaretDownThin } from "react-icons/pi";
+
+type MenuItemProps = {
+  title: string;
+  options: NavbarOption[];
+};
+
+export type NavbarOption = {
+  text: string;
+  url?: string;
+  disabled: boolean;
+};
+
+const MobileMenuItem = ({ title, options }: MenuItemProps) => {
+  const [showOptions, setShowOptions] = useState<boolean>(false);
+  const router = useRouter();
+  const setMobileMenuOpen = useSetMobileNavbarOpen();
+
+  const goToUrl = (url?: string) => {
+    if (!url) return;
+    setMobileMenuOpen(false);
+    router.push(url);
+  };
+
+  return (
+    <div className="cursor-pointer px-1">
+      <div className="mb-1 flex gap-3">
+        <h6>{title}</h6>
+
+        {options && options.length > 0 && (
+          <div className="my-auto" onClick={() => setShowOptions(!showOptions)}>
+            {showOptions ? <PiCaretDownThin /> : <PiCaretRightThin />}
+          </div>
+        )}
+      </div>
+      {showOptions && (
+        <div className="flex flex-col gap-2">
+          {options.map((option, index) => (
+            <div
+              key={index}
+              className={classNames("text-neutral-400")}
+              onClick={() => goToUrl(option.url)}
+            >
+              {option.text}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default MobileMenuItem;
