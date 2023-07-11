@@ -1,6 +1,9 @@
+"use client";
 import Image from "next/image";
 import { tw, variantProps } from "classname-variants/react";
 import { BiUser } from "react-icons/bi";
+import { useState } from "react";
+import Spinner from "./Spinner";
 
 type AvatarProps = {
   url: string;
@@ -50,20 +53,26 @@ const imageAvatarProps = variantProps({
 
 const Avatar = (props: AvatarProps) => {
   const { url } = props;
+
   return (
     <div {...avatarProps({ ...props })}>
-      {url ? (
-        <Image
-          alt="avatar"
-          src={url}
-          fill={true}
-          {...imageAvatarProps({ ...props })}
-          style={{ objectFit: "cover" }}
-        />
-      ) : (
+      {!url && (
         <div className="flex justify-center rounded-full bg-bege-dark p-2">
           <BiUser size={64} />
         </div>
+      )}
+
+      {url && (
+        <>
+          <Image
+            alt="avatar"
+            src={url}
+            fill={true}
+            {...imageAvatarProps({ ...props })}
+            style={{ objectFit: "cover" }}
+          />
+          )
+        </>
       )}
     </div>
   );

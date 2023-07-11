@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MenuSections } from "./config";
 import Button from "../utils/Button";
+import { HOME_URL } from "@/app/paths";
 
 const Footer = () => {
   return (
@@ -35,7 +36,7 @@ const Footer = () => {
         </div>
         <Menus />
       </div>
-      <div className="mt-10 flex flex-col px-5 pb-10 lg:mt-0 lg:flex-row lg:gap-1 lg:border-t lg:px-10">
+      <div className="mt-10 flex flex-col px-5 pb-10 lg:mt-0 lg:flex-row lg:gap-1 lg:border-t lg:px-10 lg:pt-1">
         <p className="text-sm">
           Designed by{" "}
           <Link href={"http://rodrigorossellini.com/"} className="underline">
@@ -76,7 +77,10 @@ const Menus = () => {
             </h3>
             {options.map((option, index) => (
               <div className="py-1" key={index}>
-                <Link href={option.url} className="fs-300 clr-white">
+                <Link
+                  href={option.url || HOME_URL}
+                  className="fs-300 clr-white"
+                >
                   {option.label}
                 </Link>
               </div>

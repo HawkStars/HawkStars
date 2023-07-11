@@ -52,18 +52,16 @@ const TeamPage = () => {
         })}
       </div>
       <div className="flex flex-col gap-3 py-10">
-        <Suspense fallback={<Spinner />}>
-          <div className="mt-3 flex flex-wrap gap-5">
-            {TeamMembers[selectedSection].map((member, index) => (
-              <div
-                key={index}
-                className="flex w-full flex-col justify-center gap-3 lg:w-fit"
-              >
-                <TeamCard {...member} />
-              </div>
-            ))}
-          </div>
-        </Suspense>
+        <div className="mt-3 flex flex-wrap gap-5">
+          {TeamMembers[selectedSection].map((member, index) => (
+            <div
+              key={index}
+              className="flex w-full flex-col justify-center gap-3 lg:w-fit"
+            >
+              <TeamCard {...member} />
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

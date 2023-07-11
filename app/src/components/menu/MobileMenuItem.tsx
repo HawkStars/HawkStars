@@ -12,7 +12,7 @@ type MenuItemProps = {
 };
 
 export type NavbarOption = {
-  text: string;
+  label: string;
   url?: string;
   disabled: boolean;
 };
@@ -47,7 +47,7 @@ const MobileMenuItem = ({ title, options }: MenuItemProps) => {
               className={classNames("text-neutral-400")}
               onClick={() => goToUrl(option.url)}
             >
-              {option.text}
+              {option.label}
             </div>
           ))}
         </div>

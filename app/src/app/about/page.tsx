@@ -1,4 +1,7 @@
-const WIPPage = () => {
+import { aboutObjectiveSections } from "./config";
+import Image from "next/image";
+
+const AboutPage = () => {
   return (
     <>
       <div className="m-7 flex flex-col gap-3">
@@ -19,60 +22,37 @@ const WIPPage = () => {
           estrangeiros para o desenvolvimento de atividades de educação
           não-formal com e para o meio envolvente.`}
         </p>
-        <div>
-          <h6 className="flex justify-center text-green">A Hawk Stars</h6>
+      </div>
+      <div className="container-hawk mb-10 flex flex-col gap-5">
+        <h2 className="flex justify-center text-center text-green">
+          A Hawk Stars
+        </h2>
+        <h3 className="flex justify-center text-center">{`A Hawk Stars compromete-se a desenvolver atividades com os seguintes fins e objetivos:`}</h3>
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-3 ">
+          {aboutObjectiveSections.map((section, index) => (
+            <TaskComponent key={index} {...section} />
+          ))}
         </div>
-        <p>{`A Hawk Stars compromete-se a
-          desenvolver atividades com os seguintes fins e objetivos:`}</p>
-        <ol>
-          <li>
-            Receção e integração de voluntários internacionais, bem como a
-            definição e elaboração de planos e atividades de voluntariado, na
-            organização e/ou em parceria com outras organizações
-            não-governamentais, dorante ONGs;
-          </li>
-          <li>{`Acolhimento e integração de Refugiados e/ou colaboração na sua
-          integração em parceria com outras ONG´s;`}</li>
-          <li>
-            Desenvolvimento de planos e projetos que promovam a integração de
-            pessoas da comunidade local;
-          </li>
-          <li>
-            Promoção de conferências e formações variadas que visem o
-            desenvolvimento de novas competências no meio envolvente, assim como
-            a aquisição de soft-skills pelos seus participantes;
-          </li>
-          <li>
-            Cooperação para o desenvolvimento através de parcerias com outras
-            instituições locais, regionais, nacionais e internacionais;
-          </li>
-          <li>
-            Promoção do co-working e do trabalho em equipa através do
-            desenvolvimento de projetos conjuntos que promovam o desenvolvimento
-            local, social e o lançamento de projetos empreendedores;
-          </li>
-          <li>
-            Promoção de atividades de training intensivo com objetivo de
-            promover a revelação de talento psicotécnico e o desenvolvimento de
-            potencial individual para a formação de uma academia Gaming e/ou
-            aquisição geral de Skills para o desenvolvimento de atividades
-            online;
-          </li>
-          <li>
-            Desenvolvimento de atividades artísticas e culturais com vista à
-            promoção do talento individual e coletivo e de competências gerais e
-            criativas;
-          </li>
-          <li>
-            Partilha de novas competências linguísticas, socias, e nas relações
-            interpessoais promovendo o desenvolvimento pessoal e interpessoal na
-            comunicação com o ambiente internacional presente na sociedade
-            local;
-          </li>
-        </ol>
       </div>
     </>
   );
 };
 
-export default WIPPage;
+type TaskComponentProps = {
+  icon: string;
+  title: string;
+  description: string;
+};
+const TaskComponent = ({ icon, title, description }: TaskComponentProps) => {
+  return (
+    <div className="flex flex-col gap-1 rounded-xl bg-bege-light p-3">
+      <div className="w-fit rounded-xl bg-bege-dark">
+        <Image src={icon} height={32} width={32} alt="objetive icon" />
+      </div>
+      <h6 className="font-body-body">{title}</h6>
+      <p className="font-body">{description}</p>
+    </div>
+  );
+};
+
+export default AboutPage;

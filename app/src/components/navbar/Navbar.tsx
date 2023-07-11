@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import MenuItem from "../menu/MenuItem";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { NGODropdownOptions } from "./config";
+import { AtivitiesDropdownOptions, NGODropdownOptions } from "./config";
 import { useSetMobileNavbarOpen } from "@/contexts/AppProvider";
 
 const Navbar = () => {
@@ -20,7 +20,6 @@ const Navbar = () => {
                 <Image
                   src="/logo.png"
                   alt="Hawk Stars Logo"
-                  // className="dark:invert"
                   width={150}
                   height={100}
                   priority
@@ -35,25 +34,19 @@ const Navbar = () => {
                 <li>
                   <MenuItem title="ONG" options={NGODropdownOptions} />
                 </li>
+                <li>
+                  <MenuItem
+                    title="Atividades"
+                    options={AtivitiesDropdownOptions}
+                  />
+                </li>
+
                 {/* <li>
-            <MenuItem title="Atividades" options={AtivitiesDropdownOptions} />
-          </li> */}
+                  <p>Ser membro</p>
+                </li> */}
                 {/* <li>
-            <p>Gaming</p>
-            {/* DROPDOWN COM - TEAM, logos, twitch, media 
-          </li>
-          <li>
-            <p>Notícias</p>
-          </li>
-          <li>
-            <p>Contactos</p>
-          </li> */}
-                {/* <li>
-            <p>Ser membro</p>
-          </li> */}
-                {/* <li>
-            <Button type={"submit"}>Doar</Button>
-          </li> */}
+                  <Button type={"submit"}>Doar</Button>
+                </li> */}
               </ul>
             </div>
           </div>

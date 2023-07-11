@@ -10,7 +10,7 @@ type MenuItemProps = {
 };
 
 export type NavbarOption = {
-  text: string;
+  label: string;
   url?: string;
   disabled: boolean;
 };
@@ -38,7 +38,7 @@ const MenuItem = ({ title, options }: MenuItemProps) => {
               })}
               onClick={() => goToUrl(option.url)}
             >
-              {option.text}
+              {option.label}
             </Menu.Item>
           ))}
         </Menu.Items>

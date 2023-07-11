@@ -1,25 +1,26 @@
+import { ABOUT_US_URL, DONATE_URL, PARTNERS_URL, TEAM_URL } from "@/app/paths";
 import { NavbarOption } from "../menu/MenuItem";
 
 const NGODropdownOptions = [
-  { text: "Quem Somos", url: "/about" },
-  { text: "Equipa", url: "/team" },
-  { text: "Visão" },
-  { text: "Parceiros" },
+  { label: "Quem Somos", url: ABOUT_US_URL },
+  { label: "Equipa", url: TEAM_URL },
+  { label: "Visão", url: ABOUT_US_URL },
+  { label: "Parceiros", url: PARTNERS_URL },
 ] as NavbarOption[];
 
 const AtivitiesDropdownOptions = [
-  { text: "Oportunidades", disabled: false },
-  { text: "Voluntariado", disabled: false },
-  { text: "Eventos", disabled: false },
-  { text: "Projectos Decorridos", disabled: false },
+  { label: "Oportunidades", disabled: false },
+  { label: "Voluntariado", disabled: false },
+  { label: "Eventos", disabled: false },
+  { label: "Projectos Decorridos", disabled: false },
 ] as NavbarOption[];
 
 const GlobalVillageOptions = [
-  { text: "Pinhel", disabled: false },
-  { text: "O Projecto", disabled: false },
-  { text: "Missão e Valores", disabled: false },
-  { text: "Objectivos", disabled: false },
-  { text: "Donate", disabled: false },
+  { label: "Pinhel", disabled: false },
+  { label: "O Projecto", disabled: false },
+  { label: "Missão e Valores", disabled: false },
+  { label: "Objectivos", disabled: false },
+  { label: "Donate", url: DONATE_URL },
 ] as NavbarOption[];
 
 export { NGODropdownOptions, AtivitiesDropdownOptions, GlobalVillageOptions };

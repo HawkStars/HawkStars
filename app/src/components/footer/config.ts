@@ -1,66 +1,21 @@
+import {
+  AtivitiesDropdownOptions,
+  GlobalVillageOptions,
+  NGODropdownOptions,
+} from "../navbar/config";
+
 export const MenuSections = [
   {
     title: "NGO",
-    options: [
-      {
-        label: "Quem Somos",
-        url: "",
-      },
-      {
-        label: "Team",
-        url: "/team",
-      },
-      {
-        label: "Visão",
-        url: "",
-      },
-      {
-        label: "Parceiros",
-        url: "",
-      },
-    ],
+    options: NGODropdownOptions,
   },
   {
-    title: "Activities",
-    options: [
-      {
-        label: "Voluntariado",
-        url: "",
-      },
-      {
-        label: "Oportunidades",
-        url: "",
-      },
-      {
-        label: "Eventos",
-        url: "",
-      },
-    ],
+    title: "Atividades",
+    options: AtivitiesDropdownOptions,
   },
   {
     title: "The Global Village",
-    options: [
-      {
-        label: "Pinhel",
-        url: "",
-      },
-      {
-        label: "O Projecto",
-        url: "",
-      },
-      {
-        label: "Missão e Valores",
-        url: "",
-      },
-      {
-        label: "Objectivos",
-        url: "",
-      },
-      {
-        label: "Donate",
-        url: "",
-      },
-    ],
+    options: GlobalVillageOptions,
   },
 ] as MenuSection[];
 

@@ -19,7 +19,7 @@ const MobileNavbar = () => {
   return (
     <>
       {mobileNavbarOpen && (
-        <div className="fixed z-900 flex h-screen w-full flex-col gap-4 bg-white px-2 py-3">
+        <div className="fixed z-900 flex h-screen w-full flex-col gap-4 bg-white px-2 py-3 lg:hidden">
           <div className="flex">
             <Image
               src="/logo.png"
