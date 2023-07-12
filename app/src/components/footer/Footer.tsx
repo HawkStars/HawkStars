@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MenuSections } from "./config";
 import Button from "../utils/Button";
 import { HOME_URL } from "@/app/paths";
+import classNames from "classnames";
 
 const Footer = () => {
   return (
@@ -79,7 +80,9 @@ const Menus = () => {
               <div className="py-1" key={index}>
                 <Link
                   href={option.url || HOME_URL}
-                  className="fs-300 clr-white"
+                  className={classNames({
+                    "text-disabled": option.disabled,
+                  })}
                 >
                   {option.label}
                 </Link>

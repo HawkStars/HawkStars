@@ -1,5 +1,6 @@
 "use client";
 
+import { NavbarOption } from "@/models/navbar";
 import { Menu } from "@headlessui/react";
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
@@ -7,12 +8,6 @@ import { useRouter } from "next/navigation";
 type MenuItemProps = {
   title: string;
   options: NavbarOption[];
-};
-
-export type NavbarOption = {
-  label: string;
-  url?: string;
-  disabled: boolean;
 };
 
 const MenuItem = ({ title, options }: MenuItemProps) => {

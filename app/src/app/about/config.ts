@@ -52,3 +52,27 @@ export const aboutObjectiveSections: AboutObjectiveSection[] = [
     description: `linguísticas, socias, e nas relações interpessoais promovendo o desenvolvimento pessoal e interpessoal na comunicação com o ambiente internacional presente na sociedade local`,
   },
 ];
+
+export const missionObjectives: { text: string; id: number }[] = [
+  {
+    text: "Promover novas formas de educação e sistemas complementares de apresendizadem ao longo da vida dos mais novos aos mais velhos.",
+    id: 1,
+  },
+  {
+    text: "Promoção da mobilidade europeia por meio do diálogo estruturado, troca de valores e experiências entre europeus, países parceiros e pontenciais",
+    id: 2,
+  },
+  {
+    text: "Fortaceler e contribuir para os valores políticos e sociais da União Europeia",
+    id: 3,
+  },
+  {
+    text: "Impulsionar o desenvolvimento local e nacional com base na inovação social",
+    id: 4,
+  },
+  {
+    text: "Cooperação para o desenvolvimento com diversos parceiros, locais, nacionais e internacionais",
+    id: 5,
+  },
+  { text: "Educar para a inclusão, democracia e direitos humanos", id: 6 },
+];

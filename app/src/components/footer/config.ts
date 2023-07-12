@@ -1,3 +1,4 @@
+import { NavbarOption } from "@/models/navbar";
 import {
   AtivitiesDropdownOptions,
   GlobalVillageOptions,
@@ -19,12 +20,7 @@ export const MenuSections = [
   },
 ] as MenuSection[];
 
-type MenuUrl = {
-  label: string;
-  url: string;
-};
-
 type MenuSection = {
   title: string;
-  options: MenuUrl[];
+  options: NavbarOption[];
 };

@@ -16,6 +16,6 @@ type Story = StoryObj<typeof Dropdown>;
 export const ButtonPrimary: Story = {
   args: {
     title: "Menu",
-    options: [{ text: "Option 1" }, { text: "Option 2" }],
+    options: [{ label: "Option 1" }, { label: "Option 2" }],
   },
 };

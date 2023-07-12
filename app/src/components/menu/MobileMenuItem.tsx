@@ -1,6 +1,7 @@
 "use client";
 
 import { useSetMobileNavbarOpen } from "@/contexts/AppProvider";
+import { NavbarOption } from "@/models/navbar";
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -9,12 +10,6 @@ import { PiCaretRightThin, PiCaretDownThin } from "react-icons/pi";
 type MenuItemProps = {
   title: string;
   options: NavbarOption[];
-};
-
-export type NavbarOption = {
-  label: string;
-  url?: string;
-  disabled: boolean;
 };
 
 const MobileMenuItem = ({ title, options }: MenuItemProps) => {
