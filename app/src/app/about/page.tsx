@@ -1,14 +1,16 @@
 import { aboutObjectiveSections } from "./config";
 import Image from "next/image";
-import HawkMetadata from "@/components/head";
+import { Metadata } from "next";
+
+export const metadata = {
+  title: "Hawk Stars - About Us",
+  description:
+    "Hawk Stars objetives and values and main goals for the next years for the international community and local ativities",
+} as Metadata;
 
 const AboutPage = () => {
   return (
     <>
-      <HawkMetadata
-        title="About Us"
-        description="Hawk Stars objetives and values and main goals for the next years for the international community and local ativities"
-      />
       <div className="container-hawk grid grid-cols-1 gap-10 lg:grid-cols-2">
         <div className="mt-10 flex flex-col gap-5">
           <h1>A Hawk Stars tem como seus principais objetivos:</h1>
@@ -62,6 +64,9 @@ const AboutPage = () => {
           ))}
         </div>
       </div>
+      <div className="bg-bege-light p-10">
+        <div></div>
+      </div>
     </>
   );
 };
@@ -73,7 +78,7 @@ type TaskComponentProps = {
 };
 const TaskComponent = ({ icon, title, description }: TaskComponentProps) => {
   return (
-    <div className="flex flex-col gap-2 rounded-xl bg-bege-light p-3">
+    <div className="flex flex-col gap-2 rounded-xl bg-bege-light p-7">
       <div className="w-fit rounded-xl bg-bege-dark">
         <Image src={icon} height={40} width={40} alt="objetive icon" />
       </div>
