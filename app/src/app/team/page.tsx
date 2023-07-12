@@ -1,5 +1,6 @@
 "use client";
 
+import HawkMetadata from "@/components/head";
 import TeamCard from "@/components/team/TeamCard";
 import Select, { Option } from "@/components/utils/Select";
 import Spinner from "@/components/utils/Spinner";
@@ -26,6 +27,10 @@ const TeamPage = () => {
 
   return (
     <>
+      <HawkMetadata
+        title="Team"
+        description="The members of the board member, financial and main board that manage this non profit organization"
+      />
       <div className="block w-fit lg:hidden">
         <Select
           options={selectOptions}

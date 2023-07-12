@@ -1,3 +1,4 @@
+import HawkMetadata from "@/components/head";
 import Avatar from "@/components/utils/Avatar";
 import Button from "@/components/utils/Button";
 import Image from "next/image";
@@ -7,6 +8,13 @@ import config from "./config.json";
 export default function Home() {
   return (
     <>
+      <HawkMetadata
+        title="Home"
+        description="Grupo intergeracional cujo os seus membros são interessados no
+              desenvolvimento social e humano tendo por base um trabalho na área
+              da educação com a inovação a que os novos tempos obrigam, aberta a
+              todos, e projetada do local para o global."
+      />
       <section className="flex flex-col bg-bege-light px-8 pb-5 pt-10 lg:px-14 lg:pb-10 lg:pl-20 lg:pt-40">
         <div className="flex flex-col gap-1 lg:flex-row">
           <div className="flex flex-col gap-2 lg:w-1/2">

@@ -1,9 +1,14 @@
 import { aboutObjectiveSections } from "./config";
 import Image from "next/image";
+import HawkMetadata from "@/components/head";
 
 const AboutPage = () => {
   return (
     <>
+      <HawkMetadata
+        title="About Us"
+        description="Hawk Stars objetives and values and main goals for the next years for the international community and local ativities"
+      />
       <div className="container-hawk grid grid-cols-1 gap-10 lg:grid-cols-2">
         <div className="mt-10 flex flex-col gap-5">
           <h1>A Hawk Stars tem como seus principais objetivos:</h1>

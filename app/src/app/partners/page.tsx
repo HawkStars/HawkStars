@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import { SocialIcon, SocialType } from "@/models/social";
+import HawkMetadata from "@/components/head";
 
 const PartnersPage = () => {
   const nationalPartners = CURRENT_PARTNERS.filter(
@@ -15,6 +16,10 @@ const PartnersPage = () => {
 
   return (
     <section>
+      <HawkMetadata
+        title="Partners"
+        description="Partners that work directly with Hawk Stars NGO"
+      />
       <div className="relative h-60 md:h-96 lg:h-[500px]">
         <Image
           src="/partners/hero.jpg"
