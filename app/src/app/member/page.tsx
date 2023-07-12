@@ -1,4 +1,4 @@
-const DonatePage = () => {
+const BeAMemberPage = () => {
   return (
     <div className="container-hawk mx-auto mt-10 flex flex-col gap-5">
       <div className="flex flex-col gap-2">
@@ -16,4 +16,4 @@ const DonatePage = () => {
   );
 };
 
-export default DonatePage;
+export default BeAMemberPage;
