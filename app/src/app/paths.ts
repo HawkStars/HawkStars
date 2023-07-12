@@ -5,3 +5,4 @@ export const PARTNERS_URL = "/partners" as const;
 
 export const DONATE_URL = "/donate" as const;
 export const BE_MEMBER_URL = "/be_member" as const;
+export const OPORTUNITIES_URL = "/oportunities" as const;
