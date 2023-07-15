@@ -68,21 +68,21 @@ const AboutPage = () => {
       <div className="bg-bege-light p-10">
         <div className="container-hawk relative grid grid-cols-1 gap-10 lg:grid-cols-2">
           <Image
-            className="absolute bottom-5 left-10"
+            className="absolute bottom-5 left-10 hidden lg:block"
             src="/about/mission/icon1.png"
             alt="icon1"
             height={38}
             width={38}
           />
           <Image
-            className="absolute left-3 top-10"
+            className="absolute left-3 top-10 hidden lg:block"
             src="/about/mission/icon2.png"
             alt="icon2"
             height={53}
             width={53}
           />
           <Image
-            className="absolute right-5 top-8"
+            className="absolute right-5 top-8 hidden lg:block"
             src="/about/mission/icon3.png"
             alt="icon3"
             height={100}

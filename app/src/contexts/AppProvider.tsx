@@ -10,18 +10,28 @@ import {
 
 type MainAppProperties = {
   mobileNavbarOpen: boolean;
+  // lng: string;
 };
 
 const defaultAppProperties: MainAppProperties = {
   mobileNavbarOpen: false,
+  // lng: "en",
 };
 
 const MainAppContext = createContext<MainAppProperties>(defaultAppProperties);
 const SetMainAppContext = createContext<Dispatch<MainAppProperties>>(() => {});
 
-const AppProvider = ({ children }: { children: ReactNode }) => {
-  const [appProperties, setAppProperties] =
-    useState<MainAppProperties>(defaultAppProperties);
+const AppProvider = ({
+  // lng,
+  children,
+}: {
+  // lng: string;
+  children: ReactNode;
+}) => {
+  const [appProperties, setAppProperties] = useState<MainAppProperties>({
+    ...defaultAppProperties,
+    // lng,
+  });
 
   return (
     <MainAppContext.Provider value={appProperties}>
@@ -46,7 +56,9 @@ export const useSetMainProperties = () => {
 export const useSetMobileNavbarOpen = () => {
   const setMainProperties = useContext(SetMainAppContext);
   return (value: boolean) => {
-    setMainProperties({ mobileNavbarOpen: value });
+    setMainProperties({
+      mobileNavbarOpen: value,
+    });
   };
 };
 

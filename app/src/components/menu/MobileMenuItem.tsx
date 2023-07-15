@@ -25,11 +25,14 @@ const MobileMenuItem = ({ title, options }: MenuItemProps) => {
 
   return (
     <div className="cursor-pointer px-1">
-      <div className="mb-1 flex gap-3">
+      <div
+        className="mb-1 flex gap-3"
+        onClick={() => setShowOptions(!showOptions)}
+      >
         <h6>{title}</h6>
 
         {options && options.length > 0 && (
-          <div className="my-auto" onClick={() => setShowOptions(!showOptions)}>
+          <div className="my-auto">
             {showOptions ? <PiCaretDownThin /> : <PiCaretRightThin />}
           </div>
         )}

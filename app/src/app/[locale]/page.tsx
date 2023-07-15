@@ -1,6 +1,9 @@
+"use client";
+
 import Button from "@/components/utils/Button";
 import { Metadata } from "next";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 import config from "./config.json";
 
@@ -12,30 +15,30 @@ export const metadata = {
     todos, e projetada do local para o global.`,
 } as Metadata;
 
-export default function Home() {
+type HomeProps = {
+  params: {
+    lng: string;
+  };
+};
+
+export default function Home({ params: { lng } }: HomeProps) {
+  const t = useTranslations("Home");
   return (
     <>
       <section className="flex flex-col bg-bege-light px-8 pb-5 pt-10 lg:px-14 lg:pb-10 lg:pl-20 lg:pt-40">
         <div className="flex flex-col gap-1 lg:flex-row">
           <div className="flex flex-col gap-2 lg:w-1/2">
-            <h4 className="text-4xl font-black">
-              Associação para Educação, Inovação e Desenvolvimento Social.
-            </h4>
-            <p className="text-justify">
-              Grupo intergeracional cujo os seus membros são interessados no
-              desenvolvimento social e humano tendo por base um trabalho na área
-              da educação com a inovação a que os novos tempos obrigam, aberta a
-              todos, e projetada do local para o global.
-            </p>
+            <h4 className="text-4xl font-black">{t("home.title")}</h4>
+            <p className="text-justify">{t("home.description")}</p>
             <div className="mt-8 flex gap-5">
               <div className="w-fit">
                 <Button disabled={true} type={"button"}>
-                  Doações
+                  {t("translations.donate")}
                 </Button>
               </div>
               <div className="w-fit">
                 <Button outline={true} type={"button"}>
-                  Sê um membro
+                  {t("translations.be_member")}
                 </Button>
               </div>
             </div>

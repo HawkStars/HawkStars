@@ -40,7 +40,11 @@ const Footer = () => {
       <div className="mt-10 flex flex-col px-5 pb-10 lg:mt-0 lg:flex-row lg:gap-1 lg:border-t lg:px-10 lg:pt-1">
         <p className="text-sm">
           Designed by{" "}
-          <Link href={"http://rodrigorossellini.com/"} className="underline">
+          <Link
+            href={"http://rodrigorossellini.com/"}
+            className="underline"
+            target="_blank"
+          >
             @Rodrigo Rosselini
           </Link>
           .
@@ -51,6 +55,7 @@ const Footer = () => {
           <Link
             href={"https://www.linkedin.com/in/pcardosolei/"}
             className="underline"
+            target="_blank"
           >
             @Paulo Cardoso
           </Link>

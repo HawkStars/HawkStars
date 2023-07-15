@@ -4,7 +4,6 @@ import { NavbarOption } from "@/models/navbar";
 const NGODropdownOptions = [
   { label: "Quem Somos", url: ABOUT_US_URL },
   { label: "Equipa", url: TEAM_URL },
-  { label: "Visão", url: ABOUT_US_URL },
   { label: "Parceiros", url: PARTNERS_URL },
 ] as NavbarOption[];
 

@@ -95,7 +95,11 @@ const PartnerCard = ({
 
               return (
                 <div key={index}>
-                  <Link href={contact.url} className="underline">
+                  <Link
+                    href={contact.url}
+                    className="underline"
+                    target="_blank"
+                  >
                     {icon && icon({ size: 24, color: "#0A7558" })}
                   </Link>
                 </div>

@@ -5,7 +5,7 @@ import {
   boardSections,
   sectionLabels,
   TeamMembers,
-} from "@/app/team/config";
+} from "@/app/[locale]/team/config";
 import classNames from "classnames";
 import { useState } from "react";
 import Select, { Option } from "../utils/Select";

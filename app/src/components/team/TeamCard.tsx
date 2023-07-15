@@ -20,7 +20,7 @@ const TeamCard = ({ name, position, photo, url }: TeamCardProps) => {
         <h6>{position}</h6>
         {url && (
           <div className="flex lg:mt-auto lg:justify-center">
-            <Link href={url}>
+            <Link href={url} target="_blank">
               <BsLinkedin size={32} color="#0072b1" />
             </Link>
           </div>
