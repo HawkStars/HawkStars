@@ -36,21 +36,21 @@ const Navbar = () => {
           <div className="my-auto ml-auto hidden lg:block">
             <div className="ml-auto flex gap-3">
               <ul className="flex flex-row gap-8 px-1">
-                <li>
+                <li className="my-auto">
                   <MenuItem title="ONG" options={NGODropdownOptions} />
                 </li>
-                <li>
+                <li className="my-auto">
                   <MenuItem
                     title="Atividades"
                     options={AtivitiesDropdownOptions}
                   />
                 </li>
 
-                <li>
-                  <p>Ser membro</p>
+                <li className="my-auto">
+                  <Link href="/">{t("common.be_member")}</Link>
                 </li>
                 <li>
-                  <Button type={"submit"}>Doar</Button>
+                  <Button type={"submit"}>{t("common.donate")}</Button>
                 </li>
               </ul>
             </div>

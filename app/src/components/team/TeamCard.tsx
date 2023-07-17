@@ -1,5 +1,6 @@
 import Avatar from "../utils/Avatar";
 import { BsLinkedin } from "react-icons/bs";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 type TeamCardProps = {
@@ -10,6 +11,7 @@ type TeamCardProps = {
 };
 
 const TeamCard = ({ name, position, photo, url }: TeamCardProps) => {
+  const t = useTranslations();
   return (
     <div className="flex w-full gap-4 bg-bege-light px-2 py-4 text-center lg:h-64 lg:w-56 lg:flex-col lg:gap-0">
       <div className="mt-2 flex justify-center">
@@ -17,7 +19,7 @@ const TeamCard = ({ name, position, photo, url }: TeamCardProps) => {
       </div>
       <div className="mt-3 flex h-full flex-col gap-1 text-left lg:mt-6 lg:text-center">
         <h4 className="font-black">{name}</h4>
-        <h6>{position}</h6>
+        <h6>{t(position)}</h6>
         {url && (
           <div className="flex lg:mt-auto lg:justify-center">
             <Link href={url} target="_blank">

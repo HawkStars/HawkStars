@@ -83,7 +83,7 @@ const Menus = () => {
             className="text-terciary-100 ml-0 text-left lg:text-left"
           >
             <h3 className="mb-1 text-base font-semibold lg:mb-3 lg:text-lg lg:font-bold">
-              {title}
+              {t(title)}
             </h3>
             {options.map((option, index) => (
               <div className="py-1" key={index}>

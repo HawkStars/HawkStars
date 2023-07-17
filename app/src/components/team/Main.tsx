@@ -7,11 +7,13 @@ import {
   TeamMembers,
 } from "@/app/[locale]/team/config";
 import classNames from "classnames";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import Select, { Option } from "../utils/Select";
 import TeamCard from "./TeamCard";
 
 const MainTeamPage = () => {
+  const t = useTranslations();
   const [selectedSection, setSelectedSection] = useState<OrgSection>("geral");
 
   const selectOptions: Option[] = boardSections.map(
@@ -40,12 +42,12 @@ const MainTeamPage = () => {
             <div
               onClick={() => setSelectedSection(section)}
               key={index}
-              className={classNames({
+              className={classNames("cursor-pointer", {
                 "text-disabled": selectedSection != section,
                 "border-b-2 border-black": selectedSection == section,
               })}
             >
-              {sectionLabels[section]}
+              {t(sectionLabels[section])}
             </div>
           );
         })}

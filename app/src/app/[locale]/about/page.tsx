@@ -65,7 +65,7 @@ const AboutPage = () => {
           ))}
         </div>
       </div>
-      <div className="bg-bege-light p-10">
+      <div className="bg-bege-light p-4 lg:p-10">
         <div className="container-hawk relative grid grid-cols-1 gap-10 lg:grid-cols-2">
           <Image
             className="absolute bottom-5 left-10 hidden lg:block"
