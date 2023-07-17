@@ -12,6 +12,7 @@ import MobileMenuItem from "../menu/MobileMenuItem";
 import Button from "../utils/Button";
 import Socials from "../utils/Socials";
 import { NGODropdownOptions } from "./config";
+import LanguageSwitcher from "../utils/Language";
 
 const MobileNavbar = () => {
   const t = useTranslations();
@@ -33,6 +34,9 @@ const MobileNavbar = () => {
             <div className="my-auto ml-auto block cursor-pointer lg:hidden">
               <RxCross1 size={28} onClick={() => setMobileMenuOpen(false)} />
             </div>
+          </div>
+          <div className="-ml-3">
+            <LanguageSwitcher />
           </div>
           <div>
             <Socials />

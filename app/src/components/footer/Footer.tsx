@@ -22,7 +22,7 @@ const Footer = () => {
             height="200"
             width="200"
           ></Image>
-          <div>
+          <div className="-ml-3">
             <LanguageSwitcher />
           </div>
           <div>

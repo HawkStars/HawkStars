@@ -1,5 +1,3 @@
-import { dir } from "i18next";
-
 import "@/app/globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/navbar/Navbar";

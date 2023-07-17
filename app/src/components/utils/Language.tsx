@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "next-intl/client";
 
-import Link from "next/link";
 import { PiCaretDownThin } from "react-icons/pi";
 import classNames from "classnames";
 
@@ -18,7 +17,7 @@ const LanguageSwitcher = () => {
   return (
     <>
       <div
-        className="relative flex flex-row gap-2 px-3"
+        className="relative flex cursor-pointer flex-row gap-2 px-3"
         onClick={() => setToggleOptionSelection(!toggleOptionSelection)}
       >
         {locale === "pt" ? (
@@ -39,7 +38,7 @@ const LanguageSwitcher = () => {
         <PiCaretDownThin />
       </div>
       {toggleOptionSelection && (
-        <div className="absolute mt-2 flex w-fit flex-col gap-2 border py-1 pl-3 pr-5">
+        <div className="z-100 absolute mt-2 flex w-fit cursor-pointer flex-col gap-2 bg-white py-1 pl-3 pr-5">
           {locale !== "en" && (
             <div
               onClick={() => router.replace(pathname, { locale: "en" })}
