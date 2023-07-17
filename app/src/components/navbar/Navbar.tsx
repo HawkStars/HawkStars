@@ -7,9 +7,10 @@ import { RxHamburgerMenu } from "react-icons/rx";
 
 import MenuItem from "../menu/MenuItem";
 
-import { AtivitiesDropdownOptions, NGODropdownOptions } from "./config";
 import { useSetMobileNavbarOpen } from "@/contexts/AppProvider";
 import Button from "../utils/Button";
+import { MenuSections } from "../footer/config";
+import LanguageSwitcher from "../utils/Language";
 
 const Navbar = () => {
   const t = useTranslations();
@@ -17,7 +18,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="bg-bege-dark px-2 lg:px-14">
+      <div className="bg-bege-dark px-4 lg:px-14">
         <div className="flex gap-3">
           <div className="my-auto flex justify-center py-3">
             <Link href="/" className="text-xl normal-case">
@@ -36,15 +37,14 @@ const Navbar = () => {
           <div className="my-auto ml-auto hidden lg:block">
             <div className="ml-auto flex gap-3">
               <ul className="flex flex-row gap-8 px-1">
-                <li className="my-auto">
-                  <MenuItem title="ONG" options={NGODropdownOptions} />
-                </li>
-                <li className="my-auto">
-                  <MenuItem
-                    title="Atividades"
-                    options={AtivitiesDropdownOptions}
-                  />
-                </li>
+                {MenuSections.map((section, index) => {
+                  const { title, options } = section;
+                  return (
+                    <li className="my-auto" key={index}>
+                      <MenuItem title={title} options={options} />
+                    </li>
+                  );
+                })}
 
                 <li className="my-auto">
                   <Link href="/">{t("common.be_member")}</Link>
@@ -53,6 +53,9 @@ const Navbar = () => {
                   <Button type={"submit"}>{t("common.donate")}</Button>
                 </li>
               </ul>
+              <div className="my-auto">
+                <LanguageSwitcher />
+              </div>
             </div>
           </div>
           {/* NAVBAR MOBILE */}

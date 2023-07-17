@@ -1304,7 +1304,7 @@
   resolved "https://registry.yarnpkg.com/@babel/regjsgen/-/regjsgen-0.8.0.tgz#f0ba69b075e1f05fb2825b7fad991e7adbb18310"
   integrity sha512-x/rqGMdzj+fWZvCOYForTghzbtqPDZ5gPwaoNGHdgDfF2QA/XZbCBp4Moo5scrkAMPhB7z26XM/AaHuIJdgauA==
 
-"@babel/runtime@^7.12.5", "@babel/runtime@^7.17.8", "@babel/runtime@^7.20.7", "@babel/runtime@^7.21.0", "@babel/runtime@^7.21.5", "@babel/runtime@^7.22.5", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.12.5", "@babel/runtime@^7.17.8", "@babel/runtime@^7.20.7", "@babel/runtime@^7.21.0", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4":
   version "7.22.6"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.22.6.tgz#57d64b9ae3cff1d67eb067ae117dac087f5bd438"
   integrity sha512-wDb5pWm4WDdF6LFUde3Jl8WzPA+3ZbxYqkC6xAXuD3irdEHN1k0NfTRrJD8ZD378SJ61miMLCqIOXYhd8x+AJQ==
@@ -2835,6 +2835,11 @@
   integrity sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==
   dependencies:
     "@types/node" "*"
+
+"@types/country-flag-icons@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@types/country-flag-icons/-/country-flag-icons-1.2.0.tgz#5d13276405a5701ca29bbd7f1026f45c0d2962be"
+  integrity sha512-96aveJfAw9iSfBxAD8DCgFYjMFmLIGa+vBvg3cKiHjX+o4Szz5HHv2DSbEVm9a4kLixsYkioGB4SnJs17Zypzw==
 
 "@types/debug@^4.0.0":
   version "4.1.8"
@@ -4435,6 +4440,11 @@ cosmiconfig@^8.2.0:
     js-yaml "^4.1.0"
     parse-json "^5.0.0"
     path-type "^4.0.0"
+
+country-flag-icons@^1.5.7:
+  version "1.5.7"
+  resolved "https://registry.yarnpkg.com/country-flag-icons/-/country-flag-icons-1.5.7.tgz#f1f2ddf14f3cbf01cba6746374aeba94db35d4b4"
+  integrity sha512-AdvXhMcmSp7nBSkpGfW4qR/luAdRUutJqya9PuwRbsBzuoknThfultbv7Ib6fWsHXC43Es/4QJ8gzQQdBNm75A==
 
 create-ecdh@^4.0.0:
   version "4.0.4"
@@ -6181,20 +6191,6 @@ human-signals@^4.3.0:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-4.3.1.tgz#ab7f811e851fca97ffbd2c1fe9a958964de321b2"
   integrity sha512-nZXjEF2nbo7lIw3mgYjItAfgQXog3OjJogSbKa2CQIIvSGWcKgeJnQlNXip6NglNzYH45nSRiEVimMvYL8DDqQ==
 
-i18next-resources-to-backend@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/i18next-resources-to-backend/-/i18next-resources-to-backend-1.1.4.tgz#d139ca0cacc270dcc90b7926e192f4cd5aa4db60"
-  integrity sha512-hMyr9AOmIea17AOaVe1srNxK/l3mbk81P7Uf3fdcjlw3ehZy3UNTd0OP3EEi6yu4J02kf9jzhCcjokz6AFlEOg==
-  dependencies:
-    "@babel/runtime" "^7.21.5"
-
-i18next@^23.2.11:
-  version "23.2.11"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-23.2.11.tgz#0c6f3a637fa87d3243e64b78ad285b7f77d41353"
-  integrity sha512-MA4FsxOjyCaOZtRDB4yuwjCvqYEioD4G4LlXOn7SO3rnQUlxTufyLsOqfL9MKakeLRBkefe8bqcs0D6Z/xFk1w==
-  dependencies:
-    "@babel/runtime" "^7.22.5"
-
 iconv-lite@0.4.24:
   version "0.4.24"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"
@@ -7497,14 +7493,14 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1, neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-next-intl@^2.17.5:
-  version "2.17.5"
-  resolved "https://registry.yarnpkg.com/next-intl/-/next-intl-2.17.5.tgz#1f53eef8ee986eb043d3c55959a004a1f85bf7f7"
-  integrity sha512-p/tit4/FN0eHLw6Mjwsx4ktiFZWq9VMcuY9hhkAlYWXCQgKq09PB0lZcMNw5xLvV9eor818BzXxdA+3bSvFMmw==
+next-intl@^2.18.x:
+  version "2.18.0"
+  resolved "https://registry.yarnpkg.com/next-intl/-/next-intl-2.18.0.tgz#40371a35a1594ff97cf1a944f51a63cb3a0a4ddd"
+  integrity sha512-0IALmAcVtT2XRCF6G446KVuNkrxl+kNfIykO7tZW0cPcYmOWhv6avVUarJpQxSXiALYpZBs5hx7jzcyN8rUeiw==
   dependencies:
     "@formatjs/intl-localematcher" "^0.2.32"
     negotiator "^0.6.3"
-    use-intl "^2.17.5"
+    use-intl "^2.18.0"
 
 next@13.4.x:
   version "13.4.10"
@@ -9890,10 +9886,10 @@ url@^0.11.0:
     punycode "^1.4.1"
     qs "^6.11.0"
 
-use-intl@^2.17.5:
-  version "2.17.5"
-  resolved "https://registry.yarnpkg.com/use-intl/-/use-intl-2.17.5.tgz#99b5fb375de9b841dad668edb48914cfe00236a4"
-  integrity sha512-pkTRoGZsOyHImBFgV23z7g/Hzt1auap+cWvsiWzHpc70NK7Rm9R3LNI3wm3FnYEWNF8N3+CZKV+SCTrHwcNK1w==
+use-intl@^2.18.0:
+  version "2.18.0"
+  resolved "https://registry.yarnpkg.com/use-intl/-/use-intl-2.18.0.tgz#3cecbd317f71a6262de654eaef2812e573d990d0"
+  integrity sha512-tGNbr2aGzhAizYRv4o+QPcszIcnCrE50r6QWSG5sI1GJILbt8cqYI15BimMvKT43273JtiV+uGX5BhATkPfeHQ==
   dependencies:
     "@formatjs/ecma402-abstract" "^1.11.4"
     intl-messageformat "^9.3.18"

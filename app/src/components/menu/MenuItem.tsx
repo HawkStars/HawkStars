@@ -31,7 +31,7 @@ const MenuItem = ({ title, options }: MenuItemProps) => {
             className="flex gap-3"
             onClick={() => setShowOptions(!showOptions)}
           >
-            <h6>{title}</h6>
+            <h6>{t(title)}</h6>
 
             {options && options.length > 0 && (
               <div className="my-auto">
@@ -40,7 +40,7 @@ const MenuItem = ({ title, options }: MenuItemProps) => {
             )}
           </div>
         </Menu.Button>
-        <Menu.Items className="z-100 absolute -ml-10 mt-3 flex cursor-pointer flex-col gap-2 rounded bg-white">
+        <Menu.Items className="z-100 absolute -ml-5 mt-3 flex cursor-pointer flex-col gap-2 rounded bg-white">
           {options.map((option, index) => (
             <Menu.Item
               key={index}

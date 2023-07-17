@@ -21,7 +21,7 @@ const MobileNavbar = () => {
   return (
     <>
       {mobileNavbarOpen && (
-        <div className="fixed z-900 flex h-screen w-full flex-col gap-4 bg-white px-2 py-3 lg:hidden">
+        <div className="fixed z-900 flex h-screen w-full flex-col gap-4 bg-white px-4 py-3 lg:hidden">
           <div className="flex">
             <Image
               src="/logo.png"
@@ -38,7 +38,10 @@ const MobileNavbar = () => {
             <Socials />
           </div>
           <div className="mt-5 flex flex-col gap-3">
-            <MobileMenuItem title="ONG" options={NGODropdownOptions} />
+            <MobileMenuItem
+              title={t("navbar.ngo")}
+              options={NGODropdownOptions}
+            />
           </div>
           <div>
             <div className="flex flex-col">

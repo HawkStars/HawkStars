@@ -9,6 +9,7 @@ import { MenuSections } from "./config";
 import Button from "../utils/Button";
 import { HOME_URL } from "@/app/paths";
 import classNames from "classnames";
+import LanguageSwitcher from "../utils/Language";
 
 const Footer = () => {
   return (
@@ -21,6 +22,9 @@ const Footer = () => {
             height="200"
             width="200"
           ></Image>
+          <div>
+            <LanguageSwitcher />
+          </div>
           <div>
             <Socials />
           </div>
