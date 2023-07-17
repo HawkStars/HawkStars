@@ -2,12 +2,17 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import MenuItem from "../menu/MenuItem";
+import { useTranslations } from "next-intl";
 import { RxHamburgerMenu } from "react-icons/rx";
+
+import MenuItem from "../menu/MenuItem";
+
 import { AtivitiesDropdownOptions, NGODropdownOptions } from "./config";
 import { useSetMobileNavbarOpen } from "@/contexts/AppProvider";
+import Button from "../utils/Button";
 
 const Navbar = () => {
+  const t = useTranslations();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
 
   return (
@@ -41,12 +46,12 @@ const Navbar = () => {
                   />
                 </li>
 
-                {/* <li>
+                <li>
                   <p>Ser membro</p>
-                </li> */}
-                {/* <li>
+                </li>
+                <li>
                   <Button type={"submit"}>Doar</Button>
-                </li> */}
+                </li>
               </ul>
             </div>
           </div>

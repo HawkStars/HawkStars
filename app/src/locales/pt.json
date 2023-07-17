@@ -1,9 +1,29 @@
 {
-  "Home": {
+  "home": {
     "title": "Associação para Educação, Inovação e Desenvolvimento Social",
-    "description": "Grupo intergeracional cujo os seus membros são interessados no desenvolvimento social e humano tendo por base um trabalho na área da educação com a inovação a que os novos tempos obrigam, aberta a todos, e projetada do local para o global."
+    "description": "Grupo intergeracional cujo os seus membros são interessados no desenvolvimento social e humano tendo por base um trabalho na área da educação com a inovação a que os novos tempos obrigam, aberta a todos, e projetada do local para o global.",
+    "about": "Quem Somos",
+    "objetives_title": "A Hawk Stars tem como seus principais objetivos:",
+    "objetives_body": "Desenvolvimento de atividades sociais que promovam e contribuíam para o desenvolvimento social, cultural, artístico e da juventude, assim como a promoção da aprendizagem ao longo da vida, tais como: Promoção de projetos e atividades internacionais que visem a receção e integração de estrangeiros para o desenvolvimento de atividades de educação não-formal com e para o meio envolvente.",
+    "values_title": "Valores",
+    "values_body": "Os valores representam aquilo que inspira os membros da Associação",
+    "vision": {
+      "solidarity": {
+        "title": "Solidariedade",
+        "description": "De pessoa para pessoas"
+      },
+      "identity": {
+        "title": "Identidade",
+        "description": "Comum e respeito na diversidade cultural"
+      },
+      "sense": {
+        "title": "Sentido",
+        "description": "De ética, integridade e transparência"
+      }
+    }
   },
   "navbar": {
+    "ngo": "ONG",
     "about": "Quem Somos",
     "team": "Equipa",
     "partners": "Parceiros",
@@ -11,7 +31,9 @@
     "volunteering": "Voluntariado",
     "events": "Eventos",
     "past_events": "Projectos Decorridos",
+    "ativities": "Atividades",
     "global_village": {
+      "title": "The Global Village",
       "pinhel": "Pinhel",
       "project": "O Projecto",
       "mission_values": "Missão e Valores",

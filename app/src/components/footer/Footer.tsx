@@ -1,7 +1,10 @@
+"use client";
 import React from "react";
 import Socials from "../utils/Socials";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+
 import { MenuSections } from "./config";
 import Button from "../utils/Button";
 import { HOME_URL } from "@/app/paths";
@@ -69,6 +72,7 @@ const Footer = () => {
 };
 
 const Menus = () => {
+  const t = useTranslations();
   return (
     <>
       {MenuSections.map((section, index) => {
@@ -89,7 +93,7 @@ const Menus = () => {
                     "text-disabled": option.disabled,
                   })}
                 >
-                  {option.label}
+                  {t(option.label)}
                 </Link>
               </div>
             ))}
@@ -98,10 +102,10 @@ const Menus = () => {
       })}
       <div className="flex flex-col">
         <Link href={"/"} className="mb-2 text-lg font-black">
-          Sê um membro
+          {t("common.be_member")}
         </Link>
         <Button type={"button"} variant="success">
-          Doações
+          {t("common.donate")}
         </Button>
       </div>
     </>

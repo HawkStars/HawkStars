@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { PiCaretRightThin, PiCaretDownThin } from "react-icons/pi";
+import { useTranslations } from "next-intl";
 
 type MenuItemProps = {
   title: string;
@@ -14,6 +15,7 @@ type MenuItemProps = {
 
 const MobileMenuItem = ({ title, options }: MenuItemProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
+  const t = useTranslations();
   const router = useRouter();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
 
@@ -45,7 +47,7 @@ const MobileMenuItem = ({ title, options }: MenuItemProps) => {
               className={classNames("text-neutral-400")}
               onClick={() => goToUrl(option.url)}
             >
-              {option.label}
+              {t(option.label)}
             </div>
           ))}
         </div>

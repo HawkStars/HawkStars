@@ -7,12 +7,14 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { RxCross1 } from "react-icons/rx";
+import { useTranslations } from "next-intl";
 import MobileMenuItem from "../menu/MobileMenuItem";
 import Button from "../utils/Button";
 import Socials from "../utils/Socials";
 import { NGODropdownOptions } from "./config";
 
 const MobileNavbar = () => {
+  const t = useTranslations();
   const { mobileNavbarOpen } = useMainAppContext();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
 
@@ -41,10 +43,10 @@ const MobileNavbar = () => {
           <div>
             <div className="flex flex-col">
               <Link href={"/"} className="mb-2 text-lg font-black">
-                Sê um membro
+                {t("common.be_member")}
               </Link>
               <Button type={"button"} variant="success" size="full">
-                Doações
+                {t("common.donate")}
               </Button>
             </div>
           </div>

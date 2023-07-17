@@ -4,6 +4,7 @@ import { NavbarOption } from "@/models/navbar";
 import { Menu } from "@headlessui/react";
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 type MenuItemProps = {
   title: string;
@@ -11,6 +12,7 @@ type MenuItemProps = {
 };
 
 const MenuItem = ({ title, options }: MenuItemProps) => {
+  const t = useTranslations();
   const router = useRouter();
 
   const goToUrl = (url?: string) => {
@@ -33,7 +35,7 @@ const MenuItem = ({ title, options }: MenuItemProps) => {
               })}
               onClick={() => goToUrl(option.url)}
             >
-              {option.label}
+              {t(option.label)}
             </Menu.Item>
           ))}
         </Menu.Items>

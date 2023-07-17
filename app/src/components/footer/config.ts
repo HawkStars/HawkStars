@@ -7,15 +7,15 @@ import {
 
 export const MenuSections = [
   {
-    title: "NGO",
+    title: "navbar.ngo",
     options: NGODropdownOptions,
   },
   {
-    title: "Atividades",
+    title: "navbar.ativities",
     options: AtivitiesDropdownOptions,
   },
   {
-    title: "The Global Village",
+    title: "navbar.global_village.title",
     options: GlobalVillageOptions,
   },
 ] as MenuSection[];
