@@ -15,9 +15,9 @@ const AtivitiesDropdownOptions = [
 ] as NavbarOption[];
 
 const GlobalVillageOptions = [
-  { label: "navbar.global_village.pinhel", disabled: true },
   { label: "navbar.global_village.project", disabled: true },
-  { label: "navbar.global_village.mission_values", disabled: true },
+  { label: "navbar.global_village.pinhel", disabled: true },
+  { label: "navbar.global_village.transparency", disabled: true },
   { label: "navbar.global_village.objectives", disabled: true },
 ] as NavbarOption[];
 
