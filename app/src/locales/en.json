@@ -1,1 +1,62 @@
-{}
+{
+  "home": {
+    "title": "HAWK STARS NGO for Education, Innovation and Social Development",
+    "description": "Intergenerational group aiming in social and human development, by embracing the innovative non-formal education concepts, open to all and designed from the local to the global.",
+    "about": "Who are we",
+    "objetives_title": "The main objective of Hawk Stars NGO is:",
+    "objetives_body": "To promote and develop social, cultural, digital, artistic and youth competencies, as well as to promote lifelong learning, though international projects and non-formal educational activities involving nationals and foreings.",
+    "values_title": "Values",
+    "values_body": "The Values that represent and inspire the members of the NGO",
+    "vision": {
+      "solidarity": {
+        "title": "Solidarity",
+        "description": "From people to people"
+      },
+      "identity": {
+        "title": "Identity",
+        "description": "Common sense and respect for cultural diversity"
+      },
+      "sense": {
+        "title": "Sense",
+        "description": "Ethics, integrity and transparency"
+      }
+    }
+  },
+  "team": {
+    "geral": "General Assembly",
+    "fiscal": "Fiscal Council",
+    "board": "Management",
+    "roles": {
+      "president": "President",
+      "vice_president": "Vice-President",
+      "vogal": "Board Member",
+      "f_secretary": "Secretary",
+      "m_secretary": "Secretary",
+      "substitute": "Deputy board member",
+      "treasurer": "Treasury Manager",
+      "rapporteur_secretary": "Reporting Secretary"
+    }
+  },
+  "navbar": {
+    "ngo": "NGO",
+    "about": "Who are we",
+    "team": "Team",
+    "partners": "Partnerships",
+    "opportunities": "Opportunities",
+    "volunteering": "Volunteering",
+    "events": "Events",
+    "past_events": "Past Projects",
+    "ativities": "Activities",
+    "global_village": {
+      "title": "The Global Village",
+      "pinhel": "Pinhel",
+      "project": "The Project",
+      "mission_values": "Mission & Values",
+      "objectives": "Objectives"
+    }
+  },
+  "common": {
+    "donate": "Donate",
+    "be_member": "Be a Member"
+  }
+}

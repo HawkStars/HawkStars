@@ -29,12 +29,6 @@ export const TeamMembers = {
       url: "https://www.linkedin.com/in/fatimaduarteamaro",
     },
     {
-      name: "António Campos",
-      position: "team.roles.substitute",
-      photo: "/team/rui_campos.jpg",
-      url: "https://www.linkedin.com/in/rui-campos-fotografia",
-    },
-    {
       name: "Carlos Bruno",
       position: "team.roles.substitute",
       photo: "/team/carlos_bruno.jpg",
@@ -84,7 +78,7 @@ export const TeamMembers = {
       name: "David Almeida Silva",
       position: "team.roles.vice_president",
       photo: "/team/david_almeida.jpg",
-      url: undefined,
+      url: "https://www.linkedin.com/in/david-a-29a571197",
     },
     {
       name: "Marco Jerónimo Madeira",
