@@ -18,7 +18,7 @@ const PartnersComponent = () => {
 
   return (
     <section>
-      <div className="relative h-60 md:h-96 lg:h-[500px]">
+      <div className="relative h-60 md:h-96 lg:h-[500px] z-0">
         <Image
           src="/partners/hero.jpg"
           alt="Hero Partners Page"

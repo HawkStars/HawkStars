@@ -5,11 +5,13 @@ import Button from "@/components/utils/Button";
 import { useTranslations } from "next-intl";
 
 import config from "./config.json";
-import { BE_MEMBER_FORM_URL } from "@/app/paths";
+import { BE_MEMBER_FORM_URL, DONATE_URL } from "@/app/paths";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const HomeComponent = () => {
   const t = useTranslations();
+  const router = useRouter();
   return (
     <>
       <section className="flex flex-col bg-bege-light px-8 pb-5 pt-10 lg:px-14 lg:pb-10 lg:pl-20 lg:pt-40">
@@ -19,7 +21,9 @@ const HomeComponent = () => {
             <p className="text-justify">{t("home.description")}</p>
             <div className="mt-8 flex gap-5">
               <div className="w-fit">
-                <Button disabled={true} type={"button"}>
+                <Button type={"button"} onClick={() => {
+                    router.push(DONATE_URL)
+                  }}>
                   {t("common.donate")}
                 </Button>
               </div>

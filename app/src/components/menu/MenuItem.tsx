@@ -25,7 +25,7 @@ const MenuItem = ({ title, options }: MenuItemProps) => {
 
   return (
     <div className="">
-      <Menu as="div" className="relative inline-block text-left">
+      <Menu as="div" className="relative inline-block text-left z-100">
         <Menu.Button>
           <div
             className="flex gap-3"
@@ -40,7 +40,7 @@ const MenuItem = ({ title, options }: MenuItemProps) => {
             )}
           </div>
         </Menu.Button>
-        <Menu.Items className="z-100 absolute -ml-5 mt-3 flex cursor-pointer flex-col gap-2 rounded bg-white">
+        <Menu.Items className="z-900 absolute -ml-5 mt-3 flex cursor-pointer flex-col gap-2 rounded bg-white">
           {options.map((option, index) => (
             <Menu.Item
               key={index}

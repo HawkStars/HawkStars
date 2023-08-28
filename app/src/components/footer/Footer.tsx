@@ -7,9 +7,10 @@ import { useTranslations } from "next-intl";
 
 import { MenuSections } from "./config";
 import Button from "../utils/Button";
-import { BE_MEMBER_FORM_URL, HOME_URL } from "@/app/paths";
+import { BE_MEMBER_FORM_URL, DONATE_URL, HOME_URL } from "@/app/paths";
 import classNames from "classnames";
 import LanguageSwitcher from "../utils/Language";
+import { useRouter } from "next/navigation";
 
 const Footer = () => {
   return (
@@ -77,6 +78,8 @@ const Footer = () => {
 
 const Menus = () => {
   const t = useTranslations();
+  const router = useRouter();
+  
   return (
     <>
       {MenuSections.map((section, index) => {
@@ -112,7 +115,9 @@ const Menus = () => {
         >
           {t("common.be_member")}
         </Link>
-        <Button type={"button"} variant="success">
+        <Button type={"button"} variant="success" onClick={() => {
+            router.push(DONATE_URL)
+          }}>
           {t("common.donate")}
         </Button>
       </div>

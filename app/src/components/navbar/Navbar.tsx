@@ -11,11 +11,13 @@ import { useSetMobileNavbarOpen } from "@/contexts/AppProvider";
 import Button from "../utils/Button";
 import { MenuSections } from "../footer/config";
 import LanguageSwitcher from "../utils/Language";
-import { BE_MEMBER_FORM_URL } from "@/app/paths";
+import { BE_MEMBER_FORM_URL, DONATE_URL } from "@/app/paths";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const t = useTranslations();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
+  const router = useRouter();
 
   return (
     <>
@@ -57,7 +59,9 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Button type={"submit"}>{t("common.donate")}</Button>
+                  <Button type={"submit"} onClick={() => {
+                    router.push(DONATE_URL)
+                  }}>{t("common.donate")} </Button>
                 </li>
               </ul>
               <div className="my-auto">
