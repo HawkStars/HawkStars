@@ -5,6 +5,8 @@ import Button from "@/components/utils/Button";
 import { useTranslations } from "next-intl";
 
 import config from "./config.json";
+import { BE_MEMBER_FORM_URL } from "@/app/paths";
+import Link from "next/link";
 
 const HomeComponent = () => {
   const t = useTranslations();
@@ -22,9 +24,11 @@ const HomeComponent = () => {
                 </Button>
               </div>
               <div className="w-fit">
-                <Button outline={true} type={"button"}>
-                  {t("common.be_member")}
-                </Button>
+                <Link href={BE_MEMBER_FORM_URL} target="_blank">
+                  <Button outline={true} type={"button"}>
+                    {t("common.be_member")}
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

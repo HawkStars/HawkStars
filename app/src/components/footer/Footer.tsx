@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 
 import { MenuSections } from "./config";
 import Button from "../utils/Button";
-import { HOME_URL } from "@/app/paths";
+import { BE_MEMBER_FORM_URL, HOME_URL } from "@/app/paths";
 import classNames from "classnames";
 import LanguageSwitcher from "../utils/Language";
 
@@ -105,7 +105,11 @@ const Menus = () => {
         );
       })}
       <div className="flex flex-col">
-        <Link href={"/"} className="mb-2 text-lg font-black">
+        <Link
+          href={BE_MEMBER_FORM_URL}
+          target="_blank"
+          className="mb-2 text-lg font-black"
+        >
           {t("common.be_member")}
         </Link>
         <Button type={"button"} variant="success">

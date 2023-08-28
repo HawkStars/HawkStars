@@ -11,6 +11,7 @@ import { useSetMobileNavbarOpen } from "@/contexts/AppProvider";
 import Button from "../utils/Button";
 import { MenuSections } from "../footer/config";
 import LanguageSwitcher from "../utils/Language";
+import { BE_MEMBER_FORM_URL } from "@/app/paths";
 
 const Navbar = () => {
   const t = useTranslations();
@@ -47,7 +48,13 @@ const Navbar = () => {
                 })}
 
                 <li className="my-auto">
-                  <Link href="/">{t("common.be_member")}</Link>
+                  <Link
+                    href={BE_MEMBER_FORM_URL}
+                    target="_blank"
+                    className="cursor-pointer"
+                  >
+                    {t("common.be_member")}
+                  </Link>
                 </li>
                 <li>
                   <Button type={"submit"}>{t("common.donate")}</Button>

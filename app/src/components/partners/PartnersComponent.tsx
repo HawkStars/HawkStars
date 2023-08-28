@@ -23,7 +23,7 @@ const PartnersComponent = () => {
           src="/partners/hero.jpg"
           alt="Hero Partners Page"
           fill={true}
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "cover", zIndex: 1 }}
         />
       </div>
       <section className="container-hawk">

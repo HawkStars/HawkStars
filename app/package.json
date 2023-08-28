@@ -10,7 +10,9 @@
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "serve-storybook": "serve storybook-static"
+    "serve-storybook": "serve storybook-static",
+    "i18n": "sync-i18n --files '**/locales/*.json' --primary en --languages es fr ja zh ko --space 2",
+    "check-i18n": "npm run i18n -- --check"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",
@@ -47,6 +49,7 @@
     "@storybook/react": "^7.0.22",
     "@storybook/testing-library": "^0.0.14-next.2",
     "eslint-plugin-storybook": "^0.6.12",
+    "i18next-json-sync": "^3.1.2",
     "storybook": "^7.0.22"
   }
 }

@@ -22,6 +22,10 @@
       }
     }
   },
+  "partners": {
+    "partners": "Parceiros",
+    "internacional": "Cooperação Internacional"
+  },
   "team": {
     "geral": "General Assembly",
     "fiscal": "Fiscal Council",

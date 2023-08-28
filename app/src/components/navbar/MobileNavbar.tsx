@@ -13,6 +13,7 @@ import Button from "../utils/Button";
 import Socials from "../utils/Socials";
 import { NGODropdownOptions } from "./config";
 import LanguageSwitcher from "../utils/Language";
+import { BE_MEMBER_FORM_URL } from "@/app/paths";
 
 const MobileNavbar = () => {
   const t = useTranslations();
@@ -49,7 +50,11 @@ const MobileNavbar = () => {
           </div>
           <div>
             <div className="flex flex-col">
-              <Link href={"/"} className="mb-2 text-lg font-black">
+              <Link
+                href={BE_MEMBER_FORM_URL}
+                target="_blank"
+                className="mb-2 cursor-pointer text-lg font-black"
+              >
                 {t("common.be_member")}
               </Link>
               <Button type={"button"} variant="success" size="full">
