@@ -35,9 +35,6 @@ next-env.d.ts
 
 # mac 
 *.DS_Store
-../.DS_Store
-.DS_Store
-.DS_Store?
 
 # storybook
 storybook-static

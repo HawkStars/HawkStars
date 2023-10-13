@@ -7,6 +7,11 @@ export const metadata = {
     desenvolvimento social e humano tendo por base um trabalho na área
     da educação com a inovação a que os novos tempos obrigam, aberta a
     todos, e projetada do local para o global.`,
+  icons: {
+    icon: "/favicon/favicon.ico",
+    shortcut: "/favicon/favicon-16x16.png",
+    apple: "/favicon/apple-touch-icon.png",
+  },
 } as Metadata;
 
 type HomeProps = {
