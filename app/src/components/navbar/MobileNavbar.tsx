@@ -57,7 +57,7 @@ const MobileNavbar = () => {
               >
                 {t("common.be_member")}
               </Link>
-              <Button type={"button"} variant="success" size="full">
+              <Button type={"button"} variant="success" size="fit">
                 {t("common.donate")}
               </Button>
             </div>

@@ -28,7 +28,7 @@ const MobileMenuItem = ({ title, options }: MenuItemProps) => {
   return (
     <div className="cursor-pointer px-1">
       <div
-        className="mb-1 flex gap-3"
+        className="mb-2 flex gap-3"
         onClick={() => setShowOptions(!showOptions)}
       >
         <h6>{title}</h6>
@@ -40,7 +40,7 @@ const MobileMenuItem = ({ title, options }: MenuItemProps) => {
         )}
       </div>
       {showOptions && (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
           {options.map((option, index) => (
             <div
               key={index}

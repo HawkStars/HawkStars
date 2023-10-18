@@ -21,8 +21,8 @@ const MainTeamPage = () => {
       ({
         id: index,
         value: option,
-        label: sectionLabels[option],
-      } as unknown as Option)
+        label: t(sectionLabels[option]),
+      }) as unknown as Option,
   );
 
   return (
@@ -31,7 +31,7 @@ const MainTeamPage = () => {
         <Select
           options={selectOptions}
           defaultOption={selectOptions.find(
-            (option) => option.value === selectedSection
+            (option) => option.value === selectedSection,
           )}
           onChange={(e) => setSelectedSection(e as OrgSection)}
         />

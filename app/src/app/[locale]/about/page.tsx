@@ -14,7 +14,7 @@ export const metadata = {
 const AboutPage = () => {
   return (
     <>
-      <div className="container-hawk grid grid-cols-1 gap-10 lg:grid-cols-2">
+      <div className="px-8 lg:container-hawk grid grid-cols-1 gap-10 lg:grid-cols-2">
         <div className="mt-20 flex flex-col gap-5">
           <h1>A Hawk Stars tem como seus principais objetivos:</h1>
           <p className="font-body">

@@ -15,15 +15,18 @@ const HomeComponent = () => {
   return (
     <>
       <section className="flex flex-col bg-bege-light px-8 pb-5 pt-10 lg:px-14 lg:pb-10 lg:pl-20 lg:pt-40">
-        <div className="flex flex-col gap-1 lg:flex-row">
+        <div className="flex flex-col gap-5 lg:gap-1 lg:flex-row">
           <div className="flex flex-col gap-2 lg:w-1/2">
             <h4 className="text-4xl font-black">{t("home.title")}</h4>
             <p className="text-justify">{t("home.description")}</p>
             <div className="mt-8 flex gap-5">
               <div className="w-fit">
-                <Button type={"button"} onClick={() => {
-                    router.push(DONATE_URL)
-                  }}>
+                <Button
+                  type={"button"}
+                  onClick={() => {
+                    router.push(DONATE_URL);
+                  }}
+                >
                   {t("common.donate")}
                 </Button>
               </div>
@@ -72,7 +75,7 @@ const HomeComponent = () => {
         <h6 className="flex justify-center text-center">
           {t("home.values_body")}
         </h6>
-        <div className="mx-auto mt-10 grid w-2/3 grid-cols-1 gap-3 lg:grid-cols-3">
+        <div className="mx-auto mt-10 grid w-2/3 grid-cols-1 gap-10 lg:gap-3 lg:grid-cols-3">
           {config.vision.map((option, index) => (
             <div key={index} className="flex flex-col items-center gap-2">
               <div>
