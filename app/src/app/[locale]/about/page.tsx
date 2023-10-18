@@ -2,11 +2,13 @@ import { aboutObjectiveSections, missionObjectives } from "./config";
 import Image from "next/image";
 import { Metadata } from "next";
 import Accordion from "@/components/accordion/Accordion";
+import { defaultMetadata } from "@/app/metadata";
 
 export const metadata = {
   title: "Hawk Stars - About Us",
   description:
     "Hawk Stars objetives and values and main goals for the next years for the international community and local ativities",
+  ...defaultMetadata,
 } as Metadata;
 
 const AboutPage = () => {
@@ -108,11 +110,39 @@ const AboutPage = () => {
           </div>
         </div>
         <div className="container-hawk mt-10 flex flex-col gap-10">
-          <Accordion
-            title="Expansão"
-            description="Desde a sua fundação que a Associação tem como propósito a expansão da sua actuação além fronteiras, replicando o seu modelo de actuação noutros países através de uma estratégia de internacionalização com os seus parceiros, de cooperação entre países e de intercâmbio de jovens e adultos através da transferência de conhecimento, fortalecendo o capital humano, a empregabilidade, a competitividade, a promoção do empreendorismo social e o desenvolvimento de competências sociais, tecnológicas e pessoais de todos os envolvidos. "
-            defaultOpen={true}
-          />
+          <Accordion title="Visão" defaultOpen={true}>
+            <ul className="list-disc px-6 flex flex-col gap-3">
+              <li className="text-justify">
+                Ser uma plataforma líder de apoio aos jovens, promovendo
+                sinergias entre educação, formação, juventude e aprendizagem ao
+                longo da vida.
+              </li>
+              <li className="text-justify">
+                Através de novos projetos e parcerias com empresas e sociedade
+                civil, buscamos estimular formas inovadoras de cooperação local,
+                nacional e internacional.
+              </li>
+              <li className="text-justify">
+                Como uma Associação com raízes locais, mas de visão global,
+                visamos impactar positivamente a vida dos jovens,
+                proporcionando-lhes oportunidades para o seu crescimento e
+                desenvolvimento pessoal e coletivo.
+              </li>
+            </ul>
+          </Accordion>
+          <Accordion title="Expansão" defaultOpen={true}>
+            <p className="font-body text-justify">
+              Desde a sua fundação que a Associação tem como propósito a
+              expansão da sua actuação além fronteiras, replicando o seu modelo
+              de actuação noutros países através de uma estratégia de
+              internacionalização com os seus parceiros, de cooperação entre
+              países e de intercâmbio de jovens e adultos através da
+              transferência de conhecimento, fortalecendo o capital humano, a
+              empregabilidade, a competitividade, a promoção do empreendorismo
+              social e o desenvolvimento de competências sociais, tecnológicas e
+              pessoais de todos os envolvidos.
+            </p>
+          </Accordion>
         </div>
       </div>
     </>

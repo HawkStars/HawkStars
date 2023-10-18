@@ -1,3 +1,4 @@
+import { defaultMetadata } from "@/app/metadata";
 import InstagramFeed from "@/components/opportunities/instagram-feed";
 import { Metadata } from "next";
 
@@ -5,6 +6,7 @@ export const metadata = {
   title: "Hawk Stars - Opportunities",
   description:
     "Available opportunities for the youth and all the people interested in the social ativities",
+  ...defaultMetadata,
 } as Metadata;
 
 const OportunitiesPage = () => {
