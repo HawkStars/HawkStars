@@ -41,6 +41,72 @@
       "rapporteur_secretary": "Reporting Secretary"
     }
   },
+  "aboutPage": {
+    "title": "Hawk Stars' main objectives are:",
+    "description": "Development of social activities that promote and contribute to the social, cultural, artistic and youth development, as well as the promotion of lifelong learning, such as: Promotion of international projects and activities aimed at welcoming and integrating foreigners into the development of non-formal education activities with and for the surrounding environment.",
+    "mission": {
+      "title": "Our Mission",
+      "one": "Promote new forms of education and complementary learning systems throughout life, from the youngest to the oldest.",
+      "two": "Promoting European mobility through structured dialogue, exchange of values and experiences between Europeans, partner and potential countries.",
+      "three": "Strengthen and contribute to the political and social values of the European Union.",
+      "four": "Drive local and national development based on social innovation.",
+      "five": "Cooperation for development with diverse partners, local, national and international.",
+      "six": "Educate for inclusion, democracy and human rights."
+    },
+    "objectives": {
+      "title": "Hawk Stars",
+      "description": "Hawk Stars undertakes to develop activities with the following purposes and objectives:",
+      "one": {
+        "title": "Reception and integration",
+        "description": "Of international volunteers, as well as the definition and elaboration of volunteering plans and activities, in the organization and/or in partnership with other non-governmental organizations, during NGOs"
+      },
+      "two": {
+        "title": "Welcome and integration",
+        "description": "Of Refugees and/or collaboration in their integration in partnership with other NGOs"
+      },
+      "three": {
+        "title": "Plan development",
+        "description": "And projects that promote the integration of people from the local community"
+      },
+      "four": {
+        "title": "Conference Promotion",
+        "description": "And varied training aimed at developing new skills in the surrounding environment, as well as the acquisition of soft-skills by its participants"
+      },
+      "five": {
+        "title": "Development cooperation",
+        "description": "Through partnerships with other local, regional, national and international institutions"
+      },
+      "six": {
+        "title": "Co-working promotion",
+        "description": "And teamwork through the development of joint projects that promote local and social development and the launch of entrepreneurial projects"
+      },
+      "seven": {
+        "title": "Promotion of activities",
+        "description": "Intensive training with the aim of promoting the revelation of psychotechnical talent and the development of individual potential for the formation of a Gaming academy and/or general acquisition of Skills for the development of online activities"
+      },
+      "eight": {
+        "title": "Development of artistic activities",
+        "description": "Cultural activities aimed at promoting individual and collective talent and general and creative skills"
+      },
+      "nine": {
+        "title": "Sharing new skills",
+        "description": "linguistic, social, and interpersonal relationships promoting personal and interpersonal development in communication with the international environment present in local society"
+      }
+    },
+    "vision": {
+      "title": "Vision",
+      "items": {
+        "platform": "To be a leading platform to support young people, promoting synergies between education, training, youth and lifelong learning.",
+        "projects": "Through new projects and partnerships with companies and civil society, we seek to stimulate innovative forms of local, national and international cooperation.",
+        "local": "As an Association with local roots, but with a global vision, we aim to positively impact the lives of young people, providing them with opportunities for their personal and collective growth and development."
+      }
+    },
+    "expansion": {
+      "title": "Expansion",
+      "description": "Since its foundation, the Association's purpose has been to expand its operations across borders, replicating its operating model in other countries through a strategy of internationalization with its partners, cooperation between countries and exchange of young people and adults through the transfer of knowledge, strengthening human capital, employability, competitiveness, promoting social entrepreneurship and the development of social, technological and personal skills for everyone involved."
+    }
+  },
+
   "navbar": {
     "ngo": "NGO",
     "about": "Who are we",

@@ -51,8 +51,20 @@
   }
 }
 
+/* sm	640px	@media (min-width: 640px) { ... }
+md	768px	@media (min-width: 768px) { ... }
+lg	1024px	@media (min-width: 1024px) { ... }
+xl	1280px	@media (min-width: 1280px) { ... }
+2xl	1536px	@media (min-width: 1536px) { ... } */
+
 @layer utilities {
   .container-hawk {
-    padding: 0 10vw;
+    padding: 0 2rem;
+  }
+
+  @media screen and (min-width: 1024px) {
+    .container-hawk {
+      padding: 0 10vw;
+    }
   }
 }
