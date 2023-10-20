@@ -44,7 +44,7 @@ const LanguageSwitcher = () => {
               onClick={() => router.replace(pathname, { locale: "en" })}
               className="flew-row flex gap-2"
             >
-              <div className="flex h-4 w-6">
+              <div className="flex h-4 w-6 cursor-pointer">
                 <GB title="EN" />
               </div>
               <label
@@ -61,7 +61,7 @@ const LanguageSwitcher = () => {
               onClick={() => router.replace(pathname, { locale: "pt" })}
               className="flew-row flex gap-2"
             >
-              <div className="flex h-4 w-6">
+              <div className="flex h-4 w-6 cursor-pointer">
                 <PT title="PT" />
               </div>
               <label
