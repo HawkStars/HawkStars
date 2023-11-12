@@ -28,7 +28,7 @@ const MenuItem = ({ title, options }: MenuItemProps) => {
       <Menu as="div" className="relative inline-block text-left z-100">
         <Menu.Button>
           <div
-            className="flex gap-3"
+            className="flex gap-1"
             onClick={() => setShowOptions(!showOptions)}
           >
             <h6>{t(title)}</h6>

@@ -1,4 +1,9 @@
-import { ABOUT_US_URL, PARTNERS_URL, TEAM_URL } from "@/app/paths";
+import {
+  ABOUT_US_URL,
+  GLOBAL_VILLAGE_URL,
+  PARTNERS_URL,
+  TEAM_URL,
+} from "@/app/paths";
 import { NavbarOption } from "@/models/navbar";
 
 const NGODropdownOptions = [
@@ -15,10 +20,8 @@ const AtivitiesDropdownOptions = [
 ] as NavbarOption[];
 
 const GlobalVillageOptions = [
-  { label: "navbar.global_village.project", disabled: true },
-  { label: "navbar.global_village.pinhel", disabled: true },
+  { label: "navbar.global_village.project", url: GLOBAL_VILLAGE_URL },
   { label: "navbar.global_village.transparency", disabled: true },
-  { label: "navbar.global_village.objectives", disabled: true },
 ] as NavbarOption[];
 
 export { NGODropdownOptions, AtivitiesDropdownOptions, GlobalVillageOptions };
