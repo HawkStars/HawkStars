@@ -1,16 +1,16 @@
 "use client";
 
+import useTranslation from "next-translate/useTranslation";
 import {
   aboutObjectiveSections,
   missionObjectives,
   visionGoals,
 } from "@/app/[locale]/about/config";
-import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Accordion from "../accordion/Accordion";
 
 const AboutPage = () => {
-  const t = useTranslations("aboutPage");
+  const { t } = useTranslation("aboutPage");
 
   return (
     <>
@@ -138,7 +138,7 @@ type TaskComponentProps = {
   description: string;
 };
 const TaskComponent = ({ icon, title, description }: TaskComponentProps) => {
-  const t = useTranslations("aboutPage");
+  const { t } = useTranslation("aboutPage");
   return (
     <div className="flex flex-col gap-2 rounded-xl bg-bege-light p-7">
       <div className="w-fit rounded-xl bg-bege-dark">
@@ -156,7 +156,7 @@ type MissionTaskComponentProps = {
 };
 
 const MissionTaskComponent = ({ text, index }: MissionTaskComponentProps) => {
-  const t = useTranslations();
+  const { t } = useTranslation();
   let formattedNumber = index.toLocaleString("en-US", {
     minimumIntegerDigits: 2,
     useGrouping: false,

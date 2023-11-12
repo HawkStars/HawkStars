@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import useTranslation from "next-translate/useTranslation";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 import MenuItem from "../menu/MenuItem";
@@ -15,7 +15,7 @@ import { BE_MEMBER_FORM_URL, DONATE_URL } from "@/app/paths";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
-  const t = useTranslations();
+  const { t } = useTranslation();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
   const router = useRouter();
 
@@ -59,9 +59,14 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Button type={"submit"} onClick={() => {
-                    router.push(DONATE_URL)
-                  }}>{t("common.donate")} </Button>
+                  <Button
+                    type={"submit"}
+                    onClick={() => {
+                      router.push(DONATE_URL);
+                    }}
+                  >
+                    {t("common.donate")}{" "}
+                  </Button>
                 </li>
               </ul>
               <div className="my-auto">

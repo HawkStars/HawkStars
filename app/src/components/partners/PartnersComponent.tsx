@@ -2,18 +2,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
-import { useTranslations } from "next-intl";
+import useTranslation from "next-translate/useTranslation";
 import { SocialIcon, SocialType } from "@/models/social";
 import { CURRENT_PARTNERS, PartnersInfo } from "@/app/[locale]/partners/config";
 
 const PartnersComponent = () => {
-  const t = useTranslations("partners");
+  const { t } = useTranslation("partners");
   const nationalPartners = CURRENT_PARTNERS.filter(
-    (partner) => partner.type == "national"
+    (partner) => partner.type == "national",
   );
 
   const internationalPartners = CURRENT_PARTNERS.filter(
-    (partner) => partner.type == "international"
+    (partner) => partner.type == "international",
   );
 
   return (

@@ -1,6 +1,6 @@
 import Avatar from "../utils/Avatar";
 import { BsLinkedin } from "react-icons/bs";
-import { useTranslations } from "next-intl";
+import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 
 type TeamCardProps = {
@@ -11,7 +11,7 @@ type TeamCardProps = {
 };
 
 const TeamCard = ({ name, position, photo, url }: TeamCardProps) => {
-  const t = useTranslations();
+  const { t } = useTranslation();
   return (
     <div className="flex w-full gap-4 bg-bege-light px-2 py-4 text-center lg:h-64 lg:w-56 lg:flex-col lg:gap-0">
       <div className="mt-2 flex justify-center">

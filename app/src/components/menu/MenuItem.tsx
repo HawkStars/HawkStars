@@ -4,7 +4,7 @@ import { NavbarOption } from "@/models/navbar";
 import { Menu } from "@headlessui/react";
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import useTranslation from "next-translate/useTranslation";
 import { PiCaretDownThin, PiCaretRightThin } from "react-icons/pi";
 import { useState } from "react";
 
@@ -15,7 +15,7 @@ type MenuItemProps = {
 
 const MenuItem = ({ title, options }: MenuItemProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
-  const t = useTranslations();
+  const { t } = useTranslation();
   const router = useRouter();
 
   const goToUrl = (url?: string) => {

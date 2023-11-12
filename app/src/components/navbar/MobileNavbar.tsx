@@ -7,7 +7,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { RxCross1 } from "react-icons/rx";
-import { useTranslations } from "next-intl";
+import useTranslation from "next-translate/useTranslation";
 import MobileMenuItem from "../menu/MobileMenuItem";
 import Button from "../utils/Button";
 import Socials from "../utils/Socials";
@@ -16,7 +16,7 @@ import LanguageSwitcher from "../utils/Language";
 import { BE_MEMBER_FORM_URL } from "@/app/paths";
 
 const MobileNavbar = () => {
-  const t = useTranslations();
+  const { t } = useTranslation();
   const { mobileNavbarOpen } = useMainAppContext();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
 

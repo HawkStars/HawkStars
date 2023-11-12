@@ -3,7 +3,7 @@ import React from "react";
 import Socials from "../utils/Socials";
 import Image from "next/image";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import useTranslation from "next-translate/useTranslation";
 
 import { MenuSections } from "./config";
 import Button from "../utils/Button";
@@ -77,9 +77,9 @@ const Footer = () => {
 };
 
 const Menus = () => {
-  const t = useTranslations();
+  const { t } = useTranslation();
   const router = useRouter();
-  
+
   return (
     <>
       {MenuSections.map((section, index) => {
@@ -115,9 +115,13 @@ const Menus = () => {
         >
           {t("common.be_member")}
         </Link>
-        <Button type={"button"} variant="success" onClick={() => {
-            router.push(DONATE_URL)
-          }}>
+        <Button
+          type={"button"}
+          variant="success"
+          onClick={() => {
+            router.push(DONATE_URL);
+          }}
+        >
           {t("common.donate")}
         </Button>
       </div>

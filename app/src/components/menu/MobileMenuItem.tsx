@@ -6,7 +6,7 @@ import classNames from "classnames";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { PiCaretRightThin, PiCaretDownThin } from "react-icons/pi";
-import { useTranslations } from "next-intl";
+import useTranslation from "next-translate/useTranslation";
 
 type MenuItemProps = {
   title: string;
@@ -15,7 +15,7 @@ type MenuItemProps = {
 
 const MobileMenuItem = ({ title, options }: MenuItemProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
-  const t = useTranslations();
+  const { t } = useTranslation();
   const router = useRouter();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
 

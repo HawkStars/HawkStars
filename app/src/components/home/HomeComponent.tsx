@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Button from "@/components/utils/Button";
-import { useTranslations } from "next-intl";
+import useTranslation from "next-translate/useTranslation";
 
 import config from "./config.json";
 import { BE_MEMBER_FORM_URL, DONATE_URL } from "@/app/paths";
@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const HomeComponent = () => {
-  const t = useTranslations();
+  const { t } = useTranslation();
   const router = useRouter();
   return (
     <>
