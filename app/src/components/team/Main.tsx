@@ -5,7 +5,7 @@ import {
   boardSections,
   sectionLabels,
   TeamMembers,
-} from "@/app/[locale]/team/config";
+} from "@/app/team/config";
 import classNames from "classnames";
 import useTranslation from "next-translate/useTranslation";
 import { useState } from "react";
@@ -13,7 +13,7 @@ import Select, { Option } from "../utils/Select";
 import TeamCard from "./TeamCard";
 
 const MainTeamPage = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("team");
   const [selectedSection, setSelectedSection] = useState<OrgSection>("geral");
 
   const selectOptions: Option[] = boardSections.map(

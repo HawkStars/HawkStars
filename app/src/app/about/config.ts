@@ -54,26 +54,26 @@ export const aboutObjectiveSections: AboutObjectiveSection[] = [
 
 export const missionObjectives: { text: string; id: number }[] = [
   {
-    text: "aboutPage.mission.one",
+    text: "mission.one",
     id: 1,
   },
   {
-    text: "aboutPage.mission.two",
+    text: "mission.two",
     id: 2,
   },
   {
-    text: "aboutPage.mission.three",
+    text: "mission.three",
     id: 3,
   },
   {
-    text: "aboutPage.mission.four",
+    text: "mission.four",
     id: 4,
   },
   {
-    text: "aboutPage.mission.five",
+    text: "mission.five",
     id: 5,
   },
-  { text: "aboutPage.mission.six", id: 6 },
+  { text: "mission.six", id: 6 },
 ];
 
 export const visionGoals = ["platform", "projects", "local"] as const;

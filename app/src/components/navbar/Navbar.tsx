@@ -10,8 +10,8 @@ import MenuItem from "../menu/MenuItem";
 import { useSetMobileNavbarOpen } from "@/contexts/AppProvider";
 import Button from "../utils/Button";
 import { MenuSections } from "../footer/config";
-import LanguageSwitcher from "../utils/Language";
-import { BE_MEMBER_FORM_URL, DONATE_URL } from "@/app/paths";
+import LanguageSwitcher from "../utils/LanguageSwitcher";
+import { BE_MEMBER_FORM_URL, DONATE_URL } from "@/paths";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {

@@ -11,7 +11,7 @@ type TeamCardProps = {
 };
 
 const TeamCard = ({ name, position, photo, url }: TeamCardProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("team");
   return (
     <div className="flex w-full gap-4 bg-bege-light px-2 py-4 text-center lg:h-64 lg:w-56 lg:flex-col lg:gap-0">
       <div className="mt-2 flex justify-center">

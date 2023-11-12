@@ -1,16 +1,14 @@
-"use client";
-
 import useTranslation from "next-translate/useTranslation";
 import {
   aboutObjectiveSections,
   missionObjectives,
   visionGoals,
-} from "@/app/[locale]/about/config";
+} from "@/app/about/config";
 import Image from "next/image";
 import Accordion from "../accordion/Accordion";
 
 const AboutPage = () => {
-  const { t } = useTranslation("aboutPage");
+  const { t } = useTranslation("about");
 
   return (
     <>
@@ -67,7 +65,7 @@ const AboutPage = () => {
           ))}
         </div>
       </div>
-      <div className="bg-bege-light p-4 lg:p-10">
+      <div className="bg-bege-light p-4 lg:p-10 pb-8 lg:pb-12">
         <div className="container-hawk relative grid grid-cols-1 gap-10 lg:grid-cols-2">
           <Image
             className="absolute bottom-5 left-10 hidden lg:block"
@@ -121,7 +119,7 @@ const AboutPage = () => {
               })}
             </ul>
           </Accordion>
-          <Accordion title={t("expansion.title")} defaultOpen={true}>
+          <Accordion title={t("expansion.title")} defaultOpen={false}>
             <p className="font-body text-justify">
               {t("expansion.description")}
             </p>
@@ -138,7 +136,7 @@ type TaskComponentProps = {
   description: string;
 };
 const TaskComponent = ({ icon, title, description }: TaskComponentProps) => {
-  const { t } = useTranslation("aboutPage");
+  const { t } = useTranslation("about");
   return (
     <div className="flex flex-col gap-2 rounded-xl bg-bege-light p-7">
       <div className="w-fit rounded-xl bg-bege-dark">
@@ -156,7 +154,7 @@ type MissionTaskComponentProps = {
 };
 
 const MissionTaskComponent = ({ text, index }: MissionTaskComponentProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("about");
   let formattedNumber = index.toLocaleString("en-US", {
     minimumIntegerDigits: 2,
     useGrouping: false,

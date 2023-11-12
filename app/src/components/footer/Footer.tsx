@@ -7,9 +7,9 @@ import useTranslation from "next-translate/useTranslation";
 
 import { MenuSections } from "./config";
 import Button from "../utils/Button";
-import { BE_MEMBER_FORM_URL, DONATE_URL, HOME_URL } from "@/app/paths";
+import { BE_MEMBER_FORM_URL, DONATE_URL, HOME_URL } from "@/paths";
 import classNames from "classnames";
-import LanguageSwitcher from "../utils/Language";
+import LanguageSwitcher from "../utils/LanguageSwitcher";
 import { useRouter } from "next/navigation";
 
 const Footer = () => {
@@ -77,7 +77,7 @@ const Footer = () => {
 };
 
 const Menus = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("common");
   const router = useRouter();
 
   return (

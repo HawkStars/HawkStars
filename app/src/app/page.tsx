@@ -1,6 +1,6 @@
 import HomeComponent from "@/components/home/HomeComponent";
 import { Metadata } from "next";
-import { defaultMetadata } from "../metadata";
+import { defaultMetadata } from "./metadata";
 
 export const metadata = {
   title: "Hawk Stars - Home",

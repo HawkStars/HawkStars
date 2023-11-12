@@ -1,0 +1,15 @@
+{
+  "geral": "General Assembly",
+  "fiscal": "Fiscal Council",
+  "board": "Management",
+  "roles": {
+    "president": "President",
+    "vice_president": "Vice-President",
+    "vogal": "Board Member",
+    "f_secretary": "Secretary",
+    "m_secretary": "Secretary",
+    "substitute": "Deputy board member",
+    "treasurer": "Treasury Manager",
+    "rapporteur_secretary": "Reporting Secretary"
+  }
+}

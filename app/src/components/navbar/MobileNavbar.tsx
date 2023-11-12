@@ -12,8 +12,8 @@ import MobileMenuItem from "../menu/MobileMenuItem";
 import Button from "../utils/Button";
 import Socials from "../utils/Socials";
 import { NGODropdownOptions } from "./config";
-import LanguageSwitcher from "../utils/Language";
-import { BE_MEMBER_FORM_URL } from "@/app/paths";
+import LanguageSwitcher from "../utils/LanguageSwitcher";
+import { BE_MEMBER_FORM_URL } from "@/paths";
 
 const MobileNavbar = () => {
   const { t } = useTranslation();

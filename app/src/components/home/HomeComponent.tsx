@@ -5,12 +5,12 @@ import Button from "@/components/utils/Button";
 import useTranslation from "next-translate/useTranslation";
 
 import config from "./config.json";
-import { BE_MEMBER_FORM_URL, DONATE_URL } from "@/app/paths";
+import { BE_MEMBER_FORM_URL, DONATE_URL } from "@/paths";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const HomeComponent = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("common");
   const router = useRouter();
   return (
     <>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import useTranslation from "next-translate/useTranslation";
 import { SocialIcon, SocialType } from "@/models/social";
-import { CURRENT_PARTNERS, PartnersInfo } from "@/app/[locale]/partners/config";
+import { CURRENT_PARTNERS, PartnersInfo } from "@/app/partners/config";
 
 const PartnersComponent = () => {
   const { t } = useTranslation("partners");

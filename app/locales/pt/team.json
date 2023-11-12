@@ -1,0 +1,15 @@
+{
+  "geral": "Assembleia Geral",
+  "fiscal": "Conselho Fiscal",
+  "board": "Direção",
+  "roles": {
+    "president": "Presidente",
+    "vice_president": "Vice-Presidente",
+    "vogal": "Vogal",
+    "f_secretary": "Secretária",
+    "m_secretary": "Secretário",
+    "substitute": "Suplente",
+    "treasurer": "Tesoureiro",
+    "rapporteur_secretary": "Secretário Relator"
+  }
+}
