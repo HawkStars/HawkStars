@@ -5,5 +5,6 @@ module.exports = {
     "*": ["common"],
     "/about": ["about"],
     "/team": ["team"],
+    "/partners": ["partners"],
   },
 };

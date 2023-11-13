@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
@@ -28,7 +27,7 @@ const PartnersComponent = () => {
       </div>
       <section className="container-hawk">
         <div className="mt-10">
-          <h1 className="mb-5 text-center">{t("partners")}</h1>
+          <h1 className="mb-5 text-center">{t("national")}</h1>
           {nationalPartners.map((partner, index) => (
             <PartnerCard {...partner} key={index} />
           ))}
