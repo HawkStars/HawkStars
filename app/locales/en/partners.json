@@ -1,5 +1,7 @@
 {
   "national": "Partners",
   "internacional": "Internacional Cooperation",
-  "partners": {}
+  "partners": {
+    "aaa": ""
+  }
 }

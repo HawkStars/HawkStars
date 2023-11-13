@@ -29,6 +29,8 @@ const Test = () => {
                   src="/imgs/hero.png"
                   className="aspect-[1.2] object-contain object-center w-full overflow-hidden max-md:max-w-full max-md:mt-10"
                   alt="hero"
+                  width="400"
+                  height="400"
                 />
               </div>
             </div>

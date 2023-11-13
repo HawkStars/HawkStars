@@ -15,7 +15,7 @@ import { BE_MEMBER_FORM_URL, DONATE_URL } from "@/paths";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("common");
   const setMobileMenuOpen = useSetMobileNavbarOpen();
   const router = useRouter();
 

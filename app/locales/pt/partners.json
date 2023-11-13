@@ -1,5 +1,7 @@
 {
   "national": "Parceiros",
   "internacional": "Cooperação Internacional",
-  "partners": {}
+  "partners": {
+    "aaa": "Fundada em 1986, a Associação dos Amigos de Almeida (AAA) tem por fim o reforço dos laços entre os habitantes de Almeida e as comunidades Almeidenses existentes em Portugal e no estrangeiro, bem como a promoção cultural recreativa e desportiva, visando a divulgação, progresso, proteção e desenvolvimento de Almeida.\n Com vista a fazer cumprir estes objetivos, a atividade desta Associação tem estado centrada na elaboração e distribuição do jornal mensal Praça Alta. É através das suas páginas que a AAA procura não apenas informar e estimular o espírito crítico, mas, de igual forma, estreitar os laços entre todos os almeidenses, onde quer que eles estejam. É também nas suas páginas que são divulgadas as inúmeras atividades culturais e desportivas que a todo o momento ocorrem não apenas em Almeida, mas também nas restantes freguesias do seu concelho.\n Para além do jornal, ao longo dos anos a AAA tem contribuído diretamente para a dinamização cultural de Almeida através da realização de exposições, vídeos, concertos e palestras, bem como edições de livros e colocação de placas alusivas a personalidades nascidas em Almeida."
+  }
 }
