@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useSetMobileNavbarOpen } from "@/contexts/AppProvider";
-import { NavbarOption } from "@/models/navbar";
-import classNames from "classnames";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { PiCaretRightThin, PiCaretDownThin } from "react-icons/pi";
-import useTranslation from "next-translate/useTranslation";
+import { useSetMobileNavbarOpen } from '@/contexts/AppProvider';
+import { NavbarOption } from '@/models/navbar';
+import classNames from 'classnames';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { PiCaretRightThin, PiCaretDownThin } from 'react-icons/pi';
+import useTranslation from 'next-translate/useTranslation';
 
 type MenuItemProps = {
   title: string;
@@ -15,7 +15,7 @@ type MenuItemProps = {
 
 const MobileMenuItem = ({ title, options }: MenuItemProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   const router = useRouter();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
 
@@ -26,25 +26,25 @@ const MobileMenuItem = ({ title, options }: MenuItemProps) => {
   };
 
   return (
-    <div className="cursor-pointer px-1">
+    <div className='cursor-pointer px-1'>
       <div
-        className="mb-2 flex gap-3"
+        className='mb-2 flex gap-3'
         onClick={() => setShowOptions(!showOptions)}
       >
         <h6>{title}</h6>
 
         {options && options.length > 0 && (
-          <div className="my-auto">
+          <div className='my-auto'>
             {showOptions ? <PiCaretDownThin /> : <PiCaretRightThin />}
           </div>
         )}
       </div>
       {showOptions && (
-        <div className="flex flex-col gap-1">
+        <div className='flex flex-col gap-1'>
           {options.map((option, index) => (
             <div
               key={index}
-              className={classNames("text-neutral-400")}
+              className={classNames('text-neutral-400')}
               onClick={() => goToUrl(option.url)}
             >
               {t(option.label)}

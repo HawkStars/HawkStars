@@ -1,5 +1,5 @@
-import { NavbarOption } from "@/models/navbar";
-import Link from "next/link";
+import { NavbarOption } from '@/models/navbar';
+import Link from 'next/link';
 
 /* TODO CHANGE THIS */
 
@@ -11,11 +11,11 @@ interface DropdownProps {
 
 const Dropdown = ({ title, options, tabIndex }: DropdownProps) => {
   return (
-    <details className="dropdown">
+    <details className='dropdown'>
       <summary tabIndex={tabIndex}>{title}</summary>
       <ul
         tabIndex={tabIndex}
-        className="dropdown-content menu z-50 flex flex-col gap-2 p-2"
+        className='dropdown-content menu z-50 flex flex-col gap-2 p-2'
       >
         {options?.map((option, index) => (
           <li key={index}>

@@ -27,17 +27,17 @@
     "about": "Who are we",
     "team": "Team",
     "partners": "Partnerships",
-    "opportunities": "Opportunities",
-    "volunteering": "Volunteering",
     "events": "Events",
     "past_events": "Past Projects",
     "ativities": "Activities",
     "global_village": {
       "title": "The Global Village",
       "pinhel": "Pinhel",
-      "project": "The Project",
+      "project": "Presentation",
+      "arquitecture": "Arquitecture",
+      "objectives": "Objectives",
       "transparency": "Transparency",
-      "objectives": "Objectives"
+      "contribute": "Direct contribution"
     }
   },
   "common": {

@@ -22,114 +22,22 @@
       }
     }
   },
-  "globalVillagePage": {
-    "objetives": {
-      "title": "Objetivos e compromissos para Global Village e para as futuras valências do International Training Center",
-      "items": [
-        {
-          "title": "Desenvolvimento Local, Sustentabilidade e Turismo",
-          "points": [
-            "Promoção do desenvolvimento económico local com a atração de talento, inovação e investimento que fomente o posicionando da Cidade de Pinhel como um HUB de conhecimento e internacionalização, no interior do país;",
-            "Fomentar o desenvolvimento económico local, incentivando o comércio e a produção local, desde logo nos nossos eventos de donativos, envolvendo produtores locais;",
-            "Promoção da construção sustentável, desde logo, nas alterações urbanísticas promovidas pela Hawk Stars NGO, numa fase inicial - na Construção International do Training Center.",
-            "Promoção da sustentabilidade ambiental local através do incentivo e organização de atividades de educação para a promoção de práticas ecológicas, em parceria com associções locais que respeitem os mesmos fins;",
-            "Promoção da agricultura sustentável: colaborar com as comunidades e agricultores locais promovendo entre estes práticas agrícolas sustentáveis e bio-diversidade.",
-            "Impulsionar o turismo local através da promoção de Pinhel como um destino turístico cultural, através do desenvolvimento de estratégias que promovam a sua história e eventos institucionais, sobretudo para a compenente internacional e para estrangeiros."
-          ]
-        },
-        {
-          "title": "Educação-Não Formal, Formação, Inovação e Cooperação para o Desenvolvimento Social, e Participação cívica.",
-          "points": [
-            "Estabelecer centros de formação de inovação social para promover a educação contínua e o desenvolvimento de competências ao longo da vida, para migrantes, jovens, decisores políticos, professores, educadores e empresários.",
-            "Fomentar a criatividade e a criação local de outros projetos de inovação social através de programas de formação temáticos e workshops especializados facilitados por especialistas, em cada área de formação.",
-            "Fóruns e conferências internacionais, sendo a sede de fóruns temáticos que promovam o diálogo estruturado e o intercâmbio entre diferentes nações e organizações, com objetivos pela paz, direitos humanos, democracia e cooperação para o desenvolvimento.",
-            "Programas de Educação-Não Formal para jovens, técnicos de juventude, professores e educadores sociais nomeadamente através de Programas Europeus como o Programa Erasmus, o Europa Criativa, o Europa com os Cidadãos, entre outros.",
-            "Parcerias formais com a administração pública indireta do estado, nomeadamente com intitutos, fundações e empresas públicas, com o foco no desenvolvimento de programas de Cooperação para o Desenvolvimento com países europeus e da CPLP.",
-            "Manutenção e desenvolvimento de novas parcerias com ONGD's e Fundações Europeias, com Fundações e Institutos privados europeus, e com outros organismos internacionais que partilhem dos mesmos fins.",
-            "Promover e propor a criação de políticas públicas nas áreas da educação, da digitaliação e da utilização inteligente de recursos promovendo a criação de learning regions e smartcities.",
-            "Promover a criação, no longo prazo, de uma Escola com práticas educativas que estão afastadas dos modelos tradicionais de educação, nomeadamente segundo uma lógica de projeto com base na responsabilidade, liberdade, solidariedade e democraticidade, principalmente para crianças em ensino doméstico ou com necessidade de aprendizem diferentes. Esta Escola terá o modelo das escolas democráticas, com pedagogias alternativas como o método Montessori.",
-            "Encorajar a participação ativa dos cidadãos nas iniciativas da ONG, nas atividades de outras instituições e nas decisões políticas."
-          ]
-        },
-        {
-          "title": "Inclusão e Coesão Social",
-          "points": [
-            "Facilitar a integração de refugiados e migrantes através de programas inclusivos de formação e acolhimento, assim como acompanhamento do acolhimento, em caso concretos e em parcerias com as entidades públicas e outras instituições particulares de solidariedade social.",
-            "Fomentar a parceria com as instituições dirigentes da migração e asilo em território nacional.",
-            "Promover a igualdade de género e a inclusão social de grupos desfavorecidos ou marginalizados. Promoção da igualdade e equidade nomeadamente na igualdade de oportunidades.",
-            " Educação para os direitos humanos e cidadania, através de parcerias com as instituições de ensino superiores, programas de formação próprios e atividades de coordenação partilhada entre os diversos parceiros.",
-            "Programas para a terceira idade e atividades intergeracionais com desenvolvimento programas específicos que promovam a inclusão e bem-estar dos idosos e o contacto permanente com as gerações vindouras.",
-            "Criar programas de formação e atividades que se foquem no bem-estar físico e mental da comunidade operacional da ONG e dos seus serviços sociais, através de conteúdos educacionais acompanhados por serviços profissionais de psicologia transversal a todo o tipo de atividades."
-          ]
-        },
-        {
-          "title": "Cultura e Artes",
-          "points": [
-            "Apoiar artistas e músicos locais, cedendo e criando condições de espaço e oportunidade para apresentação e desenvolvimento do seu trabalho, nomeadamente através dos espaços de exposição assim destinados no Training Center e através da Construção do Estúdio de Gravação no mesmo edificio.",
-            "Lançamento público de uma Galeria de Arte “Social” coordenada por Curadoria profissional e de reconhecimento público, que promova os artistas que nela venderem e exposerem e, a consciencialização para a arte.  O produto financeiro devido à Hawk Stars diretamente destinado à construção do nosso Training Center, e numa fase posterior destinado ao financiamento de outros projetos sociais.",
-            "Fomentar a apreciação e o envolvimento da população com a cultura e arte através de eventos culturais diferenciados, exposições e a criação de residências artíticas nas diversas áreas de atuação da Hawk Stars.",
-            "Organização de eventos multiculturais que celebrem a diversidade cultural, incentivando à participação de diversas comunidades, sobretudo com objetivo de abrir mentes na população local, demonstrando a riqueza que se cria na diversidade cultural, na solidariedade e respeito."
-          ]
-        },
-        {
-          "title": "Empreendedorismo e Negócios",
-          "points": [
-            "Apoiar startups locais através de espaços e serviços de apoios diferenciados, nomeadamente nos espaços Co-working que serão criados após a construção do nosso International Training Center da Hawk Stars.",
-            "Fomentar o empreendedorismo social e o desenvolvimento desses projetos da fase inicial até à sua implementação.",
-            "Estimular a cooperação e parceria entre empresas locais e internacionais, nomedamente em termos de inovação social.",
-            "Organizar eventos e plataformas que fortalençam as redes de contatos e de cooperação entre empresas locais e nacionais, através de serviços de networking e de representações empresariais (v.g BNI, FAE,CIP).",
-            "Gestão eficaz e diferenciada da Hawk Stars, nomeadamente entre as atividades sociais e as que sejam puramente empresariais, sem a relação a social, sendo o empreendedorismo social o nosso core de trabalho enquanto ONG, nomeadamente através da divulgação de relatórios e contas de forma transparente nos nossos sites.",
-            "Promovação de incubadoras de startup's, com a criação da START UP GUARDA, onde será feito um trabalho de coordenação de negócios, reuniões e oportunidades para empresas.",
-            "Se, se revelar sucesso em grande parte dos objetivos desta área pretendemos criar um concurso de ideias de negócios, com prémios e reconhecimento profissional."
-          ]
-        },
-        {
-          "title": "Tecnologia e Entretenimento Digital",
-          "points": [
-            "Promover a indústria do gaming e do entretenimento digital através de infraestruturas modernas, polivalentes e preparadas para torneios presenciais ou training das equipas próprias e de outras do panorama nacional e internacional, nomeadamente através da gaming hub que será construída no training center.",
-            "O gaming hub será também um estúdio de gravação profissional, podendo ser utilizada como estúdio de vídeo, para os diferentes possíveis e para streammers.",
-            "Promover o desenvolvimento de skills digitais e tecnológicas através formação complementar e da criação de uma academia de talento, ligada ao gaming e à robótica, mas também ao desenvolvimento de outros projetos digitais.",
-            "Organização de eventos (workshops, conferências e seminários) que promovam a disseminação de novas tecnologias e as práticas inovadoras do mundo digital.",
-            "Programas de alfabetização digital através de programas educacionais que promovam um correto uso das ferramentas digitais, nomeadamente educação sobre como utilizar diariamente de forma inteligente e cuidada as ferramentas de IA. Work smart not hard."
-          ]
-        },
-        {
-          "title": "Relações Transfronteiriças e Internacionais",
-          "points": [
-            "Desenvolver parcerias internacionais e a troca de skills, cooperações para o desenvolvimento de projetos especificos do global para o local.",
-            "Trabalhar na colaboração internacional através de projetos e programas conjuntos, por exemplo através programas financiados internacionalmente por insituições várias.",
-            "Organizar fóruns e conferências internacionais que promovam o diálogo e a cooperação transfronteiriça, entre diferentes organizações e empresas sociais, nomeadamente entre organizações Portuguesas e Esponholas."
-          ]
-        },
-        {
-          "title": "Objetivos Financeiros Não Lucrativos",
-          "points": [
-            "Angariar em donativos, e através de parcerias financeiras com empresas, contribuidores e donativos sociais, institutos públicos ou fundos europeus, no médio prazo, a quantia de 1.300.000,00€. Valor que servirá exclusivamente para a construção e recontrução de um edifício devoluto na zona histórica de Pinhel para funcionamento da sede da Hawk Stars ONG para a Educação, Inovação e Desenvolvimento Social, onde funcionarão todas as valências da organização sob a forma de um International Training Center, que incluirá salas e auditório de formação, espaços lounge e de co-working, gaming hub (tecnologic room)",
-            "A Hawk Stars ONG para a Educação, Inovação e Desenvolvimento Social compromete-se com todas as entidade e doadores a ser transparente divulgado publicamente o valores doados e investidos, parcerias financeiras, e fundos aprovados, através do Menu Transparência.",
-            "As formas de doação serão várias: Loja Online de Produtos Endógenos; Loja Online de Velharias; Loja Online de Artesanato e Arte Decorativa; Loja Online de Merchandising; Loja Online e de Exposição para a Galeria de Arte; Contribuição Direta: de privados (individuais e coletivos) sob valores específicos, explicados no Menu Transparência com reconhecimento benemérito dos seus nomes em paredes destinadas para o efeito, e em cadeiras várias, no/do International Training Center.",
-            "Negociar com Empresas no âmbito da sua Responsabilidade Social, nomeadamente através de parcerias financeiras na base do Naming para as Salas e Espaços de funcionamento do International Training Center.",
-            "Trabalhar de forma permanente na procura de fundos públicos e dos recursos humanos certos para cada tipo de valência/projeto, nomeadamente para a construção ou para a capacitação de projeto."
-          ]
-        }
-      ]
-    }
-  },
   "navbar": {
     "ngo": "ONG",
     "about": "Quem Somos",
     "team": "Equipa",
     "partners": "Parceiros",
-    "opportunities": "Oportunidades",
-    "volunteering": "Voluntariado",
     "events": "Eventos",
     "past_events": "Projectos Decorridos",
     "ativities": "Atividades",
     "global_village": {
       "title": "The Global Village",
       "pinhel": "Pinhel",
-      "project": "O Projecto",
+      "project": "Apresentação",
+      "arquitecture": "Arquitectura",
+      "objectives": "Objectivos",
       "transparency": "Transparência",
-      "objectives": "Objectivos"
+      "contribute": "Contribuição direta"
     }
   },
   "common": {
