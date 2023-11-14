@@ -1,4 +1,4 @@
-import sync from "i18next-json-sync";
+import sync from 'i18next-json-sync';
 //or in ES5 world:
 //const sync = require('i18next-json-sync').default;
 
@@ -8,17 +8,17 @@ sync({
    * throw an error if any changes would be made */
   check: false,
   /** Glob pattern for the resource JSON files */
-  files: "**/locales/*.json",
+  files: '**/locales/*.json',
   /** An array of glob patterns to exclude from the files search */
-  excludeFiles: ["**/node_modules/**"],
+  excludeFiles: ['**/node_modules/**'],
   /** Primary localization language. Other language files will be changed to match */
-  primary: "en",
+  primary: 'en',
   /** Language files to create if they don't exist, e.g. ['es, 'pt-BR', 'fr'] */
   createResources: [],
   /** Space value used for JSON.stringify when writing JSON files to disk */
   space: 4,
   /** Line endings used when writing JSON files to disk. Either LF or CRLF */
-  lineEndings: "LF",
+  lineEndings: 'LF',
   /** Insert a final newline when writing JSON files to disk */
   finalNewline: false,
   /** Use empty string for new keys instead of the primary language value */

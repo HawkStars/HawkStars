@@ -1,7 +1,7 @@
 'use client';
 import Avatar from '../utils/Avatar';
 import { BsLinkedin } from 'react-icons/bs';
-import useTranslation from 'next-translate/useTranslation';
+
 import Link from 'next/link';
 
 type TeamCardProps = {

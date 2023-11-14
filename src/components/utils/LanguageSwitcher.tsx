@@ -5,22 +5,32 @@ import { useState } from 'react';
 import { PiCaretDownThin } from 'react-icons/pi';
 import classNames from 'classnames';
 import { usePathname } from 'next/navigation';
-import useTranslation from 'next-translate/useTranslation';
+
 import Link from 'next/link';
+import { transformUrl } from '@/paths';
+import i18next from 'i18next';
 
 type LanguageSwitcherProps = {
   closeMobileTabHandler?: () => void;
+  lng: string;
 };
 
-const LanguageSwitcher = ({ closeMobileTabHandler }: LanguageSwitcherProps) => {
+const LanguageSwitcher = ({
+  closeMobileTabHandler,
+  lng,
+}: LanguageSwitcherProps) => {
   const [showLanguageOptions, setShowLanguageOptions] =
     useState<boolean>(false);
   const pathname = usePathname();
-  const { lang } = useTranslation();
 
   const closeMobileTab = () => {
     closeMobileTabHandler && closeMobileTabHandler();
     setShowLanguageOptions(false);
+  };
+
+  const changeLanguage = (lng: string) => {
+    i18next.changeLanguage(lng);
+    closeMobileTab();
   };
 
   return (
@@ -31,7 +41,7 @@ const LanguageSwitcher = ({ closeMobileTabHandler }: LanguageSwitcherProps) => {
           setShowLanguageOptions((currentStatus) => !currentStatus)
         }
       >
-        {lang === 'pt' ? (
+        {lng === 'pt' ? (
           <>
             <div className='flex h-4 w-6'>
               <PT title='PT' />
@@ -50,41 +60,39 @@ const LanguageSwitcher = ({ closeMobileTabHandler }: LanguageSwitcherProps) => {
       </div>
       {showLanguageOptions && (
         <div className='z-100 absolute mt-2 flex w-fit cursor-pointer flex-col gap-2 bg-white py-1 pl-3 pr-5'>
-          {lang !== 'en' && (
-            <Link
+          {lng !== 'en' && (
+            <div
               className='flew-row flex gap-2'
-              href={`${pathname}/?lang=en`}
-              onClick={() => closeMobileTab()}
+              onClick={() => changeLanguage('en')}
             >
               <div className='flex h-4 w-6 cursor-pointer'>
                 <GB title='EN' />
               </div>
               <label
                 className={classNames('my-auto text-xs', {
-                  'text-bege-light': lang == 'en',
+                  'text-bege-light': lng == 'en',
                 })}
               >
                 EN
               </label>
-            </Link>
+            </div>
           )}
-          {lang !== 'pt' && (
-            <Link
-              href={`${pathname}/?lang=pt`}
+          {lng !== 'pt' && (
+            <div
               className='flew-row flex gap-2'
-              onClick={() => closeMobileTab()}
+              onClick={() => changeLanguage('pt')}
             >
               <div className='flex h-4 w-6 cursor-pointer'>
                 <PT title='PT' />
               </div>
               <label
                 className={classNames('my-auto text-xs', {
-                  'text-bege-dark': lang == 'pt',
+                  'text-bege-dark': lng == 'pt',
                 })}
               >
                 PT
               </label>
-            </Link>
+            </div>
           )}
         </div>
       )}

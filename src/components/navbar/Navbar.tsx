@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import useTranslation from 'next-translate/useTranslation';
+
 import { RxHamburgerMenu } from 'react-icons/rx';
 
 import MenuItem from '../menu/MenuItem';
@@ -13,9 +13,10 @@ import { MenuSections } from '../footer/config';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { BE_MEMBER_FORM_URL, DONATE_URL } from '@/paths';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from '@/app/i18n/client';
 
-const Navbar = () => {
-  const { t } = useTranslation('common');
+const Navbar = ({ lng }: { lng: string }) => {
+  const { t } = useTranslation(lng, 'common');
   const setMobileMenuOpen = useSetMobileNavbarOpen();
   const router = useRouter();
 
@@ -44,7 +45,12 @@ const Navbar = () => {
                   const { title, options } = section;
                   return (
                     <li className='my-auto' key={index}>
-                      <MenuItem title={title} options={options} />
+                      <MenuItem
+                        t={t}
+                        title={title}
+                        options={options}
+                        lng={lng}
+                      />
                     </li>
                   );
                 })}
@@ -70,7 +76,7 @@ const Navbar = () => {
                 </li>
               </ul>
               <div className='my-auto'>
-                <LanguageSwitcher />
+                <LanguageSwitcher lng={lng} />
               </div>
             </div>
           </div>

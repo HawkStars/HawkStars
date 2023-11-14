@@ -1,9 +1,10 @@
-import HomeComponent from "@/components/home/HomeComponent";
-import { Metadata } from "next";
-import { defaultMetadata } from "./metadata";
+import HomeComponent from '@/components/home/HomeComponent';
+import { Metadata } from 'next';
+import { defaultMetadata } from '../metadata';
+import { useTranslation } from '../i18n';
 
 export const metadata = {
-  title: "Hawk Stars - Home",
+  title: 'Hawk Stars - Home',
   description: `Grupo intergeracional cujo os seus membros são interessados no
     desenvolvimento social e humano tendo por base um trabalho na área
     da educação com a inovação a que os novos tempos obrigam, aberta a
@@ -17,6 +18,11 @@ type HomeProps = {
   };
 };
 
-export default function Home({ params: { lng } }: HomeProps) {
-  return <HomeComponent />;
+export default async function Home({
+  params: { lng },
+}: {
+  params: { lng: string };
+}) {
+  const { t } = await useTranslation(lng);
+  return <HomeComponent t={t} />;
 }

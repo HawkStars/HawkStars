@@ -7,16 +7,17 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { RxCross1 } from 'react-icons/rx';
-import useTranslation from 'next-translate/useTranslation';
+
 import MobileMenuItem from '../menu/MobileMenuItem';
 import Button from '../utils/Button';
 import Socials from '../utils/Socials';
 import { NGODropdownOptions } from './config';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { BE_MEMBER_FORM_URL } from '@/paths';
+import { useTranslation } from '@/app/i18n/client';
 
-const MobileNavbar = () => {
-  const { t } = useTranslation('common');
+const MobileNavbar = ({ lng }: { lng: string }) => {
+  // const { t } = useTranslation(lng, 'common');
   const { mobileNavbarOpen } = useMainAppContext();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
 
@@ -37,30 +38,31 @@ const MobileNavbar = () => {
             </div>
           </div>
           <div className='-ml-3'>
-            <LanguageSwitcher />
+            <LanguageSwitcher lng={lng} />
           </div>
           <div>
             <Socials />
           </div>
           <div className='mt-5 flex flex-col gap-3'>
-            <MobileMenuItem
-              title={t('navbar.ngo')}
+            {/* <MobileMenuItem
+              lng={lng}
+              t={t}
+              title={'navbar.ngo'}
               options={NGODropdownOptions}
-            />
+            /> */}
           </div>
-          <div>
-            <div className='flex flex-col'>
-              <Link
-                href={BE_MEMBER_FORM_URL}
-                target='_blank'
-                className='mb-2 cursor-pointer text-lg font-black'
-              >
-                {t('common.be_member')}
-              </Link>
-              <Button type={'button'} variant='success' size='fit'>
-                {t('common.donate')}
-              </Button>
-            </div>
+
+          <div className='flex flex-col'>
+            <Link
+              href={BE_MEMBER_FORM_URL}
+              target='_blank'
+              className='mb-2 cursor-pointer text-lg font-black'
+            >
+              {/* {t('common.be_member')} */}
+            </Link>
+            <Button type={'button'} variant='success' size='fit'>
+              {/* {t('common.donate')} */}
+            </Button>
           </div>
         </div>
       )}

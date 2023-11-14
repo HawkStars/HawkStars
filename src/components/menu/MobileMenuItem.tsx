@@ -2,27 +2,29 @@
 
 import { useSetMobileNavbarOpen } from '@/contexts/AppProvider';
 import { NavbarOption } from '@/models/navbar';
+import { transformUrl } from '@/paths';
 import classNames from 'classnames';
+import { TFunction } from 'i18next';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { PiCaretRightThin, PiCaretDownThin } from 'react-icons/pi';
-import useTranslation from 'next-translate/useTranslation';
 
 type MenuItemProps = {
   title: string;
   options: NavbarOption[];
+  lng: string;
+  t: TFunction;
 };
 
-const MobileMenuItem = ({ title, options }: MenuItemProps) => {
+const MobileMenuItem = ({ title, options, lng, t }: MenuItemProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
-  const { t } = useTranslation('common');
   const router = useRouter();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
 
   const goToUrl = (url?: string) => {
     if (!url) return;
     setMobileMenuOpen(false);
-    router.push(url);
+    router.push(transformUrl(lng, url));
   };
 
   return (
@@ -31,7 +33,7 @@ const MobileMenuItem = ({ title, options }: MenuItemProps) => {
         className='mb-2 flex gap-3'
         onClick={() => setShowOptions(!showOptions)}
       >
-        <h6>{title}</h6>
+        <h6>{t(title)}</h6>
 
         {options && options.length > 0 && (
           <div className='my-auto'>

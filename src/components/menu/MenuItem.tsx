@@ -4,23 +4,26 @@ import { NavbarOption } from '@/models/navbar';
 import { Menu } from '@headlessui/react';
 import classNames from 'classnames';
 import { useRouter } from 'next/navigation';
-import useTranslation from 'next-translate/useTranslation';
+
 import { PiCaretDownThin, PiCaretRightThin } from 'react-icons/pi';
 import { useState } from 'react';
+import { TFunction } from 'i18next';
+import { transformUrl } from '@/paths';
 
 type MenuItemProps = {
   title: string;
   options: NavbarOption[];
+  t: TFunction;
+  lng: string;
 };
 
-const MenuItem = ({ title, options }: MenuItemProps) => {
-  const { t } = useTranslation('common');
+const MenuItem = ({ t, title, options, lng }: MenuItemProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const router = useRouter();
 
   const goToUrl = (url?: string) => {
     if (!url) return;
-    router.push(url);
+    router.push(transformUrl(lng, url));
   };
 
   return (

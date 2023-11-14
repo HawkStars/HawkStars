@@ -1,5 +1,7 @@
 import {
   ABOUT_US_URL,
+  GLOBAL_VILLAGE_ARQUITECTURE,
+  GLOBAL_VILLAGE_OBJECTIVES,
   GLOBAL_VILLAGE_URL,
   PARTNERS_URL,
   TEAM_URL,
@@ -19,8 +21,11 @@ const AtivitiesDropdownOptions = [
 
 const GlobalVillageOptions = [
   { label: 'navbar.global_village.project', url: GLOBAL_VILLAGE_URL },
-  { label: 'navbar.global_village.objectives', url: GLOBAL_VILLAGE_URL },
-  { label: 'navbar.global_village.arquitecture', url: GLOBAL_VILLAGE_URL },
+  { label: 'navbar.global_village.objectives', url: GLOBAL_VILLAGE_OBJECTIVES },
+  {
+    label: 'navbar.global_village.arquitecture',
+    url: GLOBAL_VILLAGE_ARQUITECTURE,
+  },
   { label: 'navbar.global_village.contribute', url: GLOBAL_VILLAGE_URL },
   { label: 'navbar.global_village.transparency', disabled: true },
   { label: 'navbar.global_village.pinhel', disabled: true },

@@ -1,74 +1,79 @@
-"use client";
-import React from "react";
-import Socials from "../utils/Socials";
-import Image from "next/image";
-import Link from "next/link";
-import useTranslation from "next-translate/useTranslation";
+'use client';
+import React, { Suspense } from 'react';
+import Socials from '../utils/Socials';
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { MenuSections } from "./config";
-import Button from "../utils/Button";
-import { BE_MEMBER_FORM_URL, DONATE_URL, HOME_URL } from "@/paths";
-import classNames from "classnames";
-import LanguageSwitcher from "../utils/LanguageSwitcher";
-import { useRouter } from "next/navigation";
+import { MenuSections } from './config';
+import Button from '../utils/Button';
+import {
+  BE_MEMBER_FORM_URL,
+  DONATE_URL,
+  HOME_URL,
+  transformUrl,
+} from '@/paths';
+import classNames from 'classnames';
+import LanguageSwitcher from '../utils/LanguageSwitcher';
+import { useRouter } from 'next/navigation';
+import { useTranslation } from '@/app/i18n/client';
 
-const Footer = () => {
+const Footer = ({ lng }: { lng: string }) => {
   return (
     <footer>
-      <div className="mt-4 block px-5 lg:hidden">
-        <div className="flex flex-col gap-5">
+      <div className='mt-4 block px-5 lg:hidden'>
+        <div className='flex flex-col gap-5'>
           <Image
-            src="/logo.png"
-            alt="hawkstars"
-            height="200"
-            width="200"
+            src='/logo.png'
+            alt='hawkstars'
+            height='200'
+            width='200'
           ></Image>
-          <div className="-ml-3">
-            <LanguageSwitcher />
+          <div className='-ml-3'>
+            <LanguageSwitcher lng={lng} />
           </div>
           <div>
             <Socials />
           </div>
         </div>
-        <div className="mt-10 grid grid-cols-2 gap-10">
-          <Menus />
+        <div className='mt-10 grid grid-cols-2 gap-10'>
+          <Menus lng={lng} />
         </div>
       </div>
-      <div className="hidden grid-cols-1 gap-1 px-12 py-4 lg:grid lg:grid-cols-5 lg:gap-7 lg:pt-20">
-        <div className="my-auto lg:mx-auto">
+      <div className='hidden grid-cols-1 gap-1 px-12 py-4 lg:grid lg:grid-cols-5 lg:gap-7 lg:pt-20'>
+        <div className='my-auto lg:mx-auto'>
           <Image
-            src="/logo.png"
-            alt="hawkstars"
-            height="200"
-            width="200"
+            src='/logo.png'
+            alt='hawkstars'
+            height='200'
+            width='200'
           ></Image>
         </div>
-        <Menus />
+        <Menus lng={lng} />
       </div>
-      <div className="mt-10 flex flex-col px-5 pb-10 lg:mt-0 lg:flex-row lg:gap-1 lg:border-t lg:px-10 lg:pt-1">
-        <p className="text-sm">
-          Designed by{" "}
+      <div className='mt-10 flex flex-col px-5 pb-10 lg:mt-0 lg:flex-row lg:gap-1 lg:border-t lg:px-10 lg:pt-1'>
+        <p className='text-sm'>
+          Designed by{' '}
           <Link
-            href={"http://rodrigorossellini.com/"}
-            className="underline"
-            target="_blank"
+            href={'http://rodrigorossellini.com/'}
+            className='underline'
+            target='_blank'
           >
             @Rodrigo Rosselini
           </Link>
           .
         </p>
-        <p className="text-sm">
-          {" "}
-          Built by{" "}
+        <p className='text-sm'>
+          {' '}
+          Built by{' '}
           <Link
-            href={"https://www.linkedin.com/in/pcardosolei/"}
-            className="underline"
-            target="_blank"
+            href={'https://www.linkedin.com/in/pcardosolei/'}
+            className='underline'
+            target='_blank'
           >
             @Paulo Cardoso
           </Link>
         </p>
-        <div className="ml-auto hidden lg:block">
+        <div className='ml-auto hidden lg:block'>
           <Socials />
         </div>
       </div>
@@ -76,8 +81,8 @@ const Footer = () => {
   );
 };
 
-const Menus = () => {
-  const { t } = useTranslation("common");
+const Menus = ({ lng }: { lng: string }) => {
+  const { t } = useTranslation(lng, 'common');
   const router = useRouter();
 
   return (
@@ -87,17 +92,17 @@ const Menus = () => {
         return (
           <div
             key={index}
-            className="text-terciary-100 ml-0 text-left lg:text-left"
+            className='text-terciary-100 ml-0 text-left lg:text-left'
           >
-            <h3 className="mb-1 text-base font-semibold lg:mb-3 lg:text-lg lg:font-bold">
+            <h3 className='mb-1 text-base font-semibold lg:mb-3 lg:text-lg lg:font-bold'>
               {t(title)}
             </h3>
             {options.map((option, index) => (
-              <div className="py-1" key={index}>
+              <div className='py-1' key={index}>
                 <Link
-                  href={option.url || HOME_URL}
+                  href={transformUrl(lng, option.url || HOME_URL)}
                   className={classNames({
-                    "text-disabled": option.disabled,
+                    'text-disabled': option.disabled,
                   })}
                 >
                   {t(option.label)}
@@ -107,22 +112,23 @@ const Menus = () => {
           </div>
         );
       })}
-      <div className="flex flex-col">
+
+      <div className='flex flex-col'>
         <Link
           href={BE_MEMBER_FORM_URL}
-          target="_blank"
-          className="mb-2 text-lg font-black"
+          target='_blank'
+          className='mb-2 text-lg font-black'
         >
-          {t("common.be_member")}
+          {t('common.be_member')}
         </Link>
         <Button
-          type={"button"}
-          variant="success"
+          type={'button'}
+          variant='success'
           onClick={() => {
             router.push(DONATE_URL);
           }}
         >
-          {t("common.donate")}
+          {t('common.donate')}
         </Button>
       </div>
     </>
