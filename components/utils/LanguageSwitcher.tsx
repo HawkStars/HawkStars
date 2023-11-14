@@ -23,13 +23,6 @@ const LanguageSwitcher = ({ closeMobileTabHandler }: LanguageSwitcherProps) => {
   const [showLanguageOptions, setShowLanguageOptions] =
     useState<boolean>(false);
   const { lng } = useMainAppContext();
-  const setAppLanguage = useSetLanguageOnApp();
-
-  const closeMobileTab = (lng: string) => {
-    closeMobileTabHandler && closeMobileTabHandler();
-    setAppLanguage(lng);
-    setShowLanguageOptions(false);
-  };
 
   return (
     <>
@@ -59,11 +52,7 @@ const LanguageSwitcher = ({ closeMobileTabHandler }: LanguageSwitcherProps) => {
       {showLanguageOptions && (
         <div className='z-100 absolute mt-2 flex w-fit cursor-pointer flex-col gap-2 bg-white py-1 pl-3 pr-5'>
           {lng !== 'en' && (
-            <Link
-              className='flew-row flex gap-2'
-              href='/en'
-              onClick={() => closeMobileTab('en')}
-            >
+            <Link className='flew-row flex gap-2' href='/en'>
               <div className='flex h-4 w-6 cursor-pointer'>
                 <GB title='EN' />
               </div>
@@ -77,11 +66,7 @@ const LanguageSwitcher = ({ closeMobileTabHandler }: LanguageSwitcherProps) => {
             </Link>
           )}
           {lng !== 'pt' && (
-            <Link
-              className='flew-row flex gap-2'
-              href='/pt'
-              onClick={() => closeMobileTab('pt')}
-            >
+            <Link className='flew-row flex gap-2' href='/pt'>
               <div className='flex h-4 w-6 cursor-pointer'>
                 <PT title='PT' />
               </div>

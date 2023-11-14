@@ -1,14 +1,14 @@
 import '@/app/globals.css';
 import { Inter } from 'next/font/google';
 
-import Navbar from '../components/navbar/Navbar';
-import Footer from '../components/footer/Footer';
-import AppProvider from '../contexts/AppProvider';
-import MobileNavbar from '../components/navbar/MobileNavbar';
+import Navbar from '../../components/navbar/Navbar';
+import Footer from '../../components/footer/Footer';
+import AppProvider from '../../contexts/AppProvider';
+import MobileNavbar from '../../components/navbar/MobileNavbar';
 
 const inter = Inter({ subsets: ['latin'] });
 
-import { fallbackLng, languages } from '../i18n/settings';
+import { fallbackLng, languages } from '../../i18n/settings';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
