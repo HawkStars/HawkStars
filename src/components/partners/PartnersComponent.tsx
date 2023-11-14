@@ -4,9 +4,11 @@ import ReactMarkdown from 'react-markdown';
 
 import { SocialIcon, SocialType } from '@/models/social';
 import { CURRENT_PARTNERS, PartnersInfo } from '@/app/[lng]/partners/config';
+import { useTranslation } from '@/i18n';
+import i18next from 'i18next';
 
-const PartnersComponent = () => {
-  const { t } = useTranslation('partners');
+const PartnersComponent = async () => {
+  const { t } = await useTranslation(i18next.language, 'partners');
   const nationalPartners = CURRENT_PARTNERS.filter(
     (partner) => partner.type == 'national'
   );

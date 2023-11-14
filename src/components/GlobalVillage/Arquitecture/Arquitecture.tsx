@@ -1,4 +1,4 @@
-import { useTranslation } from '@/app/i18n';
+import { useTranslation } from '@/i18n';
 import Image from 'next/image';
 
 const GlobalVillageArquitecture = () => {

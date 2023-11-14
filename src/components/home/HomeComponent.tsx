@@ -1,5 +1,4 @@
 'use client';
-
 import Image from 'next/image';
 import Button from '@/components/utils/Button';
 
@@ -7,9 +6,10 @@ import config from './config.json';
 import { BE_MEMBER_FORM_URL, DONATE_URL } from '@/paths';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { TFunction } from 'i18next';
+import { useTranslation } from '@/i18n/client';
 
-const HomeComponent = ({ t }: { t: TFunction }) => {
+const HomeComponent = ({ lng }: { lng: string }) => {
+  const { t } = useTranslation(lng, 'common');
   const router = useRouter();
   return (
     <>

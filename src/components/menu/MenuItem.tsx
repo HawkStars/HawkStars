@@ -9,21 +9,22 @@ import { PiCaretDownThin, PiCaretRightThin } from 'react-icons/pi';
 import { useState } from 'react';
 import { TFunction } from 'i18next';
 import { transformUrl } from '@/paths';
+import { useMainAppContext } from '@/contexts/AppProvider';
 
 type MenuItemProps = {
   title: string;
   options: NavbarOption[];
   t: TFunction;
-  lng: string;
 };
 
-const MenuItem = ({ t, title, options, lng }: MenuItemProps) => {
+const MenuItem = ({ t, title, options }: MenuItemProps) => {
+  const { lng } = useMainAppContext();
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const router = useRouter();
 
   const goToUrl = (url?: string) => {
     if (!url) return;
-    router.push(transformUrl(lng, url));
+    router.push(transformUrl(lng, url)); // TODO: change this
   };
 
   return (

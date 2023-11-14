@@ -15,9 +15,11 @@ import {
 import classNames from 'classnames';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { useRouter } from 'next/navigation';
-import { useTranslation } from '@/app/i18n/client';
+import { useTranslation } from '@/i18n/client';
+import { useMainAppContext } from '@/contexts/AppProvider';
 
-const Footer = ({ lng }: { lng: string }) => {
+const Footer = () => {
+  const { lng } = useMainAppContext();
   return (
     <footer>
       <div className='mt-4 block px-5 lg:hidden'>
@@ -29,7 +31,7 @@ const Footer = ({ lng }: { lng: string }) => {
             width='200'
           ></Image>
           <div className='-ml-3'>
-            <LanguageSwitcher lng={lng} />
+            <LanguageSwitcher />
           </div>
           <div>
             <Socials />

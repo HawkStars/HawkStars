@@ -7,18 +7,23 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 
 import MenuItem from '../menu/MenuItem';
 
-import { useSetMobileNavbarOpen } from '@/contexts/AppProvider';
+import {
+  useMainAppContext,
+  useSetLanguageOnApp,
+  useSetMobileNavbarOpen,
+} from '@/contexts/AppProvider';
 import Button from '../utils/Button';
 import { MenuSections } from '../footer/config';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { BE_MEMBER_FORM_URL, DONATE_URL } from '@/paths';
 import { useRouter } from 'next/navigation';
-import { useTranslation } from '@/app/i18n/client';
+import { useTranslation } from '@/i18n/client';
 
-const Navbar = ({ lng }: { lng: string }) => {
+const Navbar = () => {
+  const { lng } = useMainAppContext();
   const { t } = useTranslation(lng, 'common');
-  const setMobileMenuOpen = useSetMobileNavbarOpen();
   const router = useRouter();
+  const setMobileMenuOpen = useSetMobileNavbarOpen();
 
   return (
     <>
@@ -45,12 +50,7 @@ const Navbar = ({ lng }: { lng: string }) => {
                   const { title, options } = section;
                   return (
                     <li className='my-auto' key={index}>
-                      <MenuItem
-                        t={t}
-                        title={title}
-                        options={options}
-                        lng={lng}
-                      />
+                      <MenuItem t={t} title={title} options={options} />
                     </li>
                   );
                 })}
@@ -76,7 +76,7 @@ const Navbar = ({ lng }: { lng: string }) => {
                 </li>
               </ul>
               <div className='my-auto'>
-                <LanguageSwitcher lng={lng} />
+                <LanguageSwitcher />
               </div>
             </div>
           </div>

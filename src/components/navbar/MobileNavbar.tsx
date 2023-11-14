@@ -8,17 +8,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { RxCross1 } from 'react-icons/rx';
 
-import MobileMenuItem from '../menu/MobileMenuItem';
 import Button from '../utils/Button';
 import Socials from '../utils/Socials';
-import { NGODropdownOptions } from './config';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { BE_MEMBER_FORM_URL } from '@/paths';
-import { useTranslation } from '@/app/i18n/client';
+import { useTranslation } from '@/i18n/client';
+import MobileMenuItem from '../menu/MobileMenuItem';
+import { NGODropdownOptions } from './config';
 
-const MobileNavbar = ({ lng }: { lng: string }) => {
-  // const { t } = useTranslation(lng, 'common');
-  const { mobileNavbarOpen } = useMainAppContext();
+const MobileNavbar = () => {
+  const { lng, mobileNavbarOpen } = useMainAppContext();
+  const { t } = useTranslation(lng, 'common');
   const setMobileMenuOpen = useSetMobileNavbarOpen();
 
   return (
@@ -38,18 +38,13 @@ const MobileNavbar = ({ lng }: { lng: string }) => {
             </div>
           </div>
           <div className='-ml-3'>
-            <LanguageSwitcher lng={lng} />
+            <LanguageSwitcher />
           </div>
           <div>
             <Socials />
           </div>
           <div className='mt-5 flex flex-col gap-3'>
-            {/* <MobileMenuItem
-              lng={lng}
-              t={t}
-              title={'navbar.ngo'}
-              options={NGODropdownOptions}
-            /> */}
+            <MobileMenuItem title={'navbar.ngo'} options={NGODropdownOptions} />
           </div>
 
           <div className='flex flex-col'>
@@ -58,10 +53,10 @@ const MobileNavbar = ({ lng }: { lng: string }) => {
               target='_blank'
               className='mb-2 cursor-pointer text-lg font-black'
             >
-              {/* {t('common.be_member')} */}
+              {t('common.be_member')}
             </Link>
             <Button type={'button'} variant='success' size='fit'>
-              {/* {t('common.donate')} */}
+              {t('common.donate')}
             </Button>
           </div>
         </div>

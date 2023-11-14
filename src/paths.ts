@@ -18,4 +18,8 @@ export const GLOBAL_VILLAGE_ARQUITECTURE = '/village#arquitecture' as const;
 export const BE_MEMBER_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSdDT_9cnZVkfW_3OjM7RFOpuRHjb4ERvufWtYYv22uo58Bc2w/viewform?fbzx=3306290020571070220' as const;
 
-export const transformUrl = (lng: string, url: string) => `${lng}${url}`;
+export const transformUrl = (lng: string, url: string) => {
+  if (!lng) return url;
+  const urlWithoutLanguage = url.split('/').slice(1).join('/');
+  return `/${lng}/${urlWithoutLanguage}`;
+};

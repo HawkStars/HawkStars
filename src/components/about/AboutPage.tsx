@@ -5,7 +5,7 @@ import {
 } from '@/app/[lng]/about/config';
 import Image from 'next/image';
 import Accordion from '../accordion/Accordion';
-import { useTranslation } from '@/app/i18n';
+import { useTranslation } from '@/i18n';
 import { TFunction, i18n } from 'i18next';
 
 const AboutPage = async ({ t }: { t: TFunction }) => {

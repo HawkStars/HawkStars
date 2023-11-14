@@ -1,6 +1,5 @@
 import '@/app/globals.css';
 import { Inter } from 'next/font/google';
-import { dir } from 'i18next';
 
 import Navbar from '@/components/navbar/Navbar';
 import Footer from '@/components/footer/Footer';
@@ -9,7 +8,7 @@ import MobileNavbar from '@/components/navbar/MobileNavbar';
 
 const inter = Inter({ subsets: ['latin'] });
 
-import { languages } from '../i18n/settings';
+import { fallbackLng, languages } from '../../i18n/settings';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -22,15 +21,14 @@ export default async function RootLayout({
   children: React.ReactNode;
   lng: string;
 }) {
-  console.log(lng);
   return (
-    <html lang={lng}>
-      <AppProvider>
+    <html lang={lng || fallbackLng}>
+      <AppProvider lng={lng || fallbackLng}>
         <body className={inter.className}>
-          <MobileNavbar lng={lng} />
-          <Navbar lng={lng} />
+          <MobileNavbar />
+          <Navbar />
           <main className='bg-body min-h-screen'>{children}</main>
-          <Footer lng={lng} />
+          <Footer />
         </body>
       </AppProvider>
     </html>

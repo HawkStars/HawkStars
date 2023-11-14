@@ -1,36 +1,37 @@
-"use client";
+'use client';
 
+import { fallbackLng } from '@/i18n/settings';
 import {
   createContext,
   Dispatch,
   ReactNode,
   useContext,
   useState,
-} from "react";
+} from 'react';
 
 type MainAppProperties = {
   mobileNavbarOpen: boolean;
-  // lng: string;
+  lng: string;
 };
 
 const defaultAppProperties: MainAppProperties = {
   mobileNavbarOpen: false,
-  // lng: "en",
+  lng: fallbackLng,
 };
 
 const MainAppContext = createContext<MainAppProperties>(defaultAppProperties);
 const SetMainAppContext = createContext<Dispatch<MainAppProperties>>(() => {});
 
 const AppProvider = ({
-  // lng,
+  lng,
   children,
 }: {
-  // lng: string;
+  lng: string;
   children: ReactNode;
 }) => {
   const [appProperties, setAppProperties] = useState<MainAppProperties>({
     ...defaultAppProperties,
-    // lng,
+    lng,
   });
 
   return (
@@ -54,10 +55,23 @@ export const useSetMainProperties = () => {
 };
 
 export const useSetMobileNavbarOpen = () => {
+  const mainProperties = useContext(MainAppContext);
   const setMainProperties = useContext(SetMainAppContext);
   return (value: boolean) => {
     setMainProperties({
+      ...mainProperties,
       mobileNavbarOpen: value,
+    });
+  };
+};
+
+export const useSetLanguageOnApp = () => {
+  const appProperties = useContext(MainAppContext);
+  const setMainProperties = useContext(SetMainAppContext);
+  return (lng: string) => {
+    setMainProperties({
+      ...appProperties,
+      lng,
     });
   };
 };

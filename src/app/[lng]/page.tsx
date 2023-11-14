@@ -1,7 +1,7 @@
 import HomeComponent from '@/components/home/HomeComponent';
 import { Metadata } from 'next';
 import { defaultMetadata } from '../metadata';
-import { useTranslation } from '../i18n';
+import { useTranslation } from '../../i18n';
 
 export const metadata = {
   title: 'Hawk Stars - Home',
@@ -24,5 +24,5 @@ export default async function Home({
   params: { lng: string };
 }) {
   const { t } = await useTranslation(lng);
-  return <HomeComponent t={t} />;
+  return <HomeComponent lng={lng} />;
 }

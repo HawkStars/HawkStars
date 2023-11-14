@@ -1,4 +1,4 @@
-import { useTranslation } from '@/app/i18n';
+import { useTranslation } from '@/i18n';
 import GlobalVillageArquitecture from '@/components/GlobalVillage/Arquitecture/Arquitecture';
 import GlobalVillageObjectives from '@/components/GlobalVillage/Objetives/Objetives';
 import Test from '@/components/GlobalVillage/test';

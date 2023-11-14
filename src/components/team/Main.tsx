@@ -11,9 +11,12 @@ import classNames from 'classnames';
 import { useState } from 'react';
 import Select, { Option } from '../utils/Select';
 import TeamCard from './TeamCard';
+import { useMainAppContext } from '@/contexts/AppProvider';
+import { useTranslation } from '@/i18n/client';
 
 const MainTeamPage = () => {
-  const { t } = useTranslation('team');
+  const { lng } = useMainAppContext();
+  const { t } = useTranslation(lng, 'team');
   const [selectedSection, setSelectedSection] = useState<OrgSection>('geral');
 
   const selectOptions: Option[] = boardSections.map(
