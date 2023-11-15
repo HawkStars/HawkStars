@@ -22,7 +22,7 @@ const GlobalVillageArquitecture = () => {
         </h1>
         <div className='flex flex-row justify-center gap-4'>
           <Image
-            src={'/imgs/training_center/exterior.jpg'}
+            src={'/images/training_center/exterior.jpg'}
             alt={'planta side'}
             width={1920}
             height={1080}
@@ -30,7 +30,7 @@ const GlobalVillageArquitecture = () => {
             sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
           />
           <Image
-            src={'/imgs/training_center/exterior.jpg'}
+            src={'/images/training_center/exterior.jpg'}
             alt={'planta side'}
             width={542}
             height={653}
@@ -42,7 +42,7 @@ const GlobalVillageArquitecture = () => {
         <div>
           <Image
             className='rounded-3xl'
-            src={'/imgs/training_center/exterior.jpg'}
+            src={'/images/training_center/exterior.jpg'}
             alt={'organization exterior side'}
             width={1920}
             height={1080}
@@ -53,7 +53,7 @@ const GlobalVillageArquitecture = () => {
           <Image
             className='rounded-3xl'
             alt='planta_xray'
-            src={'/imgs/training_center/planta_side.jpg'}
+            src={'/images/training_center/planta_side.jpg'}
             style={{ objectFit: 'contain' }}
             height={5000}
             width={2771}
@@ -69,7 +69,7 @@ const GlobalVillageArquitecture = () => {
           <Image
             className='rounded-3xl'
             alt='planta_xray'
-            src={'/imgs/training_center/entry_1.jpg'}
+            src={'/images/training_center/entry_1.jpg'}
             style={{ objectFit: 'contain' }}
             height={3840}
             width={2160}
@@ -78,7 +78,7 @@ const GlobalVillageArquitecture = () => {
           <Image
             className='rounded-3xl'
             alt='planta_xray'
-            src={'/imgs/training_center/entry_2.jpg'}
+            src={'/images/training_center/entry_2.jpg'}
             style={{ objectFit: 'contain' }}
             height={3840}
             width={2160}
@@ -87,7 +87,7 @@ const GlobalVillageArquitecture = () => {
           <Image
             className='rounded-3xl'
             alt='planta_xray'
-            src={'/imgs/training_center/entry_3.jpg'}
+            src={'/images/training_center/entry_3.jpg'}
             style={{ objectFit: 'contain' }}
             height={3840}
             width={2160}
@@ -96,7 +96,7 @@ const GlobalVillageArquitecture = () => {
           <Image
             className='rounded-3xl'
             alt='planta_xray'
-            src={'/imgs/training_center/entry_4.jpg'}
+            src={'/images/training_center/entry_4.jpg'}
             style={{ objectFit: 'contain' }}
             height={3840}
             width={2160}
@@ -107,20 +107,20 @@ const GlobalVillageArquitecture = () => {
           <Image
             className='flex-1 rounded-3xl'
             alt='planta_xray'
-            src={'/imgs/training_center/entry_5.jpg'}
+            src={'/images/training_center/entry_5.jpg'}
             style={{ objectFit: 'contain' }}
             height={3840}
             width={2160}
-            sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
+            sizes='(max-width: 768px) 40vw, (max-width: 1200px) 40vw, 33vw'
           />
           <Image
             className='flex-1 rounded-3xl'
             alt='planta_xray'
-            src={'/imgs/training_center/entry_6.jpg'}
+            src={'/images/training_center/entry_6.jpg'}
             style={{ objectFit: 'contain' }}
             height={3840}
             width={2160}
-            sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
+            sizes='(max-width: 768px) 40vw, (max-width: 1200px) 40vw, 33vw'
           />
         </div>
       </div>
@@ -132,7 +132,7 @@ const GlobalVillageArquitecture = () => {
           <Image
             className='flex-1 rounded-3xl'
             alt='planta_xray'
-            src={'/imgs/training_center/meeting_1.jpg'}
+            src={'/images/training_center/meeting_1.jpg'}
             style={{ objectFit: 'contain' }}
             height={3840}
             width={2160}
@@ -141,7 +141,7 @@ const GlobalVillageArquitecture = () => {
           <Image
             className='ml-auto w-3/4 flex-1 rounded-3xl'
             alt='planta_xray'
-            src={'/imgs/training_center/meeting_2.jpg'}
+            src={'/images/training_center/meeting_2.jpg'}
             style={{ objectFit: 'contain' }}
             height={3840}
             width={2160}
@@ -150,7 +150,7 @@ const GlobalVillageArquitecture = () => {
           <Image
             className='mr-auto w-3/4 flex-1 rounded-3xl '
             alt='planta_xray'
-            src={'/imgs/training_center/meeting_3.jpg'}
+            src={'/images/training_center/meeting_3.jpg'}
             style={{ objectFit: 'contain' }}
             height={3840}
             width={2160}
@@ -186,7 +186,7 @@ const GlobalVillageArquitecture = () => {
           <Image
             className='rounded-3xl'
             alt='piso_2'
-            src={'/imgs/training_center/piso_2.jpg'}
+            src={'/images/training_center/piso_2.jpg'}
             height={1920}
             width={1080}
             style={{ objectFit: 'contain' }}
@@ -199,7 +199,7 @@ const GlobalVillageArquitecture = () => {
           <Image
             className='rounded-3xl '
             alt='piso_2'
-            src={'/imgs/training_center/piso_1.jpg'}
+            src={'/images/training_center/piso_1.jpg'}
             height={1920}
             width={1080}
             style={{ objectFit: 'contain' }}
@@ -212,7 +212,7 @@ const GlobalVillageArquitecture = () => {
         <div className='flex justify-center rounded-3xl bg-bege-dark p-4'>
           <Image
             alt='piso_2'
-            src={'/imgs/training_center/piso_0.jpg'}
+            src={'/images/training_center/piso_0.jpg'}
             height={1920}
             width={1080}
             style={{ objectFit: 'contain' }}

@@ -1,14 +1,14 @@
-"use client";
-import Image from "next/image";
-import { tw, variantProps } from "classname-variants/react";
-import { BiUser } from "react-icons/bi";
-import { useState } from "react";
-import Spinner from "./Spinner";
+'use client';
+import Image from 'next/image';
+import { tw, variantProps } from 'classname-variants/react';
+import { BiUser } from 'react-icons/bi';
+import { useState } from 'react';
+import Spinner from './Spinner';
 
 type AvatarProps = {
   url: string;
-  size?: "small" | "medium" | "large";
-  rounded?: "none" | "xl" | "full";
+  size?: 'small' | 'medium' | 'large';
+  rounded?: 'none' | 'xl' | 'full';
 };
 
 /**
@@ -30,8 +30,8 @@ const avatarProps = variantProps({
     },
   },
   defaultVariants: {
-    rounded: "full",
-    size: "small",
+    rounded: 'full',
+    size: 'small',
   },
 });
 
@@ -47,7 +47,7 @@ const imageAvatarProps = variantProps({
     },
   },
   defaultVariants: {
-    rounded: "full",
+    rounded: 'full',
   },
 });
 
@@ -57,7 +57,7 @@ const Avatar = (props: AvatarProps) => {
   return (
     <div {...avatarProps({ ...props })}>
       {!url && (
-        <div className="flex justify-center rounded-full bg-bege-dark p-2">
+        <div className='flex justify-center rounded-full bg-bege-dark p-2'>
           <BiUser size={64} />
         </div>
       )}
@@ -65,11 +65,12 @@ const Avatar = (props: AvatarProps) => {
       {url && (
         <>
           <Image
-            alt="avatar"
+            alt='avatar'
             src={url}
-            fill={true}
+            fill
+            sizes='(max-width: 768px) 100px, (max-width: 1200px) 100px, 150px'
             {...imageAvatarProps({ ...props })}
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: 'cover' }}
           />
           )
         </>

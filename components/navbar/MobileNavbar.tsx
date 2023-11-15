@@ -15,6 +15,7 @@ import { BE_MEMBER_FORM_URL } from '../../utils/paths';
 import { useTranslation } from '../../i18n/client';
 import MobileMenuItem from '../menu/MobileMenuItem';
 import { NGODropdownOptions } from './config';
+import { MenuSections } from '../footer/config';
 
 const MobileNavbar = () => {
   const { lng, mobileNavbarOpen } = useMainAppContext();
@@ -27,7 +28,7 @@ const MobileNavbar = () => {
         <div className='fixed z-900 flex h-screen w-full flex-col gap-4 bg-white px-4 py-3 lg:hidden'>
           <div className='flex'>
             <Image
-              src='/logo.png'
+              src='/images/logo.png'
               alt='Hawk Stars Logo'
               width={150}
               height={100}
@@ -43,8 +44,15 @@ const MobileNavbar = () => {
           <div>
             <Socials />
           </div>
-          <div className='mt-5 flex flex-col gap-3'>
-            <MobileMenuItem title={'navbar.ngo'} options={NGODropdownOptions} />
+          <div className='mt-5 grid grid-cols-2 gap-4'>
+            {MenuSections.map((section) => {
+              const { title, options } = section;
+              return (
+                <div key={title} className='flex flex-col gap-3'>
+                  <MobileMenuItem title={title} options={options} />
+                </div>
+              );
+            })}
           </div>
 
           <div className='flex flex-col'>

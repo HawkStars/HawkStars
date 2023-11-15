@@ -8,7 +8,7 @@ import MobileNavbar from '../../components/navbar/MobileNavbar';
 
 const inter = Inter({ subsets: ['latin'] });
 
-import { fallbackLng, languages } from '../../i18n/settings';
+import { languages } from '../../i18n/settings';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));

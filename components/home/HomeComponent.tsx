@@ -42,7 +42,7 @@ const HomeComponent = () => {
           </div>
           <div className='relative mt-2 h-96 w-full py-20 lg:mt-0 lg:w-1/2 lg:py-0'>
             <Image
-              src='/imgs/frontpage/hero.png'
+              src='/images/frontpage/hero.png'
               fill={true}
               style={{ objectFit: 'contain' }}
               alt='Main Image Index'
@@ -61,7 +61,7 @@ const HomeComponent = () => {
           </div>
           <div className='relative h-96 w-full lg:w-1/2'>
             <Image
-              src='/frontpage/quem_somos.png'
+              src='/images/frontpage/quem_somos.png'
               alt='quem_somos'
               fill={true}
               style={{ objectFit: 'cover' }}

@@ -24,7 +24,7 @@ const PartnersComponent = async () => {
     <section>
       <div className='relative z-0 h-60 md:h-96 lg:h-[500px]'>
         <Image
-          src='/partners/hero.jpg'
+          src='/images/partners/hero.jpg'
           alt='Hero Partners Page'
           fill={true}
           style={{ objectFit: 'cover', zIndex: 1 }}

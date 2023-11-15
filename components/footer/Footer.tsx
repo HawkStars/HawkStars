@@ -25,7 +25,7 @@ const Footer = () => {
       <div className='mt-4 block px-5 lg:hidden'>
         <div className='flex flex-col gap-5'>
           <Image
-            src='/logo.png'
+            src='/images/logo.png'
             alt='hawkstars'
             height='200'
             width='200'
@@ -42,9 +42,9 @@ const Footer = () => {
         </div>
       </div>
       <div className='hidden grid-cols-1 gap-1 px-12 py-4 lg:grid lg:grid-cols-5 lg:gap-7 lg:pt-20'>
-        <div className='my-auto lg:mx-auto'>
+        <div className='mb-auto lg:mx-auto'>
           <Image
-            src='/logo.png'
+            src='/images/logo.png'
             alt='hawkstars'
             height='200'
             width='200'

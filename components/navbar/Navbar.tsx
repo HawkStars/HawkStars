@@ -33,7 +33,7 @@ const Navbar = () => {
             <Link href='/' className='text-xl normal-case'>
               <div className='flex gap-1'>
                 <Image
-                  src='/logo.png'
+                  src='/images/logo.png'
                   alt='Hawk Stars Logo'
                   width={150}
                   height={100}

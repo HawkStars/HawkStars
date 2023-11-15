@@ -23,7 +23,7 @@ const AboutPage = async ({ lng }: { lng: string }) => {
               height={260}
               width={249}
               alt=''
-              src='/about/hero/top-left.png'
+              src='/images/about/hero/top-left.png'
             />
           </div>
           <div className='row-span-2'>
@@ -31,7 +31,7 @@ const AboutPage = async ({ lng }: { lng: string }) => {
               height={150}
               width={249}
               alt=''
-              src='/about/hero/top-right.png'
+              src='/images/about/hero/top-right.png'
             />
           </div>
           <div className='row-span-4'>
@@ -39,7 +39,7 @@ const AboutPage = async ({ lng }: { lng: string }) => {
               height={367}
               width={249}
               alt=''
-              src='/about/hero/bottom-right.png'
+              src='/images/about/hero/bottom-right.png'
             />
           </div>
           <div className='row-span-3'>
@@ -47,7 +47,7 @@ const AboutPage = async ({ lng }: { lng: string }) => {
               height={260}
               width={249}
               alt=''
-              src='/about/hero/bottom-left.png'
+              src='/images/about/hero/bottom-left.png'
             />
           </div>
         </div>
@@ -69,28 +69,28 @@ const AboutPage = async ({ lng }: { lng: string }) => {
         <div className='container-hawk relative grid grid-cols-1 gap-10 lg:grid-cols-2'>
           <Image
             className='absolute bottom-5 left-10 hidden lg:block'
-            src='/about/mission/icon1.png'
+            src='/images/about/mission/icon1.png'
             alt='icon1'
             height={38}
             width={38}
           />
           <Image
             className='absolute left-3 top-10 hidden lg:block'
-            src='/about/mission/icon2.png'
+            src='/images/about/mission/icon2.png'
             alt='icon2'
             height={53}
             width={53}
           />
           <Image
             className='absolute right-5 top-8 hidden lg:block'
-            src='/about/mission/icon3.png'
+            src='/images/about/mission/icon3.png'
             alt='icon3'
             height={100}
             width={100}
           />
           <div className='mx-auto lg:ml-auto'>
             <Image
-              src='/about/mission/img.png'
+              src='/images/about/mission/img.png'
               height={697}
               width={446}
               alt='mission'

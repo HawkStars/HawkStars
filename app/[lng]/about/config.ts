@@ -6,74 +6,74 @@ type AboutObjectiveSection = {
 
 export const aboutObjectiveSections: AboutObjectiveSection[] = [
   {
-    icon: "/about/card-icons/rececao.png",
-    title: "objectives.one.title",
+    icon: '/images/about/card-icons/rececao.png',
+    title: 'objectives.one.title',
     description: `objectives.one.description`,
   },
   {
-    icon: "/about/card-icons/hosting.png",
-    title: "objectives.two.title",
-    description: "objectives.two.description",
+    icon: '/images/about/card-icons/hosting.png',
+    title: 'objectives.two.title',
+    description: 'objectives.two.description',
   },
   {
-    icon: "/about/card-icons/development.png",
-    title: "objectives.three.title",
+    icon: '/images/about/card-icons/development.png',
+    title: 'objectives.three.title',
     description: `objectives.three.description`,
   },
   {
-    icon: "/about/card-icons/promotion.png",
-    title: "objectives.four.title",
+    icon: '/images/about/card-icons/promotion.png',
+    title: 'objectives.four.title',
     description: `objectives.four.description`,
   },
   {
-    icon: "/about/card-icons/cooperacao.png",
-    title: "objectives.five.title",
+    icon: '/images/about/card-icons/cooperacao.png',
+    title: 'objectives.five.title',
     description: `objectives.five.description`,
   },
   {
-    icon: "/about/card-icons/co-working.png",
-    title: "objectives.six.title",
+    icon: '/images/about/card-icons/co-working.png',
+    title: 'objectives.six.title',
     description: `objectives.six.description`,
   },
   {
-    icon: "/about/card-icons/ativities.png",
-    title: "objectives.seven.title",
+    icon: '/images/about/card-icons/ativities.png',
+    title: 'objectives.seven.title',
     description: `objectives.seven.description`,
   },
   {
-    icon: "/about/card-icons/music.png",
-    title: "objectives.eight.title",
+    icon: '/images/about/card-icons/music.png',
+    title: 'objectives.eight.title',
     description: `objectives.eight.description`,
   },
   {
-    icon: "/about/card-icons/sharing.png",
-    title: "objectives.nine.title",
+    icon: '/images/about/card-icons/sharing.png',
+    title: 'objectives.nine.title',
     description: `objectives.nine.description`,
   },
 ];
 
 export const missionObjectives: { text: string; id: number }[] = [
   {
-    text: "mission.one",
+    text: 'mission.one',
     id: 1,
   },
   {
-    text: "mission.two",
+    text: 'mission.two',
     id: 2,
   },
   {
-    text: "mission.three",
+    text: 'mission.three',
     id: 3,
   },
   {
-    text: "mission.four",
+    text: 'mission.four',
     id: 4,
   },
   {
-    text: "mission.five",
+    text: 'mission.five',
     id: 5,
   },
-  { text: "mission.six", id: 6 },
+  { text: 'mission.six', id: 6 },
 ];
 
-export const visionGoals = ["platform", "projects", "local"] as const;
+export const visionGoals = ['platform', 'projects', 'local'] as const;
