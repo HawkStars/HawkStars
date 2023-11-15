@@ -1,17 +1,17 @@
 {
   "vision": [
     {
-      "icon": "/frontpage/values/soliedaridade.png",
+      "icon": "/images/frontpage/values/soliedaridade.png",
       "title": "home.vision.solidarity.title",
       "description": "home.vision.solidarity.description"
     },
     {
-      "icon": "/frontpage/values/identidade.png",
+      "icon": "/images/frontpage/values/identidade.png",
       "title": "home.vision.identity.title",
       "description": "home.vision.identity.description"
     },
     {
-      "icon": "/frontpage/values/sentido.png",
+      "icon": "/images/frontpage/values/sentido.png",
       "title": "home.vision.sense.title",
       "description": "home.vision.sense.description"
     }

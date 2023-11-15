@@ -1,4 +1,3 @@
-import { useTranslation } from '../../../i18n';
 import Image from 'next/image';
 
 const GlobalVillageArquitecture = () => {
@@ -148,7 +147,7 @@ const GlobalVillageArquitecture = () => {
             sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
           />
           <Image
-            className='mr-auto w-3/4 flex-1 rounded-3xl '
+            className='mr-auto w-3/4 flex-1 rounded-3xl'
             alt='planta_xray'
             src={'/images/training_center/meeting_3.jpg'}
             style={{ objectFit: 'contain' }}
@@ -159,9 +158,121 @@ const GlobalVillageArquitecture = () => {
         </div>
       </div>
       {/* */}
-      <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
-        Salas de Lounge e Co-working
-      </h1>
+      <div className='flex flex-col gap-4'>
+        <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
+          Salas de Lounge e Co-working
+        </h1>
+        <Image
+          className='mr-auto flex-1 rounded-3xl'
+          alt='planta_xray'
+          src={'/images/training_center/meeting_3.jpg'}
+          style={{ objectFit: 'contain' }}
+          height={3840}
+          width={2160}
+          sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
+        />{' '}
+        <Image
+          className='mr-auto flex-1 rounded-3xl'
+          alt='planta_xray'
+          src={'/images/training_center/meeting_3.jpg'}
+          style={{ objectFit: 'contain' }}
+          height={3840}
+          width={2160}
+          sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
+        />{' '}
+        <Image
+          className='mr-auto flex-1 rounded-3xl'
+          alt='planta_xray'
+          src={'/images/training_center/meeting_3.jpg'}
+          style={{ objectFit: 'contain' }}
+          height={3840}
+          width={2160}
+          sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
+        />{' '}
+        <Image
+          className='mr-auto flex-1 rounded-3xl'
+          alt='planta_xray'
+          src={'/images/training_center/meeting_3.jpg'}
+          style={{ objectFit: 'contain' }}
+          height={3840}
+          width={2160}
+          sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
+        />{' '}
+        <Image
+          className='mr-auto flex-1 rounded-3xl'
+          alt='planta_xray'
+          src={'/images/training_center/meeting_3.jpg'}
+          style={{ objectFit: 'contain' }}
+          height={3840}
+          width={2160}
+          sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
+        />{' '}
+        <Image
+          className='mr-auto flex-1 rounded-3xl'
+          alt='planta_xray'
+          src={'/images/training_center/meeting_3.jpg'}
+          style={{ objectFit: 'contain' }}
+          height={3840}
+          width={2160}
+          sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
+        />{' '}
+        <Image
+          className='mr-auto flex-1 rounded-3xl'
+          alt='planta_xray'
+          src={'/images/training_center/meeting_3.jpg'}
+          style={{ objectFit: 'contain' }}
+          height={3840}
+          width={2160}
+          sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
+        />{' '}
+        <Image
+          className='mr-auto flex-1 rounded-3xl'
+          alt='planta_xray'
+          src={'/images/training_center/meeting_3.jpg'}
+          style={{ objectFit: 'contain' }}
+          height={3840}
+          width={2160}
+          sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
+        />{' '}
+        <Image
+          className='mr-auto flex-1 rounded-3xl'
+          alt='planta_xray'
+          src={'/images/training_center/meeting_3.jpg'}
+          style={{ objectFit: 'contain' }}
+          height={3840}
+          width={2160}
+          sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
+        />{' '}
+        <Image
+          className='mr-auto flex-1 rounded-3xl'
+          alt='planta_xray'
+          src={'/images/training_center/coworking_10.jpg'}
+          style={{ objectFit: 'contain' }}
+          height={3840}
+          width={2160}
+          sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
+        />
+        <div className='flex flex-row gap-4'>
+          <Image
+            className='mr-auto flex-1 rounded-3xl'
+            alt='planta_xray'
+            src={'/images/training_center/coworking_11.jpg'}
+            style={{ objectFit: 'contain' }}
+            height={3840}
+            width={2160}
+            sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
+          />
+          <Image
+            className='mr-auto flex-1 rounded-3xl'
+            alt='planta_xray'
+            src={'/images/training_center/coworking_12.jpg'}
+            style={{ objectFit: 'contain' }}
+            height={3840}
+            width={2160}
+            sizes='(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw'
+          />
+        </div>
+      </div>
       {/* */}
       <div>
         <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
@@ -179,7 +290,7 @@ const GlobalVillageArquitecture = () => {
       </div>
       <div className='flex flex-col gap-1'>
         <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
-          Vista Aerea 3D
+          Vista Aerea 2D
         </h1>
         <h2 className='flex justify-center text-xl text-green'>Piso 2</h2>
         <div className='flex justify-center rounded-xl bg-bege-dark p-4'>
@@ -195,9 +306,9 @@ const GlobalVillageArquitecture = () => {
       </div>
       <div className='flex flex-col gap-2'>
         <h2 className='flex justify-center text-xl text-green'>Piso 1</h2>
-        <div className='flex justify-center rounded-3xl bg-bege-dark p-4'>
+        <div className='rounded-3xlbg-bege-dark flex justify-center p-4'>
           <Image
-            className='rounded-3xl '
+            className='rounded-3xl'
             alt='piso_2'
             src={'/images/training_center/piso_1.jpg'}
             height={1920}
@@ -209,7 +320,7 @@ const GlobalVillageArquitecture = () => {
       </div>
       <div className='flex flex-col gap-2'>
         <h2 className='flex justify-center text-xl text-green'>Piso 0</h2>
-        <div className='flex justify-center rounded-3xl bg-bege-dark p-4'>
+        <div className='rounded-3xlbg-bege-dark flex justify-center p-4'>
           <Image
             alt='piso_2'
             src={'/images/training_center/piso_0.jpg'}

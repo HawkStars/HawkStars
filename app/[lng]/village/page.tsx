@@ -1,4 +1,3 @@
-import { useTranslation } from '../../../i18n';
 import GlobalVillageArquitecture from '../../../components/GlobalVillage/Arquitecture/Arquitecture';
 import GlobalVillageObjectives from '../../../components/GlobalVillage/Objetives/Objetives';
 import Test from '../../../components/GlobalVillage/test';
@@ -8,13 +7,12 @@ const VillagePage = async ({
 }: {
   params: { lng: string };
 }) => {
-  const { t } = await useTranslation(lng, 'training_center');
   return (
-    <>
+    <section className='flex flex-col gap-8'>
       <Test />
-      <GlobalVillageObjectives t={t} />
+      <GlobalVillageObjectives lng={lng} />
       <GlobalVillageArquitecture />
-    </>
+    </section>
   );
 };
 
