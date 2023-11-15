@@ -11,7 +11,7 @@ import {
   DONATE_URL,
   HOME_URL,
   transformUrl,
-} from '../../app/paths';
+} from '../../utils/paths';
 import classNames from 'classnames';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { useRouter } from 'next/navigation';

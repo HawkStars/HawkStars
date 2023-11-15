@@ -15,7 +15,7 @@ import {
 import Button from '../utils/Button';
 import { MenuSections } from '../footer/config';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
-import { BE_MEMBER_FORM_URL, DONATE_URL } from '../../app/paths';
+import { BE_MEMBER_FORM_URL, DONATE_URL } from '../../utils/paths';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../../i18n/client';
 

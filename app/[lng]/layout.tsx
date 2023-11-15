@@ -22,8 +22,8 @@ export default async function RootLayout({
   lng: string;
 }) {
   return (
-    <html lang={lng || fallbackLng}>
-      <AppProvider lng={lng || fallbackLng}>
+    <html lang={lng}>
+      <AppProvider lng={lng}>
         <body className={inter.className}>
           <MobileNavbar />
           <Navbar />

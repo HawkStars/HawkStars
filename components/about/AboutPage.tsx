@@ -6,9 +6,10 @@ import {
 import Image from 'next/image';
 import Accordion from '../accordion/Accordion';
 import { useTranslation } from '../../i18n';
-import { TFunction, i18n } from 'i18next';
+import { TFunction } from 'i18next';
 
-const AboutPage = async ({ t }: { t: TFunction }) => {
+const AboutPage = async ({ lng }: { lng: string }) => {
+  const { t } = await useTranslation(lng, 'about');
   return (
     <>
       <div className='container-hawk grid grid-cols-1 gap-10 lg:grid-cols-2'>

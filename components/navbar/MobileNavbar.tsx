@@ -11,7 +11,7 @@ import { RxCross1 } from 'react-icons/rx';
 import Button from '../utils/Button';
 import Socials from '../utils/Socials';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
-import { BE_MEMBER_FORM_URL } from '../../app/paths';
+import { BE_MEMBER_FORM_URL } from '../../utils/paths';
 import { useTranslation } from '../../i18n/client';
 import MobileMenuItem from '../menu/MobileMenuItem';
 import { NGODropdownOptions } from './config';

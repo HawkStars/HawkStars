@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { PiCaretDownThin, PiCaretRightThin } from 'react-icons/pi';
 import { useState } from 'react';
 import { TFunction } from 'i18next';
-import { transformUrl } from '../../app/paths';
+import { transformUrl } from '../../utils/paths';
 import { useMainAppContext } from '../../contexts/AppProvider';
 
 type MenuItemProps = {

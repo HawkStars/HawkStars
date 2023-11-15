@@ -23,6 +23,5 @@ export default async function Home({
 }: {
   params: { lng: string };
 }) {
-  const { t } = await useTranslation(lng);
-  return <HomeComponent lng={lng} />;
+  return <HomeComponent />;
 }

@@ -3,12 +3,14 @@ import Image from 'next/image';
 import Button from '../utils/Button';
 
 import config from './config.json';
-import { BE_MEMBER_FORM_URL, DONATE_URL } from '../../app/paths';
+import { BE_MEMBER_FORM_URL, DONATE_URL } from '../../utils/paths';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../../i18n/client';
+import { useMainAppContext } from '@/contexts/AppProvider';
 
-const HomeComponent = ({ lng }: { lng: string }) => {
+const HomeComponent = () => {
+  const { lng } = useMainAppContext();
   const { t } = useTranslation(lng, 'common');
   const router = useRouter();
   return (
@@ -40,7 +42,7 @@ const HomeComponent = ({ lng }: { lng: string }) => {
           </div>
           <div className='relative mt-2 h-96 w-full py-20 lg:mt-0 lg:w-1/2 lg:py-0'>
             <Image
-              src='/frontpage/hero.png'
+              src='/imgs/frontpage/hero.png'
               fill={true}
               style={{ objectFit: 'contain' }}
               alt='Main Image Index'

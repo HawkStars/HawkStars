@@ -12,7 +12,7 @@ import {
   useSetLanguageOnApp,
 } from '../../contexts/AppProvider';
 import { useRouter } from 'next/navigation';
-import { transformUrl } from '../../app/paths';
+import { transformUrl } from '../../utils/paths';
 import Link from 'next/link';
 
 type LanguageSwitcherProps = {

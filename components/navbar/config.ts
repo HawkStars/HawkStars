@@ -5,7 +5,7 @@ import {
   GLOBAL_VILLAGE_URL,
   PARTNERS_URL,
   TEAM_URL,
-} from '../../app/paths';
+} from '../../utils/paths';
 import { NavbarOption } from '../../models/navbar';
 
 const NGODropdownOptions = [

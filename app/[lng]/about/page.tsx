@@ -11,8 +11,7 @@ export const metadata = {
 } as Metadata;
 
 const Index = async ({ params: { lng } }: { params: { lng: string } }) => {
-  const { t } = await useTranslation(lng);
-  return <AboutPage t={t} />;
+  return <AboutPage lng={lng} />;
 };
 
 export default Index;

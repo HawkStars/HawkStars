@@ -6,7 +6,7 @@ import {
 } from '../../contexts/AppProvider';
 import { useTranslation } from '../../i18n/client';
 import { NavbarOption } from '../../models/navbar';
-import { transformUrl } from '../../app/paths';
+import { transformUrl } from '../../utils/paths';
 import classNames from 'classnames';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
