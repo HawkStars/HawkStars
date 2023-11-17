@@ -1,4 +1,4 @@
-import { defaultMetadata } from '../../metadata';
+import { defaultMetadata } from '../../../metadata';
 import MainTeamPage from '../../../components/team/Main';
 import { Metadata } from 'next';
 
@@ -10,7 +10,7 @@ export const metadata = {
 } as Metadata;
 
 const TeamPage = ({ params: { lng } }: { params: { lng: string } }) => {
-  return <MainTeamPage />;
+  return <MainTeamPage lng={lng} />;
 };
 
 export default TeamPage;

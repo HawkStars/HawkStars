@@ -1,6 +1,5 @@
 'use client';
 
-import { fallbackLng } from '../i18n/settings';
 import {
   createContext,
   Dispatch,
@@ -11,27 +10,18 @@ import {
 
 type MainAppProperties = {
   mobileNavbarOpen: boolean;
-  lng: string;
 };
 
 const defaultAppProperties: MainAppProperties = {
   mobileNavbarOpen: false,
-  lng: fallbackLng,
 };
 
 const MainAppContext = createContext<MainAppProperties>(defaultAppProperties);
 const SetMainAppContext = createContext<Dispatch<MainAppProperties>>(() => {});
 
-const AppProvider = ({
-  lng,
-  children,
-}: {
-  lng: string;
-  children: ReactNode;
-}) => {
+const AppProvider = ({ children }: { children: ReactNode }) => {
   const [appProperties, setAppProperties] = useState<MainAppProperties>({
     ...defaultAppProperties,
-    lng: lng || fallbackLng,
   });
 
   return (
@@ -61,17 +51,6 @@ export const useSetMobileNavbarOpen = () => {
     setMainProperties({
       ...mainProperties,
       mobileNavbarOpen: value,
-    });
-  };
-};
-
-export const useSetLanguageOnApp = () => {
-  const appProperties = useContext(MainAppContext);
-  const setMainProperties = useContext(SetMainAppContext);
-  return (lng: string) => {
-    setMainProperties({
-      ...appProperties,
-      lng,
     });
   };
 };

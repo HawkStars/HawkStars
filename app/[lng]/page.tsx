@@ -1,7 +1,6 @@
 import HomeComponent from '../../components/home/HomeComponent';
 import { Metadata } from 'next';
-import { defaultMetadata } from '../metadata';
-import { useTranslation } from '../../i18n';
+import { defaultMetadata } from '../../metadata';
 
 export const metadata = {
   title: 'Hawk Stars - Home',
@@ -13,15 +12,9 @@ export const metadata = {
 } as Metadata;
 
 type HomeProps = {
-  params: {
-    lng: string;
-  };
+  params: { lng: string };
 };
 
-export default async function Home({
-  params: { lng },
-}: {
-  params: { lng: string };
-}) {
-  return <HomeComponent />;
+export default function Home({ params: { lng } }: HomeProps) {
+  return <HomeComponent lng={lng} />;
 }

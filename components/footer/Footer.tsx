@@ -16,10 +16,8 @@ import classNames from 'classnames';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../../i18n/client';
-import { useMainAppContext } from '../../contexts/AppProvider';
 
-const Footer = () => {
-  const { lng } = useMainAppContext();
+const Footer = ({ lng }: { lng: string }) => {
   return (
     <footer>
       <div className='mt-4 block px-5 lg:hidden'>
@@ -31,7 +29,7 @@ const Footer = () => {
             width='200'
           ></Image>
           <div className='-ml-3'>
-            <LanguageSwitcher />
+            <LanguageSwitcher lng={lng} />
           </div>
           <div>
             <Socials />
@@ -97,7 +95,7 @@ const Menus = ({ lng }: { lng: string }) => {
             className='text-terciary-100 ml-0 text-left lg:text-left'
           >
             <h3 className='mb-1 text-base font-semibold lg:mb-3 lg:text-lg lg:font-bold'>
-              {t(title)}
+              <Suspense fallback={title}>{t(title)}</Suspense>
             </h3>
             {options.map((option, index) => (
               <div className='py-1' key={index}>
@@ -107,7 +105,7 @@ const Menus = ({ lng }: { lng: string }) => {
                     'text-disabled': option.disabled,
                   })}
                 >
-                  {t(option.label)}
+                  <Suspense fallback={option.label}>{t(option.label)}</Suspense>
                 </Link>
               </div>
             ))}
@@ -121,7 +119,7 @@ const Menus = ({ lng }: { lng: string }) => {
           target='_blank'
           className='mb-2 text-lg font-black'
         >
-          {t('common.be_member')}
+          <Suspense>{t('common.be_member')}</Suspense>
         </Link>
         <Button
           type={'button'}
@@ -130,7 +128,7 @@ const Menus = ({ lng }: { lng: string }) => {
             router.push(DONATE_URL);
           }}
         >
-          {t('common.donate')}
+          <Suspense>{t('common.donate')}</Suspense>
         </Button>
       </div>
     </>

@@ -1,4 +1,4 @@
-import { defaultMetadata } from '../../metadata';
+import { defaultMetadata } from '../../../metadata';
 import PartnersComponent from '../../../components/partners/PartnersComponent';
 import { Metadata } from 'next';
 

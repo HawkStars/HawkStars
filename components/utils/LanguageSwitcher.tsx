@@ -4,25 +4,19 @@ import { useState } from 'react';
 
 import { PiCaretDownThin } from 'react-icons/pi';
 import classNames from 'classnames';
-import { usePathname } from 'next/navigation';
-
-import i18next from 'i18next';
-import {
-  useMainAppContext,
-  useSetLanguageOnApp,
-} from '../../contexts/AppProvider';
-import { useRouter } from 'next/navigation';
-import { transformUrl } from '../../utils/paths';
 import Link from 'next/link';
 
 type LanguageSwitcherProps = {
   closeMobileTabHandler?: () => void;
+  lng: string;
 };
 
-const LanguageSwitcher = ({ closeMobileTabHandler }: LanguageSwitcherProps) => {
+const LanguageSwitcher = ({
+  closeMobileTabHandler,
+  lng,
+}: LanguageSwitcherProps) => {
   const [showLanguageOptions, setShowLanguageOptions] =
     useState<boolean>(false);
-  const { lng } = useMainAppContext();
 
   return (
     <>

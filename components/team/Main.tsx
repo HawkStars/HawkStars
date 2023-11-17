@@ -11,11 +11,9 @@ import classNames from 'classnames';
 import { useState } from 'react';
 import Select, { Option } from '../utils/Select';
 import TeamCard from './TeamCard';
-import { useMainAppContext } from '../../contexts/AppProvider';
 import { useTranslation } from '../../i18n/client';
 
-const MainTeamPage = () => {
-  const { lng } = useMainAppContext();
+const MainTeamPage = ({ lng }: { lng: string }) => {
   const { t } = useTranslation(lng, 'team');
   const [selectedSection, setSelectedSection] = useState<OrgSection>('geral');
 
@@ -62,7 +60,7 @@ const MainTeamPage = () => {
               key={index}
               className='flex w-full flex-col justify-center gap-3 lg:w-fit'
             >
-              <TeamCard {...member} />
+              <TeamCard {...member} lng={lng} />
             </div>
           ))}
         </div>

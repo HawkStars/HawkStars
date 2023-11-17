@@ -7,10 +7,9 @@ import { BE_MEMBER_FORM_URL, DONATE_URL } from '../../utils/paths';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../../i18n/client';
-import { useMainAppContext } from '@/contexts/AppProvider';
+import { Suspense } from 'react';
 
-const HomeComponent = () => {
-  const { lng } = useMainAppContext();
+const HomeComponent = ({ lng }: { lng: string }) => {
   const { t } = useTranslation(lng, 'common');
   const router = useRouter();
   return (
@@ -28,13 +27,13 @@ const HomeComponent = () => {
                     router.push(DONATE_URL);
                   }}
                 >
-                  {t('common.donate')}
+                  <Suspense fallback=''>{t('common.donate')}</Suspense>
                 </Button>
               </div>
               <div className='w-fit'>
                 <Link href={BE_MEMBER_FORM_URL} target='_blank'>
                   <Button outline={true} type={'button'}>
-                    {t('common.be_member')}
+                    <Suspense fallback=''>{t('common.be_member')}</Suspense>
                   </Button>
                 </Link>
               </div>
@@ -71,10 +70,10 @@ const HomeComponent = () => {
       </section>
       <section className='px-2 py-10'>
         <h4 className='flex justify-center text-2xl font-black text-green'>
-          {t('home.values_title')}
+          <Suspense fallback=''>{t('home.values_title')}</Suspense>
         </h4>
         <h6 className='flex justify-center text-center'>
-          {t('home.values_body')}
+          <Suspense fallback=''>{t('home.values_body')}</Suspense>
         </h6>
         <div className='mx-auto mt-10 grid w-2/3 grid-cols-1 gap-10 lg:grid-cols-3 lg:gap-3'>
           {config.vision.map((option, index) => (

@@ -9,6 +9,7 @@ import MobileNavbar from '../../components/navbar/MobileNavbar';
 const inter = Inter({ subsets: ['latin'] });
 
 import { languages } from '../../i18n/settings';
+import { Suspense } from 'react';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -16,19 +17,21 @@ export async function generateStaticParams() {
 
 export default async function RootLayout({
   children,
-  lng,
+  params: { lng },
 }: {
   children: React.ReactNode;
-  lng: string;
+  params: { lng: string };
 }) {
   return (
     <html lang={lng}>
-      <AppProvider lng={lng}>
+      <AppProvider>
         <body className={inter.className}>
-          <MobileNavbar />
-          <Navbar />
+          <Suspense fallback={<></>}>
+            <MobileNavbar lng={lng} />
+          </Suspense>
+          <Navbar lng={lng} />
           <main className='bg-body min-h-screen'>{children}</main>
-          <Footer />
+          <Footer lng={lng} />
         </body>
       </AppProvider>
     </html>

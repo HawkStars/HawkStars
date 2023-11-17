@@ -6,7 +6,7 @@ acceptLanguage.languages(languages);
 
 export const config = {
   // matcher: '/:lng*',
-  matcher: ['/((?!api|_next/static|_next/image|images|favicon.ico).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|images|favicon).*)'],
 };
 
 export function middleware(req: NextRequest) {

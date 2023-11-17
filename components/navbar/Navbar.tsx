@@ -7,20 +7,16 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 
 import MenuItem from '../menu/MenuItem';
 
-import {
-  useMainAppContext,
-  useSetLanguageOnApp,
-  useSetMobileNavbarOpen,
-} from '../../contexts/AppProvider';
+import { useSetMobileNavbarOpen } from '../../contexts/AppProvider';
 import Button from '../utils/Button';
 import { MenuSections } from '../footer/config';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { BE_MEMBER_FORM_URL, DONATE_URL } from '../../utils/paths';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../../i18n/client';
+import { Suspense } from 'react';
 
-const Navbar = () => {
-  const { lng } = useMainAppContext();
+const Navbar = ({ lng }: { lng: string }) => {
   const { t } = useTranslation(lng, 'common');
   const router = useRouter();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
@@ -50,7 +46,7 @@ const Navbar = () => {
                   const { title, options } = section;
                   return (
                     <li className='my-auto' key={index}>
-                      <MenuItem t={t} title={title} options={options} />
+                      <MenuItem lng={lng} title={title} options={options} />
                     </li>
                   );
                 })}
@@ -61,7 +57,7 @@ const Navbar = () => {
                     target='_blank'
                     className='cursor-pointer'
                   >
-                    {t('common.be_member')}
+                    <Suspense>{t('common.be_member')}</Suspense>
                   </Link>
                 </li>
                 <li>
@@ -71,12 +67,12 @@ const Navbar = () => {
                       router.push(DONATE_URL);
                     }}
                   >
-                    {t('common.donate')}{' '}
+                    <Suspense>{t('common.donate')}</Suspense>
                   </Button>
                 </li>
               </ul>
               <div className='my-auto'>
-                <LanguageSwitcher />
+                <LanguageSwitcher lng={lng} />
               </div>
             </div>
           </div>

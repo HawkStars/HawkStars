@@ -14,61 +14,63 @@ import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { BE_MEMBER_FORM_URL } from '../../utils/paths';
 import { useTranslation } from '../../i18n/client';
 import MobileMenuItem from '../menu/MobileMenuItem';
-import { NGODropdownOptions } from './config';
 import { MenuSections } from '../footer/config';
+import { Suspense } from 'react';
 
-const MobileNavbar = () => {
-  const { lng, mobileNavbarOpen } = useMainAppContext();
+const MobileNavbar = ({ lng }: { lng: string }) => {
   const { t } = useTranslation(lng, 'common');
+  const { mobileNavbarOpen } = useMainAppContext();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
 
   return (
     <>
-      {mobileNavbarOpen && (
-        <div className='fixed z-900 flex h-screen w-full flex-col gap-4 bg-white px-4 py-3 lg:hidden'>
-          <div className='flex'>
-            <Image
-              src='/images/logo.png'
-              alt='Hawk Stars Logo'
-              width={150}
-              height={100}
-              priority
-            />
-            <div className='my-auto ml-auto block cursor-pointer lg:hidden'>
-              <RxCross1 size={28} onClick={() => setMobileMenuOpen(false)} />
+      <Suspense fallback={<></>}>
+        {mobileNavbarOpen && (
+          <div className='fixed z-900 flex h-screen w-full flex-col gap-4 bg-white px-4 py-3 lg:hidden'>
+            <div className='flex'>
+              <Image
+                src='/images/logo.png'
+                alt='Hawk Stars Logo'
+                width={150}
+                height={100}
+                priority
+              />
+              <div className='my-auto ml-auto block cursor-pointer lg:hidden'>
+                <RxCross1 size={28} onClick={() => setMobileMenuOpen(false)} />
+              </div>
+            </div>
+            <div className='-ml-3'>
+              <LanguageSwitcher lng={lng} />
+            </div>
+            <div>
+              <Socials />
+            </div>
+            <div className='mt-5 grid grid-cols-2 gap-4'>
+              {MenuSections.map((section) => {
+                const { title, options } = section;
+                return (
+                  <div key={title} className='flex flex-col gap-3'>
+                    <MobileMenuItem title={title} options={options} lng={lng} />
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className='flex flex-col'>
+              <Link
+                href={BE_MEMBER_FORM_URL}
+                target='_blank'
+                className='mb-2 cursor-pointer text-lg font-black'
+              >
+                {t('common.be_member')}
+              </Link>
+              <Button type={'button'} variant='success' size='fit'>
+                {t('common.donate')}
+              </Button>
             </div>
           </div>
-          <div className='-ml-3'>
-            <LanguageSwitcher />
-          </div>
-          <div>
-            <Socials />
-          </div>
-          <div className='mt-5 grid grid-cols-2 gap-4'>
-            {MenuSections.map((section) => {
-              const { title, options } = section;
-              return (
-                <div key={title} className='flex flex-col gap-3'>
-                  <MobileMenuItem title={title} options={options} />
-                </div>
-              );
-            })}
-          </div>
-
-          <div className='flex flex-col'>
-            <Link
-              href={BE_MEMBER_FORM_URL}
-              target='_blank'
-              className='mb-2 cursor-pointer text-lg font-black'
-            >
-              {t('common.be_member')}
-            </Link>
-            <Button type={'button'} variant='success' size='fit'>
-              {t('common.donate')}
-            </Button>
-          </div>
-        </div>
-      )}
+        )}
+      </Suspense>
     </>
   );
 };

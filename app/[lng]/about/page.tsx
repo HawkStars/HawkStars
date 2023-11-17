@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
-import { defaultMetadata } from '../../metadata';
+import { defaultMetadata } from '../../../metadata';
 import AboutPage from '../../../components/about/AboutPage';
-import { useTranslation } from '../../../i18n';
 
 export const metadata = {
   title: 'Hawk Stars - About Us',

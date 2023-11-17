@@ -6,35 +6,31 @@ import classNames from 'classnames';
 import { useRouter } from 'next/navigation';
 
 import { PiCaretDownThin, PiCaretRightThin } from 'react-icons/pi';
-import { useState } from 'react';
-import { TFunction } from 'i18next';
-import { transformUrl } from '../../utils/paths';
-import { useMainAppContext } from '../../contexts/AppProvider';
+import { Suspense, useState } from 'react';
+
+import { useTranslation } from '@/i18n/client';
 
 type MenuItemProps = {
   title: string;
   options: NavbarOption[];
-  t: TFunction;
+  lng: string;
 };
 
-const MenuItem = ({ t, title, options }: MenuItemProps) => {
-  const { lng } = useMainAppContext();
+const MenuItem = ({ lng, title, options }: MenuItemProps) => {
+  const { t } = useTranslation(lng, 'common');
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const router = useRouter();
 
-  const goToUrl = (url?: string) => {
-    if (!url) return;
-    router.push(transformUrl(lng, url)); // TODO: change this
-  };
-
   return (
-    <div className=''>
+    <div>
       <Menu as='div' className='z-100 relative inline-block text-left'>
         <Menu.Button
           onClick={() => setShowOptions((currentStatus) => !currentStatus)}
         >
           <div className='flex gap-1'>
-            <h6>{t(title)}</h6>
+            <h6>
+              <Suspense fallback=''>{t(title)}</Suspense>
+            </h6>
 
             {options && options.length > 0 && (
               <div className='my-auto'>
@@ -52,9 +48,9 @@ const MenuItem = ({ t, title, options }: MenuItemProps) => {
               className={classNames('w-fit whitespace-nowrap px-5 py-2', {
                 'text-neutral-400': !option.url,
               })}
-              onClick={() => goToUrl(option.url)}
+              onClick={() => router.push(`${lng}/${option.url || ''}`)}
             >
-              {t(option.label)}
+              <Suspense fallback={option.label}>{t(option.label)}</Suspense>
             </Menu.Item>
           ))}
         </Menu.Items>

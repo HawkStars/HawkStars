@@ -20,6 +20,5 @@ export const BE_MEMBER_FORM_URL =
 
 export const transformUrl = (lng: string, url: string) => {
   if (!lng) return url;
-  const urlWithoutLanguage = url.split('/').slice(1).join('/');
-  return `/${lng}/${urlWithoutLanguage}`;
+  return `/${lng}${url}`;
 };

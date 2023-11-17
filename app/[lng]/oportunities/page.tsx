@@ -1,4 +1,4 @@
-import { defaultMetadata } from '../../metadata';
+import { defaultMetadata } from '../../../metadata';
 import InstagramFeed from '../../../components/opportunities/instagram-feed';
 import { Metadata } from 'next';
 
