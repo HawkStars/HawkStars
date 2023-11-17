@@ -15,10 +15,10 @@ import { PiCaretRightThin, PiCaretDownThin } from 'react-icons/pi';
 type MenuItemProps = {
   title: string;
   options: NavbarOption[];
-  lng: string;
 };
 
-const MobileMenuItem = ({ lng, title, options }: MenuItemProps) => {
+const MobileMenuItem = ({ title, options }: MenuItemProps) => {
+  const { lng } = useMainAppContext();
   const { t } = useTranslation(lng, 'common');
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const router = useRouter();

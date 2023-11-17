@@ -16,8 +16,9 @@ import classNames from 'classnames';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../../i18n/client';
+import { useMainAppContext } from '@/contexts/AppProvider';
 
-const Footer = ({ lng }: { lng: string }) => {
+const Footer = () => {
   return (
     <footer>
       <div className='mt-4 block px-5 lg:hidden'>
@@ -29,14 +30,14 @@ const Footer = ({ lng }: { lng: string }) => {
             width='200'
           ></Image>
           <div className='-ml-3'>
-            <LanguageSwitcher lng={lng} />
+            <LanguageSwitcher />
           </div>
           <div>
             <Socials />
           </div>
         </div>
         <div className='mt-10 grid grid-cols-2 gap-10'>
-          <Menus lng={lng} />
+          <Menus />
         </div>
       </div>
       <div className='hidden grid-cols-1 gap-1 px-12 py-4 lg:grid lg:grid-cols-5 lg:gap-7 lg:pt-20'>
@@ -48,7 +49,7 @@ const Footer = ({ lng }: { lng: string }) => {
             width='200'
           ></Image>
         </div>
-        <Menus lng={lng} />
+        <Menus />
       </div>
       <div className='mt-10 flex flex-col px-5 pb-10 lg:mt-0 lg:flex-row lg:gap-1 lg:border-t lg:px-10 lg:pt-1'>
         <p className='text-sm'>
@@ -81,7 +82,8 @@ const Footer = ({ lng }: { lng: string }) => {
   );
 };
 
-const Menus = ({ lng }: { lng: string }) => {
+const Menus = () => {
+  const { lng } = useMainAppContext();
   const { t } = useTranslation(lng, 'common');
   const router = useRouter();
 

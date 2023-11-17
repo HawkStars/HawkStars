@@ -9,14 +9,15 @@ import { PiCaretDownThin, PiCaretRightThin } from 'react-icons/pi';
 import { Suspense, useState } from 'react';
 
 import { useTranslation } from '@/i18n/client';
+import { useMainAppContext } from '@/contexts/AppProvider';
 
 type MenuItemProps = {
   title: string;
   options: NavbarOption[];
-  lng: string;
 };
 
-const MenuItem = ({ lng, title, options }: MenuItemProps) => {
+const MenuItem = ({ title, options }: MenuItemProps) => {
+  const { lng } = useMainAppContext();
   const { t } = useTranslation(lng, 'common');
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const router = useRouter();
@@ -48,7 +49,7 @@ const MenuItem = ({ lng, title, options }: MenuItemProps) => {
               className={classNames('w-fit whitespace-nowrap px-5 py-2', {
                 'text-neutral-400': !option.url,
               })}
-              onClick={() => router.push(`${lng}/${option.url || ''}`)}
+              onClick={() => router.push(`/${lng}${option.url || ''}`)}
             >
               <Suspense fallback={option.label}>{t(option.label)}</Suspense>
             </Menu.Item>

@@ -17,9 +17,10 @@ import MobileMenuItem from '../menu/MobileMenuItem';
 import { MenuSections } from '../footer/config';
 import { Suspense } from 'react';
 
-const MobileNavbar = ({ lng }: { lng: string }) => {
+const MobileNavbar = () => {
+  const { lng } = useMainAppContext();
   const { t } = useTranslation(lng, 'common');
-  const { mobileNavbarOpen } = useMainAppContext();
+  const { mobileNavbarOpen, lng: locale } = useMainAppContext();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
 
   return (
@@ -40,7 +41,7 @@ const MobileNavbar = ({ lng }: { lng: string }) => {
               </div>
             </div>
             <div className='-ml-3'>
-              <LanguageSwitcher lng={lng} />
+              <LanguageSwitcher />
             </div>
             <div>
               <Socials />
@@ -50,7 +51,7 @@ const MobileNavbar = ({ lng }: { lng: string }) => {
                 const { title, options } = section;
                 return (
                   <div key={title} className='flex flex-col gap-3'>
-                    <MobileMenuItem title={title} options={options} lng={lng} />
+                    <MobileMenuItem title={title} options={options} />
                   </div>
                 );
               })}

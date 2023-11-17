@@ -10,7 +10,7 @@ export const metadata = {
 } as Metadata;
 
 const TeamPage = ({ params: { lng } }: { params: { lng: string } }) => {
-  return <MainTeamPage lng={lng} />;
+  return <MainTeamPage />;
 };
 
 export default TeamPage;

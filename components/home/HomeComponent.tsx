@@ -8,8 +8,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../../i18n/client';
 import { Suspense } from 'react';
+import { useMainAppContext } from '@/contexts/AppProvider';
 
-const HomeComponent = ({ lng }: { lng: string }) => {
+const HomeComponent = () => {
+  const { lng } = useMainAppContext();
   const { t } = useTranslation(lng, 'common');
   const router = useRouter();
   return (

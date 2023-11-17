@@ -5,16 +5,10 @@ import { useState } from 'react';
 import { PiCaretDownThin } from 'react-icons/pi';
 import classNames from 'classnames';
 import Link from 'next/link';
+import { useMainAppContext } from '@/contexts/AppProvider';
 
-type LanguageSwitcherProps = {
-  closeMobileTabHandler?: () => void;
-  lng: string;
-};
-
-const LanguageSwitcher = ({
-  closeMobileTabHandler,
-  lng,
-}: LanguageSwitcherProps) => {
+const LanguageSwitcher = () => {
+  const { lng } = useMainAppContext();
   const [showLanguageOptions, setShowLanguageOptions] =
     useState<boolean>(false);
 

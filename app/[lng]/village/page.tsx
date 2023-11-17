@@ -11,7 +11,7 @@ const VillagePage = async ({
     <section className='flex flex-col gap-8'>
       <Test />
       <GlobalVillageObjectives lng={lng} />
-      <GlobalVillageArquitecture />
+      <GlobalVillageArquitecture lng={lng} />
     </section>
   );
 };

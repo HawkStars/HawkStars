@@ -24,14 +24,14 @@ export default async function RootLayout({
 }) {
   return (
     <html lang={lng}>
-      <AppProvider>
+      <AppProvider lng={lng}>
         <body className={inter.className}>
           <Suspense fallback={<></>}>
-            <MobileNavbar lng={lng} />
+            <MobileNavbar />
           </Suspense>
-          <Navbar lng={lng} />
+          <Navbar />
           <main className='bg-body min-h-screen'>{children}</main>
-          <Footer lng={lng} />
+          <Footer />
         </body>
       </AppProvider>
     </html>

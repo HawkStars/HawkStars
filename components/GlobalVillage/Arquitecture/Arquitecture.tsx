@@ -1,6 +1,7 @@
+import { LanguageProps } from '@/components/types';
 import Image from 'next/image';
 
-const GlobalVillageArquitecture = () => {
+const GlobalVillageArquitecture = ({ lng }: LanguageProps) => {
   return (
     <section
       id='arquitecture'

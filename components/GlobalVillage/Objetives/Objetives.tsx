@@ -1,13 +1,13 @@
 import { useTranslation } from '@/i18n';
 import Accordion from '../../accordion/Accordion';
-import { TFunction } from 'i18next';
+import { LanguageProps } from '@/components/types';
 
 type TrainingCenterObjetives = {
   title: string;
   points: string[];
 };
 
-const GlobalVillageObjectives = async ({ lng }: { lng: string }) => {
+const GlobalVillageObjectives = async ({ lng }: LanguageProps) => {
   const { t } = await useTranslation(lng, 'training_center');
   const objetives: TrainingCenterObjetives[] = t('objetives.items', {
     returnObjects: true,

@@ -6,9 +6,9 @@ import {
 import Image from 'next/image';
 import Accordion from '../accordion/Accordion';
 import { useTranslation } from '../../i18n';
-import { TFunction } from 'i18next';
+import { LanguageProps } from '../types';
 
-const AboutPage = async ({ lng }: { lng: string }) => {
+const AboutPage = async ({ lng }: LanguageProps) => {
   const { t } = await useTranslation(lng, 'about');
   return (
     <>
@@ -61,7 +61,7 @@ const AboutPage = async ({ lng }: { lng: string }) => {
         </h3>
         <div className='grid grid-cols-1 gap-10 lg:grid-cols-3 '>
           {aboutObjectiveSections.map((section, index) => (
-            <TaskComponent key={index} {...section} t={t} />
+            <TaskComponent key={index} {...section} lng={lng} />
           ))}
         </div>
       </div>
@@ -103,7 +103,7 @@ const AboutPage = async ({ lng }: { lng: string }) => {
                 text={missionOpt.text}
                 index={missionOpt.id}
                 key={missionOpt.id}
-                t={t}
+                lng={lng}
               />
             ))}
           </div>
@@ -135,9 +135,15 @@ type TaskComponentProps = {
   icon: string;
   title: string;
   description: string;
-  t: TFunction;
+  lng: string;
 };
-const TaskComponent = ({ icon, title, description, t }: TaskComponentProps) => {
+const TaskComponent = async ({
+  icon,
+  title,
+  description,
+  lng,
+}: TaskComponentProps) => {
+  const { t } = await useTranslation(lng, 'about');
   return (
     <div className='flex flex-col gap-2 rounded-xl bg-bege-light p-7'>
       <div className='w-fit rounded-xl bg-bege-dark'>
@@ -152,14 +158,15 @@ const TaskComponent = ({ icon, title, description, t }: TaskComponentProps) => {
 type MissionTaskComponentProps = {
   text: string;
   index: number;
-  t: TFunction;
+  lng: string;
 };
 
-const MissionTaskComponent = ({
+const MissionTaskComponent = async ({
   text,
   index,
-  t,
+  lng,
 }: MissionTaskComponentProps) => {
+  const { t } = await useTranslation(lng, 'about');
   let formattedNumber = index.toLocaleString('en-US', {
     minimumIntegerDigits: 2,
     useGrouping: false,
