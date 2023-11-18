@@ -28,7 +28,7 @@ const Footer = () => {
             alt='hawkstars'
             height='200'
             width='200'
-          ></Image>
+          />
           <div className='-ml-3'>
             <LanguageSwitcher />
           </div>
@@ -47,7 +47,7 @@ const Footer = () => {
             alt='hawkstars'
             height='200'
             width='200'
-          ></Image>
+          />
         </div>
         <Menus />
       </div>

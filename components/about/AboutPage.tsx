@@ -3,10 +3,10 @@ import {
   missionObjectives,
   visionGoals,
 } from '../../app/[lng]/about/config';
-import Image from 'next/image';
 import Accordion from '../accordion/Accordion';
 import { useTranslation } from '../../i18n';
 import { LanguageProps } from '../types';
+import Image from 'next/image';
 
 const AboutPage = async ({ lng }: LanguageProps) => {
   const { t } = await useTranslation(lng, 'about');
