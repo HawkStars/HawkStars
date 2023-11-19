@@ -1,3 +1,18 @@
+type MetadataRoute = {
+  url: string;
+  priority: number;
+};
+
+export const routes = [
+  { url: '/', priority: 1 },
+  { url: '/about', priority: 0.5 },
+  { url: '/team', priority: 0.5 },
+  { url: '/partners', priority: 0.8 },
+  { url: '/village', priority: 1 },
+] as MetadataRoute[];
+
+export const PROD_URL = 'https://hawkstars.org/';
+
 /* INTERNAL */
 
 export const HOME_URL = '/' as const;
@@ -18,6 +33,7 @@ export const GLOBAL_VILLAGE_ARQUITECTURE = '/village#arquitecture' as const;
 export const BE_MEMBER_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSdDT_9cnZVkfW_3OjM7RFOpuRHjb4ERvufWtYYv22uo58Bc2w/viewform?fbzx=3306290020571070220' as const;
 
+/* UTILS */
 export const transformUrl = (lng: string, url: string) => {
   if (!lng) return url;
   return `/${lng}${url}`;
