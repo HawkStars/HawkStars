@@ -38,8 +38,24 @@ import meetingRoom3 from '@/public/images/training_center/meeting_3.jpg';
 import recording1 from '@/public/images/training_center/recording1.jpg';
 import recording2 from '@/public/images/training_center/recording2.jpeg';
 
+// recording Studio
+import gaming1 from '@/public/images/training_center/gaming1.jpg';
+import gaming2 from '@/public/images/training_center/gaming2.jpg';
+
+// lounge and coworking
+import restaurantPhoto1 from '@/public/images/training_center/restaurant1.jpg';
+import restaurantPhoto2 from '@/public/images/training_center/restaurant2.jpg';
+import coworkPhoto1 from '@/public/images/training_center/cowork1.jpg';
+import coworkPhoto2 from '@/public/images/training_center/cowork2.jpg';
+import coworkPhoto3 from '@/public/images/training_center/cowork3.jpg';
+import coworkPhoto4 from '@/public/images/training_center/cowork4.jpg';
+import coworkPhoto5 from '@/public/images/training_center/cowork5.jpg';
+import cowordPhoto11 from '@/public/images/training_center/coworking_11.jpg';
+import cowordPhoto12 from '@/public/images/training_center/coworking_12.jpg';
+
 const GlobalVillageArquitecture = async ({ lng }: LanguageProps) => {
   const { t } = await useTranslation(lng, 'training_center');
+  console.log();
   return (
     <section
       id='arquitecture'
@@ -69,258 +85,273 @@ const GlobalVillageArquitecture = async ({ lng }: LanguageProps) => {
           />
         </div>
       </div>
-      <div className='flex flex-col gap-4'>
-        <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
-          {t('future_exterior_vision')}
-        </h1>
-        <div className='flex h-96 flex-row justify-center gap-4'>
-          <Image
-            src={exterior1}
-            alt={'planta side'}
-            className='w-1/2 flex-1 rounded-3xl'
-            sizes='100vw'
-            loading='lazy'
-            style={{ objectFit: 'cover', objectPosition: 'left' }}
-          />
 
-          <Image
-            src={exterior2}
-            alt={'planta side'}
-            className='w-1/2 flex-1 rounded-3xl'
-            loading='lazy'
-            sizes='100vw'
-            style={{ objectFit: 'cover' }}
-          />
-        </div>
-
-        <Image
-          className='flex-1 rounded-3xl'
-          src={trainingCenterExterior}
-          alt={'organization exterior side'}
-          sizes='100vw'
-          loading='lazy'
-          style={{ objectFit: 'cover' }}
-        />
-        <div>
-          <Image
-            className='rounded-3xl'
-            alt='planta_xray'
-            src={plantaExterior}
-            style={{ objectFit: 'contain' }}
-            sizes='100vw'
-            loading='lazy'
-          />
-        </div>
-      </div>
-      <div className='flex flex-col gap-2'>
-        <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
-          {t('entry_reception')}
-        </h1>
-        <div className='flex flex-col gap-3'>
-          <Image
-            className='rounded-3xl'
-            alt='planta_xray'
-            src={entradaRececao1}
-            style={{ objectFit: 'contain' }}
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px'
-          />
-          <Image
-            className='rounded-3xl'
-            alt='planta_xray'
-            src={entradaRececao2}
-            style={{ objectFit: 'contain' }}
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px'
-          />
-          <Image
-            className='rounded-3xl'
-            alt='planta_xray'
-            src={entradaRececao3}
-            style={{ objectFit: 'contain' }}
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px'
-          />
-        </div>
-        <div className='flex h-96 flex-row gap-2'>
-          <Image
-            className='w-1/2 flex-1 rounded-3xl'
-            alt='planta_xray'
-            src={entradaRececao4}
-            style={{ objectFit: 'cover' }}
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 33vw'
-          />
-          <Image
-            className='w-1/2 flex-1 rounded-3xl'
-            alt='planta_xray'
-            src={entradaRececao5}
-            style={{ objectFit: 'cover' }}
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 33vw'
-          />
-        </div>
-      </div>
-      <div>
-        <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
-          {t('training_meeting_rooms')}
-        </h1>
-        <div className='flex flex-col gap-2'>
-          <Image
-            className='flex-1 rounded-3xl'
-            alt='planta_xray'
-            src={meetingRoom1}
-            style={{ objectFit: 'contain' }}
-            sizes='100vw'
-          />
-          <Image
-            className='ml-auto w-3/4 flex-1 rounded-3xl'
-            alt='planta_xray'
-            src={meetingRoom2}
-            style={{ objectFit: 'contain' }}
-            sizes='100vw'
-          />
-          <Image
-            className='mr-auto w-3/4 flex-1 rounded-3xl'
-            alt='planta_xray'
-            src={meetingRoom3}
-            style={{ objectFit: 'contain' }}
-            sizes='100vw'
-          />
-        </div>
-      </div>
-      <div className='flex flex-col gap-4'>
-        <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
-          {t('lounge_coworking')}
-        </h1>
-        <Image
-          className='mr-auto flex-1 rounded-3xl'
-          alt='planta_xray'
-          src={'/images/training_center/meeting_3.jpg'}
-          style={{ objectFit: 'contain' }}
-          height={3840}
-          width={2160}
-          sizes='100vw'
-        />
-        <Image
-          className='mr-auto flex-1 rounded-3xl'
-          alt='planta_xray'
-          src={'/images/training_center/meeting_3.jpg'}
-          style={{ objectFit: 'contain' }}
-          height={3840}
-          width={2160}
-          sizes='100vw'
-        />
-        <Image
-          className='mr-auto flex-1 rounded-3xl'
-          alt='planta_xray'
-          src={'/images/training_center/meeting_3.jpg'}
-          style={{ objectFit: 'contain' }}
-          height={3840}
-          width={2160}
-          sizes='100vw'
-        />
-        <Image
-          className='mr-auto flex-1 rounded-3xl'
-          alt='planta_xray'
-          src={'/images/training_center/meeting_3.jpg'}
-          style={{ objectFit: 'contain' }}
-          height={3840}
-          width={2160}
-          sizes='100vw'
-        />
-        <Image
-          className='mr-auto flex-1 rounded-3xl'
-          alt='planta_xray'
-          src={'/images/training_center/meeting_3.jpg'}
-          style={{ objectFit: 'contain' }}
-          height={3840}
-          width={2160}
-          sizes='100vw'
-        />
-        <Image
-          className='mr-auto flex-1 rounded-3xl'
-          alt='planta_xray'
-          src={'/images/training_center/meeting_3.jpg'}
-          style={{ objectFit: 'contain' }}
-          height={3840}
-          width={2160}
-          sizes='100vw'
-        />
-        <Image
-          className='mr-auto flex-1 rounded-3xl'
-          alt='planta_xray'
-          src={'/images/training_center/meeting_3.jpg'}
-          style={{ objectFit: 'contain' }}
-          height={3840}
-          width={2160}
-          sizes='100vw'
-        />
-        <Image
-          className='mr-auto flex-1 rounded-3xl'
-          alt='planta_xray'
-          src={'/images/training_center/meeting_3.jpg'}
-          style={{ objectFit: 'contain' }}
-          height={3840}
-          width={2160}
-          sizes='100vw'
-        />
-        <Image
-          className='mr-auto flex-1 rounded-3xl'
-          alt='planta_xray'
-          src={'/images/training_center/meeting_3.jpg'}
-          style={{ objectFit: 'contain' }}
-          height={3840}
-          width={2160}
-          sizes='100vw'
-        />
-        <Image
-          className='mr-auto flex-1 rounded-3xl'
-          alt='planta_xray'
-          src={'/images/training_center/coworking_10.jpg'}
-          style={{ objectFit: 'contain' }}
-          height={3840}
-          width={2160}
-          sizes='100vw'
-        />
-        <div className='flex flex-row gap-4 px-4'>
-          <Image
-            className='mr-auto w-1/2 flex-1 rounded-3xl'
-            alt='planta_xray'
-            src={'/images/training_center/coworking_11.jpg'}
-            style={{ objectFit: 'contain' }}
-            height={3840}
-            width={2160}
-            sizes='100vw'
-          />
-          <Image
-            className='mr-auto w-1/2 flex-1 rounded-3xl'
-            alt='planta_xray'
-            src={'/images/training_center/coworking_12.jpg'}
-            style={{ objectFit: 'contain' }}
-            height={3840}
-            width={2160}
-            sizes='100vw'
-          />
-        </div>
-      </div>
-      {/* */}
-      <div>
-        <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
-          Salas Tecnologica
-        </h1>
-        <h2 className='text-center text-green'>Gaming Hub</h2>
-
-        {/* missing image*/}
-      </div>
+      <FutureExteriorViewSections lng={lng} />
+      <EntryReceptionPhotosSection lng={lng} />
+      <TrainingMeetingRooms lng={lng} />
+      <LoungeAndCoworking lng={lng} />
+      <GamingHub lng={lng} />
       <RecordingStudio lng={lng} />
       <ArielView lng={lng} />
     </section>
   );
 };
 
-const RecordingStudio = async ({ lng }: LanguageProps) => {
+const FutureExteriorViewSections = async ({ lng }: LanguageProps) => {
+  const { t } = await useTranslation(lng, 'training_center');
+  return (
+    <div className='flex flex-col gap-4'>
+      <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
+        {t('future_exterior_vision')}
+      </h1>
+      <div className='flex flex-col justify-center gap-4 lg:h-96 lg:flex-row'>
+        <Image
+          src={exterior1}
+          alt={'planta side'}
+          className='flex-1 rounded-3xl lg:w-1/2'
+          sizes='100vw'
+          loading='lazy'
+          style={{ objectFit: 'cover', objectPosition: 'left' }}
+        />
+
+        <Image
+          src={exterior2}
+          alt={'planta side'}
+          className='flex-1 rounded-3xl lg:w-1/2'
+          loading='lazy'
+          sizes='100vw'
+          style={{ objectFit: 'cover' }}
+        />
+      </div>
+
+      <Image
+        className='flex-1 rounded-3xl'
+        src={trainingCenterExterior}
+        alt={'organization exterior side'}
+        sizes='100vw'
+        loading='lazy'
+        style={{ objectFit: 'cover' }}
+      />
+      <div>
+        <Image
+          className='rounded-3xl'
+          alt='planta_xray'
+          src={plantaExterior}
+          style={{ objectFit: 'contain' }}
+          sizes='100vw'
+          loading='lazy'
+        />
+      </div>
+    </div>
+  );
+};
+
+const EntryReceptionPhotosSection = async ({ lng }: LanguageProps) => {
+  const { t } = await useTranslation(lng, 'training_center');
+  return (
+    <div className='flex flex-col gap-2'>
+      <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
+        {t('entry_reception')}
+      </h1>
+      <div className='flex flex-col gap-3'>
+        <Image
+          className='rounded-3xl'
+          alt='planta_xray'
+          src={entradaRececao1}
+          style={{ objectFit: 'contain' }}
+          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px'
+        />
+        <Image
+          className='rounded-3xl'
+          alt='planta_xray'
+          src={entradaRececao2}
+          style={{ objectFit: 'contain' }}
+          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px'
+        />
+        <Image
+          className='rounded-3xl'
+          alt='planta_xray'
+          src={entradaRececao3}
+          style={{ objectFit: 'contain' }}
+          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px'
+        />
+      </div>
+      <div className='flex flex-col gap-2 lg:h-96 lg:flex-row'>
+        <Image
+          className='flex-1 rounded-3xl lg:w-1/2'
+          alt='planta_xray'
+          src={entradaRececao4}
+          style={{ objectFit: 'cover' }}
+          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 33vw'
+        />
+        <Image
+          className='flex-1 rounded-3xl lg:w-1/2'
+          alt='planta_xray'
+          src={entradaRececao5}
+          style={{ objectFit: 'cover' }}
+          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 33vw'
+        />
+      </div>
+    </div>
+  );
+};
+
+const TrainingMeetingRooms = async ({ lng }: LanguageProps) => {
   const { t } = await useTranslation(lng, 'training_center');
   return (
     <div>
       <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
+        {t('training_meeting_rooms')}
+      </h1>
+      <div className='flex flex-col gap-2'>
+        <Image
+          className='flex-1 rounded-3xl'
+          alt='planta_xray'
+          src={meetingRoom1}
+          style={{ objectFit: 'contain' }}
+          sizes='100vw'
+        />
+        <Image
+          className='ml-auto w-3/4 flex-1 rounded-3xl'
+          alt='planta_xray'
+          src={meetingRoom2}
+          style={{ objectFit: 'contain' }}
+          sizes='100vw'
+        />
+        <Image
+          className='mr-auto w-3/4 flex-1 rounded-3xl'
+          alt='planta_xray'
+          src={meetingRoom3}
+          style={{ objectFit: 'contain' }}
+          sizes='100vw'
+        />
+      </div>
+    </div>
+  );
+};
+const LoungeAndCoworking = async ({ lng }: LanguageProps) => {
+  const { t } = await useTranslation(lng, 'training_center');
+  return (
+    <div className='flex flex-col gap-4'>
+      <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
+        {t('lounge_coworking')}
+      </h1>
+      <Image
+        className='mr-auto flex-1 rounded-3xl'
+        alt='cowork photo number four'
+        src={coworkPhoto4}
+        style={{ objectFit: 'contain' }}
+        sizes='100vw'
+      />
+      <Image
+        className='mr-auto flex-1 rounded-3xl'
+        alt='cowork photo number five'
+        src={coworkPhoto5}
+        style={{ objectFit: 'contain' }}
+        sizes='100vw'
+      />
+      <Image
+        className='flex-1 rounded-3xl'
+        alt='planta_xray'
+        src={cowordPhoto12}
+        style={{ objectFit: 'contain' }}
+        sizes='100vw'
+      />
+      <div className='flex flex-col gap-4 lg:flex-row lg:px-4'>
+        <Image
+          className='mr-auto flex-1 rounded-3xl lg:w-1/2'
+          alt='planta_xray'
+          src={cowordPhoto11}
+          style={{ objectFit: 'contain' }}
+          sizes='100vw'
+        />
+        <Image
+          className='flex-1 rounded-3xl lg:w-1/2'
+          alt='cowork photo number three'
+          src={coworkPhoto3}
+          style={{ objectFit: 'contain' }}
+          sizes='100vw'
+        />
+      </div>
+      <Image
+        className='mr-auto flex-1 rounded-3xl'
+        alt='cowork image number 2'
+        src={coworkPhoto2}
+        style={{ objectFit: 'contain' }}
+        sizes='100vw'
+      />
+      <Image
+        className='flex-1 rounded-3xl'
+        alt='restaurant photo number 1'
+        src={restaurantPhoto1}
+        style={{ objectFit: 'contain' }}
+        sizes='100vw'
+      />
+      <Image
+        className='ml-auto w-2/3 flex-1 rounded-3xl'
+        alt='restaurant photo number 2'
+        src={restaurantPhoto2}
+        style={{ objectFit: 'contain' }}
+        sizes='100vw'
+      />
+      <Image
+        className='mr-auto w-2/3 flex-1 rounded-3xl'
+        alt='cowork image number 1'
+        src={coworkPhoto1}
+        style={{ objectFit: 'contain' }}
+        sizes='100vw'
+      />
+    </div>
+  );
+};
+
+const GamingHub = async ({ lng }: LanguageProps) => {
+  const { t } = await useTranslation(lng, 'training_center');
+  return (
+    <div className='flex flex-col gap-3'>
+      <h1 className='mb-5 flex justify-center text-2xl text-green lg:text-5xl'>
+        {t('tech_rooms')}
+      </h1>
+      <h2 className='text-center text-green'>Gaming Hub</h2>
+      <Image
+        className='mr-auto flex-1 rounded-3xl'
+        alt='gaming image number 1'
+        src={gaming1}
+        style={{ objectFit: 'contain' }}
+        sizes='100vw'
+      />
+      <Image
+        className='mr-auto flex-1 rounded-3xl'
+        alt='gaming image number 2'
+        src={gaming2}
+        style={{ objectFit: 'contain' }}
+        sizes='100vw'
+      />
+    </div>
+  );
+};
+
+const RecordingStudio = async ({ lng }: LanguageProps) => {
+  const { t } = await useTranslation(lng, 'training_center');
+  return (
+    <div className='flex flex-col gap-3'>
+      <h1 className='mb-5 flex justify-center text-2xl text-green lg:text-5xl'>
         {t('recording_studio')}
       </h1>
+      <Image
+        className='mr-auto flex-1 rounded-3xl'
+        alt='recording studio image number 1'
+        src={recording1}
+        style={{ objectFit: 'contain' }}
+        sizes='100vw'
+      />
+      <Image
+        className='mr-auto flex-1 rounded-3xl'
+        alt='recording studio image number 2'
+        src={recording2}
+        style={{ objectFit: 'contain' }}
+        sizes='100vw'
+      />
     </div>
   );
 };
@@ -328,15 +359,15 @@ const RecordingStudio = async ({ lng }: LanguageProps) => {
 const ArielView = async ({ lng }: LanguageProps) => {
   const { t } = await useTranslation(lng, 'training_center');
   return (
-    <div className='flex flex-col gap-5'>
+    <div className='flex flex-col gap-3'>
       <div className='flex flex-col gap-1'>
         <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
           {t('2d_aereal')}
         </h1>
-        <h2 className='flex justify-center text-xl text-green'>
+        <h2 className='mb-5 flex justify-center text-xl text-green'>
           {t('second_floor')}
         </h2>
-        <div className='mt-3 flex justify-center rounded-3xl bg-bege-dark p-4'>
+        <div className='flex justify-center rounded-3xl bg-bege-dark p-4'>
           <Image
             className='rounded-3xl'
             alt={t('second_floor')}
@@ -347,10 +378,10 @@ const ArielView = async ({ lng }: LanguageProps) => {
         </div>
       </div>
       <div>
-        <h2 className='flex justify-center text-xl text-green'>
+        <h2 className='my-5 flex justify-center text-xl text-green'>
           {t('first_floor')}
         </h2>
-        <div className='mt-3 flex justify-center rounded-3xl bg-bege-dark p-4'>
+        <div className='flex justify-center rounded-3xl bg-bege-dark p-4'>
           <Image
             alt={t('first_floor')}
             src={trainingCenterFloor1}
@@ -361,10 +392,10 @@ const ArielView = async ({ lng }: LanguageProps) => {
         </div>
       </div>
       <div>
-        <h2 className='flex justify-center text-xl text-green'>
+        <h2 className='my-5 flex justify-center text-xl text-green'>
           {t('ground_floor')}
         </h2>
-        <div className='mt-3 flex justify-center rounded-3xl bg-bege-dark p-2'>
+        <div className='flex justify-center rounded-3xl bg-bege-dark p-2'>
           <Image
             alt={t('ground_floor')}
             src={trainingCenterFloor0}

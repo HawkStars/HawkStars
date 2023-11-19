@@ -97,6 +97,7 @@
     "ground_floor": "Piso 0",
     "first_floor": "Piso 1",
     "second_floor": "Piso 2",
-    "recording_studio": "Estúdio de Gravação"
+    "recording_studio": "Estúdio de Gravação",
+    "tech_rooms": "Salas Tecnológicas"
   }
 }
