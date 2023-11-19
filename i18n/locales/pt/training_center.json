@@ -87,17 +87,17 @@
           "Trabalhar de forma permanente na procura de fundos públicos e dos recursos humanos certos para cada tipo de valência/projeto, nomeadamente para a construção ou para a capacitação de projeto."
         ]
       }
-    ],
-    "current_exterior_vision": "Visão Exterior Atual",
-    "future_exterior_vision": "Visão Exterior Futura",
-    "entry_reception": "Entrada/Receção",
-    "training_meeting_rooms": "Salas de Formação e Salas de Reuniões",
-    "lounge_coworking": "Salas de Lounge e Co-working",
-    "2d_aereal": "Vista Aerea 2D",
-    "ground_floor": "Piso 0",
-    "first_floor": "Piso 1",
-    "second_floor": "Piso 2",
-    "recording_studio": "Estúdio de Gravação",
-    "tech_rooms": "Salas Tecnológicas"
-  }
+    ]
+  },
+  "current_exterior_vision": "Visão Exterior Atual",
+  "future_exterior_vision": "Visão Exterior Futura",
+  "entry_reception": "Entrada/Receção",
+  "training_meeting_rooms": "Salas de Formação e Salas de Reuniões",
+  "lounge_coworking": "Salas de Lounge e Co-working",
+  "2d_aereal": "Vista Aerea 2D",
+  "ground_floor": "Piso 0",
+  "first_floor": "Piso 1",
+  "second_floor": "Piso 2",
+  "recording_studio": "Estúdio de Gravação",
+  "tech_rooms": "Salas Tecnológicas"
 }
