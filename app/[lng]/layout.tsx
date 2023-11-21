@@ -12,6 +12,7 @@ import { languages } from '../../i18n/settings';
 import { Suspense } from 'react';
 import { defaultMetadata } from '@/metadata';
 import { Metadata } from 'next';
+import Script from 'next/script';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -45,6 +46,16 @@ export default async function RootLayout({
           <Footer />
         </body>
       </AppProvider>
+      <Script src='https://www.googletagmanager.com/gtag/js?id=G-PEH83S3H3K'></Script>
+      <Script id='google-analytics'>
+        {`<script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-PEH83S3H3K');
+          </script>`}
+      </Script>
     </html>
   );
 }
