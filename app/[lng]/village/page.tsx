@@ -2,12 +2,11 @@ import { defaultMetadata } from '@/metadata';
 import GlobalVillageArquitecture from '../../../components/GlobalVillage/Arquitecture/Arquitecture';
 import GlobalVillageObjectives from '../../../components/GlobalVillage/Objetives/Objetives';
 
-import Test from '../../../components/GlobalVillage/test';
-
 import type { Metadata, ResolvingMetadata } from 'next';
 import { LanguagePageProps } from '../types';
 import GlobalVillageBanner from '@/components/GlobalVillage/Banner/Banner';
 import GlobalVillageAboutSection from '@/components/GlobalVillage/GlobalVillageAboutSection/GlobalVillageAboutSection';
+import GlobalVillageProject from '@/components/GlobalVillage/Project/GlobalVillageProject';
 
 export async function generateMetadata(
   { params }: LanguagePageProps,
@@ -31,8 +30,8 @@ const VillagePage = async ({
   params: { lng: string };
 }) => {
   return (
-    <section className='flex flex-col gap-8'>
-      <Test />
+    <section className='flex flex-col'>
+      <GlobalVillageProject lng={lng} />
       <GlobalVillageBanner lng={lng} />
       <GlobalVillageAboutSection lng={lng} />
       <GlobalVillageObjectives lng={lng} />

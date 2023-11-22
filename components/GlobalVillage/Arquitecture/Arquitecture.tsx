@@ -58,7 +58,7 @@ const GlobalVillageArquitecture = async ({ lng }: LanguageProps) => {
   return (
     <section
       id='arquitecture'
-      className='mx-10 mb-10 flex max-w-6xl flex-col gap-20 lg:mx-auto'
+      className='mx-10 my-10 flex max-w-6xl flex-col gap-20 lg:mx-auto'
     >
       <div className='flex flex-col'>
         <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
