@@ -6,6 +6,8 @@ import Test from '../../../components/GlobalVillage/test';
 
 import type { Metadata, ResolvingMetadata } from 'next';
 import { LanguagePageProps } from '../types';
+import GlobalVillageBanner from '@/components/GlobalVillage/Banner/Banner';
+import GlobalVillageAboutSection from '@/components/GlobalVillage/GlobalVillageAboutSection/GlobalVillageAboutSection';
 
 export async function generateMetadata(
   { params }: LanguagePageProps,
@@ -31,6 +33,8 @@ const VillagePage = async ({
   return (
     <section className='flex flex-col gap-8'>
       <Test />
+      <GlobalVillageBanner lng={lng} />
+      <GlobalVillageAboutSection lng={lng} />
       <GlobalVillageObjectives lng={lng} />
       <GlobalVillageArquitecture lng={lng} />
     </section>

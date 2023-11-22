@@ -55,7 +55,6 @@ import cowordPhoto12 from '@/public/images/training_center/coworking_12.jpg';
 
 const GlobalVillageArquitecture = async ({ lng }: LanguageProps) => {
   const { t } = await useTranslation(lng, 'training_center');
-  console.log();
   return (
     <section
       id='arquitecture'
@@ -160,6 +159,7 @@ const EntryReceptionPhotosSection = async ({ lng }: LanguageProps) => {
           src={entradaRececao1}
           style={{ objectFit: 'contain' }}
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px'
+          loading='lazy'
         />
         <Image
           className='rounded-3xl'
@@ -167,6 +167,7 @@ const EntryReceptionPhotosSection = async ({ lng }: LanguageProps) => {
           src={entradaRececao2}
           style={{ objectFit: 'contain' }}
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px'
+          loading='lazy'
         />
         <Image
           className='rounded-3xl'
@@ -174,6 +175,7 @@ const EntryReceptionPhotosSection = async ({ lng }: LanguageProps) => {
           src={entradaRececao3}
           style={{ objectFit: 'contain' }}
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px'
+          loading='lazy'
         />
       </div>
       <div className='flex flex-col gap-2 lg:h-96 lg:flex-row'>
@@ -183,6 +185,7 @@ const EntryReceptionPhotosSection = async ({ lng }: LanguageProps) => {
           src={entradaRececao4}
           style={{ objectFit: 'cover' }}
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 33vw'
+          loading='lazy'
         />
         <Image
           className='flex-1 rounded-3xl lg:w-1/2'
@@ -190,6 +193,7 @@ const EntryReceptionPhotosSection = async ({ lng }: LanguageProps) => {
           src={entradaRececao5}
           style={{ objectFit: 'cover' }}
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 33vw'
+          loading='lazy'
         />
       </div>
     </div>
@@ -200,7 +204,7 @@ const TrainingMeetingRooms = async ({ lng }: LanguageProps) => {
   const { t } = await useTranslation(lng, 'training_center');
   return (
     <div>
-      <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
+      <h1 className='mb-2 flex justify-center text-2xl text-green lg:text-5xl'>
         {t('training_meeting_rooms')}
       </h1>
       <div className='flex flex-col gap-2'>
@@ -210,20 +214,23 @@ const TrainingMeetingRooms = async ({ lng }: LanguageProps) => {
           src={meetingRoom1}
           style={{ objectFit: 'contain' }}
           sizes='100vw'
+          loading='lazy'
         />
         <Image
-          className='ml-auto w-3/4 flex-1 rounded-3xl'
+          className='ml-auto flex-1 rounded-3xl md:w-3/4'
           alt='planta_xray'
           src={meetingRoom2}
           style={{ objectFit: 'contain' }}
           sizes='100vw'
+          loading='lazy'
         />
         <Image
-          className='mr-auto w-3/4 flex-1 rounded-3xl'
+          className='mr-auto flex-1 rounded-3xl md:w-3/4'
           alt='planta_xray'
           src={meetingRoom3}
           style={{ objectFit: 'contain' }}
           sizes='100vw'
+          loading='lazy'
         />
       </div>
     </div>
@@ -242,6 +249,7 @@ const LoungeAndCoworking = async ({ lng }: LanguageProps) => {
         src={coworkPhoto4}
         style={{ objectFit: 'contain' }}
         sizes='100vw'
+        loading='lazy'
       />
       <Image
         className='mr-auto flex-1 rounded-3xl'
@@ -249,6 +257,7 @@ const LoungeAndCoworking = async ({ lng }: LanguageProps) => {
         src={coworkPhoto5}
         style={{ objectFit: 'contain' }}
         sizes='100vw'
+        loading='lazy'
       />
       <Image
         className='flex-1 rounded-3xl'
@@ -256,6 +265,7 @@ const LoungeAndCoworking = async ({ lng }: LanguageProps) => {
         src={cowordPhoto12}
         style={{ objectFit: 'contain' }}
         sizes='100vw'
+        loading='lazy'
       />
       <div className='flex flex-col gap-4 lg:flex-row lg:px-4'>
         <Image
@@ -264,6 +274,7 @@ const LoungeAndCoworking = async ({ lng }: LanguageProps) => {
           src={cowordPhoto11}
           style={{ objectFit: 'contain' }}
           sizes='100vw'
+          loading='lazy'
         />
         <Image
           className='flex-1 rounded-3xl lg:w-1/2'
@@ -271,6 +282,7 @@ const LoungeAndCoworking = async ({ lng }: LanguageProps) => {
           src={coworkPhoto3}
           style={{ objectFit: 'contain' }}
           sizes='100vw'
+          loading='lazy'
         />
       </div>
       <Image
@@ -279,6 +291,7 @@ const LoungeAndCoworking = async ({ lng }: LanguageProps) => {
         src={coworkPhoto2}
         style={{ objectFit: 'contain' }}
         sizes='100vw'
+        loading='lazy'
       />
       <Image
         className='flex-1 rounded-3xl'
@@ -286,20 +299,23 @@ const LoungeAndCoworking = async ({ lng }: LanguageProps) => {
         src={restaurantPhoto1}
         style={{ objectFit: 'contain' }}
         sizes='100vw'
+        loading='lazy'
       />
       <Image
-        className='ml-auto w-2/3 flex-1 rounded-3xl'
+        className='ml-auto flex-1 rounded-3xl md:w-2/3'
         alt='restaurant photo number 2'
         src={restaurantPhoto2}
         style={{ objectFit: 'contain' }}
         sizes='100vw'
+        loading='lazy'
       />
       <Image
-        className='mr-auto w-2/3 flex-1 rounded-3xl'
+        className='mr-auto flex-1 rounded-3xl md:w-2/3'
         alt='cowork image number 1'
         src={coworkPhoto1}
         style={{ objectFit: 'contain' }}
         sizes='100vw'
+        loading='lazy'
       />
     </div>
   );
@@ -308,17 +324,18 @@ const LoungeAndCoworking = async ({ lng }: LanguageProps) => {
 const GamingHub = async ({ lng }: LanguageProps) => {
   const { t } = await useTranslation(lng, 'training_center');
   return (
-    <div className='flex flex-col gap-3'>
-      <h1 className='mb-5 flex justify-center text-2xl text-green lg:text-5xl'>
+    <div className='flex flex-col gap-2'>
+      <h1 className='mb-2 flex justify-center text-2xl text-green lg:text-5xl'>
         {t('tech_rooms')}
       </h1>
-      <h2 className='text-center text-green'>Gaming Hub</h2>
+      <h2 className='text-center text-lg text-green lg:text-3xl'>Gaming Hub</h2>
       <Image
         className='mr-auto flex-1 rounded-3xl'
         alt='gaming image number 1'
         src={gaming1}
         style={{ objectFit: 'contain' }}
         sizes='100vw'
+        loading='lazy'
       />
       <Image
         className='mr-auto flex-1 rounded-3xl'
@@ -326,6 +343,7 @@ const GamingHub = async ({ lng }: LanguageProps) => {
         src={gaming2}
         style={{ objectFit: 'contain' }}
         sizes='100vw'
+        loading='lazy'
       />
     </div>
   );
@@ -335,7 +353,7 @@ const RecordingStudio = async ({ lng }: LanguageProps) => {
   const { t } = await useTranslation(lng, 'training_center');
   return (
     <div className='flex flex-col gap-3'>
-      <h1 className='mb-5 flex justify-center text-2xl text-green lg:text-5xl'>
+      <h1 className='mb-4 flex justify-center text-2xl text-green lg:text-5xl'>
         {t('recording_studio')}
       </h1>
       <Image
@@ -344,6 +362,7 @@ const RecordingStudio = async ({ lng }: LanguageProps) => {
         src={recording1}
         style={{ objectFit: 'contain' }}
         sizes='100vw'
+        loading='lazy'
       />
       <Image
         className='mr-auto flex-1 rounded-3xl'
@@ -351,6 +370,7 @@ const RecordingStudio = async ({ lng }: LanguageProps) => {
         src={recording2}
         style={{ objectFit: 'contain' }}
         sizes='100vw'
+        loading='lazy'
       />
     </div>
   );
@@ -361,10 +381,10 @@ const ArielView = async ({ lng }: LanguageProps) => {
   return (
     <div className='flex flex-col gap-3'>
       <div className='flex flex-col gap-1'>
-        <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
+        <h1 className='mb-2 flex justify-center text-2xl text-green lg:text-5xl'>
           {t('2d_aereal')}
         </h1>
-        <h2 className='mb-5 flex justify-center text-xl text-green'>
+        <h2 className='mb-2 flex justify-center text-lg text-green lg:text-3xl'>
           {t('second_floor')}
         </h2>
         <div className='flex justify-center rounded-3xl bg-bege-dark p-4'>
@@ -378,7 +398,7 @@ const ArielView = async ({ lng }: LanguageProps) => {
         </div>
       </div>
       <div>
-        <h2 className='my-5 flex justify-center text-xl text-green'>
+        <h2 className='my-5 flex justify-center text-lg text-green lg:text-3xl'>
           {t('first_floor')}
         </h2>
         <div className='flex justify-center rounded-3xl bg-bege-dark p-4'>
@@ -392,7 +412,7 @@ const ArielView = async ({ lng }: LanguageProps) => {
         </div>
       </div>
       <div>
-        <h2 className='my-5 flex justify-center text-xl text-green'>
+        <h2 className='my-5 flex justify-center text-lg text-green lg:text-3xl'>
           {t('ground_floor')}
         </h2>
         <div className='flex justify-center rounded-3xl bg-bege-dark p-2'>

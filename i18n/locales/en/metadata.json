@@ -2,5 +2,12 @@
   "village": {
     "title": "Hawk Stars - Global Village",
     "description": ""
-  }
+  },
+  "main": {
+    "title": "",
+    "description": ""
+  },
+  "about": { "title": "", "description": "" },
+  "donate": { "title": "", "description": "" },
+  "team": { "title": "", "description": "" }
 }
