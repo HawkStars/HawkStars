@@ -1,11 +1,11 @@
-import Dropdown from "../components/utils/Dropdown";
-import type { Meta, StoryObj } from "@storybook/react";
+import Dropdown from '../components/utils/Dropdown';
+import type { Meta, StoryObj } from '@storybook/react';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof Dropdown> = {
-  title: "Dropdown",
+  title: 'Dropdown',
   component: Dropdown,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {},
 };
 
@@ -15,7 +15,7 @@ type Story = StoryObj<typeof Dropdown>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const ButtonPrimary: Story = {
   args: {
-    title: "Menu",
-    options: [{ label: "Option 1" }, { label: "Option 2" }],
+    title: 'Menu',
+    options: [{ label: 'Option 1' }, { label: 'Option 2' }],
   },
 };

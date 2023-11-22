@@ -1,11 +1,11 @@
-import Spinner from "../components/utils/Spinner";
-import type { Meta, StoryObj } from "@storybook/react";
+import Spinner from '../components/utils/Spinner';
+import type { Meta, StoryObj } from '@storybook/react';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof Spinner> = {
-  title: "Utils/Spinner",
+  title: 'Utils/Spinner',
   component: Spinner,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {},
 };
 

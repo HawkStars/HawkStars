@@ -11,7 +11,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "serve-storybook": "serve storybook-static",
-    "i18n": "sync-i18n --files '**/locales/*.json' --primary en --languages pt --space 2",
+    "i18n": "sync-i18n --files 'i18n/locales/*.json' --primary pt --languages en fr --space 2",
     "check-i18n": "npm run i18n -- --check",
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore ."

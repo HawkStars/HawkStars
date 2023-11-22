@@ -1,6 +1,6 @@
-import { Listbox } from "@headlessui/react";
-import { useState } from "react";
-import { TfiAngleDown } from "react-icons/tfi";
+import { Listbox } from '@headlessui/react';
+import { useState } from 'react';
+import { TfiAngleDown } from 'react-icons/tfi';
 
 export type Option = {
   label: string;
@@ -29,14 +29,14 @@ const Select = ({ options, defaultOption, onChange }: SelectProps) => {
           onChange(e.value);
         }}
       >
-        <div className="relative w-full">
-          <Listbox.Button className="flex w-full gap-3 bg-bege-light p-3">
-            <span>{selectedOption?.label || ""}</span>
-            <div className="my-auto ml-auto">
+        <div className='relative w-full'>
+          <Listbox.Button className='flex w-full gap-3 bg-bege-light p-3'>
+            <span>{selectedOption?.label || ''}</span>
+            <div className='my-auto ml-auto'>
               <TfiAngleDown size={20} />
             </div>
           </Listbox.Button>
-          <Listbox.Options className="flex w-full flex-col gap-2 bg-bege-light p-3">
+          <Listbox.Options className='flex w-full flex-col gap-2 bg-bege-light p-3'>
             {options.map((option) => (
               <Listbox.Option
                 key={option.id}

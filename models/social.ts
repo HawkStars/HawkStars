@@ -1,23 +1,23 @@
-import { IconType } from "react-icons";
+import { IconType } from 'react-icons';
 import {
   PiFacebookLogoBold,
   PiLinkedinLogoBold,
   PiTwitterLogoBold,
   PiGlobeSimpleBold,
   PiInstagramLogoBold,
-} from "react-icons/pi";
+} from 'react-icons/pi';
 
 export type SocialContact = {
-  type: "facebook" | "instagram" | "twitter" | "website" | "linkedin";
+  type: 'facebook' | 'instagram' | 'twitter' | 'website' | 'linkedin';
   url: string;
 };
 
 export type SocialType =
-  | "facebook"
-  | "instagram"
-  | "twitter"
-  | "website"
-  | "linkedin";
+  | 'facebook'
+  | 'instagram'
+  | 'twitter'
+  | 'website'
+  | 'linkedin';
 
 export const SocialIcon = {
   facebook: PiFacebookLogoBold,

@@ -1,6 +1,6 @@
-import { tw, variantProps } from "classname-variants/react";
-import React, { ReactNode } from "react";
-import Spinner from "./Spinner";
+import { tw, variantProps } from 'classname-variants/react';
+import React, { ReactNode } from 'react';
+import Spinner from './Spinner';
 
 interface ButtonProps {
   /**
@@ -10,7 +10,7 @@ interface ButtonProps {
   /**
    * Type of button
    */
-  type: "submit" | "button" | "reset";
+  type: 'submit' | 'button' | 'reset';
   /**
    * Elements inside the button
    */
@@ -26,15 +26,15 @@ interface ButtonProps {
   /**
    * Styling - Type of Button
    */
-  variant?: "success" | "informative";
+  variant?: 'success' | 'informative';
   /**
    * Styling -  Rounded Values
    */
-  rounded?: "xl" | "full";
+  rounded?: 'xl' | 'full';
   /**
    * Styling - Padding of the button
    */
-  padding?: "sm" | "md" | "lg";
+  padding?: 'sm' | 'md' | 'lg';
   /**
    * Styling - Only has the lines of the variant
    */
@@ -42,15 +42,15 @@ interface ButtonProps {
   /**
    * Size - size of the button
    */
-  size?: "fit" | "full";
+  size?: 'fit' | 'full';
 }
 
 const buttonProps = variantProps({
   base: tw`text-center focus:outline-none focus:ring-0 cursor-pointer font-black`,
   variants: {
     variant: {
-      success: "bg-green border border-green text-white fill-white",
-      informative: "",
+      success: 'bg-green border border-green text-white fill-white',
+      informative: '',
     },
     rounded: {
       none: tw`rounded-none`,
@@ -69,25 +69,25 @@ const buttonProps = variantProps({
       true: tw`!bg-transparent`,
     },
     size: {
-      fit: "w-fit",
-      full: "w-full",
+      fit: 'w-fit',
+      full: 'w-full',
     },
   },
   compoundVariants: [
     {
       variants: {
-        variant: "success",
+        variant: 'success',
         outline: true,
       },
-      className: "!text-green",
+      className: '!text-green',
     },
   ],
   defaultVariants: {
-    variant: "success",
-    size: "fit",
-    rounded: "xl",
+    variant: 'success',
+    size: 'fit',
+    rounded: 'xl',
     disabled: false,
-    padding: "sm",
+    padding: 'sm',
     outline: false,
   },
 });
