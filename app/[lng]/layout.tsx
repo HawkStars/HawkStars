@@ -48,13 +48,12 @@ export default async function RootLayout({
       </AppProvider>
       <Script src='https://www.googletagmanager.com/gtag/js?id=G-PEH83S3H3K'></Script>
       <Script id='google-analytics'>
-        {`<script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+        {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
 
-            gtag('config', 'G-PEH83S3H3K');
-          </script>`}
+          gtag('config', 'G-PEH83S3H3K');
+        `}
       </Script>
     </html>
   );

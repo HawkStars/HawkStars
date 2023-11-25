@@ -21,7 +21,7 @@ const GlobalVillageProject = async ({ lng }: { lng: string }) => {
           <Image
             loading='lazy'
             src='/images/hero.png'
-            className='aspect-[1.2] w-full overflow-hidden object-contain object-center max-sm:max-w-full lg:mt-10'
+            className='aspect-[1.2] w-full overflow-hidden object-contain object-center max-sm:max-w-full sm:pr-0 md:pr-2 lg:mt-10 lg:pr-0'
             alt='hero'
             width='400'
             height='400'

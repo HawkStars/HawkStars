@@ -12,9 +12,9 @@
     "build-storybook": "storybook build",
     "serve-storybook": "serve storybook-static",
     "i18n": "sync-i18n -f i18n/locales/**/**.json --primary pt --space 2 -newkeysempty",
-    "check-i18n": "npm run i18n -- --check",
     "format": "prettier --check --ignore-path .gitignore .",
-    "format:fix": "prettier --write --ignore-path .gitignore ."
+    "format:fix": "prettier --write --ignore-path .gitignore .",
+    "test": "node sync-i18n.ts"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",
