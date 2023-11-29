@@ -9,7 +9,7 @@ import {
 import classNames from 'classnames';
 
 import { useState } from 'react';
-import Select, { Option } from '../utils/Select';
+import Select, { SelectOption } from '../utils/Select';
 import TeamCard from './TeamCard';
 import { useTranslation } from '../../i18n/client';
 import { useMainAppContext } from '@/contexts/AppProvider';
@@ -19,13 +19,13 @@ const MainTeamPage = () => {
   const { t } = useTranslation(lng, 'team');
   const [selectedSection, setSelectedSection] = useState<OrgSection>('geral');
 
-  const selectOptions: Option[] = boardSections.map(
+  const selectOptions: SelectOption[] = boardSections.map(
     (option, index) =>
       ({
         id: index,
         value: option,
         label: t(sectionLabels[option]),
-      }) as unknown as Option
+      }) as unknown as SelectOption
   );
 
   return (

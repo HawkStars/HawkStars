@@ -1,11 +1,18 @@
 import { SelectOption } from '@/components/utils/Select';
 
-const OrganizationTypeMovementOptions = [
-  { label: 'Credit', value: 'credit', id: 'credit', disabled: false },
-  { label: 'Debit', value: 'debit', id: 'debit', disabled: false },
-] as SelectOption[];
+export type ContributionType =
+  | 'bank'
+  | 'crypto'
+  | 'wall_name_singular'
+  | 'wall_name_company'
+  | 'office_chair'
+  | 'simulator_chair'
+  | 'lounge_chair'
+  | 'auditorium_chair'
+  | 'building_naming'
+  | 'training_room_naming';
 
-const ContributionTypes = [
+const ContributionTypesLabels = [
   { label: 'Bank', value: 'bank', id: 'bank', disabled: false },
   { label: 'Crypto', value: 'crypto', id: 'crypto', disabled: false },
   {
@@ -58,4 +65,4 @@ const ContributionTypes = [
   },
 ] as SelectOption[];
 
-export { OrganizationTypeMovementOptions, ContributionTypes };
+export { ContributionTypesLabels };
