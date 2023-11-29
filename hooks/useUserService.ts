@@ -8,7 +8,7 @@ const useUserService = () => {
     const { error } = await supabaseClient.auth.signInWithOAuth({
       provider: 'facebook',
       options: {
-        redirectTo: `${window.location.origin}/auth/profile`,
+        redirectTo: `${window.location.origin}`,
       },
     });
 
@@ -16,10 +16,15 @@ const useUserService = () => {
   }
 
   async function loginWithGoogle() {
+    console.log(window.location.origin);
     const { error } = await supabaseClient.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth/profile`,
+        redirectTo: `${window.location.origin}`,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
       },
     });
 

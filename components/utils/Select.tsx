@@ -2,7 +2,7 @@ import { Listbox } from '@headlessui/react';
 import { useState } from 'react';
 import { TfiAngleDown } from 'react-icons/tfi';
 
-export type Option = {
+export type SelectOption = {
   label: string;
   value: string;
   id: string;
@@ -10,21 +10,21 @@ export type Option = {
 };
 
 type SelectProps = {
-  options: Option[];
-  defaultOption?: Option;
+  options: SelectOption[];
+  defaultOption?: SelectOption;
   onChange: (e: unknown) => void;
 };
 
 const Select = ({ options, defaultOption, onChange }: SelectProps) => {
-  const [selectedOption, setSelectedOption] = useState<Option | undefined>(
-    defaultOption
-  );
+  const [selectedOption, setSelectedOption] = useState<
+    SelectOption | undefined
+  >(defaultOption);
 
   return (
     <div>
       <Listbox
         value={selectedOption}
-        onChange={(e: Option) => {
+        onChange={(e: SelectOption) => {
           setSelectedOption(e);
           onChange(e.value);
         }}
