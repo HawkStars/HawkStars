@@ -17,7 +17,7 @@ const HomeComponent = () => {
   return (
     <>
       <section className='flex flex-col bg-bege-light px-8 pb-5 pt-10 lg:px-14 lg:pb-10 lg:pl-20 lg:pt-40'>
-        <div className='flex flex-col gap-5 lg:flex-row lg:gap-1'>
+        <div className='mx-auto flex max-w-6xl flex-col gap-5 lg:flex-row lg:gap-1'>
           <div className='flex flex-col gap-2 lg:w-1/2'>
             <h4 className='text-4xl font-black'>{t('home.title')}</h4>
             <p className='text-justify'>{t('home.description')}</p>
@@ -51,23 +51,19 @@ const HomeComponent = () => {
           </div>
         </div>
       </section>
-      <section>
-        <div className='mt-5 flex flex-col gap-10 px-8 pb-10 lg:mt-20 lg:flex-row-reverse lg:px-14 lg:pl-20'>
-          <div className='flex flex-col gap-2 lg:w-1/2'>
-            <h4 className='text-2xl font-black text-green'>
-              {t('home.about')}
-            </h4>
-            <h4 className='text-xl font-black'>{t('home.objetives_title')}</h4>
-            <p className='text-justify'>{t('home.objetives_body')}</p>
-          </div>
-          <div className='relative h-96 w-full lg:w-1/2'>
-            <Image
-              src='/images/frontpage/quem_somos.png'
-              alt='quem_somos'
-              fill={true}
-              style={{ objectFit: 'cover' }}
-            />
-          </div>
+      <section className='mx-auto mt-5 flex max-w-6xl flex-col gap-10 px-8 pb-10 lg:mt-20 lg:flex-row-reverse lg:px-14 lg:pl-20 xl:pl-0'>
+        <div className='flex flex-col gap-2 lg:w-1/2'>
+          <h4 className='text-2xl font-black text-green'>{t('home.about')}</h4>
+          <h4 className='text-xl font-black'>{t('home.objetives_title')}</h4>
+          <p className='text-justify'>{t('home.objetives_body')}</p>
+        </div>
+        <div className='relative h-96 w-full lg:w-1/2'>
+          <Image
+            src='/images/frontpage/quem_somos.png'
+            alt='quem_somos'
+            fill={true}
+            style={{ objectFit: 'cover' }}
+          />
         </div>
       </section>
       <section className='px-2 py-10'>

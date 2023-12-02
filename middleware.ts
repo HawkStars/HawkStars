@@ -1,6 +1,9 @@
 import acceptLanguage from 'accept-language';
 import { NextRequest, NextResponse } from 'next/server';
 import { fallbackLng, languages, cookieName } from './i18n/settings';
+import createSupabaseServerClient from './lib/supabase/server/supabaseServer';
+import { cookies } from 'next/headers';
+import { Profile } from './models/database';
 
 acceptLanguage.languages(languages);
 
@@ -11,8 +14,10 @@ export const config = {
   ],
 };
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname.includes('superadmin')) {
+    const isSuperAdmin = await checkIfAuthenticated(req.cookies);
+    if (!isSuperAdmin) return NextResponse.redirect('/');
     return NextResponse.next();
   }
 
@@ -43,4 +48,23 @@ export function middleware(req: NextRequest) {
   }
 
   return NextResponse.next();
+}
+
+async function checkIfAuthenticated(cookiesInfo: ReturnType<typeof cookies>) {
+  const supabase = createSupabaseServerClient(cookiesInfo);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return false;
+
+  const userId = user.id;
+  const { data } = await supabase
+    .from<'profiles', Profile>('profiles')
+    .select('type')
+    .eq('id', userId)
+    .single();
+
+  if (data?.type != 'ADMIN') return false;
+
+  return true;
 }

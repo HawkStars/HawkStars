@@ -1,5 +1,7 @@
 import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
+import { IconType } from 'react-icons';
 import { LiaUsersSolid, LiaUserSolid } from 'react-icons/lia';
+import { PiOfficeChairBold } from 'react-icons/pi';
 
 const DonatePage = ({ params: { lng } }: { params: { lng: string } }) => {
   return (
@@ -62,20 +64,63 @@ const DonatePage = ({ params: { lng } }: { params: { lng: string } }) => {
           <h3>NOME NA PAREDE</h3>
           <div className='flex flex-row justify-around gap-4'>
             <div className='flex flex-col gap-2'>
-              <h2>500€ Solo</h2>
+              <h2>From 500€ Solo</h2>
               <LiaUserSolid size={62} className='mx-auto' />
             </div>
             <div className='flex flex-col gap-2'>
-              <h2>1800€ Community/Company</h2>
+              <h2>From 1800€ Community/Company</h2>
               <LiaUsersSolid size={62} className='mx-auto' />
             </div>
           </div>
         </div>
         <LineBreaker />
-        <div className='flex flex-col gap-3'></div>
+        <div className='flex flex-col gap-3'>
+          <div className='flex flex-col gap-4'>
+            <h3>Office Chair</h3>
+            <div className='flex flex-row gap-3'>
+              <TakenCommoditySection icon={PiOfficeChairBold} />
+            </div>
+          </div>
+          <div>
+            <h3>Simulator Chair</h3>
+          </div>
+          <div>
+            <h3>Lounge Coffee /Working</h3>
+            <div></div>
+          </div>
+          <div>
+            <h3>Regular Chairs</h3>
+            <div></div>
+          </div>
+        </div>
+        <LineBreaker />
+        <div>Wall Naming</div>
       </div>
     </div>
   );
 };
 
 export default DonatePage;
+
+type TakenCommoditySectionProps = {
+  icon: IconType;
+};
+
+const TakenCommoditySection = ({ icon }: TakenCommoditySectionProps) => {
+  return (
+    <div className='flex flex-row gap-5 p-2'>
+      <div>
+        <div className='flex flex-col'>
+          {icon({ size: 32, fill: 'green', className: 'mx-auto' })}
+        </div>
+        <p className='mt-2 text-sm'>Taken</p>
+      </div>
+      <div>
+        <div className='flex flex-col'>
+          {icon({ size: 32, className: 'mx-auto' })}
+        </div>
+        <p className='mt-2 text-sm'>Not Taken</p>
+      </div>
+    </div>
+  );
+};
