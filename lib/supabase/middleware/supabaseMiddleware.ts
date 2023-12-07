@@ -1,5 +1,5 @@
 import { CookieOptions, createServerClient } from '@supabase/ssr';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 
 const createSupabaseMiddleware = (request: NextRequest) => {
   const supabase = createServerClient(

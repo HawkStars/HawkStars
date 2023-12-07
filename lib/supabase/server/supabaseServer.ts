@@ -9,28 +9,9 @@ const createSupabaseServerClient = (
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 
     {
-      auth: { storageKey: 'hawkstars-token' },
       cookies: {
         get(name: string) {
           return cookiesInfo.get(name)?.value;
-        },
-        set(name: string, value: string, options: CookieOptions) {
-          try {
-            cookiesInfo.set({
-              name,
-              value,
-              ...options,
-            });
-          } catch (error) {}
-        },
-        remove(name: string, options: CookieOptions) {
-          try {
-            cookiesInfo.set({
-              name,
-              value: '',
-              ...options,
-            });
-          } catch (error) {}
         },
       },
     }

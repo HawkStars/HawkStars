@@ -3,15 +3,13 @@
 import { SiFacebook, SiGmail } from 'react-icons/si';
 
 import Button from '@/components/utils/Button';
-import useUserService from '@/hooks/useUserService';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { loginWithGoogle, loginWithFacebook } from '@/server/OAuthLogins';
 
 const LoginPage = () => {
   const router = useRouter();
   const [type, setType] = useState<'register' | 'login'>('login');
-
-  const { loginWithFacebook, loginWithGoogle } = useUserService();
 
   /** registar com google */
   const enterWithGoogle = async (event: React.MouseEvent) => {

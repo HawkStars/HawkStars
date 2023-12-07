@@ -13,7 +13,9 @@ export const routes = [
 
 export const PROD_URL = 'https://hawkstars.org/';
 
-/* INTERNAL */
+/**
+ *  INTERNAL
+ * */
 
 export const HOME_URL = '/' as const;
 export const ABOUT_US_URL = '/about' as const;
@@ -27,6 +29,9 @@ export const OPORTUNITIES_URL = '/oportunities' as const;
 export const GLOBAL_VILLAGE_URL = '/village' as const;
 export const GLOBAL_VILLAGE_OBJECTIVES = '/village#objetives' as const;
 export const GLOBAL_VILLAGE_ARQUITECTURE = '/village#arquitecture' as const;
+
+// login
+export const OAUTH_CALLBACK_URL = '/api/auth/callback';
 
 /* EXTERNAL */
 
