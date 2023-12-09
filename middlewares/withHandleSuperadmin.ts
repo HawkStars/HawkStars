@@ -1,6 +1,6 @@
 import { fallbackLng } from '@/i18n/settings';
-import createSupabaseMiddleware from '@/lib/supabase/middleware/supabaseMiddleware';
 import { Profile } from '@/models/database';
+import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 import { NextRequest, NextResponse } from 'next/server';
 
 const withHandleSuperadmin = async (
@@ -10,25 +10,24 @@ const withHandleSuperadmin = async (
   if (!isSuperAdmin)
     return NextResponse.redirect(new URL(`${fallbackLng}/`, request.url));
 
-  return NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  });
+  return NextResponse.next();
 };
 
-async function checkIfAuthenticated(request: NextRequest) {
-  const supabase = createSupabaseMiddleware(request);
+async function checkIfAuthenticated(req: NextRequest) {
+  const res = NextResponse.next();
+
+  const supabase = createMiddlewareClient({ req, res });
 
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
+  console.log(session);
   const {
     data: { user },
     error,
   } = await supabase.auth.getUser();
-  if (!user) return false;
+  if (error || !user) return false;
 
   const userId = user.id;
   const { data } = await supabase

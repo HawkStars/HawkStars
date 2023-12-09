@@ -13,6 +13,7 @@ CREATE TYPE "ContributionType" AS ENUM (
     'TRAINING_ROOM_NAMING'
 );
 
+
 CREATE TABLE "profiles" (
     "id" UUID NOT NULL,
     "name" TEXT NOT NULL DEFAULT '',
