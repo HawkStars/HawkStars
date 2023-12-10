@@ -1,9 +1,9 @@
-import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
-import { useTranslation } from '@/i18n';
-import { IconType } from 'react-icons';
-import { LiaUsersSolid, LiaUserSolid } from 'react-icons/lia';
-import { PiOfficeChairBold } from 'react-icons/pi';
 import Image from 'next/image';
+import { useTranslation } from '@/i18n';
+import { LiaUsersSolid, LiaUserSolid } from 'react-icons/lia';
+import { PiChairLight } from "react-icons/pi";
+import { TbArmchair } from "react-icons/tb";
+
 
 // images
 import heroImage from '@/public/images/contribute/hero.jpg';
@@ -16,6 +16,7 @@ import simulatorChairNotTaken from '@/public/images/icons/contribute/simulator-e
 import simulatorChairTaken from '@/public/images/icons/contribute/simulator-fill.svg';
 
 import loungeChair from '@/public/images/icons/contribute/lounge-fill.svg';
+import Link from 'next/link';
 
 const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
   const { t } = await useTranslation(lng, 'contribute');
@@ -57,57 +58,16 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
       <div className='flex flex-col gap-3'>
         <h2 className='text-center text-green'>{t('other_modalities')}</h2>
 
-        <div className='my-10 flex flex-col justify-center gap-3'>
-          <h3 className='text-center'>Nome em Cadeiras do Training Center</h3>
-          <h4 className='text-center'>Cadeira de Escritório/Gaming</h4>
-          <div className='mx-auto mt-5 flex max-w-lg flex-wrap justify-center gap-5'>
-            {Array(30)
-              .fill('a')
-              .map((item) => {
-                console.log(item);
-                return <Image src={loungeChair} alt='test chair' key={item} />;
-              })}
-          </div>
-        </div>
 
-        <div className='my-10 flex flex-col justify-center gap-3'>
-          <h3 className='text-center'>Cadeira de Drive Simulator Gaming</h3>
-          <div className='flex justify-center gap-5'>
-            <div className='group'>
-              <Image src={simulatorChairTaken} alt='picked chair' />
-              <div className='absolute hidden w-fit bg-bege-dark p-2 text-sm group-hover:block'>
-                Paulo Cardoso
-              </div>
-            </div>
-            <Image
-              src={simulatorChairNotTaken}
-              alt='simulator not picked chair'
-            />
-          </div>
-        </div>
-
-        <div className='my-10 flex flex-col justify-center gap-3'>
-          <h3 className='text-center'>Training Chair</h3>
-          <div className='flex justify-center gap-5'>
-            <div className='group relative'>
-              <Image src={simulatorChairTaken} alt='picked chair' />
-            </div>
-            <Image
-              src={simulatorChairNotTaken}
-              alt='simulator not picked chair'
-            />
-          </div>
-        </div>
-
-        <div className='flex flex-col gap-3'>
-          <h3>TRAINING COURSE BUILDING BRANDING</h3>
+        <div className=''>
+          <h2 className='text-center text-green'>Branding</h2>
+          <h3 className='text-center'>TRAINING COURSE BUILDING BRANDING</h3>
           <h4>from 380000€</h4>
           <p>
             Parcerias financeiras do Naming do Internacional Training Center -
             negociável (Por exemplo - International Training Center;
           </p>
         </div>
-        <LineBreaker />
         <div className='flex flex-col gap-3'>
           <h3>TRAINING COURSE ROOM BRANDING</h3>
           <h4>from 15000€</h4>
@@ -116,7 +76,6 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
             Reuniões, Co-working, Lounge, Gaming Hub, Estúdio de Gravação
           </p>
         </div>
-        <LineBreaker />
         <div className='flex flex-col gap-10'>
           <h3>NOME NA PAREDE</h3>
           <div className='flex flex-row justify-around gap-4'>
@@ -130,25 +89,68 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
             </div>
           </div>
         </div>
-        <LineBreaker />
-        <div className='flex flex-col gap-3'>
-          <div className='flex flex-col gap-4'>
-            <h3>Office Chair</h3>
-            <div className='flex flex-row gap-3'>
-              <TakenCommoditySection icon={PiOfficeChairBold} />
-            </div>
-          </div>
-          <div>
-            <h3>Lounge Coffee /Working</h3>
-            <div></div>
-          </div>
-          <div>
-            <h3>Regular Chairs</h3>
-            <div></div>
+        <div className='my-10 flex flex-col justify-center gap-3'>
+          <h3 className='text-center'>Nome em Cadeiras do Training Center</h3>
+          <h4 className='text-center'>Cadeira de Escritório/Gaming (300€)</h4>
+          <div className='mx-auto mt-5 flex max-w-lg flex-wrap justify-center gap-5'>
+            {Array(60)
+              .fill('a')
+              .map((item) => {
+                return <Image src={loungeChair} alt='test chair' key={item} />;
+              })}
           </div>
         </div>
-        <LineBreaker />
-        <div>Wall Naming</div>
+
+        <div className='my-10 flex flex-col justify-center gap-3'>
+          <h3 className='text-center'>Cadeira de Drive Simulator Gaming</h3>
+          <div className='flex justify-center gap-5'>
+            <div className='group relative'>
+              <Image src={simulatorChairTaken} alt='picked chair' />
+              <div className='absolute -top-5 hidden w-fit bg-bege-dark p-2 text-sm group-hover:block'>
+                <p>Paulo Cardoso</p>
+              </div>
+            </div>
+            <Image
+              src={simulatorChairNotTaken}
+              alt='simulator not picked chair'
+            />
+          </div>
+        </div>
+
+        <div className='my-10 flex flex-col justify-center gap-3'>
+          <h3 className='text-center'>Cadeira Lounge Co(ffe) Working</h3>
+          <div className='flex justify-center gap-5'>
+            <div className='flex gap-5 flex-wrap w-2/4'>
+              {Array(40)
+                .fill('a')
+                .map((item) => {
+                  return <TbArmchair size={48} key={item}/>;
+                })}
+            </div>
+          </div>
+        </div>
+
+        <div className='my-10 flex flex-col justify-center gap-3'>
+          <h3 className='text-center'>Cadeira Móvel de Auditório/Salas Formação</h3>
+          <div className='flex justify-center gap-5'>
+            <div className='flex gap-5 flex-wrap w-2/4'>
+              {Array(110)
+                .fill('a')
+                .map((item) => {
+                  return <PiChairLight size={48} key={item} />;
+                })}
+            </div>
+          </div>
+        </div>
+
+        <div className='flex justify-center gap-3 flex-col'>
+          <h3 className='text-center'>HawkStars Store</h3>
+          <div className='flex justify-center'>
+          <Link href="https://shop.hawkstars.org/" target="_blank" className='p-4 text-white bg-green rounded-xl w-fit'>
+              Visit Store
+          </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -156,25 +158,3 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
 
 export default DonatePage;
 
-type TakenCommoditySectionProps = {
-  icon: IconType;
-};
-
-const TakenCommoditySection = ({ icon }: TakenCommoditySectionProps) => {
-  return (
-    <div className='flex flex-row gap-5 p-2'>
-      <div>
-        <div className='flex flex-col'>
-          {icon({ size: 32, fill: 'green', className: 'mx-auto' })}
-        </div>
-        <p className='mt-2 text-sm'>Taken</p>
-      </div>
-      <div>
-        <div className='flex flex-col'>
-          {icon({ size: 32, className: 'mx-auto' })}
-        </div>
-        <p className='mt-2 text-sm'>Not Taken</p>
-      </div>
-    </div>
-  );
-};

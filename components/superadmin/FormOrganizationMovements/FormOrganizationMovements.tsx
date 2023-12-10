@@ -14,16 +14,16 @@ type FormOrganizationMovementProps = {
 const FormOrganizationMovement = ({ type }: FormOrganizationMovementProps) => {
   const form = useForm();
   return (
-    <form className='mx-auto flex w-1/2 flex-col gap-3'>
+    <form className='mx-auto mt-5 flex w-1/2 flex-col gap-3'>
       <Select
         onChange={() => {}}
         options={OrganizationTypeMovementOptions}
         defaultOption={OrganizationTypeMovementOptions.find(
-          (item) => item.value == type
+          (item) => item.value == type || OrganizationTypeMovementOptions[0]
         )}
       ></Select>
-      <Input labelText='Value'></Input>
-      <Input labelText='Description'></Input>
+      <Input labelText='Value' name='value'></Input>
+      <Input labelText='Description' name='description'></Input>
       {/* paid */}
       <Checkbox
         labelText='Paid'

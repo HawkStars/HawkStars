@@ -67,7 +67,11 @@ const FormContributions = () => {
         control={control}
         name='type'
         render={({ field: { onChange, value, ref } }) => (
-          <Select options={ContributionTypesLabels} onChange={() => {}} />
+          <Select
+            options={ContributionTypesLabels}
+            onChange={() => {}}
+            defaultOption={ContributionTypesLabels[0]}
+          />
         )}
       />
     </form>
