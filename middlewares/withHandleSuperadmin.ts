@@ -22,7 +22,6 @@ async function checkIfAuthenticated(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  console.log(session);
   const {
     data: { user },
     error,
@@ -30,13 +29,13 @@ async function checkIfAuthenticated(req: NextRequest) {
   if (error || !user) return false;
 
   const userId = user.id;
-  const { data } = await supabase
+  const { data, error: userError } = await supabase
     .from<'profiles', Profile>('profiles')
-    .select('type')
-    .eq('id', userId)
+    .select()
+    .match({ type: 'ADMIN', id: userId })
     .single();
 
-  if (data?.type != 'ADMIN') return false;
+  if (!data) return false;
 
   return true;
 }

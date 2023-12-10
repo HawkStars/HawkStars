@@ -15,7 +15,7 @@ CREATE TYPE "ContributionType" AS ENUM (
 
 
 CREATE TABLE "profiles" (
-    "id" UUID NOT NULL,
+    "id" UUID NOT NULL DEFAULT uuid_generate_v1(),
     "name" TEXT NOT NULL DEFAULT '',
     "type" "ProfileType" NOT NULL DEFAULT 'REGULAR',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -25,7 +25,7 @@ CREATE TABLE "profiles" (
 );
 
 CREATE TABLE "organization_movements" (
-    "id" UUID NOT NULL,
+    "id" UUID NOT NULL DEFAULT uuid_generate_v1(),
     "type" "MoneyMovementType" NOT NULL,
     "value" INTEGER NOT NULL,
     "description" TEXT NOT NULL DEFAULT '',
@@ -40,7 +40,7 @@ CREATE TABLE "organization_movements" (
 );
 
 CREATE TABLE "contributions" (
-    "id" UUID NOT NULL,
+    "id" UUID NOT NULL DEFAULT uuid_generate_v1(),
     "contribution_date" DATE NOT NULL,
     "value" INTEGER NOT NULL,
     "donor" TEXT NOT NULL,

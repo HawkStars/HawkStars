@@ -10,9 +10,21 @@ export async function GET(request: NextRequest) {
   if (code) {
     const cookieStore = cookies();
     const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
-    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error && data) {
-      await supabase.from<'profiles', Profile>('profiles').upsert();
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.exchangeCodeForSession(code);
+    if (!error && user) {
+      const { data, error } = await supabase
+        .from<'profiles', Profile>('profiles')
+        .upsert(
+          {
+            id: user.id,
+            name: user.user_metadata.name || '',
+            type: 'REGULAR',
+          },
+          { onConflict: 'id', ignoreDuplicates: true }
+        );
     }
   }
 
