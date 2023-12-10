@@ -17,6 +17,7 @@ import simulatorChairTaken from '@/public/images/icons/contribute/simulator-fill
 
 import loungeChair from '@/public/images/icons/contribute/lounge-fill.svg';
 import Link from 'next/link';
+import ChairsSections from '@/components/contribute/ChairsSection';
 
 const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
   const { t } = await useTranslation(lng, 'contribute');
@@ -89,60 +90,14 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
             </div>
           </div>
         </div>
-        <div className='my-10 flex flex-col justify-center gap-3'>
-          <h3 className='text-center'>Nome em Cadeiras do Training Center</h3>
-          <h4 className='text-center'>Cadeira de Escritório/Gaming (300€)</h4>
-          <div className='mx-auto mt-5 flex max-w-lg flex-wrap justify-center gap-5'>
-            {Array(60)
-              .fill('a')
-              .map((item) => {
-                return <Image src={loungeChair} alt='test chair' key={item} />;
-              })}
-          </div>
-        </div>
-
-        <div className='my-10 flex flex-col justify-center gap-3'>
-          <h3 className='text-center'>Cadeira de Drive Simulator Gaming</h3>
-          <div className='flex justify-center gap-5'>
-            <div className='group relative'>
-              <Image src={simulatorChairTaken} alt='picked chair' />
-              <div className='absolute -top-5 hidden w-fit bg-bege-dark p-2 text-sm group-hover:block'>
-                <p>Paulo Cardoso</p>
-              </div>
-            </div>
-            <Image
+        <ChairsSections title='Nome em Cadeiras do Training Center' subtitle='Cadeira de Escritório/Gaming (300€)' icon={undefined} iconFilled={<Image src={loungeChair} alt='gaming/office chair filled' />} size={60} />
+        <ChairsSections title='Cadeira de Drive Simulator Gaming' icon={<Image
               src={simulatorChairNotTaken}
               alt='simulator not picked chair'
-            />
-          </div>
-        </div>
-
-        <div className='my-10 flex flex-col justify-center gap-3'>
-          <h3 className='text-center'>Cadeira Lounge Co(ffe) Working</h3>
-          <div className='flex justify-center gap-5'>
-            <div className='flex gap-5 flex-wrap w-2/4'>
-              {Array(40)
-                .fill('a')
-                .map((item) => {
-                  return <TbArmchair size={48} key={item}/>;
-                })}
-            </div>
-          </div>
-        </div>
-
-        <div className='my-10 flex flex-col justify-center gap-3'>
-          <h3 className='text-center'>Cadeira Móvel de Auditório/Salas Formação</h3>
-          <div className='flex justify-center gap-5'>
-            <div className='flex gap-5 flex-wrap w-2/4'>
-              {Array(110)
-                .fill('a')
-                .map((item) => {
-                  return <PiChairLight size={48} key={item} />;
-                })}
-            </div>
-          </div>
-        </div>
-
+            />} iconFilled={<Image src={simulatorChairTaken} alt='picked chair' />} size={2} />
+        
+        <ChairsSections title="Cadeira Lounge Co(ffe) Working" icon={<TbArmchair size={48}/>} iconFilled={<TbArmchair size={48} fill='#0A7558' />}  size={40}/>
+        <ChairsSections title="Cadeira Móvel de Auditório/Salas Formação" icon={<PiChairLight size={48} />} iconFilled={ <PiChairLight size={48} fill="#0A7558"/>} size={110} />
         <div className='flex justify-center gap-3 flex-col'>
           <h3 className='text-center'>HawkStars Store</h3>
           <div className='flex justify-center'>
