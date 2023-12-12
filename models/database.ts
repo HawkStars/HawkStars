@@ -15,6 +15,12 @@ export type ProfileType = DatabaseEnums['ProfileType'];
  * Tables
  */
 
-export type Profile = DatabaseTables['profiles'];
-export type OrganizationMovement = DatabaseTables['organization_movements'];
-export type Contribution = DatabaseTables['contributions'];
+export type Profiles = DatabaseTables['profiles'];
+export type OrganizationMovements = DatabaseTables['organization_movements'];
+export type Contributions = DatabaseTables['contributions'];
+
+/** MODELS */
+
+export type Profile = Profiles['Row'];
+export type OrganizationMovement = OrganizationMovements['Row'];
+export type Contribution = Contributions['Row'];
