@@ -22,13 +22,14 @@ export const ABOUT_US_URL = '/about' as const;
 export const TEAM_URL = '/team' as const;
 export const PARTNERS_URL = '/partners' as const;
 
-export const DONATE_URL = '/donate' as const;
+export const DONATE_URL = '/contribute' as const;
 export const BE_MEMBER_URL = '/be_member' as const;
 export const OPORTUNITIES_URL = '/oportunities' as const;
 
 export const GLOBAL_VILLAGE_URL = '/village' as const;
 export const GLOBAL_VILLAGE_OBJECTIVES = '/village#objetives' as const;
 export const GLOBAL_VILLAGE_ARQUITECTURE = '/village#arquitecture' as const;
+export const TRANSPARENCY_URL = '/transparency' as const;
 
 // login
 export const OAUTH_CALLBACK_URL = '/auth/callback';

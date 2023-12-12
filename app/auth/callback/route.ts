@@ -1,4 +1,4 @@
-import { Profile } from '@/models/database';
+import { Profiles } from '@/models/database';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     } = await supabase.auth.exchangeCodeForSession(code);
     if (!error && user) {
       const { data, error } = await supabase
-        .from<'profiles', Profile>('profiles')
+        .from<'profiles', Profiles>('profiles')
         .upsert(
           {
             id: user.id,

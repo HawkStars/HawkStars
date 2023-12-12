@@ -4,6 +4,7 @@ import { useTranslation } from '@/i18n';
 import { LiaUsersSolid, LiaUserSolid } from 'react-icons/lia';
 import { PiChairLight } from 'react-icons/pi';
 import { TbArmchair } from 'react-icons/tb';
+import { TbShoppingCart } from 'react-icons/tb';
 import groupBy from 'lodash.groupby';
 
 import ChairsSections from '@/components/contribute/ChairsSection';
@@ -102,8 +103,21 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
       </div>
 
       <div className='flex flex-col gap-3'>
-        <h2 className='text-center text-green'>{t('other_modalities')}</h2>
-
+        <h1 className='text-center text-green'>{t('other_modalities')}</h1>
+        <div className='mt-5 flex flex-col justify-center gap-3'>
+          <h3 className='text-center'>HawkStars Store</h3>
+          <div className='flex justify-center'>
+            <Link
+              //href='https://shop.hawkstars.org/'
+              href='#'
+              target='_blank'
+              className='flex w-fit flex-row gap-3 rounded-xl bg-green p-4 text-white'
+            >
+              <TbShoppingCart className='my-auto' /> Visit Store (Coming Soon)
+            </Link>
+          </div>
+        </div>
+        <LineBreaker />
         <div className='flex flex-col gap-10'>
           <h1 className='mt-10 text-center text-green'>Branding</h1>
           <div className='container-hawk flex flex-col gap-10 md:flex-row'>
@@ -141,17 +155,31 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
             </div>
           </div>
         </div>
-        <LineBreaker />
-        <div>
-          <div className='flex flex-row gap-3'>
-            <LiaUserSolid size={28} className='my-auto' />
-            <p className='self-center'>From 500€ Solo</p>
-          </div>
-          <div className='flex flex-row gap-3'>
-            <LiaUsersSolid size={28} />
-            <p>From 1800€ Community/Company</p>
+        <div className='container-hawk mt-10 flex flex-col gap-10 lg:mx-auto lg:w-2/3'>
+          <div className='mx-auto flex flex-1 flex-col gap-3 '>
+            <h2 className='text-center'>BRAND AT WALL</h2>
+            <Image
+              src={trainingRoom}
+              alt='hawk stars training room'
+              className='rounded-lg'
+            />
+            <div className='flex flex-row gap-4'>
+              <div className='flex w-fit flex-row gap-1 rounded-2xl border border-green p-2 text-sm text-green lg:text-base'>
+                <LiaUserSolid size={28} className='my-auto' />
+                <p className='self-center'>From 500€ (Solo)</p>
+              </div>
+              <div className='flex w-fit flex-row gap-1 rounded-2xl border border-green p-2 text-sm text-green lg:text-base'>
+                <LiaUsersSolid size={28} />
+                <p className='self-center'>From 1800€ (Company)</p>
+              </div>
+            </div>
+            <p>
+              Parcerias financeiras de Naming Room para Salas de Formação,
+              Reuniões, Co-working, Lounge, Gaming Hub, Estúdio de Gravação.
+            </p>
           </div>
         </div>
+        <LineBreaker />
         <h2 className='text-center text-green'>
           Nome em Cadeiras do Training Center
         </h2>
@@ -197,19 +225,6 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
           size={110}
           currentContributions={auditoriumChairs}
         />
-        <LineBreaker />
-        <div className='flex flex-col justify-center gap-3'>
-          <h3 className='text-center'>HawkStars Store</h3>
-          <div className='flex justify-center'>
-            <Link
-              href='https://shop.hawkstars.org/'
-              target='_blank'
-              className='w-fit rounded-xl bg-green p-4 text-white'
-            >
-              Visit Store
-            </Link>
-          </div>
-        </div>
       </div>
     </div>
   );

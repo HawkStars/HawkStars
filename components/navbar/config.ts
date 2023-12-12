@@ -1,10 +1,12 @@
 import {
   ABOUT_US_URL,
+  DONATE_URL,
   GLOBAL_VILLAGE_ARQUITECTURE,
   GLOBAL_VILLAGE_OBJECTIVES,
   GLOBAL_VILLAGE_URL,
   PARTNERS_URL,
   TEAM_URL,
+  TRANSPARENCY_URL,
 } from '../../utils/paths';
 import { NavbarOption } from '../../models/navbar';
 
@@ -26,8 +28,8 @@ const GlobalVillageOptions = [
     label: 'navbar.global_village.arquitecture',
     url: GLOBAL_VILLAGE_ARQUITECTURE,
   },
-  { label: 'navbar.global_village.contribute', url: GLOBAL_VILLAGE_URL },
-  { label: 'navbar.global_village.transparency', disabled: true },
+  { label: 'navbar.global_village.contribute', url: DONATE_URL },
+  { label: 'navbar.global_village.transparency', url: TRANSPARENCY_URL },
   { label: 'navbar.global_village.pinhel', disabled: true },
 ] as NavbarOption[];
 

@@ -1,5 +1,4 @@
 import { defaultMetadata } from '../../../metadata';
-import InstagramFeed from '../../../components/opportunities/instagram-feed';
 import { Metadata } from 'next';
 
 export const metadata = {
@@ -12,9 +11,7 @@ export const metadata = {
 const OportunitiesPage = ({ params: { lng } }: { params: { lng: string } }) => {
   return (
     <>
-      <div className='container-hawk mx-auto'>
-        <InstagramFeed />
-      </div>
+      <div className='container-hawk mx-auto'></div>
     </>
   );
 };
