@@ -2,11 +2,21 @@
   "contribute_hero": "Contribute to the project and the NGO",
   "other_modalities": "Outras Modalidades",
   "crypto_transfer": {
-    "title": "Transferência Crypto",
     "description": "Os doadores em crypto moeda serão considerados para benefício de mérito ao doar em Bitcoin (BTC), Ethereum (ETH) - se atenderem ao valor mínimo -, ou em stablecoins como Tether (USDT), USD Coin (USDC), Euro Coin (EUROC) e Binance Dollar (BUSD). Para garantir o benefício de mérito, o doador deve preencher um formulário comprovando a transferência. Após a conversão para moeda fiduciária, a Hawk Stars emitirá uma fatura/recibo de doação, que o doador pode reclamar em crypto por meio do formulário correspondente."
   },
   "bank_transfer": {
-    "title": "Transferência Bancária",
     "description": "Os doadores podem efetuar transferência bancária, escolhendo a modalidade de apoio desejada. A Hawk Stars NGO emitirá uma fatura/recibo de doação para todos os valores, com ou sem benefício de mérito, seguindo os requisitos legais para possível benefício fiscal, de acordo com o Decreto-Lei n.º 215/89 e legislação complementar."
+  },
+  "options": {
+    "bank_transfer": "Transferência Bancária",
+    "crypto_transfer": "Transferência Crypto",
+    "auditorium_chair": "Aquisição Nome Cadeira Sala Formação",
+    "building_naming": "Aquisição Branding do Edifício",
+    "lounge_chair": "Aquisição Cadeira Lounge",
+    "office_chair": "Aquisição Cadeira Escritório",
+    "simulator_chair": "Aquisição Cadeira Simulação",
+    "training_room_naming": "Aquisição Nome de Sala do Training Center",
+    "wall_name_company": "Aquisição Nome da Parede (Companhia/NGO)",
+    "wall_name_singular": "Aquisição Nome da Parede (Titulo Individual)"
   }
 }

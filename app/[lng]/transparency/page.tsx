@@ -3,7 +3,7 @@ import OrganizationMovementsTable from '@/components/transparency/OrganizationMo
 
 const TransparencyPage = async () => {
   return (
-    <section className='mx-10 mt-10 flex flex-col gap-5'>
+    <section className='mx-10 mt-10 flex flex-col gap-5 lg:mx-14'>
       <div className='flex flex-col gap-1'>
         <h3>Current Project Contribution:</h3>
         <p className='flex justify-end'>Goal: 1.200.000,00€</p>
@@ -13,9 +13,10 @@ const TransparencyPage = async () => {
         </div>
       </div>
 
-      <div></div>
-      <OrganizationContributionsTable />
-      <OrganizationMovementsTable />
+      <div className='flex flex-col gap-10'>
+        <OrganizationContributionsTable />
+        <OrganizationMovementsTable />
+      </div>
     </section>
   );
 };

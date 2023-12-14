@@ -9,6 +9,8 @@ import {
 } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { contributionColumns } from './config';
+import { useTranslation } from '@/i18n/client';
+import { useMainAppContext } from '@/contexts/AppProvider';
 
 const getOrganizationContributions = async () => {
   const supabase = createSupabaseBrowserClient();
@@ -44,7 +46,7 @@ const OrganizationContributionsTable = () => {
 
   return (
     <div>
-      <table>
+      <table className='min-w-full table-auto text-left text-sm font-light'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
