@@ -15,6 +15,7 @@ import bankTransferImage from '@/public/images/contribute/bank_transfer.png';
 import cryptoTransferImage from '@/public/images/contribute/crypto_transfer.png';
 import exterior2 from '@/public/images/training_center/exterior2.jpg';
 import trainingRoom from '@/public/images/training_center/meeting_1.jpg';
+import coworkingRoom from '@/public/images/training_center/coworking_12.jpg';
 
 // chairs
 import simulatorChairNotTaken from '@/public/images/icons/contribute/simulator-empty.svg';
@@ -139,7 +140,7 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
             <div className='flex flex-1 flex-col gap-3'>
               <h2 className='text-center'>ROOM BRANDING</h2>
               <Image
-                src={trainingRoom}
+                src={coworkingRoom}
                 alt='hawk stars training room'
                 className='rounded-lg'
               />
