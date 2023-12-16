@@ -6,20 +6,20 @@ import i18next from 'i18next';
 const columnContributionHelper = createColumnHelper<Contribution>();
 
 const contributionColumns = [
+  columnContributionHelper.accessor('type', {
+    header: () => 'Type',
+    cell: (info) => i18next.t(ContributionLabel[info.getValue()]),
+  }),
   columnContributionHelper.accessor('donor', {
     header: () => 'Donor',
     cell: (info) => info.getValue(),
-  }),
-  columnContributionHelper.accessor('type', {
-    header: () => 'Type',
-    cell: (info) => ContributionLabel[info.getValue()],
   }),
   columnContributionHelper.accessor('value', {
     header: () => 'Value',
     cell: (info) => info.getValue(),
   }),
   columnContributionHelper.accessor('contribution_date', {
-    header: 'Status',
+    header: 'Data Contribuição',
     cell: (info) => info.getValue(),
   }),
 ];

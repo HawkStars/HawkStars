@@ -25,6 +25,8 @@ const getOrganizationContributions = async () => {
 };
 
 const OrganizationContributionsTable = () => {
+  const { lng } = useMainAppContext();
+  const { t } = useTranslation(lng, 'contribute');
   const [organizationContributions, setOrganizationContributions] = useState<
     Contribution[]
   >([]);
@@ -45,7 +47,8 @@ const OrganizationContributionsTable = () => {
   }, []);
 
   return (
-    <div>
+    <div className='flex flex-col gap-2'>
+      <h2 className='text-green'>Contributions</h2>
       <table className='min-w-full table-auto text-left text-sm font-light'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (

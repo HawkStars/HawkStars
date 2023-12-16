@@ -1,0 +1,50 @@
+'use client';
+
+import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
+import { GetTotalContributions } from '@/models/database';
+import { useEffect, useState } from 'react';
+
+const PROJECT_GOAL = 1200000;
+
+const ContributionProjectGoal = () => {
+  const [totalContribution, setTotalContribution] = useState<
+    number | undefined
+  >();
+  const percentGoal = (totalContribution || 0) / PROJECT_GOAL;
+  const loadingWidth = Math.round(window.innerWidth * percentGoal) + 'px';
+
+  console.log(loadingWidth);
+  const getCurrentProjetContribution = async () => {
+    const supabase = createSupabaseBrowserClient();
+    const { data, error } = await supabase.rpc<
+      'project_total_contributions',
+      GetTotalContributions
+    >('project_total_contributions');
+
+    if (error) return 0;
+
+    setTotalContribution(data);
+  };
+
+  useEffect(() => {
+    getCurrentProjetContribution();
+  }, []);
+
+  return (
+    <div className='flex flex-col gap-1'>
+      <h3>Current Project Contribution:</h3>
+      <p className='flex justify-end'>Goal: 1.200.000,00€</p>
+      <div className='relative h-6 w-full rounded-md border border-bege-dark'>
+        <div
+          className={`h-full bg-gradient-to-r from-bege-dark from-10% to-bege-light to-95%`}
+          style={{ width: loadingWidth }}
+        ></div>
+        <p className='absolute bottom-0 left-[50%] text-sm'>
+          {totalContribution}€ ({percentGoal}%)
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default ContributionProjectGoal;

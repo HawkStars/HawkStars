@@ -44,7 +44,8 @@ const OrganizationMovementsTable = () => {
   }, []);
 
   return (
-    <div>
+    <div className='flex flex-col gap-2'>
+      <h2 className='text-green'>Organization Movements</h2>
       <table className='min-w-full table-auto text-left text-sm font-light'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
