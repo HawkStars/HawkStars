@@ -13,9 +13,10 @@ type SelectProps = {
   options: SelectOption[];
   defaultOption?: SelectOption;
   onChange: (e: unknown) => void;
+  name: string;
 };
 
-const Select = ({ options, defaultOption, onChange }: SelectProps) => {
+const Select = ({ options, defaultOption, onChange, name }: SelectProps) => {
   const [selectedOption, setSelectedOption] = useState<
     SelectOption | undefined
   >(defaultOption);
@@ -24,6 +25,7 @@ const Select = ({ options, defaultOption, onChange }: SelectProps) => {
     <div>
       <Listbox
         value={selectedOption}
+        name={name}
         onChange={(e: SelectOption) => {
           setSelectedOption(e);
           onChange(e.value);

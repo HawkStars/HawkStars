@@ -1,6 +1,7 @@
 import ContributionProjectGoal from '@/components/transparency/ContributionProjectGoal';
 import OrganizationContributionsTable from '@/components/transparency/OrganizationContributionsTable';
 import OrganizationMovementsTable from '@/components/transparency/OrganizationMovementsTable';
+import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
 
 const TransparencyPage = async () => {
   return (
@@ -8,6 +9,7 @@ const TransparencyPage = async () => {
       <div className='flex flex-col gap-10'>
         <ContributionProjectGoal />
         <OrganizationContributionsTable />
+        <LineBreaker />
         <OrganizationMovementsTable />
       </div>
     </section>

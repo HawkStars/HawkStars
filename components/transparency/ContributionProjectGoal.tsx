@@ -11,9 +11,9 @@ const ContributionProjectGoal = () => {
     number | undefined
   >();
   const percentGoal = (totalContribution || 0) / PROJECT_GOAL;
-  const loadingWidth = Math.round(window.innerWidth * percentGoal) + 'px';
+  const loadingWidth =
+    Math.round((window?.innerWidth || 0) * percentGoal) + 'px';
 
-  console.log(loadingWidth);
   const getCurrentProjetContribution = async () => {
     const supabase = createSupabaseBrowserClient();
     const { data, error } = await supabase.rpc<
