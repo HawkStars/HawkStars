@@ -2,8 +2,6 @@ import FormContributions from '@/components/superadmin/FormContributions/FormCon
 import FormOrganizationMovement from '@/components/superadmin/FormOrganizationMovements/FormOrganizationMovements';
 
 const SuperAdminPage = () => {
-  const addOrganizationMovement = () => {};
-
   const addContribution = () => {};
   return (
     <section className='mt-10 flex flex-col gap-10'>
@@ -13,7 +11,7 @@ const SuperAdminPage = () => {
       </section>
       <section className='flex flex-col gap-3'>
         <h3 className='text-center'>Contributions</h3>
-        <FormContributions />
+        <FormContributions formType='create' />
       </section>
     </section>
   );

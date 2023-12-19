@@ -14,15 +14,23 @@ type SelectProps = {
   defaultOption?: SelectOption;
   onChange: (e: unknown) => void;
   name: string;
+  labelText: string;
 };
 
-const Select = ({ options, defaultOption, onChange, name }: SelectProps) => {
+const Select = ({
+  options,
+  defaultOption,
+  onChange,
+  name,
+  labelText,
+}: SelectProps) => {
   const [selectedOption, setSelectedOption] = useState<
     SelectOption | undefined
   >(defaultOption);
 
   return (
     <div>
+      {labelText && <label>{labelText}</label>}
       <Listbox
         value={selectedOption}
         name={name}
@@ -38,7 +46,7 @@ const Select = ({ options, defaultOption, onChange, name }: SelectProps) => {
               <TfiAngleDown size={20} />
             </div>
           </Listbox.Button>
-          <Listbox.Options className='flex w-full flex-col gap-2 bg-bege-light p-3'>
+          <Listbox.Options className='absolute flex w-full flex-col gap-2 bg-bege-light p-3'>
             {options.map((option) => (
               <Listbox.Option
                 key={option.id}
