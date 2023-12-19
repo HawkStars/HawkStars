@@ -37,6 +37,7 @@ const MainTeamPage = () => {
             (option) => option.value === selectedSection
           )}
           onChange={(e) => setSelectedSection(e as OrgSection)}
+          name='type_board'
         />
       </div>
       <div className='hidden flex-row gap-8 border-b lg:flex'>

@@ -93,18 +93,20 @@ const HomeComponent = () => {
           ))}
         </div>
       </section>
-      <section className='flex flex-row gap-10 bg-bege-dark px-8 py-10'>
-        <Image
-          src={exterior1}
-          alt='Global Village'
-          className='w-1/2 flex-1 rounded-lg'
-        />
-        <div className='flex w-1/2 flex-1 flex-col gap-4'>
-          <h3 className='text-center text-green'>Global Village</h3>
-          <p>Get to know more about this project</p>
-          <Button type={'button'}>
-            <Suspense fallback=''>See More</Suspense>
-          </Button>
+      <section className='bg-bege-dark px-8 py-10 lg:px-20'>
+        <div className='mx-auto flex max-w-6xl flex-row gap-10'>
+          <Image
+            src={exterior1}
+            alt='Global Village'
+            className='w-1/2 flex-1 rounded-lg'
+          />
+          <div className='flex w-1/2 flex-1 flex-col gap-4'>
+            <h3 className='text-center text-green'>Global Village</h3>
+            <p>Get to know more about this project</p>
+            <Button type={'button'}>
+              <Suspense fallback=''>See More</Suspense>
+            </Button>
+          </div>
         </div>
       </section>
     </>

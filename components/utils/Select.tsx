@@ -14,7 +14,7 @@ type SelectProps = {
   defaultOption?: SelectOption;
   onChange: (e: unknown) => void;
   name: string;
-  labelText: string;
+  labelText?: string;
 };
 
 const Select = ({
