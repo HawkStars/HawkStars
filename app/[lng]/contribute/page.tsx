@@ -123,7 +123,9 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
           <h1 className='mt-10 text-center text-green'>Branding</h1>
           <div className='container-hawk flex flex-col gap-10 md:flex-row'>
             <div className='flex flex-1 flex-col gap-3'>
-              <h2 className='text-center'>TRAINING COURSE BRANDING</h2>
+              <h2 className='text-center'>
+                International Training Center BRANDING
+              </h2>
               <Image
                 src={exterior2}
                 alt='training course branding'

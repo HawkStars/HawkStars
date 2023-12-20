@@ -44,6 +44,9 @@ const updateOrganizationMovement = async ({
   movement_date,
 }: OrganizationMovementFormProps) => {
   const supabase = createSupabaseBrowserClient();
+  const { data } = await supabase.auth.getUser();
+  if (!data || !data.user)
+    return toast.error(OrganizationMovementAPIMessages.NO_USER_LOGGED_IN);
   const { error } = await supabase
     .from<'organization_movements', OrganizationMovements>(
       'organization_movements'
@@ -54,7 +57,7 @@ const updateOrganizationMovement = async ({
       type,
       movement_date: movement_date.toISOString(),
     })
-    .eq('id', 1);
+    .eq('id', data.user.id);
 
   if (error) return;
   return true;

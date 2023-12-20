@@ -12,7 +12,6 @@ import {
   updateOrganizationContribution,
 } from './service';
 import TextArea from '@/components/utils/TextArea/TextArea';
-import { Suspense } from 'react';
 import Spinner from '@/components/utils/Spinner/Spinner';
 
 export type ContributionFormInput = Pick<
@@ -26,7 +25,7 @@ type FormContributionProps = {
 
 const HawkStarsDatePicker = dynamic(
   () => import('@/components/utils/DatePicker/DatePicker'),
-  { ssr: false }
+  { ssr: false, loading: () => <Spinner /> }
 );
 
 const FormContributions = ({ formType }: FormContributionProps) => {
@@ -60,16 +59,13 @@ const FormContributions = ({ formType }: FormContributionProps) => {
         control={control}
         name='contribution_date'
         render={({ field: { onChange, value, ref } }) => (
-          <Suspense fallback={<Spinner />}>
-            <HawkStarsDatePicker
-              date={value}
-              onChange={onChange}
-              labelText='Contribution Date'
-            />
-          </Suspense>
+          <HawkStarsDatePicker
+            date={value}
+            onChange={onChange}
+            labelText='Contribution Date'
+          />
         )}
       />
-
       <Controller
         control={control}
         name='value'
