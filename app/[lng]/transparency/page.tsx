@@ -1,8 +1,13 @@
-import ContributionProjectGoal from '@/components/transparency/ContributionProjectGoal';
 import OrganizationContributionsTable from '@/components/transparency/OrganizationContributionsTable';
 import OrganizationMovementsTable from '@/components/transparency/OrganizationMovementsTable';
 import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
+import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
+
+const ContributionProjectGoal = dynamic(
+  import('@/components/transparency/ContributionProjectGoal'),
+  { ssr: false }
+);
 
 const TransparencyPage = async () => {
   return (

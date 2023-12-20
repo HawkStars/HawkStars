@@ -1,6 +1,6 @@
 import { tw, variantProps } from 'classname-variants/react';
 import React, { ReactNode } from 'react';
-import Spinner from './Spinner';
+import Spinner from './Spinner/Spinner';
 
 interface ButtonProps {
   /**
