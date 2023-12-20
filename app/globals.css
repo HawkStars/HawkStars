@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('react-date-picker/dist/DatePicker.css');
+@import url('react-calendar/dist/Calendar.css');
+
 @layer base {
   body {
     font-family:

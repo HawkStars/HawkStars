@@ -1,0 +1,56 @@
+import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
+import { Contributions } from '@/models/database';
+import { v4 as uuidv4 } from 'uuid';
+import { ContributionFormInput } from './FormContributions';
+
+const addOrganizationContribution = async ({
+  value,
+  donor,
+  description,
+  type,
+  contribution_date,
+}: ContributionFormInput) => {
+  const supabase = createSupabaseBrowserClient();
+  const { data } = await supabase.auth.getUser();
+  if (!data || !data.user) return;
+
+  const { error } = await supabase
+    .from<'contibutions', Contributions>('contibutions')
+    .insert({
+      id: uuidv4(),
+      value,
+      description,
+      donor,
+      type,
+      contribution_date: contribution_date.toISOString(),
+      registered_by: '1',
+    });
+
+  if (error) return;
+  return true;
+};
+
+const updateOrganizationContribution = async ({
+  value,
+  donor,
+  description,
+  type,
+  contribution_date,
+}: ContributionFormInput) => {
+  const supabase = createSupabaseBrowserClient();
+  const { error } = await supabase
+    .from<'contributions', Contributions>('contributions')
+    .update({
+      value,
+      donor,
+      description,
+      type,
+      contribution_date: contribution_date.toISOString(),
+    })
+    .eq('id', 1);
+
+  if (error) return;
+  return true;
+};
+
+export { addOrganizationContribution, updateOrganizationContribution };

@@ -7,4 +7,10 @@ const OrganizationTypeMovementOptions = [
   { label: 'Debit', value: 'debit', id: 'debit', disabled: false },
 ] as SelectOption[];
 
-export { OrganizationTypeMovementOptions };
+const OrganizationMovementAPIMessages = {
+  ERROR: 'Error while connecting with the database',
+  SUCCESS: 'Added the organization movement',
+  NO_USER_LOGGED_IN: 'User not logged in',
+};
+
+export { OrganizationTypeMovementOptions, OrganizationMovementAPIMessages };

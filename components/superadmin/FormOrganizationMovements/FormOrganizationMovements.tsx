@@ -1,74 +1,27 @@
 'use client';
 
-import { v4 as uuidv4 } from 'uuid';
-
 import Checkbox from '@/components/utils/Checkbox/Checkbox';
-import HawkStarsDatePicker from '@/components/utils/DatePicker/DatePicker';
 import Select from '@/components/utils/Select';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { OrganizationTypeMovementOptions } from './config';
 import Input from '@/components/utils/Input/Input';
-import { OrganizationMovement, OrganizationMovements } from '@/models/database';
-import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
+import { OrganizationMovement } from '@/models/database';
 import Button from '@/components/utils/Button';
+import dynamic from 'next/dynamic';
+import { addOrganizationMovement, updateOrganizationMovement } from './service';
 
 type FormOrganizationMovementProps = {
   formType: 'create' | 'update';
 };
 
-type OrganizationMovementFormProps = Pick<
+export type OrganizationMovementFormProps = Pick<
   OrganizationMovement,
   'description' | 'value' | 'type' | 'paid'
 > & { movement_date: Date };
 
-const addOrganizationMovement = async ({
-  description,
-  value,
-  type,
-  paid,
-  movement_date,
-}: OrganizationMovementFormProps) => {
-  const supabase = createSupabaseBrowserClient();
-  const { error } = await supabase
-    .from<'organization_movements', OrganizationMovements>(
-      'organization_movements'
-    )
-    .insert({
-      id: uuidv4(),
-      description,
-      value,
-      type,
-      paid,
-      movement_date: movement_date.toISOString(),
-      registered_by: '', // TODO: missing this
-    });
-
-  if (error) return;
-  return true;
-};
-
-const updateOrganizationMovement = async ({
-  description,
-  value,
-  type,
-  movement_date,
-}: OrganizationMovementFormProps) => {
-  const supabase = createSupabaseBrowserClient();
-  const { error } = await supabase
-    .from<'organization_movements', OrganizationMovements>(
-      'organization_movements'
-    )
-    .update({
-      description,
-      value,
-      type,
-      movement_date: movement_date.toISOString(),
-    })
-    .eq('id', 1);
-
-  if (error) return;
-  return true;
-};
+const HawkStarsDatePicker = dynamic(
+  () => import('@/components/utils/DatePicker/DatePicker')
+);
 
 const FormOrganizationMovement = ({
   formType,
@@ -90,13 +43,14 @@ const FormOrganizationMovement = ({
   const onSubmit: SubmitHandler<OrganizationMovementFormProps> = async (
     data: OrganizationMovementFormProps
   ) => {
+    debugger;
     if (formType == 'create') return await addOrganizationMovement(data);
     return await updateOrganizationMovement(data);
   };
 
   return (
     <form
-      className='mx-auto mt-5 flex w-1/2 flex-col gap-3'
+      className='mx-auto mt-5 flex w-1/2 flex-col gap-6'
       onSubmit={handleSubmit(onSubmit)}
     >
       <Controller
@@ -139,7 +93,6 @@ const FormOrganizationMovement = ({
           ></Input>
         )}
       />
-      {/* paid */}
       <Controller
         control={control}
         render={({ field: { value, onChange, name } }) => (
@@ -156,11 +109,15 @@ const FormOrganizationMovement = ({
       <Controller
         control={control}
         render={({ field: { value, onChange, name } }) => (
-          <HawkStarsDatePicker date={value} onChange={onChange} />
+          <HawkStarsDatePicker
+            date={value}
+            onChange={onChange}
+            labelText='Movement Date'
+          />
         )}
         name={'movement_date'}
       />
-      <Button type={'button'}>
+      <Button type={'submit'}>
         {formType == 'update' ? 'Update' : 'Create'}
       </Button>
     </form>

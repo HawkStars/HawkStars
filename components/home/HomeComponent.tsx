@@ -93,8 +93,8 @@ const HomeComponent = () => {
           ))}
         </div>
       </section>
-      <section className='bg-bege-dark px-8 py-10 lg:px-20'>
-        <div className='mx-auto flex max-w-6xl flex-row gap-10'>
+      <section className='bg-bege-dark px-8 py-20 lg:px-20'>
+        <div className='mx-auto flex max-w-6xl flex-row gap-20'>
           <Image
             src={exterior1}
             alt='Global Village'

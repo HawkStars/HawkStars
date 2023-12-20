@@ -1,15 +1,19 @@
 'use client';
 
-import { v4 as uuidv4 } from 'uuid';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { ContributionTypesLabels } from './config';
-import HawkStarsDatePicker from '@/components/utils/DatePicker/DatePicker';
 import Select from '@/components/utils/Select';
 import Input from '@/components/utils/Input/Input';
-import { Contribution, Contributions } from '@/models/database';
-import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
+import { Contribution } from '@/models/database';
+import Button from '@/components/utils/Button';
+import dynamic from 'next/dynamic';
+import {
+  addOrganizationContribution,
+  updateOrganizationContribution,
+} from './service';
+import TextArea from '@/components/utils/TextArea/TextArea';
 
-type ContributionFormInput = Pick<
+export type ContributionFormInput = Pick<
   Contribution,
   'value' | 'donor' | 'description' | 'type'
 > & { contribution_date: Date };
@@ -18,52 +22,9 @@ type FormContributionProps = {
   formType: 'create' | 'update';
 };
 
-const addOrganizationContribution = async ({
-  value,
-  donor,
-  description,
-  type,
-  contribution_date,
-}: ContributionFormInput) => {
-  const supabase = createSupabaseBrowserClient();
-  const { error } = await supabase
-    .from<'contibutions', Contributions>('contibutions')
-    .insert({
-      id: uuidv4(),
-      value,
-      description,
-      donor,
-      type,
-      contribution_date: contribution_date.toISOString(),
-      registered_by: '1',
-    });
-
-  if (error) return;
-  return true;
-};
-
-const updateOrganizationContribution = async ({
-  value,
-  donor,
-  description,
-  type,
-  contribution_date,
-}: ContributionFormInput) => {
-  const supabase = createSupabaseBrowserClient();
-  const { error } = await supabase
-    .from<'contributions', Contributions>('contributions')
-    .update({
-      value,
-      donor,
-      description,
-      type,
-      contribution_date: contribution_date.toISOString(),
-    })
-    .eq('id', 1);
-
-  if (error) return;
-  return true;
-};
+const HawkStarsDatePicker = dynamic(
+  () => import('@/components/utils/DatePicker/DatePicker')
+);
 
 const FormContributions = ({ formType }: FormContributionProps) => {
   const {
@@ -90,13 +51,17 @@ const FormContributions = ({ formType }: FormContributionProps) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmitForm)}
-      className='mx-auto flex w-1/2 flex-col gap-3'
+      className='mx-auto flex w-1/2 flex-col gap-5'
     >
       <Controller
         control={control}
         name='contribution_date'
         render={({ field: { onChange, value, ref } }) => (
-          <HawkStarsDatePicker date={value} onChange={onChange} />
+          <HawkStarsDatePicker
+            date={value}
+            onChange={onChange}
+            labelText='Contribution Date'
+          />
         )}
       />
 
@@ -115,7 +80,7 @@ const FormContributions = ({ formType }: FormContributionProps) => {
       <Controller
         control={control}
         name='donor'
-        render={({ field: { onChange, value, ref } }) => (
+        render={({ field: { onChange, value } }) => (
           <Input
             labelText='Doador'
             name='donor'
@@ -124,11 +89,22 @@ const FormContributions = ({ formType }: FormContributionProps) => {
           />
         )}
       />
-      <textarea name='description' />
+      <Controller
+        control={control}
+        name='description'
+        render={({ field: { onChange, value, name } }) => (
+          <TextArea
+            labelText='Description'
+            name={name}
+            value={value}
+            onChange={onChange}
+          />
+        )}
+      />
       <Controller
         control={control}
         name='type'
-        render={({ field: { onChange, value, ref } }) => (
+        render={({ field: { onChange, value, ref, disabled } }) => (
           <Select
             name='type'
             labelText='Type'
@@ -138,6 +114,9 @@ const FormContributions = ({ formType }: FormContributionProps) => {
           />
         )}
       />
+      <Button type={'submit'}>
+        {formType == 'update' ? 'Update' : 'Create'}
+      </Button>
     </form>
   );
 };
