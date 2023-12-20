@@ -80,7 +80,7 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
         <Image src={heroImage} alt='hero image' />
       </div>
       <div className='flex flex-col gap-10 bg-gradient-to-tr from-[#E9E9E9] from-35% via-bege-dark to-[#E9E9E9] to-65% py-16 lg:gap-20 lg:p-20 lg:py-20'>
-        <h3 className='text-center'>Formas e modalidades de doação</h3>
+        <h3 className='text-center'>{t('forms_and_modalities')}</h3>
         <div className='container-hawk flex flex-col gap-10 md:flex-row lg:mx-5'>
           <div className='flex flex-col gap-1 md:flex-1'>
             <Image
@@ -106,7 +106,7 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
       <div className='flex flex-col gap-3'>
         <h1 className='text-center text-green'>{t('other_modalities')}</h1>
         <div className='mt-5 flex flex-col justify-center gap-3'>
-          <h3 className='text-center'>HawkStars Store</h3>
+          <h3 className='text-center'>{t('store')}</h3>
           <div className='flex justify-center'>
             <Link
               //href='https://shop.hawkstars.org/'

@@ -101,8 +101,8 @@ const HomeComponent = () => {
             className='w-1/2 flex-1 rounded-lg'
           />
           <div className='flex w-1/2 flex-1 flex-col gap-4'>
-            <h3 className='text-center text-green'>Global Village</h3>
-            <p>Get to know more about this project</p>
+            <h3 className='mt-5 font-black text-green'>Global Village</h3>
+            <p>{t('home.global_village')}</p>
             <Button type={'button'}>
               <Suspense fallback=''>See More</Suspense>
             </Button>

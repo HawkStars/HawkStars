@@ -1,6 +1,8 @@
 {
   "contribute_hero": "Contribute to the project and the NGO",
   "other_modalities": "Outras Modalidades",
+  "forms_and_modalities": "Formas e modalidades de doação",
+  "store": "Loja HawkStars",
   "crypto_transfer": {
     "description": "Os doadores em crypto moeda serão considerados para benefício de mérito ao doar em Bitcoin (BTC), Ethereum (ETH) - se atenderem ao valor mínimo -, ou em stablecoins como Tether (USDT), USD Coin (USDC), Euro Coin (EUROC) e Binance Dollar (BUSD). Para garantir o benefício de mérito, o doador deve preencher um formulário comprovando a transferência. Após a conversão para moeda fiduciária, a Hawk Stars emitirá uma fatura/recibo de doação, que o doador pode reclamar em crypto por meio do formulário correspondente."
   },

@@ -1,3 +1,4 @@
+import i18next from 'i18next';
 import { SocialContact } from '../../../models/social';
 
 export type PartnersInfo = {
@@ -9,11 +10,13 @@ export type PartnersInfo = {
   country?: string;
 };
 
+console.log(i18next.language);
+
 export const CURRENT_PARTNERS = [
   {
     image: '/images/partners/logo/AAA.jpg',
     title: 'AAA - Associação Amigos de Almeida',
-    description: `Parceria entre a Hawk Stars NGO e Associação Amigos de Almeida terá por base a parceria em atividades locais de ambas as organizações, bem como a integração e cooperação na gestão de voluntários internacionais, no Concelho de Almeida e Pinhel.`,
+    description: `partners.aaa`,
     contacts: [],
     type: 'national',
   },

@@ -8,10 +8,10 @@ import {
   PartnersInfo,
 } from '../../app/[lng]/partners/config';
 import { useTranslation } from '../../i18n';
-import i18next from 'i18next';
+import { LanguageProps } from '../types';
 
-const PartnersComponent = async () => {
-  const { t } = await useTranslation(i18next.language, 'partners');
+const PartnersComponent = async ({ lng }: LanguageProps) => {
+  const { t } = await useTranslation(lng, 'partners');
   const nationalPartners = CURRENT_PARTNERS.filter(
     (partner) => partner.type == 'national'
   );
@@ -30,11 +30,15 @@ const PartnersComponent = async () => {
           style={{ objectFit: 'cover', zIndex: 1 }}
         />
       </div>
-      <section className='container-hawk'>
+      <section className='layout-section'>
         <div className='mt-10'>
           <h1 className='mb-5 text-center'>{t('national')}</h1>
           {nationalPartners.map((partner, index) => (
-            <PartnerCard {...partner} key={index} />
+            <PartnerCard
+              {...partner}
+              key={index}
+              description={t(partner.description)}
+            />
           ))}
         </div>
         <div className='mt-10'>
@@ -83,7 +87,9 @@ const PartnerCard = ({
 
       {/* Description */}
       <div>
-        <ReactMarkdown components={renderers}>{description}</ReactMarkdown>
+        <ReactMarkdown components={renderers} className='text-justify'>
+          {description}
+        </ReactMarkdown>
       </div>
 
       {/* Contacts */}

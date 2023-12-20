@@ -12,7 +12,7 @@ const AboutPage = async ({ lng }: LanguageProps) => {
   const { t } = await useTranslation(lng, 'about');
   return (
     <>
-      <div className='container-hawk grid grid-cols-1 gap-10 lg:grid-cols-2'>
+      <div className='layout-section grid grid-cols-1 gap-10 lg:mt-10 lg:grid-cols-2'>
         <div className='mt-20 flex flex-col gap-5'>
           <h1>{t('title')}</h1>
           <p className='font-body'>{t('description')}</p>
@@ -52,37 +52,37 @@ const AboutPage = async ({ lng }: LanguageProps) => {
           </div>
         </div>
       </div>
-      <div className='container-hawk my-10 flex flex-col gap-5'>
+      <div className='layout-section my-10 flex flex-col gap-5 xl:mx-auto'>
         <h2 className='flex justify-center text-center text-green'>
           {t('objectives.title')}
         </h2>
         <h3 className='mx-auto flex justify-center text-center lg:w-3/5'>
           {t('objectives.description')}
         </h3>
-        <div className='grid grid-cols-1 gap-10 lg:grid-cols-3 '>
+        <div className='grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3 '>
           {aboutObjectiveSections.map((section, index) => (
             <TaskComponent key={index} {...section} lng={lng} />
           ))}
         </div>
       </div>
-      <div className='bg-bege-light p-4 pb-8 lg:p-10 lg:pb-12'>
-        <div className='container-hawk relative grid grid-cols-1 gap-10 lg:grid-cols-2'>
+      <div className='bg-bege-light p-4 pb-8 lg:mt-20 lg:px-10 lg:py-20'>
+        <div className='layout-section relative grid grid-cols-1 gap-10 lg:grid-cols-2'>
           <Image
-            className='absolute bottom-5 left-10 hidden lg:block'
+            className='absolute bottom-5 left-5 hidden lg:block'
             src='/images/about/mission/icon1.png'
             alt='icon1'
             height={38}
             width={38}
           />
           <Image
-            className='absolute left-3 top-10 hidden lg:block'
+            className='absolute left-3 top-5 hidden lg:block'
             src='/images/about/mission/icon2.png'
             alt='icon2'
             height={53}
             width={53}
           />
           <Image
-            className='absolute right-5 top-8 hidden lg:block'
+            className='absolute right-5 top-0 hidden lg:block'
             src='/images/about/mission/icon3.png'
             alt='icon3'
             height={100}
@@ -108,7 +108,7 @@ const AboutPage = async ({ lng }: LanguageProps) => {
             ))}
           </div>
         </div>
-        <div className='container-hawk mt-10 flex flex-col gap-10'>
+        <div className='layout-section mt-10 flex flex-col gap-10'>
           <Accordion title={t('vision.title')} defaultOpen={true}>
             <ul className='flex list-disc flex-col gap-3 px-6'>
               {visionGoals.map((option: string) => {

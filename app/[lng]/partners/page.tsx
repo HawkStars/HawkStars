@@ -9,7 +9,7 @@ export const metadata = {
 } as Metadata;
 
 const PartnersPage = ({ params: { lng } }: { params: { lng: string } }) => {
-  return <PartnersComponent />;
+  return <PartnersComponent lng={lng} />;
 };
 
 export default PartnersPage;
