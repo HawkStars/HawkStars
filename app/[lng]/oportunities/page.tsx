@@ -11,7 +11,7 @@ export const metadata = {
 const OportunitiesPage = ({ params: { lng } }: { params: { lng: string } }) => {
   return (
     <>
-      <div className='container-hawk mx-auto'></div>
+      <div className='mx-auto'></div>
     </>
   );
 };

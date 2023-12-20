@@ -73,7 +73,7 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
       <h2 className='text-center text-green lg:hidden'>
         {t('contribute_hero')}
       </h2>
-      <div className='relative'>
+      <div className='layout-section  relative max-w-full max-2xl:mx-0 max-2xl:p-0'>
         <h2 className='absolute left-40 top-20 hidden w-72 text-4xl text-green lg:block'>
           {t('contribute_hero')}
         </h2>
@@ -81,7 +81,7 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
       </div>
       <div className='flex flex-col gap-10 bg-gradient-to-tr from-[#E9E9E9] from-35% via-bege-dark to-[#E9E9E9] to-65% py-16 lg:gap-20 lg:p-20 lg:py-20'>
         <h3 className='text-center'>{t('forms_and_modalities')}</h3>
-        <div className='container-hawk flex flex-col gap-10 md:flex-row lg:mx-5'>
+        <div className='layout-section flex flex-col gap-10 md:flex-row'>
           <div className='flex flex-col gap-1 md:flex-1'>
             <Image
               src={bankTransferImage}
@@ -121,10 +121,10 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
         <LineBreaker />
         <div className='flex flex-col gap-10'>
           <h1 className='mt-10 text-center text-green'>Branding</h1>
-          <div className='container-hawk flex flex-col gap-10 md:flex-row'>
+          <div className='layout-section flex flex-col gap-10 md:flex-row'>
             <div className='flex flex-1 flex-col gap-3'>
               <h2 className='text-center'>
-                International Training Center BRANDING
+                {t('brand.international_training_center.title')}
               </h2>
               <Image
                 src={exterior2}
@@ -132,15 +132,12 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
                 className='rounded-lg'
               />
               <h4 className='w-fit rounded-2xl border border-green p-2 text-green'>
-                from 380.000€
+                {t('brand.international_training_center.price')}
               </h4>
-              <p>
-                Parcerias financeiras do Naming do Internacional Training Center
-                - negociável (Por exemplo - International Training Center)
-              </p>
+              <p>{t('brand.international_training_center.description')}</p>
             </div>
             <div className='flex flex-1 flex-col gap-3'>
-              <h2 className='text-center'>ROOM BRANDING</h2>
+              <h2 className='text-center'>{t('brand.room_branding.title')}</h2>
               <Image
                 src={coworkingRoom}
                 alt='hawk stars training room'
@@ -148,19 +145,16 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
               />
               <div className='flex flex-col justify-around gap-4'>
                 <h4 className='w-fit rounded-2xl border border-green p-2 text-green'>
-                  From 15.000€
+                  {t('brand.room_branding.price')}
                 </h4>
-                <p>
-                  Parcerias financeiras de Naming Room para Salas de Formação,
-                  Reuniões, Co-working, Lounge, Gaming Hub, Estúdio de Gravação.
-                </p>
+                <p>{t('brand.room_branding.description')}</p>
               </div>
             </div>
           </div>
         </div>
-        <div className='container-hawk mt-10 flex flex-col gap-10 lg:mx-auto lg:w-2/3'>
+        <div className='layout-section mt-10 flex flex-col gap-10 lg:mx-auto lg:w-2/3'>
           <div className='mx-auto flex flex-1 flex-col gap-3 '>
-            <h2 className='text-center'>BRAND AT WALL</h2>
+            <h2 className='text-center'>{t('brand.wall_branding.title')}</h2>
             <Image
               src={trainingRoom}
               alt='hawk stars training room'
@@ -169,65 +163,69 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
             <div className='flex flex-row gap-4'>
               <div className='flex w-fit flex-row gap-1 rounded-2xl border border-green p-2 text-sm text-green lg:text-base'>
                 <LiaUserSolid size={28} className='my-auto' />
-                <p className='self-center'>From 500€ (Solo)</p>
+                <p className='self-center'>
+                  {t('brand.wall_branding.price_solo')}
+                </p>
               </div>
               <div className='flex w-fit flex-row gap-1 rounded-2xl border border-green p-2 text-sm text-green lg:text-base'>
                 <LiaUsersSolid size={28} />
-                <p className='self-center'>From 1800€ (Company)</p>
+                <p className='self-center'>
+                  {t('brand.wall_branding.price_company')}
+                </p>
               </div>
             </div>
-            <p>
-              Parcerias financeiras de Naming Room para Salas de Formação,
-              Reuniões, Co-working, Lounge, Gaming Hub, Estúdio de Gravação.
-            </p>
+            <p>{t('brand.wall_branding.description')}</p>
           </div>
         </div>
         <LineBreaker />
-        <h2 className='text-center text-green'>
-          Nome em Cadeiras do Training Center
-        </h2>
-        <ChairsSections
-          title='Cadeira de Escritório/Gaming'
-          price='300€'
-          icon={
-            <Image src={loungeChairEmpty} alt='gaming/office chair not taken' />
-          }
-          iconFilled={
-            <Image src={loungeChair} alt='gaming/office chair filled' />
-          }
-          size={60}
-          currentContributions={loungeChairs}
-        />
-        <ChairsSections
-          title='Cadeira de Drive Simulator Gaming'
-          price='350€'
-          icon={
-            <Image
-              src={simulatorChairNotTaken}
-              alt='simulator not picked chair'
-            />
-          }
-          iconFilled={<Image src={simulatorChairTaken} alt='picked chair' />}
-          size={2}
-          currentContributions={simulationChairs}
-        />
+        <div className='layout-section'>
+          <h2 className='text-center text-green'>{t('brand.chairs.title')}</h2>
+          <ChairsSections
+            title={t('brand.chairs.types.gaming_chair')}
+            price='300€'
+            icon={
+              <Image
+                src={loungeChairEmpty}
+                alt='gaming/office chair not taken'
+              />
+            }
+            iconFilled={
+              <Image src={loungeChair} alt='gaming/office chair filled' />
+            }
+            size={60}
+            currentContributions={loungeChairs}
+          />
+          <ChairsSections
+            title={t('brand.chairs.types.simulation_chair')}
+            price='350€'
+            icon={
+              <Image
+                src={simulatorChairNotTaken}
+                alt='simulator not picked chair'
+              />
+            }
+            iconFilled={<Image src={simulatorChairTaken} alt='picked chair' />}
+            size={2}
+            currentContributions={simulationChairs}
+          />
 
-        <ChairsSections
-          title='Cadeira Lounge Co(ffe) Working'
-          price='260€'
-          icon={<TbArmchair size={48} />}
-          iconFilled={<TbArmchair size={48} fill='#0A7558' />}
-          size={40}
-          currentContributions={officeChairs}
-        />
-        <ChairsSections
-          title='Cadeira Móvel de Auditório/Salas Formação'
-          price='230€'
-          icon={<PiChairLight size={48} />}
-          iconFilled={<PiChairLight size={48} fill='#0A7558' />}
-          size={110}
-          currentContributions={auditoriumChairs}
-        />
+          <ChairsSections
+            title={t('brand.chairs.types.lounge_chair')}
+            price='260€'
+            icon={<TbArmchair size={48} />}
+            iconFilled={<TbArmchair size={48} fill='#0A7558' />}
+            size={40}
+            currentContributions={officeChairs}
+          />
+          <ChairsSections
+            title={t('brand.chairs.types.auditorium_chair')}
+            price='230€'
+            icon={<PiChairLight size={48} />}
+            iconFilled={<PiChairLight size={48} fill='#0A7558' />}
+            size={110}
+            currentContributions={auditoriumChairs}
+          />
+        </div>
       </div>
     </div>
   );

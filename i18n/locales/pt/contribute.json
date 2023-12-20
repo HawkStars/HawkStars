@@ -20,5 +20,32 @@
     "training_room_naming": "Aquisição Nome de Sala do Training Center",
     "wall_name_company": "Aquisição Nome da Parede (Companhia/NGO)",
     "wall_name_singular": "Aquisição Nome da Parede (Titulo Individual)"
+  },
+  "brand": {
+    "international_training_center": {
+      "title": "Marca no International Training Center",
+      "price": "desde 380.000€",
+      "description": "Parcerias financeiras do Naming do Internacional Training Center (Por exemplo - X International Training Center)"
+    },
+    "room_branding": {
+      "title": "Marca nas Salas",
+      "price": "desde 15.000€",
+      "description": "Parcerias financeiras de Naming Room para Salas de Formação, Reuniões, Co-working, Lounge, Gaming Hub, Estúdio de Gravação."
+    },
+    "wall_branding": {
+      "title": "Marca nas Paredes",
+      "price_solo": "Individual desde 500€",
+      "price_company": "Empresa desde 1800€",
+      "description": "Colocação dos nomes individuais e logótipos das empresas nas paredes das salas de formação e demais salas."
+    },
+    "chairs": {
+      "title": "Nome em Cadeiras do Training Center",
+      "types": {
+        "gaming_chair": "Cadeira de Escritório/Gaming",
+        "simulation_chair": "Cadeira de Drive Simulator Gaming",
+        "lounge_chair": "Cadeira Lounge Co(ffe) Working",
+        "auditorium_chair": "Cadeira Móvel de Auditório/Salas Formação"
+      }
+    }
   }
 }

@@ -1,6 +1,6 @@
 const BeAMemberPage = ({ params: { lng } }: { params: { lng: string } }) => {
   return (
-    <div className='container-hawk mx-auto mt-10 flex flex-col gap-5'>
+    <div className='mx-auto mt-10 flex flex-col gap-5'>
       <div className='flex flex-col gap-2'>
         <iframe
           src='https://giphy.com/embed/Mah9dFWo1WZX0WM62Q'
