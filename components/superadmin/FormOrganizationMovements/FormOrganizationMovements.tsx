@@ -9,6 +9,7 @@ import { OrganizationMovement } from '@/models/database';
 import Button from '@/components/utils/Button';
 import dynamic from 'next/dynamic';
 import { addOrganizationMovement, updateOrganizationMovement } from './service';
+import { Suspense } from 'react';
 
 type FormOrganizationMovementProps = {
   formType: 'create' | 'update';
@@ -20,7 +21,8 @@ export type OrganizationMovementFormProps = Pick<
 > & { movement_date: Date };
 
 const HawkStarsDatePicker = dynamic(
-  () => import('@/components/utils/DatePicker/DatePicker')
+  () => import('@/components/utils/DatePicker/DatePicker'),
+  { ssr: false }
 );
 
 const FormOrganizationMovement = ({
@@ -109,11 +111,13 @@ const FormOrganizationMovement = ({
       <Controller
         control={control}
         render={({ field: { value, onChange, name } }) => (
-          <HawkStarsDatePicker
-            date={value}
-            onChange={onChange}
-            labelText='Movement Date'
-          />
+          <Suspense>
+            <HawkStarsDatePicker
+              date={value}
+              onChange={onChange}
+              labelText='Movement Date'
+            />
+          </Suspense>
         )}
         name={'movement_date'}
       />

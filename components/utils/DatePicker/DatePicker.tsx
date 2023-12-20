@@ -1,20 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import DatePicker from 'react-date-picker';
+import DatePicker from 'react-datepicker';
 import { useRef } from 'react';
-import { Label } from '@headlessui/react/dist/components/label/label';
 
-type ValuePiece = Date | null;
+import 'react-datepicker/dist/react-datepicker.css';
 
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
-interface HawkStarsDatePickerProps {
+type HawkStarsDatePickerProps = {
   date: Date;
   onChange: (date: any) => void;
   labelText?: string;
   minDate?: Date;
-}
+};
 
 function HawkStarsDatePicker({
   date,
@@ -23,17 +20,21 @@ function HawkStarsDatePicker({
   minDate,
 }: HawkStarsDatePickerProps) {
   const datePickerRef = useRef(null);
-  const [calendarDate, setCalendarDate] = useState<Value>(date);
+  const [startDate, setStartDate] = useState<Date>(date);
 
-  const changeDatePickerValue = (value: Value) => {
-    setCalendarDate(value);
+  const changeDatePickerValue = (value: Date) => {
+    setStartDate(value);
     onChange(value);
   };
 
   return (
     <div ref={datePickerRef} className='flex flex-col gap-2'>
       {labelText && <h6>{labelText}</h6>}
-      <DatePicker onChange={changeDatePickerValue} value={calendarDate} />
+      <DatePicker
+        onChange={changeDatePickerValue}
+        selected={startDate}
+        minDate={minDate || undefined}
+      />
     </div>
   );
 }

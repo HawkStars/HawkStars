@@ -12,6 +12,7 @@ import {
   updateOrganizationContribution,
 } from './service';
 import TextArea from '@/components/utils/TextArea/TextArea';
+import { Suspense } from 'react';
 
 export type ContributionFormInput = Pick<
   Contribution,
@@ -23,7 +24,8 @@ type FormContributionProps = {
 };
 
 const HawkStarsDatePicker = dynamic(
-  () => import('@/components/utils/DatePicker/DatePicker')
+  () => import('@/components/utils/DatePicker/DatePicker'),
+  { ssr: false }
 );
 
 const FormContributions = ({ formType }: FormContributionProps) => {
@@ -57,11 +59,13 @@ const FormContributions = ({ formType }: FormContributionProps) => {
         control={control}
         name='contribution_date'
         render={({ field: { onChange, value, ref } }) => (
-          <HawkStarsDatePicker
-            date={value}
-            onChange={onChange}
-            labelText='Contribution Date'
-          />
+          <Suspense>
+            <HawkStarsDatePicker
+              date={value}
+              onChange={onChange}
+              labelText='Contribution Date'
+            />
+          </Suspense>
         )}
       />
 
@@ -110,7 +114,9 @@ const FormContributions = ({ formType }: FormContributionProps) => {
             labelText='Type'
             options={ContributionTypesLabels}
             onChange={onChange}
-            defaultOption={ContributionTypesLabels[0]}
+            defaultOption={ContributionTypesLabels.find(
+              (item) => item.value === value
+            )}
           />
         )}
       />
