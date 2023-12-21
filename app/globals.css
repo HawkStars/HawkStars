@@ -41,8 +41,7 @@
     @apply text-2xl font-bold tracking-wide;
     line-height: 113%;
   }
-
-  .font-body {
+  pdate .font-body {
     @apply text-base font-light;
   }
 

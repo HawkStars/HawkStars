@@ -34,6 +34,7 @@ function HawkStarsDatePicker({
         onChange={changeDatePickerValue}
         selected={startDate}
         minDate={minDate || undefined}
+        className='rounded-xl border-2 border-bege-dark p-2'
       />
     </div>
   );
