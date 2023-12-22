@@ -1,68 +1,68 @@
-import { SelectOption } from '@/components/utils/Select';
-
-export type ContributionType =
-  | 'bank'
-  | 'crypto'
-  | 'wall_name_singular'
-  | 'wall_name_company'
-  | 'office_chair'
-  | 'simulator_chair'
-  | 'lounge_chair'
-  | 'auditorium_chair'
-  | 'building_naming'
-  | 'training_room_naming';
+import { ContributionType } from '@/models/database';
 
 const ContributionTypesLabels = [
-  { label: 'Bank', value: 'bank', id: 'bank', disabled: false },
-  { label: 'Crypto', value: 'crypto', id: 'crypto', disabled: false },
+  { label: 'Bank', value: 'BANK', id: 'BANK', disabled: false },
+  { label: 'Crypto', value: 'CRYPTO', id: 'CRYPTO', disabled: false },
   {
-    label: 'Individual Wall Name',
-    value: 'wall_name_singular',
-    id: 'wall_name_singular',
+    label: 'Individual Name at Wall',
+    value: 'WALL_NAME_SINGULAR',
+    id: 'WALL_NAME_SINGULAR',
     disabled: false,
   },
   {
-    label: 'Company Wall Name',
-    value: 'wall_name_company',
-    id: 'wall_name_company',
+    label: 'Company Logo at Wall',
+    value: 'WALL_NAME_COMPANY',
+    id: 'WALL_NAME_COMPANY',
     disabled: false,
   },
   {
     label: 'Office Chair',
-    value: 'office_chair',
-    id: 'office_chair',
+    value: 'OFFICE_CHAIR',
+    id: 'OFFICE_CHAIR',
     disabled: false,
   },
   {
     label: 'Simulator Chair',
-    value: 'simulator_chair',
-    id: 'simulator_chair',
+    value: 'SIMULATOR_CHAIR',
+    id: 'SIMULATOR_CHAIR',
     disabled: false,
   },
   {
     label: 'Lounge Chair',
-    value: 'lounge_chair',
-    id: 'lounge_chair',
+    value: 'LOUNGE_CHAIR',
+    id: 'LOUNGE_CHAIR',
     disabled: false,
   },
   {
     label: 'Auditorium Chair',
-    value: 'auditorium_chair',
-    id: 'auditorium_chair',
+    value: 'AUDITORIUM_CHAIR',
+    id: 'AUDITORIUM_CHAIR',
     disabled: false,
   },
   {
     label: 'Building Naming/Branding',
-    value: 'building_naming',
-    id: 'building_naming',
+    value: 'BUILDING_NAMING',
+    id: 'BUILDING_NAMING',
     disabled: false,
   },
   {
     label: 'Training Room Naming',
-    value: 'training_room_naming',
-    id: 'training_room_naming',
+    value: 'TRAINING_ROOM_NAMING',
+    id: 'TRAINING_ROOM_NAMING',
     disabled: false,
   },
-] as SelectOption[];
+] as {
+  label: string;
+  value: ContributionType;
+  id: ContributionType;
+  disabled: boolean;
+}[];
 
-export { ContributionTypesLabels };
+const ChairsPricing: Partial<Record<ContributionType, number>> = {
+  OFFICE_CHAIR: 300,
+  AUDITORIUM_CHAIR: 230,
+  SIMULATOR_CHAIR: 350,
+  LOUNGE_CHAIR: 260,
+};
+
+export { ContributionTypesLabels, ChairsPricing };

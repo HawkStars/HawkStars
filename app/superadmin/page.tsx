@@ -2,67 +2,60 @@
 
 import FormContributions from '@/components/superadmin/FormContributions/FormContributions';
 import FormOrganizationMovement from '@/components/superadmin/FormOrganizationMovements/FormOrganizationMovements';
+import SuperAdminTabItem from '@/components/superadmin/SuperAdminTabItem/SuperAdminTabItem';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-type SuperAdminSections =
+export type SuperAdminSection =
   | 'dashboard'
   | 'form'
   | 'add_contribution'
   | 'add_organization_movement';
 
 const SuperAdminPage = () => {
-  const [section, setSection] = useState<SuperAdminSections>('dashboard');
+  const [currentSection, setCurrentSection] =
+    useState<SuperAdminSection>('dashboard');
   return (
     <>
       <section className='mt-10 flex flex-col gap-10'>
         <div className='flex flex-row justify-center gap-4'>
-          <div
-            className={classNames({
-              'text-bege-dark underline': section == 'dashboard',
-            })}
-            onClick={() => setSection('dashboard')}
-          >
-            Dashboard
-          </div>
-          <div
-            className={classNames({
-              'text-bege-dark underline': section == 'form',
-            })}
-            onClick={() => setSection('form')}
-          >
-            Form
-          </div>
-          <div
-            className={classNames({
-              'text-bege-dark underline': section == 'add_contribution',
-            })}
-            onClick={() => setSection('add_contribution')}
-          >
-            Add Contribution Manually
-          </div>
-          <div
-            className={classNames({
-              'text-bege-dark underline':
-                section == 'add_organization_movement',
-            })}
-            onClick={() => setSection('add_organization_movement')}
-          >
-            Add Organization Movement
-          </div>
+          <SuperAdminTabItem
+            section='dashboard'
+            currentSectionSelected={currentSection}
+            onClick={() => setCurrentSection('dashboard')}
+            tabText='Dashboard'
+          />
+          <SuperAdminTabItem
+            section='form'
+            currentSectionSelected={currentSection}
+            onClick={() => setCurrentSection('form')}
+            tabText='Form'
+          />
+          <SuperAdminTabItem
+            section='add_contribution'
+            currentSectionSelected={currentSection}
+            onClick={() => setCurrentSection('add_contribution')}
+            tabText='Add Manual Contribution'
+          />
+          <SuperAdminTabItem
+            section='add_organization_movement'
+            currentSectionSelected={currentSection}
+            onClick={() => setCurrentSection('add_organization_movement')}
+            tabText='Add Organization Movement'
+          />
         </div>
 
-        {section == 'dashboard' && <div>Dashboard</div>}
-        {section == 'form' && <div>Form</div>}
-        {section == 'add_organization_movement' && (
+        {currentSection == 'dashboard' && <div>Dashboard</div>}
+        {currentSection == 'form' && <div>Form</div>}
+        {currentSection == 'add_organization_movement' && (
           <section>
             <h3 className='text-center'>Movimentos Organização</h3>
             <FormOrganizationMovement formType={'create'} />
           </section>
         )}
-        {section == 'add_contribution' && (
+        {currentSection == 'add_contribution' && (
           <section className='flex flex-col gap-3'>
             <h3 className='text-center'>Contributions</h3>
             <FormContributions formType='create' />
