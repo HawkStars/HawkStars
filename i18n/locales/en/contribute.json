@@ -1,1 +1,51 @@
-{}
+{
+  "contribute_hero": "Contribute to the project and the NGO",
+  "other_modalities": "Other Modalities",
+  "forms_and_modalities": "Ways to Donate",
+  "store": "HawkStars Store",
+  "crypto_transfer": {
+    "description": "Crypto currency donors will be considered for merit member benefits when donating in Bitcoin (BTC), Ethereum (ETH) if they meet the minimum value , or in stable coins such as Tether (USDT), USD Coin (USDC) , Euro Coin (EUROC) and Binance Dollar (BUSD). To guarantee the merit member benefits, the donor must fill out a form to prove the transfer. After conversion to fiat currency, Hawk Stars will issue a donation invoice/receipt, which the donor can claim in crypto through the corresponding form."
+  },
+  "bank_transfer": {
+    "description": "Donors can make a bank transfer, choosing the desired type of support. Hawk Stars NGO will issue a donation invoice/receipt for all amounts, with or without merit member benefits, following the legal requirements for possible tax benefits, in accordance with Decree-Law No. 215/89 and complementary legislation."
+  },
+  "options": {
+    "bank_transfer": "Bank Transfer",
+    "crypto_transfer": "Crypto Transfer",
+    "auditorium_chair": "Name Chair at Training Room",
+    "building_naming": "Building Branding",
+    "lounge_chair": "Buy Lounge Chair",
+    "office_chair": "Buy Office Chair",
+    "simulator_chair": "Buy Gaming Simulation Chair",
+    "training_room_naming": "Name Training Center Room",
+    "wall_name_company": "Name at the Wall (Company/NGO)",
+    "wall_name_singular": "Name at the Wall (Individual Title)"
+  },
+  "brand": {
+    "international_training_center": {
+      "title": "Brand at the International Training Center",
+      "price": "from 380.000€",
+      "description": "International Training Center Naming financial partnerships (For example - X International Training Center)"
+    },
+    "room_branding": {
+      "title": "Brand at Training Center Rooms",
+      "price": "from 15.000€",
+      "description": "Naming Room financial partnerships for Training Rooms, Meetings, Co-working, Lounge, Gaming Hub, Recording Studio."
+    },
+    "wall_branding": {
+      "title": "Brand at Walls",
+      "price_solo": "Personal since 500€",
+      "price_company": "Company since 1800€",
+      "description": "Placing individual names and company logos on the walls of training rooms and other rooms."
+    },
+    "chairs": {
+      "title": "Name on Training Center Chairs",
+      "types": {
+        "gaming_chair": "Office/Gaming Chair",
+        "simulation_chair": "Drive Simulator Gaming Chair",
+        "lounge_chair": "Co(ffe) Working Lounge Chair",
+        "auditorium_chair": "Mobile Chair for Auditorium/Training Rooms"
+      }
+    }
+  }
+}

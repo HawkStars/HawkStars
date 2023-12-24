@@ -88,7 +88,7 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
               alt='bank transfer'
               className='w-full rounded-lg'
             />
-            <h4 className='mt-5 font-bold'>{t('bank_transfer.title')}</h4>
+            <h4 className='mt-5 font-bold'>{t('options.bank_transfer')}</h4>
             <p className='text-justify'>{t('bank_transfer.description')}</p>
           </div>
           <div className='flex flex-col gap-1 md:flex-1'>
@@ -97,7 +97,7 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
               alt='crypto transfer'
               className='w-full rounded-lg'
             />
-            <h4 className='mt-5 font-bold'>{t('crypto_transfer.title')}</h4>
+            <h4 className='mt-5 font-bold'>{t('options.crypto_transfer')}</h4>
             <p className='text-justify'>{t('crypto_transfer.description')}</p>
           </div>
         </div>
