@@ -1,9 +1,9 @@
 'use client';
 
+import Dashboard from '@/components/superadmin/Dashboard/Dashboard';
 import FormContributions from '@/components/superadmin/FormContributions/FormContributions';
 import FormOrganizationMovement from '@/components/superadmin/FormOrganizationMovements/FormOrganizationMovements';
 import SuperAdminTabItem from '@/components/superadmin/SuperAdminTabItem/SuperAdminTabItem';
-import classNames from 'classnames';
 import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,7 +19,7 @@ const SuperAdminPage = () => {
     useState<SuperAdminSection>('dashboard');
   return (
     <>
-      <section className='mt-10 flex flex-col gap-10'>
+      <section className='mt-10 flex flex-col gap-5'>
         <div className='flex flex-row justify-center gap-4'>
           <SuperAdminTabItem
             section='dashboard'
@@ -47,7 +47,7 @@ const SuperAdminPage = () => {
           />
         </div>
 
-        {currentSection == 'dashboard' && <div>Dashboard</div>}
+        {currentSection == 'dashboard' && <Dashboard />}
         {currentSection == 'form' && <div>Form</div>}
         {currentSection == 'add_organization_movement' && (
           <section>

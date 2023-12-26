@@ -23,10 +23,9 @@ const addOrganizationContribution = async ({
       donor,
       type,
       contribution_date: contribution_date.toISOString(),
-      registered_by: '1',
     });
 
-  if (error) return;
+  if (error) return false;
   return true;
 };
 
@@ -49,7 +48,7 @@ const updateOrganizationContribution = async ({
     })
     .eq('id', 1);
 
-  if (error) return;
+  if (error) return false;
   return true;
 };
 

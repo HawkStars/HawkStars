@@ -1,8 +1,7 @@
 'use client';
 
-import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
-import { GetTotalContributions } from '@/models/database';
 import { useEffect, useState } from 'react';
+import { getTotalMoneyGathered } from '@/services/contribution';
 
 const PROJECT_GOAL = 1200000;
 
@@ -15,15 +14,9 @@ const ContributionProjectGoal = () => {
     Math.round((window?.innerWidth || 0) * percentGoal) + 'px';
 
   const getCurrentProjetContribution = async () => {
-    const supabase = createSupabaseBrowserClient();
-    const { data, error } = await supabase.rpc<
-      'project_total_contributions',
-      GetTotalContributions
-    >('project_total_contributions');
+    const moneyGathered = await getTotalMoneyGathered();
 
-    if (error) return 0;
-
-    setTotalContribution(data);
+    setTotalContribution(moneyGathered);
   };
 
   useEffect(() => {
@@ -48,3 +41,4 @@ const ContributionProjectGoal = () => {
 };
 
 export default ContributionProjectGoal;
+export { getTotalMoneyGathered };

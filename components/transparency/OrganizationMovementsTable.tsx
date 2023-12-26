@@ -44,7 +44,7 @@ const OrganizationMovementsTable = () => {
   }, []);
 
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-col gap-4'>
       <h2 className='text-green'>Organization Movements</h2>
       <table className='min-w-full table-auto text-left text-sm font-light'>
         <thead>

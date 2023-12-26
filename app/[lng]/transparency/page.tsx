@@ -2,7 +2,6 @@ import OrganizationContributionsTable from '@/components/transparency/Organizati
 import OrganizationMovementsTable from '@/components/transparency/OrganizationMovementsTable';
 import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
 import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
 
 const ContributionProjectGoal = dynamic(
   import('@/components/transparency/ContributionProjectGoal'),
@@ -11,11 +10,9 @@ const ContributionProjectGoal = dynamic(
 
 const TransparencyPage = async () => {
   return (
-    <section className='mx-10 mt-10 flex flex-col gap-5 lg:mx-14'>
+    <section className='layout-section flex flex-col gap-5'>
       <div className='flex flex-col gap-10'>
-        <Suspense fallback={<></>}>
-          <ContributionProjectGoal />
-        </Suspense>
+        <ContributionProjectGoal />
         <OrganizationContributionsTable />
         <LineBreaker />
         <OrganizationMovementsTable />

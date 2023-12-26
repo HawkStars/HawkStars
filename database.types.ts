@@ -36,42 +36,42 @@ export interface Database {
     Tables: {
       contributions: {
         Row: {
+          confirmed_by: string | null
           contribution_date: string
           created_at: string
           description: string
           donor: string
           id: string
-          registered_by: string
           type: Database["public"]["Enums"]["ContributionType"]
           updated_at: string
           value: number
         }
         Insert: {
+          confirmed_by?: string | null
           contribution_date: string
           created_at?: string
           description?: string
           donor: string
           id?: string
-          registered_by: string
           type: Database["public"]["Enums"]["ContributionType"]
           updated_at?: string
           value: number
         }
         Update: {
+          confirmed_by?: string | null
           contribution_date?: string
           created_at?: string
           description?: string
           donor?: string
           id?: string
-          registered_by?: string
           type?: Database["public"]["Enums"]["ContributionType"]
           updated_at?: string
           value?: number
         }
         Relationships: [
           {
-            foreignKeyName: "registered_by_contributions_fkey"
-            columns: ["registered_by"]
+            foreignKeyName: "contributions_confirmed_by_fkey"
+            columns: ["confirmed_by"]
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           }

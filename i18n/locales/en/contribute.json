@@ -47,5 +47,13 @@
         "auditorium_chair": "Mobile Chair for Auditorium/Training Rooms"
       }
     }
+  },
+  "form": {
+    "value": "Value",
+    "donor": "Donor Name",
+    "description": "Description",
+    "type": "Contribution Type",
+    "credit": "Credit",
+    "debit": "Debit"
   }
 }

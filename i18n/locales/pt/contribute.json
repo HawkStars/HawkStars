@@ -47,5 +47,13 @@
         "auditorium_chair": "Cadeira Móvel de Auditório/Salas Formação"
       }
     }
+  },
+  "form": {
+    "value": "Valor",
+    "donor": "Nome",
+    "description": "Descrição",
+    "type": "Tipo Contribuição",
+    "credit": "Crédito",
+    "debit": "Débito"
   }
 }

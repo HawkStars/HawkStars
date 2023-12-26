@@ -1,7 +1,8 @@
-import { ContributionLabel } from '@/models/custom_types';
+import { ContributionLabel, MoneyMovementLabel } from '@/models/transparency';
 import { Contribution, OrganizationMovement } from '@/models/database';
 import { createColumnHelper } from '@tanstack/react-table';
 import i18next from 'i18next';
+import { ConfirmLabel } from '@/models/common';
 
 const columnContributionHelper = createColumnHelper<Contribution>();
 
@@ -33,11 +34,11 @@ const orgsMovementsColumn = [
   }),
   columnMovementsHelper.accessor('type', {
     header: () => 'Type',
-    cell: (info) => info.renderValue(),
+    cell: (info) => i18next.t(MoneyMovementLabel[info.getValue()]),
   }),
   columnMovementsHelper.accessor('value', {
     header: () => 'Value',
-    cell: (info) => info.getValue(),
+    cell: (info) => `${info.getValue()}€`,
   }),
   columnMovementsHelper.accessor('description', {
     header: 'Description',
@@ -45,7 +46,10 @@ const orgsMovementsColumn = [
   }),
   columnMovementsHelper.accessor('paid', {
     header: 'Paid',
-    cell: (info) => (info.renderValue() ? 'True' : 'False'),
+    cell: (info) =>
+      info.renderValue()
+        ? i18next.t(ConfirmLabel.YES)
+        : i18next.t(ConfirmLabel.NO),
   }),
 ];
 

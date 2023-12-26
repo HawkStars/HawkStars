@@ -44,5 +44,7 @@
   "common": {
     "donate": "Donate",
     "be_member": "Be a Member"
-  }
+  },
+  "yes": "Yes",
+  "no": "No"
 }
