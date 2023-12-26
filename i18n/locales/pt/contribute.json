@@ -48,12 +48,19 @@
       }
     }
   },
-  "form": {
-    "value": "Valor",
-    "donor": "Nome",
-    "description": "Descrição",
+  "contribution_form": {
+    "date": "Data Contribuição",
     "type": "Tipo Contribuição",
+    "donor": "Nome Doador",
+    "value": "Valor"
+  },
+  "movement_form": {
+    "value": "Valor",
+    "description": "Descrição",
+    "type": "Tipo Movimento",
     "credit": "Crédito",
-    "debit": "Débito"
+    "debit": "Débito",
+    "date": "Data Movimento",
+    "paid": "Pago"
   }
 }

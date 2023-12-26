@@ -1,11 +1,12 @@
 import OrganizationContributionsTable from '@/components/transparency/OrganizationContributionsTable';
 import OrganizationMovementsTable from '@/components/transparency/OrganizationMovementsTable';
 import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
+import Spinner from '@/components/utils/Spinner/Spinner';
 import dynamic from 'next/dynamic';
 
 const ContributionProjectGoal = dynamic(
-  import('@/components/transparency/ContributionProjectGoal'),
-  { ssr: false }
+  () => import('@/components/transparency/ContributionProjectGoal'),
+  { ssr: false, loading: () => <Spinner /> }
 );
 
 const TransparencyPage = async () => {

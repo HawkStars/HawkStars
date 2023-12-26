@@ -1,4 +1,3 @@
-import i18next from 'i18next';
 import { SocialContact } from '../../../models/social';
 
 export type PartnersInfo = {
@@ -9,8 +8,6 @@ export type PartnersInfo = {
   type: 'national' | 'international';
   country?: string;
 };
-
-console.log(i18next.language);
 
 export const CURRENT_PARTNERS = [
   {

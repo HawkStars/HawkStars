@@ -17,6 +17,7 @@ const getOrganizationContributions = async () => {
   const { data, error } = await supabase
     .from<'contributions', Contributions>('contributions')
     .select()
+    .not('confirmed_by', 'eq', null)
     .order('created_at', { ascending: true });
 
   if (error || !data) return [];
@@ -48,8 +49,8 @@ const OrganizationContributionsTable = () => {
 
   return (
     <div className='flex flex-col gap-2'>
-      <h2 className='text-green'>Contributions</h2>
-      <table className='min-w-full table-auto text-left text-sm font-light'>
+      <h2 className='text-green'>{t('Contributions')}</h2>
+      <table className='min-w-full table-auto border-separate border-spacing-y-1 text-left text-sm font-light'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>

@@ -41,4 +41,3 @@ const ContributionProjectGoal = () => {
 };
 
 export default ContributionProjectGoal;
-export { getTotalMoneyGathered };

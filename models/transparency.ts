@@ -1,8 +1,8 @@
 import { ContributionType, MoneyMovementType } from './database';
 
 const MoneyMovementLabel = {
-  CREDIT: 'contribute:form.credit',
-  DEBIT: 'contribute:form.debit',
+  CREDIT: 'contribute:movement_form.credit',
+  DEBIT: 'contribute:movement_form.debit',
 } as OrganizationMovementLabelType;
 
 type OrganizationMovementLabelType = {
