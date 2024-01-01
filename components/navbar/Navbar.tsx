@@ -5,19 +5,19 @@ import Image from 'next/image';
 
 import { RxHamburgerMenu } from 'react-icons/rx';
 
-import MenuItem from '../menu/MenuItem';
-
 import {
   useMainAppContext,
   useSetMobileNavbarOpen,
 } from '../../contexts/AppProvider';
 import Button from '../utils/Button';
-import { MenuSections } from '../footer/config';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { BE_MEMBER_FORM_URL, DONATE_URL } from '../../utils/paths';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../../i18n/client';
 import { Suspense } from 'react';
+import { MenuSections } from './config';
+import DropdownMenu from '../menu/DropdownMenu';
+import MenuItem from '../menu/MenuItem';
 
 const Navbar = () => {
   const { lng } = useMainAppContext();
@@ -47,15 +47,20 @@ const Navbar = () => {
             <div className='ml-auto flex gap-3'>
               <ul className='flex flex-row gap-8 px-1'>
                 {MenuSections.map((section, index) => {
-                  const { title, options } = section;
-                  return (
-                    <li className='my-auto' key={index}>
-                      <MenuItem title={title} options={options} />
-                    </li>
-                  );
+                  if (section.type === 'dropdown') {
+                    const { title, options } = section;
+                    return (
+                      <li className='my-auto' key={index}>
+                        <DropdownMenu title={title} options={options} />
+                      </li>
+                    );
+                  } else {
+                    const { option } = section;
+                    return <MenuItem key={option.label} {...option} />;
+                  }
                 })}
 
-                <li className='my-auto'>
+                {/* <li className='my-auto'>
                   <Link
                     href={BE_MEMBER_FORM_URL}
                     target='_blank'
@@ -63,7 +68,7 @@ const Navbar = () => {
                   >
                     <Suspense>{t('common.be_member')}</Suspense>
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Button
                     type={'submit'}

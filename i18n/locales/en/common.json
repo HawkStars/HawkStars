@@ -31,6 +31,9 @@
     "events": "Events",
     "past_events": "Past Projects",
     "ativities": "Activities",
+    "history": "History",
+    "hawk_store": "Hawk Store",
+    "art_gallery": "Art Gallery",
     "global_village": {
       "title": "The Global Village",
       "pinhel": "Pinhel",

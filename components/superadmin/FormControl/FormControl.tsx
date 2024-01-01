@@ -1,3 +1,5 @@
+const getContributions = async () => {};
+
 const FormControl = () => {
   return <section className='layout-section'></section>;
 };

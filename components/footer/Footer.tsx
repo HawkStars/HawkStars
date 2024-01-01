@@ -4,7 +4,6 @@ import Socials from '../utils/Socials';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { MenuSections } from './config';
 import Button from '../utils/Button';
 import {
   BE_MEMBER_FORM_URL,
@@ -17,6 +16,7 @@ import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../../i18n/client';
 import { useMainAppContext } from '@/contexts/AppProvider';
+import { MenuSections } from '../navbar/config';
 
 const Footer = () => {
   return (
@@ -90,39 +90,43 @@ const Menus = () => {
   return (
     <>
       {MenuSections.map((section, index) => {
-        const { title, options } = section;
-        return (
-          <div
-            key={index}
-            className='text-terciary-100 ml-0 text-left lg:text-left'
-          >
-            <h3 className='mb-1 text-base font-semibold lg:mb-3 lg:text-lg lg:font-bold'>
-              <Suspense fallback={title}>{t(title)}</Suspense>
-            </h3>
-            {options.map((option, index) => (
-              <div className='py-1' key={index}>
-                <Link
-                  href={transformUrl(lng, option.url || HOME_URL)}
-                  className={classNames({
-                    'text-disabled': option.disabled,
-                  })}
-                >
-                  <Suspense fallback={option.label}>{t(option.label)}</Suspense>
-                </Link>
-              </div>
-            ))}
-          </div>
-        );
+        if (section.type === 'dropdown') {
+          const { title, options } = section;
+          return (
+            <div
+              key={index}
+              className='text-terciary-100 ml-0 text-left lg:text-left'
+            >
+              <h3 className='mb-1 text-base font-semibold lg:mb-3 lg:text-lg lg:font-bold'>
+                <Suspense fallback={title}>{t(title)}</Suspense>
+              </h3>
+              {options.map((option, index) => (
+                <div className='py-1' key={index}>
+                  <Link
+                    href={transformUrl(lng, option.url || HOME_URL)}
+                    className={classNames({
+                      'text-disabled': option.disabled,
+                    })}
+                  >
+                    <Suspense fallback={option.label}>
+                      {t(option.label)}
+                    </Suspense>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          );
+        }
       })}
 
       <div className='flex flex-col'>
-        <Link
+        {/* <Link
           href={BE_MEMBER_FORM_URL}
           target='_blank'
           className='mb-2 text-lg font-black'
         >
           <Suspense>{t('common.be_member')}</Suspense>
-        </Link>
+        </Link> */}
         <Button
           type={'button'}
           variant='success'
