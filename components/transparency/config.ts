@@ -8,7 +8,7 @@ const columnContributionHelper = createColumnHelper<Contribution>();
 
 const contributionColumns = [
   columnContributionHelper.accessor('contribution_date', {
-    header: i18next.t('contribute:contribution_form.date'),
+    header: () => i18next.t('contribute:contribution_form.date'),
     cell: (info) => info.getValue(),
   }),
   columnContributionHelper.accessor('type', {
@@ -41,11 +41,11 @@ const orgsMovementsColumn = [
     cell: (info) => `${info.getValue()}€`,
   }),
   columnMovementsHelper.accessor('description', {
-    header: i18next.t('contribute:movement_form.description'),
+    header: () => i18next.t('contribute:movement_form.description'),
     cell: (info) => info.getValue(),
   }),
   columnMovementsHelper.accessor('paid', {
-    header: i18next.t('contribute:movement_form.paid'),
+    header: () => i18next.t('contribute:movement_form.paid'),
     cell: (info) =>
       info.renderValue()
         ? i18next.t(ConfirmLabel.YES)

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Image from 'next/image';
 import { useTranslation } from '@/i18n';
+import DonateLink from '../DonateLink/DonateLink';
 
 const GlobalVillageProject = async ({ lng }: { lng: string }) => {
   const { t } = await useTranslation(lng, 'training_center');
@@ -15,6 +16,7 @@ const GlobalVillageProject = async ({ lng }: { lng: string }) => {
             <div className='mt-4 text-2xl font-light leading-7 text-black max-md:max-w-full'>
               {t('project.presentation')}
             </div>
+            <DonateLink />
           </div>
         </div>
         <div className='ml-5 flex w-[52%] flex-col items-stretch max-md:ml-0 max-md:w-full'>

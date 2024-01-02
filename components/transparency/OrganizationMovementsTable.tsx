@@ -44,14 +44,14 @@ const OrganizationMovementsTable = () => {
   }, []);
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 overflow-x-scroll'>
       <h2 className='text-green'>Organization Movements</h2>
-      <table className='min-w-full table-auto border-separate border-spacing-y-1 text-left text-sm font-light'>
+      <table className='min-w-full table-auto border-separate border-spacing-y-1 text-left text-sm font-light lg:table-fixed'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <th key={header.id} className='min-w-40 p-2'>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -67,7 +67,7 @@ const OrganizationMovementsTable = () => {
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
+                <td key={cell.id} className='min-w-40 px-2'>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}

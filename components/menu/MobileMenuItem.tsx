@@ -5,16 +5,16 @@ import {
   useSetMobileNavbarOpen,
 } from '../../contexts/AppProvider';
 import { useTranslation } from '../../i18n/client';
-import { NavbarOption } from '../../models/navbar';
 import { transformUrl } from '../../utils/paths';
 import classNames from 'classnames';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { PiCaretRightThin, PiCaretDownThin } from 'react-icons/pi';
+import { NavbarUrlItem } from '../navbar/types';
 
 type MenuItemProps = {
   title: string;
-  options: NavbarOption[];
+  options: NavbarUrlItem[];
 };
 
 const MobileMenuItem = ({ title, options }: MenuItemProps) => {

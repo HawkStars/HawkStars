@@ -1,22 +1,27 @@
 import OrganizationContributionsTable from '@/components/transparency/OrganizationContributionsTable';
 import OrganizationMovementsTable from '@/components/transparency/OrganizationMovementsTable';
 import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
-import Spinner from '@/components/utils/Spinner/Spinner';
 import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
+import MainHawkStarsLoading from '../loading';
 
 const ContributionProjectGoal = dynamic(
   () => import('@/components/transparency/ContributionProjectGoal'),
-  { ssr: false, loading: () => <Spinner /> }
+  { ssr: false, loading: () => <MainHawkStarsLoading /> }
 );
 
 const TransparencyPage = async () => {
   return (
-    <section className='layout-section flex flex-col gap-5'>
+    <section className='layout-section mt-4 flex flex-col gap-5 overflow-x-hidden lg:mt-10'>
       <div className='flex flex-col gap-10'>
         <ContributionProjectGoal />
-        <OrganizationContributionsTable />
+        <Suspense fallback={<p>loading...</p>}>
+          <OrganizationContributionsTable />
+        </Suspense>
         <LineBreaker />
-        <OrganizationMovementsTable />
+        <Suspense fallback={<p>loading...</p>}>
+          <OrganizationMovementsTable />
+        </Suspense>
       </div>
     </section>
   );

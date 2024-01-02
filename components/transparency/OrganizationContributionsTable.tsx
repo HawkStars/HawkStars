@@ -17,7 +17,7 @@ const getOrganizationContributions = async () => {
   const { data, error } = await supabase
     .from<'contributions', Contributions>('contributions')
     .select()
-    .not('confirmed_by', 'eq', null)
+    .not('confirmed_by', 'is', null)
     .order('created_at', { ascending: true });
 
   if (error || !data) return [];
@@ -48,14 +48,14 @@ const OrganizationContributionsTable = () => {
   }, []);
 
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-col gap-2 overflow-x-scroll'>
       <h2 className='text-green'>{t('Contributions')}</h2>
       <table className='min-w-full table-auto border-separate border-spacing-y-1 text-left text-sm font-light'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <th key={header.id} className='min-w-40 p-2'>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -71,29 +71,13 @@ const OrganizationContributionsTable = () => {
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
+                <td key={cell.id} className='min-w-40 px-2'>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
             </tr>
           ))}
         </tbody>
-        <tfoot>
-          {table.getFooterGroups().map((footerGroup) => (
-            <tr key={footerGroup.id}>
-              {footerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.footer,
-                        header.getContext()
-                      )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </tfoot>
       </table>
     </div>
   );

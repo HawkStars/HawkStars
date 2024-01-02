@@ -1,11 +1,11 @@
-import { NavbarOption } from '../../models/navbar';
 import Link from 'next/link';
+import { NavbarUrlItem } from '../navbar/types';
 
 /* TODO CHANGE THIS */
 
 interface DropdownProps {
   title: string;
-  options: NavbarOption[];
+  options: NavbarUrlItem[];
   tabIndex: number;
 }
 

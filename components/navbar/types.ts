@@ -12,4 +12,5 @@ export type NavbarUrlItem = {
   label: string;
   url?: string;
   disabled?: boolean;
+  soon?: boolean;
 };

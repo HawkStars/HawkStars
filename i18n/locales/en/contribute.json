@@ -49,7 +49,7 @@
     }
   },
   "contribution_form": {
-    "date": "Contribute Date",
+    "date": "Contribution Date",
     "type": "Contribution Type",
     "donor": "Donor Name",
     "value": "Value"

@@ -52,6 +52,7 @@ import coworkPhoto4 from '@/public/images/training_center/cowork4.jpg';
 import coworkPhoto5 from '@/public/images/training_center/cowork5.jpg';
 import cowordPhoto11 from '@/public/images/training_center/coworking_11.jpg';
 import cowordPhoto12 from '@/public/images/training_center/coworking_12.jpg';
+import DonateLink from '../DonateLink/DonateLink';
 
 const GlobalVillageArquitecture = async ({ lng }: LanguageProps) => {
   const { t } = await useTranslation(lng, 'training_center');
@@ -92,6 +93,9 @@ const GlobalVillageArquitecture = async ({ lng }: LanguageProps) => {
       <GamingHub lng={lng} />
       <RecordingStudio lng={lng} />
       <ArielView lng={lng} />
+      <div className='-mt-9 flex justify-center'>
+        <DonateLink />
+      </div>
     </section>
   );
 };

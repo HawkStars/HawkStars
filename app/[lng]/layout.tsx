@@ -13,6 +13,7 @@ import { Suspense } from 'react';
 import { defaultMetadata } from '@/metadata';
 import { Metadata } from 'next';
 import Script from 'next/script';
+import MainHawkStarsLoading from './loading';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -38,9 +39,7 @@ export default async function RootLayout({
     <html lang={lng}>
       <AppProvider lng={lng}>
         <body className={inter.className}>
-          <Suspense fallback={<></>}>
-            <MobileNavbar />
-          </Suspense>
+          <MobileNavbar />
           <Navbar />
           <main className='bg-body min-h-screen'>{children}</main>
           <Footer />

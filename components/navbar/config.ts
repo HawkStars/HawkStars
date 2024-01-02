@@ -57,7 +57,7 @@ export const MenuSections = [
   },
   {
     type: 'single',
-    option: { title: 'navbar.hawk_store', url: '', disabled: true },
+    option: { label: 'navbar.hawk_store', url: '', disabled: true },
   },
 ] as NavbarItem[];
 

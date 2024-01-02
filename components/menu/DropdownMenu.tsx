@@ -48,7 +48,7 @@ const DropdownMenu = ({ title, options }: DropdownMenuProps) => {
               disabled={option.disabled}
               as='div'
               className={classNames('w-fit whitespace-nowrap px-5 py-2', {
-                'text-neutral-400': !option.url,
+                'text-neutral-400': !option.url || option.disabled,
               })}
               onClick={() =>
                 router.push(option.url ? transformUrl(lng, option.url) : '')

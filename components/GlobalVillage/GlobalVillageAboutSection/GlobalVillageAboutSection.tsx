@@ -3,6 +3,7 @@ import { useTranslation } from '@/i18n';
 import { GLOBAL_VILLAGE_ABOUT_SECTIONS } from './config';
 
 import ObjectiveSection from './ObjectiveSection';
+import DonateLink from '../DonateLink/DonateLink';
 
 const GlobalVillageAboutSection = async ({ lng }: LanguageProps) => {
   const { t } = await useTranslation(lng, 'training_center');
@@ -17,6 +18,9 @@ const GlobalVillageAboutSection = async ({ lng }: LanguageProps) => {
           {GLOBAL_VILLAGE_ABOUT_SECTIONS.map((section, index) => (
             <ObjectiveSection {...section} key={index} lng={lng} />
           ))}
+        </div>
+        <div className='mt-10 flex justify-center'>
+          <DonateLink />
         </div>
       </div>
     </section>
