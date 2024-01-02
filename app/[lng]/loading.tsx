@@ -1,4 +1,4 @@
-import Image from 'Next/image';
+import Image from 'next/image';
 import logoPng from '@/public/images/logo.png';
 
 export default function MainHawkStarsLoading() {

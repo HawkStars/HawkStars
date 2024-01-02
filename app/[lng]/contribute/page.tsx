@@ -90,6 +90,10 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
             />
             <h4 className='mt-5 font-bold'>{t('options.bank_transfer')}</h4>
             <p className='text-justify'>{t('bank_transfer.description')}</p>
+            <div className='mt-1 flex flex-col gap-1'>
+              <h6>IBAN: PT50.0036.0053.99100203412.98</h6>
+              <p>MPIOPTPL</p>
+            </div>
           </div>
           <div className='flex flex-col gap-1 md:flex-1'>
             <Image
@@ -99,6 +103,9 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
             />
             <h4 className='mt-5 font-bold'>{t('options.crypto_transfer')}</h4>
             <p className='text-justify'>{t('crypto_transfer.description')}</p>
+            <p className='mt-2'>
+              Metamask: 0x085036c6ec33888db0c4cc8f99791537dbc8ab97
+            </p>
           </div>
         </div>
       </div>

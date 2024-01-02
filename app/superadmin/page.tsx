@@ -10,7 +10,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export type SuperAdminSection =
   | 'dashboard'
-  | 'form'
   | 'add_contribution'
   | 'add_organization_movement';
 
@@ -28,16 +27,10 @@ const SuperAdminPage = () => {
             tabText='Dashboard'
           />
           <SuperAdminTabItem
-            section='form'
-            currentSectionSelected={currentSection}
-            onClick={() => setCurrentSection('form')}
-            tabText='Form'
-          />
-          <SuperAdminTabItem
             section='add_contribution'
             currentSectionSelected={currentSection}
             onClick={() => setCurrentSection('add_contribution')}
-            tabText='Add Manual Contribution'
+            tabText='Add Contribution'
           />
           <SuperAdminTabItem
             section='add_organization_movement'
@@ -48,7 +41,6 @@ const SuperAdminPage = () => {
         </div>
 
         {currentSection == 'dashboard' && <Dashboard />}
-        {currentSection == 'form' && <div>Form</div>}
         {currentSection == 'add_organization_movement' && (
           <section>
             <h3 className='text-center'>Movimentos Organização</h3>
