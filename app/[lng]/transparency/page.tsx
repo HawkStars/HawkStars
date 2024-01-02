@@ -18,7 +18,6 @@ const TransparencyPage = async () => {
         <Suspense fallback={<p>loading...</p>}>
           <OrganizationContributionsTable />
         </Suspense>
-        <LineBreaker />
         <Suspense fallback={<p>loading...</p>}>
           <OrganizationMovementsTable />
         </Suspense>

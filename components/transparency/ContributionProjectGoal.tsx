@@ -25,13 +25,13 @@ const ContributionProjectGoal = () => {
 
   return (
     <div className='flex flex-col gap-1'>
-      <h3>Current Project Contribution:</h3>
+      <h3 className='text-green'>Current Project Contribution:</h3>
       <div className='relative mt-2 h-6 w-full rounded-md border border-bege-dark'>
         <div
           className={`h-full bg-gradient-to-r from-bege-dark from-10% to-bege-light to-95%`}
           style={{ width: loadingWidth }}
         ></div>
-        <p className='flex justify-end'>Goal: 1.200.000,00€</p>
+        <p className='mt-1 flex justify-end'>Goal: 1.200.000,00€</p>
         <p className='absolute bottom-0 left-[50%] text-sm'>
           {totalContribution}€ ({percentGoal}%)
         </p>
