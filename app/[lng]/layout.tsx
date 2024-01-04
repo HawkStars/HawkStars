@@ -23,7 +23,7 @@ export async function generateMetadata({
   params,
 }: LanguagePageProps): Promise<Metadata> {
   const { lng } = params;
-  const metadataPage = getMetadataPageInfo(lng, 'default');
+  const metadataPage = getMetadataPageInfo(lng, 'home');
   return metadataPage;
 }
 
