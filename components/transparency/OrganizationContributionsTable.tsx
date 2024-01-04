@@ -48,9 +48,9 @@ const OrganizationContributionsTable = () => {
   }, []);
 
   return (
-    <div className='flex flex-col gap-2 overflow-x-scroll'>
+    <div className='flex flex-col gap-2 overflow-x-auto'>
       <h2 className='text-green'>{t('Contributions')}</h2>
-      <table className='min-w-full table-auto border-separate border-spacing-y-1 border text-left text-sm font-light'>
+      <table className='min-w-full table-auto border-separate border-spacing-y-1 rounded-xl border border-bege-dark p-4 text-left text-sm font-light lg:table-fixed'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -65,7 +65,7 @@ const OrganizationContributionsTable = () => {
                 </th>
               ))}
             </tr>
-          ))}
+          ))}t
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (

@@ -1,6 +1,7 @@
 {
   "contribute_hero": "Contribuir para o projecto e para a ONG",
   "helps_us_donate": "Contribua no Projecto",
+  "donate_here": "Faça a doação aqui",
   "other_modalities": "Outras Modalidades",
   "forms_and_modalities": "Formas e modalidades de doação",
   "store": "Loja HawkStars",
@@ -24,17 +25,17 @@
   },
   "brand": {
     "international_training_center": {
-      "title": "Marca no International Training Center",
+      "title": "Naming International Training Center",
       "price": "desde 380.000€",
       "description": "Parcerias financeiras do Naming do Internacional Training Center (Por exemplo - X International Training Center)"
     },
     "room_branding": {
-      "title": "Marca nas Salas",
+      "title": "Nome da Marca Atríbuido às Salas",
       "price": "desde 15.000€",
       "description": "Parcerias financeiras de Naming Room para Salas de Formação, Reuniões, Co-working, Lounge, Gaming Hub, Estúdio de Gravação."
     },
     "wall_branding": {
-      "title": "Marca nas Paredes",
+      "title": "Logo da Marca nas Paredes do Training Center",
       "price_solo": "Individual desde 500€",
       "price_company": "Empresa desde 1800€",
       "description": "Colocação dos nomes individuais e logótipos das empresas nas paredes das salas de formação e demais salas."

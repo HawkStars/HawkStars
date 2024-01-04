@@ -1,13 +1,58 @@
 {
   "village": {
-    "title": "Hawk Stars - Global Village",
-    "description": ""
+    "title": "The Global Village Project by Hawk Stars NGO in Pinhel, Portugal",
+    "description": "Explore the visionary Global Village project in Pinhel, Portugal, led by Hawk Stars NGO. This transformative initiative aims to redefine the urban landscape, foster social innovation, and contribute to the socio-economic development of the region. Discover the International Training Center, a hub for learning, entrepreneurship, and cultural exchange, set to attract talent and serve as a high-performance center for e-sports. Join us in building a promising future, blending tradition with innovation, as Pinhel transforms into a global center of culture and prosperity. Support the vision – click to donate.",
+    "keywords": [
+      "Pinhel",
+      "Portugal",
+      "Global Village",
+      "Hawk Stars NGO",
+      "International Training Center",
+      "Social Innovation",
+      "E-sports",
+      "Entrepreneurship",
+      "Cultural Development",
+      "Non-profit",
+      "Fundraising."
+    ]
   },
-  "main": {
-    "title": "",
-    "description": ""
+  "about": {
+    "title": "Hawk Stars - About Us",
+    "description": "Hawk Stars objetives and values and main goals for the next years for the international community and local ativities"
   },
-  "about": { "title": "", "description": "" },
-  "donate": { "title": "", "description": "" },
-  "team": { "title": "", "description": "" }
+  "donate": {
+    "title": "Support The Global Village Project - Donate to Hawk Stars NGO",
+    "description": "Make a difference in the transformation of Pinhel, Portugal, by contributing to The Global Village Project led by Hawk Stars NGO. Your donation supports the creation of the International Training Center, a catalyst for learning, social innovation, and cultural development. Join us in promoting inclusivity, entrepreneurship, and technological advancement. Be part of the vision to turn Pinhel into a global center of innovation while preserving its rich cultural heritage. Click to donate and help build a promising future for the community.",
+    "keywords": [
+      "Donation",
+      "Support",
+      "Global Village Project",
+      "Hawk Stars NGO",
+      "Pinhel",
+      "Portugal",
+      "International Training Center",
+      "Social Innovation",
+      "Cultural Development",
+      "Entrepreneurship",
+      "Technology",
+      "Inclusivity."
+    ]
+  },
+  "team": {
+    "title": "Hawk Stars NGO - Team",
+    "description": "The members of the board member, financial and main board that manage this non profit organization"
+  },
+  "partners": {
+    "title": "Hawk Stars NGO - Partners",
+    "description": "Partners that work directly with Hawk Stars NGO"
+  },
+  "transparency": {
+    "title": "Hawk Stars NGO - Transparency",
+    "description": "",
+    "keywords": [""]
+  },
+  "default": {
+    "title": "Hawk Stars NGO",
+    "description": ""
+  }
 }

@@ -75,10 +75,16 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
       <h2 className='text-center text-green lg:hidden'>
         {t('contribute_hero')}
       </h2>
-      <div className='layout-section  relative max-w-full max-2xl:mx-0 max-2xl:p-0'>
-        <h2 className='absolute left-40 top-20 hidden w-72 text-4xl text-green lg:block'>
-          {t('contribute_hero')}
-        </h2>
+      <div className='layout-section relative max-w-full max-2xl:mx-0 max-2xl:p-0'>
+        <div className='absolute left-40 top-20 hidden text-green lg:block'>
+          <h2 className='w-72 text-4xl'>{t('contribute_hero')}</h2>
+          <Link
+            href='#form'
+            className='mt-5 flex w-fit flex-row gap-3 rounded-xl bg-green p-4 text-white'
+          >
+            {t('donate_here')}
+          </Link>
+        </div>
         <Image src={heroImage} alt='hero image' />
       </div>
       <div className='flex flex-col gap-10 bg-gradient-to-tr from-[#E9E9E9] from-35% via-bege-dark to-[#E9E9E9] to-65% py-16 lg:gap-20 lg:p-20 lg:py-20'>
@@ -90,11 +96,16 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
               alt='bank transfer'
               className='w-full rounded-lg'
             />
-            <h4 className='mt-5 font-bold'>{t('options.bank_transfer')}</h4>
+            <h4 className='mt-5 text-xl font-bold'>
+              {t('options.bank_transfer')}
+            </h4>
             <p className='text-justify'>{t('bank_transfer.description')}</p>
             <div className='mt-1 flex flex-col gap-1'>
-              <h6>IBAN: PT50.0036.0053.99100203412.98</h6>
-              <p>MPIOPTPL</p>
+              <h6>
+                IBAN:{' '}
+                <span className='font-bold'>PT50.0036.0053.99100203412.98</span>
+              </h6>
+              <p className='font-bold'>MPIOPTPL</p>
             </div>
           </div>
           <div className='flex flex-col gap-1 md:flex-1'>
@@ -103,16 +114,21 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
               alt='crypto transfer'
               className='w-full rounded-lg'
             />
-            <h4 className='mt-5 font-bold'>{t('options.crypto_transfer')}</h4>
+            <h4 className='mt-5 text-xl font-bold'>
+              {t('options.crypto_transfer')}
+            </h4>
             <p className='text-justify'>{t('crypto_transfer.description')}</p>
             <p className='mt-2'>
-              Metamask: 0x085036c6ec33888db0c4cc8f99791537dbc8ab97
+              Metamask:{' '}
+              <span className='font-bold'>
+                0x085036c6ec33888db0c4cc8f99791537dbc8ab97
+              </span>
             </p>
           </div>
         </div>
       </div>
 
-      <div className='flex flex-col gap-3'>
+      <div className='my-5 flex flex-col gap-3'>
         <h1 className='text-center text-green'>{t('other_modalities')}</h1>
         <div className='mt-5 flex flex-col justify-center gap-3'>
           <h3 className='text-center'>{t('store')}</h3>
@@ -132,7 +148,7 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
           <h1 className='mt-10 text-center text-green'>Branding</h1>
           <div className='layout-section flex flex-col gap-10 md:flex-row'>
             <div className='flex flex-1 flex-col gap-3'>
-              <h2 className='text-center'>
+              <h2 className='mx-10 h-14 text-center'>
                 {t('brand.international_training_center.title')}
               </h2>
               <Image
@@ -146,7 +162,9 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
               <p>{t('brand.international_training_center.description')}</p>
             </div>
             <div className='flex flex-1 flex-col gap-3'>
-              <h2 className='text-center'>{t('brand.room_branding.title')}</h2>
+              <h2 className='mx-10 h-14 text-center'>
+                {t('brand.room_branding.title')}
+              </h2>
               <Image
                 src={coworkingRoom}
                 alt='hawk stars training room'

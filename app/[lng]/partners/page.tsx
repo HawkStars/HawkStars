@@ -1,12 +1,15 @@
-import { defaultMetadata } from '../../../metadata';
 import PartnersComponent from '../../../components/partners/PartnersComponent';
-import { Metadata } from 'next';
+import { Metadata, ResolvingMetadata } from 'next';
+import { LanguagePageProps } from '../types';
+import { getMetadataPageInfo } from '@/utils/metadata';
 
-export const metadata = {
-  title: 'Hawk Stars - Partners',
-  description: 'Partners that work directly with Hawk Stars NGO',
-  ...defaultMetadata,
-} as Metadata;
+export async function generateMetadata({
+  params,
+}: LanguagePageProps): Promise<Metadata> {
+  const { lng } = params;
+  const metadataPage = getMetadataPageInfo(lng, 'partners');
+  return metadataPage;
+}
 
 const PartnersPage = ({ params: { lng } }: { params: { lng: string } }) => {
   return <PartnersComponent lng={lng} />;

@@ -8,11 +8,7 @@ import MobileNavbar from '../../components/navbar/MobileNavbar';
 
 const inter = Inter({ subsets: ['latin'] });
 
-import { languages } from '../../i18n/settings';
 import { Suspense } from 'react';
-import { defaultMetadata } from '@/metadata';
-import { Metadata } from 'next';
-import Script from 'next/script';
 
 export default async function RootLayout({
   children,

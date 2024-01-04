@@ -1,13 +1,15 @@
-import { Metadata } from 'next';
-import { defaultMetadata } from '../../../metadata';
+import { Metadata, ResolvingMetadata } from 'next';
 import AboutPage from '../../../components/about/AboutPage';
+import { getMetadataPageInfo } from '@/utils/metadata';
+import { LanguagePageProps } from '../types';
 
-export const metadata = {
-  title: 'Hawk Stars - About Us',
-  description:
-    'Hawk Stars objetives and values and main goals for the next years for the international community and local ativities',
-  ...defaultMetadata,
-} as Metadata;
+export async function generateMetadata({
+  params,
+}: LanguagePageProps): Promise<Metadata> {
+  const { lng } = params;
+  const metadataPage = getMetadataPageInfo(lng, 'about');
+  return metadataPage;
+}
 
 const Index = async ({ params: { lng } }: { params: { lng: string } }) => {
   return <AboutPage lng={lng} />;

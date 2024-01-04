@@ -1,4 +1,3 @@
-import { defaultMetadata } from '@/metadata';
 import GlobalVillageArquitecture from '../../../components/GlobalVillage/Arquitecture/Arquitecture';
 import GlobalVillageObjectives from '../../../components/GlobalVillage/Objetives/Objetives';
 
@@ -7,21 +6,14 @@ import { LanguagePageProps } from '../types';
 import GlobalVillageBanner from '@/components/GlobalVillage/Banner/Banner';
 import GlobalVillageAboutSection from '@/components/GlobalVillage/GlobalVillageAboutSection/GlobalVillageAboutSection';
 import GlobalVillageProject from '@/components/GlobalVillage/Project/GlobalVillageProject';
+import { getMetadataPageInfo } from '@/utils/metadata';
 
-export async function generateMetadata(
-  { params }: LanguagePageProps,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: LanguagePageProps): Promise<Metadata> {
   const { lng } = params;
-
-  const messagesJson = await import(`@/i18n/locales/${lng}/metadata.json`);
-  const villageInfo = messagesJson['village'];
-
-  return {
-    title: villageInfo.title || 'Hawk Stars',
-    description: villageInfo.description || '',
-    ...defaultMetadata,
-  };
+  const metadataPage = getMetadataPageInfo(lng, 'village');
+  return metadataPage;
 }
 
 const VillagePage = async ({

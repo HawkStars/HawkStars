@@ -2,6 +2,7 @@
   "contribute_hero": "Contribute to the project and the NGO",
   "helps_us_donate": "Help us build this Project",
   "other_modalities": "Other Modalities",
+  "donate_here": "Donate here",
   "forms_and_modalities": "Ways to Donate",
   "store": "HawkStars Store",
   "crypto_transfer": {
@@ -24,23 +25,23 @@
   },
   "brand": {
     "international_training_center": {
-      "title": "Brand on the International Training Center Name",
+      "title": "International Training Center after Brand Name",
       "price": "from 380.000€",
       "description": "International Training Center Naming financial partnerships (For example - X International Training Center)"
     },
     "room_branding": {
-      "title": "Brand on Training Center Rooms Name",
+      "title": "Room Name at the Training Center after Brands",
       "price": "from 15.000€",
       "description": "Naming Room financial partnerships for Training Rooms, Meetings, Co-working, Lounge, Gaming Hub, Recording Studio."
     },
     "wall_branding": {
-      "title": "Brand on the Training Center Walls",
+      "title": "Brand Logo on the Training Center Formation Walls",
       "price_solo": "Personal since 500€",
       "price_company": "Company since 1800€",
       "description": "Placing individual names and company logos on the walls of training rooms and other rooms."
     },
     "chairs": {
-      "title": "Name on Training Center Chairs",
+      "title": "Training Center Chairs with Donators Name",
       "types": {
         "gaming_chair": "Office/Gaming Chair",
         "simulation_chair": "Drive Simulator Gaming Chair",

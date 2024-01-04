@@ -1,14 +1,25 @@
 import OrganizationContributionsTable from '@/components/transparency/OrganizationContributionsTable';
 import OrganizationMovementsTable from '@/components/transparency/OrganizationMovementsTable';
-import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import MainHawkStarsLoading from '../loading';
+import { ResolvingMetadata, Metadata } from 'next';
+import { LanguagePageProps } from '../types';
+import { getMetadataPageInfo } from '@/utils/metadata';
 
 const ContributionProjectGoal = dynamic(
   () => import('@/components/transparency/ContributionProjectGoal'),
   { ssr: false, loading: () => <MainHawkStarsLoading /> }
 );
+
+export async function generateMetadata(
+  { params }: LanguagePageProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { lng } = params;
+  const metadataPage = getMetadataPageInfo(lng, 'transparency');
+  return metadataPage;
+}
 
 const TransparencyPage = async () => {
   return (

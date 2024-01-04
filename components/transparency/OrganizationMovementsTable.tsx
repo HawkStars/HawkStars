@@ -44,9 +44,9 @@ const OrganizationMovementsTable = () => {
   }, []);
 
   return (
-    <div className='flex flex-col gap-4 overflow-x-scroll'>
+    <div className='flex flex-col gap-4 overflow-x-auto'>
       <h2 className='text-green'>Organization Movements</h2>
-      <table className='min-w-full table-auto border-separate border-spacing-y-1 border text-left text-sm font-light lg:table-fixed'>
+      <table className='min-w-full table-auto border-separate border-spacing-y-1 rounded-xl border border-bege-dark p-4 text-left text-sm font-light lg:table-fixed'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>

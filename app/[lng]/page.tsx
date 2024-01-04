@@ -1,15 +1,15 @@
 import HomeComponent from '../../components/home/HomeComponent';
 import { Metadata } from 'next';
-import { defaultMetadata } from '../../metadata';
+import { getMetadataPageInfo } from '@/utils/metadata';
+import { LanguagePageProps } from './types';
 
-export const metadata = {
-  title: 'Hawk Stars - Home',
-  description: `Grupo intergeracional cujo os seus membros são interessados no
-    desenvolvimento social e humano tendo por base um trabalho na área
-    da educação com a inovação a que os novos tempos obrigam, aberta a
-    todos, e projetada do local para o global.`,
-  ...defaultMetadata,
-} as Metadata;
+export async function generateMetadata({
+  params,
+}: LanguagePageProps): Promise<Metadata> {
+  const { lng } = params;
+  const metadataPage = getMetadataPageInfo(lng, 'home');
+  return metadataPage;
+}
 
 type HomeProps = {
   params: { lng: string };

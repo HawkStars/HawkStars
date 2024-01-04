@@ -9,24 +9,23 @@ import MobileNavbar from '../../components/navbar/MobileNavbar';
 const inter = Inter({ subsets: ['latin'] });
 
 import { languages } from '../../i18n/settings';
-import { Suspense } from 'react';
-import { defaultMetadata } from '@/metadata';
+
 import { Metadata } from 'next';
 import Script from 'next/script';
-import MainHawkStarsLoading from './loading';
+import { defaultMetadata, getMetadataPageInfo } from '@/utils/metadata';
+import { LanguagePageProps } from './types';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
 }
 
-export const metadata = {
-  title: 'Hawk Stars',
-  description: `Grupo intergeracional cujo os seus membros são interessados no
-    desenvolvimento social e humano tendo por base um trabalho na área
-    da educação com a inovação a que os novos tempos obrigam, aberta a
-    todos, e projetada do local para o global.`,
-  ...defaultMetadata,
-} as Metadata;
+export async function generateMetadata({
+  params,
+}: LanguagePageProps): Promise<Metadata> {
+  const { lng } = params;
+  const metadataPage = getMetadataPageInfo(lng, 'default');
+  return metadataPage;
+}
 
 export default async function RootLayout({
   children,

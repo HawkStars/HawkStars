@@ -1,13 +1,15 @@
-import { defaultMetadata } from '../../../metadata';
-import MainTeamPage from '../../../components/team/Main';
+import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
+import MainTeamPage from '../../../components/team/Main';
+import { LanguagePageProps } from '../types';
 
-export const metadata = {
-  title: 'Hawk Stars - Team',
-  description:
-    'The members of the board member, financial and main board that manage this non profit organization',
-  ...defaultMetadata,
-} as Metadata;
+export async function generateMetadata({
+  params,
+}: LanguagePageProps): Promise<Metadata> {
+  const { lng } = params;
+  const metadataPage = getMetadataPageInfo(lng, 'home');
+  return metadataPage;
+}
 
 const TeamPage = ({ params: { lng } }: { params: { lng: string } }) => {
   return <MainTeamPage />;

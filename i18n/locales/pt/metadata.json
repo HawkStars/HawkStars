@@ -1,13 +1,42 @@
 {
   "village": {
-    "title": "Hawk Stars - Global Village",
-    "description": ""
+    "title": "O Projeto Aldeia Global da ONG Hawk Stars em Pinhel, Portugal",
+    "description": "Explore o projeto visionário Global Village em Pinhel, Portugal, liderado pela ONG Hawk Stars. Esta iniciativa transformadora visa redefinir a paisagem urbana, promover a inovação social e contribuir para o desenvolvimento socioeconómico da região. Descubra o Centro Internacional de Formação, um centro de aprendizagem, empreendedorismo e intercâmbio cultural, criado para atrair talentos e servir como um centro de alto desempenho para e-sports. Junte-se a nós na construção de um futuro promissor, misturando tradição com inovação, enquanto Pinhel se transforma num centro global de cultura e prosperidade. Apoie a visão – clique para doar.",
+    "keywords": [
+      "Pinhel",
+      "Portugal",
+      "Global Village",
+      "Aldeia Global",
+      "Hawk Stars NGO",
+      "Centro Internacional de Treinamento",
+      "International Training Center",
+      "Social Innovation",
+      "E-sports",
+      "Entrepreneurship",
+      "Cultural Development",
+      "Non-profit",
+      "Fundraising.",
+      "Inovação Social",
+      "Esportes",
+      "Empreendedorismo",
+      "Desenvolvimento Cultural",
+      "Sem fins lucrativos",
+      "Angariação de fundos."
+    ]
   },
-  "main": {
-    "title": "",
-    "description": ""
+  "home": {
+    "title": "Hawk Stars ORG - Home",
+    "description": "Grupo intergeracional cujo os seus membros são interessados no desenvolvimento social e humano tendo por base um trabalho na área da educação com a inovação a que os novos tempos obrigam, aberta a todos, e projetada do local para o global."
   },
-  "about": { "title": "", "description": "" },
-  "donate": { "title": "", "description": "" },
-  "team": { "title": "", "description": "" }
+  "about": { "title": "Hawk Stars ORG - Sobre", "description": "" },
+  "donate": { "title": "Hawk Stars ORG - Doações", "description": "" },
+  "team": { "title": "Hawk Stars ORG - Equipa", "description": "" },
+  "partners": {
+    "title": "Hawk Stars ORG - Parceiros",
+    "description": "Partners that work directly with Hawk Stars NGO"
+  },
+  "default": {
+    "title": "Hawk Stars ORG",
+    "description": "Grupo intergeracional cujo os seus membros são interessados no desenvolvimento social e humano tendo por base um trabalho na área da educação com a inovação a que os novos tempos obrigam, aberta a todos, e projetada do local para o global."
+  }
 }
