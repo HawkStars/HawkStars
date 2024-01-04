@@ -13,6 +13,7 @@ import {
 } from './service';
 import TextArea from '@/components/utils/TextArea/TextArea';
 import Spinner from '@/components/utils/Spinner/Spinner';
+import { useTranslation } from '@/i18n/client';
 
 export type ContributionFormInput = Pick<
   Contribution,
@@ -21,6 +22,7 @@ export type ContributionFormInput = Pick<
 
 type FormContributionProps = {
   formType: 'create' | 'update';
+  lng?: string;
 };
 
 const HawkStarsDatePicker = dynamic(
@@ -28,7 +30,8 @@ const HawkStarsDatePicker = dynamic(
   { ssr: false, loading: () => <Spinner /> }
 );
 
-const FormContributions = ({ formType }: FormContributionProps) => {
+const FormContributions = ({ formType, lng = 'en' }: FormContributionProps) => {
+  const { t } = useTranslation(lng, 'contribute');
   const {
     handleSubmit,
     control,
@@ -63,17 +66,18 @@ const FormContributions = ({ formType }: FormContributionProps) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmitForm)}
-      className='mx-auto flex w-1/2 flex-col gap-5'
+      className='flex flex-col gap-5 px-10'
     >
       <Controller
         control={control}
         name='donor'
         render={({ field: { onChange, value } }) => (
           <Input
-            labelText='Doador'
+            labelText={t('contribution_form.donor')}
             name='donor'
             value={value}
             onChange={onChange}
+            outline={true}
           />
         )}
       />
@@ -82,11 +86,13 @@ const FormContributions = ({ formType }: FormContributionProps) => {
         name='value'
         render={({ field: { onChange, value } }) => (
           <Input
-            labelText='Valor'
+            labelText={t('contribution_form.value')}
             name='value'
             value={value}
             onChange={onChange}
             disabled={blockTypeForm}
+            icon='€'
+            outline={true}
           />
         )}
       />
@@ -96,7 +102,7 @@ const FormContributions = ({ formType }: FormContributionProps) => {
         name='description'
         render={({ field: { onChange, value, name } }) => (
           <TextArea
-            labelText='Description'
+            labelText={t('contribution_form.description')}
             name={name}
             value={value}
             onChange={onChange}
@@ -115,8 +121,9 @@ const FormContributions = ({ formType }: FormContributionProps) => {
           return (
             <Select
               name='type'
-              labelText='Type'
+              labelText={t('contribution_form.type')}
               options={ContributionTypesLabels}
+              outline={true}
               onChange={(item) =>
                 handleContributionType(item as ContributionType)
               }
@@ -134,7 +141,7 @@ const FormContributions = ({ formType }: FormContributionProps) => {
           <HawkStarsDatePicker
             date={value}
             onChange={onChange}
-            labelText='Contribution Date'
+            labelText={t('contribution_form.date')}
           />
         )}
       />

@@ -11,7 +11,7 @@ import {
 } from '../../contexts/AppProvider';
 import Button from '../utils/Button';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
-import { BE_MEMBER_FORM_URL, DONATE_URL } from '../../utils/paths';
+import { DONATE_URL } from '../../utils/paths';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../../i18n/client';
 import { Suspense } from 'react';

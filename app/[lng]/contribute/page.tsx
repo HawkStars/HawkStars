@@ -25,13 +25,15 @@ import loungeChair from '@/public/images/icons/contribute/lounge-fill.svg';
 import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
 import { Contribution } from '@/models/database';
 import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
+import FormContributions from '@/components/superadmin/FormContributions/FormContributions';
 
 const getChairsContribute = async () => {
   const supabase = createSupabaseBrowserClient();
 
   const { data, error } = await supabase
     .from<'contributions', Contribution>('contributions')
-    .select();
+    .select()
+    .not('confirmed_by', 'is', null);
 
   if (error || !data)
     return {
@@ -234,6 +236,14 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
           />
         </div>
       </div>
+      <section className='bg-bege-light py-10' id='form'>
+        <h2 className='flex justify-center text-green'>
+          {t('helps_us_donate')}
+        </h2>
+        <div className='mx-auto mt-10 lg:w-1/2'>
+          <FormContributions formType={'create'} lng={lng} />
+        </div>
+      </section>
     </div>
   );
 };

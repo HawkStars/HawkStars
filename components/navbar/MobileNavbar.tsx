@@ -15,12 +15,19 @@ import MobileMenuItem from '../menu/MobileMenuItem';
 import { Suspense } from 'react';
 import Link from 'next/link';
 import { MenuSections } from './config';
+import { useRouter } from 'next/navigation';
+import { DONATE_URL, transformUrl } from '@/utils/paths';
 
 const MobileNavbar = () => {
-  const { lng } = useMainAppContext();
+  const { lng, mobileNavbarOpen } = useMainAppContext();
   const { t } = useTranslation(lng, 'common');
-  const { mobileNavbarOpen, lng: locale } = useMainAppContext();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
+  const router = useRouter();
+
+  const goToUrl = (url: string) => {
+    router.push(transformUrl(lng, url));
+    setMobileMenuOpen(false);
+  };
 
   return (
     <>
@@ -68,7 +75,12 @@ const MobileNavbar = () => {
               >
                 {t('common.be_member')}
               </Link> */}
-              <Button type={'button'} variant='success' size='fit'>
+              <Button
+                type={'button'}
+                variant='success'
+                size='fit'
+                onClick={() => goToUrl(DONATE_URL)}
+              >
                 {t('common.donate')}
               </Button>
             </div>

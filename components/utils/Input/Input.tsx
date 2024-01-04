@@ -10,6 +10,8 @@ interface InputProps {
   errorMessage?: string;
   disabled?: boolean;
   placeholder?: string;
+  outline?: boolean;
+  icon?: React.ReactNode;
   [x: string]: any;
 }
 
@@ -22,26 +24,37 @@ export default function Input({
   errorMessage = '',
   placeholder = '',
   disabled = false,
+  icon = undefined,
+  outline = false,
   ...props
 }: InputProps) {
   return (
     <div className='flex flex-col gap-2'>
       {name && <label htmlFor={name}>{labelText}</label>}
-      <input
-        placeholder={placeholder}
+      <div
         className={classNames(
-          'border-terciary-500 focus:border-primary-500 block w-full rounded-md border border-solid px-5 py-2 shadow-sm focus:outline-none focus:ring-0',
-          `${customCss}`,
-          { 'border-red-700': errorMessage },
-          { 'bg-gray-100': disabled }
+          'border-terciary-500 focus:border-primary-500 flex flex-row gap-1 rounded-md border border-solid px-5 py-2 shadow-sm',
+          { 'bg-bege-dark-100 bg-opacity-80': disabled },
+          { 'bg-white': !disabled && outline }
         )}
-        onChange={onChange}
-        name={name}
-        value={value}
-        aria-labelledby={name}
-        disabled={disabled}
-        {...props}
-      ></input>
+      >
+        <input
+          placeholder={placeholder}
+          className={classNames(
+            ' w-full border-0 bg-inherit text-right focus:outline-none focus:ring-0',
+            `${customCss}`,
+            { 'border-red-700': errorMessage },
+            { 'bg-bege-dark-100 bg-opacity-80': disabled }
+          )}
+          onChange={onChange}
+          name={name}
+          value={value}
+          aria-labelledby={name}
+          disabled={disabled}
+          {...props}
+        />
+        {icon && <span className='my-auto ml-auto'>{icon}</span>}
+      </div>
       {errorMessage && <small className='text-red-700'>{errorMessage}</small>}
     </div>
   );

@@ -16,6 +16,7 @@ type SelectProps = {
   onChange: (e: unknown) => void;
   name: string;
   labelText?: string;
+  outline?: boolean;
 };
 
 const Select = ({
@@ -24,6 +25,7 @@ const Select = ({
   onChange,
   name,
   labelText,
+  outline = false,
 }: SelectProps) => {
   const [selectedOption, setSelectedOption] = useState<
     SelectOption | undefined
@@ -41,13 +43,26 @@ const Select = ({
         }}
       >
         <div className='relative flex w-full'>
-          <Listbox.Button className='flex w-full gap-3 bg-bege-light p-3'>
+          <Listbox.Button
+            className={classNames('flex w-full gap-3 rounded-xl border p-3', {
+              'bg-bege-light': !outline,
+              'bg-white': outline,
+            })}
+          >
             <span>{selectedOption?.label || ''}</span>
             <div className='my-auto ml-auto'>
               <TfiAngleDown size={20} />
             </div>
           </Listbox.Button>
-          <Listbox.Options className='absolute z-50 flex w-full flex-col gap-2 bg-bege-light p-3'>
+          <Listbox.Options
+            className={classNames(
+              'absolute z-50 flex h-40 w-full flex-col gap-2 overflow-y-scroll p-3',
+              {
+                'bg-white': outline,
+                'bg-bege-light': !outline,
+              }
+            )}
+          >
             {options.map((option) => (
               <Listbox.Option
                 key={option.id}

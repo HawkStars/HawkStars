@@ -1,5 +1,6 @@
 {
   "contribute_hero": "Contribute to the project and the NGO",
+  "helps_us_donate": "Help us build this Project",
   "other_modalities": "Other Modalities",
   "forms_and_modalities": "Ways to Donate",
   "store": "HawkStars Store",
@@ -23,17 +24,17 @@
   },
   "brand": {
     "international_training_center": {
-      "title": "Brand at the International Training Center",
+      "title": "Brand on the International Training Center Name",
       "price": "from 380.000€",
       "description": "International Training Center Naming financial partnerships (For example - X International Training Center)"
     },
     "room_branding": {
-      "title": "Brand at Training Center Rooms",
+      "title": "Brand on Training Center Rooms Name",
       "price": "from 15.000€",
       "description": "Naming Room financial partnerships for Training Rooms, Meetings, Co-working, Lounge, Gaming Hub, Recording Studio."
     },
     "wall_branding": {
-      "title": "Brand at Walls",
+      "title": "Brand on the Training Center Walls",
       "price_solo": "Personal since 500€",
       "price_company": "Company since 1800€",
       "description": "Placing individual names and company logos on the walls of training rooms and other rooms."
@@ -52,7 +53,8 @@
     "date": "Contribution Date",
     "type": "Contribution Type",
     "donor": "Donor Name",
-    "value": "Value"
+    "value": "Donation Value",
+    "description": "Description"
   },
   "movement_form": {
     "value": "Value",

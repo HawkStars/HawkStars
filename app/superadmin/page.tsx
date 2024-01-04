@@ -19,7 +19,7 @@ const SuperAdminPage = () => {
   return (
     <>
       <section className='mt-10 flex flex-col gap-5'>
-        <div className='flex flex-row justify-center gap-4'>
+        <div className='mb-5 flex flex-row justify-center gap-4 border-b border-bege-dark py-2'>
           <SuperAdminTabItem
             section='dashboard'
             currentSectionSelected={currentSection}

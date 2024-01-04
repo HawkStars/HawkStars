@@ -1,5 +1,6 @@
 {
   "contribute_hero": "Contribuir para o projecto e para a ONG",
+  "helps_us_donate": "Contribua no Projecto",
   "other_modalities": "Outras Modalidades",
   "forms_and_modalities": "Formas e modalidades de doação",
   "store": "Loja HawkStars",
@@ -52,7 +53,8 @@
     "date": "Data Contribuição",
     "type": "Tipo Contribuição",
     "donor": "Nome Doador",
-    "value": "Valor"
+    "value": "Valor da Doação",
+    "description": "Descrição"
   },
   "movement_form": {
     "value": "Valor",

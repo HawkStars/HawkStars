@@ -94,13 +94,13 @@ const HomeComponent = () => {
         </div>
       </section>
       <section className='bg-bege-dark px-8 py-20 lg:px-20'>
-        <div className='mx-auto flex max-w-6xl flex-row gap-20'>
+        <div className='mx-auto flex max-w-6xl flex-col gap-5 lg:flex-row lg:gap-20'>
           <Image
             src={exterior1}
             alt='Global Village'
-            className='w-1/2 flex-1 rounded-lg'
+            className='flex-1 rounded-lg lg:w-1/2'
           />
-          <div className='flex w-1/2 flex-1 flex-col gap-4'>
+          <div className='flex flex-1 flex-col gap-4 lg:w-1/2'>
             <h3 className='mt-5 font-black text-green'>Global Village</h3>
             <p>{t('home.global_village')}</p>
             <Button type={'button'}>
