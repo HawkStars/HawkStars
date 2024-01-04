@@ -6,8 +6,7 @@ export type HawkStarsPath =
   | 'transparency'
   | 'village'
   | 'home'
-  | 'about'
-  | 'default';
+  | 'about';
 
 export const defaultMetadata = {
   icons: {
@@ -31,6 +30,7 @@ const readMetadataLanguageFile = (lng: string) => {
 };
 
 const getMetadataPageInfo = (lng: string, page: HawkStarsPath): Metadata => {
+  const defaultPath = 'home' as HawkStarsPath;
   const metadataJSONFile = readMetadataLanguageFile(lng);
 
   let metadataPageInfo;
@@ -40,7 +40,7 @@ const getMetadataPageInfo = (lng: string, page: HawkStarsPath): Metadata => {
     return { metadataPageInfo, ...defaultMetadata } as unknown as Metadata;
 
   // in case someone forgot to add the metadata information
-  metadataPageInfo = metadataJSONFile['default'];
+  metadataPageInfo = metadataJSONFile[defaultPath];
   return { metadataPageInfo, ...defaultMetadata } as unknown as Metadata;
 };
 

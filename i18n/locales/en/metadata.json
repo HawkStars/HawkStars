@@ -17,8 +17,25 @@
     ]
   },
   "about": {
-    "title": "Hawk Stars - About Us",
-    "description": "Hawk Stars objetives and values and main goals for the next years for the international community and local ativities"
+    "title": "Empowering Change: Hawk Stars NGO - Vision, Objectives, and Global Goals",
+    "description": "Explore the vision, objectives, and impactful goals driving Hawk Stars NGO's mission for positive change. Delve into our commitment to social innovation, inclusivity, and cultural development in Pinhel, Portugal, and the global community. Learn about our strategic objectives for local development and sustainability, education, non-formal training, innovation, and cooperation, as well as our dedication to Erasmus+ initiatives. Discover how Hawk Stars NGO aims to foster inclusion, social cohesion, and entrepreneurship, contributing to technology, arts, and global cooperation. Join us in realizing a vision where Pinhel thrives as a global center of innovation while embracing European ideals and values.",
+    "keywords": [
+      "Hawk Stars NGO",
+      "Vision",
+      "Objectives",
+      "Goals",
+      "Social Innovation",
+      "Inclusivity",
+      "Cultural Development",
+      "Local Sustainability",
+      "Education",
+      "Erasmus+",
+      "Entrepreneurship",
+      "Technology",
+      "Global Cooperation",
+      "Pinhel",
+      "Portugal."
+    ]
   },
   "donate": {
     "title": "Support The Global Village Project - Donate to Hawk Stars NGO",
@@ -39,20 +56,75 @@
     ]
   },
   "team": {
-    "title": "Hawk Stars NGO - Team",
-    "description": "The members of the board member, financial and main board that manage this non profit organization"
+    "title": "Meet the Team: Hawk Stars NGO Board, Leadership Team, Fiscal Council and Management",
+    "description": "Discover the driving force behind Hawk Stars NGO's transformative initiatives. Explore the profiles and expertise of our dedicated board members and leadership team, passionately guiding The Global Village Project in Pinhel, Portugal. Learn about their commitment to social innovation, inclusivity, and cultural development. Meet the visionaries shaping the future of Pinhel and supporting The International Training Center. Join us in acknowledging and appreciating the diverse talents and leadership skills that propel Hawk Stars NGO towards its mission",
+    "keywords": [
+      "Hawk Stars NGO",
+      "Board Members",
+      "Leadership Team",
+      "Global Village Project",
+      "Social Innovation",
+      "Inclusivity",
+      "Cultural Development",
+      "Pinhel",
+      "Portugal",
+      "International Training Center",
+      "Visionaries",
+      "Team Profiles"
+    ]
   },
   "partners": {
-    "title": "Hawk Stars NGO - Partners",
-    "description": "Partners that work directly with Hawk Stars NGO"
+    "title": "Collaborative Forces: Partnerships and Erasmus+ Alliances with Hawk Stars NGO",
+    "description": "Explore the impactful collaborations and partnerships that fuel Hawk Stars NGO's initiatives. Dive into our network of dedicated partners and the dynamic alliances established through Erasmus+. Learn about the shared vision for social innovation, education, and cultural development. Discover the projects and initiatives born out of these influential collaborations. Hawk Stars NGO is proud to stand alongside its partners and Erasmus+ allies, creating a positive impact in Pinhel, Portugal, and beyond. Join us in celebrating the power of collaboration and the pursuit of shared goals.",
+    "keywords": [
+      "Hawk Stars NGO",
+      "Partnerships",
+      "Erasmus+",
+      "Collaboration",
+      "Social Innovation",
+      "Education",
+      "Cultural Development",
+      "Pinhel",
+      "Portugal",
+      "International Collaboration",
+      "Erasmus+ Alliances",
+      "Shared Vision."
+    ]
   },
   "transparency": {
-    "title": "Hawk Stars NGO - Transparency",
-    "description": "",
-    "keywords": [""]
+    "title": "Transparent Impact: Hawk Stars NGO Financial Statements and Contributions",
+    "description": "Gain insight into Hawk Stars NGO's commitment to transparency through our dedicated boards showcasing financial movements. Explore detailed credit and debit records, providing a transparent view of the organization's financial activities. Additionally, discover how donor contributions are highlighted, showcasing a commitment to accountability and appreciation for our supporters. Hawk Stars NGO is dedicated to maintaining openness in financial operations, ensuring that every contribution makes a meaningful impact in driving positive change in Pinhel, Portugal, and beyond.",
+    "keywords": [
+      "Hawk Stars NGO",
+      "Transparency",
+      "Financial Statements",
+      "Credit and Debit Records",
+      "Donor Contributions",
+      "Accountability",
+      "Openness",
+      "Positive Impact",
+      "Pinhel",
+      "Portugal",
+      "Non-profit Organization."
+    ]
   },
-  "default": {
-    "title": "Hawk Stars NGO",
-    "description": ""
+  "home": {
+    "title": "Hawk Stars NGO - Inspiring Positive Change in Pinhel, Portugal, and Beyond",
+    "description": "Welcome to Hawk Stars NGO, a dynamic force committed to social innovation, cultural development, and positive transformation. Explore our initiatives, partnerships, and collaborative projects, driven by a vision of inclusivity and progress. From the Global Village Project to impactful Erasmus+ collaborations, discover how we're shaping the future in Pinhel and contributing to global communities. Uncover transparent financial operations and meet the visionary board members propelling our mission. Join us in fostering positive change and embracing European ideals. Support our cause and be part of a journey towards a brighter, more inclusive future.",
+    "keywords": [
+      "Hawk Stars NGO",
+      "Social Innovation",
+      "Cultural Development",
+      "Global Village Project",
+      "Erasmus+",
+      "Collaboration",
+      "Inclusivity",
+      "Positive Change",
+      "Transparency",
+      "Visionary Board",
+      "Pinhel",
+      "Portugal",
+      "Non-profit Organization."
+    ]
   }
 }

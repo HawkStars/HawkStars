@@ -24,11 +24,27 @@
       "Angariação de fundos."
     ]
   },
-  "home": {
-    "title": "Hawk Stars ORG - Home",
-    "description": "Grupo intergeracional cujo os seus membros são interessados no desenvolvimento social e humano tendo por base um trabalho na área da educação com a inovação a que os novos tempos obrigam, aberta a todos, e projetada do local para o global."
+  "about": {
+    "title": "Capacitando a Mudança: ONG Hawk Stars - Visão, Objetivos e Metas Globais",
+    "description": "Explore a visão, os objetivos e as metas impactantes que impulsionam a missão da ONG Hawk Stars para uma mudança positiva. Aprofunde-se no nosso compromisso com a inovação social, a inclusão e o desenvolvimento cultural em Pinhel, Portugal, e na comunidade global. Saiba mais sobre a nossa estratégia objetivos de desenvolvimento local e sustentabilidade, educação, formação não formal, inovação e cooperação, bem como a nossa dedicação às iniciativas Erasmus+. Descubra como a ONG Hawk Stars pretende promover a inclusão, a coesão social e o empreendedorismo, contribuindo para a tecnologia, as artes, e cooperação global. Junte-se a nós na concretização de uma visão onde Pinhel prospere como um centro global de inovação, ao mesmo tempo que abraça os ideais e valores europeus.",
+    "keywords": [
+      "ONG Hawk Stars",
+      "Visão",
+      "Objetivos",
+      "Metas",
+      "Inovação Social",
+      "Inclusividade",
+      "Desenvolvimento Cultural",
+      "Sustentabilidade Local",
+      "Educação",
+      "Erasmus+",
+      "Empreendedorismo",
+      "Tecnologia",
+      "Cooperação Global",
+      "Pinhel",
+      "Portugal"
+    ]
   },
-  "about": { "title": "Hawk Stars ORG - Sobre", "description": "" },
   "donate": {
     "title": "Apoie o Projeto Global Village - Doe para a ONG Hawk Stars",
     "description": "Faça a diferença na transformação de Pinhel, Portugal, contribuindo para o Projeto Global Village liderado pela ONG Hawk Stars. A sua doação apoia a criação do Centro Internacional de Formação, um catalisador de aprendizagem, inovação social e cultural desenvolvimento. Junte-se a nós na promoção da inclusão, do empreendedorismo e do avanço tecnológico. Faça parte da visão de transformar Pinhel num centro global de inovação, preservando ao mesmo tempo o seu rico património cultural. Clique para doar e ajudar a construir um futuro promissor para a comunidade.",
@@ -51,13 +67,76 @@
       "Inclusividade."
     ]
   },
-  "team": { "title": "Hawk Stars ORG - Equipa", "description": "" },
-  "partners": {
-    "title": "Hawk Stars ORG - Parceiros",
-    "description": "Partners that work directly with Hawk Stars NGO"
+  "team": {
+    "title": "Conheça a Equipe: Diretoria da ONG Hawk Stars, Equipe de Liderança, Conselho Fiscal e Gestão",
+    "description": "Descubra a força motriz por trás das iniciativas transformadoras da ONG Hawk Stars. Explore os perfis e a experiência dos nossos dedicados membros do conselho e da equipe de liderança, guiando apaixonadamente o Projeto Global Village em Pinhel, Portugal. Saiba mais sobre seu compromisso com a inovação social e a inclusão e desenvolvimento cultural. Conheça os visionários que moldam o futuro de Pinhel e apoiam o Centro Internacional de Formação. Junte-se a nós para reconhecer e valorizar os diversos talentos e habilidades de liderança que impulsionam a ONG Hawk Stars em direção à sua missão",
+    "keywords": [
+      "ONG Hawk Stars",
+      "Membros do Conselho",
+      "Equipe de Liderança",
+      "Projeto Aldeia Global",
+      "Inovação Social",
+      "Inclusividade",
+      "Desenvolvimento Cultural",
+      "Pinhel",
+      "Portugal",
+      "Centro Internacional de Treinamento",
+      "Visionários",
+      "Perfis de equipe"
+    ]
   },
-  "default": {
-    "title": "Hawk Stars ORG",
-    "description": "Grupo intergeracional cujo os seus membros são interessados no desenvolvimento social e humano tendo por base um trabalho na área da educação com a inovação a que os novos tempos obrigam, aberta a todos, e projetada do local para o global."
+  "partners": {
+    "title": "Forças Colaborativas: Parcerias e Alianças Erasmus+ com a ONG Hawk Stars",
+    "description": "Explore as colaborações e parcerias impactantes que alimentam as iniciativas da ONG Hawk Stars. Mergulhe na nossa rede de parceiros dedicados e nas alianças dinâmicas estabelecidas através do Erasmus+. Aprenda sobre a visão partilhada para a inovação social, educação e desenvolvimento cultural. Descubra o projetos e iniciativas que nasceram destas colaborações influentes. A ONG Hawk Stars orgulha-se de estar ao lado dos seus parceiros e aliados Erasmus+, criando um impacto positivo em Pinhel, Portugal, e mais além. Junte-se a nós na celebração do poder da colaboração e da prossecução de objetivos partilhados .",
+    "palavras-chave": [
+      "ONG Hawk Stars",
+      "Parcerias",
+      "Erasmus+",
+      "Colaboração",
+      "Inovação Social",
+      "Educação",
+      "Desenvolvimento Cultural",
+      "Pinhel",
+      "Portugal",
+      "Colaboração Internacional",
+      "Alianças Erasmus+",
+      "Visão compartilhada."
+    ]
+  },
+  "transparency": {
+    "title": "Impacto Transparente: Demonstrações Financeiras e Contribuições da ONG Hawk Stars",
+    "description": "Obtenha insights sobre o compromisso da ONG Hawk Stars com a transparência por meio de nossos painéis dedicados que apresentam movimentos financeiros. Explore registros detalhados de crédito e débito, fornecendo uma visão transparente das atividades financeiras da organização. Além disso, descubra como as contribuições dos doadores são destacadas, mostrando um compromisso com a responsabilização e apreço pelos nossos apoiantes. A ONG Hawk Stars dedica-se a manter a abertura nas operações financeiras, garantindo que cada contribuição tenha um impacto significativo na promoção de mudanças positivas em Pinhel, Portugal e mais além.",
+    "palavras-chave": [
+      "ONG Hawk Stars",
+      "Transparência",
+      "Declarações financeiras",
+      "Registros de Crédito e Débito",
+      "Contribuições dos Doadores",
+      "Responsabilidade",
+      "Abertura",
+      "Impacto positivo",
+      "Pinhel",
+      "Portugal",
+      "Organização sem fins lucrativos."
+    ]
+  },
+  "home": {
+    "title": "ONG Hawk Stars - Inspirando Mudanças Positivas em Pinhel, Portugal e Além",
+    "description": "Bem-vindo à ONG Hawk Stars, uma força dinâmica comprometida com a inovação social, o desenvolvimento cultural e a transformação positiva. Explore nossas iniciativas, parcerias e projetos colaborativos, impulsionados por uma visão de inclusão e progresso. Do Projeto Aldeia Global a colaborações Erasmus+ impactantes, descubra como estamos a moldar o futuro em Pinhel e a contribuir para as comunidades globais. Descubra operações financeiras transparentes e conheça os membros visionários do conselho que impulsionam a nossa missão. Junte-se a nós na promoção de mudanças positivas e na adoção dos ideais europeus. Apoie a nossa causa e faça parte de uma jornada rumo a um futuro mais brilhante e mais inclusivo.",
+    "palavras-chave": [
+      "ONG Hawk Stars",
+      "Inovação Social",
+      "Desenvolvimento Cultural",
+      "Projeto Aldeia Global",
+      "Erasmus+",
+      "Colaboração",
+      "Inclusividade",
+      "Mudança Positiva",
+      "Transparência",
+      "Conselho Visionário",
+      "Pinhel",
+      "Portugal",
+      "Organização sem fins lucrativos."
+    ]
   }
 }
