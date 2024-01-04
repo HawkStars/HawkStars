@@ -65,7 +65,7 @@ const OrganizationContributionsTable = () => {
                 </th>
               ))}
             </tr>
-          ))}t
+          ))}
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (

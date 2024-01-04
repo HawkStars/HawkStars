@@ -68,5 +68,3 @@ export const routes = [
   { url: DONATE_URL, priority: 1 },
   { url: TRANSPARENCY_URL, priority: 1 },
 ] as MetadataRoute[];
-
-export const PROD_URL = 'https://hawkstars.org/';

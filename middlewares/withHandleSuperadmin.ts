@@ -6,21 +6,16 @@ import { NextRequest, NextResponse } from 'next/server';
 const withHandleSuperadmin = async (
   request: NextRequest
 ): Promise<NextResponse> => {
-  const isSuperAdmin = await checkIfAuthenticated(request);
+  const res = NextResponse.next();
+  const isSuperAdmin = await checkIfAuthenticated(request, res);
   if (!isSuperAdmin)
     return NextResponse.redirect(new URL(`${fallbackLng}/`, request.url));
 
-  return NextResponse.next();
+  return res;
 };
 
-async function checkIfAuthenticated(req: NextRequest) {
-  const res = NextResponse.next();
-
+async function checkIfAuthenticated(req: NextRequest, res: NextResponse) {
   const supabase = createMiddlewareClient({ req, res });
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
 
   const {
     data: { user },
