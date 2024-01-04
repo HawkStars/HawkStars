@@ -29,7 +29,28 @@
     "description": "Grupo intergeracional cujo os seus membros são interessados no desenvolvimento social e humano tendo por base um trabalho na área da educação com a inovação a que os novos tempos obrigam, aberta a todos, e projetada do local para o global."
   },
   "about": { "title": "Hawk Stars ORG - Sobre", "description": "" },
-  "donate": { "title": "Hawk Stars ORG - Doações", "description": "" },
+  "donate": {
+    "title": "Apoie o Projeto Global Village - Doe para a ONG Hawk Stars",
+    "description": "Faça a diferença na transformação de Pinhel, Portugal, contribuindo para o Projeto Global Village liderado pela ONG Hawk Stars. A sua doação apoia a criação do Centro Internacional de Formação, um catalisador de aprendizagem, inovação social e cultural desenvolvimento. Junte-se a nós na promoção da inclusão, do empreendedorismo e do avanço tecnológico. Faça parte da visão de transformar Pinhel num centro global de inovação, preservando ao mesmo tempo o seu rico património cultural. Clique para doar e ajudar a construir um futuro promissor para a comunidade.",
+    "palavras-chave": [
+      "Donation",
+      "Support",
+      "Global Village Project",
+      "Hawk Stars NGO",
+      "Doação",
+      "Apoiar",
+      "Projeto Aldeia Global",
+      "ONG Hawk Stars",
+      "Pinhel",
+      "Portugal",
+      "Centro Internacional de Treinamento",
+      "Inovação Social",
+      "Desenvolvimento Cultural",
+      "Empreendedorismo",
+      "Tecnologia",
+      "Inclusividade."
+    ]
+  },
   "team": { "title": "Hawk Stars ORG - Equipa", "description": "" },
   "partners": {
     "title": "Hawk Stars ORG - Parceiros",
