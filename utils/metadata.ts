@@ -31,17 +31,22 @@ const readMetadataLanguageFile = (lng: string) => {
 
 const getMetadataPageInfo = (lng: string, page: HawkStarsPath): Metadata => {
   const defaultPath = 'home' as HawkStarsPath;
-  const metadataJSONFile = readMetadataLanguageFile(lng);
+  const JSONFile = readMetadataLanguageFile(lng);
 
-  let metadataPageInfo;
-  metadataPageInfo = metadataJSONFile[page];
-
-  if (metadataJSONFile)
-    return { metadataPageInfo, ...defaultMetadata } as unknown as Metadata;
+  let metadataPageInfo = JSONFile[page];
+  if (metadataPageInfo) return transformToMetadataObject(metadataPageInfo);
 
   // in case someone forgot to add the metadata information
-  metadataPageInfo = metadataJSONFile[defaultPath];
-  return { metadataPageInfo, ...defaultMetadata } as unknown as Metadata;
+  metadataPageInfo = JSONFile[defaultPath];
+  return transformToMetadataObject(metadataPageInfo);
+};
+
+const transformToMetadataObject = (info: any): Metadata => {
+  return {
+    title: info.title,
+    description: info.description,
+    keywords: info.keywords,
+  } as unknown as Metadata;
 };
 
 export { getMetadataPageInfo };

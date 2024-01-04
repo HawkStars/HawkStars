@@ -7,8 +7,6 @@ export type ContributionWithConfirmed = Contribution & {
   profile: Pick<Profile, 'name'> | null;
 };
 
-console.log(i18next.t('contribute:options.auditorium_chair'));
-
 const columnContributionHelper =
   createColumnHelper<ContributionWithConfirmed>();
 

@@ -12,7 +12,7 @@ import { languages } from '../../i18n/settings';
 
 import { Metadata } from 'next';
 import Script from 'next/script';
-import { defaultMetadata, getMetadataPageInfo } from '@/utils/metadata';
+import { getMetadataPageInfo } from '@/utils/metadata';
 import { LanguagePageProps } from './types';
 
 export async function generateStaticParams() {
