@@ -11,11 +11,9 @@ const addOrganizationContribution = async ({
   contribution_date,
 }: ContributionFormInput) => {
   const supabase = createSupabaseBrowserClient();
-  const { data } = await supabase.auth.getUser();
-  if (!data || !data.user) return;
 
   const { error } = await supabase
-    .from<'contibutions', Contributions>('contibutions')
+    .from<'contributions', Contributions>('contributions')
     .insert({
       id: uuidv4(),
       value,
@@ -29,27 +27,4 @@ const addOrganizationContribution = async ({
   return true;
 };
 
-const updateOrganizationContribution = async ({
-  value,
-  donor,
-  description,
-  type,
-  contribution_date,
-}: ContributionFormInput) => {
-  const supabase = createSupabaseBrowserClient();
-  const { error } = await supabase
-    .from<'contributions', Contributions>('contributions')
-    .update({
-      value,
-      donor,
-      description,
-      type,
-      contribution_date: contribution_date.toISOString(),
-    })
-    .eq('id', 1);
-
-  if (error) return false;
-  return true;
-};
-
-export { addOrganizationContribution, updateOrganizationContribution };
+export { addOrganizationContribution };

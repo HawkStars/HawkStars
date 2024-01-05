@@ -3,8 +3,8 @@
 import FormContributions, {
   ContributionFormInput,
 } from '../superadmin/FormContributions/FormContributions';
-import { addOrganizationContribution } from '../superadmin/FormContributions/service';
 import { LanguageProps } from '../types';
+import { addOrganizationContribution } from '../superadmin/FormContributions/service';
 
 const ContributeFormSection = ({ lng }: LanguageProps) => {
   const handleSubmitForm = async (data: ContributionFormInput) => {
@@ -23,3 +23,18 @@ const ContributeFormSection = ({ lng }: LanguageProps) => {
 };
 
 export default ContributeFormSection;
+
+// const handleSubmitForm = async (data: ContributionFormInput) => {
+//   const response = await fetch(CONTRIBUTION_API_URL, {
+//     headers: {
+//       Accept: 'application/json',
+//       'Content-Type': 'application/json',
+//     },
+//     method: 'POST',
+//     body: JSON.stringify(data),
+//   });
+
+//   const addedContribution = await response.json();
+
+//   toast.success('done');
+// };

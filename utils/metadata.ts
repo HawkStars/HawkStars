@@ -10,7 +10,7 @@ export type HawkStarsPath =
 
 export const defaultMetadata = {
   icons: {
-    icon: '/favicon/favicon.ico',
+    icon: '/favicon.ico',
     shortcut: '/favicon/favicon-16x16.png',
     apple: '/favicon/apple-touch-icon.png',
   },

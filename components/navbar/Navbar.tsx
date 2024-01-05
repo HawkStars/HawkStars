@@ -19,6 +19,8 @@ import { MenuSections } from './config';
 import DropdownMenu from '../menu/DropdownMenu';
 import MenuItem from '../menu/MenuItem';
 
+import hawkLogo from '@/public/images/logo.png';
+
 const Navbar = () => {
   const { lng } = useMainAppContext();
   const { t } = useTranslation(lng, 'common');
@@ -37,7 +39,7 @@ const Navbar = () => {
             >
               <div className='flex gap-1'>
                 <Image
-                  src='/images/logo.png'
+                  src={hawkLogo}
                   alt='Hawk Stars Logo'
                   width={150}
                   height={100}

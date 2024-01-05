@@ -1,0 +1,23 @@
+export type VisionType = {
+  icon: string;
+  title: string;
+  description: string;
+};
+
+export const visionIcons = [
+  {
+    icon: '/images/frontpage/values/soliedaridade.png',
+    title: 'home.vision.solidarity.title',
+    description: 'home.vision.solidarity.description',
+  },
+  {
+    icon: '/images/frontpage/values/identidade.png',
+    title: 'home.vision.identity.title',
+    description: 'home.vision.identity.description',
+  },
+  {
+    icon: '/images/frontpage/values/sentido.png',
+    title: 'home.vision.sense.title',
+    description: 'home.vision.sense.description',
+  },
+] as VisionType[];

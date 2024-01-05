@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Button from '../utils/Button';
 
-import config from './config.json';
+import { VisionType, visionIcons } from './config';
 import { BE_MEMBER_FORM_URL, DONATE_URL } from '../../utils/paths';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -77,15 +77,17 @@ const HomeComponent = () => {
           <Suspense fallback=''>{t('home.values_body')}</Suspense>
         </h6>
         <div className='mx-auto mt-10 grid w-2/3 grid-cols-1 gap-10 lg:grid-cols-3 lg:gap-3'>
-          {config.vision.map((option, index) => (
+          {visionIcons.map((option: VisionType, index: number) => (
             <div key={index} className='flex flex-col items-center gap-2'>
               <div>
-                <Image
-                  src={option.icon}
-                  alt={`${option.title} icon`}
-                  width={32}
-                  height={32}
-                />
+                <Suspense>
+                  <Image
+                    src={option.icon}
+                    alt={`${option.title} icon`}
+                    width={32}
+                    height={32}
+                  />
+                </Suspense>
               </div>
               <h5 className='font-black text-green'>{t(option.title)}</h5>
               <h6 className='text-center'>{t(option.description)}</h6>

@@ -41,10 +41,11 @@ export default function Input({
         <input
           placeholder={placeholder}
           className={classNames(
-            ' w-full border-0 bg-inherit text-right focus:outline-none focus:ring-0',
+            ' w-full border-0 bg-inherit focus:outline-none focus:ring-0',
             `${customCss}`,
             { 'border-red-700': errorMessage },
-            { 'bg-bege-dark-100 bg-opacity-80': disabled }
+            { 'bg-bege-dark-100 bg-opacity-80': disabled },
+            { 'text-right': icon }
           )}
           onChange={onChange}
           name={name}

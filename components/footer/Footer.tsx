@@ -5,12 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Button from '../utils/Button';
-import {
-  BE_MEMBER_FORM_URL,
-  DONATE_URL,
-  HOME_URL,
-  transformUrl,
-} from '../../utils/paths';
+import { DONATE_URL, HOME_URL, transformUrl } from '../../utils/paths';
 import classNames from 'classnames';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { useRouter } from 'next/navigation';
@@ -18,16 +13,18 @@ import { useTranslation } from '../../i18n/client';
 import { useMainAppContext } from '@/contexts/AppProvider';
 import { MenuSections } from '../navbar/config';
 
+import hawkLogo from '@/public/images/logo.png';
+
 const Footer = () => {
   return (
     <footer>
       <div className='mt-4 block px-5 lg:hidden'>
-        <div className='flex flex-col gap-5'>
+        <div className='flex max-w-40 flex-col gap-5'>
           <Image
-            src='/images/logo.png'
+            src={hawkLogo}
             alt='hawkstars'
-            height='200'
-            width='200'
+            sizes='100px'
+            style={{ objectFit: 'cover' }}
           />
           <div className='-ml-3'>
             <LanguageSwitcher />
@@ -41,13 +38,8 @@ const Footer = () => {
         </div>
       </div>
       <div className='hidden grid-cols-1 gap-1 px-12 py-4 lg:grid lg:grid-cols-5 lg:gap-7 lg:pt-20'>
-        <div className='mb-auto lg:mx-auto'>
-          <Image
-            src='/images/logo.png'
-            alt='hawkstars'
-            height='200'
-            width='200'
-          />
+        <div className='mb-auto max-w-52 lg:mx-auto'>
+          <Image src={hawkLogo} alt='hawkstars' height='200' width='200' />
         </div>
         <Menus />
       </div>
