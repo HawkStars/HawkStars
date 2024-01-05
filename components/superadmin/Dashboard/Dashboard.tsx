@@ -21,7 +21,7 @@ const Dashboard = () => {
     <section className='layout-section w-full'>
       <div className='flex flex-col gap-4'>
         <h6>Money Gathered</h6>
-        <p>{moneyGathered}€</p>
+        <p>{moneyGathered || '-'}€</p>
       </div>
       <DashboardFormList />
     </section>

@@ -1,7 +1,10 @@
 'use client';
 
 import Dashboard from '@/components/superadmin/Dashboard/Dashboard';
-import FormContributions from '@/components/superadmin/FormContributions/FormContributions';
+import FormContributions, {
+  ContributionFormInput,
+} from '@/components/superadmin/FormContributions/FormContributions';
+import { addOrganizationContribution } from '@/components/superadmin/FormContributions/service';
 import FormOrganizationMovement from '@/components/superadmin/FormOrganizationMovements/FormOrganizationMovements';
 import SuperAdminTabItem from '@/components/superadmin/SuperAdminTabItem/SuperAdminTabItem';
 import { useState } from 'react';
@@ -16,6 +19,11 @@ export type SuperAdminSection =
 const SuperAdminPage = () => {
   const [currentSection, setCurrentSection] =
     useState<SuperAdminSection>('dashboard');
+
+  const handleSubmitForm = async (data: ContributionFormInput) => {
+    return await addOrganizationContribution(data);
+  };
+
   return (
     <>
       <section className='mt-10 flex flex-col gap-5'>
@@ -50,7 +58,7 @@ const SuperAdminPage = () => {
         {currentSection == 'add_contribution' && (
           <section className='flex flex-col gap-3'>
             <h3 className='text-center'>Contributions</h3>
-            <FormContributions formType='create' />
+            <FormContributions formType='create' onSubmit={handleSubmitForm} />
           </section>
         )}
       </section>

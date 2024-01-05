@@ -5,11 +5,16 @@ import { SiFacebook, SiGmail } from 'react-icons/si';
 import Button from '@/components/utils/Button';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { loginWithGoogle, loginWithFacebook } from '@/server/OAuthLogins';
+import {
+  loginWithGoogle,
+  loginWithFacebook,
+  loginWithEmail,
+} from '@/server/OAuthLogins';
+import Input from '@/components/utils/Input/Input';
 
 const LoginPage = () => {
   const router = useRouter();
-  const [type, setType] = useState<'register' | 'login'>('login');
+  const [email, setEmail] = useState('');
 
   /** registar com google */
   const enterWithGoogle = async (event: React.MouseEvent) => {
@@ -22,10 +27,17 @@ const LoginPage = () => {
     await loginWithFacebook();
   };
 
+  const enterWithOTP = async (event: any) => {
+    event.preventDefault();
+    await loginWithEmail(email);
+  };
+
   return (
     <div className='max-width my-10 flex justify-center'>
       <div className='border-terciary-100 my-5 rounded-lg border lg:w-fit'>
-        <div className='p-5'>
+        <div className='flex flex-col gap-5 p-5'>
+          <Input labelText='Email' name='email' onChange={setEmail} />
+
           <div className='flex flex-1 flex-row justify-center gap-5'>
             <Button
               outline={true}

@@ -6,7 +6,7 @@ interface InputProps {
   value?: string | number;
   customCss?: string;
   labelText?: string;
-  name?: string;
+  name: string;
   errorMessage?: string;
   disabled?: boolean;
   placeholder?: string;

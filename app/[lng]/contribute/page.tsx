@@ -25,7 +25,9 @@ import loungeChair from '@/public/images/icons/contribute/lounge-fill.svg';
 import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
 import { Contribution } from '@/models/database';
 import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
-import FormContributions from '@/components/superadmin/FormContributions/FormContributions';
+import { Suspense } from 'react';
+import MainHawkStarsLoading from '../loading';
+import ContributeFormSection from '@/components/contribute/ContributeFormSecction';
 
 const getChairsContribute = async () => {
   const supabase = createSupabaseBrowserClient();
@@ -258,9 +260,9 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
         <h2 className='flex justify-center text-green'>
           {t('helps_us_donate')}
         </h2>
-        <div className='mx-auto mt-10 lg:w-1/2'>
-          <FormContributions formType={'create'} lng={lng} />
-        </div>
+        <Suspense fallback={<MainHawkStarsLoading />}>
+          <ContributeFormSection lng={lng} />
+        </Suspense>
       </section>
     </div>
   );

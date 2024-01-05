@@ -7,10 +7,6 @@ import Input from '@/components/utils/Input/Input';
 import { Contribution, ContributionType } from '@/models/database';
 import Button from '@/components/utils/Button';
 import dynamic from 'next/dynamic';
-import {
-  addOrganizationContribution,
-  updateOrganizationContribution,
-} from './service';
 import TextArea from '@/components/utils/TextArea/TextArea';
 import Spinner from '@/components/utils/Spinner/Spinner';
 import { useTranslation } from '@/i18n/client';
@@ -22,6 +18,7 @@ export type ContributionFormInput = Pick<
 
 type FormContributionProps = {
   formType: 'create' | 'update';
+  onSubmit: (data: ContributionFormInput) => void;
   lng?: string;
 };
 
@@ -30,7 +27,11 @@ const HawkStarsDatePicker = dynamic(
   { ssr: false, loading: () => <Spinner /> }
 );
 
-const FormContributions = ({ formType, lng = 'en' }: FormContributionProps) => {
+const FormContributions = ({
+  formType,
+  onSubmit,
+  lng = 'en',
+}: FormContributionProps) => {
   const { t } = useTranslation(lng, 'contribute');
   const {
     handleSubmit,
@@ -59,8 +60,7 @@ const FormContributions = ({ formType, lng = 'en' }: FormContributionProps) => {
   const onSubmitForm: SubmitHandler<ContributionFormInput> = async (
     data: ContributionFormInput
   ) => {
-    if (formType == 'create') return await addOrganizationContribution(data);
-    return await updateOrganizationContribution(data);
+    onSubmit(data);
   };
 
   return (
