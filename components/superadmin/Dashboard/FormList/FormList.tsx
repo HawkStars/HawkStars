@@ -14,6 +14,7 @@ import {
 } from './config';
 import { useTranslation } from '@/i18n/client';
 import { useMainAppContext } from '@/contexts/AppProvider';
+import Button from '@/components/utils/Button';
 
 const getAllContributions = async () => {
   const supabase = createSupabaseBrowserClient();
@@ -66,6 +67,7 @@ const DashboardFormList = () => {
                       )}
                 </th>
               ))}
+              <th>Actions</th>
             </tr>
           ))}
         </thead>
@@ -77,6 +79,11 @@ const DashboardFormList = () => {
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
+              <td>
+                <div className='flex gap-2'>
+                  <Button type='button'>Edit</Button>
+                </div>
+              </td>
             </tr>
           ))}
         </tbody>

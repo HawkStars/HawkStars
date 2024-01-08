@@ -20,6 +20,7 @@ export const GLOBAL_VILLAGE_URL = '/village' as const;
 export const GLOBAL_VILLAGE_OBJECTIVES = '/village#objetives' as const;
 export const GLOBAL_VILLAGE_ARQUITECTURE = '/village#arquitecture' as const;
 export const TRANSPARENCY_URL = '/transparency' as const;
+export const PINHEL_URL = '/pinhel' as const;
 
 /**
  *
