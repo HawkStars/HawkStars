@@ -2,16 +2,17 @@ import classNames from 'classnames';
 import React from 'react';
 
 interface InputProps {
+  name: string;
   onChange?: (e: any) => void;
   value?: string | number;
   customCss?: string;
   labelText?: string;
-  name: string;
   errorMessage?: string;
   disabled?: boolean;
   placeholder?: string;
   outline?: boolean;
   icon?: React.ReactNode;
+  inputHintText?: string;
   [x: string]: any;
 }
 
@@ -26,11 +27,13 @@ export default function Input({
   disabled = false,
   icon = undefined,
   outline = false,
+  inputHintText = '',
   ...props
 }: InputProps) {
   return (
     <div className='flex flex-col gap-2'>
-      {name && <label htmlFor={name}>{labelText}</label>}
+      {labelText && <label htmlFor={name}>{labelText}</label>}
+      {inputHintText && <p className='-my-1 text-sm'>{inputHintText}</p>}
       <div
         className={classNames(
           'border-terciary-500 focus:border-primary-500 flex flex-row gap-1 rounded-md border border-solid px-5 py-2 shadow-sm',

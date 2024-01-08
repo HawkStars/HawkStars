@@ -10,6 +10,7 @@ interface TextAreaProps {
   errorMessage?: string;
   disabled?: boolean;
   placeholder?: string;
+  inputHintText?: string;
   [x: string]: any;
 }
 
@@ -22,11 +23,13 @@ export default function TextArea({
   errorMessage = '',
   placeholder = '',
   disabled = false,
+  inputHintText = '',
   ...props
 }: TextAreaProps) {
   return (
     <div className='flex flex-col gap-2'>
-      {name && <label htmlFor={name}>{labelText}</label>}
+      {labelText && <label htmlFor={name}>{labelText}</label>}
+      {inputHintText && <p className='-my-1 text-sm'>{inputHintText}</p>}
       <textarea
         placeholder={placeholder}
         className={classNames(

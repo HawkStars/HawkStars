@@ -1,12 +1,11 @@
 'use client';
 
 import Dashboard from '@/components/superadmin/Dashboard/Dashboard';
-import FormContributions, {
-  ContributionFormInput,
-} from '@/components/superadmin/FormContributions/FormContributions';
-import { addOrganizationContribution } from '@/components/superadmin/FormContributions/service';
+import FormContributionSection from '@/components/superadmin/FormContributionsSection/FormContributionSection';
 import FormOrganizationMovement from '@/components/superadmin/FormOrganizationMovements/FormOrganizationMovements';
 import SuperAdminTabItem from '@/components/superadmin/SuperAdminTabItem/SuperAdminTabItem';
+import { Metadata } from 'next';
+import Head from 'next/head';
 import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,12 +19,11 @@ const SuperAdminPage = () => {
   const [currentSection, setCurrentSection] =
     useState<SuperAdminSection>('dashboard');
 
-  const handleSubmitForm = async (data: ContributionFormInput) => {
-    return await addOrganizationContribution(data);
-  };
-
   return (
     <>
+      <Head>
+        <title>Superadmin</title>
+      </Head>
       <section className='mt-10 flex flex-col gap-5'>
         <div className='mb-5 flex flex-row justify-center gap-4 border-b border-bege-dark py-2'>
           <SuperAdminTabItem
@@ -55,12 +53,7 @@ const SuperAdminPage = () => {
             <FormOrganizationMovement formType={'create'} />
           </section>
         )}
-        {currentSection == 'add_contribution' && (
-          <section className='flex flex-col gap-3'>
-            <h3 className='text-center'>Contributions</h3>
-            <FormContributions formType='create' onSubmit={handleSubmitForm} />
-          </section>
-        )}
+        {currentSection == 'add_contribution' && <FormContributionSection />}
       </section>
       <ToastContainer />
     </>

@@ -2,7 +2,7 @@ import { tw, variantProps } from 'classname-variants/react';
 import React, { ReactNode } from 'react';
 import Spinner from './Spinner/Spinner';
 
-interface ButtonProps {
+type ButtonProps = {
   /**
    * Optional click handler
    */
@@ -43,7 +43,12 @@ interface ButtonProps {
    * Size - size of the button
    */
   size?: 'fit' | 'full';
-}
+
+  /**
+   * Button props
+   */
+  [x: string]: any;
+};
 
 const buttonProps = variantProps({
   base: tw`text-center focus:outline-none focus:ring-0 cursor-pointer font-black`,

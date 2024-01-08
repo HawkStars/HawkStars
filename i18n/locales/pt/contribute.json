@@ -54,8 +54,9 @@
     "date": "Data Contribuição",
     "type": "Tipo Contribuição",
     "donor": "Nome Doador",
+    "donor_hint": "O nome indicado é o nome que constará na Cadeira/Paredes/Nome de Sala",
     "value": "Valor da Doação",
-    "description": "Descrição"
+    "other_information": "Dados de Faturação"
   },
   "movement_form": {
     "value": "Valor",

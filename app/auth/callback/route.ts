@@ -1,6 +1,5 @@
+import createSupabaseRouteHandlerClient from '@/lib/supabase/route/supabaseRouteClient';
 import { Profiles } from '@/models/database';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -8,23 +7,25 @@ export async function GET(request: NextRequest) {
   const code = requestUrl.searchParams.get('code');
 
   if (code) {
-    const cookieStore = cookies();
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+    const supabase = await createSupabaseRouteHandlerClient();
     const {
       data: { user },
       error,
     } = await supabase.auth.exchangeCodeForSession(code);
+
     if (!error && user) {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from<'profiles', Profiles>('profiles')
         .upsert(
           {
             id: user.id,
-            name: user.user_metadata.name || '',
+            name: user?.user_metadata?.name || '',
             type: 'REGULAR',
           },
           { onConflict: 'id', ignoreDuplicates: true }
         );
+
+      if (error) console.log(error);
     }
   }
 

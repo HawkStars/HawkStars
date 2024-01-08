@@ -9,7 +9,6 @@ const Dashboard = () => {
 
   const getCurrentProjetContribution = async () => {
     const moneyGathered = await getTotalMoneyGathered();
-
     setMoneyGathered(moneyGathered);
   };
 

@@ -3,7 +3,6 @@
 import { SiFacebook, SiGmail } from 'react-icons/si';
 
 import Button from '@/components/utils/Button';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import {
   loginWithGoogle,
@@ -11,10 +10,12 @@ import {
   loginWithEmail,
 } from '@/server/OAuthLogins';
 import Input from '@/components/utils/Input/Input';
+import { HOME_URL } from '@/utils/paths';
+import { useRouter } from 'next/navigation';
 
 const LoginPage = () => {
   const router = useRouter();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState<string>('');
 
   /** registar com google */
   const enterWithGoogle = async (event: React.MouseEvent) => {
@@ -30,14 +31,24 @@ const LoginPage = () => {
   const enterWithOTP = async (event: any) => {
     event.preventDefault();
     await loginWithEmail(email);
+    router.push(HOME_URL);
   };
 
   return (
     <div className='max-width my-10 flex justify-center'>
       <div className='border-terciary-100 my-5 rounded-lg border lg:w-fit'>
         <div className='flex flex-col gap-5 p-5'>
-          <Input labelText='Email' name='email' onChange={setEmail} />
-
+          <form className='flex flex-col gap-2' onSubmit={enterWithOTP}>
+            <Input
+              labelText='Email'
+              name='email'
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
+            <Button type='submit' className='mx-auto'>
+              Login
+            </Button>
+          </form>
           <div className='flex flex-1 flex-row justify-center gap-5'>
             <Button
               outline={true}

@@ -35,6 +35,12 @@ const GlobalVillageOptions = [
   { label: 'navbar.global_village.pinhel', disabled: true },
 ] as NavbarUrlItem[];
 
+const ArtGalleryOptions = [
+  { label: 'navbar.art_gallery.presentation', disabled: true },
+  { label: 'navbar.art_gallery.curation', disabled: true },
+  { label: 'navbar.art_gallery.art', disabled: true },
+] as NavbarUrlItem[];
+
 export const MenuSections = [
   {
     title: 'navbar.ngo',
@@ -52,8 +58,9 @@ export const MenuSections = [
     options: GlobalVillageOptions,
   },
   {
-    type: 'single',
-    option: { label: 'navbar.art_gallery', url: '', disabled: true },
+    title: 'navbar.art_gallery.title',
+    type: 'dropdown',
+    options: ArtGalleryOptions,
   },
   {
     type: 'single',

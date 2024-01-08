@@ -54,8 +54,9 @@
     "date": "Contribution Date",
     "type": "Contribution Type",
     "donor": "Donor Name",
+    "donor_hint": "The name indicated is the name that will appear on the Chair/Walls/Room Name",
     "value": "Donation Value",
-    "description": "Description"
+    "other_information": "Data Billing"
   },
   "movement_form": {
     "value": "Value",

@@ -33,7 +33,6 @@
     "ativities": "Atividades",
     "history": "História",
     "hawk_store": "Loja Hawk",
-    "art_gallery": "Galeria Arte",
     "global_village": {
       "title": "The Global Village",
       "pinhel": "Pinhel",
@@ -42,6 +41,12 @@
       "objectives": "Objectivos",
       "transparency": "Transparência",
       "contribute": "Contribuição direta"
+    },
+    "art_gallery": {
+      "title": "Galeria Arte",
+      "presentation": "Apresentação",
+      "curation": "Curadoria",
+      "art": "Obras"
     }
   },
   "common": {

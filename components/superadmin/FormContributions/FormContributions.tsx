@@ -20,6 +20,7 @@ type FormContributionProps = {
   formType: 'create' | 'update';
   onSubmit: (data: ContributionFormInput) => void;
   lng?: string;
+  loading?: boolean;
 };
 
 const HawkStarsDatePicker = dynamic(
@@ -31,6 +32,7 @@ const FormContributions = ({
   formType,
   onSubmit,
   lng = 'en',
+  loading = false,
 }: FormContributionProps) => {
   const { t } = useTranslation(lng, 'contribute');
   const {
@@ -78,6 +80,7 @@ const FormContributions = ({
             value={value}
             onChange={onChange}
             outline={true}
+            inputHintText={t('contribution_form.donor_hint')}
           />
         )}
       />
@@ -102,10 +105,11 @@ const FormContributions = ({
         name='description'
         render={({ field: { onChange, value, name } }) => (
           <TextArea
-            labelText={t('contribution_form.description')}
+            labelText={t('contribution_form.other_information')}
             name={name}
             value={value}
             onChange={onChange}
+            inputHintText='Nome Completo / Número de Identificação Fiscal (NIF) / Morada'
           />
         )}
       />
@@ -145,7 +149,7 @@ const FormContributions = ({
           />
         )}
       />
-      <Button type={'submit'}>
+      <Button type={'submit'} loading={loading}>
         {formType == 'update' ? 'Update' : 'Create'}
       </Button>
     </form>

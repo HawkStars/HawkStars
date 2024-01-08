@@ -1,10 +1,10 @@
 import { Database } from '@/database.types';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 
-const createSupabaseServerClient = () => {
+const createSupabaseServerClient = async () => {
   const cookieStore = cookies();
-  const supabase = createRouteHandlerClient<Database>(
+  const supabase = createServerComponentClient<Database>(
     {
       cookies: () => cookieStore,
     },

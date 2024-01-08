@@ -48,8 +48,10 @@ const DashboardFormList = () => {
     initListContributions();
   }, []);
 
+  const rows = table.getRowModel().rows;
+
   return (
-    <section className='mt-5 overflow-x-scroll'>
+    <section className='mt-5 overflow-x-auto'>
       <table className='min-w-full table-auto border-separate border-spacing-y-1 text-left text-sm font-light'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -68,7 +70,7 @@ const DashboardFormList = () => {
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((row) => (
+          {rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id} className='min-w-40'>
@@ -79,6 +81,7 @@ const DashboardFormList = () => {
           ))}
         </tbody>
       </table>
+      {!rows || (rows.length == 0 && <p>Sem Contribuições</p>)}
     </section>
   );
 };
