@@ -1,8 +1,7 @@
 'use client';
-import { Contribution } from '@/models/database';
 import { getTotalMoneyGathered } from '@/services/contribution';
 import { useEffect, useState } from 'react';
-import DashboardFormList from './FormList/FormList';
+import DashboardFormList from './FormListSection/FormListSection';
 
 const Dashboard = () => {
   const [moneyGathered, setMoneyGathered] = useState<number>(0);
