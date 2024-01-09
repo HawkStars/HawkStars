@@ -16,12 +16,15 @@ export const DONATE_URL = '/contribute' as const;
 export const BE_MEMBER_URL = '/be_member' as const;
 export const OPORTUNITIES_URL = '/oportunities' as const;
 
+// global village | training center
 export const GLOBAL_VILLAGE_URL = '/village' as const;
 export const GLOBAL_VILLAGE_OBJECTIVES = '/village#objetives' as const;
 export const GLOBAL_VILLAGE_ARQUITECTURE = '/village#arquitecture' as const;
 export const TRANSPARENCY_URL = '/transparency' as const;
 export const PINHEL_URL = '/pinhel' as const;
 
+// art gallery
+export const GALLERY_URL = '/art' as const;
 /**
  *
  * LOGIN

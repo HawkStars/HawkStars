@@ -22,6 +22,7 @@ type FormContributionProps = {
   onSubmit: (data: ContributionFormInput) => void;
   lng?: string;
   loading?: boolean;
+  contribution?: Contribution;
 };
 
 const HawkStarsDatePicker = dynamic(() => import('@/components/utils/DatePicker/DatePicker'), {
@@ -34,6 +35,7 @@ const FormContributions = ({
   onSubmit,
   lng = 'en',
   loading = false,
+  contribution,
 }: FormContributionProps) => {
   const [minDefaultValue, setMinDefaultValue] = useState<number>(0);
   const { t } = useTranslation(lng, 'contribute');
@@ -45,11 +47,11 @@ const FormContributions = ({
     watch,
   } = useForm<ContributionFormInput>({
     defaultValues: {
-      value: 0,
-      donor: '',
-      description: '',
-      contribution_date: new Date(),
-      type: 'BANK',
+      value: contribution ? contribution.value : 0,
+      donor: contribution ? contribution.donor : '',
+      description: contribution ? contribution.description : '',
+      //contribution_date: contribution ? new Date(contribution.contribution_date) : new Date(),
+      type: contribution ? contribution.type : 'BANK',
     },
     mode: 'onChange',
   });
@@ -68,7 +70,6 @@ const FormContributions = ({
     onSubmit(data);
   };
 
-  console.log(errors);
   return (
     <form onSubmit={handleSubmit(onSubmitForm)} className='flex flex-col gap-5 px-10'>
       <Controller

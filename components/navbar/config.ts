@@ -1,6 +1,7 @@
 import {
   ABOUT_US_URL,
   DONATE_URL,
+  GALLERY_URL,
   GLOBAL_VILLAGE_ARQUITECTURE,
   GLOBAL_VILLAGE_OBJECTIVES,
   GLOBAL_VILLAGE_URL,
@@ -37,9 +38,9 @@ const GlobalVillageOptions = [
 ] as NavbarUrlItem[];
 
 const ArtGalleryOptions = [
-  { label: 'navbar.art_gallery.presentation', disabled: true },
-  { label: 'navbar.art_gallery.curation', disabled: true },
-  { label: 'navbar.art_gallery.art', disabled: true },
+  { label: 'navbar.art_gallery.presentation', url: GALLERY_URL },
+  { label: 'navbar.art_gallery.curation', url: GALLERY_URL },
+  { label: 'navbar.art_gallery.art', url: GALLERY_URL },
 ] as NavbarUrlItem[];
 
 export const MenuSections = [

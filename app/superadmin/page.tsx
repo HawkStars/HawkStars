@@ -4,7 +4,6 @@ import Dashboard from '@/components/superadmin/Dashboard/Dashboard';
 import FormContributionSection from '@/components/superadmin/FormContributionsSection/FormContributionSection';
 import FormOrganizationMovement from '@/components/superadmin/FormOrganizationMovements/FormOrganizationMovements';
 import SuperAdminTabItem from '@/components/superadmin/SuperAdminTabItem/SuperAdminTabItem';
-import { Metadata } from 'next';
 import Head from 'next/head';
 import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';

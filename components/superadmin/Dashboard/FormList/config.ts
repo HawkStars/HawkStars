@@ -7,10 +7,13 @@ export type ContributionWithConfirmed = Contribution & {
   profile: Pick<Profile, 'name'> | null;
 };
 
-const columnContributionHelper =
-  createColumnHelper<ContributionWithConfirmed>();
+const columnContributionHelper = createColumnHelper<ContributionWithConfirmed>();
 
 const superadminContributionColumns = [
+  columnContributionHelper.accessor('id', {
+    header: () => 'id',
+    cell: (info) => info.getValue(),
+  }),
   columnContributionHelper.accessor('contribution_date', {
     header: () => 'Contribution Date',
     cell: (info) => info.getValue(),
