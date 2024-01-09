@@ -51,7 +51,7 @@ const Navbar = () => {
           {/* NAVBAR DESKTOP */}
           <div className='my-auto ml-auto hidden lg:block'>
             <div className='ml-auto flex gap-3'>
-              <ul className='flex flex-row gap-8 px-1'>
+              <ul className='flex flex-row gap-4 px-1 xl:gap-8'>
                 {MenuSections.map((section, index) => {
                   if (section.type === 'dropdown') {
                     const { title, options } = section;
