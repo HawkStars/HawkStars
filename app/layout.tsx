@@ -1,38 +1,35 @@
 import '@/app/globals.css';
 import { Inter } from 'next/font/google';
 
-import Navbar from '../../components/navbar/Navbar';
-import Footer from '../../components/footer/Footer';
-import AppProvider from '../../contexts/AppProvider';
-import MobileNavbar from '../../components/navbar/MobileNavbar';
-
 const inter = Inter({ subsets: ['latin'] });
-
-import { languages } from '../../i18n/settings';
 
 import { Metadata } from 'next';
 import Script from 'next/script';
 import { getMetadataPageInfo } from '@/utils/metadata';
-import { LanguagePageProps } from './types';
+import Footer from '@/components/footer/Footer';
+import MobileNavbar from '@/components/navbar/MobileNavbar';
+import Navbar from '@/components/navbar/Navbar';
+import AppProvider from '@/contexts/AppProvider';
+import { LanguagePageProps } from './[lng]/types';
+import { fallbackLng, languages } from '@/i18n/settings';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
 }
 
-export async function generateMetadata({
-  params,
-}: LanguagePageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LanguagePageProps): Promise<Metadata> {
   const { lng } = params;
-  const metadataPage = getMetadataPageInfo(lng, 'home');
+
+  const metadataPage = getMetadataPageInfo(lng || fallbackLng, 'home');
   return metadataPage;
 }
 
 export default async function RootLayout({
   children,
-  params: { lng },
+  params: { lng = fallbackLng },
 }: {
   children: React.ReactNode;
-  params: { lng: string };
+  params: { lng?: string };
 }) {
   return (
     <html lang={lng}>

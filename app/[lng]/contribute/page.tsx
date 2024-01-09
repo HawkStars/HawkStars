@@ -49,15 +49,11 @@ const getChairsContribute = async () => {
   const simulationChairs: Contribution[] = contributions[
     'SIMULATOR_CHAIR'
   ] as unknown as Contribution[];
-  const officeChairs: Contribution[] = contributions[
-    'OFFICE_CHAIR'
-  ] as unknown as Contribution[];
+  const officeChairs: Contribution[] = contributions['OFFICE_CHAIR'] as unknown as Contribution[];
   const auditoriumChairs: Contribution[] = contributions[
     'AUDITORIUM_CHAIR'
   ] as unknown as Contribution[];
-  const loungeChairs: Contribution[] = contributions[
-    'LOUNGE_CHAIR'
-  ] as unknown as Contribution[];
+  const loungeChairs: Contribution[] = contributions['LOUNGE_CHAIR'] as unknown as Contribution[];
 
   return {
     simulationChairs,
@@ -74,9 +70,7 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
 
   return (
     <div className='mt-5 flex flex-col gap-5 lg:mt-10'>
-      <h2 className='text-center text-green lg:hidden'>
-        {t('contribute_hero')}
-      </h2>
+      <h2 className='text-center text-green lg:hidden'>{t('contribute_hero')}</h2>
       <div className='layout-section relative max-w-full max-2xl:mx-0 max-2xl:p-0'>
         <div className='absolute left-40 top-20 hidden text-green lg:block'>
           <h2 className='w-72 text-4xl'>{t('contribute_hero')}</h2>
@@ -93,38 +87,23 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
         <h3 className='text-center'>{t('forms_and_modalities')}</h3>
         <div className='layout-section flex flex-col gap-10 md:flex-row'>
           <div className='flex flex-col gap-1 md:flex-1'>
-            <Image
-              src={bankTransferImage}
-              alt='bank transfer'
-              className='w-full rounded-lg'
-            />
-            <h4 className='mt-5 text-xl font-bold'>
-              {t('options.bank_transfer')}
-            </h4>
+            <Image src={bankTransferImage} alt='bank transfer' className='w-full rounded-lg' />
+            <h4 className='mt-5 text-xl font-bold'>{t('options.bank_transfer')}</h4>
             <p className='text-justify'>{t('bank_transfer.description')}</p>
             <div className='mt-1 flex flex-col gap-1'>
               <h6>
-                IBAN:{' '}
-                <span className='font-bold'>PT50.0036.0053.99100203412.98</span>
+                IBAN: <span className='font-bold'>PT50.0036.0053.99100203412.98</span>
               </h6>
               <p className='font-bold'>MPIOPTPL</p>
             </div>
           </div>
           <div className='flex flex-col gap-1 md:flex-1'>
-            <Image
-              src={cryptoTransferImage}
-              alt='crypto transfer'
-              className='w-full rounded-lg'
-            />
-            <h4 className='mt-5 text-xl font-bold'>
-              {t('options.crypto_transfer')}
-            </h4>
+            <Image src={cryptoTransferImage} alt='crypto transfer' className='w-full rounded-lg' />
+            <h4 className='mt-5 text-xl font-bold'>{t('options.crypto_transfer')}</h4>
             <p className='text-justify'>{t('crypto_transfer.description')}</p>
             <p className='mt-2'>
               Metamask:{' '}
-              <span className='font-bold'>
-                0x085036c6ec33888db0c4cc8f99791537dbc8ab97
-              </span>
+              <span className='font-bold'>0x085036c6ec33888db0c4cc8f99791537dbc8ab97</span>
             </p>
           </div>
         </div>
@@ -153,25 +132,15 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
               <h2 className='mx-10 h-14 text-center'>
                 {t('brand.international_training_center.title')}
               </h2>
-              <Image
-                src={exterior2}
-                alt='training course branding'
-                className='rounded-lg'
-              />
+              <Image src={exterior2} alt='training course branding' className='rounded-lg' />
               <h4 className='w-fit rounded-2xl border border-green p-2 text-green'>
                 {t('brand.international_training_center.price')}
               </h4>
               <p>{t('brand.international_training_center.description')}</p>
             </div>
             <div className='flex flex-1 flex-col gap-3'>
-              <h2 className='mx-10 h-14 text-center'>
-                {t('brand.room_branding.title')}
-              </h2>
-              <Image
-                src={coworkingRoom}
-                alt='hawk stars training room'
-                className='rounded-lg'
-              />
+              <h2 className='mx-10 h-14 text-center'>{t('brand.room_branding.title')}</h2>
+              <Image src={coworkingRoom} alt='hawk stars training room' className='rounded-lg' />
               <div className='flex flex-col justify-around gap-4'>
                 <h4 className='w-fit rounded-2xl border border-green p-2 text-green'>
                   {t('brand.room_branding.price')}
@@ -184,23 +153,15 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
         <div className='layout-section mt-10 flex flex-col gap-10 lg:mx-auto lg:w-2/3'>
           <div className='mx-auto flex flex-1 flex-col gap-3 '>
             <h2 className='text-center'>{t('brand.wall_branding.title')}</h2>
-            <Image
-              src={trainingRoom}
-              alt='hawk stars training room'
-              className='rounded-lg'
-            />
+            <Image src={trainingRoom} alt='hawk stars training room' className='rounded-lg' />
             <div className='flex flex-row gap-4'>
               <div className='flex w-fit flex-row gap-1 rounded-2xl border border-green p-2 text-sm text-green lg:text-base'>
                 <LiaUserSolid size={28} className='my-auto' />
-                <p className='self-center'>
-                  {t('brand.wall_branding.price_solo')}
-                </p>
+                <p className='self-center'>{t('brand.wall_branding.price_solo')}</p>
               </div>
               <div className='flex w-fit flex-row gap-1 rounded-2xl border border-green p-2 text-sm text-green lg:text-base'>
                 <LiaUsersSolid size={28} />
-                <p className='self-center'>
-                  {t('brand.wall_branding.price_company')}
-                </p>
+                <p className='self-center'>{t('brand.wall_branding.price_company')}</p>
               </div>
             </div>
             <p>{t('brand.wall_branding.description')}</p>
@@ -212,27 +173,15 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
           <ChairsSections
             title={t('brand.chairs.types.gaming_chair')}
             price='300€'
-            icon={
-              <Image
-                src={loungeChairEmpty}
-                alt='gaming/office chair not taken'
-              />
-            }
-            iconFilled={
-              <Image src={loungeChair} alt='gaming/office chair filled' />
-            }
+            icon={<Image src={loungeChairEmpty} alt='gaming/office chair not taken' />}
+            iconFilled={<Image src={loungeChair} alt='gaming/office chair filled' />}
             size={60}
             currentContributions={loungeChairs}
           />
           <ChairsSections
             title={t('brand.chairs.types.simulation_chair')}
             price='350€'
-            icon={
-              <Image
-                src={simulatorChairNotTaken}
-                alt='simulator not picked chair'
-              />
-            }
+            icon={<Image src={simulatorChairNotTaken} alt='simulator not picked chair' />}
             iconFilled={<Image src={simulatorChairTaken} alt='picked chair' />}
             size={2}
             currentContributions={simulationChairs}
@@ -257,9 +206,7 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
         </div>
       </div>
       <section className='bg-bege-light py-10' id='form'>
-        <h2 className='flex justify-center text-green'>
-          {t('helps_us_donate')}
-        </h2>
+        <h2 className='flex justify-center text-green'>{t('helps_us_donate')}</h2>
         <Suspense fallback={<MainHawkStarsLoading />}>
           <ContributeFormSection lng={lng} />
         </Suspense>

@@ -10,14 +10,10 @@ import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export type SuperAdminSection =
-  | 'dashboard'
-  | 'add_contribution'
-  | 'add_organization_movement';
+export type SuperAdminSection = 'dashboard' | 'add_contribution' | 'add_organization_movement';
 
 const SuperAdminPage = () => {
-  const [currentSection, setCurrentSection] =
-    useState<SuperAdminSection>('dashboard');
+  const [currentSection, setCurrentSection] = useState<SuperAdminSection>('dashboard');
 
   return (
     <>
@@ -25,7 +21,7 @@ const SuperAdminPage = () => {
         <title>Superadmin</title>
       </Head>
       <section className='mt-10 flex flex-col gap-5'>
-        <div className='mb-5 flex flex-row justify-center gap-4 border-b border-bege-dark py-2'>
+        <div className='mb-5 flex flex-row justify-center gap-4 border-b-2 border-bege-dark py-2'>
           <SuperAdminTabItem
             section='dashboard'
             currentSectionSelected={currentSection}

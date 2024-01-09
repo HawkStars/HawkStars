@@ -19,7 +19,7 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
       <p className='text-justify'>{t('foundation')}</p>
       <p className='text-justify'>{t('presentation')}</p>
 
-      <div className='flex flex-row gap-4'>
+      <div className='mt-5 flex flex-row gap-4'>
         <Link
           href={ABOUT_US_URL}
           className='w-fit rounded-xl border border-green bg-green fill-white p-2 text-white'
@@ -50,17 +50,11 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
   );
 };
 
-const ReferencesSection = ({
-  title,
-  urls,
-}: {
-  title: string;
-  urls: string[];
-}) => {
+const ReferencesSection = ({ title, urls }: { title: string; urls: string[] }) => {
   return (
     <div className='flex flex-col gap-2'>
       <h6 className='font-bold'>{title}</h6>
-      <div className='mx-5 flex flex-row gap-2 text-sm'>
+      <div className='flex flex-row gap-2 text-sm'>
         {urls.map((url, index) => (
           <Link href={url} target='_blank' key={index}>
             <Button type='button' outline={true}>

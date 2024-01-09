@@ -2,16 +2,9 @@
 
 import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
 import { Contributions } from '@/models/database';
-import {
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
-import {
-  ContributionWithConfirmed,
-  superadminContributionColumns,
-} from './config';
+import { ContributionWithConfirmed, superadminContributionColumns } from './config';
 import { useTranslation } from '@/i18n/client';
 import { useMainAppContext } from '@/contexts/AppProvider';
 import Button from '@/components/utils/Button';
@@ -30,9 +23,7 @@ const getAllContributions = async () => {
 const DashboardFormList = () => {
   const { lng } = useMainAppContext();
   const { t } = useTranslation(lng, 'contribute');
-  const [contributions, setContributions] = useState<
-    ContributionWithConfirmed[]
-  >([]);
+  const [contributions, setContributions] = useState<ContributionWithConfirmed[]>([]);
 
   const initListContributions = async () => {
     const data = await getAllContributions();
@@ -53,7 +44,7 @@ const DashboardFormList = () => {
 
   return (
     <section className='mt-5 overflow-x-auto'>
-      <table className='min-w-full table-auto border-separate border-spacing-y-1 text-left text-sm font-light'>
+      <table className='min-w-full table-auto border-separate border-spacing-y-2 text-left text-sm font-light'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -61,10 +52,7 @@ const DashboardFormList = () => {
                 <th key={header.id} className='min-w-40 py-2 text-start'>
                   {header.isPlaceholder
                     ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
+                    : flexRender(header.column.columnDef.header, header.getContext())}
                 </th>
               ))}
               <th>Actions</th>

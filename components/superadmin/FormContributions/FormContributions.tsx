@@ -1,7 +1,7 @@
 'use client';
 
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { ChairsPricing, ContributionTypesLabels } from './config';
+import { ContributionPricing, ContributionTypesLabels, hasMinimumContribution } from './config';
 import Select from '@/components/utils/Select';
 import Input from '@/components/utils/Input/Input';
 import { Contribution, ContributionType } from '@/models/database';
@@ -10,6 +10,7 @@ import dynamic from 'next/dynamic';
 import TextArea from '@/components/utils/TextArea/TextArea';
 import Spinner from '@/components/utils/Spinner/Spinner';
 import { useTranslation } from '@/i18n/client';
+import { useState } from 'react';
 
 export type ContributionFormInput = Pick<
   Contribution,
@@ -23,10 +24,10 @@ type FormContributionProps = {
   loading?: boolean;
 };
 
-const HawkStarsDatePicker = dynamic(
-  () => import('@/components/utils/DatePicker/DatePicker'),
-  { ssr: false, loading: () => <Spinner /> }
-);
+const HawkStarsDatePicker = dynamic(() => import('@/components/utils/DatePicker/DatePicker'), {
+  ssr: false,
+  loading: () => <Spinner />,
+});
 
 const FormContributions = ({
   formType,
@@ -34,11 +35,12 @@ const FormContributions = ({
   lng = 'en',
   loading = false,
 }: FormContributionProps) => {
+  const [minDefaultValue, setMinDefaultValue] = useState<number>(0);
   const { t } = useTranslation(lng, 'contribute');
   const {
     handleSubmit,
     control,
-    formState: { isDirty, isValid },
+    formState: { isDirty, isValid, errors },
     setValue,
     watch,
   } = useForm<ContributionFormInput>({
@@ -49,6 +51,7 @@ const FormContributions = ({
       contribution_date: new Date(),
       type: 'BANK',
     },
+    mode: 'onChange',
   });
 
   const typeWatched = watch('type');
@@ -65,14 +68,13 @@ const FormContributions = ({
     onSubmit(data);
   };
 
+  console.log(errors);
   return (
-    <form
-      onSubmit={handleSubmit(onSubmitForm)}
-      className='flex flex-col gap-5 px-10'
-    >
+    <form onSubmit={handleSubmit(onSubmitForm)} className='flex flex-col gap-5 px-10'>
       <Controller
         control={control}
         name='donor'
+        rules={{ required: 'This is required' }}
         render={({ field: { onChange, value } }) => (
           <Input
             labelText={t('contribution_form.donor')}
@@ -81,28 +83,39 @@ const FormContributions = ({
             onChange={onChange}
             outline={true}
             inputHintText={t('contribution_form.donor_hint')}
+            errorMessage={errors.donor?.message}
           />
         )}
       />
       <Controller
         control={control}
         name='value'
-        render={({ field: { onChange, value } }) => (
-          <Input
-            labelText={t('contribution_form.value')}
-            name='value'
-            value={value}
-            onChange={onChange}
-            disabled={blockTypeForm}
-            icon='€'
-            outline={true}
-          />
-        )}
+        rules={{
+          required: 'This is required',
+          min: { value: minDefaultValue, message: 'Value is not ok' },
+        }}
+        render={({ field: { onChange, value } }) => {
+          return (
+            <Input
+              labelText={t('contribution_form.value')}
+              name='value'
+              value={value}
+              onChange={onChange}
+              disabled={blockTypeForm}
+              icon='€'
+              outline={true}
+              type='number'
+              min={minDefaultValue}
+              errorMessage={errors.value?.message || undefined}
+            />
+          );
+        }}
       />
 
       <Controller
         control={control}
         name='description'
+        rules={{ required: 'This is required' }}
         render={({ field: { onChange, value, name } }) => (
           <TextArea
             labelText={t('contribution_form.other_information')}
@@ -118,7 +131,11 @@ const FormContributions = ({
         name='type'
         render={({ field: { onChange, value } }) => {
           const handleContributionType = (type: ContributionType) => {
-            ChairsPricing[type] && setValue('value', ChairsPricing[type] || 0);
+            const contributionValue = ContributionPricing[type];
+            setValue('value', contributionValue || 0);
+
+            const minContribution = hasMinimumContribution.includes(type) && contributionValue;
+            setMinDefaultValue(minContribution ? contributionValue : 0);
             onChange(type);
           };
 
@@ -128,12 +145,8 @@ const FormContributions = ({
               labelText={t('contribution_form.type')}
               options={ContributionTypesLabels}
               outline={true}
-              onChange={(item) =>
-                handleContributionType(item as ContributionType)
-              }
-              defaultOption={ContributionTypesLabels.find(
-                (item) => item.value == value
-              )}
+              onChange={(item) => handleContributionType(item as ContributionType)}
+              defaultOption={ContributionTypesLabels.find((item) => item.value == value)}
             />
           );
         }}
@@ -141,7 +154,7 @@ const FormContributions = ({
       <Controller
         control={control}
         name='contribution_date'
-        render={({ field: { onChange, value, ref } }) => (
+        render={({ field: { onChange, value } }) => (
           <HawkStarsDatePicker
             date={value}
             onChange={onChange}
@@ -149,7 +162,7 @@ const FormContributions = ({
           />
         )}
       />
-      <Button type={'submit'} loading={loading}>
+      <Button type={'submit'} loading={loading} disabled={!!isDirty && !isValid}>
         {formType == 'update' ? 'Update' : 'Create'}
       </Button>
     </form>

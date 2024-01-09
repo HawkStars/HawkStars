@@ -13,12 +13,7 @@ type HawkStarsDatePickerProps = {
   minDate?: Date;
 };
 
-function HawkStarsDatePicker({
-  date,
-  onChange,
-  labelText,
-  minDate,
-}: HawkStarsDatePickerProps) {
+function HawkStarsDatePicker({ date, onChange, labelText, minDate }: HawkStarsDatePickerProps) {
   const datePickerRef = useRef(null);
   const [startDate, setStartDate] = useState<Date>(date);
 
@@ -30,12 +25,14 @@ function HawkStarsDatePicker({
   return (
     <div ref={datePickerRef} className='flex flex-col gap-2'>
       {labelText && <h6>{labelText}</h6>}
-      <DatePicker
-        onChange={changeDatePickerValue}
-        selected={startDate}
-        minDate={minDate || undefined}
-        className='rounded-xl border-2 border-bege-dark p-2'
-      />
+      <div>
+        <DatePicker
+          onChange={changeDatePickerValue}
+          selected={startDate}
+          minDate={minDate || undefined}
+          className='rounded-xl border-2 border-bege-dark p-2'
+        />
+      </div>
     </div>
   );
 }

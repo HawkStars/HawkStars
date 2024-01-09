@@ -19,13 +19,11 @@ const ChairsSections = ({
   size,
   currentContributions = [],
 }: ChairsSectionsProps) => {
-  const missingContributions = Array(size - currentContributions.length).fill(
-    null
-  );
+  const missingContributions = Array(size - currentContributions.length).fill(null);
 
   return (
     <div className='mx-10 my-10 flex flex-col justify-center gap-3 lg:mx-0'>
-      <h3 className='text-center'>{title}</h3>
+      <h3 className='mt-5 text-center'>{title}</h3>
       {price && <h4 className='text-center font-black text-green'>{price}</h4>}
       <div className='mx-auto mt-5 flex w-full flex-wrap justify-center gap-5 lg:w-2/3'>
         {currentContributions.map((contribution) => {
@@ -50,10 +48,7 @@ type ContributionInfoSectionProps = {
   contributor?: string;
 };
 
-const ContributionInfoSection = ({
-  icon,
-  contributor,
-}: ContributionInfoSectionProps) => {
+const ContributionInfoSection = ({ icon, contributor }: ContributionInfoSectionProps) => {
   return (
     <div className='group relative'>
       {icon}

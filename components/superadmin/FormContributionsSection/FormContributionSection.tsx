@@ -1,8 +1,6 @@
 'use client';
 import { useState } from 'react';
-import FormContributions, {
-  ContributionFormInput,
-} from '../FormContributions/FormContributions';
+import FormContributions, { ContributionFormInput } from '../FormContributions/FormContributions';
 import { addOrganizationContribution } from '../FormContributions/service';
 
 const FormContributionSection = () => {
@@ -16,11 +14,7 @@ const FormContributionSection = () => {
     <section className='flex flex-col gap-3 rounded-xl bg-bege-light p-4'>
       <h3 className='text-center'>Contributions</h3>
       <div className='mx-auto w-1/2'>
-        <FormContributions
-          formType='create'
-          onSubmit={handleSubmitForm}
-          loading={loading}
-        />
+        <FormContributions formType='create' onSubmit={handleSubmitForm} loading={loading} />
       </div>
     </section>
   );
