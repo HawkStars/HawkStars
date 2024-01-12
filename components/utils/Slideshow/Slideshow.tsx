@@ -27,7 +27,7 @@ const Slideshow = ({
   arrows = true,
 }: SlideshowProps) => {
   return (
-    <div className='slide-container h-full'>
+    <div className='slide-container'>
       <Fade
         duration={duration}
         transitionDuration={transitionDuration}

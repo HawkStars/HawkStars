@@ -14,7 +14,7 @@ import { useState } from 'react';
 
 export type ContributionFormInput = Pick<
   Contribution,
-  'value' | 'donor' | 'description' | 'type'
+  'value' | 'donor' | 'extra_info' | 'type'
 > & { contribution_date: Date };
 
 type FormContributionProps = {
@@ -49,7 +49,7 @@ const FormContributions = ({
     defaultValues: {
       value: contribution ? contribution.value : 0,
       donor: contribution ? contribution.donor : '',
-      description: contribution ? contribution.description : '',
+      extra_info: contribution ? contribution.extra_info : '',
       contribution_date: contribution ? new Date(contribution.contribution_date) : new Date(),
       type: contribution ? contribution.type : 'BANK',
     },
@@ -115,7 +115,7 @@ const FormContributions = ({
 
       <Controller
         control={control}
-        name='description'
+        name='extra_info'
         rules={{ required: 'This is required' }}
         render={({ field: { onChange, value, name } }) => (
           <TextArea

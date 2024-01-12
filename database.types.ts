@@ -39,9 +39,10 @@ export interface Database {
           confirmed_by: string | null
           contribution_date: string
           created_at: string
-          description: string
           donor: string
+          extra_info: string
           id: string
+          is_anonymous: boolean
           type: Database["public"]["Enums"]["ContributionType"]
           updated_at: string
           value: number
@@ -50,9 +51,10 @@ export interface Database {
           confirmed_by?: string | null
           contribution_date: string
           created_at?: string
-          description?: string
           donor: string
+          extra_info?: string
           id?: string
+          is_anonymous?: boolean
           type: Database["public"]["Enums"]["ContributionType"]
           updated_at?: string
           value: number
@@ -61,9 +63,10 @@ export interface Database {
           confirmed_by?: string | null
           contribution_date?: string
           created_at?: string
-          description?: string
           donor?: string
+          extra_info?: string
           id?: string
+          is_anonymous?: boolean
           type?: Database["public"]["Enums"]["ContributionType"]
           updated_at?: string
           value?: number

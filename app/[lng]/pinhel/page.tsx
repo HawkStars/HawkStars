@@ -4,6 +4,8 @@ import { pinhelSlideshowImages, pinhelUrls } from './config';
 import { useTranslation } from '@/i18n';
 import { LanguagePageProps } from '../types';
 import Slideshow from '@/components/utils/Slideshow/Slideshow';
+import { Suspense } from 'react';
+import MainHawkStarsLoading from '../loading';
 
 const PinhelPage = async ({ params: { lng } }: LanguagePageProps) => {
   const { t } = await useTranslation(lng, 'pinhel');
@@ -11,9 +13,11 @@ const PinhelPage = async ({ params: { lng } }: LanguagePageProps) => {
 
   return (
     <>
-      <div className='mx-auto w-full'>
-        <Slideshow images={pinhelSlideshowImages} indicators={false} arrows={false}></Slideshow>
-      </div>
+      <Suspense fallback={<MainHawkStarsLoading />}>
+        <div className='mx-auto w-full'>
+          <Slideshow images={pinhelSlideshowImages} indicators={false} arrows={false}></Slideshow>
+        </div>
+      </Suspense>
       <section className='layout-section mt-5 flex flex-col gap-10'>
         <div className='flex flex-col-reverse gap-5 lg:flex-row'>
           <iframe

@@ -30,8 +30,8 @@ const superadminContributionColumns = [
     header: () => 'Value',
     cell: (info) => `${info.getValue()}€`,
   }),
-  columnContributionHelper.accessor('description', {
-    header: () => 'Description',
+  columnContributionHelper.accessor('extra_info', {
+    header: () => 'Extra information',
     cell: (info) => info.getValue(),
   }),
   columnContributionHelper.accessor((row) => row?.profile?.name || '', {

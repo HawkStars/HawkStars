@@ -22,7 +22,7 @@ type DatabaseResponse = SuccessResponse | ErrorResponse;
 const addOrganizationContribution = async ({
   value,
   donor,
-  description,
+  extra_info,
   type,
   contribution_date,
 }: ContributionFormInput) => {
@@ -31,7 +31,7 @@ const addOrganizationContribution = async ({
   const { error } = await supabase.from<'contributions', Contributions>('contributions').insert({
     id: uuidv4(),
     value,
-    description,
+    extra_info,
     donor,
     type,
     contribution_date: contribution_date.toISOString(),

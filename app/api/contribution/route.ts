@@ -5,16 +5,14 @@ import { z } from 'zod';
 
 export type ContributionFormInput = Pick<
   Contribution,
-  'value' | 'donor' | 'description' | 'type'
+  'value' | 'donor' | 'extra_info' | 'type'
 > & { contribution_date: Date };
 
-const contributionPatchSchema: z.ZodType<
-  ContributionFormInput & { id: string }
-> = z.object({
+const contributionPatchSchema: z.ZodType<ContributionFormInput & { id: string }> = z.object({
   id: z.string(),
   value: z.number(),
   donor: z.string(),
-  description: z.string(),
+  extra_info: z.string(),
   type: z.enum(['BANK']),
   contribution_date: z.date(),
 });
@@ -33,7 +31,7 @@ export async function PATCH(request: Request) {
     .from<'contributions', Contributions>('contributions')
     .update({
       value: contribution.value,
-      description: contribution.description,
+      extra_info: contribution.extra_info,
       type: contribution.type,
       contribution_date: contribution.contribution_date.toISOString(),
     })
