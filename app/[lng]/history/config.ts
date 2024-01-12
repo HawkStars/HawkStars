@@ -1,3 +1,12 @@
+import { SlideshowImage } from '@/components/utils/Slideshow/types';
+
+// Images
+import humanitarian_1 from '@/public/images/history/humanitarian_1.jpeg';
+import humanitarian_2 from '@/public/images/history/humanitarian_2.jpg';
+import humanitarian_3 from '@/public/images/history/humanitarian_3.jpg';
+import humanitarian_4 from '@/public/images/history/humanitarian_4.jpg';
+import humanitarian_5 from '@/public/images/history/humanitarian_5.jpg';
+
 const historyReferenceUrl = {
   geral: [
     'https://beira.pt/portal/noticias/sociedade/associacao-juvenil-falcoes-da-europa-eurohawk-comemora-1o-aniversario/',
@@ -20,9 +29,7 @@ const historyReferenceUrl = {
     'https://ointerior.pt/arquivo/35-jovens-europeus-debatem-mobilidade-juvenil/',
     'https://beira.pt/portal/noticias/sociedade/formacao-sobre-procedimentos-e-candidaturas-aos-programas-erasmus-juventude-em-acao-decorre-em-pinhel/',
   ],
-  report: [
-    'https://m.facebook.com/story.php?story_fbid=1456432061527386&id=270919800078624',
-  ],
+  report: ['https://m.facebook.com/story.php?story_fbid=1456432061527386&id=270919800078624'],
   news: [
     'https://www.altitude.fm/actualidade/fnee-promove-ajuda-humanitaria-juntos-pela-ucrania/',
     'https://www.altitude.fm/actualidade/camioes-com-ajuda-humanitaria-rumam-em-direcao-a-ucrania/',
@@ -32,4 +39,12 @@ const historyReferenceUrl = {
   ],
 };
 
-export { historyReferenceUrl };
+const humanitarianSlideShowImages = [
+  { url: humanitarian_1 },
+  { url: humanitarian_2 },
+  { url: humanitarian_3 },
+  { url: humanitarian_4 },
+  { url: humanitarian_5 },
+] as SlideshowImage[];
+
+export { historyReferenceUrl, humanitarianSlideShowImages };

@@ -16,7 +16,7 @@ const SuperAdminTabItem = ({
 }: SuperAdminTabItemProps) => {
   return (
     <div
-      className={classNames({
+      className={classNames('cursor-pointer', {
         'text-green underline': section == currentSectionSelected,
       })}
       onClick={() => onClick(section)}

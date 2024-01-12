@@ -1,9 +1,14 @@
+import Image from 'next/image';
+import Link from 'next/link';
+
 import { useTranslation } from '@/i18n';
 import { LanguagePageProps } from '../types';
 import { ABOUT_US_URL, GLOBAL_VILLAGE_URL } from '@/utils/paths';
-import Link from 'next/link';
-import { historyReferenceUrl } from './config';
+import { historyReferenceUrl, humanitarianSlideShowImages } from './config';
 import Button from '@/components/utils/Button';
+
+import transitionLogo from '@/public/images/history/transition.png';
+import Slideshow from '@/components/utils/Slideshow/Slideshow';
 
 const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
   const { t } = await useTranslation(lng, 'hawkstars');
@@ -13,9 +18,17 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
     <section className='layout-section mt-8 flex flex-col gap-5'>
       <p className='text-justify'>{t('beginning')}</p>
       <p className='text-justify'>{t('euro_hawk')}</p>
+      <div className='my-5 lg:mx-auto lg:w-1/2'>
+        <Image
+          src={transitionLogo}
+          alt='transition from the old hawk to new version of hawkstars'
+          className='rounded-md'
+        />
+      </div>
       <p className='text-justify'>{t('euro_hawk_2')}</p>
       <p className='text-justify'>{t('hawk_stars')}</p>
       <p className='text-justify'>{t('humanitary')}</p>
+      <Slideshow images={humanitarianSlideShowImages} />
       <p className='text-justify'>{t('foundation')}</p>
       <p className='text-justify'>{t('presentation')}</p>
 
@@ -40,7 +53,6 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
         <ReferencesSection title='Hawk Festival' urls={erasmus} />
         <ReferencesSection title='Erasmus +' urls={festival} />
       </div>
-
       <div className='flex flex-col gap-3'>
         <h3 className='text-xl font-bold text-green'>{t('urls.fnee')}</h3>
         <ReferencesSection title='Report' urls={report} />

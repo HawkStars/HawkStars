@@ -1,9 +1,6 @@
 'use client';
 
-import {
-  useMainAppContext,
-  useSetMobileNavbarOpen,
-} from '../../contexts/AppProvider';
+import { useMainAppContext, useSetMobileNavbarOpen } from '../../contexts/AppProvider';
 import Image from 'next/image';
 import { RxCross1 } from 'react-icons/rx';
 
@@ -54,7 +51,7 @@ const MobileNavbar = () => {
             <div>
               <Socials />
             </div>
-            <div className='mt-5 grid grid-cols-2 gap-4'>
+            <div className='mt-5 grid grid-cols-1 gap-4 md:grid-cols-2'>
               {MenuSections.map((section) => {
                 if (section.type === 'dropdown') {
                   const { title, options } = section;

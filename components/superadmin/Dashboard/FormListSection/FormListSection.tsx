@@ -46,12 +46,14 @@ const DashboardFormList = () => {
           selectContributionToEdit={selectContributionToEdit}
         />
       </Suspense>
-      {contributionToEdit && (
-        <EditContributionSection
-          contributionToEdit={contributionToEdit}
-          clearContribution={() => setContributionToEdit(undefined)}
-        />
-      )}
+      <div className='-mx-5 mt-10'>
+        {contributionToEdit && (
+          <EditContributionSection
+            contributionToEdit={contributionToEdit}
+            clearContribution={() => setContributionToEdit(undefined)}
+          />
+        )}
+      </div>
     </>
   );
 };

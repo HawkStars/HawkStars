@@ -50,7 +50,7 @@ const FormContributions = ({
       value: contribution ? contribution.value : 0,
       donor: contribution ? contribution.donor : '',
       description: contribution ? contribution.description : '',
-      //contribution_date: contribution ? new Date(contribution.contribution_date) : new Date(),
+      contribution_date: contribution ? new Date(contribution.contribution_date) : new Date(),
       type: contribution ? contribution.type : 'BANK',
     },
     mode: 'onChange',
