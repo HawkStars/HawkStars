@@ -71,22 +71,15 @@ const HomeComponent = () => {
       </section>
       <section className='px-2 py-10'>
         <h4 className='flex justify-center text-2xl font-black text-green'>
-          <Suspense fallback=''>{t('home.values_title')}</Suspense>
+          {t('home.values_title')}
         </h4>
-        <h6 className='flex justify-center text-center'>
-          <Suspense fallback=''>{t('home.values_body')}</Suspense>
-        </h6>
+        <p className='flex justify-center text-center'>{t('home.values_body')}</p>
         <div className='mx-auto mt-10 grid w-2/3 grid-cols-1 gap-10 lg:grid-cols-3 lg:gap-3'>
           {visionIcons.map((option: VisionType, index: number) => (
             <div key={index} className='flex flex-col items-center gap-2'>
               <div>
                 <Suspense>
-                  <Image
-                    src={option.icon}
-                    alt={`${option.title} icon`}
-                    width={32}
-                    height={32}
-                  />
+                  <Image src={option.icon} alt={`${option.title} icon`} width={32} height={32} />
                 </Suspense>
               </div>
               <h5 className='font-black text-green'>{t(option.title)}</h5>
@@ -97,11 +90,7 @@ const HomeComponent = () => {
       </section>
       <section className='bg-bege-dark px-8 py-20 lg:px-20'>
         <div className='mx-auto flex max-w-6xl flex-col gap-5 lg:flex-row lg:gap-20'>
-          <Image
-            src={exterior1}
-            alt='Global Village'
-            className='flex-1 rounded-lg lg:w-1/2'
-          />
+          <Image src={exterior1} alt='Global Village' className='flex-1 rounded-lg lg:w-1/2' />
           <div className='flex flex-1 flex-col gap-4 lg:w-1/2'>
             <h3 className='mt-5 font-black text-green'>Global Village</h3>
             <p>{t('home.global_village')}</p>

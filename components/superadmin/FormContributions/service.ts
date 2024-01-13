@@ -56,7 +56,6 @@ const updateContribution = async (
       error: { message: 'Please send a contribution ID to update accordinly' },
     };
 
-  console.log(data);
   const { error } = await supabase
     .from<'contributions', Contributions>('contributions')
     .update({

@@ -3,9 +3,7 @@ import { Metadata } from 'next';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { LanguagePageProps } from './types';
 
-export async function generateMetadata({
-  params,
-}: LanguagePageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LanguagePageProps): Promise<Metadata> {
   const { lng } = params;
   const metadataPage = getMetadataPageInfo(lng, 'home');
   return metadataPage;

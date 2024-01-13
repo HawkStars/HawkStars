@@ -1,13 +1,7 @@
 'use client';
 
 import { fallbackLng } from '@/i18n/settings';
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  useContext,
-  useState,
-} from 'react';
+import { createContext, Dispatch, ReactNode, useContext, useState } from 'react';
 
 type MainAppProperties = {
   mobileNavbarOpen: boolean;
@@ -35,9 +29,7 @@ const AppProvider = ({ children, lng }: AppProviderProps) => {
 
   return (
     <MainAppContext.Provider value={appProperties}>
-      <SetMainAppContext.Provider value={setAppProperties}>
-        {children}
-      </SetMainAppContext.Provider>
+      <SetMainAppContext.Provider value={setAppProperties}>{children}</SetMainAppContext.Provider>
     </MainAppContext.Provider>
   );
 };

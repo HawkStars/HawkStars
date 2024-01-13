@@ -30,7 +30,7 @@ const Slideshow = ({
       >
         {images.map((slideImage, index) => (
           <div key={index} className='each-fade flex justify-center bg-cover align-middle'>
-            <Image src={slideImage.url} alt='' />
+            <Image src={slideImage.url} alt={slideImage.caption || ''} sizes='100vw' />
           </div>
         ))}
       </Fade>
