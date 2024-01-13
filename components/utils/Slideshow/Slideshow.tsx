@@ -5,12 +5,6 @@ import { Fade } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import { SlideshowImage } from './types';
 
-const spanStyle = {
-  padding: '20px',
-  background: '#efefef',
-  color: '#000000',
-};
-
 type SlideshowProps = {
   images: SlideshowImage[];
   indicators?: boolean;
@@ -37,7 +31,6 @@ const Slideshow = ({
         {images.map((slideImage, index) => (
           <div key={index} className='each-fade flex justify-center bg-cover align-middle'>
             <Image src={slideImage.url} alt='' />
-            {slideImage.caption && <span style={spanStyle}>{slideImage.caption}</span>}
           </div>
         ))}
       </Fade>

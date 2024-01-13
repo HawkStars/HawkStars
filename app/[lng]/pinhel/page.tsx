@@ -3,9 +3,11 @@ import Link from 'next/link';
 import { pinhelSlideshowImages, pinhelUrls } from './config';
 import { useTranslation } from '@/i18n';
 import { LanguagePageProps } from '../types';
-import Slideshow from '@/components/utils/Slideshow/Slideshow';
-import { Suspense } from 'react';
+
+import { Suspense, lazy } from 'react';
 import MainHawkStarsLoading from '../loading';
+
+const PinhelSlideShow = lazy(() => import('@/components/utils/Slideshow/Slideshow'));
 
 const PinhelPage = async ({ params: { lng } }: LanguagePageProps) => {
   const { t } = await useTranslation(lng, 'pinhel');
@@ -15,7 +17,7 @@ const PinhelPage = async ({ params: { lng } }: LanguagePageProps) => {
     <>
       <Suspense fallback={<MainHawkStarsLoading />}>
         <div className='mx-auto w-full'>
-          <Slideshow images={pinhelSlideshowImages} indicators={false} arrows={false}></Slideshow>
+          <PinhelSlideShow images={pinhelSlideshowImages} indicators={false} arrows={false} />
         </div>
       </Suspense>
       <section className='layout-section mt-5 flex flex-col gap-10'>
