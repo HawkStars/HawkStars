@@ -1,4 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
+
+/**
+ * TODO: wait for a conclusion here - https://github.com/vercel/next.js/discussions/54907
+ */
 
 export const addContentSecurityPolicy = (request: NextRequest) => {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
@@ -22,11 +26,5 @@ export const addContentSecurityPolicy = (request: NextRequest) => {
   requestHeaders.set('x-nonce', nonce);
   requestHeaders.set('Content-Security-Policy', contentSecurityPolicyHeaderValue);
 
-  const response = NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
-  response.headers.set('Content-Security-Policy', contentSecurityPolicyHeaderValue);
-  return response;
+  return { requestHeaders, contentSecurityPolicyHeaderValue };
 };

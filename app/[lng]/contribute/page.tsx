@@ -103,7 +103,9 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
             <p className='text-justify'>{t('crypto_transfer.description')}</p>
             <p className='mt-2'>
               Metamask:{' '}
-              <span className='font-bold'>0x085036c6ec33888db0c4cc8f99791537dbc8ab97</span>
+              <span className='break-all font-bold'>
+                0x085036c6ec33888db0c4cc8f99791537dbc8ab97
+              </span>
             </p>
           </div>
         </div>
