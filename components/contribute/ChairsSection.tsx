@@ -1,6 +1,4 @@
 import { Contribution } from '@/models/database';
-import Image from 'next/image';
-import { IconType } from 'react-icons';
 
 type ChairsSectionsProps = {
   title: string;
@@ -22,7 +20,7 @@ const ChairsSections = ({
   const missingContributions = Array(size - currentContributions.length).fill(null);
 
   return (
-    <div className='mx-10 my-10 flex flex-col justify-center gap-3 lg:mx-0'>
+    <div className='my-10 flex flex-col justify-center gap-3 lg:mx-0'>
       <h3 className='mt-5 text-center'>{title}</h3>
       {price && <h4 className='text-center font-black text-green'>{price}</h4>}
       <div className='mx-auto mt-5 flex w-full flex-wrap justify-center gap-5 lg:w-2/3'>

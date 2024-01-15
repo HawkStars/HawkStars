@@ -27,9 +27,7 @@ const Select = ({
   labelText,
   outline = false,
 }: SelectProps) => {
-  const [selectedOption, setSelectedOption] = useState<
-    SelectOption | undefined
-  >(defaultOption);
+  const [selectedOption, setSelectedOption] = useState<SelectOption | undefined>(defaultOption);
 
   return (
     <div className='flex flex-col gap-2'>
@@ -56,7 +54,7 @@ const Select = ({
           </Listbox.Button>
           <Listbox.Options
             className={classNames(
-              'absolute z-50 flex h-40 w-full flex-col gap-2 overflow-y-scroll p-3',
+              'absolute z-50 flex max-h-40 w-full flex-col gap-2 overflow-y-scroll p-3',
               {
                 'bg-white': outline,
                 'bg-bege-light': !outline,

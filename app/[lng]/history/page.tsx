@@ -28,7 +28,9 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
       <p className='text-justify'>{t('euro_hawk_2')}</p>
       <p className='text-justify'>{t('hawk_stars')}</p>
       <p className='text-justify'>{t('humanitary')}</p>
-      <Slideshow images={humanitarianSlideShowImages} />
+      <div className='-mx-4'>
+        <Slideshow images={humanitarianSlideShowImages} />
+      </div>
       <p className='text-justify'>{t('foundation')}</p>
       <p className='text-justify'>{t('presentation')}</p>
 
@@ -66,7 +68,7 @@ const ReferencesSection = ({ title, urls }: { title: string; urls: string[] }) =
   return (
     <div className='flex flex-col gap-2'>
       <h6 className='font-bold'>{title}</h6>
-      <div className='flex flex-row gap-2 text-sm'>
+      <div className='flex flex-row flex-wrap gap-2 text-sm'>
         {urls.map((url, index) => (
           <Link href={url} target='_blank' key={index}>
             <Button type='button' outline={true}>

@@ -5,10 +5,7 @@ import Image from 'next/image';
 
 import { RxHamburgerMenu } from 'react-icons/rx';
 
-import {
-  useMainAppContext,
-  useSetMobileNavbarOpen,
-} from '../../contexts/AppProvider';
+import { useMainAppContext, useSetMobileNavbarOpen } from '../../contexts/AppProvider';
 import Button from '../utils/Button';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { DONATE_URL } from '../../utils/paths';
@@ -38,13 +35,7 @@ const Navbar = () => {
               aria-label='Go to the home hawkstars website'
             >
               <div className='flex gap-1'>
-                <Image
-                  src={hawkLogo}
-                  alt='Hawk Stars Logo'
-                  width={150}
-                  height={100}
-                  priority
-                />
+                <Image src={hawkLogo} alt='Hawk Stars Logo' width={150} height={100} priority />
               </div>
             </Link>
           </div>
@@ -93,10 +84,7 @@ const Navbar = () => {
           </div>
           {/* NAVBAR MOBILE */}
           <div className='my-auto ml-auto block cursor-pointer lg:hidden'>
-            <RxHamburgerMenu
-              size={28}
-              onClick={() => setMobileMenuOpen(true)}
-            />
+            <RxHamburgerMenu size={28} onClick={() => setMobileMenuOpen(true)} />
           </div>
         </div>
       </div>

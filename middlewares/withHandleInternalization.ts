@@ -1,14 +1,14 @@
-import { cookieName, fallbackLng, languages } from '@/i18n/settings';
+import { i18CookieName, fallbackLng, languages } from '@/i18n/settings';
 import acceptLanguage from 'accept-language';
 import { NextRequest, NextResponse } from 'next/server';
 
 acceptLanguage.languages(languages);
 
 const withHandleInternalization = async (request: NextRequest): Promise<NextResponse> => {
-  const response = NextResponse.next({});
+  const response = NextResponse.next();
   let lng;
-  if (request.cookies.has(cookieName))
-    lng = acceptLanguage.get(request.cookies.get(cookieName)?.value);
+  if (request.cookies.has(i18CookieName))
+    lng = acceptLanguage.get(request.cookies.get(i18CookieName)?.value);
   if (!lng) lng = acceptLanguage.get(request.headers.get('Accept-Language'));
   if (!lng) lng = fallbackLng;
 
@@ -24,7 +24,7 @@ const withHandleInternalization = async (request: NextRequest): Promise<NextResp
     const refererUrl = new URL(request.headers.get('referer') || '');
     const lngInReferer = languages.find((l) => refererUrl.pathname.startsWith(`/${l}`));
 
-    if (lngInReferer) response.cookies.set(cookieName, lngInReferer);
+    if (lngInReferer) response.cookies.set(i18CookieName, lngInReferer);
     return response;
   }
 

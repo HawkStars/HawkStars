@@ -1,7 +1,7 @@
 'use client';
 
 import { fallbackLng } from '@/i18n/settings';
-import { createContext, Dispatch, ReactNode, useContext, useState } from 'react';
+import { createContext, Dispatch, ReactNode, useContext, useEffect, useState } from 'react';
 
 type MainAppProperties = {
   mobileNavbarOpen: boolean;
@@ -22,10 +22,14 @@ type AppProviderProps = {
 };
 
 const AppProvider = ({ children, lng }: AppProviderProps) => {
-  const [appProperties, setAppProperties] = useState<MainAppProperties>({
-    ...defaultAppProperties,
-    lng,
-  });
+  const [appProperties, setAppProperties] = useState<MainAppProperties>(defaultAppProperties);
+
+  useEffect(() => {
+    setAppProperties({
+      ...defaultAppProperties,
+      lng,
+    });
+  }, [lng]);
 
   return (
     <MainAppContext.Provider value={appProperties}>
@@ -42,6 +46,14 @@ export const useSetMainProperties = () => {
   const setMainProperties = useContext(SetMainAppContext);
   return (value: MainAppProperties) => {
     setMainProperties(value);
+  };
+};
+
+export const useSetLanguageApp = () => {
+  const appProperties = useContext(MainAppContext);
+  const setMainProperties = useContext(SetMainAppContext);
+  return (lng: string) => {
+    setMainProperties({ ...appProperties, lng });
   };
 };
 

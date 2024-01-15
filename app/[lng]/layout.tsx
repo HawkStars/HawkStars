@@ -10,7 +10,7 @@ import Footer from '@/components/footer/Footer';
 import MobileNavbar from '@/components/navbar/MobileNavbar';
 import Navbar from '@/components/navbar/Navbar';
 import AppProvider from '@/contexts/AppProvider';
-import { LanguagePageProps } from './[lng]/types';
+import { LanguagePageProps } from './types';
 import { fallbackLng, languages } from '@/i18n/settings';
 
 export async function generateStaticParams() {
