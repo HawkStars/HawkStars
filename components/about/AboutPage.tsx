@@ -17,45 +17,23 @@ const AboutPage = async ({ lng }: LanguageProps) => {
           <h1>{t('title')}</h1>
           <p className='font-body'>{t('description')}</p>
         </div>
-        <div className='grid-rows-7 mx-auto mt-10 grid grid-cols-2 lg:w-[500px]'>
+        <div className='mx-auto mt-10 grid grid-cols-2 grid-rows-7 lg:w-[500px]'>
           <div className='row-span-3'>
-            <Image
-              height={260}
-              width={249}
-              alt=''
-              src='/images/about/hero/top-left.png'
-            />
+            <Image height={260} width={249} alt='' src='/images/about/hero/top-left.png' />
           </div>
           <div className='row-span-2'>
-            <Image
-              height={150}
-              width={249}
-              alt=''
-              src='/images/about/hero/top-right.png'
-            />
+            <Image height={150} width={249} alt='' src='/images/about/hero/top-right.png' />
           </div>
           <div className='row-span-4'>
-            <Image
-              height={367}
-              width={249}
-              alt=''
-              src='/images/about/hero/bottom-right.png'
-            />
+            <Image height={367} width={249} alt='' src='/images/about/hero/bottom-right.png' />
           </div>
           <div className='row-span-3'>
-            <Image
-              height={260}
-              width={249}
-              alt=''
-              src='/images/about/hero/bottom-left.png'
-            />
+            <Image height={260} width={249} alt='' src='/images/about/hero/bottom-left.png' />
           </div>
         </div>
       </div>
       <div className='layout-section my-10 flex flex-col gap-5 xl:mx-auto'>
-        <h2 className='flex justify-center text-center text-green'>
-          {t('objectives.title')}
-        </h2>
+        <h2 className='flex justify-center text-center text-green'>{t('objectives.title')}</h2>
         <h3 className='mx-auto flex justify-center text-center lg:w-3/5'>
           {t('objectives.description')}
         </h3>
@@ -89,12 +67,7 @@ const AboutPage = async ({ lng }: LanguageProps) => {
             width={100}
           />
           <div className='mx-auto lg:ml-auto'>
-            <Image
-              src='/images/about/mission/img.png'
-              height={697}
-              width={446}
-              alt='mission'
-            />
+            <Image src='/images/about/mission/img.png' height={697} width={446} alt='mission' />
           </div>
           <div className='flex flex-col gap-3'>
             <h1>{t('mission.title')}</h1>
@@ -121,9 +94,7 @@ const AboutPage = async ({ lng }: LanguageProps) => {
             </ul>
           </Accordion>
           <Accordion title={t('expansion.title')} defaultOpen={false}>
-            <p className='font-body text-justify'>
-              {t('expansion.description')}
-            </p>
+            <p className='font-body text-justify'>{t('expansion.description')}</p>
           </Accordion>
         </div>
       </div>
@@ -137,12 +108,7 @@ type TaskComponentProps = {
   description: string;
   lng: string;
 };
-const TaskComponent = async ({
-  icon,
-  title,
-  description,
-  lng,
-}: TaskComponentProps) => {
+const TaskComponent = async ({ icon, title, description, lng }: TaskComponentProps) => {
   const { t } = await useTranslation(lng, 'about');
   return (
     <div className='flex flex-col gap-2 rounded-xl bg-bege-light p-7'>
@@ -161,11 +127,7 @@ type MissionTaskComponentProps = {
   lng: string;
 };
 
-const MissionTaskComponent = async ({
-  text,
-  index,
-  lng,
-}: MissionTaskComponentProps) => {
+const MissionTaskComponent = async ({ text, index, lng }: MissionTaskComponentProps) => {
   const { t } = await useTranslation(lng, 'about');
   let formattedNumber = index.toLocaleString('en-US', {
     minimumIntegerDigits: 2,
