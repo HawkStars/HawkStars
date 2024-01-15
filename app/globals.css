@@ -34,7 +34,7 @@
 
 @layer components {
   .font-title {
-    @apply text-5xl font-semibold;
+    @apply text-2xl font-semibold lg:text-5xl;
     line-height: 103%;
   }
 
