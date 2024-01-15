@@ -11,10 +11,11 @@ import TextArea from '@/components/utils/TextArea/TextArea';
 import Spinner from '@/components/utils/Spinner/Spinner';
 import { useTranslation } from '@/i18n/client';
 import { useState } from 'react';
+import Checkbox from '@/components/utils/Checkbox/Checkbox';
 
 export type ContributionFormInput = Pick<
   Contribution,
-  'value' | 'donor' | 'extra_info' | 'type'
+  'value' | 'donor' | 'extra_info' | 'type' | 'is_anonymous'
 > & { contribution_date: Date };
 
 type FormContributionProps = {
@@ -47,16 +48,19 @@ const FormContributions = ({
     watch,
   } = useForm<ContributionFormInput>({
     defaultValues: {
-      value: contribution ? contribution.value : 0,
-      donor: contribution ? contribution.donor : '',
-      extra_info: contribution ? contribution.extra_info : '',
+      value: contribution?.value || 0,
+      donor: contribution?.donor || '',
+      extra_info: contribution?.extra_info || '',
       contribution_date: contribution ? new Date(contribution.contribution_date) : new Date(),
-      type: contribution ? contribution.type : 'BANK',
+      type: contribution?.type || 'BANK',
+      is_anonymous: contribution?.is_anonymous || false,
     },
     mode: 'onChange',
   });
 
   const typeWatched = watch('type');
+  const anonymousChecked = watch('is_anonymous');
+
   const blockTypeForm = [
     'AUDITORIUM_CHAIR',
     'OFFICE_CHAIR',
@@ -85,9 +89,35 @@ const FormContributions = ({
             outline={true}
             inputHintText={t('contribution_form.donor_hint')}
             errorMessage={errors.donor?.message}
+            disabled={anonymousChecked}
           />
         )}
       />
+      <Controller
+        control={control}
+        name='is_anonymous'
+        render={({ field: { onChange, value, name } }) => {
+          const handleToggleAnonymous = (value: boolean) => {
+            console.log(value);
+            setValue('is_anonymous', value);
+            setValue('donor', '');
+            onChange(value);
+          };
+
+          return (
+            <div className='-mt-4'>
+              <Checkbox
+                labelText={t('contribution_form.anomymous')}
+                name='donor'
+                checked={value}
+                onChange={(checked: boolean) => handleToggleAnonymous(checked)}
+                id={name}
+              />
+            </div>
+          );
+        }}
+      />
+
       <Controller
         control={control}
         name='value'

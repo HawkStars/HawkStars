@@ -56,7 +56,8 @@
     "donor": "Donor Name",
     "donor_hint": "The name indicated is the name that will appear on the Chair/Walls/Room Name",
     "value": "Donation Value",
-    "other_information": "Data Billing"
+    "other_information": "Data Billing",
+    "anomymous": "Want to be an anomymous donation?"
   },
   "movement_form": {
     "value": "Value",

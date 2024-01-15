@@ -5,7 +5,6 @@ import { useTranslation } from '@/i18n';
 import { LanguagePageProps } from '../types';
 import { ABOUT_US_URL, GLOBAL_VILLAGE_URL } from '@/utils/paths';
 import { historyReferenceUrl, humanitarianSlideShowImages } from './config';
-import Button from '@/components/utils/Button';
 
 import transitionLogo from '@/public/images/history/transition.png';
 import Slideshow from '@/components/utils/Slideshow/Slideshow';
@@ -28,7 +27,7 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
       <p className='text-justify'>{t('euro_hawk_2')}</p>
       <p className='text-justify'>{t('hawk_stars')}</p>
       <p className='text-justify'>{t('humanitary')}</p>
-      <div className='-mx-4'>
+      <div className='max-lg:-mx-4'>
         <Slideshow images={humanitarianSlideShowImages} />
       </div>
       <p className='text-justify'>{t('foundation')}</p>
@@ -70,10 +69,8 @@ const ReferencesSection = ({ title, urls }: { title: string; urls: string[] }) =
       <h6 className='font-bold'>{title}</h6>
       <div className='flex flex-row flex-wrap gap-2 text-sm'>
         {urls.map((url, index) => (
-          <Link href={url} target='_blank' key={index}>
-            <Button type='button' outline={true}>
-              {index + 1}
-            </Button>
+          <Link href={url} target='_blank' key={index} className='font-black text-green'>
+            {index + 1}.
           </Link>
         ))}
       </div>

@@ -1,14 +1,10 @@
 'use client';
 
 import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
-import { Contribution, Contributions } from '@/models/database';
-import {
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
+import { Contributions } from '@/models/database';
+import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
-import { contributionColumns } from './config';
+import { TransparencyContribution, contributionColumns } from './config';
 import { useTranslation } from '@/i18n/client';
 import { useMainAppContext } from '@/contexts/AppProvider';
 
@@ -16,7 +12,7 @@ const getOrganizationContributions = async () => {
   const supabase = createSupabaseBrowserClient();
   const { data, error } = await supabase
     .from<'contributions', Contributions>('contributions')
-    .select()
+    .select('id, contribution_date, donor, is_anonymous, type, value')
     .not('confirmed_by', 'is', null)
     .order('created_at', { ascending: true });
 
@@ -29,7 +25,7 @@ const OrganizationContributionsTable = () => {
   const { lng } = useMainAppContext();
   const { t } = useTranslation(lng, 'contribute');
   const [organizationContributions, setOrganizationContributions] = useState<
-    Contribution[]
+    TransparencyContribution[]
   >([]);
 
   const fetchOrganizationData = async () => {
@@ -58,10 +54,7 @@ const OrganizationContributionsTable = () => {
                 <th key={header.id} className='min-w-40 p-2'>
                   {header.isPlaceholder
                     ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
+                    : flexRender(header.column.columnDef.header, header.getContext())}
                 </th>
               ))}
             </tr>

@@ -98,9 +98,10 @@ const buttonProps = variantProps({
 });
 
 const Button = (props: ButtonProps): JSX.Element => {
-  const { disabled, type, children, onClick, loading } = props;
+  const { disabled, type, children, onClick, loading, ...otherProps } = props;
+
   return (
-    <button {...buttonProps({ ...props })} onClick={onClick} disabled={disabled} type={type}>
+    <button {...buttonProps(otherProps)} onClick={onClick} disabled={disabled} type={type}>
       {loading ? <Spinner /> : children}
     </button>
   );

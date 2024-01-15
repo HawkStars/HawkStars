@@ -33,7 +33,7 @@ const ChairsSections = ({
             />
           );
         })}
-        {missingContributions.map((item, index) => {
+        {missingContributions.map((_, index) => {
           return <ContributionInfoSection key={index} icon={icon} />;
         })}
       </div>

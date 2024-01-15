@@ -4,7 +4,12 @@ import { createColumnHelper } from '@tanstack/react-table';
 import i18next from 'i18next';
 import { ConfirmLabel } from '@/models/common';
 
-const columnContributionHelper = createColumnHelper<Contribution>();
+export type TransparencyContribution = Pick<
+  Contribution,
+  'contribution_date' | 'donor' | 'is_anonymous' | 'id' | 'value' | 'type'
+>;
+
+const columnContributionHelper = createColumnHelper<TransparencyContribution>();
 
 const contributionColumns = [
   columnContributionHelper.accessor('contribution_date', {
@@ -46,10 +51,7 @@ const orgsMovementsColumn = [
   }),
   columnMovementsHelper.accessor('paid', {
     header: () => i18next.t('contribute:movement_form.paid'),
-    cell: (info) =>
-      info.renderValue()
-        ? i18next.t(ConfirmLabel.YES)
-        : i18next.t(ConfirmLabel.NO),
+    cell: (info) => (info.renderValue() ? i18next.t(ConfirmLabel.YES) : i18next.t(ConfirmLabel.NO)),
   }),
 ];
 

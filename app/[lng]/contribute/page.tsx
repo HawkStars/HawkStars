@@ -34,7 +34,7 @@ const getChairsContribute = async () => {
 
   const { data, error } = await supabase
     .from<'contributions', Contribution>('contributions')
-    .select()
+    .select('donor, id')
     .not('confirmed_by', 'is', null);
 
   if (error || !data)
@@ -207,12 +207,14 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
           />
         </div>
       </div>
-      <section className='bg-bege-light py-10' id='form'>
-        <h2 className='flex justify-center text-green'>{t('helps_us_donate')}</h2>
-        <Suspense fallback={<MainHawkStarsLoading />}>
-          <ContributeFormSection lng={lng} />
-        </Suspense>
-      </section>
+      {process.env.NODE_ENV == 'development' && (
+        <section className='bg-bege-light py-10' id='form'>
+          <h2 className='flex justify-center text-green'>{t('helps_us_donate')}</h2>
+          <Suspense fallback={<MainHawkStarsLoading />}>
+            <ContributeFormSection lng={lng} />
+          </Suspense>
+        </section>
+      )}
     </div>
   );
 };

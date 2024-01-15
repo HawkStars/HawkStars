@@ -111,9 +111,11 @@ const HomeComponent = () => {
           <div className='flex flex-1 flex-col gap-4 lg:w-1/2'>
             <h3 className='mt-5 font-black text-green'>Global Village</h3>
             <p>{t('home.global_village')}</p>
-            <Button type={'button'} onClick={() => router.push(GLOBAL_VILLAGE_URL)}>
-              {t('see_more')}
-            </Button>
+            <div>
+              <Button type={'button'} onClick={() => router.push(GLOBAL_VILLAGE_URL)}>
+                {t('see_more')}
+              </Button>
+            </div>
           </div>
         </div>
       </section>

@@ -1,15 +1,18 @@
 const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com;
-    style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: www.googletagmanager.com;
-    font-src 'self';
+    script-src 'self' https://www.googletagmanager.com  'unsafe-eval' 'unsafe-inline';
+    style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+    img-src 'self' blob: data: www.googletagmanager.com https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com data:;
+    font-src 'self' https://fonts.gstatic.com;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'none';
     block-all-mixed-content;
     upgrade-insecure-requests;
+    frame-src *.google.com;
+    connect-src 'self' https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:;
+    worker-src blob:;
 `;
 
 const nextConfig = {
@@ -47,3 +50,8 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+// https://nextjs.org/docs/app/building-your-application/optimizing/bundle-analyzer
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true',
+// })
