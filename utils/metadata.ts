@@ -1,4 +1,3 @@
-import { languages } from '@/i18n/settings';
 import * as fs from 'fs';
 import { Metadata } from 'next';
 
@@ -35,16 +34,24 @@ const getMetadataPageInfo = (lng: string, page: HawkStarsPath): Metadata => {
 };
 
 const transformToMetadataObject = (info: any, lng: string): Metadata => {
+  const { title, description, keywords } = info;
   return {
-    title: info.title,
-    description: info.description,
-    keywords: info.keywords,
+    title: title,
+    description: description,
+    keywords: keywords,
+    referrer: 'origin',
     alternates: {
       canonical: `${process.env.NEXT_PUBLIC_APP_URL}/${lng}`,
       languages: {
         en: `${process.env.NEXT_PUBLIC_APP_URL}/en`,
         pt: `${process.env.NEXT_PUBLIC_APP_URL}/pt`,
       },
+    },
+    openGraph: {
+      type: 'website',
+      title,
+      description,
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/${lng}`,
     },
   } as Metadata;
 };
