@@ -10,7 +10,7 @@ const GlobalVillageAboutSection = async ({ lng }: LanguageProps) => {
   return (
     <section>
       <div className='mx-10 mb-10 flex max-w-6xl flex-col gap-10 px-0 lg:mx-auto lg:px-8'>
-        <h1 className='text-center'>{t('about.title')}</h1>
+        <h2 className='text-center'>{t('about.title')}</h2>
         <p className='text-justify'>{t('about.description')}</p>
       </div>
       <div className='bg-bege-light px-10 py-20 '>

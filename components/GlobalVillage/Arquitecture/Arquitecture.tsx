@@ -57,17 +57,14 @@ import DonateLink from '../DonateLink/DonateLink';
 const GlobalVillageArquitecture = async ({ lng }: LanguageProps) => {
   const { t } = await useTranslation(lng, 'training_center');
   return (
-    <section
-      id='arquitecture'
-      className='mx-10 my-10 flex max-w-6xl flex-col gap-20 lg:mx-auto'
-    >
+    <section id='arquitecture' className='mx-10 my-10 flex max-w-6xl flex-col gap-20 lg:mx-auto'>
       <div className='flex flex-col'>
-        <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
+        <h2 className='flex justify-center text-2xl text-green lg:text-5xl'>
           International Training Center
-        </h1>
-        <h2 className='mb-4 flex justify-center text-base text-green lg:text-xl'>
-          {t('current_exterior_vision')}
         </h2>
+        <h3 className='mb-4 flex justify-center text-base text-green lg:text-xl'>
+          {t('current_exterior_vision')}
+        </h3>
         <div className='flex flex-col gap-5'>
           <Image
             src={aereal1}

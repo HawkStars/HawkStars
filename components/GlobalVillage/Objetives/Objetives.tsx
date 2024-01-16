@@ -14,13 +14,10 @@ const GlobalVillageObjectives = async ({ lng }: LanguageProps) => {
   });
 
   return (
-    <section
-      className='mx-10 mt-10 flex max-w-6xl flex-col gap-6 lg:mx-auto'
-      id='objetives'
-    >
-      <h1 className='mb-4 flex justify-center text-center text-3xl text-green lg:mx-auto lg:mb-10 lg:w-2/3'>
+    <section className='mx-10 mt-10 flex max-w-6xl flex-col gap-6 lg:mx-auto' id='objetives'>
+      <h2 className='mb-4 flex justify-center text-center text-3xl text-green lg:mx-auto lg:mb-10 lg:w-2/3'>
         {t('objetives.title')}
-      </h1>
+      </h2>
       {objetives &&
         objetives.length > 0 &&
         objetives.map((objective: TrainingCenterObjetives) => (

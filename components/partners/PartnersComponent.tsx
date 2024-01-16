@@ -3,18 +3,15 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 
 import { SocialIcon, SocialType } from '../../models/social';
-import {
-  CURRENT_PARTNERS,
-  PartnersInfo,
-} from '../../app/[lng]/partners/config';
+import { CURRENT_PARTNERS, PartnersInfo } from '../../app/[lng]/partners/config';
 import { useTranslation } from '../../i18n';
 import { LanguageProps } from '../types';
 
+import partnersHero from '@/public/images/partners/hero.jpg';
+
 const PartnersComponent = async ({ lng }: LanguageProps) => {
   const { t } = await useTranslation(lng, 'partners');
-  const nationalPartners = CURRENT_PARTNERS.filter(
-    (partner) => partner.type == 'national'
-  );
+  const nationalPartners = CURRENT_PARTNERS.filter((partner) => partner.type == 'national');
 
   const internationalPartners = CURRENT_PARTNERS.filter(
     (partner) => partner.type == 'international'
@@ -24,7 +21,7 @@ const PartnersComponent = async ({ lng }: LanguageProps) => {
     <section>
       <div className='relative z-0 h-60 md:h-96 lg:h-[500px]'>
         <Image
-          src='/images/partners/hero.jpg'
+          src={partnersHero}
           alt='Hero Partners Page'
           fill={true}
           style={{ objectFit: 'cover', zIndex: 1 }}
@@ -32,17 +29,13 @@ const PartnersComponent = async ({ lng }: LanguageProps) => {
       </div>
       <section className='layout-section'>
         <div className='mt-10'>
-          <h1 className='mb-5 text-center'>{t('national')}</h1>
+          <h2 className='mb-5 text-center font-black'>{t('national')}</h2>
           {nationalPartners.map((partner, index) => (
-            <PartnerCard
-              {...partner}
-              key={index}
-              description={t(partner.description)}
-            />
+            <PartnerCard {...partner} key={index} description={t(partner.description)} />
           ))}
         </div>
         <div className='mt-10'>
-          <h1 className='mb-5 text-center'>{t('internacional')}</h1>
+          <h2 className='mb-5 text-center font-black'>{t('internacional')}</h2>
           {internationalPartners.map((partner, index) => (
             <PartnerCard {...partner} key={index} />
           ))}
@@ -73,16 +66,11 @@ const PartnerCard = ({
         </h6>
       )}
       {/* Title */}
-      <h2>{title}</h2>
+      <h3 className='font-bold'>{title}</h3>
 
       {/* Image */}
       <div className='relative h-36 max-w-xs'>
-        <Image
-          src={image}
-          alt={`${title} logo`}
-          fill
-          style={{ objectFit: 'contain' }}
-        />
+        <Image src={image} alt={`${title} logo`} fill style={{ objectFit: 'contain' }} />
       </div>
 
       {/* Description */}
@@ -102,11 +90,7 @@ const PartnerCard = ({
 
               return (
                 <div key={index}>
-                  <Link
-                    href={contact.url}
-                    className='underline'
-                    target='_blank'
-                  >
+                  <Link href={contact.url} className='underline' target='_blank'>
                     {icon && icon({ size: 24, color: '#0A7558' })}
                   </Link>
                 </div>

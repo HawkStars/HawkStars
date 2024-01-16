@@ -60,7 +60,7 @@ const AboutPage = async ({ lng }: LanguageProps) => {
             width={53}
           />
           <Image
-            className='absolute right-5 top-0 hidden lg:block'
+            className='absolute right-5 top-0 hidden lg:-top-5 lg:block'
             src='/images/about/mission/icon3.png'
             alt='icon3'
             height={100}
@@ -70,7 +70,7 @@ const AboutPage = async ({ lng }: LanguageProps) => {
             <Image src='/images/about/mission/img.png' height={697} width={446} alt='mission' />
           </div>
           <div className='flex flex-col gap-3'>
-            <h1>{t('mission.title')}</h1>
+            <h2>{t('mission.title')}</h2>
             {missionObjectives.map((missionOpt) => (
               <MissionTaskComponent
                 text={missionOpt.text}

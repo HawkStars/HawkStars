@@ -8,6 +8,7 @@ import { historyReferenceUrl, humanitarianSlideShowImages } from './config';
 
 import transitionLogo from '@/public/images/history/transition.png';
 import Slideshow from '@/components/utils/Slideshow/Slideshow';
+import { Trans } from 'react-i18next/TransWithoutContext';
 
 const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
   const { t } = await useTranslation(lng, 'hawkstars');
@@ -15,6 +16,7 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
 
   return (
     <section className='layout-section mt-8 flex flex-col gap-5'>
+      <h1 className='text-center'>{t('title')}</h1>
       <p className='text-justify'>{t('beginning')}</p>
       <p className='text-justify'>{t('euro_hawk')}</p>
       <div className='my-5 lg:mx-auto lg:w-1/2'>
@@ -26,7 +28,21 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
       </div>
       <p className='text-justify'>{t('euro_hawk_2')}</p>
       <p className='text-justify'>{t('hawk_stars')}</p>
-      <p className='text-justify'>{t('humanitary')}</p>
+      <p className='text-justify'>
+        <Trans
+          i18nKey='humanitary'
+          t={t}
+          components={{
+            report: (
+              <>
+                <Link href={report[0]} target='_blank' className='font-black text-green'>
+                  Report.
+                </Link>
+              </>
+            ),
+          }}
+        />
+      </p>
       <div className='max-lg:-mx-4'>
         <Slideshow images={humanitarianSlideShowImages} />
       </div>
