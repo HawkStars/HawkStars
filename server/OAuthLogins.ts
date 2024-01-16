@@ -2,8 +2,7 @@
 import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
 import { OAUTH_CALLBACK_URL } from '@/utils/paths';
 
-const REDIRECT_LOGIN_URL =
-  `${process.env.NEXT_PUBLIC_APP_URL}${OAUTH_CALLBACK_URL}` as const;
+const REDIRECT_LOGIN_URL = `${process.env.NEXT_PUBLIC_APP_URL}/${OAUTH_CALLBACK_URL}` as const;
 
 async function loginWithEmail(email: string) {
   const supabase = createSupabaseBrowserClient();

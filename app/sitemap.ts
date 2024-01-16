@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (let route of routes) {
     for (let language of languages) {
       sitemapRoutes.push({
-        url: `${process.env.NEXT_PUBLIC_APP_URL}${language}${route.url}`,
+        url: `${process.env.NEXT_PUBLIC_APP_URL}/${language}${route.url}`,
         priority: route.priority,
         lastModified: new Date(),
         changeFrequency: 'monthly',
