@@ -5,21 +5,24 @@ import Image from 'next/image';
 
 import { RxHamburgerMenu } from 'react-icons/rx';
 
-import { useMainAppContext, useSetMobileNavbarOpen } from '../../contexts/AppProvider';
+import { useSetMobileNavbarOpen } from '../../contexts/AppProvider';
 import Button from '../utils/Button';
-import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { DONATE_URL } from '../../utils/paths';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../../i18n/client';
 import { Suspense } from 'react';
 import { MenuSections } from './config';
 import DropdownMenu from '../menu/DropdownMenu';
-import MenuItem from '../menu/MenuItem';
 
 import hawkLogo from '@/public/images/logo.png';
+import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+import dynamic from 'next/dynamic';
+
+const MenuItem = dynamic(() => import('../menu/MenuItem'), { ssr: false });
+const LanguageSwitcher = dynamic(() => import('../utils/LanguageSwitcher'), { ssr: false });
 
 const Navbar = () => {
-  const { lng } = useMainAppContext();
+  const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
   const router = useRouter();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
@@ -35,7 +38,7 @@ const Navbar = () => {
               aria-label='Go to the home hawkstars website'
             >
               <div className='flex gap-1'>
-                <Image src={hawkLogo} alt='Hawk Stars Logo' width={150} height={100} priority />
+                <Image src={hawkLogo} alt='Hawk Stars Logo' width={150} priority />
               </div>
             </Link>
           </div>

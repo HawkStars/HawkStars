@@ -1,6 +1,6 @@
 'use client';
 
-import { useMainAppContext, useSetMobileNavbarOpen } from '../../contexts/AppProvider';
+import { useSetMobileNavbarOpen } from '../../contexts/AppProvider';
 import { useTranslation } from '../../i18n/client';
 import { transformUrl } from '../../utils/paths';
 import classNames from 'classnames';
@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { PiCaretRightThin, PiCaretDownThin } from 'react-icons/pi';
 import { NavbarUrlItem } from '../navbar/types';
+import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 
 type MenuItemProps = {
   title: string;
@@ -15,7 +16,7 @@ type MenuItemProps = {
 };
 
 const MobileMenuItem = ({ title, options }: MenuItemProps) => {
-  const { lng } = useMainAppContext();
+  const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const router = useRouter();

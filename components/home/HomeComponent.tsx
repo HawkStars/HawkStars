@@ -8,15 +8,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../../i18n/client';
 import { Suspense } from 'react';
-import { useMainAppContext } from '@/contexts/AppProvider';
 
 // Images
 import exterior1 from '@/public/images/training_center/exterior1.jpg';
 import heroPng from '@/public/images/frontpage/hero.png';
 import whoWeAreImage from '@/public/images/frontpage/quem_somos.png';
+import { LanguageProps } from '../types';
 
-const HomeComponent = () => {
-  const { lng } = useMainAppContext();
+const HomeComponent = ({ lng }: LanguageProps) => {
   const { t } = useTranslation(lng, 'common');
   const router = useRouter();
   return (

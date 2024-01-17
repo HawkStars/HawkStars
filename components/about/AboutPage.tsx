@@ -4,12 +4,12 @@ import {
   visionGoals,
 } from '../../app/[lng]/about/config';
 import Accordion from '../accordion/Accordion';
-import { useTranslation } from '../../i18n';
+import { useServerTranslation } from '../../i18n';
 import { LanguageProps } from '../types';
 import Image from 'next/image';
 
 const AboutPage = async ({ lng }: LanguageProps) => {
-  const { t } = await useTranslation(lng, 'about');
+  const { t } = await useServerTranslation(lng, 'about');
   return (
     <>
       <div className='layout-section grid grid-cols-1 gap-10 lg:mt-10 lg:grid-cols-2'>
@@ -109,7 +109,7 @@ type TaskComponentProps = {
   lng: string;
 };
 const TaskComponent = async ({ icon, title, description, lng }: TaskComponentProps) => {
-  const { t } = await useTranslation(lng, 'about');
+  const { t } = await useServerTranslation(lng, 'about');
   return (
     <div className='flex flex-col gap-2 rounded-xl bg-bege-light p-7'>
       <div className='w-fit rounded-xl bg-bege-dark'>
@@ -128,7 +128,7 @@ type MissionTaskComponentProps = {
 };
 
 const MissionTaskComponent = async ({ text, index, lng }: MissionTaskComponentProps) => {
-  const { t } = await useTranslation(lng, 'about');
+  const { t } = await useServerTranslation(lng, 'about');
   let formattedNumber = index.toLocaleString('en-US', {
     minimumIntegerDigits: 2,
     useGrouping: false,

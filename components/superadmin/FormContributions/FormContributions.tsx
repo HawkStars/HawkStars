@@ -98,7 +98,6 @@ const FormContributions = ({
         name='is_anonymous'
         render={({ field: { onChange, value, name } }) => {
           const handleToggleAnonymous = (value: boolean) => {
-            console.log(value);
             setValue('is_anonymous', value);
             setValue('donor', '');
             onChange(value);

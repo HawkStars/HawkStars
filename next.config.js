@@ -36,7 +36,7 @@ const nextConfig = {
           },
           {
             key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
+            value: 'origin',
           },
           { key: 'Permissions-Policy', value: 'camera=(),microphone=()' },
           {

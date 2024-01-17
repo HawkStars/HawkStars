@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useTranslation } from '@/i18n';
+import { useServerTranslation } from '@/i18n';
 import { LiaUsersSolid, LiaUserSolid } from 'react-icons/lia';
 import { PiChairLight } from 'react-icons/pi';
 import { TbArmchair } from 'react-icons/tb';
@@ -64,7 +64,7 @@ const getChairsContribute = async () => {
 };
 
 const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
-  const { t } = await useTranslation(lng, 'contribute');
+  const { t } = await useServerTranslation(lng, 'contribute');
   const { simulationChairs, officeChairs, auditoriumChairs, loungeChairs } =
     await getChairsContribute();
 

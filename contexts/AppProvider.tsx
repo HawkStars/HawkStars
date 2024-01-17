@@ -5,12 +5,10 @@ import { createContext, Dispatch, ReactNode, useContext, useEffect, useState } f
 
 type MainAppProperties = {
   mobileNavbarOpen: boolean;
-  lng: string;
 };
 
 const defaultAppProperties: MainAppProperties = {
   mobileNavbarOpen: false,
-  lng: fallbackLng,
 };
 
 const MainAppContext = createContext<MainAppProperties>(defaultAppProperties);
@@ -18,18 +16,10 @@ const SetMainAppContext = createContext<Dispatch<MainAppProperties>>(() => {});
 
 type AppProviderProps = {
   children: ReactNode;
-  lng: string;
 };
 
-const AppProvider = ({ children, lng }: AppProviderProps) => {
+const AppProvider = ({ children }: AppProviderProps) => {
   const [appProperties, setAppProperties] = useState<MainAppProperties>(defaultAppProperties);
-
-  useEffect(() => {
-    setAppProperties({
-      ...defaultAppProperties,
-      lng,
-    });
-  }, [lng]);
 
   return (
     <MainAppContext.Provider value={appProperties}>
@@ -46,14 +36,6 @@ export const useSetMainProperties = () => {
   const setMainProperties = useContext(SetMainAppContext);
   return (value: MainAppProperties) => {
     setMainProperties(value);
-  };
-};
-
-export const useSetLanguageApp = () => {
-  const appProperties = useContext(MainAppContext);
-  const setMainProperties = useContext(SetMainAppContext);
-  return (lng: string) => {
-    setMainProperties({ ...appProperties, lng });
   };
 };
 

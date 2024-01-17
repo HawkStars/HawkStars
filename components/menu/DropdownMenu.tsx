@@ -8,9 +8,9 @@ import { PiCaretDownThin, PiCaretRightThin } from 'react-icons/pi';
 import { Suspense, useState } from 'react';
 
 import { useTranslation } from '@/i18n/client';
-import { useMainAppContext } from '@/contexts/AppProvider';
 import { transformUrl } from '@/utils/paths';
 import { NavbarUrlItem } from '../navbar/types';
+import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 
 type DropdownMenuProps = {
   title: string;
@@ -18,7 +18,7 @@ type DropdownMenuProps = {
 };
 
 const DropdownMenu = ({ title, options }: DropdownMenuProps) => {
-  const { lng } = useMainAppContext();
+  const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const router = useRouter();

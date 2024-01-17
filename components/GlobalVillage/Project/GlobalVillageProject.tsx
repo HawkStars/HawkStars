@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Image from 'next/image';
-import { useTranslation } from '@/i18n';
+import { useServerTranslation } from '@/i18n';
 import DonateLink from '../DonateLink/DonateLink';
 
 const GlobalVillageProject = async ({ lng }: { lng: string }) => {
-  const { t } = await useTranslation(lng, 'training_center');
+  const { t } = await useServerTranslation(lng, 'training_center');
   return (
     <section className='lg:bg-gradient-to-r lg:from-bege-light lg:via-bege-dark lg:to-white'>
       <div className='flex max-w-6xl flex-col-reverse items-center md:mx-auto lg:flex-row lg:px-4 lg:py-24'>

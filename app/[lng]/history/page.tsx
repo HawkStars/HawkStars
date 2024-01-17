@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { useTranslation } from '@/i18n';
+import { useServerTranslation } from '@/i18n';
 import { LanguagePageProps } from '../types';
 import { ABOUT_US_URL, GLOBAL_VILLAGE_URL } from '@/utils/paths';
 import { historyReferenceUrl, humanitarianSlideShowImages } from './config';
@@ -11,7 +11,7 @@ import Slideshow from '@/components/utils/Slideshow/Slideshow';
 import { Trans } from 'react-i18next/TransWithoutContext';
 
 const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
-  const { t } = await useTranslation(lng, 'hawkstars');
+  const { t } = await useServerTranslation(lng, 'hawkstars');
   const { geral, festival, erasmus, report, news } = historyReferenceUrl;
 
   return (

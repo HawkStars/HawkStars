@@ -4,7 +4,7 @@ import { BsLinkedin } from 'react-icons/bs';
 
 import Link from 'next/link';
 import { useTranslation } from '../../i18n/client';
-import { useMainAppContext } from '@/contexts/AppProvider';
+import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 
 type TeamCardProps = {
   name: string;
@@ -14,7 +14,7 @@ type TeamCardProps = {
 };
 
 const TeamCard = ({ name, position, photo, url }: TeamCardProps) => {
-  const { lng } = useMainAppContext();
+  const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'team');
   return (
     <div className='flex w-full gap-4 bg-bege-light px-2 py-4 text-center lg:h-64 lg:w-56 lg:flex-col lg:gap-0'>

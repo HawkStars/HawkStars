@@ -1,21 +1,16 @@
 'use client';
 
-import {
-  OrgSection,
-  boardSections,
-  sectionLabels,
-  TeamMembers,
-} from '../../app/[lng]/team/config';
+import { OrgSection, boardSections, sectionLabels, TeamMembers } from '../../app/[lng]/team/config';
 import classNames from 'classnames';
 
 import { useState } from 'react';
 import Select, { SelectOption } from '../utils/Select';
 import TeamCard from './TeamCard';
 import { useTranslation } from '../../i18n/client';
-import { useMainAppContext } from '@/contexts/AppProvider';
+import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 
 const MainTeamPage = () => {
-  const { lng } = useMainAppContext();
+  const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'team');
   const [selectedSection, setSelectedSection] = useState<OrgSection>('geral');
 
@@ -33,9 +28,7 @@ const MainTeamPage = () => {
       <div className='block w-fit lg:hidden'>
         <Select
           options={selectOptions}
-          defaultOption={selectOptions.find(
-            (option) => option.value === selectedSection
-          )}
+          defaultOption={selectOptions.find((option) => option.value === selectedSection)}
           onChange={(e) => setSelectedSection(e as OrgSection)}
           name='type_board'
         />
@@ -59,10 +52,7 @@ const MainTeamPage = () => {
       <div className='flex flex-col gap-3 py-10'>
         <div className='mt-3 flex flex-wrap gap-5'>
           {TeamMembers[selectedSection].map((member, index) => (
-            <div
-              key={index}
-              className='flex w-full flex-col justify-center gap-3 lg:w-fit'
-            >
+            <div key={index} className='flex w-full flex-col justify-center gap-3 lg:w-fit'>
               <TeamCard {...member} />
             </div>
           ))}

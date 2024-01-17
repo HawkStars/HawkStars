@@ -1,6 +1,6 @@
 import { LanguageProps } from '@/components/types';
 import Image from 'next/image';
-import { useTranslation } from '@/i18n';
+import { useServerTranslation } from '@/i18n';
 
 /**
  * Images
@@ -55,7 +55,7 @@ import cowordPhoto12 from '@/public/images/training_center/coworking_12.jpg';
 import DonateLink from '../DonateLink/DonateLink';
 
 const GlobalVillageArquitecture = async ({ lng }: LanguageProps) => {
-  const { t } = await useTranslation(lng, 'training_center');
+  const { t } = await useServerTranslation(lng, 'training_center');
   return (
     <section id='arquitecture' className='mx-10 my-10 flex max-w-6xl flex-col gap-20 lg:mx-auto'>
       <div className='flex flex-col'>
@@ -98,7 +98,7 @@ const GlobalVillageArquitecture = async ({ lng }: LanguageProps) => {
 };
 
 const FutureExteriorViewSections = async ({ lng }: LanguageProps) => {
-  const { t } = await useTranslation(lng, 'training_center');
+  const { t } = await useServerTranslation(lng, 'training_center');
   return (
     <div className='flex flex-col gap-4'>
       <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
@@ -147,7 +147,7 @@ const FutureExteriorViewSections = async ({ lng }: LanguageProps) => {
 };
 
 const EntryReceptionPhotosSection = async ({ lng }: LanguageProps) => {
-  const { t } = await useTranslation(lng, 'training_center');
+  const { t } = await useServerTranslation(lng, 'training_center');
   return (
     <div className='flex flex-col gap-2'>
       <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
@@ -202,7 +202,7 @@ const EntryReceptionPhotosSection = async ({ lng }: LanguageProps) => {
 };
 
 const TrainingMeetingRooms = async ({ lng }: LanguageProps) => {
-  const { t } = await useTranslation(lng, 'training_center');
+  const { t } = await useServerTranslation(lng, 'training_center');
   return (
     <div>
       <h1 className='mb-2 flex justify-center text-2xl text-green lg:text-5xl'>
@@ -238,7 +238,7 @@ const TrainingMeetingRooms = async ({ lng }: LanguageProps) => {
   );
 };
 const LoungeAndCoworking = async ({ lng }: LanguageProps) => {
-  const { t } = await useTranslation(lng, 'training_center');
+  const { t } = await useServerTranslation(lng, 'training_center');
   return (
     <div className='flex flex-col gap-4'>
       <h1 className='flex justify-center text-2xl text-green lg:text-5xl'>
@@ -323,7 +323,7 @@ const LoungeAndCoworking = async ({ lng }: LanguageProps) => {
 };
 
 const GamingHub = async ({ lng }: LanguageProps) => {
-  const { t } = await useTranslation(lng, 'training_center');
+  const { t } = await useServerTranslation(lng, 'training_center');
   return (
     <div className='flex flex-col gap-2'>
       <h1 className='mb-2 flex justify-center text-2xl text-green lg:text-5xl'>
@@ -351,7 +351,7 @@ const GamingHub = async ({ lng }: LanguageProps) => {
 };
 
 const RecordingStudio = async ({ lng }: LanguageProps) => {
-  const { t } = await useTranslation(lng, 'training_center');
+  const { t } = await useServerTranslation(lng, 'training_center');
   return (
     <div className='flex flex-col gap-3'>
       <h1 className='mb-4 flex justify-center text-2xl text-green lg:text-5xl'>
@@ -378,7 +378,7 @@ const RecordingStudio = async ({ lng }: LanguageProps) => {
 };
 
 const ArielView = async ({ lng }: LanguageProps) => {
-  const { t } = await useTranslation(lng, 'training_center');
+  const { t } = await useServerTranslation(lng, 'training_center');
   return (
     <div className='flex flex-col gap-3'>
       <div className='flex flex-col gap-1'>

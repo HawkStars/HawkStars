@@ -4,21 +4,19 @@ import { useState } from 'react';
 
 import { PiCaretDownThin } from 'react-icons/pi';
 import classNames from 'classnames';
-import Link from 'next/link';
-import { useMainAppContext } from '@/contexts/AppProvider';
+import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+import { useRouter } from 'next/navigation';
 
 const LanguageSwitcher = () => {
-  const { lng } = useMainAppContext();
-  const [showLanguageOptions, setShowLanguageOptions] =
-    useState<boolean>(false);
+  const router = useRouter();
+  const lng = useLanguageCookie();
+  const [showLanguageOptions, setShowLanguageOptions] = useState<boolean>(false);
 
   return (
     <>
       <div
         className='relative flex cursor-pointer flex-row gap-2 px-3'
-        onClick={() =>
-          setShowLanguageOptions((currentStatus) => !currentStatus)
-        }
+        onClick={() => setShowLanguageOptions((currentStatus) => !currentStatus)}
       >
         {lng === 'pt' ? (
           <>
@@ -40,8 +38,8 @@ const LanguageSwitcher = () => {
       {showLanguageOptions && (
         <div className='z-100 absolute mt-2 flex w-fit cursor-pointer flex-col gap-2 bg-white py-1 pl-3 pr-5'>
           {lng !== 'en' && (
-            <Link className='flew-row flex gap-2' href='/en'>
-              <div className='flex h-4 w-6 cursor-pointer'>
+            <div className='flew-row flex cursor-pointer gap-2' onClick={() => router.push('/en')}>
+              <div className='flex h-4 w-6'>
                 <GB title='EN' />
               </div>
               <label
@@ -51,11 +49,11 @@ const LanguageSwitcher = () => {
               >
                 EN
               </label>
-            </Link>
+            </div>
           )}
           {lng !== 'pt' && (
-            <Link className='flew-row flex gap-2' href='/pt'>
-              <div className='flex h-4 w-6 cursor-pointer'>
+            <div className='flew-row flex cursor-pointer gap-2' onClick={() => router.push('/pt')}>
+              <div className='flex h-4 w-6'>
                 <PT title='PT' />
               </div>
               <label
@@ -65,7 +63,7 @@ const LanguageSwitcher = () => {
               >
                 PT
               </label>
-            </Link>
+            </div>
           )}
         </div>
       )}

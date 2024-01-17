@@ -15,9 +15,11 @@ import { MenuSections } from './config';
 import { useRouter } from 'next/navigation';
 import { DONATE_URL, transformUrl } from '@/utils/paths';
 import logoPng from '@/public/images/logo.png';
+import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 
 const MobileNavbar = () => {
-  const { lng, mobileNavbarOpen } = useMainAppContext();
+  const { mobileNavbarOpen } = useMainAppContext();
+  const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
   const setMobileMenuOpen = useSetMobileNavbarOpen();
   const router = useRouter();
@@ -34,7 +36,7 @@ const MobileNavbar = () => {
           <div className='fixed z-900 flex h-screen w-full flex-col gap-4 bg-white px-4 py-3 lg:hidden'>
             <div className='flex'>
               <Link href='/'>
-                <Image src={logoPng} alt='Hawk Stars Logo' priority />
+                <Image src={logoPng} alt='Hawk Stars Logo' priority width={150} className='-mt-1' />
               </Link>
               <div className='my-auto ml-auto block cursor-pointer lg:hidden'>
                 <RxCross1 size={28} onClick={() => setMobileMenuOpen(false)} />

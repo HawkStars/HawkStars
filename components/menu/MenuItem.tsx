@@ -1,13 +1,14 @@
 'use client';
 
-import { useMainAppContext } from '@/contexts/AppProvider';
+import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 import { NavbarUrlItem } from '../navbar/types';
 import { useTranslation } from '@/i18n/client';
 import Link from 'next/link';
 
 const MenuItem = ({ label, url, disabled }: NavbarUrlItem) => {
-  const { lng } = useMainAppContext();
+  const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
+
   return (
     <>
       {url && !disabled ? (

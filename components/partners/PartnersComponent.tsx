@@ -4,13 +4,13 @@ import ReactMarkdown from 'react-markdown';
 
 import { SocialIcon, SocialType } from '../../models/social';
 import { CURRENT_PARTNERS, PartnersInfo } from '../../app/[lng]/partners/config';
-import { useTranslation } from '../../i18n';
+import { useServerTranslation } from '../../i18n';
 import { LanguageProps } from '../types';
 
 import partnersHero from '@/public/images/partners/hero.jpg';
 
 const PartnersComponent = async ({ lng }: LanguageProps) => {
-  const { t } = await useTranslation(lng, 'partners');
+  const { t } = await useServerTranslation(lng, 'partners');
   const nationalPartners = CURRENT_PARTNERS.filter((partner) => partner.type == 'national');
 
   const internationalPartners = CURRENT_PARTNERS.filter(

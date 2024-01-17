@@ -13,7 +13,7 @@ import { fallbackLng } from '@/i18n/settings';
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang={fallbackLng}>
-      <AppProvider lng={fallbackLng}>
+      <AppProvider>
         <body className={inter.className}>
           <MobileNavbar />
           <Navbar />

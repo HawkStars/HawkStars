@@ -3,8 +3,8 @@
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { ContributionWithConfirmed, superadminContributionColumns } from './config';
 import { useTranslation } from '@/i18n/client';
-import { useMainAppContext } from '@/contexts/AppProvider';
 import Button from '@/components/utils/Button';
+import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 
 type FormListProps = {
   contributions: ContributionWithConfirmed[];
@@ -12,7 +12,7 @@ type FormListProps = {
 };
 
 const FormList = ({ contributions, selectContributionToEdit }: FormListProps) => {
-  const { lng } = useMainAppContext();
+  const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'contribute');
 
   const table = useReactTable({

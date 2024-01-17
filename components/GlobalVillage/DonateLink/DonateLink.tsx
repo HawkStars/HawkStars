@@ -1,11 +1,12 @@
 'use client';
-import { useMainAppContext } from '@/contexts/AppProvider';
+
+import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 import { useTranslation } from '@/i18n/client';
 import { transformUrl, DONATE_URL } from '@/utils/paths';
 import Link from 'next/link';
 
 const DonateLink = () => {
-  const { lng } = useMainAppContext();
+  const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'training_center');
   return (
     <Link

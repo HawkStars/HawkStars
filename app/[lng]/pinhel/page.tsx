@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { pinhelSlideshowImages, pinhelUrls } from './config';
-import { useTranslation } from '@/i18n';
+import { useServerTranslation } from '@/i18n';
 import { LanguagePageProps } from '../types';
 
 import { Suspense, lazy } from 'react';
@@ -10,7 +10,7 @@ import MainHawkStarsLoading from '../loading';
 const PinhelSlideShow = lazy(() => import('@/components/utils/Slideshow/Slideshow'));
 
 const PinhelPage = async ({ params: { lng } }: LanguagePageProps) => {
-  const { t } = await useTranslation(lng, 'pinhel');
+  const { t } = await useServerTranslation(lng, 'pinhel');
   const mapPinhel = pinhelUrls[lng]?.historical_center || pinhelUrls['pt'].historical_center || '#';
 
   return (

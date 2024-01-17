@@ -14,5 +14,5 @@ type HomeProps = {
 };
 
 export default function Home({ params: { lng } }: HomeProps) {
-  return <HomeComponent />;
+  return <HomeComponent lng={lng} />;
 }

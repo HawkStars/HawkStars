@@ -1,0 +1,69 @@
+'use client';
+
+import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+import { transformUrl, HOME_URL, DONATE_URL } from '@/utils/paths';
+import classNames from 'classnames';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Suspense } from 'react';
+import { MenuSections } from '../navbar/config';
+import Button from '../utils/Button';
+import { useTranslation } from '@/i18n/client';
+
+const FooterMenu = () => {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
+  const router = useRouter();
+
+  return (
+    <>
+      {MenuSections.map((section, index) => {
+        if (section.type === 'dropdown') {
+          const { title, options } = section;
+          return (
+            <div key={index} className='text-terciary-100 ml-0 text-left lg:text-left'>
+              <h3 className='mb-1 text-base font-semibold lg:mb-3 lg:text-lg lg:font-bold'>
+                <Suspense fallback={title}>{t(title)}</Suspense>
+              </h3>
+              {options.map((option, index) => (
+                <div className='py-1' key={index}>
+                  <Suspense fallback={option.label}>
+                    <Link
+                      href={transformUrl(lng, option.url || HOME_URL)}
+                      className={classNames({
+                        'text-disabled': option.disabled,
+                      })}
+                    >
+                      {t(option.label)}
+                    </Link>
+                  </Suspense>
+                </div>
+              ))}
+            </div>
+          );
+        }
+      })}
+
+      <div className='flex flex-col lg:hidden'>
+        {/* <Link
+            href={BE_MEMBER_FORM_URL}
+            target='_blank'
+            className='mb-2 text-lg font-black'
+          >
+            <Suspense>{t('common.be_member')}</Suspense>
+          </Link> */}
+        <Button
+          type={'button'}
+          variant='success'
+          onClick={() => {
+            router.push(DONATE_URL);
+          }}
+        >
+          <Suspense>{t('common.donate')}</Suspense>
+        </Button>
+      </div>
+    </>
+  );
+};
+
+export default FooterMenu;
