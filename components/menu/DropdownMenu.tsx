@@ -26,9 +26,7 @@ const DropdownMenu = ({ title, options }: DropdownMenuProps) => {
   return (
     <div>
       <Menu as='div' className='z-100 relative inline-block text-left'>
-        <Menu.Button
-          onClick={() => setShowOptions((currentStatus) => !currentStatus)}
-        >
+        <Menu.Button onClick={() => setShowOptions(!showOptions)}>
           <div className='flex gap-1'>
             <h6>
               <Suspense fallback=''>{t(title)}</Suspense>
@@ -50,9 +48,7 @@ const DropdownMenu = ({ title, options }: DropdownMenuProps) => {
               className={classNames('w-fit whitespace-nowrap px-5 py-2', {
                 'text-neutral-400': !option.url || option.disabled,
               })}
-              onClick={() =>
-                router.push(option.url ? transformUrl(lng, option.url) : '')
-              }
+              onClick={() => router.push(option.url ? transformUrl(lng, option.url) : '')}
             >
               <Suspense fallback={option.label}>{t(option.label)}</Suspense>
             </Menu.Item>

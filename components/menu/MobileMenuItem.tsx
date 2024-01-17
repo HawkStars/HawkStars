@@ -1,9 +1,6 @@
 'use client';
 
-import {
-  useMainAppContext,
-  useSetMobileNavbarOpen,
-} from '../../contexts/AppProvider';
+import { useMainAppContext, useSetMobileNavbarOpen } from '../../contexts/AppProvider';
 import { useTranslation } from '../../i18n/client';
 import { transformUrl } from '../../utils/paths';
 import classNames from 'classnames';
@@ -32,31 +29,30 @@ const MobileMenuItem = ({ title, options }: MenuItemProps) => {
 
   return (
     <div className='cursor-pointer px-1'>
-      <div
-        className='mb-2 flex gap-3'
-        onClick={() => setShowOptions(!showOptions)}
-      >
+      <div className='mb-2 flex gap-3' onClick={() => setShowOptions(!showOptions)}>
         <h6>{t(title)}</h6>
 
         {options && options.length > 0 && (
-          <div className='my-auto'>
-            {showOptions ? <PiCaretDownThin /> : <PiCaretRightThin />}
-          </div>
+          <div className='my-auto'>{showOptions ? <PiCaretDownThin /> : <PiCaretRightThin />}</div>
         )}
       </div>
-      {showOptions && (
-        <div className='flex flex-col gap-1'>
-          {options.map((option, index) => (
-            <div
-              key={index}
-              className={classNames('text-neutral-400')}
-              onClick={() => goToUrl(option.url)}
-            >
-              {t(option.label)}
-            </div>
-          ))}
-        </div>
-      )}
+
+      <div
+        className={classNames('flex-col gap-1 delay-150 ease-in-out', {
+          flex: showOptions,
+          hidden: !showOptions,
+        })}
+      >
+        {options.map((option, index) => (
+          <div
+            key={index}
+            className={classNames('text-neutral-400')}
+            onClick={() => goToUrl(option.url)}
+          >
+            {t(option.label)}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

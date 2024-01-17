@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { MenuSections } from './config';
 import { useRouter } from 'next/navigation';
 import { DONATE_URL, transformUrl } from '@/utils/paths';
+import logoPng from '@/public/images/logo.png';
 
 const MobileNavbar = () => {
   const { lng, mobileNavbarOpen } = useMainAppContext();
@@ -33,13 +34,7 @@ const MobileNavbar = () => {
           <div className='fixed z-900 flex h-screen w-full flex-col gap-4 bg-white px-4 py-3 lg:hidden'>
             <div className='flex'>
               <Link href='/'>
-                <Image
-                  src='/images/logo.png'
-                  alt='Hawk Stars Logo'
-                  width={150}
-                  height={100}
-                  priority
-                />
+                <Image src={logoPng} alt='Hawk Stars Logo' priority />
               </Link>
               <div className='my-auto ml-auto block cursor-pointer lg:hidden'>
                 <RxCross1 size={28} onClick={() => setMobileMenuOpen(false)} />
