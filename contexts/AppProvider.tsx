@@ -1,7 +1,8 @@
 'use client';
 
-import { fallbackLng } from '@/i18n/settings';
+import { fallbackLng, i18CookieName } from '@/i18n/settings';
 import { createContext, Dispatch, ReactNode, useContext, useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 type MainAppProperties = {
   mobileNavbarOpen: boolean;
@@ -16,10 +17,16 @@ const SetMainAppContext = createContext<Dispatch<MainAppProperties>>(() => {});
 
 type AppProviderProps = {
   children: ReactNode;
+  lng: string;
 };
 
-const AppProvider = ({ children }: AppProviderProps) => {
+const AppProvider = ({ children, lng }: AppProviderProps) => {
+  const [cookie, setCookie] = useCookies([i18CookieName]);
   const [appProperties, setAppProperties] = useState<MainAppProperties>(defaultAppProperties);
+
+  useEffect(() => {
+    if (cookie.i18next != lng) setCookie(i18CookieName, lng);
+  }, [lng, cookie.i18next, setCookie]);
 
   return (
     <MainAppContext.Provider value={appProperties}>

@@ -1,6 +1,5 @@
 import { i18CookieName, fallbackLng, languages } from '@/i18n/settings';
 import acceptLanguage from 'accept-language';
-import i18next from 'i18next';
 import { NextRequest, NextResponse } from 'next/server';
 
 acceptLanguage.languages(languages);
@@ -8,13 +7,12 @@ acceptLanguage.languages(languages);
 const withHandleInternalization = async (request: NextRequest): Promise<NextResponse> => {
   const response = NextResponse.next();
 
-  let lng;
-  if (request.cookies.has(i18CookieName))
+  let lng = request.nextUrl.pathname.split('/')[0] || null;
+  if (!lng && request.cookies.has(i18CookieName))
     lng = acceptLanguage.get(request.cookies.get(i18CookieName)?.value);
   if (!lng) lng = acceptLanguage.get(request.headers.get('Accept-Language'));
   if (!lng) lng = fallbackLng;
 
-  response.cookies.set(i18CookieName, lng);
   // Redirect if lng in path is not supported
   if (
     !languages.some((loc) => request.nextUrl.pathname.startsWith(`/${loc}`)) &&
@@ -31,6 +29,7 @@ const withHandleInternalization = async (request: NextRequest): Promise<NextResp
     return response;
   }
 
+  response.cookies.set(i18CookieName, lng);
   return response;
 };
 

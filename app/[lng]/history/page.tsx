@@ -36,7 +36,7 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
             report: (
               <>
                 <Link href={report[0]} target='_blank' className='font-black text-green'>
-                  Report.
+                  Check the Report here.
                 </Link>
               </>
             ),

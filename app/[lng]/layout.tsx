@@ -33,7 +33,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang={lng}>
-      <AppProvider>
+      <AppProvider lng={lng}>
         <body className={inter.className}>
           <MobileNavbar />
           <Navbar />
