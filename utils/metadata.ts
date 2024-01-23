@@ -49,11 +49,12 @@ const transformToMetadataObject = (info: any, lng: string, url: string): Metadat
     description: description,
     keywords: keywords,
     referrer: 'no-referrer-when-downgrade',
+    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL!),
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_APP_URL}/${lng}${url}`,
+      canonical: `/${lng}${url}`,
       languages: {
-        en: `${process.env.NEXT_PUBLIC_APP_URL}/en${url}`,
-        pt: `${process.env.NEXT_PUBLIC_APP_URL}/pt${url}`,
+        en: `/en${url}`,
+        pt: `/pt${url}`,
       },
     },
     openGraph: {
