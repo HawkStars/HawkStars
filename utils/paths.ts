@@ -12,9 +12,11 @@ export const TEAM_URL = '/team' as const;
 export const PARTNERS_URL = '/partners' as const;
 export const HAWK_HISTORY_URL = '/history' as const;
 
+export const EVENTS_URL = '/events' as const;
+export const ERASMUS_PLUS_URL = '/erasmus' as const;
+
 export const DONATE_URL = '/contribute' as const;
 export const BE_MEMBER_URL = '/be_member' as const;
-export const OPORTUNITIES_URL = '/oportunities' as const;
 
 // global village | training center
 export const GLOBAL_VILLAGE_URL = '/village' as const;
@@ -71,4 +73,8 @@ export const routes = [
   { url: GLOBAL_VILLAGE_URL, priority: 1 },
   { url: DONATE_URL, priority: 1 },
   { url: TRANSPARENCY_URL, priority: 1 },
+  { url: HAWK_HISTORY_URL, priority: 0.5 },
+  { url: EVENTS_URL, priority: 0.7 },
+  { url: ERASMUS_PLUS_URL, priority: 0.7 },
+  { url: PINHEL_URL, priority: 0.5 },
 ] as MetadataRoute[];

@@ -71,6 +71,6 @@ const pageToUrl = {
   transparency: TRANSPARENCY_URL,
   village: GLOBAL_VILLAGE_URL,
   home: HOME_URL,
-} as { [x: string]: string };
+} as { [x in HawkStarsPath]: string };
 
 export { getMetadataPageInfo };

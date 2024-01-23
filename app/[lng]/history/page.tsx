@@ -67,8 +67,8 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
       <div className='mt-10 flex flex-col gap-3'>
         <h3 className='text-xl font-bold text-green'>{t('urls.eurohawks')}</h3>
         <ReferencesSection title='Main' urls={geral} />
-        <ReferencesSection title='Hawk Festival' urls={erasmus} />
-        <ReferencesSection title='Erasmus +' urls={festival} />
+        <ReferencesSection title='Erasmus +' urls={erasmus} />
+        <ReferencesSection title='Hawk Festival' urls={festival} />
       </div>
       <div className='flex flex-col gap-3'>
         <h3 className='text-xl font-bold text-green'>{t('urls.fnee')}</h3>
