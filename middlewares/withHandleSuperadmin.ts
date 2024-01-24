@@ -1,24 +1,27 @@
 import { fallbackLng } from '@/i18n/settings';
+import createSupabaseMiddlewareClient from '@/lib/supabase/middleware/supabaseMiddlewareClient';
 import { Profile } from '@/models/database';
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
+
 import { NextRequest, NextResponse } from 'next/server';
 
 const withHandleSuperadmin = async (request: NextRequest): Promise<NextResponse> => {
-  const res = NextResponse.next();
-  const isSuperAdmin = await checkIfAuthenticated(request, res);
-  if (!isSuperAdmin) return NextResponse.redirect(new URL(`${fallbackLng}/`, request.url));
+  const { success, response } = await checkIfAuthenticated(request);
+  if (!success) return NextResponse.redirect(new URL(`${fallbackLng}/`, request.url));
 
-  return res;
+  return response;
 };
 
-async function checkIfAuthenticated(req: NextRequest, res: NextResponse) {
-  const supabase = createMiddlewareClient({ req, res });
+async function checkIfAuthenticated(
+  req: NextRequest
+): Promise<{ success: boolean; response: NextResponse }> {
+  const res = NextResponse.next({ request: { headers: req.headers } });
+  const { supabase, response } = createSupabaseMiddlewareClient(req, res);
 
   const {
     data: { user },
     error,
   } = await supabase.auth.getUser();
-  if (error || !user) return false;
+  if (error || !user) return { success: false, response };
 
   const userId = user.id;
   const { data, error: userError } = await supabase
@@ -27,8 +30,8 @@ async function checkIfAuthenticated(req: NextRequest, res: NextResponse) {
     .match({ type: 'ADMIN', id: userId })
     .single();
 
-  if (userError || !data) return false;
-  return true;
+  if (userError || !data) return { success: false, response };
+  return { success: true, response };
 }
 
 export default withHandleSuperadmin;

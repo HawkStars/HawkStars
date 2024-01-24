@@ -4,14 +4,11 @@ import { SiFacebook, SiGmail } from 'react-icons/si';
 
 import Button from '@/components/utils/Button';
 import { useState } from 'react';
-import {
-  loginWithGoogle,
-  loginWithFacebook,
-  loginWithEmail,
-} from '@/server/OAuthLogins';
+
 import Input from '@/components/utils/Input/Input';
-import { HOME_URL } from '@/utils/paths';
 import { useRouter } from 'next/navigation';
+import { HOME_URL } from '@/utils/paths';
+import { loginWithGoogle, loginWithFacebook, loginWithEmail } from '@/services/OAuthLogins';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -50,18 +47,10 @@ const LoginPage = () => {
             </Button>
           </form>
           <div className='flex flex-1 flex-row justify-center gap-5'>
-            <Button
-              outline={true}
-              onClick={(event) => enterWithFacebook(event)}
-              type={'button'}
-            >
+            <Button outline={true} onClick={(event) => enterWithFacebook(event)} type={'button'}>
               <SiFacebook className='inline ' color='blue' size={36} />
             </Button>
-            <Button
-              onClick={(event) => enterWithGoogle(event)}
-              type={'button'}
-              outline={true}
-            >
+            <Button onClick={(event) => enterWithGoogle(event)} type={'button'} outline={true}>
               <SiGmail color='red' className='inline' size={36} />
             </Button>
           </div>

@@ -1,4 +1,4 @@
-import { SuperAdminSection } from '@/app/superadmin/page';
+import { SuperAdminSection } from '@/app/superadmin/config';
 import classNames from 'classnames';
 
 type SuperAdminTabItemProps = {

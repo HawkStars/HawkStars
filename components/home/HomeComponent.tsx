@@ -118,6 +118,9 @@ const HomeComponent = ({ lng }: LanguageProps) => {
           </div>
         </div>
       </section>
+      <section className='px-8 py-20 lg:px-20'>
+        <h6 className='text-center text-2xl font-bold text-green'>Erasmus +</h6>
+      </section>
     </>
   );
 };

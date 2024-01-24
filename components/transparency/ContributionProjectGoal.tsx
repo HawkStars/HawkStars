@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getTotalMoneyGathered } from '@/services/contribution';
+import { getTotalMoneyGathered } from '@/server/contribution';
 
 export const PROJECT_GOAL = 900000;
 

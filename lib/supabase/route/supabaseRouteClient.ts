@@ -1,16 +1,24 @@
 import { Database } from '@/database.types';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
 const createSupabaseRouteHandlerClient = async () => {
   const cookieStore = cookies();
-  const supabase = createRouteHandlerClient<Database>(
+  const supabase = createServerClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
-      cookies: () => cookieStore,
-    },
-    {
-      supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-      supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+        set(name: string, value: string, options: CookieOptions) {
+          cookieStore.set({ name, value, ...options });
+        },
+        remove(name: string, options: CookieOptions) {
+          cookieStore.set({ name, value: '', ...options });
+        },
+      },
     }
   );
   return supabase;

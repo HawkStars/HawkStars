@@ -1,6 +1,8 @@
 import {
   ABOUT_US_URL,
   DONATE_URL,
+  ERASMUS_PLUS_URL,
+  EVENTS_URL,
   GALLERY_URL,
   GLOBAL_VILLAGE_ARQUITECTURE,
   GLOBAL_VILLAGE_OBJECTIVES,
@@ -21,8 +23,8 @@ const NGODropdownOptions = [
 ] as NavbarUrlItem[];
 
 const AtivitiesDropdownOptions = [
-  { label: 'navbar.events', disabled: true },
-  { label: 'navbar.past_events', disabled: true },
+  { label: 'navbar.events', url: EVENTS_URL },
+  { label: 'navbar.erasmus', url: ERASMUS_PLUS_URL },
 ] as NavbarUrlItem[];
 
 const GlobalVillageOptions = [

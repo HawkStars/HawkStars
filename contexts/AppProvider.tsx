@@ -1,6 +1,7 @@
 'use client';
 
 import { fallbackLng, i18CookieName } from '@/i18n/settings';
+import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
 import { createContext, Dispatch, ReactNode, useContext, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 
@@ -27,6 +28,11 @@ const AppProvider = ({ children, lng }: AppProviderProps) => {
   useEffect(() => {
     if (cookie.i18next != lng) setCookie(i18CookieName, lng);
   }, [lng, cookie.i18next, setCookie]);
+
+  useEffect(() => {
+    const supabase = createSupabaseBrowserClient();
+    supabase.auth.onAuthStateChange;
+  }, []);
 
   return (
     <MainAppContext.Provider value={appProperties}>

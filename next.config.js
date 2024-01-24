@@ -11,7 +11,7 @@ const cspHeader = `
     block-all-mixed-content;
     upgrade-insecure-requests;
     frame-src *.google.com;
-    connect-src 'self' https://*.googleapis.com *.google.com https://*.gstatic.com https://deprwkxsmgjfeeberzzw.supabase.co data: blob:;
+    connect-src 'self' ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://*.gstatic.com ${process.env.NEXT_PUBLIC_SUPABASE_URL} data: blob:` : 'http://127.0.0.1:54321'};
     worker-src blob:;
 `;
 

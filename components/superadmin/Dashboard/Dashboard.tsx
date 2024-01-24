@@ -1,5 +1,5 @@
 'use client';
-import { getTotalMoneyGathered } from '@/services/contribution';
+import { getTotalMoneyGathered } from '@/server/contribution';
 import { useEffect, useState } from 'react';
 import DashboardFormList from './FormListSection/FormListSection';
 
