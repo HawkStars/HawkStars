@@ -68,7 +68,6 @@ const FormContributions = ({
     'SIMULATOR_CHAIR',
   ].includes(typeWatched);
 
-  console.log(errors);
   const onSubmitForm: SubmitHandler<ContributionFormInput> = async (
     data: ContributionFormInput
   ) => {
