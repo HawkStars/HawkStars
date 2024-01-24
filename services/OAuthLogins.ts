@@ -6,12 +6,12 @@ const REDIRECT_LOGIN_URL = `${process.env.NEXT_PUBLIC_APP_URL}${OAUTH_CALLBACK_U
 
 async function loginWithEmail(email: string) {
   const supabase = createSupabaseBrowserClient();
-  console.log(REDIRECT_LOGIN_URL);
+
   const { data, error } = await supabase.auth.signInWithOtp({
     email,
     options: {
       shouldCreateUser: true,
-      emailRedirectTo: REDIRECT_LOGIN_URL,
+      emailRedirectTo: process.env.NEXT_PUBLIC_APP_URL,
     },
   });
 

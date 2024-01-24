@@ -31,7 +31,7 @@ const AppProvider = ({ children, lng }: AppProviderProps) => {
 
   useEffect(() => {
     const supabase = createSupabaseBrowserClient();
-    supabase.auth.onAuthStateChange;
+    console.log(supabase.auth.getSession().then((response) => console.log(response)));
   }, []);
 
   return (
