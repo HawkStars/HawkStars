@@ -29,11 +29,6 @@ const AppProvider = ({ children, lng }: AppProviderProps) => {
     if (cookie.i18next != lng) setCookie(i18CookieName, lng);
   }, [lng, cookie.i18next, setCookie]);
 
-  useEffect(() => {
-    const supabase = createSupabaseBrowserClient();
-    console.log(supabase.auth.getSession().then((response) => console.log(response)));
-  }, []);
-
   return (
     <MainAppContext.Provider value={appProperties}>
       <SetMainAppContext.Provider value={setAppProperties}>{children}</SetMainAppContext.Provider>
