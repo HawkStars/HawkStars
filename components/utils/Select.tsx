@@ -31,7 +31,7 @@ const Select = ({
 
   return (
     <div className='flex flex-col gap-2'>
-      {labelText && <label>{labelText}</label>}
+      {labelText && <p>{labelText}</p>}
       <Listbox
         value={selectedOption}
         name={name}

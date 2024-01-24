@@ -57,7 +57,8 @@
     "donor_hint": "O nome indicado é o nome que constará na Cadeira/Paredes/Nome de Sala",
     "value": "Valor da Doação",
     "other_information": "Dados de Faturação",
-    "anomymous": "Pretende que seja uma doação anónima?"
+    "anomymous": "Pretende que seja uma doação anónima?",
+    "anonymous_donor": "Doador Anónimo"
   },
   "movement_form": {
     "value": "Valor",

@@ -7,8 +7,9 @@ export const PROJECT_GOAL = 900000;
 
 const ContributionProjectGoal = () => {
   const [totalContribution, setTotalContribution] = useState<number | undefined>();
-  const percentGoal = (totalContribution || 0) / PROJECT_GOAL;
-  const loadingWidth = Math.round((window?.innerWidth || 0) * percentGoal) + 'px';
+  const normalizedGoal = (totalContribution || 0) / PROJECT_GOAL;
+  const goalAsPercentage = (normalizedGoal * 100).toFixed(2);
+  const loadingWidth = Math.round((window?.innerWidth || 0) * normalizedGoal) + 'px';
 
   const getCurrentProjetContribution = async () => {
     const moneyGathered = await getTotalMoneyGathered();
@@ -30,7 +31,7 @@ const ContributionProjectGoal = () => {
         ></div>
         <p className='mt-1 flex justify-end'>{`Goal: ${PROJECT_GOAL}€`}</p>
         <p className='absolute bottom-0 left-[50%] text-sm'>
-          {totalContribution}€ ({percentGoal}%)
+          {totalContribution}€ ({goalAsPercentage}%)
         </p>
       </div>
     </div>

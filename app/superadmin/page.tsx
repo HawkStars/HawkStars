@@ -39,6 +39,11 @@ const SuperAdminPage = () => {
           </section>
         )}
         {currentSection == 'add_contribution' && <FormContributionSection />}
+        {currentSection == 'erasmus' && <div className='text-center font-black'>A implementar</div>}
+        {currentSection == 'events' && <div className='text-center font-black'>A implementar</div>}
+        {currentSection == 'settings' && (
+          <div className='text-center font-black'>A implementar</div>
+        )}
       </section>
       <ToastContainer />
     </>

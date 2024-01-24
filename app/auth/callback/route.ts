@@ -14,16 +14,14 @@ export async function GET(request: NextRequest) {
     } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error && user) {
-      const { error } = await supabase
-        .from<'profiles', Profiles>('profiles')
-        .upsert(
-          {
-            id: user.id,
-            name: user?.user_metadata?.name || '',
-            type: 'REGULAR',
-          },
-          { onConflict: 'id', ignoreDuplicates: true }
-        );
+      const { error } = await supabase.from<'profiles', Profiles>('profiles').upsert(
+        {
+          id: user.id,
+          name: user?.user_metadata?.name || '',
+          type: 'REGULAR',
+        },
+        { onConflict: 'id', ignoreDuplicates: true }
+      );
 
       if (error) console.log(error);
     }

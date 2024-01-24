@@ -20,8 +20,6 @@ const HomeComponent = ({ lng }: LanguageProps) => {
   const { t } = useTranslation(lng, 'common');
   const router = useRouter();
 
-  const searchParams = useSearchParams();
-  console.log(searchParams);
   return (
     <>
       <section className='flex flex-col bg-bege-light px-8 pb-5 pt-10 lg:px-14 lg:pb-10 lg:pl-20 lg:pt-40'>

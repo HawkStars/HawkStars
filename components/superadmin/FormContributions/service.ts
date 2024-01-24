@@ -1,5 +1,5 @@
 import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
-import { Contributions } from '@/models/database';
+import { Contribution, Contributions } from '@/models/database';
 import { v4 as uuidv4 } from 'uuid';
 import { ContributionFormInput } from './FormContributions';
 
@@ -19,13 +19,16 @@ interface ErrorResponse {
 
 type DatabaseResponse = SuccessResponse | ErrorResponse;
 
+type TAddContribution = ContributionFormInput & Partial<Pick<Contribution, 'confirmed_by'>>;
+
 const addOrganizationContribution = async ({
   value,
   donor,
   extra_info,
   type,
   contribution_date,
-}: ContributionFormInput) => {
+  confirmed_by,
+}: TAddContribution) => {
   const supabase = createSupabaseBrowserClient();
 
   const { error } = await supabase.from<'contributions', Contributions>('contributions').insert({
@@ -35,6 +38,7 @@ const addOrganizationContribution = async ({
     donor,
     type,
     contribution_date: contribution_date.toISOString(),
+    confirmed_by,
   });
 
   if (error) return false;

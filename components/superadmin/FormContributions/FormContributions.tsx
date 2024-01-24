@@ -68,6 +68,7 @@ const FormContributions = ({
     'SIMULATOR_CHAIR',
   ].includes(typeWatched);
 
+  console.log(errors);
   const onSubmitForm: SubmitHandler<ContributionFormInput> = async (
     data: ContributionFormInput
   ) => {
@@ -79,7 +80,9 @@ const FormContributions = ({
       <Controller
         control={control}
         name='donor'
-        rules={{ required: 'This is required' }}
+        rules={{
+          validate: (value, formValues) => (formValues.is_anonymous ? true : value.length > 0),
+        }}
         render={({ field: { onChange, value } }) => (
           <Input
             labelText={t('contribution_form.donor')}
@@ -145,7 +148,6 @@ const FormContributions = ({
       <Controller
         control={control}
         name='extra_info'
-        rules={{ required: 'This is required' }}
         render={({ field: { onChange, value, name } }) => (
           <TextArea
             labelText={t('contribution_form.other_information')}
@@ -192,7 +194,7 @@ const FormContributions = ({
           />
         )}
       />
-      <Button type={'submit'} loading={loading} disabled={!!isDirty && !isValid}>
+      <Button type={'submit'} loading={loading}>
         {formType == 'update' ? 'Update' : 'Create'}
       </Button>
     </form>

@@ -23,14 +23,14 @@ const LanguageSwitcher = () => {
             <div className='flex h-4 w-6'>
               <PT title='PT' />
             </div>
-            <label className='my-auto text-xs'>PT</label>
+            <div className='my-auto text-xs'>PT</div>
           </>
         ) : (
           <>
             <div className='flex h-4 w-6'>
               <GB title='EN' />
             </div>
-            <label className='my-auto text-xs'>EN</label>
+            <div className='my-auto text-xs'>EN</div>
           </>
         )}
         <PiCaretDownThin />

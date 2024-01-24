@@ -22,7 +22,8 @@ const contributionColumns = [
   }),
   columnContributionHelper.accessor('donor', {
     header: () => i18next.t('contribute:contribution_form.donor'),
-    cell: (info) => info.getValue(),
+    cell: (info) =>
+      info.getValue() ? info.getValue() : i18next.t('contribute:contribution_form.anonymous_donor'),
   }),
   columnContributionHelper.accessor('value', {
     header: () => i18next.t('contribute:contribution_form.value'),

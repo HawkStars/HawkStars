@@ -42,6 +42,7 @@ export default function Input({
         )}
       >
         <input
+          id={name}
           placeholder={placeholder}
           className={classNames(
             ' w-full border-0 bg-inherit focus:outline-none focus:ring-0',
@@ -55,6 +56,7 @@ export default function Input({
           value={value}
           aria-labelledby={name}
           disabled={disabled}
+          aria-label={name}
           {...props}
         />
         {icon && <span className='my-auto ml-auto'>{icon}</span>}

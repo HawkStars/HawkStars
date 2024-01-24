@@ -20,14 +20,12 @@ export type OrganizationMovementFormProps = Pick<
   'description' | 'value' | 'type' | 'paid'
 > & { movement_date: Date };
 
-const HawkStarsDatePicker = dynamic(
-  () => import('@/components/utils/DatePicker/DatePicker'),
-  { ssr: false, loading: () => <Spinner /> }
-);
+const HawkStarsDatePicker = dynamic(() => import('@/components/utils/DatePicker/DatePicker'), {
+  ssr: false,
+  loading: () => <Spinner />,
+});
 
-const FormOrganizationMovement = ({
-  formType,
-}: FormOrganizationMovementProps) => {
+const FormOrganizationMovement = ({ formType }: FormOrganizationMovementProps) => {
   const {
     handleSubmit,
     control,
@@ -50,10 +48,7 @@ const FormOrganizationMovement = ({
   };
 
   return (
-    <form
-      className='mx-auto mt-5 flex w-1/2 flex-col gap-6'
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form className='mx-auto mt-5 flex w-1/2 flex-col gap-6' onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name='type'
         control={control}
@@ -64,8 +59,7 @@ const FormOrganizationMovement = ({
             onChange={onChange}
             options={OrganizationTypeMovementOptions}
             defaultOption={OrganizationTypeMovementOptions.find(
-              (item) =>
-                item.value == value || OrganizationTypeMovementOptions[0]
+              (item) => item.value == value || OrganizationTypeMovementOptions[0]
             )}
           ></Select>
         )}
@@ -73,12 +67,7 @@ const FormOrganizationMovement = ({
       <Controller
         control={control}
         render={({ field: { value, onChange, name } }) => (
-          <Input
-            labelText='Value'
-            name={name}
-            value={value}
-            onChange={onChange}
-          ></Input>
+          <Input labelText='Value' name={name} value={value} onChange={onChange}></Input>
         )}
         name={'value'}
       />
@@ -86,41 +75,24 @@ const FormOrganizationMovement = ({
         control={control}
         name='description'
         render={({ field: { value, onChange, name } }) => (
-          <Input
-            labelText='Description'
-            name={name}
-            value={value}
-            onChange={onChange}
-          ></Input>
+          <Input labelText='Description' name={name} value={value} onChange={onChange}></Input>
         )}
       />
       <Controller
         control={control}
         render={({ field: { value, onChange, name } }) => (
-          <Checkbox
-            labelText='Paid'
-            checked={value}
-            id={name}
-            name={name}
-            onChange={onChange}
-          />
+          <Checkbox labelText='Paid' checked={value} id={name} name={name} onChange={onChange} />
         )}
         name='paid'
       />
       <Controller
         control={control}
         render={({ field: { value, onChange, name } }) => (
-          <HawkStarsDatePicker
-            date={value}
-            onChange={onChange}
-            labelText='Movement Date'
-          />
+          <HawkStarsDatePicker date={value} onChange={onChange} labelText='Movement Date' />
         )}
         name={'movement_date'}
       />
-      <Button type={'submit'}>
-        {formType == 'update' ? 'Update' : 'Create'}
-      </Button>
+      <Button type={'submit'}>{formType == 'update' ? 'Update' : 'Create'}</Button>
     </form>
   );
 };
