@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build-storybook": "storybook build --output-dir storybook-static",
     "serve-storybook": "serve storybook-static",
     "i18n": "sync-i18n -f i18n/locales/**/**.json --primary pt --space 2 -newkeysempty",
     "format": "prettier --check --ignore-path .gitignore .",
