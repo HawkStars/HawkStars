@@ -9,6 +9,8 @@ import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SuperAdminSection, superAdminSections } from './config';
+import FormErasmusProjects from '@/components/superadmin/FormErasmusProjects/FormErasmusProjects';
+import FormHawkEvents from '@/components/superadmin/FormHawkEvents/FormHawkEvents';
 
 const SuperAdminPage = () => {
   const [currentSection, setCurrentSection] = useState<SuperAdminSection>('dashboard');
@@ -19,7 +21,7 @@ const SuperAdminPage = () => {
         <title>Superadmin</title>
       </Head>
       <section className='mt-10 flex flex-col gap-5'>
-        <div className='mb-5 flex flex-row justify-center gap-4 border-b-2 border-bege-dark py-2'>
+        <div className='mb-5 flex flex-row justify-center border-b-2 border-bege-dark'>
           {superAdminSections.map(({ label, section }, index) => (
             <SuperAdminTabItem
               key={index}
@@ -39,8 +41,16 @@ const SuperAdminPage = () => {
           </section>
         )}
         {currentSection == 'add_contribution' && <FormContributionSection />}
-        {currentSection == 'erasmus' && <div className='text-center font-black'>A implementar</div>}
-        {currentSection == 'events' && <div className='text-center font-black'>A implementar</div>}
+        {currentSection == 'erasmus' && (
+          <section className='mx-auto w-2/3'>
+            <FormErasmusProjects />
+          </section>
+        )}
+        {currentSection == 'events' && (
+          <section className='mx-auto w-2/3'>
+            <FormHawkEvents />
+          </section>
+        )}
         {currentSection == 'settings' && (
           <div className='text-center font-black'>A implementar</div>
         )}
