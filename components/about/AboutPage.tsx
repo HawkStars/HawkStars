@@ -3,7 +3,7 @@ import {
   missionObjectives,
   visionGoals,
 } from '../../app/[lng]/about/config';
-import Accordion from '../accordion/Accordion';
+import Accordion from '../Accordion/Accordion';
 import { useServerTranslation } from '../../i18n';
 import { LanguageProps } from '../types';
 import Image from 'next/image';

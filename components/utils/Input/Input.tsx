@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-interface InputProps {
+export type InputProps = {
   name: string;
   onChange?: (e: any) => void;
   value?: string | number;
@@ -14,7 +14,7 @@ interface InputProps {
   icon?: React.ReactNode;
   inputHintText?: string;
   [x: string]: any;
-}
+};
 
 export default function Input({
   onChange,

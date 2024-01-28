@@ -1,9 +1,11 @@
 import Button from '@/components/utils/Button';
 import Input from '@/components/utils/Input/Input';
 import ReactMarkdownEditor from '@/components/utils/ReactMarkdownEditor/ReactMarkdownEditor';
+import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
 import { HawkEvent } from '@/models/database';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 type HawkEventForm = Pick<HawkEvent, 'title' | 'description'>;
 
@@ -16,9 +18,11 @@ const FormHawkEvents: React.FC = () => {
     defaultValues: { title: '', description: '' },
   });
 
-  const onSubmit = (data: HawkEventForm) => {
-    // Handle form submission here
-    console.log(data);
+  const onSubmit = async (data: HawkEventForm) => {
+    const supabase = createSupabaseBrowserClient();
+
+    const { error } = await supabase.from('hawk_events').insert(data);
+    error ? toast.error('Erro ao criar evento') : toast.success('Evento criado com sucesso');
   };
 
   return (

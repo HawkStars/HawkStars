@@ -1,10 +1,12 @@
 import Button from '@/components/utils/Button';
 import Input from '@/components/utils/Input/Input';
 import ReactMarkdownEditor from '@/components/utils/ReactMarkdownEditor/ReactMarkdownEditor';
+import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
 import { ErasmusProject } from '@/models/database';
 
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 type ErasmusFormData = Pick<ErasmusProject, 'title' | 'description'>;
 
@@ -17,8 +19,11 @@ const FormErasmusProjects: React.FC = () => {
     defaultValues: { title: '', description: '' },
   });
 
-  const onSubmit = (data: ErasmusFormData) => {
-    console.log(data);
+  const onSubmit = async (data: ErasmusFormData) => {
+    const supabase = createSupabaseBrowserClient();
+
+    const { error } = await supabase.from('erasmus_projects').insert(data);
+    error ? toast.error('Erro ao criar evento') : toast.success('Evento criado com sucesso');
   };
 
   return (
