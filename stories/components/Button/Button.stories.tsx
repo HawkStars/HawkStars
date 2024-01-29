@@ -13,5 +13,10 @@ export const Primary: Story = {
   args: {
     primary: true,
     label: 'Button',
+    children: 'Test',
+    padding: 'sm',
+    size: 'fit',
+    variant: 'success',
+    outline: true,
   },
 };
