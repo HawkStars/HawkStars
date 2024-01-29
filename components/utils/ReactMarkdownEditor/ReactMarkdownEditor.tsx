@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 
 type ReactMarkdownEditorProps = {
@@ -7,16 +7,13 @@ type ReactMarkdownEditorProps = {
 };
 
 export default function ReactMarkdownEditor({ value, onChange }: ReactMarkdownEditorProps) {
-  const [text, setText] = useState<string | undefined>(value);
-
   const handleOnChange = (value: string | undefined) => {
-    setText(value);
     onChange(value || '');
   };
 
   return (
     <div className='container'>
-      <MDEditor value={text} onChange={handleOnChange} />
+      <MDEditor value={value} onChange={handleOnChange} />
     </div>
   );
 }

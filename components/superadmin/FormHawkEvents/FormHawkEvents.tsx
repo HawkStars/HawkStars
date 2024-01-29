@@ -21,6 +21,7 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
     handleSubmit,
     formState: { errors },
   } = useForm<HawkEventForm>({
+    defaultValues: { title: event?.title || '', description: event?.description || '' },
     values: { title: event?.title || '', description: event?.description || '' },
   });
 
