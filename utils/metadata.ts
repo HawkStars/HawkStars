@@ -7,7 +7,7 @@ import {
   PARTNERS_URL,
   TRANSPARENCY_URL,
 } from './paths';
-import { Language } from '@/i18n/settings';
+import { Language, fallbackLng, languages } from '@/i18n/settings';
 
 export type HawkStarsPath = 'partners' | 'transparency' | 'village' | 'home' | 'about';
 
@@ -31,8 +31,12 @@ const readMetadataLanguageFile = (lng: Language) => {
 
 const getMetadataPageInfo = (lng: Language, page: HawkStarsPath): Metadata => {
   const defaultPath = 'home' as HawkStarsPath;
-  const JSONFile = readMetadataLanguageFile(lng);
+  if (!languages.includes(lng)) {
+    console.log('Language not supported', lng);
+    lng = fallbackLng;
+  }
 
+  const JSONFile = readMetadataLanguageFile(lng);
   let metadataPageInfo = JSONFile[page];
   let url = pageToUrl[page];
   if (metadataPageInfo) return transformToMetadataObject(metadataPageInfo, lng, url);
