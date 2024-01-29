@@ -2,7 +2,7 @@
 
 import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
 import FormHawkEvents from '@/components/superadmin/FormHawkEvents/FormHawkEvents';
-import { HawkEvent } from '@/models/database';
+import { ErasmusProject, HawkEvent } from '@/models/database';
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { PAGE_SIZE, getPageRange } from '@/utils/page';
@@ -10,20 +10,24 @@ import Button from '@/components/utils/Button';
 import { PiPlus } from 'react-icons/pi';
 import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
 
-type HawkInformation = {
-  events: HawkEvent[];
+type ErasmusProjectsInformation = {
+  events: ErasmusProject[];
   page: number;
   count: number;
 };
 
-type HawkEventChange = {
-  event: HawkEvent | null;
+type HawkErasmusProject = {
+  event: ErasmusProject | null;
   type: 'add' | 'update';
 };
 
-const DashboardHawkEvents: React.FC = () => {
-  const [selectedEvent, setSelectedEvent] = useState<HawkEventChange | null>(null);
-  const [hawkEvents, setHawkEvents] = useState<HawkInformation>({ events: [], page: 1, count: 0 });
+const DashboardHawkErasmus: React.FC = () => {
+  const [selectedEvent, setSelectedEvent] = useState<HawkErasmusProject | null>(null);
+  const [hawkEvents, setHawkEvents] = useState<ErasmusProjectsInformation>({
+    events: [],
+    page: 1,
+    count: 0,
+  });
   const { events, count, page } = hawkEvents;
 
   const getAllEvents = useCallback(async () => {
@@ -31,7 +35,7 @@ const DashboardHawkEvents: React.FC = () => {
 
     const [lowerRange, upperRange] = getPageRange(page);
     const { error, data, count } = await supabase
-      .from('hawk_events')
+      .from('erasmus_projects')
       .select('*', { count: 'exact' })
       .order('id', { ascending: true })
       .range(lowerRange, upperRange);
@@ -53,7 +57,7 @@ const DashboardHawkEvents: React.FC = () => {
 
   return (
     <div className='flex flex-col gap-5'>
-      {events.length == 0 && <div>No events found</div>}
+      {events.length == 0 && <div>No erasmus events found</div>}
       {events.map((event) => (
         <div className='flex flex-row justify-between gap-8 rounded border p-2' key={event.id}>
           <div className='font-bold'>{event.title}</div>
@@ -94,4 +98,4 @@ const DashboardHawkEvents: React.FC = () => {
   );
 };
 
-export default DashboardHawkEvents;
+export default DashboardHawkErasmus;

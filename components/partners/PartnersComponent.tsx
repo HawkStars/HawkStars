@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
 
 import { SocialIcon, SocialType } from '../../models/social';
 import { CURRENT_PARTNERS, PartnersInfo } from '../../app/[lng]/partners/config';
@@ -8,6 +7,7 @@ import { useServerTranslation } from '../../i18n';
 import { LanguageProps } from '../types';
 
 import partnersHero from '@/public/images/partners/hero.jpg';
+import MarkdownViewer from '../utils/ReactMarkdownViewer/ReactMarkdownViewer';
 
 const PartnersComponent = async ({ lng }: LanguageProps) => {
   const { t } = await useServerTranslation(lng, 'partners');
@@ -75,9 +75,7 @@ const PartnerCard = ({
 
       {/* Description */}
       <div>
-        <ReactMarkdown components={renderers} className='text-justify'>
-          {description}
-        </ReactMarkdown>
+        <MarkdownViewer className='text-justify' source={description || ''} />
       </div>
 
       {/* Contacts */}

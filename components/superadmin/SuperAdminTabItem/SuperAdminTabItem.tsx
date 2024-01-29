@@ -17,7 +17,7 @@ const SuperAdminTabItem = ({
   return (
     <div
       className={classNames('cursor-pointer bg-bege-dark p-2', {
-        'text-green': section == currentSectionSelected,
+        'font-bold text-green': section == currentSectionSelected,
       })}
       onClick={() => onClick(section)}
     >

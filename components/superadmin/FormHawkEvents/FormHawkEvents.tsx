@@ -10,13 +10,18 @@ import { toast } from 'react-toastify';
 
 type HawkEventForm = Pick<HawkEvent, 'title' | 'description'>;
 
-const FormHawkEvents: React.FC = () => {
+type FormHawkEventsProps = {
+  event: HawkEvent | null;
+  type: 'add' | 'update';
+};
+
+const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawkEventsProps) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<HawkEventForm>({
-    defaultValues: { title: '', description: '' },
+    values: { title: event?.title || '', description: event?.description || '' },
   });
 
   const onSubmit = async (data: HawkEventForm) => {
@@ -27,23 +32,28 @@ const FormHawkEvents: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
-      <Controller
-        control={control}
-        name={'title'}
-        render={({ field: { value, onChange, name } }) => (
-          <Input labelText='Title' name={name} value={value} onChange={onChange}></Input>
-        )}
-      />
-      <Controller
-        control={control}
-        render={({ field: { value, onChange } }) => (
-          <ReactMarkdownEditor value={value} onChange={onChange} />
-        )}
-        name={'description'}
-      />
-      <Button type='submit'>Submeter</Button>
-    </form>
+    <>
+      <h2 className='text-center text-green'>{type == 'add' ? 'Add' : 'Update'}</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
+        <Controller
+          control={control}
+          name={'title'}
+          render={({ field: { value, onChange, name } }) => (
+            <Input labelText='Title' name={name} value={value} onChange={onChange}></Input>
+          )}
+        />
+        <Controller
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <ReactMarkdownEditor value={value} onChange={onChange} />
+          )}
+          name={'description'}
+        />
+        <div className='flex justify-center'>
+          <Button type='submit'>{type == 'add' ? 'Add' : 'Update'}</Button>
+        </div>
+      </form>
+    </>
   );
 };
 
