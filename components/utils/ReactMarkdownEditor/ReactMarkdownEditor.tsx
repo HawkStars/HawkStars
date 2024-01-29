@@ -17,6 +17,7 @@ export default function ReactMarkdownEditor({ value, onChange }: ReactMarkdownEd
   return (
     <div className='container'>
       <MDEditor value={text} onChange={handleOnChange} />
+      <MDEditor.Markdown source={text || ''} />
     </div>
   );
 }

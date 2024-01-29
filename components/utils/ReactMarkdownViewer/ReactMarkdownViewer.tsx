@@ -5,8 +5,8 @@ interface ReactMarkdownProps {
   source: string;
 }
 
-const Markdown: React.FC<ReactMarkdownProps> = ({ source }) => {
+const MarkdownViewer: React.FC<ReactMarkdownProps> = ({ source }) => {
   return <ReactMarkdown>{source}</ReactMarkdown>;
 };
 
-export default Markdown;
+export default MarkdownViewer;

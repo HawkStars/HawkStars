@@ -7,20 +7,15 @@ import GlobalVillageBanner from '@/components/GlobalVillage/Banner/Banner';
 import GlobalVillageAboutSection from '@/components/GlobalVillage/GlobalVillageAboutSection/GlobalVillageAboutSection';
 import GlobalVillageProject from '@/components/GlobalVillage/Project/GlobalVillageProject';
 import { getMetadataPageInfo } from '@/utils/metadata';
+import { Language } from '@/i18n/settings';
 
-export async function generateMetadata({
-  params,
-}: LanguagePageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LanguagePageProps): Promise<Metadata> {
   const { lng } = params;
-  const metadataPage = getMetadataPageInfo(lng, 'village');
+  const metadataPage = getMetadataPageInfo(lng as Language, 'village');
   return metadataPage;
 }
 
-const VillagePage = async ({
-  params: { lng },
-}: {
-  params: { lng: string };
-}) => {
+const VillagePage = async ({ params: { lng } }: { params: { lng: string } }) => {
   return (
     <section className='flex flex-col'>
       <GlobalVillageProject lng={lng} />

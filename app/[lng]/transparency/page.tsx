@@ -6,6 +6,7 @@ import MainHawkStarsLoading from '../loading';
 import { ResolvingMetadata, Metadata } from 'next';
 import { LanguagePageProps } from '../types';
 import { getMetadataPageInfo } from '@/utils/metadata';
+import { Language } from '@/i18n/settings';
 
 const ContributionProjectGoal = dynamic(
   () => import('@/components/transparency/ContributionProjectGoal'),
@@ -17,7 +18,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { lng } = params;
-  const metadataPage = getMetadataPageInfo(lng, 'transparency');
+  const metadataPage = getMetadataPageInfo(lng as Language, 'transparency');
   return metadataPage;
 }
 

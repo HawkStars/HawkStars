@@ -6,10 +6,10 @@ export type SuperAdminSection =
   | 'events'
   | 'settings';
 
-export const superAdminSections = [
+const superAdminSections = [
   { section: 'dashboard', label: 'Dashboard' },
   { section: 'add_contribution', label: 'Add Contribution/Donation' },
-  { section: 'add_organization_movement', label: 'Add Org Credit/Debit' },
+  { section: 'add_organization_movement', label: 'Organization Movements' },
   { section: 'erasmus', label: 'Erasmus Ativities' },
   { section: 'events', label: 'Hawk Events' },
   { section: 'settings', label: 'Settings' },
@@ -18,4 +18,4 @@ export const superAdminSections = [
   label: string;
 }[];
 
-export {};
+export { superAdminSections };

@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SuperAdminSection, superAdminSections } from './config';
 import FormErasmusProjects from '@/components/superadmin/FormErasmusProjects/FormErasmusProjects';
-import FormHawkEvents from '@/components/superadmin/FormHawkEvents/FormHawkEvents';
+import DashboardHawkEvents from '@/components/superadmin/DashboardHawkEvents/DashboardHawkEvents';
 
 const SuperAdminPage = () => {
   const [currentSection, setCurrentSection] = useState<SuperAdminSection>('dashboard');
@@ -48,7 +48,7 @@ const SuperAdminPage = () => {
         )}
         {currentSection == 'events' && (
           <section className='mx-auto w-2/3'>
-            <FormHawkEvents />
+            <DashboardHawkEvents />
           </section>
         )}
         {currentSection == 'settings' && (

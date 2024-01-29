@@ -2,7 +2,7 @@ import { i18CookieName, fallbackLng, languages } from '@/i18n/settings';
 import acceptLanguage from 'accept-language';
 import { NextRequest, NextResponse } from 'next/server';
 
-acceptLanguage.languages(languages);
+acceptLanguage.languages(languages as unknown as string[]);
 
 const withHandleInternalization = async (request: NextRequest): Promise<NextResponse> => {
   const response = NextResponse.next();

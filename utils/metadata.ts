@@ -7,6 +7,7 @@ import {
   PARTNERS_URL,
   TRANSPARENCY_URL,
 } from './paths';
+import { Language } from '@/i18n/settings';
 
 export type HawkStarsPath = 'partners' | 'transparency' | 'village' | 'home' | 'about';
 
@@ -18,7 +19,7 @@ export const defaultMetadata = {
   },
 } as Metadata;
 
-const readMetadataLanguageFile = (lng: string) => {
+const readMetadataLanguageFile = (lng: Language) => {
   try {
     const file = fs.readFileSync(`./i18n/locales/${lng}/metadata.json`, 'utf-8');
 
@@ -28,7 +29,7 @@ const readMetadataLanguageFile = (lng: string) => {
   }
 };
 
-const getMetadataPageInfo = (lng: string, page: HawkStarsPath): Metadata => {
+const getMetadataPageInfo = (lng: Language, page: HawkStarsPath): Metadata => {
   const defaultPath = 'home' as HawkStarsPath;
   const JSONFile = readMetadataLanguageFile(lng);
 
@@ -42,7 +43,7 @@ const getMetadataPageInfo = (lng: string, page: HawkStarsPath): Metadata => {
   return transformToMetadataObject(metadataPageInfo, lng, url);
 };
 
-const transformToMetadataObject = (info: any, lng: string, url: string): Metadata => {
+const transformToMetadataObject = (info: any, lng: Language, url: string): Metadata => {
   const { title, description, keywords } = info;
   return {
     title: title,

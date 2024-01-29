@@ -4,6 +4,7 @@ import ReactMarkdownEditor from '@/components/utils/ReactMarkdownEditor/ReactMar
 import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
 import { HawkEvent } from '@/models/database';
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -21,7 +22,7 @@ const FormHawkEvents: React.FC = () => {
   const onSubmit = async (data: HawkEventForm) => {
     const supabase = createSupabaseBrowserClient();
 
-    const { error } = await supabase.from('hawk_events').insert(data);
+    const { error } = await supabase.from('hawk_events').insert({ ...data, id: uuidv4() });
     error ? toast.error('Erro ao criar evento') : toast.success('Evento criado com sucesso');
   };
 

@@ -11,7 +11,7 @@ import MobileNavbar from '@/components/navbar/MobileNavbar';
 import Navbar from '@/components/navbar/Navbar';
 import AppProvider from '@/contexts/AppProvider';
 import { LanguagePageProps } from './types';
-import { fallbackLng, languages } from '@/i18n/settings';
+import { Language, fallbackLng, languages } from '@/i18n/settings';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: LanguagePageProps): Promise<Metadata> {
   const { lng } = params;
 
-  const metadataPage = getMetadataPageInfo(lng || fallbackLng, 'home');
+  const metadataPage = getMetadataPageInfo((lng || fallbackLng) as Language, 'home');
   return metadataPage;
 }
 
