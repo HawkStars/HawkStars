@@ -7,8 +7,12 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import DatePicker from '@/components/utils/DatePicker/DatePicker';
 
-type HawkEventForm = Pick<HawkEvent, 'title' | 'description'>;
+type HawkEventForm = Pick<
+  HawkEvent,
+  'title' | 'description' | 'start_event_date' | 'end_event_date'
+>;
 
 type FormHawkEventsProps = {
   event: HawkEvent | null;
@@ -21,8 +25,18 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
     handleSubmit,
     formState: { errors },
   } = useForm<HawkEventForm>({
-    defaultValues: { title: event?.title || '', description: event?.description || '' },
-    values: { title: event?.title || '', description: event?.description || '' },
+    defaultValues: {
+      title: event?.title || '',
+      description: event?.description || '',
+      start_event_date: event?.start_event_date || new Date().toISOString(),
+      end_event_date: event?.end_event_date || null,
+    },
+    values: {
+      title: event?.title || '',
+      description: event?.description || '',
+      start_event_date: event?.start_event_date || new Date().toISOString(),
+      end_event_date: event?.end_event_date || null,
+    },
   });
 
   const onSubmit = async (data: HawkEventForm) => {
@@ -50,6 +64,27 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
           )}
           name={'description'}
         />
+        <div className='flex flex-row gap-4'>
+          <Controller
+            control={control}
+            render={({ field: { value, onChange } }) => (
+              <DatePicker date={new Date(value)} onChange={onChange} labelText='Start Date' />
+            )}
+            name='start_event_date'
+          />
+          <Controller
+            control={control}
+            render={({ field: { value, onChange } }) => (
+              <DatePicker
+                date={value ? new Date(value) : null}
+                onChange={onChange}
+                labelText='End Date'
+              />
+            )}
+            name='end_event_date'
+          />
+        </div>
+
         <div className='flex justify-center'>
           <Button type='submit'>{type == 'add' ? 'Add' : 'Update'}</Button>
         </div>

@@ -2,13 +2,15 @@
 
 import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
 import FormHawkEvents from '@/components/superadmin/FormHawkEvents/FormHawkEvents';
-import { ErasmusProject, HawkEvent } from '@/models/database';
+import { ErasmusProject } from '@/models/database';
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { PAGE_SIZE, getPageRange } from '@/utils/page';
 import Button from '@/components/utils/Button';
 import { PiPlus } from 'react-icons/pi';
 import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
+import { RxCross2 } from 'react-icons/rx';
+import FormErasmusProjects from '../FormErasmusProjects/FormErasmusProjects';
 
 type ErasmusProjectsInformation = {
   events: ErasmusProject[];
@@ -47,8 +49,8 @@ const DashboardHawkErasmus: React.FC = () => {
     }));
   }, [page]);
 
-  const handlePageChange = (data: any) => {
-    console.log(data);
+  const handlePageChange = (data: { selected: number }) => {
+    setHawkEvents((currentInfo) => ({ ...currentInfo, page: data.selected }));
   };
 
   useEffect(() => {
@@ -59,8 +61,11 @@ const DashboardHawkErasmus: React.FC = () => {
     <div className='flex flex-col gap-5'>
       {events.length == 0 && <div>No erasmus events found</div>}
       {events.map((event) => (
-        <div className='flex flex-row justify-between gap-8 rounded border p-2' key={event.id}>
-          <div className='font-bold'>{event.title}</div>
+        <div
+          className='flex flex-row justify-between gap-8 rounded border px-4 py-2'
+          key={event.id}
+        >
+          <div className='my-auto font-bold'>{event.title}</div>
           <div className='truncate text-wrap text-left'>{event.description}</div>
           <div>
             <Button type={'button'} onClick={() => setSelectedEvent({ event, type: 'update' })}>
@@ -77,13 +82,14 @@ const DashboardHawkErasmus: React.FC = () => {
             onPageChange={handlePageChange}
             pageRangeDisplayed={3}
             marginPagesDisplayed={2}
-            pageCount={count / PAGE_SIZE}
+            pageCount={Math.ceil(count / PAGE_SIZE)}
             className='flex flex-row justify-center gap-3'
+            activeClassName='text-green font-bold'
           />
         )}
       </div>
       <div
-        className='mx-auto flex w-fit justify-center rounded-full bg-bege-dark p-2'
+        className='mx-auto flex w-fit cursor-pointer justify-center rounded-full bg-bege-dark p-2'
         onClick={() => setSelectedEvent({ event: null, type: 'add' })}
       >
         <PiPlus className='fill-green' size={32} />
@@ -91,7 +97,14 @@ const DashboardHawkErasmus: React.FC = () => {
       {selectedEvent && (
         <>
           <LineBreaker />
-          <FormHawkEvents {...selectedEvent} />
+          <div className='flex justify-end'>
+            <RxCross2
+              className='fill-red cursor-pointer'
+              size={32}
+              onClick={() => setSelectedEvent(null)}
+            />
+          </div>
+          <FormErasmusProjects {...selectedEvent} />
         </>
       )}
     </div>

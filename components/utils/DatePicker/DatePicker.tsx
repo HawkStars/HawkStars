@@ -7,7 +7,7 @@ import { useRef } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 
 type HawkStarsDatePickerProps = {
-  date: Date;
+  date: Date | null;
   onChange: (date: any) => void;
   labelText?: string;
   minDate?: Date;
@@ -15,7 +15,7 @@ type HawkStarsDatePickerProps = {
 
 function HawkStarsDatePicker({ date, onChange, labelText, minDate }: HawkStarsDatePickerProps) {
   const datePickerRef = useRef(null);
-  const [startDate, setStartDate] = useState<Date>(date);
+  const [startDate, setStartDate] = useState<Date | null>(date);
 
   const changeDatePickerValue = (value: Date) => {
     setStartDate(value);

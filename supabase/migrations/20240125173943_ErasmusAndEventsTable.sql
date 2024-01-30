@@ -5,7 +5,7 @@ CREATE TABLE erasmus_projects (
     photos TEXT[] NOT NULL DEFAULT '{}',
     project_date DATE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE hawk_events (
@@ -15,5 +15,5 @@ CREATE TABLE hawk_events (
     photos TEXT[] NOT NULL DEFAULT '{}',
     event_date DATE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );

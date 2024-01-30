@@ -7,19 +7,36 @@ import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import DatePicker from '@/components/utils/DatePicker/DatePicker';
 
-type ErasmusFormData = Pick<ErasmusProject, 'title' | 'description'>;
+type ErasmusProjectForm = Pick<
+  ErasmusProject,
+  'title' | 'description' | 'start_project_date' | 'end_project_date'
+>;
 
-const FormErasmusProjects: React.FC = () => {
+type FormErasmusProjectsProps = {
+  event: ErasmusProjectForm | null;
+  type: 'add' | 'update';
+};
+
+const FormErasmusProjects: React.FC<FormErasmusProjectsProps> = ({
+  event,
+  type,
+}: FormErasmusProjectsProps) => {
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<ErasmusFormData>({
-    defaultValues: { title: '', description: '' },
+  } = useForm<ErasmusProjectForm>({
+    defaultValues: {
+      title: '',
+      description: '',
+      start_project_date: event?.start_project_date || new Date().toISOString(),
+      end_project_date: event?.end_project_date || null,
+    },
   });
 
-  const onSubmit = async (data: ErasmusFormData) => {
+  const onSubmit = async (data: ErasmusProjectForm) => {
     const supabase = createSupabaseBrowserClient();
 
     const { error } = await supabase.from('erasmus_projects').insert({ ...data, id: uuidv4() });
@@ -42,6 +59,26 @@ const FormErasmusProjects: React.FC = () => {
         )}
         name={'description'}
       />
+      <div className='flex flex-row gap-4'>
+        <Controller
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <DatePicker date={new Date(value)} onChange={onChange} labelText='Start Date' />
+          )}
+          name='start_project_date'
+        />
+        <Controller
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <DatePicker
+              date={value ? new Date(value) : null}
+              onChange={onChange}
+              labelText='End Date'
+            />
+          )}
+          name='end_project_date'
+        />
+      </div>
       <Button type='submit'>Submeter</Button>
     </form>
   );

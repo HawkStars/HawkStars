@@ -9,6 +9,7 @@ import { PAGE_SIZE, getPageRange } from '@/utils/page';
 import Button from '@/components/utils/Button';
 import { PiPlus } from 'react-icons/pi';
 import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
+import { RxCross2 } from 'react-icons/rx';
 
 type HawkInformation = {
   events: HawkEvent[];
@@ -23,7 +24,7 @@ type HawkEventChange = {
 
 const DashboardHawkEvents: React.FC = () => {
   const [selectedEvent, setSelectedEvent] = useState<HawkEventChange | null>(null);
-  const [hawkEvents, setHawkEvents] = useState<HawkInformation>({ events: [], page: 1, count: 0 });
+  const [hawkEvents, setHawkEvents] = useState<HawkInformation>({ events: [], page: 0, count: 0 });
   const { events, count, page } = hawkEvents;
 
   const getAllEvents = useCallback(async () => {
@@ -44,7 +45,7 @@ const DashboardHawkEvents: React.FC = () => {
   }, [page]);
 
   const handlePageChange = (data: any) => {
-    console.log(data);
+    setHawkEvents((currentInfo) => ({ ...currentInfo, page: data.selected }));
   };
 
   useEffect(() => {
@@ -73,13 +74,14 @@ const DashboardHawkEvents: React.FC = () => {
             onPageChange={handlePageChange}
             pageRangeDisplayed={3}
             marginPagesDisplayed={2}
-            pageCount={count / PAGE_SIZE}
+            pageCount={Math.ceil(count / PAGE_SIZE)}
             className='flex flex-row justify-center gap-3'
+            activeClassName='text-green font-bold'
           />
         )}
       </div>
       <div
-        className='mx-auto flex w-fit justify-center rounded-full bg-bege-dark p-2'
+        className='mx-auto flex w-fit cursor-pointer justify-center rounded-full bg-bege-dark p-2'
         onClick={() => setSelectedEvent({ event: null, type: 'add' })}
       >
         <PiPlus className='fill-green' size={32} />
@@ -87,6 +89,13 @@ const DashboardHawkEvents: React.FC = () => {
       {selectedEvent && (
         <>
           <LineBreaker />
+          <div className='flex justify-end'>
+            <RxCross2
+              className='fill-red cursor-pointer'
+              size={32}
+              onClick={() => setSelectedEvent(null)}
+            />
+          </div>
           <FormHawkEvents {...selectedEvent} />
         </>
       )}
