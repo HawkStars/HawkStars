@@ -13,7 +13,6 @@ const ContributionProjectGoal = () => {
 
   const getCurrentProjetContribution = async () => {
     const moneyGathered = await getTotalMoneyGathered();
-
     setTotalContribution(moneyGathered);
   };
 

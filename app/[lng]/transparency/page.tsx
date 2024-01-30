@@ -1,7 +1,4 @@
-import OrganizationContributionsTable from '@/components/transparency/OrganizationContributionsTable';
-import OrganizationMovementsTable from '@/components/transparency/OrganizationMovementsTable';
 import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
 import MainHawkStarsLoading from '../loading';
 import { ResolvingMetadata, Metadata } from 'next';
 import { LanguagePageProps } from '../types';
@@ -10,6 +7,16 @@ import { Language } from '@/i18n/settings';
 
 const ContributionProjectGoal = dynamic(
   () => import('@/components/transparency/ContributionProjectGoal'),
+  { ssr: false, loading: () => <MainHawkStarsLoading /> }
+);
+
+const OrganizationContributionsTable = dynamic(
+  () => import('@/components/transparency/OrganizationContributionsTable'),
+  { ssr: false, loading: () => <MainHawkStarsLoading /> }
+);
+
+const OrganizationMovementsTable = dynamic(
+  () => import('@/components/transparency/OrganizationMovementsTable'),
   { ssr: false, loading: () => <MainHawkStarsLoading /> }
 );
 
@@ -27,12 +34,8 @@ const TransparencyPage = async () => {
     <section className='layout-section mt-4 flex flex-col gap-5 overflow-x-hidden lg:mt-10'>
       <div className='flex flex-col gap-10'>
         <ContributionProjectGoal />
-        <Suspense fallback={<p>loading...</p>}>
-          <OrganizationContributionsTable />
-        </Suspense>
-        <Suspense fallback={<p>loading...</p>}>
-          <OrganizationMovementsTable />
-        </Suspense>
+        <OrganizationContributionsTable />
+        <OrganizationMovementsTable />
       </div>
     </section>
   );
