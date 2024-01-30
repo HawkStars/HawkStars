@@ -55,7 +55,7 @@ const FormErasmusProjects: React.FC<FormErasmusProjectsProps> = ({
       <Controller
         control={control}
         render={({ field: { value, onChange } }) => (
-          <ReactMarkdownEditor value={value} onChange={onChange} />
+          <ReactMarkdownEditor value={value} onChange={onChange} label='Description' />
         )}
         name={'description'}
       />
@@ -79,7 +79,9 @@ const FormErasmusProjects: React.FC<FormErasmusProjectsProps> = ({
           name='end_project_date'
         />
       </div>
-      <Button type='submit'>Submeter</Button>
+      <div className='flex justify-center'>
+        <Button type='submit'>{type == 'add' ? 'Add' : 'Update'}</Button>
+      </div>
     </form>
   );
 };

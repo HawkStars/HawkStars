@@ -25,12 +25,6 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
     handleSubmit,
     formState: { errors },
   } = useForm<HawkEventForm>({
-    defaultValues: {
-      title: event?.title || '',
-      description: event?.description || '',
-      start_event_date: event?.start_event_date || new Date().toISOString(),
-      end_event_date: event?.end_event_date || null,
-    },
     values: {
       title: event?.title || '',
       description: event?.description || '',
@@ -49,7 +43,7 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
   return (
     <>
       <h2 className='text-center text-green'>{type == 'add' ? 'Add' : 'Update'}</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
+      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-10'>
         <Controller
           control={control}
           name={'title'}
@@ -60,7 +54,7 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
         <Controller
           control={control}
           render={({ field: { value, onChange } }) => (
-            <ReactMarkdownEditor value={value} onChange={onChange} />
+            <ReactMarkdownEditor value={value} onChange={onChange} label='Description' />
           )}
           name={'description'}
         />
