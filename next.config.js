@@ -1,6 +1,6 @@
 const cspHeader = `
     default-src 'self';
-    script-src 'self' https://www.googletagmanager.com  'unsafe-eval' 'unsafe-inline';
+    script-src 'self' https://www.googletagmanager.com 'unsafe-eval' 'unsafe-inline';
     style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
     img-src 'self' blob: data: www.googletagmanager.com https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com data:;
     font-src 'self' https://fonts.gstatic.com;
@@ -10,9 +10,10 @@ const cspHeader = `
     frame-ancestors 'none';
     block-all-mixed-content;
     upgrade-insecure-requests;
-    frame-src *.google.com;
+    frame-src *.google.com https://upload-widget.cloudinary.com;
     connect-src 'self' ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://*.gstatic.com ${process.env.NEXT_PUBLIC_SUPABASE_URL} data: blob:` : 'http://127.0.0.1:54321'};
     worker-src blob:;
+    script-src-elem 'self' https://upload-widget.cloudinary.com 'unsafe-inline';
 `;
 
 const nextConfig = {

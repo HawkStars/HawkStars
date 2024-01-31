@@ -8,6 +8,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import DatePicker from '@/components/utils/DatePicker/DatePicker';
+import CloudinaryUploader, {
+  CloudinaryUploaderResponse,
+} from '@/components/utils/CloudinaryUploader/CloudinaryUploader';
 
 type HawkEventForm = Pick<
   HawkEvent,
@@ -38,6 +41,15 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
 
     const { error } = await supabase.from('hawk_events').insert({ ...data, id: uuidv4() });
     error ? toast.error('Erro ao criar evento') : toast.success('Evento criado com sucesso');
+  };
+
+  const uploadCloudinary = (response: CloudinaryUploaderResponse) => {
+    const { success } = response;
+    if (!success) return toast.error('Erro ao fazer upload da imagem');
+
+    const { data } = response;
+    console.log(data);
+    // return data.secure_url;
   };
 
   return (
@@ -81,6 +93,11 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
 
         <div className='flex justify-center'>
           <Button type='submit'>{type == 'add' ? 'Add' : 'Update'}</Button>
+        </div>
+
+        <div>
+          <h6>Photos</h6>
+          <CloudinaryUploader onUpload={uploadCloudinary} />
         </div>
       </form>
     </>

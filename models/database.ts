@@ -32,3 +32,13 @@ export type HawkEvent = HawkEvents['Row'];
 
 /**CUSTOM FUNCTIONS */
 export type GetTotalContributions = DatabaseCustomFunctions['project_total_contributions'];
+
+/**
+ * TABLES NAMES
+ */
+
+export const ERASMUS_PROJECT_TABLE_NAME = 'erasmus_projects' as const;
+export const HAWK_EVENT_TABLE_NAME = 'hawk_events' as const;
+export const ORGANIZATION_MOVEMENT_TABLE_NAME = 'organization_movements' as const;
+export const CONTRIBUTION_TABLE_NAME = 'contributions' as const;
+export const PROFILE_TABLE_NAME = 'profiles' as const;
