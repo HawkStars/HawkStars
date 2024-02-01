@@ -2,7 +2,7 @@ import Button from '@/components/utils/Button';
 import Input from '@/components/utils/Input/Input';
 import ReactMarkdownEditor from '@/components/utils/ReactMarkdownEditor/ReactMarkdownEditor';
 import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
-import { HawkEvent } from '@/models/database';
+import { HAWK_EVENT_TABLE_NAME, HawkEvent, HawkEvents } from '@/models/database';
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Controller, useForm } from 'react-hook-form';
@@ -20,9 +20,14 @@ type HawkEventForm = Pick<
 type FormHawkEventsProps = {
   event: HawkEvent | null;
   type: 'add' | 'update';
+  onHandleSubmit: (data: HawkEvent) => void;
 };
 
-const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawkEventsProps) => {
+const FormHawkEvents: React.FC<FormHawkEventsProps> = ({
+  type,
+  event,
+  onHandleSubmit,
+}: FormHawkEventsProps) => {
   const {
     control,
     handleSubmit,
@@ -36,11 +41,34 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
     },
   });
 
-  const onSubmit = async (data: HawkEventForm) => {
+  const onSubmit = async (formData: HawkEventForm) => {
     const supabase = createSupabaseBrowserClient();
+    if (type == 'add') {
+      const { data, error } = await supabase
+        .from(HAWK_EVENT_TABLE_NAME)
+        .insert({ ...formData, id: uuidv4() })
+        .select()
+        .single();
 
-    const { error } = await supabase.from('hawk_events').insert({ ...data, id: uuidv4() });
-    error ? toast.error('Erro ao criar evento') : toast.success('Evento criado com sucesso');
+      if (error) return toast.error('Erro ao criar evento');
+
+      toast.success('Evento criado com sucesso');
+      onHandleSubmit(data); // TODO: make this differ from the update version
+    } else {
+      if (!event?.id) return toast.error('Erro ao atualizar evento - id não encontrado');
+
+      const { data, error } = await supabase
+        .from('hawk_events')
+        .update({ ...formData })
+        .match({ id: event?.id })
+        .select()
+        .single();
+
+      if (error) return toast.error('Erro ao atualizar evento');
+
+      toast.success('Evento atualizado com sucesso');
+      onHandleSubmit(data); // TODO: make this differ from the create version
+    }
   };
 
   const uploadCloudinary = (response: CloudinaryUploaderResponse) => {
@@ -59,12 +87,14 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
         <Controller
           control={control}
           name={'title'}
+          rules={{ required: true }}
           render={({ field: { value, onChange, name } }) => (
             <Input labelText='Title' name={name} value={value} onChange={onChange}></Input>
           )}
         />
         <Controller
           control={control}
+          rules={{ required: true }}
           render={({ field: { value, onChange } }) => (
             <ReactMarkdownEditor value={value} onChange={onChange} label='Description' />
           )}
@@ -73,6 +103,7 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
         <div className='flex flex-row gap-4'>
           <Controller
             control={control}
+            rules={{ required: true }}
             render={({ field: { value, onChange } }) => (
               <DatePicker date={new Date(value)} onChange={onChange} labelText='Start Date' />
             )}
@@ -94,12 +125,11 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
         <div className='flex justify-center'>
           <Button type='submit'>{type == 'add' ? 'Add' : 'Update'}</Button>
         </div>
-
-        <div>
-          <h6>Photos</h6>
-          <CloudinaryUploader onUpload={uploadCloudinary} />
-        </div>
       </form>
+      <div>
+        <h6>Photos</h6>
+        <CloudinaryUploader onUpload={uploadCloudinary} />
+      </div>
     </>
   );
 };

@@ -72,50 +72,54 @@ const FormErasmusProjects: React.FC<FormErasmusProjectsProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
-      <Controller
-        control={control}
-        render={({ field: { value, onChange, name } }) => (
-          <Input labelText='Title' name={name} value={value} onChange={onChange}></Input>
-        )}
-        name={'title'}
-      />
-      <Controller
-        control={control}
-        render={({ field: { value, onChange } }) => (
-          <ReactMarkdownEditor value={value} onChange={onChange} label='Description' />
-        )}
-        name={'description'}
-      />
-      <div className='flex flex-row gap-4'>
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
         <Controller
           control={control}
-          render={({ field: { value, onChange } }) => (
-            <DatePicker date={new Date(value)} onChange={onChange} labelText='Start Date' />
+          rules={{ required: true }}
+          render={({ field: { value, onChange, name } }) => (
+            <Input labelText='Title' name={name} value={value} onChange={onChange} />
           )}
-          name='start_project_date'
+          name={'title'}
         />
         <Controller
           control={control}
+          rules={{ required: true }}
           render={({ field: { value, onChange } }) => (
-            <DatePicker
-              date={value ? new Date(value) : null}
-              onChange={onChange}
-              labelText='End Date'
-            />
+            <ReactMarkdownEditor value={value} onChange={onChange} label='Description' />
           )}
-          name='end_project_date'
+          name={'description'}
         />
-      </div>
-      <div className='flex justify-center'>
-        <Button type='submit'>{type == 'add' ? 'Add' : 'Update'}</Button>
-      </div>
-
+        <div className='flex flex-row gap-4'>
+          <Controller
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { value, onChange } }) => (
+              <DatePicker date={new Date(value)} onChange={onChange} labelText='Start Date' />
+            )}
+            name='start_project_date'
+          />
+          <Controller
+            control={control}
+            render={({ field: { value, onChange } }) => (
+              <DatePicker
+                date={value ? new Date(value) : null}
+                onChange={onChange}
+                labelText='End Date'
+              />
+            )}
+            name='end_project_date'
+          />
+        </div>
+        <div className='flex justify-center'>
+          <Button type='submit'>{type == 'add' ? 'Add' : 'Update'}</Button>
+        </div>
+      </form>
       <div>
         <h6>Photos</h6>
         <CloudinaryUploader onUpload={uploadCloudinary} />
       </div>
-    </form>
+    </>
   );
 };
 
