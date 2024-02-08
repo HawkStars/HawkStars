@@ -207,14 +207,12 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
           />
         </div>
       </div>
-      {process.env.NODE_ENV == 'development' && (
-        <section className='bg-bege-light py-10' id='form'>
-          <h2 className='flex justify-center text-green'>{t('helps_us_donate')}</h2>
-          <Suspense fallback={<MainHawkStarsLoading />}>
-            <ContributeFormSection lng={lng} />
-          </Suspense>
-        </section>
-      )}
+      <section className='bg-bege-light py-10' id='form'>
+        <h2 className='flex justify-center text-green'>{t('helps_us_donate')}</h2>
+        <Suspense fallback={<MainHawkStarsLoading />}>
+          <ContributeFormSection lng={lng} />
+        </Suspense>
+      </section>
     </div>
   );
 };

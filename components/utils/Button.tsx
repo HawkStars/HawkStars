@@ -26,7 +26,7 @@ type ButtonProps = {
   /**
    * Styling - Type of Button
    */
-  variant?: 'success' | 'informative';
+  variant?: 'success' | 'informative' | 'error';
   /**
    * Styling -  Rounded Values
    */
@@ -55,7 +55,8 @@ const buttonProps = variantProps({
   variants: {
     variant: {
       success: 'bg-green border border-green text-white fill-white',
-      informative: '',
+      informative: 'bg-blue-500 border border-blue-500 text-white fill-white',
+      error: 'bg-red-500 border border-red-500 text-white fill-white',
     },
     rounded: {
       none: tw`rounded-none`,

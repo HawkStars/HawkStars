@@ -10,6 +10,7 @@ import Button from '@/components/utils/Button';
 import { PiPlus } from 'react-icons/pi';
 import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
 import { RxCross2 } from 'react-icons/rx';
+import Popup from '@/components/utils/Popup/Popup';
 
 type HawkInformation = {
   events: HawkEvent[];
@@ -48,58 +49,75 @@ const DashboardHawkEvents: React.FC = () => {
     setHawkEvents((currentInfo) => ({ ...currentInfo, page: data.selected }));
   };
 
+  const deleteSelectedEvent = (event: HawkEvent) => async () => {
+    const supabase = createSupabaseBrowserClient();
+
+    const { id } = event;
+    const { error } = await supabase.from('hawk_events').delete().match({ id });
+
+    if (error) return;
+
+    getAllEvents();
+  };
+
   useEffect(() => {
     getAllEvents();
   }, [getAllEvents]);
 
   return (
-    <div className='flex flex-col gap-5'>
-      {events.length == 0 && <div>No events found</div>}
-      {events.map((event) => (
-        <div className='flex flex-row justify-between gap-8 rounded border p-2' key={event.id}>
-          <div className='font-bold'>{event.title}</div>
-          <div className='truncate text-wrap text-left'>{event.description}</div>
-          <div>
-            <Button type={'button'} onClick={() => setSelectedEvent({ event, type: 'update' })}>
-              Editar
-            </Button>
+    <>
+      <Popup isOpen={true} />
+      <div className='flex flex-col gap-5'>
+        {events.length == 0 && <div>No events found</div>}
+        {events.map((event) => (
+          <div className='flex flex-row justify-between gap-8 rounded border p-2' key={event.id}>
+            <div className='font-bold'>{event.title}</div>
+            <div className='truncate text-wrap text-left'>{event.description}</div>
+            <div className='flex gap-2'>
+              <Button type={'button'} onClick={() => setSelectedEvent({ event, type: 'update' })}>
+                Editar
+              </Button>
+              <Button type={'button'} variant='error' onClick={deleteSelectedEvent(event)}>
+                Delete
+              </Button>
+            </div>
           </div>
+        ))}
+        <div>
+          {count > events.length && (
+            <ReactPaginate
+              nextLabel='>'
+              previousLabel='<'
+              onPageChange={handlePageChange}
+              pageRangeDisplayed={3}
+              marginPagesDisplayed={2}
+              pageCount={Math.ceil(count / PAGE_SIZE)}
+              className='flex flex-row justify-center gap-3'
+              activeClassName='text-green font-bold'
+            />
+          )}
         </div>
-      ))}
-      <div>
-        {count > events.length && (
-          <ReactPaginate
-            nextLabel='>'
-            previousLabel='<'
-            onPageChange={handlePageChange}
-            pageRangeDisplayed={3}
-            marginPagesDisplayed={2}
-            pageCount={Math.ceil(count / PAGE_SIZE)}
-            className='flex flex-row justify-center gap-3'
-            activeClassName='text-green font-bold'
-          />
+        <div
+          className='mx-auto flex w-fit cursor-pointer justify-center rounded-full bg-bege-dark p-2'
+          onClick={() => setSelectedEvent({ event: null, type: 'add' })}
+        >
+          <PiPlus className='fill-green' size={32} />
+        </div>
+        {selectedEvent && (
+          <>
+            <LineBreaker />
+            <div className='flex justify-end'>
+              <RxCross2
+                className='fill-red cursor-pointer'
+                size={32}
+                onClick={() => setSelectedEvent(null)}
+              />
+            </div>
+            <FormHawkEvents {...selectedEvent} />
+          </>
         )}
       </div>
-      <div
-        className='mx-auto flex w-fit cursor-pointer justify-center rounded-full bg-bege-dark p-2'
-        onClick={() => setSelectedEvent({ event: null, type: 'add' })}
-      >
-        <PiPlus className='fill-green' size={32} />
-      </div>
-      {selectedEvent && (
-        <>
-          <LineBreaker />
-          <div className='flex justify-end'>
-            <RxCross2
-              className='fill-red cursor-pointer'
-              size={32}
-              onClick={() => setSelectedEvent(null)}
-            />
-          </div>
-          <FormHawkEvents {...selectedEvent} />
-        </>
-      )}
-    </div>
+    </>
   );
 };
 

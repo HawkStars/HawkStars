@@ -20,14 +20,9 @@ type HawkEventForm = Pick<
 type FormHawkEventsProps = {
   event: HawkEvent | null;
   type: 'add' | 'update';
-  onHandleSubmit: (data: HawkEvent) => void;
 };
 
-const FormHawkEvents: React.FC<FormHawkEventsProps> = ({
-  type,
-  event,
-  onHandleSubmit,
-}: FormHawkEventsProps) => {
+const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawkEventsProps) => {
   const {
     control,
     handleSubmit,
@@ -44,7 +39,7 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({
   const onSubmit = async (formData: HawkEventForm) => {
     const supabase = createSupabaseBrowserClient();
     if (type == 'add') {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from(HAWK_EVENT_TABLE_NAME)
         .insert({ ...formData, id: uuidv4() })
         .select()
@@ -53,11 +48,10 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({
       if (error) return toast.error('Erro ao criar evento');
 
       toast.success('Evento criado com sucesso');
-      onHandleSubmit(data); // TODO: make this differ from the update version
     } else {
       if (!event?.id) return toast.error('Erro ao atualizar evento - id não encontrado');
 
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('hawk_events')
         .update({ ...formData })
         .match({ id: event?.id })
@@ -67,7 +61,6 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({
       if (error) return toast.error('Erro ao atualizar evento');
 
       toast.success('Evento atualizado com sucesso');
-      onHandleSubmit(data); // TODO: make this differ from the create version
     }
   };
 
@@ -76,8 +69,8 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({
     if (!success) return toast.error('Erro ao fazer upload da imagem');
 
     const { data } = response;
-    console.log(data);
-    // return data.secure_url;
+
+    if (!data.info) return;
   };
 
   return (
@@ -129,6 +122,7 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({
       <div>
         <h6>Photos</h6>
         <CloudinaryUploader onUpload={uploadCloudinary} />
+        <Button type='button'>Assign to Photos</Button>
       </div>
     </>
   );

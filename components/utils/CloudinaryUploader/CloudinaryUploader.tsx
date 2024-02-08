@@ -1,9 +1,9 @@
 'use client';
 
-import { CldUploadButton, CldUploadWidget } from 'next-cloudinary';
-import React, { useState } from 'react';
+import { CldUploadWidget, CldUploadWidgetResults } from 'next-cloudinary';
+import React from 'react';
 
-export type CloudinaryUploaderSuccessResponse = { success: true; data: unknown };
+export type CloudinaryUploaderSuccessResponse = { success: true; data: CldUploadWidgetResults };
 export type CloudinaryUploaderErrorResponse = { success: false; error: Error };
 
 export type CloudinaryUploaderResponse =
@@ -19,10 +19,11 @@ const CloudinaryUploader: React.FC<CloudinaryUploaderProps> = ({ onUpload }) => 
     <div className='w-fit rounded-xl bg-bege-light p-4'>
       <CldUploadWidget
         uploadPreset='hawkstars_test'
-        onSuccess={(result, { widget }) => {
+        onSuccess={(result) => {
+          console.log(result);
           onUpload({ success: true, data: result });
-          widget.close();
         }}
+        onClose={({ widget }) => widget.close()}
       >
         {({ open }) => {
           function handleOnClick() {

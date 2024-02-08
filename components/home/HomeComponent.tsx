@@ -14,13 +14,12 @@ import exterior1 from '@/public/images/training_center/exterior1.jpg';
 import heroPng from '@/public/images/frontpage/hero.png';
 import whoWeAreImage from '@/public/images/frontpage/quem_somos.png';
 import { LanguageProps } from '../types';
-import { cld } from '@/lib/cloudinary/cloudinaryInstance';
 
 const HomeComponent = ({ lng }: LanguageProps) => {
   const { t } = useTranslation(lng, 'common');
   const router = useRouter();
 
-  const myImage = cld.image('sample');
+  // const myImage = cld.image('sample');
   return (
     <>
       <section className='flex flex-col bg-bege-light px-8 pb-5 pt-10 lg:px-14 lg:pb-10 lg:pl-20 lg:pt-40'>
