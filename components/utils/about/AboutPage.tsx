@@ -4,9 +4,9 @@ import {
   visionGoals,
 } from '../../../app/[lng]/about/config';
 import { useServerTranslation } from '../../../i18n';
-import Accordion from '../../Accordion/Accordion';
 import { LanguageProps } from '../../types';
 import Image from 'next/image';
+import Accordion from '../Accordion/Accordion';
 
 const AboutPage = async ({ lng }: LanguageProps) => {
   const { t } = await useServerTranslation(lng, 'about');
