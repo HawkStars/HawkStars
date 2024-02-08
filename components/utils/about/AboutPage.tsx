@@ -2,10 +2,10 @@ import {
   aboutObjectiveSections,
   missionObjectives,
   visionGoals,
-} from '../../app/[lng]/about/config';
-import { useServerTranslation } from '../../i18n';
-import Accordion from '../Accordion/Accordion';
-import { LanguageProps } from '../types';
+} from '../../../app/[lng]/about/config';
+import { useServerTranslation } from '../../../i18n';
+import Accordion from '../../Accordion/Accordion';
+import { LanguageProps } from '../../types';
 import Image from 'next/image';
 
 const AboutPage = async ({ lng }: LanguageProps) => {
@@ -127,7 +127,11 @@ type MissionTaskComponentProps = {
   lng: string;
 };
 
-const MissionTaskComponent = async ({ text, index, lng }: MissionTaskComponentProps) => {
+const MissionTaskComponent = async ({
+  text,
+  index,
+  lng,
+}: MissionTaskComponentProps): Promise<JSX.Element> => {
   const { t } = await useServerTranslation(lng, 'about');
   let formattedNumber = index.toLocaleString('en-US', {
     minimumIntegerDigits: 2,

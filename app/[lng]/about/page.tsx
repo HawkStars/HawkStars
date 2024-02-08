@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import AboutPage from '../../../components/about/AboutPage';
+import AboutPage from '../../../components/utils/about/AboutPage';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { LanguagePageProps } from '../types';
 import { Language } from '@/i18n/settings';
