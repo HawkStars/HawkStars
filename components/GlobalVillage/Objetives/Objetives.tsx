@@ -1,6 +1,6 @@
 import { useServerTranslation } from '@/i18n';
-import Accordion from '../../Accordion/Accordion';
 import { LanguageProps } from '@/components/types';
+import Accordion from '@/components/Accordion/Accordion';
 
 type TrainingCenterObjetives = {
   title: string;

@@ -3,8 +3,8 @@ import {
   missionObjectives,
   visionGoals,
 } from '../../app/[lng]/about/config';
-import Accordion from '../Accordion/Accordion';
 import { useServerTranslation } from '../../i18n';
+import Accordion from '../Accordion/Accordion';
 import { LanguageProps } from '../types';
 import Image from 'next/image';
 
