@@ -10,16 +10,15 @@ import Button from '../utils/Button';
 import { DONATE_URL } from '../../utils/paths';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../../i18n/client';
-import { Suspense } from 'react';
+import { Suspense, lazy } from 'react';
 import { MenuSections } from './config';
 import DropdownMenu from '../menu/DropdownMenu';
 
 import hawkLogo from '@/public/images/logo.png';
 import { useLanguageCookie } from '@/hooks/useLanguageCookie';
-import dynamic from 'next/dynamic';
 
-const MenuItem = dynamic(() => import('../menu/MenuItem'), { ssr: false });
-const LanguageSwitcher = dynamic(() => import('../utils/LanguageSwitcher'), { ssr: false });
+const MenuItem = lazy(() => import('../menu/MenuItem'));
+const LanguageSwitcher = lazy(() => import('../utils/LanguageSwitcher'));
 
 const Navbar = () => {
   const lng = useLanguageCookie();

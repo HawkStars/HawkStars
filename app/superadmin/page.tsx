@@ -43,12 +43,12 @@ const SuperAdminPage = () => {
         )}
         {currentSection == 'add_contribution' && <FormContributionSection />}
         {currentSection == 'erasmus' && (
-          <section className='mx-auto w-2/3'>
+          <section className='mx-auto w-11/12'>
             <DashboardHawkErasmus />
           </section>
         )}
         {currentSection == 'events' && (
-          <section className='mx-auto w-2/3'>
+          <section className='mx-auto w-11/12'>
             <DashboardHawkEvents />
           </section>
         )}

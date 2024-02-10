@@ -20,10 +20,8 @@ const CloudinaryUploader: React.FC<CloudinaryUploaderProps> = ({ onUpload }) => 
       <CldUploadWidget
         uploadPreset='hawkstars_test'
         onSuccess={(result) => {
-          console.log(result);
           onUpload({ success: true, data: result });
         }}
-        onClose={({ widget }) => widget.close()}
       >
         {({ open }) => {
           function handleOnClick() {

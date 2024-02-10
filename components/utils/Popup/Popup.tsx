@@ -1,12 +1,23 @@
+import classNames from 'classnames';
 import React from 'react';
 
 type PopupProps = {
   isOpen: boolean;
+  closePopup: () => void;
+  acceptFunction: () => void;
 };
 
-const Popup = ({ isOpen }: PopupProps) => {
+const Popup = ({ isOpen, closePopup, acceptFunction }: PopupProps) => {
   return (
-    <div className='fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50'>
+    <div
+      className={classNames(
+        'fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50',
+        {
+          hidden: !isOpen,
+        }
+      )}
+      onClick={closePopup}
+    >
       <div className='rounded bg-white p-4 shadow'>
         <h2 className='mb-4 text-xl font-bold'>Popup Title</h2>
         <p className='mb-4'>Popup content goes here.</p>

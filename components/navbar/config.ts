@@ -15,6 +15,8 @@ import {
 } from '../../utils/paths';
 import { NavbarItem, NavbarUrlItem } from './types';
 
+const SHOP_URL = 'https://shop.hawkstars.org';
+
 const NGODropdownOptions = [
   { label: 'navbar.about', url: ABOUT_US_URL },
   { label: 'navbar.team', url: TEAM_URL },
@@ -68,7 +70,7 @@ export const MenuSections = [
   },
   {
     type: 'single',
-    option: { label: 'navbar.hawk_store', url: '#' },
+    option: { label: 'navbar.hawk_store', url: SHOP_URL },
   },
 ] as NavbarItem[];
 

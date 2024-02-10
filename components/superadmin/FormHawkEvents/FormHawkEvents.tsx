@@ -26,7 +26,7 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm<HawkEventForm>({
     values: {
       title: event?.title || '',
@@ -116,7 +116,9 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
         </div>
 
         <div className='flex justify-center'>
-          <Button type='submit'>{type == 'add' ? 'Add' : 'Update'}</Button>
+          <Button type='submit' disabled={!isDirty || !isValid}>
+            {type == 'add' ? 'Add' : 'Update'}
+          </Button>
         </div>
       </form>
       <div>

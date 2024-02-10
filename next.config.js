@@ -13,7 +13,7 @@ const cspHeader = `
     frame-src *.google.com https://upload-widget.cloudinary.com;
     connect-src 'self' ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://*.gstatic.com ${process.env.NEXT_PUBLIC_SUPABASE_URL} data: blob:` : 'http://127.0.0.1:54321'};
     worker-src blob:;
-    script-src-elem 'self' https://upload-widget.cloudinary.com 'unsafe-inline';
+    script-src-elem 'self' https://www.googletagmanager.com https://upload-widget.cloudinary.com 'unsafe-inline';
 `;
 
 const nextConfig = {
