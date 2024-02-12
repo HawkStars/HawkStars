@@ -20,7 +20,6 @@ type HawkInformation = {
 
 type HawkEventChange = {
   event: HawkEvent | null;
-  type: 'add' | 'update';
 };
 
 const DashboardHawkEvents: React.FC = () => {
@@ -82,12 +81,8 @@ const DashboardHawkEvents: React.FC = () => {
                 key={event.id}
               >
                 <div className='font-bold'>{event.title}</div>
-                <div className='truncate text-wrap text-left'>{event.description}</div>
                 <div className='flex gap-2'>
-                  <Button
-                    type={'button'}
-                    onClick={() => setSelectedEvent({ event, type: 'update' })}
-                  >
+                  <Button type={'button'} onClick={() => setSelectedEvent({ event })}>
                     Editar
                   </Button>
                   <Button type={'button'} variant='error' onClick={deleteSelectedEvent(event)}>
@@ -115,7 +110,7 @@ const DashboardHawkEvents: React.FC = () => {
         <div className='w-2/3 bg-bege-light p-3'>
           <div
             className='mx-auto flex w-fit cursor-pointer justify-center rounded-full bg-bege-dark p-2'
-            onClick={() => setSelectedEvent({ event: null, type: 'add' })}
+            onClick={() => setSelectedEvent({ event: null })}
           >
             <PiPlus className='fill-green' size={32} />
           </div>

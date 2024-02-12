@@ -32,7 +32,7 @@ export default async function RootLayout({
   params: { lng?: string };
 }) {
   return (
-    <html lang={lng}>
+    <html lang={lng} data-color-mode='light'>
       <AppProvider lng={lng}>
         <body className={inter.className}>
           <MobileNavbar />

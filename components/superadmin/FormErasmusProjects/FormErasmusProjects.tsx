@@ -30,7 +30,7 @@ const FormErasmusProjects: React.FC<FormErasmusProjectsProps> = ({
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm<ErasmusProjectForm>({
     defaultValues: {
       title: '',
@@ -112,12 +112,15 @@ const FormErasmusProjects: React.FC<FormErasmusProjectsProps> = ({
           />
         </div>
         <div className='flex justify-center'>
-          <Button type='submit'>{type == 'add' ? 'Add' : 'Update'}</Button>
+          <Button type='submit' disabled={!isDirty || !isValid}>
+            {type == 'add' ? 'Add' : 'Update'}
+          </Button>
         </div>
       </form>
       <div>
         <h6>Photos</h6>
         <CloudinaryUploader onUpload={uploadCloudinary} />
+        <Button type='button'>Associar Fotos</Button>
       </div>
     </>
   );

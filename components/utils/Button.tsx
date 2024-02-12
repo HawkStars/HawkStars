@@ -64,7 +64,7 @@ const buttonProps = variantProps({
       full: tw`rounded-full`,
     },
     disabled: {
-      true: tw`opacity-50`,
+      true: tw`bg-opacity-50 border-opacity-50`,
     },
     padding: {
       sm: tw`px-3 py-2`,
@@ -102,7 +102,12 @@ const Button = (props: ButtonProps): JSX.Element => {
   const { disabled, type, children, onClick, loading, ...otherProps } = props;
 
   return (
-    <button {...buttonProps(otherProps)} onClick={onClick} disabled={disabled} type={type}>
+    <button
+      {...buttonProps({ disabled, ...otherProps })}
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
+    >
       {loading ? <Spinner /> : children}
     </button>
   );

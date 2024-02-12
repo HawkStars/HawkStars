@@ -1,9 +1,11 @@
+'use client';
+
 import Button from '@/components/utils/Button';
 import Input from '@/components/utils/Input/Input';
 import ReactMarkdownEditor from '@/components/utils/ReactMarkdownEditor/ReactMarkdownEditor';
 import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
 import { HAWK_EVENT_TABLE_NAME, HawkEvent, HawkEvents } from '@/models/database';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -19,26 +21,37 @@ type HawkEventForm = Pick<
 
 type FormHawkEventsProps = {
   event: HawkEvent | null;
-  type: 'add' | 'update';
 };
 
-const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawkEventsProps) => {
+const defaultValues = {
+  title: '',
+  description: '',
+  start_event_date: new Date().toISOString(),
+  end_event_date: null,
+} as HawkEventForm;
+
+const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ event }: FormHawkEventsProps) => {
+  const [selectedPhotos, setSelectedPhotos] = useState<string[]>(event?.photos || []);
+  const title = event?.id == null ? 'Add' : 'Update';
+
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors, isDirty, isValid },
   } = useForm<HawkEventForm>({
-    values: {
+    defaultValues: {
       title: event?.title || '',
       description: event?.description || '',
       start_event_date: event?.start_event_date || new Date().toISOString(),
       end_event_date: event?.end_event_date || null,
     },
+    reValidateMode: 'onBlur',
   });
 
   const onSubmit = async (formData: HawkEventForm) => {
     const supabase = createSupabaseBrowserClient();
-    if (type == 'add') {
+    if (event?.id == null) {
       const { error } = await supabase
         .from(HAWK_EVENT_TABLE_NAME)
         .insert({ ...formData, id: uuidv4() })
@@ -52,7 +65,7 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
       if (!event?.id) return toast.error('Erro ao atualizar evento - id não encontrado');
 
       const { error } = await supabase
-        .from('hawk_events')
+        .from<'hawk_events', HawkEvents>(HAWK_EVENT_TABLE_NAME)
         .update({ ...formData })
         .match({ id: event?.id })
         .select()
@@ -70,19 +83,45 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
 
     const { data } = response;
 
-    if (!data.info) return;
+    if (!data || !data.info) return;
+
+    setSelectedPhotos((photos) => [...photos, data.info.secure_url]);
   };
+
+  const addPhotosToEvent = async () => {
+    const supabase = createSupabaseBrowserClient();
+
+    if (!event?.id) return toast.error('Erro ao adicionar fotos ao evento - id não encontrado');
+
+    const { error } = await supabase
+      .from<'hawk_events', HawkEvents>(HAWK_EVENT_TABLE_NAME)
+      .update({ photos: selectedPhotos })
+      .eq('id', event.id);
+
+    if (error) return toast.error('Erro ao adicionar foto ao evento');
+    toast.success('Fotos adicionada ao evento com sucesso');
+  };
+
+  useEffect(() => {
+    reset(event || defaultValues);
+  }, [event, reset]);
 
   return (
     <>
-      <h2 className='text-center text-green'>{type == 'add' ? 'Add' : 'Update'}</h2>
+      <h2 className='text-center text-green'>{title}</h2>
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-10'>
         <Controller
           control={control}
           name={'title'}
           rules={{ required: true }}
           render={({ field: { value, onChange, name } }) => (
-            <Input labelText='Title' name={name} value={value} onChange={onChange}></Input>
+            <Input
+              labelText='Title'
+              name={name}
+              value={value}
+              onChange={onChange}
+              errorMessage={errors.title?.message}
+            ></Input>
           )}
         />
         <Controller
@@ -116,15 +155,17 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ type, event }: FormHawk
         </div>
 
         <div className='flex justify-center'>
-          <Button type='submit' disabled={!isDirty || !isValid}>
-            {type == 'add' ? 'Add' : 'Update'}
+          <Button type='submit' disabled={(!isDirty && !isValid) == true}>
+            {title}
           </Button>
         </div>
       </form>
       <div>
         <h6>Photos</h6>
         <CloudinaryUploader onUpload={uploadCloudinary} />
-        <Button type='button'>Assign to Photos</Button>
+        <Button type='button' onClick={addPhotosToEvent}>
+          Assign to Photos
+        </Button>
       </div>
     </>
   );
