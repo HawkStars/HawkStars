@@ -25,9 +25,9 @@ const FormContributionSection = () => {
   };
 
   return (
-    <section className='flex flex-col gap-3 rounded-xl bg-bege-light p-4'>
+    <section className='flex flex-col gap-3 rounded-xl bg-bege-light py-10'>
       <h3 className='text-center'>Contributions</h3>
-      <div className='mx-auto w-1/2'>
+      <div className='mx-auto w-11/12 lg:w-1/2'>
         <FormContributions formType='create' onSubmit={handleSubmitForm} loading={loading} />
       </div>
     </section>

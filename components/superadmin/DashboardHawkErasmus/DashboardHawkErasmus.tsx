@@ -1,7 +1,6 @@
 'use client';
 
 import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
-import FormHawkEvents from '@/components/superadmin/FormHawkEvents/FormHawkEvents';
 import { ErasmusProject } from '@/models/database';
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';

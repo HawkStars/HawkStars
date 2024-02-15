@@ -13,6 +13,7 @@ import DatePicker from '@/components/utils/DatePicker/DatePicker';
 import CloudinaryUploader, {
   CloudinaryUploaderResponse,
 } from '@/components/utils/CloudinaryUploader/CloudinaryUploader';
+import { CldUploadWidgetInfo } from 'next-cloudinary';
 
 type HawkEventForm = Pick<
   HawkEvent,
@@ -83,9 +84,11 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ event }: FormHawkEvents
 
     const { data } = response;
 
-    if (!data || !data.info) return;
+    debugger;
+    if (!data.info) return;
 
-    setSelectedPhotos((photos) => [...photos, data.info.secure_url]);
+    const photos = data.info as unknown as CldUploadWidgetInfo;
+    // setSelectedPhotos((photos) => [...photos, photos.secure_url]);
   };
 
   const addPhotosToEvent = async () => {
@@ -132,7 +135,7 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ event }: FormHawkEvents
           )}
           name={'description'}
         />
-        <div className='flex flex-row gap-4'>
+        <div className='flex flex-col gap-4 lg:flex-row'>
           <Controller
             control={control}
             rules={{ required: true }}
@@ -160,12 +163,14 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ event }: FormHawkEvents
           </Button>
         </div>
       </form>
-      <div>
-        <h6>Photos</h6>
-        <CloudinaryUploader onUpload={uploadCloudinary} />
-        <Button type='button' onClick={addPhotosToEvent}>
-          Assign to Photos
-        </Button>
+      <div className='mt-5 border-t pt-5'>
+        <h6 className='text-center text-green underline'>Photos</h6>
+        <div className='mt-3 flex flex-col gap-2'>
+          <CloudinaryUploader onUpload={uploadCloudinary} customCss='mx-auto' />
+          <Button type='button' onClick={addPhotosToEvent} className='mx-auto'>
+            Assign to Photos
+          </Button>
+        </div>
       </div>
     </>
   );

@@ -119,8 +119,12 @@ const FormErasmusProjects: React.FC<FormErasmusProjectsProps> = ({
       </form>
       <div>
         <h6>Photos</h6>
-        <CloudinaryUploader onUpload={uploadCloudinary} />
-        <Button type='button'>Associar Fotos</Button>
+        <div className='mt-3 flex gap-2 lg:flex-col'>
+          <CloudinaryUploader onUpload={uploadCloudinary} />
+          <Button type='button' className='my-auto'>
+            Associar Fotos
+          </Button>
+        </div>
       </div>
     </>
   );

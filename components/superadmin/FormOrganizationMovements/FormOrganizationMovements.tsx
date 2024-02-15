@@ -48,7 +48,10 @@ const FormOrganizationMovement = ({ formType }: FormOrganizationMovementProps) =
   };
 
   return (
-    <form className='mx-auto mt-5 flex w-1/2 flex-col gap-6' onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className='mx-auto my-10 flex w-11/12 flex-col gap-6 lg:w-1/2'
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <Controller
         name='type'
         control={control}

@@ -71,8 +71,8 @@ const DashboardHawkEvents: React.FC = () => {
         acceptFunction={() => {}}
         closePopup={() => setDashboardSettings(false)}
       />
-      <div className='flex flex-row gap-20'>
-        <div className='w-1/3'>
+      <div className='flex flex-col gap-10 lg:flex-row lg:gap-20'>
+        <div className='lg:w-1/3'>
           <div className='flex flex-col gap-5'>
             {events.length == 0 && <div>No events found</div>}
             {events.map((event) => (
@@ -107,7 +107,7 @@ const DashboardHawkEvents: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className='w-2/3 bg-bege-light p-3'>
+        <div className='bg-bege-light p-3 lg:w-2/3'>
           <div
             className='mx-auto flex w-fit cursor-pointer justify-center rounded-full bg-bege-dark p-2'
             onClick={() => setSelectedEvent({ event: null })}

@@ -11,7 +11,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { SuperAdminSection, superAdminSections } from './config';
 import DashboardHawkEvents from '@/components/superadmin/DashboardHawkEvents/DashboardHawkEvents';
 import DashboardHawkErasmus from '@/components/superadmin/DashboardHawkErasmus/DashboardHawkErasmus';
-import { Metadata } from 'next';
 
 const SuperAdminPage = () => {
   const [currentSection, setCurrentSection] = useState<SuperAdminSection>('dashboard');
@@ -22,7 +21,7 @@ const SuperAdminPage = () => {
         <title>HawkStars NGO | Superadmin</title>
       </Head>
       <section className='mt-10 flex flex-col gap-5'>
-        <div className='mb-5 flex flex-row justify-center border-b-2 border-bege-dark'>
+        <div className='mb-5 flex flex-col justify-center border-b-2 border-bege-dark lg:flex-row'>
           {superAdminSections.map(({ label, section }, index) => (
             <SuperAdminTabItem
               key={index}
