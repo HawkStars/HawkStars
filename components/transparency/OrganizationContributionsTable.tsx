@@ -45,11 +45,11 @@ const OrganizationContributionsTable = () => {
 
   return (
     <div className='flex flex-col gap-2 overflow-x-auto'>
-      <h2 className='text-green'>{t('Contributions')}</h2>
-      <table className='min-w-full table-auto border-separate border-spacing-y-1 rounded-xl border border-bege-dark p-4 text-left text-sm font-light lg:table-fixed'>
+      <h2 className='font-light'>{t('Contributions')}</h2>
+      <table className='min-w-full table-auto rounded-xl text-left text-sm font-light lg:table-fixed'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
+            <tr key={headerGroup.id} className='my-2 border-b border-bege-dark'>
               {headerGroup.headers.map((header) => (
                 <th key={header.id} className='min-w-40 p-2'>
                   {header.isPlaceholder
@@ -62,7 +62,7 @@ const OrganizationContributionsTable = () => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <tr key={row.id} className='border-b border-bege-dark'>
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id} className='min-w-40 px-2'>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

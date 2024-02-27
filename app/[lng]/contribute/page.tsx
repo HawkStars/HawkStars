@@ -27,7 +27,7 @@ import { Contribution } from '@/models/database';
 import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
 import { Suspense } from 'react';
 import MainHawkStarsLoading from '../loading';
-import ContributeFormSection from '@/components/contribute/ContributeFormSecction';
+import ContributeFormSection from '@/components/contribute/ContributeFormSection';
 
 const getChairsContribute = async () => {
   const supabase = createSupabaseBrowserClient();

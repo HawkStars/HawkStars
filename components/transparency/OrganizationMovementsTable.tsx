@@ -2,20 +2,14 @@
 
 import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
 import { OrganizationMovement, OrganizationMovements } from '@/models/database';
-import {
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { orgsMovementsColumn } from './config';
 
 const getOrganizationMovements = async () => {
   const supabase = createSupabaseBrowserClient();
   const { data, error } = await supabase
-    .from<'organization_movements', OrganizationMovements>(
-      'organization_movements'
-    )
+    .from<'organization_movements', OrganizationMovements>('organization_movements')
     .select()
     .order('created_at', { ascending: true });
 
@@ -24,9 +18,7 @@ const getOrganizationMovements = async () => {
 };
 
 const OrganizationMovementsTable = () => {
-  const [organizationMovements, setOrganizationMovements] = useState<
-    OrganizationMovement[]
-  >([]);
+  const [organizationMovements, setOrganizationMovements] = useState<OrganizationMovement[]>([]);
 
   const fetchOrganizationData = async () => {
     const orgMovements = await getOrganizationMovements();
@@ -45,19 +37,16 @@ const OrganizationMovementsTable = () => {
 
   return (
     <div className='flex flex-col gap-4 overflow-x-auto'>
-      <h2 className='text-green'>Organization Movements</h2>
-      <table className='min-w-full table-auto border-separate border-spacing-y-1 rounded-xl border border-bege-dark p-4 text-left text-sm font-light lg:table-fixed'>
+      <h2 className='font-light'>Organization Movements</h2>
+      <table className='min-w-full table-auto rounded-xl text-left text-sm font-light lg:table-fixed'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
+            <tr key={headerGroup.id} className='border-b border-bege-dark'>
               {headerGroup.headers.map((header) => (
                 <th key={header.id} className='min-w-40 p-2'>
                   {header.isPlaceholder
                     ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
+                    : flexRender(header.column.columnDef.header, header.getContext())}
                 </th>
               ))}
             </tr>
@@ -65,7 +54,7 @@ const OrganizationMovementsTable = () => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <tr key={row.id} className='border-b border-bege-dark'>
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id} className='min-w-40 px-2'>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

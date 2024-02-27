@@ -31,11 +31,13 @@ export async function generateMetadata(
 
 const TransparencyPage = async () => {
   return (
-    <section className='layout-section mt-4 flex flex-col gap-5 overflow-x-hidden lg:mt-10'>
+    <section className='flex flex-col gap-5 overflow-x-hidden'>
       <div className='flex flex-col gap-10'>
         <ContributionProjectGoal />
-        <OrganizationContributionsTable />
-        <OrganizationMovementsTable />
+        <div className='layout-section flex flex-col gap-10 lg:gap-16'>
+          <OrganizationContributionsTable />
+          <OrganizationMovementsTable />
+        </div>
       </div>
     </section>
   );
