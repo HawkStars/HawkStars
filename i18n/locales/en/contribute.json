@@ -43,7 +43,7 @@
     "chairs": {
       "title": "Training Center Chairs with Donators Name",
       "types": {
-        "gaming_chair": "Office/Gaming Chair",
+        "gaming_chair": "Office Chair",
         "simulation_chair": "Drive Simulator Gaming Chair",
         "lounge_chair": "Co(ffe) Working Lounge Chair",
         "auditorium_chair": "Mobile Chair for Auditorium/Training Rooms"
