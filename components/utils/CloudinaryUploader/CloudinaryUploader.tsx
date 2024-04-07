@@ -1,10 +1,10 @@
 'use client';
 
 import classNames from 'classnames';
-import { CldUploadWidget, CldUploadWidgetResults } from 'next-cloudinary';
+import { CldUploadWidget, CloudinaryUploadWidgetResults } from 'next-cloudinary';
 import React from 'react';
 
-export type CloudinaryUploaderSuccessResponse = { success: true; data: CldUploadWidgetResults };
+export type CloudinaryUploaderSuccessResponse = { success: true; data: CloudinaryUploadWidgetResults };
 export type CloudinaryUploaderErrorResponse = { success: false; error: Error };
 
 export type CloudinaryUploaderResponse =

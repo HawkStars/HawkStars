@@ -13,7 +13,6 @@ import DatePicker from '@/components/utils/DatePicker/DatePicker';
 import CloudinaryUploader, {
   CloudinaryUploaderResponse,
 } from '@/components/utils/CloudinaryUploader/CloudinaryUploader';
-import { CldUploadWidgetInfo } from 'next-cloudinary';
 
 type HawkEventForm = Pick<
   HawkEvent,
@@ -87,7 +86,7 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ event }: FormHawkEvents
     debugger;
     if (!data.info) return;
 
-    const photos = data.info as unknown as CldUploadWidgetInfo;
+    const photos = data.info as unknown;
     // setSelectedPhotos((photos) => [...photos, photos.secure_url]);
   };
 
