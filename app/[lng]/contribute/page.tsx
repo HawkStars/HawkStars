@@ -135,7 +135,7 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
                 {t('brand.international_training_center.title')}
               </h2>
               <Image src={exterior2} alt='training course branding' className='rounded-lg' />
-              <h4 className='w-fit rounded-2xl border border-green p-2 text-green'>
+              <h4 className='w-fit rounded-2xl font-bold text-green'>
                 {t('brand.international_training_center.price')}
               </h4>
               <p>{t('brand.international_training_center.description')}</p>
@@ -144,7 +144,7 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
               <h2 className='mx-10 text-center lg:h-14'>{t('brand.room_branding.title')}</h2>
               <Image src={coworkingRoom} alt='hawk stars training room' className='rounded-lg' />
               <div className='flex flex-col justify-around gap-4'>
-                <h4 className='w-fit rounded-2xl border border-green p-2 text-green'>
+                <h4 className='w-fit rounded-2xl font-bold text-green'>
                   {t('brand.room_branding.price')}
                 </h4>
                 <p>{t('brand.room_branding.description')}</p>
@@ -157,11 +157,11 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
             <h2 className='text-center'>{t('brand.wall_branding.title')}</h2>
             <Image src={trainingRoom} alt='hawk stars training room' className='rounded-lg' />
             <div className='flex flex-row gap-4'>
-              <div className='flex w-fit flex-row gap-1 rounded-2xl border border-green p-2 text-sm text-green lg:text-base'>
+              <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-sm font-bold text-green lg:text-base'>
                 <LiaUserSolid size={28} className='my-auto' />
                 <p className='self-center'>{t('brand.wall_branding.price_solo')}</p>
               </div>
-              <div className='flex w-fit flex-row gap-1 rounded-2xl border border-green p-2 text-sm text-green lg:text-base'>
+              <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-sm font-bold text-green lg:text-base'>
                 <LiaUsersSolid size={28} />
                 <p className='self-center'>{t('brand.wall_branding.price_company')}</p>
               </div>

@@ -23,7 +23,6 @@ type AppProviderProps = {
 const AppProvider = ({ children, lng }: AppProviderProps) => {
   const [appProperties, setAppProperties] = useState<MainAppProperties>(defaultAppProperties);
 
-  debugger;
   useEffect(() => {
     const i18next = getCookie(i18CookieName);
     if (i18next != lng) setCookie(i18CookieName, lng);

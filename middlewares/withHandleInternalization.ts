@@ -6,7 +6,6 @@ import { NextRequest, NextResponse } from 'next/server';
 const getLocale = async (request: NextRequest): Promise<NextResponse> => {
   const response = NextResponse.next();
 
-  debugger;
   let lng = request.nextUrl.pathname.split('/')[0] || null;
   if (!lng && request.cookies.has(i18CookieName))
     lng = acceptLanguage.get(request.cookies.get(i18CookieName)?.value);
@@ -37,7 +36,6 @@ const withHandleInternalization = async (request: NextRequest): Promise<NextResp
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
-  debugger;
   if (pathnameHasLocale) return response;
 
   // Redirect if there is no locale
