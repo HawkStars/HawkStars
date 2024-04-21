@@ -1,9 +1,8 @@
 'use client';
 
-import { fallbackLng, i18CookieName } from '@/i18n/settings';
-import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
+import { i18CookieName } from '@/i18n/settings';
 import { createContext, Dispatch, ReactNode, useContext, useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
+import { getCookie, setCookie } from 'cookies-next';
 
 type MainAppProperties = {
   mobileNavbarOpen: boolean;
@@ -22,12 +21,13 @@ type AppProviderProps = {
 };
 
 const AppProvider = ({ children, lng }: AppProviderProps) => {
-  const [cookie, setCookie] = useCookies([i18CookieName]);
   const [appProperties, setAppProperties] = useState<MainAppProperties>(defaultAppProperties);
 
+  debugger;
   useEffect(() => {
-    if (cookie.i18next != lng) setCookie(i18CookieName, lng);
-  }, [lng, cookie.i18next, setCookie]);
+    const i18next = getCookie(i18CookieName);
+    if (i18next != lng) setCookie(i18CookieName, lng);
+  }, [lng]);
 
   return (
     <MainAppContext.Provider value={appProperties}>

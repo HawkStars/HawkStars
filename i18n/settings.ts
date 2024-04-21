@@ -1,11 +1,11 @@
-export const fallbackLng = 'pt';
-export const languages = [fallbackLng, 'en'] as const;
-export const defaultNS = 'common';
-export const i18CookieName = 'i18next';
+const fallbackLng = 'pt';
+const languages = [fallbackLng, 'en'] as const;
+const defaultNS = 'common' as const;
+const i18CookieName = 'i18next' as const;
 
 export type Language = (typeof languages)[number];
 
-export function getOptions(lng = fallbackLng, ns: string | string[] = defaultNS) {
+function getOptions(lng = fallbackLng, ns: string | string[] = defaultNS) {
   return {
     // debug: true,
     supportedLngs: languages,
@@ -17,7 +17,9 @@ export function getOptions(lng = fallbackLng, ns: string | string[] = defaultNS)
   };
 }
 
-export const i18nConfig = {
+const i18nConfig = {
   locales: languages,
   defaultLocale: fallbackLng,
 };
+
+export { fallbackLng, languages, defaultNS, i18CookieName, getOptions, i18nConfig };

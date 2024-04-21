@@ -1,9 +1,9 @@
 'use client';
 import { fallbackLng, i18CookieName } from '@/i18n/settings';
-import { useCookies } from 'react-cookie';
+import { getCookie } from 'cookies-next';
 
 export function useLanguageCookie() {
-  const [cookies] = useCookies([i18CookieName]);
+  const i18nCookie = getCookie(i18CookieName);
 
-  return cookies.i18next || fallbackLng;
+  return i18nCookie || fallbackLng;
 }
