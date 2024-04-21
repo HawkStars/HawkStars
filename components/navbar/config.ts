@@ -25,8 +25,8 @@ const NGODropdownOptions = [
 ] as NavbarUrlItem[];
 
 const AtivitiesDropdownOptions = [
-  { label: 'navbar.events', url: EVENTS_URL },
-  { label: 'navbar.erasmus', url: ERASMUS_PLUS_URL },
+  { label: 'navbar.events', url: EVENTS_URL, disabled: true },
+  { label: 'navbar.erasmus', url: ERASMUS_PLUS_URL, disabled: true },
 ] as NavbarUrlItem[];
 
 const GlobalVillageOptions = [
