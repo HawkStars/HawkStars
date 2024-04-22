@@ -14,6 +14,7 @@ import exterior1 from '@/public/images/training_center/exterior1.jpg';
 import heroPng from '@/public/images/frontpage/hero.png';
 import whoWeAreImage from '@/public/images/frontpage/quem_somos.png';
 import { LanguageProps } from '../types';
+import { Slider } from '../utils/Slider';
 
 const HomeComponent = ({ lng }: LanguageProps) => {
   const { t } = useTranslation(lng, 'common');
@@ -120,8 +121,9 @@ const HomeComponent = ({ lng }: LanguageProps) => {
           </div>
         </div>
       </section>
-      <section className='px-8 py-20 lg:px-20'>
+      <section className='flex flex-col gap-6 py-20'>
         <h6 className='text-center text-2xl font-bold text-green'>Erasmus +</h6>
+        <Slider />
       </section>
     </>
   );
