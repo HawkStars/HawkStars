@@ -1,8 +1,6 @@
-// import Swiper JS
-'use client';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
-// import Swiper core and required modules
+
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 
@@ -10,10 +8,31 @@ export const Slider = (): JSX.Element => {
   const photos = Array.from({ length: 25 }, (_, i) => `/images/projects/${i + 1}.jpeg`);
 
   return (
-    <Swiper slidesPerView={4} autoplay={{ delay: 3000 }} modules={[Autoplay]}>
+    <Swiper
+      slidesPerView={3}
+      modules={[Autoplay]}
+      autoplay={{ delay: 1500 }}
+      height={400}
+      style={{ maxWidth: '100%' }}
+    >
       {photos.map((item, index) => (
-        <SwiperSlide key={index} style={{ position: 'relative', width: 500, height: 400 }}>
-          <Image src={item} alt={index.toString()} fill style={{ objectFit: 'cover' }} />
+        <SwiperSlide
+          key={index}
+          style={{
+            position: 'relative',
+            width: '500px',
+            height: '400px',
+            maxWidth: '500px',
+            maxHeight: '400px',
+          }}
+        >
+          <Image
+            src={item}
+            alt={index.toString()}
+            fill
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            style={{ objectFit: 'cover', maxWidth: '500px' }}
+          />
         </SwiperSlide>
       ))}
     </Swiper>
