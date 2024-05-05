@@ -76,6 +76,7 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
           <h1 className='w-72 text-4xl'>{t('contribute_hero')}</h1>
           <Link
             href='#form'
+            lang={lng}
             className='mt-5 flex w-fit flex-row gap-3 rounded-xl bg-green p-4 text-white'
           >
             {t('donate_here')}
@@ -118,6 +119,7 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
           <div className='flex justify-center'>
             <Link
               //href='https://shop.hawkstars.org/'
+              lang='en'
               href='#'
               target='_blank'
               className='flex w-fit flex-row gap-3 rounded-xl bg-green p-4 text-white'

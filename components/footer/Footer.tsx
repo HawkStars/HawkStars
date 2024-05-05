@@ -4,7 +4,7 @@ import Socials from '../utils/Socials';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import hawkLogo from '@/public/images/logo.png';
+import { hawkLogo } from '@/models/images/logos';
 import dynamic from 'next/dynamic';
 
 const LanguageSwitcher = dynamic(() => import('../utils/LanguageSwitcher'), { ssr: false });

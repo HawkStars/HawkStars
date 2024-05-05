@@ -14,7 +14,7 @@ import { Suspense, lazy } from 'react';
 import { MenuSections } from './config';
 import DropdownMenu from '../menu/DropdownMenu';
 
-import hawkLogo from '@/public/images/logo.png';
+import { hawkLogo } from '@/models/images/logos';
 import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 
 const MenuItem = lazy(() => import('../menu/MenuItem'));

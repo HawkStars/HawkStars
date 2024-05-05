@@ -37,6 +37,7 @@ const PinhelPage = async ({ params: { lng } }: LanguagePageProps) => {
             </p>
             <div className='flex flex-row gap-2'>
               <Link
+                lang={lng}
                 href={mapPinhel}
                 aria-disabled={!!mapPinhel}
                 className='text-green underline'
@@ -48,6 +49,7 @@ const PinhelPage = async ({ params: { lng } }: LanguagePageProps) => {
             {pinhelUrls[lng]?.invest_pinhel && (
               <div className='flex flex-row gap-2'>
                 <Link
+                  lang={lng}
                   href={pinhelUrls[lng]?.invest_pinhel || '#'}
                   className='text-green underline'
                   target='_blank'

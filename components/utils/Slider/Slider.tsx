@@ -3,6 +3,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
+import { ReactNode } from 'react';
+
+type SliderProps = {
+  autoplay: boolean;
+  children: ReactNode;
+};
 
 export const Slider = (): JSX.Element => {
   const photos = Array.from({ length: 25 }, (_, i) => `/images/projects/${i + 1}.jpeg`);

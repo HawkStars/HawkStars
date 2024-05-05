@@ -56,7 +56,6 @@ const transformToMetadataObject = (info: any, lng: Language, url: string): Metad
     referrer: 'no-referrer-when-downgrade',
     metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL!),
     alternates: {
-      canonical: `/${lng}${url}`,
       languages: {
         en: `/en${url}`,
         pt: `/pt${url}`,

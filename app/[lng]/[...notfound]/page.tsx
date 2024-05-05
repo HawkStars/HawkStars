@@ -1,14 +1,15 @@
 import Image from 'next/image';
 
-import logoHawk from '@/public/images/logo.png';
 import { HOME_URL } from '@/utils/paths';
 import Link from 'next/link';
+
+import { hawkLogo } from '@/models/images/logos';
 
 const NotFoundPage = () => {
   return (
     <div className='layout-section my-auto flex h-screen items-center'>
       <div className='mx-auto flex w-2/3 flex-col justify-center gap-10 align-middle'>
-        <Image src={logoHawk} alt='HawkLogo' className='mx-auto' />
+        <Image src={hawkLogo} alt='HawkLogo' className='mx-auto' />
         <h3 className='text-center'>A member of this NGO is dreaming about this page content.</h3>
         <Link
           href={HOME_URL}
