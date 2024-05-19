@@ -1,7 +1,7 @@
 'use client';
 
 import { useLanguageCookie } from '@/hooks/useLanguageCookie';
-import { transformUrl, HOME_URL, DONATE_URL } from '@/utils/paths';
+import { transformUrl, urls } from '@/utils/paths';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -29,7 +29,7 @@ const FooterMenu = () => {
                 <div className='py-1' key={index}>
                   <Suspense fallback={option.label}>
                     <Link
-                      href={transformUrl(lng, option.url || HOME_URL)}
+                      href={transformUrl(lng, option.url || urls.home)}
                       className={classNames({
                         'text-disabled': option.disabled,
                       })}
@@ -56,7 +56,7 @@ const FooterMenu = () => {
           type={'button'}
           variant='success'
           onClick={() => {
-            router.push(DONATE_URL);
+            router.push(urls.donate);
           }}
         >
           <Suspense>{t('common.donate')}</Suspense>

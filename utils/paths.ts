@@ -1,38 +1,30 @@
 /**
  *
- *
  *  WEBSITE ROUTES
- *
  *
  **/
 
-export const HOME_URL = '/' as const;
-export const ABOUT_US_URL = '/about' as const;
-export const TEAM_URL = '/team' as const;
-export const PARTNERS_URL = '/partners' as const;
-export const HAWK_HISTORY_URL = '/history' as const;
+export const urls = {
+  about: '/about',
+  be_member: '/be_member',
+  donate: '/contribute',
+  events: '/events',
+  erasmus: '/erasmus',
+  gallery: '/gallery',
+  global_village: '/village',
+  global_village_arquitecture: '/village#arquitecture',
+  global_village_objectives: '/village#objetives',
+  history: '/history',
+  home: '/',
+  OAUTH_CALLBACK_URL: '/auth/callback',
+  partners: '/partners',
+  pinhel: '/pinhel',
+  transparency: '/transparency',
+  team: '/team',
+} as const;
 
-export const EVENTS_URL = '/events' as const;
-export const ERASMUS_PLUS_URL = '/erasmus' as const;
-
-export const DONATE_URL = '/contribute' as const;
-export const BE_MEMBER_URL = '/be_member' as const;
-
-// global village | training center
-export const GLOBAL_VILLAGE_URL = '/village' as const;
-export const GLOBAL_VILLAGE_OBJECTIVES = '/village#objetives' as const;
-export const GLOBAL_VILLAGE_ARQUITECTURE = '/village#arquitecture' as const;
-export const TRANSPARENCY_URL = '/transparency' as const;
-export const PINHEL_URL = '/pinhel' as const;
-
-// art gallery
-export const GALLERY_URL = '/art' as const;
-/**
- *
- * LOGIN
- *
- */
-export const OAUTH_CALLBACK_URL = '/auth/callback';
+export type HawkStarsPaths = keyof typeof urls;
+export type HawkStarsUrl = (typeof urls)[HawkStarsPaths];
 
 /**
  *
@@ -66,15 +58,15 @@ type MetadataRoute = {
 };
 
 export const routes = [
-  { url: HOME_URL, priority: 1 },
-  { url: ABOUT_US_URL, priority: 0.5 },
-  { url: TEAM_URL, priority: 0.5 },
-  { url: PARTNERS_URL, priority: 0.8 },
-  { url: GLOBAL_VILLAGE_URL, priority: 1 },
-  { url: DONATE_URL, priority: 1 },
-  { url: TRANSPARENCY_URL, priority: 1 },
-  { url: HAWK_HISTORY_URL, priority: 0.5 },
-  { url: EVENTS_URL, priority: 0.7 },
-  { url: ERASMUS_PLUS_URL, priority: 0.7 },
-  { url: PINHEL_URL, priority: 0.5 },
+  { url: urls.home, priority: 1 },
+  { url: urls.about, priority: 0.5 },
+  { url: urls.team, priority: 0.5 },
+  { url: urls.partners, priority: 0.8 },
+  { url: urls.global_village, priority: 1 },
+  { url: urls.donate, priority: 1 },
+  { url: urls.transparency, priority: 1 },
+  { url: urls.history, priority: 0.5 },
+  { url: urls.events, priority: 0.7 },
+  { url: urls.erasmus, priority: 0.7 },
+  { url: urls.pinhel, priority: 0.5 },
 ] as MetadataRoute[];

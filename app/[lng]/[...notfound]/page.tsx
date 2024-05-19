@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { HOME_URL } from '@/utils/paths';
+import { urls } from '@/utils/paths';
 import Link from 'next/link';
 
 import { hawkLogo } from '@/models/images/logos';
@@ -12,7 +12,7 @@ const NotFoundPage = () => {
         <Image src={hawkLogo} alt='HawkLogo' className='mx-auto' />
         <h3 className='text-center'>A member of this NGO is dreaming about this page content.</h3>
         <Link
-          href={HOME_URL}
+          href={urls.home}
           className='mx-auto w-fit rounded-lg border border-green bg-green fill-white p-3 text-white'
         >
           Go Back

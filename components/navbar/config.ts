@@ -1,50 +1,52 @@
-import {
-  ABOUT_US_URL,
-  DONATE_URL,
-  ERASMUS_PLUS_URL,
-  EVENTS_URL,
-  GALLERY_URL,
-  GLOBAL_VILLAGE_ARQUITECTURE,
-  GLOBAL_VILLAGE_OBJECTIVES,
-  GLOBAL_VILLAGE_URL,
-  HAWK_HISTORY_URL,
-  PARTNERS_URL,
-  PINHEL_URL,
-  TEAM_URL,
-  TRANSPARENCY_URL,
-} from '../../utils/paths';
+import { urls } from '@/utils/paths';
 import { NavbarItem, NavbarUrlItem } from './types';
+
+const {
+  about,
+  donate,
+  erasmus,
+  events,
+  gallery,
+  global_village_arquitecture,
+  global_village_objectives,
+  global_village,
+  history,
+  partners,
+  pinhel,
+  team,
+  transparency,
+} = urls;
 
 const SHOP_URL = 'https://shop.hawkstars.org';
 
 const NGODropdownOptions = [
-  { label: 'navbar.about', url: ABOUT_US_URL },
-  { label: 'navbar.team', url: TEAM_URL },
-  { label: 'navbar.partners', url: PARTNERS_URL },
-  { label: 'navbar.history', url: HAWK_HISTORY_URL },
+  { label: 'navbar.about', url: about },
+  { label: 'navbar.team', url: team },
+  { label: 'navbar.partners', url: partners },
+  { label: 'navbar.history', url: history },
 ] as NavbarUrlItem[];
 
 const AtivitiesDropdownOptions = [
-  { label: 'navbar.events', url: EVENTS_URL, disabled: true },
-  { label: 'navbar.erasmus', url: ERASMUS_PLUS_URL, disabled: true },
+  { label: 'navbar.events', url: events, disabled: true },
+  { label: 'navbar.erasmus', url: erasmus, disabled: true },
 ] as NavbarUrlItem[];
 
 const GlobalVillageOptions = [
-  { label: 'navbar.global_village.project', url: GLOBAL_VILLAGE_URL },
-  { label: 'navbar.global_village.objectives', url: GLOBAL_VILLAGE_OBJECTIVES },
+  { label: 'navbar.global_village.project', url: global_village },
+  { label: 'navbar.global_village.objectives', url: global_village_objectives },
   {
     label: 'navbar.global_village.arquitecture',
-    url: GLOBAL_VILLAGE_ARQUITECTURE,
+    url: global_village_arquitecture,
   },
-  { label: 'navbar.global_village.contribute', url: DONATE_URL },
-  { label: 'navbar.global_village.transparency', url: TRANSPARENCY_URL },
-  { label: 'navbar.global_village.pinhel', url: PINHEL_URL },
+  { label: 'navbar.global_village.contribute', url: donate },
+  { label: 'navbar.global_village.transparency', url: transparency },
+  { label: 'navbar.global_village.pinhel', url: pinhel },
 ] as NavbarUrlItem[];
 
 const ArtGalleryOptions = [
-  { label: 'navbar.art_gallery.presentation', url: GALLERY_URL },
-  { label: 'navbar.art_gallery.curation', url: GALLERY_URL },
-  { label: 'navbar.art_gallery.art', url: GALLERY_URL },
+  { label: 'navbar.art_gallery.presentation', url: gallery },
+  { label: 'navbar.art_gallery.curation', url: gallery },
+  { label: 'navbar.art_gallery.art', url: gallery },
 ] as NavbarUrlItem[];
 
 export const MenuSections = [

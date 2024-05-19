@@ -13,7 +13,7 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import { MenuSections } from './config';
 import { useRouter } from 'next/navigation';
-import { DONATE_URL, transformUrl } from '@/utils/paths';
+import { urls, transformUrl } from '@/utils/paths';
 
 import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 
@@ -81,7 +81,7 @@ const MobileNavbar = () => {
                 type={'button'}
                 variant='success'
                 size='fit'
-                onClick={() => goToUrl(DONATE_URL)}
+                onClick={() => goToUrl(urls.donate)}
               >
                 {t('common.donate')}
               </Button>

@@ -1,15 +1,7 @@
 import * as fs from 'fs';
 import { Metadata } from 'next';
-import {
-  ABOUT_US_URL,
-  GLOBAL_VILLAGE_URL,
-  HOME_URL,
-  PARTNERS_URL,
-  TRANSPARENCY_URL,
-} from './paths';
 import { Language, fallbackLng, languages } from '@/i18n/settings';
-
-export type HawkStarsPath = 'partners' | 'transparency' | 'village' | 'home' | 'about';
+import { HawkStarsPaths, urls } from './paths';
 
 export const defaultMetadata = {
   icons: {
@@ -29,21 +21,15 @@ const readMetadataLanguageFile = (lng: Language) => {
   }
 };
 
-const getMetadataPageInfo = (lng: Language, page: HawkStarsPath): Metadata => {
-  const defaultPath = 'home' as HawkStarsPath;
+const getMetadataPageInfo = (lng: Language, page: HawkStarsPaths): Metadata => {
+  const defaultPath = 'home' as HawkStarsPaths;
   if (!languages.includes(lng)) {
     console.log('Language not supported', lng);
     lng = fallbackLng;
   }
-
   const JSONFile = readMetadataLanguageFile(lng);
   let metadataPageInfo = JSONFile[page];
-  let url = pageToUrl[page];
-  if (metadataPageInfo) return transformToMetadataObject(metadataPageInfo, lng, url);
-
-  // in case someone forgot to add the metadata information
-  metadataPageInfo = JSONFile[defaultPath];
-  url = pageToUrl[defaultPath];
+  let url = urls[page] || urls[defaultPath];
   return transformToMetadataObject(metadataPageInfo, lng, url);
 };
 
@@ -71,13 +57,5 @@ const transformToMetadataObject = (info: any, lng: Language, url: string): Metad
     },
   } as Metadata;
 };
-
-const pageToUrl = {
-  about: ABOUT_US_URL,
-  partners: PARTNERS_URL,
-  transparency: TRANSPARENCY_URL,
-  village: GLOBAL_VILLAGE_URL,
-  home: HOME_URL,
-} as { [x in HawkStarsPath]: string };
 
 export { getMetadataPageInfo };

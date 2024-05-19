@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 import Input from '@/components/utils/Input/Input';
 import { useRouter } from 'next/navigation';
-import { HOME_URL } from '@/utils/paths';
+import { urls } from '@/utils/paths';
 import { loginWithGoogle, loginWithFacebook, loginWithEmail } from '@/services/OAuthLogins';
 
 const LoginPage = () => {
@@ -28,7 +28,7 @@ const LoginPage = () => {
   const enterWithOTP = async (event: any) => {
     event.preventDefault();
     await loginWithEmail(email);
-    router.push(HOME_URL);
+    router.push(urls.home);
   };
 
   return (

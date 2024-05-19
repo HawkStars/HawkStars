@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import { hawkLogo } from '@/models/images/logos';
-import { HOME_URL } from '@/utils/paths';
+import { urls } from '@/utils/paths';
 import Link from 'next/link';
 
 const GalleryPage = () => {
@@ -11,7 +11,7 @@ const GalleryPage = () => {
         <Image src={hawkLogo} alt='HawkLogo' className='mx-auto' />
         <h3 className='text-center'>Building it. Launch on summer 2024.</h3>
         <Link
-          href={HOME_URL}
+          href={urls.home}
           className='mx-auto w-fit rounded-lg border border-green bg-green fill-white p-3 text-white'
         >
           Go Back

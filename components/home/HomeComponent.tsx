@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Button from '../utils/Button';
 
 import { VisionType, visionIcons } from './config';
-import { BE_MEMBER_FORM_URL, DONATE_URL, GLOBAL_VILLAGE_URL } from '../../utils/paths';
+import { BE_MEMBER_FORM_URL, urls } from '../../utils/paths';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../../i18n/client';
@@ -32,7 +32,7 @@ const HomeComponent = ({ lng }: LanguageProps) => {
                 <Button
                   type={'button'}
                   onClick={() => {
-                    router.push(DONATE_URL);
+                    router.push(urls.donate);
                   }}
                 >
                   <Suspense fallback=''>{t('common.donate')}</Suspense>
@@ -113,7 +113,7 @@ const HomeComponent = ({ lng }: LanguageProps) => {
             <h3 className='mt-5 font-black text-green'>Global Village</h3>
             <p>{t('home.global_village')}</p>
             <div>
-              <Button type={'button'} onClick={() => router.push(GLOBAL_VILLAGE_URL)}>
+              <Button type={'button'} onClick={() => router.push(urls.global_village)}>
                 {t('see_more')}
               </Button>
             </div>

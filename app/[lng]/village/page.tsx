@@ -11,7 +11,7 @@ import { Language } from '@/i18n/settings';
 
 export async function generateMetadata({ params }: LanguagePageProps): Promise<Metadata> {
   const { lng } = params;
-  const metadataPage = getMetadataPageInfo(lng as Language, 'village');
+  const metadataPage = getMetadataPageInfo(lng as Language, 'global_village');
   return metadataPage;
 }
 

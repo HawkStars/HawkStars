@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { useServerTranslation } from '@/i18n';
 import { LanguagePageProps } from '../types';
-import { ABOUT_US_URL, GLOBAL_VILLAGE_URL } from '@/utils/paths';
+import { urls } from '@/utils/paths';
 import { historyReferenceUrl, humanitarianSlideShowImages } from './config';
 
 import Slideshow from '@/components/utils/Slideshow/Slideshow';
@@ -69,13 +69,13 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
 
       <div className='mt-5 flex flex-row gap-4'>
         <Link
-          href={ABOUT_US_URL}
+          href={urls.about}
           className='w-fit rounded-xl border border-green bg-green fill-white p-2 text-white'
         >
           {t('about_hawkstars')}
         </Link>
         <Link
-          href={GLOBAL_VILLAGE_URL}
+          href={urls.global_village}
           className='w-fit rounded-xl border border-green bg-green fill-white p-2 text-white'
         >
           {t('about_globalvillage')}

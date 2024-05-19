@@ -7,7 +7,7 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 
 import { useSetMobileNavbarOpen } from '../../contexts/AppProvider';
 import Button from '../utils/Button';
-import { DONATE_URL } from '../../utils/paths';
+import { urls } from '../../utils/paths';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '../../i18n/client';
 import { Suspense, lazy } from 'react';
@@ -72,7 +72,7 @@ const Navbar = () => {
                   <Button
                     type={'submit'}
                     onClick={() => {
-                      router.push(DONATE_URL);
+                      router.push(urls.donate);
                     }}
                   >
                     <Suspense>{t('common.donate')}</Suspense>

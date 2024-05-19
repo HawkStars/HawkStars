@@ -83,7 +83,6 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ event }: FormHawkEvents
 
     const { data } = response;
 
-    debugger;
     if (!data.info) return;
 
     const photos = data.info as unknown;
