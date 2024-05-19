@@ -11,6 +11,7 @@ import { Trans } from 'react-i18next/TransWithoutContext';
 
 // images
 import { euroHawkLogo, hawkLogo } from '@/models/images/logos';
+import historyHero from '@/public/images/history/hero.webp';
 
 const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
   const { t } = await useServerTranslation(lng, 'hawkstars');
@@ -40,7 +41,7 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
             <p className='text-justify'>{t('hawk_stars')}</p>
           </div>
           <div>
-            <Image />
+            <Image src={historyHero} alt='fundation of hawkstars' />
           </div>
         </div>
       </div>

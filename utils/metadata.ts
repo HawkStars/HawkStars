@@ -49,6 +49,8 @@ const getMetadataPageInfo = (lng: Language, page: HawkStarsPath): Metadata => {
 
 const transformToMetadataObject = (info: any, lng: Language, url: string): Metadata => {
   const { title, description, keywords } = info;
+  if (url === '/') url = '';
+
   return {
     title: title,
     description: description,
