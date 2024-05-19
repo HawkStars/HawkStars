@@ -15,11 +15,21 @@ export const Slider = (): JSX.Element => {
 
   return (
     <Swiper
-      slidesPerView={3}
       modules={[Autoplay]}
       autoplay={{ delay: 1500 }}
       height={400}
       style={{ maxWidth: '100%' }}
+      breakpoints={{
+        640: {
+          slidesPerView: 1,
+        },
+        768: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 3,
+        },
+      }}
     >
       {photos.map((item, index) => (
         <SwiperSlide
