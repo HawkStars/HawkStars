@@ -7,42 +7,47 @@ import { useServerTranslation } from '../../../i18n';
 import { LanguageProps } from '../../types';
 import Image from 'next/image';
 import Accordion from '../Accordion/Accordion';
+import { HawkStarsSection } from '@/components/layout';
 
 const AboutPage = async ({ lng }: LanguageProps) => {
   const { t } = await useServerTranslation(lng, 'about');
   return (
     <>
-      <div className='layout-section grid grid-cols-1 gap-10 lg:mt-10 lg:grid-cols-2'>
-        <div className='mt-20 flex flex-col gap-5'>
-          <h1>{t('title')}</h1>
-          <p className='font-body'>{t('description')}</p>
+      <HawkStarsSection>
+        <div className='grid grid-cols-1 gap-10 lg:mt-10 lg:grid-cols-2'>
+          <div className='mt-20 flex flex-col gap-5'>
+            <h1>{t('title')}</h1>
+            <p className='font-body'>{t('description')}</p>
+          </div>
+          <div className='mx-auto mt-10 grid grid-cols-2 grid-rows-7 lg:w-[500px]'>
+            <div className='row-span-3'>
+              <Image height={260} width={249} alt='' src='/images/about/hero/top-left.png' />
+            </div>
+            <div className='row-span-2'>
+              <Image height={150} width={249} alt='' src='/images/about/hero/top-right.png' />
+            </div>
+            <div className='row-span-4'>
+              <Image height={367} width={249} alt='' src='/images/about/hero/bottom-right.png' />
+            </div>
+            <div className='row-span-3'>
+              <Image height={260} width={249} alt='' src='/images/about/hero/bottom-left.png' />
+            </div>
+          </div>
         </div>
-        <div className='mx-auto mt-10 grid grid-cols-2 grid-rows-7 lg:w-[500px]'>
-          <div className='row-span-3'>
-            <Image height={260} width={249} alt='' src='/images/about/hero/top-left.png' />
-          </div>
-          <div className='row-span-2'>
-            <Image height={150} width={249} alt='' src='/images/about/hero/top-right.png' />
-          </div>
-          <div className='row-span-4'>
-            <Image height={367} width={249} alt='' src='/images/about/hero/bottom-right.png' />
-          </div>
-          <div className='row-span-3'>
-            <Image height={260} width={249} alt='' src='/images/about/hero/bottom-left.png' />
+      </HawkStarsSection>
+      <HawkStarsSection>
+        <div className='my-10 flex flex-col gap-5 xl:mx-auto'>
+          <h2 className='flex justify-center text-center text-green'>{t('objectives.title')}</h2>
+          <h3 className='mx-auto flex justify-center text-center lg:w-3/5'>
+            {t('objectives.description')}
+          </h3>
+          <div className='grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3 '>
+            {aboutObjectiveSections.map((section, index) => (
+              <TaskComponent key={index} {...section} lng={lng} />
+            ))}
           </div>
         </div>
-      </div>
-      <div className='layout-section my-10 flex flex-col gap-5 xl:mx-auto'>
-        <h2 className='flex justify-center text-center text-green'>{t('objectives.title')}</h2>
-        <h3 className='mx-auto flex justify-center text-center lg:w-3/5'>
-          {t('objectives.description')}
-        </h3>
-        <div className='grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3 '>
-          {aboutObjectiveSections.map((section, index) => (
-            <TaskComponent key={index} {...section} lng={lng} />
-          ))}
-        </div>
-      </div>
+      </HawkStarsSection>
       <div className='bg-bege-light p-4 pb-8 lg:mt-20 lg:px-10 lg:py-20'>
         <div className='layout-section relative grid grid-cols-1 gap-10 lg:grid-cols-2'>
           <Image

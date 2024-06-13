@@ -12,39 +12,44 @@ import { Trans } from 'react-i18next/TransWithoutContext';
 // images
 import { euroHawkLogo, hawkLogo } from '@/models/images/logos';
 import historyHero from '@/public/images/history/hero.webp';
+import { HawkStarsSection } from '@/components/layout';
 
 const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
   const { t } = await useServerTranslation(lng, 'hawkstars');
   const { geral, festival, erasmus, report, news } = historyReferenceUrl;
 
   return (
-    <section className='layout-section full-width flex flex-col gap-5 bg-bege-light'>
-      <div className='flex flex-col gap-12 lg:p-24'>
-        <div className='flex justify-around gap-4 px-10'>
-          <Image src={euroHawkLogo} alt='euro hawk logo' />
+    <section className='flex flex-col gap-5 bg-bege-light'>
+      <HawkStarsSection>
+        <div className='flex flex-col gap-12 lg:p-24'>
+          <div className='flex justify-around gap-4 px-10'>
+            <Image src={euroHawkLogo} alt='euro hawk logo' />
 
-          <div className='flex w-full'>
-            <div className='my-auto h-4 w-4 rounded-xl bg-green'></div>
-            <div className='my-auto h-1 w-full bg-green'></div>
-            <div className='my-auto h-0 w-0 border-y-8 border-l-[16px] border-y-transparent border-l-green'></div>
+            <div className='flex w-full'>
+              <div className='my-auto h-4 w-4 rounded-xl bg-green'></div>
+              <div className='my-auto h-1 w-full bg-green'></div>
+              <div className='my-auto h-0 w-0 border-y-8 border-l-[16px] border-y-transparent border-l-green'></div>
+            </div>
+            <div className='my-auto max-w-[250px]'>
+              <Image src={hawkLogo} alt='hawk stars logo' />
+            </div>
           </div>
-          <div className='my-auto max-w-[250px]'>
-            <Image src={hawkLogo} alt='hawk stars logo' />
+          <div className='grid grid-cols-2'>
+            <div>
+              <h1 className='text-center'>{t('title')}</h1>
+              <p className='text-justify'>{t('beginning')}</p>
+              <p className='text-justify'>{t('euro_hawk')}</p>
+            </div>
+            <div>
+              <Image src={historyHero} alt='fundation of hawkstars' />
+            </div>
           </div>
         </div>
-        <div className='grid grid-cols-2'>
-          <div>
-            <h1 className='text-center'>{t('title')}</h1>
-            <p className='text-justify'>{t('beginning')}</p>
-            <p className='text-justify'>{t('euro_hawk')}</p>
-            <p className='text-justify'>{t('euro_hawk_2')}</p>
-            <p className='text-justify'>{t('hawk_stars')}</p>
-          </div>
-          <div>
-            <Image src={historyHero} alt='fundation of hawkstars' />
-          </div>
-        </div>
-      </div>
+      </HawkStarsSection>
+      <HawkStarsSection>
+        <p className='mr-auto w-1/2 text-left'>{t('euro_hawk_2')}</p>
+        <p className='ml-auto w-1/2 text-right'>{t('hawk_stars')}</p>
+      </HawkStarsSection>
 
       <p className='text-justify'>
         <Trans
@@ -61,9 +66,9 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
           }}
         />
       </p>
-      <div className='max-lg:-mx-4'>
+      {/* <div className='max-lg:-mx-4'>
         <Slideshow images={humanitarianSlideShowImages} />
-      </div>
+      </div> */}
       <p className='text-justify'>{t('foundation')}</p>
       <p className='text-justify'>{t('presentation')}</p>
 
@@ -82,36 +87,38 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
         </Link>
       </div>
 
-      <div className='mt-10 flex flex-col gap-3'>
-        <h3 className='text-xl font-bold text-green'>{t('urls.eurohawks')}</h3>
-        <ReferencesSection title='Main' urls={geral} />
-        <ReferencesSection title='Erasmus +' urls={erasmus} />
-        <ReferencesSection title='Hawk Festival' urls={festival} />
-      </div>
-      <div className='flex flex-col gap-3'>
-        <h3 className='text-xl font-bold text-green'>{t('urls.fnee')}</h3>
-        <ReferencesSection title='Report' urls={report} />
-        <ReferencesSection title='News' urls={news} />
-      </div>
-      <HumanitarianHelpSection />
+      <HawkStarsSection>
+        {/* <div className='mt-10 flex flex-col gap-3'>
+          <h3 className='text-xl font-bold text-green'>{t('urls.eurohawks')}</h3>
+          <ReferencesSection title='Main' urls={geral} />
+          <ReferencesSection title='Erasmus +' urls={erasmus} />
+          <ReferencesSection title='Hawk Festival' urls={festival} />
+        </div>
+        <div className='flex flex-col gap-3'>
+          <h3 className='text-xl font-bold text-green'>{t('urls.fnee')}</h3>
+          <ReferencesSection title='Report' urls={report} />
+          <ReferencesSection title='News' urls={news} />
+        </div> */}
+        <HumanitarianHelpSection />
+      </HawkStarsSection>
     </section>
   );
 };
 
-const ReferencesSection = ({ title, urls }: { title: string; urls: string[] }) => {
-  return (
-    <div className='flex flex-col gap-2'>
-      <h6 className='font-bold'>{title}</h6>
-      <div className='flex flex-row flex-wrap gap-2 text-sm'>
-        {urls.map((url, index) => (
-          <Link href={url} target='_blank' key={index} className='font-black text-green'>
-            {index + 1}.
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-};
+// const ReferencesSection = ({ title, urls }: { title: string; urls: string[] }) => {
+//   return (
+//     <div className='flex flex-col gap-2'>
+//       <h6 className='font-bold'>{title}</h6>
+//       <div className='flex flex-row flex-wrap gap-2 text-sm'>
+//         {urls.map((url, index) => (
+//           <Link href={url} target='_blank' key={index} className='font-black text-green'>
+//             {index + 1}.
+//           </Link>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
 
 const HumanitarianHelpSection = () => {
   return (
