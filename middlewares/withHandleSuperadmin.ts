@@ -21,6 +21,7 @@ async function checkIfAuthenticated(
     data: { user },
     error,
   } = await supabase.auth.getUser();
+
   if (error || !user) return { success: false, response };
 
   const userId = user.id;

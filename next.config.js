@@ -11,7 +11,7 @@ const cspHeader = `
     block-all-mixed-content;
     upgrade-insecure-requests;
     frame-src *.google.com https://upload-widget.cloudinary.com;
-    connect-src 'self' ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://*.gstatic.com ${process.env.NEXT_PUBLIC_SUPABASE_URL} data: blob:` : 'http://127.0.0.1:54321'};
+    connect-src 'self' *.api.sanity.io ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://*.gstatic.com ${process.env.NEXT_PUBLIC_SUPABASE_URL} data: blob:` : 'http://127.0.0.1:54321'};
     worker-src blob:;
     script-src-elem 'self' https://www.googletagmanager.com https://upload-widget.cloudinary.com 'unsafe-inline';
 `;
@@ -21,6 +21,17 @@ const nextConfig = {
     fetches: {
       fullUrl: true,
     },
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
+    ],
+  },
+  experimental: {
+    taint: true,
   },
   async headers() {
     return [

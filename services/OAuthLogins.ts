@@ -11,7 +11,7 @@ async function loginWithEmail(email: string) {
     email,
     options: {
       shouldCreateUser: true,
-      emailRedirectTo: process.env.NEXT_PUBLIC_APP_URL,
+      emailRedirectTo: REDIRECT_LOGIN_URL,
     },
   });
 
