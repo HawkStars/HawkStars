@@ -13,15 +13,16 @@ import { Trans } from 'react-i18next/TransWithoutContext';
 import { euroHawkLogo, hawkLogo } from '@/models/images/logos';
 import historyHero from '@/public/images/history/hero.webp';
 import { HawkStarsSection } from '@/components/layout';
+import humanitarian_1 from '@/public/images/history/humanitarian_1.jpeg';
 
 const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
   const { t } = await useServerTranslation(lng, 'hawkstars');
   const { geral, festival, erasmus, report, news } = historyReferenceUrl;
 
   return (
-    <section className='flex flex-col gap-5 bg-bege-light'>
-      <HawkStarsSection>
-        <div className='flex flex-col gap-12 lg:p-24'>
+    <section className='flex flex-col gap-5'>
+      <HawkStarsSection bgcolor='begeLight'>
+        <div className='flex flex-col gap-12 py-12'>
           <div className='flex justify-around gap-4 px-10'>
             <Image src={euroHawkLogo} alt='euro hawk logo' />
 
@@ -34,11 +35,11 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
               <Image src={hawkLogo} alt='hawk stars logo' />
             </div>
           </div>
-          <div className='grid grid-cols-2'>
-            <div>
-              <h1 className='text-center'>{t('title')}</h1>
+          <div className='grid grid-cols-1 gap-14 lg:grid-cols-2'>
+            <div className='flex flex-col gap-4'>
+              <h1 className='text-left text-green'>{t('title')}</h1>
               <p className='text-justify'>{t('beginning')}</p>
-              <p className='text-justify'>{t('euro_hawk')}</p>
+              <p className='mt-2 text-justify'>{t('euro_hawk')}</p>
             </div>
             <div>
               <Image src={historyHero} alt='fundation of hawkstars' />
@@ -50,7 +51,9 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
         <p className='mr-auto w-1/2 text-left'>{t('euro_hawk_2')}</p>
         <p className='ml-auto w-1/2 text-right'>{t('hawk_stars')}</p>
       </HawkStarsSection>
-
+      <HawkStarsSection bgcolor='green'>
+        <HumanitarianHelpSection />
+      </HawkStarsSection>
       <p className='text-justify'>
         <Trans
           i18nKey='humanitary'
@@ -69,37 +72,41 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
       {/* <div className='max-lg:-mx-4'>
         <Slideshow images={humanitarianSlideShowImages} />
       </div> */}
-      <p className='text-justify'>{t('foundation')}</p>
-      <p className='text-justify'>{t('presentation')}</p>
-
-      <div className='mt-5 flex flex-row gap-4'>
-        <Link
-          href={urls.about}
-          className='w-fit rounded-xl border border-green bg-green fill-white p-2 text-white'
-        >
-          {t('about_hawkstars')}
-        </Link>
-        <Link
-          href={urls.global_village}
-          className='w-fit rounded-xl border border-green bg-green fill-white p-2 text-white'
-        >
-          {t('about_globalvillage')}
-        </Link>
-      </div>
+      <HawkStarsSection>
+        <div className='flex flex-col gap-7'>
+          <Image src={humanitarian_1} alt='Humanitarian help' sizes='100vw' className='w-full' />
+          <p className='mr-auto w-1/2 text-left'>{t('foundation')}</p>
+        </div>
+      </HawkStarsSection>
 
       <HawkStarsSection>
-        {/* <div className='mt-10 flex flex-col gap-3'>
-          <h3 className='text-xl font-bold text-green'>{t('urls.eurohawks')}</h3>
-          <ReferencesSection title='Main' urls={geral} />
-          <ReferencesSection title='Erasmus +' urls={erasmus} />
-          <ReferencesSection title='Hawk Festival' urls={festival} />
+        <div className='grid grid-cols-1 gap-7 lg:grid-cols-2'>
+          <div className='h-full'>
+            <Image
+              src={humanitarian_1}
+              alt='Humanitarian help'
+              sizes='100vw'
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
+          <div className='-mr-40 flex flex-col gap-12 bg-bege-light py-20 pl-16 pr-40'>
+            <p className='text-left'>{t('presentation')}</p>
+            <div className='mt-5 flex flex-row gap-4'>
+              <Link
+                href={urls.about}
+                className='w-fit rounded-xl border border-green bg-green fill-white p-2 text-white'
+              >
+                {t('about_hawkstars')}
+              </Link>
+              <Link
+                href={urls.global_village}
+                className='w-fit rounded-xl border border-green bg-green fill-white p-2 text-white'
+              >
+                {t('about_globalvillage')}
+              </Link>
+            </div>
+          </div>
         </div>
-        <div className='flex flex-col gap-3'>
-          <h3 className='text-xl font-bold text-green'>{t('urls.fnee')}</h3>
-          <ReferencesSection title='Report' urls={report} />
-          <ReferencesSection title='News' urls={news} />
-        </div> */}
-        <HumanitarianHelpSection />
       </HawkStarsSection>
     </section>
   );

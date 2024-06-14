@@ -4,9 +4,10 @@ import { tw, variantProps } from 'classname-variants/react';
 type SectionProps = {
   children: ReactNode;
   width?: 'full' | 'half';
+  bgcolor?: 'begeLight' | 'begeDark' | 'white' | 'green';
 };
 
-const sectionProps = variantProps({
+const innerSectionProps = variantProps({
   base: tw`px-4 lg:mx-auto lg:px-40`,
   variants: {
     width: {
@@ -17,7 +18,26 @@ const sectionProps = variantProps({
   defaultVariants: { width: undefined },
 });
 
+const outerSectionProps = variantProps({
+  variants: {
+    bgcolor: {
+      begeLight: tw`bg-bege-light`,
+      begeDark: tw`bg-bege-dark`,
+      white: tw`bg-white`,
+      green: tw`bg-green`,
+    },
+  },
+  defaultVariants: {
+    bgcolor: 'white',
+  },
+});
+
 export const Section = (props: SectionProps) => {
   const { children } = props;
-  return <section {...sectionProps({ ...props })}>{children}</section>;
+
+  return (
+    <section {...outerSectionProps({ ...props })}>
+      <div {...innerSectionProps({ ...props })}>{children}</div>
+    </section>
+  );
 };
