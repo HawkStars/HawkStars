@@ -49,7 +49,7 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
         </div>
       </HawkStarsSection>
       <HawkStarsSection>
-        <div className='flex flex-col gap-3 xl:py-32'>
+        <div className='flex flex-col gap-3 py-12 xl:py-32'>
           <p className='mr-auto text-left xl:w-1/2'>{t('euro_hawk_2')}</p>
           <p className='ml-auto text-left xl:w-1/2 xl:text-right'>{t('hawk_stars')}</p>
         </div>
@@ -170,7 +170,7 @@ const HumanitarianHelpInfoPoints = ({
           {smallTitle ? smallTitle : ''}
         </p>
       </div>
-      {description && <p className='ml-1'>{description}</p>}
+      {description && <p className='ml-1 w-5/6'>{description}</p>}
     </div>
   );
 };

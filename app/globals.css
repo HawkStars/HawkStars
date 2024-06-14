@@ -4,21 +4,32 @@
 
 @layer base {
   body {
-    font-family:
-      'Inter',
-      sans serif;
+    font-family: 'Inter', 'sans serif';
   }
 
   h1 {
-    @apply font-title;
+    @apply font-semibold tracking-normal;
+    font-size: 3rem;
+    line-height: 103%;
   }
 
   h2 {
-    @apply font-subtitle-bold;
+    @apply tracking-normal;
+    line-height: 113%;
+    font-size: 1.5rem;
+
+    &.bold {
+      @apply font-bold;
+    }
   }
 
-  h3 {
-    @apply font-subtitle;
+  p {
+    font-size: 1rem;
+    @apply font-normal;
+
+    &.semi-bold {
+      @apply font-semibold;
+    }
   }
 
   input[type='number']::-webkit-inner-spin-button,
@@ -28,52 +39,9 @@
   }
 }
 
-/**
- * Font Size 
- */
-
 @layer components {
-  .font-title {
-    @apply text-2xl font-semibold lg:text-5xl;
-    line-height: 103%;
-  }
-
-  .font-subtitle {
-    @apply text-2xl font-light tracking-wide;
-    line-height: 113%;
-  }
-
-  .font-subtitle-bold {
-    @apply text-2xl font-bold tracking-wide;
-    line-height: 113%;
-  }
-  .font-body {
-    @apply text-base font-light;
-  }
-
-  .font-body-bold {
-    @apply text-base font-semibold;
-  }
-
-  .layout-section {
-    @apply p-4 sm:p-8 md:mx-auto xl:p-0;
-
-    &.full-width {
-      @apply max-w-full;
-    }
-
-    &.w-6-xl {
-      @apply max-w-6xl;
-    }
-  }
 }
 
 html {
   scroll-behavior: smooth;
 }
-
-/* sm	640px	@media (min-width: 640px) { ... }
-md	768px	@media (min-width: 768px) { ... }
-lg	1024px	@media (min-width: 1024px) { ... }
-xl	1280px	@media (min-width: 1280px) { ... }
-2xl	1536px	@media (min-width: 1536px) { ... } */
