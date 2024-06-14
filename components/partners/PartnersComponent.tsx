@@ -82,7 +82,7 @@ const PartnerCard = ({
       {contacts && contacts.length > 0 && (
         <div className='flex gap-2'>
           <>
-            <h6 className='font-body-bold'>Contacts:</h6>
+            <p className='bold'>Contacts:</p>
             {contacts.map((contact, index) => {
               const icon = contact && SocialIcon[contact.type as SocialType];
 

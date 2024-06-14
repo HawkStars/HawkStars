@@ -17,7 +17,7 @@ const AboutPage = async ({ lng }: LanguageProps) => {
         <div className='grid grid-cols-1 gap-10 lg:mt-10 lg:grid-cols-2'>
           <div className='mt-20 flex flex-col gap-5'>
             <h1>{t('title')}</h1>
-            <p className='font-body'>{t('description')}</p>
+            <p>{t('description')}</p>
           </div>
           <div className='mx-auto mt-10 grid grid-cols-2 grid-rows-7 lg:w-[500px]'>
             <div className='row-span-3'>
@@ -99,7 +99,7 @@ const AboutPage = async ({ lng }: LanguageProps) => {
             </ul>
           </Accordion>
           <Accordion title={t('expansion.title')} defaultOpen={false}>
-            <p className='font-body text-justify'>{t('expansion.description')}</p>
+            <p className='text-justify'>{t('expansion.description')}</p>
           </Accordion>
         </div>
       </div>
@@ -120,8 +120,8 @@ const TaskComponent = async ({ icon, title, description, lng }: TaskComponentPro
       <div className='w-fit rounded-xl bg-bege-dark'>
         <Image src={icon} height={40} width={40} alt='objetive icon' />
       </div>
-      <h6 className='font-body-body'>{t(title)}</h6>
-      <p className='font-body'>{t(description)}</p>
+      <h6>{t(title)}</h6>
+      <p>{t(description)}</p>
     </div>
   );
 };
@@ -146,7 +146,7 @@ const MissionTaskComponent = async ({
   return (
     <div className='flex flex-col'>
       <h2>{formattedNumber}.</h2>
-      <p className='font-body'>{t(text)}</p>
+      <p>{t(text)}</p>
     </div>
   );
 };

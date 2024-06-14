@@ -11,6 +11,7 @@ import { euroHawkLogo, hawkLogo } from '@/models/images/logos';
 import historyHero from '@/public/images/history/hero.webp';
 import { HawkStarsSection } from '@/components/layout';
 import humanitarian_1 from '@/public/images/history/humanitarian_1.jpeg';
+import global_village_image from '@/public/images/hero.png';
 
 const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
   const { t } = await useServerTranslation(lng, 'hawkstars');
@@ -79,10 +80,10 @@ const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
         <div className='grid grid-cols-1 gap-7 xl:grid-cols-2'>
           <div className='h-full max-xl:-mx-4'>
             <Image
-              src={humanitarian_1}
-              alt='Humanitarian help'
-              sizes='100vw'
-              style={{ objectFit: 'cover' }}
+              loading='lazy'
+              src={global_village_image}
+              className='aspect-[1.2] w-full overflow-hidden object-contain object-center max-sm:max-w-full sm:pr-0 lg:mt-10 lg:pr-0'
+              alt='hero'
             />
           </div>
           <div className='flex flex-col gap-12 bg-bege-light p-3 py-14 max-xl:-mx-4 lg:p-10 lg:py-20 xl:-mr-40 xl:pl-16 xl:pr-40'>
