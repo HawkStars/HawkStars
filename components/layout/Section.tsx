@@ -8,7 +8,7 @@ type SectionProps = {
 };
 
 const innerSectionProps = variantProps({
-  base: tw`px-4 lg:mx-auto lg:px-40`,
+  base: tw`px-4 xl:mx-auto xl:px-40`,
   variants: {
     width: {
       full: tw`w-full`,
