@@ -15,6 +15,9 @@ import heroPng from '@/public/images/frontpage/hero.png';
 import whoWeAreImage from '@/public/images/frontpage/quem_somos.png';
 import { LanguageProps } from '../types';
 import { Slider } from '../utils/Slider';
+import { SwiperSlide } from 'swiper/react';
+
+const photos = Array.from({ length: 25 }, (_, i) => `/images/projects/${i + 1}.jpeg`);
 
 const HomeComponent = ({ lng }: LanguageProps) => {
   const { t } = useTranslation(lng, 'common');
@@ -122,7 +125,28 @@ const HomeComponent = ({ lng }: LanguageProps) => {
       </section>
       <section className='flex flex-col gap-6 py-20'>
         <h6 className='text-center text-2xl font-bold text-green'>Erasmus +</h6>
-        <Slider />
+        <Slider>
+          {photos.map((item, index) => (
+            <SwiperSlide
+              key={index}
+              style={{
+                position: 'relative',
+                width: '500px',
+                height: '400px',
+                maxWidth: '500px',
+                maxHeight: '400px',
+              }}
+            >
+              <Image
+                src={item}
+                alt={index.toString()}
+                fill
+                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                style={{ objectFit: 'cover', maxWidth: '500px' }}
+              />
+            </SwiperSlide>
+          ))}
+        </Slider>
       </section>
     </>
   );

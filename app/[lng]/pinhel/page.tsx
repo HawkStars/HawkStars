@@ -3,11 +3,7 @@ import Link from 'next/link';
 import { pinhelSlideshowImages, pinhelUrls } from './config';
 import { useServerTranslation } from '@/i18n';
 import { LanguagePageProps } from '../types';
-
-import { Suspense, lazy } from 'react';
-import MainHawkStarsLoading from '../loading';
-
-const PinhelSlideShow = lazy(() => import('@/components/utils/Slideshow/Slideshow'));
+import { Slider } from '@/components/utils/Slider';
 
 const PinhelPage = async ({ params: { lng } }: LanguagePageProps) => {
   const { t } = await useServerTranslation(lng, 'pinhel');
@@ -15,11 +11,32 @@ const PinhelPage = async ({ params: { lng } }: LanguagePageProps) => {
 
   return (
     <>
-      <Suspense fallback={<MainHawkStarsLoading />}>
-        <div className='mx-auto w-full'>
-          <PinhelSlideShow images={pinhelSlideshowImages} indicators={false} arrows={false} />
-        </div>
-      </Suspense>
+      <div className='mx-auto w-full'>
+        <Slider>
+          {pinhelSlideshowImages.map((item, index) => (
+            <></>
+            // <SwiperSlide
+            //   key={index}
+            //   style={{
+            //     position: 'relative',
+            //     width: '500px',
+            //     height: '400px',
+            //     maxWidth: '500px',
+            //     maxHeight: '400px',
+            //   }}
+            // >
+            //   test
+            //   {/* <Image
+            //       src={item.url}
+            //       alt={''}
+            //       fill
+            //       sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            //       style={{ objectFit: 'cover', maxWidth: '500px' }}
+            //     /> */}
+            // </SwiperSlide>
+          ))}
+        </Slider>
+      </div>
       <section className='layout-section mt-5 flex flex-col gap-10'>
         <div className='flex flex-col-reverse gap-5 lg:flex-row'>
           <iframe

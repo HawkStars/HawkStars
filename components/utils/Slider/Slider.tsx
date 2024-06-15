@@ -1,18 +1,15 @@
-import Image from 'next/image';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper } from 'swiper/react';
 
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import { ReactNode } from 'react';
 
 type SliderProps = {
-  autoplay: boolean;
+  autoplay?: boolean;
   children: ReactNode;
 };
 
-export const Slider = (): JSX.Element => {
-  const photos = Array.from({ length: 25 }, (_, i) => `/images/projects/${i + 1}.jpeg`);
-
+export const Slider = ({ autoplay, children }: SliderProps): JSX.Element => {
   return (
     <Swiper
       modules={[Autoplay]}
@@ -31,26 +28,7 @@ export const Slider = (): JSX.Element => {
         },
       }}
     >
-      {photos.map((item, index) => (
-        <SwiperSlide
-          key={index}
-          style={{
-            position: 'relative',
-            width: '500px',
-            height: '400px',
-            maxWidth: '500px',
-            maxHeight: '400px',
-          }}
-        >
-          <Image
-            src={item}
-            alt={index.toString()}
-            fill
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-            style={{ objectFit: 'cover', maxWidth: '500px' }}
-          />
-        </SwiperSlide>
-      ))}
+      {children}
     </Swiper>
   );
 };
