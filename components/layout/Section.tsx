@@ -5,17 +5,21 @@ type SectionProps = {
   children: ReactNode;
   width?: 'full' | 'half';
   bgcolor?: 'begeLight' | 'begeDark' | 'white' | 'green';
+  padding?: 'none' | 'default';
 };
 
 const innerSectionProps = variantProps({
-  base: tw`px-4 xl:mx-auto xl:px-40`,
   variants: {
     width: {
       full: tw`w-full`,
       half: tw`w-1/2`,
     },
+    padding: {
+      none: tw`px-0`,
+      default: tw`px-4 xl:px-40 xl:mx-auto`,
+    },
   },
-  defaultVariants: { width: undefined },
+  defaultVariants: { width: undefined, padding: 'default' },
 });
 
 const outerSectionProps = variantProps({

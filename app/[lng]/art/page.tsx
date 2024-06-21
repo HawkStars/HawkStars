@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const GalleryPage = () => {
   return (
-    <div className='layout-section my-auto flex h-screen items-center'>
+    <div className='my-auto flex h-screen items-center'>
       <div className='mx-auto flex w-2/3 flex-col justify-center gap-10 align-middle'>
         <Image src={hawkLogo} alt='HawkLogo' className='mx-auto' />
         <h3 className='text-center'>Building it. Launch on summer 2024.</h3>

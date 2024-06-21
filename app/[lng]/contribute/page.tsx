@@ -28,6 +28,7 @@ import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
 import { Suspense } from 'react';
 import MainHawkStarsLoading from '../loading';
 import ContributeFormSection from '@/components/contribute/ContributeFormSection';
+import { HawkStarsSection } from '@/components/layout';
 
 const getChairsContribute = async () => {
   const supabase = createSupabaseBrowserClient();
@@ -71,22 +72,24 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
   return (
     <div className='mt-5 flex flex-col gap-5 lg:mt-10'>
       <h1 className='mx-4 text-center text-green lg:hidden'>{t('contribute_hero')}</h1>
-      <div className='layout-section relative max-w-full max-2xl:mx-0 max-2xl:p-0'>
-        <div className='absolute left-40 top-20 hidden text-green lg:block'>
-          <h1 className='w-72 text-4xl'>{t('contribute_hero')}</h1>
-          <Link
-            href='#form'
-            lang={lng}
-            className='mt-5 flex w-fit flex-row gap-3 rounded-xl bg-green p-4 text-white'
-          >
-            {t('donate_here')}
-          </Link>
+      <HawkStarsSection padding='none'>
+        <div className='relative max-w-full max-2xl:mx-0 max-2xl:p-0'>
+          <div className='absolute left-40 top-20 hidden text-green lg:block'>
+            <h1 className='w-72 text-4xl'>{t('contribute_hero')}</h1>
+            <Link
+              href='#form'
+              lang={lng}
+              className='mt-5 flex w-fit flex-row gap-3 rounded-xl bg-green p-4 text-white'
+            >
+              {t('donate_here')}
+            </Link>
+          </div>
+          <Image src={heroImage} alt='hero image' />
         </div>
-        <Image src={heroImage} alt='hero image' />
-      </div>
+      </HawkStarsSection>
       <div className='flex flex-col gap-10 bg-gradient-to-tr from-[#E9E9E9] from-35% via-bege-dark to-[#E9E9E9] to-65% py-16 lg:gap-20 lg:p-20 lg:py-20'>
         <h1 className='mx-4 text-center'>{t('forms_and_modalities')}</h1>
-        <div className='layout-section flex flex-col gap-10 md:flex-row'>
+        <div className='flex flex-col gap-10 md:flex-row'>
           <div className='flex flex-col gap-1 md:flex-1'>
             <Image src={bankTransferImage} alt='bank transfer' className='w-full rounded-lg' />
             <h4 className='mt-5 text-xl font-bold'>{t('options.bank_transfer')}</h4>
@@ -129,50 +132,55 @@ const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
           </div>
         </div>
         <LineBreaker />
-        <div className='flex flex-col gap-3 lg:gap-10'>
-          <h1 className='mt-10 text-center text-green'>Branding</h1>
-          <div className='layout-section flex flex-col gap-10 md:flex-row'>
-            <div className='flex flex-1 flex-col gap-3'>
-              <h2 className='mx-10 text-center lg:h-14'>
-                {t('brand.international_training_center.title')}
-              </h2>
-              <Image src={exterior2} alt='training course branding' className='rounded-lg' />
-              <h4 className='w-fit rounded-2xl font-bold text-green'>
-                {t('brand.international_training_center.price')}
-              </h4>
-              <p>{t('brand.international_training_center.description')}</p>
-            </div>
-            <div className='flex flex-1 flex-col gap-3'>
-              <h2 className='mx-10 text-center lg:h-14'>{t('brand.room_branding.title')}</h2>
-              <Image src={coworkingRoom} alt='hawk stars training room' className='rounded-lg' />
-              <div className='flex flex-col justify-around gap-4'>
+        <HawkStarsSection>
+          <div className='flex flex-col gap-3 lg:gap-10'>
+            <h1 className='mt-10 text-center text-green'>Branding</h1>
+
+            <div className='flex flex-col gap-10 md:flex-row'>
+              <div className='flex flex-1 flex-col gap-3'>
+                <h2 className='mx-10 text-center lg:h-14'>
+                  {t('brand.international_training_center.title')}
+                </h2>
+                <Image src={exterior2} alt='training course branding' className='rounded-lg' />
                 <h4 className='w-fit rounded-2xl font-bold text-green'>
-                  {t('brand.room_branding.price')}
+                  {t('brand.international_training_center.price')}
                 </h4>
-                <p>{t('brand.room_branding.description')}</p>
+                <p>{t('brand.international_training_center.description')}</p>
+              </div>
+              <div className='flex flex-1 flex-col gap-3'>
+                <h2 className='mx-10 text-center lg:h-14'>{t('brand.room_branding.title')}</h2>
+                <Image src={coworkingRoom} alt='hawk stars training room' className='rounded-lg' />
+                <div className='flex flex-col justify-around gap-4'>
+                  <h4 className='w-fit rounded-2xl font-bold text-green'>
+                    {t('brand.room_branding.price')}
+                  </h4>
+                  <p>{t('brand.room_branding.description')}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className='layout-section mt-10 flex flex-col gap-10 lg:mx-auto lg:w-2/3'>
-          <div className='mx-auto flex flex-1 flex-col gap-3 '>
-            <h2 className='text-center'>{t('brand.wall_branding.title')}</h2>
-            <Image src={trainingRoom} alt='hawk stars training room' className='rounded-lg' />
-            <div className='flex flex-row gap-4'>
-              <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-sm font-bold text-green lg:text-base'>
-                <LiaUserSolid size={28} className='my-auto' />
-                <p className='self-center'>{t('brand.wall_branding.price_solo')}</p>
+        </HawkStarsSection>
+        <HawkStarsSection>
+          <div className='mt-10 flex flex-col gap-10 lg:mx-auto lg:w-2/3'>
+            <div className='mx-auto flex flex-1 flex-col gap-3'>
+              <h2 className='text-center'>{t('brand.wall_branding.title')}</h2>
+              <Image src={trainingRoom} alt='hawk stars training room' className='rounded-lg' />
+              <div className='flex flex-row gap-4'>
+                <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-sm font-bold text-green lg:text-base'>
+                  <LiaUserSolid size={28} className='my-auto' />
+                  <p className='self-center'>{t('brand.wall_branding.price_solo')}</p>
+                </div>
+                <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-sm font-bold text-green lg:text-base'>
+                  <LiaUsersSolid size={28} />
+                  <p className='self-center'>{t('brand.wall_branding.price_company')}</p>
+                </div>
               </div>
-              <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-sm font-bold text-green lg:text-base'>
-                <LiaUsersSolid size={28} />
-                <p className='self-center'>{t('brand.wall_branding.price_company')}</p>
-              </div>
+              <p>{t('brand.wall_branding.description')}</p>
             </div>
-            <p>{t('brand.wall_branding.description')}</p>
           </div>
-        </div>
+        </HawkStarsSection>
         <LineBreaker />
-        <div className='layout-section'>
+        <div>
           <h2 className='text-center text-green'>{t('brand.chairs.title')}</h2>
           <ChairsSections
             title={t('brand.chairs.types.gaming_chair')}

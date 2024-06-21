@@ -5,6 +5,8 @@
 @layer base {
   body {
     font-family: 'Inter', 'sans serif';
+    width: 100dvw;
+    overflow-x: hidden;
   }
 
   h1 {

@@ -8,6 +8,7 @@ import { LanguageProps } from '../types';
 
 import partnersHero from '@/public/images/partners/hero.jpg';
 import MarkdownViewer from '../utils/ReactMarkdownViewer/ReactMarkdownViewer';
+import { HawkStarsSection } from '../layout';
 
 const PartnersComponent = async ({ lng }: LanguageProps) => {
   const { t } = await useServerTranslation(lng, 'partners');
@@ -27,7 +28,7 @@ const PartnersComponent = async ({ lng }: LanguageProps) => {
           style={{ objectFit: 'cover', zIndex: 1 }}
         />
       </div>
-      <section className='layout-section'>
+      <HawkStarsSection>
         <div className='mt-10'>
           <h2 className='mb-5 text-center font-black'>{t('national')}</h2>
           {nationalPartners.map((partner, index) => (
@@ -40,7 +41,7 @@ const PartnersComponent = async ({ lng }: LanguageProps) => {
             <PartnerCard {...partner} key={index} />
           ))}
         </div>
-      </section>
+      </HawkStarsSection>
     </section>
   );
 };

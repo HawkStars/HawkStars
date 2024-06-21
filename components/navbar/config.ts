@@ -55,11 +55,11 @@ export const MenuSections = [
     type: 'dropdown',
     options: NGODropdownOptions,
   },
-  {
-    title: 'navbar.ativities',
-    type: 'dropdown',
-    options: AtivitiesDropdownOptions,
-  },
+  // {
+  //   title: 'navbar.ativities',
+  //   type: 'dropdown',
+  //   options: AtivitiesDropdownOptions,
+  // },
   {
     title: 'navbar.global_village.title',
     type: 'dropdown',

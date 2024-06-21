@@ -2,6 +2,7 @@
 import { getTotalMoneyGathered } from '@/server/contribution';
 import { useEffect, useState } from 'react';
 import DashboardFormList from './FormListSection/FormListSection';
+import { HawkStarsSection } from '@/components/layout';
 
 const Dashboard = () => {
   const [moneyGathered, setMoneyGathered] = useState<number>(0);
@@ -16,13 +17,13 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <section className='layout-section w-full'>
+    <HawkStarsSection>
       <div className='flex flex-col gap-4'>
         <h6>Money Gathered</h6>
         <p>{moneyGathered || '-'}€</p>
       </div>
       <DashboardFormList />
-    </section>
+    </HawkStarsSection>
   );
 };
 

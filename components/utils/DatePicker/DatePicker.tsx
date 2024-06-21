@@ -17,7 +17,7 @@ function HawkStarsDatePicker({ date, onChange, labelText, minDate }: HawkStarsDa
   const datePickerRef = useRef(null);
   const [startDate, setStartDate] = useState<Date | null>(date);
 
-  const changeDatePickerValue = (value: Date) => {
+  const changeDatePickerValue = (value: Date | null) => {
     setStartDate(value);
     onChange(value);
   };

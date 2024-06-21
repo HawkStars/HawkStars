@@ -17,7 +17,7 @@
     "test": "node sync-i18n.ts"
   },
   "dependencies": {
-    "@headlessui/react": "^2.0.4",
+    "@headlessui/react": "^2.1.0",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.47.1",
     "@supabase/ssr": "^0.3.0",
@@ -34,7 +34,7 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.4",
     "i18next": "^23.11.5",
-    "i18next-browser-languagedetector": "^7.2.1",
+    "i18next-browser-languagedetector": "^8.0.0",
     "i18next-resources-to-backend": "^1.2.1",
     "lodash.groupby": "^4.6.0",
     "negotiator": "^0.6.3",
@@ -48,7 +48,7 @@
     "prettier-plugin-tailwindcss": "^0.6.5",
     "prop-types": "^15.8.1",
     "react": "18.3.1",
-    "react-datepicker": "^6.9.0",
+    "react-datepicker": "7.1.0",
     "react-dom": "18.3.1",
     "react-hook-form": "^7.52.0",
     "react-i18next": "^14.1.2",

@@ -13,7 +13,7 @@ const EventsPage = async () => {
   const events = await getHawkEventsData();
 
   return (
-    <section className='layout-section'>
+    <section>
       <h1>Events Page</h1>
       <p>Welcome to the Events Page!</p>
       {events?.map((event) => {

@@ -41,68 +41,70 @@ const AboutPage = async ({ lng }: LanguageProps) => {
           <h3 className='mx-auto flex justify-center text-center lg:w-3/5'>
             {t('objectives.description')}
           </h3>
-          <div className='grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3 '>
+          <div className='grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3'>
             {aboutObjectiveSections.map((section, index) => (
               <TaskComponent key={index} {...section} lng={lng} />
             ))}
           </div>
         </div>
       </HawkStarsSection>
-      <div className='bg-bege-light p-4 pb-8 lg:mt-20 lg:px-10 lg:py-20'>
-        <div className='layout-section relative grid grid-cols-1 gap-10 lg:grid-cols-2'>
-          <Image
-            className='absolute bottom-5 left-5 hidden lg:block'
-            src='/images/about/mission/icon1.png'
-            alt='icon1'
-            height={38}
-            width={38}
-          />
-          <Image
-            className='absolute left-3 top-5 hidden lg:block'
-            src='/images/about/mission/icon2.png'
-            alt='icon2'
-            height={53}
-            width={53}
-          />
-          <Image
-            className='absolute right-5 top-0 hidden lg:-top-5 lg:block'
-            src='/images/about/mission/icon3.png'
-            alt='icon3'
-            height={100}
-            width={100}
-          />
-          <div className='mx-auto lg:ml-auto'>
-            <Image src='/images/about/mission/img.png' height={697} width={446} alt='mission' />
+      <HawkStarsSection bgcolor='begeLight'>
+        <div className='p-4 pb-8 lg:mt-20 lg:px-10 lg:py-20'>
+          <div className='relative grid grid-cols-1 gap-10 lg:grid-cols-2'>
+            <Image
+              className='absolute bottom-5 left-5 hidden lg:block'
+              src='/images/about/mission/icon1.png'
+              alt='icon1'
+              height={38}
+              width={38}
+            />
+            <Image
+              className='absolute left-3 top-5 hidden lg:block'
+              src='/images/about/mission/icon2.png'
+              alt='icon2'
+              height={53}
+              width={53}
+            />
+            <Image
+              className='absolute right-5 top-0 hidden lg:-top-5 lg:block'
+              src='/images/about/mission/icon3.png'
+              alt='icon3'
+              height={100}
+              width={100}
+            />
+            <div className='mx-auto lg:ml-auto'>
+              <Image src='/images/about/mission/img.png' height={697} width={446} alt='mission' />
+            </div>
+            <div className='flex flex-col gap-3'>
+              <h2>{t('mission.title')}</h2>
+              {missionObjectives.map((missionOpt) => (
+                <MissionTaskComponent
+                  text={missionOpt.text}
+                  index={missionOpt.id}
+                  key={missionOpt.id}
+                  lng={lng}
+                />
+              ))}
+            </div>
           </div>
-          <div className='flex flex-col gap-3'>
-            <h2>{t('mission.title')}</h2>
-            {missionObjectives.map((missionOpt) => (
-              <MissionTaskComponent
-                text={missionOpt.text}
-                index={missionOpt.id}
-                key={missionOpt.id}
-                lng={lng}
-              />
-            ))}
+          <div className='mt-10 flex flex-col gap-10'>
+            <Accordion title={t('vision.title')} defaultOpen={true}>
+              <ul className='flex list-disc flex-col gap-3 px-6'>
+                {visionGoals.map((option: string) => {
+                  return (
+                    <li className='text-justify' key={option}>
+                      {t(`vision.items.${option}`)}
+                    </li>
+                  );
+                })}
+              </ul>
+            </Accordion>
+            <Accordion title={t('expansion.title')} defaultOpen={false}>
+              <p className='text-justify'>{t('expansion.description')}</p>
+            </Accordion>
           </div>
         </div>
-        <div className='layout-section mt-10 flex flex-col gap-10'>
-          <Accordion title={t('vision.title')} defaultOpen={true}>
-            <ul className='flex list-disc flex-col gap-3 px-6'>
-              {visionGoals.map((option: string) => {
-                return (
-                  <li className='text-justify' key={option}>
-                    {t(`vision.items.${option}`)}
-                  </li>
-                );
-              })}
-            </ul>
-          </Accordion>
-          <Accordion title={t('expansion.title')} defaultOpen={false}>
-            <p className='text-justify'>{t('expansion.description')}</p>
-          </Accordion>
-        </div>
-      </div>
+      </HawkStarsSection>
     </>
   );
 };
