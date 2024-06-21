@@ -125,7 +125,19 @@ const HomeComponent = ({ lng }: LanguageProps) => {
       </section>
       <section className='flex flex-col gap-6 py-20'>
         <h6 className='text-center text-2xl font-bold text-green'>Erasmus +</h6>
-        <Slider>
+        <Slider
+          breakpoints={{
+            640: {
+              slidesPerView: 1,
+            },
+            768: {
+              slidesPerView: 2,
+            },
+            1024: {
+              slidesPerView: 3,
+            },
+          }}
+        >
           {photos.map((item, index) => (
             <SwiperSlide
               key={index}
