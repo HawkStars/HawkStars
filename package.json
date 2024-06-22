@@ -20,6 +20,7 @@
     "@headlessui/react": "^2.1.0",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.47.1",
+    "@sentry/nextjs": "^8.11.0",
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.43.5",
     "@tanstack/react-table": "^8.17.3",
