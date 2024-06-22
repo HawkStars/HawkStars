@@ -10,9 +10,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import DatePicker from '@/components/utils/DatePicker/DatePicker';
-import CloudinaryUploader, {
-  CloudinaryUploaderResponse,
-} from '@/components/utils/CloudinaryUploader/CloudinaryUploader';
 
 type HawkEventForm = Pick<
   HawkEvent,
@@ -75,18 +72,6 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ event }: FormHawkEvents
 
       toast.success('Evento atualizado com sucesso');
     }
-  };
-
-  const uploadCloudinary = (response: CloudinaryUploaderResponse) => {
-    const { success } = response;
-    if (!success) return toast.error('Erro ao fazer upload da imagem');
-
-    const { data } = response;
-
-    if (!data.info) return;
-
-    const photos = data.info as unknown;
-    // setSelectedPhotos((photos) => [...photos, photos.secure_url]);
   };
 
   const addPhotosToEvent = async () => {
@@ -164,7 +149,6 @@ const FormHawkEvents: React.FC<FormHawkEventsProps> = ({ event }: FormHawkEvents
       <div className='mt-5 border-t pt-5'>
         <h6 className='text-center text-green underline'>Photos</h6>
         <div className='mt-3 flex flex-col gap-2'>
-          <CloudinaryUploader onUpload={uploadCloudinary} customCss='mx-auto' />
           <Button type='button' onClick={addPhotosToEvent} className='mx-auto'>
             Assign to Photos
           </Button>

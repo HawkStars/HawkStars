@@ -10,7 +10,7 @@ export const urls = {
   donate: '/contribute',
   events: '/events',
   erasmus: '/erasmus',
-  gallery: '/gallery',
+  gallery: '/art_gallery',
   global_village: '/village',
   global_village_arquitecture: '/village#arquitecture',
   global_village_objectives: '/village#objetives',

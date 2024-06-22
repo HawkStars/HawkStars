@@ -8,9 +8,6 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import DatePicker from '@/components/utils/DatePicker/DatePicker';
-import CloudinaryUploader, {
-  CloudinaryUploaderResponse,
-} from '@/components/utils/CloudinaryUploader/CloudinaryUploader';
 
 type ErasmusProjectForm = Pick<
   ErasmusProject,
@@ -62,15 +59,6 @@ const FormErasmusProjects: React.FC<FormErasmusProjectsProps> = ({
     }
   };
 
-  const uploadCloudinary = (response: CloudinaryUploaderResponse) => {
-    const { success } = response;
-    if (!success) return toast.error('Erro ao fazer upload da imagem');
-
-    const { data } = response;
-    console.log(data);
-    // return data.secure_url;
-  };
-
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
@@ -120,7 +108,6 @@ const FormErasmusProjects: React.FC<FormErasmusProjectsProps> = ({
       <div>
         <h6>Photos</h6>
         <div className='mt-3 flex gap-2 lg:flex-col'>
-          <CloudinaryUploader onUpload={uploadCloudinary} />
           <Button type='button' className='my-auto'>
             Associar Fotos
           </Button>
