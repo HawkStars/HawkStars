@@ -10,6 +10,7 @@ import { cloudinarySchemaPlugin } from 'sanity-plugin-cloudinary';
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from './sanity/env';
 import { schema } from './sanity/schema';
+import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash';
 
 export default defineConfig({
   basePath: '/superadmin/studio',
@@ -24,5 +25,6 @@ export default defineConfig({
     visionTool({ defaultApiVersion: apiVersion }),
     // cloudinary cdn schema
     cloudinarySchemaPlugin(),
+    unsplashImageAsset(),
   ],
 });

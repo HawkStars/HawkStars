@@ -9,19 +9,10 @@ type SliderProps = SwiperOptions & {
   children: ReactNode;
 };
 
-export const Slider = ({
-  autoplay,
-  breakpoints,
-  children,
-  slidesPerView = 1,
-}: SliderProps): JSX.Element => {
+export const Slider = (props: SliderProps): JSX.Element => {
+  const { children, ...otherProps } = props;
   return (
-    <Swiper
-      modules={[Autoplay]}
-      autoplay={{ delay: 1500 }}
-      slidesPerView={slidesPerView}
-      breakpoints={breakpoints}
-    >
+    <Swiper modules={[Autoplay]} {...otherProps}>
       {children}
     </Swiper>
   );

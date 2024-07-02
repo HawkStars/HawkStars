@@ -9,7 +9,7 @@ import { pinhelSlideshowImages } from './config';
 const PinhelSlider = () => {
   return (
     <div className='mx-auto w-full'>
-      <Slider>
+      <Slider autoplay>
         {pinhelSlideshowImages.map((item, index) => (
           <SwiperSlide
             key={index}

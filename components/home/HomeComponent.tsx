@@ -126,6 +126,9 @@ const HomeComponent = ({ lng }: LanguageProps) => {
       <section className='flex flex-col gap-6 py-20'>
         <h6 className='text-center text-2xl font-bold text-green'>Erasmus +</h6>
         <Slider
+          loop={true}
+          autoplay
+          slidesPerView={1}
           breakpoints={{
             640: {
               slidesPerView: 1,
@@ -139,22 +142,13 @@ const HomeComponent = ({ lng }: LanguageProps) => {
           }}
         >
           {photos.map((item, index) => (
-            <SwiperSlide
-              key={index}
-              style={{
-                position: 'relative',
-                width: '500px',
-                height: '400px',
-                maxWidth: '500px',
-                maxHeight: '400px',
-              }}
-            >
+            <SwiperSlide key={index}>
               <Image
                 src={item}
                 alt={index.toString()}
                 fill
                 sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                style={{ objectFit: 'cover', maxWidth: '500px' }}
+                style={{ objectFit: 'fill', width: '100%', height: '100%' }}
               />
             </SwiperSlide>
           ))}

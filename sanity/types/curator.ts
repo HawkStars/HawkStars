@@ -26,8 +26,7 @@ export default defineType({
     defineField({
       name: 'image',
       title: 'Image',
-      type: 'array',
-      of: [{ type: 'cloudinary.asset' }],
+      type: 'image',
     }),
   ],
 });
