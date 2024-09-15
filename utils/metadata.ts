@@ -28,9 +28,18 @@ const getMetadataPageInfo = (lng: Language, page: HawkStarsPaths): Metadata => {
     lng = fallbackLng;
   }
   const JSONFile = readMetadataLanguageFile(lng);
-  let metadataPageInfo = JSONFile[page];
-  let url = urls[page] || urls[defaultPath];
-  return transformToMetadataObject(metadataPageInfo, lng, url);
+  try {
+    let metadataPageInfo = JSONFile[page];
+    let url = urls[page] || urls[defaultPath];
+    return transformToMetadataObject(metadataPageInfo, lng, url);
+  } catch (err) {
+    console.error(err, lng, page);
+    return {
+      title: 'The Global Village Project by Hawk Stars NGO in Pinhel, Portugal',
+      description:
+        "Discover Hawk Stars NGO's visionary Global Village project in Pinhel, Portugal. Join us in redefining urban landscapes, fostering innovation building a promising future.",
+    };
+  }
 };
 
 const transformToMetadataObject = (info: any, lng: Language, url: string): Metadata => {
