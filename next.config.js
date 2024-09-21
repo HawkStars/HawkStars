@@ -71,6 +71,7 @@ module.exports = withSentryConfig(nextConfig, {
 
   org: 'paulo-goncalves-cardoso',
   project: 'hawk-stars',
+  authToken: process.env.SENTRY_AUTH_TOKEN,
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
