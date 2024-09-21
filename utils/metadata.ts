@@ -1,7 +1,7 @@
 import * as fs from 'fs';
-import { Metadata } from 'next';
 import { Language, fallbackLng, languages } from '@/i18n/settings';
 import { HawkStarsPaths, urls } from './paths';
+import { Metadata } from 'next/types';
 
 export const defaultMetadata = {
   icons: {
