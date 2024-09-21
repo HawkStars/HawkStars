@@ -11,7 +11,7 @@ const GlobalVillageObjectives = async ({ lng }: LanguageProps) => {
   const { t } = await useServerTranslation(lng, 'training_center');
   const objetives: TrainingCenterObjetives[] = t('objetives.items', {
     returnObjects: true,
-  });
+  }) as unknown as TrainingCenterObjetives[];
 
   return (
     <section className='mx-10 mt-10 flex max-w-6xl flex-col gap-6 lg:mx-auto' id='objetives'>
