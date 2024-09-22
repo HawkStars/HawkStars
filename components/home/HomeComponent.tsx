@@ -16,6 +16,8 @@ import whoWeAreImage from '@/public/images/frontpage/quem_somos.png';
 import { LanguageProps } from '../types';
 import { Slider } from '../utils/Slider';
 import { SwiperSlide } from 'swiper/react';
+import SliderSkeleton from '../skeletons/SliderSkeleton';
+import DelayComponent from '../utils/DelayComponent';
 
 const photos = Array.from({ length: 25 }, (_, i) => `/images/projects/${i + 1}.jpeg`);
 
@@ -125,34 +127,40 @@ const HomeComponent = ({ lng }: LanguageProps) => {
       </section>
       <section className='flex flex-col gap-6 py-20'>
         <h6 className='text-center text-2xl font-bold text-green'>Erasmus +</h6>
-        <Slider
-          loop={true}
-          autoplay
-          slidesPerView={1}
-          breakpoints={{
-            640: {
-              slidesPerView: 1,
-            },
-            768: {
-              slidesPerView: 2,
-            },
-            1024: {
-              slidesPerView: 3,
-            },
-          }}
-        >
-          {photos.map((item, index) => (
-            <SwiperSlide key={index}>
-              <Image
-                src={item}
-                alt={index.toString()}
-                fill
-                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                style={{ objectFit: 'fill', width: '100%', height: '100%' }}
-              />
-            </SwiperSlide>
-          ))}
-        </Slider>
+
+        <DelayComponent fallback={<SliderSkeleton />}>
+          <div className='flex h-96 w-dvw'>
+            <Slider
+              loop={true}
+              autoplay
+              slidesPerView={1}
+              breakpoints={{
+                640: {
+                  slidesPerView: 1,
+                },
+                768: {
+                  slidesPerView: 2,
+                },
+                1024: {
+                  slidesPerView: 3,
+                },
+              }}
+            >
+              {photos.map((item, index) => (
+                <SwiperSlide key={index}>
+                  {/* eslint-disable @next/next/no-img-element */}
+                  <img
+                    className='swiper-lazy'
+                    src={item}
+                    alt={index.toString()}
+                    style={{ objectFit: 'cover', height: '100%', width: '100%' }}
+                  />
+                  {/* eslint-enable @next/next/no-img-element */}
+                </SwiperSlide>
+              ))}
+            </Slider>
+          </div>
+        </DelayComponent>
       </section>
     </>
   );

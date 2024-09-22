@@ -47,3 +47,8 @@
 html {
   scroll-behavior: smooth;
 }
+
+/** SWIPER */
+.swiper-slide {
+  height: auto;
+}
