@@ -1,5 +1,6 @@
-import { groq } from 'next-sanity';
+import { client } from '@/sanity/lib/client';
 
-const CURATOR_SLUG_QUERY = groq`*[_type == "curator" && defined(slug.current)]`[0];
-
-export { CURATOR_SLUG_QUERY };
+export const getCurators = async () => {
+  const curators = await client.fetch(`*[_type == "curator" && defined(slug.current)]`);
+  return curators;
+};

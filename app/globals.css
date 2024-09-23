@@ -52,3 +52,10 @@ html {
 .swiper-slide {
   height: auto;
 }
+
+/** LOGO TEST */
+.image-test {
+  g {
+    @apply animate-ping;
+  }
+}
