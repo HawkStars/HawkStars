@@ -1,7 +1,9 @@
 import * as fs from 'fs';
+import * as Sentry from '@sentry/nextjs';
+import { Metadata } from 'next/types';
+
 import { Language, fallbackLng, languages } from '@/i18n/settings';
 import { HawkStarsPaths, urls } from './paths';
-import { Metadata } from 'next/types';
 
 export const defaultMetadata = {
   icons: {
@@ -43,7 +45,10 @@ const getMetadataPageInfo = (lng: Language, page: HawkStarsPaths): Metadata => {
 };
 
 const transformToMetadataObject = (info: any, lng: Language, url: string): Metadata => {
-  const { title, description, keywords } = info;
+  const { title, description, keywords } = info || { title: '', description: '', keyords: '' };
+  if (title == '' || description == '')
+    Sentry.captureMessage(`${url} is missing metadata`, { extra: { url, lng } });
+
   if (url === '/') url = '';
 
   return {

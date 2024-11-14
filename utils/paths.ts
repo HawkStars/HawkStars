@@ -21,6 +21,7 @@ export const urls = {
   pinhel: '/pinhel',
   transparency: '/transparency',
   team: '/team',
+  terms: '/store/terms',
 } as const;
 
 export type HawkStarsPaths = keyof typeof urls;
