@@ -9,13 +9,20 @@ import GlobalVillageProject from '@/components/GlobalVillage/Project/GlobalVilla
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Language } from '@/i18n/settings';
 
-export async function generateMetadata({ params }: LanguagePageProps): Promise<Metadata> {
+export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
+  const params = await props.params;
   const { lng } = params;
   const metadataPage = getMetadataPageInfo(lng as Language, 'global_village');
   return metadataPage;
 }
 
-const VillagePage = async ({ params: { lng } }: { params: { lng: string } }) => {
+const VillagePage = async (props: { params: Promise<{ lng: string }> }) => {
+  const params = await props.params;
+
+  const {
+    lng
+  } = params;
+
   return (
     <section className='flex flex-col'>
       <GlobalVillageProject lng={lng} />

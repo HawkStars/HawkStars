@@ -21,10 +21,8 @@ const OrganizationMovementsTable = dynamic(
   { ssr: false, loading: () => <MainHawkStarsLoading /> }
 );
 
-export async function generateMetadata(
-  { params }: LanguagePageProps,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata(props: LanguagePageProps, parent: ResolvingMetadata): Promise<Metadata> {
+  const params = await props.params;
   const { lng } = params;
   const metadataPage = getMetadataPageInfo(lng as Language, 'transparency');
   return metadataPage;

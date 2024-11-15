@@ -22,6 +22,7 @@ const ObjectiveSection = async ({
         <Trans
           i18nKey={text}
           t={t}
+          key={text}
           components={{
             global: <span className='font-black'>The Global Village</span>,
             international: <span className='font-black'>International Training Center</span>,

@@ -1,5 +1,5 @@
 import { tw, variantProps } from 'classname-variants/react';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, type JSX } from 'react';
 import Spinner from './Spinner/Spinner';
 
 type ButtonProps = {

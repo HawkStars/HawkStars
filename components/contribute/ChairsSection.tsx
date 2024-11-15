@@ -1,5 +1,7 @@
 import { Contribution } from '@/models/database';
 
+import type { JSX } from "react";
+
 type ChairsSectionsProps = {
   title: string;
   price?: string;

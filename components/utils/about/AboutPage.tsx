@@ -10,6 +10,8 @@ import Accordion from '../Accordion/Accordion';
 import { HawkStarsSection } from '@/components/layout';
 import { OffsetSection } from '@/components/layout/OffsetSection';
 
+import type { JSX } from "react";
+
 const AboutPage = async ({ lng }: LanguageProps) => {
   const { t } = await getServerTranslation(lng, 'about');
   return (

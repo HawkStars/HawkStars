@@ -1,4 +1,10 @@
-const BeAMemberPage = ({ params: { lng } }: { params: { lng: string } }) => {
+const BeAMemberPage = async (props: { params: Promise<{ lng: string }> }) => {
+  const params = await props.params;
+
+  const {
+    lng
+  } = params;
+
   return (
     <div className='mx-auto mt-10 flex flex-col gap-5'>
       <div className='flex flex-col gap-2'>

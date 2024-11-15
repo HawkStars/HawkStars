@@ -2,7 +2,7 @@ import { Swiper } from 'swiper/react';
 
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
-import { ReactNode } from 'react';
+import { ReactNode, type JSX } from 'react';
 import { SwiperOptions } from 'swiper/types';
 
 type SliderProps = SwiperOptions & {

@@ -17,20 +17,30 @@ export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
 }
 
-export async function generateMetadata({ params }: LanguagePageProps): Promise<Metadata> {
+export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
+  const params = await props.params;
   const { lng } = params;
 
   const metadataPage = getMetadataPageInfo((lng || fallbackLng) as Language, 'home');
   return metadataPage;
 }
 
-export default async function RootLayout({
-  children,
-  params: { lng = fallbackLng },
-}: {
-  children: React.ReactNode;
-  params: { lng?: string };
-}) {
+export default async function RootLayout(
+  props: {
+    children: React.ReactNode;
+    params: Promise<{ lng?: string }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    lng = fallbackLng
+  } = params;
+
+  const {
+    children
+  } = props;
+
   return (
     <html lang={lng} data-color-mode='light'>
       <AppProvider lng={lng}>

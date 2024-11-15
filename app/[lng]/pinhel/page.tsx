@@ -6,7 +6,13 @@ import { LanguagePageProps } from '../types';
 import PinhelSlider from '@/components/PinhelPage/PinhelSlider';
 import { HawkStarsSection } from '@/components/layout';
 
-const PinhelPage = async ({ params: { lng } }: LanguagePageProps) => {
+const PinhelPage = async (props: LanguagePageProps) => {
+  const params = await props.params;
+
+  const {
+    lng
+  } = params;
+
   const { t } = await getServerTranslation(lng, 'pinhel');
   const mapPinhel = pinhelUrls[lng]?.historical_center || pinhelUrls['pt'].historical_center || '#';
 

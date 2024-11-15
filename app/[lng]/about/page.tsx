@@ -4,13 +4,20 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import { LanguagePageProps } from '../types';
 import { Language } from '@/i18n/settings';
 
-export async function generateMetadata({ params }: LanguagePageProps): Promise<Metadata> {
+export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
+  const params = await props.params;
   const { lng } = params;
   const metadataPage = getMetadataPageInfo(lng as Language, 'about');
   return metadataPage;
 }
 
-const Index = async ({ params: { lng } }: { params: { lng: string } }) => {
+const Index = async (props: { params: Promise<{ lng: string }> }) => {
+  const params = await props.params;
+
+  const {
+    lng
+  } = params;
+
   return <AboutPage lng={lng} />;
 };
 

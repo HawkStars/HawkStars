@@ -64,7 +64,13 @@ const getChairsContribute = async () => {
   };
 };
 
-const DonatePage = async ({ params: { lng } }: { params: { lng: string } }) => {
+const DonatePage = async (props: { params: Promise<{ lng: string }> }) => {
+  const params = await props.params;
+
+  const {
+    lng
+  } = params;
+
   const { t } = await getServerTranslation(lng, 'contribute');
   const { simulationChairs, officeChairs, auditoriumChairs, loungeChairs } =
     await getChairsContribute();

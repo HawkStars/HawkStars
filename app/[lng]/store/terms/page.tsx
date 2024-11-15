@@ -4,7 +4,8 @@ import { LanguagePageProps } from '../../types';
 import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
 
-export async function generateMetadata({ params }: LanguagePageProps): Promise<Metadata> {
+export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
+  const params = await props.params;
   const { lng } = params;
   const metadataPage = getMetadataPageInfo(lng as Language, 'terms');
   return metadataPage;
@@ -20,7 +21,13 @@ type SubArticles = {
   subValues: Array<string>;
 };
 
-export default async function Page({ params: { lng } }: LanguagePageProps) {
+export default async function Page(props: LanguagePageProps) {
+  const params = await props.params;
+
+  const {
+    lng
+  } = params;
+
   const { t } = await getServerTranslation(lng, 'terms');
 
   const preamble = t('preamble', { returnObjects: true }) as {

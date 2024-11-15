@@ -2,8 +2,8 @@ import { Database } from '@/database.types';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
-const createSupabaseRouteHandlerClient = () => {
-  const cookieStore = cookies();
+const createSupabaseRouteHandlerClient = async () => {
+  const cookieStore = await cookies();
   const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,

@@ -3,7 +3,7 @@ import createSupabaseServerClient from '@/lib/supabase/server/supabaseServerClie
 import React from 'react';
 
 const getHawkEventsData = async () => {
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
 
   const { data } = await supabase.from('hawk_events').select('*').order('id', { ascending: true });
   return data;

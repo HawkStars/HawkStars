@@ -14,7 +14,13 @@ import humanitarian_1 from '@/public/images/history/humanitarian_1.jpeg';
 import global_village_image from '@/public/images/hero.png';
 import { OffsetSection } from '@/components/layout/OffsetSection';
 
-const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
+const HawkHistoryPage = async (props: LanguagePageProps) => {
+  const params = await props.params;
+
+  const {
+    lng
+  } = params;
+
   const { t } = await getServerTranslation(lng, 'hawkstars');
   const { report } = historyReferenceUrl;
 
