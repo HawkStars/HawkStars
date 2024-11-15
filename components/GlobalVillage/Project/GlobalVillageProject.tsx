@@ -1,19 +1,19 @@
 import * as React from 'react';
 import Image from 'next/image';
-import { useServerTranslation } from '@/i18n';
+import { getServerTranslation } from '@/i18n';
 import DonateLink from '../DonateLink/DonateLink';
 
 const GlobalVillageProject = async ({ lng }: { lng: string }) => {
-  const { t } = await useServerTranslation(lng, 'training_center');
+  const { t } = await getServerTranslation(lng, 'training_center');
   return (
     <section className='lg:bg-gradient-to-r lg:from-bege-light lg:via-bege-dark lg:to-white'>
       <div className='flex max-w-6xl flex-col-reverse items-center md:mx-auto lg:flex-row lg:px-4 lg:py-24'>
         <div className='flex flex-col-reverse items-stretch px-10 py-10 max-md:ml-0 max-sm:py-10 lg:w-[48%] lg:px-0'>
           <div className='my-auto flex w-full flex-col items-stretch max-md:my-10 max-md:max-w-full lg:gap-10'>
-            <h1 className='text-5xl font-semibold leading-[49.44px] text-black max-md:max-w-full max-md:text-4xl'>
+            <h1 className='text-black text-5xl font-semibold leading-[49.44px] max-md:max-w-full max-md:text-4xl'>
               {t('project.title')}
             </h1>
-            <p className='mt-4 text-2xl font-light leading-7 text-black max-md:max-w-full lg:text-justify'>
+            <p className='text-black mt-4 text-2xl font-light leading-7 max-md:max-w-full lg:text-justify'>
               {t('project.presentation')}
             </p>
             <div className='mt-5 lg:mt-0'>

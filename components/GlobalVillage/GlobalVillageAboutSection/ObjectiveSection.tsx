@@ -1,4 +1,4 @@
-import { useServerTranslation } from '@/i18n';
+import { getServerTranslation } from '@/i18n';
 import Image, { StaticImageData } from 'next/image';
 import { Trans } from 'react-i18next/TransWithoutContext';
 
@@ -11,7 +11,7 @@ const ObjectiveSection = async ({
   image: StaticImageData;
   lng: string;
 }) => {
-  const { t } = await useServerTranslation(lng, 'training_center');
+  const { t } = await getServerTranslation(lng, 'training_center');
   return (
     <div className='flex flex-col gap-5'>
       <div>

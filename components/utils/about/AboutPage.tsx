@@ -3,7 +3,7 @@ import {
   missionObjectives,
   visionGoals,
 } from '../../../app/[lng]/about/config';
-import { useServerTranslation } from '../../../i18n';
+import { getServerTranslation } from '../../../i18n';
 import { LanguageProps } from '../../types';
 import Image from 'next/image';
 import Accordion from '../Accordion/Accordion';
@@ -11,7 +11,7 @@ import { HawkStarsSection } from '@/components/layout';
 import { OffsetSection } from '@/components/layout/OffsetSection';
 
 const AboutPage = async ({ lng }: LanguageProps) => {
-  const { t } = await useServerTranslation(lng, 'about');
+  const { t } = await getServerTranslation(lng, 'about');
   return (
     <>
       <HawkStarsSection>
@@ -116,7 +116,7 @@ type TaskComponentProps = {
   lng: string;
 };
 const TaskComponent = async ({ icon, title, description, lng }: TaskComponentProps) => {
-  const { t } = await useServerTranslation(lng, 'about');
+  const { t } = await getServerTranslation(lng, 'about');
   return (
     <div className='flex flex-col gap-2 rounded-xl bg-bege-light p-7'>
       <div className='w-fit rounded-xl bg-bege-dark'>
@@ -139,7 +139,7 @@ const MissionTaskComponent = async ({
   index,
   lng,
 }: MissionTaskComponentProps): Promise<JSX.Element> => {
-  const { t } = await useServerTranslation(lng, 'about');
+  const { t } = await getServerTranslation(lng, 'about');
   let formattedNumber = index.toLocaleString('en-US', {
     minimumIntegerDigits: 2,
     useGrouping: false,

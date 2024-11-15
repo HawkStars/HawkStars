@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { useServerTranslation } from '@/i18n';
+import { getServerTranslation } from '@/i18n';
 import { LanguagePageProps } from '../types';
 import { urls } from '@/utils/paths';
 import { historyReferenceUrl } from './config';
@@ -15,7 +15,7 @@ import global_village_image from '@/public/images/hero.png';
 import { OffsetSection } from '@/components/layout/OffsetSection';
 
 const HawkHistoryPage = async ({ params: { lng } }: LanguagePageProps) => {
-  const { t } = await useServerTranslation(lng, 'hawkstars');
+  const { t } = await getServerTranslation(lng, 'hawkstars');
   const { report } = historyReferenceUrl;
 
   return (

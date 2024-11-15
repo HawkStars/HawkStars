@@ -1,4 +1,4 @@
-import { useServerTranslation } from '@/i18n';
+import { getServerTranslation } from '@/i18n';
 import { LanguageProps } from '@/components/types';
 import Accordion from '@/components/utils/Accordion/Accordion';
 
@@ -8,7 +8,7 @@ type TrainingCenterObjetives = {
 };
 
 const GlobalVillageObjectives = async ({ lng }: LanguageProps) => {
-  const { t } = await useServerTranslation(lng, 'training_center');
+  const { t } = await getServerTranslation(lng, 'training_center');
   const objetives: TrainingCenterObjetives[] = t('objetives.items', {
     returnObjects: true,
   }) as unknown as TrainingCenterObjetives[];

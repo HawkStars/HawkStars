@@ -2,7 +2,7 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { LanguagePageProps } from '../../types';
 import { Language } from '@/i18n/settings';
-import { useServerTranslation } from '@/i18n';
+import { getServerTranslation } from '@/i18n';
 
 export async function generateMetadata({ params }: LanguagePageProps): Promise<Metadata> {
   const { lng } = params;
@@ -20,8 +20,8 @@ type SubArticles = {
   subValues: Array<string>;
 };
 
-const StoreTerms = async ({ params: { lng } }: LanguagePageProps) => {
-  const { t } = await useServerTranslation(lng, 'terms');
+export default async function Page({ params: { lng } }: LanguagePageProps) {
+  const { t } = await getServerTranslation(lng, 'terms');
 
   const preamble = t('preamble', { returnObjects: true }) as {
     title: string;
@@ -54,6 +54,7 @@ const StoreTerms = async ({ params: { lng } }: LanguagePageProps) => {
               <span>{`${t('article.title')} ${index + 1}`}</span> - {item.title}
             </h3>
             <ol className='ml-5 flex list-decimal flex-col gap-2'>
+              {/* I want to move this to its component */}
               {item?.values?.map((firstLevelText, index) => {
                 let listItem;
                 if (typeof firstLevelText == 'string') {
@@ -85,6 +86,4 @@ const StoreTerms = async ({ params: { lng } }: LanguagePageProps) => {
       })}
     </section>
   );
-};
-
-export default StoreTerms;
+}

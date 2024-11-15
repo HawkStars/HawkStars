@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
 import { pinhelUrls } from './config';
-import { useServerTranslation } from '@/i18n';
+import { getServerTranslation } from '@/i18n';
 import { LanguagePageProps } from '../types';
 import PinhelSlider from '@/components/PinhelPage/PinhelSlider';
 import { HawkStarsSection } from '@/components/layout';
 
 const PinhelPage = async ({ params: { lng } }: LanguagePageProps) => {
-  const { t } = await useServerTranslation(lng, 'pinhel');
+  const { t } = await getServerTranslation(lng, 'pinhel');
   const mapPinhel = pinhelUrls[lng]?.historical_center || pinhelUrls['pt'].historical_center || '#';
 
   return (
