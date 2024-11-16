@@ -2,7 +2,6 @@
 
 import { fallbackLng, i18CookieName, Language } from '@/i18n/settings';
 import { createContext, Dispatch, ReactNode, useContext, useEffect, useState } from 'react';
-import { getCookie, setCookie } from 'cookies-next/client';
 
 type MainAppProperties = {
   mobileNavbarOpen: boolean;
@@ -27,11 +26,6 @@ const AppProvider = ({ children, lng }: AppProviderProps) => {
     ...defaultAppProperties,
     lng,
   });
-
-  useEffect(() => {
-    const i18next = getCookie(i18CookieName);
-    if (i18next != lng) setCookie(i18CookieName, lng);
-  }, [lng]);
 
   return (
     <MainAppContext.Provider value={appProperties}>
