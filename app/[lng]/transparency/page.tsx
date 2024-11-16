@@ -1,27 +1,10 @@
-import dynamic from 'next/dynamic';
-import MainHawkStarsLoading from '../loading';
-import { ResolvingMetadata, Metadata } from 'next';
+import { Metadata } from 'next';
 import { LanguagePageProps } from '../types';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Language } from '@/i18n/settings';
-import { HawkStarsSection } from '@/components/layout';
+import TransparencyMain from '@/components/transparency/TransparencyMain';
 
-const ContributionProjectGoal = dynamic(
-  () => import('@/components/transparency/ContributionProjectGoal'),
-  { ssr: false, loading: () => <MainHawkStarsLoading /> }
-);
-
-const OrganizationContributionsTable = dynamic(
-  () => import('@/components/transparency/OrganizationContributionsTable'),
-  { ssr: false, loading: () => <MainHawkStarsLoading /> }
-);
-
-const OrganizationMovementsTable = dynamic(
-  () => import('@/components/transparency/OrganizationMovementsTable'),
-  { ssr: false, loading: () => <MainHawkStarsLoading /> }
-);
-
-export async function generateMetadata(props: LanguagePageProps, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;
   const metadataPage = getMetadataPageInfo(lng as Language, 'transparency');
@@ -32,13 +15,7 @@ const TransparencyPage = async () => {
   return (
     <section className='flex flex-col gap-5 overflow-x-hidden'>
       <div className='flex flex-col gap-10'>
-        <ContributionProjectGoal />
-        <HawkStarsSection>
-          <div className='flex flex-col gap-10 lg:gap-16'>
-            <OrganizationContributionsTable />
-            <OrganizationMovementsTable />
-          </div>
-        </HawkStarsSection>
+        <TransparencyMain />
       </div>
     </section>
   );
