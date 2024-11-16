@@ -6,7 +6,8 @@ import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-tabl
 import { useEffect, useState } from 'react';
 import { TransparencyContribution, contributionColumns } from './config';
 import { useTranslation } from '@/i18n/client';
-import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+import { useLanguageCookie } from '@/contexts/AppProvider';
 
 const getOrganizationContributions = async () => {
   const supabase = createSupabaseBrowserClient();

@@ -11,6 +11,7 @@ const getLocale = async (request: NextRequest): Promise<NextResponse> => {
     lng = acceptLanguage.get(request.cookies.get(i18CookieName)?.value);
   if (!lng) lng = acceptLanguage.get(request.headers.get('Accept-Language'));
   if (!lng) lng = fallbackLng;
+
   // Redirect if lng in path is not supported
   if (
     !languages.some((loc) => request.nextUrl.pathname.startsWith(`/${loc}`)) &&

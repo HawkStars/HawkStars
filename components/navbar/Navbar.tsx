@@ -15,7 +15,8 @@ import { MenuSections } from './config';
 import DropdownMenu from '../menu/DropdownMenu';
 
 import { hawkLogo } from '@/models/images/logos';
-import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+import { useLanguageCookie } from '@/contexts/AppProvider';
 import MenuItem from '../menu/MenuItem';
 
 const LanguageSwitcher = lazy(() => import('../utils/LanguageSwitcher'));

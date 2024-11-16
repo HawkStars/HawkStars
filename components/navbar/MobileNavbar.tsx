@@ -15,7 +15,8 @@ import { MenuSections } from './config';
 import { useRouter } from 'next/navigation';
 import { urls, transformUrl } from '@/utils/paths';
 
-import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+import { useLanguageCookie } from '@/contexts/AppProvider';
+// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 
 import { hawkLogo } from '@/models/images/logos';
 

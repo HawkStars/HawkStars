@@ -2,8 +2,9 @@ import * as React from 'react';
 import Image from 'next/image';
 import { getServerTranslation } from '@/i18n';
 import DonateLink from '../DonateLink/DonateLink';
+import { Language } from '@/i18n/settings';
 
-const GlobalVillageProject = async ({ lng }: { lng: string }) => {
+const GlobalVillageProject = async ({ lng }: { lng: Language }) => {
   const { t } = await getServerTranslation(lng, 'training_center');
   return (
     <section className='lg:bg-gradient-to-r lg:from-bege-light lg:via-bege-dark lg:to-white'>

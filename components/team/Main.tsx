@@ -7,7 +7,8 @@ import { useState } from 'react';
 import Select, { SelectOption } from '../utils/Select';
 import TeamCard from './TeamCard';
 import { useTranslation } from '../../i18n/client';
-import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+import { useLanguageCookie } from '@/contexts/AppProvider';
 
 const MainTeamPage = () => {
   const lng = useLanguageCookie();
@@ -41,7 +42,7 @@ const MainTeamPage = () => {
               key={index}
               className={classNames('cursor-pointer', {
                 'text-disabled': selectedSection != section,
-                'border-b-2 border-black': selectedSection == section,
+                'border-black border-b-2': selectedSection == section,
               })}
             >
               {t(sectionLabels[section])}

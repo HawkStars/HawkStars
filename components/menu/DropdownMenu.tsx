@@ -10,7 +10,8 @@ import { Suspense, useState } from 'react';
 import { useTranslation } from '@/i18n/client';
 import { transformUrl } from '@/utils/paths';
 import { NavbarUrlItem } from '../navbar/types';
-import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+import { useLanguageCookie } from '@/contexts/AppProvider';
+// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 
 type DropdownMenuProps = {
   title: string;

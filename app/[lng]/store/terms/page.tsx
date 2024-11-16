@@ -13,10 +13,10 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
 
 type Article = {
   title: string;
-  values: Array<SubArticles>;
+  values: Array<SubArticle>;
 };
 
-type SubArticles = {
+type SubArticle = {
   title: string;
   subValues: Array<string>;
 };
@@ -24,9 +24,7 @@ type SubArticles = {
 export default async function Page(props: LanguagePageProps) {
   const params = await props.params;
 
-  const {
-    lng
-  } = params;
+  const { lng } = params;
 
   const { t } = await getServerTranslation(lng, 'terms');
 
@@ -71,18 +69,7 @@ export default async function Page(props: LanguagePageProps) {
                     </li>
                   );
                 } else {
-                  listItem = (
-                    <>
-                      <li>{firstLevelText.title}</li>
-                      {firstLevelText.subValues && (
-                        <ol className='flex list-disc flex-col gap-1 pl-5 text-justify'>
-                          {firstLevelText.subValues?.map((subItem, index) => (
-                            <li key={index}>{subItem}</li>
-                          ))}
-                        </ol>
-                      )}
-                    </>
-                  );
+                  listItem = <SubItem key={index} article={firstLevelText} />;
                 }
 
                 return listItem;
@@ -94,3 +81,16 @@ export default async function Page(props: LanguagePageProps) {
     </section>
   );
 }
+
+const SubItem = ({ article }: { article: SubArticle }) => {
+  return (
+    <>
+      <li>{article.title}</li>
+      {article.subValues && (
+        <ol className='flex list-disc flex-col gap-1 pl-5 text-justify'>
+          {article.subValues?.map((subItem, index) => <li key={index}>{subItem}</li>)}
+        </ol>
+      )}
+    </>
+  );
+};

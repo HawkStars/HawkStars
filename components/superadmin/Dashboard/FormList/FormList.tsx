@@ -4,7 +4,8 @@ import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-tabl
 import { ContributionWithConfirmed, superadminContributionColumns } from './config';
 import { useTranslation } from '@/i18n/client';
 import Button from '@/components/utils/Button';
-import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+import { useLanguageCookie } from '@/contexts/AppProvider';
 
 type FormListProps = {
   contributions: ContributionWithConfirmed[];

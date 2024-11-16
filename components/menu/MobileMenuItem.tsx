@@ -8,7 +8,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { PiCaretRightThin, PiCaretDownThin } from 'react-icons/pi';
 import { NavbarUrlItem } from '../navbar/types';
-import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+import { useLanguageCookie } from '@/contexts/AppProvider';
 
 type MenuItemProps = {
   title: string;

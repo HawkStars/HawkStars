@@ -26,7 +26,6 @@ const readMetadataLanguageFile = (lng: Language) => {
 const getMetadataPageInfo = (lng: Language, page: HawkStarsPaths): Metadata => {
   const defaultPath = 'home' as HawkStarsPaths;
   if (!languages.includes(lng)) {
-    console.log('Language not supported', lng);
     lng = fallbackLng;
   }
   const JSONFile = readMetadataLanguageFile(lng);

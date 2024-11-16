@@ -29,6 +29,7 @@ import { Suspense } from 'react';
 import MainHawkStarsLoading from '../loading';
 import ContributeFormSection from '@/components/contribute/ContributeFormSection';
 import { HawkStarsSection } from '@/components/layout';
+import { Language } from '@/i18n/settings';
 
 const getChairsContribute = async () => {
   const supabase = createSupabaseBrowserClient();
@@ -64,12 +65,10 @@ const getChairsContribute = async () => {
   };
 };
 
-const DonatePage = async (props: { params: Promise<{ lng: string }> }) => {
+const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
   const params = await props.params;
 
-  const {
-    lng
-  } = params;
+  const { lng } = params;
 
   const { t } = await getServerTranslation(lng, 'contribute');
   const { simulationChairs, officeChairs, auditoriumChairs, loungeChairs } =

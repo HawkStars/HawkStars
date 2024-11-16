@@ -12,15 +12,13 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
 }
 
 type HomeProps = {
-  params: Promise<{ lng: string }>;
+  params: Promise<{ lng: Language }>;
 };
 
 export default async function Home(props: HomeProps) {
   const params = await props.params;
 
-  const {
-    lng
-  } = params;
+  const { lng } = params;
 
   return <HomeComponent lng={lng} />;
 }

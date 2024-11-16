@@ -1,15 +1,17 @@
 'use client';
 
-import { i18CookieName } from '@/i18n/settings';
+import { fallbackLng, i18CookieName, Language } from '@/i18n/settings';
 import { createContext, Dispatch, ReactNode, useContext, useEffect, useState } from 'react';
-import { getCookie, setCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next/client';
 
 type MainAppProperties = {
   mobileNavbarOpen: boolean;
+  lng: Language;
 };
 
 const defaultAppProperties: MainAppProperties = {
   mobileNavbarOpen: false,
+  lng: fallbackLng,
 };
 
 const MainAppContext = createContext<MainAppProperties>(defaultAppProperties);
@@ -17,11 +19,14 @@ const SetMainAppContext = createContext<Dispatch<MainAppProperties>>(() => {});
 
 type AppProviderProps = {
   children: ReactNode;
-  lng: string;
+  lng: Language;
 };
 
 const AppProvider = ({ children, lng }: AppProviderProps) => {
-  const [appProperties, setAppProperties] = useState<MainAppProperties>(defaultAppProperties);
+  const [appProperties, setAppProperties] = useState<MainAppProperties>({
+    ...defaultAppProperties,
+    lng,
+  });
 
   useEffect(() => {
     const i18next = getCookie(i18CookieName);
@@ -53,6 +58,22 @@ export const useSetMobileNavbarOpen = () => {
     setMainProperties({
       ...mainProperties,
       mobileNavbarOpen: value,
+    });
+  };
+};
+
+export const useLanguageCookie = () => {
+  const mainProperties = useContext(MainAppContext);
+  return mainProperties.lng;
+};
+
+export const useSetLanguageCookie = () => {
+  const mainProperties = useContext(MainAppContext);
+  const setMainProperties = useContext(SetMainAppContext);
+  return (newLng: Language) => {
+    setMainProperties({
+      ...mainProperties,
+      lng: newLng,
     });
   };
 };

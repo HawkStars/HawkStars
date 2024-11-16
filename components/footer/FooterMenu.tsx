@@ -1,6 +1,7 @@
 'use client';
 
-import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+
 import { transformUrl, urls } from '@/utils/paths';
 import classNames from 'classnames';
 import Link from 'next/link';
@@ -9,6 +10,7 @@ import { Suspense } from 'react';
 import { MenuSections } from '../navbar/config';
 import Button from '../utils/Button';
 import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/contexts/AppProvider';
 
 const FooterMenu = () => {
   const lng = useLanguageCookie();

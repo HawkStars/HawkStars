@@ -11,12 +11,10 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
   return metadataPage;
 }
 
-const PartnersPage = async (props: { params: Promise<{ lng: string }> }) => {
+const PartnersPage = async (props: { params: Promise<{ lng: Language }> }) => {
   const params = await props.params;
 
-  const {
-    lng
-  } = params;
+  const { lng } = params;
 
   return <PartnersComponent lng={lng} />;
 };

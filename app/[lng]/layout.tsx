@@ -25,25 +25,17 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
   return metadataPage;
 }
 
-export default async function RootLayout(
-  props: {
-    children: React.ReactNode;
-    params: Promise<{ lng?: string }>;
-  }
-) {
+export default async function RootLayout(props: {
+  children: React.ReactNode;
+  params: Promise<{ lng?: string }>;
+}) {
   const params = await props.params;
-
-  const {
-    lng = fallbackLng
-  } = params;
-
-  const {
-    children
-  } = props;
+  const { lng } = params;
+  const { children } = props;
 
   return (
     <html lang={lng} data-color-mode='light'>
-      <AppProvider lng={lng}>
+      <AppProvider lng={(lng as Language) || fallbackLng}>
         <body className={inter.className}>
           <MobileNavbar />
           <Navbar />

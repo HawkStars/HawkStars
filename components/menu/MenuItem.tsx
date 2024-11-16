@@ -1,6 +1,7 @@
 'use client';
 
-import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+import { useLanguageCookie } from '@/contexts/AppProvider';
+// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 import { NavbarUrlItem } from '../navbar/types';
 import { useTranslation } from '@/i18n/client';
 import Link from 'next/link';

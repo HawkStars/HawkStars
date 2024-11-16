@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { getTotalMoneyGathered } from '@/server/contribution';
-import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
+import { useLanguageCookie } from '@/contexts/AppProvider';
 import { useTranslation } from '@/i18n/client';
 
 export const PROJECT_GOAL = 900000;
