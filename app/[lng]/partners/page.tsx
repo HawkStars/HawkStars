@@ -1,5 +1,5 @@
 import PartnersComponent from '../../../components/partners/PartnersComponent';
-import { Metadata, ResolvingMetadata } from 'next';
+import { Metadata } from 'next';
 import { LanguagePageProps } from '../types';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Language } from '@/i18n/settings';
