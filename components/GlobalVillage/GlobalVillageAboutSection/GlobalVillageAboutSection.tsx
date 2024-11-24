@@ -16,7 +16,7 @@ const GlobalVillageAboutSection = async ({ lng }: LanguageProps) => {
       <div className='bg-bege-light px-10 py-20'>
         <div className='mx-auto flex max-w-6xl flex-col gap-8 lg:flex-row'>
           {GLOBAL_VILLAGE_ABOUT_SECTIONS.map((section, index) => (
-            <ObjectiveSection {...section} key={index} lng={lng} />
+            <ObjectiveSection {...section} key={index} lng={lng} index={index} />
           ))}
         </div>
         <div className='mt-10 flex justify-center'>

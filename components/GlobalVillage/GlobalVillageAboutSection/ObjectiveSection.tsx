@@ -6,10 +6,12 @@ const ObjectiveSection = async ({
   text,
   image,
   lng,
+  index,
 }: {
   text: string;
   image: StaticImageData;
   lng: string;
+  index: number;
 }) => {
   const { t } = await getServerTranslation(lng, 'training_center');
   return (
@@ -22,7 +24,7 @@ const ObjectiveSection = async ({
         <Trans
           i18nKey={text}
           t={t}
-          key={text}
+          key={index}
           components={{
             global: <span className='font-black'>The Global Village</span>,
             international: <span className='font-black'>International Training Center</span>,

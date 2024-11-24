@@ -46,7 +46,8 @@
       "title": "Art Gallery",
       "presentation": "Presentation",
       "curation": "Curation",
-      "art": "Art"
+      "art": "Art",
+      "terms_and_conditions": "Terms & Conditions"
     }
   },
   "common": {

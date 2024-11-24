@@ -25,8 +25,6 @@ import loungeChair from '@/public/images/icons/contribute/lounge-fill.svg';
 import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
 import { Contribution } from '@/models/database';
 import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
-import { Suspense } from 'react';
-import MainHawkStarsLoading from '../loading';
 import ContributeFormSection from '@/components/contribute/ContributeFormSection';
 import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';
@@ -67,7 +65,6 @@ const getChairsContribute = async () => {
 
 const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
   const params = await props.params;
-
   const { lng } = params;
 
   const { t } = await getServerTranslation(lng, 'contribute');
@@ -222,12 +219,10 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           />
         </div>
       </div>
-      <section className='bg-bege-light py-10' id='form'>
+      {/* <section className='bg-bege-light py-10' id='form'>
         <h2 className='flex justify-center text-green'>{t('helps_us_donate')}</h2>
-        <Suspense fallback={<MainHawkStarsLoading />}>
-          <ContributeFormSection lng={lng} />
-        </Suspense>
-      </section>
+        <ContributeFormSection lng={lng} />
+      </section> */}
     </div>
   );
 };

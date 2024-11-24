@@ -36,6 +36,7 @@ const nextConfig = {
     taint: true,
     turbo: { resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'] },
   },
+  staticPageGenerationTimeout: 120,
   async headers() {
     return [
       {
