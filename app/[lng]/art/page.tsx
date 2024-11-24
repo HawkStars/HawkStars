@@ -1,23 +1,43 @@
 import Image from 'next/image';
 
-import { hawkLogo } from '@/models/images/logos';
-import { urls } from '@/utils/paths';
-import Link from 'next/link';
+import heroImage from '@/public/images/art_gallery/hero.jpg';
 
-const GalleryPage = () => {
+import { LanguagePageProps } from '../types';
+import { getServerTranslation } from '@/i18n';
+
+const GalleryPage = async (props: LanguagePageProps) => {
+  const params = await props.params;
+  const { lng } = params;
+
+  const { t } = await getServerTranslation(lng, 'art');
   return (
-    <div className='my-auto flex h-screen items-center'>
-      <div className='mx-auto flex w-2/3 flex-col justify-center gap-10 align-middle'>
-        <Image src={hawkLogo} alt='HawkLogo' className='mx-auto' />
-        <h3 className='text-center'>Building it. Launch on summer 2024.</h3>
-        <Link
-          href={urls.home}
-          className='mx-auto w-fit rounded-lg border border-green bg-green fill-white p-3 text-white'
-        >
-          Go Back
-        </Link>
-      </div>
-    </div>
+    <>
+      <section className='flex gap-4 max-lg:flex-col-reverse lg:justify-center'>
+        <div className='mx-5 flex w-1/2 flex-col justify-center gap-8'>
+          <h1>{t('title')}</h1>
+          <h2>{t('subtitle')}</h2>
+        </div>
+        <div className='lg:w-1/2'>
+          <Image
+            className='max-w-full object-contain lg:max-w-96'
+            src={heroImage}
+            alt='https://unsplash.com/photos/brown-wooden-framed-wall-mounted-mirror-SjEO_MEM_NI?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash'
+          />
+          {/* Photo by{' '}
+        <a href='https://unsplash.com/@cloudett?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash'>
+          Laura Cleffmann
+        </a>{' '}
+        on{' '}
+        <a href='https://unsplash.com/photos/brown-wooden-framed-wall-mounted-mirror-SjEO_MEM_NI?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash'>
+          Unsplash
+        </a> */}
+        </div>
+      </section>
+      <section className='mx-4 mt-4 flex max-w-6xl flex-col gap-2 text-justify lg:mx-auto'>
+        <p>{t('description_1')}</p>
+        <p>{t('description_2')}</p>
+      </section>
+    </>
   );
 };
 
