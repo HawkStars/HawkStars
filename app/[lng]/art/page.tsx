@@ -4,10 +4,20 @@ import heroImage from '@/public/images/art_gallery/hero.jpg';
 
 import { LanguagePageProps } from '../types';
 import { getServerTranslation } from '@/i18n';
+import { client } from '@/sanity/lib/client';
+
+const getCurators = async () => {
+  const curators = await client.fetch(`*[_type == "curator"]`);
+
+  return curators;
+};
 
 const GalleryPage = async (props: LanguagePageProps) => {
   const params = await props.params;
   const { lng } = params;
+
+  const curators = await getCurators();
+  debugger;
 
   const { t } = await getServerTranslation(lng, 'art');
   return (

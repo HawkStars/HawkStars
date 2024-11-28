@@ -13,7 +13,7 @@ import { schema } from './sanity/schema';
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash';
 
 export default defineConfig({
-  basePath: '/superadmin/studio',
+  basePath: '/',
   projectId,
   dataset,
   // Add and edit the content schema in the './sanity/schema' folder
