@@ -9,6 +9,7 @@ export default defineType({
       name: 'name',
       title: 'Name',
       type: 'string',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -17,11 +18,13 @@ export default defineType({
       options: {
         source: 'name',
       },
+      hidden: ({ document }) => !document?.name,
     }),
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'string',
+      type: 'array',
+      of: [{ type: 'block' }],
     }),
     defineField({
       name: 'image',

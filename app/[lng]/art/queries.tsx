@@ -1,6 +1,3 @@
-import { client } from '@/sanity/lib/client';
+import groq from 'groq';
 
-export const getCurators = async () => {
-  const curators = await client.fetch(`*[_type == "curator" && defined(slug.current)]`);
-  return curators;
-};
+export const allCuratorsQuery = groq`*[_type == "curator"]`;

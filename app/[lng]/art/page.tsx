@@ -7,7 +7,7 @@ import { getServerTranslation } from '@/i18n';
 import { client } from '@/sanity/lib/client';
 
 const getCurators = async () => {
-  const curators = await client.fetch(`*[_type == "curator"]`);
+  const curators = await client.fetch();
 
   return curators;
 };
