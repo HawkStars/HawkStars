@@ -33,7 +33,14 @@ export default defineConfig({
         { id: 'pt', title: 'Portuguese' },
       ],
       defaultLanguages: ['pt'],
-      fieldTypes: ['string'],
+      fieldTypes: [
+        'string',
+        {
+          name: 'formattedText',
+          type: 'array',
+          of: [{ type: 'block' }],
+        },
+      ],
     }),
   ],
 });
