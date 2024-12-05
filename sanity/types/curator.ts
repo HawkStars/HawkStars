@@ -4,6 +4,16 @@ export default defineType({
   name: 'curator',
   title: 'Curator',
   type: 'document',
+  groups: [
+    {
+      name: 'text',
+      title: 'Text',
+    },
+    {
+      name: 'media',
+      title: 'Media',
+    },
+  ],
   fields: [
     defineField({
       name: 'name',
@@ -26,7 +36,7 @@ export default defineType({
     defineField({
       name: 'image',
       title: 'Image',
-      type: 'image',
+      type: 'cloudinary.asset',
     }),
   ],
 });

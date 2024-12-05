@@ -4,17 +4,29 @@ export default defineType({
   name: 'art',
   title: 'Art',
   type: 'document',
+  groups: [
+    {
+      name: 'text',
+      title: 'Text',
+    },
+    {
+      name: 'media',
+      title: 'Media',
+    },
+  ],
   fields: [
     defineField({
       name: 'name',
       title: 'Name',
       type: 'string',
       validation: (rule) => rule.required(),
+      group: ['text'],
     }),
     defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      group: ['text'],
       options: {
         source: 'name',
       },
@@ -23,12 +35,14 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Description',
+      group: ['text'],
       type: 'array',
       of: [{ type: 'block' }],
     }),
     defineField({
       name: 'image',
       title: 'Image',
+      group: ['media'],
       type: 'cloudinary.asset',
     }),
   ],

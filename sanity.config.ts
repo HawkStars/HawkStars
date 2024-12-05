@@ -6,11 +6,12 @@ import { visionTool } from '@sanity/vision';
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { cloudinarySchemaPlugin } from 'sanity-plugin-cloudinary';
+import { internationalizedArray } from 'sanity-plugin-internationalized-array';
+import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash';
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from './sanity/env';
 import { schema } from './sanity/schema';
-import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash';
 
 export default defineConfig({
   basePath: '/',
@@ -26,5 +27,13 @@ export default defineConfig({
     // cloudinary cdn schema
     cloudinarySchemaPlugin(),
     unsplashImageAsset(),
+    internationalizedArray({
+      languages: [
+        { id: 'en', title: 'English' },
+        { id: 'pt', title: 'Portuguese' },
+      ],
+      defaultLanguages: ['pt'],
+      fieldTypes: ['string'],
+    }),
   ],
 });
