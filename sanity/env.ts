@@ -1,5 +1,5 @@
 /* TODO: CHECK THE API VERSION LATER */
-export const apiVersion = new Date().toDateString();
+export const apiVersion = '1';
 
 export const dataset = assertValue(
   process.env.SANITY_STUDIO_DATASET,

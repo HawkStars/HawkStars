@@ -1,48 +1,36 @@
 import { defineField, defineType } from 'sanity';
 
 export default defineType({
-  name: 'art',
-  title: 'Art',
+  name: 'news',
+  title: 'News',
   type: 'document',
-  groups: [
-    {
-      name: 'text',
-      title: 'Text',
-    },
-    {
-      name: 'media',
-      title: 'Media',
-    },
-  ],
+  description: 'Model to be used for any news from hawkstars',
   fields: [
     defineField({
-      name: 'name',
-      title: 'Name',
+      name: 'title',
+      title: 'Title',
+      description: 'Title of the news',
       type: 'string',
       validation: (rule) => rule.required(),
-      group: ['text'],
     }),
     defineField({
       name: 'slug',
       title: 'Slug',
+      description: 'Url que vai ser usado como hawkstars.org/news/[SLUG]',
       type: 'slug',
-      group: ['text'],
-      options: {
-        source: 'name',
-      },
-      hidden: ({ document }) => !document?.name,
+      hidden: ({ document }) => !document?.title,
     }),
     defineField({
       name: 'description',
       title: 'Description',
-      group: ['text'],
       type: 'internationalizedArrayFormattedText',
+      description: 'More information for the news',
     }),
     defineField({
       name: 'image',
       title: 'Image',
-      group: ['media'],
-      type: 'cloudinary.asset',
+      type: 'array',
+      of: [{ type: 'cloudinary.asset' }],
     }),
   ],
 });
