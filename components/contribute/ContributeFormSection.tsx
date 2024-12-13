@@ -4,11 +4,10 @@ import FormContributions, {
   ContributionFormInput,
 } from '../superadmin/FormContributions/FormContributions';
 import { LanguageProps } from '../types';
-import { addOrganizationContribution } from '../superadmin/FormContributions/service';
 
 const ContributeFormSection = ({ lng }: LanguageProps) => {
   const handleSubmitForm = async (data: ContributionFormInput) => {
-    return await addOrganizationContribution(data);
+    debugger;
   };
 
   return (

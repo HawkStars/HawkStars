@@ -1,30 +1,30 @@
-'use client';
-import { getTotalMoneyGathered } from '@/server/contribution';
-import { useEffect, useState } from 'react';
-import DashboardFormList from './FormListSection/FormListSection';
-import { HawkStarsSection } from '@/components/layout';
+// 'use client';
 
-const Dashboard = () => {
-  const [moneyGathered, setMoneyGathered] = useState<number>(0);
+// import { useEffect, useState } from 'react';
+// // import DashboardFormList from './FormListSection/FormListSection';
+// import { HawkStarsSection } from '@/components/layout';
 
-  const getCurrentProjetContribution = async () => {
-    const moneyGathered = await getTotalMoneyGathered();
-    setMoneyGathered(moneyGathered);
-  };
+// const Dashboard = () => {
+//   const [moneyGathered, setMoneyGathered] = useState<number>(0);
 
-  useEffect(() => {
-    getCurrentProjetContribution();
-  }, []);
+//   const getCurrentProjetContribution = async () => {
+//     const moneyGathered = await getTotalMoneyGathered();
+//     setMoneyGathered(moneyGathered);
+//   };
 
-  return (
-    <HawkStarsSection>
-      <div className='flex flex-col gap-4'>
-        <h6>Money Gathered</h6>
-        <p>{moneyGathered || '-'}€</p>
-      </div>
-      <DashboardFormList />
-    </HawkStarsSection>
-  );
-};
+//   useEffect(() => {
+//     getCurrentProjetContribution();
+//   }, []);
 
-export default Dashboard;
+//   return (
+//     <HawkStarsSection>
+//       <div className='flex flex-col gap-4'>
+//         <h6>Money Gathered</h6>
+//         <p>{moneyGathered || '-'}€</p>
+//       </div>
+//       <DashboardFormList />
+//     </HawkStarsSection>
+//   );
+// };
+
+// export default Dashboard;

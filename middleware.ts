@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import withHandleSuperadmin from './middlewares/withHandleSuperadmin';
 import withHandleInternalization from './middlewares/withHandleInternalization';
 
 export const config = {
@@ -8,7 +7,8 @@ export const config = {
 
 export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.includes('auth')) return NextResponse.next();
-  if (request.nextUrl.pathname.includes('superadmin')) return withHandleSuperadmin(request);
+  if (request.nextUrl.pathname.includes('superadmin'))
+    return NextResponse.redirect(new URL('/', request.url));
 
   return withHandleInternalization(request);
 }

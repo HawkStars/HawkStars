@@ -1,18 +1,4 @@
-import createSupabaseServerClient from '@/lib/supabase/server/supabaseServerClient';
-
-const getHawkEventsData = async () => {
-  const supabase = await createSupabaseServerClient();
-
-  const { data, error } = await supabase
-    .from('hawk_events')
-    .select('*')
-    .order('id', { ascending: true });
-
-  return error ? [] : data;
-};
-
 const ErasmusPage = async () => {
-  const events = await getHawkEventsData();
   return (
     <section>
       <h1>Events Page</h1>

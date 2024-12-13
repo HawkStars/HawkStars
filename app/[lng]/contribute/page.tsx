@@ -5,7 +5,6 @@ import { LiaUsersSolid, LiaUserSolid } from 'react-icons/lia';
 import { PiChairLight } from 'react-icons/pi';
 import { TbArmchair } from 'react-icons/tb';
 import { TbShoppingCart } from 'react-icons/tb';
-import groupBy from 'lodash.groupby';
 
 import ChairsSections from '@/components/contribute/ChairsSection';
 
@@ -22,8 +21,6 @@ import simulatorChairNotTaken from '@/public/images/icons/contribute/simulator-e
 import simulatorChairTaken from '@/public/images/icons/contribute/simulator-fill.svg';
 import loungeChairEmpty from '@/public/images/icons/contribute/lounge-empty.svg';
 import loungeChair from '@/public/images/icons/contribute/lounge-fill.svg';
-import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
-import { Contribution } from '@/models/database';
 import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
 import ContributeFormSection from '@/components/contribute/ContributeFormSection';
 import { HawkStarsSection } from '@/components/layout';

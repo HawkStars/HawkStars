@@ -1,28 +1,27 @@
 'use client';
 
-import createSupabaseBrowserClient from '@/lib/supabase/client/supabaseClient';
 import { OrganizationMovement, OrganizationMovements } from '@/models/database';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { orgsMovementsColumn } from './config';
 
-const getOrganizationMovements = async () => {
-  const supabase = createSupabaseBrowserClient();
-  const { data, error } = await supabase
-    .from<'organization_movements', OrganizationMovements>('organization_movements')
-    .select()
-    .order('created_at', { ascending: true });
+// const getOrganizationMovements = async () => {
+//   const supabase = createSupabaseBrowserClient();
+//   const { data, error } = await supabase
+//     .from<'organization_movements', OrganizationMovements>('organization_movements')
+//     .select()
+//     .order('created_at', { ascending: true });
 
-  if (error || !data) return [];
-  return data;
-};
+//   if (error || !data) return [];
+//   return data;
+// };
 
 const OrganizationMovementsTable = () => {
   const [organizationMovements, setOrganizationMovements] = useState<OrganizationMovement[]>([]);
 
   const fetchOrganizationData = async () => {
-    const orgMovements = await getOrganizationMovements();
-    setOrganizationMovements(orgMovements);
+    // const orgMovements = await getOrganizationMovements();
+    setOrganizationMovements([]);
   };
 
   const table = useReactTable({
