@@ -1,5 +1,4 @@
 const CuratorPage = async () => {
-  const curator = await
   return <></>;
 };
 

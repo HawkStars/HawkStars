@@ -256,7 +256,7 @@ export type AllSanitySchemaTypes =
   | CloudinaryAsset
   | CloudinaryAssetContext;
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ./app/[lng]/art/queries.tsx
+// Source: ./app/[lng]/art/queries.ts
 // Variable: allCuratorsQuery
 // Query: *[_type == "curator"]
 export type AllCuratorsQueryResult = Array<{
@@ -280,11 +280,69 @@ export type AllCuratorsQueryResult = Array<{
     _type: 'image';
   };
 }>;
+// Variable: getSingleCuratorQuery
+// Query: *[_type == "curator" && slug.current == $slug]
+export type GetSingleCuratorQueryResult = Array<{
+  _id: string;
+  _type: 'curator';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  description?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+}>;
+// Variable: allArtwork
+// Query: *[_type == "art"]
+export type AllArtworkResult = Array<{
+  _id: string;
+  _type: 'art';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  description?: string;
+  image?: CloudinaryAsset;
+}>;
+// Variable: getSingleArtwork
+// Query: *[_type == "art" && slug.current == $slug]
+export type GetSingleArtworkResult = Array<{
+  _id: string;
+  _type: 'art';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  description?: string;
+  image?: CloudinaryAsset;
+}>;
+
+// Source: ./app/[lng]/contribute/queries.ts
+// Variable: contributionsQuery
+// Query: *[_type == "contribution"]
+export type ContributionsQueryResult = Array<never>;
 
 // Query TypeMap
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
     '*[_type == "curator"]': AllCuratorsQueryResult;
+    '*[_type == "curator" && slug.current == $slug]': GetSingleCuratorQueryResult;
+    '*[_type == "art"]': AllArtworkResult;
+    '*[_type == "art" && slug.current == $slug]': GetSingleArtworkResult;
+    '*[_type == "contribution"]': ContributionsQueryResult;
   }
 }

@@ -6,11 +6,17 @@ import Link from 'next/link';
 
 import { hawkLogo } from '@/models/images/logos';
 import dynamic from 'next/dynamic';
+import { urls } from '@/utils/paths';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/contexts/AppProvider';
 
 const LanguageSwitcher = dynamic(() => import('../utils/LanguageSwitcher'), { ssr: false });
 const FooterMenu = lazy(() => import('./FooterMenu'));
 
 const Footer = () => {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
+
   return (
     <footer>
       <div className='mt-4 block px-5 lg:hidden'>
@@ -54,8 +60,11 @@ const Footer = () => {
             @Paulo Cardoso
           </Link>
         </p>
-        <div className='ml-auto hidden lg:block'>
-          <Socials />
+        <div className='ml-auto gap-5 lg:flex'>
+          <Link href={urls.terms}>{t('navbar.art_gallery.terms_and_conditions')}</Link>
+          <div className='hidden lg:block'>
+            <Socials />
+          </div>
         </div>
       </div>
     </footer>

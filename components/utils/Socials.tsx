@@ -4,11 +4,19 @@ import {
   PiFacebookLogoBold,
   PiInstagramLogoBold,
   PiLinkedinLogoBold,
+  PiYoutubeLogoBold,
 } from 'react-icons/pi';
 
 const Socials = () => {
   return (
     <div className='flex gap-1'>
+      <Link
+        target='_blank'
+        href='https://www.youtube.com/@HawkStarsNGO'
+        aria-label='Check HawkStars NGO on Youtube'
+      >
+        <PiYoutubeLogoBold size={24} />
+      </Link>
       <Link
         target='_blank'
         href='https://www.instagram.com/hawk.starsngo/'

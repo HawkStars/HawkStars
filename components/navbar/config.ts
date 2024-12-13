@@ -48,7 +48,6 @@ const ArtGalleryOptions = [
   { label: 'navbar.art_gallery.presentation', url: gallery },
   { label: 'navbar.art_gallery.curation', url: gallery },
   { label: 'navbar.art_gallery.art', url: gallery },
-  { label: 'navbar.art_gallery.terms_and_conditions', url: terms },
 ] as NavbarUrlItem[];
 
 export const MenuSections = [

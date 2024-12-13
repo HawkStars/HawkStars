@@ -13,14 +13,14 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'confirmed',
+      name: 'is_confirmed',
       title: 'Payment',
       type: 'boolean',
       description: 'Check if the payment has been confirmed',
       initialValue: false,
     }),
     defineField({
-      name: 'anonymous',
+      name: 'is_anonymous',
       title: 'Donor is anonymous',
       description: 'Check if the donor wants to be anonymous',
       type: 'boolean',
@@ -39,7 +39,7 @@ export default defineType({
       hidden: ({ document }) => !document?.confirmed,
     }),
     defineField({
-      name: 'type',
+      name: 'contribution_type',
       title: 'Contribution Type',
       type: 'string',
       options: {

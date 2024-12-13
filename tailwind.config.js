@@ -17,6 +17,9 @@ module.exports = {
       linkedin: '#0A66C2',
       white: '#FFF',
       transparent: 'transparent',
+      gray: {
+        light: '#D3D3D3',
+      },
     },
     extend: {
       zIndex: {

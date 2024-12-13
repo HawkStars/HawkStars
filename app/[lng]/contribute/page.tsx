@@ -225,10 +225,10 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           />
         </div>
       </div>
-      {/* <section className='bg-bege-light py-10' id='form'>
+      <section className='bg-bege-light py-10' id='form'>
         <h2 className='flex justify-center text-green'>{t('helps_us_donate')}</h2>
         <ContributeFormSection lng={lng} />
-      </section> */}
+      </section>
     </div>
   );
 };
