@@ -1,6 +1,4 @@
-import { Contribution } from '@/models/database';
-
-import type { JSX } from "react";
+import type { JSX } from 'react';
 
 type ChairsSectionsProps = {
   title: string;
@@ -8,7 +6,7 @@ type ChairsSectionsProps = {
   icon: JSX.Element;
   iconFilled: JSX.Element;
   size: number;
-  currentContributions: Contribution[];
+  currentContributions: unknown[];
 };
 
 const ChairsSections = ({
@@ -19,6 +17,7 @@ const ChairsSections = ({
   size,
   currentContributions = [],
 }: ChairsSectionsProps) => {
+  debugger;
   const missingContributionsLength = size - currentContributions.length;
   const missingContributionsChairs = Array(missingContributionsLength).fill(null);
   return (
@@ -30,8 +29,8 @@ const ChairsSections = ({
           {currentContributions.map((contribution) => {
             return (
               <ContributionInfoSection
-                key={contribution.id}
-                contributor={contribution.donor}
+                key={contribution?._id}
+                contributor={contribution?.donor}
                 icon={iconFilled}
               />
             );
@@ -46,7 +45,7 @@ const ChairsSections = ({
           <h3 className='text-center'>{title}</h3>
           {price && <h4 className='font-black text-green'>{price}</h4>}
         </div>
-        <div className='flex flex-row gap-5 mx-auto'>
+        <div className='mx-auto flex flex-row gap-5'>
           <div className='flex flex-col gap-2'>
             {iconFilled}
             <p className='text-center'>{currentContributions.length}</p>

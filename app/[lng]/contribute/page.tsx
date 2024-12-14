@@ -25,55 +25,35 @@ import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
 import ContributeFormSection from '@/components/contribute/ContributeFormSection';
 import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';
+import { client } from '@/sanity/lib/client';
+import { getChairsContributionsQuery } from './queries';
+import groupBy from 'lodash.groupby';
 
-// const getChairsContribute = async () => {
-//   const supabase = createSupabaseBrowserClient();
+const getChairsContribute = async () => {
+  const contributions = await client.fetch(getChairsContributionsQuery);
 
-//   const { data, error } = await supabase
-//     .from<'contributions', Contribution>('contributions')
-//     .select('donor, id')
-//     .not('confirmed_by', 'is', null);
+  const grouped_contributions = groupBy(contributions, 'contribution_type');
+  const simulationChairs = (grouped_contributions['SIMULATOR_CHAIR'] as unknown[]) || [];
+  const officeChairs = (grouped_contributions['OFFICE_CHAIR'] as unknown as []) || [];
+  const auditoriumChairs = (grouped_contributions['AUDITORIUM_CHAIR'] as unknown[]) || [];
+  const loungeChairs = (grouped_contributions['LOUNGE_CHAIR'] as unknown as []) || [];
 
-//   if (error || !data)
-//     return {
-//       simulationChairs: [],
-//       officeChairs: [],
-//       auditoriumChairs: [],
-//       loungeChairs: [],
-//     };
-
-//   const contributions = groupBy(data, 'type');
-//   const simulationChairs: Contribution[] = contributions[
-//     'SIMULATOR_CHAIR'
-//   ] as unknown as Contribution[];
-//   const officeChairs: Contribution[] = contributions['OFFICE_CHAIR'] as unknown as Contribution[];
-//   const auditoriumChairs: Contribution[] = contributions[
-//     'AUDITORIUM_CHAIR'
-//   ] as unknown as Contribution[];
-//   const loungeChairs: Contribution[] = contributions['LOUNGE_CHAIR'] as unknown as Contribution[];
-
-//   return {
-//     simulationChairs,
-//     officeChairs,
-//     auditoriumChairs,
-//     loungeChairs,
-//   };
-// };
+  return {
+    simulationChairs,
+    officeChairs,
+    auditoriumChairs,
+    loungeChairs,
+  };
+};
 
 const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
   const params = await props.params;
   const { lng } = params;
 
   const { t } = await getServerTranslation(lng, 'contribute');
-  // const { simulationChairs, officeChairs, auditoriumChairs, loungeChairs } =
-  //   await getChairsContribute();
+  const { simulationChairs, officeChairs, auditoriumChairs, loungeChairs } =
+    await getChairsContribute();
 
-  const { simulationChairs, officeChairs, auditoriumChairs, loungeChairs } = {
-    simulationChairs: [],
-    officeChairs: [],
-    auditoriumChairs: [],
-    loungeChairs: [],
-  };
   return (
     <div className='mt-5 flex flex-col gap-5 lg:mt-10'>
       <h1 className='mx-4 text-center text-green lg:hidden'>{t('contribute_hero')}</h1>

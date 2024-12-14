@@ -256,6 +256,11 @@ export type AllSanitySchemaTypes =
   | CloudinaryAsset
   | CloudinaryAssetContext;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./app/[lng]/contribute/queries.ts
+// Variable: getChairsContributionsQuery
+// Query: *[_type == "contribution" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]
+export type GetChairsContributionsQueryResult = Array<never>;
+
 // Source: ./app/[lng]/art/queries.ts
 // Variable: allCuratorsQuery
 // Query: *[_type == "curator"]
@@ -330,19 +335,14 @@ export type GetSingleArtworkResult = Array<{
   image?: CloudinaryAsset;
 }>;
 
-// Source: ./app/[lng]/contribute/queries.ts
-// Variable: contributionsQuery
-// Query: *[_type == "contribution"]
-export type ContributionsQueryResult = Array<never>;
-
 // Query TypeMap
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
+    "*[_type == \"contribution\" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]": GetChairsContributionsQueryResult;
     '*[_type == "curator"]': AllCuratorsQueryResult;
     '*[_type == "curator" && slug.current == $slug]': GetSingleCuratorQueryResult;
     '*[_type == "art"]': AllArtworkResult;
     '*[_type == "art" && slug.current == $slug]': GetSingleArtworkResult;
-    '*[_type == "contribution"]': ContributionsQueryResult;
   }
 }

@@ -1,7 +1,8 @@
 import { client } from '@/sanity/lib/client';
 import groq from 'groq';
 
-export const contributionsQuery = groq`*[_type == "contribution"]`;
+export type CHAIR_TYPES = 'OFFICE_CHAIR' | 'SIMULATOR_CHAIR' | 'LOUNGE_CHAIR' | 'AUDITORIUM_CHAIR';
+export const getChairsContributionsQuery = groq`*[_type == "contribution" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]`;
 
 // do for all or check if there is a way to group
 

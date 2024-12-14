@@ -14,7 +14,7 @@ export default defineType({
     }),
     defineField({
       name: 'is_confirmed',
-      title: 'Payment',
+      title: 'Payment is Confirmed',
       type: 'boolean',
       description: 'Check if the payment has been confirmed',
       initialValue: false,
@@ -24,24 +24,25 @@ export default defineType({
       title: 'Donor is anonymous',
       description: 'Check if the donor wants to be anonymous',
       type: 'boolean',
-      hidden: ({ document }) => !document?.confirmed,
+      hidden: ({ document }) => !document?.is_confirmed,
     }),
     defineField({
       name: 'value',
       title: 'Donation Value',
       type: 'number',
-      hidden: ({ document }) => !document?.confirmed,
+      hidden: ({ document }) => !document?.is_confirmed,
     }),
     defineField({
       name: 'contribution_date',
       title: 'Contribution Date',
       type: 'date',
-      hidden: ({ document }) => !document?.confirmed,
+      hidden: ({ document }) => !document?.is_confirmed,
     }),
     defineField({
       name: 'contribution_type',
       title: 'Contribution Type',
       type: 'string',
+      hidden: ({ document }) => !document?.is_confirmed,
       options: {
         list: [
           { title: 'Bank', value: 'bank' },
@@ -55,7 +56,7 @@ export default defineType({
           { title: 'Name on the Building', value: 'BUILDING_NAMING' },
           { title: 'Training Room Name', value: 'TRAINING_ROOM_NAMING' },
         ],
-        layout: 'radio',
+        layout: 'dropdown',
       },
     }),
   ],
