@@ -9,10 +9,10 @@ const ContributionProjectGoal = dynamic(
   { ssr: false, loading: () => <MainHawkStarsLoading /> }
 );
 
-const OrganizationContributionsTable = dynamic(
-  () => import('@/components/transparency/OrganizationContributionsTable'),
-  { ssr: false, loading: () => <MainHawkStarsLoading /> }
-);
+// const OrganizationContributionsTable = dynamic(
+//   () => import('@/components/transparency/OrganizationContributionsTable'),
+//   { ssr: false, loading: () => <MainHawkStarsLoading /> }
+// );
 
 const OrganizationMovementsTable = dynamic(
   () => import('@/components/transparency/OrganizationMovementsTable'),
@@ -25,7 +25,7 @@ export default function TransparencyMain() {
       <ContributionProjectGoal />
       <HawkStarsSection>
         <div className='flex flex-col gap-10 lg:gap-16'>
-          <OrganizationContributionsTable />
+          {/* <OrganizationContributionsTable /> */}
           <OrganizationMovementsTable />
         </div>
       </HawkStarsSection>
