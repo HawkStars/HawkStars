@@ -39,6 +39,22 @@ export type SanityImageDimensions = {
   aspectRatio?: number;
 };
 
+export type SanityImageHotspot = {
+  _type: 'sanity.imageHotspot';
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
+export type SanityImageCrop = {
+  _type: 'sanity.imageCrop';
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
 export type SanityFileAsset = {
   _id: string;
   _type: 'sanity.fileAsset';
@@ -61,11 +77,128 @@ export type SanityFileAsset = {
   source?: SanityAssetSourceData;
 };
 
+export type SanityImageAsset = {
+  _id: string;
+  _type: 'sanity.imageAsset';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  originalFilename?: string;
+  label?: string;
+  title?: string;
+  description?: string;
+  altText?: string;
+  sha1hash?: string;
+  extension?: string;
+  mimeType?: string;
+  size?: number;
+  assetId?: string;
+  uploadId?: string;
+  path?: string;
+  url?: string;
+  metadata?: SanityImageMetadata;
+  source?: SanityAssetSourceData;
+};
+
+export type SanityImageMetadata = {
+  _type: 'sanity.imageMetadata';
+  location?: Geopoint;
+  dimensions?: SanityImageDimensions;
+  palette?: SanityImagePalette;
+  lqip?: string;
+  blurHash?: string;
+  hasAlpha?: boolean;
+  isOpaque?: boolean;
+};
+
 export type Geopoint = {
   _type: 'geopoint';
   lat?: number;
   lng?: number;
   alt?: number;
+};
+
+export type SanityAssetSourceData = {
+  _type: 'sanity.assetSourceData';
+  name?: string;
+  id?: string;
+  url?: string;
+};
+
+export type Report = {
+  _id: string;
+  _type: 'report';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  image?: Array<
+    {
+      _key: string;
+    } & CloudinaryAsset
+  >;
+};
+
+export type News = {
+  _id: string;
+  _type: 'news';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  slug?: Slug;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: Array<
+    {
+      _key: string;
+    } & CloudinaryAsset
+  >;
+};
+
+export type Contribution = {
+  _id: string;
+  _type: 'contribution';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  donor: string;
+  is_confirmed?: boolean;
+  is_anonymous?: boolean;
+  value?: number;
+  contribution_date?: string;
+  contribution_type?:
+    | 'BANK'
+    | 'CRYPTO'
+    | 'WALL_NAME_SINGULAR'
+    | 'WALL_NAME_COMPANY'
+    | 'OFFICE_CHAIR'
+    | 'SIMULATOR_CHAIR'
+    | 'LOUNGE_CHAIR'
+    | 'AUDITORIUM_CHAIR'
+    | 'BUILDING_NAMING'
+    | 'TRAINING_ROOM_NAMING';
 };
 
 export type Event = {
@@ -102,9 +235,13 @@ export type Art = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
+  name: string;
   slug?: Slug;
-  description?: string;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
   image?: CloudinaryAsset;
 };
 
@@ -116,82 +253,58 @@ export type Curator = {
   _rev: string;
   name?: string;
   slug?: Slug;
-  description?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: 'image';
-  };
-};
-
-export type SanityImageCrop = {
-  _type: 'sanity.imageCrop';
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: 'sanity.imageHotspot';
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
-
-export type SanityImageAsset = {
-  _id: string;
-  _type: 'sanity.imageAsset';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
-  uploadId?: string;
-  path?: string;
-  url?: string;
-  metadata?: SanityImageMetadata;
-  source?: SanityAssetSourceData;
-};
-
-export type SanityAssetSourceData = {
-  _type: 'sanity.assetSourceData';
-  name?: string;
-  id?: string;
-  url?: string;
-};
-
-export type SanityImageMetadata = {
-  _type: 'sanity.imageMetadata';
-  location?: Geopoint;
-  dimensions?: SanityImageDimensions;
-  palette?: SanityImagePalette;
-  lqip?: string;
-  blurHash?: string;
-  hasAlpha?: boolean;
-  isOpaque?: boolean;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: CloudinaryAsset;
 };
 
 export type Slug = {
   _type: 'slug';
-  current?: string;
+  current: string;
   source?: string;
 };
+
+export type InternationalizedArrayFormattedTextValue = {
+  _type: 'internationalizedArrayFormattedTextValue';
+  value?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+};
+
+export type InternationalizedArrayStringValue = {
+  _type: 'internationalizedArrayStringValue';
+  value?: string;
+};
+
+export type InternationalizedArrayFormattedText = Array<
+  {
+    _key: string;
+  } & InternationalizedArrayFormattedTextValue
+>;
+
+export type InternationalizedArrayString = Array<
+  {
+    _key: string;
+  } & InternationalizedArrayStringValue
+>;
 
 export type CloudinaryAssetContextCustom = {
   _type: 'cloudinary.assetContextCustom';
@@ -239,18 +352,25 @@ export type AllSanitySchemaTypes =
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
+  | SanityImageHotspot
+  | SanityImageCrop
   | SanityFileAsset
+  | SanityImageAsset
+  | SanityImageMetadata
   | Geopoint
+  | SanityAssetSourceData
+  | Report
+  | News
+  | Contribution
   | Event
   | Erasmus_project
   | Art
   | Curator
-  | SanityImageCrop
-  | SanityImageHotspot
-  | SanityImageAsset
-  | SanityAssetSourceData
-  | SanityImageMetadata
   | Slug
+  | InternationalizedArrayFormattedTextValue
+  | InternationalizedArrayStringValue
+  | InternationalizedArrayFormattedText
+  | InternationalizedArrayString
   | CloudinaryAssetContextCustom
   | CloudinaryAssetDerived
   | CloudinaryAsset
@@ -259,7 +379,29 @@ export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/[lng]/contribute/queries.ts
 // Variable: getChairsContributionsQuery
 // Query: *[_type == "contribution" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]
-export type GetChairsContributionsQueryResult = Array<never>;
+export type GetChairsContributionsQueryResult = Array<{
+  _id: string;
+  _type: 'contribution';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  donor: string;
+  is_confirmed?: boolean;
+  is_anonymous?: boolean;
+  value?: number;
+  contribution_date?: string;
+  contribution_type?:
+    | 'AUDITORIUM_CHAIR'
+    | 'BANK'
+    | 'BUILDING_NAMING'
+    | 'CRYPTO'
+    | 'LOUNGE_CHAIR'
+    | 'OFFICE_CHAIR'
+    | 'SIMULATOR_CHAIR'
+    | 'TRAINING_ROOM_NAMING'
+    | 'WALL_NAME_COMPANY'
+    | 'WALL_NAME_SINGULAR';
+}>;
 
 // Source: ./app/[lng]/art/queries.ts
 // Variable: allCuratorsQuery
@@ -272,18 +414,12 @@ export type AllCuratorsQueryResult = Array<{
   _rev: string;
   name?: string;
   slug?: Slug;
-  description?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: 'image';
-  };
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: CloudinaryAsset;
 }>;
 // Variable: getSingleCuratorQuery
 // Query: *[_type == "curator" && slug.current == $slug]
@@ -295,18 +431,12 @@ export type GetSingleCuratorQueryResult = Array<{
   _rev: string;
   name?: string;
   slug?: Slug;
-  description?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: 'image';
-  };
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: CloudinaryAsset;
 }>;
 // Variable: allArtwork
 // Query: *[_type == "art"]
@@ -316,9 +446,13 @@ export type AllArtworkResult = Array<{
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
+  name: string;
   slug?: Slug;
-  description?: string;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
   image?: CloudinaryAsset;
 }>;
 // Variable: getSingleArtwork
@@ -329,9 +463,13 @@ export type GetSingleArtworkResult = Array<{
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
+  name: string;
   slug?: Slug;
-  description?: string;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
   image?: CloudinaryAsset;
 }>;
 

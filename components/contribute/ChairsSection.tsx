@@ -1,3 +1,4 @@
+import { Contribution } from '@/sanity.types';
 import type { JSX } from 'react';
 
 type ChairsSectionsProps = {
@@ -6,7 +7,7 @@ type ChairsSectionsProps = {
   icon: JSX.Element;
   iconFilled: JSX.Element;
   size: number;
-  currentContributions: unknown[];
+  currentContributions: Contribution[];
 };
 
 const ChairsSections = ({

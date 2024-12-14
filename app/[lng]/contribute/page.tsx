@@ -28,15 +28,16 @@ import { Language } from '@/i18n/settings';
 import { client } from '@/sanity/lib/client';
 import { getChairsContributionsQuery } from './queries';
 import groupBy from 'lodash.groupby';
+import { Contribution } from '@/sanity.types';
 
 const getChairsContribute = async () => {
   const contributions = await client.fetch(getChairsContributionsQuery);
 
   const grouped_contributions = groupBy(contributions, 'contribution_type');
-  const simulationChairs = (grouped_contributions['SIMULATOR_CHAIR'] as unknown[]) || [];
-  const officeChairs = (grouped_contributions['OFFICE_CHAIR'] as unknown as []) || [];
-  const auditoriumChairs = (grouped_contributions['AUDITORIUM_CHAIR'] as unknown[]) || [];
-  const loungeChairs = (grouped_contributions['LOUNGE_CHAIR'] as unknown as []) || [];
+  const simulationChairs = (grouped_contributions['SIMULATOR_CHAIR'] as Contribution[]) || [];
+  const officeChairs = (grouped_contributions['OFFICE_CHAIR'] as Contribution[]) || [];
+  const auditoriumChairs = (grouped_contributions['AUDITORIUM_CHAIR'] as Contribution[]) || [];
+  const loungeChairs = (grouped_contributions['LOUNGE_CHAIR'] as Contribution[]) || [];
 
   return {
     simulationChairs,

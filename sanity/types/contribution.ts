@@ -45,8 +45,8 @@ export default defineType({
       hidden: ({ document }) => !document?.is_confirmed,
       options: {
         list: [
-          { title: 'Bank', value: 'bank' },
-          { title: 'Crypto', value: 'crypto' },
+          { title: 'Bank', value: 'BANK' },
+          { title: 'Crypto', value: 'CRYPTO' },
           { title: 'Individual - Wall Name', value: 'WALL_NAME_SINGULAR' },
           { title: 'Comapny - Name on Wall', value: 'WALL_NAME_COMPANY' },
           { title: 'Office Chair', value: 'OFFICE_CHAIR' },

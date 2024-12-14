@@ -7,7 +7,6 @@ import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { cloudinarySchemaPlugin } from 'sanity-plugin-cloudinary';
 import { internationalizedArray } from 'sanity-plugin-internationalized-array';
-import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash';
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from './sanity/env';
@@ -26,7 +25,6 @@ export default defineConfig({
     visionTool({ defaultApiVersion: apiVersion }),
     // cloudinary cdn schema
     cloudinarySchemaPlugin(),
-    unsplashImageAsset(),
     internationalizedArray({
       languages: [
         { id: 'en', title: 'English' },

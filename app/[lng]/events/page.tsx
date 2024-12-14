@@ -1,4 +1,3 @@
-import MarkdownViewer from '@/components/utils/ReactMarkdownViewer/ReactMarkdownViewer';
 import React from 'react';
 
 const EventsPage = async () => {

@@ -10,7 +10,7 @@ import partnersHero from '@/public/images/partners/hero.jpg';
 import MarkdownViewer from '../utils/ReactMarkdownViewer/ReactMarkdownViewer';
 import { HawkStarsSection } from '../layout';
 
-import type { JSX } from "react";
+import type { JSX } from 'react';
 
 const PartnersComponent = async ({ lng }: LanguageProps) => {
   const { t } = await getServerTranslation(lng, 'partners');
