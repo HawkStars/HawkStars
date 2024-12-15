@@ -6,27 +6,30 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'name',
-      title: 'Name',
+      name: 'title',
+      title: 'Title of the Project',
       type: 'string',
     }),
     defineField({
       name: 'slug',
-      title: 'Slug',
+      title: 'Url for the Erasmus',
+      description: 'the url that is used to show the information on the website',
       type: 'slug',
       options: {
-        source: 'name',
+        source: 'title',
       },
     }),
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'string',
+      type: 'internationalizedArrayFormattedText',
+      description: 'More information for the erasmus project',
     }),
     defineField({
       name: 'image',
       title: 'Image',
-      type: 'cloudinary.asset',
+      type: 'array',
+      of: [{ type: 'cloudinary.asset' }],
     }),
   ],
 });
