@@ -1,7 +1,7 @@
 import { HawkStarsSection } from '@/components/layout';
 import { client } from '@/sanity/lib/client';
 import { getSingleCuratorQuery } from '../../queries';
-import SanityBlock from '@/components/SanityBlock';
+import SanityBlock from '@/components/Sanity/SanityBlock';
 import { GetSingleCuratorQueryResult } from '@/sanity.types';
 import { LanguageProps } from '@/components/types';
 
