@@ -125,38 +125,6 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type Report = {
-  _id: string;
-  _type: 'report';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: string;
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }>;
-  image?: Array<
-    {
-      _key: string;
-    } & CloudinaryAsset
-  >;
-};
-
 export type News = {
   _id: string;
   _type: 'news';
@@ -223,10 +191,18 @@ export type Erasmus_project = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
+  title?: string;
   slug?: Slug;
-  description?: string;
-  image?: CloudinaryAsset;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: Array<
+    {
+      _key: string;
+    } & CloudinaryAsset
+  >;
 };
 
 export type Art = {
@@ -359,7 +335,6 @@ export type AllSanitySchemaTypes =
   | SanityImageMetadata
   | Geopoint
   | SanityAssetSourceData
-  | Report
   | News
   | Contribution
   | Event
@@ -376,33 +351,6 @@ export type AllSanitySchemaTypes =
   | CloudinaryAsset
   | CloudinaryAssetContext;
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ./app/[lng]/contribute/queries.ts
-// Variable: getChairsContributionsQuery
-// Query: *[_type == "contribution" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]
-export type GetChairsContributionsQueryResult = Array<{
-  _id: string;
-  _type: 'contribution';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  donor: string;
-  is_confirmed?: boolean;
-  is_anonymous?: boolean;
-  value?: number;
-  contribution_date?: string;
-  contribution_type?:
-    | 'AUDITORIUM_CHAIR'
-    | 'BANK'
-    | 'BUILDING_NAMING'
-    | 'CRYPTO'
-    | 'LOUNGE_CHAIR'
-    | 'OFFICE_CHAIR'
-    | 'SIMULATOR_CHAIR'
-    | 'TRAINING_ROOM_NAMING'
-    | 'WALL_NAME_COMPANY'
-    | 'WALL_NAME_SINGULAR';
-}>;
-
 // Source: ./app/[lng]/art/queries.ts
 // Variable: allCuratorsQuery
 // Query: *[_type == "curator"]
@@ -422,8 +370,8 @@ export type AllCuratorsQueryResult = Array<{
   image?: CloudinaryAsset;
 }>;
 // Variable: getSingleCuratorQuery
-// Query: *[_type == "curator" && slug.current == $slug]
-export type GetSingleCuratorQueryResult = Array<{
+// Query: *[_type == "curator" && slug.current == $slug][0]
+export type GetSingleCuratorQueryResult = {
   _id: string;
   _type: 'curator';
   _createdAt: string;
@@ -437,7 +385,7 @@ export type GetSingleCuratorQueryResult = Array<{
     } & InternationalizedArrayFormattedTextValue
   >;
   image?: CloudinaryAsset;
-}>;
+} | null;
 // Variable: allArtwork
 // Query: *[_type == "art"]
 export type AllArtworkResult = Array<{
@@ -473,14 +421,51 @@ export type GetSingleArtworkResult = Array<{
   image?: CloudinaryAsset;
 }>;
 
+// Source: ./app/[lng]/contribute/queries.ts
+// Variable: getChairsContributionsQuery
+// Query: *[_type == "contribution" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]
+export type GetChairsContributionsQueryResult = Array<{
+  _id: string;
+  _type: 'contribution';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  donor: string;
+  is_confirmed?: boolean;
+  is_anonymous?: boolean;
+  value?: number;
+  contribution_date?: string;
+  contribution_type?:
+    | 'AUDITORIUM_CHAIR'
+    | 'BANK'
+    | 'BUILDING_NAMING'
+    | 'CRYPTO'
+    | 'LOUNGE_CHAIR'
+    | 'OFFICE_CHAIR'
+    | 'SIMULATOR_CHAIR'
+    | 'TRAINING_ROOM_NAMING'
+    | 'WALL_NAME_COMPANY'
+    | 'WALL_NAME_SINGULAR';
+}>;
+
+// Source: ./app/[lng]/erasmus/queries.ts
+// Variable: allEventsQuery
+// Query: *[_type == "erasmus"]
+export type AllEventsQueryResult = Array<never>;
+// Variable: getSingleEventsQuery
+// Query: *[_type == "erasmus" && slug.current == $slug]
+export type GetSingleEventsQueryResult = Array<never>;
+
 // Query TypeMap
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
-    "*[_type == \"contribution\" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]": GetChairsContributionsQueryResult;
     '*[_type == "curator"]': AllCuratorsQueryResult;
-    '*[_type == "curator" && slug.current == $slug]': GetSingleCuratorQueryResult;
+    '*[_type == "curator" && slug.current == $slug][0]': GetSingleCuratorQueryResult;
     '*[_type == "art"]': AllArtworkResult;
     '*[_type == "art" && slug.current == $slug]': GetSingleArtworkResult;
+    "*[_type == \"contribution\" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]": GetChairsContributionsQueryResult;
+    '*[_type == "erasmus"]': AllEventsQueryResult;
+    '*[_type == "erasmus" && slug.current == $slug]': GetSingleEventsQueryResult;
   }
 }
