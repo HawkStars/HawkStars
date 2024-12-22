@@ -1,14 +1,32 @@
-import { PortableText } from '@portabletext/react';
+import { InternationalizedArrayFormattedText } from '@/sanity.types';
+import { PortableText, PortableTextComponents } from '@portabletext/react';
 
 type SanityBlockProps = {
-  block: any;
+  block: InternationalizedArrayFormattedText;
+  lng: string;
 };
 
-const SanityBlock = ({ block }: SanityBlockProps) => {
+const defaultComponents: PortableTextComponents = {
+  types: {},
+  marks: {
+    link: ({ value, children }) => {
+      return (
+        <a href={value?.href} className='text-green'>
+          {children}
+        </a>
+      );
+    },
+  },
+};
+
+const SanityBlock = ({ block, lng }: SanityBlockProps) => {
+  const info = block?.find((item) => item._key == lng);
   debugger;
+  if (!info?.value) return <></>;
+
   return (
     <>
-      <PortableText value={block[0].value} />
+      <PortableText value={info.value} components={defaultComponents} />
     </>
   );
 };

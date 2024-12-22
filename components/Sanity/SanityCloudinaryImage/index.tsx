@@ -1,6 +1,13 @@
-import { CloudinaryAsset } from 'sanity-plugin-cloudinary';
+import { CloudinaryAsset } from '@/sanity.types';
 
-const SanityCloudinaryImage = (image: CloudinaryAsset) => {
+type SanityCloudinaryImageProps = {
+  image?: CloudinaryAsset | null;
+};
+
+const SanityCloudinaryImage = (props: SanityCloudinaryImageProps) => {
+  const { image } = props;
+  if (!image) return <></>;
+
   return (
     <>
       <img src={image.secure_url} loading='lazy' />
