@@ -1,8 +1,6 @@
-import { ReactNode } from 'react';
 import { tw, variantProps } from 'classname-variants/react';
 
-type SectionProps = {
-  children: ReactNode;
+type SectionProps = React.ComponentProps<'div'> & {
   width?: 'full' | 'half';
   padding?: 'none' | 'default';
 };

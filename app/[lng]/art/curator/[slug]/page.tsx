@@ -20,10 +20,12 @@ const CuratorPage = async (props: CuratorPageProps) => {
   if (!curator) notFound();
 
   return (
-    <HawkStarsSection>
-      <SanityCloudinaryImage image={curator?.image} />
-      <div>
-        <h1>{curator.name}</h1>
+    <HawkStarsSection padding='none' className='flex bg-bege-light max-lg:flex-col'>
+      <div className='max-lg:mx-auto lg:m-5 lg:w-96'>
+        <SanityCloudinaryImage image={curator?.image} />
+      </div>
+      <div className='p-5'>
+        <h1 className='mb-5'>{curator.name}</h1>
         {curator?.description && <SanityBlock block={curator?.description} lng={params.lng} />}
       </div>
     </HawkStarsSection>

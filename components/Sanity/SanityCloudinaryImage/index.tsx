@@ -10,7 +10,7 @@ const SanityCloudinaryImage = (props: SanityCloudinaryImageProps) => {
 
   return (
     <>
-      <img src={image.secure_url} loading='lazy' />
+      <img src={image.secure_url} loading='lazy' className='rounded-lg' />
     </>
   );
 };
