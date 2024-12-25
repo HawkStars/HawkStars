@@ -1,11 +1,19 @@
 'use client';
 
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Popover,
+  PopoverButton,
+  PopoverPanel,
+} from '@headlessui/react';
 import classNames from 'classnames';
 import { useRouter } from 'next/navigation';
 
 import { PiCaretDownThin, PiCaretRightThin } from 'react-icons/pi';
-import { Suspense, useState } from 'react';
+import { Suspense, useRef, useState } from 'react';
 
 import { useTranslation } from '@/i18n/client';
 import { transformUrl } from '@/utils/paths';
@@ -21,47 +29,46 @@ type DropdownMenuProps = {
 const DropdownMenu = ({ title, options }: DropdownMenuProps) => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
-  const [showOptions, setShowOptions] = useState<boolean>(false);
   const router = useRouter();
 
   return (
-    <Menu
-      as='div'
-      className='z-100 relative inline-block text-left'
-      onMouseEnter={() => setShowOptions(true)}
-    >
-      <MenuButton onMouseEnter={() => setShowOptions(true)}>
-        <div className='flex gap-1'>
-          <h6>
-            <Suspense fallback=''>{t(title)}</Suspense>
-          </h6>
+    <Popover className='group relative inline-block text-left'>
+      {({ open }) => (
+        <div onMouseEnter={() => handleEnter(open)} onMouseLeave={() => handleLeave(open)}>
+          <PopoverButton ref={triggerRef}>
+            <div className='flex gap-1'>
+              <h6>
+                <Suspense fallback=''>{t(title)}</Suspense>
+              </h6>
 
-          {options && options.length > 0 && (
-            <div className='my-auto'>
-              {showOptions ? <PiCaretDownThin /> : <PiCaretRightThin />}
+              {options && options.length > 0 && (
+                <div className='my-auto'>
+                  <PiCaretDownThin className='ease duration-300 group-data-[open]:-rotate-90' />
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </MenuButton>
-      <MenuItems
-        className='absolute z-900 -ml-5 mt-3 flex cursor-pointer flex-col gap-2 rounded bg-white'
-        onMouseLeave={() => setShowOptions(false)}
-      >
-        {options.map((option, index) => (
-          <MenuItem
-            key={index}
-            disabled={option.disabled}
-            as='div'
-            className={classNames('w-fit whitespace-nowrap px-5 py-2', {
-              'text-neutral-400': !option.url || option.disabled,
-            })}
-            onClick={() => router.push(option.url ? transformUrl(lng, option.url) : '')}
+          </PopoverButton>
+          <PopoverPanel
+            anchor='bottom'
+            className='flex cursor-pointer flex-col gap-2 rounded bg-white'
           >
-            <Suspense fallback={option.label}>{t(option.label)}</Suspense>
-          </MenuItem>
-        ))}
-      </MenuItems>
-    </Menu>
+            {options.map((option, index) => (
+              <div
+                key={index}
+                className={classNames('w-fit whitespace-nowrap px-5 py-2', {
+                  'text-neutral-400': !option.url || option.disabled,
+                })}
+                onClick={() =>
+                  !!option.disabled && router.push(option.url ? transformUrl(lng, option.url) : '')
+                }
+              >
+                <Suspense fallback={option.label}>{t(option.label)}</Suspense>
+              </div>
+            ))}
+          </PopoverPanel>
+        </div>
+      )}
+    </Popover>
   );
 };
 
