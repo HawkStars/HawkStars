@@ -31,16 +31,17 @@ const DropdownMenu = ({ title, options }: DropdownMenuProps) => {
           </div>
         )}
       </div>
-      <div className='absolute -left-3 mt-1 hidden flex-col gap-2 rounded bg-white duration-500 ease-in group-hover:flex'>
+      <div className='absolute -left-3 z-900 hidden flex-col gap-2 rounded bg-white px-5 ease-in group-hover:flex'>
         {options.map((option, index) => (
           <div
             key={index}
-            className={classNames('w-fit whitespace-nowrap px-5 py-2', {
+            className={classNames('w-fit whitespace-nowrap py-2', {
               'text-neutral-400': !option.url || option.disabled,
             })}
-            onClick={() =>
-              !!option.disabled && router.push(option.url ? transformUrl(lng, option.url) : '')
-            }
+            onClick={() => {
+              if (option.disabled) return;
+              router.push(option.url ? transformUrl(lng, option.url) : '');
+            }}
           >
             {t(option.label)}
           </div>

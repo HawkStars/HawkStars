@@ -2,10 +2,10 @@ const { withSentryConfig } = require('@sentry/nextjs');
 
 const cspHeader = `
     default-src 'self';
-    script-src 'self' https://www.googletagmanager.com 'unsafe-eval' 'unsafe-inline';
+    script-src 'self' https://www.googletagmanager.com https://upload-widget.cloudinary.com 'unsafe-inline';
     style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
     img-src 'self' blob: data: www.googletagmanager.com https://*.cloudinary.com https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com;
-    font-src 'self' https://fonts.gstatic.com data;
+    font-src 'self' https://fonts.gstatic.com data:;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
@@ -13,10 +13,16 @@ const cspHeader = `
     block-all-mixed-content;
     upgrade-insecure-requests;
     frame-src *.google.com https://upload-widget.cloudinary.com;
-    connect-src 'self' *.api.sanity.io *.sentry.io ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:` : 'http://127.0.0.1:54321'};
-    worker-src blob:;
-    script-src-elem 'self' https://www.googletagmanager.com https://upload-widget.cloudinary.com 'unsafe-inline';
+    connect-src 'self' *.api.sanity.io *.google-analytics.com *.sentry.io ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:` : 'http://127.0.0.1:54321'};
 `;
+
+const prepCSPHeader =
+  process.env.NODE_ENV == 'production'
+    ? {
+        key: 'Content-Security-Policy',
+        value: cspHeader.replace(/\n/g, ''),
+      }
+    : { key: 'test', value: 'test' };
 
 const nextConfig = {
   logging: {
@@ -55,10 +61,7 @@ const nextConfig = {
             value: 'origin',
           },
           { key: 'Permissions-Policy', value: 'camera=(),microphone=()' },
-          {
-            key: 'Content-Security-Policy',
-            value: cspHeader.replace(/\n/g, ''),
-          },
+          prepCSPHeader,
         ],
       },
     ];
