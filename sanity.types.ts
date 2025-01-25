@@ -125,6 +125,25 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
+export type Report = {
+  _id: string;
+  _type: 'report';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  erasmus: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'erasmus_project';
+  };
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+};
+
 export type News = {
   _id: string;
   _type: 'news';
@@ -335,6 +354,7 @@ export type AllSanitySchemaTypes =
   | SanityImageMetadata
   | Geopoint
   | SanityAssetSourceData
+  | Report
   | News
   | Contribution
   | Event

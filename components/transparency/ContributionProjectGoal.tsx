@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-// import { getTotalMoneyGathered } from '@/server/contribution';
-// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 import { useLanguageCookie } from '@/contexts/AppProvider';
 import { useTranslation } from '@/i18n/client';
+import { client } from '@/sanity/lib/client';
+import { totalMoneyGatheredQuery } from '@/server/contribution';
 
 export const PROJECT_GOAL = 900000;
 
@@ -17,8 +17,9 @@ const ContributionProjectGoal = () => {
   const loadingWidth = Math.round((window?.innerWidth || 0) * normalizedGoal) + 'px';
 
   const getCurrentProjetContribution = async () => {
-    // const moneyGathered = await getTotalMoneyGathered();
-    setTotalContribution(0);
+    const response = await client.fetch(totalMoneyGatheredQuery);
+
+    setTotalContribution(response);
   };
 
   useEffect(() => {

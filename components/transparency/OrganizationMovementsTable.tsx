@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { orgsMovementsColumn } from './config';
 
 // const getOrganizationMovements = async () => {
-//   const supabase = createSupabaseBrowserClient();
 //   const { data, error } = await supabase
 //     .from<'organization_movements', OrganizationMovements>('organization_movements')
 //     .select()

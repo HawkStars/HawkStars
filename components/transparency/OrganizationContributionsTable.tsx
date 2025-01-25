@@ -8,7 +8,6 @@
 // import { useLanguageCookie } from '@/contexts/AppProvider';
 
 // const getOrganizationContributions = async () => {
-//   // const supabase = createSupabaseBrowserClient();
 //   // const { data, error } = await supabase
 //   //   .from<'contributions', Contributions>('contributions')
 //   //   .select('id, contribution_date, donor, is_anonymous, type, value')

@@ -1,12 +1,9 @@
-import { createClient } from '@sanity/client';
-
-// TODO: move to next-client here
-
-import { apiVersion, dataset, projectId, useCdn } from '../env';
+import { createClient } from 'next-sanity';
+import { apiVersion, dataset, projectId } from '../env';
 
 export const client = createClient({
-  // apiVersion,
+  apiVersion,
   dataset,
   projectId,
-  useCdn,
+  useCdn: false,
 });

@@ -2,14 +2,14 @@ import { defineField, defineType } from 'sanity';
 
 export default defineType({
   name: 'report',
-  title: '  Report',
+  title: 'Report',
   type: 'document',
   fields: [
     defineField({
       name: 'erasmus',
       title: 'Erasmus + Project associated with',
       type: 'reference',
-      to: { type: 'erasmus' },
+      to: { type: 'erasmus_project' },
       validation: (rule) => rule.required(),
     }),
     defineField({

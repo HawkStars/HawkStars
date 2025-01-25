@@ -1,9 +1,7 @@
 'use client';
 
-import FormContributions, {
-  ContributionFormInput,
-} from '../superadmin/FormContributions/FormContributions';
 import { LanguageProps } from '../types';
+import FormContributions, { ContributionFormInput } from './FormContributions/FormContributions';
 
 const ContributeFormSection = ({ lng }: LanguageProps) => {
   const handleSubmitForm = async (data: ContributionFormInput) => {
