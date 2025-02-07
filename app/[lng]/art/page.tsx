@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import heroImage from '@/public/images/art_gallery/hero.jpg';
+import heroImage from '@/public/images/art_gallery/hero.png';
 
 import { LanguagePageProps } from '../types';
 import { getServerTranslation } from '@/i18n';
@@ -13,28 +13,20 @@ const GalleryPage = async (props: LanguagePageProps) => {
   return (
     <>
       <section className='mx-auto flex max-w-6xl gap-4 max-lg:flex-col-reverse lg:mt-14 lg:justify-center'>
-        <div className='flex flex-col justify-around gap-8 lg:w-1/2'>
-          <h1>{t('title')}</h1>
-          <h2>{t('subtitle')}</h2>
+        <div className='flex flex-col gap-8 lg:w-1/2 font-body font-light'>
+          <h1 className='lg:text-h1_semibold text-h2_bold'>{t('title')}</h1>
+          <h2 className='lg:text-h2_light text-body_regular'>{t('subtitle')}</h2>
         </div>
         <div className='lg:w-1/2'>
           <Image
-            className='ml-auto max-w-full object-contain lg:max-w-96'
+            className='ml-auto max-w-full object-cover'
+            style={{ height: "100%"}}
             src={heroImage}
-            alt='https://unsplash.com/photos/brown-wooden-framed-wall-mounted-mirror-SjEO_MEM_NI?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash'
+            alt=""
           />
-          <div className='text-gray-light flex justify-end gap-1 text-xs'>
-            <a href='https://unsplash.com/@cloudett?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash'>
-              Laura Cleffmann
-            </a>
-            {` on `}
-            <a href='https://unsplash.com/photos/brown-wooden-framed-wall-mounted-mirror-SjEO_MEM_NI?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash'>
-              Unsplash
-            </a>
-          </div>
         </div>
       </section>
-      <section className='mt-8 flex max-w-6xl flex-col gap-2 text-justify lg:mx-auto'>
+      <section className='mt-8 max-w-6xl lg:mx-auto text-center w-7/12 font-body font-light'>
         <p>{t('description_1')}</p>
         <p>{t('description_2')}</p>
       </section>
@@ -43,3 +35,5 @@ const GalleryPage = async (props: LanguagePageProps) => {
 };
 
 export default GalleryPage;
+
+

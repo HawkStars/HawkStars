@@ -3,35 +3,14 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+    
   body {
     font-family: 'Inter', 'sans serif';
     width: 100dvw;
     overflow-x: hidden;
-  }
-
-  h1 {
-    @apply font-semibold tracking-normal;
-    font-size: 3rem;
-    line-height: 103%;
-  }
-
-  h2 {
-    @apply tracking-normal;
-    line-height: 113%;
-    font-size: 1.5rem;
-
-    &.bold {
-      @apply font-bold;
-    }
-  }
-
-  p {
-    font-size: 1rem;
-    @apply font-normal;
-
-    &.semi-bold {
-      @apply font-semibold;
-    }
   }
 
   input[type='number']::-webkit-inner-spin-button,
@@ -42,20 +21,50 @@
 }
 
 @layer components {
-}
+  /** SWIPER */
+  .swiper-slide {
+    height: auto;
+  }
 
-html {
-  scroll-behavior: smooth;
-}
 
-/** SWIPER */
-.swiper-slide {
-  height: auto;
-}
+  /** LOGO TEST */
+  .image-test {
+    g {
+      @apply animate-ping;
+    }
+  }
 
-/** LOGO TEST */
-.image-test {
-  g {
-    @apply animate-ping;
+  /** TEXT */
+  .text-body {
+    font-size: 24px;
+    line-height: 27px;
+  }
+
+  .text-h1_semibold {
+    @apply font-semibold text-5xl;
+    line-height: 103%;
+    letter-spacing: 0%;
+  }
+
+  .text-h2_light {
+    @apply font-light text-2xl;
+    line-height: 113%;
+    letter-spacing: 0%;
+  }
+
+  .text-h2_bold {
+    @apply font-bold text-2xl;
+    line-height: 113%;
+    letter-spacing: 0%;
+  }
+
+  .text-body_regular {
+    @apply font-normal text-base;
+    letter-spacing: 0%;
+  }
+
+  .text-body_semibold {
+    @apply font-semibold text-base;
+    letter-spacing: 0%;
   }
 }
