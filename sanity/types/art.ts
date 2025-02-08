@@ -44,5 +44,10 @@ export default defineType({
       group: ['media'],
       type: 'cloudinary.asset',
     }),
+    defineField({
+      name: 'is_sold',
+      title: 'Vendido?',
+      type: 'boolean'
+    })
   ],
 });

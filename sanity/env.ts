@@ -1,4 +1,4 @@
-export const apiVersion = '1.1';
+export const apiVersion = '1';
 
 export const dataset = assertValue(
   process.env.NEXT_PUBLIC_SANITY_STUDIO_DATASET,
