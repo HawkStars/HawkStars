@@ -25,7 +25,7 @@ import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
 import ContributeFormSection from '@/components/contribute/ContributeFormSection';
 import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';
-import { client } from '@/sanity/lib/client';
+import { client } from '@/lib/sanityClient';
 import { getChairsContributionsQuery } from './queries';
 import groupBy from 'lodash.groupby';
 import { Contribution } from '@/sanity.types';

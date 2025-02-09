@@ -15,16 +15,12 @@
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
     "test": "node sync-i18n.ts",
-    "sanity:start": "dotenv -e .env sanity dev",
-    "sanity:build": "sanity build",
-    "sanity:deploy": "sanity deploy",
     "sanity:generate-types": "sanity schema extract --enforce-required-fields && sanity typegen generate"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@portabletext/react": "^3.2.1",
     "@sanity/client": "^6.27.2",
-    "@sanity/vision": "^3.74.1",
     "@sentry/nextjs": "^8.54.0",
     "@tanstack/react-table": "^8.20.6",
     "@uiw/react-markdown-preview": "^5.1.3",
@@ -56,10 +52,6 @@
     "react-icons": "^5.4.0",
     "react-paginate": "^8.3.0",
     "require-in-the-middle": "^7.5.1",
-    "sanity": "^3.74.1",
-    "sanity-plugin-cloudinary": "^1.1.5",
-    "sanity-plugin-internationalized-array": "^3.1.1",
-    "styled-components": "^6.1",
     "swiper": "^11.2.2",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.3"

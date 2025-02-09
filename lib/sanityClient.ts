@@ -1,3 +1,5 @@
+import { createClient } from 'next-sanity';
+
 export const apiVersion = '1';
 
 export const dataset = assertValue(
@@ -22,3 +24,10 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 
   return v;
 }
+
+export const client = createClient({
+  apiVersion,
+  dataset,
+  projectId,
+  useCdn: false,
+});

@@ -1,6 +1,6 @@
 import { allCuratorsQuery } from "@/app/[lng]/art/queries";
 import { LanguageProps } from "@/components/types";
-import { client } from "@/sanity/lib/client";
+import { client } from "@/lib/sanityClient";
 
 const getCurators = async () => {
     const response = await client.fetch(allCuratorsQuery);

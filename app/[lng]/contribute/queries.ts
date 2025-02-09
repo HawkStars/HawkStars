@@ -1,4 +1,4 @@
-import { client } from '@/sanity/lib/client';
+import { client } from '@/lib/sanityClient';
 import groq from 'groq';
 
 export type CHAIR_TYPES = 'OFFICE_CHAIR' | 'SIMULATOR_CHAIR' | 'LOUNGE_CHAIR' | 'AUDITORIUM_CHAIR';
