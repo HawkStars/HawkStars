@@ -1,16 +1,17 @@
 {
-  "name": "app",
+  "name": "hawkstars",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "projects/sanity/*",
+    "projects/storybook/*"
+  ],
   "scripts": {
     "dev": "next dev --turbopack",
     "dev:inspect": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build --output-dir storybook-static",
-    "serve-storybook": "serve storybook-static",
     "i18n": "sync-i18n -f i18n/locales/**/**.json --primary pt --space 2 -newkeysempty",
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
@@ -58,23 +59,13 @@
     "typescript": "^5.7.3"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "~8.4.7",
-    "@storybook/addon-interactions": "~8.4.7",
-    "@storybook/addon-links": "~8.4.7",
-    "@storybook/addon-onboarding": "~8.4.7",
-    "@storybook/blocks": "~8.4.7",
-    "@storybook/nextjs": "~8.4.7",
-    "@storybook/react": "~8.4.7",
-    "@storybook/test": "~8.4.7",
     "@types/country-flag-icons": "^1.2.2",
     "@types/lodash.groupby": "^4.6.9",
     "@types/node": "^22.13.1",
     "@types/react": "19.0.0",
     "@types/react-dom": "19.0.0",
     "@types/react-paginate": "^7.1.4",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-storybook": "^0.11.2",
-    "storybook": "~8.4.7"
+    "eslint-config-prettier": "^9.1.0"
   },
   "pnpm": {
     "overrides": {
