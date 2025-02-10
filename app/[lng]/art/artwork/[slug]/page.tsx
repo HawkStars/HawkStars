@@ -1,23 +1,42 @@
-const ArtPage = () => {
+import { HawkStarsSection } from '@/components/layout';
+import { client } from '@/lib/sanity/sanityClient';
+import { getSingleArtwork, getSingleCuratorQuery } from '../../queries';
+import SanityBlock from '@/components/Sanity/SanityBlock';
+import { GetSingleCuratorQueryResult } from '@/lib/sanity/sanity.types';
+import { LanguageProps } from '@/components/types';
+import SanityCloudinaryImage from '@/components/Sanity/SanityCloudinaryImage';
+import { notFound } from 'next/navigation';
+
+const getCuratorInformation = async (slug: string) => {
+  const response = await client.fetch<GetSingleCuratorQueryResult>(getSingleArtwork, { slug });
+  return response;
+};
+
+type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
+
+const CuratorPage = async (props: CuratorPageProps) => {
+  const params = await props.params;
+  const artwork = await getCuratorInformation(params.slug);
+  debugger
+  if (!artwork) notFound();
+
   return (
     <>
-      {/* Main Section */}
-      <section className='bg-bege-light'>
-        <div className='flex flex-col lg:flex-row'>
-          <div className='w-full lg:w-[45%]'></div>
-          <div className='flex w-full flex-col lg:w-[55%]'>
-            <h1>Title</h1>
-            <h6>Price</h6>
-            <div className='grid grid-cols-1 lg:grid-cols-2'></div>
-          </div>
+    <HawkStarsSection className='flex bg-bege-light max-lg:flex-col pt-10 max-lg:px-0 max-lg:pt-0'>
+      <div className='max-lg:mx-auto lg:m-5 lg:w-96'>
+        <SanityCloudinaryImage image={artwork?.image} />
+      </div>
+      <div className='p-5 w-full'>
+        <h1 className='mb-5 text-h2_bold'>{artwork.name}</h1>
+        <div className='grid grid-cols-2'>
         </div>
-      </section>
-      {/* Other images */}
-      <section></section>
-      {/* Other Caracteristics */}
-      <section></section>
+      </div>
+    </HawkStarsSection>
+    <section>
+      {artwork?.description && <SanityBlock block={artwork?.description} lng={params.lng} />}
+    </section>
     </>
   );
 };
 
-export default ArtPage;
+export default CuratorPage;

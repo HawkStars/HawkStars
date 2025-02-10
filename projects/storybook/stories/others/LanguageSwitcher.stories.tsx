@@ -1,6 +1,7 @@
+import LanguageSwitcher from '@/components/utils/LanguageSwitcher';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import LanguageSwitcher from '../../components/utils/LanguageSwitcher';
+
 
 const meta: Meta<typeof LanguageSwitcher> = {
   component: LanguageSwitcher,

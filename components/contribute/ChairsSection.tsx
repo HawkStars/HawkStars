@@ -1,4 +1,4 @@
-import { Contribution } from '@/sanity.types';
+import { Contribution } from '@/lib/sanity/sanity.types';
 import type { JSX } from 'react';
 
 type ChairsSectionsProps = {

@@ -1,4 +1,4 @@
-import { CloudinaryAsset } from '@/sanity.types';
+import { CloudinaryAsset } from '@/lib/sanity/sanity.types';
 
 type SanityCloudinaryImageProps = {
   image?: CloudinaryAsset | null;
@@ -10,7 +10,7 @@ const SanityCloudinaryImage = (props: SanityCloudinaryImageProps) => {
 
   return (
     <>
-      <img src={image.secure_url} loading='lazy' className='rounded-lg' />
+      <img src={image.secure_url} loading='lazy' />
     </>
   );
 };

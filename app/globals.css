@@ -43,28 +43,36 @@
   .text-h1_semibold {
     @apply font-semibold text-5xl;
     line-height: 103%;
-    letter-spacing: 0%;
+    letter-spacing: 0;
   }
 
   .text-h2_light {
     @apply font-light text-2xl;
     line-height: 113%;
-    letter-spacing: 0%;
+    letter-spacing: 0;
   }
 
   .text-h2_bold {
     @apply font-bold text-2xl;
     line-height: 113%;
-    letter-spacing: 0%;
+    letter-spacing: 0;
   }
 
   .text-body_regular {
     @apply font-normal text-base;
-    letter-spacing: 0%;
+    letter-spacing: 0;
   }
 
   .text-body_semibold {
     @apply font-semibold text-base;
-    letter-spacing: 0%;
+    letter-spacing: 0;
+  }
+
+
+  /** Layout **/
+  .max-layout {
+    @media (min-width: 1024px) {
+      width: calc(100% - 64px);
+    }
   }
 }

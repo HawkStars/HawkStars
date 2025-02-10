@@ -1,8 +1,8 @@
 import { HawkStarsSection } from '@/components/layout';
-import { client } from '@/lib/sanityClient';
+import { client } from '@/lib/sanity/sanityClient';
 import { getSingleCuratorQuery } from '../../queries';
 import SanityBlock from '@/components/Sanity/SanityBlock';
-import { GetSingleCuratorQueryResult } from '@/sanity.types';
+import { GetSingleCuratorQueryResult } from '@/lib/sanity/sanity.types';
 import { LanguageProps } from '@/components/types';
 import SanityCloudinaryImage from '@/components/Sanity/SanityCloudinaryImage';
 import { notFound } from 'next/navigation';
@@ -20,12 +20,12 @@ const CuratorPage = async (props: CuratorPageProps) => {
   if (!curator) notFound();
 
   return (
-    <HawkStarsSection padding='none' className='flex bg-bege-light max-lg:flex-col'>
+    <HawkStarsSection className='flex bg-bege-light max-lg:flex-col pt-10 max-lg:px-0 max-lg:pt-0'>
       <div className='max-lg:mx-auto lg:m-5 lg:w-96'>
         <SanityCloudinaryImage image={curator?.image} />
       </div>
-      <div className='p-5'>
-        <h1 className='mb-5'>{curator.name}</h1>
+      <div className='p-5 w-full'>
+        <h1 className='mb-5 text-h2_bold'>{curator.name}</h1>
         {curator?.description && <SanityBlock block={curator?.description} lng={params.lng} />}
       </div>
     </HawkStarsSection>
