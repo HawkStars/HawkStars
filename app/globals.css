@@ -6,7 +6,7 @@
   html {
     scroll-behavior: smooth;
   }
-    
+
   body {
     font-family: 'Inter', 'sans serif';
     width: 100dvw;
@@ -26,7 +26,6 @@
     height: auto;
   }
 
-
   /** LOGO TEST */
   .image-test {
     g {
@@ -41,33 +40,32 @@
   }
 
   .text-h1_semibold {
-    @apply font-semibold text-5xl;
+    @apply text-5xl font-semibold;
     line-height: 103%;
     letter-spacing: 0;
   }
 
   .text-h2_light {
-    @apply font-light text-2xl;
+    @apply text-2xl font-light;
     line-height: 113%;
     letter-spacing: 0;
   }
 
   .text-h2_bold {
-    @apply font-bold text-2xl;
+    @apply text-2xl font-bold;
     line-height: 113%;
     letter-spacing: 0;
   }
 
   .text-body_regular {
-    @apply font-normal text-base;
+    @apply text-base font-normal;
     letter-spacing: 0;
   }
 
   .text-body_semibold {
-    @apply font-semibold text-base;
+    @apply text-base font-semibold;
     letter-spacing: 0;
   }
-
 
   /** Layout **/
   .max-layout {

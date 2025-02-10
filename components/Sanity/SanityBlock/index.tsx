@@ -8,10 +8,10 @@ type SanityBlockProps = {
 
 const defaultComponents: PortableTextComponents = {
   types: {
-    "art_property": (props) => {
-      debugger
-      return <div className='flex flex-col gap-2'></div>
-    }
+    art_property: (props) => {
+      debugger;
+      return <div className='flex flex-col gap-2'></div>;
+    },
   },
   marks: {
     link: ({ value, children }) => {
@@ -23,8 +23,10 @@ const defaultComponents: PortableTextComponents = {
     },
   },
   block: {
-    normal: ({children}) => { return <div className='lg:text-h2_light text-body_regular'>{children}</div>}
-  }
+    normal: ({ children }) => {
+      return <div className='lg:text-h2_light text-body_regular'>{children}</div>;
+    },
+  },
 };
 
 const SanityBlock = ({ block, lng }: SanityBlockProps) => {

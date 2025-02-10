@@ -1,10 +1,10 @@
-import { useEffect, useState, type ReactElement } from 'react'
+import { useEffect, useState, type ReactElement } from 'react';
 
 type DelayComponentProps = {
-  children: ReactElement
-  fallback: ReactElement
-  delay?: number
-}
+  children: ReactElement;
+  fallback: ReactElement;
+  delay?: number;
+};
 
 /**
  * Lazy + Suspense only works when data fetching is involved.
@@ -14,17 +14,17 @@ type DelayComponentProps = {
  * @param delay - Delay in milliseconds to show the children
  */
 const DelayComponent = ({ children, fallback, delay = 2000 }: DelayComponentProps) => {
-  const [showComponent, setShowComponent] = useState<boolean>(false)
+  const [showComponent, setShowComponent] = useState<boolean>(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowComponent(true)
-    }, delay)
+      setShowComponent(true);
+    }, delay);
 
-    return () => clearTimeout(timer)
-  }, [delay])
+    return () => clearTimeout(timer);
+  }, [delay]);
 
-  return showComponent ? children : fallback
-}
+  return showComponent ? children : fallback;
+};
 
-export default DelayComponent
+export default DelayComponent;

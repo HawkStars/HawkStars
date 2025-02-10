@@ -19,8 +19,7 @@ export const CURRENT_PARTNERS = [
   },
   {
     image: '/images/partners/logo/ARKTIC.jpg',
-    title:
-      'ARKTIC - Alliance for Research, Knowledge, Transfer & International Cooperation',
+    title: 'ARKTIC - Alliance for Research, Knowledge, Transfer & International Cooperation',
     description: '',
     contacts: [],
     type: 'international',
@@ -30,9 +29,7 @@ export const CURRENT_PARTNERS = [
     image: '/images/partners/logo/associacao_juvenil.jpg',
     title: 'Associação Juvenil Guarda a Terra',
     description: `A Hawk Stars NGO para a Educação, Inovação e Desenvolvimento Social estabeleceu uma nova parceria com a Associação Juvenil Guarda a Terra. A parceria tem por base a colaboração em atividades de ambas as associações e a colaboração específica em atividades internacionais da Hawk Stars como o Programa Erasmus.`,
-    contacts: [
-      { type: 'facebook', url: 'https://www.facebook.com/guardaaterra' },
-    ],
+    contacts: [{ type: 'facebook', url: 'https://www.facebook.com/guardaaterra' }],
     type: 'national',
   },
   {

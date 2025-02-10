@@ -12,12 +12,7 @@ export type SocialContact = {
   url: string;
 };
 
-export type SocialType =
-  | 'facebook'
-  | 'instagram'
-  | 'twitter'
-  | 'website'
-  | 'linkedin';
+export type SocialType = 'facebook' | 'instagram' | 'twitter' | 'website' | 'linkedin';
 
 export const SocialIcon = {
   facebook: PiFacebookLogoBold,

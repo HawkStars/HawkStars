@@ -1,7 +1,6 @@
 import ReactMarkdownViewer from '@/components/utils/ReactMarkdownViewer/ReactMarkdownViewer';
 import type { Meta, StoryObj } from '@storybook/react';
 
-
 const meta: Meta<typeof ReactMarkdownViewer> = {
   component: ReactMarkdownViewer,
 };

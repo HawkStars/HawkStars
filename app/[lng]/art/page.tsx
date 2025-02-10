@@ -14,24 +14,26 @@ const GalleryPage = async (props: LanguagePageProps) => {
   const { t } = await getServerTranslation(lng, 'art');
   return (
     <>
-      <section className='bg-bege-light lg:pt-14 lg:pb-14 pb-4'>
+      <section className='bg-bege-light pb-4 lg:pb-14 lg:pt-14'>
         <div className='mx-auto flex max-w-6xl gap-6 max-lg:flex-col-reverse lg:justify-center'>
-          <div className='flex flex-col gap-2 lg:w-1/2 font-body font-light max-lg:px-4 lg:pl-4'>
+          <div className='font-body flex flex-col gap-2 font-light max-lg:px-4 lg:w-1/2 lg:pl-4'>
             <h1 className='lg:text-h1_semibold text-h2_bold'>{t('art_gallery')}</h1>
-            <h2 className='lg:text-h1_semibold text-h2_bold font-medium mb-4'>{t("social_impact")}</h2>
+            <h2 className='lg:text-h1_semibold text-h2_bold mb-4 font-medium'>
+              {t('social_impact')}
+            </h2>
             <p className='lg:text-h2_light text-body_regular text-justify'>{t('subtitle')}</p>
           </div>
           <div className='lg:w-1/2'>
             <Image
               className='ml-auto max-w-full object-cover'
-              style={{ height: "100%"}}
+              style={{ height: '100%' }}
               src={heroImage}
-              alt=""
+              alt=''
             />
           </div>
         </div>
       </section>
-      <section className='mt-8 max-w-6xl lg:mx-auto text-center lg:w-7/12 w-11/12 lg:text-h2_light text-body_regular max-lg:mx-4 max-lg:text-left'>
+      <section className='lg:text-h2_light text-body_regular mt-8 w-11/12 max-w-6xl text-center max-lg:mx-4 max-lg:text-left lg:mx-auto lg:w-7/12'>
         <p>{t('description_1')}</p>
         <p>{t('description_2')}</p>
       </section>
@@ -42,5 +44,3 @@ const GalleryPage = async (props: LanguagePageProps) => {
 };
 
 export default GalleryPage;
-
-

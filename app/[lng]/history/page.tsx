@@ -17,9 +17,7 @@ import { OffsetSection } from '@/components/layout/OffsetSection';
 const HawkHistoryPage = async (props: LanguagePageProps) => {
   const params = await props.params;
 
-  const {
-    lng
-  } = params;
+  const { lng } = params;
 
   const { t } = await getServerTranslation(lng, 'hawkstars');
   const { report } = historyReferenceUrl;

@@ -14,7 +14,7 @@
 
 // Source: schema.json
 export type SanityImagePaletteSwatch = {
-  _type: "sanity.imagePaletteSwatch";
+  _type: 'sanity.imagePaletteSwatch';
   background?: string;
   foreground?: string;
   population?: number;
@@ -22,7 +22,7 @@ export type SanityImagePaletteSwatch = {
 };
 
 export type SanityImagePalette = {
-  _type: "sanity.imagePalette";
+  _type: 'sanity.imagePalette';
   darkMuted?: SanityImagePaletteSwatch;
   lightVibrant?: SanityImagePaletteSwatch;
   darkVibrant?: SanityImagePaletteSwatch;
@@ -33,14 +33,14 @@ export type SanityImagePalette = {
 };
 
 export type SanityImageDimensions = {
-  _type: "sanity.imageDimensions";
+  _type: 'sanity.imageDimensions';
   height?: number;
   width?: number;
   aspectRatio?: number;
 };
 
 export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
+  _type: 'sanity.imageHotspot';
   x?: number;
   y?: number;
   height?: number;
@@ -48,7 +48,7 @@ export type SanityImageHotspot = {
 };
 
 export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
+  _type: 'sanity.imageCrop';
   top?: number;
   bottom?: number;
   left?: number;
@@ -57,7 +57,7 @@ export type SanityImageCrop = {
 
 export type SanityFileAsset = {
   _id: string;
-  _type: "sanity.fileAsset";
+  _type: 'sanity.fileAsset';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -79,7 +79,7 @@ export type SanityFileAsset = {
 
 export type SanityImageAsset = {
   _id: string;
-  _type: "sanity.imageAsset";
+  _type: 'sanity.imageAsset';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -101,7 +101,7 @@ export type SanityImageAsset = {
 };
 
 export type SanityImageMetadata = {
-  _type: "sanity.imageMetadata";
+  _type: 'sanity.imageMetadata';
   location?: Geopoint;
   dimensions?: SanityImageDimensions;
   palette?: SanityImagePalette;
@@ -112,65 +112,75 @@ export type SanityImageMetadata = {
 };
 
 export type Geopoint = {
-  _type: "geopoint";
+  _type: 'geopoint';
   lat?: number;
   lng?: number;
   alt?: number;
 };
 
 export type SanityAssetSourceData = {
-  _type: "sanity.assetSourceData";
+  _type: 'sanity.assetSourceData';
   name?: string;
   id?: string;
   url?: string;
 };
 
 export type Art_property = {
-  _type: "art_property";
-  title?: Array<{
-    _key: string;
-  } & InternationalizedArrayStringValue>;
-  value?: Array<{
-    _key: string;
-  } & InternationalizedArrayStringValue>;
+  _type: 'art_property';
+  title?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  value?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
 };
 
 export type Report = {
   _id: string;
-  _type: "report";
+  _type: 'report';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   erasmus: {
     _ref: string;
-    _type: "reference";
+    _type: 'reference';
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "erasmus_project";
+    [internalGroqTypeReferenceTo]?: 'erasmus_project';
   };
-  description?: Array<{
-    _key: string;
-  } & InternationalizedArrayFormattedTextValue>;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
 };
 
 export type News = {
   _id: string;
-  _type: "news";
+  _type: 'news';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   title: string;
   slug?: Slug;
-  description?: Array<{
-    _key: string;
-  } & InternationalizedArrayFormattedTextValue>;
-  image?: Array<{
-    _key: string;
-  } & CloudinaryAsset>;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: Array<
+    {
+      _key: string;
+    } & CloudinaryAsset
+  >;
 };
 
 export type Contribution = {
   _id: string;
-  _type: "contribution";
+  _type: 'contribution';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -179,127 +189,153 @@ export type Contribution = {
   is_anonymous?: boolean;
   value?: number;
   contribution_date?: string;
-  contribution_type?: "BANK" | "CRYPTO" | "WALL_NAME_SINGULAR" | "WALL_NAME_COMPANY" | "OFFICE_CHAIR" | "SIMULATOR_CHAIR" | "LOUNGE_CHAIR" | "AUDITORIUM_CHAIR" | "BUILDING_NAMING" | "TRAINING_ROOM_NAMING";
+  contribution_type?:
+    | 'BANK'
+    | 'CRYPTO'
+    | 'WALL_NAME_SINGULAR'
+    | 'WALL_NAME_COMPANY'
+    | 'OFFICE_CHAIR'
+    | 'SIMULATOR_CHAIR'
+    | 'LOUNGE_CHAIR'
+    | 'AUDITORIUM_CHAIR'
+    | 'BUILDING_NAMING'
+    | 'TRAINING_ROOM_NAMING';
 };
 
 export type Event = {
   _id: string;
-  _type: "event";
+  _type: 'event';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   name?: string;
   slug?: Slug;
   description?: string;
-  image?: Array<{
-    _key: string;
-  } & CloudinaryAsset>;
+  image?: Array<
+    {
+      _key: string;
+    } & CloudinaryAsset
+  >;
 };
 
 export type Erasmus_project = {
   _id: string;
-  _type: "erasmus_project";
+  _type: 'erasmus_project';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   title?: string;
   slug?: Slug;
-  description?: Array<{
-    _key: string;
-  } & InternationalizedArrayFormattedTextValue>;
-  image?: Array<{
-    _key: string;
-  } & CloudinaryAsset>;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: Array<
+    {
+      _key: string;
+    } & CloudinaryAsset
+  >;
 };
 
 export type Art = {
   _id: string;
-  _type: "art";
+  _type: 'art';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   name: string;
   slug?: Slug;
-  description?: Array<{
-    _key: string;
-  } & InternationalizedArrayFormattedTextValue>;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
   image?: CloudinaryAsset;
-  art_properties?: Array<{
-    _key: string;
-  } & Art_property>;
+  art_properties?: Array<
+    {
+      _key: string;
+    } & Art_property
+  >;
   is_sold?: boolean;
 };
 
 export type Curator = {
   _id: string;
-  _type: "curator";
+  _type: 'curator';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   name?: string;
   slug?: Slug;
-  description?: Array<{
-    _key: string;
-  } & InternationalizedArrayFormattedTextValue>;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
   image?: CloudinaryAsset;
 };
 
 export type Slug = {
-  _type: "slug";
+  _type: 'slug';
   current: string;
   source?: string;
 };
 
 export type InternationalizedArrayFormattedTextValue = {
-  _type: "internationalizedArrayFormattedTextValue";
+  _type: 'internationalizedArrayFormattedTextValue';
   value?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
-      _type: "span";
+      _type: 'span';
       _key: string;
     }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
+    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
+    listItem?: 'bullet' | 'number';
     markDefs?: Array<{
       href?: string;
-      _type: "link";
+      _type: 'link';
       _key: string;
     }>;
     level?: number;
-    _type: "block";
+    _type: 'block';
     _key: string;
   }>;
 };
 
 export type InternationalizedArrayStringValue = {
-  _type: "internationalizedArrayStringValue";
+  _type: 'internationalizedArrayStringValue';
   value?: string;
 };
 
-export type InternationalizedArrayFormattedText = Array<{
-  _key: string;
-} & InternationalizedArrayFormattedTextValue>;
+export type InternationalizedArrayFormattedText = Array<
+  {
+    _key: string;
+  } & InternationalizedArrayFormattedTextValue
+>;
 
-export type InternationalizedArrayString = Array<{
-  _key: string;
-} & InternationalizedArrayStringValue>;
+export type InternationalizedArrayString = Array<
+  {
+    _key: string;
+  } & InternationalizedArrayStringValue
+>;
 
 export type CloudinaryAssetContextCustom = {
-  _type: "cloudinary.assetContextCustom";
+  _type: 'cloudinary.assetContextCustom';
   alt?: string;
   caption?: string;
 };
 
 export type CloudinaryAssetDerived = {
-  _type: "cloudinary.assetDerived";
+  _type: 'cloudinary.assetDerived';
   raw_transformation?: string;
   url?: string;
   secure_url?: string;
 };
 
 export type CloudinaryAsset = {
-  _type: "cloudinary.asset";
+  _type: 'cloudinary.asset';
   public_id?: string;
   resource_type?: string;
   type?: string;
@@ -313,17 +349,46 @@ export type CloudinaryAsset = {
   duration?: number;
   tags?: Array<string>;
   created_at?: string;
-  derived?: Array<{
-    _key: string;
-  } & CloudinaryAssetDerived>;
+  derived?: Array<
+    {
+      _key: string;
+    } & CloudinaryAssetDerived
+  >;
   access_mode?: string;
   context?: CloudinaryAssetContext;
 };
 
 export type CloudinaryAssetContext = {
-  _type: "cloudinary.assetContext";
+  _type: 'cloudinary.assetContext';
   custom?: CloudinaryAssetContextCustom;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | SanityAssetSourceData | Art_property | Report | News | Contribution | Event | Erasmus_project | Art | Curator | Slug | InternationalizedArrayFormattedTextValue | InternationalizedArrayStringValue | InternationalizedArrayFormattedText | InternationalizedArrayString | CloudinaryAssetContextCustom | CloudinaryAssetDerived | CloudinaryAsset | CloudinaryAssetContext;
+export type AllSanitySchemaTypes =
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityImageHotspot
+  | SanityImageCrop
+  | SanityFileAsset
+  | SanityImageAsset
+  | SanityImageMetadata
+  | Geopoint
+  | SanityAssetSourceData
+  | Art_property
+  | Report
+  | News
+  | Contribution
+  | Event
+  | Erasmus_project
+  | Art
+  | Curator
+  | Slug
+  | InternationalizedArrayFormattedTextValue
+  | InternationalizedArrayStringValue
+  | InternationalizedArrayFormattedText
+  | InternationalizedArrayString
+  | CloudinaryAssetContextCustom
+  | CloudinaryAssetDerived
+  | CloudinaryAsset
+  | CloudinaryAssetContext;
 export declare const internalGroqTypeReferenceTo: unique symbol;

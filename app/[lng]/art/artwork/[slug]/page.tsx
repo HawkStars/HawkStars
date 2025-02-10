@@ -17,24 +17,23 @@ type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
 const CuratorPage = async (props: CuratorPageProps) => {
   const params = await props.params;
   const artwork = await getCuratorInformation(params.slug);
-  debugger
+  debugger;
   if (!artwork) notFound();
 
   return (
     <>
-    <HawkStarsSection className='flex bg-bege-light max-lg:flex-col pt-10 max-lg:px-0 max-lg:pt-0'>
-      <div className='max-lg:mx-auto lg:m-5 lg:w-96'>
-        <SanityCloudinaryImage image={artwork?.image} />
-      </div>
-      <div className='p-5 w-full'>
-        <h1 className='mb-5 text-h2_bold'>{artwork.name}</h1>
-        <div className='grid grid-cols-2'>
+      <HawkStarsSection className='flex bg-bege-light pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
+        <div className='max-lg:mx-auto lg:m-5 lg:w-96'>
+          <SanityCloudinaryImage image={artwork?.image} />
         </div>
-      </div>
-    </HawkStarsSection>
-    <section>
-      {artwork?.description && <SanityBlock block={artwork?.description} lng={params.lng} />}
-    </section>
+        <div className='w-full p-5'>
+          <h1 className='text-h2_bold mb-5'>{artwork.name}</h1>
+          <div className='grid grid-cols-2'></div>
+        </div>
+      </HawkStarsSection>
+      <section>
+        {artwork?.description && <SanityBlock block={artwork?.description} lng={params.lng} />}
+      </section>
     </>
   );
 };
