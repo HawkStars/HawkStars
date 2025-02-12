@@ -4,9 +4,7 @@ import { LanguageProps } from '../types';
 import FormContributions, { ContributionFormInput } from './FormContributions/FormContributions';
 
 const ContributeFormSection = ({ lng }: LanguageProps) => {
-  const handleSubmitForm = async (data: ContributionFormInput) => {
-    debugger;
-  };
+  const handleSubmitForm = async (data: ContributionFormInput) => {};
 
   return (
     <div className='mx-auto mt-10 lg:w-1/2'>

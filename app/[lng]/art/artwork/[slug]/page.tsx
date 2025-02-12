@@ -17,7 +17,7 @@ type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
 const CuratorPage = async (props: CuratorPageProps) => {
   const params = await props.params;
   const artwork = await getCuratorInformation(params.slug);
-  debugger;
+
   if (!artwork) notFound();
 
   return (

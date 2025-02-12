@@ -3,7 +3,7 @@ module.exports = {
   content: [
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './projects/**/*.{js,ts,jsx,tsx,mdx}',
+    './projects/**/stories/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     colors: {

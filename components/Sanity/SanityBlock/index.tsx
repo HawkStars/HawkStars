@@ -8,12 +8,7 @@ type SanityBlockProps = {
 };
 
 const defaultComponents: PortableTextComponents = {
-  types: {
-    art_property: (props) => {
-      debugger;
-      return <div className='flex flex-col gap-2'></div>;
-    },
-  },
+  types: {},
   marks: {
     link: ({ value, children }) => {
       return (

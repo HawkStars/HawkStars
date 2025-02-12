@@ -18,7 +18,6 @@ const ChairsSections = ({
   size,
   currentContributions = [],
 }: ChairsSectionsProps) => {
-  debugger;
   const missingContributionsLength = size - currentContributions.length;
   const missingContributionsChairs = Array(missingContributionsLength).fill(null);
   return (

@@ -13,12 +13,15 @@ export default defineType({
       name: 'media',
       title: 'Media',
     },
+    { name: 'properties',
+      title: 'Art Properties'
+    }
   ],
   fields: [
     defineField({
-      name: 'name',
-      title: 'Name',
-      type: 'string',
+      name: 'title',
+      title: 'Title',
+      type: 'internationalizedArrayString',
       validation: (rule) => rule.required(),
       group: ['text'],
     }),
@@ -33,8 +36,8 @@ export default defineType({
       hidden: ({ document }) => !document?.name,
     }),
     defineField({
-      name: 'description',
-      title: 'Description',
+      name: 'synopsis',
+      title: 'Synopsis',
       group: ['text'],
       type: 'internationalizedArrayFormattedText',
     }),
@@ -45,15 +48,53 @@ export default defineType({
       type: 'cloudinary.asset',
     }),
     defineField({
-      name: 'art_properties',
-      title: 'Art Properties',
-      type: 'array',
-      of: [{ type: 'art_property' }],
-    }),
-    defineField({
       name: 'is_sold',
       title: 'Vendido?',
       type: 'boolean',
+      group: ["properties"]
     }),
+    defineField({
+      name: 'artist',
+      title: 'Artist',
+      type: 'string',
+      group: ["properties"]
+    }),
+    defineField({
+      name: "year",
+      title: "Year",
+      type: "number",
+      group: ["properties"]
+    }),
+    defineField({
+      name: "price",
+      title: 'Price',
+      type: "internationalizedArrayString",
+      group: ["properties"]
+    }),
+    defineField({
+      name: "settings",
+      title: "Photo Settings",
+      type: "internationalizedArrayString",
+      description: "Type of foto settings",
+      group: ["properties"]
+    }),
+    defineField({
+      name: "tiragem",
+      title: "Tiragem",
+      type: "internationalizedArrayString",
+      group: ["properties"]
+    }),
+    defineField({
+      name: "dimensions",
+      title: "Dimensions",
+      type: "internationalizedArrayString",
+      group: ["properties"]
+    }),
+    defineField({
+      name: "extra",
+      title: "Extra Information",
+      type: "internationalizedArrayFormattedText",
+      group: ["properties"]
+    })
   ],
 });

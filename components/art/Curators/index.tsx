@@ -16,7 +16,6 @@ const Curators = async ({ lng }: LanguageProps) => {
     <>
       <section className='grid grid-cols-2'>
         {allCurators.map((curator) => {
-          debugger;
           return <div key={curator._id}></div>;
         })}
       </section>

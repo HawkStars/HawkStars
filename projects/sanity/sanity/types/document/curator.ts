@@ -29,8 +29,14 @@ export default defineType({
       },
     }),
     defineField({
+      name: "location",
+      title: "Location",
+      type: "string",
+      description: "Where it is the curator located"
+    }),
+    defineField({
       name: 'description',
-      title: 'Description',
+      title: 'Nota Biográfica',
       type: 'internationalizedArrayFormattedText',
     }),
     defineField({
