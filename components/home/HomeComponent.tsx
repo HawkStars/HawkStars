@@ -39,6 +39,7 @@ const HomeComponent = ({ lng }: LanguageProps) => {
                   onClick={() => {
                     router.push(urls.donate);
                   }}
+                  className="h-full"
                 >
                   <Suspense fallback=''>{t('common.donate')}</Suspense>
                 </Button>

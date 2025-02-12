@@ -32,7 +32,7 @@ const FooterMenu = () => {
                   <Suspense fallback={option.label}>
                     <Link
                       href={transformUrl(lng, option.url || urls.home)}
-                      className={classNames({
+                      className={classNames('text-body_regular',{
                         'text-disabled': option.disabled,
                       })}
                     >

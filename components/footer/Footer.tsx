@@ -29,8 +29,11 @@ const Footer = () => {
             <Socials />
           </div>
         </div>
-        <div className='mt-10 grid grid-cols-2 max-lg:grid-cols-1 gap-10'>
+        <div className='mt-10 grid grid-cols-2 max-sm:grid-cols-1 gap-10'>
           <FooterMenu />
+        </div>
+        <div className='lg:hidden underline mt-4 text-sm font-extralight'>
+          <Link href={urls.terms}>{t('navbar.art_gallery.terms_and_conditions')}</Link>
         </div>
       </div>
       <div className='hidden grid-cols-1 gap-1 px-12 py-4 lg:grid lg:grid-cols-5 lg:gap-7 lg:pt-20'>
@@ -41,6 +44,7 @@ const Footer = () => {
           <FooterMenu />
         </Suspense>
       </div>
+
       <div className='mt-10 flex flex-col px-5 pb-10 lg:mt-0 lg:flex-row lg:gap-1 lg:border-t lg:px-10 lg:pt-1'>
         <p className='text-sm'>
           Designed by{' '}
@@ -61,7 +65,7 @@ const Footer = () => {
           </Link>
         </p>
         <div className='ml-auto gap-5 lg:flex'>
-          <Link href={urls.terms}>{t('navbar.art_gallery.terms_and_conditions')}</Link>
+          <Link href={urls.terms} className='max-lg:hidden'>{t('navbar.art_gallery.terms_and_conditions')}</Link>
           <div className='hidden lg:block'>
             <Socials />
           </div>
