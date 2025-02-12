@@ -15,7 +15,7 @@ const GalleryPage = async (props: LanguagePageProps) => {
   return (
     <>
       <section className='bg-bege-light pb-4 lg:pb-14 lg:pt-14'>
-        <div className='mx-auto flex max-w-6xl gap-6 max-lg:flex-col-reverse lg:justify-center'>
+        <div className='mx-auto flex max-w-7xl gap-12 max-lg:flex-col-reverse lg:justify-center'>
           <div className='font-body flex flex-col gap-2 font-light max-lg:px-4 lg:w-1/2 lg:pl-4'>
             <h1 className='lg:text-h1_semibold text-h2_bold'>{t('art_gallery')}</h1>
             <h2 className='lg:text-h1_semibold text-h2_bold mb-4 font-medium'>
@@ -33,9 +33,9 @@ const GalleryPage = async (props: LanguagePageProps) => {
           </div>
         </div>
       </section>
-      <section className='lg:text-h2_light text-body_regular mt-8 w-11/12 max-w-6xl text-center max-lg:mx-4 max-lg:text-left lg:mx-auto lg:w-7/12'>
-        <p>{t('description_1')}</p>
-        <p>{t('description_2')}</p>
+      <section className='lg:text-h2_light text-body_regular mt-8 max-w-6xl max-lg:mx-4 max-lg:text-left lg:mx-auto lg:w-7/12'>
+        <p className='text-justify'>{t('description_1')}</p>
+        <p className='text-justify'>{t('description_2')}</p>
       </section>
       <Curators lng={lng} />
     </>

@@ -29,7 +29,7 @@ const Footer = () => {
             <Socials />
           </div>
         </div>
-        <div className='mt-10 grid grid-cols-2 gap-10'>
+        <div className='mt-10 grid grid-cols-2 max-lg:grid-cols-1 gap-10'>
           <FooterMenu />
         </div>
       </div>
