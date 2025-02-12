@@ -125,20 +125,6 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type Art_property = {
-  _type: 'art_property';
-  title?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayStringValue
-  >;
-  value?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayStringValue
-  >;
-};
-
 export type Report = {
   _id: string;
   _type: 'report';
@@ -244,20 +230,46 @@ export type Art = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name: string;
+  title: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
   slug?: Slug;
-  description?: Array<
+  synopsis?: Array<
     {
       _key: string;
     } & InternationalizedArrayFormattedTextValue
   >;
   image?: CloudinaryAsset;
-  art_properties?: Array<
+  is_sold?: boolean;
+  artist?: string;
+  year?: number;
+  price?: Array<
     {
       _key: string;
-    } & Art_property
+    } & InternationalizedArrayStringValue
   >;
-  is_sold?: boolean;
+  settings?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  tiragem?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  dimensions?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  extra?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
 };
 
 export type Curator = {
@@ -268,6 +280,7 @@ export type Curator = {
   _rev: string;
   name?: string;
   slug?: Slug;
+  location?: string;
   description?: Array<
     {
       _key: string;
@@ -374,7 +387,6 @@ export type AllSanitySchemaTypes =
   | SanityImageMetadata
   | Geopoint
   | SanityAssetSourceData
-  | Art_property
   | Report
   | News
   | Contribution
@@ -403,6 +415,7 @@ export type AllCuratorsQueryResult = Array<{
   _rev: string;
   name?: string;
   slug?: Slug;
+  location?: string;
   description?: Array<
     {
       _key: string;
@@ -420,6 +433,7 @@ export type GetSingleCuratorQueryResult = {
   _rev: string;
   name?: string;
   slug?: Slug;
+  location?: string;
   description?: Array<
     {
       _key: string;
@@ -435,20 +449,46 @@ export type AllArtworkResult = Array<{
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name: string;
+  title: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
   slug?: Slug;
-  description?: Array<
+  synopsis?: Array<
     {
       _key: string;
     } & InternationalizedArrayFormattedTextValue
   >;
   image?: CloudinaryAsset;
-  art_properties?: Array<
+  is_sold?: boolean;
+  artist?: string;
+  year?: number;
+  price?: Array<
     {
       _key: string;
-    } & Art_property
+    } & InternationalizedArrayStringValue
   >;
-  is_sold?: boolean;
+  settings?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  tiragem?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  dimensions?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  extra?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
 }>;
 // Variable: getSingleArtwork
 // Query: *[_type == "art" && slug.current == $slug][0]
@@ -458,20 +498,46 @@ export type GetSingleArtworkResult = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name: string;
+  title: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
   slug?: Slug;
-  description?: Array<
+  synopsis?: Array<
     {
       _key: string;
     } & InternationalizedArrayFormattedTextValue
   >;
   image?: CloudinaryAsset;
-  art_properties?: Array<
+  is_sold?: boolean;
+  artist?: string;
+  year?: number;
+  price?: Array<
     {
       _key: string;
-    } & Art_property
+    } & InternationalizedArrayStringValue
   >;
-  is_sold?: boolean;
+  settings?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  tiragem?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  dimensions?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  extra?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
 } | null;
 
 // Source: ./sanity/queries/contribution.ts
