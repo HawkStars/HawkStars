@@ -27,12 +27,12 @@ const CuratorPage = async (props: CuratorPageProps) => {
           <SanityCloudinaryImage image={artwork?.image} />
         </div>
         <div className='w-full p-5'>
-          <h1 className='text-h2_bold mb-5'>{artwork.name}</h1>
+          <h1 className='text-h2_bold mb-5'>{""}</h1>
           <div className='grid grid-cols-2'></div>
         </div>
       </HawkStarsSection>
       <section>
-        {artwork?.description && <SanityBlock block={artwork?.description} lng={params.lng} />}
+        {artwork?.synopsis && <SanityBlock block={artwork?.synopsis} lng={params.lng} />}
       </section>
     </>
   );

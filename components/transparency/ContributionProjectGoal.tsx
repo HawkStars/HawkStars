@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { useTranslation } from '@/i18n/client';
 import { client } from '@/lib/sanity/sanityClient';
-import { totalMoneyGatheredQuery } from '@/server/contribution';
+import { totalMoneyGatheredQuery } from '@/projects/sanity/sanity/queries/contribution';
 
 export const PROJECT_GOAL = 900000;
 
