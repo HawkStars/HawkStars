@@ -392,3 +392,133 @@ export type AllSanitySchemaTypes =
   | CloudinaryAsset
   | CloudinaryAssetContext;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./sanity/queries/art.ts
+// Variable: allCuratorsQuery
+// Query: *[_type == "curator"]
+export type AllCuratorsQueryResult = Array<{
+  _id: string;
+  _type: 'curator';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: CloudinaryAsset;
+}>;
+// Variable: getSingleCuratorQuery
+// Query: *[_type == "curator" && slug.current == $slug][0]
+export type GetSingleCuratorQueryResult = {
+  _id: string;
+  _type: 'curator';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: CloudinaryAsset;
+} | null;
+// Variable: allArtwork
+// Query: *[_type == "art"]
+export type AllArtworkResult = Array<{
+  _id: string;
+  _type: 'art';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug?: Slug;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: CloudinaryAsset;
+  art_properties?: Array<
+    {
+      _key: string;
+    } & Art_property
+  >;
+  is_sold?: boolean;
+}>;
+// Variable: getSingleArtwork
+// Query: *[_type == "art" && slug.current == $slug][0]
+export type GetSingleArtworkResult = {
+  _id: string;
+  _type: 'art';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug?: Slug;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: CloudinaryAsset;
+  art_properties?: Array<
+    {
+      _key: string;
+    } & Art_property
+  >;
+  is_sold?: boolean;
+} | null;
+
+// Source: ./sanity/queries/contribution.ts
+// Variable: getChairsContributionsQuery
+// Query: *[_type == "contribution" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]
+export type GetChairsContributionsQueryResult = Array<{
+  _id: string;
+  _type: 'contribution';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  donor: string;
+  is_confirmed?: boolean;
+  is_anonymous?: boolean;
+  value?: number;
+  contribution_date?: string;
+  contribution_type?:
+    | 'AUDITORIUM_CHAIR'
+    | 'BANK'
+    | 'BUILDING_NAMING'
+    | 'CRYPTO'
+    | 'LOUNGE_CHAIR'
+    | 'OFFICE_CHAIR'
+    | 'SIMULATOR_CHAIR'
+    | 'TRAINING_ROOM_NAMING'
+    | 'WALL_NAME_COMPANY'
+    | 'WALL_NAME_SINGULAR';
+}>;
+
+// Source: ./sanity/queries/erasmus.ts
+// Variable: allEventsQuery
+// Query: *[_type == "erasmus"]
+export type AllEventsQueryResult = Array<never>;
+// Variable: getSingleEventsQuery
+// Query: *[_type == "erasmus" && slug.current == $slug]
+export type GetSingleEventsQueryResult = Array<never>;
+
+// Query TypeMap
+import '@sanity/client';
+declare module '@sanity/client' {
+  interface SanityQueries {
+    '*[_type == "curator"]': AllCuratorsQueryResult;
+    '*[_type == "curator" && slug.current == $slug][0]': GetSingleCuratorQueryResult;
+    '*[_type == "art"]': AllArtworkResult;
+    '*[_type == "art" && slug.current == $slug][0]': GetSingleArtworkResult;
+    "*[_type == \"contribution\" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]": GetChairsContributionsQueryResult;
+    '*[_type == "erasmus"]': AllEventsQueryResult;
+    '*[_type == "erasmus" && slug.current == $slug]': GetSingleEventsQueryResult;
+  }
+}

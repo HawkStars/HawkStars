@@ -1,4 +1,4 @@
-import { CloudinaryAsset } from '@/lib/sanity/sanity.types';
+import { CloudinaryAsset } from "@/projects/sanity/sanity.types";
 
 type SanityCloudinaryImageProps = {
   image?: CloudinaryAsset | null;

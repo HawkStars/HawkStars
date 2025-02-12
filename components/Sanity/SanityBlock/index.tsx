@@ -1,4 +1,5 @@
-import { InternationalizedArrayFormattedText } from '@/lib/sanity/sanity.types';
+
+import { InternationalizedArrayFormattedText } from '@/projects/sanity/sanity.types';
 import { PortableText, PortableTextComponents } from '@portabletext/react';
 
 type SanityBlockProps = {

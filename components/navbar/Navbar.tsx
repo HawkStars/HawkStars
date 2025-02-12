@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 import { RxHamburgerMenu } from 'react-icons/rx';
 
-import { useSetMobileNavbarOpen } from '../../contexts/AppProvider';
+import { useSetMobileNavbarOpen } from '../../utils/contexts/AppProvider';
 import Button from '../utils/Button';
 import { urls } from '../../utils/paths';
 import { useRouter } from 'next/navigation';
@@ -14,9 +14,9 @@ import { Suspense, lazy } from 'react';
 import { MenuSections } from './config';
 import DropdownMenu from '../menu/DropdownMenu';
 
-import { hawkLogo } from '@/models/images/logos';
+import { hawkLogo } from '@/utils/models/images/logos';
 // import { useLanguageCookie } from '@/hooks/useLanguageCookie';
-import { useLanguageCookie } from '@/contexts/AppProvider';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import MenuItem from '../menu/MenuItem';
 
 const LanguageSwitcher = lazy(() => import('../utils/LanguageSwitcher'));

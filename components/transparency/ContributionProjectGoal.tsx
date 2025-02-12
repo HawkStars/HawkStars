@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useLanguageCookie } from '@/contexts/AppProvider';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { useTranslation } from '@/i18n/client';
 import { client } from '@/lib/sanity/sanityClient';
 import { totalMoneyGatheredQuery } from '@/server/contribution';

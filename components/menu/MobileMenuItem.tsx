@@ -1,6 +1,6 @@
 'use client';
 
-import { useSetMobileNavbarOpen } from '../../contexts/AppProvider';
+import { useSetMobileNavbarOpen } from '../../utils/contexts/AppProvider';
 import { useTranslation } from '../../i18n/client';
 import { transformUrl } from '../../utils/paths';
 import classNames from 'classnames';
@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { PiCaretRightThin, PiCaretDownThin } from 'react-icons/pi';
 import { NavbarUrlItem } from '../navbar/types';
 // import { useLanguageCookie } from '@/hooks/useLanguageCookie';
-import { useLanguageCookie } from '@/contexts/AppProvider';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 type MenuItemProps = {
   title: string;

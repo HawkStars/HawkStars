@@ -10,7 +10,7 @@ import { Suspense } from 'react';
 import { MenuSections } from '../navbar/config';
 import Button from '../utils/Button';
 import { useTranslation } from '@/i18n/client';
-import { useLanguageCookie } from '@/contexts/AppProvider';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 const FooterMenu = () => {
   const lng = useLanguageCookie();

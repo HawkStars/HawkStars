@@ -8,7 +8,7 @@ import Select, { SelectOption } from '../utils/Select';
 import TeamCard from './TeamCard';
 import { useTranslation } from '../../i18n/client';
 // import { useLanguageCookie } from '@/hooks/useLanguageCookie';
-import { useLanguageCookie } from '@/contexts/AppProvider';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 const MainTeamPage = () => {
   const lng = useLanguageCookie();

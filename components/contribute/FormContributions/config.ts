@@ -1,4 +1,4 @@
-import { ContributionType } from '@/models/database';
+import { ContributionType } from '@/utils/models/database';
 
 const ContributionTypesLabels = [
   { label: 'Bank', value: 'BANK', id: 'BANK', disabled: false },

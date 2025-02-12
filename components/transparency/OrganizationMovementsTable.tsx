@@ -1,6 +1,6 @@
 'use client';
 
-import { OrganizationMovement, OrganizationMovements } from '@/models/database';
+import { OrganizationMovement, OrganizationMovements } from '@/utils/models/database';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { orgsMovementsColumn } from './config';

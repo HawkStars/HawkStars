@@ -1,14 +1,14 @@
 import { HawkStarsSection } from '@/components/layout';
 import { client } from '@/lib/sanity/sanityClient';
-import { getSingleArtwork, getSingleCuratorQuery } from '../../queries';
 import SanityBlock from '@/components/Sanity/SanityBlock';
-import { GetSingleCuratorQueryResult } from '@/lib/sanity/sanity.types';
 import { LanguageProps } from '@/components/types';
 import SanityCloudinaryImage from '@/components/Sanity/SanityCloudinaryImage';
 import { notFound } from 'next/navigation';
+import { getSingleArtwork } from '@/projects/sanity/sanity/queries/art';
+import { GetSingleArtworkResult } from '@/projects/sanity/sanity.types';
 
 const getCuratorInformation = async (slug: string) => {
-  const response = await client.fetch<GetSingleCuratorQueryResult>(getSingleArtwork, { slug });
+  const response = await client.fetch<GetSingleArtworkResult>(getSingleArtwork, { slug });
   return response;
 };
 

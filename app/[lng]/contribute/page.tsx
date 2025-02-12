@@ -26,12 +26,13 @@ import ContributeFormSection from '@/components/contribute/ContributeFormSection
 import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';
 import { client } from '@/lib/sanity/sanityClient';
-import { getChairsContributionsQuery } from './queries';
+
 import groupBy from 'lodash.groupby';
-import { Contribution } from '@/lib/sanity/sanity.types';
+import { getChairsContributionsQuery } from '@/projects/sanity/sanity/queries/contribution';
+import { Contribution, GetChairsContributionsQueryResult } from '@/projects/sanity/sanity.types';
 
 const getChairsContribute = async () => {
-  const contributions = await client.fetch(getChairsContributionsQuery);
+  const contributions = await client.fetch<GetChairsContributionsQueryResult>(getChairsContributionsQuery);
 
   const grouped_contributions = groupBy(contributions, 'contribution_type');
   const simulationChairs = (grouped_contributions['SIMULATOR_CHAIR'] as Contribution[]) || [];

@@ -9,7 +9,7 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import Footer from '@/components/footer/Footer';
 import MobileNavbar from '@/components/navbar/MobileNavbar';
 import Navbar from '@/components/navbar/Navbar';
-import AppProvider from '@/contexts/AppProvider';
+import AppProvider from '@/utils/contexts/AppProvider';
 import { LanguagePageProps } from './types';
 import { Language, fallbackLng, languages } from '@/i18n/settings';
 

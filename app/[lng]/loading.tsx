@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { hawkLogo } from '@/models/images/logos';
+import { hawkLogo } from '@/utils/models/images/logos';
 
 export default function MainHawkStarsLoading() {
   return (

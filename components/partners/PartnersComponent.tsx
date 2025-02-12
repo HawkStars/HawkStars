@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { SocialIcon, SocialType } from '../../models/social';
+import { SocialIcon, SocialType } from '../../utils/models/social';
 import { CURRENT_PARTNERS, PartnersInfo } from '../../app/[lng]/partners/config';
 import { getServerTranslation } from '../../i18n';
 import { LanguageProps } from '../types';

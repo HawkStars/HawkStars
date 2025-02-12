@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { urls } from '@/utils/paths';
 import Link from 'next/link';
 
-import { hawkLogo } from '@/models/images/logos';
+import { hawkLogo } from '@/utils/models/images/logos';
 
 const NotFoundPage = () => {
   return (

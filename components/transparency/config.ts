@@ -1,8 +1,8 @@
-import { ContributionLabel, MoneyMovementLabel } from '@/models/transparency';
-import { Contribution, OrganizationMovement } from '@/models/database';
+import { ContributionLabel, MoneyMovementLabel } from '@/utils/models/transparency';
+import { Contribution, OrganizationMovement } from '@/utils/models/database';
 import { createColumnHelper } from '@tanstack/react-table';
 import i18next from 'i18next';
-import { ConfirmLabel } from '@/models/common';
+import { ConfirmLabel } from '@/utils/models/common';
 
 export type TransparencyContribution = Pick<
   Contribution,

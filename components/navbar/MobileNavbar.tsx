@@ -1,6 +1,6 @@
 'use client';
 
-import { useMainAppContext, useSetMobileNavbarOpen } from '../../contexts/AppProvider';
+import { useMainAppContext, useSetMobileNavbarOpen } from '../../utils/contexts/AppProvider';
 import Image from 'next/image';
 import { RxCross1 } from 'react-icons/rx';
 
@@ -15,10 +15,10 @@ import { MenuSections } from './config';
 import { useRouter } from 'next/navigation';
 import { urls, transformUrl } from '@/utils/paths';
 
-import { useLanguageCookie } from '@/contexts/AppProvider';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 // import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 
-import { hawkLogo } from '@/models/images/logos';
+import { hawkLogo } from '@/utils/models/images/logos';
 
 const MobileNavbar = () => {
   const { mobileNavbarOpen } = useMainAppContext();

@@ -3,7 +3,7 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import Select from '@/components/utils/Select';
 import Input from '@/components/utils/Input/Input';
-import { Contribution, ContributionType } from '@/models/database';
+import { Contribution, ContributionType } from '@/utils/models/database';
 import Button from '@/components/utils/Button';
 import dynamic from 'next/dynamic';
 import TextArea from '@/components/utils/TextArea/TextArea';

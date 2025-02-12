@@ -8,7 +8,7 @@ import { PiCaretDownThin } from 'react-icons/pi';
 import { useTranslation } from '@/i18n/client';
 import { transformUrl } from '@/utils/paths';
 import { NavbarUrlItem } from '../navbar/types';
-import { useLanguageCookie } from '@/contexts/AppProvider';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 type DropdownMenuProps = {
   title: string;

@@ -7,7 +7,7 @@ import classNames from 'classnames';
 // import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 
 import { useRouter } from 'next/navigation';
-import { useLanguageCookie, useSetLanguageCookie } from '@/contexts/AppProvider';
+import { useLanguageCookie, useSetLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Language } from '@/i18n/settings';
 
 const LanguageSwitcher = () => {

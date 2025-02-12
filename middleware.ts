@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import withHandleInternalization from './middlewares/withHandleInternalization';
+import withHandleInternalization from './utils/middlewares/withHandleInternalization';
 
 export const config = {
   matcher: ['/((?!api|sitemap|robots|_next/static|_next/image|images|favicon).*)'],

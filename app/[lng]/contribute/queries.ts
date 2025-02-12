@@ -1,8 +1,7 @@
 import { client } from '@/lib/sanity/sanityClient';
-import groq from 'groq';
+
 
 export type CHAIR_TYPES = 'OFFICE_CHAIR' | 'SIMULATOR_CHAIR' | 'LOUNGE_CHAIR' | 'AUDITORIUM_CHAIR';
-export const getChairsContributionsQuery = groq`*[_type == "contribution" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]`;
 
 // Add contribution
 

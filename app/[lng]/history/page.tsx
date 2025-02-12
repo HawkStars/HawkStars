@@ -7,7 +7,7 @@ import { urls } from '@/utils/paths';
 import { historyReferenceUrl } from './config';
 
 // images
-import { euroHawkLogo, hawkLogo } from '@/models/images/logos';
+import { euroHawkLogo, hawkLogo } from '@/utils/models/images/logos';
 import historyHero from '@/public/images/history/hero.webp';
 import { HawkStarsOffSetSection, HawkStarsSection } from '@/components/layout';
 import humanitarian_1 from '@/public/images/history/humanitarian_1.jpeg';

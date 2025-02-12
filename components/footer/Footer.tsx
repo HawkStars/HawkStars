@@ -4,11 +4,11 @@ import Socials from '../utils/Socials';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { hawkLogo } from '@/models/images/logos';
+import { hawkLogo } from '@/utils/models/images/logos';
 import dynamic from 'next/dynamic';
 import { urls } from '@/utils/paths';
 import { useTranslation } from '@/i18n/client';
-import { useLanguageCookie } from '@/contexts/AppProvider';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 const LanguageSwitcher = dynamic(() => import('../utils/LanguageSwitcher'), { ssr: false });
 const FooterMenu = lazy(() => import('./FooterMenu'));
