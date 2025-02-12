@@ -37,7 +37,6 @@ const GalleryPage = async (props: LanguagePageProps) => {
         <p>{t('description_1')}</p>
         <p>{t('description_2')}</p>
       </section>
-      <CurrentArtwork lng={lng} />
       <Curators lng={lng} />
     </>
   );
