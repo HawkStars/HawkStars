@@ -8,4 +8,4 @@ export const getSingleCuratorQuery = groq`*[_type == "curator" && slug.current =
 export const allArtwork = groq`*[_type == "art"]`;
 export const getSingleArtwork = groq`*[_type == "art" && slug.current == $slug][0]`;
 
-export const getAllArtworkImages = groq`*[_type == "art"]{image}`
+export const getAllArtworkImagesQuery = groq`*[_type == "art"]{image, title, slug} | order(_createdAt desc)`;

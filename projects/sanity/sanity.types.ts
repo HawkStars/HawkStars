@@ -539,6 +539,17 @@ export type GetSingleArtworkResult = {
     } & InternationalizedArrayFormattedTextValue
   >;
 } | null;
+// Variable: getAllArtworkImagesQuery
+// Query: *[_type == "art"]{image, title, slug} | order(_createdAt desc)
+export type GetAllArtworkImagesQueryResult = Array<{
+  image: CloudinaryAsset | null;
+  title: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  slug: Slug | null;
+}>;
 
 // Source: ./sanity/queries/contribution.ts
 // Variable: getChairsContributionsQuery
@@ -583,6 +594,7 @@ declare module '@sanity/client' {
     '*[_type == "curator" && slug.current == $slug][0]': GetSingleCuratorQueryResult;
     '*[_type == "art"]': AllArtworkResult;
     '*[_type == "art" && slug.current == $slug][0]': GetSingleArtworkResult;
+    '*[_type == "art"]{image, title, slug} | order(_createdAt desc)': GetAllArtworkImagesQueryResult;
     "*[_type == \"contribution\" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]": GetChairsContributionsQueryResult;
     '*[_type == "erasmus"]': AllEventsQueryResult;
     '*[_type == "erasmus" && slug.current == $slug]': GetSingleEventsQueryResult;

@@ -13,7 +13,8 @@
     "year": "Year",
     "price": "Price",
     "settings": "Settings",
-    "dimensions": "Dimensions"
+    "dimensions": "Dimensions",
+    "pieces": "Artwork"
   },
   "buy": "Buy"
 }
