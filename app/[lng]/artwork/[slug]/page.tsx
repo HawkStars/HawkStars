@@ -8,6 +8,8 @@ import { getSingleArtwork } from '@/projects/sanity/sanity/queries/art';
 import { GetSingleArtworkResult } from '@/projects/sanity/sanity.types';
 import { getServerTranslation } from '@/i18n';
 import { extractInternationalI18nString } from '@/lib/sanity/helpers';
+import Button from '@/components/utils/Button';
+import ArtPropertyComponent from '@/components/art/ArtProperty';
 
 const getCuratorInformation = async (slug: string) => {
   const response = await client.fetch<GetSingleArtworkResult>(getSingleArtwork, { slug });
@@ -28,16 +30,21 @@ const CuratorPage = async (props: CuratorPageProps) => {
   debugger
   return (
     <>
-      <HawkStarsSection className='flex bg-bege-light pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
-        <div className='max-lg:mx-auto lg:m-5 lg:w-96'>
+      <HawkStarsSection className='flex bg-bege-light pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0 gap-8 pb-8'>
+        <div className='max-lg:mx-auto w-7/12'>
           <SanityCloudinaryImage image={artwork?.image} />
         </div>
-        <div className='w-full p-5'>
-          <h1 className='text-h2_bold mb-5'>{extractInternationalI18nString({ block: artwork.title,lng})}</h1>
-          <h2>{extractInternationalI18nString({ block: artwork.price,lng})}</h2>
-          <div className='grid grid-cols-2'>
-            <div className='text-h2_light'>{t("artwork.artist")}</div>
-            <span>{artwork.artist}</span>
+        <div className='w-5/12 p-5 flex flex-col'>
+          <h1 className='text-h1_semibold mb-10 text-disabled'>{extractInternationalI18nString({ block: artwork.title,lng})}</h1>
+          <h2 className='text-disabled text-h2_bold px-3'>{extractInternationalI18nString({ block: artwork.price,lng})}</h2>
+          <div className='grid grid-cols-2 mt-5 px-3'>
+            <ArtPropertyComponent label={t("artwork.artist")} value={artwork.artist} />
+            
+          </div>
+          <div className='mt-auto'>
+            <Button type={'button'}>
+              {t('buy')}
+            </Button>
           </div>
         </div>
       </HawkStarsSection>
