@@ -31,9 +31,9 @@ export default defineType({
       type: 'slug',
       group: ['text'],
       options: {
-        source: 'name',
+        source: 'title',
       },
-      hidden: ({ document }) => !document?.name,
+      hidden: ({ document }) => !document?.title,
     }),
     defineField({
       name: 'synopsis',
