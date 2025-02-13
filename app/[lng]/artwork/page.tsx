@@ -20,19 +20,26 @@ const ArtworkPage = async (props: LanguagePageProps) => {
   const artworkImages = await getArtwork();
 
   return (
-    <section className='grid grid-cols-1 lg:grid-cols-2'>
-      <h1>{t('artwork.pieces')}</h1>
-      {artworkImages.map((item) => {
-        const artTitle = extractInternationalI18nString({ text: item.title, lng: lng.lng });
-        return (
-          <Link href={transformUrl(lng.lng, `artwork/${item.slug}`)}>
-            <div>
-              <h3>{artTitle}</h3>
-              {item.image?.url && <Image src={item.image?.url} alt={artTitle} />}
-            </div>
-          </Link>
-        );
-      })}
+    <section className='mt-4 flex flex-col gap-4 lg:mt-10'>
+      <h1 className='text-h1_semibold text-center text-green'>{t('artwork.pieces')}</h1>
+      <div className='grid grid-cols-1 lg:grid-cols-2'>
+        {artworkImages.map((item, index) => {
+          const artTitle = extractInternationalI18nString({ text: item.title, lng: lng.lng });
+          return (
+            <Link
+              href={transformUrl(lng.lng, `/artwork/${item.slug?.current}`)}
+              key={item.slug?.current || index}
+            >
+              <div className='flex flex-col gap-4'>
+                <h3 className='text-h2_bold text-center text-disabled'>{artTitle}</h3>
+                {item.image?.url && (
+                  <Image src={item.image?.url} alt={artTitle} width={500} height={500} />
+                )}
+              </div>
+            </Link>
+          );
+        })}
+      </div>
     </section>
   );
 };

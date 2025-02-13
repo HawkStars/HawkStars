@@ -20,36 +20,37 @@ type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
 const CuratorPage = async (props: CuratorPageProps) => {
   const params = await props.params;
-  const { lng, slug } = params
-  if(!slug) return notFound();
+  const { lng, slug } = params;
+  if (!slug) return notFound();
 
   const artwork = await getCuratorInformation(slug);
   const { t } = await getServerTranslation(lng, 'art');
   if (!artwork) notFound();
 
-  debugger
+  debugger;
   return (
     <>
-      <HawkStarsSection className='flex bg-bege-light pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0 gap-8 pb-8'>
-        <div className='max-lg:mx-auto w-7/12'>
+      <HawkStarsSection className='flex gap-8 bg-bege-light pb-8 pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
+        <div className='w-7/12 max-lg:mx-auto'>
           <SanityCloudinaryImage image={artwork?.image} />
         </div>
-        <div className='w-5/12 p-5 flex flex-col'>
-          <h1 className='text-h1_semibold mb-10 text-disabled'>{extractInternationalI18nString({ block: artwork.title,lng})}</h1>
-          <h2 className='text-disabled text-h2_bold px-3'>{extractInternationalI18nString({ block: artwork.price,lng})}</h2>
-          <div className='grid grid-cols-2 mt-5 px-3'>
-            <ArtPropertyComponent label={t("artwork.artist")} value={artwork.artist} />
-            
+        <div className='flex w-5/12 flex-col p-5'>
+          <h1 className='text-h1_semibold mb-10 text-disabled'>
+            {extractInternationalI18nString({ text: artwork.title, lng })}
+          </h1>
+          <h2 className='text-h2_bold px-3 text-disabled'>
+            {extractInternationalI18nString({ text: artwork.price, lng })}
+          </h2>
+          <div className='mt-5 grid grid-cols-2 px-3'>
+            <ArtPropertyComponent label={t('artwork.artist')} value={artwork.artist} />
           </div>
           <div className='mt-auto'>
-            <Button type={'button'}>
-              {t('buy')}
-            </Button>
+            <Button type={'button'}>{t('buy')}</Button>
           </div>
         </div>
       </HawkStarsSection>
-      <section className='flex flex-col mt-4 max-w-7xl mx-auto px-8 gap-4'>
-        <h6 className='text-h2_bold'>{t("artwork.synopsis")}</h6>
+      <section className='mx-auto mt-4 flex max-w-7xl flex-col gap-4 px-8'>
+        <h6 className='text-h2_bold'>{t('artwork.synopsis')}</h6>
         {artwork?.synopsis && <SanityBlock block={artwork?.synopsis} lng={params.lng} />}
       </section>
     </>
