@@ -7,3 +7,5 @@ export const getSingleCuratorQuery = groq`*[_type == "curator" && slug.current =
 /* ARTWORK */
 export const allArtwork = groq`*[_type == "art"]`;
 export const getSingleArtwork = groq`*[_type == "art" && slug.current == $slug][0]`;
+
+export const getAllArtworkImages = groq`*[_type == "art"]{image}`
