@@ -14,7 +14,9 @@
     "year": "Ano",
     "price": "Preço",
     "dimensions": "Dimensões",
-    "artist": "Artista"
+    "artist": "Artista",
+    "pieces": "Obras de Arte"
   },
-  "buy": "Comprar"
+  "buy": "Comprar",
+  "sold": "Vendido"
 }

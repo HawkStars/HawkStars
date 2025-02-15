@@ -37,16 +37,15 @@ export default async function Page(props: LanguagePageProps) {
 
   return (
     <section className='flex flex-col gap-4 px-5 py-3 lg:mx-auto lg:max-w-4xl lg:pt-10'>
-      <h1>{t('terms_and_conditions')}</h1>
-      <div className='flex flex-col gap-3'>
-        <h2>{preamble.title}</h2>
+      <h1 className='text-h2_bold text-center'>{t('terms_and_conditions')}</h1>
+      <h2 className='text-body_regular text-center'>www.hawkstars.org</h2>
+      <div className='mb-3 flex flex-col gap-3'>
+        <h2 className='text-h2_light mb-5'>{preamble.title}</h2>
         {preamble.items.map((item, index) => {
           return (
-            <div key={index}>
-              <p>
-                <span className='mr-2 text-xl font-semibold'>{`${index + 1}.º`}</span>
-                {item}
-              </p>
+            <div key={index} className='mb-1'>
+              <span className='text-body_semibold'>{`${index + 1}.º`}</span>
+              <p className='text-body_regular text-justify'>{item}</p>
             </div>
           );
         })}
@@ -54,11 +53,11 @@ export default async function Page(props: LanguagePageProps) {
 
       {articles.map((item, index) => {
         return (
-          <div key={index} className='mt-1'>
-            <h3 className='mb-3 text-lg underline'>
+          <div key={index} className='my-1'>
+            <h3 className='text-h2_bold mb-3 text-lg'>
               <span>{`${t('article.title')} ${index + 1}`}</span> - {item.title}
             </h3>
-            <ol className='ml-5 flex list-decimal flex-col gap-2'>
+            <ol className='ml-5 flex list-decimal flex-col gap-3'>
               {/* I want to move this to its component */}
               {item?.values?.map((firstLevelText, index) => {
                 let listItem;
@@ -71,7 +70,6 @@ export default async function Page(props: LanguagePageProps) {
                 } else {
                   listItem = <SubItem key={index} article={firstLevelText} />;
                 }
-
                 return listItem;
               })}
             </ol>

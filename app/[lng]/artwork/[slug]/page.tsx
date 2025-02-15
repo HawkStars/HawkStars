@@ -31,21 +31,24 @@ const CuratorPage = async (props: CuratorPageProps) => {
   return (
     <>
       <HawkStarsSection className='flex gap-8 bg-bege-light pb-8 pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
-        <div className='w-7/12 max-lg:mx-auto'>
+        <div className='max-lg:mx-auto lg:w-7/12'>
           <SanityCloudinaryImage image={artwork?.image} />
         </div>
         <div className='flex w-5/12 flex-col p-5'>
+          <h2 className='text-h1_semibold mb-2 text-disabled'>{artwork.artist}</h2>
           <h1 className='text-h1_semibold mb-10 text-disabled'>
             {extractInternationalI18nString({ text: artwork.title, lng })}
           </h1>
           <h2 className='text-h2_bold px-3 text-disabled'>
             {extractInternationalI18nString({ text: artwork.price, lng })}
           </h2>
-          <div className='mt-5 grid grid-cols-2 px-3'>
-            <ArtPropertyComponent label={t('artwork.artist')} value={artwork.artist} />
-          </div>
-          <div className='mt-auto'>
-            <Button type={'button'}>{t('buy')}</Button>
+          <div className='mt-5 grid grid-cols-2 px-3'></div>
+          <div className='ml-2 mt-auto'>
+            {artwork.is_sold ? (
+              <Button type='button'>{t('sold')}</Button>
+            ) : (
+              <Button type={'button'}>{t('buy')}</Button>
+            )}
           </div>
         </div>
       </HawkStarsSection>
