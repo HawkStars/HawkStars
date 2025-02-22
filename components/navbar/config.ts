@@ -16,6 +16,7 @@ const {
   team,
   transparency,
   terms,
+  artwork,
 } = urls;
 
 const SHOP_URL = 'https://shop.hawkstars.org';
@@ -47,7 +48,7 @@ const GlobalVillageOptions = [
 const ArtGalleryOptions = [
   { label: 'navbar.art_gallery.presentation', url: gallery },
   { label: 'navbar.art_gallery.curation', url: gallery },
-  { label: 'navbar.art_gallery.art', url: gallery },
+  { label: 'navbar.art_gallery.art', url: artwork },
 ] as NavbarUrlItem[];
 
 export const MenuSections = [

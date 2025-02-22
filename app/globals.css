@@ -73,4 +73,8 @@
       width: calc(100% - 64px);
     }
   }
+
+  .font-oswald {
+    font-family: 'Oswald', 'sans-serif';
+  }
 }

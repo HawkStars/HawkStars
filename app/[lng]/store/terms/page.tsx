@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { LanguagePageProps } from '../../types';
 import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
+import classNames from 'classnames';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -57,7 +58,12 @@ export default async function Page(props: LanguagePageProps) {
             <h3 className='text-h2_bold mb-3 text-lg'>
               <span>{`${t('article.title')} ${index + 1}`}</span> - {item.title}
             </h3>
-            <ol className='ml-5 flex list-decimal flex-col gap-3'>
+            <ol
+              className={classNames('ml-5 flex flex-col gap-3', {
+                'list-decimal': item.values?.length > 1,
+                'list-none': item.values?.length == 1,
+              })}
+            >
               {/* I want to move this to its component */}
               {item?.values?.map((firstLevelText, index) => {
                 let listItem;

@@ -21,7 +21,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
   if (!curator) notFound();
 
   return (
-    <HawkStarsSection className='flex bg-bege-light pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
+    <HawkStarsSection className='font-oswald flex bg-bege-light pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
       <div className='max-lg:mx-auto lg:m-5 lg:w-96'>
         <SanityCloudinaryImage image={curator?.image} />
       </div>

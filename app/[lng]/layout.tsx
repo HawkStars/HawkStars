@@ -1,7 +1,9 @@
 import '@/app/globals.css';
 import { Inter } from 'next/font/google';
+import { Oswald } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ variable: '--font-inter', subsets: ['latin'], display: 'swap' });
+const oswald = Oswald({ variable: '--font-oswald', subsets: ['latin'], display: 'swap' });
 
 import { Metadata } from 'next';
 import Script from 'next/script';
@@ -34,9 +36,9 @@ export default async function RootLayout(props: {
   const { children } = props;
 
   return (
-    <html lang={lng} data-color-mode='light'>
+    <html lang={lng} data-color-mode='light' className={`${inter.variable} ${oswald.variable}`}>
       <AppProvider lng={(lng as Language) || fallbackLng}>
-        <body className={inter.className}>
+        <body>
           <MobileNavbar />
           <Navbar />
           <main className='bg-body min-h-screen'>{children}</main>
