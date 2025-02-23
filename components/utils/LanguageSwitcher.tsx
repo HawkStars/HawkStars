@@ -45,7 +45,7 @@ const LanguageSwitcher = () => {
         <PiCaretDownThin />
       </div>
       {showLanguageOptions && (
-        <div className='z-100 absolute mt-2 flex w-fit cursor-pointer flex-col gap-2 bg-white py-1 pl-3 pr-5'>
+        <div className='z-100 absolute mt-2 flex w-fit cursor-pointer flex-col gap-2 bg-bege-light py-1 pl-3 pr-5'>
           {lng !== 'en' && (
             <div
               className='flew-row flex cursor-pointer gap-2'
@@ -54,7 +54,7 @@ const LanguageSwitcher = () => {
               <div className='flex h-4 w-6'>
                 <GB title='EN' />
               </div>
-              <label className={classNames('my-auto text-xs text-bege-light')}>EN</label>
+              <label className={classNames('text-black my-auto text-xs')}>EN</label>
             </div>
           )}
           {lng !== 'pt' && (
@@ -65,7 +65,7 @@ const LanguageSwitcher = () => {
               <div className='flex h-4 w-6'>
                 <PT title='PT' />
               </div>
-              <label className={classNames('my-auto text-xs text-bege-dark')}>PT</label>
+              <label className={classNames('text-black my-auto text-xs')}>PT</label>
             </div>
           )}
         </div>
