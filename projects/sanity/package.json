@@ -11,10 +11,11 @@
     "sanity:generate-types": "sanity schema extract --enforce-required-fields && sanity typegen generate"
   },
   "dependencies": {
+    "@sanity/icons": "^3.6.0",
     "@sanity/vision": "^3.74.1",
+    "groq": "^3.74.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "groq": "^3.74.1",
     "sanity": "^3.74.1",
     "sanity-plugin-cloudinary": "^1.1.5",
     "sanity-plugin-internationalized-array": "^3.1.1",

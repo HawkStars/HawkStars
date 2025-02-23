@@ -1,9 +1,12 @@
+import { InternationalizedArrayString } from '@/projects/sanity/sanity.types';
 import { defineField, defineType } from 'sanity';
+import { CropIcon } from '@sanity/icons';
 
 export default defineType({
   name: 'art',
   title: 'Art',
   type: 'document',
+  icon: CropIcon,
   groups: [
     {
       name: 'text',
@@ -13,9 +16,7 @@ export default defineType({
       name: 'media',
       title: 'Media',
     },
-    { name: 'properties',
-      title: 'Art Properties'
-    }
+    { name: 'properties', title: 'Art Properties' },
   ],
   fields: [
     defineField({
@@ -51,50 +52,66 @@ export default defineType({
       name: 'is_sold',
       title: 'Vendido?',
       type: 'boolean',
-      group: ["properties"]
+      group: ['properties'],
     }),
     defineField({
       name: 'artist',
       title: 'Artist',
       type: 'string',
-      group: ["properties"]
+      group: ['properties'],
     }),
     defineField({
-      name: "year",
-      title: "Year",
-      type: "number",
-      group: ["properties"]
+      name: 'year',
+      title: 'Year',
+      type: 'number',
+      group: ['properties'],
     }),
     defineField({
-      name: "price",
+      name: 'price',
       title: 'Price',
-      type: "internationalizedArrayString",
-      group: ["properties"]
+      type: 'internationalizedArrayString',
+      group: ['properties'],
     }),
     defineField({
-      name: "settings",
-      title: "Photo Settings",
-      type: "internationalizedArrayString",
-      description: "Type of foto settings",
-      group: ["properties"]
+      name: 'settings',
+      title: 'Photo Settings',
+      type: 'internationalizedArrayString',
+      description: 'Type of foto settings',
+      group: ['properties'],
     }),
     defineField({
-      name: "tiragem",
-      title: "Tiragem",
-      type: "internationalizedArrayString",
-      group: ["properties"]
+      name: 'tiragem',
+      title: 'Tiragem',
+      type: 'internationalizedArrayString',
+      group: ['properties'],
     }),
     defineField({
-      name: "dimensions",
-      title: "Dimensions",
-      type: "internationalizedArrayString",
-      group: ["properties"]
+      name: 'dimensions',
+      title: 'Dimensions',
+      type: 'internationalizedArrayString',
+      group: ['properties'],
     }),
     defineField({
-      name: "extra",
-      title: "Extra Information",
-      type: "internationalizedArrayFormattedText",
-      group: ["properties"]
-    })
+      name: 'extra',
+      title: 'Extra Information',
+      type: 'internationalizedArrayFormattedText',
+      group: ['properties'],
+    }),
   ],
+  preview: {
+    select: {
+      title: 'title',
+      media: 'image',
+    },
+    prepare(selection) {
+      const { title, media } = selection;
+
+      const ptTitle = (title as InternationalizedArrayString).find((item) => item._key == 'pt');
+
+      return {
+        title: ptTitle?.value || '',
+        imageUrl: media?.secure_url,
+      };
+    },
+  },
 });

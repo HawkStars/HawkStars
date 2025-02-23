@@ -1,9 +1,12 @@
+import { InternationalizedArrayString } from '@/projects/sanity/sanity.types';
 import { defineField, defineType } from 'sanity';
+import { UserIcon } from '@sanity/icons';
 
 export default defineType({
   name: 'curator',
   title: 'Curator',
   type: 'document',
+  icon: UserIcon,
   groups: [
     {
       name: 'text',
@@ -46,21 +49,20 @@ export default defineType({
       type: 'cloudinary.asset',
     }),
     defineField({
-      name: 'google_keywords',
-      title: 'Keywords',
-      type: 'internationalizedArrayString',
-      description: 'Keywords to be shown to the google search',
-      group: 'seo',
-    }),
-    defineField({
       name: 'google_description',
       title: 'Description for Google',
-      description: 'Description to be shown to the google search',
+      description: 'Description to be shown to the google search. recommended 255 characters',
       type: 'internationalizedArrayString',
       group: 'seo',
       validation: (rule) =>
-        rule.custom((blocks) => {
-          debugger;
+        rule.custom((blocks: InternationalizedArrayString) => {
+          const blockWithMoreThanRecommended = blocks.filter(
+            (block) => block.value && block.value?.length > 255
+          );
+          if (blockWithMoreThanRecommended.length > 0)
+            return {
+              message: 'Descriptions should be maximum of 255 characters',
+            };
           return true;
         }),
     }),

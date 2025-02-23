@@ -1,9 +1,11 @@
 import { defineField, defineType } from 'sanity';
+import { ProjectsIcon } from '@sanity/icons';
 
 export default defineType({
   name: 'erasmus_project',
   title: 'Erasmus Project',
   type: 'document',
+  icon: ProjectsIcon,
   fields: [
     defineField({
       name: 'title',
