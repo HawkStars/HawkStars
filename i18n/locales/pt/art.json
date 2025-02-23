@@ -15,7 +15,8 @@
     "price": "Preço",
     "dimensions": "Dimensões",
     "artist": "Artista",
-    "pieces": "Obras de Arte"
+    "pieces": "Obras de Arte",
+    "vat_and_ports": "*IVA e portes não incluídos"
   },
   "buy": "Comprar",
   "sold": "Vendido"

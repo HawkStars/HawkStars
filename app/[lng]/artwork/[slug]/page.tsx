@@ -32,7 +32,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
     <>
       <HawkStarsSection className='flex gap-8 bg-bege-light pb-8 pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
         <div className='max-lg:mx-auto lg:w-7/12'>
-          <SanityCloudinaryImage image={artwork?.image} />
+          <SanityCloudinaryImage image={artwork?.image} className='rounded-xl' />
         </div>
         <div className='font-oswald flex flex-col px-5 pt-5 lg:w-5/12'>
           <h2 className='text-h1_semibold mb-2 text-disabled'>{artwork.artist}</h2>
@@ -55,19 +55,22 @@ const CuratorPage = async (props: CuratorPageProps) => {
               value={extractInternationalI18nString({ text: artwork.tiragem, lng })}
             />
           </div>
-          <div className='mt-auto flex gap-5 max-md:mt-6'>
+          <div className='mt-auto flex flex-col gap-3 max-md:mt-6'>
             <h2 className='text-h2_bold my-auto text-disabled'>
               {extractInternationalI18nString({ text: artwork.price, lng })}
             </h2>
             {artwork.is_sold ? (
-              <Button type='button'>{t('sold')}</Button>
+              <Button type='button' disabled>
+                {t('sold')}
+              </Button>
             ) : (
               <Button type={'button'}>{t('buy')}</Button>
             )}
           </div>
+          <span className='ml-1 mt-2 text-sm opacity-90'>{t('artwork.vat_and_ports')}</span>
         </div>
       </HawkStarsSection>
-      <section className='font-oswald mx-auto mt-4 flex max-w-7xl flex-col gap-4 px-4 text-justify lg:px-8'>
+      <section className='font-oswald mx-auto mt-6 flex max-w-7xl flex-col gap-4 px-4 text-justify lg:px-8'>
         <h6 className='text-h2_bold'>{t('artwork.synopsis')}</h6>
         {artwork?.synopsis && <SanityBlock block={artwork?.synopsis} lng={params.lng} />}
 

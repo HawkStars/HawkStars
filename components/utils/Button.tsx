@@ -64,7 +64,7 @@ const buttonProps = variantProps({
       full: tw`rounded-full`,
     },
     disabled: {
-      true: tw`bg-opacity-50 border-opacity-10`,
+      true: tw`bg-opacity-50 border-opacity-10 cursor-default`,
     },
     padding: {
       sm: tw`px-3 py-2`,

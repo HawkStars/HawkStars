@@ -14,7 +14,8 @@
     "price": "Price",
     "settings": "Settings",
     "dimensions": "Dimensions",
-    "pieces": "Artwork"
+    "pieces": "Artwork",
+    "vat_and_ports": "*VAT and shipping costs not included"
   },
   "buy": "Buy",
   "sold": "Sold"
