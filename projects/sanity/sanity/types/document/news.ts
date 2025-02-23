@@ -1,10 +1,12 @@
 import { defineField, defineType } from 'sanity';
+import { TaskIcon } from '@sanity/icons';
 
 export default defineType({
   name: 'news',
   title: 'News',
   type: 'document',
   description: 'Model to be used for any news from hawkstars',
+  icon: TaskIcon,
   fields: [
     defineField({
       name: 'title',

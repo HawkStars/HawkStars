@@ -287,6 +287,11 @@ export type Curator = {
     } & InternationalizedArrayFormattedTextValue
   >;
   image?: CloudinaryAsset;
+  google_description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
 };
 
 export type Slug = {
@@ -422,6 +427,11 @@ export type AllCuratorsQueryResult = Array<{
     } & InternationalizedArrayFormattedTextValue
   >;
   image?: CloudinaryAsset;
+  google_description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
 }>;
 // Variable: getSingleCuratorQuery
 // Query: *[_type == "curator" && slug.current == $slug][0]
@@ -440,6 +450,11 @@ export type GetSingleCuratorQueryResult = {
     } & InternationalizedArrayFormattedTextValue
   >;
   image?: CloudinaryAsset;
+  google_description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
 } | null;
 // Variable: allArtwork
 // Query: *[_type == "art"]
@@ -540,7 +555,7 @@ export type GetSingleArtworkResult = {
   >;
 } | null;
 // Variable: getAllArtworkImagesQuery
-// Query: *[_type == "art"]{image, title, slug} | order(_createdAt desc)
+// Query: *[_type == "art"]{image, title, slug, is_sold} | order(_createdAt desc)
 export type GetAllArtworkImagesQueryResult = Array<{
   image: CloudinaryAsset | null;
   title: Array<
@@ -549,6 +564,7 @@ export type GetAllArtworkImagesQueryResult = Array<{
     } & InternationalizedArrayStringValue
   >;
   slug: Slug | null;
+  is_sold: boolean | null;
 }>;
 
 // Source: ./sanity/queries/contribution.ts
@@ -594,7 +610,7 @@ declare module '@sanity/client' {
     '*[_type == "curator" && slug.current == $slug][0]': GetSingleCuratorQueryResult;
     '*[_type == "art"]': AllArtworkResult;
     '*[_type == "art" && slug.current == $slug][0]': GetSingleArtworkResult;
-    '*[_type == "art"]{image, title, slug} | order(_createdAt desc)': GetAllArtworkImagesQueryResult;
+    '*[_type == "art"]{image, title, slug, is_sold} | order(_createdAt desc)': GetAllArtworkImagesQueryResult;
     "*[_type == \"contribution\" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]": GetChairsContributionsQueryResult;
     '*[_type == "erasmus"]': AllEventsQueryResult;
     '*[_type == "erasmus" && slug.current == $slug]': GetSingleEventsQueryResult;

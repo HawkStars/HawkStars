@@ -1,9 +1,11 @@
 import { defineField, defineType } from 'sanity';
+import { NumberIcon } from '@sanity/icons';
 
 export default defineType({
   name: 'contribution',
   title: 'Contribution',
   type: 'document',
+  icon: NumberIcon,
   fields: [
     defineField({
       name: 'donor',

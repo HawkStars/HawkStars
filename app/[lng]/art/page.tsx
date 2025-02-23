@@ -5,6 +5,16 @@ import heroImage from '@/public/images/art_gallery/hero.png';
 import { LanguagePageProps } from '../types';
 import { getServerTranslation } from '@/i18n';
 import Curators from '@/components/art/Curators';
+import { Metadata } from 'next';
+import { getMetadataPageInfo } from '@/utils/metadata';
+import { Language } from '@/i18n/settings';
+
+export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
+  const params = await props.params;
+  const { lng } = params;
+  const metadataPage = getMetadataPageInfo(lng as Language, 'gallery');
+  return metadataPage;
+}
 
 const GalleryPage = async (props: LanguagePageProps) => {
   const params = await props.params;

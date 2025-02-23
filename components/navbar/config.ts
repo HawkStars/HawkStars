@@ -47,7 +47,7 @@ const GlobalVillageOptions = [
 
 const ArtGalleryOptions = [
   { label: 'navbar.art_gallery.presentation', url: gallery },
-  { label: 'navbar.art_gallery.curation', url: gallery },
+  { label: 'navbar.art_gallery.curation', url: `${gallery}#curators` },
   { label: 'navbar.art_gallery.art', url: artwork },
 ] as NavbarUrlItem[];
 
