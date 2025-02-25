@@ -23,8 +23,8 @@ const TeamCard = ({ name, position, photo, url }: TeamCardProps) => {
         <Avatar url={photo} size='medium' />
       </div>
       <div className='mt-3 flex h-full flex-col gap-1 text-left lg:mt-6 lg:text-center'>
-        <h4 className='font-black'>{name}</h4>
-        <p>{t(position)}</p>
+        <h4 className='text-body_semibold font-black'>{name}</h4>
+        <p className='text-body_regular'>{t(position)}</p>
         {url && (
           <div className='flex lg:mt-auto lg:justify-center'>
             <Link href={url} target='_blank'>

@@ -13,7 +13,6 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
 
 const TeamPage = async (props: { params: Promise<{ lng: string }> }) => {
   const params = await props.params;
-
   const { lng } = params;
 
   return <MainTeamPage />;

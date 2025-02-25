@@ -26,7 +26,7 @@ const MainTeamPage = () => {
 
   return (
     <>
-      <div className='block w-fit lg:hidden'>
+      <div className='text-large_regular block w-fit lg:hidden'>
         <Select
           options={selectOptions}
           defaultOption={selectOptions.find((option) => option.value === selectedSection)}
@@ -40,7 +40,7 @@ const MainTeamPage = () => {
             <div
               onClick={() => setSelectedSection(section)}
               key={index}
-              className={classNames('cursor-pointer', {
+              className={classNames('text-h2_light cursor-pointer', {
                 'text-disabled': selectedSection != section,
                 'border-black border-b-2': selectedSection == section,
               })}
