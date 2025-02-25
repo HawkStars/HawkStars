@@ -45,9 +45,9 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
             </div>
             <div className='mt-5 grid grid-cols-1 gap-14 xl:grid-cols-2'>
               <div className='flex flex-col gap-4'>
-                <h1 className='text-left text-green'>{t('title')}</h1>
-                <p className='text-justify'>{t('beginning')}</p>
-                <p className='mt-2 text-justify'>{t('euro_hawk')}</p>
+                <h1 className='text-h1_semibold text-left text-green'>{t('title')}</h1>
+                <p className='text-body_regular text-justify'>{t('beginning')}</p>
+                <p className='text-body_regular mt-2 text-justify'>{t('euro_hawk')}</p>
               </div>
               <div className='max-xl:-mx-4 max-xl:flex max-xl:justify-center'>
                 <Image src={historyHero} alt='foundation of hawkstars' />
@@ -57,8 +57,12 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
         </OffsetSection>
 
         <div className='flex flex-col gap-3 py-12 xl:py-32'>
-          <p className='mr-auto text-left xl:w-1/2'>{t('euro_hawk_2')}</p>
-          <p className='ml-auto text-left xl:w-1/2 xl:text-right'>{t('hawk_stars')}</p>
+          <p className='text-body_regular text-large_regular mr-auto text-left xl:w-1/2'>
+            {t('euro_hawk_2')}
+          </p>
+          <p className='text-body_regular ml-auto text-left xl:w-1/2 xl:text-right'>
+            {t('hawk_stars')}
+          </p>
         </div>
 
         <HawkStarsOffSetSection bgColor='green'>
@@ -90,7 +94,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
             />
           </div>
           <div className='flex flex-col gap-12 bg-bege-light p-3 py-14 max-xl:-mx-4 lg:p-10 lg:py-20 xl:-mr-40 xl:pl-16 xl:pr-40'>
-            <p className='text-left'>{t('presentation')}</p>
+            <p className='text-large_regular text-left'>{t('presentation')}</p>
             <div className='mt-5 flex flex-col gap-4 md:flex-row'>
               <Link
                 href={urls.about}
@@ -170,11 +174,11 @@ const HumanitarianHelpInfoPoints = ({
     <div className='flex flex-col gap-1 text-bege-light'>
       <div className='flex-end flex'>
         <p className='text-bege-light'>
-          <span className='mr-1 text-5xl font-semibold text-bege-dark'>{number}</span>
+          <span className='text-h1_semibold mr-1 font-semibold text-bege-dark'>{number}</span>
           {smallTitle ? smallTitle : ''}
         </p>
       </div>
-      {description && <p className='ml-1 w-5/6'>{description}</p>}
+      {description && <p className='text-large_semibold ml-1 w-5/6'>{description}</p>}
     </div>
   );
 };
@@ -187,11 +191,11 @@ const ContainerHumanitarianHelp = ({ title, description }: ContainerHumanitarian
   return (
     <div className='flex flex-col gap-16 bg-bege-dark px-4 py-14 xl:px-12'>
       <div className='flex-end flex font-light'>
-        <p className='ml-1 w-fit rounded-xl border border-green bg-green fill-white p-2 text-white'>
+        <p className='text-h2_bold ml-1 w-fit rounded-xl border border-green bg-green fill-white p-2 text-white'>
           {title}
         </p>
       </div>
-      {description && <p className='text-green'>{description}</p>}
+      {description && <p className='text-large_regular text-green'>{description}</p>}
     </div>
   );
 };
