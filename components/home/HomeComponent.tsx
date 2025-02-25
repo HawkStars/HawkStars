@@ -30,8 +30,8 @@ const HomeComponent = ({ lng }: LanguageProps) => {
       <section className='flex flex-col bg-bege-light px-8 pb-5 pt-10 lg:px-14 lg:pb-10 lg:pl-20 lg:pt-40'>
         <div className='mx-auto flex max-w-6xl flex-col gap-5 lg:flex-row lg:gap-1'>
           <div className='flex flex-col gap-2 lg:w-1/2'>
-            <h1 className='text-2xl font-black lg:text-4xl'>{t('home.title')}</h1>
-            <p className='lg:text-justify'>{t('home.description')}</p>
+            <h1 className='text-h1_semibold font-black'>{t('home.title')}</h1>
+            <p className='text-h2_light lg:text-justify'>{t('home.description')}</p>
             <div className='mt-8 flex gap-5'>
               <div className='w-fit'>
                 <Button
@@ -39,7 +39,7 @@ const HomeComponent = ({ lng }: LanguageProps) => {
                   onClick={() => {
                     router.push(urls.donate);
                   }}
-                  className="h-full"
+                  className='h-full'
                 >
                   <Suspense fallback=''>{t('common.donate')}</Suspense>
                 </Button>
