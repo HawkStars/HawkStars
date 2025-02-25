@@ -5,11 +5,17 @@ export default defineType({
   title: 'Social Link',
   type: 'object',
   fields: [
-    { name: 'url', type: 'string', title: 'URL' },
+    {
+      name: 'url',
+      type: 'string',
+      title: 'URL',
+      validation: (rule) => rule.required(),
+    },
     {
       name: 'type',
       type: 'string',
       title: 'Type of Website',
+      validation: (rule) => rule.required(),
       options: {
         list: [
           { title: 'Facebook', value: 'facebook' },

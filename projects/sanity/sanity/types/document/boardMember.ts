@@ -11,12 +11,14 @@ export default defineType({
       name: 'name',
       title: 'Name',
       type: 'string',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'section',
       title: 'Section',
       type: 'string',
       description: 'Section out of the three that is to add the member',
+      validation: (rule) => rule.required(),
       options: {
         list: [
           { title: 'Assembleia Geral', value: 'geral' },
@@ -29,6 +31,7 @@ export default defineType({
       name: 'title',
       title: 'Position Title',
       type: 'string',
+      validation: (rule) => rule.required(),
       options: {
         list: [
           { title: 'Presidente', value: 'president' },
@@ -49,14 +52,12 @@ export default defineType({
       type: 'array',
       of: [{ type: 'cloudinary.asset' }],
     }),
-
     defineField({
       name: 'links',
       title: 'Links',
       type: 'array',
       of: [{ type: 'social_link' }],
     }),
-
     defineField({
       name: 'position',
       title: 'Position',
