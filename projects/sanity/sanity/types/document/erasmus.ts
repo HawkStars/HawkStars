@@ -6,6 +6,7 @@ export default defineType({
   title: 'Erasmus Project',
   type: 'document',
   icon: ProjectsIcon,
+  deprecated: { reason: 'Not yet being used on the website' },
   fields: [
     defineField({
       name: 'title',

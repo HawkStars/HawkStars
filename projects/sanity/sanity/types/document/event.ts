@@ -4,6 +4,7 @@ export default defineType({
   name: 'event',
   title: 'Event',
   type: 'document',
+  deprecated: { reason: 'Not yet being used on the website' },
   fields: [
     defineField({
       name: 'name',

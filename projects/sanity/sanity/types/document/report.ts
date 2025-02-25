@@ -4,6 +4,7 @@ export default defineType({
   name: 'report',
   title: 'Report',
   type: 'document',
+  deprecated: { reason: 'Not yet being used on the website' },
   fields: [
     defineField({
       name: 'erasmus',

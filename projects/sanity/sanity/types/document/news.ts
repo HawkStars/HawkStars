@@ -6,6 +6,7 @@ export default defineType({
   title: 'News',
   type: 'document',
   description: 'Model to be used for any news from hawkstars',
+  deprecated: { reason: 'Not yet being used on the website' },
   icon: TaskIcon,
   fields: [
     defineField({
