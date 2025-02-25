@@ -10,11 +10,25 @@ import { getServerTranslation } from '@/i18n';
 import { extractInternationalI18nString } from '@/lib/sanity/helpers';
 import Button from '@/components/utils/Button';
 import ArtPropertyComponent from '@/components/art/ArtProperty';
+import { Language } from '@/i18n/settings';
+import { getMetadataPageInfo } from '@/utils/metadata';
+import { Metadata } from 'next';
 
 const getCuratorInformation = async (slug: string) => {
   const response = await client.fetch<GetSingleArtworkResult>(getSingleArtwork, { slug });
   return response;
 };
+
+export async function generateMetadata(props: CuratorPageProps): Promise<Metadata> {
+  const params = await props.params;
+  const { lng, slug } = params;
+  const artwork = await getCuratorInformation(slug);
+
+  debugger;
+
+  const metadataPage = getMetadataPageInfo(lng as Language, 'home');
+  return metadataPage;
+}
 
 type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
 

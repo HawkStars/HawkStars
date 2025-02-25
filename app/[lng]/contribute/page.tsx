@@ -32,7 +32,9 @@ import { getChairsContributionsQuery } from '@/projects/sanity/sanity/queries/co
 import { Contribution, GetChairsContributionsQueryResult } from '@/projects/sanity/sanity.types';
 
 const getChairsContribute = async () => {
-  const contributions = await client.fetch<GetChairsContributionsQueryResult>(getChairsContributionsQuery);
+  const contributions = await client.fetch<GetChairsContributionsQueryResult>(
+    getChairsContributionsQuery
+  );
 
   const grouped_contributions = groupBy(contributions, 'contribution_type');
   const simulationChairs = (grouped_contributions['SIMULATOR_CHAIR'] as Contribution[]) || [];
@@ -108,13 +110,12 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           <h3 className='text-center'>{t('store')}</h3>
           <div className='flex justify-center'>
             <Link
-              //href='https://shop.hawkstars.org/'
+              href='https://shop.hawkstars.org/'
               lang='en'
-              href='#'
               target='_blank'
               className='flex w-fit flex-row gap-3 rounded-xl bg-green p-4 text-white'
             >
-              <TbShoppingCart className='my-auto' /> Visit Store (Coming Soon)
+              <TbShoppingCart className='my-auto' /> Visit Store
             </Link>
           </div>
         </div>
@@ -196,7 +197,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           />
           <ChairsSections
             title={t('brand.chairs.types.auditorium_chair')}
-            price='230€'
+            price='200€'
             icon={<PiChairLight size={48} />}
             iconFilled={<PiChairLight size={48} fill='#0A7558' />}
             size={110}

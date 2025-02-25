@@ -1,4 +1,4 @@
-import { createClient } from 'next-sanity';
+import { createClient, QueryParams } from 'next-sanity';
 
 export const apiVersion = '1';
 
@@ -31,3 +31,23 @@ export const client = createClient({
   projectId,
   useCdn: false,
 });
+
+// from https://www.npmjs.com/package/next-sanity
+export async function sanityFetch<const QueryString extends string>({
+  query,
+  params = {},
+  revalidate = 1800, // default revalidation time in seconds (30min)
+  tags = [],
+}: {
+  query: QueryString;
+  params?: QueryParams;
+  revalidate?: number | false;
+  tags?: string[];
+}) {
+  return client.fetch(query, params, {
+    next: {
+      revalidate: tags.length ? false : revalidate, // for simple, time-based revalidation
+      tags, // for tag-based revalidation
+    },
+  });
+}
