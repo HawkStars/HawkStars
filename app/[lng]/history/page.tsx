@@ -57,7 +57,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
         </OffsetSection>
 
         <div className='flex flex-col gap-3 py-12 xl:py-32'>
-          <p className='text-body_regular text-large_regular mr-auto text-left xl:w-1/2'>
+          <p className='text-body_regular text-body_regular mr-auto text-left xl:w-1/2'>
             {t('euro_hawk_2')}
           </p>
           <p className='text-body_regular ml-auto text-left xl:w-1/2 xl:text-right'>
@@ -78,11 +78,14 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
           </Link>
         </div>
 
-        <div className='flex flex-col gap-7'>
+        <div className='flex flex-col'>
           <div className='max-xl:-mx-4'>
             <Image src={humanitarian_1} alt='Humanitarian help' sizes='100vw' />
           </div>
-          <p className='mr-auto text-left xl:w-1/2'>{t('foundation')}</p>
+          <div className='mr-auto mt-20 flex flex-col gap-2 text-left xl:w-1/2'>
+            <h4 className='text-h1_semibold text-disabled'>{t('foundation_heading')}</h4>
+            <p className='text-body_regular'>{t('foundation')}</p>
+          </div>
         </div>
         <div className='grid grid-cols-1 gap-7 xl:grid-cols-2'>
           <div className='h-full max-xl:-mx-4'>
