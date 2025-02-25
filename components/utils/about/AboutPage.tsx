@@ -19,8 +19,8 @@ const AboutPage = async ({ lng }: LanguageProps) => {
       <HawkStarsSection>
         <div className='grid grid-cols-1 gap-10 lg:mt-10 lg:grid-cols-2'>
           <div className='mt-20 flex flex-col gap-5'>
-            <h1>{t('title')}</h1>
-            <p>{t('description')}</p>
+            <h1 className='text-h1_semibold'>{t('title')}</h1>
+            <p className='text-h2_light'>{t('description')}</p>
           </div>
           <div className='mx-auto mt-10 grid grid-cols-2 grid-rows-7 lg:w-[500px]'>
             <div className='row-span-3'>
@@ -38,8 +38,10 @@ const AboutPage = async ({ lng }: LanguageProps) => {
           </div>
         </div>
         <div className='my-10 flex flex-col gap-5 xl:mx-auto'>
-          <h2 className='flex justify-center text-center text-green'>{t('objectives.title')}</h2>
-          <h3 className='mx-auto flex justify-center text-center lg:w-3/5'>
+          <h2 className='text-h2_bold flex justify-center text-center text-green'>
+            {t('objectives.title')}
+          </h2>
+          <h3 className='text-h2_light mx-auto flex justify-center text-center lg:w-3/5'>
             {t('objectives.description')}
           </h3>
           <div className='grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3'>
@@ -51,7 +53,7 @@ const AboutPage = async ({ lng }: LanguageProps) => {
 
         <OffsetSection bgColor='bege-light'>
           <div className='p-4 pb-8 lg:mt-20 lg:px-10 lg:py-20'>
-            <div className='relative grid grid-cols-1 gap-10 lg:grid-cols-2'>
+            <div className='relative mx-auto grid max-w-6xl grid-cols-1 gap-10 lg:grid-cols-2'>
               <Image
                 className='absolute bottom-5 left-5 hidden lg:block'
                 src='/images/about/mission/icon1.png'
@@ -77,7 +79,7 @@ const AboutPage = async ({ lng }: LanguageProps) => {
                 <Image src='/images/about/mission/img.png' height={697} width={446} alt='mission' />
               </div>
               <div className='flex flex-col gap-3'>
-                <h2>{t('mission.title')}</h2>
+                <h2 className='text-h1_semibold mb-12'>{t('mission.title')}</h2>
                 {missionObjectives.map((missionOpt) => (
                   <MissionTaskComponent
                     text={missionOpt.text}
@@ -88,12 +90,12 @@ const AboutPage = async ({ lng }: LanguageProps) => {
                 ))}
               </div>
             </div>
-            <div className='mt-10 flex flex-col gap-10'>
+            <div className='mx-auto mt-28 flex max-w-6xl flex-col gap-10 max-lg:mt-10'>
               <Accordion title={t('vision.title')} defaultOpen={true}>
                 <ul className='flex list-disc flex-col gap-3 px-6'>
                   {visionGoals.map((option: string) => {
                     return (
-                      <li className='text-justify' key={option}>
+                      <li className='text-h2_light text-justify' key={option}>
                         {t(`vision.items.${option}`)}
                       </li>
                     );
@@ -124,8 +126,8 @@ const TaskComponent = async ({ icon, title, description, lng }: TaskComponentPro
       <div className='w-fit rounded-xl bg-bege-dark'>
         <Image src={icon} height={40} width={40} alt='objetive icon' />
       </div>
-      <h6>{t(title)}</h6>
-      <p>{t(description)}</p>
+      <h6 className='text-body_semibold'>{t(title)}</h6>
+      <p className='text-body_regular'>{t(description)}</p>
     </div>
   );
 };
@@ -149,7 +151,7 @@ const MissionTaskComponent = async ({
 
   return (
     <div className='flex flex-col'>
-      <h2>{formattedNumber}.</h2>
+      <h2 className='text-h2_bold'>{formattedNumber}.</h2>
       <p>{t(text)}</p>
     </div>
   );

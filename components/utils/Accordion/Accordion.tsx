@@ -20,7 +20,7 @@ const Accordion = ({ title, defaultOpen = false, children }: AccordionProps) => 
         onClick={() => setOpen(!open)}
       >
         <div>{!open ? <PiCaretDownBold size={24} /> : <PiCaretUpBold size={24} />}</div>
-        <h6 className='font-bold'>{title}</h6>
+        <h6 className='text-h2_bold font-bold'>{title}</h6>
       </div>
       {open && <div className='my-4 flex'>{children}</div>}
     </div>
