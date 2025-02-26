@@ -55,7 +55,7 @@ export default async function Page(props: LanguagePageProps) {
       {articles.map((item, index) => {
         return (
           <div key={index} className='my-1'>
-            <h3 className='text-h2_bold mb-3 text-lg'>
+            <h3 className='text-h2_bold mb-3'>
               <span>{`${t('article.title')} ${index + 1}`}</span> - {item.title}
             </h3>
             <ol

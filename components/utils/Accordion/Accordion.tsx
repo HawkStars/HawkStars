@@ -21,9 +21,9 @@ const Accordion = ({ title, defaultOpen = false, children }: AccordionProps) => 
       >
         <div className='my-auto'>
           {!open ? (
-            <PiCaretDownBold className='lg:text-2xl' />
+            <PiCaretDownBold className='lg:text-xl' />
           ) : (
-            <PiCaretUpBold className='lg:text-2xl' />
+            <PiCaretUpBold className='lg:text-xl' />
           )}
         </div>
         <h6 className='lg:text-h2_bold text-h2_light'>{title}</h6>

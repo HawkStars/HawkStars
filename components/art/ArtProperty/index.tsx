@@ -9,7 +9,7 @@ const ArtPropertyComponent = ({ label, value }: ArtPropertyComponentProps) => {
   return (
     <div className='font-oswald flex flex-col gap-3'>
       <h6 className='text-h2_bold'>{label}</h6>
-      <p className='text-h2_light text-justify text-xl'>{value}</p>
+      <p className='text-h2_light text-justify'>{value}</p>
     </div>
   );
 };

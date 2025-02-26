@@ -42,7 +42,7 @@
 //   return (
 //     <div className='flex flex-col gap-2 overflow-x-auto'>
 //       <h2 className=''>{t('Contributions')}</h2>
-//       <table className='min-w-full table-auto rounded-xl text-left text-sm  lg:table-fixed'>
+//       <table className='min-w-full table-auto rounded-xl text-left   lg:table-fixed'>
 //         <thead>
 //           {table.getHeaderGroups().map((headerGroup) => (
 //             <tr key={headerGroup.id} className='my-2 border-b border-bege-dark'>

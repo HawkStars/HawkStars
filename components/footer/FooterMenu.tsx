@@ -24,7 +24,7 @@ const FooterMenu = () => {
           const { title, options } = section;
           return (
             <div key={index} className='text-terciary-100 ml-0 text-left lg:text-left'>
-              <h3 className='lg: mb-1 text-base lg:mb-3 lg:text-lg'>
+              <h3 className='lg: lg: mb-1 text-base lg:mb-3'>
                 <Suspense fallback={title}>{t(title)}</Suspense>
               </h3>
               {options.map((option, index) => (
@@ -50,7 +50,7 @@ const FooterMenu = () => {
         {/* <Link
             href={BE_MEMBER_FORM_URL}
             target='_blank'
-            className='mb-2 text-lg '
+            className='mb-2  '
           >
             <Suspense>{t('common.be_member')}</Suspense>
           </Link> */}

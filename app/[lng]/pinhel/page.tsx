@@ -31,7 +31,7 @@ const PinhelPage = async (props: LanguagePageProps) => {
             />
             <div className='flex flex-col gap-3 lg:w-1/2'>
               <p className='mt-2'>
-                {t('summary')} <span className='text-xs'>[1]</span>
+                {t('summary')} <span className=''>[1]</span>
               </p>
               <div className='flex flex-row gap-2'>
                 <Link
@@ -58,7 +58,7 @@ const PinhelPage = async (props: LanguagePageProps) => {
               )}
 
               <Link
-                className='ml-auto mt-auto text-xs'
+                className='ml-auto mt-auto'
                 href='https://www.cm-pinhel.pt/visitar-pinhel/descobrir-e-visitar/'
               >
                 <span className='text-bold'>[1]</span> CM Pinhel.

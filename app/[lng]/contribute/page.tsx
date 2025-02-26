@@ -64,7 +64,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
       <HawkStarsSection padding='none'>
         <div className='relative max-w-full max-2xl:mx-0 max-2xl:p-0'>
           <div className='absolute left-40 top-20 hidden text-green lg:block'>
-            <h1 className='w-72 text-4xl'>{t('contribute_hero')}</h1>
+            <h1 className='w-72'>{t('contribute_hero')}</h1>
             <Link
               href='#form'
               lang={lng}
@@ -81,7 +81,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
         <div className='flex flex-col gap-10 md:flex-row'>
           <div className='flex flex-col gap-1 md:flex-1'>
             <Image src={bankTransferImage} alt='bank transfer' className='w-full rounded-lg' />
-            <h4 className='mt-5 text-xl'>{t('options.bank_transfer')}</h4>
+            <h4 className='mt-5'>{t('options.bank_transfer')}</h4>
             <p className='lg:text-justify'>{t('bank_transfer.description')}</p>
             <div className='mt-1 flex flex-col gap-1'>
               <h6>
@@ -92,7 +92,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           </div>
           <div className='flex flex-col gap-1 md:flex-1'>
             <Image src={cryptoTransferImage} alt='crypto transfer' className='w-full rounded-lg' />
-            <h4 className='mt-5 text-xl'>{t('options.crypto_transfer')}</h4>
+            <h4 className='mt-5'>{t('options.crypto_transfer')}</h4>
             <p className='lg:text-justify'>{t('crypto_transfer.description')}</p>
             <p className='mt-2'>
               Metamask:{' '}
@@ -150,11 +150,11 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
               <h2 className='text-center'>{t('brand.wall_branding.title')}</h2>
               <Image src={trainingRoom} alt='hawk stars training room' className='rounded-lg' />
               <div className='flex flex-row gap-4'>
-                <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-sm text-green lg:text-base'>
+                <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-green lg:text-base'>
                   <LiaUserSolid size={28} className='my-auto' />
                   <p className='self-center'>{t('brand.wall_branding.price_solo')}</p>
                 </div>
-                <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-sm text-green lg:text-base'>
+                <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-green lg:text-base'>
                   <LiaUsersSolid size={28} />
                   <p className='self-center'>{t('brand.wall_branding.price_company')}</p>
                 </div>

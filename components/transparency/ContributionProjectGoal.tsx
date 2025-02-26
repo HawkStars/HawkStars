@@ -35,7 +35,7 @@ const ContributionProjectGoal = () => {
           className={`h-full bg-gradient-to-r from-bege-dark from-10% to-bege-light to-95%`}
           style={{ width: loadingWidth }}
         >
-          <p className='absolute my-auto flex w-full justify-center text-sm'>
+          <p className='absolute my-auto flex w-full justify-center'>
             {totalContribution}€ ({goalAsPercentage}%)
           </p>
         </div>

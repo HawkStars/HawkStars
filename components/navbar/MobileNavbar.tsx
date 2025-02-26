@@ -66,7 +66,7 @@ const MobileNavbar = () => {
             {/* <Link
               href={BE_MEMBER_FORM_URL}
               target='_blank'
-              className='mb-2 cursor-pointer text-lg '
+              className='mb-2 cursor-pointer  '
             >
               {t('common.be_member')}
             </Link> */}

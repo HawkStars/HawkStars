@@ -81,7 +81,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
               <Button type={'button'}>{t('buy')}</Button>
             )}
           </div>
-          <span className='ml-1 mt-2 text-sm opacity-90'>{t('artwork.vat_and_ports')}</span>
+          <span className='ml-1 mt-2 opacity-90'>{t('artwork.vat_and_ports')}</span>
         </div>
       </HawkStarsSection>
       <section className='font-oswald mx-auto mt-6 flex max-w-7xl flex-col gap-4 px-4 text-justify lg:px-8'>

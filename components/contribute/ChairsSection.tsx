@@ -70,7 +70,7 @@ const ContributionInfoSection = ({ icon, contributor }: ContributionInfoSectionP
     <div className='group relative'>
       {icon}
       {contributor && (
-        <div className='absolute -left-12 bottom-0 z-50 hidden w-40 max-w-md bg-bege-dark p-2 text-center text-sm group-hover:block'>
+        <div className='absolute -left-12 bottom-0 z-50 hidden w-40 max-w-md bg-bege-dark p-2 text-center group-hover:block'>
           {contributor}
         </div>
       )}

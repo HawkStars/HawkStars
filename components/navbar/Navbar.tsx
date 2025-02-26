@@ -32,11 +32,7 @@ const Navbar = () => {
       <div className='bg-bege-dark px-4 lg:px-14'>
         <div className='flex gap-3'>
           <div className='my-auto flex justify-center py-3'>
-            <Link
-              href='/'
-              className='text-xl normal-case'
-              aria-label='Go to the home hawkstars website'
-            >
+            <Link href='/' className='normal-case' aria-label='Go to the home hawkstars website'>
               <div className='flex gap-1'>
                 <Image src={hawkLogo} alt='Hawk Stars Logo' width={150} priority />
               </div>

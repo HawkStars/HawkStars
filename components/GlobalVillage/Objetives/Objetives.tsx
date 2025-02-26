@@ -15,7 +15,7 @@ const GlobalVillageObjectives = async ({ lng }: LanguageProps) => {
 
   return (
     <section className='mx-10 mt-10 flex max-w-6xl flex-col gap-6 lg:mx-auto' id='objetives'>
-      <h2 className='mb-4 flex justify-center text-center text-3xl text-green lg:mx-auto lg:mb-10 lg:w-2/3'>
+      <h2 className='mb-4 flex justify-center text-center text-green lg:mx-auto lg:mb-10 lg:w-2/3'>
         {t('objetives.title')}
       </h2>
       {objetives &&

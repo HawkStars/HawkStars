@@ -32,7 +32,7 @@ const Footer = () => {
         <div className='mt-10 grid grid-cols-2 gap-10 max-sm:grid-cols-1'>
           <FooterMenu />
         </div>
-        <div className='mt-4 text-sm underline lg:hidden'>
+        <div className='mt-4 underline lg:hidden'>
           <Link href={urls.terms}>{t('navbar.art_gallery.terms_and_conditions')}</Link>
         </div>
       </div>
@@ -46,14 +46,14 @@ const Footer = () => {
       </div>
 
       <div className='mt-10 flex flex-col px-5 pb-10 lg:mt-0 lg:flex-row lg:gap-1 lg:border-t lg:px-10 lg:pt-1'>
-        <p className='text-sm'>
+        <p className=''>
           Designed by{' '}
           <Link href={'https://dribbble.com/Rossellini'} className='underline' target='_blank'>
             @Rodrigo Rosselini
           </Link>
           .
         </p>
-        <p className='text-sm'>
+        <p className=''>
           {' '}
           Built by{' '}
           <Link

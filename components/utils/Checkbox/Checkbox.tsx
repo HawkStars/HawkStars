@@ -14,7 +14,7 @@ const Checkbox = ({ checked, id, name, labelText, onChange }: CheckboxProps) => 
   return (
     <div className='flex flex-row gap-3'>
       <input type='checkbox' checked={checked} id={id} name={name} onChange={handleOnChange} />
-      <label className='text-sm' htmlFor={name}>
+      <label className='' htmlFor={name}>
         {labelText}
       </label>
     </div>

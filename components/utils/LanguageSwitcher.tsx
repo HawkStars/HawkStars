@@ -32,14 +32,14 @@ const LanguageSwitcher = () => {
             <div className='flex h-4 w-6'>
               <PT title='PT' />
             </div>
-            <div className='my-auto text-xs'>PT</div>
+            <div className='my-auto'>PT</div>
           </>
         ) : (
           <>
             <div className='flex h-4 w-6'>
               <GB title='EN' />
             </div>
-            <div className='my-auto text-xs'>EN</div>
+            <div className='my-auto'>EN</div>
           </>
         )}
         <PiCaretDownThin />
@@ -54,7 +54,7 @@ const LanguageSwitcher = () => {
               <div className='flex h-4 w-6'>
                 <GB title='EN' />
               </div>
-              <label className={classNames('text-black my-auto text-xs')}>EN</label>
+              <label className={classNames('text-black my-auto')}>EN</label>
             </div>
           )}
           {lng !== 'pt' && (
@@ -65,7 +65,7 @@ const LanguageSwitcher = () => {
               <div className='flex h-4 w-6'>
                 <PT title='PT' />
               </div>
-              <label className={classNames('text-black my-auto text-xs')}>PT</label>
+              <label className={classNames('text-black my-auto')}>PT</label>
             </div>
           )}
         </div>

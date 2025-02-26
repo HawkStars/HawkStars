@@ -33,7 +33,7 @@ export default function Input({
   return (
     <div className='flex flex-col gap-2'>
       {labelText && <label htmlFor={name}>{labelText}</label>}
-      {inputHintText && <p className='-my-1 text-sm'>{inputHintText}</p>}
+      {inputHintText && <p className='-my-1'>{inputHintText}</p>}
       <div
         className={classNames(
           'border-terciary-500 focus:border-primary-500 flex flex-row gap-1 rounded-md border border-solid px-5 py-2 shadow-sm',

@@ -67,8 +67,8 @@ const HomeComponent = ({ lng }: LanguageProps) => {
       </section>
       <section className='mx-auto mt-5 flex max-w-6xl flex-col gap-10 px-8 pb-10 lg:mt-20 lg:flex-row-reverse lg:px-14 lg:pl-20 xl:pl-0'>
         <div className='flex flex-col gap-2 lg:w-1/2'>
-          <h2 className='text-green lg:text-2xl'>{t('home.about')}</h2>
-          <h4 className='text-xl'>{t('home.objetives_title')}</h4>
+          <h2 className='lg: text-green'>{t('home.about')}</h2>
+          <h4 className=''>{t('home.objetives_title')}</h4>
           <p className='lg:text-justify'>{t('home.objetives_body')}</p>
         </div>
         <div className='relative h-96 w-full lg:w-1/2'>
@@ -83,7 +83,7 @@ const HomeComponent = ({ lng }: LanguageProps) => {
         </div>
       </section>
       <section className='px-2 py-10'>
-        <h4 className='flex justify-center text-2xl text-green'>{t('home.values_title')}</h4>
+        <h4 className='flex justify-center text-green'>{t('home.values_title')}</h4>
         <p className='flex justify-center text-center'>{t('home.values_body')}</p>
         <div className='mx-auto mt-10 grid w-2/3 grid-cols-1 gap-10 lg:grid-cols-3 lg:gap-3'>
           {visionIcons.map((option: VisionType, index: number) => (
@@ -125,7 +125,7 @@ const HomeComponent = ({ lng }: LanguageProps) => {
         </div>
       </section>
       <section className='flex flex-col gap-6 py-20'>
-        <h6 className='text-center text-2xl text-green'>Erasmus +</h6>
+        <h6 className='text-center text-green'>Erasmus +</h6>
 
         <DelayComponent fallback={<SliderSkeleton />}>
           <div className='flex h-96 w-dvw'>
