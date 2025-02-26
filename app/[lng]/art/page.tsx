@@ -25,11 +25,9 @@ const GalleryPage = async (props: LanguagePageProps) => {
     <>
       <section className='bg-bege-light pb-4 lg:pb-14 lg:pt-14'>
         <div className='mx-auto flex max-w-7xl gap-12 max-lg:flex-col-reverse lg:justify-center'>
-          <div className='font-body font-oswald flex flex-col gap-2 font-light max-lg:px-4 lg:w-1/2 lg:pl-4'>
+          <div className='font-body font-oswald flex flex-col gap-2 max-lg:px-4 lg:w-1/2 lg:pl-4'>
             <h1 className='lg:text-h1_semibold text-h2_bold'>{t('art_gallery')}</h1>
-            <h2 className='lg:text-h1_semibold text-h2_bold mb-4 font-medium'>
-              {t('social_impact')}
-            </h2>
+            <h2 className='lg:text-h1_semibold text-h2_bold mb-4'>{t('social_impact')}</h2>
             <p className='lg:text-h2_light text-body_regular text-justify'>{t('subtitle')}</p>
           </div>
           <div className='lg:w-1/2'>

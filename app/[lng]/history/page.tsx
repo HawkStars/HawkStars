@@ -177,7 +177,7 @@ const HumanitarianHelpInfoPoints = ({
     <div className='flex flex-col gap-1 text-bege-light'>
       <div className='flex-end flex'>
         <p className='text-bege-light'>
-          <span className='text-h1_semibold mr-1 font-semibold text-bege-dark'>{number}</span>
+          <span className='text-h1_semibold mr-1 text-bege-dark'>{number}</span>
           {smallTitle ? smallTitle : ''}
         </p>
       </div>
@@ -193,7 +193,7 @@ type ContainerHumanitarianHelpProps = {
 const ContainerHumanitarianHelp = ({ title, description }: ContainerHumanitarianHelpProps) => {
   return (
     <div className='flex flex-col gap-16 bg-bege-dark px-4 py-14 xl:px-12'>
-      <div className='flex-end flex font-light'>
+      <div className='flex-end flex'>
         <p className='text-h2_bold ml-1 w-fit rounded-xl border border-green bg-green fill-white p-2 text-white'>
           {title}
         </p>

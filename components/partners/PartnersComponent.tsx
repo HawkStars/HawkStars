@@ -32,13 +32,13 @@ const PartnersComponent = async ({ lng }: LanguageProps) => {
       </div>
       <HawkStarsSection>
         <div className='mt-10'>
-          <h2 className='mb-5 text-center font-black'>{t('national')}</h2>
+          <h2 className='mb-5 text-center'>{t('national')}</h2>
           {nationalPartners.map((partner, index) => (
             <PartnerCard {...partner} key={index} description={t(partner.description)} />
           ))}
         </div>
         <div className='mt-10'>
-          <h2 className='mb-5 text-center font-black'>{t('internacional')}</h2>
+          <h2 className='mb-5 text-center'>{t('internacional')}</h2>
           {internationalPartners.map((partner, index) => (
             <PartnerCard {...partner} key={index} />
           ))}
@@ -64,12 +64,10 @@ const PartnerCard = ({
     <div className='my-20 flex flex-col gap-5'>
       {/* Country If exists*/}
       {country && (
-        <h6 className='w-fit rounded-xl border-2 border-green p-1 font-black text-green'>
-          {country}
-        </h6>
+        <h6 className='w-fit rounded-xl border-2 border-green p-1 text-green'>{country}</h6>
       )}
       {/* Title */}
-      <h3 className='font-bold'>{title}</h3>
+      <h3 className=''>{title}</h3>
 
       {/* Image */}
       <div className='relative h-36 max-w-xs'>

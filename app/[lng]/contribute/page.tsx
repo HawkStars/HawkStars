@@ -81,24 +81,22 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
         <div className='flex flex-col gap-10 md:flex-row'>
           <div className='flex flex-col gap-1 md:flex-1'>
             <Image src={bankTransferImage} alt='bank transfer' className='w-full rounded-lg' />
-            <h4 className='mt-5 text-xl font-bold'>{t('options.bank_transfer')}</h4>
+            <h4 className='mt-5 text-xl'>{t('options.bank_transfer')}</h4>
             <p className='lg:text-justify'>{t('bank_transfer.description')}</p>
             <div className='mt-1 flex flex-col gap-1'>
               <h6>
-                IBAN: <span className='font-bold'>PT50.0036.0053.99100203412.98</span>
+                IBAN: <span className=''>PT50.0036.0053.99100203412.98</span>
               </h6>
-              <p className='font-bold'>MPIOPTPL</p>
+              <p className=''>MPIOPTPL</p>
             </div>
           </div>
           <div className='flex flex-col gap-1 md:flex-1'>
             <Image src={cryptoTransferImage} alt='crypto transfer' className='w-full rounded-lg' />
-            <h4 className='mt-5 text-xl font-bold'>{t('options.crypto_transfer')}</h4>
+            <h4 className='mt-5 text-xl'>{t('options.crypto_transfer')}</h4>
             <p className='lg:text-justify'>{t('crypto_transfer.description')}</p>
             <p className='mt-2'>
               Metamask:{' '}
-              <span className='break-all font-bold'>
-                0x085036c6ec33888db0c4cc8f99791537dbc8ab97
-              </span>
+              <span className='break-all'>0x085036c6ec33888db0c4cc8f99791537dbc8ab97</span>
             </p>
           </div>
         </div>
@@ -130,7 +128,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
                   {t('brand.international_training_center.title')}
                 </h2>
                 <Image src={exterior2} alt='training course branding' className='rounded-lg' />
-                <h4 className='w-fit rounded-2xl font-bold text-green'>
+                <h4 className='w-fit rounded-2xl text-green'>
                   {t('brand.international_training_center.price')}
                 </h4>
                 <p>{t('brand.international_training_center.description')}</p>
@@ -139,9 +137,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
                 <h2 className='mx-10 text-center lg:h-14'>{t('brand.room_branding.title')}</h2>
                 <Image src={coworkingRoom} alt='hawk stars training room' className='rounded-lg' />
                 <div className='flex flex-col justify-around gap-4'>
-                  <h4 className='w-fit rounded-2xl font-bold text-green'>
-                    {t('brand.room_branding.price')}
-                  </h4>
+                  <h4 className='w-fit rounded-2xl text-green'>{t('brand.room_branding.price')}</h4>
                   <p>{t('brand.room_branding.description')}</p>
                 </div>
               </div>
@@ -154,11 +150,11 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
               <h2 className='text-center'>{t('brand.wall_branding.title')}</h2>
               <Image src={trainingRoom} alt='hawk stars training room' className='rounded-lg' />
               <div className='flex flex-row gap-4'>
-                <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-sm font-bold text-green lg:text-base'>
+                <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-sm text-green lg:text-base'>
                   <LiaUserSolid size={28} className='my-auto' />
                   <p className='self-center'>{t('brand.wall_branding.price_solo')}</p>
                 </div>
-                <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-sm font-bold text-green lg:text-base'>
+                <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-sm text-green lg:text-base'>
                   <LiaUsersSolid size={28} />
                   <p className='self-center'>{t('brand.wall_branding.price_company')}</p>
                 </div>

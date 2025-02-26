@@ -18,9 +18,9 @@ const AboutPage = async ({ lng }: LanguageProps) => {
     <>
       <HawkStarsSection>
         <div className='grid grid-cols-1 gap-10 lg:mt-10 lg:grid-cols-2'>
-          <div className='mt-20 flex flex-col gap-5'>
-            <h1 className='text-h1_semibold'>{t('title')}</h1>
-            <p className='text-h2_light'>{t('description')}</p>
+          <div className='mt-10 flex flex-col gap-5 lg:mt-20'>
+            <h1 className='lg:text-h1_semibold text-h2_bold'>{t('title')}</h1>
+            <p className='lg:text-h2_light text-body_regular'>{t('description')}</p>
           </div>
           <div className='mx-auto mt-10 grid grid-cols-2 grid-rows-7 lg:w-[500px]'>
             <div className='row-span-3'>
@@ -95,7 +95,7 @@ const AboutPage = async ({ lng }: LanguageProps) => {
                 <ul className='flex list-disc flex-col gap-3 px-6'>
                   {visionGoals.map((option: string) => {
                     return (
-                      <li className='text-h2_light text-justify' key={option}>
+                      <li className='lg:text-h2_light text-body_regular' key={option}>
                         {t(`vision.items.${option}`)}
                       </li>
                     );
@@ -103,7 +103,7 @@ const AboutPage = async ({ lng }: LanguageProps) => {
                 </ul>
               </Accordion>
               <Accordion title={t('expansion.title')} defaultOpen={false}>
-                <p className='text-justify'>{t('expansion.description')}</p>
+                {t('expansion.description')}
               </Accordion>
             </div>
           </div>

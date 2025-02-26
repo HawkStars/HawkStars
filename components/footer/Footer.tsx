@@ -29,10 +29,10 @@ const Footer = () => {
             <Socials />
           </div>
         </div>
-        <div className='mt-10 grid grid-cols-2 max-sm:grid-cols-1 gap-10'>
+        <div className='mt-10 grid grid-cols-2 gap-10 max-sm:grid-cols-1'>
           <FooterMenu />
         </div>
-        <div className='lg:hidden underline mt-4 text-sm font-extralight'>
+        <div className='mt-4 text-sm underline lg:hidden'>
           <Link href={urls.terms}>{t('navbar.art_gallery.terms_and_conditions')}</Link>
         </div>
       </div>
@@ -65,7 +65,9 @@ const Footer = () => {
           </Link>
         </p>
         <div className='ml-auto gap-5 lg:flex'>
-          <Link href={urls.terms} className='max-lg:hidden'>{t('navbar.art_gallery.terms_and_conditions')}</Link>
+          <Link href={urls.terms} className='max-lg:hidden'>
+            {t('navbar.art_gallery.terms_and_conditions')}
+          </Link>
           <div className='hidden lg:block'>
             <Socials />
           </div>

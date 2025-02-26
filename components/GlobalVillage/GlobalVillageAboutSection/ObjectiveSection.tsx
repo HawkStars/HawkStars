@@ -26,8 +26,8 @@ const ObjectiveSection = async ({
           t={t}
           key={index}
           components={{
-            global: <span className='font-black'>The Global Village</span>,
-            international: <span className='font-black'>International Training Center</span>,
+            global: <span className=''>The Global Village</span>,
+            international: <span className=''>International Training Center</span>,
           }}
         />
       </div>

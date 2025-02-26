@@ -19,10 +19,16 @@ const Accordion = ({ title, defaultOpen = false, children }: AccordionProps) => 
         className={classNames('flex w-full gap-4 border-b border-disabled pb-1')}
         onClick={() => setOpen(!open)}
       >
-        <div>{!open ? <PiCaretDownBold size={24} /> : <PiCaretUpBold size={24} />}</div>
-        <h6 className='text-h2_bold font-bold'>{title}</h6>
+        <div className='my-auto'>
+          {!open ? (
+            <PiCaretDownBold className='lg:text-2xl' />
+          ) : (
+            <PiCaretUpBold className='lg:text-2xl' />
+          )}
+        </div>
+        <h6 className='lg:text-h2_bold text-h2_light'>{title}</h6>
       </div>
-      {open && <div className='text-h2_light my-4 flex'>{children}</div>}
+      {open && <div className='lg:text-h2_light text-body_regular my-4 flex'>{children}</div>}
     </div>
   );
 };

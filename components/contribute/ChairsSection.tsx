@@ -24,7 +24,7 @@ const ChairsSections = ({
     <>
       <div className='my-10 hidden flex-col justify-center gap-3 lg:mx-0 lg:flex'>
         <h3 className='mt-5 text-center'>{title}</h3>
-        {price && <h4 className='text-center font-black text-green'>{price}</h4>}
+        {price && <h4 className='text-center text-green'>{price}</h4>}
         <div className='mx-auto mt-5 flex w-full flex-wrap justify-center gap-5 lg:w-2/3'>
           {currentContributions.map((contribution) => {
             return (
@@ -43,7 +43,7 @@ const ChairsSections = ({
       <div className='my-10 flex flex-col justify-center gap-5 lg:hidden'>
         <div className='flex flex-col gap-2 text-center'>
           <h3 className='text-center'>{title}</h3>
-          {price && <h4 className='font-black text-green'>{price}</h4>}
+          {price && <h4 className='text-green'>{price}</h4>}
         </div>
         <div className='mx-auto flex flex-row gap-5'>
           <div className='flex flex-col gap-2'>
