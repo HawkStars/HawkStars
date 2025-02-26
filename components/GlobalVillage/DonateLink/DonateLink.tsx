@@ -1,7 +1,6 @@
 'use client';
 
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
-// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 import { useTranslation } from '@/i18n/client';
 import { transformUrl, urls } from '@/utils/paths';
 import Link from 'next/link';

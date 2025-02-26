@@ -26,7 +26,7 @@ const Accordion = ({ title, defaultOpen = false, children }: AccordionProps) => 
             <PiCaretUpBold className='lg:text-xl' />
           )}
         </div>
-        <h6 className='lg:text-h2_bold text-h2_light'>{title}</h6>
+        <h6 className='lg:text-h2_bold text-body_semibold'>{title}</h6>
       </div>
       {open && <div className='lg:text-h2_light text-body_regular my-4 flex'>{children}</div>}
     </div>

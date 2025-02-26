@@ -31,11 +31,17 @@ const MobileMenuItem = ({ title, options }: MenuItemProps) => {
 
   return (
     <div className='cursor-pointer px-1'>
-      <div className='mb-2 flex gap-3' onClick={() => setShowOptions(!showOptions)}>
+      <div className='mb-2 flex justify-between' onClick={() => setShowOptions(!showOptions)}>
         <h6>{t(title)}</h6>
 
         {options && options.length > 0 && (
-          <div className='my-auto'>{showOptions ? <PiCaretDownThin /> : <PiCaretRightThin />}</div>
+          <div className='my-auto'>
+            <PiCaretDownThin
+              className={classNames('transform duration-300', {
+                '-rotate-90': !showOptions,
+              })}
+            />
+          </div>
         )}
       </div>
 
