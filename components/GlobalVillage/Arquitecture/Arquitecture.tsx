@@ -60,7 +60,7 @@ const GlobalVillageArquitecture = async ({ lng }: LanguageProps) => {
     <section id='arquitecture' className='mx-10 my-10 flex max-w-6xl flex-col gap-20 lg:mx-auto'>
       <div className='flex flex-col'>
         <h2 className='flex justify-center text-green'>International Training Center</h2>
-        <h3 className='lg: mb-4 flex justify-center text-base text-green'>
+        <h3 className='mb-4 flex justify-center text-base text-green'>
           {t('current_exterior_vision')}
         </h3>
         <div className='flex flex-col gap-5'>
@@ -317,7 +317,7 @@ const GamingHub = async ({ lng }: LanguageProps) => {
   return (
     <div className='flex flex-col gap-2'>
       <h1 className='mb-2 flex justify-center text-green'>{t('tech_rooms')}</h1>
-      <h2 className='lg: text-center text-green'>Gaming Hub</h2>
+      <h2 className='text-center text-green'>Gaming Hub</h2>
       <Image
         className='mr-auto flex-1 rounded-3xl'
         alt='gaming image number 1'
@@ -369,7 +369,7 @@ const ArielView = async ({ lng }: LanguageProps) => {
     <div className='flex flex-col gap-3'>
       <div className='flex flex-col gap-1'>
         <h1 className='mb-2 flex justify-center text-green'>{t('2d_aereal')}</h1>
-        <h2 className='lg: mb-2 flex justify-center text-green'>{t('second_floor')}</h2>
+        <h2 className='mb-2 flex justify-center text-green'>{t('second_floor')}</h2>
         <div className='flex justify-center rounded-3xl bg-bege-dark p-4'>
           <Image
             className='rounded-3xl'
@@ -381,7 +381,7 @@ const ArielView = async ({ lng }: LanguageProps) => {
         </div>
       </div>
       <div>
-        <h2 className='lg: my-5 flex justify-center text-green'>{t('first_floor')}</h2>
+        <h2 className='my-5 flex justify-center text-green'>{t('first_floor')}</h2>
         <div className='flex justify-center rounded-3xl bg-bege-dark p-4'>
           <Image
             alt={t('first_floor')}
@@ -393,7 +393,7 @@ const ArielView = async ({ lng }: LanguageProps) => {
         </div>
       </div>
       <div>
-        <h2 className='lg: my-5 flex justify-center text-green'>{t('ground_floor')}</h2>
+        <h2 className='my-5 flex justify-center text-green'>{t('ground_floor')}</h2>
         <div className='flex justify-center rounded-3xl bg-bege-dark p-2'>
           <Image
             alt={t('ground_floor')}
