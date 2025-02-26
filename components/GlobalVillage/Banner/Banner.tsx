@@ -10,7 +10,7 @@ const GlobalVillageBanner = async ({ lng }: LanguageProps) => {
   const { t } = await getServerTranslation(lng, 'training_center');
   return (
     <section className='mb-12 bg-green'>
-      <div className='relative mx-auto max-w-6xl px-10 py-24 lg:px-40 lg:py-40'>
+      <div className='relative mx-auto max-w-6xl px-3 py-24 lg:px-40 lg:py-40'>
         <p className='text-white'>{t('banner')}</p>
         <Image
           src={starPng}
