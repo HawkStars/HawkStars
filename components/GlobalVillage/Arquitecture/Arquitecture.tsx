@@ -318,8 +318,8 @@ const GamingHub = async ({ lng }: LanguageProps) => {
   const { t } = await getServerTranslation(lng, 'training_center');
   return (
     <div className='flex flex-col gap-2'>
-      <h1 className='text-h2_bold mb-2 flex justify-center text-green'>{t('tech_rooms')}</h1>
-      <h2 className='text-center text-green'>Gaming Hub</h2>
+      <h1 className='text-h2_bold mb-1 flex justify-center text-green'>{t('tech_rooms')}</h1>
+      <h2 className='text-h2_light mb-3 text-center text-green'>Gaming Hub</h2>
       <Image
         className='mr-auto flex-1 rounded-3xl'
         alt='gaming image number 1'

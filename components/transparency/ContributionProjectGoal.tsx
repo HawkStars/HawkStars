@@ -18,7 +18,6 @@ const ContributionProjectGoal = () => {
 
   const getCurrentProjetContribution = async () => {
     const response = await client.fetch(totalMoneyGatheredQuery);
-
     setTotalContribution(response);
   };
 
@@ -28,8 +27,10 @@ const ContributionProjectGoal = () => {
 
   return (
     <div className='flex flex-col gap-1 bg-bege-light px-8 py-8 lg:px-40 lg:py-20'>
-      <h2 className='text-center text-green'>{t('current_goal')}</h2>
-      <h6 className='mt-1 text-center'>{`${t('goal')}: ${PROJECT_GOAL}€`}</h6>
+      <h2 className='lg:text-h1_semibold text-h2_bold text-center text-green'>
+        {t('current_goal')}
+      </h2>
+      <h6 className='lg:text-h2_light mt-1 text-center'>{`${t('goal')}: ${PROJECT_GOAL}€`}</h6>
       <div className='rounded-xs relative mt-5 h-6 w-full border border-green'>
         <div
           className={`h-full bg-gradient-to-r from-bege-dark from-10% to-bege-light to-95%`}

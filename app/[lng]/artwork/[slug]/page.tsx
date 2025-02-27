@@ -24,8 +24,6 @@ export async function generateMetadata(props: CuratorPageProps): Promise<Metadat
   const { lng, slug } = params;
   const artwork = await getCuratorInformation(slug);
 
-  debugger;
-
   const metadataPage = getMetadataPageInfo(lng as Language, 'home');
   return metadataPage;
 }
@@ -41,7 +39,6 @@ const CuratorPage = async (props: CuratorPageProps) => {
   const { t } = await getServerTranslation(lng, 'art');
   if (!artwork) notFound();
 
-  debugger;
   return (
     <>
       <HawkStarsSection className='flex gap-8 bg-bege-light pb-8 pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
