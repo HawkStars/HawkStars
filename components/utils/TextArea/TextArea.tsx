@@ -28,7 +28,11 @@ export default function TextArea({
 }: TextAreaProps) {
   return (
     <div className='flex flex-col gap-2'>
-      {labelText && <label htmlFor={name}>{labelText}</label>}
+      {labelText && (
+        <label className='text-body_semibold' htmlFor={name}>
+          {labelText}
+        </label>
+      )}
       {inputHintText && <p className='-my-1'>{inputHintText}</p>}
       <textarea
         placeholder={placeholder}

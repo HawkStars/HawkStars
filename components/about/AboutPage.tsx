@@ -2,11 +2,11 @@ import {
   aboutObjectiveSections,
   missionObjectives,
   visionGoals,
-} from '../../../app/[lng]/about/config';
-import { getServerTranslation } from '../../../i18n';
-import { LanguageProps } from '../../types';
+} from '../../app/[lng]/about/config';
+import { getServerTranslation } from '../../i18n';
+import { LanguageProps } from '../types';
 import Image from 'next/image';
-import Accordion from '../Accordion/Accordion';
+import Accordion from '../utils/Accordion/Accordion';
 import { HawkStarsSection } from '@/components/layout';
 import { OffsetSection } from '@/components/layout/OffsetSection';
 

@@ -1,4 +1,4 @@
-import { Listbox } from '@headlessui/react';
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { TfiAngleDown } from 'react-icons/tfi';
@@ -31,7 +31,7 @@ const Select = ({
 
   return (
     <div className='flex flex-col gap-2'>
-      {labelText && <p>{labelText}</p>}
+      {labelText && <span className='text-body_semibold'>{labelText}</span>}
       <Listbox
         value={selectedOption}
         name={name}
@@ -41,7 +41,7 @@ const Select = ({
         }}
       >
         <div className='relative flex w-full'>
-          <Listbox.Button
+          <ListboxButton
             className={classNames('flex w-full gap-3 rounded-xl border p-3', {
               'bg-bege-light': !outline,
               'bg-white': outline,
@@ -51,8 +51,8 @@ const Select = ({
             <div className='my-auto ml-auto'>
               <TfiAngleDown size={20} />
             </div>
-          </Listbox.Button>
-          <Listbox.Options
+          </ListboxButton>
+          <ListboxOptions
             className={classNames(
               'absolute z-50 flex max-h-40 w-full flex-col gap-2 overflow-y-auto rounded-xl border-2 border-bege-dark p-3',
               {
@@ -62,7 +62,7 @@ const Select = ({
             )}
           >
             {options.map((option) => (
-              <Listbox.Option
+              <ListboxOption
                 key={option.id}
                 value={option}
                 disabled={option.disabled}
@@ -72,9 +72,9 @@ const Select = ({
                 })}
               >
                 {option.label}
-              </Listbox.Option>
+              </ListboxOption>
             ))}
-          </Listbox.Options>
+          </ListboxOptions>
         </div>
       </Listbox>
     </div>

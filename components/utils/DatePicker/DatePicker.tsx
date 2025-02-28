@@ -24,7 +24,7 @@ function HawkStarsDatePicker({ date, onChange, labelText, minDate }: HawkStarsDa
 
   return (
     <div ref={datePickerRef} className='flex flex-col gap-2'>
-      {labelText && <h6>{labelText}</h6>}
+      {labelText && <span className='text-body_semibold'>{labelText}</span>}
       <div>
         <DatePicker
           onChange={changeDatePickerValue}
