@@ -30,6 +30,7 @@ import { client } from '@/lib/sanity/sanityClient';
 import groupBy from 'lodash.groupby';
 import { getChairsContributionsQuery } from '@/projects/sanity/sanity/queries/contribution';
 import { Contribution, GetChairsContributionsQueryResult } from '@/projects/sanity/sanity.types';
+import BrandingSection from '@/components/contribute/BrandingSection';
 
 const getChairsContribute = async () => {
   const contributions = await client.fetch<GetChairsContributionsQueryResult>(
@@ -64,11 +65,11 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
       <HawkStarsSection padding='none'>
         <div className='relative max-w-full max-2xl:mx-0 max-2xl:p-0'>
           <div className='absolute left-40 top-20 hidden text-green lg:block'>
-            <h1 className='w-72'>{t('contribute_hero')}</h1>
+            <h1 className='text-h1_semibold w-72'>{t('contribute_hero')}</h1>
             <Link
               href='#form'
               lang={lng}
-              className='mt-5 flex w-fit flex-row gap-3 rounded-xl bg-green p-4 text-white'
+              className='text-body_semibold mt-5 flex w-fit flex-row gap-3 rounded-xl bg-green p-4 text-white'
             >
               {t('donate_here')}
             </Link>
@@ -77,33 +78,35 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
         </div>
       </HawkStarsSection>
       <div className='flex flex-col gap-10 bg-gradient-to-tr from-[#E9E9E9] from-35% via-bege-dark to-[#E9E9E9] to-65% py-16 lg:gap-20 lg:p-20 lg:py-20'>
-        <h1 className='mx-4 text-center'>{t('forms_and_modalities')}</h1>
-        <div className='flex flex-col gap-10 md:flex-row'>
+        <h2 className='text-h2_light mx-4 text-center'>{t('forms_and_modalities')}</h2>
+        <div className='mx-auto flex max-w-6xl flex-col gap-10 max-lg:px-4 md:flex-row'>
           <div className='flex flex-col gap-1 md:flex-1'>
             <Image src={bankTransferImage} alt='bank transfer' className='w-full rounded-lg' />
-            <h4 className='mt-5'>{t('options.bank_transfer')}</h4>
-            <p className='lg:text-justify'>{t('bank_transfer.description')}</p>
-            <div className='mt-1 flex flex-col gap-1'>
+            <h4 className='text-body_semibold mt-5'>{t('options.bank_transfer')}</h4>
+            <p className='text-body_regular lg:text-justify'>{t('bank_transfer.description')}</p>
+            <div className='text-body_regular mt-1 flex flex-col gap-1 font-bold'>
               <h6>
                 IBAN: <span className=''>PT50.0036.0053.99100203412.98</span>
               </h6>
-              <p className=''>MPIOPTPL</p>
+              <p className='text-body_regular font-bold'>MPIOPTPL</p>
             </div>
           </div>
           <div className='flex flex-col gap-1 md:flex-1'>
             <Image src={cryptoTransferImage} alt='crypto transfer' className='w-full rounded-lg' />
-            <h4 className='mt-5'>{t('options.crypto_transfer')}</h4>
-            <p className='lg:text-justify'>{t('crypto_transfer.description')}</p>
-            <p className='mt-2'>
+            <h4 className='text-body_semibold mt-5'>{t('options.crypto_transfer')}</h4>
+            <p className='text-body_regular lg:text-justify'>{t('crypto_transfer.description')}</p>
+            <p className='text-body_regular mt-2 font-bold'>
               Metamask:{' '}
-              <span className='break-all'>0x085036c6ec33888db0c4cc8f99791537dbc8ab97</span>
+              <span className='text-body_regular break-all font-bold'>
+                0x085036c6ec33888db0c4cc8f99791537dbc8ab97
+              </span>
             </p>
           </div>
         </div>
       </div>
 
       <div className='my-5 flex flex-col gap-3'>
-        <h1 className='text-center text-green'>{t('other_modalities')}</h1>
+        <h2 className='text-h2_light text-center text-green'>{t('other_modalities')}</h2>
         <div className='mt-5 flex flex-col justify-center gap-3'>
           <h3 className='text-center'>{t('store')}</h3>
           <div className='flex justify-center'>
@@ -120,52 +123,50 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
         <LineBreaker />
         <HawkStarsSection>
           <div className='flex flex-col gap-3 lg:gap-10'>
-            <h1 className='mt-10 text-center text-green'>Branding</h1>
+            <h2 className='text-h2_bold mt-10 text-center text-green'>Branding</h2>
 
-            <div className='flex flex-col gap-10 md:flex-row'>
-              <div className='flex flex-1 flex-col gap-3'>
-                <h2 className='mx-10 text-center lg:h-14'>
-                  {t('brand.international_training_center.title')}
-                </h2>
-                <Image src={exterior2} alt='training course branding' className='rounded-lg' />
-                <h4 className='w-fit rounded-2xl text-green'>
-                  {t('brand.international_training_center.price')}
-                </h4>
-                <p>{t('brand.international_training_center.description')}</p>
-              </div>
-              <div className='flex flex-1 flex-col gap-3'>
-                <h2 className='mx-10 text-center lg:h-14'>{t('brand.room_branding.title')}</h2>
-                <Image src={coworkingRoom} alt='hawk stars training room' className='rounded-lg' />
-                <div className='flex flex-col justify-around gap-4'>
-                  <h4 className='w-fit rounded-2xl text-green'>{t('brand.room_branding.price')}</h4>
-                  <p>{t('brand.room_branding.description')}</p>
-                </div>
-              </div>
+            <div className='mx-auto flex max-w-6xl flex-col gap-10 md:flex-row'>
+              <BrandingSection
+                image={exterior2}
+                altImage={
+                  'Image of the exterior of the upcoming Hawkstars building to be used for company branding'
+                }
+                title={t('brand.international_training_center.title')}
+                price={t('brand.international_training_center.price')}
+                description={t('brand.international_training_center.description')}
+              />
+              <BrandingSection
+                image={coworkingRoom}
+                altImage={'Image of the coworking room of the upcoming Hawkstars building'}
+                title={t('brand.room_branding.title')}
+                price={t('brand.room_branding.price')}
+                description={t('brand.room_branding.description')}
+              />
             </div>
           </div>
         </HawkStarsSection>
         <HawkStarsSection>
           <div className='mt-10 flex flex-col gap-10 lg:mx-auto lg:w-2/3'>
             <div className='mx-auto flex flex-1 flex-col gap-3'>
-              <h2 className='text-center'>{t('brand.wall_branding.title')}</h2>
+              <h3 className='text-h2_light text-center'>{t('brand.wall_branding.title')}</h3>
               <Image src={trainingRoom} alt='hawk stars training room' className='rounded-lg' />
               <div className='flex flex-row gap-4'>
-                <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-green lg:text-base'>
+                <div className='text-body_semibold flex w-fit flex-row gap-1 rounded-2xl p-2 text-green lg:text-base'>
                   <LiaUserSolid size={28} className='my-auto' />
                   <p className='self-center'>{t('brand.wall_branding.price_solo')}</p>
                 </div>
-                <div className='flex w-fit flex-row gap-1 rounded-2xl p-2 text-green lg:text-base'>
+                <div className='text-body_semibold flex w-fit flex-row gap-1 rounded-2xl p-2 text-green lg:text-base'>
                   <LiaUsersSolid size={28} />
                   <p className='self-center'>{t('brand.wall_branding.price_company')}</p>
                 </div>
               </div>
-              <p>{t('brand.wall_branding.description')}</p>
+              <p className='text-body_regular'>{t('brand.wall_branding.description')}</p>
             </div>
           </div>
         </HawkStarsSection>
         <LineBreaker />
         <div>
-          <h2 className='text-center text-green'>{t('brand.chairs.title')}</h2>
+          <h3 className='text-h2_bold text-center text-green'>{t('brand.chairs.title')}</h3>
           <ChairsSections
             title={t('brand.chairs.types.gaming_chair')}
             price='300€'
@@ -177,8 +178,18 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           <ChairsSections
             title={t('brand.chairs.types.simulation_chair')}
             price='350€'
-            icon={<Image src={simulatorChairNotTaken} alt='simulator not picked chair' />}
-            iconFilled={<Image src={simulatorChairTaken} alt='picked chair' />}
+            icon={
+              <Image
+                src={simulatorChairNotTaken}
+                alt='Simulator chair representing chairs that have no donor attached to'
+              />
+            }
+            iconFilled={
+              <Image
+                src={simulatorChairTaken}
+                alt='Simulator chair representing chairs that have a donor attached to'
+              />
+            }
             size={2}
             currentContributions={simulationChairs}
           />
@@ -202,7 +213,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
         </div>
       </div>
       <section className='bg-bege-light py-10' id='form'>
-        <h2 className='flex justify-center text-green'>{t('helps_us_donate')}</h2>
+        <h3 className='text-h2_bold flex justify-center text-green'>{t('helps_us_donate')}</h3>
         <ContributeFormSection lng={lng} />
       </section>
     </div>

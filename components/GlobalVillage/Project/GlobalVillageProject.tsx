@@ -11,10 +11,10 @@ const GlobalVillageProject = async ({ lng }: { lng: Language }) => {
       <div className='flex max-w-6xl flex-col-reverse items-center md:mx-auto lg:flex-row lg:gap-10 lg:px-4 lg:py-24'>
         <div className='flex flex-col-reverse items-stretch px-3 py-5 max-md:ml-0 max-sm:py-10 lg:w-[48%] lg:px-0'>
           <div className='my-auto flex w-full flex-col items-stretch max-md:mb-10 max-md:max-w-full lg:gap-10'>
-            <h1 className='text-black lg:text-h1_semibold text-h2_bold max-md:max-w-full'>
+            <h1 className='lg:text-h1_semibold text-h2_bold max-md:max-w-full'>
               {t('project.title')}
             </h1>
-            <p className='text-black lg:text-h2_light text-body_regular mt-4 max-md:max-w-full'>
+            <p className='lg:text-h2_light text-body_regular mt-4 max-md:max-w-full'>
               {t('project.presentation')}
             </p>
             <div className='mt-6 lg:mt-0'>

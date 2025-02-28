@@ -1,7 +1,5 @@
 import { createClient, QueryParams } from 'next-sanity';
 
-export const apiVersion = '1';
-
 export const dataset = assertValue(
   process.env.NEXT_PUBLIC_SANITY_STUDIO_DATASET,
   'Missing environment variable: NEXT_PUBLIC_SANITY_STUDIO_DATASET'
@@ -17,6 +15,11 @@ export const sanityAPI = assertValue(
   'Missing environment variable: NEXT_PUBLIC_SANITY_API_VERSION'
 );
 
+export const sanityToken = assertValue(
+  process.env.NEXT_PUBLIC_SANITY_TOKEN,
+  'Missing environment variable: NEXT_PUBLIC_SANITY_TOKEN'
+);
+
 function assertValue<T>(v: T | undefined, errorMessage: string): T {
   if (v === undefined) {
     throw new Error(errorMessage);
@@ -26,10 +29,11 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
 }
 
 export const client = createClient({
-  apiVersion,
+  apiVersion: sanityAPI,
   dataset,
   projectId,
   useCdn: false,
+  // token: sanityToken,
 });
 
 // from https://www.npmjs.com/package/next-sanity

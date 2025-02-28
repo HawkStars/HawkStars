@@ -24,7 +24,7 @@ const FooterMenu = () => {
           const { title, options } = section;
           return (
             <div key={index} className='text-terciary-100 ml-0 text-left lg:text-left'>
-              <h3 className='mb-1 text-base lg:mb-3'>
+              <h3 className='mb-1 text-base font-black lg:mb-3'>
                 <Suspense fallback={title}>{t(title)}</Suspense>
               </h3>
               {options.map((option, index) => (

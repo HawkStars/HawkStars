@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { useTranslation } from '@/i18n/client';
-import { client } from '@/lib/sanity/sanityClient';
+import { sanityFetch } from '@/lib/sanity/sanityClient';
 import { totalMoneyGatheredQuery } from '@/projects/sanity/sanity/queries/contribution';
+import { TotalMoneyGatheredQueryResult } from '@/projects/sanity/sanity.types';
 
 export const PROJECT_GOAL = 900000;
 
@@ -17,8 +18,12 @@ const ContributionProjectGoal = () => {
   const loadingWidth = Math.round((window?.innerWidth || 0) * normalizedGoal) + 'px';
 
   const getCurrentProjetContribution = async () => {
-    const response = await client.fetch(totalMoneyGatheredQuery);
-    setTotalContribution(response);
+    try {
+      const response: TotalMoneyGatheredQueryResult = await sanityFetch({
+        query: totalMoneyGatheredQuery,
+      });
+      setTotalContribution(response);
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -26,7 +31,7 @@ const ContributionProjectGoal = () => {
   }, []);
 
   return (
-    <div className='flex flex-col gap-1 bg-bege-light px-8 py-8 lg:px-40 lg:py-20'>
+    <div className='flex flex-col gap-4 bg-bege-light px-8 py-8 lg:px-40 lg:py-20'>
       <h2 className='lg:text-h1_semibold text-h2_bold text-center text-green'>
         {t('current_goal')}
       </h2>

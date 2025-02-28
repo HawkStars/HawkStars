@@ -23,8 +23,8 @@ const ChairsSections = ({
   return (
     <>
       <div className='my-10 hidden flex-col justify-center gap-3 lg:mx-0 lg:flex'>
-        <h3 className='mt-5 text-center'>{title}</h3>
-        {price && <h4 className='text-center text-green'>{price}</h4>}
+        <h3 className='text-h2_light mt-5 text-center'>{title}</h3>
+        {price && <h4 className='text-body_semibold text-center text-green'>{price}</h4>}
         <div className='mx-auto mt-5 flex w-full flex-wrap justify-center gap-5 lg:w-2/3'>
           {currentContributions.map((contribution) => {
             return (

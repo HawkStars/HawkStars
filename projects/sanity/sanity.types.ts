@@ -125,6 +125,42 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
+export type Social_link = {
+  _type: 'social_link';
+  url: string;
+  type: 'facebook' | 'linkedin' | 'instagram' | 'website';
+};
+
+export type Board_member = {
+  _id: string;
+  _type: 'board_member';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  section: 'geral' | 'fiscal' | 'board';
+  title:
+    | 'president'
+    | 'vice_president'
+    | 'vogal'
+    | 'f_secretary'
+    | 'm_secretary'
+    | 'substitute'
+    | 'treasurer'
+    | 'rapporteur_secretary';
+  image?: Array<
+    {
+      _key: string;
+    } & CloudinaryAsset
+  >;
+  links?: Array<
+    {
+      _key: string;
+    } & Social_link
+  >;
+  position?: number;
+};
+
 export type Report = {
   _id: string;
   _type: 'report';
@@ -392,6 +428,8 @@ export type AllSanitySchemaTypes =
   | SanityImageMetadata
   | Geopoint
   | SanityAssetSourceData
+  | Social_link
+  | Board_member
   | Report
   | News
   | Contribution
@@ -593,6 +631,9 @@ export type GetChairsContributionsQueryResult = Array<{
     | 'WALL_NAME_COMPANY'
     | 'WALL_NAME_SINGULAR';
 }>;
+// Variable: totalMoneyGatheredQuery
+// Query: math::sum(*[_type == "contribution" && is_confirmed == true].value)
+export type TotalMoneyGatheredQueryResult = number;
 
 // Source: ./sanity/queries/erasmus.ts
 // Variable: allEventsQuery
@@ -612,6 +653,7 @@ declare module '@sanity/client' {
     '*[_type == "art" && slug.current == $slug][0]': GetSingleArtworkResult;
     '*[_type == "art"]{image, title, slug, is_sold} | order(_createdAt desc)': GetAllArtworkImagesQueryResult;
     "*[_type == \"contribution\" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]": GetChairsContributionsQueryResult;
+    'math::sum(*[_type == "contribution" && is_confirmed == true].value)': TotalMoneyGatheredQueryResult;
     '*[_type == "erasmus"]': AllEventsQueryResult;
     '*[_type == "erasmus" && slug.current == $slug]': GetSingleEventsQueryResult;
   }

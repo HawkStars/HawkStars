@@ -3,7 +3,7 @@ const { hostname } = require('os');
 
 const cspHeader = `
     default-src 'self';
-    script-src 'self' https://www.googletagmanager.com https://upload-widget.cloudinary.com 'unsafe-inline';
+    script-src 'self' blob: https://www.googletagmanager.com https://upload-widget.cloudinary.com 'unsafe-inline';
     style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
     img-src 'self' blob: data: www.googletagmanager.com https://*.cloudinary.com https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com;
     font-src 'self' https://fonts.gstatic.com data:;
