@@ -47,7 +47,8 @@
         "simulation_chair": "Drive Simulator Gaming Chair",
         "lounge_chair": "Co(ffe) Working Lounge Chair",
         "auditorium_chair": "Mobile Chair for Auditorium/Training Rooms"
-      }
+      },
+      "available_chairs": "<taken />/<all /> taken"
     }
   },
   "contribution_form": {

@@ -26,25 +26,21 @@ export default defineType({
       title: 'Donor is anonymous',
       description: 'Check if the donor wants to be anonymous',
       type: 'boolean',
-      hidden: ({ document }) => !document?.is_confirmed,
     }),
     defineField({
       name: 'value',
       title: 'Donation Value',
       type: 'number',
-      hidden: ({ document }) => !document?.is_confirmed,
     }),
     defineField({
       name: 'contribution_date',
       title: 'Contribution Date',
       type: 'date',
-      hidden: ({ document }) => !document?.is_confirmed,
     }),
     defineField({
       name: 'contribution_type',
       title: 'Contribution Type',
       type: 'string',
-      hidden: ({ document }) => !document?.is_confirmed,
       options: {
         list: [
           { title: 'Bank', value: 'BANK' },
