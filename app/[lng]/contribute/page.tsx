@@ -165,7 +165,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           </div>
         </HawkStarsSection>
         <LineBreaker />
-        <div>
+        {/* <div>
           <h3 className='text-h2_bold text-center text-green'>{t('brand.chairs.title')}</h3>
           <ChairsSections
             title={t('brand.chairs.types.gaming_chair')}
@@ -210,7 +210,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
             size={110}
             currentContributions={auditoriumChairs}
           />
-        </div>
+        </div> */}
       </div>
       <section className='bg-bege-light py-10' id='form'>
         <h3 className='text-h2_bold flex justify-center text-green'>{t('helps_us_donate')}</h3>

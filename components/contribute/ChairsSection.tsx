@@ -111,13 +111,10 @@ const ContributionsChairsMobile = async ({
         i18nKey={'available_chairs'}
         t={t}
         components={{
-          global: <span className=''>The Global Village</span>,
-          international: <span className=''>International Training Center</span>,
+          taken: <span>{currentContributions.length}</span>,
+          all: <span className=''>{missingContributionsLength}</span>,
         }}
       />
-      <p></p>
-      <p className='text-center'>{currentContributions.length}</p>
-      <p className='text-center'>{missingContributionsLength}</p>
     </div>
   );
 };

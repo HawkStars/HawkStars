@@ -1,6 +1,5 @@
 'use client';
 
-import { client } from '@/lib/sanity/sanityClient';
 import { LanguageProps } from '../types';
 import FormContributions, { ContributionFormInput } from './FormContributions/FormContributions';
 
@@ -12,7 +11,11 @@ const ContributeFormSection = ({ lng }: LanguageProps) => {
         ...data,
       };
 
-      const response = await client.create(newDoc);
+      const response = await fetch('/api/contribution', {
+        method: 'POST',
+        body: JSON.stringify(newDoc),
+      });
+      const apiData = await response.json();
     } catch (e) {}
   };
 

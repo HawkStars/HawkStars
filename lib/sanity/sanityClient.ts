@@ -33,7 +33,14 @@ export const client = createClient({
   dataset,
   projectId,
   useCdn: false,
-  // token: sanityToken,
+});
+
+export const serverClient = createClient({
+  apiVersion: sanityAPI,
+  dataset,
+  projectId,
+  useCdn: false,
+  token: sanityToken,
 });
 
 // from https://www.npmjs.com/package/next-sanity
