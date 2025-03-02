@@ -7,7 +7,6 @@ import { useState } from 'react';
 import Select, { SelectOption } from '../utils/Select';
 import TeamCard from './TeamCard';
 import { useTranslation } from '../../i18n/client';
-// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 const MainTeamPage = () => {

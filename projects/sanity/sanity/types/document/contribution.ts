@@ -31,12 +31,13 @@ export default defineType({
       name: 'value',
       title: 'Donation Value',
       type: 'number',
-      validation: (rule) => rule.required(),
+      validation: (rule) => rule.required().greaterThan(0),
     }),
     defineField({
       name: 'contribution_date',
       title: 'Contribution Date',
       type: 'date',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'contribution_type',
@@ -48,7 +49,7 @@ export default defineType({
           { title: 'Bank', value: 'BANK' },
           { title: 'Crypto', value: 'CRYPTO' },
           { title: 'Individual - Wall Name', value: 'WALL_NAME_SINGULAR' },
-          { title: 'Comapny - Name on Wall', value: 'WALL_NAME_COMPANY' },
+          { title: 'Company - Name on Wall', value: 'WALL_NAME_COMPANY' },
           { title: 'Office Chair', value: 'OFFICE_CHAIR' },
           { title: 'Simulator Chair', value: 'SIMULATOR_CHAIR' },
           { title: 'Lounge Chair', value: 'LOUNGE_CHAIR' },

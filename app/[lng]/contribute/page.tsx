@@ -61,7 +61,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
 
   return (
     <div className='mt-5 flex flex-col gap-5 lg:mt-10'>
-      <h1 className='mx-4 text-center text-green lg:hidden'>{t('contribute_hero')}</h1>
+      <h1 className='text-h2_bold mx-4 text-center text-green lg:hidden'>{t('contribute_hero')}</h1>
       <HawkStarsSection padding='none'>
         <div className='relative max-w-full max-2xl:mx-0 max-2xl:p-0'>
           <div className='absolute left-40 top-20 hidden text-green lg:block'>
