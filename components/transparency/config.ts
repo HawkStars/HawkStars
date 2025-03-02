@@ -1,12 +1,13 @@
 import { ContributionLabel, MoneyMovementLabel } from '@/utils/models/transparency';
-import { Contribution, OrganizationMovement } from '@/utils/models/database';
+import { OrganizationMovement } from '@/utils/models/database';
 import { createColumnHelper } from '@tanstack/react-table';
 import i18next from 'i18next';
 import { ConfirmLabel } from '@/utils/models/common';
+import { Contribution } from '@/projects/sanity/sanity.types';
 
 export type TransparencyContribution = Pick<
   Contribution,
-  'contribution_date' | 'donor' | 'is_anonymous' | 'id' | 'value' | 'type'
+  'contribution_date' | 'donor' | 'is_anonymous' | '_id' | 'value' | 'contribution_type'
 >;
 
 const columnContributionHelper = createColumnHelper<TransparencyContribution>();
@@ -16,7 +17,7 @@ const contributionColumns = [
     header: () => i18next.t('contribute:contribution_form.date'),
     cell: (info) => info.getValue(),
   }),
-  columnContributionHelper.accessor('type', {
+  columnContributionHelper.accessor('contribution_type', {
     header: () => i18next.t('contribute:contribution_form.type'),
     cell: (info) => i18next.t(ContributionLabel[info.getValue()]),
   }),

@@ -31,6 +31,7 @@ export default defineType({
       name: 'value',
       title: 'Donation Value',
       type: 'number',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'contribution_date',
@@ -41,6 +42,7 @@ export default defineType({
       name: 'contribution_type',
       title: 'Contribution Type',
       type: 'string',
+      validation: (rule) => rule.required(),
       options: {
         list: [
           { title: 'Bank', value: 'BANK' },
@@ -56,6 +58,13 @@ export default defineType({
         ],
         layout: 'dropdown',
       },
+    }),
+    defineField({
+      name: 'extra_info',
+      title: 'Extra Info',
+      description:
+        'Information that the donor added in the form that is valuable for the contribution',
+      type: 'text',
     }),
   ],
 });

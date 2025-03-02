@@ -1,12 +1,13 @@
 'use client';
 
+import { Contribution } from '@/projects/sanity/sanity.types';
 import { LanguageProps } from '../types';
 import FormContributions, { ContributionFormInput } from './FormContributions/FormContributions';
 
 const ContributeFormSection = ({ lng }: LanguageProps) => {
   const handleSubmitForm = async (data: ContributionFormInput) => {
     try {
-      const newDoc = {
+      const newDoc: Pick<Contribution, 'is_anonymous' | '_type'> = {
         _type: 'contribution',
         ...data,
       };

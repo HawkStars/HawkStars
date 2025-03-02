@@ -1,8 +1,10 @@
-import { getServerTranslation } from '@/i18n';
+'use client';
+import { useTranslation } from '@/i18n/client';
 import { Contribution } from '@/projects/sanity/sanity.types';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
-import type { JSX } from 'react';
+import { useState, type JSX } from 'react';
 import { Trans } from 'react-i18next';
+import Accordion from '../utils/Accordion/Accordion';
 
 type ChairsSectionsProps = {
   title: string;
@@ -25,10 +27,10 @@ const ChairsSections = ({
   const missingContributionsChairs = Array(missingContributionsLength).fill(null);
   return (
     <>
-      <div className='my-10 flex flex-col justify-center gap-3 lg:mx-0'>
-        <h6 className='text-h2_light mt-5 text-center'>{title}</h6>
+      <div className='mx-2 my-10 flex flex-col justify-center gap-1 max-lg:px-2 lg:mx-0 lg:gap-3'>
+        <h6 className='lg:text-h2_light text-body_semibold mt-5 lg:text-center'>{title}</h6>
         {price && (
-          <span className='text-body_semibold text-center font-black text-green'>{price}</span>
+          <span className='text-body_semibold font-black text-green lg:text-center'>{price}</span>
         )}
         <ContributionsChairsDesktop
           icon={icon}
@@ -36,10 +38,7 @@ const ChairsSections = ({
           currentContributions={currentContributions}
           missingContributionsChairs={missingContributionsChairs}
         />
-        <ContributionsChairsMobile
-          currentContributions={currentContributions}
-          missingContributionsLength={missingContributionsLength}
-        />
+        <ContributionsChairsMobile currentContributions={currentContributions} size={size} />
       </div>
     </>
   );
@@ -95,26 +94,37 @@ const ContributionsChairsDesktop = ({
 };
 
 type ContributionsChairsMobileProps = Pick<ChairsSectionsProps, 'currentContributions'> & {
-  missingContributionsLength: number;
+  size: number;
 };
 
-const ContributionsChairsMobile = async ({
+const ContributionsChairsMobile = ({
   currentContributions,
-  missingContributionsLength,
+  size,
 }: ContributionsChairsMobileProps) => {
   const lng = useLanguageCookie();
-  const { t } = await getServerTranslation(lng, 'contribute');
+  const { t } = useTranslation(lng, 'contribute');
 
   return (
-    <div className='mx-auto flex flex-col md:hidden'>
+    <div className='flex flex-col gap-2 md:hidden'>
       <Trans
-        i18nKey={'available_chairs'}
+        i18nKey={'brand.chairs.available_chairs'}
         t={t}
-        components={{
-          taken: <span>{currentContributions.length}</span>,
-          all: <span className=''>{missingContributionsLength}</span>,
-        }}
+        values={{ taken: currentContributions.length, all: size }}
       />
+      {currentContributions.length > 0 && (
+        <Accordion title={t('contributor')}>
+          {currentContributions.map((contribution) => {
+            return contribution.donor ? (
+              <div key={contribution._id} className='flex w-full justify-between'>
+                <span>{contribution.donor}</span>
+                <span>{contribution.contribution_date || ''}</span>
+              </div>
+            ) : (
+              <></>
+            );
+          })}
+        </Accordion>
+      )}
     </div>
   );
 };

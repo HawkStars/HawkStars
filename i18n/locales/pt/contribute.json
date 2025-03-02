@@ -1,4 +1,5 @@
 {
+  "contributor": "Contribuidor",
   "contribute_hero": "Contribuir para o projecto e para a ONG",
   "helps_us_donate": "Contribua no Projecto",
   "donate_here": "Faça a doação aqui",
@@ -48,7 +49,7 @@
         "lounge_chair": "Cadeira Lounge Co(ffe) Working",
         "auditorium_chair": "Cadeira Móvel de Auditório/Salas Formação"
       },
-      "available_chairs": "<taken />/<all /> taken"
+      "available_chairs": "{{taken}}/{{all}} ocupadas"
     }
   },
   "contribution_form": {

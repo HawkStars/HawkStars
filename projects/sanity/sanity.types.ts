@@ -211,7 +211,7 @@ export type Contribution = {
   is_anonymous?: boolean;
   value?: number;
   contribution_date?: string;
-  contribution_type?:
+  contribution_type:
     | 'BANK'
     | 'CRYPTO'
     | 'WALL_NAME_SINGULAR'
@@ -222,6 +222,7 @@ export type Contribution = {
     | 'AUDITORIUM_CHAIR'
     | 'BUILDING_NAMING'
     | 'TRAINING_ROOM_NAMING';
+  extra_info?: string;
 };
 
 export type Event = {
@@ -607,7 +608,7 @@ export type GetAllArtworkImagesQueryResult = Array<{
 
 // Source: ./sanity/queries/contribution.ts
 // Variable: getChairsContributionsQuery
-// Query: *[_type == "contribution" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]
+// Query: *[_type == "contribution" && is_confirmed == true && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]
 export type GetChairsContributionsQueryResult = Array<{
   _id: string;
   _type: 'contribution';
@@ -619,7 +620,7 @@ export type GetChairsContributionsQueryResult = Array<{
   is_anonymous?: boolean;
   value?: number;
   contribution_date?: string;
-  contribution_type?:
+  contribution_type:
     | 'AUDITORIUM_CHAIR'
     | 'BANK'
     | 'BUILDING_NAMING'
@@ -630,9 +631,10 @@ export type GetChairsContributionsQueryResult = Array<{
     | 'TRAINING_ROOM_NAMING'
     | 'WALL_NAME_COMPANY'
     | 'WALL_NAME_SINGULAR';
+  extra_info?: string;
 }>;
 // Variable: totalMoneyGatheredQuery
-// Query: math::sum(*[_type == "contribution" && is_confirmed == true].value)
+// Query: math::sum(*[_type == 'contribution' && is_confirmed == true && contribution_type in ['BANK', 'CRYPTO']].value)
 export type TotalMoneyGatheredQueryResult = number;
 
 // Source: ./sanity/queries/erasmus.ts
@@ -652,8 +654,8 @@ declare module '@sanity/client' {
     '*[_type == "art"]': AllArtworkResult;
     '*[_type == "art" && slug.current == $slug][0]': GetSingleArtworkResult;
     '*[_type == "art"]{image, title, slug, is_sold} | order(_createdAt desc)': GetAllArtworkImagesQueryResult;
-    "*[_type == \"contribution\" && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]": GetChairsContributionsQueryResult;
-    'math::sum(*[_type == "contribution" && is_confirmed == true].value)': TotalMoneyGatheredQueryResult;
+    "*[_type == \"contribution\" && is_confirmed == true && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]": GetChairsContributionsQueryResult;
+    "math::sum(*[_type == 'contribution' && is_confirmed == true && contribution_type in ['BANK', 'CRYPTO']].value)": TotalMoneyGatheredQueryResult;
     '*[_type == "erasmus"]': AllEventsQueryResult;
     '*[_type == "erasmus" && slug.current == $slug]': GetSingleEventsQueryResult;
   }

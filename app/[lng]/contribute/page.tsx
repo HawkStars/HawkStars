@@ -108,7 +108,6 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
       <div className='my-5 flex flex-col gap-3'>
         <h2 className='text-h2_light text-center text-green'>{t('other_modalities')}</h2>
         <div className='mt-5 flex flex-col justify-center gap-3'>
-          <h3 className='text-center'>{t('store')}</h3>
           <div className='flex justify-center'>
             <Link
               href='https://shop.hawkstars.org/'
@@ -116,7 +115,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
               target='_blank'
               className='flex w-fit flex-row gap-3 rounded-xl bg-green p-4 text-white'
             >
-              <TbShoppingCart className='my-auto' /> Visit Store
+              <TbShoppingCart className='my-auto' /> {t('store')}
             </Link>
           </div>
         </div>
@@ -165,7 +164,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           </div>
         </HawkStarsSection>
         <LineBreaker />
-        {/* <div>
+        <div>
           <h3 className='text-h2_bold text-center text-green'>{t('brand.chairs.title')}</h3>
           <ChairsSections
             title={t('brand.chairs.types.gaming_chair')}
@@ -210,7 +209,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
             size={110}
             currentContributions={auditoriumChairs}
           />
-        </div> */}
+        </div>
       </div>
       <section className='bg-bege-light py-10' id='form'>
         <h3 className='text-h2_bold flex justify-center text-green'>{t('helps_us_donate')}</h3>

@@ -1169,6 +1169,13 @@
             }
           ]
         },
+        "optional": false
+      },
+      "extra_info": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
         "optional": true
       }
     }

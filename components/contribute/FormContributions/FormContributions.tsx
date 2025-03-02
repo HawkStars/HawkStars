@@ -3,7 +3,6 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import Select from '@/components/utils/Select';
 import Input from '@/components/utils/Input/Input';
-import { Contribution, ContributionType } from '@/utils/models/database';
 import Button from '@/components/utils/Button';
 import dynamic from 'next/dynamic';
 import TextArea from '@/components/utils/TextArea/TextArea';
@@ -12,10 +11,12 @@ import { useTranslation } from '@/i18n/client';
 import { useState } from 'react';
 import Checkbox from '@/components/utils/Checkbox/Checkbox';
 import { ContributionPricing, hasMinimumContribution, ContributionTypesLabels } from './config';
+import { Contribution } from '@/projects/sanity/sanity.types';
+import { ContributionType } from '@/utils/models/database';
 
 export type ContributionFormInput = Pick<
   Contribution,
-  'value' | 'donor' | 'extra_info' | 'type' | 'is_anonymous'
+  'value' | 'donor' | 'extra_info' | 'contribution_type' | 'is_anonymous'
 > & { contribution_date: Date };
 
 type FormContributionProps = {
@@ -51,14 +52,16 @@ const FormContributions = ({
       value: contribution?.value || 0,
       donor: contribution?.donor || '',
       extra_info: contribution?.extra_info || '',
-      contribution_date: contribution ? new Date(contribution.contribution_date) : new Date(),
-      type: contribution?.type || 'BANK',
+      contribution_date: contribution?.contribution_date
+        ? new Date(contribution.contribution_date)
+        : new Date(),
+      contribution_type: contribution?.contribution_type || 'BANK',
       is_anonymous: contribution?.is_anonymous || false,
     },
     mode: 'onChange',
   });
 
-  const typeWatched = watch('type');
+  const typeWatched = watch('contribution_type');
   const anonymousChecked = watch('is_anonymous');
 
   const blockTypeForm = [
@@ -110,7 +113,7 @@ const FormContributions = ({
               <Checkbox
                 labelText={t('contribution_form.anomymous')}
                 name='donor'
-                checked={value}
+                checked={value || false}
                 onChange={(checked: boolean) => handleToggleAnonymous(checked)}
                 id={name}
               />
@@ -159,7 +162,7 @@ const FormContributions = ({
       />
       <Controller
         control={control}
-        name='type'
+        name='contribution_type'
         render={({ field: { onChange, value } }) => {
           const handleContributionType = (type: ContributionType) => {
             const contributionValue = ContributionPricing[type];
