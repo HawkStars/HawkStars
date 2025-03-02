@@ -1,8 +1,7 @@
 import { ContributionLabel, MoneyMovementLabel } from '@/utils/models/transparency';
-import { OrganizationMovement } from '@/utils/models/database';
+
 import { createColumnHelper } from '@tanstack/react-table';
 import i18next from 'i18next';
-import { ConfirmLabel } from '@/utils/models/common';
 import { Contribution } from '@/projects/sanity/sanity.types';
 
 export type TransparencyContribution = Pick<
@@ -32,29 +31,4 @@ const contributionColumns = [
   }),
 ];
 
-const columnMovementsHelper = createColumnHelper<OrganizationMovement>();
-
-const orgsMovementsColumn = [
-  columnMovementsHelper.accessor('movement_date', {
-    header: () => i18next.t('contribute:movement_form.date'),
-    cell: (info) => info.getValue(),
-  }),
-  columnMovementsHelper.accessor('type', {
-    header: () => i18next.t('contribute:movement_form.type'),
-    cell: (info) => i18next.t(MoneyMovementLabel[info.getValue()]),
-  }),
-  columnMovementsHelper.accessor('value', {
-    header: () => i18next.t('contribute:movement_form.value'),
-    cell: (info) => `${info.getValue()}€`,
-  }),
-  columnMovementsHelper.accessor('description', {
-    header: () => i18next.t('contribute:movement_form.description'),
-    cell: (info) => info.getValue(),
-  }),
-  columnMovementsHelper.accessor('paid', {
-    header: () => i18next.t('contribute:movement_form.paid'),
-    cell: (info) => (info.renderValue() ? i18next.t(ConfirmLabel.YES) : i18next.t(ConfirmLabel.NO)),
-  }),
-];
-
-export { contributionColumns, orgsMovementsColumn };
+export { contributionColumns };
