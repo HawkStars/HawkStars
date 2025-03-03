@@ -28,7 +28,7 @@ import { Language } from '@/i18n/settings';
 import { client } from '@/lib/sanity/sanityClient';
 
 import groupBy from 'lodash.groupby';
-import { getChairsContributionsQuery } from '@/projects/sanity/sanity/queries/contribution';
+import { getChairsContributionsQuery } from '@/projects/sanity/models/queries/contribution';
 import { Contribution, GetChairsContributionsQueryResult } from '@/projects/sanity/sanity.types';
 import BrandingSection from '@/components/contribute/BrandingSection';
 

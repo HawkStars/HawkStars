@@ -1,7 +1,7 @@
 import { HawkStarsSection } from '@/components/layout';
 import { client } from '@/lib/sanity/sanityClient';
 import { LanguageProps } from '@/components/types';
-import SanityCloudinaryImage from '@/components/Sanity/SanityCloudinaryImage';
+import SanityCloudinaryImage from '@/components/sanity/SanityCloudinaryImage';
 import { notFound } from 'next/navigation';
 import { GetSingleArtworkResult } from '@/projects/sanity/sanity.types';
 import { getServerTranslation } from '@/i18n';
@@ -9,7 +9,7 @@ import { extractInternationalI18nString } from '@/lib/sanity/helpers';
 import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
-import { allEventsQuery } from '@/projects/sanity/sanity/queries/event';
+import { allEventsQuery } from '@/projects/sanity/models/queries/event';
 
 const getEventInformation = async () => {
   const response = await client.fetch<GetSingleArtworkResult>(allEventsQuery);

@@ -1,10 +1,10 @@
 import { HawkStarsSection } from '@/components/layout';
 import { client } from '@/lib/sanity/sanityClient';
-import SanityBlock from '@/components/Sanity/SanityBlock';
+import SanityBlock from '@/components/sanity/SanityBlock';
 import { LanguageProps } from '@/components/types';
-import SanityCloudinaryImage from '@/components/Sanity/SanityCloudinaryImage';
+import SanityCloudinaryImage from '@/components/sanity/SanityCloudinaryImage';
 import { notFound } from 'next/navigation';
-import { getSingleArtwork } from '@/projects/sanity/sanity/queries/art';
+import { getSingleArtwork } from '@/projects/sanity/models/queries/art';
 import { GetSingleArtworkResult } from '@/projects/sanity/sanity.types';
 import { getServerTranslation } from '@/i18n';
 import { extractInternationalI18nString } from '@/lib/sanity/helpers';
