@@ -1,5 +1,5 @@
 import { visionTool } from '@sanity/vision';
-import { defineConfig, Preview } from 'sanity';
+import { defineArrayMember, defineConfig, Preview } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { cloudinarySchemaPlugin } from 'sanity-plugin-cloudinary';
 import { internationalizedArray } from 'sanity-plugin-internationalized-array';
@@ -39,7 +39,7 @@ export default defineConfig({
         {
           name: 'formattedText',
           type: 'array',
-          of: [{ type: 'block' }],
+          of: [defineArrayMember({ type: 'block' }), defineArrayMember({ type: 'youtube' })],
         },
       ],
     }),

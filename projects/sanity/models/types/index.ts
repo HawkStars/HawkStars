@@ -13,6 +13,7 @@ import socialLink from './objects/socialLink';
 import hero from './objects/hero';
 import list from './objects/list';
 import accordion from './objects/accordion';
+import youtube from './objects/embedYoutube';
 
 export const documentSchemaTypes = [
   curator,
@@ -23,6 +24,6 @@ export const documentSchemaTypes = [
   global_village,
 ];
 
-export const objectSchemaTypes = [socialLink, hero, list, accordion];
+export const objectSchemaTypes = [socialLink, hero, list, accordion, youtube];
 
 export const allSchemaTypes = [...documentSchemaTypes, ...objectSchemaTypes];
