@@ -161,45 +161,6 @@ export type Board_member = {
   position?: number;
 };
 
-export type Report = {
-  _id: string;
-  _type: 'report';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  erasmus: {
-    _ref: string;
-    _type: 'reference';
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: 'erasmus_project';
-  };
-  description?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayFormattedTextValue
-  >;
-};
-
-export type News = {
-  _id: string;
-  _type: 'news';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: string;
-  slug?: Slug;
-  description?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayFormattedTextValue
-  >;
-  image?: Array<
-    {
-      _key: string;
-    } & CloudinaryAsset
-  >;
-};
-
 export type Contribution = {
   _id: string;
   _type: 'contribution';
@@ -209,8 +170,8 @@ export type Contribution = {
   donor: string;
   is_confirmed?: boolean;
   is_anonymous?: boolean;
-  value?: number;
-  contribution_date?: string;
+  value: number;
+  contribution_date: string;
   contribution_type:
     | 'BANK'
     | 'CRYPTO'
@@ -233,22 +194,7 @@ export type Event = {
   _rev: string;
   name?: string;
   slug?: Slug;
-  description?: string;
-  image?: Array<
-    {
-      _key: string;
-    } & CloudinaryAsset
-  >;
-};
-
-export type Erasmus_project = {
-  _id: string;
-  _type: 'erasmus_project';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
+  type_event?: 'erasmus' | 'local_event' | 'international_event' | 'other';
   description?: Array<
     {
       _key: string;
@@ -431,11 +377,8 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | Social_link
   | Board_member
-  | Report
-  | News
   | Contribution
   | Event
-  | Erasmus_project
   | Art
   | Curator
   | Slug
@@ -618,8 +561,8 @@ export type GetChairsContributionsQueryResult = Array<{
   donor: string;
   is_confirmed?: boolean;
   is_anonymous?: boolean;
-  value?: number;
-  contribution_date?: string;
+  value: number;
+  contribution_date: string;
   contribution_type:
     | 'AUDITORIUM_CHAIR'
     | 'BANK'
@@ -636,13 +579,34 @@ export type GetChairsContributionsQueryResult = Array<{
 // Variable: totalMoneyGatheredQuery
 // Query: math::sum(*[_type == 'contribution' && is_confirmed == true && contribution_type in ['BANK', 'CRYPTO']].value)
 export type TotalMoneyGatheredQueryResult = number;
+// Variable: contributionByTypeQuery
+// Query: *[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value }
+export type ContributionByTypeQueryResult = Array<{
+  contribution_date: string;
+  contribution_type:
+    | 'AUDITORIUM_CHAIR'
+    | 'BANK'
+    | 'BUILDING_NAMING'
+    | 'CRYPTO'
+    | 'LOUNGE_CHAIR'
+    | 'OFFICE_CHAIR'
+    | 'SIMULATOR_CHAIR'
+    | 'TRAINING_ROOM_NAMING'
+    | 'WALL_NAME_COMPANY'
+    | 'WALL_NAME_SINGULAR';
+  donor: string;
+  value: number;
+}>;
 
 // Source: ./sanity/queries/erasmus.ts
 // Variable: allEventsQuery
-// Query: *[_type == "erasmus"]
+// Query: *[_type == "events"]
 export type AllEventsQueryResult = Array<never>;
+// Variable: allEventsErasmusQuery
+// Query: *[_type == "events" && event_type == "erasmus"]
+export type AllEventsErasmusQueryResult = Array<never>;
 // Variable: getSingleEventsQuery
-// Query: *[_type == "erasmus" && slug.current == $slug]
+// Query: *[_type == "events" && slug.current == $slug]
 export type GetSingleEventsQueryResult = Array<never>;
 
 // Query TypeMap
@@ -656,7 +620,9 @@ declare module '@sanity/client' {
     '*[_type == "art"]{image, title, slug, is_sold} | order(_createdAt desc)': GetAllArtworkImagesQueryResult;
     "*[_type == \"contribution\" && is_confirmed == true && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]": GetChairsContributionsQueryResult;
     "math::sum(*[_type == 'contribution' && is_confirmed == true && contribution_type in ['BANK', 'CRYPTO']].value)": TotalMoneyGatheredQueryResult;
-    '*[_type == "erasmus"]': AllEventsQueryResult;
-    '*[_type == "erasmus" && slug.current == $slug]': GetSingleEventsQueryResult;
+    '*[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value }': ContributionByTypeQueryResult;
+    '*[_type == "events"]': AllEventsQueryResult;
+    '*[_type == "events" && event_type == "erasmus"]': AllEventsErasmusQueryResult;
+    '*[_type == "events" && slug.current == $slug]': GetSingleEventsQueryResult;
   }
 }

@@ -1,13 +1,4 @@
-import { ContributionType, MoneyMovementType } from './database';
-
-const MoneyMovementLabel = {
-  CREDIT: 'contribute:movement_form.credit',
-  DEBIT: 'contribute:movement_form.debit',
-} as OrganizationMovementLabelType;
-
-type OrganizationMovementLabelType = {
-  [key in MoneyMovementType]: string;
-};
+import { ContributionType } from './database';
 
 const ContributionLabel = {
   AUDITORIUM_CHAIR: 'contribute:options.auditorium_chair',
@@ -26,4 +17,4 @@ type ContributonLabelType = {
   [key in ContributionType]: string;
 };
 
-export { MoneyMovementLabel, ContributionLabel };
+export { ContributionLabel };

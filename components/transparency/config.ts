@@ -1,4 +1,4 @@
-import { ContributionLabel, MoneyMovementLabel } from '@/utils/models/transparency';
+import { ContributionLabel } from '@/utils/models/transparency';
 
 import { createColumnHelper } from '@tanstack/react-table';
 import i18next from 'i18next';

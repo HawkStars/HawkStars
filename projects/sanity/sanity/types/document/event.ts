@@ -20,9 +20,23 @@ export default defineType({
       },
     }),
     defineField({
+      name: 'type_event',
+      title: 'Type Event',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Erasmus +', value: 'erasmus' },
+          { title: 'Local Event', value: 'local_event' },
+          { title: 'International Event', value: 'international_event' },
+          { title: 'Other', value: 'other' },
+        ],
+      },
+    }),
+    defineField({
       name: 'description',
       title: 'Description',
-      type: 'string',
+      type: 'internationalizedArrayFormattedText',
+      description: 'More information for the event',
     }),
     defineField({
       name: 'image',
