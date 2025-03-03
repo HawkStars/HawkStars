@@ -75,7 +75,9 @@ const CuratorPage = async (props: CuratorPageProps) => {
                 {t('sold')}
               </Button>
             ) : (
-              <Button type={'button'}>{t('buy')}</Button>
+              <a href='https://forms.gle/XA4kwkHFJvcmEduCA' target='_blank'>
+                <Button type={'button'}>{t('buy')}</Button>
+              </a>
             )}
           </div>
           <span className='ml-1 mt-2 opacity-90'>{t('artwork.vat_and_ports')}</span>
