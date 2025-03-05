@@ -49,7 +49,7 @@ const MobileNavbar = () => {
           <div>
             <Socials />
           </div>
-          <div className='mt-5 grid grid-cols-1 gap-4 md:grid-cols-2'>
+          <div className='mt-5 grid grid-cols-1 gap-4'>
             {MenuSections.map((section) => {
               if (section.type === 'dropdown') {
                 const { title, options } = section;
