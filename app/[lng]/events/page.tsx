@@ -5,7 +5,7 @@ import { FirstPageEventsQueryResult, Event } from '@/projects/sanity/sanity.type
 import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
-import { firstPageEventsQuery } from '@/projects/sanity/types/groq/event';
+import { firstPageEventsQuery } from '@/projects/sanity/types/queries/event';
 
 const getHawkEvents = async () => {
   return await client.fetch<FirstPageEventsQueryResult>(firstPageEventsQuery);

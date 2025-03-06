@@ -12,7 +12,7 @@ import ArtPropertyComponent from '@/components/art/ArtProperty';
 import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
-import { getSingleArtwork } from '@/projects/sanity/types/groq/art';
+import { getSingleArtwork } from '@/projects/sanity/types/queries/art';
 
 const getCuratorInformation = async (slug: string) => {
   const response = await client.fetch<GetSingleArtworkResult>(getSingleArtwork, { slug });

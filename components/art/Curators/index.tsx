@@ -2,7 +2,7 @@ import SanityCloudinaryImage from '@/components/sanity/SanityCloudinaryImage';
 import { LanguageProps } from '@/components/types';
 import { client } from '@/lib/sanity/sanityClient';
 import { AllCuratorsQueryResult } from '@/projects/sanity/sanity.types';
-import { allCuratorsQuery } from '@/projects/sanity/types/groq/art';
+import { allCuratorsQuery } from '@/projects/sanity/types/queries/art';
 import Link from 'next/link';
 
 const getCurators = async () => {

@@ -6,7 +6,7 @@ import { LanguageProps } from '@/components/types';
 import SanityCloudinaryImage from '@/components/sanity/SanityCloudinaryImage';
 import { notFound } from 'next/navigation';
 import { GetSingleCuratorQueryResult } from '@/projects/sanity/sanity.types';
-import { getSingleCuratorQuery } from '@/projects/sanity/types/groq/art';
+import { getSingleCuratorQuery } from '@/projects/sanity/types/queries/art';
 
 const getCuratorInformation = async (slug: string) => {
   const response = await client.fetch<GetSingleCuratorQueryResult>(getSingleCuratorQuery, { slug });

@@ -7,7 +7,7 @@ import { getServerTranslation } from '@/i18n';
 import Image from 'next/image';
 import { extractInternationalI18nString } from '@/lib/sanity/helpers';
 import classNames from 'classnames';
-import { getAllArtworkImagesQuery } from '@/projects/sanity/types/groq/art';
+import { getAllArtworkImagesQuery } from '@/projects/sanity/types/queries/art';
 
 const getArtwork = async () => {
   const images = await client.fetch<GetAllArtworkImagesQueryResult>(getAllArtworkImagesQuery);

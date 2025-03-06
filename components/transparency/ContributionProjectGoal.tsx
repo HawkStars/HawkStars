@@ -6,7 +6,7 @@ import { useTranslation } from '@/i18n/client';
 import { sanityFetch } from '@/lib/sanity/sanityClient';
 
 import { TotalMoneyGatheredQueryResult } from '@/projects/sanity/sanity.types';
-import { totalMoneyGatheredQuery } from '@/projects/sanity/types/groq/contribution';
+import { totalMoneyGatheredQuery } from '@/projects/sanity/types/queries/contribution';
 
 export const PROJECT_GOAL = 900000;
 

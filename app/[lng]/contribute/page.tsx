@@ -30,7 +30,7 @@ import { client } from '@/lib/sanity/sanityClient';
 import groupBy from 'lodash.groupby';
 import { Contribution, GetChairsContributionsQueryResult } from '@/projects/sanity/sanity.types';
 import BrandingSection from '@/components/contribute/BrandingSection';
-import { getChairsContributionsQuery } from '@/projects/sanity/types/groq/contribution';
+import { getChairsContributionsQuery } from '@/projects/sanity/types/queries/contribution';
 
 const getChairsContribute = async () => {
   const contributions = await client.fetch<GetChairsContributionsQueryResult>(
