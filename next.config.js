@@ -1,5 +1,4 @@
 const { withSentryConfig } = require('@sentry/nextjs');
-const { hostname } = require('os');
 
 const cspHeader = `
     default-src 'self';

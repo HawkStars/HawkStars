@@ -1,6 +1,14 @@
+let path = require('path');
+
+function resolvePackages(...packages) {
+  return packages.map(
+    (pkg) => path.resolve(__dirname, pkg.replace('@', '../..')) + '/**/*.{js,ts,jsx,tsx}'
+  );
+}
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: ['./stories/**/*.{js,ts,jsx,tsx,mdx}', ...resolvePackages('@/components', '@/app')],
   theme: {
     colors: {
       green: '#0A7558',
