@@ -4,7 +4,6 @@ import SanityBlock from '@/components/sanity/SanityBlock';
 import { LanguageProps } from '@/components/types';
 import SanityCloudinaryImage from '@/components/sanity/SanityCloudinaryImage';
 import { notFound } from 'next/navigation';
-import { getSingleArtwork } from '@/projects/sanity/models/types/groq/art';
 import { GetSingleArtworkResult } from '@/projects/sanity/sanity.types';
 import { getServerTranslation } from '@/i18n';
 import { extractInternationalI18nString } from '@/lib/sanity/helpers';
@@ -13,6 +12,7 @@ import ArtPropertyComponent from '@/components/art/ArtProperty';
 import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
+import { getSingleArtwork } from '@/projects/sanity/types/groq/art';
 
 const getCuratorInformation = async (slug: string) => {
   const response = await client.fetch<GetSingleArtworkResult>(getSingleArtwork, { slug });

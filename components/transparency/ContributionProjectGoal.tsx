@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { useTranslation } from '@/i18n/client';
 import { sanityFetch } from '@/lib/sanity/sanityClient';
-import { totalMoneyGatheredQuery } from '@/projects/sanity/models/types/groq/contribution';
+
 import { TotalMoneyGatheredQueryResult } from '@/projects/sanity/sanity.types';
+import { totalMoneyGatheredQuery } from '@/projects/sanity/types/groq/contribution';
 
 export const PROJECT_GOAL = 900000;
 

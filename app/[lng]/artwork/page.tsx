@@ -1,6 +1,5 @@
 import { client } from '@/lib/sanity/sanityClient';
 import { GetAllArtworkImagesQueryResult } from '@/projects/sanity/sanity.types';
-import { getAllArtworkImagesQuery } from '@/projects/sanity/models/types/groq/art';
 import { LanguagePageProps } from '../types';
 import { transformUrl } from '@/utils/paths';
 import Link from 'next/link';
@@ -8,6 +7,7 @@ import { getServerTranslation } from '@/i18n';
 import Image from 'next/image';
 import { extractInternationalI18nString } from '@/lib/sanity/helpers';
 import classNames from 'classnames';
+import { getAllArtworkImagesQuery } from '@/projects/sanity/types/groq/art';
 
 const getArtwork = async () => {
   const images = await client.fetch<GetAllArtworkImagesQueryResult>(getAllArtworkImagesQuery);

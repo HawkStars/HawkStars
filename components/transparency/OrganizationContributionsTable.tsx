@@ -6,7 +6,7 @@ import { TransparencyContribution, contributionColumns } from './config';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { sanityFetch } from '@/lib/sanity/sanityClient';
-import { contributionByTypeQuery } from '@/projects/sanity/models/types/groq/contribution';
+import { contributionByTypeQuery } from '@/projects/sanity/types/groq/contribution';
 
 const getOrganizationContributions = async () => {
   return await sanityFetch({ query: contributionByTypeQuery });

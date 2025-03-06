@@ -464,3 +464,341 @@ export type AllSanitySchemaTypes =
   | CloudinaryAsset
   | CloudinaryAssetContext;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./types/groq/art.ts
+// Variable: allCuratorsQuery
+// Query: *[_type == "curator"]
+export type AllCuratorsQueryResult = Array<{
+  _id: string;
+  _type: 'curator';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  location?: string;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: CloudinaryAsset;
+  google_description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+}>;
+// Variable: getSingleCuratorQuery
+// Query: *[_type == "curator" && slug.current == $slug][0]
+export type GetSingleCuratorQueryResult = {
+  _id: string;
+  _type: 'curator';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  location?: string;
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: CloudinaryAsset;
+  google_description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+} | null;
+// Variable: allArtwork
+// Query: *[_type == "art"]
+export type AllArtworkResult = Array<{
+  _id: string;
+  _type: 'art';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  slug?: Slug;
+  synopsis?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: CloudinaryAsset;
+  is_sold?: boolean;
+  artist?: string;
+  year?: number;
+  price?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  settings?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  tiragem?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  dimensions?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  extra?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+}>;
+// Variable: getSingleArtwork
+// Query: *[_type == "art" && slug.current == $slug][0]
+export type GetSingleArtworkResult = {
+  _id: string;
+  _type: 'art';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  slug?: Slug;
+  synopsis?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: CloudinaryAsset;
+  is_sold?: boolean;
+  artist?: string;
+  year?: number;
+  price?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  settings?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  tiragem?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  dimensions?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  extra?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+} | null;
+// Variable: getAllArtworkImagesQuery
+// Query: *[_type == "art"]{image, title, slug, is_sold} | order(_createdAt desc)
+export type GetAllArtworkImagesQueryResult = Array<{
+  image: CloudinaryAsset | null;
+  title: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  slug: Slug | null;
+  is_sold: boolean | null;
+}>;
+
+// Source: ./types/groq/contribution.ts
+// Variable: getChairsContributionsQuery
+// Query: *[_type == "contribution" && is_confirmed == true && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]
+export type GetChairsContributionsQueryResult = Array<{
+  _id: string;
+  _type: 'contribution';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  donor: string;
+  is_confirmed?: boolean;
+  is_anonymous?: boolean;
+  value: number;
+  contribution_date: string;
+  contribution_type:
+    | 'AUDITORIUM_CHAIR'
+    | 'BANK'
+    | 'BUILDING_NAMING'
+    | 'CRYPTO'
+    | 'LOUNGE_CHAIR'
+    | 'OFFICE_CHAIR'
+    | 'SIMULATOR_CHAIR'
+    | 'TRAINING_ROOM_NAMING'
+    | 'WALL_NAME_COMPANY'
+    | 'WALL_NAME_SINGULAR';
+  extra_info?: string;
+}>;
+// Variable: totalMoneyGatheredQuery
+// Query: math::sum(*[_type == 'contribution' && is_confirmed == true && contribution_type in ['BANK', 'CRYPTO']].value)
+export type TotalMoneyGatheredQueryResult = number;
+// Variable: contributionByTypeQuery
+// Query: *[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value }
+export type ContributionByTypeQueryResult = Array<{
+  contribution_date: string;
+  contribution_type:
+    | 'AUDITORIUM_CHAIR'
+    | 'BANK'
+    | 'BUILDING_NAMING'
+    | 'CRYPTO'
+    | 'LOUNGE_CHAIR'
+    | 'OFFICE_CHAIR'
+    | 'SIMULATOR_CHAIR'
+    | 'TRAINING_ROOM_NAMING'
+    | 'WALL_NAME_COMPANY'
+    | 'WALL_NAME_SINGULAR';
+  donor: string;
+  value: number;
+}>;
+
+// Source: ./types/groq/event.ts
+// Variable: getSingleEventsQuery
+// Query: *[_type == "event" && slug.current == $slug]
+export type GetSingleEventsQueryResult = Array<{
+  _id: string;
+  _type: 'event';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  type_event?: 'erasmus' | 'international_event' | 'local_event' | 'other';
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: Array<
+    {
+      _key: string;
+    } & CloudinaryAsset
+  >;
+}>;
+// Variable: firstPageEventsQuery
+// Query: *[_type == "event"] | order(_id) [0...100]
+export type FirstPageEventsQueryResult = Array<{
+  _id: string;
+  _type: 'event';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  type_event?: 'erasmus' | 'international_event' | 'local_event' | 'other';
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: Array<
+    {
+      _key: string;
+    } & CloudinaryAsset
+  >;
+}>;
+// Variable: nextPageEventsQuery
+// Query: *[_type == "event" && _id > $lastId] | order(_id) [0...100]
+export type NextPageEventsQueryResult = Array<{
+  _id: string;
+  _type: 'event';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  type_event?: 'erasmus' | 'international_event' | 'local_event' | 'other';
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: Array<
+    {
+      _key: string;
+    } & CloudinaryAsset
+  >;
+}>;
+// Variable: firstPageEventByTypeQuery
+// Query: *[_type == "event" && type_event == $type] | order(_id) [0...100]
+export type FirstPageEventByTypeQueryResult = Array<{
+  _id: string;
+  _type: 'event';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  type_event?: 'erasmus' | 'international_event' | 'local_event' | 'other';
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: Array<
+    {
+      _key: string;
+    } & CloudinaryAsset
+  >;
+}>;
+// Variable: nextPageEventByTypeQuery
+// Query: *[_type == "event" && type_event == $type && _id > $lastId] | order(_id) [0...100]
+export type NextPageEventByTypeQueryResult = Array<{
+  _id: string;
+  _type: 'event';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  type_event?: 'erasmus' | 'international_event' | 'local_event' | 'other';
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: Array<
+    {
+      _key: string;
+    } & CloudinaryAsset
+  >;
+}>;
+
+// Query TypeMap
+import '@sanity/client';
+declare module '@sanity/client' {
+  interface SanityQueries {
+    '*[_type == "curator"]': AllCuratorsQueryResult;
+    '*[_type == "curator" && slug.current == $slug][0]': GetSingleCuratorQueryResult;
+    '*[_type == "art"]': AllArtworkResult;
+    '*[_type == "art" && slug.current == $slug][0]': GetSingleArtworkResult;
+    '*[_type == "art"]{image, title, slug, is_sold} | order(_createdAt desc)': GetAllArtworkImagesQueryResult;
+    "*[_type == \"contribution\" && is_confirmed == true && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]": GetChairsContributionsQueryResult;
+    "math::sum(*[_type == 'contribution' && is_confirmed == true && contribution_type in ['BANK', 'CRYPTO']].value)": TotalMoneyGatheredQueryResult;
+    '*[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value }': ContributionByTypeQueryResult;
+    '*[_type == "event" && slug.current == $slug]': GetSingleEventsQueryResult;
+    '*[_type == "event"] | order(_id) [0...100]': FirstPageEventsQueryResult;
+    '*[_type == "event" && _id > $lastId] | order(_id) [0...100]': NextPageEventsQueryResult;
+    '*[_type == "event" && type_event == $type] | order(_id) [0...100]': FirstPageEventByTypeQueryResult;
+    '*[_type == "event" && type_event == $type && _id > $lastId] | order(_id) [0...100]': NextPageEventByTypeQueryResult;
+  }
+}

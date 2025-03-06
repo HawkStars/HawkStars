@@ -28,9 +28,9 @@ import { Language } from '@/i18n/settings';
 import { client } from '@/lib/sanity/sanityClient';
 
 import groupBy from 'lodash.groupby';
-import { getChairsContributionsQuery } from '@/projects/sanity/models/types/groq/contribution';
 import { Contribution, GetChairsContributionsQueryResult } from '@/projects/sanity/sanity.types';
 import BrandingSection from '@/components/contribute/BrandingSection';
+import { getChairsContributionsQuery } from '@/projects/sanity/types/groq/contribution';
 
 const getChairsContribute = async () => {
   const contributions = await client.fetch<GetChairsContributionsQueryResult>(

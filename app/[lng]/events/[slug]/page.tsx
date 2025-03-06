@@ -9,7 +9,7 @@ import { extractInternationalI18nString } from '@/lib/sanity/helpers';
 import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
-import { getSingleEventsQuery } from '@/projects/sanity/models/types/groq/event';
+import { getSingleEventsQuery } from '@/projects/sanity/types/groq/event';
 
 const getEventInformation = async (slug: string) => {
   const response = await client.fetch<GetSingleArtworkResult>(getSingleEventsQuery, { slug });

@@ -1,7 +1,7 @@
 import { LanguageProps } from '@/components/types';
 import { getServerTranslation } from '@/i18n';
 import { client } from '@/lib/sanity/sanityClient';
-import { allArtwork } from '@/projects/sanity/models/types/groq/art';
+import { allArtwork } from '@/projects/sanity/types/groq/art';
 import Link from 'next/link';
 
 const fetchLatestArtwork = async () => {

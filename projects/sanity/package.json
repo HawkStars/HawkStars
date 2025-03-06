@@ -8,7 +8,7 @@
     "sanity:start": "sanity dev",
     "sanity:build": "sanity build",
     "sanity:deploy": "sanity deploy",
-    "sanity:generate-types": "sanity schema extract --enforce-required-fields && sanity typegen generate"
+    "sanity:generate-types": "sanity schema extract --enforce-required-fields && sanity typegen generate --config-path sanity.typegen.json"
   },
   "dependencies": {
     "@sanity/icons": "^3.7.0",
