@@ -1,6 +1,6 @@
 import { defineType, defineField } from 'sanity';
 import { PlayIcon } from '@sanity/icons';
-import { YouTubePreview } from '../../../components/EmbedYoutube';
+import { YouTubePreview } from '../../components/EmbedYoutube';
 
 export default defineType({
   name: 'youtube',

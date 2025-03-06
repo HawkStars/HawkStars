@@ -9,11 +9,10 @@ import { extractInternationalI18nString } from '@/lib/sanity/helpers';
 import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
-import { allEventsQuery } from '@/projects/sanity/models/queries/event';
+import { firstPageEventsQuery } from '@/projects/sanity/models/types/groq/event';
 
-const getEventInformation = async () => {
-  const response = await client.fetch<GetSingleArtworkResult>(allEventsQuery);
-  return response;
+const getHawkEvents = async () => {
+  return await client.fetch<GetSingleArtworkResult>(firstPageEventsQuery);
 };
 
 export async function generateMetadata(props: EventsPageProps): Promise<Metadata> {
@@ -30,21 +29,15 @@ const EventsPage = async (props: EventsPageProps) => {
   const params = await props.params;
   const { lng } = params;
 
-  const event = await getEventInformation();
-  const { t } = await getServerTranslation(lng, 'art');
-  if (!event) notFound();
+  const events = await getHawkEvents();
 
   return (
     <>
       <HawkStarsSection className='flex gap-8 bg-bege-light pb-8 pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
-        <div className='max-lg:mx-auto lg:w-7/12'>
-          <SanityCloudinaryImage image={event?.image} className='rounded-xl' />
-        </div>
-        <div className='font-oswald flex flex-col px-5 pt-5 lg:w-5/12'>
-          <h1 className='text-h1_semibold mb-10 text-disabled'>
-            {extractInternationalI18nString({ text: event.title, lng })}
-          </h1>
-        </div>
+        {events.length == 0 && <div>No events found</div>}
+       {events.map((event) => {
+
+       }}
       </HawkStarsSection>
     </>
   );

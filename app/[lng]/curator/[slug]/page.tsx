@@ -5,7 +5,7 @@ import SanityBlock from '@/components/sanity/SanityBlock';
 import { LanguageProps } from '@/components/types';
 import SanityCloudinaryImage from '@/components/sanity/SanityCloudinaryImage';
 import { notFound } from 'next/navigation';
-import { getSingleCuratorQuery } from '@/projects/sanity/models/queries/art';
+import { getSingleCuratorQuery } from '@/projects/sanity/models/types/groq/art';
 import { GetSingleCuratorQueryResult } from '@/projects/sanity/sanity.types';
 
 const getCuratorInformation = async (slug: string) => {

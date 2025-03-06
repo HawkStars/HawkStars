@@ -4,7 +4,7 @@ import SanityBlock from '@/components/sanity/SanityBlock';
 import { LanguageProps } from '@/components/types';
 import SanityCloudinaryImage from '@/components/sanity/SanityCloudinaryImage';
 import { notFound } from 'next/navigation';
-import { getSingleArtwork } from '@/projects/sanity/models/queries/art';
+import { getSingleArtwork } from '@/projects/sanity/models/types/groq/art';
 import { GetSingleArtworkResult } from '@/projects/sanity/sanity.types';
 import { getServerTranslation } from '@/i18n';
 import { extractInternationalI18nString } from '@/lib/sanity/helpers';

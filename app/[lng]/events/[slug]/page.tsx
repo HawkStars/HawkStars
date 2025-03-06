@@ -1,19 +1,15 @@
 import { HawkStarsSection } from '@/components/layout';
 import { client } from '@/lib/sanity/sanityClient';
-import SanityBlock from '@/components/sanity/SanityBlock';
 import { LanguageProps } from '@/components/types';
 import SanityCloudinaryImage from '@/components/sanity/SanityCloudinaryImage';
 import { notFound } from 'next/navigation';
-import { getSingleArtwork } from '@/projects/sanity/models/queries/art';
 import { GetSingleArtworkResult } from '@/projects/sanity/sanity.types';
 import { getServerTranslation } from '@/i18n';
 import { extractInternationalI18nString } from '@/lib/sanity/helpers';
-import Button from '@/components/utils/Button';
-import ArtPropertyComponent from '@/components/art/ArtProperty';
 import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
-import { getSingleEventsQuery } from '@/projects/sanity/models/queries/event';
+import { getSingleEventsQuery } from '@/projects/sanity/models/types/groq/event';
 
 const getEventInformation = async (slug: string) => {
   const response = await client.fetch<GetSingleArtworkResult>(getSingleEventsQuery, { slug });

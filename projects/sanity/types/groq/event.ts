@@ -1,7 +1,6 @@
 import groq from 'groq';
 
 /* Events */
-export const allEventsQuery = groq`*[_type == "events"]`;
 export const getSingleEventsQuery = groq`*[_type == "events" && slug.current == $slug]`;
 
 export const firstPageEventsQuery = groq`*[_type == "events"] | order(_id) [0...100]`;

@@ -1,6 +1,6 @@
 import { client } from '@/lib/sanity/sanityClient';
 import { GetAllArtworkImagesQueryResult } from '@/projects/sanity/sanity.types';
-import { getAllArtworkImagesQuery } from '@/projects/sanity/models/queries/art';
+import { getAllArtworkImagesQuery } from '@/projects/sanity/models/types/groq/art';
 import { LanguagePageProps } from '../types';
 import { transformUrl } from '@/utils/paths';
 import Link from 'next/link';

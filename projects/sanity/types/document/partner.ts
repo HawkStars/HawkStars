@@ -1,12 +1,12 @@
 import { defineField, defineType } from 'sanity';
-import { TaskIcon } from '@sanity/icons';
+import { UsersIcon } from '@sanity/icons';
 
 export default defineType({
   name: 'partner',
   title: 'Partner',
   type: 'document',
   description: 'Model to be used for any news from hawkstars',
-  icon: TaskIcon,
+  icon: UsersIcon,
   fields: [
     defineField({
       name: 'name',
