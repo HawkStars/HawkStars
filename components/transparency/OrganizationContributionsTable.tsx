@@ -7,17 +7,19 @@ import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { sanityFetch } from '@/lib/sanity/sanityClient';
 import {
-  firstPageContributionByTypeQuery,
-  nextPageContributionByTypeQuery,
-  totalMoneyGatheredQuery,
+  countContributionQuery,
+  firstPageContributionQuery,
+  nextPageContributionQuery,
 } from '@/projects/sanity/types/queries/contribution';
 import { prepareSanityObjectQuery } from '@/lib/sanity/helpers';
+import Button from '../utils/Button';
+import Spinner from '../utils/Spinner/Spinner';
 
 const getOrganizationContributions = async () => {
   return await sanityFetch({
     query: prepareSanityObjectQuery({
-      items: firstPageContributionByTypeQuery,
-      count: totalMoneyGatheredQuery,
+      items: firstPageContributionQuery,
+      count: countContributionQuery,
     }),
     revalidate: 86400,
   });
@@ -25,14 +27,13 @@ const getOrganizationContributions = async () => {
 
 const loadMoreContributions = async (lastId: string) => {
   return await sanityFetch({
-    query: nextPageContributionByTypeQuery,
+    query: nextPageContributionQuery,
   });
 };
 
 const OrganizationContributionsTable = () => {
-  const lng = useLanguageCookie();
-  const { t } = useTranslation(lng, 'contribute');
-  const [loading, setLoading] = useState(true);
+  const [lastId, setLastId] = useState('');
+  const [loading, setLoading] = useState(false);
   const [organizationContributions, setOrganizationContributions] = useState<{
     count: number;
     items: TransparencyContribution[];
@@ -41,9 +42,22 @@ const OrganizationContributionsTable = () => {
     items: [],
   });
 
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'contribute');
+
   const fetchOrganizationData = async () => {
     const contributions = await getOrganizationContributions();
     setOrganizationContributions(contributions);
+  };
+
+  const nextBatchOfContributions = async () => {
+    setLoading(true);
+    const contributions = await loadMoreContributions(lastId);
+    setOrganizationContributions((current) => ({
+      ...current,
+      items: [...current.items, ...contributions.items],
+    }));
+    setLoading(false);
   };
 
   const table = useReactTable({
@@ -87,7 +101,14 @@ const OrganizationContributionsTable = () => {
           </tbody>
         </table>
 
-        {/* <Button className='mx-auto'></Button> */}
+        <div className='mt-4 flex justify-center lg:mt-8'>
+          {organizationContributions.items.length < organizationContributions.count && !loading && (
+            <Button type='button' onClick={nextBatchOfContributions}>
+              {t('load_more')}
+            </Button>
+          )}
+          <div>{loading && <Spinner />}</div>
+        </div>
       </div>
     </div>
   );
