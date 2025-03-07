@@ -66,21 +66,22 @@ const CuratorPage = async (props: CuratorPageProps) => {
               value={extractInternationalI18nString({ text: artwork.tiragem, lng })}
             />
           </div>
-          <div className='mt-auto flex flex-col gap-3 max-md:mt-6'>
-            <h2 className='text-h2_bold my-auto text-disabled'>
-              {extractInternationalI18nString({ text: artwork.price, lng })}
-            </h2>
-            {artwork.is_sold ? (
-              <Button type='button' disabled>
-                {t('sold')}
-              </Button>
-            ) : (
+          {!artwork.is_sold && (
+            <div className='mt-auto flex flex-col gap-3 max-md:mt-6'>
+              <h2 className='text-h2_bold my-auto text-disabled'>
+                {extractInternationalI18nString({ text: artwork.price, lng })}
+              </h2>
               <a href='https://forms.gle/XA4kwkHFJvcmEduCA' target='_blank'>
                 <Button type={'button'}>{t('buy')}</Button>
               </a>
-            )}
-          </div>
-          <span className='ml-1 mt-2 opacity-90'>{t('artwork.vat_and_ports')}</span>
+              <span className='-mt-2 ml-1 opacity-90'>{t('artwork.vat_and_ports')}</span>
+            </div>
+          )}
+          {artwork.is_sold && (
+            <Button type='button' disabled variant='informative'>
+              {t('sold')}
+            </Button>
+          )}
         </div>
       </HawkStarsSection>
       <section className='font-oswald mx-auto mt-6 flex max-w-7xl flex-col gap-4 px-4 text-justify lg:px-8'>

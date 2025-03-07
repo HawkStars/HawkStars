@@ -34,11 +34,7 @@ const ArtworkPage = async (props: LanguagePageProps) => {
               <div className='flex h-full flex-col gap-5'>
                 <h3 className='text-h2_bold font-oswald text-center text-disabled'>{artTitle}</h3>
                 {item.image?.url && (
-                  <div
-                    className={classNames('my-auto flex h-full align-middle', {
-                      'opacity-75 grayscale': item.is_sold,
-                    })}
-                  >
+                  <div className={classNames('relative my-auto flex h-full align-middle')}>
                     <Image
                       src={item.image?.url}
                       alt={artTitle}
@@ -46,6 +42,11 @@ const ArtworkPage = async (props: LanguagePageProps) => {
                       height={500}
                       className='rounded-md'
                     />
+                    {item.is_sold && (
+                      <div className='bg-red-dark text-oswald text-h2_bold absolute bottom-2 right-2 rounded-xl px-3 py-1 text-white'>
+                        {t('sold')}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

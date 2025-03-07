@@ -47,6 +47,8 @@ const OrganizationContributionsTable = () => {
 
   const fetchOrganizationData = async () => {
     const contributions = await getOrganizationContributions();
+    const lastId = contributions.items[contributions.items.length - 1]._id;
+    setLastId(lastId);
     setOrganizationContributions(contributions);
   };
 

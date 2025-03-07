@@ -667,9 +667,12 @@ export type GetChairsContributionsQueryResult = Array<{
 // Variable: totalMoneyGatheredQuery
 // Query: math::sum(*[_type == 'contribution' && is_confirmed == true && contribution_type in ['BANK', 'CRYPTO']].value)
 export type TotalMoneyGatheredQueryResult = number;
-// Variable: contributionByTypeQuery
+// Variable: countContributionQuery
+// Query: count(*[_type == "contribution" && is_confirmed == true])
+export type CountContributionQueryResult = number;
+// Variable: firstPageContributionQuery
 // Query: *[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value } | order(_id) [0...100]
-export type ContributionByTypeQueryResult = Array<{
+export type FirstPageContributionQueryResult = Array<{
   contribution_date: string;
   contribution_type:
     | 'AUDITORIUM_CHAIR'
@@ -685,9 +688,9 @@ export type ContributionByTypeQueryResult = Array<{
   donor: string;
   value: number;
 }>;
-// Variable: nextPageContributionByTypeQuery
+// Variable: nextPageContributionQuery
 // Query: *[_type == "contribution" && is_confirmed == true && _id > $lastId] { contribution_date, contribution_type, donor, value } | order(_id) [0...100]
-export type NextPageContributionByTypeQueryResult = Array<{
+export type NextPageContributionQueryResult = Array<{
   contribution_date: string;
   contribution_type:
     | 'AUDITORIUM_CHAIR'
@@ -827,8 +830,9 @@ declare module '@sanity/client' {
     '*[_type == "art"]{image, title, slug, is_sold} | order(_createdAt desc)': GetAllArtworkImagesQueryResult;
     "*[_type == \"contribution\" && is_confirmed == true && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]": GetChairsContributionsQueryResult;
     "math::sum(*[_type == 'contribution' && is_confirmed == true && contribution_type in ['BANK', 'CRYPTO']].value)": TotalMoneyGatheredQueryResult;
-    '*[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value } | order(_id) [0...100]': ContributionByTypeQueryResult;
-    '*[_type == "contribution" && is_confirmed == true && _id > $lastId] { contribution_date, contribution_type, donor, value } | order(_id) [0...100]': NextPageContributionByTypeQueryResult;
+    'count(*[_type == "contribution" && is_confirmed == true])': CountContributionQueryResult;
+    '*[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value } | order(_id) [0...100]': FirstPageContributionQueryResult;
+    '*[_type == "contribution" && is_confirmed == true && _id > $lastId] { contribution_date, contribution_type, donor, value } | order(_id) [0...100]': NextPageContributionQueryResult;
     '*[_type == "event" && slug.current == $slug]': GetSingleEventsQueryResult;
     '*[_type == "event"] | order(_id) [0...100]': FirstPageEventsQueryResult;
     '*[_type == "event" && _id > $lastId] | order(_id) [0...100]': NextPageEventsQueryResult;

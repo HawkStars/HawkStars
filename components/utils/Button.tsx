@@ -55,8 +55,8 @@ const buttonProps = variantProps({
   variants: {
     variant: {
       success: 'bg-green border border-green text-white fill-white',
-      informative: 'bg-blue-500 border border-blue-500 text-white fill-white',
-      error: 'bg-red-500 border border-red-500 text-white fill-white',
+      informative: 'border-2 border-green text-green fill-white',
+      error: 'bg-red-dark border border-red-dark text-white fill-white',
     },
     rounded: {
       none: tw`rounded-none`,

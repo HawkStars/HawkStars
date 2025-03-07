@@ -15,6 +15,9 @@ module.exports = {
       gray: {
         light: '#D3D3D3',
       },
+      red: {
+        dark: '#8B0000',
+      },
     },
     extend: {
       zIndex: {
