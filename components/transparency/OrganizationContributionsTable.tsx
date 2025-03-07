@@ -6,18 +6,40 @@ import { TransparencyContribution, contributionColumns } from './config';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { sanityFetch } from '@/lib/sanity/sanityClient';
-import { contributionByTypeQuery } from '@/projects/sanity/types/queries/contribution';
+import {
+  firstPageContributionByTypeQuery,
+  nextPageContributionByTypeQuery,
+  totalMoneyGatheredQuery,
+} from '@/projects/sanity/types/queries/contribution';
+import { prepareSanityObjectQuery } from '@/lib/sanity/helpers';
 
 const getOrganizationContributions = async () => {
-  return await sanityFetch({ query: contributionByTypeQuery });
+  return await sanityFetch({
+    query: prepareSanityObjectQuery({
+      items: firstPageContributionByTypeQuery,
+      count: totalMoneyGatheredQuery,
+    }),
+    revalidate: 86400,
+  });
+};
+
+const loadMoreContributions = async (lastId: string) => {
+  return await sanityFetch({
+    query: nextPageContributionByTypeQuery,
+  });
 };
 
 const OrganizationContributionsTable = () => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'contribute');
-  const [organizationContributions, setOrganizationContributions] = useState<
-    TransparencyContribution[]
-  >([]);
+  const [loading, setLoading] = useState(true);
+  const [organizationContributions, setOrganizationContributions] = useState<{
+    count: number;
+    items: TransparencyContribution[];
+  }>({
+    count: 0,
+    items: [],
+  });
 
   const fetchOrganizationData = async () => {
     const contributions = await getOrganizationContributions();
@@ -25,7 +47,7 @@ const OrganizationContributionsTable = () => {
   };
 
   const table = useReactTable({
-    data: organizationContributions,
+    data: organizationContributions.items,
     columns: contributionColumns,
     getCoreRowModel: getCoreRowModel(),
   });
@@ -64,6 +86,8 @@ const OrganizationContributionsTable = () => {
             ))}
           </tbody>
         </table>
+
+        {/* <Button className='mx-auto'></Button> */}
       </div>
     </div>
   );
