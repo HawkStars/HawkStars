@@ -15,16 +15,11 @@ const PinhelSlider = () => {
             key={index}
             style={{
               position: 'relative',
-              maxHeight: '500px',
+              height: '500px',
               width: '100%',
             }}
           >
-            <Image
-              src={item.url}
-              alt={''}
-              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-              style={{ objectFit: 'fill' }}
-            />
+            <Image src={item.url} alt={''} sizes='100vw' className='object-cover' />
           </SwiperSlide>
         ))}
       </Slider>

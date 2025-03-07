@@ -49,7 +49,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
                 <p className='text-body_regular text-justify'>{t('beginning')}</p>
                 <p className='text-body_regular mt-2 text-justify'>{t('euro_hawk')}</p>
               </div>
-              <div className='max-xl:-mx-4 max-xl:flex max-xl:justify-center'>
+              <div className='mx-auto max-xl:-mx-4 max-xl:flex max-xl:justify-center'>
                 <Image src={historyHero} alt='foundation of hawkstars' />
               </div>
             </div>
