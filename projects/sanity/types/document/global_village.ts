@@ -2,9 +2,9 @@ import { defineField, defineType } from 'sanity';
 
 export default defineType({
   name: 'global_village',
-  title: 'Global Villages',
+  title: 'Global Village',
   type: 'document',
-  description: 'Informação do global village até eu criar o tipo da pagina',
+  description: 'Informação do global village até eu criar o tipo da pagina.',
   fields: [
     defineField({
       name: 'hero_block',

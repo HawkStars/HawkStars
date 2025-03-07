@@ -150,6 +150,20 @@ export type Social_link = {
   type: 'facebook' | 'linkedin' | 'instagram' | 'website';
 };
 
+export type Partner = {
+  _id: string;
+  _type: 'partner';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  image?: Array<
+    {
+      _key: string;
+    } & CloudinaryAsset
+  >;
+};
+
 export type Global_village = {
   _id: string;
   _type: 'global_village';
@@ -446,6 +460,7 @@ export type AllSanitySchemaTypes =
   | Youtube
   | Accordion
   | Social_link
+  | Partner
   | Global_village
   | List
   | Hero
@@ -464,7 +479,7 @@ export type AllSanitySchemaTypes =
   | CloudinaryAsset
   | CloudinaryAssetContext;
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ./types/groq/art.ts
+// Source: ./types/queries/art.ts
 // Variable: allCuratorsQuery
 // Query: *[_type == "curator"]
 export type AllCuratorsQueryResult = Array<{
@@ -622,7 +637,7 @@ export type GetAllArtworkImagesQueryResult = Array<{
   is_sold: boolean | null;
 }>;
 
-// Source: ./types/groq/contribution.ts
+// Source: ./types/queries/contribution.ts
 // Variable: getChairsContributionsQuery
 // Query: *[_type == "contribution" && is_confirmed == true && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]
 export type GetChairsContributionsQueryResult = Array<{
@@ -671,7 +686,7 @@ export type ContributionByTypeQueryResult = Array<{
   value: number;
 }>;
 
-// Source: ./types/groq/event.ts
+// Source: ./types/queries/event.ts
 // Variable: getSingleEventsQuery
 // Query: *[_type == "event" && slug.current == $slug]
 export type GetSingleEventsQueryResult = Array<{

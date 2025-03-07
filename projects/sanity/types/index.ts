@@ -5,8 +5,7 @@ import contribution from './document/contribution';
 import curator from './document/curator';
 import event from './document/event';
 import global_village from './document/global_village';
-// import news from './document/news';
-// import report from './document/report';
+import partner from './document/partner';
 
 // Object Documents
 import socialLink from './objects/socialLink';
@@ -22,6 +21,7 @@ export const documentSchemaTypes = [
   contribution,
   board_member,
   global_village,
+  partner,
 ];
 
 export const objectSchemaTypes = [socialLink, hero, list, accordion, youtube];

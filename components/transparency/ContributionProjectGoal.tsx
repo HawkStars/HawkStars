@@ -11,18 +11,20 @@ import { totalMoneyGatheredQuery } from '@/projects/sanity/types/queries/contrib
 export const PROJECT_GOAL = 900000;
 
 const ContributionProjectGoal = () => {
+  const [barSettings, setBarSettings] = useState<{ width: string; percent: string }>({
+    width: '0px',
+    percent: '0',
+  });
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'transparency');
   const [totalContribution, setTotalContribution] = useState<number>(0);
-  const normalizedGoal = (totalContribution || 0) / PROJECT_GOAL;
-  const goalAsPercentage = (normalizedGoal * 100).toFixed(2);
-  const loadingWidth = Math.round((window?.innerWidth || 0) * normalizedGoal) + 'px';
 
   const getCurrentProjetContribution = async () => {
     try {
       const response: TotalMoneyGatheredQueryResult = await sanityFetch({
         query: totalMoneyGatheredQuery,
       });
+
       setTotalContribution(response);
     } catch (e) {}
   };
@@ -30,6 +32,13 @@ const ContributionProjectGoal = () => {
   useEffect(() => {
     getCurrentProjetContribution();
   }, []);
+
+  useEffect(() => {
+    const normalizedGoal = (totalContribution || 0) / PROJECT_GOAL;
+    const goalAsPercentage = (normalizedGoal * 100).toFixed(2);
+    const loadingWidth = Math.round((window?.innerWidth || 0) * normalizedGoal) + 'px';
+    setBarSettings({ width: loadingWidth, percent: goalAsPercentage });
+  }, [totalContribution]);
 
   return (
     <div className='flex flex-col gap-4 bg-bege-light px-8 py-8 lg:px-40 lg:py-20'>
@@ -40,10 +49,10 @@ const ContributionProjectGoal = () => {
       <div className='rounded-xs relative mt-5 h-6 w-full border border-green'>
         <div
           className={`h-full bg-gradient-to-r from-bege-dark from-10% to-bege-light to-95%`}
-          style={{ width: loadingWidth }}
+          style={{ width: barSettings.width }}
         >
           <p className='absolute my-auto flex w-full justify-center'>
-            {totalContribution}€ ({goalAsPercentage}%)
+            {totalContribution}€ ({barSettings.percent}%)
           </p>
         </div>
       </div>
