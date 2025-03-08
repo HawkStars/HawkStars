@@ -27,22 +27,5 @@ export default defineType({
       type: 'array',
       of: [{ type: 'slide' }],
     }),
-    defineField({
-      name: 'cta',
-      title: 'Call to Action',
-      type: 'object',
-      fields: [
-        {
-          name: 'text',
-          title: 'Text',
-          type: 'string',
-        },
-        {
-          name: 'url',
-          title: 'URL',
-          type: 'url',
-        },
-      ],
-    }),
   ],
 });

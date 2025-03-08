@@ -1,7 +1,5 @@
 'use client';
 
-// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
-
 import { transformUrl, urls } from '@/utils/paths';
 import classNames from 'classnames';
 import Link from 'next/link';

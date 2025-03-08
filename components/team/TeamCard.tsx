@@ -4,7 +4,6 @@ import { BsLinkedin } from 'react-icons/bs';
 
 import Link from 'next/link';
 import { useTranslation } from '../../i18n/client';
-// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 type TeamCardProps = {

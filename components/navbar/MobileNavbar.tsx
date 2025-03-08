@@ -15,7 +15,6 @@ import { useRouter } from 'next/navigation';
 import { urls, transformUrl } from '@/utils/paths';
 
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
-// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 
 import { hawkLogo } from '@/utils/models/images/logos';
 

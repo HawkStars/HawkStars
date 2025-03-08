@@ -1,7 +1,6 @@
 'use client';
 import { PT, GB } from 'country-flag-icons/react/3x2';
 import classNames from 'classnames';
-// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 
 import { useRouter } from 'next/navigation';
 import { useLanguageCookie, useSetLanguageCookie } from '@/utils/contexts/AppProvider';
@@ -20,7 +19,6 @@ const LanguageSwitcher = () => {
       .splice(1);
 
     const newPath = `/${newLng}/${urlValues.join('/')}`;
-    // router.push(newPath);
   };
 
   return (

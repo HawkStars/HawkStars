@@ -15,7 +15,6 @@ import { MenuSections } from './config';
 import DropdownMenu from '../menu/DropdownMenu';
 
 import { hawkLogo } from '@/utils/models/images/logos';
-// import { useLanguageCookie } from '@/hooks/useLanguageCookie';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import MenuItem from '../menu/MenuItem';
 
