@@ -68,4 +68,11 @@ export default defineType({
       type: 'text',
     }),
   ],
+  orderings: [
+    {
+      title: 'By Contribution Value',
+      name: 'contributionValueDesc',
+      by: [{ field: 'value', direction: 'desc' }],
+    },
+  ],
 });

@@ -671,7 +671,7 @@ export type TotalMoneyGatheredQueryResult = number;
 // Query: count(*[_type == "contribution" && is_confirmed == true])
 export type CountContributionQueryResult = number;
 // Variable: firstPageContributionQuery
-// Query: *[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value, _id }    | order(publishedAt) [0...100]
+// Query: *[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value, _id, _updatedAt }    | order(_updatedAt asc) [0...100]
 export type FirstPageContributionQueryResult = Array<{
   contribution_date: string;
   contribution_type:
@@ -688,9 +688,10 @@ export type FirstPageContributionQueryResult = Array<{
   donor: string;
   value: number;
   _id: string;
+  _updatedAt: string;
 }>;
 // Variable: nextPageContributionQuery
-// Query: *[_type == "contribution" && is_confirmed == true &&     (publishedAt > $lastPublishedAt || (publishedAt == $lastPublishedAt && _id > $lastId))] { contribution_date, contribution_type, donor, value, _id }    | order(publishedAt) [0...100]
+// Query: *[_type == "contribution" && is_confirmed == true &&     (publishedAt > $lastPublishedAt || (publishedAt == $lastPublishedAt && _id > $lastId))] { contribution_date, contribution_type, donor, value, _id, _updatedAt }    | order(_updatedAt asc) [0...100]
 export type NextPageContributionQueryResult = Array<{
   contribution_date: string;
   contribution_type:
@@ -707,6 +708,7 @@ export type NextPageContributionQueryResult = Array<{
   donor: string;
   value: number;
   _id: string;
+  _updatedAt: string;
 }>;
 
 // Source: ./types/queries/event.ts
@@ -833,8 +835,8 @@ declare module '@sanity/client' {
     "*[_type == \"contribution\" && is_confirmed == true &&\n    contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]": GetChairsContributionsQueryResult;
     "math::sum(*[_type == 'contribution' && is_confirmed == true && contribution_type in ['BANK', 'CRYPTO']].value)": TotalMoneyGatheredQueryResult;
     'count(*[_type == "contribution" && is_confirmed == true])': CountContributionQueryResult;
-    '*[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value, _id }\n    | order(publishedAt) [0...100]': FirstPageContributionQueryResult;
-    '*[_type == "contribution" && is_confirmed == true && \n    (publishedAt > $lastPublishedAt || (publishedAt == $lastPublishedAt && _id > $lastId))] { contribution_date, contribution_type, donor, value, _id }\n    | order(publishedAt) [0...100]': NextPageContributionQueryResult;
+    '*[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value, _id, _updatedAt }\n    | order(_updatedAt asc) [0...100]': FirstPageContributionQueryResult;
+    '*[_type == "contribution" && is_confirmed == true && \n    (publishedAt > $lastPublishedAt || (publishedAt == $lastPublishedAt && _id > $lastId))] { contribution_date, contribution_type, donor, value, _id, _updatedAt }\n    | order(_updatedAt asc) [0...100]': NextPageContributionQueryResult;
     '*[_type == "hawkEvent" && slug.current == $slug]': GetSingleEventsQueryResult;
     '*[_type == "hawkEvent"] | order(_id) [0...100]': FirstPageEventsQueryResult;
     '*[_type == "hawkEvent" && _id > $lastId] | order(_id) [0...100]': NextPageEventsQueryResult;

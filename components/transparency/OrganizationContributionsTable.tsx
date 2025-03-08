@@ -15,6 +15,7 @@ import { prepareSanityObjectQuery } from '@/lib/sanity/helpers';
 import Button from '../utils/Button';
 import Spinner from '../utils/Spinner/Spinner';
 import {
+  Contribution,
   CountContributionQueryResult,
   FirstPageContributionQueryResult,
   NextPageContributionQueryResult,
@@ -33,15 +34,18 @@ const getOrganizationContributions = async () => {
   });
 };
 
-const loadMoreContributions = async (lastId: string) => {
+const loadMoreContributions = async (lastId: string, lastPublishedAt: string) => {
   return await sanityFetch<NextPageContributionQueryResult>({
     query: nextPageContributionQuery,
-    params: { lastId },
+    params: { lastId, lastPublishedAt },
   });
 };
 
 const OrganizationContributionsTable = () => {
-  const [lastId, setLastId] = useState('');
+  const [nextContribution, setNextContribution] = useState<Pick<
+    Contribution,
+    '_id' | '_updatedAt'
+  > | null>(null);
   const [loading, setLoading] = useState(false);
   const [organizationContributions, setOrganizationContributions] = useState<{
     count: number;
@@ -56,14 +60,18 @@ const OrganizationContributionsTable = () => {
 
   const fetchOrganizationData = async () => {
     const contributions = await getOrganizationContributions();
-    const lastId = contributions.items[contributions.items.length - 1]._id;
-    setLastId(lastId);
+    const lastFetchedContribution = contributions.items[contributions.items.length - 1];
+    setNextContribution(lastFetchedContribution);
     setOrganizationContributions(contributions);
   };
 
   const nextBatchOfContributions = async () => {
+    if (!nextContribution) return;
     setLoading(true);
-    const contributions = await loadMoreContributions(lastId);
+    const contributions = await loadMoreContributions(
+      nextContribution._id,
+      nextContribution._updatedAt
+    );
     setOrganizationContributions((current) => ({
       ...current,
       items: [...current.items, ...contributions],
