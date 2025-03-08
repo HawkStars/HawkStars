@@ -1,7 +1,7 @@
 import { defineField, defineType } from 'sanity';
 
 export default defineType({
-  name: 'event',
+  name: 'hawkEvent',
   title: 'Event',
   type: 'document',
   deprecated: { reason: 'Not yet being used on the website' },

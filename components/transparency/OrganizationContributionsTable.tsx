@@ -14,9 +14,17 @@ import {
 import { prepareSanityObjectQuery } from '@/lib/sanity/helpers';
 import Button from '../utils/Button';
 import Spinner from '../utils/Spinner/Spinner';
+import {
+  CountContributionQueryResult,
+  FirstPageContributionQueryResult,
+  NextPageContributionQueryResult,
+} from '@/projects/sanity/sanity.types';
 
 const getOrganizationContributions = async () => {
-  return await sanityFetch({
+  return await sanityFetch<{
+    items: FirstPageContributionQueryResult;
+    count: CountContributionQueryResult;
+  }>({
     query: prepareSanityObjectQuery({
       items: firstPageContributionQuery,
       count: countContributionQuery,
@@ -26,8 +34,9 @@ const getOrganizationContributions = async () => {
 };
 
 const loadMoreContributions = async (lastId: string) => {
-  return await sanityFetch({
+  return await sanityFetch<NextPageContributionQueryResult>({
     query: nextPageContributionQuery,
+    params: { lastId },
   });
 };
 
@@ -57,7 +66,7 @@ const OrganizationContributionsTable = () => {
     const contributions = await loadMoreContributions(lastId);
     setOrganizationContributions((current) => ({
       ...current,
-      items: [...current.items, ...contributions.items],
+      items: [...current.items, ...contributions],
     }));
     setLoading(false);
   };

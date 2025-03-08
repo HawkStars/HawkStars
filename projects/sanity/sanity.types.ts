@@ -263,9 +263,9 @@ export type Contribution = {
   extra_info?: string;
 };
 
-export type Event = {
+export type HawkEvent = {
   _id: string;
-  _type: 'event';
+  _type: 'hawkEvent';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -466,7 +466,7 @@ export type AllSanitySchemaTypes =
   | Hero
   | Board_member
   | Contribution
-  | Event
+  | HawkEvent
   | Art
   | Curator
   | Slug
@@ -639,7 +639,7 @@ export type GetAllArtworkImagesQueryResult = Array<{
 
 // Source: ./types/queries/contribution.ts
 // Variable: getChairsContributionsQuery
-// Query: *[_type == "contribution" && is_confirmed == true && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]
+// Query: *[_type == "contribution" && is_confirmed == true &&    contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]
 export type GetChairsContributionsQueryResult = Array<{
   _id: string;
   _type: 'contribution';
@@ -671,7 +671,7 @@ export type TotalMoneyGatheredQueryResult = number;
 // Query: count(*[_type == "contribution" && is_confirmed == true])
 export type CountContributionQueryResult = number;
 // Variable: firstPageContributionQuery
-// Query: *[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value } | order(_id) [0...100]
+// Query: *[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value, _id }    | order(publishedAt) [0...100]
 export type FirstPageContributionQueryResult = Array<{
   contribution_date: string;
   contribution_type:
@@ -687,9 +687,10 @@ export type FirstPageContributionQueryResult = Array<{
     | 'WALL_NAME_SINGULAR';
   donor: string;
   value: number;
+  _id: string;
 }>;
 // Variable: nextPageContributionQuery
-// Query: *[_type == "contribution" && is_confirmed == true && _id > $lastId] { contribution_date, contribution_type, donor, value } | order(_id) [0...100]
+// Query: *[_type == "contribution" && is_confirmed == true &&     (publishedAt > $lastPublishedAt || (publishedAt == $lastPublishedAt && _id > $lastId))] { contribution_date, contribution_type, donor, value, _id }    | order(publishedAt) [0...100]
 export type NextPageContributionQueryResult = Array<{
   contribution_date: string;
   contribution_type:
@@ -705,14 +706,15 @@ export type NextPageContributionQueryResult = Array<{
     | 'WALL_NAME_SINGULAR';
   donor: string;
   value: number;
+  _id: string;
 }>;
 
 // Source: ./types/queries/event.ts
 // Variable: getSingleEventsQuery
-// Query: *[_type == "event" && slug.current == $slug]
+// Query: *[_type == "hawkEvent" && slug.current == $slug]
 export type GetSingleEventsQueryResult = Array<{
   _id: string;
-  _type: 'event';
+  _type: 'hawkEvent';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -731,10 +733,10 @@ export type GetSingleEventsQueryResult = Array<{
   >;
 }>;
 // Variable: firstPageEventsQuery
-// Query: *[_type == "event"] | order(_id) [0...100]
+// Query: *[_type == "hawkEvent"] | order(_id) [0...100]
 export type FirstPageEventsQueryResult = Array<{
   _id: string;
-  _type: 'event';
+  _type: 'hawkEvent';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -753,10 +755,10 @@ export type FirstPageEventsQueryResult = Array<{
   >;
 }>;
 // Variable: nextPageEventsQuery
-// Query: *[_type == "event" && _id > $lastId] | order(_id) [0...100]
+// Query: *[_type == "hawkEvent" && _id > $lastId] | order(_id) [0...100]
 export type NextPageEventsQueryResult = Array<{
   _id: string;
-  _type: 'event';
+  _type: 'hawkEvent';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -775,10 +777,10 @@ export type NextPageEventsQueryResult = Array<{
   >;
 }>;
 // Variable: firstPageEventByTypeQuery
-// Query: *[_type == "event" && type_event == $type] | order(_id) [0...100]
+// Query: *[_type == "hawkEvent" && type_event == $type] | order(_id) [0...100]
 export type FirstPageEventByTypeQueryResult = Array<{
   _id: string;
-  _type: 'event';
+  _type: 'hawkEvent';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -797,10 +799,10 @@ export type FirstPageEventByTypeQueryResult = Array<{
   >;
 }>;
 // Variable: nextPageEventByTypeQuery
-// Query: *[_type == "event" && type_event == $type && _id > $lastId] | order(_id) [0...100]
+// Query: *[_type == "hawkEvent" && type_event == $type && _id > $lastId] | order(_id) [0...100]
 export type NextPageEventByTypeQueryResult = Array<{
   _id: string;
-  _type: 'event';
+  _type: 'hawkEvent';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -828,15 +830,15 @@ declare module '@sanity/client' {
     '*[_type == "art"]': AllArtworkResult;
     '*[_type == "art" && slug.current == $slug][0]': GetSingleArtworkResult;
     '*[_type == "art"]{image, title, slug, is_sold} | order(_createdAt desc)': GetAllArtworkImagesQueryResult;
-    "*[_type == \"contribution\" && is_confirmed == true && contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]": GetChairsContributionsQueryResult;
+    "*[_type == \"contribution\" && is_confirmed == true &&\n    contribution_type in ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR']]": GetChairsContributionsQueryResult;
     "math::sum(*[_type == 'contribution' && is_confirmed == true && contribution_type in ['BANK', 'CRYPTO']].value)": TotalMoneyGatheredQueryResult;
     'count(*[_type == "contribution" && is_confirmed == true])': CountContributionQueryResult;
-    '*[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value } | order(_id) [0...100]': FirstPageContributionQueryResult;
-    '*[_type == "contribution" && is_confirmed == true && _id > $lastId] { contribution_date, contribution_type, donor, value } | order(_id) [0...100]': NextPageContributionQueryResult;
-    '*[_type == "event" && slug.current == $slug]': GetSingleEventsQueryResult;
-    '*[_type == "event"] | order(_id) [0...100]': FirstPageEventsQueryResult;
-    '*[_type == "event" && _id > $lastId] | order(_id) [0...100]': NextPageEventsQueryResult;
-    '*[_type == "event" && type_event == $type] | order(_id) [0...100]': FirstPageEventByTypeQueryResult;
-    '*[_type == "event" && type_event == $type && _id > $lastId] | order(_id) [0...100]': NextPageEventByTypeQueryResult;
+    '*[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value, _id }\n    | order(publishedAt) [0...100]': FirstPageContributionQueryResult;
+    '*[_type == "contribution" && is_confirmed == true && \n    (publishedAt > $lastPublishedAt || (publishedAt == $lastPublishedAt && _id > $lastId))] { contribution_date, contribution_type, donor, value, _id }\n    | order(publishedAt) [0...100]': NextPageContributionQueryResult;
+    '*[_type == "hawkEvent" && slug.current == $slug]': GetSingleEventsQueryResult;
+    '*[_type == "hawkEvent"] | order(_id) [0...100]': FirstPageEventsQueryResult;
+    '*[_type == "hawkEvent" && _id > $lastId] | order(_id) [0...100]': NextPageEventsQueryResult;
+    '*[_type == "hawkEvent" && type_event == $type] | order(_id) [0...100]': FirstPageEventByTypeQueryResult;
+    '*[_type == "hawkEvent" && type_event == $type && _id > $lastId] | order(_id) [0...100]': NextPageEventByTypeQueryResult;
   }
 }

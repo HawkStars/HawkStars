@@ -151,14 +151,12 @@ const HomeComponent = ({ lng }: LanguageProps) => {
             >
               {photos.map((item, index) => (
                 <SwiperSlide key={index}>
-                  {/* eslint-disable @next/next/no-img-element */}
                   <img
                     className='swiper-lazy'
                     src={item}
                     alt={index.toString()}
                     style={{ objectFit: 'cover', height: '100%', width: '100%' }}
                   />
-                  {/* eslint-enable @next/next/no-img-element */}
                 </SwiperSlide>
               ))}
             </Slider>
