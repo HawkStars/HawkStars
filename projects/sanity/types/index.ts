@@ -13,6 +13,8 @@ import hero from './objects/hero';
 import list from './objects/list';
 import accordion from './objects/accordion';
 import youtube from './objects/embedYoutube';
+import slide from './objects/slide';
+import homePage from './document/homePage';
 
 export const documentSchemaTypes = [
   curator,
@@ -22,8 +24,9 @@ export const documentSchemaTypes = [
   board_member,
   global_village,
   partner,
+  homePage,
 ];
 
-export const objectSchemaTypes = [socialLink, hero, list, accordion, youtube];
+export const objectSchemaTypes = [socialLink, hero, list, accordion, youtube, slide];
 
 export const allSchemaTypes = [...documentSchemaTypes, ...objectSchemaTypes];

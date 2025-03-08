@@ -39,7 +39,7 @@ export default defineConfig({
         {
           name: 'formattedText',
           type: 'array',
-          of: [defineArrayMember({ type: 'block' }), defineArrayMember({ type: 'youtube' })],
+          of: [defineArrayMember({ type: 'block', of: [{ type: 'slide' }, { type: 'youtube' }] })],
         },
       ],
     }),
