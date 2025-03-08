@@ -1,8 +1,12 @@
-import HomeComponent from '../../components/home/HomeComponent';
 import { Metadata } from 'next';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { LanguagePageProps } from './types';
 import { Language } from '@/i18n/settings';
+import ErasmusSlider from '@/components/home/ErasmusSlider';
+import GlobalVillageSection from '@/components/home/GlobalVillage';
+import HomeHeroSection from '@/components/home/HomeHeroSection';
+import HomeObjectivesSection from '@/components/home/HomeObjectivesSection';
+import VisionSection from '@/components/home/VisionSection';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -20,5 +24,13 @@ export default async function Home(props: HomeProps) {
 
   const { lng } = params;
 
-  return <HomeComponent lng={lng} />;
+  return (
+    <>
+      <HomeHeroSection />
+      <HomeObjectivesSection lng={lng} />
+      <VisionSection lng={lng} />
+      <GlobalVillageSection lng={lng} />
+      <ErasmusSlider />
+    </>
+  );
 }

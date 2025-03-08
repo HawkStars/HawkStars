@@ -1,7 +1,11 @@
+'use client';
+
 import SliderSkeleton from '@/components/skeletons/SliderSkeleton';
 import DelayComponent from '@/components/utils/DelayComponent';
 import { Slider } from '@/components/utils/Slider';
 import { SwiperSlide } from 'swiper/react';
+
+const photos = Array.from({ length: 25 }, (_, i) => `/images/projects/${i + 1}.jpeg`);
 
 const ErasmusSlider = () => {
   return (
