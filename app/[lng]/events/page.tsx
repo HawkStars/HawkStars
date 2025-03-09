@@ -19,11 +19,11 @@ type EventsPageProps = { params: Promise<LanguageProps> };
 const EventsPage = async (props: EventsPageProps) => {
   const params = await props.params;
   const { lng } = params;
-  const { t } = await getServerTranslation(lng, 'events');
+  const { t } = await getServerTranslation(lng, 'common');
 
   return (
     <HawkStarsSection className='flex gap-8 bg-bege-light pb-8 pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
-      <h1 className='text-h1_semibold text-center'>{t('')}</h1>
+      <h1 className='text-h1_semibold mt-4 text-center'>{t('navbar.events')}</h1>
       <EventsList />
     </HawkStarsSection>
   );

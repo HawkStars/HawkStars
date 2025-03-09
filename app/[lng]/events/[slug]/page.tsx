@@ -16,7 +16,7 @@ const getEventInformation = async (slug: string) => {
   return response;
 };
 
-export async function generateMetadata(props: CuratorPageProps): Promise<Metadata> {
+export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng, slug } = params;
   const artwork = await getEventInformation(slug);
@@ -25,9 +25,9 @@ export async function generateMetadata(props: CuratorPageProps): Promise<Metadat
   return metadataPage;
 }
 
-type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
+type EventPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
-const CuratorPage = async (props: CuratorPageProps) => {
+const EventPage = async (props: EventPageProps) => {
   const params = await props.params;
   const { lng, slug } = params;
   if (!slug) return notFound();
@@ -52,4 +52,4 @@ const CuratorPage = async (props: CuratorPageProps) => {
   );
 };
 
-export default CuratorPage;
+export default EventPage;

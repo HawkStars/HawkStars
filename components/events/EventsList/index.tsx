@@ -2,7 +2,11 @@
 
 import Image from 'next/image';
 import { sanityFetch } from '@/lib/sanity/sanityClient';
-import { FirstPageEventsQueryResult, HawkEvent } from '@/projects/sanity/sanity.types';
+import {
+  FirstPageEventsQueryResult,
+  HawkEvent,
+  NextPageEventsQueryResult,
+} from '@/projects/sanity/sanity.types';
 import { firstPageEventsQuery, nextPageEventsQuery } from '@/projects/sanity/types/queries/event';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -14,33 +18,35 @@ const getFirstHawkEvents = async () => {
   });
 };
 
-const getNextPageEvents = async (lastId: string) => {
-  return await sanityFetch<FirstPageEventsQueryResult>({
+const getNextPageEvents = async (lastId: string, updatedAt: string) => {
+  return await sanityFetch<NextPageEventsQueryResult>({
     query: nextPageEventsQuery,
     revalidate: 86400,
-    params: { lastId },
+    params: { lastId, updatedAt },
   });
 };
 
 const EventsList = () => {
   const [events, setEvents] = useState<HawkEvent[]>([]);
-  const [lastId, setLastId] = useState<string | null>(null);
+  const [lastHawkEvent, setLastHawkEvent] = useState<Pick<HawkEvent, '_id' | '_updatedAt'> | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
 
   const fetchEvents = async () => {
     setLoading(true);
     const result = await getFirstHawkEvents();
     setEvents(result);
-    if (result.length > 0) setLastId(result[result.length - 1]._id);
+    if (result.length > 0) setLastHawkEvent(result[result.length - 1]);
     setLoading(false);
   };
 
   const fetchNextPage = async () => {
     setLoading(true);
-    if (!lastId) return;
-    const result = await getNextPageEvents(lastId);
+    if (!lastHawkEvent) return;
+    const result = await getNextPageEvents(lastHawkEvent._id, lastHawkEvent._updatedAt);
     setEvents([...events, ...result]);
-    if (result.length > 0) setLastId(result[result.length - 1]._id);
+    if (result.length > 0) setLastHawkEvent(result[result.length - 1]);
     setLoading(false);
   };
 
