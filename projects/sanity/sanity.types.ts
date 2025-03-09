@@ -39,6 +39,22 @@ export type SanityImageDimensions = {
   aspectRatio?: number;
 };
 
+export type SanityImageHotspot = {
+  _type: 'sanity.imageHotspot';
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
+export type SanityImageCrop = {
+  _type: 'sanity.imageCrop';
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
 export type SanityFileAsset = {
   _id: string;
   _type: 'sanity.fileAsset';
@@ -61,6 +77,40 @@ export type SanityFileAsset = {
   source?: SanityAssetSourceData;
 };
 
+export type SanityImageAsset = {
+  _id: string;
+  _type: 'sanity.imageAsset';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  originalFilename?: string;
+  label?: string;
+  title?: string;
+  description?: string;
+  altText?: string;
+  sha1hash?: string;
+  extension?: string;
+  mimeType?: string;
+  size?: number;
+  assetId?: string;
+  uploadId?: string;
+  path?: string;
+  url?: string;
+  metadata?: SanityImageMetadata;
+  source?: SanityAssetSourceData;
+};
+
+export type SanityImageMetadata = {
+  _type: 'sanity.imageMetadata';
+  location?: Geopoint;
+  dimensions?: SanityImageDimensions;
+  palette?: SanityImagePalette;
+  lqip?: string;
+  blurHash?: string;
+  hasAlpha?: boolean;
+  isOpaque?: boolean;
+};
+
 export type Geopoint = {
   _type: 'geopoint';
   lat?: number;
@@ -68,20 +118,17 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type SanityAssetSourceData = {
+  _type: 'sanity.assetSourceData';
+  name?: string;
+  id?: string;
+  url?: string;
+};
+
 export type Slide = {
   _type: 'slide';
   title?: string;
-  heroImage?: {
-    asset?: {
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: 'image';
-  };
+  hero?: CloudinaryAsset;
   description?: string;
 };
 
@@ -117,17 +164,7 @@ export type HomePage = {
   _updatedAt: string;
   _rev: string;
   title?: string;
-  heroImage?: {
-    asset?: {
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: 'image';
-  };
+  heroImage?: CloudinaryAsset;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -151,67 +188,6 @@ export type HomePage = {
       _key: string;
     } & Slide
   >;
-  cta?: {
-    text?: string;
-    url?: string;
-  };
-};
-
-export type SanityImageCrop = {
-  _type: 'sanity.imageCrop';
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: 'sanity.imageHotspot';
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
-
-export type SanityImageAsset = {
-  _id: string;
-  _type: 'sanity.imageAsset';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
-  uploadId?: string;
-  path?: string;
-  url?: string;
-  metadata?: SanityImageMetadata;
-  source?: SanityAssetSourceData;
-};
-
-export type SanityAssetSourceData = {
-  _type: 'sanity.assetSourceData';
-  name?: string;
-  id?: string;
-  url?: string;
-};
-
-export type SanityImageMetadata = {
-  _type: 'sanity.imageMetadata';
-  location?: Geopoint;
-  dimensions?: SanityImageDimensions;
-  palette?: SanityImagePalette;
-  lqip?: string;
-  blurHash?: string;
-  hasAlpha?: boolean;
-  isOpaque?: boolean;
 };
 
 export type Partner = {
@@ -221,11 +197,7 @@ export type Partner = {
   _updatedAt: string;
   _rev: string;
   name: string;
-  image?: Array<
-    {
-      _key: string;
-    } & CloudinaryAsset
-  >;
+  image?: CloudinaryAsset;
 };
 
 export type Global_village = {
@@ -426,29 +398,32 @@ export type Slug = {
 
 export type InternationalizedArrayFormattedTextValue = {
   _type: 'internationalizedArrayFormattedTextValue';
-  value?: Array<
-    | {
-        children?: Array<{
+  value?: Array<{
+    children?: Array<
+      | {
           marks?: Array<string>;
           text?: string;
           _type: 'span';
           _key: string;
-        }>;
-        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
-        listItem?: 'bullet' | 'number';
-        markDefs?: Array<{
-          href?: string;
-          _type: 'link';
+        }
+      | ({
           _key: string;
-        }>;
-        level?: number;
-        _type: 'block';
-        _key: string;
-      }
-    | ({
-        _key: string;
-      } & Youtube)
-  >;
+        } & Slide)
+      | ({
+          _key: string;
+        } & Youtube)
+    >;
+    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
 };
 
 export type InternationalizedArrayStringValue = {
@@ -514,18 +489,18 @@ export type AllSanitySchemaTypes =
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
+  | SanityImageHotspot
+  | SanityImageCrop
   | SanityFileAsset
+  | SanityImageAsset
+  | SanityImageMetadata
   | Geopoint
+  | SanityAssetSourceData
   | Slide
   | Youtube
   | Accordion
   | Social_link
   | HomePage
-  | SanityImageCrop
-  | SanityImageHotspot
-  | SanityImageAsset
-  | SanityAssetSourceData
-  | SanityImageMetadata
   | Partner
   | Global_village
   | List
@@ -779,8 +754,8 @@ export type NextPageContributionQueryResult = Array<{
 
 // Source: ./types/queries/event.ts
 // Variable: getSingleEventsQuery
-// Query: *[_type == "hawkEvent" && slug.current == $slug]
-export type GetSingleEventsQueryResult = Array<{
+// Query: *[_type == "hawkEvent" && slug.current == $slug][0]
+export type GetSingleEventsQueryResult = {
   _id: string;
   _type: 'hawkEvent';
   _createdAt: string;
@@ -799,76 +774,41 @@ export type GetSingleEventsQueryResult = Array<{
       _key: string;
     } & CloudinaryAsset
   >;
-}>;
+} | null;
+// Variable: countEventsQuery
+// Query: count(*[_type == "hawkEvent"])
+export type CountEventsQueryResult = number;
 // Variable: firstPageEventsQuery
-// Query: *[_type == "hawkEvent"] | order(_id) [0...100]
+// Query: *[_type == "hawkEvent"] { _id, _updatedAt, name, slug, type_event, image } | order(_id) [0...10]
 export type FirstPageEventsQueryResult = Array<{
   _id: string;
-  _type: 'hawkEvent';
-  _createdAt: string;
   _updatedAt: string;
-  _rev: string;
-  name?: string;
-  slug?: Slug;
-  type_event?: 'erasmus' | 'international_event' | 'local_event' | 'other';
-  description?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayFormattedTextValue
-  >;
-  image?: Array<
+  name: string | null;
+  slug: Slug | null;
+  type_event: 'erasmus' | 'international_event' | 'local_event' | 'other' | null;
+  image: Array<
     {
       _key: string;
     } & CloudinaryAsset
-  >;
+  > | null;
 }>;
 // Variable: nextPageEventsQuery
-// Query: *[_type == "hawkEvent" && _id > $lastId] | order(_id) [0...100]
+// Query: *[_type == "hawkEvent" &&     (publishedAt > $lastPublishedAt || (publishedAt == $lastPublishedAt && _id > $lastId))] { _id, _updatedAt, name, slug, type_event, image }     | order(_id) [0...10]
 export type NextPageEventsQueryResult = Array<{
   _id: string;
-  _type: 'hawkEvent';
-  _createdAt: string;
   _updatedAt: string;
-  _rev: string;
-  name?: string;
-  slug?: Slug;
-  type_event?: 'erasmus' | 'international_event' | 'local_event' | 'other';
-  description?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayFormattedTextValue
-  >;
-  image?: Array<
+  name: string | null;
+  slug: Slug | null;
+  type_event: 'erasmus' | 'international_event' | 'local_event' | 'other' | null;
+  image: Array<
     {
       _key: string;
     } & CloudinaryAsset
-  >;
+  > | null;
 }>;
 // Variable: firstPageEventByTypeQuery
-// Query: *[_type == "hawkEvent" && type_event == $type] | order(_id) [0...100]
+// Query: *[_type == "hawkEvent" && type_event == $type] | order(_id) [0...10]
 export type FirstPageEventByTypeQueryResult = Array<{
-  _id: string;
-  _type: 'hawkEvent';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  slug?: Slug;
-  type_event?: 'erasmus' | 'international_event' | 'local_event' | 'other';
-  description?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayFormattedTextValue
-  >;
-  image?: Array<
-    {
-      _key: string;
-    } & CloudinaryAsset
-  >;
-}>;
-// Variable: nextPageEventByTypeQuery
-// Query: *[_type == "hawkEvent" && type_event == $type && _id > $lastId] | order(_id) [0...100]
-export type NextPageEventByTypeQueryResult = Array<{
   _id: string;
   _type: 'hawkEvent';
   _createdAt: string;
@@ -903,10 +843,10 @@ declare module '@sanity/client' {
     'count(*[_type == "contribution" && is_confirmed == true])': CountContributionQueryResult;
     '*[_type == "contribution" && is_confirmed == true] { contribution_date, contribution_type, donor, value, _id, _updatedAt }\n    | order(_updatedAt asc) [0...100]': FirstPageContributionQueryResult;
     '*[_type == "contribution" && is_confirmed == true && \n    (publishedAt > $lastPublishedAt || (publishedAt == $lastPublishedAt && _id > $lastId))] { contribution_date, contribution_type, donor, value, _id, _updatedAt }\n    | order(_updatedAt asc) [0...100]': NextPageContributionQueryResult;
-    '*[_type == "hawkEvent" && slug.current == $slug]': GetSingleEventsQueryResult;
-    '*[_type == "hawkEvent"] | order(_id) [0...100]': FirstPageEventsQueryResult;
-    '*[_type == "hawkEvent" && _id > $lastId] | order(_id) [0...100]': NextPageEventsQueryResult;
-    '*[_type == "hawkEvent" && type_event == $type] | order(_id) [0...100]': FirstPageEventByTypeQueryResult;
-    '*[_type == "hawkEvent" && type_event == $type && _id > $lastId] | order(_id) [0...100]': NextPageEventByTypeQueryResult;
+    '*[_type == "hawkEvent" && slug.current == $slug][0]': GetSingleEventsQueryResult;
+    'count(*[_type == "hawkEvent"])': CountEventsQueryResult;
+    '*[_type == "hawkEvent"] { _id, _updatedAt, name, slug, type_event, image } | order(_id) [0...10]': FirstPageEventsQueryResult;
+    '*[_type == "hawkEvent" && \n    (publishedAt > $lastPublishedAt || (publishedAt == $lastPublishedAt && _id > $lastId))] { _id, _updatedAt, name, slug, type_event, image } \n    | order(_id) [0...10]': NextPageEventsQueryResult;
+    '*[_type == "hawkEvent" && type_event == $type] | order(_id) [0...10]': FirstPageEventByTypeQueryResult;
   }
 }

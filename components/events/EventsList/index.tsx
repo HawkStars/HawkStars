@@ -57,23 +57,26 @@ const EventsList = () => {
   return (
     <>
       {events.length == 0 && <div>No events found</div>}
-
-      <ul>
-        {events.map((event: HawkEvent) => {
-          const firstImage = (event.image && event.image[0]) || null;
-          return (
-            <Link key={event._id} href={`/events/${event.slug?.current}`}>
-              <div>
-                <span>{event.name}</span>
-                {firstImage?.url && (
-                  <Image src={firstImage.url} alt={event.name || ''} width={200} height={200} />
-                )}
-              </div>
-            </Link>
-          );
-        })}
-      </ul>
-      {loading ? <p>Loading...</p> : <button onClick={fetchNextPage}>Load More</button>}
+      {events.length > 0 && (
+        <>
+          <ul>
+            {events.map((event: HawkEvent) => {
+              const firstImage = (event.image && event.image[0]) || null;
+              return (
+                <Link key={event._id} href={`/events/${event.slug?.current}`}>
+                  <div>
+                    <span>{event.name}</span>
+                    {firstImage?.url && (
+                      <Image src={firstImage.url} alt={event.name || ''} width={200} height={200} />
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
+          </ul>
+          {loading ? <p>Loading...</p> : <button onClick={fetchNextPage}>Load More</button>}
+        </>
+      )}
     </>
   );
 };
