@@ -36,7 +36,7 @@ const EventsList = () => {
   const fetchEvents = async () => {
     setLoading(true);
     const result = await getFirstHawkEvents();
-    setEvents(result);
+    setEvents(result as HawkEvent[]);
     if (result.length > 0) setLastHawkEvent(result[result.length - 1]);
     setLoading(false);
   };
@@ -45,7 +45,7 @@ const EventsList = () => {
     setLoading(true);
     if (!lastHawkEvent) return;
     const result = await getNextPageEvents(lastHawkEvent._id, lastHawkEvent._updatedAt);
-    setEvents([...events, ...result]);
+    setEvents([...events, ...result] as HawkEvent[]);
     if (result.length > 0) setLastHawkEvent(result[result.length - 1]);
     setLoading(false);
   };

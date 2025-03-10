@@ -828,6 +828,28 @@ export type FirstPageEventByTypeQueryResult = Array<{
     } & CloudinaryAsset
   >;
 }>;
+// Variable: nextPageEventByTypeQuery
+// Query: *[_type == "hawkEvent" && type_event == $type &&     (publishedAt > $lastPublishedAt || (publishedAt == $lastPublishedAt && _id > $lastId))]     | order(_id) [0...10]
+export type NextPageEventByTypeQueryResult = Array<{
+  _id: string;
+  _type: 'hawkEvent';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  type_event?: 'erasmus' | 'international_event' | 'local_event' | 'other';
+  description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayFormattedTextValue
+  >;
+  image?: Array<
+    {
+      _key: string;
+    } & CloudinaryAsset
+  >;
+}>;
 
 // Query TypeMap
 import '@sanity/client';
@@ -848,5 +870,6 @@ declare module '@sanity/client' {
     '*[_type == "hawkEvent"] { _id, _updatedAt, name, slug, type_event, image } | order(_id) [0...10]': FirstPageEventsQueryResult;
     '*[_type == "hawkEvent" && \n    (publishedAt > $lastPublishedAt || (publishedAt == $lastPublishedAt && _id > $lastId))] { _id, _updatedAt, name, slug, type_event, image } \n    | order(_id) [0...10]': NextPageEventsQueryResult;
     '*[_type == "hawkEvent" && type_event == $type] | order(_id) [0...10]': FirstPageEventByTypeQueryResult;
+    '*[_type == "hawkEvent" && type_event == $type && \n    (publishedAt > $lastPublishedAt || (publishedAt == $lastPublishedAt && _id > $lastId))] \n    | order(_id) [0...10]': NextPageEventByTypeQueryResult;
   }
 }

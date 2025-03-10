@@ -10,5 +10,5 @@ export const nextPageEventsQuery = groq`*[_type == "hawkEvent" &&
     | order(_id) [0...10]`;
 export const firstPageEventByTypeQuery = groq`*[_type == "hawkEvent" && type_event == $type] | order(_id) [0...10]`;
 export const nextPageEventByTypeQuery = groq`*[_type == "hawkEvent" && type_event == $type && 
-    (publishedAt > $lastPublishedAt || (publishedAt == $lastPublishedAt && _id > $lastId))d] 
+    (publishedAt > $lastPublishedAt || (publishedAt == $lastPublishedAt && _id > $lastId))] 
     | order(_id) [0...10]`;
