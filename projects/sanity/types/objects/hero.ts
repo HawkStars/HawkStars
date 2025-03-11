@@ -9,6 +9,7 @@ export default defineType({
       name: 'title',
       type: 'internationalizedArrayString',
       title: 'Title',
+      initialValue: '',
     },
     {
       name: 'paragraph',

@@ -39,7 +39,19 @@ export default defineConfig({
         {
           name: 'formattedText',
           type: 'array',
-          of: [defineArrayMember({ type: 'block', of: [{ type: 'slide' }, { type: 'youtube' }] })],
+          of: [
+            defineArrayMember({
+              type: 'block',
+              of: [
+                { type: 'accordion' },
+                { type: 'cloudinary.asset' },
+                { type: 'list' },
+                { type: 'hero' },
+                { type: 'slide' },
+                { type: 'youtube' },
+              ],
+            }),
+          ],
         },
       ],
     }),

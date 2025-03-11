@@ -1,22 +1,25 @@
 import { defineField, defineType } from 'sanity';
+import { SEOFields, SEOFieldset, SEOGroup } from '../objects/seo';
+import { CloudinaryAsset, InternationalizedArrayString } from '../../sanity.types';
 
 export default defineType({
   name: 'hawkEvent',
   title: 'Event',
   type: 'document',
-  deprecated: { reason: 'Not yet being used on the website' },
+  groups: [SEOGroup],
   fields: [
     defineField({
-      name: 'name',
-      title: 'Name',
-      type: 'string',
+      name: 'title',
+      title: 'Title',
+      type: 'internationalizedArrayString',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'name',
+        source: 'title',
       },
     }),
     defineField({
@@ -44,5 +47,27 @@ export default defineType({
       type: 'array',
       of: [{ type: 'cloudinary.asset' }],
     }),
+
+    ...SEOFields,
   ],
+  fieldsets: [SEOFieldset],
+  preview: {
+    select: {
+      title: 'title',
+      media: 'image',
+    },
+    prepare(selection) {
+      const { title, media } = selection;
+
+      const ptTitle =
+        title && (title as InternationalizedArrayString).find((item) => item._key == 'pt');
+      const mediaFiles = media as CloudinaryAsset[];
+      const mediaFile = mediaFiles?.[0] || undefined;
+
+      return {
+        title: ptTitle?.value || '',
+        imageUrl: mediaFile?.secure_url,
+      };
+    },
+  },
 });
