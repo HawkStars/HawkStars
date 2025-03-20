@@ -47,7 +47,7 @@ export default defineConfig({
                 { type: 'cloudinary.asset', title: 'Cloudinary Image' },
                 { type: 'list', title: 'List' },
                 { type: 'hero', title: 'Hero Banner' },
-                { type: 'slide', title: 'Slide' },
+                { type: 'slider', title: 'Slider' },
               ],
             }),
             { type: 'youtube', title: 'YouTube Video' },

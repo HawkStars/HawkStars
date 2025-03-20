@@ -1,4 +1,5 @@
 import { defineType } from 'sanity';
+import { HeroPreview } from '../../components/HeroPreview';
 
 export default defineType({
   name: 'hero',
@@ -19,4 +20,7 @@ export default defineType({
       validation: (rule) => rule.required(),
     },
   ],
+  components: {
+    preview: HeroPreview,
+  },
 });
