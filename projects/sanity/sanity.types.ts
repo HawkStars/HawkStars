@@ -305,7 +305,11 @@ export type HawkEvent = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
+  title: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
   slug?: Slug;
   type_event?: 'erasmus' | 'local_event' | 'international_event' | 'other';
   description?: Array<
@@ -317,6 +321,16 @@ export type HawkEvent = {
     {
       _key: string;
     } & CloudinaryAsset
+  >;
+  google_description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  google_keywords?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
   >;
 };
 
@@ -406,6 +420,18 @@ export type InternationalizedArrayFormattedTextValue = {
           _type: 'span';
           _key: string;
         }
+      | ({
+          _key: string;
+        } & Accordion)
+      | ({
+          _key: string;
+        } & CloudinaryAsset)
+      | ({
+          _key: string;
+        } & List)
+      | ({
+          _key: string;
+        } & Hero)
       | ({
           _key: string;
         } & Slide)
@@ -761,7 +787,11 @@ export type GetSingleEventsQueryResult = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
+  title: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
   slug?: Slug;
   type_event?: 'erasmus' | 'international_event' | 'local_event' | 'other';
   description?: Array<
@@ -774,6 +804,16 @@ export type GetSingleEventsQueryResult = {
       _key: string;
     } & CloudinaryAsset
   >;
+  google_description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  google_keywords?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
 } | null;
 // Variable: countEventsQuery
 // Query: count(*[_type == "hawkEvent"])
@@ -783,7 +823,7 @@ export type CountEventsQueryResult = number;
 export type FirstPageEventsQueryResult = Array<{
   _id: string;
   _updatedAt: string;
-  name: string | null;
+  name: null;
   slug: Slug | null;
   type_event: 'erasmus' | 'international_event' | 'local_event' | 'other' | null;
   image: Array<
@@ -797,7 +837,7 @@ export type FirstPageEventsQueryResult = Array<{
 export type NextPageEventsQueryResult = Array<{
   _id: string;
   _updatedAt: string;
-  name: string | null;
+  name: null;
   slug: Slug | null;
   type_event: 'erasmus' | 'international_event' | 'local_event' | 'other' | null;
   image: Array<
@@ -814,7 +854,11 @@ export type FirstPageEventByTypeQueryResult = Array<{
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
+  title: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
   slug?: Slug;
   type_event?: 'erasmus' | 'international_event' | 'local_event' | 'other';
   description?: Array<
@@ -826,6 +870,16 @@ export type FirstPageEventByTypeQueryResult = Array<{
     {
       _key: string;
     } & CloudinaryAsset
+  >;
+  google_description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  google_keywords?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
   >;
 }>;
 // Variable: nextPageEventByTypeQuery
@@ -836,7 +890,11 @@ export type NextPageEventByTypeQueryResult = Array<{
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
+  title: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
   slug?: Slug;
   type_event?: 'erasmus' | 'international_event' | 'local_event' | 'other';
   description?: Array<
@@ -848,6 +906,16 @@ export type NextPageEventByTypeQueryResult = Array<{
     {
       _key: string;
     } & CloudinaryAsset
+  >;
+  google_description?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
+  >;
+  google_keywords?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayStringValue
   >;
 }>;
 

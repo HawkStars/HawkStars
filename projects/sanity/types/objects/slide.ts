@@ -4,6 +4,7 @@ export default defineType({
   name: 'slide',
   type: 'object',
   title: 'Slide',
+  options: { modal: { type: 'dialog', width: 'auto' } },
   fields: [
     defineField({
       name: 'title',

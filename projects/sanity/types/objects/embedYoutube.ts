@@ -7,6 +7,7 @@ export default defineType({
   type: 'object',
   title: 'YouTube Embed',
   icon: PlayIcon,
+  options: { modal: { type: 'dialog', width: 'auto' } },
   fields: [
     defineField({
       name: 'url',

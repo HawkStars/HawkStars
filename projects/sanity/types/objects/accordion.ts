@@ -17,6 +17,7 @@ export default defineType({
       title: 'Values',
     },
   ],
+  options: { modal: { type: 'dialog', width: 'auto' } },
   preview: {
     select: {
       title: 'title',

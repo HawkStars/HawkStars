@@ -4,6 +4,7 @@ export default defineType({
   name: 'list',
   title: 'List',
   type: 'object',
+  options: { modal: { type: 'dialog', width: 'auto' } },
   fields: [
     {
       name: 'title',
