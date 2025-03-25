@@ -5,8 +5,9 @@ import { cloudinarySchemaPlugin } from 'sanity-plugin-cloudinary';
 import { internationalizedArray } from 'sanity-plugin-internationalized-array';
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
-import { projectId, dataset, apiVersion } from './sanity';
+
 import { schema } from './types/schema';
+import { apiVersion, dataset, projectId } from './env';
 
 export default defineConfig({
   basePath: '/',

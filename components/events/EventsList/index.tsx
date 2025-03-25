@@ -10,6 +10,8 @@ import {
 import { firstPageEventsQuery, nextPageEventsQuery } from '@/projects/sanity/types/queries/event';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { extractInternationalI18nString } from '@/lib/sanity/helpers';
+import { useMainAppContext } from '@/utils/contexts/AppProvider';
 
 const getFirstHawkEvents = async () => {
   return await sanityFetch<FirstPageEventsQueryResult>({
@@ -27,6 +29,7 @@ const getNextPageEvents = async (lastId: string, updatedAt: string) => {
 };
 
 const EventsList = () => {
+  const { lng } = useMainAppContext();
   const [events, setEvents] = useState<HawkEvent[]>([]);
   const [lastHawkEvent, setLastHawkEvent] = useState<Pick<HawkEvent, '_id' | '_updatedAt'> | null>(
     null
@@ -36,7 +39,7 @@ const EventsList = () => {
   const fetchEvents = async () => {
     setLoading(true);
     const result = await getFirstHawkEvents();
-    setEvents(result as HawkEvent[]);
+    setEvents(result as unknown as HawkEvent[]);
     if (result.length > 0) setLastHawkEvent(result[result.length - 1]);
     setLoading(false);
   };
@@ -65,9 +68,14 @@ const EventsList = () => {
               return (
                 <Link key={event._id} href={`/events/${event.slug?.current}`}>
                   <div>
-                    <span>{event.name}</span>
+                    <span>{extractInternationalI18nString({ text: event.title, lng })}</span>
                     {firstImage?.url && (
-                      <Image src={firstImage.url} alt={event.name || ''} width={200} height={200} />
+                      <Image
+                        src={firstImage.url}
+                        alt={extractInternationalI18nString({ text: event.title, lng })}
+                        width={200}
+                        height={200}
+                      />
                     )}
                   </div>
                 </Link>

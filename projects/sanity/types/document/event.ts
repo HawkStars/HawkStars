@@ -1,6 +1,7 @@
 import { defineField, defineType } from 'sanity';
 import { SEOFields, SEOFieldset, SEOGroup } from '../objects/seo';
 import { CloudinaryAsset, InternationalizedArrayString } from '../../sanity.types';
+import EventPreview from '../../components/documents/EventPreview';
 
 export default defineType({
   name: 'hawkEvent',
@@ -69,5 +70,8 @@ export default defineType({
         imageUrl: mediaFile?.secure_url,
       };
     },
+  },
+  components: {
+    preview: EventPreview,
   },
 });

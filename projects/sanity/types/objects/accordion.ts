@@ -1,5 +1,5 @@
-import { InternationalizedArrayString } from '@/projects/sanity/sanity.types';
 import { defineType } from 'sanity';
+import AccordionPreview from '../../components/objects/AccordionPreview';
 
 export default defineType({
   name: 'accordion',
@@ -8,12 +8,13 @@ export default defineType({
   fields: [
     {
       name: 'title',
-      type: 'internationalizedArrayString',
+      type: 'string',
       title: 'Title',
     },
     {
       name: 'values',
-      type: 'internationalizedArrayFormattedText',
+      type: 'array',
+      of: [{ type: 'block' }],
       title: 'Values',
     },
   ],
@@ -21,14 +22,10 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
+      content: 'values',
     },
-    prepare(selection) {
-      const { title } = selection;
-      const ptTitle = (title as InternationalizedArrayString).find((item) => item._key == 'pt');
-
-      return {
-        title: ptTitle?.value || '',
-      };
-    },
+  },
+  components: {
+    preview: AccordionPreview,
   },
 });

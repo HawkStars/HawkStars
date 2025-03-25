@@ -22,4 +22,10 @@ export default defineType({
       title: 'Description',
     }),
   ],
+  preview: {
+    select: {
+      title: 'title',
+      description: 'description',
+    },
+  },
 });

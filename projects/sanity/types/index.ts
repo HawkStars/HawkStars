@@ -13,6 +13,7 @@ import hero from './objects/hero';
 import list from './objects/list';
 import accordion from './objects/accordion';
 import youtube from './objects/embedYoutube';
+import slider from './objects/slider';
 import slide from './objects/slide';
 import homePage from './document/homePage';
 
@@ -27,6 +28,6 @@ export const documentSchemaTypes = [
   homePage,
 ];
 
-export const objectSchemaTypes = [socialLink, hero, list, accordion, youtube, slide];
+export const objectSchemaTypes = [socialLink, hero, list, accordion, youtube, slider, slide];
 
 export const allSchemaTypes = [...documentSchemaTypes, ...objectSchemaTypes];
