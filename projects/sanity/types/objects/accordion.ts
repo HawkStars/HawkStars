@@ -22,7 +22,6 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      content: 'values',
     },
   },
   components: {

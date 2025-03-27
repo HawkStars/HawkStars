@@ -9,7 +9,7 @@ const cspHeader = `
     object-src 'none';
     base-uri 'self';
     form-action 'self';
-    frame-ancestors 'none';
+    frame-ancestors *.sanity.studio;
     block-all-mixed-content;
     upgrade-insecure-requests;
     frame-src *.google.com https://upload-widget.cloudinary.com;
