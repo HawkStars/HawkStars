@@ -116,6 +116,11 @@ module.exports = withSentryConfig(nextConfig, {
   // https://docs.sentry.io/product/crons/
   // https://vercel.com/docs/cron-jobs
   automaticVercelMonitors: true,
+
+  // React Component Annotation
+  reactComponentAnnotation: {
+    enabled: true,
+  },
 });
 
 // https://nextjs.org/docs/app/building-your-application/optimizing/bundle-analyzer

@@ -1,5 +1,5 @@
-import { CloudinaryAsset } from "@/projects/sanity/sanity.types";
-import classNames from "classnames";
+import { CloudinaryAsset } from '@/projects/sanity/sanity.types';
+import classNames from 'classnames';
 
 type SanityCloudinaryImageProps = {
   image?: CloudinaryAsset | null;
@@ -12,7 +12,11 @@ const SanityCloudinaryImage = (props: SanityCloudinaryImageProps) => {
 
   return (
     <>
-      <img src={image.secure_url} loading='lazy' className={classNames("w-full object-contain", className)} />
+      <img
+        src={image.secure_url}
+        loading='lazy'
+        className={classNames('w-full object-contain', className)}
+      />
     </>
   );
 };

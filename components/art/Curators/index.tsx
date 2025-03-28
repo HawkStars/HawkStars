@@ -1,4 +1,4 @@
-import SanityCloudinaryImage from '@/components/sanity/SanityCloudinaryImage';
+import SanityCloudinaryImage from '@/components/utils/sanity/SanityCloudinaryImage';
 import { LanguageProps } from '@/components/types';
 import { client } from '@/lib/sanity/sanityClient';
 import { AllCuratorsQueryResult } from '@/projects/sanity/sanity.types';

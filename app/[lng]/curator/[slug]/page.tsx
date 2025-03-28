@@ -5,8 +5,8 @@ import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
 import { GetSingleCuratorQueryResult } from '@/projects/sanity/sanity.types';
 import { getSingleCuratorQuery } from '@/projects/sanity/types/queries/art';
-import SanityBlock from '@/components/sanity/SanityBlock';
-import SanityCloudinaryImage from '@/components/sanity/SanityCloudinaryImage';
+import SanityBlock from '@/components/utils/sanity/SanityBlock';
+import SanityCloudinaryImage from '@/components/utils/sanity/SanityCloudinaryImage';
 
 const getCuratorInformation = async (slug: string) => {
   const response = await client.fetch<GetSingleCuratorQueryResult>(getSingleCuratorQuery, { slug });
