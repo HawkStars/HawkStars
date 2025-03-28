@@ -1,4 +1,5 @@
 const { withSentryConfig } = require('@sentry/nextjs');
+const path = require('path');
 
 const cspHeader = `
     default-src 'self';
@@ -29,6 +30,14 @@ const nextConfig = {
     fetches: {
       fullUrl: true,
     },
+  },
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, './'),
+    };
+
+    return config;
   },
   images: {
     remotePatterns: [
