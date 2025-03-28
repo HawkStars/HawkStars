@@ -8,8 +8,8 @@ import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { getSingleEventsQuery } from '@/projects/sanity/types/queries/event';
-import SanityBlock from '@/components/sanity/SanityBlock';
 import { extractInternationalI18nString } from '@/lib/sanity/helpers';
+import SanityBlock from '@/components/sanity/SanityBlock';
 
 const getEventInformation = async (slug: string) => {
   const response = await client.fetch<GetSingleEventsQueryResult>(getSingleEventsQuery, { slug });

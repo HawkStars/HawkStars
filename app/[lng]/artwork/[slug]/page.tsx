@@ -1,8 +1,6 @@
 import { HawkStarsSection } from '@/components/layout';
 import { client } from '@/lib/sanity/sanityClient';
-import SanityBlock from '@/components/sanity/SanityBlock';
 import { LanguageProps } from '@/components/types';
-import SanityCloudinaryImage from '@/components/sanity/SanityCloudinaryImage';
 import { notFound } from 'next/navigation';
 import { GetSingleArtworkResult } from '@/projects/sanity/sanity.types';
 import { getServerTranslation } from '@/i18n';
@@ -13,6 +11,8 @@ import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { getSingleArtwork } from '@/projects/sanity/types/queries/art';
+import SanityBlock from '@/components/sanity/SanityBlock';
+import SanityCloudinaryImage from '@/components/sanity/SanityCloudinaryImage';
 
 const getCuratorInformation = async (slug: string) => {
   const response = await client.fetch<GetSingleArtworkResult>(getSingleArtwork, { slug });
