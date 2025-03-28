@@ -31,14 +31,14 @@ const nextConfig = {
       fullUrl: true,
     },
   },
-  webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': path.resolve(__dirname, './'),
-    };
+  // webpack: (config) => {
+  //   config.resolve.alias = {
+  //     ...config.resolve.alias,
+  //     '@': path.resolve(__dirname, './'),
+  //   };
 
-    return config;
-  },
+  //   return config;
+  // },
   images: {
     remotePatterns: [
       {
@@ -56,6 +56,7 @@ const nextConfig = {
     turbo: { resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'] },
   },
   staticPageGenerationTimeout: 120,
+  productionBrowserSourceMaps: false,
   async headers() {
     return [
       {
