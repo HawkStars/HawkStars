@@ -1,6 +1,7 @@
-import { type SchemaTypeDefinition } from 'sanity';
+import { SchemaPluginOptions } from 'sanity';
 import { allSchemaTypes } from '.';
 
-export const schema: { types: SchemaTypeDefinition[] } = {
+export const schema: SchemaPluginOptions = {
   types: allSchemaTypes,
+  templates: undefined,
 };

@@ -1,5 +1,6 @@
+import { BlockComponent } from '../../components/items/BoardMemberItem';
+import AccordionBlock from '../../components/objects/AccordionBlock';
 import { defineType } from 'sanity';
-import AccordionPreview from '../../components/objects/AccordionPreview';
 
 export default defineType({
   name: 'accordion',
@@ -25,6 +26,7 @@ export default defineType({
     },
   },
   components: {
-    preview: AccordionPreview,
+    block: AccordionBlock,
+    preview: BlockComponent,
   },
 });

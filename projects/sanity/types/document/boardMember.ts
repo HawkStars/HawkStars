@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity';
 import { CaseIcon } from '@sanity/icons';
+import { BlockComponent } from '../../components/items/BoardMemberItem';
 
 export default defineType({
   name: 'board_member',
@@ -65,4 +66,8 @@ export default defineType({
       type: 'number',
     }),
   ],
+  components: {
+    // preview: BlockComponent,
+    item: BlockComponent,
+  },
 });

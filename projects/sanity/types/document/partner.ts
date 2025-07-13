@@ -20,5 +20,12 @@ export default defineType({
       title: 'Image',
       type: 'cloudinary.asset',
     }),
+
+    defineField({
+      name: 'test',
+      title: 'People',
+      type: 'array',
+      of: [{ type: 'board_member' }],
+    }),
   ],
 });

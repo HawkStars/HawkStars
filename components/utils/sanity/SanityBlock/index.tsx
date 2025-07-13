@@ -7,11 +7,6 @@ type SanityBlockProps = {
 };
 
 const defaultComponents: PortableTextComponents = {
-  types: {
-    accordion: () => {
-      return <div></div>;
-    },
-  },
   marks: {
     link: ({ value, children }) => {
       return (
