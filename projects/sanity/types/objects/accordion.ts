@@ -1,11 +1,13 @@
 import { BlockComponent } from '../../components/items/BoardMemberItem';
-import AccordionBlock from '../../components/objects/AccordionBlock';
+
 import { defineType } from 'sanity';
+import { CropIcon } from '@sanity/icons';
 
 export default defineType({
   name: 'accordion',
   title: 'Accordion',
   type: 'object',
+  icon: CropIcon,
   fields: [
     {
       name: 'title',
@@ -23,10 +25,12 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
+      values: 'values',
     },
   },
   components: {
-    block: AccordionBlock,
-    preview: BlockComponent,
+    // preview: BlockComponent,
+    block: BlockComponent,
+    inlineBlock: BlockComponent,
   },
 });

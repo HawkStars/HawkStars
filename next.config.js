@@ -1,3 +1,4 @@
+const { withPayload } = require("@payloadcms/next/withPayload");
 const { withSentryConfig } = require('@sentry/nextjs');
 const path = require('path');
 
@@ -83,7 +84,7 @@ const nextConfig = {
 };
 
 // Injected content via Sentry wizard below
-module.exports = withSentryConfig(nextConfig, {
+module.exports = withPayload(withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
@@ -122,7 +123,7 @@ module.exports = withSentryConfig(nextConfig, {
   reactComponentAnnotation: {
     enabled: true,
   },
-});
+}));
 
 // https://nextjs.org/docs/app/building-your-application/optimizing/bundle-analyzer
 // const withBundleAnalyzer = require('@next/bundle-analyzer')({

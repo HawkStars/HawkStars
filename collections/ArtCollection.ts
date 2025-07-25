@@ -1,7 +1,7 @@
 import { CollectionConfig } from 'payload';
 
 export const ArtCollection: CollectionConfig = {
-  slug: 'art',
+  slug: 'artworks',
   labels: {
     singular: 'Artwork',
     plural: 'Artworks',
@@ -22,7 +22,7 @@ export const ArtCollection: CollectionConfig = {
       name: 'slug',
       label: 'Slug',
       type: 'text',
-      admin: { position: 'sidebar' },
+      unique: true,
       hooks: {
         beforeChange: [({ data }) => data?.title?.replace(/\s+/g, '-').toLowerCase()],
       },

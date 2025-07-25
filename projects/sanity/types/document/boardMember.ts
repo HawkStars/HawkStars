@@ -1,6 +1,7 @@
 import { defineField, defineType } from 'sanity';
 import { CaseIcon } from '@sanity/icons';
 import { BlockComponent } from '../../components/items/BoardMemberItem';
+import AccordionBlock from '~/components/objects/AccordionBlock';
 
 export default defineType({
   name: 'board_member',
@@ -21,11 +22,7 @@ export default defineType({
       description: 'Section out of the three that is to add the member',
       validation: (rule) => rule.required(),
       options: {
-        list: [
-          { title: 'Assembleia Geral', value: 'geral' },
-          { title: 'Conselho Fiscal', value: 'fiscal' },
-          { title: 'Direção', value: 'board' },
-        ],
+        list: [],
       },
     }),
     defineField({
@@ -67,7 +64,6 @@ export default defineType({
     }),
   ],
   components: {
-    // preview: BlockComponent,
     item: BlockComponent,
   },
 });

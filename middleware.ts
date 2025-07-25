@@ -7,6 +7,7 @@ export const config = {
 
 export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.includes('auth')) return NextResponse.next();
+  if (request.nextUrl.pathname.includes('admin')) return NextResponse.next();
   if (request.nextUrl.pathname.includes('superadmin'))
     return NextResponse.redirect(new URL('/', request.url));
 

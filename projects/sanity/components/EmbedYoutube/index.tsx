@@ -1,7 +1,7 @@
-import YouTubePlayer from 'react-player/youtube';
+import ReactPlayer from 'react-player';
 
 export function YouTubePreview(props: any) {
   const { title: url } = props;
 
-  return <div>{typeof url === 'string' ? <YouTubePlayer url={url} /> : <></>}</div>;
+  return <div>{typeof url === 'string' ? <ReactPlayer src={url} /> : <></>}</div>;
 }

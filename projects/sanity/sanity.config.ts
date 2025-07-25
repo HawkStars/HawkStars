@@ -57,10 +57,6 @@ export default defineConfig({
                 {
                   type: 'accordion',
                   title: 'Accordion',
-                  components: {
-                    // block: AccordionBlock,
-                    preview: BlockComponent,
-                  },
                 },
                 {
                   type: 'cloudinary.asset',
