@@ -45,9 +45,9 @@ export default buildConfig({
   localization: {
     defaultLocale: 'pt',
     locales: [
-      { label: 'English', code: 'en' },
+      { label: 'English', code: 'en', fallbackLocale: 'pt' },
       { label: 'Portuguese', code: 'pt' },
-      { label: 'French', code: 'fr' },
+      { label: 'French', code: 'fr', fallbackLocale: 'pt' },
     ],
     fallback: true,
   },
@@ -84,7 +84,7 @@ export default buildConfig({
       collections: {
         media: true, // Enable for media collection
       },
-      folder: '', // Optional, defaults to 'payload-media'
+      folder: 'hawk', // Optional, defaults to 'payload-media'
       disableLocalStorage: true, // Optional, defaults to true
       enabled: true, // Optional, defaults to true
     }),

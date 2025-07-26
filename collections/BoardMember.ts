@@ -53,15 +53,7 @@ export const BoardMember: CollectionConfig = {
       name: 'image',
       label: 'Image',
       type: 'upload',
-      relationTo: 'media', // Assumes you have a 'media' collection for file uploads
-      // If you need multiple images, use:
-      // type: 'array',
-      // of: [
-      //   {
-      //     type: 'upload',
-      //     relationTo: 'media',
-      //   },
-      // ],
+      relationTo: 'media',
     },
     { ...SocialLinksField },
     {

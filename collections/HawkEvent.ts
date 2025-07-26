@@ -2,6 +2,10 @@ import type { CollectionConfig } from 'payload';
 
 export const HawkEvent: CollectionConfig = {
   slug: 'hawk_events',
+  labels: {
+    singular: 'Hawk Event',
+    plural: 'Hawk Events',
+  },
   fields: [
     { name: 'title', label: 'Title', type: 'text', required: true, localized: true },
     {

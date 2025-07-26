@@ -2,6 +2,10 @@ import type { CollectionConfig } from 'payload';
 
 export const Curator: CollectionConfig = {
   slug: 'curators',
+  labels: {
+    singular: 'Curator',
+    plural: 'Curators',
+  },
   fields: [
     { type: 'text', name: 'name', label: 'Curator Name', required: true },
     {
