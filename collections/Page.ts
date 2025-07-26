@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload';
+import { SEOFields } from './objects/SeoFields';
 
 export const Page: CollectionConfig = {
   slug: 'pages',
@@ -7,13 +8,29 @@ export const Page: CollectionConfig = {
   },
   fields: [
     {
-      name: 'slug',
-      type: 'text',
-      unique: true,
-      admin: {
-        description: 'This will be used in the URL of the page.',
-      },
+      type: 'tabs',
+      label: 'Page Details',
+      tabs: [
+        {
+          label: 'Details',
+          description: 'Information about the page',
+          fields: [
+            { name: 'title', label: 'Title', type: 'text', required: true, localized: true },
+            {
+              name: 'slug',
+              label: 'Slug',
+              type: 'text',
+              unique: true,
+              required: true,
+              hooks: {
+                beforeChange: [({ data }) => data?.title?.replace(/\s+/g, '-').toLowerCase()],
+              },
+            },
+            { name: 'page_content', label: 'Page Content', type: 'richText', localized: true },
+          ],
+        },
+        { label: 'SEO', description: 'Search Engine Optimization settings', fields: [SEOFields] },
+      ],
     },
-    { name: 'page_content', type: 'richText', localized: true },
   ],
 };

@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload';
+import { SEOFields } from './objects/SeoFields';
 
 export const Curator: CollectionConfig = {
   slug: 'curators',
@@ -7,22 +8,36 @@ export const Curator: CollectionConfig = {
     plural: 'Curators',
   },
   fields: [
-    { type: 'text', name: 'name', label: 'Curator Name', required: true },
     {
-      type: 'text',
-      name: 'slug',
-      label: 'Slug',
-      unique: true,
-      required: true,
-      hooks: { beforeChange: [({ data }) => data?.title?.replace(/\s+/g, '-').toLowerCase()] },
+      type: 'tabs',
+      tabs: [
+        {
+          label: 'Curator Details',
+          description: 'Information about the curator',
+          fields: [
+            { type: 'text', name: 'name', label: 'Curator Name', required: true },
+            {
+              type: 'text',
+              name: 'slug',
+              label: 'Slug',
+              unique: true,
+              required: true,
+              hooks: {
+                beforeChange: [({ data }) => data?.title?.replace(/\s+/g, '-').toLowerCase()],
+              },
+            },
+            { type: 'text', name: 'location', label: 'Location' },
+            {
+              type: 'text',
+              name: 'description',
+              label: 'Biographical Note',
+              localized: true,
+            },
+            { type: 'upload', name: 'image', label: 'Image', relationTo: 'media', required: true },
+          ],
+        },
+        { label: 'SEO', description: 'Search Engine Optimization settings', fields: [SEOFields] },
+      ],
     },
-    { type: 'text', name: 'location', label: 'Location' },
-    {
-      type: 'text',
-      name: 'description',
-      label: 'Biographical Note',
-      localized: true,
-    },
-    { type: 'upload', name: 'image', label: 'Image', relationTo: 'media', required: true },
   ],
 };
