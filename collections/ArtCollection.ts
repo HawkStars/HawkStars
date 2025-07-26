@@ -34,13 +34,29 @@ export const ArtCollection: CollectionConfig = {
               type: 'text',
               unique: true,
               hooks: {
-                beforeChange: [({ data }) => data?.title?.replace(/\s+/g, '-').toLowerCase()],
+                beforeChange: [
+                  ({ data }) => {
+                    data?.title?.replace(/\s+/g, '-').toLowerCase();
+                  },
+                ],
               },
             },
+            // {
+            //   name: 'artist',
+            //   label: 'Artist',
+            //   type: 'relationship',
+            //   required: true,
+            //   relationTo: '',
+            //   hasMany: false,
+            //   admin: {
+            //     allowCreate: false,
+            //     allowEdit: false,
+            //   },
+            // },
             {
               name: 'synopsis',
               label: 'Synopsis',
-              type: 'text',
+              type: 'richText',
               required: true,
               localized: true,
             },
@@ -56,13 +72,6 @@ export const ArtCollection: CollectionConfig = {
               name: 'is_sold',
               label: 'Vendido?',
               type: 'checkbox',
-            },
-            {
-              name: 'artist',
-              label: 'Artist',
-              type: 'text',
-              localized: true,
-              required: true,
             },
             {
               name: 'year',

@@ -11,8 +11,7 @@ export const SEOFields: Field = {
       type: 'text',
       required: true,
       localized: true,
-      validate: (data: string | undefined | null) =>
-        data && data.length <= 60 ? true : 'Title should be a maximum of 60 characters',
+      maxLength: 60,
     },
     {
       name: 'google_description',
@@ -20,8 +19,8 @@ export const SEOFields: Field = {
       type: 'text',
       required: true,
       localized: true,
-      validate: (data: string | undefined | null) =>
-        data && data.length <= 255 ? true : 'Description should be a maximum of 255 characters',
+      minLength: 50,
+      maxLength: 255,
     },
     {
       name: 'google_keywords',
