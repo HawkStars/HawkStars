@@ -18,12 +18,14 @@ export const BoardMember: CollectionConfig = {
       label: 'Name',
       type: 'text',
       required: true,
+      localized: false,
     },
     {
       name: 'section',
       label: 'Section',
       type: 'radio',
       required: true,
+      localized: false,
       admin: {
         description: 'Section out of the three that is to add the member',
       },
@@ -38,6 +40,7 @@ export const BoardMember: CollectionConfig = {
       label: 'Position Title',
       type: 'select',
       required: true,
+      localized: false,
       options: [
         { label: 'Presidente', value: 'president' },
         { label: 'Vice-Presidente', value: 'vice_president' },

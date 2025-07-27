@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload';
-import { SEOFields } from './objects/SeoFields';
+import { SEOTab } from './objects/SeoFields';
 
 export const Page: CollectionConfig = {
   slug: 'pages',
@@ -29,7 +29,7 @@ export const Page: CollectionConfig = {
             { name: 'page_content', label: 'Page Content', type: 'richText', localized: true },
           ],
         },
-        { label: 'SEO', description: 'Search Engine Optimization settings', fields: [SEOFields] },
+        SEOTab,
       ],
     },
   ],

@@ -1,9 +1,10 @@
-import { Field } from 'payload';
+import { Field, Tab } from 'payload';
 
 export const SEOFields: Field = {
   name: 'seo',
   label: 'SEO Fields',
   type: 'group',
+  interfaceName: 'SeoFields',
   fields: [
     {
       name: 'google_title',
@@ -29,5 +30,96 @@ export const SEOFields: Field = {
       fields: [{ name: 'keyword', label: 'Keyword', type: 'text' }],
       localized: true,
     },
+    {
+      name: 'og_title',
+      label: 'Open Graph Title',
+      type: 'text',
+      required: true,
+      localized: true,
+      maxLength: 60,
+    },
+    {
+      name: 'og_description',
+      label: 'Open Graph Description',
+      type: 'text',
+      required: true,
+      localized: true,
+      minLength: 50,
+      maxLength: 255,
+    },
+    {
+      name: 'og_image',
+      label: 'Open Graph Image',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+    },
+    {
+      name: 'og_type',
+      label: 'Open Graph Type',
+      type: 'text',
+      required: false,
+      localized: true,
+    },
+    {
+      name: 'og_url',
+      label: 'Open Graph URL',
+      type: 'text',
+      required: false,
+      localized: true,
+    },
+    {
+      name: 'twitter_card',
+      label: 'Twitter Card',
+      type: 'text',
+      required: false,
+      localized: true,
+    },
+    {
+      name: 'twitter_title',
+      label: 'Twitter Title',
+      type: 'text',
+      required: false,
+      localized: true,
+      maxLength: 60,
+    },
+    {
+      name: 'twitter_description',
+      label: 'Twitter Description',
+      type: 'text',
+      required: false,
+      localized: true,
+      minLength: 50,
+      maxLength: 255,
+    },
+    {
+      name: 'twitter_image',
+      label: 'Twitter Image',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+    },
+    {
+      name: 'canonical',
+      label: 'Canonical URL',
+      type: 'text',
+      required: false,
+      localized: true,
+    },
+    {
+      name: 'robots',
+      label: 'Robots Meta Tag',
+      type: 'text',
+      required: false,
+      localized: true,
+    },
   ],
+};
+
+export const SEOTab: Tab = {
+  name: 'seo',
+  label: 'SEO',
+  description: 'Search Engine Optimization fields For Search Engines',
+  interfaceName: 'SEO',
+  fields: [SEOFields],
 };

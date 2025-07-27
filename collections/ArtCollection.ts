@@ -1,5 +1,5 @@
 import { CollectionConfig } from 'payload';
-import { SEOFields } from './objects/SeoFields';
+import { SEOTab } from './objects/SeoFields';
 
 export const ArtCollection: CollectionConfig = {
   slug: 'artworks',
@@ -65,18 +65,20 @@ export const ArtCollection: CollectionConfig = {
               label: 'Image',
               type: 'upload',
               relationTo: 'media',
-              localized: true,
               required: true,
+              localized: false,
             },
             {
               name: 'is_sold',
               label: 'Vendido?',
               type: 'checkbox',
+              localized: false,
             },
             {
               name: 'year',
               label: 'Year',
               type: 'number',
+              localized: false,
             },
             {
               name: 'price',
@@ -115,11 +117,7 @@ export const ArtCollection: CollectionConfig = {
             },
           ],
         },
-        {
-          label: 'SEO',
-          description: 'Search Engine Optimization fields',
-          fields: [SEOFields],
-        },
+        SEOTab,
       ],
     },
   ],

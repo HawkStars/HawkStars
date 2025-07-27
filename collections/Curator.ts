@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload';
-import { SEOFields } from './objects/SeoFields';
+import { SEOTab } from './objects/SeoFields';
 
 export const Curator: CollectionConfig = {
   slug: 'curators',
@@ -45,7 +45,7 @@ export const Curator: CollectionConfig = {
             { type: 'upload', name: 'image', label: 'Image', relationTo: 'media', required: true },
           ],
         },
-        { label: 'SEO', description: 'Search Engine Optimization settings', fields: [SEOFields] },
+        SEOTab,
       ],
     },
   ],
