@@ -9,15 +9,15 @@ import sharp from 'sharp';
 
 import { cloudinaryStorage } from 'payload-cloudinary';
 
+import assert from 'assert';
+import { ArtCollection } from './collections/ArtCollection';
 import { Users } from './collections/Users';
 import { Media } from './collections/Media';
-import { HawkEvent } from './collections/HawkEvent';
-import { ArtCollection } from './collections/ArtCollection';
 import { BoardMember } from './collections/BoardMember';
 import { Contribution } from './collections/Contribution';
 import { Curator } from './collections/Curator';
+import { HawkEvent } from './collections/HawkEvent';
 import { Partner } from './collections/Partner';
-import assert from 'assert';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);

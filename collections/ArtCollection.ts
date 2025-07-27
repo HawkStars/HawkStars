@@ -41,18 +41,18 @@ export const ArtCollection: CollectionConfig = {
                 ],
               },
             },
-            // {
-            //   name: 'artist',
-            //   label: 'Artist',
-            //   type: 'relationship',
-            //   required: true,
-            //   relationTo: '',
-            //   hasMany: false,
-            //   admin: {
-            //     allowCreate: false,
-            //     allowEdit: false,
-            //   },
-            // },
+            {
+              name: 'artist',
+              label: 'Artist',
+              type: 'relationship',
+              required: true,
+              relationTo: 'curators',
+              hasMany: false,
+              admin: {
+                allowCreate: false,
+                allowEdit: false,
+              },
+            },
             {
               name: 'synopsis',
               label: 'Synopsis',

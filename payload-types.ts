@@ -69,6 +69,12 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    artworks: Artwork;
+    'board-members': BoardMember;
+    contributions: Contribution;
+    curators: Curator;
+    hawk_events: HawkEvent;
+    partners: Partner;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -77,16 +83,22 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    artworks: ArtworksSelect<false> | ArtworksSelect<true>;
+    'board-members': BoardMembersSelect<false> | BoardMembersSelect<true>;
+    contributions: ContributionsSelect<false> | ContributionsSelect<true>;
+    curators: CuratorsSelect<false> | CuratorsSelect<true>;
+    hawk_events: HawkEventsSelect<false> | HawkEventsSelect<true>;
+    partners: PartnersSelect<false> | PartnersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   globals: {};
   globalsSelect: {};
-  locale: null;
+  locale: 'en' | 'pt' | 'fr';
   user: User & {
     collection: 'users';
   };
@@ -118,7 +130,10 @@ export interface UserAuthOperations {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
+  firstName?: string | null;
+  lastName?: string | null;
+  isAdmin?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -142,7 +157,7 @@ export interface User {
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -158,23 +173,244 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artworks".
+ */
+export interface Artwork {
+  id: number;
+  title: string;
+  slug?: string | null;
+  artist: number | Curator;
+  synopsis: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  image: number | Media;
+  is_sold?: boolean | null;
+  year?: number | null;
+  price: string;
+  settings?: string | null;
+  tiragem?: string | null;
+  dimensions?: string | null;
+  extra?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  seo: {
+    google_title: string;
+    google_description: string;
+    google_keywords?:
+      | {
+          keyword?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "curators".
+ */
+export interface Curator {
+  id: number;
+  name: string;
+  slug: string;
+  location?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image: number | Media;
+  seo: {
+    google_title: string;
+    google_description: string;
+    google_keywords?:
+      | {
+          keyword?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "board-members".
+ */
+export interface BoardMember {
+  id: number;
+  name: string;
+  /**
+   * Section out of the three that is to add the member
+   */
+  section: 'geral' | 'fiscal' | 'board';
+  title:
+    | 'president'
+    | 'vice_president'
+    | 'vogal'
+    | 'f_secretary'
+    | 'm_secretary'
+    | 'substitute'
+    | 'treasurer'
+    | 'rapporteur_secretary';
+  image?: (number | null) | Media;
+  links?:
+    | {
+        platform:
+          | 'linkedin'
+          | 'twitter'
+          | 'facebook'
+          | 'instagram'
+          | 'website'
+          | 'email'
+          | 'youtube'
+          | 'github'
+          | 'tiktok'
+          | 'whatsapp';
+        url: string;
+        /**
+         * Toggle visibility of this link
+         */
+        isVisible?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Position to be ordered to be shown on the page
+   */
+  position: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contributions".
+ */
+export interface Contribution {
+  id: number;
+  donor: string;
+  is_confirmed?: boolean | null;
+  is_anonymous?: boolean | null;
+  value: number;
+  contribution_date: string;
+  contribution_type:
+    | 'BANK'
+    | 'CRYPTO'
+    | 'WALL_NAME_SINGULAR'
+    | 'WALL_NAME_COMPANY'
+    | 'OFFICE_CHAIR'
+    | 'SIMULATOR_CHAIR'
+    | 'LOUNGE_CHAIR'
+    | 'AUDITORIUM_CHAIR'
+    | 'BUILDING_NAMING'
+    | 'TRAINING_ROOM_NAMING';
+  extra_info?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hawk_events".
+ */
+export interface HawkEvent {
+  id: number;
+  title: string;
+  slug: string;
+  type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
+  description?: string | null;
+  image: number | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: number;
+  name: string;
+  image: number | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'artworks';
+        value: number | Artwork;
+      } | null)
+    | ({
+        relationTo: 'board-members';
+        value: number | BoardMember;
+      } | null)
+    | ({
+        relationTo: 'contributions';
+        value: number | Contribution;
+      } | null)
+    | ({
+        relationTo: 'curators';
+        value: number | Curator;
+      } | null)
+    | ({
+        relationTo: 'hawk_events';
+        value: number | HawkEvent;
+      } | null)
+    | ({
+        relationTo: 'partners';
+        value: number | Partner;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -184,10 +420,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -207,7 +443,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -218,6 +454,9 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  firstName?: T;
+  lastName?: T;
+  isAdmin?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -252,6 +491,122 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artworks_select".
+ */
+export interface ArtworksSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  artist?: T;
+  synopsis?: T;
+  image?: T;
+  is_sold?: T;
+  year?: T;
+  price?: T;
+  settings?: T;
+  tiragem?: T;
+  dimensions?: T;
+  extra?: T;
+  seo?:
+    | T
+    | {
+        google_title?: T;
+        google_description?: T;
+        google_keywords?:
+          | T
+          | {
+              keyword?: T;
+              id?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "board-members_select".
+ */
+export interface BoardMembersSelect<T extends boolean = true> {
+  name?: T;
+  section?: T;
+  title?: T;
+  image?: T;
+  links?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        isVisible?: T;
+        id?: T;
+      };
+  position?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contributions_select".
+ */
+export interface ContributionsSelect<T extends boolean = true> {
+  donor?: T;
+  is_confirmed?: T;
+  is_anonymous?: T;
+  value?: T;
+  contribution_date?: T;
+  contribution_type?: T;
+  extra_info?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "curators_select".
+ */
+export interface CuratorsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  location?: T;
+  description?: T;
+  image?: T;
+  seo?:
+    | T
+    | {
+        google_title?: T;
+        google_description?: T;
+        google_keywords?:
+          | T
+          | {
+              keyword?: T;
+              id?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hawk_events_select".
+ */
+export interface HawkEventsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  type_event?: T;
+  description?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners_select".
+ */
+export interface PartnersSelect<T extends boolean = true> {
+  name?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

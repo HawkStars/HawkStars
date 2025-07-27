@@ -1,6 +1,6 @@
-const { withPayload } = require("@payloadcms/next/withPayload");
-const { withSentryConfig } = require('@sentry/nextjs');
-const path = require('path');
+import { withPayload } from '@payloadcms/next/withPayload';
+import { withSentryConfig } from '@sentry/nextjs';
+import { NextConfig } from 'next';
 
 const cspHeader = `
     default-src 'self';
@@ -32,20 +32,11 @@ const nextConfig = {
       fullUrl: true,
     },
   },
-  // webpack: (config) => {
-  //   config.resolve.alias = {
-  //     ...config.resolve.alias,
-  //     '@': path.resolve(__dirname, './'),
-  //   };
-
-  //   return config;
-  // },
+  turbopack: {
+    resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'],
+  },
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'cdn.sanity.io',
-      },
       {
         protocol: 'http',
         hostname: 'res.cloudinary.com',
@@ -54,7 +45,6 @@ const nextConfig = {
   },
   experimental: {
     taint: true,
-    turbo: { resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'] },
   },
   staticPageGenerationTimeout: 120,
   productionBrowserSourceMaps: false,
@@ -81,10 +71,11 @@ const nextConfig = {
       },
     ];
   },
-};
+} as NextConfig;
 
-// Injected content via Sentry wizard below
-module.exports = withPayload(withSentryConfig(nextConfig, {
+const payloadConfig = withPayload(nextConfig);
+
+export default withSentryConfig(payloadConfig, {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
@@ -123,7 +114,7 @@ module.exports = withPayload(withSentryConfig(nextConfig, {
   reactComponentAnnotation: {
     enabled: true,
   },
-}));
+});
 
 // https://nextjs.org/docs/app/building-your-application/optimizing/bundle-analyzer
 // const withBundleAnalyzer = require('@next/bundle-analyzer')({
