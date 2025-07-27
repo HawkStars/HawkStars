@@ -72,7 +72,7 @@ const buttonProps = variantProps({
       lg: tw`px-5 py-4`,
     },
     outline: {
-      true: tw`!bg-transparent`,
+      true: tw`bg-transparent!`,
     },
     size: {
       fit: 'w-fit',

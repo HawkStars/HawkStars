@@ -77,7 +77,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           <Image src={heroImage} alt='hero image' />
         </div>
       </HawkStarsSection>
-      <div className='flex flex-col gap-10 bg-gradient-to-tr from-[#E9E9E9] from-35% via-bege-dark to-[#E9E9E9] to-65% py-16 lg:gap-20 lg:p-20 lg:py-20'>
+      <div className='flex flex-col gap-10 bg-linear-to-tr from-[#E9E9E9] from-35% via-bege-dark to-[#E9E9E9] to-65% py-16 lg:gap-20 lg:p-20 lg:py-20'>
         <h2 className='text-h2_light mx-4 text-center'>{t('forms_and_modalities')}</h2>
         <div className='mx-auto flex max-w-6xl flex-col gap-10 max-lg:px-4 md:flex-row'>
           <div className='flex flex-col gap-1 md:flex-1'>

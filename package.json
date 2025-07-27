@@ -26,6 +26,7 @@
     "@portabletext/react": "^3.2.1",
     "@portabletext/types": "^2.0.13",
     "@sentry/nextjs": "^9.42.0",
+    "@tailwindcss/postcss": "^4.1.11",
     "@tanstack/react-table": "^8.21.3",
     "@uiw/react-markdown-preview": "^5.1.4",
     "accept-language": "^3.0.20",

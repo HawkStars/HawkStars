@@ -37,7 +37,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
               <div className='flex flex-1'>
                 <div className='my-auto h-4 w-4 rounded-xl bg-green'></div>
                 <div className='my-auto h-1 w-full bg-green'></div>
-                <div className='my-auto h-0 w-0 border-y-8 border-l-[16px] border-y-transparent border-l-green'></div>
+                <div className='my-auto h-0 w-0 border-y-8 border-l-16 border-y-transparent border-l-green'></div>
               </div>
               <div className='flex aspect-video max-xl:h-14 xl:max-w-[250px]'>
                 <Image src={hawkLogo} alt='hawk stars logo' className='my-auto' />

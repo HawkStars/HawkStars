@@ -48,7 +48,7 @@ const ContributionProjectGoal = () => {
       <h6 className='lg:text-h2_light mt-1 text-center'>{`${t('goal')}: ${PROJECT_GOAL}€`}</h6>
       <div className='rounded-xs relative mt-5 h-6 w-full border border-green'>
         <div
-          className={`h-full bg-gradient-to-r from-bege-dark from-10% to-bege-light to-95%`}
+          className={`h-full bg-linear-to-r from-bege-dark from-10% to-bege-light to-95%`}
           style={{ width: barSettings.width }}
         >
           <p className='absolute my-auto flex w-full justify-center'>
