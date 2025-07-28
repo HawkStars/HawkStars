@@ -51,7 +51,7 @@ type ButtonProps = {
 };
 
 const buttonProps = variantProps({
-  base: tw`text-center focus:outline-none focus:ring-0 cursor-pointer `,
+  base: tw`text-center focus:outline-hidden focus:ring-0 cursor-pointer `,
   variants: {
     variant: {
       success: 'bg-green border border-green text-white fill-white',
@@ -64,7 +64,7 @@ const buttonProps = variantProps({
       full: tw`rounded-full`,
     },
     disabled: {
-      true: tw`bg-opacity-50 border-opacity-10 cursor-default`,
+      true: tw`bg-black/50 border-black/10 cursor-default`,
     },
     padding: {
       sm: tw`px-3 py-2`,

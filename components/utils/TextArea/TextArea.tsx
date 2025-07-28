@@ -37,7 +37,7 @@ export default function TextArea({
       <textarea
         placeholder={placeholder}
         className={classNames(
-          'border-terciary-500 focus:border-primary-500 block w-full rounded-md border border-solid px-5 py-2 shadow-sm focus:outline-none focus:ring-0',
+          'border-terciary-500 focus:border-primary-500 block w-full rounded-md border border-solid px-5 py-2 shadow-xs focus:ring-0 focus:outline-hidden',
           `${customCss}`,
           { 'border-red-700': errorMessage },
           { 'bg-gray-100': disabled }

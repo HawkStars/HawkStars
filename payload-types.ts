@@ -217,16 +217,7 @@ export interface Artwork {
     };
     [k: string]: unknown;
   } | null;
-  seo: {
-    google_title: string;
-    google_description: string;
-    google_keywords?:
-      | {
-          keyword?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
+  seo: SEO;
   updatedAt: string;
   createdAt: string;
 }
@@ -255,18 +246,41 @@ export interface Curator {
     [k: string]: unknown;
   } | null;
   image: number | Media;
-  seo: {
-    google_title: string;
-    google_description: string;
-    google_keywords?:
-      | {
-          keyword?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
+  seo: SEO;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SEO".
+ */
+export interface SEO {
+  seo: SeoFields;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SeoFields".
+ */
+export interface SeoFields {
+  google_title: string;
+  google_description: string;
+  google_keywords?:
+    | {
+        keyword?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  og_title: string;
+  og_description: string;
+  og_image?: (number | null) | Media;
+  og_type?: string | null;
+  og_url?: string | null;
+  twitter_card?: string | null;
+  twitter_title?: string | null;
+  twitter_description?: string | null;
+  twitter_image?: (number | null) | Media;
+  canonical?: string | null;
+  robots?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -509,20 +523,41 @@ export interface ArtworksSelect<T extends boolean = true> {
   tiragem?: T;
   dimensions?: T;
   extra?: T;
-  seo?:
-    | T
-    | {
-        google_title?: T;
-        google_description?: T;
-        google_keywords?:
-          | T
-          | {
-              keyword?: T;
-              id?: T;
-            };
-      };
+  seo?: T | SEOSelect<T>;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SEO_select".
+ */
+export interface SEOSelect<T extends boolean = true> {
+  seo?: T | SeoFieldsSelect<T>;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SeoFields_select".
+ */
+export interface SeoFieldsSelect<T extends boolean = true> {
+  google_title?: T;
+  google_description?: T;
+  google_keywords?:
+    | T
+    | {
+        keyword?: T;
+        id?: T;
+      };
+  og_title?: T;
+  og_description?: T;
+  og_image?: T;
+  og_type?: T;
+  og_url?: T;
+  twitter_card?: T;
+  twitter_title?: T;
+  twitter_description?: T;
+  twitter_image?: T;
+  canonical?: T;
+  robots?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -570,18 +605,7 @@ export interface CuratorsSelect<T extends boolean = true> {
   location?: T;
   description?: T;
   image?: T;
-  seo?:
-    | T
-    | {
-        google_title?: T;
-        google_description?: T;
-        google_keywords?:
-          | T
-          | {
-              keyword?: T;
-              id?: T;
-            };
-      };
+  seo?: T | SEOSelect<T>;
   updatedAt?: T;
   createdAt?: T;
 }

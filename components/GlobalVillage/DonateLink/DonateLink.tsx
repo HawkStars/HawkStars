@@ -11,7 +11,7 @@ const DonateLink = () => {
   return (
     <Link
       href={transformUrl(lng, urls.donate)}
-      className='w-fit cursor-pointer rounded-xl border border-green bg-green fill-white px-4 py-3 text-center text-white focus:outline-none focus:ring-0'
+      className='border-green bg-green w-fit cursor-pointer rounded-xl border fill-white px-4 py-3 text-center text-white focus:ring-0 focus:outline-hidden'
     >
       {t('click_to_donate')}
     </Link>

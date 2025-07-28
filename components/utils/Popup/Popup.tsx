@@ -10,20 +10,17 @@ type PopupProps = {
 const Popup = ({ isOpen, closePopup, acceptFunction }: PopupProps) => {
   return (
     <div
-      className={classNames(
-        'bg-gray-500 fixed inset-0 flex items-center justify-center bg-opacity-50',
-        {
-          hidden: !isOpen,
-        }
-      )}
+      className={classNames('fixed inset-0 flex items-center justify-center bg-gray-500/50', {
+        hidden: !isOpen,
+      })}
       onClick={closePopup}
     >
-      <div className='rounded bg-white p-4 shadow'>
+      <div className='rounded-sm bg-white p-4 shadow-sm'>
         <h2 className='mb-4'>Popup Title</h2>
         <p className='mb-4'>Popup content goes here.</p>
         <div className='flex justify-end'>
-          <button className='bg-blue-500 mr-2 rounded px-4 py-2 text-white'>Accept</button>
-          <button className='bg-red-500 rounded px-4 py-2 text-white'>Discard</button>
+          <button className='mr-2 rounded-sm bg-blue-500 px-4 py-2 text-white'>Accept</button>
+          <button className='rounded-sm bg-red-500 px-4 py-2 text-white'>Discard</button>
         </div>
       </div>
     </div>

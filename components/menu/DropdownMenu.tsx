@@ -31,11 +31,11 @@ const DropdownMenu = ({ title, options }: DropdownMenuProps) => {
           </div>
         )}
       </div>
-      <div className='absolute -left-3 z-900 hidden flex-col gap-2 rounded bg-white px-5 ease-in group-hover:flex'>
+      <div className='absolute -left-3 z-900 hidden flex-col gap-2 rounded-sm bg-white px-5 ease-in group-hover:flex'>
         {options.map((option, index) => (
           <div
             key={index}
-            className={classNames('w-fit whitespace-nowrap py-2', {
+            className={classNames('w-fit py-2 whitespace-nowrap', {
               'text-neutral-400': !option.url || option.disabled,
             })}
             onClick={() => {

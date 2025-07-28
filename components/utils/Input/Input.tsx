@@ -40,8 +40,8 @@ export default function Input({
       {inputHintText && <p className='-my-1'>{inputHintText}</p>}
       <div
         className={classNames(
-          'border-terciary-500 focus:border-primary-500 flex flex-row gap-1 rounded-md border border-solid px-5 py-2 shadow-sm',
-          { 'bg-bege-dark-100 bg-opacity-80': disabled },
+          'border-terciary-500 focus:border-primary-500 flex flex-row gap-1 rounded-md border border-solid px-5 py-2 shadow-xs',
+          { 'bg-bege-dark-100/80': disabled },
           { 'bg-white': !disabled && outline }
         )}
       >
@@ -49,10 +49,10 @@ export default function Input({
           id={name}
           placeholder={placeholder}
           className={classNames(
-            'bg-inherit w-full border-0 focus:outline-none focus:ring-0',
+            'w-full border-0 bg-inherit focus:ring-0 focus:outline-hidden',
             `${customCss}`,
             { 'border-red-700': errorMessage },
-            { 'bg-bege-dark-100 bg-opacity-80': disabled },
+            { 'bg-bege-dark-100/80': disabled },
             { 'text-right': icon }
           )}
           onChange={onChange}

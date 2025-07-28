@@ -1,7 +1,7 @@
 const LineBreaker = () => {
   return (
     <div className='relative flex items-center py-5'>
-      <div className='border-gray-400 grow border-t border-opacity-90'></div>
+      <div className='border-opacity/90 grow border-t border-gray-400'></div>
     </div>
   );
 };
