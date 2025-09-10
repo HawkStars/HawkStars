@@ -1,12 +1,24 @@
+import { Contribution } from '@/payload-types';
 import { ContributionLabel } from '@/utils/models/transparency';
 
 import { createColumnHelper } from '@tanstack/react-table';
 import i18next from 'i18next';
-import { Contribution } from '@/projects/sanity/sanity.types';
+
+export type ContributionType =
+  | 'BANK'
+  | 'CRYPTO'
+  | 'WALL_NAME_SINGULAR'
+  | 'WALL_NAME_COMPANY'
+  | 'OFFICE_CHAIR'
+  | 'SIMULATOR_CHAIR'
+  | 'LOUNGE_CHAIR'
+  | 'AUDITORIUM_CHAIR'
+  | 'BUILDING_NAMING'
+  | 'TRAINING_ROOM_NAMING';
 
 export type TransparencyContribution = Pick<
   Contribution,
-  'contribution_date' | 'donor' | 'is_anonymous' | '_id' | 'value' | 'contribution_type'
+  'contribution_date' | 'donor' | 'is_anonymous' | 'id' | 'value' | 'contribution_type'
 >;
 
 const columnContributionHelper = createColumnHelper<TransparencyContribution>();

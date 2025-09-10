@@ -11,8 +11,8 @@ import { useTranslation } from '@/i18n/client';
 import { useState } from 'react';
 import Checkbox from '@/components/utils/Checkbox/Checkbox';
 import { ContributionPricing, hasMinimumContribution, ContributionTypesLabels } from './config';
-import { Contribution } from '@/projects/sanity/sanity.types';
-import { ContributionType } from '@/utils/models/database';
+import { Contribution } from '@/payload-types';
+import { ContributionType } from '@/components/transparency/config';
 
 export type ContributionFormInput = Pick<
   Contribution,
@@ -94,7 +94,7 @@ const FormContributions = ({
             outline={true}
             inputHintText={t('contribution_form.donor_hint')}
             errorMessage={errors.donor?.message}
-            disabled={anonymousChecked}
+            disabled={!!anonymousChecked}
           />
         )}
       />
@@ -154,7 +154,7 @@ const FormContributions = ({
           <TextArea
             labelText={t('contribution_form.other_information')}
             name={name}
-            value={value}
+            value={value || ''}
             onChange={onChange}
             inputHintText='Nome Completo / Número de Identificação Fiscal (NIF) / Morada'
           />

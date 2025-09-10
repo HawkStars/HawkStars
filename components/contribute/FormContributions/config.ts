@@ -1,4 +1,4 @@
-import { ContributionType } from '@/utils/models/database';
+import { ContributionType } from '@/components/transparency/config';
 
 const ContributionTypesLabels = [
   { label: 'Bank', value: 'BANK', id: 'BANK', disabled: false },

@@ -1,10 +1,10 @@
 'use client';
 import { useTranslation } from '@/i18n/client';
-import { Contribution } from '@/projects/sanity/sanity.types';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
-import { useState, type JSX } from 'react';
+import { type JSX } from 'react';
 import { Trans } from 'react-i18next';
 import Accordion from '../utils/Accordion/Accordion';
+import { Contribution } from '@/payload-types';
 
 type ChairsSectionsProps = {
   title: string;
@@ -30,7 +30,7 @@ const ChairsSections = ({
       <div className='mx-2 my-10 flex flex-col justify-center gap-1 max-lg:px-2 lg:mx-0 lg:gap-3'>
         <h6 className='lg:text-h2_light text-body_semibold mt-5 lg:text-center'>{title}</h6>
         {price && (
-          <span className='text-body_semibold font-black text-green lg:text-center'>{price}</span>
+          <span className='text-body_semibold text-green font-black lg:text-center'>{price}</span>
         )}
         <ContributionsChairsDesktop
           icon={icon}
@@ -54,7 +54,7 @@ const ContributionInfoSection = ({ icon, contributor }: ContributionInfoSectionP
     <div className='group'>
       {icon}
       {contributor && (
-        <div className='absolute -left-12 bottom-0 z-50 hidden w-40 max-w-md bg-bege-dark p-2 text-center group-hover:block'>
+        <div className='bg-bege-dark absolute bottom-0 -left-12 z-50 hidden w-40 max-w-md p-2 text-center group-hover:block'>
           {contributor}
         </div>
       )}
@@ -80,7 +80,7 @@ const ContributionsChairsDesktop = ({
       {currentContributions.map((contribution: Contribution) => {
         return (
           <ContributionInfoSection
-            key={contribution?._id}
+            key={contribution?.id}
             contributor={contribution?.donor}
             icon={iconFilled}
           />
@@ -115,7 +115,7 @@ const ContributionsChairsMobile = ({
         <Accordion title={t('contributor')}>
           {currentContributions.map((contribution) => {
             return contribution.donor ? (
-              <div key={contribution._id} className='flex w-full justify-between'>
+              <div key={contribution.id} className='flex w-full justify-between'>
                 <span>{contribution.donor}</span>
                 <span>{contribution.contribution_date || ''}</span>
               </div>

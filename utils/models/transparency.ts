@@ -1,4 +1,4 @@
-import { ContributionType } from './database';
+import { ContributionType } from '@/components/transparency/config';
 
 const ContributionLabel = {
   AUDITORIUM_CHAIR: 'contribute:options.auditorium_chair',

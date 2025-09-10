@@ -1,15 +1,15 @@
 'use client';
 
-import { Contribution } from '@/projects/sanity/sanity.types';
+import { Contribution } from '@/payload-types';
 import { LanguageProps } from '../types';
 import FormContributions, { ContributionFormInput } from './FormContributions/FormContributions';
 
 const ContributeFormSection = ({ lng }: LanguageProps) => {
   const handleSubmitForm = async (data: ContributionFormInput) => {
     try {
-      const newDoc: Pick<Contribution, 'is_anonymous' | '_type'> = {
-        _type: 'contribution',
+      const newDoc: Pick<Contribution, 'is_anonymous' | 'contribution_type'> = {
         ...data,
+        contribution_type: 'BANK',
       };
 
       const response = await fetch('/api/contribution', {

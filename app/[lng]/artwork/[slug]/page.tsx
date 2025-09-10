@@ -10,7 +10,6 @@ import ArtPropertyComponent from '@/components/art/ArtProperty';
 import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
-import { getSingleArtwork } from '@/projects/sanity/types/queries/art';
 import SanityBlock from '@/components/utils/sanity/SanityBlock';
 import SanityCloudinaryImage from '@/components/utils/sanity/SanityCloudinaryImage';
 
@@ -41,13 +40,13 @@ const CuratorPage = async (props: CuratorPageProps) => {
 
   return (
     <>
-      <HawkStarsSection className='flex gap-8 bg-bege-light pb-8 pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
+      <HawkStarsSection className='bg-bege-light flex gap-8 pt-10 pb-8 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
         <div className='max-lg:mx-auto lg:w-7/12'>
           <SanityCloudinaryImage image={artwork?.image} className='rounded-xl' />
         </div>
         <div className='font-oswald flex flex-col px-5 pt-5 lg:w-5/12'>
-          <h2 className='text-h1_semibold mb-2 text-disabled'>{artwork.artist}</h2>
-          <h1 className='text-h1_semibold mb-10 text-disabled'>
+          <h2 className='text-h1_semibold text-disabled mb-2'>{artwork.artist}</h2>
+          <h1 className='text-h1_semibold text-disabled mb-10'>
             {extractInternationalI18nString({ text: artwork.title, lng })}
           </h1>
 
@@ -68,7 +67,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
           </div>
           {!artwork.is_sold && (
             <div className='mt-auto flex flex-col gap-3 max-md:mt-6'>
-              <h2 className='text-h2_bold my-auto text-disabled'>
+              <h2 className='text-h2_bold text-disabled my-auto'>
                 {extractInternationalI18nString({ text: artwork.price, lng })}
               </h2>
               <a href='https://forms.gle/XA4kwkHFJvcmEduCA' target='_blank'>
