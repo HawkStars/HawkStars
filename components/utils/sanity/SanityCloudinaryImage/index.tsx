@@ -1,8 +1,9 @@
-import { CloudinaryAsset } from '@/projects/sanity/sanity.types';
 import classNames from 'classnames';
 
+// change this to payload
+
 type SanityCloudinaryImageProps = {
-  image?: CloudinaryAsset | null;
+  image?: any | null;
   className?: string;
 };
 

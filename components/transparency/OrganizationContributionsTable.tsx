@@ -5,46 +5,22 @@ import { useEffect, useState } from 'react';
 import { TransparencyContribution, contributionColumns } from './config';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
-import { sanityFetch } from '@/lib/sanity/sanityClient';
-import {
-  countContributionQuery,
-  firstPageContributionQuery,
-  nextPageContributionQuery,
-} from '@/projects/sanity/types/queries/contribution';
-import { prepareSanityObjectQuery } from '@/lib/sanity/helpers';
 import Button from '../utils/Button';
 import Spinner from '../utils/Spinner/Spinner';
-import {
-  Contribution,
-  CountContributionQueryResult,
-  FirstPageContributionQueryResult,
-  NextPageContributionQueryResult,
-} from '@/projects/sanity/sanity.types';
+import { Contribution } from '@/payload-types';
 
 const getOrganizationContributions = async () => {
-  return await sanityFetch<{
-    items: FirstPageContributionQueryResult;
-    count: CountContributionQueryResult;
-  }>({
-    query: prepareSanityObjectQuery({
-      items: firstPageContributionQuery,
-      count: countContributionQuery,
-    }),
-    revalidate: 86400,
-  });
+  return await Promise.resolve({ items: [] as TransparencyContribution[], count: 0 });
 };
 
-const loadMoreContributions = async (lastId: string, lastPublishedAt: string) => {
-  return await sanityFetch<NextPageContributionQueryResult>({
-    query: nextPageContributionQuery,
-    params: { lastId, lastPublishedAt },
-  });
+const loadMoreContributions = async (lastId: number, lastPublishedAt: string) => {
+  return Promise.resolve([] as TransparencyContribution[]);
 };
 
 const OrganizationContributionsTable = () => {
   const [nextContribution, setNextContribution] = useState<Pick<
     Contribution,
-    '_id' | '_updatedAt'
+    'id' | 'updatedAt'
   > | null>(null);
   const [loading, setLoading] = useState(false);
   const [organizationContributions, setOrganizationContributions] = useState<{
@@ -69,8 +45,8 @@ const OrganizationContributionsTable = () => {
     if (!nextContribution) return;
     setLoading(true);
     const contributions = await loadMoreContributions(
-      nextContribution._id,
-      nextContribution._updatedAt
+      nextContribution.id,
+      nextContribution.updatedAt
     );
     setOrganizationContributions((current) => ({
       ...current,
@@ -96,7 +72,7 @@ const OrganizationContributionsTable = () => {
         <table className='min-w-full table-auto rounded-xl text-left lg:table-fixed'>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id} className='my-2 border-b border-bege-dark'>
+              <tr key={headerGroup.id} className='border-bege-dark my-2 border-b'>
                 {headerGroup.headers.map((header) => (
                   <th key={header.id} className='min-w-40 p-2'>
                     {header.isPlaceholder
@@ -109,7 +85,7 @@ const OrganizationContributionsTable = () => {
           </thead>
           <tbody>
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className='border-b border-bege-dark'>
+              <tr key={row.id} className='border-bege-dark border-b'>
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className='min-w-40 px-2'>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

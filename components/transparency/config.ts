@@ -18,7 +18,13 @@ export type ContributionType =
 
 export type TransparencyContribution = Pick<
   Contribution,
-  'contribution_date' | 'donor' | 'is_anonymous' | 'id' | 'value' | 'contribution_type'
+  | 'contribution_date'
+  | 'donor'
+  | 'is_anonymous'
+  | 'id'
+  | 'value'
+  | 'contribution_type'
+  | 'updatedAt'
 >;
 
 const columnContributionHelper = createColumnHelper<TransparencyContribution>();

@@ -1,5 +1,3 @@
-import { serverClient } from '@/lib/sanity/sanityClient';
-
 export async function POST(request: Request) {
   const body = await request.json();
   if (!body) {
@@ -7,7 +5,8 @@ export async function POST(request: Request) {
   }
 
   try {
-    await serverClient.create(body);
+    // TODO: Integrate with Payload CMS
+    //  await serverClient.create(body);
 
     return new Response('', {
       status: 200,

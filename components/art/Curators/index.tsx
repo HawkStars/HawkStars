@@ -1,12 +1,11 @@
 import SanityCloudinaryImage from '@/components/utils/sanity/SanityCloudinaryImage';
 import { LanguageProps } from '@/components/types';
-import { client } from '@/lib/sanity/sanityClient';
-import { AllCuratorsQueryResult } from '@/projects/sanity/sanity.types';
-import { allCuratorsQuery } from '@/projects/sanity/types/queries/art';
+
 import Link from 'next/link';
+import { allCuratorsQuery } from '@/lib/payload/queries/artwork';
 
 const getCurators = async () => {
-  const response = await client.fetch<AllCuratorsQueryResult>(allCuratorsQuery);
+  const response = await allCuratorsQuery();
   return response;
 };
 
@@ -16,7 +15,7 @@ const Curators = async ({ lng }: LanguageProps) => {
   return (
     <>
       <section className='my-20 flex justify-center gap-4 max-lg:flex-col lg:gap-32' id='curators'>
-        {allCurators.map((curator) => {
+        {allCurators.map((curator: any) => {
           return (
             <div key={curator._id}>
               <Link

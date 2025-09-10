@@ -1,15 +1,13 @@
 import { HawkStarsSection } from '@/components/layout';
-import { client } from '@/lib/sanity/sanityClient';
 
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
-import { GetSingleCuratorQueryResult } from '@/projects/sanity/sanity.types';
-import { getSingleCuratorQuery } from '@/projects/sanity/types/queries/art';
 import SanityBlock from '@/components/utils/sanity/SanityBlock';
 import SanityCloudinaryImage from '@/components/utils/sanity/SanityCloudinaryImage';
+import { getSingleCuratorQuery } from '@/lib/payload/queries/artwork';
 
 const getCuratorInformation = async (slug: string) => {
-  const response = await client.fetch<GetSingleCuratorQueryResult>(getSingleCuratorQuery, { slug });
+  const response = await getSingleCuratorQuery();
   return response;
 };
 
@@ -21,7 +19,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
   if (!curator) notFound();
 
   return (
-    <HawkStarsSection className='font-oswald flex bg-bege-light pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
+    <HawkStarsSection className='font-oswald bg-bege-light flex pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
       <div className='max-lg:mx-auto lg:m-5 lg:w-96'>
         <SanityCloudinaryImage image={curator?.image} />
       </div>

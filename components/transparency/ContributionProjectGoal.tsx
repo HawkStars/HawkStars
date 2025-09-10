@@ -3,10 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { useTranslation } from '@/i18n/client';
-import { sanityFetch } from '@/lib/sanity/sanityClient';
-
-import { TotalMoneyGatheredQueryResult } from '@/projects/sanity/sanity.types';
-import { totalMoneyGatheredQuery } from '@/projects/sanity/types/queries/contribution';
+import { totalMoneyGatheredQuery } from '@/lib/payload/queries/contribution';
 
 export const PROJECT_GOAL = 900000;
 
@@ -21,10 +18,7 @@ const ContributionProjectGoal = () => {
 
   const getCurrentProjetContribution = async () => {
     try {
-      const response: TotalMoneyGatheredQueryResult = await sanityFetch({
-        query: totalMoneyGatheredQuery,
-      });
-
+      const response = await totalMoneyGatheredQuery();
       setTotalContribution(response);
     } catch (e) {}
   };
@@ -41,14 +35,14 @@ const ContributionProjectGoal = () => {
   }, [totalContribution]);
 
   return (
-    <div className='flex flex-col gap-4 bg-bege-light px-8 py-8 lg:px-40 lg:py-20'>
-      <h2 className='lg:text-h1_semibold text-h2_bold text-center text-green'>
+    <div className='bg-bege-light flex flex-col gap-4 px-8 py-8 lg:px-40 lg:py-20'>
+      <h2 className='lg:text-h1_semibold text-h2_bold text-green text-center'>
         {t('current_goal')}
       </h2>
       <h6 className='lg:text-h2_light mt-1 text-center'>{`${t('goal')}: ${PROJECT_GOAL}€`}</h6>
-      <div className='rounded-xs relative mt-5 h-6 w-full border border-green'>
+      <div className='border-green relative mt-5 h-6 w-full rounded-xs border'>
         <div
-          className={`h-full bg-linear-to-r from-bege-dark from-10% to-bege-light to-95%`}
+          className={`from-bege-dark to-bege-light h-full bg-linear-to-r from-10% to-95%`}
           style={{ width: barSettings.width }}
         >
           <p className='absolute my-auto flex w-full justify-center'>

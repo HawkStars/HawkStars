@@ -25,17 +25,14 @@ import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
 import ContributeFormSection from '@/components/contribute/ContributeFormSection';
 import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';
-import { client } from '@/lib/sanity/sanityClient';
 
 import groupBy from 'lodash.groupby';
-import { Contribution, GetChairsContributionsQueryResult } from '@/projects/sanity/sanity.types';
 import BrandingSection from '@/components/contribute/BrandingSection';
-import { getChairsContributionsQuery } from '@/projects/sanity/types/queries/contribution';
+import { Contribution } from '@/payload-types';
+import { getChairsContributionsQuery } from '@/lib/payload/queries/contribution';
 
 const getChairsContribute = async () => {
-  const contributions = await client.fetch<GetChairsContributionsQueryResult>(
-    getChairsContributionsQuery
-  );
+  const contributions = await getChairsContributionsQuery();
 
   const grouped_contributions = groupBy(contributions, 'contribution_type');
   const simulationChairs = (grouped_contributions['SIMULATOR_CHAIR'] as Contribution[]) || [];
@@ -61,15 +58,15 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
 
   return (
     <div className='mt-5 flex flex-col gap-5 lg:mt-10'>
-      <h1 className='text-h2_bold mx-4 text-center text-green lg:hidden'>{t('contribute_hero')}</h1>
+      <h1 className='text-h2_bold text-green mx-4 text-center lg:hidden'>{t('contribute_hero')}</h1>
       <HawkStarsSection padding='none'>
         <div className='relative max-w-full max-2xl:mx-0 max-2xl:p-0'>
-          <div className='absolute left-40 top-20 hidden text-green lg:block'>
+          <div className='text-green absolute top-20 left-40 hidden lg:block'>
             <h1 className='text-h1_semibold w-72'>{t('contribute_hero')}</h1>
             <Link
               href='#form'
               lang={lng}
-              className='text-body_semibold mt-5 flex w-fit flex-row gap-3 rounded-xl bg-green p-4 text-white'
+              className='text-body_semibold bg-green mt-5 flex w-fit flex-row gap-3 rounded-xl p-4 text-white'
             >
               {t('donate_here')}
             </Link>
@@ -77,7 +74,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           <Image src={heroImage} alt='hero image' />
         </div>
       </HawkStarsSection>
-      <div className='flex flex-col gap-10 bg-linear-to-tr from-[#E9E9E9] from-35% via-bege-dark to-[#E9E9E9] to-65% py-16 lg:gap-20 lg:p-20 lg:py-20'>
+      <div className='via-bege-dark flex flex-col gap-10 bg-linear-to-tr from-[#E9E9E9] from-35% to-[#E9E9E9] to-65% py-16 lg:gap-20 lg:p-20 lg:py-20'>
         <h2 className='text-h2_light mx-4 text-center'>{t('forms_and_modalities')}</h2>
         <div className='mx-auto flex max-w-6xl flex-col gap-10 max-lg:px-4 md:flex-row'>
           <div className='flex flex-col gap-1 md:flex-1'>
@@ -97,7 +94,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
             <p className='text-body_regular lg:text-justify'>{t('crypto_transfer.description')}</p>
             <p className='text-body_regular mt-2 font-bold'>
               Metamask:{' '}
-              <span className='text-body_regular break-all font-bold'>
+              <span className='text-body_regular font-bold break-all'>
                 0x085036c6ec33888db0c4cc8f99791537dbc8ab97
               </span>
             </p>
@@ -106,14 +103,14 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
       </div>
 
       <div className='my-5 flex flex-col gap-3'>
-        <h2 className='text-h2_light text-center text-green'>{t('other_modalities')}</h2>
+        <h2 className='text-h2_light text-green text-center'>{t('other_modalities')}</h2>
         <div className='mt-5 flex flex-col justify-center gap-3'>
           <div className='flex justify-center'>
             <Link
               href='https://shop.hawkstars.org/'
               lang='en'
               target='_blank'
-              className='flex w-fit flex-row gap-3 rounded-xl bg-green p-4 text-white'
+              className='bg-green flex w-fit flex-row gap-3 rounded-xl p-4 text-white'
             >
               <TbShoppingCart className='my-auto' /> {t('store')}
             </Link>
@@ -122,7 +119,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
         <LineBreaker />
         <HawkStarsSection>
           <div className='flex flex-col gap-3 lg:gap-10'>
-            <h2 className='text-h2_bold mt-10 text-center text-green'>Branding</h2>
+            <h2 className='text-h2_bold text-green mt-10 text-center'>Branding</h2>
 
             <div className='mx-auto flex max-w-6xl flex-col gap-10 md:flex-row'>
               <BrandingSection
@@ -150,11 +147,11 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
               <h3 className='text-h2_light text-center'>{t('brand.wall_branding.title')}</h3>
               <Image src={trainingRoom} alt='hawk stars training room' className='rounded-lg' />
               <div className='flex flex-row gap-4'>
-                <div className='text-body_semibold flex w-fit flex-row gap-1 rounded-2xl p-2 text-green lg:text-base'>
+                <div className='text-body_semibold text-green flex w-fit flex-row gap-1 rounded-2xl p-2 lg:text-base'>
                   <LiaUserSolid size={28} className='my-auto' />
                   <p className='self-center'>{t('brand.wall_branding.price_solo')}</p>
                 </div>
-                <div className='text-body_semibold flex w-fit flex-row gap-1 rounded-2xl p-2 text-green lg:text-base'>
+                <div className='text-body_semibold text-green flex w-fit flex-row gap-1 rounded-2xl p-2 lg:text-base'>
                   <LiaUsersSolid size={28} />
                   <p className='self-center'>{t('brand.wall_branding.price_company')}</p>
                 </div>
@@ -165,7 +162,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
         </HawkStarsSection>
         <LineBreaker />
         <div>
-          <h3 className='text-h2_bold text-center text-green'>{t('brand.chairs.title')}</h3>
+          <h3 className='text-h2_bold text-green text-center'>{t('brand.chairs.title')}</h3>
           <ChairsSections
             title={t('brand.chairs.types.gaming_chair')}
             price='300€'
@@ -212,7 +209,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
         </div>
       </div>
       <section className='bg-bege-light py-10' id='form'>
-        <h3 className='text-h2_bold flex justify-center text-green'>{t('helps_us_donate')}</h3>
+        <h3 className='text-h2_bold text-green flex justify-center'>{t('helps_us_donate')}</h3>
         <ContributeFormSection lng={lng} />
       </section>
     </div>

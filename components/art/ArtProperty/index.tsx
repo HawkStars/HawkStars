@@ -1,6 +1,6 @@
 type ArtPropertyComponentProps = {
   label: string;
-  value?: string | number;
+  value?: string | number | null;
 };
 
 const ArtPropertyComponent = ({ label, value }: ArtPropertyComponentProps) => {

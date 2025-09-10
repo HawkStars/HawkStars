@@ -1,10 +1,8 @@
 import { HawkStarsSection } from '@/components/layout';
-import { client } from '@/lib/sanity/sanityClient';
+
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
-import { GetSingleArtworkResult } from '@/projects/sanity/sanity.types';
 import { getServerTranslation } from '@/i18n';
-import { extractInternationalI18nString } from '@/lib/sanity/helpers';
 import Button from '@/components/utils/Button';
 import ArtPropertyComponent from '@/components/art/ArtProperty';
 import { Language } from '@/i18n/settings';
@@ -12,9 +10,11 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import SanityBlock from '@/components/utils/sanity/SanityBlock';
 import SanityCloudinaryImage from '@/components/utils/sanity/SanityCloudinaryImage';
+import { getSingleArtwork } from '@/lib/payload/queries/artwork';
+import { Curator } from '@/payload-types';
 
 const getCuratorInformation = async (slug: string) => {
-  const response = await client.fetch<GetSingleArtworkResult>(getSingleArtwork, { slug });
+  const response = await getSingleArtwork();
   return response;
 };
 
@@ -45,31 +45,20 @@ const CuratorPage = async (props: CuratorPageProps) => {
           <SanityCloudinaryImage image={artwork?.image} className='rounded-xl' />
         </div>
         <div className='font-oswald flex flex-col px-5 pt-5 lg:w-5/12'>
-          <h2 className='text-h1_semibold text-disabled mb-2'>{artwork.artist}</h2>
-          <h1 className='text-h1_semibold text-disabled mb-10'>
-            {extractInternationalI18nString({ text: artwork.title, lng })}
-          </h1>
+          <h2 className='text-h1_semibold text-disabled mb-2'>
+            {(artwork.artist as Curator).name}
+          </h2>
+          <h1 className='text-h1_semibold text-disabled mb-10'>{artwork.title}</h1>
 
           <div className='my-5 grid grid-cols-2 gap-x-12 gap-y-8'>
             <ArtPropertyComponent label={t('artwork.year')} value={artwork.year} />
-            <ArtPropertyComponent
-              label={t('artwork.dimensions')}
-              value={extractInternationalI18nString({ text: artwork.dimensions, lng })}
-            />
-            <ArtPropertyComponent
-              label={t('artwork.settings')}
-              value={extractInternationalI18nString({ text: artwork.settings, lng })}
-            />
-            <ArtPropertyComponent
-              label={t('artwork.tiragem')}
-              value={extractInternationalI18nString({ text: artwork.tiragem, lng })}
-            />
+            <ArtPropertyComponent label={t('artwork.dimensions')} value={artwork.dimensions} />
+            <ArtPropertyComponent label={t('artwork.settings')} value={artwork.settings} />
+            <ArtPropertyComponent label={t('artwork.tiragem')} value={artwork.tiragem} />
           </div>
           {!artwork.is_sold && (
             <div className='mt-auto flex flex-col gap-3 max-md:mt-6'>
-              <h2 className='text-h2_bold text-disabled my-auto'>
-                {extractInternationalI18nString({ text: artwork.price, lng })}
-              </h2>
+              <h2 className='text-h2_bold text-disabled my-auto'>{artwork.price}</h2>
               <a href='https://forms.gle/XA4kwkHFJvcmEduCA' target='_blank'>
                 <Button type={'button'}>{t('buy')}</Button>
               </a>

@@ -1,7 +1,7 @@
 'use client';
 
-import { fallbackLng, i18CookieName, Language } from '@/i18n/settings';
-import { createContext, Dispatch, ReactNode, useContext, useEffect, useState } from 'react';
+import { fallbackLng, Language } from '@/i18n/settings';
+import { createContext, Dispatch, ReactNode, useContext, useState } from 'react';
 
 type MainAppProperties = {
   mobileNavbarOpen: boolean;

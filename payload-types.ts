@@ -94,7 +94,7 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: number;
+    defaultIDType: string;
   };
   globals: {};
   globalsSelect: {};
@@ -130,7 +130,7 @@ export interface UserAuthOperations {
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
+  id: string;
   firstName?: string | null;
   lastName?: string | null;
   isAdmin?: boolean | null;
@@ -157,8 +157,69 @@ export interface User {
  * via the `definition` "media".
  */
 export interface Media {
-  id: number;
+  id: string;
   alt: string;
+  /**
+   * Cloudinary Media Information
+   */
+  cloudinary?: {
+    /**
+     * Cloudinary Public ID (used for transformations)
+     */
+    public_id?: string | null;
+    /**
+     * Type of the resource (image, video, raw)
+     */
+    resource_type?: string | null;
+    /**
+     * File format
+     */
+    format?: string | null;
+    /**
+     * Secure delivery URL
+     */
+    secure_url?: string | null;
+    /**
+     * File size in bytes
+     */
+    bytes?: number | null;
+    /**
+     * Creation timestamp
+     */
+    created_at?: string | null;
+    /**
+     * Current version number
+     */
+    version?: string | null;
+    /**
+     * Unique version identifier
+     */
+    version_id?: string | null;
+    /**
+     * Width in pixels
+     */
+    width?: number | null;
+    /**
+     * Height in pixels
+     */
+    height?: number | null;
+    /**
+     * Duration in seconds (for videos)
+     */
+    duration?: number | null;
+    /**
+     * Number of pages (for PDFs)
+     */
+    pages?: number | null;
+    /**
+     * Which page of the PDF to use for thumbnails (changes will apply after saving)
+     */
+    selected_page?: number | null;
+    /**
+     * URL for the thumbnail image (automatically generated for PDFs)
+     */
+    thumbnail_url?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -176,10 +237,10 @@ export interface Media {
  * via the `definition` "artworks".
  */
 export interface Artwork {
-  id: number;
+  id: string;
   title: string;
   slug?: string | null;
-  artist: number | Curator;
+  artist: string | Curator;
   synopsis: {
     root: {
       type: string;
@@ -195,7 +256,7 @@ export interface Artwork {
     };
     [k: string]: unknown;
   };
-  image: number | Media;
+  image: string | Media;
   is_sold?: boolean | null;
   year?: number | null;
   price: string;
@@ -226,7 +287,7 @@ export interface Artwork {
  * via the `definition` "curators".
  */
 export interface Curator {
-  id: number;
+  id: string;
   name: string;
   slug: string;
   location?: string | null;
@@ -245,7 +306,7 @@ export interface Curator {
     };
     [k: string]: unknown;
   } | null;
-  image: number | Media;
+  image: string | Media;
   seo: SEO;
   updatedAt: string;
   createdAt: string;
@@ -272,13 +333,13 @@ export interface SeoFields {
     | null;
   og_title: string;
   og_description: string;
-  og_image?: (number | null) | Media;
+  og_image?: (string | null) | Media;
   og_type?: string | null;
   og_url?: string | null;
   twitter_card?: string | null;
   twitter_title?: string | null;
   twitter_description?: string | null;
-  twitter_image?: (number | null) | Media;
+  twitter_image?: (string | null) | Media;
   canonical?: string | null;
   robots?: string | null;
 }
@@ -287,7 +348,7 @@ export interface SeoFields {
  * via the `definition` "board-members".
  */
 export interface BoardMember {
-  id: number;
+  id: string;
   name: string;
   /**
    * Section out of the three that is to add the member
@@ -302,7 +363,7 @@ export interface BoardMember {
     | 'substitute'
     | 'treasurer'
     | 'rapporteur_secretary';
-  image?: (number | null) | Media;
+  image?: (string | null) | Media;
   links?:
     | {
         platform:
@@ -336,7 +397,7 @@ export interface BoardMember {
  * via the `definition` "contributions".
  */
 export interface Contribution {
-  id: number;
+  id: string;
   donor: string;
   is_confirmed?: boolean | null;
   is_anonymous?: boolean | null;
@@ -362,12 +423,30 @@ export interface Contribution {
  * via the `definition` "hawk_events".
  */
 export interface HawkEvent {
-  id: number;
+  id: string;
   title: string;
   slug: string;
   type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
-  description?: string | null;
-  image: number | Media;
+  page_content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Image representing the event on the events main page not on the event page itself
+   */
+  image: string | Media;
+  seo: SEO;
   updatedAt: string;
   createdAt: string;
 }
@@ -376,9 +455,9 @@ export interface HawkEvent {
  * via the `definition` "partners".
  */
 export interface Partner {
-  id: number;
+  id: string;
   name: string;
-  image: number | Media;
+  image: string | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -387,44 +466,44 @@ export interface Partner {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: number;
+  id: string;
   document?:
     | ({
         relationTo: 'users';
-        value: number | User;
+        value: string | User;
       } | null)
     | ({
         relationTo: 'media';
-        value: number | Media;
+        value: string | Media;
       } | null)
     | ({
         relationTo: 'artworks';
-        value: number | Artwork;
+        value: string | Artwork;
       } | null)
     | ({
         relationTo: 'board-members';
-        value: number | BoardMember;
+        value: string | BoardMember;
       } | null)
     | ({
         relationTo: 'contributions';
-        value: number | Contribution;
+        value: string | Contribution;
       } | null)
     | ({
         relationTo: 'curators';
-        value: number | Curator;
+        value: string | Curator;
       } | null)
     | ({
         relationTo: 'hawk_events';
-        value: number | HawkEvent;
+        value: string | HawkEvent;
       } | null)
     | ({
         relationTo: 'partners';
-        value: number | Partner;
+        value: string | Partner;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -434,10 +513,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
+  id: string;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   key?: string | null;
   value?:
@@ -457,7 +536,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
+  id: string;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -494,6 +573,24 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  cloudinary?:
+    | T
+    | {
+        public_id?: T;
+        resource_type?: T;
+        format?: T;
+        secure_url?: T;
+        bytes?: T;
+        created_at?: T;
+        version?: T;
+        version_id?: T;
+        width?: T;
+        height?: T;
+        duration?: T;
+        pages?: T;
+        selected_page?: T;
+        thumbnail_url?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -617,8 +714,9 @@ export interface HawkEventsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   type_event?: T;
-  description?: T;
+  page_content?: T;
   image?: T;
+  seo?: T | SEOSelect<T>;
   updatedAt?: T;
   createdAt?: T;
 }

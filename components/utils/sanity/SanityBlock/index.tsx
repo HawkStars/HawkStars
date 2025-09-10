@@ -1,8 +1,9 @@
-import { InternationalizedArrayFormattedText } from '@/projects/sanity/sanity.types';
 import { PortableText, PortableTextComponents } from '@portabletext/react';
 
+// TODO: change to payload
+
 type SanityBlockProps = {
-  block: InternationalizedArrayFormattedText;
+  block: any;
   lng: string;
 };
 
@@ -33,7 +34,7 @@ const defaultComponents: PortableTextComponents = {
 };
 
 const SanityBlock = ({ block, lng }: SanityBlockProps) => {
-  const info = block?.find((item) => item._key == lng);
+  const info = block?.find((item: any) => item._key == lng);
   if (!info?.value) return <></>;
 
   return <PortableText value={info.value} components={defaultComponents} />;

@@ -1,37 +1,23 @@
 'use client';
 
 import Image from 'next/image';
-import { sanityFetch } from '@/lib/sanity/sanityClient';
-import {
-  FirstPageEventsQueryResult,
-  HawkEvent,
-  NextPageEventsQueryResult,
-} from '@/projects/sanity/sanity.types';
-import { firstPageEventsQuery, nextPageEventsQuery } from '@/projects/sanity/types/queries/event';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { extractInternationalI18nString } from '@/lib/sanity/helpers';
 import { useMainAppContext } from '@/utils/contexts/AppProvider';
+import { HawkEvent, Media } from '@/payload-types';
 
 const getFirstHawkEvents = async () => {
-  return await sanityFetch<FirstPageEventsQueryResult>({
-    query: firstPageEventsQuery,
-    revalidate: 86400,
-  });
+  return Promise.resolve([]);
 };
 
-const getNextPageEvents = async (lastId: string, updatedAt: string) => {
-  return await sanityFetch<NextPageEventsQueryResult>({
-    query: nextPageEventsQuery,
-    revalidate: 86400,
-    params: { lastId, updatedAt },
-  });
+const getNextPageEvents = async (lastId: number, updatedAt: string) => {
+  return Promise.resolve([]);
 };
 
 const EventsList = () => {
   const { lng } = useMainAppContext();
   const [events, setEvents] = useState<HawkEvent[]>([]);
-  const [lastHawkEvent, setLastHawkEvent] = useState<Pick<HawkEvent, '_id' | '_updatedAt'> | null>(
+  const [lastHawkEvent, setLastHawkEvent] = useState<Pick<HawkEvent, 'id' | 'updatedAt'> | null>(
     null
   );
   const [loading, setLoading] = useState(false);
@@ -47,7 +33,7 @@ const EventsList = () => {
   const fetchNextPage = async () => {
     setLoading(true);
     if (!lastHawkEvent) return;
-    const result = await getNextPageEvents(lastHawkEvent._id, lastHawkEvent._updatedAt);
+    const result = await getNextPageEvents(lastHawkEvent.id, lastHawkEvent.updatedAt);
     setEvents([...events, ...result] as HawkEvent[]);
     if (result.length > 0) setLastHawkEvent(result[result.length - 1]);
     setLoading(false);
@@ -64,18 +50,13 @@ const EventsList = () => {
         <>
           <ul>
             {events.map((event: HawkEvent) => {
-              const firstImage = (event.image && event.image[0]) || null;
+              const firstImage = (event.image && (event.image as Media)) || null;
               return (
-                <Link key={event._id} href={`/events/${event.slug?.current}`}>
+                <Link key={event.id} href={`/events/${event.slug}`}>
                   <div>
-                    <span>{extractInternationalI18nString({ text: event.title, lng })}</span>
+                    <span>{event.title}</span>
                     {firstImage?.url && (
-                      <Image
-                        src={firstImage.url}
-                        alt={extractInternationalI18nString({ text: event.title, lng })}
-                        width={200}
-                        height={200}
-                      />
+                      <Image src={firstImage.url} width={200} height={200} alt='' />
                     )}
                   </div>
                 </Link>
