@@ -13,7 +13,7 @@ const getOrganizationContributions = async () => {
   return await Promise.resolve({ items: [] as TransparencyContribution[], count: 0 });
 };
 
-const loadMoreContributions = async (lastId: number, lastPublishedAt: string) => {
+const loadMoreContributions = async (lastId: string, lastPublishedAt: string) => {
   return Promise.resolve([] as TransparencyContribution[]);
 };
 

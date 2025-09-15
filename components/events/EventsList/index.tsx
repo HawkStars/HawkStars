@@ -10,7 +10,7 @@ const getFirstHawkEvents = async () => {
   return Promise.resolve([]);
 };
 
-const getNextPageEvents = async (lastId: number, updatedAt: string) => {
+const getNextPageEvents = async (lastId: string, updatedAt: string) => {
   return Promise.resolve([]);
 };
 
