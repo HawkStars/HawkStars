@@ -1,26 +1,21 @@
-# Use official Node.js LTS image
-FROM node:22-alpine AS base
+FROM node:20-slim
 
-# Set working directory
 WORKDIR /app
 
-# Install pnpm
-RUN npm install -g pnpm
+RUN corepack enable pnpm && corepack install -g pnpm@latest-10
 
-# Copy package files
-COPY package.json pnpm-lock.yaml ./
+# pnpm fetch does require only lockfile
+COPY pnpm-lock.yaml pnpm-workspace.yaml ./
 
-# Install dependencies
+RUN pnpm fetch --prod
+
+ENV CI=true
+ADD . ./
 RUN pnpm install --frozen-lockfile
 
-# Copy the rest of the application code
-COPY . .
-
-# Build the Next.js app
+# Option A: Set NODE_OPTIONS environment variable
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 RUN pnpm build
 
-# Expose port (default for Next.js)
-EXPOSE 3000
-
-# Start the Next.js app
-CMD ["pnpm", "start"]
+EXPOSE 8000
+CMD [ "pnpm", "start" ]

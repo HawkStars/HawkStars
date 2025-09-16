@@ -1,9 +1,43 @@
-version: '3.8'
 services:
-  app:
-    build: .
+  hawkstars:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
     ports:
-      - "3000:3000"
+      - "8000:8000"
     environment:
       - NODE_ENV=production
+      - PORT=8000
+      - HOSTNAME=0.0.0.0
+      # Add your environment variables here
+      # - DATABASE_URL=your_database_url
+      # - NEXTAUTH_SECRET=your_secret
+      # - NEXTAUTH_URL=http://localhost:8000
+    # volumes:
+    #   - ./uploads:/app/uploads  # If you need persistent storage
     restart: unless-stopped
+    # networks:
+    #   - hawkstars-network
+
+  # If you need a database, uncomment this section
+  # postgres:
+  #   image: postgres:15-alpine
+  #   environment:
+  #     POSTGRES_DB: hawkstars
+  #     POSTGRES_USER: hawkstars
+  #     POSTGRES_PASSWORD: your_password
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   restart: unless-stopped
+  #   networks:
+  #     - hawkstars-network
+
+# volumes:
+#   postgres_data:
+
+# networks:
+#   hawkstars-network:
+#     driver: bridge
