@@ -2,7 +2,6 @@
 import { PT, GB } from 'country-flag-icons/react/3x2';
 import classNames from 'classnames';
 
-import { useRouter } from 'next/navigation';
 import { useLanguageCookie, useSetLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Language } from '@/i18n/settings';
 

@@ -86,12 +86,7 @@ const nextConfig = {
   },
 } as NextConfig;
 
-// https://nextjs.org/docs/app/building-your-application/optimizing/bundle-analyzer
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
-
-const payloadConfig = withPayload(withBundleAnalyzer(nextConfig));
+const payloadConfig = withPayload(nextConfig);
 
 export default withSentryConfig(payloadConfig, {
   // For all available options, see:
