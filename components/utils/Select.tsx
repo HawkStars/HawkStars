@@ -54,7 +54,7 @@ const Select = ({
           </ListboxButton>
           <ListboxOptions
             className={classNames(
-              'absolute z-50 flex max-h-40 w-full flex-col gap-2 overflow-y-auto rounded-xl border-2 border-bege-dark p-3',
+              'border-bege-dark absolute z-50 flex max-h-40 w-full flex-col gap-2 overflow-y-auto rounded-xl border-2 p-3',
               {
                 'bg-white': outline,
                 'bg-bege-light': !outline,

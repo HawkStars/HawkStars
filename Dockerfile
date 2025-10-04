@@ -1,21 +1,24 @@
-FROM node:20-slim
+FROM node:lts-alpine AS base
 
+# Stage 1: Install dependencies
+FROM base AS deps
 WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN corepack enable pnpm && pnpm install --frozen-lockfile
 
-RUN corepack enable pnpm && corepack install -g pnpm@latest-10
+# Stage 2: Build the application
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN corepack enable pnpm && pnpm run build
 
-# pnpm fetch does require only lockfile
-COPY pnpm-lock.yaml pnpm-workspace.yaml ./
+# Stage 3: Production server
+FROM base AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
-RUN pnpm fetch --prod
-
-ENV CI=true
-ADD . ./
-RUN pnpm install --frozen-lockfile
-
-# Option A: Set NODE_OPTIONS environment variable
-ENV NODE_OPTIONS="--max-old-space-size=4096"
-RUN pnpm build
-
-EXPOSE 8000
-CMD [ "pnpm", "start" ]
+EXPOSE 3000
+CMD ["node", "server.js"]

@@ -1,4 +1,3 @@
-import SanityCloudinaryImage from '@/components/utils/sanity/SanityCloudinaryImage';
 import { LanguageProps } from '@/components/types';
 
 import Link from 'next/link';
@@ -23,10 +22,10 @@ const Curators = async ({ lng }: LanguageProps) => {
                 className='flex flex-col gap-5'
               >
                 <div className='md:mx-auto'>
-                  <SanityCloudinaryImage
+                  {/* <SanityCloudinaryImage
                     image={curator.image}
                     className='max-lg:w-96 lg:h-[400px] lg:rounded-md'
-                  />
+                  /> */}
                 </div>
                 <h6 className='text-h2_bold max-lg:pl-4 md:text-center'>{curator.name}</h6>
               </Link>

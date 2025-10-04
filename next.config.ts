@@ -11,11 +11,11 @@ const cspHeader = `
     object-src 'none';
     base-uri 'self';
     form-action 'self';
-    frame-ancestors 'self' https://hawkstars.sanity.studio;
+    frame-ancestors 'self';
     block-all-mixed-content;
     upgrade-insecure-requests;
     frame-src *.google.com https://upload-widget.cloudinary.com;
-    connect-src 'self' *.api.sanity.io *.google-analytics.com *.sentry.io ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:` : 'http://127.0.0.1:54321'};
+    connect-src 'self' *.google-analytics.com *.sentry.io ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:` : 'http://127.0.0.1:54321'};
 `;
 
 const prepCSPHeader =
@@ -71,9 +71,27 @@ const nextConfig = {
       },
     ];
   },
+  // Optimize webpack configuration
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        cacheGroups: {
+          default: false,
+          vendors: false,
+        },
+      };
+    }
+    return config;
+  },
 } as NextConfig;
 
-const payloadConfig = withPayload(nextConfig);
+// https://nextjs.org/docs/app/building-your-application/optimizing/bundle-analyzer
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+const payloadConfig = withPayload(withBundleAnalyzer(nextConfig));
 
 export default withSentryConfig(payloadConfig, {
   // For all available options, see:
@@ -112,8 +130,3 @@ export default withSentryConfig(payloadConfig, {
     enabled: true,
   },
 });
-
-// https://nextjs.org/docs/app/building-your-application/optimizing/bundle-analyzer
-// const withBundleAnalyzer = require('@next/bundle-analyzer')({
-//   enabled: process.env.ANALYZE === 'true',
-// })

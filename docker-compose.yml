@@ -5,11 +5,11 @@ services:
       dockerfile: Dockerfile
       target: runner
     ports:
-      - "8000:8000"
+      - '3000:3000'
     environment:
       - NODE_ENV=production
-      - PORT=8000
       - HOSTNAME=0.0.0.0
+      - GENERATE_SOURCEMAP=false
       # Add your environment variables here
       # - DATABASE_URL=your_database_url
       # - NEXTAUTH_SECRET=your_secret
@@ -17,27 +17,15 @@ services:
     # volumes:
     #   - ./uploads:/app/uploads  # If you need persistent storage
     restart: unless-stopped
-    # networks:
-    #   - hawkstars-network
+    depends_on:
+      - database
 
-  # If you need a database, uncomment this section
-  # postgres:
-  #   image: postgres:15-alpine
-  #   environment:
-  #     POSTGRES_DB: hawkstars
-  #     POSTGRES_USER: hawkstars
-  #     POSTGRES_PASSWORD: your_password
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #   ports:
-  #     - "5432:5432"
-  #   restart: unless-stopped
-  #   networks:
-  #     - hawkstars-network
-
-# volumes:
-#   postgres_data:
-
-# networks:
-#   hawkstars-network:
-#     driver: bridge
+  database:
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - 'mongo_data:/data/db'
+    restart: unless-stopped
+volumes:
+  mongo_data:

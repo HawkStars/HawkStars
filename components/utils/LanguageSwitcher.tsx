@@ -7,7 +7,6 @@ import { useLanguageCookie, useSetLanguageCookie } from '@/utils/contexts/AppPro
 import { Language } from '@/i18n/settings';
 
 const LanguageSwitcher = () => {
-  const router = useRouter();
   const lng = useLanguageCookie();
   const setLng = useSetLanguageCookie();
 
