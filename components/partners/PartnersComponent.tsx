@@ -64,7 +64,7 @@ const PartnerCard = ({
     <div className='my-20 flex flex-col gap-5'>
       {/* Country If exists*/}
       {country && (
-        <h6 className='w-fit rounded-xl border-2 border-green p-1 text-green'>{country}</h6>
+        <h6 className='border-green text-green w-fit rounded-xl border-2 p-1'>{country}</h6>
       )}
       {/* Title */}
       <h3 className=''>{title}</h3>
@@ -90,7 +90,9 @@ const PartnerCard = ({
               return (
                 <div key={index}>
                   <Link href={contact.url} className='underline' target='_blank'>
-                    {icon && icon({ size: 24, color: '#0A7558' })}
+                    {icon && (
+                      <Image src={icon} alt={`${contact.type} icon`} width={24} height={24} />
+                    )}
                   </Link>
                 </div>
               );
@@ -98,7 +100,7 @@ const PartnerCard = ({
           </>
         </div>
       )}
-      <div className='mt-5 h-5 bg-bege-light'></div>
+      <div className='bg-bege-light mt-5 h-5'></div>
     </div>
   );
 };

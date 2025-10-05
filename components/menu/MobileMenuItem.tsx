@@ -6,9 +6,10 @@ import { transformUrl } from '../../utils/paths';
 import classNames from 'classnames';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { PiCaretRightThin, PiCaretDownThin } from 'react-icons/pi';
+import Image from 'next/image';
 import { NavbarUrlItem } from '../navbar/types';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import CaretDown from '@/public/images/icons/common/caret-down.svg';
 
 type MenuItemProps = {
   title: string;
@@ -33,7 +34,9 @@ const MobileMenuItem = ({ title, options }: MenuItemProps) => {
       <div className='mb-2 flex gap-3' onClick={() => setShowOptions(!showOptions)}>
         {options && options.length > 0 && (
           <div className='my-auto'>
-            <PiCaretDownThin
+            <Image
+              src={CaretDown}
+              alt='Caret Down'
               className={classNames('transform duration-300', {
                 '-rotate-90': !showOptions,
               })}

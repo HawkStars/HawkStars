@@ -2,7 +2,6 @@
 
 import { useMainAppContext, useSetMobileNavbarOpen } from '../../utils/contexts/AppProvider';
 import Image from 'next/image';
-import { RxCross1 } from 'react-icons/rx';
 
 import Button from '../utils/Button';
 import Socials from '../utils/Socials';
@@ -38,9 +37,10 @@ const MobileNavbar = () => {
             <Link href='/'>
               <Image src={hawkLogo} alt='Hawk Stars Logo' priority width={150} className='-mt-1' />
             </Link>
-            <div className='my-auto ml-auto block cursor-pointer lg:hidden'>
-              <RxCross1 size={28} onClick={() => setMobileMenuOpen(false)} />
-            </div>
+            <div
+              className='cross-x relative my-auto ml-auto block h-5 w-5 cursor-pointer lg:hidden'
+              onClick={() => setMobileMenuOpen(false)}
+            />
           </div>
           <div className='-ml-3'>
             <LanguageSwitcher />

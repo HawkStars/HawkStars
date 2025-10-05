@@ -3,8 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { RxHamburgerMenu } from 'react-icons/rx';
-
+import HamburgerIcon from '@/public/images/icons/common/hamburger.svg';
 import { useSetMobileNavbarOpen } from '../../utils/contexts/AppProvider';
 import Button from '../utils/Button';
 import { urls } from '../../utils/paths';
@@ -81,8 +80,11 @@ const Navbar = () => {
             </div>
           </div>
           {/* NAVBAR MOBILE */}
-          <div className='my-auto ml-auto block cursor-pointer lg:hidden'>
-            <RxHamburgerMenu size={28} onClick={() => setMobileMenuOpen(true)} />
+          <div
+            className='my-auto ml-auto block cursor-pointer lg:hidden'
+            onClick={() => setMobileMenuOpen(true)}
+          >
+            <Image src={HamburgerIcon} alt='Menu' width={28} height={28} />
           </div>
         </div>
       </div>

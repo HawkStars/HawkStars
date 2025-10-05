@@ -87,4 +87,26 @@
   .font-oswald {
     font-family: 'Oswald', 'sans-serif';
   }
+
+  .cross-x {
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background-color: currentColor;
+      top: 50%;
+      left: 0;
+    }
+
+    &::before {
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+  }
 }
+

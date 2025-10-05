@@ -48,6 +48,7 @@ const nextConfig = {
   },
   staticPageGenerationTimeout: 120,
   productionBrowserSourceMaps: false,
+  output: 'standalone',
   async headers() {
     return [
       {

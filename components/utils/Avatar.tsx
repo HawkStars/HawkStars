@@ -1,7 +1,8 @@
 'use client';
 import Image from 'next/image';
 import { tw, variantProps } from 'classname-variants/react';
-import { BiUser } from 'react-icons/bi';
+
+import AvatarIcon from '@/public/images/icons/common/avatar.svg';
 
 type AvatarProps = {
   url: string;
@@ -55,8 +56,8 @@ const Avatar = (props: AvatarProps) => {
   return (
     <div {...avatarProps({ ...props })}>
       {!url && (
-        <div className='flex justify-center rounded-full bg-bege-dark p-2'>
-          <BiUser size={64} />
+        <div className='bg-bege-dark flex justify-center rounded-full p-2'>
+          <Image src={AvatarIcon} alt='Avatar' width={64} height={64} />
         </div>
       )}
 

@@ -1,11 +1,12 @@
 import Link from 'next/link';
-import { AiOutlineMail } from 'react-icons/ai';
-import {
-  PiFacebookLogoBold,
-  PiInstagramLogoBold,
-  PiLinkedinLogoBold,
-  PiYoutubeLogoBold,
-} from 'react-icons/pi';
+import Image from 'next/image';
+
+import MailIcon from '@/public/images/icons/common/mail.svg';
+
+import FacebookIcon from '@/public/images/icons/socials/facebook.svg';
+import InstagramIcon from '@/public/images/icons/socials/instagram.svg';
+import LinkedinIcon from '@/public/images/icons/socials/linkedin.svg';
+import YoutubeIcon from '@/public/images/icons/socials/youtube.svg';
 
 const Socials = () => {
   return (
@@ -15,34 +16,34 @@ const Socials = () => {
         href='https://www.youtube.com/@HawkStarsNGO'
         aria-label='Check HawkStars NGO on Youtube'
       >
-        <PiYoutubeLogoBold size={24} />
+        <Image src={YoutubeIcon} alt='Youtube' width={24} height={24} />
       </Link>
       <Link
         target='_blank'
         href='https://www.instagram.com/hawk.starsngo/'
         aria-label='Check HawkStars NGO on Instagram'
       >
-        <PiInstagramLogoBold size={24} />
+        <Image src={InstagramIcon} alt='Instagram' width={24} height={24} />
       </Link>
       <Link
         href='https://www.facebook.com/hawkstarsngo'
         target='_blank'
         aria-label='Check HawkStars NGO on Facebook'
       >
-        <PiFacebookLogoBold size={24} />
+        <Image src={FacebookIcon} alt='Facebook' width={24} height={24} />
       </Link>
       <Link
         href='https://www.linkedin.com/company/hawkstars-ngo'
         target='_blank'
         aria-label='Check HawkStars NGO on Linkedin'
       >
-        <PiLinkedinLogoBold size={24} />
+        <Image src={LinkedinIcon} alt='Linkedin' width={24} height={24} />
       </Link>
       <Link
         href='mailto:hawkstarsngo@gmail.com'
         aria-label='Click to send an email to HawkStars NGO'
       >
-        <AiOutlineMail size={24} />
+        <Image src={MailIcon} alt='Email' width={24} height={24} />
       </Link>
     </div>
   );

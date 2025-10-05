@@ -2,7 +2,6 @@
 
 import classNames from 'classnames';
 import { ReactNode, useState } from 'react';
-import { PiCaretDownBold, PiCaretUpBold } from 'react-icons/pi';
 
 type AccordionProps = {
   title: string;
@@ -19,13 +18,7 @@ const Accordion = ({ title, defaultOpen = false, children }: AccordionProps) => 
         className={classNames('border-disabled flex w-full gap-4 border-b pb-1')}
         onClick={() => setOpen(!open)}
       >
-        <div className='my-auto'>
-          {!open ? (
-            <PiCaretDownBold className='lg:text-xl' />
-          ) : (
-            <PiCaretUpBold className='lg:text-xl' />
-          )}
-        </div>
+        <div className='my-auto'></div>
         <h6 className='lg:text-h2_bold text-body_semibold'>{title}</h6>
       </div>
       {open && <div className='lg:text-h2_light text-body_regular my-4 flex'>{children}</div>}

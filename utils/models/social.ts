@@ -1,11 +1,8 @@
-import { IconType } from 'react-icons';
-import {
-  PiFacebookLogoBold,
-  PiLinkedinLogoBold,
-  PiTwitterLogoBold,
-  PiGlobeSimpleBold,
-  PiInstagramLogoBold,
-} from 'react-icons/pi';
+import TwitterIcon from '@/public/images/icons/socials/twitter.svg';
+import WebsiteIcon from '@/public/images/icons/socials/website.svg';
+import FacebookIcon from '@/public/images/icons/socials/facebook.svg';
+import InstagramIcon from '@/public/images/icons/socials/instagram.svg';
+import LinkedinIcon from '@/public/images/icons/socials/linkedin.svg';
 
 export type SocialContact = {
   type: 'facebook' | 'instagram' | 'twitter' | 'website' | 'linkedin';
@@ -15,9 +12,9 @@ export type SocialContact = {
 export type SocialType = 'facebook' | 'instagram' | 'twitter' | 'website' | 'linkedin';
 
 export const SocialIcon = {
-  facebook: PiFacebookLogoBold,
-  instagram: PiInstagramLogoBold,
-  twitter: PiTwitterLogoBold,
-  website: PiGlobeSimpleBold,
-  linkedin: PiLinkedinLogoBold,
-} as { [x in SocialType]: IconType };
+  facebook: FacebookIcon,
+  instagram: InstagramIcon,
+  twitter: TwitterIcon,
+  website: WebsiteIcon,
+  linkedin: LinkedinIcon,
+} as { [x in SocialType]: any };

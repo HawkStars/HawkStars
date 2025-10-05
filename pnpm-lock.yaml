@@ -101,9 +101,9 @@ importers:
       react-i18next:
         specifier: ^16.0.0
         version: 16.0.0(i18next@25.5.3(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
-      react-icons:
-        specifier: ^5.5.0
-        version: 5.5.0(react@19.2.0)
+      require-in-the-middle:
+        specifier: 7.5.2
+        version: 7.5.2
       sharp:
         specifier: ^0.34.4
         version: 0.34.4
@@ -4499,11 +4499,6 @@ packages:
         optional: true
       typescript:
         optional: true
-
-  react-icons@5.5.0:
-    resolution: {integrity: sha512-MEFcXdkP3dLo8uumGI5xN3lDFNsRtrjbOEKDLD7yv76v4wpnEq2Lt2qeHaQOr34I/wPN3s3+N08WkQ+CW37Xiw==}
-    peerDependencies:
-      react: '*'
 
   react-image-crop@10.1.8:
     resolution: {integrity: sha512-4rb8XtXNx7ZaOZarKKnckgz4xLMvds/YrU6mpJfGhGAsy2Mg4mIw1x+DCCGngVGq2soTBVVOxx2s/C6mTX9+pA==}
@@ -10732,10 +10727,6 @@ snapshots:
     optionalDependencies:
       react-dom: 19.2.0(react@19.2.0)
       typescript: 5.9.3
-
-  react-icons@5.5.0(react@19.2.0):
-    dependencies:
-      react: 19.2.0
 
   react-image-crop@10.1.8(react@19.2.0):
     dependencies:

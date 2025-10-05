@@ -3,12 +3,14 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/navigation';
 
-import { PiCaretDownThin } from 'react-icons/pi';
+import CaretDown from '@/public/images/icons/common/caret-down.svg';
 
 import { useTranslation } from '@/i18n/client';
 import { transformUrl } from '@/utils/paths';
 import { NavbarUrlItem } from '../navbar/types';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+
+import Image from 'next/image';
 
 type DropdownMenuProps = {
   title: string;
@@ -27,7 +29,12 @@ const DropdownMenu = ({ title, options }: DropdownMenuProps) => {
 
         {options && options.length > 0 && (
           <div className='my-auto'>
-            <PiCaretDownThin className='ease transition-transform duration-500 group-hover:-rotate-90' />
+            <Image
+              src={CaretDown}
+              alt='Caret Down'
+              width={24}
+              className='ease transition-transform duration-500 group-hover:-rotate-90'
+            />
           </div>
         )}
       </div>

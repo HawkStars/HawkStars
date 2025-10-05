@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { getServerTranslation } from '@/i18n';
-import { LiaUsersSolid, LiaUserSolid } from 'react-icons/lia';
-import { PiChairLight } from 'react-icons/pi';
-import { TbArmchair } from 'react-icons/tb';
-import { TbShoppingCart } from 'react-icons/tb';
+
+import ShoppingCardIcon from '@/public/images/icons/common/shopping_cart.svg';
+import UserIcon from '@/public/images/icons/contribute/user_single.svg';
+import CompanyIcon from '@/public/images/icons/contribute/company.svg';
 
 import ChairsSections from '@/components/contribute/ChairsSection';
 
@@ -21,6 +21,9 @@ import simulatorChairNotTaken from '@/public/images/icons/contribute/simulator-e
 import simulatorChairTaken from '@/public/images/icons/contribute/simulator-fill.svg';
 import loungeChairEmpty from '@/public/images/icons/contribute/lounge-empty.svg';
 import loungeChair from '@/public/images/icons/contribute/lounge-fill.svg';
+import standardLoungeChair from '@/public/images/icons/contribute/lounge.svg';
+import standardChair from '@/public/images/icons/contribute/standard.svg';
+
 import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
 import ContributeFormSection from '@/components/contribute/ContributeFormSection';
 import { HawkStarsSection } from '@/components/layout';
@@ -112,7 +115,14 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
               target='_blank'
               className='bg-green flex w-fit flex-row gap-3 rounded-xl p-4 text-white'
             >
-              <TbShoppingCart className='my-auto' /> {t('store')}
+              <Image
+                src={ShoppingCardIcon}
+                alt='Shopping Cart'
+                width={20}
+                height={20}
+                className='my-auto'
+              />{' '}
+              {t('store')}
             </Link>
           </div>
         </div>
@@ -148,11 +158,17 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
               <Image src={trainingRoom} alt='hawk stars training room' className='rounded-lg' />
               <div className='flex flex-row gap-4'>
                 <div className='text-body_semibold text-green flex w-fit flex-row gap-1 rounded-2xl p-2 lg:text-base'>
-                  <LiaUserSolid size={28} className='my-auto' />
+                  <Image src={UserIcon} alt='User' width={28} height={28} className='my-auto' />
                   <p className='self-center'>{t('brand.wall_branding.price_solo')}</p>
                 </div>
                 <div className='text-body_semibold text-green flex w-fit flex-row gap-1 rounded-2xl p-2 lg:text-base'>
-                  <LiaUsersSolid size={28} />
+                  <Image
+                    src={CompanyIcon}
+                    alt='Company'
+                    width={28}
+                    height={28}
+                    className='my-auto'
+                  />
                   <p className='self-center'>{t('brand.wall_branding.price_company')}</p>
                 </div>
               </div>
@@ -193,16 +209,40 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           <ChairsSections
             title={t('brand.chairs.types.lounge_chair')}
             price='260€'
-            icon={<TbArmchair size={48} />}
-            iconFilled={<TbArmchair size={48} fill='#0A7558' />}
+            icon={
+              <Image
+                src={standardLoungeChair}
+                className='h-12 w-12'
+                alt='Simulator chair representing chairs that have a donor attached to'
+              />
+            }
+            iconFilled={
+              <Image
+                src={standardLoungeChair}
+                className='fill-green h-12 w-12'
+                alt='Simulator chair representing chairs that have a donor attached to'
+              />
+            }
             size={40}
             currentContributions={officeChairs}
           />
           <ChairsSections
             title={t('brand.chairs.types.auditorium_chair')}
             price='200€'
-            icon={<PiChairLight size={48} />}
-            iconFilled={<PiChairLight size={48} fill='#0A7558' />}
+            icon={
+              <Image
+                src={standardChair}
+                className='h-12 w-12'
+                alt='Simulator chair representing chairs that have a donor attached to'
+              />
+            }
+            iconFilled={
+              <Image
+                src={standardChair}
+                className='fill-green h-12 w-12'
+                alt='Simulator chair representing chairs that have a donor attached to'
+              />
+            }
             size={110}
             currentContributions={auditoriumChairs}
           />

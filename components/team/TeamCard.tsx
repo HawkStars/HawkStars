@@ -1,6 +1,8 @@
 'use client';
+
+import Image from 'next/image';
 import Avatar from '../utils/Avatar';
-import { BsLinkedin } from 'react-icons/bs';
+import LinkedinIcon from '@/public/images/icons/socials/linkedin.svg';
 
 import Link from 'next/link';
 import { useTranslation } from '../../i18n/client';
@@ -17,7 +19,7 @@ const TeamCard = ({ name, position, photo, url }: TeamCardProps) => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'team');
   return (
-    <div className='flex w-full gap-4 bg-bege-light px-2 py-4 text-center lg:h-64 lg:w-56 lg:flex-col lg:gap-0'>
+    <div className='bg-bege-light flex w-full gap-4 px-2 py-4 text-center lg:h-64 lg:w-56 lg:flex-col lg:gap-0'>
       <div className='mt-2 flex justify-center'>
         <Avatar url={photo} size='medium' />
       </div>
@@ -27,7 +29,7 @@ const TeamCard = ({ name, position, photo, url }: TeamCardProps) => {
         {url && (
           <div className='flex lg:mt-auto lg:justify-center'>
             <Link href={url} target='_blank'>
-              <BsLinkedin size={32} color='#0072b1' />
+              <Image src={LinkedinIcon} alt='Linkedin' width={32} height={32} />
             </Link>
           </div>
         )}

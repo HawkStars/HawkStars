@@ -1,7 +1,8 @@
 import { Listbox, ListboxButton, ListboxOption } from '@headlessui/react';
 import classNames from 'classnames';
 import { useState } from 'react';
-import { TfiAngleDown } from 'react-icons/tfi';
+import Image from 'next/image';
+import CaretDown from '@/public/images/icons/common/caret-down.svg';
 
 export type SelectOption = {
   label: string;
@@ -49,7 +50,7 @@ const Select = ({
           >
             <span>{selectedOption?.label || ''}</span>
             <div className='my-auto ml-auto'>
-              <TfiAngleDown size={20} />
+              <Image src={CaretDown} alt='Caret Down' width={20} height={20} />
             </div>
           </ListboxButton>
           {options.map((option) => (
