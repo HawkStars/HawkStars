@@ -1,7 +1,6 @@
 'use client';
 
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import Select from '@/components/utils/Select';
 import Input from '@/components/utils/Input/Input';
 import Button from '@/components/utils/Button';
 import dynamic from 'next/dynamic';
@@ -13,6 +12,7 @@ import Checkbox from '@/components/utils/Checkbox/Checkbox';
 import { ContributionPricing, hasMinimumContribution, ContributionTypesLabels } from './config';
 import { Contribution } from '@/payload-types';
 import { ContributionType } from '@/components/transparency/config';
+import { Select, SelectContent, SelectItem } from '@/components/ui/select';
 
 export type ContributionFormInput = Pick<
   Contribution,
@@ -174,14 +174,15 @@ const FormContributions = ({
           };
 
           return (
-            <Select
-              name='type'
-              labelText={t('contribution_form.type')}
-              options={ContributionTypesLabels}
-              outline={true}
-              onChange={(item) => handleContributionType(item as ContributionType)}
-              defaultOption={ContributionTypesLabels.find((item) => item.value == value)}
-            />
+            <Select name='type'>
+              <SelectContent>
+                {ContributionTypesLabels.map((type) => (
+                  <SelectItem key={type.value} value={type.value}>
+                    {type.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           );
         }}
       />

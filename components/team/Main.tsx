@@ -4,10 +4,17 @@ import { OrgSection, boardSections, sectionLabels, TeamMembers } from '../../app
 import classNames from 'classnames';
 
 import { useState } from 'react';
-import Select, { SelectOption } from '../utils/Select';
 import TeamCard from './TeamCard';
 import { useTranslation } from '../../i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+
+export type SelectOption = {
+  label: string;
+  value: string;
+  id: string;
+  disabled: boolean;
+};
 
 const MainTeamPage = () => {
   const lng = useLanguageCookie();
@@ -26,12 +33,18 @@ const MainTeamPage = () => {
   return (
     <>
       <div className='text-large_regular block w-fit lg:hidden'>
-        <Select
-          options={selectOptions}
-          defaultOption={selectOptions.find((option) => option.value === selectedSection)}
-          onChange={(e) => setSelectedSection(e as OrgSection)}
-          name='type_board'
-        />
+        <Select name='type_board'>
+          <SelectTrigger className='w-[180px]'>
+            <SelectValue placeholder='Theme' />
+          </SelectTrigger>
+          <SelectContent>
+            {selectOptions.map((option) => (
+              <SelectItem key={option.id} value={option.value} disabled={option.disabled}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <div className='hidden flex-row gap-8 border-b lg:flex'>
         {boardSections.map((section, index) => {
@@ -41,7 +54,7 @@ const MainTeamPage = () => {
               key={index}
               className={classNames('text-h2_light cursor-pointer', {
                 'text-disabled': selectedSection != section,
-                'border-black border-b-2': selectedSection == section,
+                'border-b-2 border-black': selectedSection == section,
               })}
             >
               {t(sectionLabels[section])}

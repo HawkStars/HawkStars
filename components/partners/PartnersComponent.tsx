@@ -7,7 +7,6 @@ import { getServerTranslation } from '../../i18n';
 import { LanguageProps } from '../types';
 
 import partnersHero from '@/public/images/partners/hero.jpg';
-import MarkdownViewer from '../utils/ReactMarkdownViewer/ReactMarkdownViewer';
 import { HawkStarsSection } from '../layout';
 
 import type { JSX } from 'react';
@@ -75,9 +74,7 @@ const PartnerCard = ({
       </div>
 
       {/* Description */}
-      <div>
-        <MarkdownViewer className='text-justify' source={description || ''} />
-      </div>
+      <div>{description}</div>
 
       {/* Contacts */}
       {contacts && contacts.length > 0 && (
