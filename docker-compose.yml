@@ -9,13 +9,13 @@ services:
     environment:
       - NODE_ENV=production
       - HOSTNAME=0.0.0.0
-      - GENERATE_SOURCEMAP=false
-      # Add your environment variables here
-      # - DATABASE_URL=your_database_url
-      # - NEXTAUTH_SECRET=your_secret
-      # - NEXTAUTH_URL=http://localhost:8000
-    # volumes:
-    #   - ./uploads:/app/uploads  # If you need persistent storage
+      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
+      - DATABASE_URI=${DATABASE_URI}
+      - PAYLOAD_SECRET=${PAYLOAD_SECRET}
+      - SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
     restart: unless-stopped
     depends_on:
       - database
