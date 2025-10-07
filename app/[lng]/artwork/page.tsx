@@ -17,12 +17,13 @@ const ArtworkPage = async (props: LanguagePageProps) => {
   const { t } = await getServerTranslation(lng.lng, 'art');
 
   const artworkImages = await getArtwork();
+  const { docs } = artworkImages;
 
   return (
     <section className='mt-5 flex flex-col gap-4 lg:mt-10'>
       <h1 className='text-h1_semibold font-oswald text-green text-center'>{t('artwork.pieces')}</h1>
       <div className='mx-auto mt-8 grid max-w-7xl grid-cols-1 gap-x-20 gap-y-12 lg:mt-20 lg:grid-cols-2'>
-        {artworkImages.map((item, index) => {
+        {docs.map((item, index) => {
           const artTitle = item.title;
           const artworkImage = item.image as Media;
           return (

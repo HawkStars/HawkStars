@@ -12,7 +12,7 @@ import { getSingleArtwork } from '@/lib/payload/queries/artwork';
 import { Curator } from '@/payload-types';
 
 const getCuratorInformation = async (slug: string) => {
-  const response = await getSingleArtwork();
+  const response = await getSingleArtwork(slug);
   return response;
 };
 
