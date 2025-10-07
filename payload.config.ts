@@ -2,7 +2,7 @@
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import path from 'path';
-import { buildConfig } from 'payload';
+import { buildConfig, PayloadRequest } from 'payload';
 import { fileURLToPath } from 'url';
 import sharp from 'sharp';
 
@@ -18,6 +18,7 @@ import { Contribution } from './collections/Contribution';
 import { Curator } from './collections/Curator';
 import { HawkEvent } from './collections/HawkEvent';
 import { Partner } from './collections/Partner';
+import totalContributioValueQuery from './lib/payload/endpoints/totalContributioValueQuery';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -86,5 +87,12 @@ export default buildConfig({
       disableLocalStorage: true, // Optional, defaults to true
       enabled: true, // Optional, defaults to true
     }),
+  ],
+  endpoints: [
+    {
+      path: '/sum-contributions',
+      method: 'get',
+      handler: totalContributioValueQuery,
+    },
   ],
 });

@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { useTranslation } from '@/i18n/client';
-import { totalMoneyGatheredQuery } from '@/lib/payload/queries/contribution';
 
 export const PROJECT_GOAL = 900000;
 
@@ -15,6 +14,16 @@ const ContributionProjectGoal = () => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'transparency');
   const [totalContribution, setTotalContribution] = useState<number>(0);
+
+  const totalMoneyGatheredQuery = async (): Promise<number> => {
+    try {
+      const response = await fetch('/api/sum-contributions');
+      const data = await response.json();
+      return data.sum || 0;
+    } catch (e) {
+      return 0;
+    }
+  };
 
   const getCurrentProjetContribution = async () => {
     try {

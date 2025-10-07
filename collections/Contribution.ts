@@ -2,6 +2,12 @@ import type { CollectionConfig } from 'payload';
 
 export const Contribution: CollectionConfig = {
   slug: 'contributions',
+  access: {
+    // Restrict API access to Portuguese only
+    read: ({ req: { locale } }) => locale === 'en',
+    create: ({ req: { locale } }) => locale === 'en',
+    update: ({ req: { locale } }) => locale === 'en',
+  },
   fields: [
     { type: 'text', name: 'donor', label: 'The name of the donor', required: true },
     {
