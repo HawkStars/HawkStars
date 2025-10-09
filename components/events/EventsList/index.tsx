@@ -5,14 +5,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useMainAppContext } from '@/utils/contexts/AppProvider';
 import { HawkEvent, Media } from '@/payload-types';
-
-const getFirstHawkEvents = async () => {
-  return Promise.resolve([]);
-};
-
-const getNextPageEvents = async (lastId: string, updatedAt: string) => {
-  return Promise.resolve([]);
-};
+import { getEventsQuery } from '@/lib/payload/queries/event';
 
 const EventsList = () => {
   const { lng } = useMainAppContext();
@@ -24,20 +17,21 @@ const EventsList = () => {
 
   const fetchEvents = async () => {
     setLoading(true);
-    const result = await getFirstHawkEvents();
-    setEvents(result as unknown as HawkEvent[]);
-    if (result.length > 0) setLastHawkEvent(result[result.length - 1]);
+    const result = await getEventsQuery(0);
+    const { docs } = result;
+    setEvents(docs as unknown as HawkEvent[]);
+    if (docs.length > 0) setLastHawkEvent(docs[docs.length - 1]);
     setLoading(false);
   };
 
-  const fetchNextPage = async () => {
-    setLoading(true);
-    if (!lastHawkEvent) return;
-    const result = await getNextPageEvents(lastHawkEvent.id, lastHawkEvent.updatedAt);
-    setEvents([...events, ...result] as HawkEvent[]);
-    if (result.length > 0) setLastHawkEvent(result[result.length - 1]);
-    setLoading(false);
-  };
+  // const fetchNextPage = async () => {
+  //   setLoading(true);
+  //   if (!lastHawkEvent) return;
+  //   const result = await getNextPageEvents(lastHawkEvent.id, lastHawkEvent.updatedAt);
+  //   setEvents([...events, ...result] as HawkEvent[]);
+  //   if (result.length > 0) setLastHawkEvent(result[result.length - 1]);
+  //   setLoading(false);
+  // };
 
   useEffect(() => {
     fetchEvents();
@@ -63,7 +57,7 @@ const EventsList = () => {
               );
             })}
           </ul>
-          {loading ? <p>Loading...</p> : <button onClick={fetchNextPage}>Load More</button>}
+          {/* {loading ? <p>Loading...</p> : <button onClick={fetchNextPage}>Load More</button>} */}
         </>
       )}
     </>

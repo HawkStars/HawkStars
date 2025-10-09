@@ -12,7 +12,14 @@ import Checkbox from '@/components/utils/Checkbox/Checkbox';
 import { hasMinimumContribution, ContributionTypesLabels } from './config';
 import { Contribution } from '@/payload-types';
 import { ContributionType } from '@/components/transparency/config';
-import { Select, SelectContent, SelectItem } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { priceOfContribution } from '@/collections/Contribution';
 
 export type ContributionFormInput = Pick<
   Contribution,
@@ -165,7 +172,7 @@ const FormContributions = ({
         name='contribution_type'
         render={({ field: { onChange, value } }) => {
           const handleContributionType = (type: ContributionType) => {
-            const contributionValue = ContributionPricing[type];
+            const contributionValue = priceOfContribution[type];
             setValue('value', contributionValue || 0);
 
             const minContribution = hasMinimumContribution.includes(type) && contributionValue;
@@ -174,7 +181,10 @@ const FormContributions = ({
           };
 
           return (
-            <Select name='type'>
+            <Select name='type' onValueChange={handleContributionType}>
+              <SelectTrigger>
+                <SelectValue placeholder='Theme' />
+              </SelectTrigger>
               <SelectContent>
                 {ContributionTypesLabels.map((type) => (
                   <SelectItem key={type.value} value={type.value}>

@@ -7,6 +7,13 @@ export const BoardMember: CollectionConfig = {
     singular: 'Board Member',
     plural: 'Board Members',
   },
+  access: {
+    // Restrict API access to Portuguese only
+    read: ({ req: { locale } }) => locale === 'pt',
+    create: ({ req: { locale } }) => locale === 'pt',
+    update: ({ req: { locale } }) => locale === 'pt',
+    admin: ({ req: { locale } }) => locale === 'pt',
+  },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'title', 'section', 'position'],

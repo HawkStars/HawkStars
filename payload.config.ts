@@ -1,13 +1,12 @@
 // storage-adapter-import-placeholder
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import path from 'path';
 import { buildConfig } from 'payload';
 import { fileURLToPath } from 'url';
 import sharp from 'sharp';
+import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage';
 
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
-import { cloudinaryStorage } from 'payload-cloudinary';
 
 import assert from 'assert';
 import { ArtCollection } from './collections/ArtCollection';
@@ -19,6 +18,7 @@ import { Curator } from './collections/Curator';
 import { HawkEvent } from './collections/HawkEvent';
 import { Partner } from './collections/Partner';
 import totalContributioValueQuery from './lib/payload/endpoints/totalContributioValueQuery';
+import { cloudinaryAdapter, cloudinaryClient } from './lib/cloudinary/adapter';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -72,20 +72,18 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
-    payloadCloudPlugin(),
-    // storage-adapter-placeholder
-    cloudinaryStorage({
-      config: {
-        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-        api_key: process.env.CLOUDINARY_API_KEY,
-        api_secret: process.env.CLOUDINARY_API_SECRET,
-      },
+    cloudStoragePlugin({
       collections: {
-        media: true, // Enable for media collection
+        media: {
+          adapter: cloudinaryAdapter,
+
+          disableLocalStorage: true, // Prevent Payload from saving files to disk
+
+          generateFileURL: ({ filename }) => {
+            return cloudinaryClient.url(`media/${filename}`, { secure: true });
+          },
+        },
       },
-      folder: 'hawk', // Optional, defaults to 'payload-media'
-      disableLocalStorage: true, // Optional, defaults to true
-      enabled: true, // Optional, defaults to true
     }),
   ],
   endpoints: [
