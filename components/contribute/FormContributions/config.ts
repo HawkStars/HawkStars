@@ -58,17 +58,6 @@ const ContributionTypesLabels = [
   disabled: boolean;
 }[];
 
-const ContributionPricing: Partial<Record<ContributionType, number>> = {
-  OFFICE_CHAIR: 300,
-  AUDITORIUM_CHAIR: 230,
-  SIMULATOR_CHAIR: 350,
-  LOUNGE_CHAIR: 260,
-  WALL_NAME_COMPANY: 1800,
-  WALL_NAME_SINGULAR: 500,
-  TRAINING_ROOM_NAMING: 15000,
-  BUILDING_NAMING: 380000,
-};
-
 const hasMinimumContribution = [
   'WALL_NAME_COMPANY',
   'WALL_NAME_SINGULAR',
@@ -76,4 +65,4 @@ const hasMinimumContribution = [
   'BUILDING_NAMING',
 ] as ContributionType[];
 
-export { ContributionTypesLabels, ContributionPricing, hasMinimumContribution };
+export { ContributionTypesLabels, hasMinimumContribution };

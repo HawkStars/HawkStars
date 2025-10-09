@@ -9,7 +9,7 @@ import Spinner from '@/components/utils/Spinner/Spinner';
 import { useTranslation } from '@/i18n/client';
 import { useState } from 'react';
 import Checkbox from '@/components/utils/Checkbox/Checkbox';
-import { ContributionPricing, hasMinimumContribution, ContributionTypesLabels } from './config';
+import { hasMinimumContribution, ContributionTypesLabels } from './config';
 import { Contribution } from '@/payload-types';
 import { ContributionType } from '@/components/transparency/config';
 import { Select, SelectContent, SelectItem } from '@/components/ui/select';

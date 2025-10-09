@@ -2,7 +2,7 @@
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import path from 'path';
-import { buildConfig, PayloadRequest } from 'payload';
+import { buildConfig } from 'payload';
 import { fileURLToPath } from 'url';
 import sharp from 'sharp';
 
@@ -14,7 +14,7 @@ import { ArtCollection } from './collections/ArtCollection';
 import { Users } from './collections/Users';
 import { Media } from './collections/Media';
 import { BoardMember } from './collections/BoardMember';
-import { Contribution } from './collections/Contribution';
+import { ContributionCollection as Contribution } from './collections/Contribution';
 import { Curator } from './collections/Curator';
 import { HawkEvent } from './collections/HawkEvent';
 import { Partner } from './collections/Partner';
