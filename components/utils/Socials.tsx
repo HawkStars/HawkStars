@@ -16,28 +16,28 @@ const Socials = () => {
         href='https://www.youtube.com/@HawkStarsNGO'
         aria-label='Check HawkStars NGO on Youtube'
       >
-        <Image src={YoutubeIcon} alt='Youtube' width={24} height={24} />
+        <Image src={YoutubeIcon} alt='Youtube' width={24} height={24} className='grayscale' />
       </Link>
       <Link
         target='_blank'
         href='https://www.instagram.com/hawk.starsngo/'
         aria-label='Check HawkStars NGO on Instagram'
       >
-        <Image src={InstagramIcon} alt='Instagram' width={24} height={24} />
+        <Image src={InstagramIcon} alt='Instagram' width={24} height={24} className='grayscale' />
       </Link>
       <Link
         href='https://www.facebook.com/hawkstarsngo'
         target='_blank'
         aria-label='Check HawkStars NGO on Facebook'
       >
-        <Image src={FacebookIcon} alt='Facebook' width={24} height={24} />
+        <Image src={FacebookIcon} alt='Facebook' width={24} height={24} className='grayscale' />
       </Link>
       <Link
         href='https://www.linkedin.com/company/hawkstars-ngo'
         target='_blank'
         aria-label='Check HawkStars NGO on Linkedin'
       >
-        <Image src={LinkedinIcon} alt='Linkedin' width={24} height={24} />
+        <Image src={LinkedinIcon} alt='Linkedin' width={24} height={24} className='grayscale' />
       </Link>
       <Link
         href='mailto:hawkstarsngo@gmail.com'

@@ -1,3 +1,7 @@
+import { getPayloadConfig } from '@/lib/payload/client';
+
+const CONTRIBUTION_COLLECTION = 'contributions';
+
 export async function POST(request: Request) {
   const body = await request.json();
   if (!body) {
@@ -5,8 +9,12 @@ export async function POST(request: Request) {
   }
 
   try {
-    // TODO: Integrate with Payload CMS
-    //  await serverClient.create(body);
+    const payload = await getPayloadConfig();
+
+    payload.create({
+      collection: CONTRIBUTION_COLLECTION,
+      data: body,
+    });
 
     return new Response('', {
       status: 200,

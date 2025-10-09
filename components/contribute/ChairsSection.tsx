@@ -51,7 +51,7 @@ type ContributionInfoSectionProps = {
 
 const ContributionInfoSection = ({ icon, contributor }: ContributionInfoSectionProps) => {
   return (
-    <div className='group'>
+    <div className='group relative'>
       {icon}
       {contributor && (
         <div className='bg-bege-dark absolute bottom-0 -left-12 z-50 hidden w-40 max-w-md p-2 text-center group-hover:block'>

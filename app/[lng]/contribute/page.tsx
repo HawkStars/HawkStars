@@ -35,7 +35,8 @@ import { Contribution } from '@/payload-types';
 import { getChairsContributionsQuery } from '@/lib/payload/queries/contribution';
 
 const getChairsContribute = async () => {
-  const contributions = await getChairsContributionsQuery();
+  const data = await getChairsContributionsQuery();
+  const contributions = data.docs || [];
 
   const grouped_contributions = groupBy(contributions, 'contribution_type');
   const simulationChairs = (grouped_contributions['SIMULATOR_CHAIR'] as Contribution[]) || [];

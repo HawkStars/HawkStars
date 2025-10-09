@@ -68,7 +68,7 @@ const Footer = () => {
           <Link href={urls.terms} className='max-lg:hidden'>
             {t('navbar.art_gallery.terms_and_conditions')}
           </Link>
-          <div className='hidden lg:block'>
+          <div className='hidden lg:block' data-testid='socials-footer'>
             <Socials />
           </div>
         </div>
