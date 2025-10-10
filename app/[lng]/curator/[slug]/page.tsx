@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { getSingleCuratorQuery } from '@/lib/payload/queries/artwork';
 
 const getCuratorInformation = async (slug: string) => {
-  const response = await getSingleCuratorQuery();
+  const response = await getSingleCuratorQuery(slug);
   return response;
 };
 

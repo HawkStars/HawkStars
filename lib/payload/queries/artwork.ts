@@ -9,11 +9,11 @@ export const getSingleArtwork = async (artworkID: string): Promise<Artwork> => {
   return artwork;
 };
 
-export const getSingleCuratorQuery = async (curatorID: string): Promise<Curator> => {
+export const getSingleCuratorQuery = async (slug: string): Promise<Curator> => {
   const payload = await getPayloadConfig();
   const curator = await payload.findByID({
     collection: 'curators',
-    id: curatorID,
+    id: slug,
   });
   return curator;
 };
