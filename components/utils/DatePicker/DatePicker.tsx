@@ -1,10 +1,11 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar, CalendarIcon } from 'lucide-react';
+import { format } from 'date-fns';
 import { useState } from 'react';
-import DatePicker from 'react-datepicker';
 import { useRef } from 'react';
-
-import 'react-datepicker/dist/react-datepicker.css';
 
 type HawkStarsDatePickerProps = {
   date: Date | null;
@@ -26,12 +27,27 @@ function HawkStarsDatePicker({ date, onChange, labelText, minDate }: HawkStarsDa
     <div ref={datePickerRef} className='flex flex-col gap-2'>
       {labelText && <span className='text-body_semibold'>{labelText}</span>}
       <div>
-        <DatePicker
-          onChange={changeDatePickerValue}
-          selected={startDate}
-          minDate={minDate || undefined}
-          className='rounded-xl border-2 border-bege-dark p-2'
-        />
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant='outline'
+              data-empty={!date}
+              className='data-[empty=true]:text-muted-foreground w-[280px] justify-start text-left font-normal'
+            >
+              <CalendarIcon />
+              {date ? format(date, 'PPP') : <span>Pick a date</span>}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className='w-auto p-0'>
+            <Calendar
+              mode='single'
+              className='border-bege-dark rounded-xl border-2 p-2'
+              // selected={startDate}
+              // min={minDate || undefined}
+              // onSelect={changeDatePickerValue}
+            />
+          </PopoverContent>
+        </Popover>
       </div>
     </div>
   );
