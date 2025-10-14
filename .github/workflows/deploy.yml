@@ -20,14 +20,13 @@ jobs:
         id: deployment
         with:
           token: '${{ github.token }}'
-          environment-url: ${{ vars.MY_APP }}
           environment: production
       - name: Set up SSH Key and Deploy my App on Server
         # run: |
         uses: appleboy/ssh-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
-          NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL }}
+          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
           DATABASE_URI: ${{ secrets.DATABASE_URI }}
           PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -40,6 +39,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: 22
+          envs: NEXT_PUBLIC_APP_URL,DATABASE_URI,PAYLOAD_SECRET,SENTRY_AUTH_TOKEN,CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY,CLOUDINARY_API_SECRET
           script: |
             git config --global url."https://${{ secrets.PERSONAL_GITHUB_TOKEN }}:@github.com".insteadOf "https://github.com"
             cd app/
@@ -73,7 +73,6 @@ jobs:
         uses: chrnorm/deployment-status@v2
         with:
           token: '${{ github.token }}'
-          environment-url: ${{ vars.MY_APP }}
           state: 'success'
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
 
@@ -82,6 +81,5 @@ jobs:
         uses: chrnorm/deployment-status@v2
         with:
           token: '${{ github.token }}'
-          environment-url: ${{ vars.MY_APP }}
           state: 'failure'
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
