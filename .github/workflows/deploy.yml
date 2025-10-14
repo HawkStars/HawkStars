@@ -35,13 +35,10 @@ jobs:
           port: 22
           script: |
             git config --global url."https://${{ secrets.PERSONAL_GITHUB_TOKEN }}:@github.com".insteadOf "https://github.com"
-            pwd
-            ls -la
-            cd chatg/
-            git pull origin dev-branch
-            npm ci
-            npm run frontend
-            pm2 restart chatg --update-env
+            cd app/
+            git pull
+            docker compose restart
+            docker compose up
       - name: Update deployment Status (success)
         if: success()
         uses: chrnorm/deployment-status@v2
