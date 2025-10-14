@@ -44,8 +44,28 @@ jobs:
             git config --global url."https://${{ secrets.PERSONAL_GITHUB_TOKEN }}:@github.com".insteadOf "https://github.com"
             cd app/
             git pull
-            docker compose restart
-            docker compose up -d
+
+            # Create .env file dynamically (only for docker-compose, not committed)
+            cat > .env << EOF
+            NODE_ENV=production
+            NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
+            DATABASE_URI=${DATABASE_URI}
+            PAYLOAD_SECRET=${PAYLOAD_SECRET}
+            SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}
+            CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+            CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+            CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+            EOF
+
+            # Restrict permissions so only owner can read
+            chmod 600 .env
+
+            docker compose down
+            docker compose up -d --pull always
+            docker compose logs hawkstars
+
+            # Clean up .env after deployment (optional but recommended)
+            rm .env
       - name: Update deployment Status (success)
         if: success()
         uses: chrnorm/deployment-status@v2

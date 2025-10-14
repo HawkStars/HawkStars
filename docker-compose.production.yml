@@ -23,9 +23,8 @@ services:
       target: runner
     environment:
       - NODE_ENV=production
-      - HOSTNAME=0.0.0.0
       - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
-      - DATABASE_URI=mongodb://database:27017/hawkstars
+      - DATABASE_URI=${DATABASE_URI}
       - PAYLOAD_SECRET=${PAYLOAD_SECRET}
       - SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}
       - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
