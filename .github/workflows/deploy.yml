@@ -61,7 +61,7 @@ jobs:
             chmod 600 .env
 
             docker compose down
-            docker compose up -d --pull always -f docker-compose.production.yml
+            docker compose -f docker-compose.production.yml up -d --pull always
             docker compose logs hawkstars
 
             # Clean up .env after deployment (optional but recommended)
