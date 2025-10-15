@@ -60,10 +60,8 @@ jobs:
             # Restrict permissions so only owner can read
             chmod 600 .env
 
-            cat .env  # Optional: For debugging, remove in production
-
             docker compose down
-            docker compose up -d --pull always
+            docker compose up -d --pull always -f docker-compose.production.yml
             docker compose logs hawkstars
 
             # Clean up .env after deployment (optional but recommended)
