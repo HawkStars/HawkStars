@@ -36,6 +36,7 @@ services:
     depends_on:
       database:
         condition: service_healthy
+        restart: true
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:3000']
       interval: 30s
