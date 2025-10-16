@@ -24,7 +24,7 @@ services:
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
-      - DATABASE_URI=${DATABASE_URI}
+      - DATABASE_URI=mongodb://database:27017/hawkstars
       - PAYLOAD_SECRET=${PAYLOAD_SECRET}
       - SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}
       - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
