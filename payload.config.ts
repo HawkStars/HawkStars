@@ -24,7 +24,6 @@ const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 assert(process.env.DATABASE_URI, 'DATABASE_URI environment variable is not assigned');
-console.log(process.env.DATABASE_URI);
 assert(process.env.PAYLOAD_SECRET, 'PAYLOAD_SECRET environment variable is not assigned');
 
 assert(
