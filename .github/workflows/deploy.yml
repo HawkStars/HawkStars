@@ -59,9 +59,11 @@ jobs:
             # Restrict permissions so only owner can read
             chmod 600 .env
 
-            docker compose down
-            docker compose -f docker-compose.production.yml up -d --pull always
-            docker compose logs hawkstars
+            pnpm build
+            pnpm global add pm2
+            pm2 stop all || true
+            pm2 delete all || true
+            pm2 start pnpm --name "hawkstars" -- start
 
             # Clean up .env after deployment (optional but recommended)
             rm .env
