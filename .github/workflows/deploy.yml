@@ -44,6 +44,18 @@ jobs:
             cd app/
             git pull
 
+            # Install pnpm if not already installed
+            if ! command -v pnpm &> /dev/null; then
+                echo "Installing pnpm..."
+                curl -fsSL https://get.pnpm.io/install.sh | sh -
+                source ~/.bashrc 2>/dev/null || true
+                source ~/.zshrc 2>/dev/null || true
+                export PATH="$HOME/.local/share/pnpm:$PATH"
+            fi
+
+            # Verify pnpm is available
+            pnpm --version
+
             # Create .env file dynamically (only for docker-compose, not committed)
             cat > .env << EOF
             NODE_ENV=production
@@ -59,28 +71,19 @@ jobs:
             # Restrict permissions so only owner can read
             chmod 600 .env
 
-            # Install pnpm if not already installed
-            if ! command -v pnpm &> /dev/null; then
-                echo "Installing pnpm..."
-                curl -fsSL https://get.pnpm.io/install.sh | sh -
-                source ~/.bashrc 2>/dev/null || true
-                source ~/.zshrc 2>/dev/null || true
-                export PATH="$HOME/.local/share/pnpm:$PATH"
-            fi
 
-            # Verify pnpm is available
-            pnpm --version
-
-            # Stop existing PM2 process if running
-            pm2 stop hawkstars 2>/dev/null || true
-            pm2 delete hawkstars 2>/dev/null || true
+            # # Stop existing PM2 process if running
+            # pm2 stop hawkstars 2>/dev/null || true
+            # pm2 delete hawkstars 2>/dev/null || true
 
             # Install dependencies and build
             pnpm install --frozen-lockfile
             pnpm build
 
             # Start the application with PM2
-            pm2 start pnpm --name "hawkstars" -- start
+            # pm2 start pnpm --name "hawkstars" -- start
+
+            pnpm start
 
             # Clean up .env after deployment (optional but recommended)
             rm .env
