@@ -56,7 +56,7 @@ jobs:
             # Verify pnpm is available
             pnpm --version
 
-            # Create .env file dynamically (only for docker-compose, not committed)
+            # Create .env file dynamically
             cat > .env << EOF
             NODE_ENV=production
             NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
@@ -73,20 +73,15 @@ jobs:
 
 
             # # Stop existing PM2 process if running
-            # pm2 stop hawkstars 2>/dev/null || true
-            # pm2 delete hawkstars 2>/dev/null || true
+            pm2 stop hawkstars 2>/dev/null || true
+            pm2 delete hawkstars 2>/dev/null || true
 
             # Install dependencies and build
             pnpm install --frozen-lockfile
             pnpm build
 
             # Start the application with PM2
-            # pm2 start pnpm --name "hawkstars" -- start
-
-            pnpm start
-
-            # Clean up .env after deployment (optional but recommended)
-            rm .env
+            pm2 start pnpm --name "hawkstars" -- start
       - name: Update deployment Status (success)
         if: success()
         uses: chrnorm/deployment-status@v2
