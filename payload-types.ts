@@ -134,6 +134,7 @@ export interface User {
   firstName?: string | null;
   lastName?: string | null;
   isAdmin?: boolean | null;
+  isEditor?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -489,6 +490,7 @@ export interface UsersSelect<T extends boolean = true> {
   firstName?: T;
   lastName?: T;
   isAdmin?: T;
+  isEditor?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

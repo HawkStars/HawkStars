@@ -11,7 +11,7 @@ const ErasmusSlider = () => {
   return (
     <>
       <section className='flex flex-col gap-6 py-20'>
-        <h6 className='text-h2_light text-center text-green'>Erasmus +</h6>
+        <h6 className='text-h2_light text-green text-center'>Erasmus +</h6>
 
         <DelayComponent fallback={<SliderSkeleton />}>
           <div className='flex h-96 w-dvw'>

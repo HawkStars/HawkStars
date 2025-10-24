@@ -1,9 +1,11 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from 'payload';
 
 export const Media: CollectionConfig = {
   slug: 'media',
-  access: {
-    read: () => true,
+  upload: {
+    staticDir: 'media',
+    mimeTypes: ['image/*'],
+    disableLocalStorage: true,
   },
   fields: [
     {
@@ -12,5 +14,4 @@ export const Media: CollectionConfig = {
       required: true,
     },
   ],
-  upload: true,
-}
+};

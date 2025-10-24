@@ -9,16 +9,19 @@ import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage';
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
 
 import assert from 'assert';
-import { ArtCollection } from './collections/ArtCollection';
-import { Users } from './collections/Users';
-import { Media } from './collections/Media';
-import { BoardMember } from './collections/BoardMember';
-import { ContributionCollection as Contribution } from './collections/Contribution';
-import { Curator } from './collections/Curator';
-import { HawkEvent } from './collections/HawkEvent';
-import { Partner } from './collections/Partner';
+import { ArtCollection } from './payload/fields/ArtCollection';
+import { Users } from './payload/fields/Users';
+import { Media } from './payload/fields/Media';
+import { BoardMember } from './payload/fields/BoardMember';
+import { ContributionCollection as Contribution } from './payload/fields/Contribution';
+import { Curator } from './payload/fields/Curator';
+import { HawkEvent } from './payload/fields/HawkEvent';
+import { Partner } from './payload/fields/Partner';
 import totalContributioValueQuery from './lib/payload/endpoints/totalContributioValueQuery';
 import { cloudinaryAdapter, cloudinaryClient } from './lib/cloudinary/adapter';
+import { v2 as cloudinary } from 'cloudinary';
+import { Footer } from './payload/globals/Footer/config';
+import { Header } from './payload/globals/Header/config';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -62,6 +65,7 @@ export default buildConfig({
     HawkEvent,
     Partner,
   ],
+  globals: [Header, Footer],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -80,7 +84,7 @@ export default buildConfig({
           disableLocalStorage: true, // Prevent Payload from saving files to disk
 
           generateFileURL: ({ filename }) => {
-            return cloudinaryClient.url(`media/${filename}`, { secure: true });
+            return cloudinary.url(`media/${filename}`, { secure: true });
           },
         },
       },

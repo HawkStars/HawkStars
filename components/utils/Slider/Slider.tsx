@@ -12,7 +12,7 @@ type SliderProps = SwiperOptions & {
 export const Slider = (props: SliderProps): JSX.Element => {
   const { children, ...otherProps } = props;
   return (
-    <Swiper modules={[Autoplay]} {...otherProps}>
+    <Swiper lazyPreloadPrevNext={1} modules={[Autoplay]} {...otherProps}>
       {children}
     </Swiper>
   );
