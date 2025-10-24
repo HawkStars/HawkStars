@@ -22,6 +22,8 @@ import { cloudinaryAdapter, cloudinaryClient } from './lib/cloudinary/adapter';
 import { v2 as cloudinary } from 'cloudinary';
 import { Footer } from './payload/globals/Footer/config';
 import { Header } from './payload/globals/Header/config';
+import { Posts } from './payload/collections/Posts';
+import { Pages } from './payload/collections/Pages';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -64,6 +66,8 @@ export default buildConfig({
     Curator,
     HawkEvent,
     Partner,
+    Posts,
+    Pages,
   ],
   globals: [Header, Footer],
   editor: lexicalEditor(),
