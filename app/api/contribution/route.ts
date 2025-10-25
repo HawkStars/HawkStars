@@ -4,17 +4,17 @@ const CONTRIBUTION_COLLECTION = 'contributions';
 
 export async function POST(request: Request) {
   const body = await request.json();
-  if (!body) {
-    return new Response('', { status: 404 });
-  }
+  if (!body) return new Response('', { status: 404 });
 
   try {
     const payload = await getPayloadConfig();
 
-    payload.create({
+    const data = await payload.create({
       collection: CONTRIBUTION_COLLECTION,
       data: body,
     });
+
+    debugger;
 
     return new Response('', {
       status: 200,

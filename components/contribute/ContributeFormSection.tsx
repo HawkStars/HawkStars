@@ -3,13 +3,19 @@
 import { Contribution } from '@/payload-types';
 import { LanguageProps } from '../types';
 import FormContributions, { ContributionFormInput } from './FormContributions/FormContributions';
+import { useState } from 'react';
+import * as Sentry from '@sentry/nextjs';
 
 const ContributeFormSection = ({ lng }: LanguageProps) => {
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>(
+    'idle'
+  );
+
   const handleSubmitForm = async (data: ContributionFormInput) => {
     try {
-      const newDoc: Pick<Contribution, 'is_anonymous' | 'contribution_type'> = {
+      setSubmitStatus('submitting');
+      const newDoc: Pick<Contribution, 'is_anonymous'> = {
         ...data,
-        contribution_type: 'BANK',
       };
 
       const response = await fetch('/api/contribution', {
@@ -17,12 +23,24 @@ const ContributeFormSection = ({ lng }: LanguageProps) => {
         body: JSON.stringify(newDoc),
       });
       const apiData = await response.json();
-    } catch (e) {}
+      debugger;
+      setSubmitStatus('success');
+    } catch (e) {
+      Sentry.captureException(e);
+      setSubmitStatus('error');
+    }
   };
 
   return (
     <div className='mx-auto mt-10 lg:w-1/2'>
-      <FormContributions formType={'create'} lng={lng} onSubmit={handleSubmitForm} />
+      {submitStatus === 'idle' && (
+        <FormContributions formType={'create'} lng={lng} onSubmit={handleSubmitForm} />
+      )}
+      {submitStatus === 'submitting' && <p>Submitting...</p>}
+      {submitStatus === 'success' && <p>Thank you for your contribution!</p>}
+      {submitStatus === 'error' && (
+        <p>There was an error submitting your contribution. Please try again.</p>
+      )}
     </div>
   );
 };

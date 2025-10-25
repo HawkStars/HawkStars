@@ -90,7 +90,8 @@ const FormContributions = ({
         control={control}
         name='donor'
         rules={{
-          validate: (value, formValues) => (formValues.is_anonymous ? true : value.length > 0),
+          validate: (value, formValues) =>
+            formValues.is_anonymous ? true : value && value.length > 0,
         }}
         render={({ field: { onChange, value } }) => (
           <Input

@@ -356,7 +356,7 @@ export interface BoardMember {
  */
 export interface Contribution {
   id: string;
-  donor: string;
+  donor?: string | null;
   is_confirmed?: boolean | null;
   is_anonymous?: boolean | null;
   value: number;

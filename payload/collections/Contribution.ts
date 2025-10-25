@@ -54,7 +54,7 @@ export const ContributionCollection: CollectionConfig = {
     admin: validateContributionAccess,
   },
   fields: [
-    { type: 'text', name: 'donor', label: 'The name of the donor', required: true },
+    { type: 'text', name: 'donor', label: 'The name of the donor' },
     {
       type: 'checkbox',
       name: 'is_confirmed',

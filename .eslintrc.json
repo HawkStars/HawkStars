@@ -2,5 +2,15 @@
   "extends": [
     "next/core-web-vitals",
     "prettier"
-  ]
+  ],
+  "rules": {
+    "max-len": ["error", { 
+      "code": 140,
+      "tabWidth": 2,
+      "ignoreUrls": true,
+      "ignoreStrings": true,
+      "ignoreTemplateLiterals": true,
+      "ignoreComments": true
+    }]
+  }
 }
