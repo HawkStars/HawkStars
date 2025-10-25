@@ -20,7 +20,6 @@ import totalContributioValueQuery from './lib/payload/endpoints/totalContributio
 
 import { Footer } from './payload/globals/Footer/config';
 import { Header } from './payload/globals/Header/config';
-import { Posts } from './payload/collections/Posts';
 import { Pages } from './payload/collections/Pages';
 import { plugins } from './payload/plugins';
 import { Categories } from './payload/collections/Categories';
@@ -66,7 +65,6 @@ export default buildConfig({
     Curator,
     HawkEvent,
     Partner,
-    Posts,
     Pages,
     Categories,
   ],
