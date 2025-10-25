@@ -19,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { priceOfContribution } from '@/payload/fields/Contribution';
+import { priceOfContribution } from '@/payload/collections/Contribution';
 
 export type ContributionFormInput = Pick<
   Contribution,

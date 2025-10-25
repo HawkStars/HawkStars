@@ -6,7 +6,6 @@ import { Archive } from '../../blocks/ArchiveBlock/config';
 import { CallToAction } from '../../blocks/CallToAction/config';
 import { Content } from '../../blocks/Content/config';
 import { MediaBlock } from '../../blocks/MediaBlock/config';
-import { hero } from '@/payload/heros/config';
 import { populatePublishedAt } from '../../hooks/populatePublishedAt';
 import { generatePreviewPath } from '../../utilities/generatePreviewPath';
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage';
@@ -61,10 +60,6 @@ export const Pages: CollectionConfig<'pages'> = {
     {
       type: 'tabs',
       tabs: [
-        {
-          fields: [hero],
-          label: 'Hero',
-        },
         {
           fields: [
             {

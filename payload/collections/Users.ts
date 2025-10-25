@@ -1,7 +1,15 @@
 import type { CollectionConfig } from 'payload';
+import { authenticated } from '../access/authenticated';
+import { authenticatedAdmin } from '../access/authenticatedAdmin';
 
 export const Users: CollectionConfig = {
   slug: 'users',
+  access: {
+    create: authenticatedAdmin,
+    delete: authenticatedAdmin,
+    read: authenticated,
+    update: authenticatedAdmin,
+  },
   admin: {
     useAsTitle: 'email',
   },

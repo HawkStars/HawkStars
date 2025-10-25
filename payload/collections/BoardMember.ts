@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload';
-import { SocialLinksField } from './objects/SocialLink';
+import { SocialLinksField } from '../fields/objects/SocialLink';
 
 export const BoardMember: CollectionConfig = {
   slug: 'board-members',

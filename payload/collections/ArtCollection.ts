@@ -1,5 +1,5 @@
 import { CollectionConfig, Tab } from 'payload';
-import { SEOTab } from './objects/SeoFields';
+import { SEOTab } from '../fields/objects/SeoFields';
 
 const ArtCollectionDetails: Tab = {
   label: 'Details',

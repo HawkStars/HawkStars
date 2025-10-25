@@ -8,14 +8,14 @@ import sharp from 'sharp';
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
 
 import assert from 'assert';
-import { ArtCollection } from './payload/fields/ArtCollection';
-import { Users } from './payload/fields/Users';
-import { Media } from './payload/fields/Media';
-import { BoardMember } from './payload/fields/BoardMember';
-import { ContributionCollection as Contribution } from './payload/fields/Contribution';
-import { Curator } from './payload/fields/Curator';
-import { HawkEvent } from './payload/fields/HawkEvent';
-import { Partner } from './payload/fields/Partner';
+import { ArtCollection } from './payload/collections/ArtCollection';
+import { Users } from './payload/collections/Users';
+import { Media } from './payload/collections/Media';
+import { BoardMember } from './payload/collections/BoardMember';
+import { ContributionCollection as Contribution } from './payload/collections/Contribution';
+import { Curator } from './payload/collections/Curator';
+import { HawkEvent } from './payload/collections/HawkEvent';
+import { Partner } from './payload/collections/Partner';
 import totalContributioValueQuery from './lib/payload/endpoints/totalContributioValueQuery';
 
 import { Footer } from './payload/globals/Footer/config';
