@@ -39,6 +39,16 @@ export const SocialLinksField: Field = {
           return 'Please enter a valid URL';
         }
       },
+      hooks: {
+        beforeChange: [
+          ({ value }) => {
+            if (value && !/^https?:\/\//i.test(value) && !/^mailto:/i.test(value)) {
+              return `https://${value}`;
+            }
+            return value;
+          },
+        ],
+      },
     },
     {
       name: 'isVisible',
