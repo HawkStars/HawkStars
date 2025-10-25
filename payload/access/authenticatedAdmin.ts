@@ -1,6 +1,9 @@
-import type { Access } from 'payload';
+import type { AccessArgs } from 'payload';
+import type { User } from '@/payload-types';
 
-export const authenticatedAdmin: Access = ({ req: { user } }) => {
+type isAdminAuthenticated = (args: AccessArgs<User>) => boolean;
+
+export const authenticatedAdmin: isAdminAuthenticated = ({ req: { user } }) => {
   if (!user) return false;
   return !!user.isAdmin;
 };

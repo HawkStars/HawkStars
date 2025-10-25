@@ -1,5 +1,11 @@
-import type { CollectionConfig } from 'payload';
+import type { AccessArgs, CollectionConfig } from 'payload';
 import { SocialLinksField } from '../fields/objects/SocialLink';
+import { User } from '@/payload-types';
+import { authenticated } from '../access/authenticated';
+import { onlyPortugueseLocale } from '../access/onlyPortugueseLocale';
+
+const validateContributionAccess = (args: AccessArgs<User>) =>
+  authenticated(args) && onlyPortugueseLocale(args);
 
 export const BoardMember: CollectionConfig = {
   slug: 'board-members',
@@ -8,11 +14,10 @@ export const BoardMember: CollectionConfig = {
     plural: 'Board Members',
   },
   access: {
-    // Restrict API access to Portuguese only
-    read: ({ req: { locale } }) => locale === 'pt',
-    create: ({ req: { locale } }) => locale === 'pt',
-    update: ({ req: { locale } }) => locale === 'pt',
-    admin: ({ req: { locale } }) => locale === 'pt',
+    read: validateContributionAccess,
+    create: validateContributionAccess,
+    update: validateContributionAccess,
+    admin: validateContributionAccess,
   },
   admin: {
     useAsTitle: 'name',

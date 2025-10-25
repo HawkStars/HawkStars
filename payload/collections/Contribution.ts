@@ -1,4 +1,8 @@
-import type { CollectionConfig } from 'payload';
+import type { AccessArgs, CollectionConfig } from 'payload';
+import { onlyPortugueseLocale } from '../access/onlyPortugueseLocale';
+import { authenticated } from '../access/authenticated';
+import { User } from '@/payload-types';
+import { authenticatedAdmin } from '../access/authenticatedAdmin';
 
 type ContributionType =
   | 'BANK'
@@ -38,14 +42,16 @@ export const contributionTypeOptions: ContributionSelectOption[] = [
   { label: 'Training Room Name', value: 'TRAINING_ROOM_NAMING' },
 ];
 
+const validateContributionAccess = (args: AccessArgs<User>) =>
+  authenticated(args) && onlyPortugueseLocale(args);
+
 export const ContributionCollection: CollectionConfig = {
   slug: 'contributions',
   access: {
-    // Restrict API access to Portuguese only
-    read: ({ req: { locale } }) => locale === 'pt',
-    create: ({ req: { locale } }) => locale === 'pt',
-    update: ({ req: { locale } }) => locale === 'pt',
-    admin: ({ req: { locale } }) => locale === 'pt',
+    read: onlyPortugueseLocale,
+    create: validateContributionAccess,
+    update: validateContributionAccess,
+    admin: validateContributionAccess,
   },
   fields: [
     { type: 'text', name: 'donor', label: 'The name of the donor', required: true },
@@ -53,6 +59,7 @@ export const ContributionCollection: CollectionConfig = {
       type: 'checkbox',
       name: 'is_confirmed',
       label: 'Payment is Confirmed',
+      defaultValue: false,
     },
     {
       type: 'checkbox',
