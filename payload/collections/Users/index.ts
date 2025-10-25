@@ -1,15 +1,16 @@
 import type { CollectionConfig } from 'payload';
 
 import { authenticated } from '@/payload/access/authenticated';
+import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 
 export const Users: CollectionConfig = {
   slug: 'users',
   access: {
     admin: authenticated,
-    create: authenticated,
-    delete: authenticated,
     read: authenticated,
-    update: authenticated,
+    create: authenticatedAdmin,
+    delete: authenticatedAdmin,
+    update: authenticatedAdmin,
   },
   admin: {
     defaultColumns: ['name', 'email'],
@@ -21,6 +22,8 @@ export const Users: CollectionConfig = {
       name: 'name',
       type: 'text',
     },
+    { type: 'checkbox', name: 'isAdmin', label: 'Is Admin', defaultValue: false },
+    { type: 'checkbox', name: 'isEditor', label: 'Is Editor', defaultValue: false },
   ],
   timestamps: true,
 };

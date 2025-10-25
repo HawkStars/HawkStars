@@ -1,10 +1,8 @@
 import type { CollectionConfig } from 'payload';
 
 import { authenticated } from '@/payload/access/authenticated';
-import { authenticatedOrPublished } from '@/payload/access/authenticatedOrPublished';
-import { Archive } from '../../blocks/ArchiveBlock/config';
+
 import { CallToAction } from '../../blocks/CallToAction/config';
-import { Content } from '../../blocks/Content/config';
 import { MediaBlock } from '../../blocks/MediaBlock/config';
 import { populatePublishedAt } from '../../hooks/populatePublishedAt';
 import { generatePreviewPath } from '../../utilities/generatePreviewPath';
@@ -23,7 +21,7 @@ export const Pages: CollectionConfig<'pages'> = {
   access: {
     create: authenticated,
     delete: authenticated,
-    read: authenticatedOrPublished,
+    read: authenticated,
     update: authenticated,
   },
   // This config controls what's populated by default when a page is referenced
@@ -65,7 +63,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive],
+              blocks: [CallToAction, MediaBlock],
               required: true,
               admin: {
                 initCollapsed: true,
