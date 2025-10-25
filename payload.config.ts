@@ -4,7 +4,6 @@ import path from 'path';
 import { buildConfig } from 'payload';
 import { fileURLToPath } from 'url';
 import sharp from 'sharp';
-import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage';
 
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
 
@@ -18,12 +17,13 @@ import { Curator } from './payload/fields/Curator';
 import { HawkEvent } from './payload/fields/HawkEvent';
 import { Partner } from './payload/fields/Partner';
 import totalContributioValueQuery from './lib/payload/endpoints/totalContributioValueQuery';
-import { cloudinaryAdapter, cloudinaryClient } from './lib/cloudinary/adapter';
-import { v2 as cloudinary } from 'cloudinary';
+
 import { Footer } from './payload/globals/Footer/config';
 import { Header } from './payload/globals/Header/config';
 import { Posts } from './payload/collections/Posts';
 import { Pages } from './payload/collections/Pages';
+import { plugins } from './payload/plugins';
+import { Categories } from './payload/collections/Categories';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -68,6 +68,7 @@ export default buildConfig({
     Partner,
     Posts,
     Pages,
+    Categories,
   ],
   globals: [Header, Footer],
   editor: lexicalEditor(),
@@ -79,21 +80,7 @@ export default buildConfig({
     url: process.env.DATABASE_URI || 'mongodb://localhost:27017/hawkstars',
   }),
   sharp,
-  plugins: [
-    cloudStoragePlugin({
-      collections: {
-        media: {
-          adapter: cloudinaryAdapter,
-
-          disableLocalStorage: true, // Prevent Payload from saving files to disk
-
-          generateFileURL: ({ filename }) => {
-            return cloudinary.url(`media/${filename}`, { secure: true });
-          },
-        },
-      },
-    }),
-  ],
+  plugins: plugins,
   endpoints: [
     {
       path: '/sum-contributions',

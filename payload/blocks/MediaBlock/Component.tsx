@@ -49,19 +49,6 @@ export const MediaBlock: React.FC<Props> = (props) => {
           src={staticImage}
         />
       )}
-      {caption && (
-        <div
-          className={cn(
-            'mt-6',
-            {
-              container: !disableInnerContainer,
-            },
-            captionClassName
-          )}
-        >
-          <RichText data={caption} enableGutter={false} />
-        </div>
-      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { MediaBlock } from '@/blocks/MediaBlock/Component';
+import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
 import {
   DefaultNodeTypes,
   SerializedBlockNode,
@@ -11,8 +11,6 @@ import {
   RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react';
 
-import { CodeBlock, CodeBlockProps } from '@/payload/blocks/Code/Component';
-
 import type {
   BannerBlock as BannerBlockProps,
   CallToActionBlock as CTABlockProps,
@@ -24,7 +22,7 @@ import { cn } from '@/payload/utilities/ui';
 
 type NodeTypes =
   | DefaultNodeTypes
-  | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>;
+  | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps>;
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -50,7 +48,6 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
         disableInnerContainer={true}
       />
     ),
-    code: ({ node }) => <CodeBlock className='col-start-2' {...node.fields} />,
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
   },
 });
