@@ -22,7 +22,6 @@ import { Footer } from './payload/globals/Footer/config';
 import { Header } from './payload/globals/Header/config';
 import { Pages } from './payload/collections/Pages';
 import { plugins } from './payload/plugins';
-import { Categories } from './payload/collections/Categories';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -66,7 +65,6 @@ export default buildConfig({
     HawkEvent,
     Partner,
     Pages,
-    Categories,
   ],
   globals: [Header, Footer],
   editor: lexicalEditor(),

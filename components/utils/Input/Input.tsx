@@ -4,7 +4,7 @@ import React from 'react';
 export type InputProps = {
   name: string;
   onChange?: (e: any) => void;
-  value?: string | number;
+  value?: string | number | null;
   customCss?: string;
   labelText?: string;
   errorMessage?: string;
@@ -57,7 +57,7 @@ export default function Input({
           )}
           onChange={onChange}
           name={name}
-          value={value}
+          value={value || ''}
           aria-labelledby={name}
           disabled={disabled}
           aria-label={name}

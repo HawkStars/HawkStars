@@ -22,8 +22,8 @@ const ContributeFormSection = ({ lng }: LanguageProps) => {
         method: 'POST',
         body: JSON.stringify(newDoc),
       });
-      const apiData = await response.json();
-      debugger;
+
+      await response.json();
       setSubmitStatus('success');
     } catch (e) {
       Sentry.captureException(e);

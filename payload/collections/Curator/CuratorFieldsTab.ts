@@ -1,5 +1,4 @@
-import type { CollectionConfig, Tab } from 'payload';
-import { SEOTab } from '../fields/objects/SeoFields';
+import { Tab } from 'payload';
 
 const CuratorFieldsTab: Tab = {
   label: 'Curator Details',
@@ -35,17 +34,4 @@ const CuratorFieldsTab: Tab = {
     { type: 'upload', name: 'image', label: 'Image', relationTo: 'media', required: true },
   ],
 };
-
-export const Curator: CollectionConfig = {
-  slug: 'curators',
-  labels: {
-    singular: 'Curator',
-    plural: 'Curators',
-  },
-  fields: [
-    {
-      type: 'tabs',
-      tabs: [CuratorFieldsTab, SEOTab],
-    },
-  ],
-};
+export default CuratorFieldsTab;

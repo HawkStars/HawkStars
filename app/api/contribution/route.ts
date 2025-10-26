@@ -14,11 +14,7 @@ export async function POST(request: Request) {
       data: body,
     });
 
-    debugger;
-
-    return new Response('', {
-      status: 200,
-    });
+    return new Response(JSON.stringify({ success: true, data }), { status: 200 });
   } catch (e) {
     return new Response('error on the client', { status: 500 });
   }

@@ -22,6 +22,7 @@ export const BoardMember: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'title', 'section', 'position'],
+    description: 'Board Members of the Association',
     listSearchableFields: ['name', 'title', 'section'],
   },
   fields: [

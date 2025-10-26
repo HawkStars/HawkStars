@@ -2,10 +2,12 @@
 
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Calendar, CalendarIcon } from 'lucide-react';
+import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { useRef } from 'react';
+
+import { Calendar } from '@/components/ui/calendar';
 
 type HawkStarsDatePickerProps = {
   date: Date | null;
@@ -16,9 +18,9 @@ type HawkStarsDatePickerProps = {
 
 function HawkStarsDatePicker({ date, onChange, labelText, minDate }: HawkStarsDatePickerProps) {
   const datePickerRef = useRef(null);
-  const [startDate, setStartDate] = useState<Date | null>(date);
+  const [startDate, setStartDate] = useState<Date>(date ?? new Date());
 
-  const changeDatePickerValue = (value: Date | null) => {
+  const changeDatePickerValue = (value: Date) => {
     setStartDate(value);
     onChange(value);
   };
@@ -32,19 +34,20 @@ function HawkStarsDatePicker({ date, onChange, labelText, minDate }: HawkStarsDa
             <Button
               variant='outline'
               data-empty={!date}
-              className='data-[empty=true]:text-muted-foreground w-[280px] justify-start text-left font-normal'
+              className='w-[280px] justify-start text-left font-normal'
             >
               <CalendarIcon />
-              {date ? format(date, 'PPP') : <span>Pick a date</span>}
+              {date ? format(date, 'dd-MM-yyyy') : <span>Pick a date</span>}
             </Button>
           </PopoverTrigger>
-          <PopoverContent className='w-auto p-0'>
+          <PopoverContent>
             <Calendar
+              required
               mode='single'
-              className='border-bege-dark rounded-xl border-2 p-2'
-              // selected={startDate}
-              // min={minDate || undefined}
-              // onSelect={changeDatePickerValue}
+              selected={startDate}
+              onSelect={changeDatePickerValue}
+              captionLayout='dropdown'
+              className='w-full rounded-lg border'
             />
           </PopoverContent>
         </Popover>

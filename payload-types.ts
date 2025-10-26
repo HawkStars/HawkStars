@@ -76,7 +76,6 @@ export interface Config {
     hawk_events: HawkEvent;
     partners: Partner;
     pages: Page;
-    categories: Category;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -93,7 +92,6 @@ export interface Config {
     hawk_events: HawkEventsSelect<false> | HawkEventsSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
-    categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -236,7 +234,7 @@ export interface Artwork {
     };
     [k: string]: unknown;
   } | null;
-  seo: SEO;
+  seo?: SEO;
   updatedAt: string;
   createdAt: string;
 }
@@ -265,7 +263,7 @@ export interface Curator {
     [k: string]: unknown;
   } | null;
   image: string | Media;
-  seo: SEO;
+  seo?: SEO;
   updatedAt: string;
   createdAt: string;
 }
@@ -274,34 +272,23 @@ export interface Curator {
  * via the `definition` "SEO".
  */
 export interface SEO {
-  seo: SeoFields;
+  seo?: SeoFields;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SeoFields".
  */
 export interface SeoFields {
-  google_title: string;
-  google_description: string;
-  google_keywords?:
-    | {
-        keyword?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  og_title: string;
-  og_description: string;
-  og_image?: (string | null) | Media;
-  og_type?: string | null;
-  og_url?: string | null;
-  twitter_card?: string | null;
-  twitter_title?: string | null;
-  twitter_description?: string | null;
-  twitter_image?: (string | null) | Media;
-  canonical?: string | null;
-  robots?: string | null;
+  title?: string | null;
+  /**
+   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+   */
+  image?: (string | null) | Media;
+  description?: string | null;
 }
 /**
+ * Board Members of the Association
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "board-members".
  */
@@ -404,7 +391,7 @@ export interface HawkEvent {
    * Image representing the event on the events main page not on the event page itself
    */
   image: string | Media;
-  seo: SEO;
+  seo?: SEO;
   updatedAt: string;
   createdAt: string;
 }
@@ -493,17 +480,6 @@ export interface MediaBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: string;
-  title: string;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -641,10 +617,6 @@ export interface PayloadLockedDocument {
         value: string | Page;
       } | null)
     | ({
-        relationTo: 'categories';
-        value: string | Category;
-      } | null)
-    | ({
         relationTo: 'payload-jobs';
         value: string | PayloadJob;
       } | null);
@@ -767,25 +739,9 @@ export interface SEOSelect<T extends boolean = true> {
  * via the `definition` "SeoFields_select".
  */
 export interface SeoFieldsSelect<T extends boolean = true> {
-  google_title?: T;
-  google_description?: T;
-  google_keywords?:
-    | T
-    | {
-        keyword?: T;
-        id?: T;
-      };
-  og_title?: T;
-  og_description?: T;
-  og_image?: T;
-  og_type?: T;
-  og_url?: T;
-  twitter_card?: T;
-  twitter_title?: T;
-  twitter_description?: T;
-  twitter_image?: T;
-  canonical?: T;
-  robots?: T;
+  title?: T;
+  image?: T;
+  description?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -918,16 +874,6 @@ export interface MediaBlockSelect<T extends boolean = true> {
   media?: T;
   id?: T;
   blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories_select".
- */
-export interface CategoriesSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

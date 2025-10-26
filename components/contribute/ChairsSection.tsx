@@ -46,7 +46,7 @@ const ChairsSections = ({
 
 type ContributionInfoSectionProps = {
   icon: JSX.Element;
-  contributor?: string;
+  contributor?: string | null;
 };
 
 const ContributionInfoSection = ({ icon, contributor }: ContributionInfoSectionProps) => {
@@ -80,7 +80,7 @@ const ContributionsChairsDesktop = ({
       {currentContributions.map((contribution: Contribution) => {
         return (
           <ContributionInfoSection
-            key={contribution?.id}
+            key={contribution.id}
             contributor={contribution?.donor}
             icon={iconFilled}
           />

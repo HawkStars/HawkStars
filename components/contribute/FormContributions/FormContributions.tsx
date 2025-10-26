@@ -91,7 +91,9 @@ const FormContributions = ({
         name='donor'
         rules={{
           validate: (value, formValues) =>
-            formValues.is_anonymous ? true : value && value.length > 0,
+            formValues.is_anonymous
+              ? true
+              : (value && value.length > 0 && true) || 'This is required',
         }}
         render={({ field: { onChange, value } }) => (
           <Input
@@ -182,9 +184,9 @@ const FormContributions = ({
           };
 
           return (
-            <Select name='type' onValueChange={handleContributionType}>
+            <Select name='type' onValueChange={handleContributionType} defaultValue={value}>
               <SelectTrigger>
-                <SelectValue placeholder='Theme' />
+                <SelectValue placeholder='Type' />
               </SelectTrigger>
               <SelectContent>
                 {ContributionTypesLabels.map((type) => (
