@@ -1,5 +1,5 @@
 import type { AccessArgs, CollectionConfig } from 'payload';
-import { SocialLinksField } from '../fields/objects/SocialLink';
+import { SocialLinksField } from '../fields/SocialLink';
 import { User } from '@/payload-types';
 import { authenticated } from '../access/authenticated';
 import { onlyPortugueseLocale } from '../access/onlyPortugueseLocale';

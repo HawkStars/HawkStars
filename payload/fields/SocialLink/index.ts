@@ -1,9 +1,23 @@
-import { Field } from 'payload';
+import { ArrayField } from 'payload';
 
-export const SocialLinksField: Field = {
+export const SocialLinksField: ArrayField = {
   name: 'links',
-  label: 'Social Links',
+  label: 'Social Media Links',
   type: 'array',
+  labels: {
+    singular: 'Social Link',
+    plural: 'Social Links',
+  },
+  admin: {
+    description: 'Social Media Links for this entry',
+    isSortable: true,
+    components: {
+      RowLabel: {
+        path: '@/payload/fields/SocialLink/components/SocialLinkRowLabel',
+        exportName: 'SocialLinkRowLabel',
+      },
+    },
+  },
   fields: [
     {
       name: 'platform',

@@ -309,6 +309,9 @@ export interface BoardMember {
     | 'treasurer'
     | 'rapporteur_secretary';
   photo?: (string | null) | Media;
+  /**
+   * Social Media Links for this entry
+   */
   links?:
     | {
         platform:
@@ -402,7 +405,32 @@ export interface HawkEvent {
 export interface Partner {
   id: string;
   name: string;
-  image: string | Media;
+  description?: string | null;
+  logo?: (string | null) | Media;
+  /**
+   * Social Media Links for this entry
+   */
+  links?:
+    | {
+        platform:
+          | 'linkedin'
+          | 'twitter'
+          | 'facebook'
+          | 'instagram'
+          | 'website'
+          | 'email'
+          | 'youtube'
+          | 'github'
+          | 'tiktok'
+          | 'whatsapp';
+        url: string;
+        /**
+         * Toggle visibility of this link
+         */
+        isVisible?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -453,10 +481,15 @@ export interface CallToActionBlock {
         link: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
-          reference?: {
-            relationTo: 'pages';
-            value: string | Page;
-          } | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'hawk_events';
+                value: string | HawkEvent;
+              } | null);
           url?: string | null;
           label: string;
           /**
@@ -813,7 +846,16 @@ export interface HawkEventsSelect<T extends boolean = true> {
  */
 export interface PartnersSelect<T extends boolean = true> {
   name?: T;
-  image?: T;
+  description?: T;
+  logo?: T;
+  links?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        isVisible?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -949,10 +991,15 @@ export interface Header {
         link: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
-          reference?: {
-            relationTo: 'pages';
-            value: string | Page;
-          } | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'hawk_events';
+                value: string | HawkEvent;
+              } | null);
           url?: string | null;
           label: string;
         };
@@ -973,10 +1020,15 @@ export interface Footer {
         link: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
-          reference?: {
-            relationTo: 'pages';
-            value: string | Page;
-          } | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'hawk_events';
+                value: string | HawkEvent;
+              } | null);
           url?: string | null;
           label: string;
         };
