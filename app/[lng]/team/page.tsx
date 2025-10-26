@@ -2,7 +2,7 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { LanguagePageProps } from '../types';
 import { Language } from '@/i18n/settings';
-import { boardSections, sectionLabels, TeamMembers } from './config';
+import { boardSections, sectionLabels } from './config';
 import TeamCard from '@/components/team/TeamCard';
 import { getServerTranslation } from '@/i18n';
 import { getBoardMembers } from '@/lib/payload/queries/team';
