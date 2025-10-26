@@ -1,15 +1,14 @@
 import {
-  OverviewField,
-  MetaTitleField,
-  MetaImageField,
   MetaDescriptionField,
-  PreviewField,
+  MetaImageField,
+  MetaTitleField,
+  OverviewField,
 } from '@payloadcms/plugin-seo/fields';
-import { Field, Tab } from 'payload';
+import { GroupField, Tab } from 'payload';
 
-export const SEOFields: Field = {
+export const CuratorSEOFields: GroupField = {
   name: 'seo',
-  label: 'SEO Fields',
+  label: 'Curator SEO Fields',
   type: 'group',
   interfaceName: 'SeoFields',
   fields: [
@@ -24,23 +23,14 @@ export const SEOFields: Field = {
     MetaImageField({
       relationTo: 'media',
     }),
-
     MetaDescriptionField({}),
-    PreviewField({
-      // if the `generateUrl` function is configured
-      hasGenerateFn: true,
-
-      // field paths to match the target field for data
-      titlePath: 'meta.title',
-      descriptionPath: 'meta.description',
-    }),
   ],
 };
 
-export const SEOTab: Tab = {
+export const CuratorTab: Tab = {
   name: 'seo',
   label: 'SEO',
   description: 'Search Engine Optimization fields For Search Engines',
   interfaceName: 'SEO',
-  fields: [SEOFields],
+  fields: [CuratorSEOFields],
 };

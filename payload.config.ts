@@ -14,7 +14,6 @@ import { Media } from './payload/collections/Media';
 import { BoardMember } from './payload/collections/BoardMember';
 import { ContributionCollection as Contribution } from './payload/collections/Contribution';
 import { Curator } from './payload/collections/Curator';
-import { HawkEvent } from './payload/collections/HawkEvent';
 import { Partner } from './payload/collections/Partner';
 import totalContributioValueQuery from './lib/payload/endpoints/totalContributioValueQuery';
 
@@ -22,6 +21,7 @@ import { Footer } from './payload/globals/Footer/config';
 import { Header } from './payload/globals/Header/config';
 import { Pages } from './payload/collections/Pages';
 import { plugins } from './payload/plugins';
+import { HawkEvent } from './payload/collections/HawkEvent';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);

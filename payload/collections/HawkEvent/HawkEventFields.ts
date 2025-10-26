@@ -1,9 +1,6 @@
-import type { CollectionConfig, Tab } from 'payload';
-import { SEOTab } from '../fields/objects/SeoFields';
-import { anyone } from '../access/anyone';
-import { authenticated } from '../access/authenticated';
+import { Tab } from 'payload';
 
-const HawkEventTab: Tab = {
+const HawkEventFields: Tab = {
   label: 'Details',
   description: 'Information about the Hawk Event',
   fields: [
@@ -45,24 +42,4 @@ const HawkEventTab: Tab = {
   ],
 };
 
-export const HawkEvent: CollectionConfig = {
-  slug: 'hawk_events',
-  labels: {
-    singular: 'Hawk Event',
-    plural: 'Hawk Events',
-  },
-  access: {
-    admin: authenticated,
-    read: anyone,
-    create: authenticated,
-    delete: authenticated,
-    update: authenticated,
-  },
-  fields: [
-    {
-      type: 'tabs',
-      label: 'Hawk Event Details',
-      tabs: [HawkEventTab, SEOTab],
-    },
-  ],
-};
+export default HawkEventFields;

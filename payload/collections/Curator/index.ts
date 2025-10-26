@@ -1,8 +1,8 @@
 import type { CollectionConfig, Tab } from 'payload';
-import { SEOTab } from '../../fields/objects/SeoFields';
 import CuratorFieldsTab from './CuratorFieldsTab';
 import { anyone } from '@/payload/access/anyone';
 import { authenticated } from '@/payload/access/authenticated';
+import { CuratorTab } from './CuratorSeoTab';
 
 export const Curator: CollectionConfig = {
   slug: 'curators',
@@ -20,7 +20,7 @@ export const Curator: CollectionConfig = {
   fields: [
     {
       type: 'tabs',
-      tabs: [CuratorFieldsTab, SEOTab],
+      tabs: [CuratorFieldsTab, CuratorTab],
     },
   ],
 };

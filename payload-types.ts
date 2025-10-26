@@ -234,7 +234,6 @@ export interface Artwork {
     };
     [k: string]: unknown;
   } | null;
-  seo?: SEO;
   updatedAt: string;
   createdAt: string;
 }
@@ -394,7 +393,6 @@ export interface HawkEvent {
    * Image representing the event on the events main page not on the event page itself
    */
   image: string | Media;
-  seo?: SEO;
   updatedAt: string;
   createdAt: string;
 }
@@ -756,25 +754,8 @@ export interface ArtworksSelect<T extends boolean = true> {
   tiragem?: T;
   dimensions?: T;
   extra?: T;
-  seo?: T | SEOSelect<T>;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SEO_select".
- */
-export interface SEOSelect<T extends boolean = true> {
-  seo?: T | SeoFieldsSelect<T>;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SeoFields_select".
- */
-export interface SeoFieldsSelect<T extends boolean = true> {
-  title?: T;
-  image?: T;
-  description?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -828,6 +809,22 @@ export interface CuratorsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SEO_select".
+ */
+export interface SEOSelect<T extends boolean = true> {
+  seo?: T | SeoFieldsSelect<T>;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SeoFields_select".
+ */
+export interface SeoFieldsSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  description?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "hawk_events_select".
  */
 export interface HawkEventsSelect<T extends boolean = true> {
@@ -836,7 +833,6 @@ export interface HawkEventsSelect<T extends boolean = true> {
   type_event?: T;
   page_content?: T;
   image?: T;
-  seo?: T | SEOSelect<T>;
   updatedAt?: T;
   createdAt?: T;
 }

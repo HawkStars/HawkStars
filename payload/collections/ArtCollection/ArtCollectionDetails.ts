@@ -1,7 +1,4 @@
-import { CollectionConfig, Tab } from 'payload';
-import { SEOTab } from '../fields/objects/SeoFields';
-import { authenticated } from '../access/authenticated';
-import { anyone } from '../access/anyone';
+import { Tab } from 'payload';
 
 const ArtCollectionDetails: Tab = {
   label: 'Details',
@@ -104,29 +101,4 @@ const ArtCollectionDetails: Tab = {
   ],
 };
 
-export const ArtCollection: CollectionConfig = {
-  slug: 'artworks',
-  access: {
-    admin: authenticated,
-    read: anyone,
-    create: authenticated,
-    delete: authenticated,
-    update: authenticated,
-  },
-  labels: {
-    singular: 'Artwork',
-    plural: 'Artworks',
-  },
-  admin: {
-    useAsTitle: 'title',
-    defaultColumns: ['title', 'artist', 'year', 'is_sold'],
-  },
-
-  fields: [
-    {
-      type: 'tabs',
-      label: 'Artwork Details',
-      tabs: [ArtCollectionDetails, SEOTab],
-    },
-  ],
-};
+export default ArtCollectionDetails;

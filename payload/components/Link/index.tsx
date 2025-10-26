@@ -3,7 +3,7 @@ import { cn } from '@/payload/utilities/ui';
 import Link from 'next/link';
 import React from 'react';
 
-import type { Page } from '@/payload-types';
+import type { HawkEvent, Page } from '@/payload-types';
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant'];
@@ -12,8 +12,8 @@ type CMSLinkType = {
   label?: string | null;
   newTab?: boolean | null;
   reference?: {
-    relationTo: 'pages' | 'posts';
-    value: Page | string | number;
+    relationTo: 'pages' | 'hawk_events';
+    value: Page | HawkEvent | string | number;
   } | null;
   size?: ButtonProps['size'] | null;
   type?: 'custom' | 'reference' | null;
