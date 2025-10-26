@@ -1,5 +1,3 @@
-// TODO: Replace with actual query when Payload CMS is set up
-
 import { Artwork, Curator } from '@/payload-types';
 import { getPayloadConfig } from '../client';
 

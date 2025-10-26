@@ -308,7 +308,7 @@ export interface BoardMember {
     | 'substitute'
     | 'treasurer'
     | 'rapporteur_secretary';
-  image?: (string | null) | Media;
+  photo?: (string | null) | Media;
   links?:
     | {
         platform:
@@ -751,7 +751,7 @@ export interface BoardMembersSelect<T extends boolean = true> {
   name?: T;
   section?: T;
   title?: T;
-  image?: T;
+  photo?: T;
   links?:
     | T
     | {

@@ -66,8 +66,8 @@ export const BoardMember: CollectionConfig = {
       ],
     },
     {
-      name: 'image',
-      label: 'Image',
+      name: 'photo',
+      label: 'Photo',
       type: 'upload',
       relationTo: 'media',
     },

@@ -10,12 +10,12 @@ import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 type TeamCardProps = {
   name: string;
-  position: string;
-  photo: string;
+  title: string;
+  photo?: any;
   url?: string;
 };
 
-const TeamCard = ({ name, position, photo, url }: TeamCardProps) => {
+const TeamCard = ({ name, title, photo, url }: TeamCardProps) => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'team');
   return (
@@ -25,7 +25,7 @@ const TeamCard = ({ name, position, photo, url }: TeamCardProps) => {
       </div>
       <div className='mt-3 flex h-full flex-col gap-1 text-left lg:mt-6 lg:text-center'>
         <h4 className='text-body_semibold'>{name}</h4>
-        <p className='text-body_regular'>{t(position)}</p>
+        <p className='text-body_regular'>{t(`roles.${title}`)}</p>
         {url && (
           <div className='flex lg:mt-auto lg:justify-center'>
             <Link href={url} target='_blank'>

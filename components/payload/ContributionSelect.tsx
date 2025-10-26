@@ -7,7 +7,7 @@ import {
   priceOfContribution,
   ContributionSelectOption,
   contributionTypeOptions,
-} from '@/payload/collections/Contribution';
+} from '@/payload/collections/Contribution/config';
 import { useField, SelectField } from '@payloadcms/ui';
 
 const ContributionSelect: SelectFieldClientComponent = ({ field, path }) => {
