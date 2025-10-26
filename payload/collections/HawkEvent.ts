@@ -1,5 +1,7 @@
 import type { CollectionConfig, Tab } from 'payload';
 import { SEOTab } from '../fields/objects/SeoFields';
+import { anyone } from '../access/anyone';
+import { authenticated } from '../access/authenticated';
 
 const HawkEventTab: Tab = {
   label: 'Details',
@@ -48,6 +50,13 @@ export const HawkEvent: CollectionConfig = {
   labels: {
     singular: 'Hawk Event',
     plural: 'Hawk Events',
+  },
+  access: {
+    admin: authenticated,
+    read: anyone,
+    create: authenticated,
+    delete: authenticated,
+    update: authenticated,
   },
   fields: [
     {

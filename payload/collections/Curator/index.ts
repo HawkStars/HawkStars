@@ -1,9 +1,18 @@
 import type { CollectionConfig, Tab } from 'payload';
 import { SEOTab } from '../../fields/objects/SeoFields';
 import CuratorFieldsTab from './CuratorFieldsTab';
+import { anyone } from '@/payload/access/anyone';
+import { authenticated } from '@/payload/access/authenticated';
 
 export const Curator: CollectionConfig = {
   slug: 'curators',
+  access: {
+    admin: authenticated,
+    read: anyone,
+    create: authenticated,
+    delete: authenticated,
+    update: authenticated,
+  },
   labels: {
     singular: 'Curator',
     plural: 'Curators',
