@@ -2,48 +2,49 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { useMainAppContext } from '@/utils/contexts/AppProvider';
 import { HawkEvent, Media } from '@/payload-types';
 import { getEventsQuery } from '@/lib/payload/queries/event';
+import { LoadingState } from '@/utils/page';
+
+type EventsResponse = {
+  events: HawkEvent[];
+  totalPages: number;
+  hasNextPage: boolean;
+  nextPage?: number | null;
+};
 
 const EventsList = () => {
   const { lng } = useMainAppContext();
-  const [events, setEvents] = useState<HawkEvent[]>([]);
-  const [lastHawkEvent, setLastHawkEvent] = useState<Pick<HawkEvent, 'id' | 'updatedAt'> | null>(
-    null
-  );
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<LoadingState>('idle');
+  const [page, setPage] = useState(1);
+  const [eventsInfo, setEventsInfo] = useState<EventsResponse>({
+    events: [],
+    totalPages: 0,
+    hasNextPage: false,
+    nextPage: null,
+  });
 
-  const fetchEvents = async () => {
-    setLoading(true);
-    const result = await getEventsQuery(0);
-    const { docs } = result;
-    setEvents(docs as unknown as HawkEvent[]);
-    if (docs.length > 0) setLastHawkEvent(docs[docs.length - 1]);
-    setLoading(false);
+  const fetchEvents = async (page: number) => {
+    setLoading('submitting');
+    const result = await getEventsQuery(page, lng);
+    const { docs, totalPages, hasNextPage, nextPage } = result;
+    setEventsInfo({ events: docs, totalPages, hasNextPage, nextPage });
+    setLoading('success');
   };
 
-  // const fetchNextPage = async () => {
-  //   setLoading(true);
-  //   if (!lastHawkEvent) return;
-  //   const result = await getNextPageEvents(lastHawkEvent.id, lastHawkEvent.updatedAt);
-  //   setEvents([...events, ...result] as HawkEvent[]);
-  //   if (result.length > 0) setLastHawkEvent(result[result.length - 1]);
-  //   setLoading(false);
-  // };
-
   useEffect(() => {
-    fetchEvents();
-  }, []);
+    fetchEvents(page);
+  }, [page]);
 
   return (
     <>
-      {events.length == 0 && <div>No events found</div>}
-      {events.length > 0 && (
+      {eventsInfo.events.length == 0 && <div>No events found</div>}
+      {eventsInfo.events.length > 0 && (
         <>
           <ul>
-            {events.map((event: HawkEvent) => {
+            {eventsInfo.events.map((event: HawkEvent) => {
               const firstImage = (event.image && (event.image as Media)) || null;
               return (
                 <Link key={event.id} href={`/events/${event.slug}`}>
@@ -57,7 +58,11 @@ const EventsList = () => {
               );
             })}
           </ul>
-          {/* {loading ? <p>Loading...</p> : <button onClick={fetchNextPage}>Load More</button>} */}
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <button onClick={() => setPage((prev) => prev + 1)}>Load More</button>
+          )}
         </>
       )}
     </>

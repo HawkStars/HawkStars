@@ -1,5 +1,3 @@
-export const PAGE_SIZE = 10 as const;
+export type LoadingState = 'idle' | 'submitting' | 'success' | 'error';
 
-export const getPageRange = (page: number) => {
-  return [page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1];
-};
+export const PAGE_SIZE = 10 as const;

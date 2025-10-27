@@ -51,7 +51,7 @@ export default buildConfig({
     locales: [
       { label: 'English', code: 'en', fallbackLocale: 'pt' },
       { label: 'Portuguese', code: 'pt' },
-      { label: 'French', code: 'fr', fallbackLocale: 'pt' },
+      // { label: 'French', code: 'fr', fallbackLocale: 'pt' },
     ],
     fallback: true,
   },

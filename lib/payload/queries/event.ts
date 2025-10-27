@@ -1,26 +1,28 @@
 import { HawkEvent } from '@/payload-types';
 import { getPayloadConfig } from '../client';
+import { Language } from '@/i18n/settings';
+import { PaginatedDocs } from 'payload';
 
 const EVENTS_COLLECTION = 'hawk_events';
 
-export const getSingleEventsQuery = async (slug: string): Promise<HawkEvent> => {
+export const getSingleEventsQuery = async (slug: string, locale: Language): Promise<HawkEvent> => {
   const payload = await getPayloadConfig();
-  const event = await payload.findByID({ collection: EVENTS_COLLECTION, id: slug });
+  const event = await payload.findByID({ collection: EVENTS_COLLECTION, id: slug, locale });
   return event;
 };
 
 export const getEventsQuery = async (
-  page: number
-): Promise<{ docs: HawkEvent[]; totalPages: number }> => {
+  page: number,
+  locale: Language
+): Promise<PaginatedDocs<HawkEvent>> => {
   const payload = await getPayloadConfig();
   const events = await payload.find({
     collection: EVENTS_COLLECTION,
     limit: 10,
     page,
+    locale,
     sort: '-date',
   });
 
-  const { docs, totalPages } = events;
-
-  return { docs, totalPages };
+  return events;
 };
