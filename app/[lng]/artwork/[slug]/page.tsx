@@ -77,7 +77,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
         <h6 className='text-h2_bold'>{t('artwork.synopsis')}</h6>
         {/* {artwork?.synopsis && <SanityBlock block={artwork?.synopsis} lng={params.lng} />} */}
 
-        <div>{artwork.extra && <SanityBlock block={artwork.extra} lng={params.lng} />}</div>
+        {/* <div>{artwork.extra && <SanityBlock block={artwork.extra} lng={params.lng} />}</div> */}
       </section>
     </>
   );

@@ -27,7 +27,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
       </div>
       <div className='w-full p-5'>
         <h1 className='text-h2_bold mb-5'>{curator.name}</h1>
-        {curator.description}
+        {/* {curator.description} */}
       </div>
     </HawkStarsSection>
   );
