@@ -19,6 +19,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
   const curator = await getCuratorInformation(slug, lng);
   if (!curator) notFound();
 
+  debugger;
   return (
     <HawkStarsSection className='font-oswald bg-bege-light flex pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
       <div className='max-lg:mx-auto lg:m-5 lg:w-96'>

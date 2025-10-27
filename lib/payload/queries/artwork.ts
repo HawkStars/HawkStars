@@ -2,20 +2,46 @@ import { Artwork, Curator } from '@/payload-types';
 import { getPayloadConfig } from '../client';
 import { Language } from '@/i18n/settings';
 
-export const getSingleArtwork = async (artworkID: string, locale: Language): Promise<Artwork> => {
-  const payload = await getPayloadConfig();
-  const artwork = await payload.findByID({ collection: 'artworks', id: artworkID, locale });
-  return artwork;
+export const getSingleArtwork = async (slug: string, locale: Language): Promise<Artwork | null> => {
+  try {
+    const payload = await getPayloadConfig();
+    const data = await payload.find({
+      collection: 'artworks',
+      locale,
+      where: { slug: { equals: slug } },
+    });
+
+    const artwork = data.docs.length > 0 ? (data.docs[0] as Artwork) : null;
+    return artwork;
+  } catch (error) {
+    console.error('Error fetching artwork:', error);
+    return null;
+  }
 };
 
-export const getSingleCuratorQuery = async (slug: string, locale: Language): Promise<Curator> => {
-  const payload = await getPayloadConfig();
-  const curator = await payload.findByID({
-    collection: 'curators',
-    id: slug,
-    locale,
-  });
-  return curator;
+export const getSingleCuratorQuery = async (
+  slug: string,
+  locale: Language
+): Promise<Curator | undefined> => {
+  try {
+    const payload = await getPayloadConfig();
+    const curator = await payload.find({
+      collection: 'curators',
+      where: {
+        slug: {
+          equals: slug,
+        },
+      },
+      limit: 1,
+      locale: 'all',
+    });
+
+    return curator.docs[0] as Curator;
+  } catch (error) {
+    debugger;
+    console.error('Error fetching curator:', error);
+    return undefined;
+  }
 };
 
 export const getAllArtworkImagesQuery = async (locale: Language) => {

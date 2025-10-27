@@ -10,6 +10,7 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { getSingleArtwork } from '@/lib/payload/queries/artwork';
 import { Curator } from '@/payload-types';
+import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
 
 const getCuratorInformation = async (slug: string, locale: Language) => {
   const response = await getSingleArtwork(slug, locale);
@@ -40,7 +41,9 @@ const CuratorPage = async (props: CuratorPageProps) => {
     <>
       <HawkStarsSection className='bg-bege-light flex gap-8 pt-10 pb-8 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
         <div className='max-lg:mx-auto lg:w-7/12'>
-          {/* <SanityCloudinaryImage image={artwork?.image} className='rounded-xl' /> */}
+          {artwork.image && (
+            <MediaBlock media={artwork.image} imgClassName='rounded-xl' blockType='mediaBlock' />
+          )}
         </div>
         <div className='font-oswald flex flex-col px-5 pt-5 lg:w-5/12'>
           <h2 className='text-h1_semibold text-disabled mb-2'>
@@ -74,7 +77,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
         <h6 className='text-h2_bold'>{t('artwork.synopsis')}</h6>
         {/* {artwork?.synopsis && <SanityBlock block={artwork?.synopsis} lng={params.lng} />} */}
 
-        {/* <div>{artwork.extra && <SanityBlock block={artwork.extra} lng={params.lng} />}</div> */}
+        <div>{artwork.extra && <SanityBlock block={artwork.extra} lng={params.lng} />}</div>
       </section>
     </>
   );
