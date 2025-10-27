@@ -2,19 +2,21 @@ import { LanguageProps } from '@/components/types';
 
 import Link from 'next/link';
 import { allCuratorsQuery } from '@/lib/payload/queries/artwork';
+import { Language } from '@/i18n/settings';
 
-const getCurators = async () => {
-  const response = await allCuratorsQuery();
+const getCurators = async (locale: Language) => {
+  const response = await allCuratorsQuery(locale);
   return response;
 };
 
 const Curators = async ({ lng }: LanguageProps) => {
-  const allCurators = await getCurators();
+  const allCurators = await getCurators(lng);
+  const { docs: curators } = allCurators;
 
   return (
     <>
       <section className='my-20 flex justify-center gap-4 max-lg:flex-col lg:gap-32' id='curators'>
-        {allCurators.map((curator: any) => {
+        {curators.map((curator: any) => {
           return (
             <div key={curator._id}>
               <Link

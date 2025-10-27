@@ -6,17 +6,19 @@ import Image from 'next/image';
 import classNames from 'classnames';
 import { getAllArtworkImagesQuery } from '@/lib/payload/queries/artwork';
 import { Media } from '@/payload-types';
+import { Language } from '@/i18n/settings';
 
-const getArtwork = async () => {
-  const images = await getAllArtworkImagesQuery();
+const getArtwork = async (locale: Language) => {
+  const images = await getAllArtworkImagesQuery(locale);
   return images;
 };
 
 const ArtworkPage = async (props: LanguagePageProps) => {
-  const lng = await props.params;
-  const { t } = await getServerTranslation(lng.lng, 'art');
+  const params = await props.params;
+  const { lng } = params;
+  const { t } = await getServerTranslation(lng, 'art');
 
-  const artworkImages = await getArtwork();
+  const artworkImages = await getArtwork(lng);
   const { docs } = artworkImages;
 
   return (
@@ -27,7 +29,7 @@ const ArtworkPage = async (props: LanguagePageProps) => {
           const artTitle = item.title;
           const artworkImage = item.image as Media;
           return (
-            <Link href={transformUrl(lng.lng, `/artwork/${item.slug}`)} key={item.slug || index}>
+            <Link href={transformUrl(lng, `/artwork/${item.slug}`)} key={item.slug || index}>
               <div className='flex h-full flex-col gap-5'>
                 <h3 className='text-h2_bold font-oswald text-disabled text-center'>{item.title}</h3>
                 {artworkImage?.url && (

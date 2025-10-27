@@ -11,15 +11,15 @@ import { Metadata } from 'next';
 import { getSingleArtwork } from '@/lib/payload/queries/artwork';
 import { Curator } from '@/payload-types';
 
-const getCuratorInformation = async (slug: string) => {
-  const response = await getSingleArtwork(slug);
+const getCuratorInformation = async (slug: string, locale: Language) => {
+  const response = await getSingleArtwork(slug, locale);
   return response;
 };
 
 export async function generateMetadata(props: CuratorPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng, slug } = params;
-  const artwork = await getCuratorInformation(slug);
+  const artwork = await getCuratorInformation(slug, lng);
 
   const metadataPage = getMetadataPageInfo(lng as Language, 'home');
   return metadataPage;
@@ -32,7 +32,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
   const { lng, slug } = params;
   if (!slug) return notFound();
 
-  const artwork = await getCuratorInformation(slug);
+  const artwork = await getCuratorInformation(slug, lng);
   const { t } = await getServerTranslation(lng, 'art');
   if (!artwork) notFound();
 

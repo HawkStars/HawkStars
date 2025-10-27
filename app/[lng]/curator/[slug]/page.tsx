@@ -3,9 +3,11 @@ import { HawkStarsSection } from '@/components/layout';
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
 import { getSingleCuratorQuery } from '@/lib/payload/queries/artwork';
+import { Language } from '@/i18n/settings';
+import RichText from '@/payload/components/RichText';
 
-const getCuratorInformation = async (slug: string) => {
-  const response = await getSingleCuratorQuery(slug);
+const getCuratorInformation = async (slug: string, locale: Language) => {
+  const response = await getSingleCuratorQuery(slug, locale);
   return response;
 };
 
@@ -13,7 +15,8 @@ type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
 const CuratorPage = async (props: CuratorPageProps) => {
   const params = await props.params;
-  const curator = await getCuratorInformation(params.slug);
+  const { lng, slug } = params;
+  const curator = await getCuratorInformation(slug, lng);
   if (!curator) notFound();
 
   return (
@@ -23,7 +26,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
       </div>
       <div className='w-full p-5'>
         <h1 className='text-h2_bold mb-5'>{curator.name}</h1>
-        {/* {curator?.description && <SanityBlock block={curator?.description} lng={params.lng} />} */}
+        {curator.description}
       </div>
     </HawkStarsSection>
   );

@@ -8,15 +8,15 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { getSingleEventsQuery } from '@/lib/payload/queries/event';
 
-const getEventInformation = async (slug: string) => {
-  const response = await getSingleEventsQuery(slug);
+const getEventInformation = async (slug: string, locale: Language) => {
+  const response = await getSingleEventsQuery(slug, locale);
   return response;
 };
 
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng, slug } = params;
-  const event = await getEventInformation(slug);
+  const event = await getEventInformation(slug, lng);
 
   const metadataPage = getMetadataPageInfo(lng as Language, 'home');
   return metadataPage;
@@ -29,7 +29,7 @@ const EventPage = async (props: EventPageProps) => {
   const { lng, slug } = params;
   if (!slug) return notFound();
 
-  const event = await getEventInformation(slug);
+  const event = await getEventInformation(slug, lng);
   const { t } = await getServerTranslation(lng, 'art');
   if (!event) notFound();
 
