@@ -5,11 +5,13 @@ applyTo: "*"
 # HawkStars Project Overview
 
 ## Project Mission
+
 HawkStars is a cultural organization's website showcasing contemporary art, events, and community initiatives. The platform serves as both a content management system for administrators and a public-facing multilingual website for visitors.
 
 ## Architecture Overview
 
 ### Technology Stack
+
 - **Frontend**: Next.js 15 with App Router + React 19 + TypeScript
 - **Backend**: Payload CMS 3.x (headless CMS)
 - **Database**: MongoDB with Mongoose adapter
@@ -19,6 +21,7 @@ HawkStars is a cultural organization's website showcasing contemporary art, even
 - **Monitoring**: Sentry error tracking
 
 ### Core Features
+
 1. **Multilingual Content**: Portuguese (default) and English with automatic language detection
 2. **Art Gallery**: Dynamic artwork showcase with artist information and sales status
 3. **Event Management**: Cultural events with date/time handling
@@ -50,6 +53,7 @@ HawkStars is a cultural organization's website showcasing contemporary art, even
 ## Development Workflow
 
 ### Getting Started
+
 ```bash
 # Install dependencies
 pnpm install
@@ -63,6 +67,7 @@ pnpm dev
 ```
 
 ### Key Commands
+
 ```bash
 pnpm dev              # Development with Turbopack
 pnpm build            # Production build
@@ -73,8 +78,9 @@ pnpm format:fix       # Format code with Prettier + Tailwind sorting
 ## Content Management
 
 ### Payload CMS Collections
+
 - **Artworks**: Gallery pieces with artist info, pricing, sold status
-- **Events**: Cultural events with dates and descriptions  
+- **Events**: Cultural events with dates and descriptions
 - **Pages**: Dynamic page content with blocks
 - **Board Members**: Team information with roles
 - **Curators**: Artist curator profiles
@@ -83,6 +89,7 @@ pnpm format:fix       # Format code with Prettier + Tailwind sorting
 - **Media**: Cloudinary-integrated asset management
 
 ### Access Control
+
 - **Public**: Read access to published content
 - **Authenticated**: Full CRUD operations for admins
 - **Localized**: Content supports Portuguese and English versions
@@ -90,12 +97,14 @@ pnpm format:fix       # Format code with Prettier + Tailwind sorting
 ## Key Integrations
 
 ### Internationalization Flow
+
 1. **Middleware Detection**: `middleware.ts` detects language from URL, cookies, or headers
 2. **Route Handling**: All public routes use `/[lng]/path` pattern
 3. **Content Localization**: CMS collections support `pt`/`en` versions
 4. **Client Translation**: React components use `useTranslation()` hook
 
 ### External Services
+
 - **Cloudinary**: Image storage, optimization, and delivery
 - **Sentry**: Error tracking and performance monitoring
 - **MongoDB Atlas**: Database hosting (recommended)
@@ -103,12 +112,14 @@ pnpm format:fix       # Format code with Prettier + Tailwind sorting
 ## Development Guidelines
 
 ### File Organization
+
 - Components use folder-based structure with `index.tsx` exports
 - Utilities are single-purpose functions in `utils/`
 - All internal URLs defined in `utils/paths.ts` constants
 - Types auto-generated from Payload schema in `payload-types.ts`
 
-### Styling Conventions  
+### Styling Conventions
+
 - Tailwind usage at the majority of the styling
 - Custom typography classes: `text-h1_semibold`, `text-h2_light`
 - Brand colors via CSS variables: `--color-bege-light`, `--color-green`
@@ -116,6 +127,7 @@ pnpm format:fix       # Format code with Prettier + Tailwind sorting
 - Component variants using `classname-variants` library
 
 ### State Management
+
 - Global app state via `AppProvider` context (language, mobile nav)
 - Access current language: `useMainAppContext().lng`
 - Form state: React Hook Form for complex forms
@@ -124,11 +136,13 @@ pnpm format:fix       # Format code with Prettier + Tailwind sorting
 ## Security & Performance
 
 ### Content Security Policy
+
 - Strict CSP headers in production (`next.config.ts`)
 - Cloudinary and Google services whitelisted
 - Sentry integration configured
 
 ### Performance Optimizations
+
 - Next.js Image component with Cloudinary optimization
 - Turbopack for faster development builds
 - Static generation for public pages where possible

@@ -439,7 +439,7 @@ export interface Partner {
 export interface Page {
   id: string;
   title: string;
-  layout: (CallToActionBlock | MediaBlock)[];
+  layout: (CallToActionBlock | MediaBlock | GallerySliderBlock | HeroBlock | ContentWithImageBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -511,6 +511,106 @@ export interface MediaBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GallerySliderBlock".
+ */
+export interface GallerySliderBlock {
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  /**
+   * Enable automatic slide transition
+   */
+  autoplay?: boolean | null;
+  /**
+   * Delay between slides in milliseconds (1000-10000)
+   */
+  autoplayDelay?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallerySlider';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock".
+ */
+export interface HeroBlock {
+  /**
+   * Main heading text
+   */
+  heading: string;
+  /**
+   * Supporting text or tagline
+   */
+  subheading?: string | null;
+  /**
+   * Background image for the hero section
+   */
+  backgroundImage?: (string | null) | Media;
+  /**
+   * Overlay opacity percentage (0-100) to improve text readability
+   */
+  overlayOpacity?: number | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'hawk_events';
+                value: string | HawkEvent;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithImageBlock".
+ */
+export interface ContentWithImageBlock {
+  title: string;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  image: string | Media;
+  /**
+   * Position of the image relative to the content
+   */
+  imagePosition?: ('left' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contentWithImage';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -866,6 +966,9 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         cta?: T | CallToActionBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
+        gallerySlider?: T | GallerySliderBlockSelect<T>;
+        hero?: T | HeroBlockSelect<T>;
+        contentWithImage?: T | ContentWithImageBlockSelect<T>;
       };
   meta?:
     | T
@@ -910,6 +1013,61 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
  */
 export interface MediaBlockSelect<T extends boolean = true> {
   media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GallerySliderBlock_select".
+ */
+export interface GallerySliderBlockSelect<T extends boolean = true> {
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  autoplay?: T;
+  autoplayDelay?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock_select".
+ */
+export interface HeroBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  backgroundImage?: T;
+  overlayOpacity?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithImageBlock_select".
+ */
+export interface ContentWithImageBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  image?: T;
+  imagePosition?: T;
   id?: T;
   blockName?: T;
 }

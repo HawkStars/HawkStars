@@ -3,6 +3,7 @@
 ## Payload CMS Architecture
 
 ### Configuration Overview
+
 ```typescript
 // payload.config.ts
 export default buildConfig({
@@ -27,18 +28,20 @@ export default buildConfig({
 ```
 
 ### Database Connection
+
 ```bash
 # Environment variables required
 DATABASE_URI=mongodb://localhost:27017/hawkstars  # or MongoDB Atlas URI
 PAYLOAD_SECRET=your-secret-key-here
 CLOUDINARY_CLOUD_NAME=your-cloudinary-name
-CLOUDINARY_API_KEY=your-api-key  
+CLOUDINARY_API_KEY=your-api-key
 CLOUDINARY_API_SECRET=your-api-secret
 ```
 
 ## Collection Patterns
 
 ### Standard Collection Structure
+
 ```typescript
 // payload/collections/ExampleCollection/index.ts
 import { CollectionConfig } from 'payload';
@@ -48,18 +51,18 @@ import { anyone } from '../../access/anyone';
 export const ExampleCollection: CollectionConfig = {
   slug: 'examples',
   access: {
-    admin: authenticated,    // Only logged-in users can access admin
-    read: anyone,           // Public read access
-    create: authenticated,  // Only admins can create
-    update: authenticated,  // Only admins can update  
-    delete: authenticated,  // Only admins can delete
+    admin: authenticated, // Only logged-in users can access admin
+    read: anyone, // Public read access
+    create: authenticated, // Only admins can create
+    update: authenticated, // Only admins can update
+    delete: authenticated, // Only admins can delete
   },
   labels: {
     singular: 'Example',
     plural: 'Examples',
   },
   admin: {
-    useAsTitle: 'title',    // Field to use as document title
+    useAsTitle: 'title', // Field to use as document title
     defaultColumns: ['title', 'status', 'updatedAt'],
   },
   fields: [
@@ -69,11 +72,12 @@ export const ExampleCollection: CollectionConfig = {
 ```
 
 ### Localized Fields Pattern
+
 ```typescript
 // Fields with localization support
 {
   name: 'title',
-  label: 'Title', 
+  label: 'Title',
   type: 'text',
   localized: true,  // Enables pt/en versions
   required: true,
@@ -90,6 +94,7 @@ export const ExampleCollection: CollectionConfig = {
 ```
 
 ### Relationship Fields
+
 ```typescript
 // One-to-one relationship
 {
@@ -105,17 +110,18 @@ export const ExampleCollection: CollectionConfig = {
   },
 },
 
-// One-to-many relationship  
+// One-to-many relationship
 {
   name: 'categories',
   label: 'Categories',
-  type: 'relationship', 
+  type: 'relationship',
   relationTo: 'categories',
   hasMany: true,            // Multiple relationships
 }
 ```
 
 ### Media/Upload Fields
+
 ```typescript
 {
   name: 'image',
@@ -129,7 +135,7 @@ export const ExampleCollection: CollectionConfig = {
 },
 {
   name: 'gallery',
-  label: 'Image Gallery', 
+  label: 'Image Gallery',
   type: 'upload',
   relationTo: 'media',
   hasMany: true,            // Multiple images
@@ -139,6 +145,7 @@ export const ExampleCollection: CollectionConfig = {
 ## Collection Examples
 
 ### Art Collection Structure
+
 ```typescript
 // payload/collections/ArtCollection/index.ts
 export const ArtCollection: CollectionConfig = {
@@ -158,13 +165,11 @@ export const ArtCollection: CollectionConfig = {
             },
             {
               name: 'slug',
-              type: 'text', 
+              type: 'text',
               unique: true,
               hooks: {
-                beforeChange: [({ data }) => 
-                  data?.title?.replace(/\s+/g, '-').toLowerCase()
-                ]
-              }
+                beforeChange: [({ data }) => data?.title?.replace(/\s+/g, '-').toLowerCase()],
+              },
             },
             {
               name: 'artist',
@@ -187,16 +192,17 @@ export const ArtCollection: CollectionConfig = {
               name: 'is_sold',
               type: 'checkbox',
               defaultValue: false,
-            }
-          ]
-        }
-      ]
-    }
-  ]
+            },
+          ],
+        },
+      ],
+    },
+  ],
 };
 ```
 
 ### Event Collection with Date Handling
+
 ```typescript
 export const HawkEvent: CollectionConfig = {
   slug: 'events',
@@ -213,16 +219,16 @@ export const HawkEvent: CollectionConfig = {
       required: true,
       admin: {
         date: {
-          pickerAppearance: 'dayAndTime'
-        }
-      }
+          pickerAppearance: 'dayAndTime',
+        },
+      },
     },
     {
-      name: 'end_date', 
+      name: 'end_date',
       type: 'date',
       admin: {
         condition: (data) => data.start_date, // Only show if start_date exists
-      }
+      },
     },
     {
       name: 'location',
@@ -236,23 +242,24 @@ export const HawkEvent: CollectionConfig = {
         {
           name: 'address',
           type: 'textarea',
-        }
-      ]
-    }
-  ]
+        },
+      ],
+    },
+  ],
 };
 ```
 
 ## Access Control Patterns
 
 ### Custom Access Rules
+
 ```typescript
 // payload/access/ownerOrAdmin.ts
 import type { Access } from 'payload';
 
 export const ownerOrAdmin: Access = ({ req: { user } }) => {
   if (user?.role === 'admin') return true;
-  
+
   return {
     user: {
       equals: user?.id, // User can only access their own documents
@@ -267,11 +274,12 @@ export const UserPosts: CollectionConfig = {
     create: authenticated,
     update: ownerOrAdmin,
     delete: ownerOrAdmin,
-  }
+  },
 };
 ```
 
 ### Role-Based Access
+
 ```typescript
 // Check user roles in access functions
 const adminOnly: Access = ({ req: { user } }) => {
@@ -286,6 +294,7 @@ const editorOrAdmin: Access = ({ req: { user } }) => {
 ## Block-Based Content
 
 ### Reusable Content Blocks
+
 ```typescript
 // payload/blocks/CallToAction/config.ts
 export const CallToAction: Block = {
@@ -333,6 +342,7 @@ export const CallToAction: Block = {
 ## Custom Endpoints
 
 ### API Endpoint Creation
+
 ```typescript
 // lib/payload/endpoints/customEndpoint.ts
 import { PayloadRequest } from 'payload';
@@ -340,12 +350,12 @@ import { PayloadRequest } from 'payload';
 const customEndpoint = async (req: PayloadRequest): Promise<Response> => {
   // Access Payload instance
   const { payload } = req;
-  
+
   // Query collections
   const result = await payload.find({
     collection: 'artworks',
     where: {
-      is_sold: { equals: false }
+      is_sold: { equals: false },
     },
     limit: 10,
   });
@@ -360,14 +370,15 @@ export default buildConfig({
   endpoints: [
     {
       path: '/available-artworks',
-      method: 'get', 
+      method: 'get',
       handler: customEndpoint,
-    }
-  ]
+    },
+  ],
 });
 ```
 
 ### Aggregation Queries
+
 ```typescript
 // Example: Calculate total contributions
 const totalContributions = async (req: PayloadRequest): Promise<Response> => {
@@ -377,16 +388,19 @@ const totalContributions = async (req: PayloadRequest): Promise<Response> => {
 
   const sum = result.docs.reduce((total, doc) => total + (doc.value || 0), 0);
 
-  return new Response(JSON.stringify({ 
-    total: sum,
-    count: result.totalDocs 
-  }));
+  return new Response(
+    JSON.stringify({
+      total: sum,
+      count: result.totalDocs,
+    })
+  );
 };
 ```
 
 ## Hooks and Validation
 
 ### Field Validation
+
 ```typescript
 {
   name: 'email',
@@ -411,6 +425,7 @@ const totalContributions = async (req: PayloadRequest): Promise<Response> => {
 ```
 
 ### Collection Hooks
+
 ```typescript
 export const ArtCollection: CollectionConfig = {
   hooks: {
@@ -420,34 +435,35 @@ export const ArtCollection: CollectionConfig = {
           data.created_by = req.user.id;
         }
         return data;
-      }
+      },
     ],
     afterChange: [
       ({ doc, operation }) => {
         if (operation === 'create') {
           // Send notification, update cache, etc.
         }
-      }
-    ]
-  }
+      },
+    ],
+  },
 };
 ```
 
 ## Querying Data
 
 ### Server-Side Data Fetching
+
 ```typescript
 import { getPayload } from 'payload';
 
 // In Next.js server components or API routes
 export async function getArtworks(locale: string) {
   const payload = await getPayload();
-  
+
   const artworks = await payload.find({
     collection: 'artworks',
     locale, // Use provided locale
     where: {
-      _status: { equals: 'published' }
+      _status: { equals: 'published' },
     },
     sort: '-createdAt',
     limit: 12,
@@ -458,6 +474,7 @@ export async function getArtworks(locale: string) {
 ```
 
 ### Complex Queries
+
 ```typescript
 // Query with relationships and conditions
 const featuredArtworks = await payload.find({
@@ -465,28 +482,29 @@ const featuredArtworks = await payload.find({
   where: {
     and: [
       {
-        is_sold: { equals: false }
+        is_sold: { equals: false },
       },
       {
-        price: { 
+        price: {
           greater_than: 100,
-          less_than: 5000
-        }
+          less_than: 5000,
+        },
       },
       {
-        'artist.name': { contains: 'Silva' }
-      }
-    ]
+        'artist.name': { contains: 'Silva' },
+      },
+    ],
   },
   populate: {
     artist: true, // Populate relationship
-  }
+  },
 });
 ```
 
 ## Type Safety
 
 ### Generated Types Usage
+
 ```typescript
 // payload-types.ts is auto-generated
 import type { ArtCollection, Curator, Media } from '@/payload-types';
@@ -505,6 +523,7 @@ const processArtwork = (artwork: ArtCollection) => {
 ```
 
 ### Regenerating Types
+
 ```bash
 # Run after schema changes
 pnpm payload:generate
@@ -515,6 +534,7 @@ pnpm payload:generate
 ## Global Configuration
 
 ### Header/Footer Globals
+
 ```typescript
 // payload/globals/Header/config.ts
 export const Header: GlobalConfig = {
@@ -538,22 +558,23 @@ export const Header: GlobalConfig = {
         {
           name: 'url',
           type: 'text',
-        }
-      ]
-    }
-  ]
+        },
+      ],
+    },
+  ],
 };
 
 // Access in frontend
 const header = await payload.findGlobal({
   slug: 'header',
-  locale: lng
+  locale: lng,
 });
 ```
 
 ## Media Management
 
 ### Cloudinary Integration
+
 ```typescript
 // Configured in payload/plugins/index.ts
 import { cloudStorage } from '@payloadcms/plugin-cloud-storage';
@@ -574,6 +595,7 @@ export const plugins = [
 ```
 
 ### File Upload Configuration
+
 ```typescript
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -584,18 +606,18 @@ export const Media: CollectionConfig = {
         name: 'thumbnail',
         width: 400,
         height: 300,
-        crop: 'center'
+        crop: 'center',
       },
       {
         name: 'card',
         width: 768,
         height: 1024,
-        crop: 'center'
-      }
+        crop: 'center',
+      },
     ],
     adminThumbnail: 'thumbnail',
     mimeTypes: ['image/*'],
-  }
+  },
 };
 ```
 

@@ -7,7 +7,7 @@ import { Language } from '@/i18n/settings';
 const GlobalVillageProject = async ({ lng }: { lng: Language }) => {
   const { t } = await getServerTranslation(lng, 'training_center');
   return (
-    <section className='lg:bg-linear-to-r lg:from-bege-light lg:via-bege-dark lg:to-white'>
+    <section className='lg:from-bege-light lg:via-bege-dark lg:bg-linear-to-r lg:to-white'>
       <div className='flex max-w-6xl flex-col-reverse items-center md:mx-auto lg:flex-row lg:gap-10 lg:px-4 lg:py-24'>
         <div className='flex flex-col-reverse items-stretch px-3 py-5 max-md:ml-0 max-sm:py-10 lg:w-[48%] lg:px-0'>
           <div className='my-auto flex w-full flex-col items-stretch max-md:mb-10 max-md:max-w-full lg:gap-10'>

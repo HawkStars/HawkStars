@@ -38,7 +38,7 @@ const AboutPage = async ({ lng }: LanguageProps) => {
           </div>
         </div>
         <div className='my-10 flex flex-col gap-5 xl:mx-auto'>
-          <h2 className='text-h2_bold flex justify-center text-center text-green'>
+          <h2 className='text-h2_bold text-green flex justify-center text-center'>
             {t('objectives.title')}
           </h2>
           <h3 className='text-h2_light mx-auto flex justify-center text-center lg:w-3/5'>
@@ -62,14 +62,14 @@ const AboutPage = async ({ lng }: LanguageProps) => {
                 width={38}
               />
               <Image
-                className='absolute left-3 top-5 hidden lg:block'
+                className='absolute top-5 left-3 hidden lg:block'
                 src='/images/about/mission/icon2.png'
                 alt='icon2'
                 height={53}
                 width={53}
               />
               <Image
-                className='absolute right-5 top-0 hidden lg:-top-5 lg:block'
+                className='absolute top-0 right-5 hidden lg:-top-5 lg:block'
                 src='/images/about/mission/icon3.png'
                 alt='icon3'
                 height={100}
@@ -122,8 +122,8 @@ type TaskComponentProps = {
 const TaskComponent = async ({ icon, title, description, lng }: TaskComponentProps) => {
   const { t } = await getServerTranslation(lng, 'about');
   return (
-    <div className='flex flex-col gap-2 rounded-xl bg-bege-light p-7'>
-      <div className='w-fit rounded-xl bg-bege-dark'>
+    <div className='bg-bege-light flex flex-col gap-2 rounded-xl p-7'>
+      <div className='bg-bege-dark w-fit rounded-xl'>
         <Image src={icon} height={40} width={40} alt='objetive icon' />
       </div>
       <h6 className='text-body_semibold'>{t(title)}</h6>

@@ -1,4 +1,7 @@
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
+import { GallerySliderBlock } from '@/payload/blocks/GallerySlider/Component';
+import { HeroBlock } from '@/payload/blocks/Hero/Component';
+import { ContentWithImageBlock } from '@/payload/blocks/ContentWithImage/Component';
 import {
   DefaultNodeTypes,
   SerializedBlockNode,
@@ -14,11 +17,18 @@ import {
 import type {
   CallToActionBlock as CTABlockProps,
   MediaBlock as MediaBlockProps,
+  GallerySliderBlock as GallerySliderProps,
+  HeroBlock as HeroProps,
+  ContentWithImageBlock as ContentWithImageProps,
 } from '@/payload-types';
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
 import { cn } from '@/payload/utilities/ui';
 
-type NodeTypes = DefaultNodeTypes | SerializedBlockNode<CTABlockProps | MediaBlockProps>;
+type NodeTypes =
+  | DefaultNodeTypes
+  | SerializedBlockNode<
+      CTABlockProps | MediaBlockProps | GallerySliderProps | HeroProps | ContentWithImageProps
+    >;
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -44,6 +54,9 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       />
     ),
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
+    gallerySlider: ({ node }) => <GallerySliderBlock {...node.fields} />,
+    hero: ({ node }) => <HeroBlock {...node.fields} />,
+    contentWithImage: ({ node }) => <ContentWithImageBlock {...node.fields} />,
   },
 });
 
