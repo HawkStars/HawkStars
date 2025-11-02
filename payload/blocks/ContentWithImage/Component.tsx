@@ -14,15 +14,9 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
 
   return (
     <div className='container'>
-      <div
-        className={cn(
-          'grid gap-8 lg:grid-cols-2 lg:gap-12',
-          'items-center',
-          isImageLeft && 'lg:flex lg:flex-row-reverse'
-        )}
-      >
+      <div className='grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12'>
         {/* Image Section */}
-        <div className={cn('w-full', isImageLeft ? 'lg:order-1' : 'lg:order-2')}>
+        <div className={cn('w-full', isImageLeft ? 'lg:order-2' : 'lg:order-1')}>
           {image && typeof image === 'object' && (
             <Media
               resource={image}
@@ -32,7 +26,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
         </div>
 
         {/* Content Section */}
-        <div className={cn('w-full', isImageLeft ? 'lg:order-2' : 'lg:order-1')}>
+        <div className={cn('w-full', isImageLeft ? 'lg:order-1' : 'lg:order-2')}>
           <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
           {description && (
             <RichText

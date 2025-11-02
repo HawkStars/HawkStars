@@ -20,7 +20,7 @@ export const GallerySliderBlock: React.FC<GallerySliderProps> = ({
     }, autoplayDelay || 3000);
 
     return () => clearInterval(interval);
-  }, [autoplay, autoplayDelay, images]);
+  }, [autoplay, autoplayDelay, images.length]);
 
   if (!images || images.length === 0) {
     return null;
@@ -108,6 +108,7 @@ export const GallerySliderBlock: React.FC<GallerySliderProps> = ({
                   index === currentIndex ? 'w-8 bg-white' : 'bg-white/50'
                 )}
                 aria-label={`Go to slide ${index + 1}`}
+                aria-current={index === currentIndex ? 'true' : 'false'}
               />
             ))}
           </div>
