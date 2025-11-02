@@ -20,26 +20,63 @@ This is a multilingual Next.js 15 application with Payload CMS backend, focused 
 - **Client translations**: Use `useTranslation('common')` from React i18next (no lng param needed in client)
 - **Language context**: Access current language via `useMainAppContext().lng` from `AppProvider`
 - **Path transformation**: Always use `transformUrl(lng, path)` from `utils/paths.ts` for internal links
+  ```typescript
+  // Example usage:
+  import { urls, transformUrl } from '@/utils/paths'
+  
+  // In component with language context
+  const { lng } = useMainAppContext()
+  const aboutUrl = transformUrl(lng, urls.about) // → "/pt/about" or "/en/about"
+  
+  // Direct usage
+  <Link href={transformUrl('pt', urls.gallery)}>Gallery</Link>
+  ```
 - **Default locale**: Portuguese (`pt`) with English (`en`) fallback
 - **Cookie handling**: Language preference stored in `i18next` cookie, managed by middleware
 
 ### Payload CMS Integration
 
+Payload is responsible for the content management of the site, which populates a mongoDB database.
+This is considered the source of truth for all content on the site with a few exceptions that is populated with the yml files in the `i18n/locales` folder.
+
 - **Collections**: `ArtCollection`, `Pages`, `Contribution`, `HawkEvent`, `BoardMember`, `Curator`, `Partner`
 - **Access patterns**: `authenticated` for CRUD, `anyone` for read operations
 - **Type generation**: Run `pnpm payload:generate` after schema changes
 - **Localized content**: Collections support pt/en via `localization` config
+- **When adding blocks**: Create block config + component → Add to collections → Update `app/(payload)/importMap` → Regenerate types with `pnpm payload:generate -- --importMap`
+
+#### Block Development Workflow
+1. Create block folder: `payload/blocks/BlockName/`
+2. Create `config.ts` with Payload field definitions
+3. Create `Component.tsx` with React component
+4. Add block to collections (e.g., `Pages` layout blocks array)
+5. Update `app/(payload)/importMap` to register component for rendering
+6. Run `pnpm payload:generate` to update TypeScript types
+7. Run `pnpm payload:generate -- --importMap` to update import mapping
 
 ### Component Conventions
 
-- **Client components**: Use `'use client'` directive for interactivity/hooks
+- **Client components**: Use `'use client'` directive for interactivity/hooks for the client components
+- **Components**: Use existing components when possible. For new components, follow shadcn UI folder-based organization with `index.tsx` exports. Only create new components when existing ones don't fit the requirements - then use shadcn patterns and modify for project needs.
 - **Button component**: Custom `Button` component with `classname-variants` and variant props in `components/utils/Button.tsx`
 - **URL constants**: Import from `utils/paths.ts` - never hardcode paths (use `urls` object)
 - **External URLs**: Constants like `BE_MEMBER_FORM_URL` also defined in `utils/paths.ts`
-- **Styling**: Tailwind with custom design system classes (e.g., `text-h1_semibold`, `bg-bege-light`)
+- **Styling**: Primarily Tailwind CSS. Custom classes (e.g., `text-h1_semibold`, `bg-bege-light`) are added only for clarity or when Tailwind doesn't support specific CSS requirements. Most styling uses default Tailwind utilities.
 - **State management**: Global state via `AppProvider` context (mobile nav, language) - use `useMainAppContext()`
 - **Navigation**: Use `NavbarUrlItem` type for menu structures, `transformUrl()` for routing
 - **Image handling**: Next.js Image with Cloudinary integration for remote patterns
+
+### Payload CMS Folder Structure
+
+- **`payload/access/`**: Access control logic for collections and globals
+- **`payload/blocks/`**: Reusable blocks for rich text and modular content
+- **`payload/collections/`**: Define your content types and schemas here
+- **`payload/components/`**: Shared React components used in Payload admin UI
+- **`payload/fields/`**: Custom field definitions for Payload CMS
+- **`payload/globals/`**: Global fields and settings for your CMS
+- **`payload/hooks/`**: Custom hooks for interacting with Payload CMS
+- **`payload/plugins/`**: Custom plugins for extending Payload functionality based mostly on existing Payload plugins
+- **`payload/utilities/`**: Helper functions for Payload operations
 
 ## Development Commands
 
