@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 /*---break--- */
 @plugin 'tailwindcss-animate';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 /*---break--- */
 @custom-variant dark (&:is(.dark *));
 
@@ -112,6 +112,14 @@
     &::after {
       transform: rotate(-45deg);
     }
+  }
+
+  .chevron {
+    width: 12px;
+    height: 12px;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-radius: 0 2px 2px 0;
   }
 }
 
@@ -238,4 +246,3 @@
     @apply bg-background text-foreground;
   }
 }
-
