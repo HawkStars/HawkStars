@@ -6,7 +6,7 @@ const VisionSection = async ({ lng }: { lng: string }) => {
   const { t } = await getServerTranslation(lng, 'common');
   return (
     <section className='px-2 py-10'>
-      <h4 className='lg:text-h1_semibold text-h2_bold flex justify-center text-green'>
+      <h4 className='lg:text-h1_semibold text-h2_bold text-green flex justify-center'>
         {t('home.values_title')}
       </h4>
       <p className='lg:text-h2_light text-body_regular flex justify-center text-center'>

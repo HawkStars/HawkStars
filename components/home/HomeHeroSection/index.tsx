@@ -15,7 +15,7 @@ const HomeHeroSection = () => {
   const { t } = useTranslation('common');
 
   return (
-    <section className='flex flex-col bg-bege-light px-8 pb-5 pt-10 lg:px-14 lg:pb-10 lg:pl-20 lg:pt-40'>
+    <section className='bg-bege-light flex flex-col px-8 pt-10 pb-5 lg:px-14 lg:pt-40 lg:pb-10 lg:pl-20'>
       <div className='mx-auto flex max-w-6xl flex-col gap-5 lg:flex-row lg:gap-1'>
         <div className='flex flex-col gap-2 lg:w-1/2'>
           <h1 className='lg:text-h1_semibold text-h2_bold'>{t('home.title')}</h1>

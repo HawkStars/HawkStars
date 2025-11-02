@@ -58,7 +58,7 @@ const PinhelPage = async (props: LanguagePageProps) => {
               )}
 
               <Link
-                className='ml-auto mt-auto'
+                className='mt-auto ml-auto'
                 href='https://www.cm-pinhel.pt/visitar-pinhel/descobrir-e-visitar/'
               >
                 <span className='text-bold'>[1]</span> CM Pinhel.

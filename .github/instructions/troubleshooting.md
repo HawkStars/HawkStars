@@ -5,6 +5,7 @@
 ### Build and Development Server Issues
 
 #### "Module not found" errors
+
 ```bash
 # Clear Next.js cache and node_modules
 rm -rf .next node_modules pnpm-lock.yaml
@@ -16,6 +17,7 @@ pnpm payload:generate
 ```
 
 #### Development server won't start
+
 ```bash
 # Check if port 3000 is in use
 lsof -ti:3000
@@ -28,6 +30,7 @@ pnpm dev -- -p 3001
 ```
 
 #### Turbopack issues
+
 ```bash
 # Start without Turbopack if issues occur
 next dev
@@ -39,6 +42,7 @@ rm -rf .next/cache
 ### Internationalization Issues
 
 #### Language not switching properly
+
 ```typescript
 // Check middleware configuration in middleware.ts
 export const config = {
@@ -50,6 +54,7 @@ console.log('Middleware triggered for:', request.nextUrl.pathname);
 ```
 
 #### Missing translations
+
 ```typescript
 // Check if translation keys exist in both locales
 // i18n/locales/pt/common.json
@@ -62,18 +67,20 @@ console.log('Current language:', i18n.language);
 ```
 
 #### Cookie not persisting language
+
 ```typescript
 // Check cookie settings in withHandleInternalization
 response.cookies.set(i18CookieName, lng, {
   httpOnly: false, // Allow client-side access
   secure: process.env.NODE_ENV === 'production',
-  sameSite: 'lax'
+  sameSite: 'lax',
 });
 ```
 
 ### Payload CMS Issues
 
 #### Cannot access admin panel
+
 ```bash
 # Check if admin route is excluded from i18n middleware
 if (request.nextUrl.pathname.includes('admin')) return NextResponse.next();
@@ -87,6 +94,7 @@ mongodb://localhost:27017 # For local MongoDB
 ```
 
 #### Types not updating after schema changes
+
 ```bash
 # Regenerate Payload types
 pnpm payload:generate
@@ -96,6 +104,7 @@ pnpm dev
 ```
 
 #### Database connection issues
+
 ```typescript
 // Check MongoDB connection string format
 // Local: mongodb://localhost:27017/hawkstars
@@ -112,6 +121,7 @@ db: mongooseAdapter({
 ```
 
 #### Collection access errors
+
 ```typescript
 // Verify access control in collection config
 access: {
@@ -130,17 +140,19 @@ console.log('Current user:', user);
 ### Styling and UI Issues
 
 #### Tailwind classes not applying
+
 ```bash
 # Restart development server to reload Tailwind config
 pnpm dev
 
 # Check if Tailwind CSS is imported in globals.css
 @tailwind base;
-@tailwind components; 
+@tailwind components;
 @tailwind utilities;
 ```
 
 #### Custom CSS classes not working
+
 ```css
 /* Check if custom classes are defined in globals.css */
 .text-h1_semibold {
@@ -157,22 +169,24 @@ pnpm dev
 ```
 
 #### Button component styling issues
+
 ```typescript
 // Check classname-variants configuration in Button.tsx
 const buttonVariants = tv({
-  base: "inline-flex items-center justify-center rounded-md text-sm font-medium",
+  base: 'inline-flex items-center justify-center rounded-md text-sm font-medium',
   variants: {
     variant: {
-      success: "bg-green text-white hover:bg-green/90",
-      error: "bg-red-500 text-white hover:bg-red-600",
-    }
-  }
+      success: 'bg-green text-white hover:bg-green/90',
+      error: 'bg-red-500 text-white hover:bg-red-600',
+    },
+  },
 });
 ```
 
 ### Image and Media Issues
 
 #### Cloudinary images not loading
+
 ```typescript
 // Check Next.js image configuration in next.config.ts
 images: {
@@ -192,6 +206,7 @@ CLOUDINARY_API_SECRET=your-api-secret
 ```
 
 #### Images not uploading in CMS
+
 ```typescript
 // Check Cloudinary plugin configuration in payload/plugins/index.ts
 cloudStorage({
@@ -204,12 +219,13 @@ cloudStorage({
       }),
     },
   },
-})
+});
 ```
 
 ### Form and Data Issues
 
 #### Form submissions failing
+
 ```typescript
 // Check API route exists and is properly configured
 // app/api/contact/route.ts
@@ -226,6 +242,7 @@ export async function POST(request: Request) {
 ```
 
 #### React Hook Form validation not working
+
 ```typescript
 // Check form validation rules
 const { register, handleSubmit, formState: { errors } } = useForm({
@@ -237,7 +254,7 @@ const { register, handleSubmit, formState: { errors } } = useForm({
 });
 
 // Ensure validation rules are properly defined
-{...register('email', { 
+{...register('email', {
   required: 'Email is required',
   pattern: {
     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -251,6 +268,7 @@ const { register, handleSubmit, formState: { errors } } = useForm({
 ### Deployment Failures
 
 #### Vercel build failures
+
 ```bash
 # Check build logs in Vercel dashboard
 # Common issues:
@@ -266,6 +284,7 @@ npx tsc --noEmit
 ```
 
 #### Environment variable issues
+
 ```bash
 # Verify all required environment variables are set in Vercel
 # Go to Project Settings > Environment Variables
@@ -278,6 +297,7 @@ echo $PAYLOAD_SECRET
 ### Performance Issues
 
 #### Slow page load times
+
 ```typescript
 // Check for heavy imports that can be dynamized
 const HeavyComponent = dynamic(() => import('./HeavyComponent'), {
@@ -297,6 +317,7 @@ const HeavyComponent = dynamic(() => import('./HeavyComponent'), {
 ```
 
 #### Large bundle size
+
 ```bash
 # Analyze bundle size
 ANALYZE=true pnpm build
@@ -310,11 +331,12 @@ npx depcheck
 ### SEO and Meta Issues
 
 #### Meta tags not updating
+
 ```typescript
 // Check metadata generation in layout.tsx and page.tsx
 export async function generateMetadata({ params: { lng } }) {
   const { t } = await createTranslation(lng, 'common');
-  
+
   return {
     title: t('meta.title'),
     description: t('meta.description'),
@@ -330,6 +352,7 @@ export async function generateMetadata({ params: { lng } }) {
 ### Database Issues
 
 #### MongoDB connection timeouts
+
 ```bash
 # Check MongoDB Atlas network access
 # Ensure deployment IP is whitelisted
@@ -340,6 +363,7 @@ mongodb+srv://user:password@cluster.mongodb.net/database?retryWrites=true&w=majo
 ```
 
 #### Collection queries failing
+
 ```typescript
 // Add error handling to Payload queries
 try {
@@ -357,21 +381,23 @@ try {
 ## Debug Tools and Commands
 
 ### Logging and Debugging
+
 ```typescript
 // Add debugging to middleware
 export async function middleware(request: NextRequest) {
   console.log('Middleware:', {
     pathname: request.nextUrl.pathname,
     cookies: request.cookies.getAll(),
-    headers: Object.fromEntries(request.headers.entries())
+    headers: Object.fromEntries(request.headers.entries()),
   });
-  
+
   if (request.nextUrl.pathname.includes('admin')) return NextResponse.next();
   return withHandleInternalization(request);
 }
 ```
 
 ### Useful Development Commands
+
 ```bash
 # Clear all caches and restart
 rm -rf .next node_modules pnpm-lock.yaml
@@ -394,6 +420,7 @@ printenv | grep -E "(DATABASE_URI|PAYLOAD_SECRET|CLOUDINARY)"
 ```
 
 ### Browser Debugging
+
 ```javascript
 // Check language detection in browser console
 console.log('Current language:', localStorage.getItem('i18nextLng'));
@@ -401,7 +428,10 @@ console.log('Accept-Language header:', navigator.language);
 console.log('Available languages:', navigator.languages);
 
 // Check cookies
-console.log('i18next cookie:', document.cookie.split(';').find(c => c.includes('i18next')));
+console.log(
+  'i18next cookie:',
+  document.cookie.split(';').find((c) => c.includes('i18next'))
+);
 
 // Debug translations
 console.log('Translation function:', window.i18n?.t('home.title'));
@@ -410,17 +440,20 @@ console.log('Translation function:', window.i18n?.t('home.title'));
 ## Getting Help
 
 ### Documentation Resources
+
 - [Next.js 15 Documentation](https://nextjs.org/docs)
 - [Payload CMS Documentation](https://payloadcms.com/docs)
 - [React i18next Documentation](https://react.i18next.com/)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 
 ### Community Support
+
 - [Next.js GitHub Discussions](https://github.com/vercel/next.js/discussions)
 - [Payload CMS Discord](https://discord.gg/payload)
 - [React i18next GitHub Issues](https://github.com/i18next/react-i18next/issues)
 
 ### Project-Specific Help
+
 1. Check existing GitHub issues in the HawkStars repository
 2. Review recent commits for similar changes
 3. Test the issue in isolation to identify the root cause

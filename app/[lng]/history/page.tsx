@@ -35,9 +35,9 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
               />
 
               <div className='flex flex-1'>
-                <div className='my-auto h-4 w-4 rounded-xl bg-green'></div>
-                <div className='my-auto h-1 w-full bg-green'></div>
-                <div className='my-auto h-0 w-0 border-y-8 border-l-16 border-y-transparent border-l-green'></div>
+                <div className='bg-green my-auto h-4 w-4 rounded-xl'></div>
+                <div className='bg-green my-auto h-1 w-full'></div>
+                <div className='border-l-green my-auto h-0 w-0 border-y-8 border-l-16 border-y-transparent'></div>
               </div>
               <div className='flex aspect-video max-xl:h-14 xl:max-w-[250px]'>
                 <Image src={hawkLogo} alt='hawk stars logo' className='my-auto' />
@@ -45,7 +45,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
             </div>
             <div className='mt-5 grid grid-cols-1 gap-14 xl:grid-cols-2'>
               <div className='flex flex-col gap-4'>
-                <h1 className='text-h1_semibold text-left text-green'>{t('title')}</h1>
+                <h1 className='text-h1_semibold text-green text-left'>{t('title')}</h1>
                 <p className='text-body_regular text-justify'>{t('beginning')}</p>
                 <p className='text-body_regular mt-2 text-justify'>{t('euro_hawk')}</p>
               </div>
@@ -68,11 +68,11 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
         <HawkStarsOffSetSection bgColor='green'>
           <HumanitarianHelpSection />
         </HawkStarsOffSetSection>
-        <div className='mx-auto pb-6 pt-4 xl:pb-10'>
+        <div className='mx-auto pt-4 pb-6 xl:pb-10'>
           <Link
             href={report}
             target='_blank'
-            className='w-fit rounded-xl border border-green bg-green fill-white p-2 text-white'
+            className='border-green bg-green w-fit rounded-xl border fill-white p-2 text-white'
           >
             Check the Report here.
           </Link>
@@ -82,7 +82,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
           <div className='max-xl:-mx-4'>
             <Image src={humanitarian_1} alt='Humanitarian help' sizes='100vw' />
           </div>
-          <div className='mr-auto mt-20 flex flex-col gap-2 text-left xl:w-1/2'>
+          <div className='mt-20 mr-auto flex flex-col gap-2 text-left xl:w-1/2'>
             <h4 className='text-h1_semibold text-disabled'>{t('foundation_heading')}</h4>
             <p className='text-body_regular'>{t('foundation')}</p>
           </div>
@@ -96,18 +96,18 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
               alt='hero'
             />
           </div>
-          <div className='flex flex-col gap-12 bg-bege-light p-3 py-14 max-xl:-mx-4 lg:p-10 lg:py-20 xl:-mr-40 xl:pl-16 xl:pr-40'>
+          <div className='bg-bege-light flex flex-col gap-12 p-3 py-14 max-xl:-mx-4 lg:p-10 lg:py-20 xl:-mr-40 xl:pr-40 xl:pl-16'>
             <p className='text-large_regular text-left'>{t('presentation')}</p>
             <div className='mt-5 flex flex-col gap-4 md:flex-row'>
               <Link
                 href={urls.about}
-                className='w-full rounded-xl border border-green bg-green fill-white p-2 text-center text-white xl:w-fit'
+                className='border-green bg-green w-full rounded-xl border fill-white p-2 text-center text-white xl:w-fit'
               >
                 {t('about_hawkstars')}
               </Link>
               <Link
                 href={urls.global_village}
-                className='w-full rounded-xl border border-green bg-green fill-white p-2 text-center text-white xl:w-fit'
+                className='border-green bg-green w-full rounded-xl border fill-white p-2 text-center text-white xl:w-fit'
               >
                 {t('about_globalvillage')}
               </Link>
@@ -174,10 +174,10 @@ const HumanitarianHelpInfoPoints = ({
   description,
 }: HumanitarianHelpInfoPointsProps) => {
   return (
-    <div className='flex flex-col gap-1 text-bege-light'>
+    <div className='text-bege-light flex flex-col gap-1'>
       <div className='flex-end flex'>
         <p className='text-bege-light'>
-          <span className='text-h1_semibold mr-1 text-bege-dark'>{number}</span>
+          <span className='text-h1_semibold text-bege-dark mr-1'>{number}</span>
           {smallTitle ? smallTitle : ''}
         </p>
       </div>
@@ -192,9 +192,9 @@ type ContainerHumanitarianHelpProps = {
 };
 const ContainerHumanitarianHelp = ({ title, description }: ContainerHumanitarianHelpProps) => {
   return (
-    <div className='flex flex-col gap-16 bg-bege-dark px-4 py-14 xl:px-12'>
+    <div className='bg-bege-dark flex flex-col gap-16 px-4 py-14 xl:px-12'>
       <div className='flex-end flex'>
-        <p className='text-h2_bold ml-1 w-fit rounded-xl border border-green bg-green fill-white p-2 text-white'>
+        <p className='text-h2_bold border-green bg-green ml-1 w-fit rounded-xl border fill-white p-2 text-white'>
           {title}
         </p>
       </div>

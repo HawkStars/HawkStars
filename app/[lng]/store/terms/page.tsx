@@ -92,7 +92,9 @@ const SubItem = ({ article }: { article: SubArticle }) => {
       <li>{article.title}</li>
       {article.subValues && (
         <ol className='flex list-disc flex-col gap-1 pl-5 text-justify'>
-          {article.subValues?.map((subItem, index) => <li key={index}>{subItem}</li>)}
+          {article.subValues?.map((subItem, index) => (
+            <li key={index}>{subItem}</li>
+          ))}
         </ol>
       )}
     </>
