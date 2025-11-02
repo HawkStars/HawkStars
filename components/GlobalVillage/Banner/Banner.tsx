@@ -9,13 +9,13 @@ import gridPng from '@/public/images/icons/training_center/grid.png';
 const GlobalVillageBanner = async ({ lng }: LanguageProps) => {
   const { t } = await getServerTranslation(lng, 'training_center');
   return (
-    <section className='mb-12 bg-green'>
+    <section className='bg-green mb-12'>
       <div className='relative mx-auto max-w-6xl px-3 py-24 lg:px-40 lg:py-40'>
         <p className='text-white'>{t('banner')}</p>
         <Image
           src={starPng}
           alt='small star'
-          className='absolute right-4 top-2 lg:right-20 lg:top-10 xl:right-10'
+          className='absolute top-2 right-4 lg:top-10 lg:right-20 xl:right-10'
         />
         <Image
           src={gridPng}

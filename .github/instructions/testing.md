@@ -11,7 +11,7 @@ The HawkStars project emphasizes practical testing that ensures reliability with
 {
   "devDependencies": {
     "@testing-library/react": "^13.4.0",
-    "@testing-library/jest-dom": "^6.1.0", 
+    "@testing-library/jest-dom": "^6.1.0",
     "@testing-library/user-event": "^14.5.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0"
@@ -22,6 +22,7 @@ The HawkStars project emphasizes practical testing that ensures reliability with
 ## Component Testing
 
 ### Testing with Internationalization
+
 ```typescript
 // tests/utils/test-utils.tsx
 import { render, RenderOptions } from '@testing-library/react';
@@ -51,6 +52,7 @@ export { renderWithProviders as render };
 ```
 
 ### Component Test Examples
+
 ```typescript
 // components/__tests__/Button.test.tsx
 import { render, screen } from '@/tests/utils/test-utils';
@@ -63,7 +65,7 @@ describe('Button Component', () => {
         Test Button
       </Button>
     );
-    
+
     const button = screen.getByRole('button', { name: /test button/i });
     expect(button).toHaveClass('bg-green'); // Based on variant
   });
@@ -74,7 +76,7 @@ describe('Button Component', () => {
         Submit
       </Button>
     );
-    
+
     expect(screen.getByTestId('spinner')).toBeInTheDocument();
     expect(screen.getByRole('button')).toBeDisabled();
   });
@@ -82,13 +84,13 @@ describe('Button Component', () => {
   it('handles click events', async () => {
     const handleClick = jest.fn();
     const user = userEvent.setup();
-    
+
     render(
       <Button type="button" onClick={handleClick}>
         Click me
       </Button>
     );
-    
+
     await user.click(screen.getByRole('button'));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
@@ -96,6 +98,7 @@ describe('Button Component', () => {
 ```
 
 ### Testing Internationalized Components
+
 ```typescript
 // components/__tests__/HomeHeroSection.test.tsx
 import { render, screen } from '@/tests/utils/test-utils';
@@ -104,20 +107,20 @@ import HomeHeroSection from '@/components/home/HomeHeroSection';
 describe('HomeHeroSection', () => {
   it('renders Portuguese content by default', () => {
     render(<HomeHeroSection />, { lng: 'pt' });
-    
+
     // Assuming translation keys exist
     expect(screen.getByText(/título em português/i)).toBeInTheDocument();
   });
 
   it('renders English content when language is English', () => {
     render(<HomeHeroSection />, { lng: 'en' });
-    
+
     expect(screen.getByText(/title in english/i)).toBeInTheDocument();
   });
 
   it('generates correct localized URLs', () => {
     render(<HomeHeroSection />, { lng: 'en' });
-    
+
     const donateLink = screen.getByRole('link', { name: /donate/i });
     expect(donateLink).toHaveAttribute('href', '/en/contribute');
   });
@@ -126,7 +129,8 @@ describe('HomeHeroSection', () => {
 
 ## API Route Testing
 
-### Testing Custom Endpoints  
+### Testing Custom Endpoints
+
 ```typescript
 // lib/payload/endpoints/__tests__/totalContributions.test.ts
 import { createMockPayloadRequest } from '@/tests/mocks/payload';
@@ -136,12 +140,8 @@ describe('Total Contributions Endpoint', () => {
   it('calculates sum of all contributions correctly', async () => {
     const mockRequest = createMockPayloadRequest({
       mockData: {
-        contributions: [
-          { value: 100 },
-          { value: 250 },
-          { value: 75 }
-        ]
-      }
+        contributions: [{ value: 100 }, { value: 250 }, { value: 75 }],
+      },
     });
 
     const response = await totalContributioValueQuery(mockRequest);
@@ -152,7 +152,7 @@ describe('Total Contributions Endpoint', () => {
 
   it('handles empty contributions gracefully', async () => {
     const mockRequest = createMockPayloadRequest({
-      mockData: { contributions: [] }
+      mockData: { contributions: [] },
     });
 
     const response = await totalContributioValueQuery(mockRequest);
@@ -164,12 +164,15 @@ describe('Total Contributions Endpoint', () => {
 ```
 
 ### Mocking Payload CMS
+
 ```typescript
 // tests/mocks/payload.ts
-export const createMockPayloadRequest = (options: {
-  mockData?: Record<string, any[]>;
-  user?: any;
-} = {}) => {
+export const createMockPayloadRequest = (
+  options: {
+    mockData?: Record<string, any[]>;
+    user?: any;
+  } = {}
+) => {
   const { mockData = {}, user = null } = options;
 
   return {
@@ -180,7 +183,7 @@ export const createMockPayloadRequest = (options: {
           docs,
           totalDocs: docs.length,
           hasNextPage: false,
-          hasPrevPage: false
+          hasPrevPage: false,
         });
       }),
       findByID: jest.fn(),
@@ -196,6 +199,7 @@ export const createMockPayloadRequest = (options: {
 ## Integration Testing
 
 ### Testing Page Components
+
 ```typescript
 // app/[lng]/__tests__/page.test.tsx
 import { render, screen } from '@/tests/utils/test-utils';
@@ -213,14 +217,14 @@ jest.mock('next/navigation', () => ({
 describe('Home Page', () => {
   it('renders main sections correctly', () => {
     render(<HomePage />);
-    
+
     expect(screen.getByRole('main')).toBeInTheDocument();
     expect(screen.getByText(/hawkstars/i)).toBeInTheDocument();
   });
 
   it('includes navigation links', () => {
     render(<HomePage />);
-    
+
     expect(screen.getByRole('link', { name: /gallery/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /events/i })).toBeInTheDocument();
   });
@@ -228,6 +232,7 @@ describe('Home Page', () => {
 ```
 
 ### Testing Forms
+
 ```typescript
 // components/__tests__/ContactForm.test.tsx
 import { render, screen, waitFor } from '@/tests/utils/test-utils';
@@ -254,7 +259,7 @@ describe('ContactForm', () => {
     await user.type(screen.getByLabelText(/name/i), 'João Silva');
     await user.type(screen.getByLabelText(/email/i), 'joao@example.com');
     await user.type(screen.getByLabelText(/message/i), 'Hello there!');
-    
+
     await user.click(screen.getByRole('button', { name: /submit/i }));
 
     await waitFor(() => {
@@ -263,7 +268,7 @@ describe('ContactForm', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: 'João Silva',
-          email: 'joao@example.com', 
+          email: 'joao@example.com',
           message: 'Hello there!'
         })
       });
@@ -272,11 +277,11 @@ describe('ContactForm', () => {
 
   it('shows validation errors for invalid inputs', async () => {
     const user = userEvent.setup();
-    
+
     render(<ContactForm />);
-    
+
     await user.click(screen.getByRole('button', { name: /submit/i }));
-    
+
     await waitFor(() => {
       expect(screen.getByText(/name is required/i)).toBeInTheDocument();
       expect(screen.getByText(/email is required/i)).toBeInTheDocument();
@@ -288,14 +293,12 @@ describe('ContactForm', () => {
 ## Visual Regression Testing
 
 ### Storybook Setup (Optional)
+
 ```typescript
 // .storybook/main.ts
 export default {
   stories: ['../components/**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-a11y',
-  ],
+  addons: ['@storybook/addon-essentials', '@storybook/addon-a11y'],
 };
 
 // components/utils/Button.stories.tsx
@@ -334,14 +337,16 @@ export const Loading: Story = {
 ## E2E Testing Considerations
 
 ### Critical User Journeys to Test
+
 1. **Language switching**: Verify content changes between pt/en
 2. **Gallery navigation**: Browse artwork, view details
-3. **Event listing**: View events, navigate to details  
+3. **Event listing**: View events, navigate to details
 4. **Form submissions**: Contact forms, membership applications
 5. **CMS admin**: Login, create/edit content, publish
 6. **Mobile responsive**: Test key flows on mobile devices
 
 ### Playwright Setup (Recommended for E2E)
+
 ```typescript
 // playwright.config.ts
 import { defineConfig } from '@playwright/test';
@@ -359,7 +364,7 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
     {
-      name: 'Mobile Safari', 
+      name: 'Mobile Safari',
       use: { ...devices['iPhone 12'] },
     },
   ],
@@ -370,14 +375,14 @@ import { test, expect } from '@playwright/test';
 
 test('language switching works correctly', async ({ page }) => {
   await page.goto('/');
-  
+
   // Should redirect to /pt by default
   await expect(page).toHaveURL('/pt');
-  
+
   // Switch to English
   await page.click('[data-testid="language-switcher"]');
   await page.click('[data-testid="language-en"]');
-  
+
   // Verify URL and content change
   await expect(page).toHaveURL('/en');
   await expect(page.locator('h1')).toContainText('Welcome'); // English title
@@ -387,6 +392,7 @@ test('language switching works correctly', async ({ page }) => {
 ## Test Configuration
 
 ### Jest Configuration
+
 ```javascript
 // jest.config.js
 const nextJest = require('next/jest');
@@ -414,6 +420,7 @@ module.exports = createJestConfig(customJestConfig);
 ```
 
 ### Jest Setup File
+
 ```typescript
 // jest.setup.js
 import '@testing-library/jest-dom';
@@ -422,7 +429,7 @@ import '@testing-library/jest-dom';
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
     push: jest.fn(),
-    replace: jest.fn(), 
+    replace: jest.fn(),
     prefetch: jest.fn(),
     back: jest.fn(),
     forward: jest.fn(),

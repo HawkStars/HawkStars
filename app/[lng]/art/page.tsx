@@ -23,7 +23,7 @@ const GalleryPage = async (props: LanguagePageProps) => {
   const { t } = await getServerTranslation(lng, 'art');
   return (
     <>
-      <section className='bg-bege-light pb-4 lg:pb-14 lg:pt-14'>
+      <section className='bg-bege-light pb-4 lg:pt-14 lg:pb-14'>
         <div className='mx-auto flex max-w-7xl gap-12 max-lg:flex-col-reverse lg:justify-center'>
           <div className='font-body font-oswald flex flex-col gap-2 max-lg:px-4 lg:w-1/2 lg:pl-4'>
             <h1 className='lg:text-h1_semibold text-h2_bold'>{t('art_gallery')}</h1>

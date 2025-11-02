@@ -4,6 +4,9 @@ import { authenticated } from '@/payload/access/authenticated';
 
 import { CallToAction } from '../../blocks/CallToAction/config';
 import { MediaBlock } from '../../blocks/MediaBlock/config';
+import { GallerySlider } from '../../blocks/GallerySlider/config';
+import { Hero } from '../../blocks/Hero/config';
+import { ContentWithImage } from '../../blocks/ContentWithImage/config';
 import { populatePublishedAt } from '../../hooks/populatePublishedAt';
 import { generatePreviewPath } from '../../utilities/generatePreviewPath';
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage';
@@ -63,7 +66,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, MediaBlock],
+              blocks: [CallToAction, MediaBlock, GallerySlider, Hero, ContentWithImage],
               required: true,
               admin: {
                 initCollapsed: true,

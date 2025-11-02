@@ -3,6 +3,7 @@
 ## Next.js App Router Architecture
 
 ### Route Structure
+
 ```
 app/
 ├── [lng]/                 # Internationalized routes
@@ -14,7 +15,7 @@ app/
 │   │   ├── page.tsx      # Gallery listing
 │   │   └── [slug]/page.tsx # Individual artwork
 │   ├── events/
-│   │   ├── page.tsx      # Events listing  
+│   │   ├── page.tsx      # Events listing
 │   │   └── [slug]/page.tsx # Event details
 │   └── contribute/page.tsx
 └── (payload)/            # CMS admin (excluded from i18n)
@@ -22,13 +23,15 @@ app/
 ```
 
 ### Language Parameter Handling
+
 Every public route receives `lng` parameter:
+
 ```typescript
 // Page component signature
-export default async function Page({ 
-  params: { lng } 
-}: { 
-  params: { lng: Language } 
+export default async function Page({
+  params: { lng }
+}: {
+  params: { lng: Language }
 }) {
   // Use lng for server-side data fetching
   const data = await getLocalizedContent(lng);
@@ -39,6 +42,7 @@ export default async function Page({
 ## Component Architecture
 
 ### Folder-Based Organization
+
 ```
 components/
 ├── home/
@@ -59,6 +63,7 @@ components/
 ### Component Patterns
 
 #### Client Components with Hooks
+
 ```typescript
 'use client';
 
@@ -68,7 +73,7 @@ import { useMainAppContext } from '@/utils/contexts/AppProvider';
 const MyComponent = () => {
   const { t } = useTranslation('common'); // No lng param needed
   const { lng, mobileNavbarOpen } = useMainAppContext();
-  
+
   return (
     <div>
       <h1>{t('section.title')}</h1>
@@ -79,6 +84,7 @@ const MyComponent = () => {
 ```
 
 #### Custom Button with Variants
+
 ```typescript
 import Button from '@/components/utils/Button';
 
@@ -95,13 +101,14 @@ import Button from '@/components/utils/Button';
 ```
 
 #### URL Management
+
 ```typescript
 import { urls, transformUrl } from '@/utils/paths';
 import { useMainAppContext } from '@/utils/contexts/AppProvider';
 
 const Navigation = () => {
   const { lng } = useMainAppContext();
-  
+
   return (
     <nav>
       <Link href={transformUrl(lng, urls.about)}>
@@ -118,37 +125,40 @@ const Navigation = () => {
 ## Internationalization Implementation
 
 ### Client-Side Translation
+
 ```typescript
 // Use in client components
 const { t } = useTranslation('common');
 
 // Access translations
-t('home.title')           // Simple key
-t('buttons.submit')       // Nested key  
-t('errors.required', { field: 'email' }) // With interpolation
+t('home.title'); // Simple key
+t('buttons.submit'); // Nested key
+t('errors.required', { field: 'email' }); // With interpolation
 ```
 
-### Server-Side Translation  
+### Server-Side Translation
+
 ```typescript
 // For server components and metadata
 import { createTranslation } from '@/i18n';
 
 export async function generateMetadata({ params: { lng } }) {
   const { t } = await createTranslation(lng, 'common');
-  
+
   return {
     title: t('meta.title'),
-    description: t('meta.description')
+    description: t('meta.description'),
   };
 }
 ```
 
 ### Language Context
+
 ```typescript
 // Access current language anywhere
 const { lng } = useMainAppContext();
 
-// Transform URLs for internal navigation  
+// Transform URLs for internal navigation
 const localizedUrl = transformUrl(lng, urls.gallery);
 
 // Set mobile navigation state
@@ -158,24 +168,33 @@ const { mobileNavbarOpen } = useMainAppContext();
 ## Styling System
 
 ### Custom Typography Classes
+
 ```css
 /* Defined in app/globals.css */
-.text-h1_semibold { /* Large heading, semibold weight */ }
-.text-h2_light    { /* Medium heading, light weight */ }
-.text-h2_bold     { /* Medium heading, bold weight */ }
+.text-h1_semibold {
+  /* Large heading, semibold weight */
+}
+.text-h2_light {
+  /* Medium heading, light weight */
+}
+.text-h2_bold {
+  /* Medium heading, bold weight */
+}
 ```
 
 Usage in components:
+
 ```tsx
 <h1 className="text-h1_semibold lg:text-h2_bold">
   {t('home.title')}
 </h1>
 <p className="text-h2_light lg:text-justify">
-  {t('home.description')}  
+  {t('home.description')}
 </p>
 ```
 
 ### Brand Colors
+
 ```css
 /* CSS Variables in app/globals.css */
 :root {
@@ -185,24 +204,21 @@ Usage in components:
 ```
 
 Usage with Tailwind:
+
 ```tsx
-<section className="bg-bege-light">
-  <div className="text-green">
-    Content here
-  </div>
+<section className='bg-bege-light'>
+  <div className='text-green'>Content here</div>
 </section>
 ```
 
 ### Responsive Design Patterns
+
 ```tsx
 // Mobile-first with desktop overrides
-<div className="
-  flex flex-col gap-2      /* Mobile: stack vertically */
-  lg:flex-row lg:gap-5    /* Desktop: horizontal layout */
-  px-8 lg:px-14           /* Responsive padding */
-  pt-10 lg:pt-40          /* Responsive top spacing */
-">
-  <div className="lg:w-1/2"> {/* Half width on desktop */}
+<div className='/* Mobile: stack vertically */ /* Desktop: horizontal layout */ /* Responsive padding */ /* Responsive top spacing */ flex flex-col gap-2 px-8 pt-10 lg:flex-row lg:gap-5 lg:px-14 lg:pt-40'>
+  <div className='lg:w-1/2'>
+    {' '}
+    {/* Half width on desktop */}
     Content
   </div>
 </div>
@@ -211,16 +227,17 @@ Usage with Tailwind:
 ## Data Fetching Patterns
 
 ### Server Components (Recommended)
+
 ```typescript
 import { getPayload } from 'payload';
 
-export default async function GalleryPage({ 
-  params: { lng } 
+export default async function GalleryPage({
+  params: { lng }
 }: {
   params: { lng: Language }
 }) {
   const payload = await getPayload();
-  
+
   const artworks = await payload.find({
     collection: 'artworks',
     locale: lng,
@@ -234,6 +251,7 @@ export default async function GalleryPage({
 ```
 
 ### Client Components with State
+
 ```typescript
 'use client';
 
@@ -247,7 +265,7 @@ useEffect(() => {
     setData(result);
     setLoading(false);
   };
-  
+
   fetchData();
 }, [lng]);
 ```
@@ -255,6 +273,7 @@ useEffect(() => {
 ## Form Handling
 
 ### React Hook Form Integration
+
 ```typescript
 import { useForm } from 'react-hook-form';
 
@@ -266,7 +285,7 @@ type FormData = {
 
 const ContactForm = () => {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>();
-  
+
   const onSubmit = async (data: FormData) => {
     // Handle form submission
     const response = await fetch('/api/contact', {
@@ -278,14 +297,14 @@ const ContactForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input 
+      <input
         {...register('email', { required: 'Email is required' })}
         type="email"
       />
       {errors.email && <span>{errors.email.message}</span>}
-      
-      <Button 
-        type="submit" 
+
+      <Button
+        type="submit"
         loading={isSubmitting}
         disabled={isSubmitting}
       >
@@ -299,6 +318,7 @@ const ContactForm = () => {
 ## Image Optimization
 
 ### Next.js Image with Cloudinary
+
 ```typescript
 import Image from 'next/image';
 
@@ -318,6 +338,7 @@ const ArtworkCard = ({ artwork }) => (
 ## Performance Best Practices
 
 ### Code Splitting
+
 ```typescript
 // Dynamic imports for heavy components
 const HeavyChart = dynamic(() => import('./HeavyChart'), {
@@ -327,6 +348,7 @@ const HeavyChart = dynamic(() => import('./HeavyChart'), {
 ```
 
 ### Suspense Boundaries
+
 ```tsx
 <Suspense fallback={<SliderSkeleton />}>
   <ErasmusSlider events={events} />
@@ -334,6 +356,7 @@ const HeavyChart = dynamic(() => import('./HeavyChart'), {
 ```
 
 ### Type Safety with Payload
+
 ```typescript
 import type { ArtCollection, Media } from '@/payload-types';
 
@@ -356,6 +379,7 @@ const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
 ## Testing Components
 
 ### Component Testing Patterns
+
 ```typescript
 // Test component with i18n context
 const renderWithI18n = (component, lng = 'pt') => {

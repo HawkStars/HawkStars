@@ -59,8 +59,8 @@ const GlobalVillageArquitecture = async ({ lng }: LanguageProps) => {
   return (
     <section id='arquitecture' className='mx-3 my-10 flex max-w-6xl flex-col gap-20 lg:mx-auto'>
       <div className='flex flex-col'>
-        <h6 className='text-h2_bold text-center text-green'>International Training Center</h6>
-        <h3 className='mb-4 flex justify-center text-base text-green'>
+        <h6 className='text-h2_bold text-green text-center'>International Training Center</h6>
+        <h3 className='text-green mb-4 flex justify-center text-base'>
           {t('current_exterior_vision')}
         </h3>
         <div className='flex flex-col gap-5'>
@@ -99,7 +99,7 @@ const FutureExteriorViewSections = async ({ lng }: LanguageProps) => {
   const { t } = await getServerTranslation(lng, 'training_center');
   return (
     <div className='flex flex-col gap-4'>
-      <h1 className='text-h2_bold text-center text-green'>{t('future_exterior_vision')}</h1>
+      <h1 className='text-h2_bold text-green text-center'>{t('future_exterior_vision')}</h1>
       <div className='flex flex-col justify-center gap-4 lg:h-96 lg:flex-row'>
         <Image
           src={exterior1}
@@ -146,7 +146,7 @@ const EntryReceptionPhotosSection = async ({ lng }: LanguageProps) => {
   const { t } = await getServerTranslation(lng, 'training_center');
   return (
     <div className='flex flex-col gap-2'>
-      <h1 className='text-h2_bold text-center text-green'>{t('entry_reception')}</h1>
+      <h1 className='text-h2_bold text-green text-center'>{t('entry_reception')}</h1>
       <div className='flex flex-col gap-3'>
         <Image
           className='rounded-3xl'
@@ -199,7 +199,7 @@ const TrainingMeetingRooms = async ({ lng }: LanguageProps) => {
   const { t } = await getServerTranslation(lng, 'training_center');
   return (
     <div>
-      <h1 className='text-h2_bold mb-2 flex justify-center text-green'>
+      <h1 className='text-h2_bold text-green mb-2 flex justify-center'>
         {t('training_meeting_rooms')}
       </h1>
       <div className='flex flex-col gap-2'>
@@ -235,7 +235,7 @@ const LoungeAndCoworking = async ({ lng }: LanguageProps) => {
   const { t } = await getServerTranslation(lng, 'training_center');
   return (
     <div className='flex flex-col gap-4'>
-      <h1 className='text-h2_bold text-center text-green'>{t('lounge_coworking')}</h1>
+      <h1 className='text-h2_bold text-green text-center'>{t('lounge_coworking')}</h1>
       <Image
         className='mr-auto flex-1 rounded-3xl'
         alt='cowork photo number four'
@@ -318,8 +318,8 @@ const GamingHub = async ({ lng }: LanguageProps) => {
   const { t } = await getServerTranslation(lng, 'training_center');
   return (
     <div className='flex flex-col gap-2'>
-      <h1 className='text-h2_bold mb-1 flex justify-center text-green'>{t('tech_rooms')}</h1>
-      <h2 className='text-h2_light mb-3 text-center text-green'>Gaming Hub</h2>
+      <h1 className='text-h2_bold text-green mb-1 flex justify-center'>{t('tech_rooms')}</h1>
+      <h2 className='text-h2_light text-green mb-3 text-center'>Gaming Hub</h2>
       <Image
         className='mr-auto flex-1 rounded-3xl'
         alt='gaming image number 1'
@@ -344,7 +344,7 @@ const RecordingStudio = async ({ lng }: LanguageProps) => {
   const { t } = await getServerTranslation(lng, 'training_center');
   return (
     <div className='flex flex-col gap-3'>
-      <h1 className='text-h2_bold mb-4 flex justify-center text-green'>{t('recording_studio')}</h1>
+      <h1 className='text-h2_bold text-green mb-4 flex justify-center'>{t('recording_studio')}</h1>
       <Image
         className='mr-auto flex-1 rounded-3xl'
         alt='recording studio image number 1'
@@ -370,9 +370,9 @@ const ArielView = async ({ lng }: LanguageProps) => {
   return (
     <div className='flex flex-col gap-3'>
       <div className='flex flex-col gap-1'>
-        <h1 className='text-h2_bold mb-2 flex justify-center text-green'>{t('2d_aereal')}</h1>
-        <h2 className='text-h2_light my-2 flex justify-center text-green'>{t('second_floor')}</h2>
-        <div className='flex justify-center rounded-3xl bg-bege-dark p-4'>
+        <h1 className='text-h2_bold text-green mb-2 flex justify-center'>{t('2d_aereal')}</h1>
+        <h2 className='text-h2_light text-green my-2 flex justify-center'>{t('second_floor')}</h2>
+        <div className='bg-bege-dark flex justify-center rounded-3xl p-4'>
           <Image
             className='rounded-3xl'
             alt={t('second_floor')}
@@ -383,8 +383,8 @@ const ArielView = async ({ lng }: LanguageProps) => {
         </div>
       </div>
       <div>
-        <h2 className='text-h2_light my-5 flex justify-center text-green'>{t('first_floor')}</h2>
-        <div className='flex justify-center rounded-3xl bg-bege-dark p-4'>
+        <h2 className='text-h2_light text-green my-5 flex justify-center'>{t('first_floor')}</h2>
+        <div className='bg-bege-dark flex justify-center rounded-3xl p-4'>
           <Image
             alt={t('first_floor')}
             src={trainingCenterFloor1}
@@ -395,8 +395,8 @@ const ArielView = async ({ lng }: LanguageProps) => {
         </div>
       </div>
       <div>
-        <h2 className='text-h2_light my-5 flex justify-center text-green'>{t('ground_floor')}</h2>
-        <div className='flex justify-center rounded-3xl bg-bege-dark p-2'>
+        <h2 className='text-h2_light text-green my-5 flex justify-center'>{t('ground_floor')}</h2>
+        <div className='bg-bege-dark flex justify-center rounded-3xl p-2'>
           <Image
             alt={t('ground_floor')}
             src={trainingCenterFloor0}

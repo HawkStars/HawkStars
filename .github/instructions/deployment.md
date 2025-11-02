@@ -3,6 +3,7 @@
 ## Environment Setup
 
 ### Required Environment Variables
+
 ```bash
 # Database
 DATABASE_URI=mongodb+srv://user:pass@cluster.mongodb.net/hawkstars
@@ -27,6 +28,7 @@ NODE_ENV=production
 ### Development vs Production Configuration
 
 #### Development
+
 ```bash
 # Start development server
 pnpm dev
@@ -38,6 +40,7 @@ pnpm dev
 ```
 
 #### Production Build
+
 ```bash
 # Build optimized version
 pnpm build
@@ -51,6 +54,7 @@ pnpm start
 ### Vercel Deployment (Recommended)
 
 #### Automatic Deployment
+
 1. Connect GitHub repository to Vercel
 2. Configure environment variables in Vercel dashboard
 3. Set build command: `pnpm build`
@@ -58,6 +62,7 @@ pnpm start
 5. Enable automatic deployments on push to main
 
 #### Manual Deployment
+
 ```bash
 # Install Vercel CLI
 npm i -g vercel
@@ -70,11 +75,12 @@ vercel --prod
 ```
 
 #### Vercel Configuration
+
 ```javascript
 // vercel.json
 {
   "buildCommand": "pnpm build",
-  "outputDirectory": ".next", 
+  "outputDirectory": ".next",
   "installCommand": "pnpm install",
   "framework": "nextjs",
   "functions": {
@@ -88,6 +94,7 @@ vercel --prod
 ### Alternative: Docker Deployment
 
 #### Dockerfile
+
 ```dockerfile
 FROM node:18-alpine
 
@@ -114,6 +121,7 @@ CMD ["pnpm", "start"]
 ```
 
 #### Docker Compose
+
 ```yaml
 # docker-compose.yml
 version: '3.8'
@@ -121,7 +129,7 @@ services:
   hawkstars:
     build: .
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       - DATABASE_URI=${DATABASE_URI}
       - PAYLOAD_SECRET=${PAYLOAD_SECRET}
@@ -130,11 +138,11 @@ services:
       - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
     depends_on:
       - mongo
-      
+
   mongo:
     image: mongo:5.0
     ports:
-      - "27017:27017"
+      - '27017:27017'
     volumes:
       - mongo-data:/data/db
 
@@ -145,6 +153,7 @@ volumes:
 ## Database Deployment
 
 ### MongoDB Atlas (Cloud)
+
 1. Create MongoDB Atlas account
 2. Create new cluster
 3. Configure network access (add your deployment IP)
@@ -153,6 +162,7 @@ volumes:
 6. Ensure connection string includes database name
 
 ### Local MongoDB (Development)
+
 ```bash
 # Install MongoDB locally
 brew install mongodb-community
@@ -167,6 +177,7 @@ DATABASE_URI=mongodb://localhost:27017/hawkstars
 ## Content Delivery Network
 
 ### Cloudinary Setup
+
 1. Create Cloudinary account
 2. Note your cloud name from dashboard
 3. Generate API credentials
@@ -174,9 +185,10 @@ DATABASE_URI=mongodb://localhost:27017/hawkstars
 5. Set up automatic optimizations and transformations
 
 ### Image Optimization Strategy
+
 ```typescript
 // Cloudinary transformations in use:
-// - Auto format (webp/avif when supported)  
+// - Auto format (webp/avif when supported)
 // - Auto quality optimization
 // - Responsive sizing based on device
 // - Lazy loading for performance
@@ -185,19 +197,21 @@ DATABASE_URI=mongodb://localhost:27017/hawkstars
 ## Performance Monitoring
 
 ### Sentry Configuration
+
 ```typescript
 // sentry.server.config.ts
-import * as Sentry from "@sentry/nextjs";
+import * as Sentry from '@sentry/nextjs';
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
   tracesSampleRate: 1.0,
-  debug: process.env.NODE_ENV === "development",
+  debug: process.env.NODE_ENV === 'development',
   environment: process.env.NODE_ENV,
 });
 ```
 
 ### Performance Optimizations
+
 ```typescript
 // next.config.ts optimizations:
 export default {
@@ -206,31 +220,33 @@ export default {
     domains: ['res.cloudinary.com'],
     formats: ['image/webp', 'image/avif'],
   },
-  
+
   // Compression
   compress: true,
-  
+
   // Bundle analysis
   experimental: {
     bundleAnalyzer: {
-      enabled: process.env.ANALYZE === 'true'
-    }
-  }
+      enabled: process.env.ANALYZE === 'true',
+    },
+  },
 };
 ```
 
 ## Deployment Checklist
 
 ### Pre-Deployment
+
 - [ ] Run `pnpm build` locally to verify build success
 - [ ] Test all environment variables are set correctly
 - [ ] Verify database connection works
-- [ ] Check Cloudinary integration is working  
+- [ ] Check Cloudinary integration is working
 - [ ] Run `pnpm lint` and fix any issues
 - [ ] Test both Portuguese and English language versions
 - [ ] Verify CMS admin panel is accessible
 
-### Post-Deployment  
+### Post-Deployment
+
 - [ ] Test frontend loads correctly on both /pt and /en routes
 - [ ] Verify CMS admin panel works (/admin)
 - [ ] Check image uploads and display correctly
@@ -241,6 +257,7 @@ export default {
 - [ ] Check page load speeds with Lighthouse
 
 ### Production Maintenance
+
 - [ ] Monitor Sentry dashboard for errors
 - [ ] Check MongoDB Atlas metrics
 - [ ] Monitor Cloudinary usage limits
@@ -251,6 +268,7 @@ export default {
 ## SSL and Security
 
 ### Content Security Policy
+
 ```typescript
 // Configured in next.config.ts
 const cspHeader = `
@@ -263,7 +281,8 @@ const cspHeader = `
 `;
 ```
 
-### HTTPS Configuration  
+### HTTPS Configuration
+
 - Vercel automatically provides SSL certificates
 - Ensure all external APIs use HTTPS endpoints
 - Configure secure cookies for authentication
@@ -271,17 +290,20 @@ const cspHeader = `
 ## Rollback Procedures
 
 ### Vercel Rollback
-1. Go to Vercel dashboard  
+
+1. Go to Vercel dashboard
 2. Navigate to deployments
 3. Select previous successful deployment
 4. Click "Promote to Production"
 
 ### Database Rollback
+
 1. Restore from MongoDB Atlas backup
 2. Or revert specific collection changes via Payload admin
 3. Clear any cached data if necessary
 
 ### Emergency Procedures
+
 1. Disable automatic deployments in Vercel
 2. Rollback to last known good version
 3. Check error logs in Sentry
