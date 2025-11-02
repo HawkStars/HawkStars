@@ -1,3 +1,7 @@
+---
+applyTo: "*"
+---
+
 # HawkStars Project Overview
 
 ## Project Mission
@@ -93,7 +97,6 @@ pnpm format:fix       # Format code with Prettier + Tailwind sorting
 
 ### External Services
 - **Cloudinary**: Image storage, optimization, and delivery
-- **Google Forms**: Membership application integration  
 - **Sentry**: Error tracking and performance monitoring
 - **MongoDB Atlas**: Database hosting (recommended)
 
@@ -106,6 +109,7 @@ pnpm format:fix       # Format code with Prettier + Tailwind sorting
 - Types auto-generated from Payload schema in `payload-types.ts`
 
 ### Styling Conventions  
+- Tailwind usage at the majority of the styling
 - Custom typography classes: `text-h1_semibold`, `text-h2_light`
 - Brand colors via CSS variables: `--color-bege-light`, `--color-green`
 - Mobile-first responsive design with `lg:` breakpoints
