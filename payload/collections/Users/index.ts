@@ -16,7 +16,11 @@ export const Users: CollectionConfig = {
     defaultColumns: ['name', 'email', 'isAdmin', 'isEditor', 'updatedAt'],
     useAsTitle: 'name',
   },
-  auth: true,
+  auth: {
+    tokenExpiration: 60 * 60 * 24 * 30, // 30 days
+    maxLoginAttempts: 5,
+    lockTime: 60 * 60 * 24, // 24 hours
+  },
   fields: [
     {
       name: 'name',

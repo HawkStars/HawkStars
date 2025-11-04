@@ -1,7 +1,7 @@
 import type { GlobalConfig } from 'payload';
 
 import { revalidateFooter } from './hooks/revalidateFooter';
-import { link } from '@/payload/fields/link';
+import { FooterNavGroup } from '@/payload/fields/FooterNavGroup';
 
 export const Footer: GlobalConfig = {
   slug: 'footer',
@@ -10,14 +10,17 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
-      name: 'navItems',
+      name: 'Navigation Columns',
+      admin: {
+        components: {
+          RowLabel: {
+            path: '@/payload/globals/Footer/components/FooterLabel',
+            exportName: 'FooterLabel',
+          },
+        },
+      },
       type: 'array',
-      fields: [
-        link({
-          appearances: false,
-        }),
-      ],
-      maxRows: 6,
+      fields: [FooterNavGroup],
     },
   ],
   hooks: {

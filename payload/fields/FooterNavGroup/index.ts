@@ -1,22 +1,19 @@
-export const FooterNavGroup = {
-  name: 'footerNavGroup',
+import { Field } from 'payload';
+import { link } from '../link';
+
+export const FooterNavGroup: Field = {
+  name: '',
   type: 'group',
   fields: [
     {
-      name: 'title',
-      type: 'text',
-      required: true,
-    },
-    {
-      name: 'links',
+      name: 'Links',
       type: 'array',
       fields: [
-        {
-          name: 'label',
-          type: 'text',
-          required: true,
-        },
+        link({
+          appearances: false,
+        }),
       ],
+      maxRows: 6,
     },
   ],
 };

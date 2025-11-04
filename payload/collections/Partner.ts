@@ -2,6 +2,8 @@ import type { CollectionConfig } from 'payload';
 import { anyone } from '../access/anyone';
 import { authenticated } from '../access/authenticated';
 import { SocialLinksField } from '../fields/SocialLink';
+import { authenticatedEditor } from '../access/authenticatedEditor';
+import { authenticatedAdmin } from '../access/authenticatedAdmin';
 
 export const Partner: CollectionConfig = {
   slug: 'partners',
@@ -9,17 +11,17 @@ export const Partner: CollectionConfig = {
     singular: 'Partner',
     plural: 'Partners',
   },
-  admin: { useAsTitle: 'name', defaultColumns: ['name', 'description'] },
+  admin: { useAsTitle: 'name', defaultColumns: ['name'] },
   access: {
-    admin: authenticated,
+    admin: authenticatedEditor,
     read: anyone,
-    create: authenticated,
-    delete: authenticated,
-    update: authenticated,
+    create: authenticatedEditor,
+    delete: authenticatedAdmin,
+    update: authenticatedEditor,
   },
   fields: [
     { type: 'text', name: 'name', label: 'Name of the partner', required: true },
-    { type: 'textarea', name: 'description', label: 'Description' },
+    { type: 'richText', name: 'description', label: 'Description' },
     { type: 'upload', name: 'logo', label: 'Logo', relationTo: 'media' },
     { ...SocialLinksField },
   ],

@@ -1,16 +1,14 @@
 import { authenticated } from '@/payload/access/authenticated';
-import { onlyPortugueseLocale } from '@/payload/access/onlyPortugueseLocale';
 import { AccessArgs, CollectionConfig } from 'payload';
 import { contributionTypeOptions } from './config';
 import { User } from '@/payload-types';
 
-const validateContributionAccess = (args: AccessArgs<User>) =>
-  authenticated(args) && onlyPortugueseLocale(args);
+const validateContributionAccess = (args: AccessArgs<User>) => authenticated(args);
 
 export const ContributionCollection: CollectionConfig = {
   slug: 'contributions',
   access: {
-    read: onlyPortugueseLocale,
+    read: authenticated,
     create: validateContributionAccess,
     update: validateContributionAccess,
     admin: validateContributionAccess,
