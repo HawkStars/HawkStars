@@ -65,12 +65,8 @@ export const Pages: CollectionConfig<'pages'> = {
           fields: [
             {
               name: 'layout',
-              type: 'blocks',
-              blocks: [CallToAction, MediaBlock, GallerySlider, Hero, ContentWithImage],
+              type: 'richText',
               required: true,
-              admin: {
-                initCollapsed: true,
-              },
             },
           ],
           label: 'Content',

@@ -1,11 +1,7 @@
-import type { AccessArgs, CollectionConfig } from 'payload';
+import type { CollectionConfig } from 'payload';
 import { SocialLinksField } from '../fields/SocialLink';
-import { User } from '@/payload-types';
-import { authenticated } from '../access/authenticated';
-import { onlyPortugueseLocale } from '../access/onlyPortugueseLocale';
 
-const validateContributionAccess = (args: AccessArgs<User>) =>
-  authenticated(args) && onlyPortugueseLocale(args);
+import { authenticated } from '../access/authenticated';
 
 export const BoardMember: CollectionConfig = {
   slug: 'board-members',
@@ -14,10 +10,10 @@ export const BoardMember: CollectionConfig = {
     plural: 'Board Members',
   },
   access: {
-    read: validateContributionAccess,
-    create: validateContributionAccess,
-    update: validateContributionAccess,
-    admin: validateContributionAccess,
+    read: () => true,
+    create: authenticated,
+    update: authenticated,
+    admin: authenticated,
   },
   admin: {
     useAsTitle: 'name',
