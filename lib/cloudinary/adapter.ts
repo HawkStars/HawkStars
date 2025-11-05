@@ -23,6 +23,7 @@ export const cloudinaryAdapter = () => ({
       // Since Cloudinary's upload_stream is callback-based, we wrap it in a Promise
       // so we can use async/await syntax for cleaner, easier handling.
       // It uploads the file with a specific public_id under "media/", without overwriting existing files.
+
       const uploadResult = await new Promise<UploadApiResponse>((resolve, reject) => {
         const uploadStream = cloudinary.uploader.upload_stream(
           {

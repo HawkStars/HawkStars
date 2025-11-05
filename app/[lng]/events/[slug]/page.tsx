@@ -7,6 +7,8 @@ import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { getSingleEventsQuery } from '@/lib/payload/queries/event';
+import Image from 'next/image';
+import { Media } from '@/payload-types';
 
 const getEventInformation = async (slug: string, locale: Language) => {
   const response = await getSingleEventsQuery(slug, locale);
@@ -37,9 +39,13 @@ const EventPage = async (props: EventPageProps) => {
     <>
       <HawkStarsSection className='bg-bege-light flex gap-8 pt-10 pb-8 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
         {event.title && <h1 className='text-h1_semibold mt-4 text-center'>{event.title}</h1>}
-        {/* <div className='max-lg:mx-auto lg:w-7/12'>
-          <SanityCloudinaryImage image={event?.image} className='rounded-xl' />
-        </div> */}
+        <div className='max-lg:mx-auto lg:w-7/12'>
+          <Image
+            src={(event?.image as Media)?.url || ''}
+            alt={(event.image as Media)?.alt || 'Event Image'}
+            className='rounded-xl'
+          />
+        </div>
       </HawkStarsSection>
     </>
   );

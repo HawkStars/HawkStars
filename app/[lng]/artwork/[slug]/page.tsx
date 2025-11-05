@@ -11,6 +11,7 @@ import { Metadata } from 'next';
 import { getSingleArtwork } from '@/lib/payload/queries/artwork';
 import { Curator } from '@/payload-types';
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
+import { RichTextViewer } from '@/components/richtext';
 
 const getCuratorInformation = async (slug: string, locale: Language) => {
   const response = await getSingleArtwork(slug, locale);
@@ -75,9 +76,12 @@ const CuratorPage = async (props: CuratorPageProps) => {
       </HawkStarsSection>
       <section className='font-oswald mx-auto mt-6 flex max-w-7xl flex-col gap-4 px-4 text-justify lg:px-8'>
         <h6 className='text-h2_bold'>{t('artwork.synopsis')}</h6>
-        {/* {artwork?.synopsis && <SanityBlock block={artwork?.synopsis} lng={params.lng} />} */}
-
-        {/* <div>{artwork.extra && <SanityBlock block={artwork.extra} lng={params.lng} />}</div> */}
+        {artwork?.synopsis && <RichTextViewer data={artwork?.synopsis} />}
+        {artwork.extra && (
+          <div>
+            <RichTextViewer data={artwork.extra} />
+          </div>
+        )}
       </section>
     </>
   );

@@ -27,6 +27,7 @@ import { ContentWithImage } from './payload/blocks/ContentWithImage/config';
 import { GallerySlider } from './payload/blocks/GallerySlider/config';
 import { Hero } from './payload/blocks/Hero/config';
 import { MediaBlock } from './payload/blocks/MediaBlock/config';
+import { MainPage } from './payload/globals/MainPage/config';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -71,7 +72,7 @@ export default buildConfig({
     Partner,
     Pages,
   ],
-  globals: [Header, Footer],
+  globals: [Header, Footer, MainPage],
   editor: lexicalEditor({
     features: ({ defaultFeatures, rootFeatures }) => [
       ...defaultFeatures,

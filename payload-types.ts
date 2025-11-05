@@ -103,10 +103,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'main-page': MainPage;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'main-page': MainPageSelect<false> | MainPageSelect<true>;
   };
   locale: 'en' | 'pt';
   user: User & {
@@ -169,12 +171,16 @@ export interface User {
   password?: string | null;
 }
 /**
+ * Upload and manage media assets such as images used throughout the website. Use a image compression tool to optimize images before uploading to improve performance. Ideally in webP
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
   id: string;
-  caption: string;
+  /**
+   * Alternative text for the media item, used for accessibility.
+   */
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -693,7 +699,6 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-  caption?: T;
   alt?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -981,6 +986,42 @@ export interface Footer {
   createdAt?: string | null;
 }
 /**
+ * Configure the main landing page of the website.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "main-page".
+ */
+export interface MainPage {
+  id: string;
+  layout: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
@@ -1040,6 +1081,25 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "main-page_select".
+ */
+export interface MainPageSelect<T extends boolean = true> {
+  layout?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
+  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

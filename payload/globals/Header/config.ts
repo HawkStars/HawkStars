@@ -1,6 +1,5 @@
 import type { GlobalConfig } from 'payload';
 import { revalidateHeader } from './hooks/revalidateHeader';
-import { link } from '@/payload/fields/link';
 import { anyone } from '@/payload/access/anyone';
 import { HeaderNavGroup } from '@/payload/fields/HeaderNavGroup';
 

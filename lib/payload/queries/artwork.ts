@@ -27,18 +27,17 @@ export const getSingleCuratorQuery = async (
     const payload = await getPayloadConfig();
     const curator = await payload.find({
       collection: 'curators',
+      locale,
       where: {
         slug: {
           equals: slug,
         },
       },
       limit: 1,
-      locale: 'all',
     });
 
     return curator.docs[0] as Curator;
   } catch (error) {
-    debugger;
     console.error('Error fetching curator:', error);
     return undefined;
   }

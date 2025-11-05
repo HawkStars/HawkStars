@@ -17,6 +17,7 @@ const LanguageSwitcher = () => {
       .splice(1);
 
     const newPath = `/${newLng}/${urlValues.join('/')}`;
+    window.location.href = newPath;
   };
 
   return (
