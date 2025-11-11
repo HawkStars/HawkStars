@@ -11,19 +11,19 @@ export const ColumnBasedBlock: React.FC<ColumnBasedProps> = ({ columns }) => {
     const count = columns.length;
     switch (count) {
       case 1:
-        return 'lg:grid-cols-1';
+        return 'md:grid-cols-1';
       case 2:
-        return 'lg:grid-cols-2';
+        return 'md:grid-cols-2';
       case 3:
-        return 'lg:grid-cols-3';
+        return 'md:grid-cols-2 lg:grid-cols-3';
       case 4:
-        return 'lg:grid-cols-4';
+        return 'md:grid-cols-2 lg:grid-cols-4';
       case 5:
-        return 'lg:grid-cols-5';
+        return 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5';
       case 6:
-        return 'lg:grid-cols-6';
+        return 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6';
       default:
-        return 'lg:grid-cols-3';
+        return 'md:grid-cols-2 lg:grid-cols-3';
     }
   };
 
