@@ -79,7 +79,15 @@ export default buildConfig({
     features: ({ defaultFeatures, rootFeatures }) => [
       ...defaultFeatures,
       BlocksFeature({
-        blocks: [CallToAction, ColumnBased, MediaBlock, GallerySlider, Hero, ContentWithImage, VideoBlock],
+        blocks: [
+          CallToAction,
+          ColumnBased,
+          MediaBlock,
+          GallerySlider,
+          Hero,
+          ContentWithImage,
+          VideoBlock,
+        ],
       }),
     ],
   }),

@@ -3,6 +3,27 @@ import type { ColumnBasedBlock as ColumnBasedProps } from '@/payload-types';
 import { cn } from '@/payload/utilities/ui';
 import * as LucideIcons from 'lucide-react';
 
+/**
+ * ColumnBasedBlock Component
+ *
+ * Renders a responsive grid of columns (1-6) with optional icons, titles, subtitles, and lists.
+ *
+ * @example
+ * // In Payload CMS:
+ * {
+ *   columns: [
+ *     {
+ *       icon: "User",           // Optional: Lucide icon name
+ *       title: "About Us",      // Required: Column title
+ *       subtitle: "Who we are", // Optional: Column subtitle
+ *       list: [                 // Optional: List of items
+ *         { item: "Founded in 2020" },
+ *         { item: "Global presence" }
+ *       ]
+ *     }
+ *   ]
+ * }
+ */
 export const ColumnBasedBlock: React.FC<ColumnBasedProps> = ({ columns }) => {
   if (!columns || columns.length === 0) return null;
 
@@ -32,30 +53,23 @@ export const ColumnBasedBlock: React.FC<ColumnBasedProps> = ({ columns }) => {
       <div className={cn('grid gap-6 md:gap-8', getGridClasses())}>
         {columns.map((column, index) => {
           // Dynamically get the icon component
-          const IconComponent = column.icon
-            ? (LucideIcons as any)[column.icon]
-            : null;
+          const IconComponent = column.icon ? (LucideIcons as any)[column.icon] : null;
 
           return (
-            <div
-              key={index}
-              className='flex flex-col gap-4 rounded-lg border border-border p-6'
-            >
+            <div key={index} className='border-border flex flex-col gap-4 rounded-lg border p-6'>
               {/* Icon */}
               {IconComponent && (
-                <div className='flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10'>
-                  <IconComponent className='h-6 w-6 text-primary' />
+                <div className='bg-primary/10 flex h-12 w-12 items-center justify-center rounded-lg'>
+                  <IconComponent className='text-primary h-6 w-6' />
                 </div>
               )}
 
               {/* Title */}
-              {column.title && (
-                <h3 className='text-xl font-semibold'>{column.title}</h3>
-              )}
+              {column.title && <h3 className='text-xl font-semibold'>{column.title}</h3>}
 
               {/* Subtitle */}
               {column.subtitle && (
-                <p className='text-sm text-muted-foreground'>{column.subtitle}</p>
+                <p className='text-muted-foreground text-sm'>{column.subtitle}</p>
               )}
 
               {/* List */}
@@ -63,7 +77,7 @@ export const ColumnBasedBlock: React.FC<ColumnBasedProps> = ({ columns }) => {
                 <ul className='mt-2 space-y-2'>
                   {column.list.map((listItem, listIndex) => (
                     <li key={listIndex} className='flex items-start gap-2'>
-                      <span className='mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary' />
+                      <span className='bg-primary mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full' />
                       <span className='text-sm'>{listItem.item}</span>
                     </li>
                   ))}
