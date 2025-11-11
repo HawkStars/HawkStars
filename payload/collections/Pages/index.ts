@@ -7,6 +7,7 @@ import { MediaBlock } from '../../blocks/MediaBlock/config';
 import { GallerySlider } from '../../blocks/GallerySlider/config';
 import { Hero } from '../../blocks/Hero/config';
 import { ContentWithImage } from '../../blocks/ContentWithImage/config';
+import { VideoBlock } from '../../blocks/VideoBlock/config';
 import { populatePublishedAt } from '../../hooks/populatePublishedAt';
 import { generatePreviewPath } from '../../utilities/generatePreviewPath';
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage';
