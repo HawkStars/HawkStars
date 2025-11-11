@@ -93,9 +93,7 @@ export interface Config {
     partners: PartnersSelect<false> | PartnersSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents':
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -1173,6 +1171,30 @@ export interface CallToActionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ColumnBasedBlock".
+ */
+export interface ColumnBasedBlock {
+  columns: {
+    /**
+     * Lucide icon name (e.g., "User", "Mail", "Calendar")
+     */
+    icon?: string | null;
+    title: string;
+    subtitle?: string | null;
+    list?:
+      | {
+          item: string;
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'columnBased';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
@@ -1325,6 +1347,7 @@ export interface VideoBlock {
 export interface Auth {
   [k: string]: unknown;
 }
+
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}
