@@ -20,17 +20,19 @@ This is a multilingual Next.js 15 application with Payload CMS backend, focused 
 - **Client translations**: Use `useTranslation('common')` from React i18next (no lng param needed in client)
 - **Language context**: Access current language via `useMainAppContext().lng` from `AppProvider`
 - **Path transformation**: Always use `transformUrl(lng, path)` from `utils/paths.ts` for internal links
+
   ```typescript
   // Example usage:
   import { urls, transformUrl } from '@/utils/paths'
-  
+
   // In component with language context
   const { lng } = useMainAppContext()
   const aboutUrl = transformUrl(lng, urls.about) // → "/pt/about" or "/en/about"
-  
+
   // Direct usage
   <Link href={transformUrl('pt', urls.gallery)}>Gallery</Link>
   ```
+
 - **Default locale**: Portuguese (`pt`) with English (`en`) fallback
 - **Cookie handling**: Language preference stored in `i18next` cookie, managed by middleware
 
@@ -46,6 +48,7 @@ This is considered the source of truth for all content on the site with a few ex
 - **When adding blocks**: Create block config + component → Add to collections → Update `app/(payload)/importMap` → Regenerate types with `pnpm payload:generate -- --importMap`
 
 #### Block Development Workflow
+
 1. Create block folder: `payload/blocks/BlockName/`
 2. Create `config.ts` with Payload field definitions
 3. Create `Component.tsx` with React component

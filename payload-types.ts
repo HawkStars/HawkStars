@@ -93,7 +93,9 @@ export interface Config {
     partners: PartnersSelect<false> | PartnersSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents':
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -1281,12 +1283,48 @@ export interface ContentWithImageBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock".
+ */
+export interface VideoBlock {
+  /**
+   * YouTube, Vimeo, or direct video URL (mp4, webm, ogg)
+   */
+  videoUrl: string;
+  /**
+   * Optional title for the video
+   */
+  title?: string | null;
+  /**
+   * Optional caption or description
+   */
+  caption?: string | null;
+  /**
+   * Auto-play video when visible
+   */
+  autoplay?: boolean | null;
+  /**
+   * Loop video playback
+   */
+  loop?: boolean | null;
+  /**
+   * Mute video by default (required for autoplay)
+   */
+  muted?: boolean | null;
+  /**
+   * Show video controls
+   */
+  controls?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'videoBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
   [k: string]: unknown;
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

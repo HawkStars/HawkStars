@@ -27,6 +27,7 @@ import { ContentWithImage } from './payload/blocks/ContentWithImage/config';
 import { GallerySlider } from './payload/blocks/GallerySlider/config';
 import { Hero } from './payload/blocks/Hero/config';
 import { MediaBlock } from './payload/blocks/MediaBlock/config';
+import { VideoBlock } from './payload/blocks/VideoBlock/config';
 import { MainPage } from './payload/globals/MainPage/config';
 
 const filename = fileURLToPath(import.meta.url);
@@ -77,7 +78,7 @@ export default buildConfig({
     features: ({ defaultFeatures, rootFeatures }) => [
       ...defaultFeatures,
       BlocksFeature({
-        blocks: [CallToAction, MediaBlock, GallerySlider, Hero, ContentWithImage],
+        blocks: [CallToAction, MediaBlock, GallerySlider, Hero, ContentWithImage, VideoBlock],
       }),
     ],
   }),
