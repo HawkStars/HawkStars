@@ -23,6 +23,7 @@ import { Pages } from './payload/collections/Pages';
 import { plugins } from './payload/plugins';
 import { HawkEvent } from './payload/collections/HawkEvent';
 import { CallToAction } from './payload/blocks/CallToAction/config';
+import { ColumnBased } from './payload/blocks/ColumnBased/config';
 import { ContentWithImage } from './payload/blocks/ContentWithImage/config';
 import { GallerySlider } from './payload/blocks/GallerySlider/config';
 import { Hero } from './payload/blocks/Hero/config';
@@ -78,7 +79,15 @@ export default buildConfig({
     features: ({ defaultFeatures, rootFeatures }) => [
       ...defaultFeatures,
       BlocksFeature({
-        blocks: [CallToAction, MediaBlock, GallerySlider, Hero, ContentWithImage, VideoBlock],
+        blocks: [
+          CallToAction,
+          ColumnBased,
+          MediaBlock,
+          GallerySlider,
+          Hero,
+          ContentWithImage,
+          VideoBlock,
+        ],
       }),
     ],
   }),

@@ -1173,6 +1173,30 @@ export interface CallToActionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ColumnBasedBlock".
+ */
+export interface ColumnBasedBlock {
+  columns: {
+    /**
+     * Lucide icon name (e.g., "User", "Mail", "Calendar")
+     */
+    icon?: string | null;
+    title: string;
+    subtitle?: string | null;
+    list?:
+      | {
+          item: string;
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'columnBased';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
