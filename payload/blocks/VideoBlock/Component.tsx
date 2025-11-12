@@ -113,10 +113,10 @@ export const VideoBlock: React.FC<Props> = (props) => {
               ref={videoRef}
               src={embedUrl}
               className='absolute top-0 left-0 h-full w-full'
-              controls={controls}
-              autoPlay={autoplay}
-              loop={loop}
-              muted={muted}
+              controls={controls || false}
+              autoPlay={autoplay || false}
+              loop={loop || false}
+              muted={muted || false}
               playsInline
             >
               Your browser does not support the video tag.
