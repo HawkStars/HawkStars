@@ -3,7 +3,6 @@ import { GallerySliderBlock } from '@/payload/blocks/GallerySlider/Component';
 import { HeroBlock } from '@/payload/blocks/Hero/Component';
 import { ContentWithImageBlock } from '@/payload/blocks/ContentWithImage/Component';
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
-import { TextBlock } from '@/payload/blocks/TextBlock/Component';
 import { AccordionBlock } from '@/payload/blocks/AccordionBlock/Component';
 import { ProjectBlock } from '@/payload/blocks/ProjectBlock/Component';
 import { ImpactBlock } from '@/payload/blocks/ImpactBlock/Component';
@@ -113,7 +112,6 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     hero: ({ node }) => <HeroBlock {...node.fields} />,
     contentWithImage: ({ node }) => <ContentWithImageBlock {...node.fields} />,
     videoBlock: ({ node }) => <VideoBlock {...node.fields} />,
-    textBlock: ({ node }: { node: any }) => <TextBlock {...node.fields} />,
     accordionBlock: ({ node }: { node: any }) => <AccordionBlock {...node.fields} />,
     projectBlock: ({ node }: { node: any }) => <ProjectBlock {...node.fields} />,
     impactBlock: ({ node }: { node: any }) => <ImpactBlock {...node.fields} />,
