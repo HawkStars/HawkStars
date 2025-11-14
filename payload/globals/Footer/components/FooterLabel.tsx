@@ -1,7 +1,10 @@
 'use client';
 
-export const FooterLabel = () => {
-  // Get the platform name or use a fallback
+import { useRowLabel } from '@payloadcms/ui';
 
-  return <div style={{ textTransform: 'capitalize' }}>Navigation Group</div>;
+export const FooterLabel = () => {
+  const { data } = useRowLabel<{ title?: string }>();
+  const title = data?.title;
+  // Get the platform name or use a fallback
+  return <div style={{ textTransform: 'capitalize' }}>{title || 'Menu'}</div>;
 };

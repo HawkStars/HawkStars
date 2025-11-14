@@ -10,7 +10,7 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
-      name: 'Navigation Columns',
+      name: 'Footer Columns',
       admin: {
         components: {
           RowLabel: {

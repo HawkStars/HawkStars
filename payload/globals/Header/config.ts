@@ -12,6 +12,7 @@ export const Header: GlobalConfig = {
     {
       name: 'Navigation Columns',
       admin: {
+        description: 'Configure the navigation columns for the header. topbar menus',
         components: {
           RowLabel: {
             path: '@/payload/globals/Header/components/HeaderLabel',

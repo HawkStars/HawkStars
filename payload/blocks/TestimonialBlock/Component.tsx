@@ -1,0 +1,284 @@
+'use client';
+
+import React, { useState } from 'react';
+import Image from 'next/image';
+import classNames from 'classnames';
+import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
+
+// Temporary types until we regenerate payload-types
+interface TestimonialAuthor {
+  name: string;
+  title?: string;
+  company?: string;
+  avatar?: string | any;
+}
+
+interface Testimonial {
+  quote: string;
+  author: TestimonialAuthor;
+  rating?: number;
+  featured?: boolean;
+}
+
+interface TestimonialBlockProps {
+  title?: string;
+  subtitle?: string;
+  testimonials: Testimonial[];
+  layout?: 'single' | 'two-cols' | 'three-cols' | 'carousel' | 'masonry';
+  style?: 'card' | 'quote' | 'minimal' | 'bubble';
+  showRatings?: boolean;
+  backgroundColor?: 'none' | 'light-gray' | 'dark' | 'brand';
+}
+
+const StarRating: React.FC<{ rating: number; showRating: boolean }> = ({ rating, showRating }) => {
+  if (!showRating) return null;
+
+  return (
+    <div className='mb-3 flex items-center gap-1'>
+      {Array.from({ length: 5 }, (_, i) => (
+        <Star
+          key={i}
+          className={classNames(
+            'h-4 w-4',
+            i < rating ? 'fill-current text-yellow-400' : 'text-gray-300'
+          )}
+        />
+      ))}
+    </div>
+  );
+};
+
+const TestimonialCard: React.FC<{
+  testimonial: Testimonial;
+  style: string;
+  showRatings: boolean;
+  isDark: boolean;
+}> = ({ testimonial, style, showRatings, isDark }) => {
+  const { quote, author, rating = 0, featured = false } = testimonial;
+
+  const cardClasses = {
+    card: `bg-white rounded-lg shadow-md border border-gray-200 p-6 ${isDark ? 'bg-gray-800 border-gray-600 text-white' : ''}`,
+    quote: `relative p-6 ${isDark ? 'text-white' : ''}`,
+    minimal: `p-4 ${isDark ? 'text-white' : ''}`,
+    bubble: `bg-white rounded-2xl shadow-lg p-6 relative ${isDark ? 'bg-gray-800 text-white' : ''}`,
+  };
+
+  return (
+    <div
+      className={classNames(
+        cardClasses[style as keyof typeof cardClasses],
+        featured && 'ring-opacity-50 ring-2 ring-blue-500',
+        'h-full'
+      )}
+    >
+      {/* Quote Icon for quote style */}
+      {style === 'quote' && <Quote className='mb-4 h-8 w-8 text-blue-500' />}
+
+      {/* Rating */}
+      <StarRating rating={rating} showRating={showRatings} />
+
+      {/* Quote */}
+      <blockquote
+        className={classNames('mb-6', style === 'quote' && 'text-lg italic', featured && 'text-lg')}
+      >
+        {style !== 'quote' && '"'}
+        {quote}
+        {style !== 'quote' && '"'}
+      </blockquote>
+
+      {/* Author */}
+      <div className='flex items-center gap-3'>
+        {author.avatar && (
+          <div className='relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full'>
+            <Image
+              src={
+                typeof author.avatar === 'string'
+                  ? author.avatar
+                  : author.avatar.url || '/placeholder.jpg'
+              }
+              alt={author.name}
+              fill
+              className='object-cover'
+            />
+          </div>
+        )}
+        <div>
+          <div className={classNames('font-semibold', isDark ? 'text-white' : 'text-gray-900')}>
+            {author.name}
+          </div>
+          {(author.title || author.company) && (
+            <div className={classNames('text-sm', isDark ? 'text-gray-300' : 'text-gray-600')}>
+              {author.title}
+              {author.title && author.company && ' at '}
+              {author.company}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Bubble tail for bubble style */}
+      {style === 'bubble' && (
+        <div
+          className={classNames(
+            'absolute bottom-0 left-6 translate-y-full transform',
+            'h-0 w-0 border-t-[10px] border-r-[10px] border-l-[10px]',
+            'border-r-transparent border-l-transparent',
+            isDark ? 'border-t-gray-800' : 'border-t-white'
+          )}
+        />
+      )}
+    </div>
+  );
+};
+
+export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
+  title,
+  subtitle,
+  testimonials = [],
+  layout = 'three-cols',
+  style = 'card',
+  showRatings = true,
+  backgroundColor = 'none',
+}) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const backgroundClasses = {
+    none: '',
+    'light-gray': 'bg-gray-50',
+    dark: 'bg-gray-900',
+    brand: 'bg-gradient-to-br from-blue-500 to-green-500',
+  };
+
+  const layoutClasses = {
+    single: 'grid-cols-1',
+    'two-cols': 'grid-cols-1 md:grid-cols-2',
+    'three-cols': 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+    carousel: 'grid-cols-1',
+    masonry: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+  };
+
+  const isDark = backgroundColor === 'dark' || backgroundColor === 'brand';
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  if (!testimonials || testimonials.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className={classNames('py-12 lg:py-20', backgroundClasses[backgroundColor])}>
+      <div className='mx-auto max-w-7xl px-4'>
+        {/* Header */}
+        {(title || subtitle) && (
+          <div className='mb-12 text-center'>
+            {title && (
+              <h2
+                className={classNames(
+                  'mb-4 text-3xl font-bold lg:text-4xl',
+                  isDark ? 'text-white' : 'text-gray-900'
+                )}
+              >
+                {title}
+              </h2>
+            )}
+            {subtitle && (
+              <p
+                className={classNames(
+                  'text-lg lg:text-xl',
+                  isDark ? 'text-gray-300' : 'text-gray-600'
+                )}
+              >
+                {subtitle}
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Testimonials */}
+        {layout === 'carousel' ? (
+          <div className='relative'>
+            <div className='mx-auto max-w-4xl'>
+              <TestimonialCard
+                testimonial={testimonials[currentSlide]}
+                style={style}
+                showRatings={showRatings}
+                isDark={isDark}
+              />
+            </div>
+
+            {testimonials.length > 1 && (
+              <>
+                <button
+                  onClick={prevSlide}
+                  className={classNames(
+                    'absolute top-1/2 left-0 -translate-y-1/2 transform',
+                    'flex h-10 w-10 items-center justify-center rounded-full',
+                    'bg-white shadow-lg transition-shadow hover:shadow-xl',
+                    isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
+                  )}
+                >
+                  <ChevronLeft className='h-5 w-5' />
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className={classNames(
+                    'absolute top-1/2 right-0 -translate-y-1/2 transform',
+                    'flex h-10 w-10 items-center justify-center rounded-full',
+                    'bg-white shadow-lg transition-shadow hover:shadow-xl',
+                    isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
+                  )}
+                >
+                  <ChevronRight className='h-5 w-5' />
+                </button>
+
+                {/* Dots indicator */}
+                <div className='mt-8 flex justify-center gap-2'>
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentSlide(index)}
+                      className={classNames(
+                        'h-2 w-2 rounded-full transition-colors',
+                        index === currentSlide
+                          ? isDark
+                            ? 'bg-white'
+                            : 'bg-gray-900'
+                          : isDark
+                            ? 'bg-gray-600'
+                            : 'bg-gray-400'
+                      )}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        ) : (
+          <div
+            className={classNames(
+              'grid gap-6 lg:gap-8',
+              layoutClasses[layout],
+              layout === 'masonry' && 'auto-rows-auto'
+            )}
+          >
+            {testimonials.map((testimonial, index) => (
+              <TestimonialCard
+                key={index}
+                testimonial={testimonial}
+                style={style}
+                showRatings={showRatings}
+                isDark={isDark}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};

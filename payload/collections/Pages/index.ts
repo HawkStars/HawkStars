@@ -1,13 +1,5 @@
 import type { CollectionConfig } from 'payload';
-
 import { authenticated } from '@/payload/access/authenticated';
-
-import { CallToAction } from '../../blocks/CallToAction/config';
-import { MediaBlock } from '../../blocks/MediaBlock/config';
-import { GallerySlider } from '../../blocks/GallerySlider/config';
-import { Hero } from '../../blocks/Hero/config';
-import { ContentWithImage } from '../../blocks/ContentWithImage/config';
-import { VideoBlock } from '../../blocks/VideoBlock/config';
 import { populatePublishedAt } from '../../hooks/populatePublishedAt';
 import { generatePreviewPath } from '../../utilities/generatePreviewPath';
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage';
@@ -57,7 +49,11 @@ export const Pages: CollectionConfig<'pages'> = {
     {
       name: 'title',
       type: 'text',
+      admin: {
+        description: 'The title of the page displayed in the admin panel',
+      },
       required: true,
+      localized: true,
     },
     {
       type: 'tabs',
@@ -66,8 +62,12 @@ export const Pages: CollectionConfig<'pages'> = {
           fields: [
             {
               name: 'layout',
+              admin: {
+                description: 'Add, remove, and reorder blocks to build the content of the page',
+              },
               type: 'richText',
-              required: true,
+              required: false,
+              localized: true,
             },
           ],
           label: 'Content',
@@ -115,6 +115,7 @@ export const Pages: CollectionConfig<'pages'> = {
       unique: true,
       admin: {
         position: 'sidebar',
+        description: 'The URL slug for the page, e.g. "about" for www.hawkstars.com/about',
       },
     },
   ],

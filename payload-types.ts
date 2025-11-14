@@ -93,9 +93,7 @@ export interface Config {
     partners: PartnersSelect<false> | PartnersSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents':
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -460,8 +458,14 @@ export interface Partner {
  */
 export interface Page {
   id: string;
+  /**
+   * The title of the page displayed in the admin panel
+   */
   title: string;
-  layout: {
+  /**
+   * Add, remove, and reorder blocks to build the content of the page
+   */
+  layout?: {
     root: {
       type: string;
       children: {
@@ -475,7 +479,7 @@ export interface Page {
       version: number;
     };
     [k: string]: unknown;
-  };
+  } | null;
   meta?: {
     title?: string | null;
     /**
@@ -485,6 +489,9 @@ export interface Page {
     description?: string | null;
   };
   publishedAt?: string | null;
+  /**
+   * The URL slug for the page, e.g. "about" for www.hawkstars.com/about
+   */
   slug: string;
   updatedAt: string;
   createdAt: string;
@@ -921,6 +928,9 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: string;
+  /**
+   * Configure the navigation columns for the header. topbar menus
+   */
   'Navigation Columns'?:
     | {
         ''?: {
@@ -957,9 +967,10 @@ export interface Header {
  */
 export interface Footer {
   id: string;
-  'Navigation Columns'?:
+  'Footer Columns'?:
     | {
         ''?: {
+          title?: string | null;
           Links?:
             | {
                 link: {
@@ -1060,12 +1071,13 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  'Navigation Columns'?:
+  'Footer Columns'?:
     | T
     | {
         ''?:
           | T
           | {
+              title?: T;
               Links?:
                 | T
                 | {
@@ -1344,11 +1356,393 @@ export interface VideoBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AccordionBlock".
+ */
+export interface AccordionBlock {
+  items: {
+    title: string;
+    content: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    /**
+     * Whether this accordion item should be open by default
+     */
+    defaultOpen?: boolean | null;
+    id?: string | null;
+  }[];
+  /**
+   * Allow multiple accordion items to be open at the same time
+   */
+  allowMultipleOpen?: boolean | null;
+  /**
+   * Visual style of the accordion
+   */
+  style?: ('default' | 'bordered' | 'card') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'accordionBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectBlock".
+ */
+export interface ProjectBlock {
+  title: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Main project image
+   */
+  image?: (string | null) | Media;
+  status: 'planning' | 'in-progress' | 'completed' | 'on-hold';
+  /**
+   * Project completion percentage (0-100)
+   */
+  progress?: number | null;
+  /**
+   * Project start date
+   */
+  startDate?: string | null;
+  /**
+   * Project completion date (actual or estimated)
+   */
+  endDate?: string | null;
+  budget?: {
+    /**
+     * Total project budget
+     */
+    total?: number | null;
+    /**
+     * Amount raised so far
+     */
+    raised?: number | null;
+    /**
+     * Currency symbol
+     */
+    currency?: string | null;
+  };
+  tags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
+  team?:
+    | {
+        member?: (string | null) | BoardMember;
+        /**
+         * Role in this project
+         */
+        role?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  links?:
+    | {
+        label: string;
+        url: string;
+        type?: ('website' | 'docs' | 'repo' | 'other') | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'projectBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImpactBlock".
+ */
+export interface ImpactBlock {
+  /**
+   * Main title for the impact section
+   */
+  title: string;
+  /**
+   * Optional subtitle or description
+   */
+  subtitle?: string | null;
+  metrics: {
+    /**
+     * Description of what this number represents
+     */
+    label: string;
+    /**
+     * The numerical value
+     */
+    value: number;
+    /**
+     * Optional suffix (e.g., "+", "%", "€", "people")
+     */
+    suffix?: string | null;
+    /**
+     * Optional prefix (e.g., "€", "$", ">")
+     */
+    prefix?: string | null;
+    /**
+     * Lucide icon name (e.g., "Users", "Heart", "Target")
+     */
+    icon?: string | null;
+    color?: ('blue' | 'green' | 'red' | 'yellow' | 'purple' | 'gray') | null;
+    /**
+     * Animate the number when it comes into view
+     */
+    animateOnScroll?: boolean | null;
+    id?: string | null;
+  }[];
+  /**
+   * How to display the metrics
+   */
+  layout?: ('grid-2' | 'grid-3' | 'grid-4' | 'row') | null;
+  /**
+   * Background style for the impact section
+   */
+  background?: ('none' | 'light-gray' | 'dark' | 'gradient') | null;
+  textAlign?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'impactBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardGridBlock".
+ */
+export interface CardGridBlock {
+  /**
+   * Optional title for the card grid section
+   */
+  title?: string | null;
+  /**
+   * Optional subtitle or description
+   */
+  subtitle?: string | null;
+  cards: {
+    title: string;
+    description?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    /**
+     * Card image (optional)
+     */
+    image?: (string | null) | Media;
+    /**
+     * Lucide icon name (e.g., "User", "Heart", "Star") - used if no image provided
+     */
+    icon?: string | null;
+    /**
+     * Color theme for the card
+     */
+    color?: ('blue' | 'green' | 'red' | 'yellow' | 'purple' | 'gray') | null;
+    links?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'hawk_events';
+                  value: string | HawkEvent;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  /**
+   * Number of columns in the grid
+   */
+  layout?: ('cols-1' | 'cols-2' | 'cols-3' | 'cols-4') | null;
+  /**
+   * Visual style of the cards
+   */
+  cardStyle?: ('standard' | 'hover' | 'minimal' | 'bordered') | null;
+  textAlign?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cardGridBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialBlock".
+ */
+export interface TestimonialBlock {
+  /**
+   * Optional title for the testimonial section
+   */
+  title?: string | null;
+  /**
+   * Optional subtitle or description
+   */
+  subtitle?: string | null;
+  testimonials: {
+    /**
+     * The testimonial quote or review
+     */
+    quote: string;
+    author: {
+      /**
+       * Author full name
+       */
+      name: string;
+      /**
+       * Job title or role
+       */
+      title?: string | null;
+      /**
+       * Company or organization
+       */
+      company?: string | null;
+      /**
+       * Author profile photo
+       */
+      avatar?: (string | null) | Media;
+    };
+    /**
+     * Star rating (1-5 stars)
+     */
+    rating?: number | null;
+    /**
+     * Mark as featured testimonial (larger display)
+     */
+    featured?: boolean | null;
+    id?: string | null;
+  }[];
+  /**
+   * How to display the testimonials
+   */
+  layout?: ('single' | 'two-cols' | 'three-cols' | 'carousel' | 'masonry') | null;
+  /**
+   * Visual style of testimonials
+   */
+  style?: ('card' | 'quote' | 'minimal' | 'bubble') | null;
+  /**
+   * Display star ratings
+   */
+  showRatings?: boolean | null;
+  backgroundColor?: ('none' | 'light-gray' | 'dark' | 'brand') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonialBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsBlock".
+ */
+export interface StatsBlock {
+  /**
+   * Optional title for the statistics section
+   */
+  title?: string | null;
+  /**
+   * Optional subtitle or description
+   */
+  subtitle?: string | null;
+  stats: {
+    /**
+     * The numerical value
+     */
+    value: number;
+    /**
+     * Description of what this number represents
+     */
+    label: string;
+    /**
+     * Optional prefix (e.g., "€", "$", ">")
+     */
+    prefix?: string | null;
+    /**
+     * Optional suffix (e.g., "+", "%", "€", "people", "countries")
+     */
+    suffix?: string | null;
+    /**
+     * Optional additional description or context
+     */
+    description?: string | null;
+    /**
+     * Lucide icon name (e.g., "Users", "Heart", "Target", "TrendingUp")
+     */
+    icon?: string | null;
+    color?: ('blue' | 'green' | 'red' | 'yellow' | 'purple' | 'orange' | 'gray') | null;
+    /**
+     * Mark as highlighted/featured statistic
+     */
+    highlight?: boolean | null;
+    id?: string | null;
+  }[];
+  /**
+   * How to display the statistics
+   */
+  layout?: ('cols-2' | 'cols-3' | 'cols-4' | 'row') | null;
+  /**
+   * Visual style of the statistics
+   */
+  style?: ('cards' | 'minimal' | 'bordered' | 'circles') | null;
+  /**
+   * Animate numbers when they come into view
+   */
+  animateNumbers?: boolean | null;
+  backgroundColor?: ('none' | 'light-gray' | 'dark' | 'gradient') | null;
+  textAlign?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'statsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
   [k: string]: unknown;
 }
+
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

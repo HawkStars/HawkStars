@@ -29,6 +29,12 @@ import { GallerySlider } from './payload/blocks/GallerySlider/config';
 import { Hero } from './payload/blocks/Hero/config';
 import { MediaBlock } from './payload/blocks/MediaBlock/config';
 import { VideoBlock } from './payload/blocks/VideoBlock/config';
+import { AccordionBlock } from './payload/blocks/AccordionBlock/config';
+import { ProjectBlock } from './payload/blocks/ProjectBlock/config';
+import { ImpactBlock } from './payload/blocks/ImpactBlock/config';
+import { CardGridBlock } from './payload/blocks/CardGridBlock/config';
+import { TestimonialBlock } from './payload/blocks/TestimonialBlock/config';
+import { StatsBlock } from './payload/blocks/StatsBlock/config';
 import { MainPage } from './payload/globals/MainPage/config';
 
 const filename = fileURLToPath(import.meta.url);
@@ -87,6 +93,12 @@ export default buildConfig({
           Hero,
           ContentWithImage,
           VideoBlock,
+          AccordionBlock,
+          ProjectBlock,
+          ImpactBlock,
+          CardGridBlock,
+          TestimonialBlock,
+          StatsBlock,
         ],
       }),
     ],

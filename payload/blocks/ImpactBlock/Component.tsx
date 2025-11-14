@@ -1,0 +1,217 @@
+'use client';
+
+import React, { useState, useEffect, useRef } from 'react';
+import classNames from 'classnames';
+import {
+  Users,
+  Heart,
+  Target,
+  Award,
+  TrendingUp,
+  Globe,
+  Star,
+  CheckCircle,
+  DollarSign,
+  Calendar,
+  MapPin,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react';
+
+// Icon mapping for common impact icons
+const iconMap: Record<string, LucideIcon> = {
+  Users,
+  Heart,
+  Target,
+  Award,
+  TrendingUp,
+  Globe,
+  Star,
+  CheckCircle,
+  DollarSign,
+  Calendar,
+  MapPin,
+  Zap,
+};
+
+// Temporary types until we regenerate payload-types
+interface ImpactMetric {
+  label: string;
+  value: number;
+  suffix?: string;
+  prefix?: string;
+  icon?: string;
+  color?: 'blue' | 'green' | 'red' | 'yellow' | 'purple' | 'gray';
+  animateOnScroll?: boolean;
+}
+
+interface ImpactBlockProps {
+  title: string;
+  subtitle?: string;
+  metrics: ImpactMetric[];
+  layout?: 'grid-2' | 'grid-3' | 'grid-4' | 'row';
+  background?: 'none' | 'light-gray' | 'dark' | 'gradient';
+  textAlign?: 'left' | 'center' | 'right';
+}
+
+// Animated counter hook
+const useAnimatedCounter = (
+  targetValue: number,
+  duration: number = 2000,
+  startAnimation: boolean = false
+) => {
+  const [currentValue, setCurrentValue] = useState(0);
+
+  useEffect(() => {
+    if (!startAnimation) return;
+
+    const startTime = Date.now();
+    const startValue = 0;
+
+    const animate = () => {
+      const elapsedTime = Date.now() - startTime;
+      const progress = Math.min(elapsedTime / duration, 1);
+
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const value = Math.floor(startValue + (targetValue - startValue) * easeOutQuart);
+
+      setCurrentValue(value);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    animate();
+  }, [targetValue, duration, startAnimation]);
+
+  return currentValue;
+};
+
+// Individual metric component
+const MetricCard: React.FC<{ metric: ImpactMetric; inView: boolean }> = ({ metric, inView }) => {
+  const animatedValue = useAnimatedCounter(metric.value, 2000, inView && metric.animateOnScroll);
+  const displayValue = metric.animateOnScroll ? animatedValue : metric.value;
+
+  const colorClasses = {
+    blue: 'text-blue-600 bg-blue-50 border-blue-200',
+    green: 'text-green-600 bg-green-50 border-green-200',
+    red: 'text-red-600 bg-red-50 border-red-200',
+    yellow: 'text-yellow-600 bg-yellow-50 border-yellow-200',
+    purple: 'text-purple-600 bg-purple-50 border-purple-200',
+    gray: 'text-gray-600 bg-gray-50 border-gray-200',
+  };
+
+  const IconComponent = metric.icon ? iconMap[metric.icon] : null;
+
+  return (
+    <div className='rounded-lg border bg-white p-6 text-center shadow-md transition-shadow duration-300 hover:shadow-lg'>
+      {IconComponent && (
+        <div
+          className={classNames(
+            'mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full border-2',
+            colorClasses[metric.color || 'blue']
+          )}
+        >
+          <IconComponent className='h-6 w-6' />
+        </div>
+      )}
+
+      <div className='mb-2 text-3xl font-bold text-gray-900 lg:text-4xl'>
+        {metric.prefix}
+        {displayValue.toLocaleString()}
+        {metric.suffix}
+      </div>
+
+      <div className='font-medium text-gray-600'>{metric.label}</div>
+    </div>
+  );
+};
+
+export const ImpactBlock: React.FC<ImpactBlockProps> = ({
+  title,
+  subtitle,
+  metrics = [],
+  layout = 'grid-3',
+  background = 'none',
+  textAlign = 'center',
+}) => {
+  const [inView, setInView] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  // Intersection observer for scroll animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const backgroundClasses = {
+    none: '',
+    'light-gray': 'bg-gray-50',
+    dark: 'bg-gray-900 text-white',
+    gradient: 'bg-gradient-to-br from-blue-500 to-purple-600 text-white',
+  };
+
+  const layoutClasses = {
+    'grid-2': 'grid-cols-1 md:grid-cols-2',
+    'grid-3': 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+    'grid-4': 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
+    row: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
+  };
+
+  const textAlignClasses = {
+    left: 'text-left',
+    center: 'text-center',
+    right: 'text-right',
+  };
+
+  if (!metrics || metrics.length === 0) {
+    return null;
+  }
+
+  return (
+    <section
+      ref={sectionRef}
+      className={classNames('py-12 lg:py-20', backgroundClasses[background])}
+    >
+      <div className='mx-auto max-w-7xl px-4'>
+        {/* Header */}
+        <div className={classNames('mb-12', textAlignClasses[textAlign])}>
+          <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
+          {subtitle && (
+            <p
+              className={classNames(
+                'text-lg lg:text-xl',
+                background === 'dark' || background === 'gradient'
+                  ? 'text-gray-300'
+                  : 'text-gray-600'
+              )}
+            >
+              {subtitle}
+            </p>
+          )}
+        </div>
+
+        {/* Metrics Grid */}
+        <div className={classNames('grid gap-6 lg:gap-8', layoutClasses[layout])}>
+          {metrics.map((metric, index) => (
+            <MetricCard key={index} metric={metric} inView={inView} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};

@@ -3,6 +3,13 @@ import { GallerySliderBlock } from '@/payload/blocks/GallerySlider/Component';
 import { HeroBlock } from '@/payload/blocks/Hero/Component';
 import { ContentWithImageBlock } from '@/payload/blocks/ContentWithImage/Component';
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
+import { TextBlock } from '@/payload/blocks/TextBlock/Component';
+import { AccordionBlock } from '@/payload/blocks/AccordionBlock/Component';
+import { ProjectBlock } from '@/payload/blocks/ProjectBlock/Component';
+import { ImpactBlock } from '@/payload/blocks/ImpactBlock/Component';
+import { CardGridBlock } from '@/payload/blocks/CardGridBlock/Component';
+import { TestimonialBlock } from '@/payload/blocks/TestimonialBlock/Component';
+import { StatsBlock } from '@/payload/blocks/StatsBlock/Component';
 import {
   DefaultNodeTypes,
   SerializedBlockNode,
@@ -23,6 +30,40 @@ import type {
   ContentWithImageBlock as ContentWithImageProps,
   VideoBlock as VideoBlockProps,
 } from '@/payload-types';
+
+// Temporary types for new blocks until we regenerate payload-types
+interface TextBlockProps {
+  content: any;
+  textAlign?: string;
+  maxWidth?: string;
+}
+
+interface AccordionBlockProps {
+  items?: any[];
+  allowMultipleOpen?: boolean;
+  style?: string;
+}
+
+interface ProjectBlockProps {
+  [key: string]: any;
+}
+
+interface ImpactBlockProps {
+  [key: string]: any;
+}
+
+interface CardGridBlockProps {
+  [key: string]: any;
+}
+
+interface TestimonialBlockProps {
+  [key: string]: any;
+}
+
+interface StatsBlockProps {
+  [key: string]: any;
+}
+
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
 import { cn } from '@/payload/utilities/ui';
 
@@ -35,6 +76,13 @@ type NodeTypes =
       | HeroProps
       | ContentWithImageProps
       | VideoBlockProps
+      | TextBlockProps
+      | AccordionBlockProps
+      | ProjectBlockProps
+      | ImpactBlockProps
+      | CardGridBlockProps
+      | TestimonialBlockProps
+      | StatsBlockProps
     >;
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -65,6 +113,13 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     hero: ({ node }) => <HeroBlock {...node.fields} />,
     contentWithImage: ({ node }) => <ContentWithImageBlock {...node.fields} />,
     videoBlock: ({ node }) => <VideoBlock {...node.fields} />,
+    textBlock: ({ node }: { node: any }) => <TextBlock {...node.fields} />,
+    accordionBlock: ({ node }: { node: any }) => <AccordionBlock {...node.fields} />,
+    projectBlock: ({ node }: { node: any }) => <ProjectBlock {...node.fields} />,
+    impactBlock: ({ node }: { node: any }) => <ImpactBlock {...node.fields} />,
+    cardGridBlock: ({ node }: { node: any }) => <CardGridBlock {...node.fields} />,
+    testimonialBlock: ({ node }: { node: any }) => <TestimonialBlock {...node.fields} />,
+    statsBlock: ({ node }: { node: any }) => <StatsBlock {...node.fields} />,
   },
 });
 
