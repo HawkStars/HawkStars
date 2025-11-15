@@ -1,6 +1,4 @@
 import type { GlobalConfig } from 'payload';
-
-import { revalidateFooter } from './hooks/revalidateFooter';
 import { FooterNavGroup } from '@/payload/fields/FooterNavGroup';
 
 export const Footer: GlobalConfig = {
@@ -24,6 +22,6 @@ export const Footer: GlobalConfig = {
     },
   ],
   hooks: {
-    afterChange: [revalidateFooter],
+    afterChange: [],
   },
 };

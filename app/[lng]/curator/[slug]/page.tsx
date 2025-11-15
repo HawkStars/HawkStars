@@ -6,7 +6,7 @@ import { getSingleCuratorQuery } from '@/lib/payload/queries/artwork';
 import { Language } from '@/i18n/settings';
 import Image from 'next/image';
 import { Media } from '@/payload-types';
-import { RichTextViewer } from '@/components/richtext';
+import RichText from '@/payload/components/RichText';
 
 const getCuratorInformation = async (slug: string, locale: Language) => {
   const response = await getSingleCuratorQuery(slug, locale);
@@ -36,7 +36,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
       </div>
       <div className='w-full p-5'>
         <h1 className='text-h2_bold mb-5'>{curator.name}</h1>
-        {curator.description && <RichTextViewer data={curator.description} />}
+        {curator.description && <RichText data={curator.description} />}
       </div>
     </HawkStarsSection>
   );

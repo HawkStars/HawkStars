@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { getSinglePageSlug } from '@/lib/payload/queries/page';
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
-import { RichTextViewer } from '@/components/richtext';
 import RichText from '@/payload/components/RichText';
 
 type PageProps = {

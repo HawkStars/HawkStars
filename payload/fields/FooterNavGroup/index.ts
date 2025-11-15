@@ -9,11 +9,7 @@ export const FooterNavGroup: Field = {
     {
       name: 'Links',
       type: 'array',
-      fields: [
-        link({
-          appearances: false,
-        }),
-      ],
+      fields: [link({})],
       maxRows: 6,
     },
   ],

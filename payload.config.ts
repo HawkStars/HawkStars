@@ -36,6 +36,8 @@ import { CardGridBlock } from './payload/blocks/CardGridBlock/config';
 import { TestimonialBlock } from './payload/blocks/TestimonialBlock/config';
 import { StatsBlock } from './payload/blocks/StatsBlock/config';
 import { MainPage } from './payload/globals/MainPage/config';
+import { TextBlock } from './payload/blocks/TextBlock/config';
+import { seed } from './lib/payload/seed/development';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -65,7 +67,6 @@ export default buildConfig({
     locales: [
       { label: 'English', code: 'en', fallbackLocale: 'pt' },
       { label: 'Portuguese', code: 'pt' },
-      // { label: 'French', code: 'fr', fallbackLocale: 'pt' },
     ],
     fallback: true,
   },
@@ -99,6 +100,7 @@ export default buildConfig({
           CardGridBlock,
           TestimonialBlock,
           StatsBlock,
+          TextBlock,
         ],
       }),
     ],
@@ -119,4 +121,7 @@ export default buildConfig({
       handler: totalContributioValueQuery,
     },
   ],
+  onInit: async (payload) => {
+    await seed(payload);
+  },
 });

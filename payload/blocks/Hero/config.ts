@@ -1,12 +1,5 @@
 import type { Block } from 'payload';
 
-import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical';
-
 import { linkGroup } from '../../fields/linkGroup';
 
 export const Hero: Block = {
@@ -47,7 +40,6 @@ export const Hero: Block = {
       },
     },
     linkGroup({
-      appearances: ['default', 'outline'],
       overrides: {
         maxRows: 2,
       },

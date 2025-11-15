@@ -1,7 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { authenticated } from '@/payload/access/authenticated';
 import { populatePublishedAt } from '../../hooks/populatePublishedAt';
-import { generatePreviewPath } from '../../utilities/generatePreviewPath';
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage';
 
 import {
@@ -29,21 +28,6 @@ export const Pages: CollectionConfig<'pages'> = {
   },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
-    livePreview: {
-      url: ({ data, req }) =>
-        generatePreviewPath({
-          slug: data?.slug,
-          collection: 'pages',
-          req,
-        }),
-    },
-    preview: (data, { req }) =>
-      generatePreviewPath({
-        slug: data?.slug as string,
-        collection: 'pages',
-        req,
-      }),
-    useAsTitle: 'title',
   },
   fields: [
     {

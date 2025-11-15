@@ -34,7 +34,7 @@ const ContributionProjectGoal = () => {
 
   useEffect(() => {
     getCurrentProjetContribution();
-  }, []);
+  }, [getCurrentProjetContribution]);
 
   useEffect(() => {
     const normalizedGoal = (totalContribution || 0) / PROJECT_GOAL;

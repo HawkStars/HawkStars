@@ -107,7 +107,6 @@ export const CardGridBlock: Block = {
           },
         },
         linkGroup({
-          appearances: ['default', 'outline'],
           overrides: {
             maxRows: 1,
           },

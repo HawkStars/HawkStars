@@ -1,28 +1,19 @@
 import type { ArrayField, Field } from 'payload';
-
-import type { LinkAppearances } from './link';
+import merge from 'lodash.merge';
 
 import { link } from './link';
-import deepMerge from '../utilities/deepMerge';
 
-type LinkGroupType = (options?: {
-  appearances?: LinkAppearances[] | false;
-  overrides?: Partial<ArrayField>;
-}) => Field;
+type LinkGroupType = (options?: { overrides?: Partial<ArrayField> }) => Field;
 
-export const linkGroup: LinkGroupType = ({ appearances, overrides = {} } = {}) => {
+export const linkGroup: LinkGroupType = ({ overrides = {} } = {}) => {
   const generatedLinkGroup: Field = {
     name: 'links',
     type: 'array',
-    fields: [
-      link({
-        appearances,
-      }),
-    ],
+    fields: [link({})],
     admin: {
       initCollapsed: true,
     },
   };
 
-  return deepMerge(generatedLinkGroup, overrides);
+  return merge(generatedLinkGroup, overrides);
 };

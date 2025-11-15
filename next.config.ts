@@ -46,6 +46,7 @@ const nextConfig = {
   experimental: {
     taint: true,
   },
+  serverExternalPackages: ['dataloader'],
   staticPageGenerationTimeout: 120,
   productionBrowserSourceMaps: false,
   async headers() {
