@@ -1,9 +1,26 @@
 import type { Field, GroupField } from 'payload';
 import merge from 'lodash.merge';
 
-type LinkType = (options?: { disableLabel?: boolean; overrides?: Partial<GroupField> }) => Field;
+export type LinkAppearances = 'default' | 'outline';
 
-export const link: LinkType = ({ disableLabel = false, overrides = {} } = {}) => {
+export const appearanceOptions: Record<LinkAppearances, { label: string; value: string }> = {
+  default: {
+    label: 'Default',
+    value: 'default',
+  },
+  outline: {
+    label: 'Outline',
+    value: 'outline',
+  },
+};
+
+type LinkType = (options?: {
+  appearances?: LinkAppearances[] | false;
+  disableLabel?: boolean;
+  overrides?: Partial<GroupField>;
+}) => Field;
+
+export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
   const linkResult: GroupField = {
     name: 'link',
     type: 'group',
@@ -99,6 +116,24 @@ export const link: LinkType = ({ disableLabel = false, overrides = {} } = {}) =>
     });
   } else {
     linkResult.fields = [...linkResult.fields, ...linkTypes];
+  }
+
+  if (appearances !== false) {
+    let appearanceOptionsToUse = [appearanceOptions.default, appearanceOptions.outline];
+
+    if (appearances) {
+      appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance]);
+    }
+
+    linkResult.fields.push({
+      name: 'appearance',
+      type: 'select',
+      admin: {
+        description: 'Choose how the link should be rendered.',
+      },
+      defaultValue: 'default',
+      options: appearanceOptionsToUse,
+    });
   }
 
   return merge(linkResult, overrides);

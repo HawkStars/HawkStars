@@ -17,6 +17,10 @@ export const Curator: CollectionConfig = {
     singular: 'Curator',
     plural: 'Curators',
   },
+  admin: {
+    useAsTitle: 'name',
+    defaultColumns: ['name', 'role', 'updatedAt'],
+  },
   fields: [
     {
       type: 'tabs',

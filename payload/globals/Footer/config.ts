@@ -24,4 +24,12 @@ export const Footer: GlobalConfig = {
   hooks: {
     afterChange: [],
   },
+  versions: {
+    drafts: {
+      autosave: {
+        interval: 1000,
+      },
+    },
+    max: 3,
+  },
 };

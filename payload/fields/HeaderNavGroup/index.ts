@@ -2,13 +2,13 @@ import { Field } from 'payload';
 import { link } from '../link';
 
 export const HeaderNavGroup: Field = {
-  name: '',
+  name: 'links',
   type: 'group',
   fields: [
     {
       name: 'Links',
       type: 'array',
-      fields: [link({})],
+      fields: [link()],
       maxRows: 6,
     },
   ],

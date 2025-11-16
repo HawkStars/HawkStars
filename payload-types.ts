@@ -956,7 +956,7 @@ export interface Header {
    */
   'Navigation Columns'?:
     | {
-        ''?: {
+        links?: {
           Links?:
             | {
                 link: {
@@ -973,6 +973,10 @@ export interface Header {
                       } | null);
                   url?: string | null;
                   label: string;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline') | null;
                 };
                 id?: string | null;
               }[]
@@ -992,9 +996,12 @@ export interface Footer {
   id: string;
   'Footer Columns'?:
     | {
-        ''?: {
+        /**
+         * Footer column. If there is only 1 link, it will be displayed without a title.
+         */
+        column: {
           title?: string | null;
-          Links?:
+          links?:
             | {
                 link: {
                   type?: ('reference' | 'custom') | null;
@@ -1010,6 +1017,10 @@ export interface Footer {
                       } | null);
                   url?: string | null;
                   label: string;
+                  /**
+                   * Choose how the link should be rendered.
+                   */
+                  appearance?: ('default' | 'outline') | null;
                 };
                 id?: string | null;
               }[]
@@ -1018,6 +1029,7 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1065,7 +1077,7 @@ export interface HeaderSelect<T extends boolean = true> {
   'Navigation Columns'?:
     | T
     | {
-        ''?:
+        links?:
           | T
           | {
               Links?:
@@ -1079,6 +1091,7 @@ export interface HeaderSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          appearance?: T;
                         };
                     id?: T;
                   };
@@ -1097,11 +1110,11 @@ export interface FooterSelect<T extends boolean = true> {
   'Footer Columns'?:
     | T
     | {
-        ''?:
+        column?:
           | T
           | {
               title?: T;
-              Links?:
+              links?:
                 | T
                 | {
                     link?:
@@ -1112,12 +1125,14 @@ export interface FooterSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          appearance?: T;
                         };
                     id?: T;
                   };
             };
         id?: T;
       };
+  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1194,6 +1209,10 @@ export interface CallToActionBlock {
               } | null);
           url?: string | null;
           label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
         };
         id?: string | null;
       }[]
@@ -1294,6 +1313,10 @@ export interface HeroBlock {
               } | null);
           url?: string | null;
           label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
         };
         id?: string | null;
       }[]
@@ -1601,6 +1624,10 @@ export interface CardGridBlock {
                 } | null);
             url?: string | null;
             label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline') | null;
           };
           id?: string | null;
         }[]
