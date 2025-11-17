@@ -8,7 +8,7 @@
     "dev:inspect": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build --turbo",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
     "payload:generate": "payload generate:types",

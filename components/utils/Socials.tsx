@@ -20,7 +20,7 @@ const Socials = () => {
       </Link>
       <Link
         target='_blank'
-        href='https://www.instagram.com/hawk.starsngo/'
+        href='https://www.instagram.com/hawk.starsngo'
         aria-label='Check HawkStars NGO on Instagram'
       >
         <Image src={InstagramIcon} alt='Instagram' width={24} height={24} className='grayscale' />

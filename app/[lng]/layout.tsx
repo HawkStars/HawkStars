@@ -39,8 +39,8 @@ export default async function RootLayout(props: {
     <html lang={lng} data-color-mode='light' className={`${inter.variable} ${oswald.variable}`}>
       <AppProvider lng={(lng as Language) || fallbackLng}>
         <body>
-          <MobileNavbar />
-          <Navbar />
+          {/* <MobileNavbar />
+          <Navbar /> */}
           <main className='bg-body min-h-screen'>{children}</main>
           <Footer />
         </body>

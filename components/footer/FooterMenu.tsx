@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Suspense } from 'react';
-import { MenuSections } from '../navbar/config';
 import Button from '../utils/Button';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
@@ -17,7 +16,7 @@ const FooterMenu = () => {
 
   return (
     <>
-      {MenuSections.map((section, index) => {
+      {/* {MenuSections.map((section, index) => {
         if (section.type === 'dropdown') {
           const { title, options } = section;
           return (
@@ -42,7 +41,7 @@ const FooterMenu = () => {
             </div>
           );
         }
-      })}
+      })} */}
 
       <div className='flex flex-col lg:hidden'>
         {/* <Link
@@ -52,15 +51,6 @@ const FooterMenu = () => {
           >
             <Suspense>{t('common.be_member')}</Suspense>
           </Link> */}
-        <Button
-          type={'button'}
-          variant='success'
-          onClick={() => {
-            router.push(urls.donate);
-          }}
-        >
-          <Suspense>{t('common.donate')}</Suspense>
-        </Button>
       </div>
     </>
   );

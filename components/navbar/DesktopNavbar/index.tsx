@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button';
 import LanguageSwitcher from '@/components/utils/LanguageSwitcher';
 import { FC, Suspense, useState } from 'react';
-import { MenuSections } from '../config';
 import MenuItem from '@/components/menu/MenuItem';
 import DropdownMenu from '@/components/menu/DropdownMenu';
 import { useTranslation } from '@/i18n/client';
@@ -24,7 +23,7 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu }) => {
     <div className='my-auto ml-auto hidden lg:block'>
       <div className='ml-auto flex gap-3'>
         <ul className='flex flex-row gap-4 px-1 xl:gap-8'>
-          {MenuSections.map((section, index) => {
+          {/* {MenuSections.map((section, index) => {
             if (section.type === 'dropdown') {
               const { title, options } = section;
               if (!options || options.length === 0) return null;
@@ -38,7 +37,7 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu }) => {
               const { option } = section;
               return <MenuItem key={option.label} {...option} />;
             }
-          })}
+          })} */}
           <li>
             <Button
               type={'submit'}

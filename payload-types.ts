@@ -956,7 +956,11 @@ export interface Header {
    */
   'Navigation Columns'?:
     | {
-        links?: {
+        links: {
+          /**
+           * Unique key for the navigation group to be used on the dropdown menu
+           */
+          key: string;
           Links?:
             | {
                 link: {
@@ -1080,6 +1084,7 @@ export interface HeaderSelect<T extends boolean = true> {
         links?:
           | T
           | {
+              key?: T;
               Links?:
                 | T
                 | {

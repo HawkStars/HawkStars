@@ -17,7 +17,6 @@ import MobileMenuItem from '@/components/menu/MobileMenuItem';
 import LanguageSwitcher from '@/components/utils/LanguageSwitcher';
 import Socials from '@/components/utils/Socials';
 import Button from '@/components/utils/Button';
-import { MenuSections } from '../config';
 import { useTranslation } from '@/i18n/client';
 
 const MobileNavbar = () => {
@@ -52,7 +51,7 @@ const MobileNavbar = () => {
         <Socials />
 
         <div className='mt-5 grid grid-cols-1 gap-4'>
-          {MenuSections.map((section) => {
+          {/* {MenuSections.map((section) => {
             if (section.type === 'dropdown') {
               const { title, options } = section;
               return (
@@ -61,7 +60,7 @@ const MobileNavbar = () => {
                 </div>
               );
             }
-          })}
+          })} */}
         </div>
 
         <div className='flex flex-col'>

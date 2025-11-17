@@ -6,13 +6,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Suspense } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import heroPng from '@/public/images/frontpage/hero.png';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 const HomeHeroSection = () => {
   const router = useRouter();
-  const { t } = useTranslation('common');
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
 
   return (
     <section className='bg-bege-light flex flex-col px-8 pt-10 pb-5 lg:px-14 lg:pt-40 lg:pb-10 lg:pl-20'>
