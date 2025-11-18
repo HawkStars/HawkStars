@@ -9,9 +9,10 @@ export const FooterNavGroup: GroupField = {
     description: 'Footer column. If there is only 1 link, it will be displayed without a title.',
   },
   fields: [
-    { name: 'title', type: 'text', required: false, localized: true },
+    { name: 'title', type: 'text', label: 'Title', required: false, localized: true },
     {
-      name: 'links',
+      name: 'data',
+      label: 'Links',
       type: 'array',
       fields: [link()],
       maxRows: 6,

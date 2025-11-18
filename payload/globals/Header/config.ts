@@ -9,7 +9,8 @@ export const Header: GlobalConfig = {
   },
   fields: [
     {
-      name: 'Navigation Columns',
+      name: 'columns',
+      label: 'Header Navigation Columns',
       admin: {
         description: 'Configure the navigation columns for the header. topbar menus',
         components: {

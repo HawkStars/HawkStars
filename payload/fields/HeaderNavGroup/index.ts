@@ -2,7 +2,8 @@ import { Field } from 'payload';
 import { link } from '../link';
 
 export const HeaderNavGroup: Field = {
-  name: 'links',
+  name: 'data',
+  label: 'Links Group',
   type: 'group',
   fields: [
     {
@@ -21,7 +22,8 @@ export const HeaderNavGroup: Field = {
       },
     },
     {
-      name: 'Links',
+      name: 'links',
+      label: 'Links',
       type: 'array',
       fields: [link()],
       maxRows: 6,

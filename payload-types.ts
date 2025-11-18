@@ -954,14 +954,14 @@ export interface Header {
   /**
    * Configure the navigation columns for the header. topbar menus
    */
-  'Navigation Columns'?:
+  columns?:
     | {
-        links: {
+        data: {
           /**
            * Unique key for the navigation group to be used on the dropdown menu
            */
           key: string;
-          Links?:
+          links?:
             | {
                 link: {
                   type?: ('reference' | 'custom') | null;
@@ -998,14 +998,14 @@ export interface Header {
  */
 export interface Footer {
   id: string;
-  'Footer Columns'?:
+  columns?:
     | {
         /**
          * Footer column. If there is only 1 link, it will be displayed without a title.
          */
         column: {
           title?: string | null;
-          links?:
+          data?:
             | {
                 link: {
                   type?: ('reference' | 'custom') | null;
@@ -1078,14 +1078,14 @@ export interface MainPage {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
-  'Navigation Columns'?:
+  columns?:
     | T
     | {
-        links?:
+        data?:
           | T
           | {
               key?: T;
-              Links?:
+              links?:
                 | T
                 | {
                     link?:
@@ -1112,14 +1112,14 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  'Footer Columns'?:
+  columns?:
     | T
     | {
         column?:
           | T
           | {
               title?: T;
-              links?:
+              data?:
                 | T
                 | {
                     link?:

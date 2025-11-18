@@ -1,13 +1,19 @@
 import { getPayloadConfig } from '../client';
 
-const getNavbarQuery = async () => {
+const getHeaderQuery = async () => {
   const payload = await getPayloadConfig();
-  const data = await payload.findGlobal({
+  return await payload.findGlobal({
     slug: 'header',
-    depth: 1,
+    depth: 2,
   });
-  debugger;
-  return data;
 };
 
-export { getNavbarQuery };
+const getFooterQuery = async () => {
+  const payload = await getPayloadConfig();
+  return await payload.findGlobal({
+    slug: 'footer',
+    depth: 2,
+  });
+};
+
+export { getHeaderQuery, getFooterQuery };

@@ -8,7 +8,8 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
-      name: 'Footer Columns',
+      name: 'columns',
+      label: 'Footer Columns',
       admin: {
         components: {
           RowLabel: {

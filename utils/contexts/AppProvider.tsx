@@ -1,11 +1,14 @@
 'use client';
 
 import { fallbackLng, Language } from '@/i18n/settings';
+import { Footer, Header } from '@/payload-types';
 import { createContext, Dispatch, ReactNode, useContext, useState } from 'react';
 
 type MainAppProperties = {
   mobileNavbarOpen: boolean;
   lng: Language;
+  headerInfo?: Header;
+  footerInfo?: Footer;
 };
 
 const defaultAppProperties: MainAppProperties = {
@@ -19,12 +22,16 @@ const SetMainAppContext = createContext<Dispatch<MainAppProperties>>(() => {});
 type AppProviderProps = {
   children: ReactNode;
   lng: Language;
+  headerInfo?: Header;
+  footerInfo?: Footer;
 };
 
-const AppProvider = ({ children, lng }: AppProviderProps) => {
+const AppProvider = ({ children, lng, headerInfo, footerInfo }: AppProviderProps) => {
   const [appProperties, setAppProperties] = useState<MainAppProperties>({
     ...defaultAppProperties,
     lng,
+    headerInfo,
+    footerInfo,
   });
 
   return (
@@ -37,6 +44,8 @@ const AppProvider = ({ children, lng }: AppProviderProps) => {
 export const useMainAppContext = () => {
   return useContext(MainAppContext);
 };
+
+/** SETTERS */
 
 export const useSetMainProperties = () => {
   const setMainProperties = useContext(SetMainAppContext);
@@ -56,11 +65,6 @@ export const useSetMobileNavbarOpen = () => {
   };
 };
 
-export const useLanguageCookie = () => {
-  const mainProperties = useContext(MainAppContext);
-  return mainProperties.lng;
-};
-
 export const useSetLanguageCookie = () => {
   const mainProperties = useContext(MainAppContext);
   const setMainProperties = useContext(SetMainAppContext);
@@ -70,6 +74,23 @@ export const useSetLanguageCookie = () => {
       lng: newLng,
     });
   };
+};
+
+/** GETTERS */
+
+export const useLanguageCookie = () => {
+  const mainProperties = useContext(MainAppContext);
+  return mainProperties.lng;
+};
+
+export const useHeaderInfo = () => {
+  const mainProperties = useContext(MainAppContext);
+  return mainProperties.headerInfo;
+};
+
+export const useFooterInfo = () => {
+  const mainProperties = useContext(MainAppContext);
+  return mainProperties.footerInfo;
 };
 
 export default AppProvider;
