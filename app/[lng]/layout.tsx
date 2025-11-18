@@ -38,6 +38,7 @@ export default async function RootLayout(props: {
 
   const headerInfo = await getHeaderQuery();
   const footerInfo = await getFooterQuery();
+  debugger;
 
   return (
     <html lang={lng} data-color-mode='light' className={`${inter.variable} ${oswald.variable}`}>

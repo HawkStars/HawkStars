@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import { hawkLogo } from '@/utils/models/images/logos';
 import { useTranslation } from '@/i18n/client';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { useMainAppContext } from '@/utils/contexts/AppProvider';
 import FooterMenu from './FooterMenu';
 import FooterBottom from './FooterBottom';
 import { Button } from '../ui/button';
@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation';
 
 const Footer = () => {
   const router = useRouter();
-  const lng = useLanguageCookie();
+  const { lng, footerInfo } = useMainAppContext();
   const { t } = useTranslation(lng, 'common');
 
   return (
@@ -38,8 +38,11 @@ const Footer = () => {
             {t('common.donate')}
           </Button>
         </div>
+
         <div className='mt-10 grid grid-cols-2 gap-10 max-sm:grid-cols-1'>
-          <FooterMenu />
+          {footerInfo?.columns?.map((column) => (
+            <FooterMenu key={column.id} column={column} />
+          ))}
         </div>
       </div>
       <FooterBottom />

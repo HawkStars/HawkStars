@@ -122,6 +122,6 @@ export default buildConfig({
     },
   ],
   onInit: async (payload) => {
-    // await seed(payload);
+    await seed(payload);
   },
 });

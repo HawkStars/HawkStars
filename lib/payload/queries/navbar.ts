@@ -4,6 +4,8 @@ const getHeaderQuery = async () => {
   const payload = await getPayloadConfig();
   return await payload.findGlobal({
     slug: 'header',
+    draft: false,
+
     depth: 2,
   });
 };
@@ -13,6 +15,7 @@ const getFooterQuery = async () => {
   return await payload.findGlobal({
     slug: 'footer',
     depth: 2,
+    draft: false,
   });
 };
 
