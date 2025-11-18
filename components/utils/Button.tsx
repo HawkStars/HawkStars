@@ -47,7 +47,7 @@ type ButtonProps = {
   /**
    * Button props
    */
-  [x: string]: any;
+  [x: string]: unknown;
 };
 
 const buttonProps = variantProps({

@@ -66,7 +66,7 @@ type ContributionsChairDesktopProps = Pick<
   ChairsSectionsProps,
   'icon' | 'iconFilled' | 'currentContributions'
 > & {
-  missingContributionsChairs: Array<any>;
+  missingContributionsChairs: Array<unknown>;
 };
 
 const ContributionsChairsDesktop = ({

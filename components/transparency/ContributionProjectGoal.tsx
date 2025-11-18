@@ -32,15 +32,15 @@ const ContributionProjectGoal = () => {
     } catch (e) {}
   };
 
-  useEffect(() => {
-    getCurrentProjetContribution();
-  }, [getCurrentProjetContribution]);
+  // useEffect(() => {
+  //   getCurrentProjetContribution();
+  // }, [getCurrentProjetContribution]);
 
   useEffect(() => {
     const normalizedGoal = (totalContribution || 0) / PROJECT_GOAL;
     const goalAsPercentage = (normalizedGoal * 100).toFixed(2);
     const loadingWidth = Math.round((window?.innerWidth || 0) * normalizedGoal) + 'px';
-    setBarSettings({ width: loadingWidth, percent: goalAsPercentage });
+    // setBarSettings({ width: loadingWidth, percent: goalAsPercentage });
   }, [totalContribution]);
 
   return (

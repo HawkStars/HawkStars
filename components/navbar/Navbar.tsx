@@ -9,7 +9,7 @@ import { useState } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from '@/i18n/client';
 
-const Navbar = async () => {
+const Navbar = () => {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
   const setMobileMenuOpen = useSetMobileNavbarOpen();
   const lng = useLanguageCookie();

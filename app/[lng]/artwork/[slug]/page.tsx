@@ -20,8 +20,8 @@ const getCuratorInformation = async (slug: string, locale: Language) => {
 
 export async function generateMetadata(props: CuratorPageProps): Promise<Metadata> {
   const params = await props.params;
-  const { lng, slug } = params;
-  const artwork = await getCuratorInformation(slug, lng);
+  const { lng } = params;
+  // const artwork = await getCuratorInformation(slug, lng);
 
   const metadataPage = getMetadataPageInfo(lng as Language, 'home');
   return metadataPage;

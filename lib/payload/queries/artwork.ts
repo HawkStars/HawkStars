@@ -1,5 +1,5 @@
 import { Artwork, Curator } from '@/payload-types';
-import { getPayloadConfig } from '../client';
+import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
 
 export const getSingleArtwork = async (slug: string, locale: Language): Promise<Artwork | null> => {

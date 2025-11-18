@@ -9,12 +9,9 @@ import { Metadata } from 'next';
 import Script from 'next/script';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import Footer from '@/components/footer/Footer';
-import MobileNavbar from '@/components/navbar/MobileNavbar';
-import Navbar from '@/components/navbar/Navbar';
 import AppProvider from '@/utils/contexts/AppProvider';
 import { LanguagePageProps } from './types';
 import { Language, fallbackLng, languages } from '@/i18n/settings';
-import { getFooterQuery, getHeaderQuery } from '@/lib/payload/queries/navbar';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -36,16 +33,16 @@ export default async function RootLayout(props: {
   const { lng } = params;
   const { children } = props;
 
-  const headerInfo = await getHeaderQuery();
-  const footerInfo = await getFooterQuery();
+  //const headerInfo = await getHeaderQuery();
+  //const footerInfo = await getFooterQuery();
   debugger;
 
   return (
     <html lang={lng} data-color-mode='light' className={`${inter.variable} ${oswald.variable}`}>
       <AppProvider
         lng={(lng as Language) || fallbackLng}
-        headerInfo={headerInfo}
-        footerInfo={footerInfo}
+        // headerInfo={headerInfo}
+        // footerInfo={footerInfo}
       >
         <body>
           {/* <MobileNavbar />

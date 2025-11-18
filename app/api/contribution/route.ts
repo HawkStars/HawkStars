@@ -1,4 +1,4 @@
-import { getPayloadConfig } from '@/lib/payload/client';
+import { getPayloadConfig } from '@/lib/payload/server';
 
 const CONTRIBUTION_COLLECTION = 'contributions';
 
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     });
 
     return new Response(JSON.stringify({ success: true, data }), { status: 200 });
-  } catch (e) {
+  } catch (e: unknown) {
     return new Response('error on the client', { status: 500 });
   }
 }

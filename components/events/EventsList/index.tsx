@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useEffect, use } from 'react';
+import { useState } from 'react';
 import { useMainAppContext } from '@/utils/contexts/AppProvider';
 import { HawkEvent, Media } from '@/payload-types';
 import { getEventsQuery } from '@/lib/payload/queries/event';
@@ -34,9 +34,9 @@ const EventsList = () => {
     setLoading('success');
   };
 
-  useEffect(() => {
-    fetchEvents(page);
-  }, [page]);
+  // useEffect(() => {
+  //   fetchEvents(page);
+  // }, [page]);
 
   return (
     <>

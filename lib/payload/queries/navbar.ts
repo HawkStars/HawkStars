@@ -1,4 +1,4 @@
-import { getPayloadConfig } from '../client';
+import { getPayloadConfig } from '../server';
 
 const getHeaderQuery = async () => {
   const payload = await getPayloadConfig();

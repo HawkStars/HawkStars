@@ -3,7 +3,7 @@ import React from 'react';
 
 export type InputProps = {
   name: string;
-  onChange?: (e: any) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string | number | null;
   customCss?: string;
   labelText?: string;
@@ -13,7 +13,7 @@ export type InputProps = {
   outline?: boolean;
   icon?: React.ReactNode;
   inputHintText?: string;
-  [x: string]: any;
+  [x: string]: unknown;
 };
 
 export default function Input({

@@ -55,8 +55,12 @@ const PartnerCard = ({
   country = undefined,
 }: PartnersInfo): JSX.Element => {
   const renderers = {
-    p: (props: any) => <p className='my-2 break-words'>{props.children}</p>,
-    h1: (props: any) => <h1 className='text-primary-500'>{props.children}</h1>,
+    p: (props: { children: React.ReactNode }) => (
+      <p className='my-2 wrap-break-word'>{props.children}</p>
+    ),
+    h1: (props: { children: React.ReactNode }) => (
+      <h1 className='text-primary-500'>{props.children}</h1>
+    ),
   };
 
   return (

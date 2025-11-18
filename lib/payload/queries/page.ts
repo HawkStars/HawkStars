@@ -1,5 +1,5 @@
 import { Language } from '@/i18n/settings';
-import { getPayloadConfig } from '../client';
+import { getPayloadConfig } from '../server';
 import { Page } from '@/payload-types';
 
 const PAGES_COLLECTIONS = 'pages';

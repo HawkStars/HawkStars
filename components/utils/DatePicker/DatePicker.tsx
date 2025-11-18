@@ -11,7 +11,7 @@ import { Calendar } from '@/components/ui/calendar';
 
 type HawkStarsDatePickerProps = {
   date: Date | null;
-  onChange: (date: any) => void;
+  onChange: (date: unknown) => void;
   labelText?: string;
   minDate?: Date;
 };

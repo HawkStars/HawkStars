@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 interface TextAreaProps {
-  onChange?: (e: any) => void;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   value?: string | number;
   customCss?: string;
   labelText?: string;
@@ -11,7 +11,7 @@ interface TextAreaProps {
   disabled?: boolean;
   placeholder?: string;
   inputHintText?: string;
-  [x: string]: any;
+  [x: string]: unknown;
 }
 
 export default function TextArea({

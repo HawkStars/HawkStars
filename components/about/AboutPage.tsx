@@ -144,7 +144,7 @@ const MissionTaskComponent = async ({
   lng,
 }: MissionTaskComponentProps): Promise<JSX.Element> => {
   const { t } = await getServerTranslation(lng, 'about');
-  let formattedNumber = index.toLocaleString('en-US', {
+  const formattedNumber = index.toLocaleString('en-US', {
     minimumIntegerDigits: 2,
     useGrouping: false,
   });

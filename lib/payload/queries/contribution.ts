@@ -1,4 +1,4 @@
-import { getPayloadConfig } from '../client';
+import { getPayloadConfig } from '../server';
 
 export const getChairsContributionsQuery = async () => {
   const payload = await getPayloadConfig();

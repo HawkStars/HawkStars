@@ -1,5 +1,5 @@
 import { HawkEvent } from '@/payload-types';
-import { getPayloadConfig } from '../client';
+import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
 import { PaginatedDocs } from 'payload';
 

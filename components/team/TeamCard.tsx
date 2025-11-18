@@ -7,11 +7,12 @@ import LinkedinIcon from '@/public/images/icons/socials/linkedin.svg';
 import Link from 'next/link';
 import { useTranslation } from '../../i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { Media } from '@/payload-types';
 
 type TeamCardProps = {
   name: string;
   title: string;
-  photo?: any;
+  photo?: string | Media | null;
   url?: string;
 };
 

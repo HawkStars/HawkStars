@@ -1,6 +1,6 @@
 import { BoardMember } from '@/payload-types';
 import groupBy from 'lodash.groupby';
-import { getPayloadConfig } from '../client';
+import { getPayloadConfig } from '../server';
 
 type GroupedBoardMembers = {
   board: BoardMember[];

@@ -3,7 +3,7 @@ import { LanguageProps } from '@/components/types';
 import Link from 'next/link';
 import { allCuratorsQuery } from '@/lib/payload/queries/artwork';
 import { Language } from '@/i18n/settings';
-import { Media } from '@/payload-types';
+import { Curator, Media } from '@/payload-types';
 import Image from 'next/image';
 
 const getCurators = async (locale: Language) => {
@@ -18,13 +18,10 @@ const Curators = async ({ lng }: LanguageProps) => {
   return (
     <>
       <section className='my-20 flex justify-center gap-4 max-lg:flex-col lg:gap-32' id='curators'>
-        {curators.map((curator: any) => {
+        {curators.map((curator: Curator) => {
           return (
-            <div key={curator._id}>
-              <Link
-                href={`/${lng}/curator/${curator.slug?.current}`}
-                className='flex flex-col gap-5'
-              >
+            <div key={curator.id}>
+              <Link href={`/${lng}/curator/${curator.slug}`} className='flex flex-col gap-5'>
                 <div className='md:mx-auto'>
                   <Image
                     src={(curator.image as Media)?.url || ''}

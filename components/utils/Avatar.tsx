@@ -3,9 +3,10 @@ import Image from 'next/image';
 import { tw, variantProps } from 'classname-variants/react';
 
 import AvatarIcon from '@/public/images/icons/common/avatar.svg';
+import { Media } from '@/payload-types';
 
 type AvatarProps = {
-  url: string;
+  url?: string | Media | null;
   size?: 'small' | 'medium' | 'large';
   rounded?: 'none' | 'xl' | 'full';
 };
@@ -65,7 +66,7 @@ const Avatar = (props: AvatarProps) => {
         <>
           <Image
             alt='avatar'
-            src={url}
+            src={url as string}
             fill
             sizes='(max-width: 768px) 100px, (max-width: 1200px) 100px, 150px'
             {...imageAvatarProps({ ...props })}

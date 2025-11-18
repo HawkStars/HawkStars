@@ -32,7 +32,6 @@ const EventPage = async (props: EventPageProps) => {
   if (!slug) return notFound();
 
   const event = await getEventInformation(slug, lng);
-  const { t } = await getServerTranslation(lng, 'art');
   if (!event) notFound();
 
   return (
