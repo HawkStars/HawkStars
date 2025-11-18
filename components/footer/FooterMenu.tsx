@@ -1,58 +1,66 @@
 'use client';
 
-import { transformUrl, urls } from '@/utils/paths';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Suspense } from 'react';
-import Button from '../utils/Button';
-import { useTranslation } from '@/i18n/client';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { FooterColumn } from './config';
 
-const FooterMenu = () => {
-  const lng = useLanguageCookie();
-  const { t } = useTranslation(lng, 'common');
-  const router = useRouter();
+type FooterMenuProps = {
+  data: FooterColumn;
+};
+
+const FooterMenu = ({ data }: FooterMenuProps) => {
+  const column = data.column;
 
   return (
-    <>
-      {/* {MenuSections.map((section, index) => {
-        if (section.type === 'dropdown') {
-          const { title, options } = section;
-          return (
-            <div key={index} className='text-terciary-100 ml-0 text-left lg:text-left'>
-              <span className='mb-1 text-base font-black lg:mb-3'>
-                <Suspense fallback={title}>{t(title)}</Suspense>
-              </span>
-              {options.map((option, index) => (
-                <div className='py-1' key={index}>
-                  <Suspense fallback={option.label}>
-                    <Link
-                      href={transformUrl(lng, option.url || urls.home)}
-                      className={classNames('text-body_regular', {
-                        'text-disabled': option.disabled,
-                      })}
-                    >
-                      {t(option.label)}
-                    </Link>
-                  </Suspense>
-                </div>
-              ))}
-            </div>
-          );
-        }
-      })} */}
-
-      <div className='flex flex-col lg:hidden'>
-        {/* <Link
-            href={BE_MEMBER_FORM_URL}
-            target='_blank'
-            className='mb-2  '
-          >
-            <Suspense>{t('common.be_member')}</Suspense>
-          </Link> */}
+    <div className='flex flex-col gap-2'>
+      <div className='text-terciary-100 ml-0 text-left lg:text-left'>
+        <span className='mb-1 text-base font-black lg:mb-3'>{column.title}</span>
       </div>
-    </>
+      {column.data && column.data.length > 0 ? (
+        <ul className='flex flex-col gap-2'>
+          {column.data.map((item) => {
+            const link = item.link;
+            let href = '#';
+
+            if (link.type === 'custom' && link.url) {
+              href = link.url;
+            } else if (link.type === 'reference') {
+              const relationTo = link.reference?.relationTo;
+              href =
+                relationTo === 'pages'
+                  ? `/${link.reference?.value}`
+                  : `/events/${link.reference?.value}`;
+            }
+
+            return (
+              <li key={item.id || link.label}>
+                {link.type === 'reference' && link.reference ? (
+                  <Link
+                    href={href}
+                    target={link.newTab ? '_blank' : '_self'}
+                    className={classNames(
+                      'text-terciary-300 hover:text-terciary-100',
+                      'transition-colors duration-200'
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    type='button'
+                    className='text-terciary-300 hover:text-terciary-100 p-0 transition-colors duration-200'
+                    target={link.newTab ? '_blank' : '_self'}
+                    href={href}
+                  >
+                    {link.label}
+                  </a>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
+    </div>
   );
 };
 

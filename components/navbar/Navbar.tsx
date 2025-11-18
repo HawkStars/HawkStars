@@ -5,12 +5,9 @@ import Image from 'next/image';
 import HamburgerIcon from '@/public/images/icons/common/hamburger.svg';
 import { useLanguageCookie, useSetMobileNavbarOpen } from '../../utils/contexts/AppProvider';
 import { hawkLogo } from '@/utils/models/images/logos';
-import DesktopNavbar from './DesktopNavbar';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from '@/i18n/client';
-import HawkLink from '../utils/HawkLink';
-import { getNavbarQuery } from '@/lib/payload/queries/navbar';
 
 const Navbar = async () => {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
