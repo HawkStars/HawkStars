@@ -60,5 +60,6 @@ export const ContributionCollection: CollectionConfig = {
       'contribution_date',
       'is_anonymous',
     ],
+    description: 'Manage organization contributions',
   },
 };

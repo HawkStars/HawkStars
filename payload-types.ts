@@ -348,6 +348,8 @@ export interface BoardMember {
   createdAt: string;
 }
 /**
+ * Manage organization contributions
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contributions".
  */
@@ -964,7 +966,7 @@ export interface Header {
           links?:
             | {
                 link: {
-                  type?: ('reference' | 'custom') | null;
+                  type: 'reference' | 'custom';
                   newTab?: boolean | null;
                   reference?:
                     | ({
@@ -1005,30 +1007,28 @@ export interface Footer {
          */
         column: {
           title?: string | null;
-          data?:
-            | {
-                link: {
-                  type?: ('reference' | 'custom') | null;
-                  newTab?: boolean | null;
-                  reference?:
-                    | ({
-                        relationTo: 'pages';
-                        value: string | Page;
-                      } | null)
-                    | ({
-                        relationTo: 'hawk_events';
-                        value: string | HawkEvent;
-                      } | null);
-                  url?: string | null;
-                  label: string;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline') | null;
-                };
-                id?: string | null;
-              }[]
-            | null;
+          data: {
+            link: {
+              type: 'reference' | 'custom';
+              newTab?: boolean | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: string | Page;
+                  } | null)
+                | ({
+                    relationTo: 'hawk_events';
+                    value: string | HawkEvent;
+                  } | null);
+              url?: string | null;
+              label: string;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline') | null;
+            };
+            id?: string | null;
+          }[];
         };
         id?: string | null;
       }[]
@@ -1201,7 +1201,7 @@ export interface CallToActionBlock {
   links?:
     | {
         link: {
-          type?: ('reference' | 'custom') | null;
+          type: 'reference' | 'custom';
           newTab?: boolean | null;
           reference?:
             | ({
@@ -1305,7 +1305,7 @@ export interface HeroBlock {
   links?:
     | {
         link: {
-          type?: ('reference' | 'custom') | null;
+          type: 'reference' | 'custom';
           newTab?: boolean | null;
           reference?:
             | ({
@@ -1616,7 +1616,7 @@ export interface CardGridBlock {
     links?:
       | {
           link: {
-            type?: ('reference' | 'custom') | null;
+            type: 'reference' | 'custom';
             newTab?: boolean | null;
             reference?:
               | ({

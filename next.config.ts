@@ -48,7 +48,7 @@ const nextConfig = {
   },
   serverExternalPackages: ['dataloader', 'graphql'],
   staticPageGenerationTimeout: 120,
-  productionBrowserSourceMaps: false,
+  productionBrowserSourceMaps: true,
   async headers() {
     return [
       {

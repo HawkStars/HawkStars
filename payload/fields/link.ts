@@ -39,8 +39,8 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
               layout: 'horizontal',
               width: '50%',
             },
-
             defaultValue: 'reference',
+            required: true,
             options: [
               {
                 label: 'Internal link',
@@ -55,6 +55,8 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
           {
             name: 'newTab',
             type: 'checkbox',
+            required: false,
+            defaultValue: false,
             admin: {
               style: {
                 alignSelf: 'flex-end',

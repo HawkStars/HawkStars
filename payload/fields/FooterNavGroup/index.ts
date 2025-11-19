@@ -17,6 +17,8 @@ export const FooterNavGroup: GroupField = {
       fields: [link()],
       maxRows: 6,
       minRows: 1,
+      required: true,
+      localized: false,
     },
   ],
 };
