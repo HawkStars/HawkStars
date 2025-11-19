@@ -9,6 +9,7 @@ export const Header: GlobalConfig = {
   },
   fields: [
     {
+      required: true,
       name: 'columns',
       label: 'Header Navigation Columns',
       admin: {
