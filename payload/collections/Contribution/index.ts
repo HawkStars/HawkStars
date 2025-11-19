@@ -8,7 +8,7 @@ const validateContributionAccess = (args: AccessArgs<User>) => authenticated(arg
 export const ContributionCollection: CollectionConfig = {
   slug: 'contributions',
   access: {
-    read: authenticated,
+    read: () => true,
     create: validateContributionAccess,
     update: validateContributionAccess,
     admin: validateContributionAccess,
