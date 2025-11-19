@@ -1,5 +1,3 @@
-import { Config } from '@/payload-types';
-
 const fallbackLng = 'pt';
 const languages = [fallbackLng, 'en'] as const;
 const defaultNS = 'common' as const;

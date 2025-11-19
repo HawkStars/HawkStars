@@ -3,6 +3,9 @@ import { Tab } from 'payload';
 const HawkEventFields: Tab = {
   label: 'Details',
   description: 'Information about the Hawk Event',
+  admin: {
+    description: 'Configure the details for the Hawk Event here',
+  },
   fields: [
     { name: 'title', label: 'Title', type: 'text', required: true, localized: true },
     {

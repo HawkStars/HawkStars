@@ -376,6 +376,8 @@ export interface Contribution {
   createdAt: string;
 }
 /**
+ * Collection for managing Hawk Events
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "hawk_events".
  */
@@ -429,6 +431,8 @@ export interface Partner {
     [k: string]: unknown;
   } | null;
   logo?: (string | null) | Media;
+  country: string;
+  type: 'national' | 'international';
   /**
    * Social Media Links for this entry
    */
@@ -845,6 +849,8 @@ export interface PartnersSelect<T extends boolean = true> {
   name?: T;
   description?: T;
   logo?: T;
+  country?: T;
+  type?: T;
   links?:
     | T
     | {

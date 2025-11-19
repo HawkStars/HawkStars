@@ -47,12 +47,12 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
   const columnLinks = data.links || [];
   if (columnLinks.length === 0) return null;
 
-  const title = data.title || '';
+  const title = data.title || 'Menu';
 
   return (
     <div className='cursor-pointer px-1'>
       <div className='mb-2 flex gap-3' onClick={() => setShowOptions(!showOptions)}>
-        <h6>{title}</h6>
+        <h6 className='font-medium text-black'>{title}</h6>
       </div>
 
       <div
@@ -63,7 +63,6 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
       >
         <ul className='flex flex-col gap-2'>
           {columnLinks.map((item) => {
-            console.log(item);
             const link = item.link;
             let href = '#';
 
@@ -71,10 +70,11 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
               href = link.url;
             } else if (link.type === 'reference') {
               const relationTo = link.reference?.relationTo;
-              href = link.url as string;
-              // relationTo === 'pages'
-              //   ? `/${link.reference?.value}`
-              //   : `/events/${link.reference?.value}`;
+
+              href =
+                relationTo === 'pages'
+                  ? `/${(link.reference?.value as Page).slug}`
+                  : `/events/${(link.reference?.value as HawkEvent).slug}`;
             }
 
             return (
@@ -83,17 +83,14 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
                   <Link
                     href={href}
                     target={link.newTab ? '_blank' : '_self'}
-                    className={classNames(
-                      'text-terciary-300 hover:text-terciary-100',
-                      'transition-colors duration-200'
-                    )}
+                    className='text-gray-500 transition-colors duration-200 hover:text-gray-600'
                   >
                     {link.label}
                   </Link>
                 ) : (
                   <a
                     type='button'
-                    className='text-terciary-300 hover:text-terciary-100 p-0 transition-colors duration-200'
+                    className='text-gray-500 transition-colors duration-200 hover:text-gray-600'
                     target={link.newTab ? '_blank' : '_self'}
                     href={href}
                   >
@@ -104,7 +101,6 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
             );
           })}
         </ul>
-        ;
       </div>
     </div>
   );

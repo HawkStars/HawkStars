@@ -16,7 +16,7 @@ type HawkStarsDatePickerProps = {
   minDate?: Date;
 };
 
-function HawkStarsDatePicker({ date, onChange, labelText, minDate }: HawkStarsDatePickerProps) {
+function HawkStarsDatePicker({ date, onChange, labelText }: HawkStarsDatePickerProps) {
   const datePickerRef = useRef(null);
   const [startDate, setStartDate] = useState<Date>(date ?? new Date());
 

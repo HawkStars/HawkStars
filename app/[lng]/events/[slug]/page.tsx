@@ -2,7 +2,6 @@ import { HawkStarsSection } from '@/components/layout';
 
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
-import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
@@ -10,15 +9,15 @@ import { getSingleEventsQuery } from '@/lib/payload/queries/event';
 import Image from 'next/image';
 import { Media } from '@/payload-types';
 
-const getEventInformation = async (slug: string, locale: Language) => {
-  const response = await getSingleEventsQuery(slug, locale);
+const getEventInformation = async (slug: string) => {
+  const response = await getSingleEventsQuery(slug);
   return response;
 };
 
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng, slug } = params;
-  const event = await getEventInformation(slug, lng);
+  const event = await getEventInformation(slug);
 
   const metadataPage = getMetadataPageInfo(lng as Language, 'home');
   return metadataPage;
@@ -31,7 +30,7 @@ const EventPage = async (props: EventPageProps) => {
   const { lng, slug } = params;
   if (!slug) return notFound();
 
-  const event = await getEventInformation(slug, lng);
+  const event = await getEventInformation(slug);
   if (!event) notFound();
 
   return (

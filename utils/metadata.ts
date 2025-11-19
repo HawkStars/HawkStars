@@ -30,8 +30,8 @@ const getMetadataPageInfo = (lng: Language, page: HawkStarsPaths): Metadata => {
   }
   const JSONFile = readMetadataLanguageFile(lng);
   try {
-    let metadataPageInfo = JSONFile[page];
-    let url = urls[page] || urls[defaultPath];
+    const metadataPageInfo = JSONFile[page];
+    const url = urls[page] || urls[defaultPath];
     return transformToMetadataObject(metadataPageInfo, lng, url);
   } catch (err) {
     console.error(err, lng, page);
@@ -43,7 +43,11 @@ const getMetadataPageInfo = (lng: Language, page: HawkStarsPaths): Metadata => {
   }
 };
 
-const transformToMetadataObject = (info: any, lng: Language, url: string): Metadata => {
+const transformToMetadataObject = (
+  info: { title: string; description: string; keywords: string[] },
+  lng: Language,
+  url: string
+): Metadata => {
   const { title, description, keywords } = info || { title: '', description: '', keyords: '' };
   if (title == '' || description == '')
     Sentry.captureMessage(`${url} is missing metadata`, { extra: { url, lng } });

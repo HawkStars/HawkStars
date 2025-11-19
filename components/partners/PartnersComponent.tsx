@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { SocialIcon, SocialType } from '../../utils/models/social';
-import { CURRENT_PARTNERS, PartnersInfo } from '../../app/[lng]/partners/config';
 import { getServerTranslation } from '../../i18n';
 import { LanguageProps } from '../types';
 
@@ -10,14 +9,17 @@ import partnersHero from '@/public/images/partners/hero.jpg';
 import { HawkStarsSection } from '../layout';
 
 import type { JSX } from 'react';
+import { Media, Partner } from '@/payload-types';
+import RichText from '@/payload/components/RichText';
 
-const PartnersComponent = async ({ lng }: LanguageProps) => {
+type PartnersComponentProps = LanguageProps & {
+  partners: Partner[];
+};
+
+const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
   const { t } = await getServerTranslation(lng, 'partners');
-  const nationalPartners = CURRENT_PARTNERS.filter((partner) => partner.type == 'national');
-
-  const internationalPartners = CURRENT_PARTNERS.filter(
-    (partner) => partner.type == 'international'
-  );
+  const nationalPartners = partners.filter((partner) => partner.type == 'national');
+  const internationalPartners = partners.filter((partner) => partner.type == 'international');
 
   return (
     <section>
@@ -30,38 +32,29 @@ const PartnersComponent = async ({ lng }: LanguageProps) => {
         />
       </div>
       <HawkStarsSection>
-        <div className='mt-10'>
-          <h2 className='mb-5 text-center'>{t('national')}</h2>
-          {nationalPartners.map((partner, index) => (
-            <PartnerCard {...partner} key={index} description={t(partner.description)} />
-          ))}
-        </div>
-        <div className='mt-10'>
-          <h2 className='mb-5 text-center'>{t('internacional')}</h2>
-          {internationalPartners.map((partner, index) => (
-            <PartnerCard {...partner} key={index} />
-          ))}
-        </div>
+        {nationalPartners.length > 0 && (
+          <div className='mt-10'>
+            <h2 className='mb-5 text-center'>{t('national')}</h2>
+            {nationalPartners.map((partner, index) => (
+              <PartnerCard {...partner} key={index} name={t(partner.name)} />
+            ))}
+          </div>
+        )}
+        {internationalPartners.length > 0 && (
+          <div className='mt-10'>
+            <h2 className='mb-5 text-center'>{t('internacional')}</h2>
+            {internationalPartners.map((partner, index) => (
+              <PartnerCard {...partner} key={index} />
+            ))}
+          </div>
+        )}
       </HawkStarsSection>
     </section>
   );
 };
 
-const PartnerCard = ({
-  title,
-  image,
-  description,
-  contacts,
-  country = undefined,
-}: PartnersInfo): JSX.Element => {
-  const renderers = {
-    p: (props: { children: React.ReactNode }) => (
-      <p className='my-2 wrap-break-word'>{props.children}</p>
-    ),
-    h1: (props: { children: React.ReactNode }) => (
-      <h1 className='text-primary-500'>{props.children}</h1>
-    ),
-  };
+const PartnerCard = (partner: Partner): JSX.Element => {
+  const { name, description, logo, country, links } = partner;
 
   return (
     <div className='my-20 flex flex-col gap-5'>
@@ -70,29 +63,34 @@ const PartnerCard = ({
         <h6 className='border-green text-green w-fit rounded-xl border-2 p-1'>{country}</h6>
       )}
       {/* Title */}
-      <h3 className=''>{title}</h3>
+      <h3 className=''>{name}</h3>
 
       {/* Image */}
       <div className='relative h-36 max-w-xs'>
-        <Image src={image} alt={`${title} logo`} fill style={{ objectFit: 'contain' }} />
+        <Image
+          src={(logo as Media).url as string}
+          alt={`${name} logo`}
+          fill
+          style={{ objectFit: 'contain' }}
+        />
       </div>
 
       {/* Description */}
-      <div>{description}</div>
+      {description && <RichText data={description} />}
 
       {/* Contacts */}
-      {contacts && contacts.length > 0 && (
+      {links && links.length > 0 && (
         <div className='flex gap-2'>
           <>
             <p className='bold'>Contacts:</p>
-            {contacts.map((contact, index) => {
-              const icon = contact && SocialIcon[contact.type as SocialType];
+            {links.map((link, index) => {
+              const icon = link && SocialIcon[link.platform as SocialType];
 
               return (
                 <div key={index}>
-                  <Link href={contact.url} className='underline' target='_blank'>
+                  <Link href={link.url} className='underline' target='_blank'>
                     {icon && (
-                      <Image src={icon} alt={`${contact.type} icon`} width={24} height={24} />
+                      <Image src={icon} alt={`${link.platform} icon`} width={24} height={24} />
                     )}
                   </Link>
                 </div>

@@ -23,6 +23,17 @@ export const Partner: CollectionConfig = {
     { type: 'text', name: 'name', label: 'Name of the partner', required: true },
     { type: 'richText', name: 'description', label: 'Description' },
     { type: 'upload', name: 'logo', label: 'Logo', relationTo: 'media' },
+    { type: 'text', name: 'country', label: 'Country', required: true },
+    {
+      type: 'radio',
+      name: 'type',
+      label: 'Partner Type',
+      required: true,
+      options: [
+        { label: 'National', value: 'national' },
+        { label: 'International', value: 'international' },
+      ],
+    },
     { ...SocialLinksField },
   ],
 };

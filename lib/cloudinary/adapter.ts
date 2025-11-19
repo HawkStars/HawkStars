@@ -10,13 +10,7 @@ export const cloudinaryClient = cloudinary.config({
 
 export const cloudinaryAdapter = () => ({
   name: 'cloudinary-adapter',
-  async handleUpload({
-    file,
-    collection,
-    data,
-    req,
-    clientUploadContext,
-  }: Parameters<HandleUpload>[0]) {
+  async handleUpload({ file }: Parameters<HandleUpload>[0]) {
     try {
       // createing a function that will upload your file in cloudinary
       // Uploading the file to Cloudinary using upload_stream.

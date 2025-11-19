@@ -9,6 +9,14 @@ export const HawkEvent: CollectionConfig = {
     singular: 'Hawk Event',
     plural: 'Hawk Events',
   },
+  admin: {
+    defaultColumns: ['title', 'type_event', 'slug'],
+    useAsTitle: 'title',
+    description: 'Collection for managing Hawk Events',
+  },
+  defaultPopulate: {
+    slug: true,
+  },
   access: {
     admin: authenticated,
     read: anyone,
