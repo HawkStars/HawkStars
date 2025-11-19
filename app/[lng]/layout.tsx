@@ -13,6 +13,8 @@ import AppProvider from '@/utils/contexts/AppProvider';
 import { LanguagePageProps } from './types';
 import { Language, fallbackLng, languages } from '@/i18n/settings';
 import { getFooterQuery, getHeaderQuery } from '@/lib/payload/queries/navbar';
+import MobileNavbar from '@/components/navbar/MobileNavbar';
+import Navbar from '@/components/navbar/Navbar';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -45,8 +47,8 @@ export default async function RootLayout(props: {
         footerInfo={footerInfo}
       >
         <body>
-          {/* <MobileNavbar />
-          <Navbar /> */}
+          <MobileNavbar />
+          <Navbar />
           <main className='bg-body min-h-screen'>{children}</main>
           <Footer />
         </body>

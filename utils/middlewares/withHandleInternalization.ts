@@ -37,6 +37,7 @@ const withHandleInternalization = async (request: NextRequest): Promise<NextResp
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
+  debugger;
   if (pathnameHasLocale) return response;
   // Redirect if there is no locale
   return getLocale(request);

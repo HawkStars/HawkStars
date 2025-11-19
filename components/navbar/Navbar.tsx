@@ -15,8 +15,6 @@ const Navbar = () => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
 
-  debugger;
-
   // const selectedMenuOptions = useMemo(() => {
   //   const menu = MenuSections.find(
   //     (section) => section.type === 'dropdown' && section.title === hoveredMenu

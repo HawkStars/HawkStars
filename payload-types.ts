@@ -956,41 +956,43 @@ export interface Header {
   /**
    * Configure the navigation columns for the header. topbar menus
    */
-  columns?:
-    | {
-        data: {
-          /**
-           * Unique key for the navigation group to be used on the dropdown menu
-           */
-          key: string;
-          links?:
-            | {
-                link: {
-                  type: 'reference' | 'custom';
-                  newTab?: boolean | null;
-                  reference?:
-                    | ({
-                        relationTo: 'pages';
-                        value: string | Page;
-                      } | null)
-                    | ({
-                        relationTo: 'hawk_events';
-                        value: string | HawkEvent;
-                      } | null);
-                  url?: string | null;
-                  label: string;
-                  /**
-                   * Choose how the link should be rendered.
-                   */
-                  appearance?: ('default' | 'outline') | null;
-                };
-                id?: string | null;
-              }[]
-            | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
+  columns: {
+    data: {
+      /**
+       * Unique key for the navigation group to be used on the dropdown menu
+       */
+      key: string;
+      /**
+       * The title of the navigation group to be used on the dropdown menu. Use it when you want to have the dropdown
+       */
+      title?: string | null;
+      links?:
+        | {
+            link: {
+              type: 'reference' | 'custom';
+              newTab?: boolean | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: string | Page;
+                  } | null)
+                | ({
+                    relationTo: 'hawk_events';
+                    value: string | HawkEvent;
+                  } | null);
+              url?: string | null;
+              label: string;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: ('default' | 'outline') | null;
+            };
+            id?: string | null;
+          }[]
+        | null;
+    };
+    id?: string | null;
+  }[];
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1085,6 +1087,7 @@ export interface HeaderSelect<T extends boolean = true> {
           | T
           | {
               key?: T;
+              title?: T;
               links?:
                 | T
                 | {

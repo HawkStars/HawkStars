@@ -5,8 +5,15 @@ const getHeaderQuery = async () => {
   return await payload.findGlobal({
     slug: 'header',
     draft: false,
-
-    depth: 2,
+    depth: 3,
+    populate: {
+      pages: {
+        slug: true,
+      },
+      hawk_events: {
+        slug: true,
+      },
+    },
   });
 };
 

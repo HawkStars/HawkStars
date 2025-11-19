@@ -20,7 +20,7 @@ import Button from '@/components/utils/Button';
 import { useTranslation } from '@/i18n/client';
 
 const MobileNavbar = () => {
-  const { mobileNavbarOpen } = useMainAppContext();
+  const { mobileNavbarOpen, headerInfo } = useMainAppContext();
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
   const setMobileMenuOpen = useSetMobileNavbarOpen();
@@ -51,16 +51,11 @@ const MobileNavbar = () => {
         <Socials />
 
         <div className='mt-5 grid grid-cols-1 gap-4'>
-          {/* {MenuSections.map((section) => {
-            if (section.type === 'dropdown') {
-              const { title, options } = section;
-              return (
-                <div key={title} className='flex flex-col gap-3'>
-                  <MobileMenuItem title={title} options={options} />
-                </div>
-              );
-            }
-          })} */}
+          {headerInfo?.columns.map((column, index) => {
+            const headerData = column.data;
+
+            return <MobileMenuItem data={headerData} key={`${column.id}-${index}`} />;
+          })}
         </div>
 
         <div className='flex flex-col'>
