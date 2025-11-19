@@ -6,7 +6,9 @@ const EVENTS_COLLECTION = 'hawk_events';
 
 export const getSingleEventsQuery = async (slug: string): Promise<HawkEvent> => {
   const payload = await getPayloadConfig();
-  const event = await payload.findByID({ collection: EVENTS_COLLECTION, id: slug });
+  const event = await payload
+    .find({ collection: EVENTS_COLLECTION, where: { slug: { equals: slug } }, limit: 1 })
+    .then((res) => res.docs[0]);
   return event;
 };
 
