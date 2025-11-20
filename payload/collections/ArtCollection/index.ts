@@ -1,4 +1,4 @@
-import { CollectionConfig, Tab } from 'payload';
+import { CollectionConfig } from 'payload';
 import { authenticated } from '../../access/authenticated';
 import { anyone } from '../../access/anyone';
 import ArtCollectionDetails from './ArtCollectionDetails';

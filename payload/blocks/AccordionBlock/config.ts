@@ -21,7 +21,7 @@ export const AccordionBlock: Block = {
           name: 'title',
           type: 'text',
           required: true,
-          localized: true,
+          localized: false,
         },
         {
           name: 'content',
@@ -37,7 +37,7 @@ export const AccordionBlock: Block = {
             },
           }),
           required: true,
-          localized: true,
+          localized: false,
         },
         {
           name: 'defaultOpen',

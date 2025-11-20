@@ -8,7 +8,7 @@ export const ImpactBlock: Block = {
       name: 'title',
       type: 'text',
       required: true,
-      localized: true,
+      localized: false,
       admin: {
         description: 'Main title for the impact section',
       },
@@ -16,7 +16,7 @@ export const ImpactBlock: Block = {
     {
       name: 'subtitle',
       type: 'text',
-      localized: true,
+      localized: false,
       admin: {
         description: 'Optional subtitle or description',
       },
@@ -31,7 +31,7 @@ export const ImpactBlock: Block = {
           name: 'label',
           type: 'text',
           required: true,
-          localized: true,
+          localized: false,
           admin: {
             description: 'Description of what this number represents',
           },

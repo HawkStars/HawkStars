@@ -29,6 +29,7 @@ const fetchPayloadInformation: (
 
     return { success: true, data };
   } catch (error) {
+    console.error('Error fetching payload information:', error);
     return { success: false };
   }
 };

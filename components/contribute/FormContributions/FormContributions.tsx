@@ -51,7 +51,7 @@ const FormContributions = ({
   const {
     handleSubmit,
     control,
-    formState: { isDirty, isValid, errors },
+    formState: { errors },
     setValue,
     watch,
   } = useForm<ContributionFormInput>({

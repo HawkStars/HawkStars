@@ -2,9 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import LanguageSwitcher from '@/components/utils/LanguageSwitcher';
-import { FC, Suspense, useState } from 'react';
-import MenuItem from '@/components/menu/MenuItem';
-import DropdownMenu from '@/components/menu/DropdownMenu';
+import { FC, Suspense } from 'react';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { urls } from '@/utils/paths';

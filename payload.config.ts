@@ -83,7 +83,7 @@ export default buildConfig({
   ],
   globals: [Header, Footer, MainPage],
   editor: lexicalEditor({
-    features: ({ defaultFeatures, rootFeatures }) => [
+    features: ({ defaultFeatures }) => [
       ...defaultFeatures,
       BlocksFeature({
         blocks: [

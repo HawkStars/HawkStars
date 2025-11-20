@@ -15,6 +15,7 @@ import {
   ArrowRight,
   type LucideIcon,
 } from 'lucide-react';
+import type { CardGridBlock as CardGridBlockProps, HawkEvent, Media, Page } from '@/payload-types';
 
 // Icon mapping
 const iconMap: Record<string, LucideIcon> = {
@@ -29,33 +30,52 @@ const iconMap: Record<string, LucideIcon> = {
   ArrowRight,
 };
 
-// Temporary types until we regenerate payload-types
-interface CardGridCard {
+type Card = {
   title: string;
-  description?: any;
-  image?: string | any;
-  icon?: string;
-  color?: 'blue' | 'green' | 'red' | 'yellow' | 'purple' | 'gray';
-  links?: Array<{
-    link: {
-      type?: 'reference' | 'custom';
-      newTab?: boolean;
-      reference?: any;
-      url?: string;
-      label?: string;
-    };
-    appearance?: 'default' | 'outline';
-  }>;
-}
-
-interface CardGridBlockProps {
-  title?: string;
-  subtitle?: string;
-  cards: CardGridCard[];
-  layout?: 'cols-1' | 'cols-2' | 'cols-3' | 'cols-4';
-  cardStyle?: 'standard' | 'hover' | 'minimal' | 'bordered';
-  textAlign?: 'left' | 'center' | 'right';
-}
+  description?:
+    | {
+        [k: string]: unknown;
+        root: {
+          type: string;
+          children: {
+            [k: string]: unknown;
+            type: any;
+            version: number;
+          }[];
+          direction: 'ltr' | 'rtl' | null;
+          format: '' | 'left' | 'center' | 'right' | 'start' | 'end' | 'justify';
+          indent: number;
+          version: number;
+        };
+      }
+    | null
+    | undefined;
+  image?: string | Media | null | undefined;
+  icon?: string | null;
+  color?: ('blue' | 'green' | 'red' | 'yellow' | 'purple' | 'gray') | null;
+  links?:
+    | {
+        link: {
+          type: 'reference' | 'custom';
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'hawk_events';
+                value: string | HawkEvent;
+              } | null);
+          url?: string | null;
+          label: string;
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+};
 
 export const CardGridBlock: React.FC<CardGridBlockProps> = ({
   title,
@@ -76,7 +96,9 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
     left: 'text-left',
     center: 'text-center',
     right: 'text-right',
-  };
+  } as const;
+
+  type TextAlign = keyof typeof textAlignClasses;
 
   const colorClasses = {
     blue: {
@@ -109,7 +131,9 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
       accent: 'text-gray-600',
       hover: 'hover:border-gray-300',
     },
-  };
+  } as const;
+
+  type ColorClass = keyof typeof colorClasses;
 
   const cardStyleClasses = {
     standard: 'bg-white rounded-lg shadow-md border border-gray-200',
@@ -119,7 +143,7 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
     bordered: 'bg-white rounded-lg border-2 border-gray-200',
   };
 
-  const renderCardLink = (card: CardGridCard) => {
+  const renderCardLink = (card: Card) => {
     const link = card.links?.[0]?.link;
     if (!link) return null;
 
@@ -132,9 +156,9 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
         target={link.newTab ? '_blank' : undefined}
         className={classNames(
           'mt-4 inline-flex items-center gap-2 rounded-md px-4 py-2 font-medium transition-colors',
-          card.links?.[0]?.appearance === 'outline'
-            ? `border-2 ${colorClasses[card.color || 'blue'].hover} ${colorClasses[card.color || 'blue'].accent} hover:bg-opacity-10`
-            : `bg-opacity-10 ${colorClasses[card.color || 'blue'].accent} hover:bg-opacity-20`
+          link.appearance === 'outline'
+            ? `border-2 ${colorClasses[(card.color as ColorClass) || 'blue'].hover} ${colorClasses[(card.color as ColorClass) || 'blue'].accent} hover:bg-opacity-10`
+            : `bg-opacity-10 ${colorClasses[(card.color as ColorClass) || 'blue'].accent} hover:bg-opacity-20`
         )}
       >
         {label}
@@ -152,7 +176,7 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
       <div className='mx-auto max-w-7xl px-4'>
         {/* Header */}
         {(title || subtitle) && (
-          <div className={classNames('mb-12', textAlignClasses[textAlign])}>
+          <div className={classNames('mb-12', textAlign && textAlignClasses[textAlign])}>
             {title && (
               <h2 className='mb-4 text-3xl font-bold text-gray-900 lg:text-4xl'>{title}</h2>
             )}
@@ -161,7 +185,7 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
         )}
 
         {/* Cards Grid */}
-        <div className={classNames('grid gap-6 lg:gap-8', layoutClasses[layout])}>
+        <div className={classNames('grid gap-6 lg:gap-8', layout && layoutClasses[layout])}>
           {cards.map((card, index) => {
             const IconComponent = card.icon ? iconMap[card.icon] : null;
             const cardColors = colorClasses[card.color || 'blue'];
@@ -171,7 +195,7 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
                 key={index}
                 className={classNames(
                   'p-6',
-                  cardStyleClasses[cardStyle],
+                  cardStyle && cardStyleClasses[cardStyle],
                   cardStyle === 'hover' && cardColors.hover
                 )}
               >
@@ -204,7 +228,7 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
                 </div>
 
                 {/* Content */}
-                <div className={textAlignClasses[textAlign]}>
+                <div className={textAlignClasses[textAlign as TextAlign]}>
                   <h3
                     className={classNames(
                       'mb-3 text-xl font-semibold text-gray-900',

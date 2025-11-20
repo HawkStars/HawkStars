@@ -7,7 +7,7 @@ export const TestimonialBlock: Block = {
     {
       name: 'title',
       type: 'text',
-      localized: true,
+      localized: false,
       admin: {
         description: 'Optional title for the testimonial section',
       },
@@ -15,7 +15,7 @@ export const TestimonialBlock: Block = {
     {
       name: 'subtitle',
       type: 'text',
-      localized: true,
+      localized: false,
       admin: {
         description: 'Optional subtitle or description',
       },
@@ -30,7 +30,7 @@ export const TestimonialBlock: Block = {
           name: 'quote',
           type: 'textarea',
           required: true,
-          localized: true,
+          localized: false,
           admin: {
             description: 'The testimonial quote or review',
           },

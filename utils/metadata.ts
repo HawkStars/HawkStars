@@ -19,6 +19,7 @@ const readMetadataLanguageFile = (lng: Language) => {
 
     return JSON.parse(file);
   } catch (err) {
+    console.error('Error reading metadata file for language:', lng, err);
     return undefined;
   }
 };

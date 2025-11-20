@@ -42,7 +42,7 @@ export const cloudinaryAdapter = () => ({
     }
   },
 
-  async handleDelete({ collection, doc, filename, req }: Parameters<HandleDelete>[0]) {
+  async handleDelete({ filename }: Parameters<HandleDelete>[0]) {
     // if filename is present then we will look for that file
     try {
       // We remove the file extension from the filename and then target the file

@@ -1,6 +1,5 @@
 import type { CollectionConfig } from 'payload';
 import { anyone } from '../access/anyone';
-import { authenticated } from '../access/authenticated';
 import { SocialLinksField } from '../fields/SocialLink';
 import { authenticatedEditor } from '../access/authenticatedEditor';
 import { authenticatedAdmin } from '../access/authenticatedAdmin';

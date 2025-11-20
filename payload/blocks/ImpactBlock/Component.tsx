@@ -17,6 +17,7 @@ import {
   Zap,
   type LucideIcon,
 } from 'lucide-react';
+import type { ImpactBlock as ImpactBlockProps } from '@/payload-types'; // Animated counter hook
 
 // Icon mapping for common impact icons
 const iconMap: Record<string, LucideIcon> = {
@@ -34,27 +35,6 @@ const iconMap: Record<string, LucideIcon> = {
   Zap,
 };
 
-// Temporary types until we regenerate payload-types
-interface ImpactMetric {
-  label: string;
-  value: number;
-  suffix?: string;
-  prefix?: string;
-  icon?: string;
-  color?: 'blue' | 'green' | 'red' | 'yellow' | 'purple' | 'gray';
-  animateOnScroll?: boolean;
-}
-
-interface ImpactBlockProps {
-  title: string;
-  subtitle?: string;
-  metrics: ImpactMetric[];
-  layout?: 'grid-2' | 'grid-3' | 'grid-4' | 'row';
-  background?: 'none' | 'light-gray' | 'dark' | 'gradient';
-  textAlign?: 'left' | 'center' | 'right';
-}
-
-// Animated counter hook
 const useAnimatedCounter = (
   targetValue: number,
   duration: number = 2000,
@@ -90,7 +70,7 @@ const useAnimatedCounter = (
 };
 
 // Individual metric component
-const MetricCard: React.FC<{ metric: ImpactMetric; inView: boolean }> = ({ metric, inView }) => {
+const MetricCard: React.FC<{ metric: any; inView: boolean }> = ({ metric, inView }) => {
   const animatedValue = useAnimatedCounter(metric.value, 2000, inView && metric.animateOnScroll);
   const displayValue = metric.animateOnScroll ? animatedValue : metric.value;
 
@@ -101,7 +81,9 @@ const MetricCard: React.FC<{ metric: ImpactMetric; inView: boolean }> = ({ metri
     yellow: 'text-yellow-600 bg-yellow-50 border-yellow-200',
     purple: 'text-purple-600 bg-purple-50 border-purple-200',
     gray: 'text-gray-600 bg-gray-50 border-gray-200',
-  };
+  } as const;
+
+  type ColorClass = keyof typeof colorClasses;
 
   const IconComponent = metric.icon ? iconMap[metric.icon] : null;
 
@@ -111,7 +93,7 @@ const MetricCard: React.FC<{ metric: ImpactMetric; inView: boolean }> = ({ metri
         <div
           className={classNames(
             'mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full border-2',
-            colorClasses[metric.color || 'blue']
+            colorClasses[(metric.color as ColorClass) || 'blue']
           )}
         >
           <IconComponent className='h-6 w-6' />
@@ -185,11 +167,11 @@ export const ImpactBlock: React.FC<ImpactBlockProps> = ({
   return (
     <section
       ref={sectionRef}
-      className={classNames('py-12 lg:py-20', backgroundClasses[background])}
+      className={classNames('py-12 lg:py-20', background && backgroundClasses[background])}
     >
       <div className='mx-auto max-w-7xl px-4'>
         {/* Header */}
-        <div className={classNames('mb-12', textAlignClasses[textAlign])}>
+        <div className={classNames('mb-12', textAlign && textAlignClasses[textAlign])}>
           <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
           {subtitle && (
             <p
@@ -206,7 +188,7 @@ export const ImpactBlock: React.FC<ImpactBlockProps> = ({
         </div>
 
         {/* Metrics Grid */}
-        <div className={classNames('grid gap-6 lg:gap-8', layoutClasses[layout])}>
+        <div className={classNames('grid gap-6 lg:gap-8', layout && layoutClasses[layout])}>
           {metrics.map((metric, index) => (
             <MetricCard key={index} metric={metric} inView={inView} />
           ))}

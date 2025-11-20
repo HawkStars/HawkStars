@@ -4,19 +4,7 @@ import React, { useState } from 'react';
 import RichText from '@/payload/components/RichText';
 import classNames from 'classnames';
 import { ChevronDownIcon } from 'lucide-react';
-
-// Temporary types until we regenerate payload-types
-interface AccordionItem {
-  title: string;
-  content: any;
-  defaultOpen?: boolean;
-}
-
-interface AccordionBlockProps {
-  items?: AccordionItem[];
-  allowMultipleOpen?: boolean;
-  style?: 'default' | 'bordered' | 'card';
-}
+import type { AccordionBlock as AccordionBlockProps } from '@/payload-types';
 
 export const AccordionBlock: React.FC<AccordionBlockProps> = ({
   items,
@@ -26,7 +14,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
   const [openItems, setOpenItems] = useState<Set<number>>(
     new Set(
       items
-        ?.map((item: AccordionItem, index: number) => (item.defaultOpen ? index : -1))
+        ?.map((item, index: number) => (item.defaultOpen ? index : -1))
         .filter((i: number) => i >= 0) || []
     )
   );
@@ -70,7 +58,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
     <div className='py-8'>
       <div className='mx-auto max-w-4xl px-4'>
         <div className={containerClasses[style as keyof typeof containerClasses]}>
-          {items.map((item: AccordionItem, index: number) => {
+          {items.map((item, index: number) => {
             const isOpen = openItems.has(index);
 
             return (

@@ -4,42 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import classNames from 'classnames';
 import { CalendarIcon, UsersIcon, LinkIcon, TagIcon } from 'lucide-react';
-
-// Temporary types until we regenerate payload-types
-interface ProjectTeamMember {
-  member?: any;
-  role?: string;
-}
-
-interface ProjectLink {
-  label: string;
-  url: string;
-  type?: 'website' | 'docs' | 'repo' | 'other';
-}
-
-interface ProjectTag {
-  tag: string;
-}
-
-interface ProjectBudget {
-  total?: number;
-  raised?: number;
-  currency?: string;
-}
-
-interface ProjectBlockProps {
-  title: string;
-  description?: any;
-  image?: string | any;
-  status: 'planning' | 'in-progress' | 'completed' | 'on-hold';
-  progress?: number;
-  startDate?: string;
-  endDate?: string;
-  budget?: ProjectBudget;
-  tags?: ProjectTag[];
-  team?: ProjectTeamMember[];
-  links?: ProjectLink[];
-}
+import type { BoardMember, ProjectBlock as ProjectBlockProps } from '@/payload-types';
 
 export const ProjectBlock: React.FC<ProjectBlockProps> = ({
   title,
@@ -210,7 +175,9 @@ export const ProjectBlock: React.FC<ProjectBlockProps> = ({
                     <div className='space-y-2'>
                       {team.map((member, index) => (
                         <div key={index} className='text-sm'>
-                          <div className='font-medium'>{member.member?.name || 'Team Member'}</div>
+                          <div className='font-medium'>
+                            {(member.member as BoardMember)?.name || 'Team Member'}
+                          </div>
                           {member.role && <div className='text-gray-600'>{member.role}</div>}
                         </div>
                       ))}

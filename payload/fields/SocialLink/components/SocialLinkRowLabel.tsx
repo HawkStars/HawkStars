@@ -3,7 +3,7 @@
 import { useRowLabel } from '@payloadcms/ui';
 
 export const SocialLinkRowLabel = () => {
-  const { data, rowNumber } = useRowLabel<{
+  const { data } = useRowLabel<{
     platform?: string;
   }>();
 

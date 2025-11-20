@@ -23,7 +23,7 @@ type EventPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
 const EventPage = async (props: EventPageProps) => {
   const params = await props.params;
-  const { lng, slug } = params;
+  const { slug } = params;
   if (!slug) return notFound();
 
   const event = await getSingleEventsQuery(slug);

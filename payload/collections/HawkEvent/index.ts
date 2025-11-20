@@ -1,4 +1,4 @@
-import type { CollectionConfig, Tab } from 'payload';
+import type { CollectionConfig } from 'payload';
 import { anyone } from '../../access/anyone';
 import { authenticated } from '../../access/authenticated';
 import HawkEventFields from './HawkEventFields';

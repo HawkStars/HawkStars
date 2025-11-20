@@ -25,7 +25,7 @@ export const TextBlock: Block = {
         },
       }),
       required: true,
-      localized: true,
+      localized: false,
     },
     {
       name: 'textAlign',

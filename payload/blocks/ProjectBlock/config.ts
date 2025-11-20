@@ -15,7 +15,7 @@ export const ProjectBlock: Block = {
       name: 'title',
       type: 'text',
       required: true,
-      localized: true,
+      localized: false,
     },
     {
       name: 'description',
@@ -30,7 +30,7 @@ export const ProjectBlock: Block = {
           ];
         },
       }),
-      localized: true,
+      localized: false,
     },
     {
       name: 'image',

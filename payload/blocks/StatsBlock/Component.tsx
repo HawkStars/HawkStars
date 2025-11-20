@@ -19,6 +19,7 @@ import {
   ThumbsUp,
   type LucideIcon,
 } from 'lucide-react';
+import type { StatsBlock as StatsBlockProps } from '@/payload-types';
 
 // Icon mapping for statistics
 const iconMap: Record<string, LucideIcon> = {
@@ -38,28 +39,17 @@ const iconMap: Record<string, LucideIcon> = {
   ThumbsUp,
 };
 
-// Temporary types until we regenerate payload-types
-interface Stat {
+type Stat = {
   value: number;
   label: string;
-  prefix?: string;
-  suffix?: string;
-  description?: string;
-  icon?: string;
-  color?: 'blue' | 'green' | 'red' | 'yellow' | 'purple' | 'orange' | 'gray';
-  highlight?: boolean;
-}
-
-interface StatsBlockProps {
-  title?: string;
-  subtitle?: string;
-  stats: Stat[];
-  layout?: 'cols-2' | 'cols-3' | 'cols-4' | 'row';
-  style?: 'cards' | 'minimal' | 'bordered' | 'circles';
-  animateNumbers?: boolean;
-  backgroundColor?: 'none' | 'light-gray' | 'dark' | 'gradient';
-  textAlign?: 'left' | 'center' | 'right';
-}
+  prefix?: string | null | undefined;
+  suffix?: string | null | undefined;
+  description?: string | null | undefined;
+  icon?: string | null | undefined;
+  color?: 'blue' | 'green' | 'red' | 'yellow' | 'purple' | 'orange' | 'gray' | null | undefined;
+  highlight?: boolean | null | undefined;
+  id?: string | null | undefined;
+};
 
 // Animated counter hook
 const useAnimatedCounter = (
@@ -100,7 +90,7 @@ const useAnimatedCounter = (
 const StatItem: React.FC<{
   stat: Stat;
   inView: boolean;
-  style: string;
+  style: string | null;
   isDark: boolean;
 }> = ({ stat, inView, style, isDark }) => {
   const animatedValue = useAnimatedCounter(stat.value, 2000, inView);
@@ -114,7 +104,7 @@ const StatItem: React.FC<{
     purple: 'text-purple-600 bg-purple-50 border-purple-200',
     orange: 'text-orange-600 bg-orange-50 border-orange-200',
     gray: 'text-gray-600 bg-gray-50 border-gray-200',
-  };
+  } as const;
 
   const darkColorClasses = {
     blue: 'text-blue-400 bg-blue-900/20 border-blue-500/30',
@@ -124,7 +114,9 @@ const StatItem: React.FC<{
     purple: 'text-purple-400 bg-purple-900/20 border-purple-500/30',
     orange: 'text-orange-400 bg-orange-900/20 border-orange-500/30',
     gray: 'text-gray-400 bg-gray-900/20 border-gray-500/30',
-  };
+  } as const;
+
+  type ColorClass = keyof typeof colorClasses;
 
   const currentColorClasses = isDark ? darkColorClasses : colorClasses;
   const IconComponent = stat.icon ? iconMap[stat.icon] : null;
@@ -148,7 +140,7 @@ const StatItem: React.FC<{
         <div
           className={classNames(
             'absolute inset-0 rounded-full opacity-10',
-            currentColorClasses[stat.color || 'blue'].split(' ')[1] // Get background color
+            currentColorClasses[(stat.color as ColorClass) || 'blue'].split(' ')[1] // Get background color
           )}
         />
       )}
@@ -158,7 +150,7 @@ const StatItem: React.FC<{
         <div
           className={classNames(
             'mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full border-2',
-            currentColorClasses[stat.color || 'blue']
+            currentColorClasses[(stat.color as ColorClass) || 'blue']
           )}
         >
           <IconComponent className='h-6 w-6' />
@@ -264,12 +256,15 @@ export const StatsBlock: React.FC<StatsBlockProps> = ({
   return (
     <section
       ref={sectionRef}
-      className={classNames('py-12 lg:py-20', backgroundClasses[backgroundColor])}
+      className={classNames(
+        'py-12 lg:py-20',
+        backgroundColor && backgroundClasses[backgroundColor]
+      )}
     >
       <div className='mx-auto max-w-7xl px-4'>
         {/* Header */}
         {(title || subtitle) && (
-          <div className={classNames('mb-12', textAlignClasses[textAlign])}>
+          <div className={classNames('mb-12', textAlign && textAlignClasses[textAlign])}>
             {title && (
               <h2
                 className={classNames(
@@ -294,7 +289,7 @@ export const StatsBlock: React.FC<StatsBlockProps> = ({
         )}
 
         {/* Stats Grid */}
-        <div className={classNames('grid gap-6 lg:gap-8', layoutClasses[layout])}>
+        <div className={classNames('grid gap-6 lg:gap-8', layout && layoutClasses[layout])}>
           {stats.map((stat, index) => (
             <StatItem key={index} stat={stat} inView={inView} style={style} isDark={isDark} />
           ))}

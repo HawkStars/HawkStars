@@ -1,4 +1,4 @@
-import type { CollectionConfig, Tab } from 'payload';
+import type { CollectionConfig } from 'payload';
 import CuratorFieldsTab from './CuratorFieldsTab';
 import { anyone } from '@/payload/access/anyone';
 import { authenticated } from '@/payload/access/authenticated';

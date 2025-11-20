@@ -16,7 +16,7 @@ export const CardGridBlock: Block = {
     {
       name: 'title',
       type: 'text',
-      localized: true,
+      localized: false,
       admin: {
         description: 'Optional title for the card grid section',
       },
@@ -24,7 +24,7 @@ export const CardGridBlock: Block = {
     {
       name: 'subtitle',
       type: 'text',
-      localized: true,
+      localized: false,
       admin: {
         description: 'Optional subtitle or description',
       },
@@ -39,7 +39,7 @@ export const CardGridBlock: Block = {
           name: 'title',
           type: 'text',
           required: true,
-          localized: true,
+          localized: false,
         },
         {
           name: 'description',
@@ -54,7 +54,7 @@ export const CardGridBlock: Block = {
               ];
             },
           }),
-          localized: true,
+          localized: false,
         },
         {
           name: 'image',

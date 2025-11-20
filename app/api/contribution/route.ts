@@ -16,6 +16,7 @@ export async function POST(request: Request) {
 
     return new Response(JSON.stringify({ success: true, data }), { status: 200 });
   } catch (e: unknown) {
+    console.error('Error creating contribution:', e);
     return new Response('error on the client', { status: 500 });
   }
 }

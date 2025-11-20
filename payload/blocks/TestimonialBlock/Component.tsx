@@ -4,33 +4,25 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import classNames from 'classnames';
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
+import type { Media, TestimonialBlock as TestimonialBlockProps } from '@/payload-types';
 
-// Temporary types until we regenerate payload-types
-interface TestimonialAuthor {
-  name: string;
-  title?: string;
-  company?: string;
-  avatar?: string | any;
-}
-
-interface Testimonial {
+type Testimonial = {
   quote: string;
-  author: TestimonialAuthor;
-  rating?: number;
-  featured?: boolean;
-}
+  author: {
+    name: string;
+    title?: string | null | undefined;
+    company?: string | null | undefined;
+    avatar?: string | Media | null | undefined;
+  };
+  rating?: number | null;
+  featured?: boolean | null;
+  id?: string | null;
+};
 
-interface TestimonialBlockProps {
-  title?: string;
-  subtitle?: string;
-  testimonials: Testimonial[];
-  layout?: 'single' | 'two-cols' | 'three-cols' | 'carousel' | 'masonry';
-  style?: 'card' | 'quote' | 'minimal' | 'bubble';
-  showRatings?: boolean;
-  backgroundColor?: 'none' | 'light-gray' | 'dark' | 'brand';
-}
-
-const StarRating: React.FC<{ rating: number; showRating: boolean }> = ({ rating, showRating }) => {
+const StarRating: React.FC<{ rating: number; showRating: boolean | null }> = ({
+  rating,
+  showRating,
+}) => {
   if (!showRating) return null;
 
   return (
@@ -50,8 +42,8 @@ const StarRating: React.FC<{ rating: number; showRating: boolean }> = ({ rating,
 
 const TestimonialCard: React.FC<{
   testimonial: Testimonial;
-  style: string;
-  showRatings: boolean;
+  style: string | null;
+  showRatings: boolean | null;
   isDark: boolean;
 }> = ({ testimonial, style, showRatings, isDark }) => {
   const { quote, author, rating = 0, featured = false } = testimonial;
@@ -75,7 +67,7 @@ const TestimonialCard: React.FC<{
       {style === 'quote' && <Quote className='mb-4 h-8 w-8 text-blue-500' />}
 
       {/* Rating */}
-      <StarRating rating={rating} showRating={showRatings} />
+      <StarRating rating={rating || 1} showRating={showRatings} />
 
       {/* Quote */}
       <blockquote
@@ -89,7 +81,7 @@ const TestimonialCard: React.FC<{
       {/* Author */}
       <div className='flex items-center gap-3'>
         {author.avatar && (
-          <div className='relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full'>
+          <div className='relative h-10 w-10 shrink-0 overflow-hidden rounded-full'>
             <Image
               src={
                 typeof author.avatar === 'string'
@@ -121,7 +113,7 @@ const TestimonialCard: React.FC<{
         <div
           className={classNames(
             'absolute bottom-0 left-6 translate-y-full transform',
-            'h-0 w-0 border-t-[10px] border-r-[10px] border-l-[10px]',
+            'h-0 w-0 border-t-10 border-r-10 border-l-10',
             'border-r-transparent border-l-transparent',
             isDark ? 'border-t-gray-800' : 'border-t-white'
           )}
@@ -172,7 +164,12 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
   }
 
   return (
-    <section className={classNames('py-12 lg:py-20', backgroundClasses[backgroundColor])}>
+    <section
+      className={classNames(
+        'py-12 lg:py-20',
+        backgroundColor && backgroundClasses[backgroundColor]
+      )}
+    >
       <div className='mx-auto max-w-7xl px-4'>
         {/* Header */}
         {(title || subtitle) && (
@@ -263,7 +260,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
           <div
             className={classNames(
               'grid gap-6 lg:gap-8',
-              layoutClasses[layout],
+              layout && layoutClasses[layout],
               layout === 'masonry' && 'auto-rows-auto'
             )}
           >

@@ -9,6 +9,7 @@ import { ImpactBlock } from '@/payload/blocks/ImpactBlock/Component';
 import { CardGridBlock } from '@/payload/blocks/CardGridBlock/Component';
 import { TestimonialBlock } from '@/payload/blocks/TestimonialBlock/Component';
 import { StatsBlock } from '@/payload/blocks/StatsBlock/Component';
+import { TextBlock } from '@/payload/blocks/TextBlock/Component';
 import {
   DefaultNodeTypes,
   SerializedBlockNode,
@@ -28,40 +29,14 @@ import type {
   HeroBlock as HeroProps,
   ContentWithImageBlock as ContentWithImageProps,
   VideoBlock as VideoBlockProps,
+  StatsBlock as StatsBlockProps,
+  TestimonialBlock as TestimonialBlockProps,
+  TextBlock as TextBlockProps,
+  AccordionBlock as AccordionBlockProps,
+  ProjectBlock as ProjectBlockProps,
+  ImpactBlock as ImpactBlockProps,
+  CardGridBlock as CardGridBlockProps,
 } from '@/payload-types';
-
-// Temporary types for new blocks until we regenerate payload-types
-interface TextBlockProps {
-  content: any;
-  textAlign?: string;
-  maxWidth?: string;
-}
-
-interface AccordionBlockProps {
-  items?: any[];
-  allowMultipleOpen?: boolean;
-  style?: string;
-}
-
-interface ProjectBlockProps {
-  [key: string]: any;
-}
-
-interface ImpactBlockProps {
-  [key: string]: any;
-}
-
-interface CardGridBlockProps {
-  [key: string]: any;
-}
-
-interface TestimonialBlockProps {
-  [key: string]: any;
-}
-
-interface StatsBlockProps {
-  [key: string]: any;
-}
 
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
 import { cn } from '@/payload/utilities/ui';
@@ -75,13 +50,13 @@ type NodeTypes =
       | HeroProps
       | ContentWithImageProps
       | VideoBlockProps
+      | TestimonialBlockProps
+      | StatsBlockProps
       | TextBlockProps
       | AccordionBlockProps
       | ProjectBlockProps
       | ImpactBlockProps
       | CardGridBlockProps
-      | TestimonialBlockProps
-      | StatsBlockProps
     >;
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -112,35 +87,26 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     hero: ({ node }) => <HeroBlock {...node.fields} />,
     contentWithImage: ({ node }) => <ContentWithImageBlock {...node.fields} />,
     videoBlock: ({ node }) => <VideoBlock {...node.fields} />,
-    accordionBlock: ({ node }: { node: any }) => <AccordionBlock {...node.fields} />,
-    projectBlock: ({ node }: { node: any }) => <ProjectBlock {...node.fields} />,
-    impactBlock: ({ node }: { node: any }) => <ImpactBlock {...node.fields} />,
-    cardGridBlock: ({ node }: { node: any }) => <CardGridBlock {...node.fields} />,
-    testimonialBlock: ({ node }: { node: any }) => <TestimonialBlock {...node.fields} />,
-    statsBlock: ({ node }: { node: any }) => <StatsBlock {...node.fields} />,
+    accordionBlock: ({ node }) => <AccordionBlock {...node.fields} />,
+    projectBlock: ({ node }) => <ProjectBlock {...node.fields} />,
+    impactBlock: ({ node }) => <ImpactBlock {...node.fields} />,
+    cardGridBlock: ({ node }) => <CardGridBlock {...node.fields} />,
+    testimonialBlock: ({ node }) => <TestimonialBlock {...node.fields} />,
+    statsBlock: ({ node }) => <StatsBlock {...node.fields} />,
+    textBlock: ({ node }) => <TextBlock {...node.fields} />,
   },
 });
 
 type Props = {
   data: DefaultTypedEditorState;
-  enableGutter?: boolean;
-  enableProse?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export default function RichText(props: Props) {
-  const { className, enableProse = true, enableGutter = true, ...rest } = props;
+  const { className, ...rest } = props;
   return (
     <ConvertRichText
       converters={jsxConverters}
-      className={cn(
-        'payload-richtext',
-        {
-          container: enableGutter,
-          'max-w-none': !enableGutter,
-          'prose md:prose-md dark:prose-invert mx-auto': enableProse,
-        },
-        className
-      )}
+      className={cn('payload-richtext', className)}
       {...rest}
     />
   );

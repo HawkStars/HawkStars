@@ -21,6 +21,7 @@ const ContributionProjectGoal = () => {
       const data = await response.json();
       return data.sum || 0;
     } catch (e) {
+      console.log(e);
       return 0;
     }
   };

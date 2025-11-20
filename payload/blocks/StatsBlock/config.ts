@@ -7,7 +7,7 @@ export const StatsBlock: Block = {
     {
       name: 'title',
       type: 'text',
-      localized: true,
+      localized: false,
       admin: {
         description: 'Optional title for the statistics section',
       },
@@ -15,7 +15,7 @@ export const StatsBlock: Block = {
     {
       name: 'subtitle',
       type: 'text',
-      localized: true,
+      localized: false,
       admin: {
         description: 'Optional subtitle or description',
       },
@@ -38,7 +38,7 @@ export const StatsBlock: Block = {
           name: 'label',
           type: 'text',
           required: true,
-          localized: true,
+          localized: false,
           admin: {
             description: 'Description of what this number represents',
           },
@@ -60,7 +60,7 @@ export const StatsBlock: Block = {
         {
           name: 'description',
           type: 'textarea',
-          localized: true,
+          localized: false,
           admin: {
             description: 'Optional additional description or context',
           },
