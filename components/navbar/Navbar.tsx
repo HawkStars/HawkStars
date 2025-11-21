@@ -19,19 +19,15 @@ const Navbar = () => {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
   const { headerInfo } = useMainAppContext();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
-  const lng = useLanguageCookie();
-  const { t } = useTranslation(lng, 'common');
 
-  if (!headerInfo) return null;
+  if (!headerInfo || !headerInfo.columns || headerInfo.columns.length === 0) return null;
   const { columns } = headerInfo;
 
-  const selectedMenuOptions = useMemo(() => {
-    const menu = columns.find((section) => {
-      const column = section.data;
-      return column && column.key === hoveredMenu;
-    });
-    return menu?.data?.links || null;
-  }, [hoveredMenu]);
+  const selectedMenu = columns.find((section) => {
+    const column = section.data;
+    return column && column.key === hoveredMenu;
+  });
+  const selectedMenuOptions = selectedMenu?.data?.links;
 
   return (
     <nav onMouseLeave={() => setHoveredMenu(null)} className='relative'>

@@ -9,14 +9,6 @@ import Button from '../utils/Button';
 import Spinner from '../utils/Spinner/Spinner';
 import { Contribution } from '@/payload-types';
 
-const getOrganizationContributions = async () => {
-  return await Promise.resolve({ items: [] as TransparencyContribution[], count: 0 });
-};
-
-const loadMoreContributions = async (lastId: string, lastPublishedAt: string) => {
-  return Promise.resolve([] as TransparencyContribution[]);
-};
-
 const OrganizationContributionsTable = () => {
   const [nextContribution, setNextContribution] = useState<Pick<
     Contribution,
@@ -34,26 +26,26 @@ const OrganizationContributionsTable = () => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'contribute');
 
-  const fetchOrganizationData = async () => {
-    const contributions = await getOrganizationContributions();
-    const lastFetchedContribution = contributions.items[contributions.items.length - 1];
-    setNextContribution(lastFetchedContribution);
-    setOrganizationContributions(contributions);
-  };
+  // const fetchOrganizationData = async () => {
+  //   const contributions = await getOrganizationContributions();
+  //   const lastFetchedContribution = contributions.items[contributions.items.length - 1];
+  //   setNextContribution(lastFetchedContribution);
+  //   setOrganizationContributions(contributions);
+  // };
 
-  const nextBatchOfContributions = async () => {
-    if (!nextContribution) return;
-    setLoading(true);
-    const contributions = await loadMoreContributions(
-      nextContribution.id,
-      nextContribution.updatedAt
-    );
-    setOrganizationContributions((current) => ({
-      ...current,
-      items: [...current.items, ...contributions],
-    }));
-    setLoading(false);
-  };
+  // const nextBatchOfContributions = async () => {
+  //   if (!nextContribution) return;
+  //   setLoading(true);
+  //   const contributions = await loadMoreContributions(
+  //     nextContribution.id,
+  //     nextContribution.updatedAt
+  //   );
+  //   setOrganizationContributions((current) => ({
+  //     ...current,
+  //     items: [...current.items, ...contributions],
+  //   }));
+  //   setLoading(false);
+  // };
 
   const table = useReactTable({
     data: organizationContributions.items,
@@ -61,9 +53,9 @@ const OrganizationContributionsTable = () => {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  useEffect(() => {
-    fetchOrganizationData();
-  }, []);
+  // useEffect(() => {
+  //   fetchOrganizationData();
+  // }, []);
 
   return (
     <div className='flex flex-col gap-4 px-8 py-8 lg:px-40 lg:py-20'>
@@ -96,14 +88,14 @@ const OrganizationContributionsTable = () => {
           </tbody>
         </table>
 
-        <div className='mt-4 flex justify-center lg:mt-8'>
+        {/* <div className='mt-4 flex justify-center lg:mt-8'>
           {organizationContributions.items.length < organizationContributions.count && !loading && (
             <Button type='button' onClick={nextBatchOfContributions}>
               {t('load_more')}
             </Button>
           )}
           <div>{loading && <Spinner />}</div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -14,8 +14,14 @@ export const getChairsContributionsQuery = async () => {
   return { docs, hasNextPage, hasPrevPage, totalDocs, totalPages, nextPage };
 };
 
-export const countContributionQuery = async () => {
-  const payload = await getPayloadConfig();
-  const count = await payload.count({ collection: 'contributions' });
-  return count;
+export const getSumContributions = async (): Promise<number> => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/sum-contributions`);
+    if (!response.ok) return 0;
+    const data = await response.json();
+    return (data.sum as number) || 0;
+  } catch (error) {
+    console.error('Error fetching sum of contributions:', error);
+    return 0;
+  }
 };

@@ -1,48 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { useTranslation } from '@/i18n/client';
 
 export const PROJECT_GOAL = 900000;
 
-const ContributionProjectGoal = () => {
-  const [barSettings, setBarSettings] = useState<{ width: string; percent: string }>({
-    width: '0px',
-    percent: '0',
-  });
+const ContributionProjectGoal = ({ sumContributions }: { sumContributions: number }) => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'transparency');
-  const [totalContribution, setTotalContribution] = useState<number>(0);
 
-  const totalMoneyGatheredQuery = async (): Promise<number> => {
-    try {
-      const response = await fetch('/api/sum-contributions');
-      const data = await response.json();
-      return data.sum || 0;
-    } catch (e) {
-      console.log(e);
-      return 0;
-    }
-  };
-
-  const getCurrentProjetContribution = async () => {
-    try {
-      const response = await totalMoneyGatheredQuery();
-      setTotalContribution(response);
-    } catch (e) {}
-  };
-
-  // useEffect(() => {
-  //   getCurrentProjetContribution();
-  // }, [getCurrentProjetContribution]);
-
-  useEffect(() => {
-    const normalizedGoal = (totalContribution || 0) / PROJECT_GOAL;
-    const goalAsPercentage = (normalizedGoal * 100).toFixed(2);
-    const loadingWidth = Math.round((window?.innerWidth || 0) * normalizedGoal) + 'px';
-    // setBarSettings({ width: loadingWidth, percent: goalAsPercentage });
-  }, [totalContribution]);
+  const normalizedGoal = (sumContributions || 0) / PROJECT_GOAL;
+  const goalAsPercentage = (normalizedGoal * 100).toFixed(2);
+  const loadingWidth = Math.round((window?.innerWidth || 0) * normalizedGoal) + 'px';
 
   return (
     <div className='bg-bege-light flex flex-col gap-4 px-8 py-8 lg:px-40 lg:py-20'>
@@ -53,10 +22,10 @@ const ContributionProjectGoal = () => {
       <div className='border-green relative mt-5 h-6 w-full rounded-xs border'>
         <div
           className={`from-bege-dark to-bege-light h-full bg-linear-to-r from-10% to-95%`}
-          style={{ width: barSettings.width }}
+          style={{ width: loadingWidth }}
         >
           <p className='absolute my-auto flex w-full justify-center'>
-            {totalContribution}€ ({barSettings.percent}%)
+            {sumContributions}€ ({goalAsPercentage}%)
           </p>
         </div>
       </div>
