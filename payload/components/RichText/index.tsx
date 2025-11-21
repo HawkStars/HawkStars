@@ -36,10 +36,13 @@ import type {
   ProjectBlock as ProjectBlockProps,
   ImpactBlock as ImpactBlockProps,
   CardGridBlock as CardGridBlockProps,
+  ColumnBasedBlock as ColumnBasedBlockProps,
 } from '@/payload-types';
 
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
 import { cn } from '@/payload/utilities/ui';
+import './richtext.scss';
+import { ColumnBasedBlock } from '@/payload/blocks/ColumnBased/Component';
 
 type NodeTypes =
   | DefaultNodeTypes
@@ -57,6 +60,7 @@ type NodeTypes =
       | ProjectBlockProps
       | ImpactBlockProps
       | CardGridBlockProps
+      | ColumnBasedBlockProps
     >;
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -94,6 +98,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     testimonialBlock: ({ node }) => <TestimonialBlock {...node.fields} />,
     statsBlock: ({ node }) => <StatsBlock {...node.fields} />,
     textBlock: ({ node }) => <TextBlock {...node.fields} />,
+    columnBased: ({ node }) => <ColumnBasedBlock {...node.fields} />,
   },
 });
 
