@@ -7,12 +7,23 @@ import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { urls } from '@/utils/paths';
 import { useRouter } from 'next/navigation';
+import { HawkLink } from '@/components/utils/HawkLink/config';
+import HawkLinkComponent from '@/components/utils/HawkLink';
+
+type MenuColumn = {
+  data: {
+    key: string;
+    title?: string | null | undefined;
+    links?: HawkLink[] | undefined | null;
+  };
+};
 
 type DesktopNavbarProps = {
   handleHoverMenu: (menuKey: string) => void;
+  columns: MenuColumn[];
 };
 
-const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu }) => {
+const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns }) => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
   const router = useRouter();
@@ -21,21 +32,24 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu }) => {
     <div className='my-auto ml-auto hidden lg:block'>
       <div className='ml-auto flex gap-3'>
         <ul className='flex flex-row gap-4 px-1 xl:gap-8'>
-          {/* {MenuSections.map((section, index) => {
-            if (section.type === 'dropdown') {
-              const { title, options } = section;
-              if (!options || options.length === 0) return null;
+          {columns.map((section) => {
+            const column = section.data;
+            const { key, title, links } = column;
 
-              return (
-                <li className='my-auto' key={index}>
-                  <DropdownMenu title={title} handleHover={handleHoverMenu} menuKey={title} />
-                </li>
-              );
-            } else {
-              const { option } = section;
-              return <MenuItem key={option.label} {...option} />;
-            }
-          })} */}
+            if (!title && links?.length === 0) return null;
+            if (links && links.length === 1)
+              return <HawkLinkComponent key={key} link={links![0].link} />;
+
+            return (
+              <li
+                key={key}
+                onMouseEnter={() => handleHoverMenu(key)}
+                className='cursor-pointer font-semibold text-white hover:text-yellow-500'
+              >
+                {title}
+              </li>
+            );
+          })}
           <li>
             <Button
               type={'submit'}

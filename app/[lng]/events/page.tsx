@@ -33,8 +33,6 @@ const EventsPage = async (props: EventsPageProps) => {
   const events = await getEventsQuery(page);
   const { totalPages } = events;
 
-  debugger;
-
   return (
     <HawkStarsSection className='bg-bege-light flex gap-8 pt-10 pb-8 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
       <h1 className='text-h1_semibold mt-4 text-center'>{t('navbar.events')}</h1>

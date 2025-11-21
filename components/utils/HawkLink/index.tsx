@@ -1,45 +1,21 @@
 'use client';
-import Link from 'next/link';
-import { ReactNode } from 'react';
+import InternalHawkLink from './InternalHawkLink';
+import ExternalHawkLink from './ExternalHawkLink';
+import { HawkLink } from './config';
 
-interface HawkLinkProps {
-  href: string;
-  children: ReactNode;
-  className?: string;
-  internal?: boolean;
-  target?: string;
-  rel?: string;
-}
-
-export default function HawkLink({
-  href,
-  children,
-  className,
-  internal = false,
-  target,
-  rel,
-  ...props
-}: HawkLinkProps) {
-  // Auto-detect internal links if not explicitly specified
-  const isInternal = internal || href.startsWith('/') || href.startsWith('#');
-
-  if (isInternal) {
-    return (
-      <Link href={href} className={className} {...props}>
-        {children}
-      </Link>
-    );
-  }
-
+export default function HawkLinkComponent({ link }: HawkLink) {
   return (
-    <a
-      href={href}
-      className={className}
-      target={target || '_blank'}
-      rel={rel || 'noopener noreferrer'}
-      {...props}
-    >
-      {children}
-    </a>
+    <>
+      {link.type === 'reference' && link.reference ? (
+        <InternalHawkLink
+          label={link.label}
+          relationTo={link.reference.relationTo}
+          url={link.reference.value}
+          newTab={link.newTab}
+        />
+      ) : (
+        <ExternalHawkLink href={link.url} newTab={link.newTab} label={link.label} />
+      )}
+    </>
   );
 }

@@ -3,33 +3,35 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import HamburgerIcon from '@/public/images/icons/common/hamburger.svg';
-import { useLanguageCookie, useSetMobileNavbarOpen } from '../../utils/contexts/AppProvider';
+import {
+  useLanguageCookie,
+  useMainAppContext,
+  useSetMobileNavbarOpen,
+} from '../../utils/contexts/AppProvider';
 import { hawkLogo } from '@/utils/models/images/logos';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from '@/i18n/client';
+import DesktopNavbar from './DesktopNavbar';
+import HawkLinkComponent from '../utils/HawkLink';
 
 const Navbar = () => {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
+  const { headerInfo } = useMainAppContext();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
 
-  // const selectedMenuOptions = useMemo(() => {
-  //   const menu = MenuSections.find(
-  //     (section) => section.type === 'dropdown' && section.title === hoveredMenu
-  //   );
-  //   return menu?.type === 'dropdown' ? menu.options : null;
-  // }, [hoveredMenu]);
+  if (!headerInfo) return null;
+  const { columns } = headerInfo;
 
-  // const getNavbarInformation = useCallback(async () => {
-  //   //const data = await getNavbarQuery();
-  //   // debugger;
-  // }, []);
-
-  // useEffect(() => {
-  //   getNavbarInformation();
-  // }, [getNavbarInformation]);
+  const selectedMenuOptions = useMemo(() => {
+    const menu = columns.find((section) => {
+      const column = section.data;
+      return column && column.key === hoveredMenu;
+    });
+    return menu?.data?.links || null;
+  }, [hoveredMenu]);
 
   return (
     <nav onMouseLeave={() => setHoveredMenu(null)} className='relative'>
@@ -43,7 +45,7 @@ const Navbar = () => {
             </Link>
           </div>
           {/* NAVBAR DESKTOP */}
-          {/* <DesktopNavbar handleHoverMenu={setHoveredMenu} /> */}
+          <DesktopNavbar handleHoverMenu={setHoveredMenu} columns={columns} />
           {/* NAVBAR MOBILE */}
           <div
             className='my-auto ml-auto block cursor-pointer lg:hidden'
@@ -63,11 +65,9 @@ const Navbar = () => {
           }
         )}
       >
-        {/* {selectedMenuOptions?.map((option) => (
-          <HawkLink href={option.url || '#'} key={option.label}>
-            {t(option.label)}
-          </HawkLink>
-        ))} */}
+        {selectedMenuOptions?.map((option) => (
+          <HawkLinkComponent link={option.link} key={option.id} />
+        ))}
       </div>
     </nav>
   );
