@@ -55,49 +55,47 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
   }
 
   return (
-    <div className='py-8'>
-      <div className='mx-auto max-w-4xl px-4'>
-        <div className={containerClasses[style as keyof typeof containerClasses]}>
-          {items.map((item, index: number) => {
-            const isOpen = openItems.has(index);
+    <div className='px-4 py-8' data-id='accordion'>
+      <div className={containerClasses[style as keyof typeof containerClasses]}>
+        {items.map((item, index: number) => {
+          const isOpen = openItems.has(index);
 
-            return (
-              <div key={index} className={itemClasses[style as keyof typeof itemClasses]}>
-                <button
-                  className={classNames(
-                    'flex w-full items-center justify-between px-4 py-4 text-left',
-                    'transition-colors duration-200 hover:bg-gray-50',
-                    style === 'card' && 'rounded-t-lg',
-                    isOpen && style !== 'card' && 'bg-gray-50'
-                  )}
-                  onClick={() => toggleItem(index)}
-                  aria-expanded={isOpen}
-                >
-                  <span className='pr-4 text-lg font-semibold'>{item.title}</span>
-                  <ChevronDownIcon
-                    className={classNames(
-                      'h-5 w-5 flex-shrink-0 transition-transform duration-200',
-                      isOpen && 'rotate-180 transform'
-                    )}
-                  />
-                </button>
-
-                {isOpen && (
-                  <div
-                    className={classNames(
-                      'animate-in slide-in-from-top-2 px-4 pb-4 duration-200',
-                      style === 'card' && 'border-t border-gray-200'
-                    )}
-                  >
-                    <div className='pt-2'>
-                      <RichText data={item.content} />
-                    </div>
-                  </div>
+          return (
+            <div key={index} className={itemClasses[style as keyof typeof itemClasses]}>
+              <button
+                className={classNames(
+                  'flex w-full items-center justify-between px-4 py-4 text-left',
+                  'transition-colors duration-200',
+                  style === 'card' && 'rounded-t-lg',
+                  isOpen && style !== 'card' && 'bg-gray-50'
                 )}
-              </div>
-            );
-          })}
-        </div>
+                onClick={() => toggleItem(index)}
+                aria-expanded={isOpen}
+              >
+                <span className='pr-4 text-lg font-semibold'>{item.title}</span>
+                <ChevronDownIcon
+                  className={classNames(
+                    'h-5 w-5 shrink-0 transition-transform duration-200',
+                    isOpen && 'rotate-180 transform'
+                  )}
+                />
+              </button>
+
+              {isOpen && (
+                <div
+                  className={classNames(
+                    'animate-in slide-in-from-top-2 px-4 pb-4 duration-200',
+                    style === 'card' && 'border-t border-gray-200'
+                  )}
+                >
+                  <div className='pt-2'>
+                    <RichText data={item.content} />
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

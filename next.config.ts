@@ -42,6 +42,7 @@ const nextConfig = {
         hostname: 'res.cloudinary.com',
       },
     ],
+    qualities: [50, 75, 80, 100],
   },
   experimental: {
     taint: true,
