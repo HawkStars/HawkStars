@@ -1,6 +1,6 @@
 'use client';
 
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import Input from '@/components/utils/Input/Input';
 import Button from '@/components/utils/Button';
 import dynamic from 'next/dynamic';
@@ -48,12 +48,12 @@ const FormContributions = ({
 }: FormContributionProps) => {
   const [minDefaultValue, setMinDefaultValue] = useState<number>(0);
   const { t } = useTranslation(lng, 'contribute');
+
   const {
     handleSubmit,
     control,
     formState: { errors },
     setValue,
-    watch,
   } = useForm<ContributionFormInput>({
     defaultValues: {
       value: contribution?.value || 0,
@@ -68,15 +68,17 @@ const FormContributions = ({
     mode: 'onChange',
   });
 
-  const typeWatched = watch('contribution_type');
-  const anonymousChecked = watch('is_anonymous');
+  const blockTypeForm = useWatch({
+    control,
+    name: 'contribution_type',
+    compute: (data) =>
+      ['AUDITORIUM_CHAIR', 'OFFICE_CHAIR', 'LOUNGE_CHAIR', 'SIMULATOR_CHAIR'].includes(data),
+  });
 
-  const blockTypeForm = [
-    'AUDITORIUM_CHAIR',
-    'OFFICE_CHAIR',
-    'LOUNGE_CHAIR',
-    'SIMULATOR_CHAIR',
-  ].includes(typeWatched);
+  const anonymousChecked = useWatch({
+    control,
+    name: 'is_anonymous',
+  });
 
   const onSubmitForm: SubmitHandler<ContributionFormInput> = async (
     data: ContributionFormInput
