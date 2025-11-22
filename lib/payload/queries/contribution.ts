@@ -14,6 +14,15 @@ export const getChairsContributionsQuery = async () => {
   return { docs, hasNextPage, hasPrevPage, totalDocs, totalPages, nextPage };
 };
 
+export const getContributionsQuery = async () => {
+  const payload = await getPayloadConfig();
+  return await payload.find({
+    collection: 'contributions',
+    sort: '-contribution_date',
+    limit: 100,
+  });
+};
+
 export const getSumContributions = async (): Promise<number> => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/sum-contributions`);

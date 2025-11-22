@@ -1,61 +1,28 @@
 'use client';
 
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { useEffect, useState } from 'react';
-import { TransparencyContribution, contributionColumns } from './config';
+import { contributionColumns } from './config';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
-import Button from '../utils/Button';
-import Spinner from '../utils/Spinner/Spinner';
 import { Contribution } from '@/payload-types';
+import { PaginatedDocs } from 'payload';
+import Link from 'next/link';
 
-const OrganizationContributionsTable = () => {
-  const [nextContribution, setNextContribution] = useState<Pick<
-    Contribution,
-    'id' | 'updatedAt'
-  > | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [organizationContributions, setOrganizationContributions] = useState<{
-    count: number;
-    items: TransparencyContribution[];
-  }>({
-    count: 0,
-    items: [],
-  });
+type OrganizationContributionsTableProps = {
+  data: PaginatedDocs<Contribution>;
+};
 
+const OrganizationContributionsTable = ({ data }: OrganizationContributionsTableProps) => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'contribute');
 
-  // const fetchOrganizationData = async () => {
-  //   const contributions = await getOrganizationContributions();
-  //   const lastFetchedContribution = contributions.items[contributions.items.length - 1];
-  //   setNextContribution(lastFetchedContribution);
-  //   setOrganizationContributions(contributions);
-  // };
-
-  // const nextBatchOfContributions = async () => {
-  //   if (!nextContribution) return;
-  //   setLoading(true);
-  //   const contributions = await loadMoreContributions(
-  //     nextContribution.id,
-  //     nextContribution.updatedAt
-  //   );
-  //   setOrganizationContributions((current) => ({
-  //     ...current,
-  //     items: [...current.items, ...contributions],
-  //   }));
-  //   setLoading(false);
-  // };
+  const { docs: contributions, hasNextPage, hasPrevPage, page } = data;
 
   const table = useReactTable({
-    data: organizationContributions.items,
+    data: contributions || [],
     columns: contributionColumns,
     getCoreRowModel: getCoreRowModel(),
   });
-
-  // useEffect(() => {
-  //   fetchOrganizationData();
-  // }, []);
 
   return (
     <div className='flex flex-col gap-4 px-8 py-8 lg:px-40 lg:py-20'>
@@ -88,14 +55,14 @@ const OrganizationContributionsTable = () => {
           </tbody>
         </table>
 
-        {/* <div className='mt-4 flex justify-center lg:mt-8'>
-          {organizationContributions.items.length < organizationContributions.count && !loading && (
-            <Button type='button' onClick={nextBatchOfContributions}>
-              {t('load_more')}
-            </Button>
+        <div className='mt-4 flex justify-center lg:mt-8'>
+          {hasPrevPage && (
+            <Link href={`${window.location.pathname}?page=${page ? page - 1 : 1}`}></Link>
           )}
-          <div>{loading && <Spinner />}</div>
-        </div> */}
+          {hasNextPage && (
+            <Link href={`${window.location.pathname}?page=${page ? page + 1 : 2}`}></Link>
+          )}
+        </div>
       </div>
     </div>
   );

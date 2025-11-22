@@ -13,7 +13,7 @@ import RichText from '@/payload/components/RichText';
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng, slug } = params;
-  const event = await getSingleEventsQuery(slug);
+  // const event = await getSingleEventsQuery(slug);
 
   const metadataPage = getMetadataPageInfo(lng as Language, 'home');
   return metadataPage;

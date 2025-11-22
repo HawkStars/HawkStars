@@ -5,8 +5,9 @@ const totalContributioValueQuery = async (req: PayloadRequest): Promise<Response
     collection: 'contributions',
   });
 
-  const sum = result.docs.reduce((total, doc) => total + (doc.value || 0), 0);
+  if (result.totalDocs === 0) return new Response(JSON.stringify({ sum: 0 }));
 
+  const sum = result.docs.reduce((total, doc) => total + (doc.value || 0), 0);
   return new Response(JSON.stringify({ sum }));
 };
 
