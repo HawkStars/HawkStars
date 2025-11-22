@@ -47,7 +47,7 @@ const nextConfig = {
   experimental: {
     taint: true,
   },
-  serverExternalPackages: ['dataloader', 'graphql'],
+  serverExternalPackages: [],
   staticPageGenerationTimeout: 120,
   productionBrowserSourceMaps: true,
   async headers() {

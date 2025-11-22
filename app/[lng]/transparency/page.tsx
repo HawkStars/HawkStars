@@ -5,6 +5,7 @@ import { Language } from '@/i18n/settings';
 import dynamic from 'next/dynamic';
 import MainHawkStarsLoading from '../loading';
 import { getSumContributions } from '@/lib/payload/queries/contribution';
+import ContributionProjectGoal from '@/components/transparency/ContributionProjectGoal';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -18,14 +19,7 @@ const OrganizationContributionsTable = dynamic(
   { loading: () => <MainHawkStarsLoading /> }
 );
 
-const ContributionProjectGoal = dynamic(
-  () => import('@/components/transparency/ContributionProjectGoal'),
-  { loading: () => <MainHawkStarsLoading /> }
-);
-
 const TransparencyPage = async () => {
-  return null;
-  // work on this later
   const sumContributions = await getSumContributions();
   if (sumContributions === null) return null;
   return (

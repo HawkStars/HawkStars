@@ -3,15 +3,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import HamburgerIcon from '@/public/images/icons/common/hamburger.svg';
-import {
-  useLanguageCookie,
-  useMainAppContext,
-  useSetMobileNavbarOpen,
-} from '../../utils/contexts/AppProvider';
+import { useMainAppContext, useSetMobileNavbarOpen } from '../../utils/contexts/AppProvider';
 import { hawkLogo } from '@/utils/models/images/logos';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames';
-import { useTranslation } from '@/i18n/client';
 import DesktopNavbar from './DesktopNavbar';
 import HawkLinkComponent from '../utils/HawkLink';
 
