@@ -61,6 +61,12 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      graphics: {
+        Logo: '@/payload/components/Logo',
+      },
+      afterDashboard: [],
+    },
   },
   localization: {
     defaultLocale: 'pt',

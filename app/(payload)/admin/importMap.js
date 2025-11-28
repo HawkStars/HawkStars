@@ -32,6 +32,8 @@ import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { HeaderLabel as HeaderLabel_697dbdb7f6f9ef4ce600690b2392d8d4 } from '@/payload/globals/Header/components/HeaderLabel'
 import { FooterLabel as FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd } from '@/payload/globals/Footer/components/FooterLabel'
+import { default as default_609b836c23718a76b1bac61d921da4bc } from '@/payload/globals/Footer/components/FooterDescription'
+import { default as default_91bbc66a9b3ed1dae52e0caef1a54af7 } from '@/payload/components/Logo'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -67,5 +69,7 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@/payload/globals/Header/components/HeaderLabel#HeaderLabel": HeaderLabel_697dbdb7f6f9ef4ce600690b2392d8d4,
-  "@/payload/globals/Footer/components/FooterLabel#FooterLabel": FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd
+  "@/payload/globals/Footer/components/FooterLabel#FooterLabel": FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd,
+  "@/payload/globals/Footer/components/FooterDescription#default": default_609b836c23718a76b1bac61d921da4bc,
+  "@/payload/components/Logo#default": default_91bbc66a9b3ed1dae52e0caef1a54af7
 }

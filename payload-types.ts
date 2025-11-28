@@ -1003,6 +1003,9 @@ export interface Header {
   createdAt?: string | null;
 }
 /**
+ * This is the information about the footer. Each column represents a group of navigation links
+ *       that will be displayed in the footer section of the website side by side or at the mobile.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
