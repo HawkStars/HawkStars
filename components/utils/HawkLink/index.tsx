@@ -3,7 +3,9 @@ import InternalHawkLink from './InternalHawkLink';
 import ExternalHawkLink from './ExternalHawkLink';
 import { HawkLink } from './config';
 
-export default function HawkLinkComponent({ link }: HawkLink) {
+type HawkLinkComponentProps = HawkLink & { className?: string };
+
+export default function HawkLinkComponent({ link, className }: HawkLinkComponentProps) {
   return (
     <>
       {link.type === 'reference' && link.reference ? (
@@ -12,9 +14,15 @@ export default function HawkLinkComponent({ link }: HawkLink) {
           relationTo={link.reference.relationTo}
           url={link.reference.value}
           newTab={link.newTab}
+          className={className}
         />
       ) : (
-        <ExternalHawkLink href={link.url} newTab={link.newTab} label={link.label} />
+        <ExternalHawkLink
+          href={link.url}
+          newTab={link.newTab}
+          label={link.label}
+          className={className}
+        />
       )}
     </>
   );

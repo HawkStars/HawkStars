@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { InternalLinkProps } from './config';
 
-const InternalHawkLink = ({ label, relationTo, url, newTab }: InternalLinkProps) => {
+const InternalHawkLink = ({ label, relationTo, url, newTab, className }: InternalLinkProps) => {
   let href = '#';
   if (typeof url === 'string') href = relationTo === 'pages' ? `/${url}` : `/events/${url}`;
   else if ('slug' in url && url.slug)
@@ -14,7 +14,8 @@ const InternalHawkLink = ({ label, relationTo, url, newTab }: InternalLinkProps)
       target={newTab ? '_blank' : '_self'}
       className={classNames(
         'text-terciary-300 hover:text-terciary-100',
-        'transition-colors duration-200'
+        'transition-colors duration-200',
+        className
       )}
     >
       {label}

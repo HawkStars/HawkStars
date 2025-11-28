@@ -23,9 +23,10 @@ export type ExternalLinkProps = {
   label: string;
   href: string | undefined | null;
   newTab: boolean | null | undefined;
+  className?: string;
 };
 
-export type InternalLinkProps = Pick<ExternalLinkProps, 'label' | 'newTab'> & {
+export type InternalLinkProps = Pick<ExternalLinkProps, 'label' | 'newTab' | 'className'> & {
   relationTo: string;
   url: string | Page | HawkEvent;
 };

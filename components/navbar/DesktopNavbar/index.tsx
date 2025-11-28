@@ -38,13 +38,13 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns }) => 
 
             if (!title && links?.length === 0) return null;
             if (links && links.length === 1)
-              return <HawkLinkComponent key={key} link={links![0].link} />;
+              return <HawkLinkComponent key={key} link={links![0].link} className='my-auto' />;
 
             return (
               <li
                 key={key}
                 onMouseEnter={() => handleHoverMenu(key)}
-                className='cursor-pointer font-semibold text-white hover:text-yellow-500'
+                className='my-auto cursor-pointer font-semibold text-white hover:text-yellow-500'
               >
                 {title}
               </li>
