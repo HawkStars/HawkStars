@@ -1,12 +1,11 @@
 'use client';
 
-import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { contributionColumns } from './config';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Contribution } from '@/payload-types';
 import { PaginatedDocs } from 'payload';
 import Link from 'next/link';
+import { Table, TableBody, TableCell, TableHead, TableRow } from '../ui/table';
 
 type OrganizationContributionsTableProps = {
   data: PaginatedDocs<Contribution>;
@@ -18,42 +17,36 @@ const OrganizationContributionsTable = ({ data }: OrganizationContributionsTable
 
   const { docs: contributions, hasNextPage, hasPrevPage, page } = data;
 
-  const table = useReactTable({
-    data: contributions || [],
-    columns: contributionColumns,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
   return (
     <div className='flex flex-col gap-4 px-8 py-8 lg:px-40 lg:py-20'>
       <h2 className='text-h2_bold'>{t('Contributions')}</h2>
       <div className='-mx-7 overflow-x-auto'>
-        <table className='min-w-full table-auto rounded-xl text-left lg:table-fixed'>
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id} className='border-bege-dark my-2 border-b'>
-                {headerGroup.headers.map((header) => (
-                  <th key={header.id} className='min-w-40 p-2'>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
-                  </th>
-                ))}
-              </tr>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableHead>{t('contribute:contribution_form.date')}</TableHead>
+              <TableHead>{t('contribute:contribution_form.type')}</TableHead>
+              <TableHead>{t('contribute:contribution_form.donor')}</TableHead>
+              <TableHead>{t('contribute:contribution_form.value')}</TableHead>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {contributions.map((contribution) => (
+              <TableRow key={contribution.id}>
+                <TableCell className='min-w-40 px-2'>
+                  {new Date(contribution.contribution_date).toLocaleDateString(lng)}
+                </TableCell>
+                <TableCell className='min-w-40 px-2'>{contribution.contribution_type}</TableCell>
+                <TableCell className='min-w-40 px-2'>
+                  {contribution.is_anonymous ? t('Anonymous') : contribution.donor}
+                </TableCell>
+                <TableCell className='min-w-40 px-2'>
+                  {contribution.value.toLocaleString(lng, {})}
+                </TableCell>
+              </TableRow>
             ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className='border-bege-dark border-b'>
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className='min-w-40 px-2'>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
 
         <div className='mt-4 flex justify-center lg:mt-8'>
           {hasPrevPage && (
