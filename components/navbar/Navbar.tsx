@@ -6,9 +6,9 @@ import HamburgerIcon from '@/public/images/icons/common/hamburger.svg';
 import { useMainAppContext, useSetMobileNavbarOpen } from '../../utils/contexts/AppProvider';
 import { hawkLogo } from '@/utils/models/images/logos';
 import { useState } from 'react';
-import classNames from 'classnames';
 import DesktopNavbar from './DesktopNavbar';
 import HawkLinkComponent from '../utils/HawkLink';
+import { cn } from '@/lib/utils';
 
 const Navbar = () => {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
@@ -48,7 +48,7 @@ const Navbar = () => {
       </div>
 
       <div
-        className={classNames(
+        className={cn(
           'bg-bege-dark absolute z-40 flex w-full justify-center gap-5 py-2 transition-all duration-300 ease-in',
           {
             block: hoveredMenu,

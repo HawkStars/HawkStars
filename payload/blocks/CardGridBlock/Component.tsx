@@ -2,7 +2,7 @@ import React from 'react';
 import RichText from '@/payload/components/RichText';
 import Image from 'next/image';
 import Link from 'next/link';
-import classNames from 'classnames';
+
 import {
   Users,
   Heart,
@@ -16,6 +16,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import type { CardGridBlock as CardGridBlockProps, HawkEvent, Media, Page } from '@/payload-types';
+import { cn } from '@/lib/utils';
 
 // Icon mapping
 const iconMap: Record<string, LucideIcon> = {
@@ -154,7 +155,7 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
       <Link
         href={href || '#'}
         target={link.newTab ? '_blank' : undefined}
-        className={classNames(
+        className={cn(
           'mt-4 inline-flex items-center gap-2 rounded-md px-4 py-2 font-medium transition-colors',
           link.appearance === 'outline'
             ? `border-2 ${colorClasses[(card.color as ColorClass) || 'blue'].hover} ${colorClasses[(card.color as ColorClass) || 'blue'].accent} hover:bg-opacity-10`
@@ -176,7 +177,7 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
       <div className='mx-auto max-w-7xl px-4'>
         {/* Header */}
         {(title || subtitle) && (
-          <div className={classNames('mb-12', textAlign && textAlignClasses[textAlign])}>
+          <div className={cn('mb-12', textAlign && textAlignClasses[textAlign])}>
             {title && (
               <h2 className='mb-4 text-3xl font-bold text-gray-900 lg:text-4xl'>{title}</h2>
             )}
@@ -185,7 +186,7 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
         )}
 
         {/* Cards Grid */}
-        <div className={classNames('grid gap-6 lg:gap-8', layout && layoutClasses[layout])}>
+        <div className={cn('grid gap-6 lg:gap-8', layout && layoutClasses[layout])}>
           {cards.map((card, index) => {
             const IconComponent = card.icon ? iconMap[card.icon] : null;
             const cardColors = colorClasses[card.color || 'blue'];
@@ -193,7 +194,7 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
             return (
               <div
                 key={index}
-                className={classNames(
+                className={cn(
                   'p-6',
                   cardStyle && cardStyleClasses[cardStyle],
                   cardStyle === 'hover' && cardColors.hover
@@ -216,7 +217,7 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
                     </div>
                   ) : IconComponent ? (
                     <div
-                      className={classNames(
+                      className={cn(
                         'mx-auto flex h-12 w-12 items-center justify-center rounded-full border-2',
                         cardColors.icon,
                         textAlign !== 'center' && 'mx-0'
@@ -229,12 +230,7 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
 
                 {/* Content */}
                 <div className={textAlignClasses[textAlign as TextAlign]}>
-                  <h3
-                    className={classNames(
-                      'mb-3 text-xl font-semibold text-gray-900',
-                      cardColors.accent
-                    )}
-                  >
+                  <h3 className={cn('mb-3 text-xl font-semibold text-gray-900', cardColors.accent)}>
                     {card.title}
                   </h3>
 

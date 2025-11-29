@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { cn } from '@/lib/utils';
 import React from 'react';
 
 export type InputProps = {
@@ -39,7 +39,7 @@ export default function Input({
       )}
       {inputHintText && <p className='-my-1'>{inputHintText}</p>}
       <div
-        className={classNames(
+        className={cn(
           'border-terciary-500 focus:border-primary-500 flex flex-row gap-1 rounded-md border border-solid px-5 py-2 shadow-xs',
           { 'bg-bege-dark-100/80': disabled },
           { 'bg-white': !disabled && outline }
@@ -48,7 +48,7 @@ export default function Input({
         <input
           id={name}
           placeholder={placeholder}
-          className={classNames(
+          className={cn(
             'w-full border-0 bg-inherit focus:ring-0 focus:outline-hidden',
             `${customCss}`,
             { 'border-red-700': errorMessage },

@@ -1,6 +1,6 @@
 'use client';
 
-import classNames from 'classnames';
+import { cn } from '@/lib/utils';
 import { ReactNode, useState } from 'react';
 
 type AccordionProps = {
@@ -15,7 +15,7 @@ const Accordion = ({ title, defaultOpen = false, children }: AccordionProps) => 
   return (
     <div className='flex flex-col'>
       <div
-        className={classNames('border-disabled flex w-full gap-4 border-b pb-1')}
+        className={cn('border-disabled flex w-full gap-4 border-b pb-1')}
         onClick={() => setOpen(!open)}
       >
         <div className='my-auto'></div>

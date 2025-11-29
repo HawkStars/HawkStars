@@ -2,9 +2,9 @@ import React from 'react';
 import RichText from '@/payload/components/RichText';
 import Image from 'next/image';
 import Link from 'next/link';
-import classNames from 'classnames';
 import { CalendarIcon, UsersIcon, LinkIcon, TagIcon } from 'lucide-react';
 import type { BoardMember, ProjectBlock as ProjectBlockProps } from '@/payload-types';
+import { cn } from '@/lib/utils';
 
 export const ProjectBlock: React.FC<ProjectBlockProps> = ({
   title,
@@ -50,13 +50,13 @@ export const ProjectBlock: React.FC<ProjectBlockProps> = ({
       <div className='mx-auto max-w-6xl px-4'>
         <div className='overflow-hidden rounded-lg bg-white shadow-lg'>
           {/* Header */}
-          <div className='bg-gradient-to-r from-blue-500 to-green-500 px-6 py-4 text-white'>
+          <div className='bg-linear-to-r from-blue-500 to-green-500 px-6 py-4 text-white'>
             <div className='flex flex-col lg:flex-row lg:items-center lg:justify-between'>
               <div className='flex-1'>
                 <h2 className='mb-2 text-2xl font-bold lg:text-3xl'>{title}</h2>
                 <div className='flex flex-wrap items-center gap-4'>
                   <span
-                    className={classNames(
+                    className={cn(
                       'rounded-full px-3 py-1 text-sm font-medium',
                       statusColors[status]
                     )}

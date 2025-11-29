@@ -1,7 +1,8 @@
 import React from 'react';
 import type { ColumnBasedBlock as ColumnBasedProps } from '@/payload-types';
-import { cn } from '@/payload/utilities/ui';
+
 import * as LucideIcons from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 /**
  * ColumnBasedBlock Component

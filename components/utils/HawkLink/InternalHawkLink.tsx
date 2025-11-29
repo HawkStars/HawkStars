@@ -1,6 +1,6 @@
-import classNames from 'classnames';
 import Link from 'next/link';
 import { InternalLinkProps } from './config';
+import { cn } from '@/lib/utils';
 
 const InternalHawkLink = ({ label, relationTo, url, newTab, className }: InternalLinkProps) => {
   let href = '#';
@@ -12,7 +12,7 @@ const InternalHawkLink = ({ label, relationTo, url, newTab, className }: Interna
     <Link
       href={href}
       target={newTab ? '_blank' : '_self'}
-      className={classNames(
+      className={cn(
         'text-terciary-300 hover:text-terciary-100',
         'transition-colors duration-200',
         className

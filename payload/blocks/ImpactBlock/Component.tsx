@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import classNames from 'classnames';
 import {
   Users,
   Heart,
@@ -18,6 +17,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import type { ImpactBlock as ImpactBlockProps } from '@/payload-types'; // Animated counter hook
+import { cn } from '@/lib/utils';
 
 // Icon mapping for common impact icons
 const iconMap: Record<string, LucideIcon> = {
@@ -91,7 +91,7 @@ const MetricCard: React.FC<{ metric: any; inView: boolean }> = ({ metric, inView
     <div className='rounded-lg border bg-white p-6 text-center shadow-md transition-shadow duration-300 hover:shadow-lg'>
       {IconComponent && (
         <div
-          className={classNames(
+          className={cn(
             'mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full border-2',
             colorClasses[(metric.color as ColorClass) || 'blue']
           )}
@@ -167,15 +167,15 @@ export const ImpactBlock: React.FC<ImpactBlockProps> = ({
   return (
     <section
       ref={sectionRef}
-      className={classNames('py-12 lg:py-20', background && backgroundClasses[background])}
+      className={cn('py-12 lg:py-20', background && backgroundClasses[background])}
     >
       <div className='mx-auto max-w-7xl px-4'>
         {/* Header */}
-        <div className={classNames('mb-12', textAlign && textAlignClasses[textAlign])}>
+        <div className={cn('mb-12', textAlign && textAlignClasses[textAlign])}>
           <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
           {subtitle && (
             <p
-              className={classNames(
+              className={cn(
                 'text-lg lg:text-xl',
                 background === 'dark' || background === 'gradient'
                   ? 'text-gray-300'
@@ -188,7 +188,7 @@ export const ImpactBlock: React.FC<ImpactBlockProps> = ({
         </div>
 
         {/* Metrics Grid */}
-        <div className={classNames('grid gap-6 lg:gap-8', layout && layoutClasses[layout])}>
+        <div className={cn('grid gap-6 lg:gap-8', layout && layoutClasses[layout])}>
           {metrics.map((metric, index) => (
             <MetricCard key={index} metric={metric} inView={inView} />
           ))}

@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import RichText from '@/payload/components/RichText';
-import classNames from 'classnames';
 import { ChevronDownIcon } from 'lucide-react';
 import type { AccordionBlock as AccordionBlockProps } from '@/payload-types';
+import { cn } from '@/lib/utils';
 
 export const AccordionBlock: React.FC<AccordionBlockProps> = ({
   items,
@@ -63,7 +63,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
           return (
             <div key={index} className={itemClasses[style as keyof typeof itemClasses]}>
               <button
-                className={classNames(
+                className={cn(
                   'flex w-full items-center justify-between px-4 py-4 text-left',
                   'transition-colors duration-200',
                   style === 'card' && 'rounded-t-lg',
@@ -74,7 +74,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
               >
                 <span className='pr-4 text-lg font-semibold'>{item.title}</span>
                 <ChevronDownIcon
-                  className={classNames(
+                  className={cn(
                     'h-5 w-5 shrink-0 transition-transform duration-200',
                     isOpen && 'rotate-180 transform'
                   )}
@@ -83,7 +83,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
 
               {isOpen && (
                 <div
-                  className={classNames(
+                  className={cn(
                     'animate-in slide-in-from-top-2 px-4 pb-4 duration-200',
                     style === 'card' && 'border-t border-gray-200'
                   )}

@@ -3,10 +3,10 @@ import { transformUrl } from '@/utils/paths';
 import Link from 'next/link';
 import { getServerTranslation } from '@/i18n';
 import Image from 'next/image';
-import classNames from 'classnames';
 import { getAllArtworkImagesQuery } from '@/lib/payload/queries/artwork';
 import { Media } from '@/payload-types';
 import { Language } from '@/i18n/settings';
+import { cn } from '@/lib/utils';
 
 const getArtwork = async (locale: Language) => {
   const images = await getAllArtworkImagesQuery(locale);
@@ -33,7 +33,7 @@ const ArtworkPage = async (props: LanguagePageProps) => {
               <div className='flex h-full flex-col gap-5'>
                 <h3 className='text-h2_bold font-oswald text-disabled text-center'>{item.title}</h3>
                 {artworkImage?.url && (
-                  <div className={classNames('relative my-auto flex h-full align-middle')}>
+                  <div className={cn('relative my-auto flex h-full align-middle')}>
                     <Image
                       src={artworkImage?.url}
                       alt={artTitle}

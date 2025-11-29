@@ -3,7 +3,7 @@ import React from 'react';
 import type { TextBlock as TextBlockProps } from '@/payload-types';
 
 import RichText from '@/payload/components/RichText';
-import { cn } from '@/payload/utilities/ui';
+import { cn } from '@/lib/utils';
 
 export const TextBlock: React.FC<TextBlockProps> = ({
   content,

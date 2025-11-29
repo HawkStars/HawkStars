@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import classNames from 'classnames';
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Media, TestimonialBlock as TestimonialBlockProps } from '@/payload-types';
+import { cn } from '@/lib/utils';
 
 type Testimonial = {
   quote: string;
@@ -30,10 +30,7 @@ const StarRating: React.FC<{ rating: number; showRating: boolean | null }> = ({
       {Array.from({ length: 5 }, (_, i) => (
         <Star
           key={i}
-          className={classNames(
-            'h-4 w-4',
-            i < rating ? 'fill-current text-yellow-400' : 'text-gray-300'
-          )}
+          className={cn('h-4 w-4', i < rating ? 'fill-current text-yellow-400' : 'text-gray-300')}
         />
       ))}
     </div>
@@ -57,7 +54,7 @@ const TestimonialCard: React.FC<{
 
   return (
     <div
-      className={classNames(
+      className={cn(
         cardClasses[style as keyof typeof cardClasses],
         featured && 'ring-opacity-50 ring-2 ring-blue-500',
         'h-full'
@@ -71,7 +68,7 @@ const TestimonialCard: React.FC<{
 
       {/* Quote */}
       <blockquote
-        className={classNames('mb-6', style === 'quote' && 'text-lg italic', featured && 'text-lg')}
+        className={cn('mb-6', style === 'quote' && 'text-lg italic', featured && 'text-lg')}
       >
         {style !== 'quote' && '"'}
         {quote}
@@ -95,11 +92,11 @@ const TestimonialCard: React.FC<{
           </div>
         )}
         <div>
-          <div className={classNames('font-semibold', isDark ? 'text-white' : 'text-gray-900')}>
+          <div className={cn('font-semibold', isDark ? 'text-white' : 'text-gray-900')}>
             {author.name}
           </div>
           {(author.title || author.company) && (
-            <div className={classNames('text-sm', isDark ? 'text-gray-300' : 'text-gray-600')}>
+            <div className={cn('text-sm', isDark ? 'text-gray-300' : 'text-gray-600')}>
               {author.title}
               {author.title && author.company && ' at '}
               {author.company}
@@ -111,7 +108,7 @@ const TestimonialCard: React.FC<{
       {/* Bubble tail for bubble style */}
       {style === 'bubble' && (
         <div
-          className={classNames(
+          className={cn(
             'absolute bottom-0 left-6 translate-y-full transform',
             'h-0 w-0 border-t-10 border-r-10 border-l-10',
             'border-r-transparent border-l-transparent',
@@ -165,10 +162,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
 
   return (
     <section
-      className={classNames(
-        'py-12 lg:py-20',
-        backgroundColor && backgroundClasses[backgroundColor]
-      )}
+      className={cn('py-12 lg:py-20', backgroundColor && backgroundClasses[backgroundColor])}
     >
       <div className='mx-auto max-w-7xl px-4'>
         {/* Header */}
@@ -176,7 +170,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
           <div className='mb-12 text-center'>
             {title && (
               <h2
-                className={classNames(
+                className={cn(
                   'mb-4 text-3xl font-bold lg:text-4xl',
                   isDark ? 'text-white' : 'text-gray-900'
                 )}
@@ -185,12 +179,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
               </h2>
             )}
             {subtitle && (
-              <p
-                className={classNames(
-                  'text-lg lg:text-xl',
-                  isDark ? 'text-gray-300' : 'text-gray-600'
-                )}
-              >
+              <p className={cn('text-lg lg:text-xl', isDark ? 'text-gray-300' : 'text-gray-600')}>
                 {subtitle}
               </p>
             )}
@@ -213,7 +202,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
               <>
                 <button
                   onClick={prevSlide}
-                  className={classNames(
+                  className={cn(
                     'absolute top-1/2 left-0 -translate-y-1/2 transform',
                     'flex h-10 w-10 items-center justify-center rounded-full',
                     'bg-white shadow-lg transition-shadow hover:shadow-xl',
@@ -224,7 +213,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
                 </button>
                 <button
                   onClick={nextSlide}
-                  className={classNames(
+                  className={cn(
                     'absolute top-1/2 right-0 -translate-y-1/2 transform',
                     'flex h-10 w-10 items-center justify-center rounded-full',
                     'bg-white shadow-lg transition-shadow hover:shadow-xl',
@@ -240,7 +229,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
                     <button
                       key={index}
                       onClick={() => setCurrentSlide(index)}
-                      className={classNames(
+                      className={cn(
                         'h-2 w-2 rounded-full transition-colors',
                         index === currentSlide
                           ? isDark
@@ -258,7 +247,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
           </div>
         ) : (
           <div
-            className={classNames(
+            className={cn(
               'grid gap-6 lg:gap-8',
               layout && layoutClasses[layout],
               layout === 'masonry' && 'auto-rows-auto'

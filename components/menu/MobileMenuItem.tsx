@@ -1,9 +1,9 @@
 'use client';
 
-import classNames from 'classnames';
 import { useState } from 'react';
 import { Page, HawkEvent } from '@/payload-types';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 type MenuItemProps = {
   data: {
@@ -56,7 +56,7 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
       </div>
 
       <div
-        className={classNames('flex-col gap-1 delay-150 ease-in-out', {
+        className={cn('flex-col gap-1 delay-150 ease-in-out', {
           flex: showOptions,
           hidden: !showOptions,
         })}

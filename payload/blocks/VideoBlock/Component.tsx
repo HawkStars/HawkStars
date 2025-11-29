@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { cn } from '@/payload/utilities/ui';
 import type { VideoBlock as VideoBlockProps } from '@/payload-types';
+import { cn } from '@/lib/utils';
 
 type Props = VideoBlockProps & {
   className?: string;

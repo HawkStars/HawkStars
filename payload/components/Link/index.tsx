@@ -1,9 +1,9 @@
 import { Button, type ButtonProps } from '@/payload/components/ui/button';
-import { cn } from '@/payload/utilities/ui';
 import Link from 'next/link';
 import React from 'react';
 
 import type { HawkEvent, Page } from '@/payload-types';
+import { cn } from '@/lib/utils';
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant'];

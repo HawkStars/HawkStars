@@ -5,7 +5,7 @@ import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Contribution } from '@/payload-types';
 import { PaginatedDocs } from 'payload';
 import Link from 'next/link';
-import { Table, TableBody, TableCell, TableHead, TableRow } from '../ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 
 type OrganizationContributionsTableProps = {
   data: PaginatedDocs<Contribution>;
@@ -22,14 +22,14 @@ const OrganizationContributionsTable = ({ data }: OrganizationContributionsTable
       <h2 className='text-h2_bold'>{t('Contributions')}</h2>
       <div className='-mx-7 overflow-x-auto'>
         <Table>
-          <TableHead>
+          <TableHeader>
             <TableRow>
               <TableHead>{t('contribute:contribution_form.date')}</TableHead>
               <TableHead>{t('contribute:contribution_form.type')}</TableHead>
               <TableHead>{t('contribute:contribution_form.donor')}</TableHead>
               <TableHead>{t('contribute:contribution_form.value')}</TableHead>
             </TableRow>
-          </TableHead>
+          </TableHeader>
           <TableBody>
             {contributions.map((contribution) => (
               <TableRow key={contribution.id}>

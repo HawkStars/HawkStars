@@ -1,10 +1,10 @@
 'use client';
 
 import { PT, GB } from 'country-flag-icons/react/3x2';
-import classNames from 'classnames';
 
 import { useLanguageCookie, useSetLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Language } from '@/i18n/settings';
+import { cn } from '@/lib/utils';
 
 type LanguageSwitcherProps = {
   isFooter?: boolean;
@@ -28,25 +28,25 @@ const LanguageSwitcher = ({ isFooter = false }: LanguageSwitcherProps) => {
   return (
     <>
       <div
-        className={classNames('relative flex cursor-pointer flex-row gap-2 px-3', {
+        className={cn('relative flex cursor-pointer flex-row gap-2 px-3', {
           'border-r pr-3': isFooter,
         })}
       >
         <div
-          className={classNames('flex h-4 w-6', {
+          className={cn('flex h-4 w-6', {
             'my-auto': isFooter,
           })}
           onClick={() => changeLanguage('pt')}
         >
-          <PT title='PT' className={classNames({ grayscale: lng != 'pt' })} />
+          <PT title='PT' className={cn({ grayscale: lng != 'pt' })} />
         </div>
         <div
-          className={classNames('flex h-4 w-6', {
+          className={cn('flex h-4 w-6', {
             'my-auto': isFooter,
           })}
           onClick={() => changeLanguage('en')}
         >
-          <GB title='EN' className={classNames({ grayscale: lng != 'en' })} />
+          <GB title='EN' className={cn({ grayscale: lng != 'en' })} />
         </div>
       </div>
     </>

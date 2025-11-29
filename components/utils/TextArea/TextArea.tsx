@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { cn } from '@/lib/utils';
 import React from 'react';
 
 interface TextAreaProps {
@@ -36,7 +36,7 @@ export default function TextArea({
       {inputHintText && <p className='-my-1'>{inputHintText}</p>}
       <textarea
         placeholder={placeholder}
-        className={classNames(
+        className={cn(
           'border-terciary-500 focus:border-primary-500 block w-full rounded-md border border-solid px-5 py-2 shadow-xs focus:ring-0 focus:outline-hidden',
           `${customCss}`,
           { 'border-red-700': errorMessage },

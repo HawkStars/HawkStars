@@ -2,7 +2,7 @@ import React from 'react';
 import type { HeroBlock as HeroProps } from '@/payload-types';
 import { Media } from '../../components/Media';
 import { CMSLink } from '@/payload/components/Link';
-import { cn } from '@/payload/utilities/ui';
+import { cn } from '@/lib/utils';
 
 export const HeroBlock: React.FC<HeroProps> = ({
   heading,

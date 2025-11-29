@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import classNames from 'classnames';
+
 import {
   Users,
   Heart,
@@ -20,6 +20,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import type { StatsBlock as StatsBlockProps } from '@/payload-types';
+import { cn } from '@/lib/utils';
 
 // Icon mapping for statistics
 const iconMap: Record<string, LucideIcon> = {
@@ -130,7 +131,7 @@ const StatItem: React.FC<{
 
   return (
     <div
-      className={classNames(
+      className={cn(
         styleClasses[style as keyof typeof styleClasses],
         stat.highlight && 'ring-opacity-50 scale-105 ring-2 ring-blue-500'
       )}
@@ -138,7 +139,7 @@ const StatItem: React.FC<{
       {/* Background circle for circles style */}
       {style === 'circles' && (
         <div
-          className={classNames(
+          className={cn(
             'absolute inset-0 rounded-full opacity-10',
             currentColorClasses[(stat.color as ColorClass) || 'blue'].split(' ')[1] // Get background color
           )}
@@ -148,7 +149,7 @@ const StatItem: React.FC<{
       {/* Icon */}
       {IconComponent && (
         <div
-          className={classNames(
+          className={cn(
             'mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full border-2',
             currentColorClasses[(stat.color as ColorClass) || 'blue']
           )}
@@ -159,7 +160,7 @@ const StatItem: React.FC<{
 
       {/* Value */}
       <div
-        className={classNames(
+        className={cn(
           'mb-2 text-3xl font-bold lg:text-4xl',
           isDark ? 'text-white' : 'text-gray-900',
           stat.highlight && 'text-4xl lg:text-5xl'
@@ -172,7 +173,7 @@ const StatItem: React.FC<{
 
       {/* Label */}
       <div
-        className={classNames(
+        className={cn(
           'mb-2 font-semibold',
           isDark ? 'text-gray-200' : 'text-gray-800',
           stat.highlight && 'text-lg'
@@ -183,7 +184,7 @@ const StatItem: React.FC<{
 
       {/* Description */}
       {stat.description && (
-        <div className={classNames('text-sm', isDark ? 'text-gray-400' : 'text-gray-600')}>
+        <div className={cn('text-sm', isDark ? 'text-gray-400' : 'text-gray-600')}>
           {stat.description}
         </div>
       )}
@@ -256,18 +257,15 @@ export const StatsBlock: React.FC<StatsBlockProps> = ({
   return (
     <section
       ref={sectionRef}
-      className={classNames(
-        'py-12 lg:py-20',
-        backgroundColor && backgroundClasses[backgroundColor]
-      )}
+      className={cn('py-12 lg:py-20', backgroundColor && backgroundClasses[backgroundColor])}
     >
       <div className='mx-auto max-w-7xl px-4'>
         {/* Header */}
         {(title || subtitle) && (
-          <div className={classNames('mb-12', textAlign && textAlignClasses[textAlign])}>
+          <div className={cn('mb-12', textAlign && textAlignClasses[textAlign])}>
             {title && (
               <h2
-                className={classNames(
+                className={cn(
                   'mb-4 text-3xl font-bold lg:text-4xl',
                   isDark ? 'text-white' : 'text-gray-900'
                 )}
@@ -276,12 +274,7 @@ export const StatsBlock: React.FC<StatsBlockProps> = ({
               </h2>
             )}
             {subtitle && (
-              <p
-                className={classNames(
-                  'text-lg lg:text-xl',
-                  isDark ? 'text-gray-300' : 'text-gray-600'
-                )}
-              >
+              <p className={cn('text-lg lg:text-xl', isDark ? 'text-gray-300' : 'text-gray-600')}>
                 {subtitle}
               </p>
             )}
@@ -289,7 +282,7 @@ export const StatsBlock: React.FC<StatsBlockProps> = ({
         )}
 
         {/* Stats Grid */}
-        <div className={classNames('grid gap-6 lg:gap-8', layout && layoutClasses[layout])}>
+        <div className={cn('grid gap-6 lg:gap-8', layout && layoutClasses[layout])}>
           {stats.map((stat, index) => (
             <StatItem key={index} stat={stat} inView={inView} style={style} isDark={isDark} />
           ))}

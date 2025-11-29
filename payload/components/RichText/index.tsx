@@ -40,7 +40,7 @@ import type {
 } from '@/payload-types';
 
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
-import { cn } from '@/payload/utilities/ui';
+import { cn } from '@/lib/utils';
 import './richtext.scss';
 import { ColumnBasedBlock } from '@/payload/blocks/ColumnBased/Component';
 
