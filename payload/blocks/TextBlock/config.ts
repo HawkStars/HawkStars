@@ -1,11 +1,5 @@
 import type { Block } from 'payload';
-
-import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical';
+import { HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 
 export const TextBlock: Block = {
   slug: 'textBlock',
@@ -15,12 +9,10 @@ export const TextBlock: Block = {
       name: 'content',
       type: 'richText',
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
+        features: ({ defaultFeatures }) => {
           return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
+            ...defaultFeatures,
+            HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4', 'h5', 'h6'] }),
           ];
         },
       }),

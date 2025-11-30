@@ -1,5 +1,10 @@
 // storage-adapter-import-placeholder
-import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
+import {
+  BlocksFeature,
+  lexicalEditor,
+  defaultColors,
+  TextStateFeature,
+} from '@payloadcms/richtext-lexical';
 import path from 'path';
 import { buildConfig } from 'payload';
 import { fileURLToPath } from 'url';
@@ -37,7 +42,6 @@ import { TestimonialBlock } from './payload/blocks/TestimonialBlock/config';
 import { StatsBlock } from './payload/blocks/StatsBlock/config';
 import { MainPage } from './payload/globals/MainPage/config';
 import { TextBlock } from './payload/blocks/TextBlock/config';
-import { seed } from './lib/payload/seed/development';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -108,6 +112,9 @@ export default buildConfig({
           StatsBlock,
           TextBlock,
         ],
+      }),
+      TextStateFeature({
+        state: { color: { ...defaultColors.background, ...defaultColors.text } },
       }),
     ],
   }),
