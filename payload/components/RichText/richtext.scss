@@ -73,4 +73,12 @@
   .no-padding {
     @apply px-0;
   }
+
+  .list-check {
+    @apply pl-1;
+
+    & li {
+      @apply flex gap-2;
+    }
+  }
 }

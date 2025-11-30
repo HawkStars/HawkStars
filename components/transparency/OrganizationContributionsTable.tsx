@@ -1,19 +1,19 @@
-'use client';
-
-import { useTranslation } from '@/i18n/client';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Contribution } from '@/payload-types';
 import { PaginatedDocs } from 'payload';
 import Link from 'next/link';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
+import { LanguageProps } from '../types';
+import { getServerTranslation } from '@/i18n';
 
-type OrganizationContributionsTableProps = {
+type OrganizationContributionsTableProps = LanguageProps & {
   data: PaginatedDocs<Contribution>;
 };
 
-const OrganizationContributionsTable = ({ data }: OrganizationContributionsTableProps) => {
-  const lng = useLanguageCookie();
-  const { t } = useTranslation(lng, 'contribute');
+const OrganizationContributionsTable = async ({
+  data,
+  lng,
+}: OrganizationContributionsTableProps) => {
+  const { t } = await getServerTranslation(lng, 'contribute');
 
   const { docs: contributions, hasNextPage, hasPrevPage, page } = data;
 

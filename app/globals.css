@@ -45,13 +45,6 @@
     height: auto;
   }
 
-  /** LOGO TEST */
-  .image-test {
-    g {
-      @apply animate-ping;
-    }
-  }
-
   /** TEXT */
   .text-body {
     font-size: 24px;

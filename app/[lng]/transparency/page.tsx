@@ -2,10 +2,9 @@ import { Metadata } from 'next';
 import { LanguagePageProps } from '../types';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Language } from '@/i18n/settings';
-import dynamic from 'next/dynamic';
-import MainHawkStarsLoading from '../loading';
 import { getContributionsQuery, getSumContributions } from '@/lib/payload/queries/contribution';
 import ContributionProjectGoal from '@/components/transparency/ContributionProjectGoal';
+import OrganizationContributionsTable from '@/components/transparency/OrganizationContributionsTable';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -14,21 +13,19 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
   return metadataPage;
 }
 
-const OrganizationContributionsTable = dynamic(
-  () => import('@/components/transparency/OrganizationContributionsTable'),
-  { loading: () => <MainHawkStarsLoading /> }
-);
-
-const TransparencyPage = async () => {
+const TransparencyPage = async ({ params }: LanguagePageProps) => {
   const sumContributions = await getSumContributions();
   if (sumContributions === null) return null;
+
+  const data = await params;
+  const { lng } = data;
 
   const organizationContributions = await getContributionsQuery();
 
   return (
     <section className='flex flex-col gap-5 overflow-x-hidden'>
       <ContributionProjectGoal sumContributions={sumContributions} />
-      <OrganizationContributionsTable data={organizationContributions} />
+      <OrganizationContributionsTable data={organizationContributions} lng={lng} />
     </section>
   );
 };

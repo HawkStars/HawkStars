@@ -10,7 +10,7 @@ import { useRef } from 'react';
 import { Calendar } from '@/components/ui/calendar';
 
 type HawkStarsDatePickerProps = {
-  date: Date | null;
+  date?: Date | null;
   onChange: (date: unknown) => void;
   labelText?: string;
   minDate?: Date;

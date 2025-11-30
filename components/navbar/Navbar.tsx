@@ -48,13 +48,11 @@ const Navbar = () => {
       </div>
 
       <div
-        className={cn(
-          'bg-bege-dark absolute z-40 flex w-full justify-center gap-5 py-2 transition-all duration-300 ease-in',
-          {
-            block: hoveredMenu,
-            'hidden opacity-0': !hoveredMenu,
-          }
-        )}
+        className={cn('bg-bege-dark absolute z-40 mx-auto flex w-full justify-center gap-5 py-2', {
+          block: hoveredMenu,
+          'hidden opacity-0': !hoveredMenu,
+        })}
+        style={{ transition: 'display .3s ease-in, visibility .3s ease-in' }}
       >
         {selectedMenuOptions?.map((option) => (
           <HawkLinkComponent link={option.link} key={option.id} />
