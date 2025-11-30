@@ -1,10 +1,29 @@
 'use client';
 
-import { PT, GB } from 'country-flag-icons/react/3x2';
+import { PT, GB, FlagComponent } from 'country-flag-icons/react/3x2';
 
 import { useLanguageCookie, useSetLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Language } from '@/i18n/settings';
 import { cn } from '@/lib/utils';
+
+type FlagIconProps = {
+  icon: FlagComponent;
+  title: string;
+  value: Language;
+};
+
+const HawkStarsIcons = [
+  {
+    icon: PT,
+    title: 'PT',
+    value: 'pt',
+  },
+  {
+    icon: GB,
+    title: 'EN',
+    value: 'en',
+  },
+] as FlagIconProps[];
 
 type LanguageSwitcherProps = {
   isFooter?: boolean;
@@ -26,30 +45,23 @@ const LanguageSwitcher = ({ isFooter = false }: LanguageSwitcherProps) => {
   };
 
   return (
-    <>
-      <div
-        className={cn('relative flex cursor-pointer flex-row gap-2 px-3', {
-          'border-r pr-3': isFooter,
-        })}
-      >
+    <div
+      className={cn('relative flex cursor-pointer flex-row gap-2 px-3', {
+        'border-r pr-3': isFooter,
+      })}
+    >
+      {HawkStarsIcons.map(({ icon: Icon, title, value }, index) => (
         <div
+          key={index}
           className={cn('flex h-4 w-6', {
             'my-auto': isFooter,
           })}
-          onClick={() => changeLanguage('pt')}
+          onClick={() => changeLanguage(value)}
         >
-          <PT title='PT' className={cn({ grayscale: lng != 'pt' })} />
+          <Icon title={title} className={cn({ 'grayscale hover:grayscale-50': lng != value })} />
         </div>
-        <div
-          className={cn('flex h-4 w-6', {
-            'my-auto': isFooter,
-          })}
-          onClick={() => changeLanguage('en')}
-        >
-          <GB title='EN' className={cn({ grayscale: lng != 'en' })} />
-        </div>
-      </div>
-    </>
+      ))}
+    </div>
   );
 };
 

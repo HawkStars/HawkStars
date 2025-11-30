@@ -8,43 +8,59 @@ import InstagramIcon from '@/public/images/icons/socials/instagram.svg';
 import LinkedinIcon from '@/public/images/icons/socials/linkedin.svg';
 import YoutubeIcon from '@/public/images/icons/socials/youtube.svg';
 
+const Icons = [
+  {
+    icon: YoutubeIcon,
+    href: 'https://www.youtube.com/@HawkStarsNGO',
+    label: 'Check HawkStars NGO on Youtube',
+    openInNewTab: true,
+  },
+  {
+    icon: InstagramIcon,
+    href: 'https://www.instagram.com/hawk.starsngo',
+    label: 'Check HawkStars NGO on Instagram',
+    openInNewTab: true,
+  },
+  {
+    icon: FacebookIcon,
+    href: 'https://www.facebook.com/hawkstarsngo',
+    label: 'Check HawkStars NGO on Facebook',
+    openInNewTab: true,
+  },
+  {
+    icon: LinkedinIcon,
+    href: 'https://www.linkedin.com/company/hawkstars-ngo',
+    label: 'Check HawkStars NGO on Linkedin',
+    openInNewTab: true,
+  },
+  {
+    icon: MailIcon,
+    href: 'mailto:hawkstarsngo@gmail.com',
+    label: 'Click to send an email to HawkStars NGO',
+    openInNewTab: false,
+  },
+] as const;
+
 const Socials = () => {
   return (
     <div className='flex gap-1'>
-      <Link
-        target='_blank'
-        href='https://www.youtube.com/@HawkStarsNGO'
-        aria-label='Check HawkStars NGO on Youtube'
-      >
-        <Image src={YoutubeIcon} alt='Youtube' width={24} height={24} className='grayscale' />
-      </Link>
-      <Link
-        target='_blank'
-        href='https://www.instagram.com/hawk.starsngo'
-        aria-label='Check HawkStars NGO on Instagram'
-      >
-        <Image src={InstagramIcon} alt='Instagram' width={24} height={24} className='grayscale' />
-      </Link>
-      <Link
-        href='https://www.facebook.com/hawkstarsngo'
-        target='_blank'
-        aria-label='Check HawkStars NGO on Facebook'
-      >
-        <Image src={FacebookIcon} alt='Facebook' width={24} height={24} className='grayscale' />
-      </Link>
-      <Link
-        href='https://www.linkedin.com/company/hawkstars-ngo'
-        target='_blank'
-        aria-label='Check HawkStars NGO on Linkedin'
-      >
-        <Image src={LinkedinIcon} alt='Linkedin' width={24} height={24} className='grayscale' />
-      </Link>
-      <Link
-        href='mailto:hawkstarsngo@gmail.com'
-        aria-label='Click to send an email to HawkStars NGO'
-      >
-        <Image src={MailIcon} alt='Email' width={24} height={24} />
-      </Link>
+      {Icons.map(({ icon, href, label, openInNewTab }, index) => (
+        <Link
+          key={index}
+          target={openInNewTab ? '_blank' : undefined}
+          href={href}
+          aria-label={label}
+        >
+          <Image
+            src={icon}
+            alt={label}
+            width={24}
+            height={24}
+            className={openInNewTab ? 'grayscale hover:grayscale-0' : undefined}
+            style={{ transition: openInNewTab ? 'filter 0.3s ease' : undefined }}
+          />
+        </Link>
+      ))}
     </div>
   );
 };

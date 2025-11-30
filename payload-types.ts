@@ -102,6 +102,7 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'pt') | ('en' | 'pt')[];
   globals: {
     header: Header;
     footer: Footer;
@@ -1444,10 +1445,6 @@ export interface AccordionBlock {
    * Allow multiple accordion items to be open at the same time
    */
   allowMultipleOpen?: boolean | null;
-  /**
-   * Visual style of the accordion
-   */
-  style?: ('default' | 'bordered' | 'card') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'accordionBlock';

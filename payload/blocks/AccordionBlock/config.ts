@@ -57,28 +57,6 @@ export const AccordionBlock: Block = {
         description: 'Allow multiple accordion items to be open at the same time',
       },
     },
-    {
-      name: 'style',
-      type: 'select',
-      options: [
-        {
-          label: 'Default',
-          value: 'default',
-        },
-        {
-          label: 'Bordered',
-          value: 'bordered',
-        },
-        {
-          label: 'Card Style',
-          value: 'card',
-        },
-      ],
-      defaultValue: 'default',
-      admin: {
-        description: 'Visual style of the accordion',
-      },
-    },
   ],
   labels: {
     plural: 'Accordion Blocks',
