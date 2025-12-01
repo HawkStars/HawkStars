@@ -27,7 +27,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
           <AccordionItem key={index} value={index.toString()}>
             <AccordionTrigger>{item.title}</AccordionTrigger>
             <AccordionContent className='flex flex-col gap-4 text-balance'>
-              <RichText data={item.content} padding='none' />
+              <RichText data={item.content} />
             </AccordionContent>
           </AccordionItem>
         );

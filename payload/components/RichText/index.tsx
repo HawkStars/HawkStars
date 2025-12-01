@@ -105,15 +105,14 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
 
 type Props = {
   data: DefaultTypedEditorState;
-  padding?: 'none' | 'default';
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export default function RichText(props: Props) {
-  const { className, padding, ...rest } = props;
+  const { className, ...rest } = props;
   return (
     <ConvertRichText
       converters={jsxConverters}
-      className={cn('payload-richtext', padding === 'none' ? 'px-0!' : '', className)}
+      className={cn('payload-richtext', className)}
       {...rest}
     />
   );

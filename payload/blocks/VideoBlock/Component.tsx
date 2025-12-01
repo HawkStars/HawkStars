@@ -56,7 +56,7 @@ export const VideoBlock: React.FC<Props> = (props) => {
   } = props;
 
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isIntersecting, setIsIntersecting] = useState(false);
+  const [isIntersecting, setIsIntersecting] = useState<boolean>(false);
 
   useEffect(() => {
     if (!videoRef.current || !autoplay) return;
@@ -70,17 +70,13 @@ export const VideoBlock: React.FC<Props> = (props) => {
 
     observer.observe(videoRef.current);
 
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, [autoplay]);
 
   useEffect(() => {
     if (videoRef.current && autoplay) {
       if (isIntersecting) {
-        videoRef.current.play().catch(() => {
-          // Autoplay failed, video will remain paused
-        });
+        videoRef.current.play().catch(() => {});
       } else {
         videoRef.current.pause();
       }
@@ -125,10 +121,10 @@ export const VideoBlock: React.FC<Props> = (props) => {
             <iframe
               src={`${embedUrl}${autoplay ? '?autoplay=1' : ''}${muted ? '&muted=1' : ''}${loop ? '&loop=1' : ''}${!controls ? '&controls=0' : ''}`}
               className='absolute top-0 left-0 h-full w-full'
-              frameBorder='0'
               allow='autoplay; fullscreen; picture-in-picture'
               allowFullScreen
               title={title || 'Video'}
+              aria-controls={controls ? 'true' : 'false'}
             />
           )}
         </div>

@@ -43,7 +43,7 @@ export const TextBlock: React.FC<TextBlockProps> = ({
   return (
     <div className='container py-8'>
       <div className={cn(getMaxWidthClasses(maxWidth), getTextAlignClasses(textAlign))}>
-        {content && <RichText data={content} className='no-padding' />}
+        {content && <RichText data={content} />}
       </div>
     </div>
   );
