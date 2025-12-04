@@ -17,6 +17,7 @@ export const ImpactBlock: Block = {
       name: 'subtitle',
       type: 'text',
       localized: false,
+      required: false,
       admin: {
         description: 'Optional subtitle or description',
       },
@@ -176,6 +177,9 @@ export const ImpactBlock: Block = {
         },
       ],
       defaultValue: 'center',
+      admin: {
+        description: 'Text alignment for the impact section',
+      },
     },
   ],
   labels: {

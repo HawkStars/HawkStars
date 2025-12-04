@@ -44,7 +44,7 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns }) => 
               <li
                 key={key}
                 onMouseEnter={() => handleHoverMenu(key)}
-                className='my-auto cursor-pointer font-semibold text-white hover:text-yellow-500'
+                className='my-auto cursor-pointer'
               >
                 {title}
               </li>

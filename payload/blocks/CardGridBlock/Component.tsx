@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import type { CardGridBlock as CardGridBlockProps, HawkEvent, Media, Page } from '@/payload-types';
 import { cn } from '@/lib/utils';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 
 // Icon mapping
 const iconMap: Record<string, LucideIcon> = {
@@ -186,13 +187,14 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
         )}
 
         {/* Cards Grid */}
+
         <div className={cn('grid gap-6 lg:gap-8', layout && layoutClasses[layout])}>
           {cards.map((card, index) => {
             const IconComponent = card.icon ? iconMap[card.icon] : null;
             const cardColors = colorClasses[card.color || 'blue'];
 
             return (
-              <div
+              <Card
                 key={index}
                 className={cn(
                   'p-6',
@@ -201,7 +203,7 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
                 )}
               >
                 {/* Image or Icon */}
-                <div className='mb-4'>
+                <CardHeader className='mb-4'>
                   {card.image ? (
                     <div className='relative mb-4 h-48 w-full overflow-hidden rounded-lg'>
                       <Image
@@ -226,10 +228,10 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
                       <IconComponent className='h-6 w-6' />
                     </div>
                   ) : null}
-                </div>
+                </CardHeader>
 
                 {/* Content */}
-                <div className={textAlignClasses[textAlign as TextAlign]}>
+                <CardTitle className={textAlignClasses[textAlign as TextAlign]}>
                   <h3 className={cn('mb-3 text-xl font-semibold text-gray-900', cardColors.accent)}>
                     {card.title}
                   </h3>
@@ -241,8 +243,8 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
                   )}
 
                   {renderCardLink(card)}
-                </div>
-              </div>
+                </CardTitle>
+              </Card>
             );
           })}
         </div>

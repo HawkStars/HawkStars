@@ -1578,6 +1578,9 @@ export interface ImpactBlock {
    * Background style for the impact section
    */
   background?: ('none' | 'light-gray' | 'dark' | 'gradient') | null;
+  /**
+   * Text alignment for the impact section
+   */
   textAlign?: ('left' | 'center' | 'right') | null;
   id?: string | null;
   blockName?: string | null;
