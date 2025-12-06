@@ -104,11 +104,11 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   },
 });
 
-type Props = {
+export type RichTextProps = {
   data: DefaultTypedEditorState;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-export default function RichText(props: Props) {
+export default function RichText(props: RichTextProps) {
   const { className, ...rest } = props;
   return (
     <ConvertRichText

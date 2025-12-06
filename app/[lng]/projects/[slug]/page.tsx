@@ -9,6 +9,7 @@ import { getSingleEventsQuery } from '@/lib/payload/queries/event';
 import Image from 'next/image';
 import { Media } from '@/payload-types';
 import RichText from '@/payload/components/RichText';
+import Post from '@/components/blog/Post';
 
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
   const params = await props.params;
@@ -30,20 +31,13 @@ const EventPage = async (props: EventPageProps) => {
   if (!event) notFound();
 
   return (
-    <>
-      <HawkStarsSection className='bg-bege-light gap-8 pt-10 pb-8 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
-        {event.heading && <h1 className='text-h1_semibold mt-4 text-center'>{event.heading}</h1>}
-        <div className='relative lg:w-6/12'>
-          <Image
-            src={(event?.image as Media)?.url || ''}
-            alt={(event.image as Media)?.alt || 'Event Image'}
-            className='rounded-xl'
-            fill={true}
-          />
-        </div>
-        {event.page_content && <RichText data={event.page_content} />}
-      </HawkStarsSection>
-    </>
+    <Post
+      content={event.page_content || undefined}
+      title={event.heading}
+      image={(event?.image as Media)?.url || ''}
+      pubDate={new Date(event.updatedAt)}
+      description={event.description || undefined}
+    />
   );
 };
 
