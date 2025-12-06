@@ -19,7 +19,7 @@ const getFooterQuery = async () => {
       pages: {
         slug: true,
       },
-      hawk_events: {
+      hawk_projects: {
         slug: true,
       },
     },

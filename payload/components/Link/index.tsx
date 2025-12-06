@@ -2,7 +2,7 @@ import { Button, type ButtonProps } from '@/payload/components/ui/button';
 import Link from 'next/link';
 import React from 'react';
 
-import type { HawkEvent, Page } from '@/payload-types';
+import type { HawkProject, Page } from '@/payload-types';
 import { cn } from '@/lib/utils';
 
 type CMSLinkType = {
@@ -12,8 +12,8 @@ type CMSLinkType = {
   label?: string | null;
   newTab?: boolean | null;
   reference?: {
-    relationTo: 'pages' | 'hawk_events';
-    value: Page | HawkEvent | string | number;
+    relationTo: 'pages' | 'hawk_projects';
+    value: Page | HawkProject | string | number;
   } | null;
   size?: ButtonProps['size'] | null;
   type?: 'custom' | 'reference' | null;

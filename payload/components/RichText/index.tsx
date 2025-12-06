@@ -4,12 +4,12 @@ import { HeroBlock } from '@/payload/blocks/Hero/Component';
 import { ContentWithImageBlock } from '@/payload/blocks/ContentWithImage/Component';
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
 import { AccordionBlock } from '@/payload/blocks/AccordionBlock/Component';
-import { ProjectBlock } from '@/payload/blocks/ProjectBlock/Component';
 import { ImpactBlock } from '@/payload/blocks/ImpactBlock/Component';
 import { CardGridBlock } from '@/payload/blocks/CardGridBlock/Component';
 import { TestimonialBlock } from '@/payload/blocks/TestimonialBlock/Component';
 import { StatsBlock } from '@/payload/blocks/StatsBlock/Component';
 import { TextBlock } from '@/payload/blocks/TextBlock/Component';
+import { Projects18Block } from '@/payload/blocks/Projects18/Component';
 import {
   DefaultNodeTypes,
   SerializedBlockNode,
@@ -33,10 +33,11 @@ import type {
   TestimonialBlock as TestimonialBlockProps,
   TextBlock as TextBlockProps,
   AccordionBlock as AccordionBlockProps,
-  ProjectBlock as ProjectBlockProps,
+  Projects18Block as Project18BlockProps,
   ImpactBlock as ImpactBlockProps,
   CardGridBlock as CardGridBlockProps,
   ColumnBasedBlock as ColumnBasedBlockProps,
+  Projects18Block as Projects18BlockProps,
 } from '@/payload-types';
 
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
@@ -57,7 +58,7 @@ type NodeTypes =
       | StatsBlockProps
       | TextBlockProps
       | AccordionBlockProps
-      | ProjectBlockProps
+      | Project18BlockProps
       | ImpactBlockProps
       | CardGridBlockProps
       | ColumnBasedBlockProps
@@ -93,7 +94,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     contentWithImage: ({ node }) => <ContentWithImageBlock {...node.fields} />,
     videoBlock: ({ node }) => <VideoBlock {...node.fields} />,
     accordionBlock: ({ node }) => <AccordionBlock {...node.fields} />,
-    projectBlock: ({ node }) => <ProjectBlock {...node.fields} />,
+    projects18: ({ node }) => <Projects18Block {...node.fields} />,
     impactBlock: ({ node }) => <ImpactBlock {...node.fields} />,
     cardGridBlock: ({ node }) => <CardGridBlock {...node.fields} />,
     testimonialBlock: ({ node }) => <TestimonialBlock {...node.fields} />,

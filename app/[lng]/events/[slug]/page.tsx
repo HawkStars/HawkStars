@@ -12,7 +12,7 @@ import RichText from '@/payload/components/RichText';
 
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
   const params = await props.params;
-  const { lng, slug } = params;
+  const { lng } = params;
   // const event = await getSingleEventsQuery(slug);
 
   const metadataPage = getMetadataPageInfo(lng as Language, 'home');
@@ -32,7 +32,7 @@ const EventPage = async (props: EventPageProps) => {
   return (
     <>
       <HawkStarsSection className='bg-bege-light gap-8 pt-10 pb-8 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
-        {event.title && <h1 className='text-h1_semibold mt-4 text-center'>{event.title}</h1>}
+        {event.heading && <h1 className='text-h1_semibold mt-4 text-center'>{event.heading}</h1>}
         <div className='relative lg:w-6/12'>
           <Image
             src={(event?.image as Media)?.url || ''}

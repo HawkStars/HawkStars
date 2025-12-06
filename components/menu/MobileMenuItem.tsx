@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Page, HawkEvent } from '@/payload-types';
+import { Page, HawkProject } from '@/payload-types';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
@@ -26,8 +26,8 @@ type MenuItemProps = {
                   value: string | Page;
                 } | null)
               | ({
-                  relationTo: 'hawk_events';
-                  value: string | HawkEvent;
+                  relationTo: 'hawk_projects';
+                  value: string | HawkProject;
                 } | null);
             url?: string | null;
             label: string;
@@ -74,7 +74,7 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
               href =
                 relationTo === 'pages'
                   ? `/${(link.reference?.value as Page).slug}`
-                  : `/events/${(link.reference?.value as HawkEvent).slug}`;
+                  : `/events/${(link.reference?.value as HawkProject).slug}`;
             }
 
             return (

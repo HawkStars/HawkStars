@@ -26,7 +26,7 @@ import { Footer } from './payload/globals/Footer/config';
 import { Header } from './payload/globals/Header/config';
 import { Pages } from './payload/collections/Pages';
 import { plugins } from './payload/plugins';
-import { HawkEvent } from './payload/collections/HawkEvent';
+import { HawkProject } from './payload/collections/HawkProject';
 import { CallToAction } from './payload/blocks/CallToAction/config';
 import { ColumnBased } from './payload/blocks/ColumnBased/config';
 import { ContentWithImage } from './payload/blocks/ContentWithImage/config';
@@ -35,13 +35,13 @@ import { Hero } from './payload/blocks/Hero/config';
 import { MediaBlock } from './payload/blocks/MediaBlock/config';
 import { VideoBlock } from './payload/blocks/VideoBlock/config';
 import { AccordionBlock } from './payload/blocks/AccordionBlock/config';
-import { ProjectBlock } from './payload/blocks/ProjectBlock/config';
 import { ImpactBlock } from './payload/blocks/ImpactBlock/config';
 import { CardGridBlock } from './payload/blocks/CardGridBlock/config';
 import { TestimonialBlock } from './payload/blocks/TestimonialBlock/config';
 import { StatsBlock } from './payload/blocks/StatsBlock/config';
 import { MainPage } from './payload/globals/MainPage/config';
 import { TextBlock } from './payload/blocks/TextBlock/config';
+import { Projects18Block } from './payload/blocks/Projects18/config';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -87,7 +87,7 @@ export default buildConfig({
     BoardMember,
     Contribution,
     Curator,
-    HawkEvent,
+    HawkProject,
     Partner,
     Pages,
   ],
@@ -105,7 +105,7 @@ export default buildConfig({
           ContentWithImage,
           VideoBlock,
           AccordionBlock,
-          ProjectBlock,
+          Projects18Block,
           ImpactBlock,
           CardGridBlock,
           TestimonialBlock,
@@ -134,7 +134,7 @@ export default buildConfig({
       handler: totalContributioValueQuery,
     },
   ],
-  onInit: async (payload) => {
+  onInit: async (_) => {
     // await seed(payload);
   },
 });

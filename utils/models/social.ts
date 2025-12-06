@@ -17,4 +17,4 @@ export const SocialIcon = {
   twitter: TwitterIcon,
   website: WebsiteIcon,
   linkedin: LinkedinIcon,
-} as { [x in SocialType]: any };
+} as { [x in SocialType]: string };

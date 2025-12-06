@@ -1,13 +1,15 @@
 import { Tab } from 'payload';
 
-const HawkEventFields: Tab = {
+const HawkProjectDetails: Tab = {
   label: 'Details',
   description: 'Information about the Hawk Event',
   admin: {
     description: 'Configure the details for the Hawk Event here',
   },
   fields: [
-    { name: 'title', label: 'Title', type: 'text', required: true, localized: true },
+    { name: 'heading', label: 'Title', type: 'text', required: true, localized: true },
+    { name: 'subheading', label: 'Subtitle', type: 'text', localized: true },
+    { name: 'description', label: 'Description', type: 'textarea', localized: true },
     {
       name: 'slug',
       label: 'Slug',
@@ -45,4 +47,4 @@ const HawkEventFields: Tab = {
   ],
 };
 
-export default HawkEventFields;
+export default HawkProjectDetails;

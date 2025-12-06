@@ -73,7 +73,7 @@ export interface Config {
     'board-members': BoardMember;
     contributions: Contribution;
     curators: Curator;
-    hawk_events: HawkEvent;
+    hawk_projects: HawkProject;
     partners: Partner;
     pages: Page;
     'payload-kv': PayloadKv;
@@ -90,7 +90,7 @@ export interface Config {
     'board-members': BoardMembersSelect<false> | BoardMembersSelect<true>;
     contributions: ContributionsSelect<false> | ContributionsSelect<true>;
     curators: CuratorsSelect<false> | CuratorsSelect<true>;
-    hawk_events: HawkEventsSelect<false> | HawkEventsSelect<true>;
+    hawk_projects: HawkProjectsSelect<false> | HawkProjectsSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -377,14 +377,16 @@ export interface Contribution {
   createdAt: string;
 }
 /**
- * Collection for managing Hawk Events
+ * Collection for managing Hawk Projects
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "hawk_events".
+ * via the `definition` "hawk_projects".
  */
-export interface HawkEvent {
+export interface HawkProject {
   id: string;
-  title: string;
+  heading: string;
+  subheading?: string | null;
+  description?: string | null;
   slug: string;
   type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
   page_content?: {
@@ -647,8 +649,8 @@ export interface PayloadLockedDocument {
         value: string | Curator;
       } | null)
     | ({
-        relationTo: 'hawk_events';
-        value: string | HawkEvent;
+        relationTo: 'hawk_projects';
+        value: string | HawkProject;
       } | null)
     | ({
         relationTo: 'partners';
@@ -831,10 +833,12 @@ export interface SeoFieldsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "hawk_events_select".
+ * via the `definition` "hawk_projects_select".
  */
-export interface HawkEventsSelect<T extends boolean = true> {
-  title?: T;
+export interface HawkProjectsSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  description?: T;
   slug?: T;
   type_event?: T;
   page_content?: T;
@@ -987,8 +991,8 @@ export interface Header {
                     value: string | Page;
                   } | null)
                 | ({
-                    relationTo: 'hawk_events';
-                    value: string | HawkEvent;
+                    relationTo: 'hawk_projects';
+                    value: string | HawkProject;
                   } | null);
               url?: string | null;
               label: string;
@@ -1032,8 +1036,8 @@ export interface Footer {
                     value: string | Page;
                   } | null)
                 | ({
-                    relationTo: 'hawk_events';
-                    value: string | HawkEvent;
+                    relationTo: 'hawk_projects';
+                    value: string | HawkProject;
                   } | null);
               url?: string | null;
               label: string;
@@ -1225,8 +1229,8 @@ export interface CallToActionBlock {
                 value: string | Page;
               } | null)
             | ({
-                relationTo: 'hawk_events';
-                value: string | HawkEvent;
+                relationTo: 'hawk_projects';
+                value: string | HawkProject;
               } | null);
           url?: string | null;
           label: string;
@@ -1329,8 +1333,8 @@ export interface HeroBlock {
                 value: string | Page;
               } | null)
             | ({
-                relationTo: 'hawk_events';
-                value: string | HawkEvent;
+                relationTo: 'hawk_projects';
+                value: string | HawkProject;
               } | null);
           url?: string | null;
           label: string;
@@ -1451,83 +1455,19 @@ export interface AccordionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ProjectBlock".
+ * via the `definition` "Projects18Block".
  */
-export interface ProjectBlock {
+export interface Projects18Block {
   title: string;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  subtitle?: string | null;
+  description?: string | null;
   /**
-   * Main project image
+   * Select the projects you want to display in this block
    */
-  image?: (string | null) | Media;
-  status: 'planning' | 'in-progress' | 'completed' | 'on-hold';
-  /**
-   * Project completion percentage (0-100)
-   */
-  progress?: number | null;
-  /**
-   * Project start date
-   */
-  startDate?: string | null;
-  /**
-   * Project completion date (actual or estimated)
-   */
-  endDate?: string | null;
-  budget?: {
-    /**
-     * Total project budget
-     */
-    total?: number | null;
-    /**
-     * Amount raised so far
-     */
-    raised?: number | null;
-    /**
-     * Currency symbol
-     */
-    currency?: string | null;
-  };
-  tags?:
-    | {
-        tag: string;
-        id?: string | null;
-      }[]
-    | null;
-  team?:
-    | {
-        member?: (string | null) | BoardMember;
-        /**
-         * Role in this project
-         */
-        role?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  links?:
-    | {
-        label: string;
-        url: string;
-        type?: ('website' | 'docs' | 'repo' | 'other') | null;
-        id?: string | null;
-      }[]
-    | null;
+  projects: (string | HawkProject)[];
   id?: string | null;
   blockName?: string | null;
-  blockType: 'projectBlock';
+  blockType: 'projects18';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1639,8 +1579,8 @@ export interface CardGridBlock {
                   value: string | Page;
                 } | null)
               | ({
-                  relationTo: 'hawk_events';
-                  value: string | HawkEvent;
+                  relationTo: 'hawk_projects';
+                  value: string | HawkProject;
                 } | null);
             url?: string | null;
             label: string;

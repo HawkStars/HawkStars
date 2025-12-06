@@ -15,7 +15,12 @@ import {
   ArrowRight,
   type LucideIcon,
 } from 'lucide-react';
-import type { CardGridBlock as CardGridBlockProps, HawkEvent, Media, Page } from '@/payload-types';
+import type {
+  CardGridBlock as CardGridBlockProps,
+  HawkProject,
+  Media,
+  Page,
+} from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -66,8 +71,8 @@ type Card = {
                 value: string | Page;
               } | null)
             | ({
-                relationTo: 'hawk_events';
-                value: string | HawkEvent;
+                relationTo: 'hawk_projects';
+                value: string | HawkProject;
               } | null);
           url?: string | null;
           label: string;

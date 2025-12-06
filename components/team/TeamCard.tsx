@@ -1,41 +1,70 @@
-'use client';
-
-import Image from 'next/image';
-import Avatar from '../utils/Avatar';
-import LinkedinIcon from '@/public/images/icons/socials/linkedin.svg';
-
+import { BoardMember, Media } from '@/payload-types';
+import { Card } from '../ui/card';
+import { SocialIcon, SocialType } from '@/utils/models/social';
 import Link from 'next/link';
-import { useTranslation } from '../../i18n/client';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
-import { Media } from '@/payload-types';
+import Image from 'next/image';
 
 type TeamCardProps = {
-  name: string;
-  title: string;
-  photo?: string | Media | null;
-  url?: string;
+  member: BoardMember;
 };
 
-const TeamCard = ({ name, title, photo, url }: TeamCardProps) => {
-  const lng = useLanguageCookie();
-  const { t } = useTranslation(lng, 'team');
+const TeamCard = ({ member }: TeamCardProps) => {
+  const links = member.links;
   return (
-    <div className='bg-bege-light flex w-full gap-4 rounded-lg px-2 py-4 text-center lg:h-64 lg:w-56 lg:flex-col lg:gap-0'>
-      <div className='mt-2 flex justify-center'>
-        <Avatar url={photo} size='medium' />
-      </div>
-      <div className='mt-3 flex h-full flex-col gap-1 text-left lg:mt-6 lg:text-center'>
-        <h4 className='text-body_semibold'>{name}</h4>
-        <p className='text-body_regular'>{t(`roles.${title}`)}</p>
-        {url && (
-          <div className='flex lg:mt-auto lg:justify-center'>
-            <Link href={url} target='_blank'>
-              <Image src={LinkedinIcon} alt='Linkedin' width={32} height={32} />
-            </Link>
+    <Card
+      key={member.id}
+      className='text-card-foreground bg-card/50 border-border/50 flex flex-col gap-6 rounded-xl border p-6 shadow-sm backdrop-blur-sm'
+    >
+      <div className='grid grid-cols-2 items-start gap-4'>
+        {/* Content */}
+        <div className='flex flex-col justify-between gap-6'>
+          <div>
+            <h3 className='text-foreground font-medium'>{member.name}</h3>
+            <p className='text-muted-foreground text-xs'>{member.title}</p>
+          </div>
+
+          <div className='flex flex-wrap gap-2'>
+            {/* Social Media Buttons */}
+            {links?.map((link, index) => {
+              if (!link.isVisible) return null;
+
+              const icon = link && SocialIcon[link.platform as SocialType];
+              if (!icon) return null;
+
+              return (
+                <Link
+                  key={index}
+                  href={link.url}
+                  target='_blank'
+                  className='hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 bg-background/50 border-border/50 flex h-8 w-8 justify-center gap-1.5 rounded-md border p-0 shadow-xs transition-all duration-200 has-[>svg]:px-2.5'
+                >
+                  <Image
+                    src={icon as string}
+                    alt={link.platform}
+                    width={24}
+                    height={24}
+                    className='grayscale'
+                  />
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Avatar */}
+        {member.photo && (
+          <div>
+            <Image
+              width={128}
+              height={128}
+              src={(member.photo as Media).url as string}
+              alt={member.name}
+              className='h-full w-full rounded-lg object-contain'
+            />
           </div>
         )}
       </div>
-    </div>
+    </Card>
   );
 };
 

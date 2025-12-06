@@ -1,4 +1,4 @@
-import { Page, HawkEvent } from '@/payload-types';
+import { Page, HawkProject } from '@/payload-types';
 
 type LinkProps = {
   type?: 'reference' | 'custom' | null | undefined;
@@ -9,8 +9,8 @@ type LinkProps = {
         value: string | Page;
       }
     | {
-        relationTo: 'hawk_events';
-        value: string | HawkEvent;
+        relationTo: 'hawk_projects';
+        value: string | HawkProject;
       }
     | null
     | undefined;
@@ -28,7 +28,7 @@ export type ExternalLinkProps = {
 
 export type InternalLinkProps = Pick<ExternalLinkProps, 'label' | 'newTab' | 'className'> & {
   relationTo: string;
-  url: string | Page | HawkEvent;
+  url: string | Page | HawkProject;
 };
 
 export type HawkLink = {

@@ -24,7 +24,6 @@ import loungeChair from '@/public/images/icons/contribute/lounge-fill.svg';
 import standardLoungeChair from '@/public/images/icons/contribute/lounge.svg';
 import standardChair from '@/public/images/icons/contribute/standard.svg';
 
-import LineBreaker from '@/components/utils/LineBreaker/LineBreaker';
 import ContributeFormSection from '@/components/contribute/ContributeFormSection';
 import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';
@@ -127,7 +126,6 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
             </Link>
           </div>
         </div>
-        <LineBreaker />
         <HawkStarsSection>
           <div className='flex flex-col gap-3 lg:gap-10'>
             <h2 className='text-h2_bold text-green mt-10 text-center'>Branding</h2>
@@ -177,7 +175,6 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
             </div>
           </div>
         </HawkStarsSection>
-        <LineBreaker />
         <div>
           <h3 className='text-h2_bold text-green text-center'>{t('brand.chairs.title')}</h3>
           <ChairsSections

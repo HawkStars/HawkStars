@@ -3,9 +3,15 @@ import { Metadata } from 'next';
 import { LanguagePageProps } from '../types';
 import { Language } from '@/i18n/settings';
 import { boardSections, sectionLabels } from './config';
-import TeamCard from '@/components/team/TeamCard';
 import { getServerTranslation } from '@/i18n';
 import { getBoardMembers } from '@/lib/payload/queries/team';
+
+import Link from 'next/link';
+import Image from 'next/image';
+import { Media } from '@/payload-types';
+import { Card } from '@/components/ui/card';
+import { SocialIcon, SocialType } from '@/utils/models/social';
+import TeamCard from '@/components/team/TeamCard';
 
 export type SelectOption = {
   label: string;
@@ -35,11 +41,12 @@ const TeamPage = async (props: { params: Promise<{ lng: string }> }) => {
             <h6>{t(sectionLabels[section])}</h6>
             <div className='flex flex-col gap-3 py-5'>
               <div className='mt-3 flex flex-wrap gap-5'>
-                {boardMembers[section].map((member, index) => (
-                  <div key={index} className='flex w-full flex-col justify-center gap-3 lg:w-fit'>
-                    <TeamCard {...member} />
-                  </div>
-                ))}
+                {/* Team Grid */}
+                <div className='grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'>
+                  {boardMembers[section].map((member) => (
+                    <TeamCard key={member.id} member={member} />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
