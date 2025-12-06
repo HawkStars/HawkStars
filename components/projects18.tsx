@@ -1,17 +1,8 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { HawkProject, Media } from '@/payload-types';
-import { PaginatedDocs } from 'payload';
-import { Button } from '@/components/ui/button';
 import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
 
-type EventsListProps = {
-  events: PaginatedDocs<HawkProject>;
-};
+import { Button } from '@/components/ui/button';
 
-const EventsList = ({ events }: EventsListProps) => {
-  const { docs } = events;
-
+const Projects18 = () => {
   return (
     <section className='py-32'>
       <div className='container'>
@@ -31,13 +22,13 @@ const EventsList = ({ events }: EventsListProps) => {
           </Button>
         </div>
         <div className='mt-24 flex flex-col gap-5 md:mt-36'>
-          {docs.map((project, idx) => (
+          {projects.map((project, idx) => (
             <a
               key={idx}
-              href={`/projects/${project.slug}`}
+              href={project.url}
               className='group relative isolate min-h-72 bg-cover bg-center px-5 py-14 lg:px-12 lg:py-24'
               style={{
-                backgroundImage: `url(${(project.image as Media).url})`,
+                backgroundImage: `url(${project.image})`,
               }}
             >
               <div className='relative z-10 flex flex-col gap-7 text-white/80 transition-colors duration-300 ease-out group-hover:text-white lg:flex-row'>
@@ -76,4 +67,4 @@ const EventsList = ({ events }: EventsListProps) => {
   );
 };
 
-export default EventsList;
+export { Projects18 };
