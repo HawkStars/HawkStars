@@ -1458,6 +1458,24 @@ export interface Projects18Block {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessOneBlock".
+ */
+export interface ProcessOneBlock {
+  title: string;
+  description?: string | null;
+  ctaText?: string | null;
+  steps: {
+    step: string;
+    title: string;
+    description: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'processOneBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ImpactBlock".
  */
 export interface ImpactBlock {

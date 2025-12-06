@@ -34,7 +34,7 @@ const EventsPage = async (props: EventsPageProps) => {
   const { totalPages } = events;
 
   return (
-    <HawkStarsSection className='bg-bege-light gap-8 pt-10 pb-8 max-lg:px-0 max-lg:pt-0 xl:px-10'>
+    <HawkStarsSection className='bg-bege-light gap-8 pt-10 pb-8 max-lg:px-0 max-lg:pt-0 xl:px-10!'>
       <EventsList events={events} />
       {/* missing pagination logic */}
       {/* {totalPages > page && <Link href={`/events?page=${page + 1}`}>Next Page</Link>} */}

@@ -42,6 +42,7 @@ import { StatsBlock } from './payload/blocks/StatsBlock/config';
 import { MainPage } from './payload/globals/MainPage/config';
 import { TextBlock } from './payload/blocks/TextBlock/config';
 import { Projects18Block } from './payload/blocks/Projects18/config';
+import { ProcessOneBlock } from './payload/blocks/ProcessOneBlock/config';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -106,6 +107,7 @@ export default buildConfig({
           VideoBlock,
           AccordionBlock,
           Projects18Block,
+          ProcessOneBlock,
           ImpactBlock,
           CardGridBlock,
           TestimonialBlock,

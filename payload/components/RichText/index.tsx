@@ -10,6 +10,7 @@ import { TestimonialBlock } from '@/payload/blocks/TestimonialBlock/Component';
 import { StatsBlock } from '@/payload/blocks/StatsBlock/Component';
 import { TextBlock } from '@/payload/blocks/TextBlock/Component';
 import { Projects18Block } from '@/payload/blocks/Projects18/Component';
+import { ProcessOneBlock } from '@/payload/blocks/ProcessOneBlock/ProcessOneBlockComponent';
 import {
   DefaultNodeTypes,
   SerializedBlockNode,
@@ -33,11 +34,11 @@ import type {
   TestimonialBlock as TestimonialBlockProps,
   TextBlock as TextBlockProps,
   AccordionBlock as AccordionBlockProps,
-  Projects18Block as Project18BlockProps,
+  Projects18Block as Projects18BlockProps,
+  ProcessOneBlock as ProcessOneBlockProps,
   ImpactBlock as ImpactBlockProps,
   CardGridBlock as CardGridBlockProps,
   ColumnBasedBlock as ColumnBasedBlockProps,
-  Projects18Block as Projects18BlockProps,
 } from '@/payload-types';
 
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
@@ -58,7 +59,8 @@ type NodeTypes =
       | StatsBlockProps
       | TextBlockProps
       | AccordionBlockProps
-      | Project18BlockProps
+      | Projects18BlockProps
+      | ProcessOneBlockProps
       | ImpactBlockProps
       | CardGridBlockProps
       | ColumnBasedBlockProps
@@ -95,6 +97,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     videoBlock: ({ node }) => <VideoBlock {...node.fields} />,
     accordionBlock: ({ node }) => <AccordionBlock {...node.fields} />,
     projects18: ({ node }) => <Projects18Block {...node.fields} />,
+    processOneBlock: ({ node }) => <ProcessOneBlock {...node.fields} />,
     impactBlock: ({ node }) => <ImpactBlock {...node.fields} />,
     cardGridBlock: ({ node }) => <CardGridBlock {...node.fields} />,
     testimonialBlock: ({ node }) => <TestimonialBlock {...node.fields} />,
