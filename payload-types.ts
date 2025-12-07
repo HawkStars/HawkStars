@@ -1630,59 +1630,69 @@ export interface TestimonialBlock {
  */
 export interface StatsBlock {
   /**
-   * Optional title for the statistics section
+   * Main heading (e.g., "We don't just talk we Deliver Results")
    */
-  title?: string | null;
+  heading: string;
   /**
-   * Optional subtitle or description
+   * Description text under the heading
    */
-  subtitle?: string | null;
-  stats: {
+  description?: string | null;
+  /**
+   * CTA button text (e.g., "Get Started With Us")
+   */
+  ctaButtonText?: string | null;
+  primaryStat: {
     /**
-     * The numerical value
+     * Monthly value for the main statistic
      */
-    value: number;
+    monthlyValue: number;
     /**
-     * Description of what this number represents
+     * Yearly value for the main statistic
      */
-    label: string;
+    yearlyValue: number;
     /**
-     * Optional prefix (e.g., "€", "$", ">")
+     * Optional prefix (e.g., "$")
      */
     prefix?: string | null;
     /**
-     * Optional suffix (e.g., "+", "%", "€", "people", "countries")
+     * Optional suffix (e.g., "M")
+     */
+    suffix?: string | null;
+  };
+  /**
+   * Text below primary stat (e.g., "And its just in a year")
+   */
+  secondaryText?: string | null;
+  /**
+   * Toggle button text (e.g., "Show Monthly Stats")
+   */
+  toggleButtonText?: string | null;
+  /**
+   * Add up to 4 secondary statistics displayed in a 2x2 grid
+   */
+  stats: {
+    /**
+     * Monthly value
+     */
+    monthlyValue: number;
+    /**
+     * Yearly value
+     */
+    yearlyValue: number;
+    /**
+     * Suffix (e.g., "k+", "%", "M", "+")
      */
     suffix?: string | null;
     /**
-     * Optional additional description or context
+     * Optional prefix (e.g., "~")
      */
-    description?: string | null;
+    prefix?: string | null;
     /**
-     * Lucide icon name (e.g., "Users", "Heart", "Target", "TrendingUp")
+     * Label for this statistic (e.g., "Team Members", "Company Growth")
      */
-    icon?: string | null;
-    color?: ('blue' | 'green' | 'red' | 'yellow' | 'purple' | 'orange' | 'gray') | null;
-    /**
-     * Mark as highlighted/featured statistic
-     */
-    highlight?: boolean | null;
+    label: string;
     id?: string | null;
   }[];
-  /**
-   * How to display the statistics
-   */
-  layout?: ('cols-2' | 'cols-3' | 'cols-4' | 'row') | null;
-  /**
-   * Visual style of the statistics
-   */
-  style?: ('cards' | 'minimal' | 'bordered' | 'circles') | null;
-  /**
-   * Animate numbers when they come into view
-   */
-  animateNumbers?: boolean | null;
-  backgroundColor?: ('none' | 'light-gray' | 'dark' | 'gradient') | null;
-  textAlign?: ('left' | 'center' | 'right') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'statsBlock';

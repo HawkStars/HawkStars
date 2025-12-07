@@ -5,33 +5,122 @@ export const StatsBlock: Block = {
   interfaceName: 'StatsBlock',
   fields: [
     {
-      name: 'title',
+      name: 'heading',
       type: 'text',
+      required: true,
       localized: false,
       admin: {
-        description: 'Optional title for the statistics section',
+        description: 'Main heading (e.g., "We don\'t just talk we Deliver Results")',
       },
     },
     {
-      name: 'subtitle',
+      name: 'description',
+      type: 'textarea',
+      localized: false,
+      admin: {
+        description: 'Description text under the heading',
+      },
+    },
+    {
+      name: 'ctaButtonText',
       type: 'text',
       localized: false,
       admin: {
-        description: 'Optional subtitle or description',
+        description: 'CTA button text (e.g., "Get Started With Us")',
+      },
+    },
+    {
+      name: 'primaryStat',
+      type: 'group',
+      label: 'Primary Statistic (Large)',
+      fields: [
+        {
+          name: 'monthlyValue',
+          type: 'number',
+          required: true,
+          admin: {
+            description: 'Monthly value for the main statistic',
+          },
+        },
+        {
+          name: 'yearlyValue',
+          type: 'number',
+          required: true,
+          admin: {
+            description: 'Yearly value for the main statistic',
+          },
+        },
+        {
+          name: 'prefix',
+          type: 'text',
+          admin: {
+            description: 'Optional prefix (e.g., "$")',
+          },
+        },
+        {
+          name: 'suffix',
+          type: 'text',
+          admin: {
+            description: 'Optional suffix (e.g., "M")',
+          },
+        },
+      ],
+    },
+    {
+      name: 'secondaryText',
+      type: 'text',
+      localized: false,
+      admin: {
+        description: 'Text below primary stat (e.g., "And its just in a year")',
+      },
+    },
+    {
+      name: 'toggleButtonText',
+      type: 'text',
+      localized: false,
+      admin: {
+        description: 'Toggle button text (e.g., "Show Monthly Stats")',
       },
     },
     {
       name: 'stats',
       type: 'array',
       minRows: 1,
+      maxRows: 4,
       required: true,
+      label: 'Secondary Statistics',
+      admin: {
+        description: 'Add up to 4 secondary statistics displayed in a 2x2 grid',
+      },
       fields: [
         {
-          name: 'value',
+          name: 'monthlyValue',
           type: 'number',
           required: true,
           admin: {
-            description: 'The numerical value',
+            description: 'Monthly value',
+          },
+        },
+        {
+          name: 'yearlyValue',
+          type: 'number',
+          required: true,
+          admin: {
+            description: 'Yearly value',
+          },
+        },
+        {
+          name: 'suffix',
+          type: 'text',
+          admin: {
+            description: 'Suffix (e.g., "k+", "%", "M", "+")',
+          },
+        },
+        {
+          name: 'prefix',
+          type: 'text',
+          admin: {
+            description: 'Optional prefix (e.g., "~")',
           },
         },
         {
@@ -40,184 +129,10 @@ export const StatsBlock: Block = {
           required: true,
           localized: false,
           admin: {
-            description: 'Description of what this number represents',
-          },
-        },
-        {
-          name: 'prefix',
-          type: 'text',
-          admin: {
-            description: 'Optional prefix (e.g., "€", "$", ">")',
-          },
-        },
-        {
-          name: 'suffix',
-          type: 'text',
-          admin: {
-            description: 'Optional suffix (e.g., "+", "%", "€", "people", "countries")',
-          },
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          localized: false,
-          admin: {
-            description: 'Optional additional description or context',
-          },
-        },
-        {
-          name: 'icon',
-          type: 'text',
-          admin: {
-            description: 'Lucide icon name (e.g., "Users", "Heart", "Target", "TrendingUp")',
-          },
-        },
-        {
-          name: 'color',
-          type: 'select',
-          options: [
-            {
-              label: 'Blue',
-              value: 'blue',
-            },
-            {
-              label: 'Green',
-              value: 'green',
-            },
-            {
-              label: 'Red',
-              value: 'red',
-            },
-            {
-              label: 'Yellow',
-              value: 'yellow',
-            },
-            {
-              label: 'Purple',
-              value: 'purple',
-            },
-            {
-              label: 'Orange',
-              value: 'orange',
-            },
-            {
-              label: 'Gray',
-              value: 'gray',
-            },
-          ],
-          defaultValue: 'blue',
-        },
-        {
-          name: 'highlight',
-          type: 'checkbox',
-          defaultValue: false,
-          admin: {
-            description: 'Mark as highlighted/featured statistic',
+            description: 'Label for this statistic (e.g., "Team Members", "Company Growth")',
           },
         },
       ],
-    },
-    {
-      name: 'layout',
-      type: 'select',
-      options: [
-        {
-          label: '2 Columns',
-          value: 'cols-2',
-        },
-        {
-          label: '3 Columns',
-          value: 'cols-3',
-        },
-        {
-          label: '4 Columns',
-          value: 'cols-4',
-        },
-        {
-          label: 'Single Row',
-          value: 'row',
-        },
-      ],
-      defaultValue: 'cols-3',
-      admin: {
-        description: 'How to display the statistics',
-      },
-    },
-    {
-      name: 'style',
-      type: 'select',
-      options: [
-        {
-          label: 'Cards',
-          value: 'cards',
-        },
-        {
-          label: 'Minimal',
-          value: 'minimal',
-        },
-        {
-          label: 'Bordered',
-          value: 'bordered',
-        },
-        {
-          label: 'Background Circles',
-          value: 'circles',
-        },
-      ],
-      defaultValue: 'cards',
-      admin: {
-        description: 'Visual style of the statistics',
-      },
-    },
-    {
-      name: 'animateNumbers',
-      type: 'checkbox',
-      defaultValue: true,
-      admin: {
-        description: 'Animate numbers when they come into view',
-      },
-    },
-    {
-      name: 'backgroundColor',
-      type: 'select',
-      options: [
-        {
-          label: 'None (transparent)',
-          value: 'none',
-        },
-        {
-          label: 'Light Gray',
-          value: 'light-gray',
-        },
-        {
-          label: 'Dark',
-          value: 'dark',
-        },
-        {
-          label: 'Gradient',
-          value: 'gradient',
-        },
-      ],
-      defaultValue: 'none',
-    },
-    {
-      name: 'textAlign',
-      type: 'select',
-      options: [
-        {
-          label: 'Left',
-          value: 'left',
-        },
-        {
-          label: 'Center',
-          value: 'center',
-        },
-        {
-          label: 'Right',
-          value: 'right',
-        },
-      ],
-      defaultValue: 'center',
     },
   ],
   labels: {

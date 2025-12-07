@@ -62,6 +62,13 @@ export const BoardMember: CollectionConfig = {
       ],
     },
     {
+      name: 'department',
+      label: 'Department',
+      type: 'text',
+      required: false,
+      localized: true,
+    },
+    {
       name: 'photo',
       label: 'Photo',
       type: 'upload',

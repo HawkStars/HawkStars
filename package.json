@@ -15,6 +15,7 @@
     "payload:generateMapping": "payload generate:importmap"
   },
   "dependencies": {
+    "@number-flow/react": "^0.5.10",
     "@payloadcms/db-mongodb": "3.66.0",
     "@payloadcms/next": "3.66.0",
     "@payloadcms/plugin-cloud-storage": "3.66.0",
