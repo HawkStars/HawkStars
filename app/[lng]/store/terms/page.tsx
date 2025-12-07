@@ -5,6 +5,8 @@ import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
 import { cn } from '@/lib/utils';
 
+export const revalidate = 7200; // 2 hours
+
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;

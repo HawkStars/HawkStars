@@ -5,13 +5,9 @@ import { Language } from '@/i18n/settings';
 import { boardSections, sectionLabels } from './config';
 import { getServerTranslation } from '@/i18n';
 import { getBoardMembers } from '@/lib/payload/queries/team';
-
-import Link from 'next/link';
-import Image from 'next/image';
-import { Media } from '@/payload-types';
-import { Card } from '@/components/ui/card';
-import { SocialIcon, SocialType } from '@/utils/models/social';
 import TeamCard from '@/components/team/TeamCard';
+
+export const revalidate = 7200; // 2 hours
 
 export type SelectOption = {
   label: string;

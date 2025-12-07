@@ -6,6 +6,8 @@ import { LanguagePageProps } from '../types';
 import PinhelSlider from '@/components/PinhelPage/PinhelSlider';
 import { HawkStarsSection } from '@/components/layout';
 
+export const revalidate = 7200; // 2 hours
+
 const PinhelPage = async (props: LanguagePageProps) => {
   const params = await props.params;
 

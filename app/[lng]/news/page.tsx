@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button';
 
+export const revalidate = 7200; // 2 hours
+
 const posts = [
   {
     id: 'post-1',
