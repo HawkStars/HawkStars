@@ -44,6 +44,8 @@ import { TextBlock } from './payload/blocks/TextBlock/config';
 import { Projects18Block } from './payload/blocks/Projects18/config';
 import { ProcessOneBlock } from './payload/blocks/ProcessOneBlock/config';
 import { SimpleCTABlock } from './payload/blocks/SimpleCTA/config';
+import { UpdatesBlock } from './payload/blocks/UpdatesBlock/config';
+import { LogosBlock } from './payload/blocks/LogosBlock/config';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -115,6 +117,8 @@ export default buildConfig({
           StatsBlock,
           TextBlock,
           SimpleCTABlock,
+          UpdatesBlock,
+          LogosBlock,
         ],
       }),
       TextStateFeature({

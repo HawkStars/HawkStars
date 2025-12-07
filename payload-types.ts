@@ -316,6 +316,7 @@ export interface BoardMember {
     | 'substitute'
     | 'treasurer'
     | 'rapporteur_secretary';
+  department?: string | null;
   photo?: (string | null) | Media;
   /**
    * Social Media Links for this entry
@@ -773,6 +774,7 @@ export interface BoardMembersSelect<T extends boolean = true> {
   name?: T;
   section?: T;
   title?: T;
+  department?: T;
   photo?: T;
   links?:
     | T
@@ -1749,6 +1751,85 @@ export interface SimpleCTABlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'simpleCta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "UpdatesBlock".
+ */
+export interface UpdatesBlock {
+  /**
+   * Section heading (e.g. Resources & Whitepapers)
+   */
+  heading: string;
+  /**
+   * Section description (e.g. Explore our thoughts...)
+   */
+  description?: string | null;
+  /**
+   * Categories for filtering updates
+   */
+  categories: {
+    /**
+     * Category name (e.g. Data, AI, Security, News)
+     */
+    name: string;
+    id?: string | null;
+  }[];
+  /**
+   * Latest updates for the tabbed section
+   */
+  latestUpdates: {
+    title: string;
+    category: string;
+    date: string;
+    authors?:
+      | {
+          avatar: string;
+          id?: string | null;
+        }[]
+      | null;
+    link: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'updatesBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogosBlock".
+ */
+export interface LogosBlock {
+  /**
+   * Text for the badge (e.g. Referral Partners)
+   */
+  badgeText?: string | null;
+  /**
+   * Main heading
+   */
+  heading: string;
+  /**
+   * Description text
+   */
+  description?: string | null;
+  /**
+   * Button text (e.g. Become a partner)
+   */
+  buttonText?: string | null;
+  /**
+   * Partner logos
+   */
+  logos: {
+    name: string;
+    /**
+     * Logo image URL
+     */
+    logo: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'logosBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
