@@ -1,6 +1,6 @@
 # Allow all crawlers
 User-agent: *
 Allow: /
-Disallow: /superadmin
+Disallow: /admin
 
 Sitemap: https://hawkstars.org/sitemap.xml

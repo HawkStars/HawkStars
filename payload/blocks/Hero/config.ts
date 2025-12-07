@@ -1,49 +1,87 @@
 import type { Block } from 'payload';
 
-import { linkGroup } from '../../fields/linkGroup';
-
 export const Hero: Block = {
   slug: 'hero',
   interfaceName: 'HeroBlock',
   fields: [
     {
-      name: 'heading',
+      name: 'badge',
       type: 'text',
+      admin: {
+        description: 'Badge label above heading (e.g., "PLATFORM")',
+      },
+    },
+    {
+      name: 'heading',
+      type: 'textarea',
       required: true,
       admin: {
         description: 'Main heading text',
       },
     },
     {
-      name: 'subheading',
-      type: 'textarea',
+      name: 'ctaText',
+      type: 'text',
+      defaultValue: 'Start now for free',
       admin: {
-        description: 'Supporting text or tagline',
+        description: 'Call-to-action button text',
       },
     },
     {
-      name: 'backgroundImage',
+      name: 'ctaLink',
+      type: 'text',
+      admin: {
+        description: 'URL for the CTA button',
+      },
+    },
+    {
+      name: 'headerImage',
       type: 'upload',
       relationTo: 'media',
       admin: {
-        description: 'Background image for the hero section',
+        description: 'Image displayed above the heading',
       },
     },
     {
-      name: 'overlayOpacity',
-      type: 'number',
-      defaultValue: 50,
-      min: 0,
-      max: 100,
+      name: 'features',
+      type: 'array',
+      fields: [
+        {
+          name: 'icon',
+          type: 'select',
+          options: [
+            { label: 'Globe', value: 'globe' },
+            { label: 'Rocket', value: 'rocket' },
+            { label: 'Expand', value: 'expand' },
+            { label: 'Wrench', value: 'wrench' },
+          ],
+          required: true,
+          admin: {
+            description: 'Icon type for this feature',
+          },
+        },
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+          admin: {
+            description: 'Feature title',
+          },
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          required: true,
+          admin: {
+            description: 'Feature description',
+          },
+        },
+      ],
+      maxRows: 4,
       admin: {
-        description: 'Overlay opacity percentage (0-100) to improve text readability',
+        description: 'Feature cards displayed in grid (up to 4)',
       },
     },
-    linkGroup({
-      overrides: {
-        maxRows: 2,
-      },
-    }),
   ],
   labels: {
     plural: 'Hero Sections',

@@ -1294,42 +1294,42 @@ export interface GallerySliderBlock {
  */
 export interface HeroBlock {
   /**
+   * Badge label above heading (e.g., "PLATFORM")
+   */
+  badge?: string | null;
+  /**
    * Main heading text
    */
   heading: string;
   /**
-   * Supporting text or tagline
+   * Call-to-action button text
    */
-  subheading?: string | null;
+  ctaText?: string | null;
   /**
-   * Background image for the hero section
+   * URL for the CTA button
    */
-  backgroundImage?: (string | null) | Media;
+  ctaLink?: string | null;
   /**
-   * Overlay opacity percentage (0-100) to improve text readability
+   * Image displayed above the heading
    */
-  overlayOpacity?: number | null;
-  links?:
+  headerImage?: (string | null) | Media;
+  /**
+   * Feature cards displayed in grid (up to 4)
+   */
+  features?:
     | {
-        link: {
-          type: 'reference' | 'custom';
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'hawk_projects';
-                value: string | HawkProject;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
+        /**
+         * Icon type for this feature
+         */
+        icon: 'globe' | 'rocket' | 'expand' | 'wrench';
+        /**
+         * Feature title
+         */
+        title: string;
+        /**
+         * Feature description
+         */
+        description: string;
         id?: string | null;
       }[]
     | null;
@@ -1537,77 +1537,26 @@ export interface ImpactBlock {
  */
 export interface CardGridBlock {
   /**
-   * Optional title for the card grid section
+   * Optional title for the feature section
    */
   title?: string | null;
-  /**
-   * Optional subtitle or description
-   */
-  subtitle?: string | null;
-  cards: {
-    title: string;
-    description?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
+  features: {
+    heading: string;
+    description: string;
     /**
-     * Card image (optional)
+     * Lucide icon name (e.g., "GitPullRequest", "SquareKanban", "RadioTower", "WandSparkles", "Layers", "BatteryCharging")
      */
-    image?: (string | null) | Media;
-    /**
-     * Lucide icon name (e.g., "User", "Heart", "Star") - used if no image provided
-     */
-    icon?: string | null;
-    /**
-     * Color theme for the card
-     */
-    color?: ('blue' | 'green' | 'red' | 'yellow' | 'purple' | 'gray') | null;
-    links?:
-      | {
-          link: {
-            type: 'reference' | 'custom';
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'hawk_projects';
-                  value: string | HawkProject;
-                } | null);
-            url?: string | null;
-            label: string;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
+    icon: string;
     id?: string | null;
   }[];
   /**
-   * Number of columns in the grid
+   * Optional button text (button hidden if empty)
    */
-  layout?: ('cols-1' | 'cols-2' | 'cols-3' | 'cols-4') | null;
+  buttonText?: string | null;
   /**
-   * Visual style of the cards
+   * Optional button URL (button hidden if empty)
    */
-  cardStyle?: ('standard' | 'hover' | 'minimal' | 'bordered') | null;
-  textAlign?: ('left' | 'center' | 'right') | null;
+  buttonUrl?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'cardGridBlock';
@@ -1769,6 +1718,27 @@ export interface TextBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'textBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SimpleCTABlock".
+ */
+export interface SimpleCTABlock {
+  heading: string;
+  description: string;
+  buttons?: {
+    primary?: {
+      text?: string | null;
+      url?: string | null;
+    };
+    secondary?: {
+      text?: string | null;
+      url?: string | null;
+    };
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'simpleCta';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

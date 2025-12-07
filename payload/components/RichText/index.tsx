@@ -39,12 +39,14 @@ import type {
   ImpactBlock as ImpactBlockProps,
   CardGridBlock as CardGridBlockProps,
   ColumnBasedBlock as ColumnBasedBlockProps,
+  SimpleCTABlock as SimpleCTABlockProps,
 } from '@/payload-types';
 
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
 import { cn } from '@/lib/utils';
 import './richtext.scss';
 import { ColumnBasedBlock } from '@/payload/blocks/ColumnBased/Component';
+import { SimpleCTABlockComponent } from '@/payload/blocks/SimpleCTA/SimpleCTAComponent';
 
 type NodeTypes =
   | DefaultNodeTypes
@@ -64,6 +66,7 @@ type NodeTypes =
       | ImpactBlockProps
       | CardGridBlockProps
       | ColumnBasedBlockProps
+      | SimpleCTABlockProps
     >;
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -104,6 +107,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     statsBlock: ({ node }) => <StatsBlock {...node.fields} />,
     textBlock: ({ node }) => <TextBlock {...node.fields} />,
     columnBased: ({ node }) => <ColumnBasedBlock {...node.fields} />,
+    simpleCta: ({ node }) => <SimpleCTABlockComponent {...node.fields} />,
   },
 });
 
