@@ -10,9 +10,9 @@ type TeamCardProps = LanguageProps & {
   member: BoardMember;
 };
 
-const TeamCard = ({ member, lng }: TeamCardProps) => {
+const TeamCard = async ({ member, lng }: TeamCardProps) => {
   const links = member.links;
-  const { t } = getServerTranslation(lng, 'team');
+  const { t } = await getServerTranslation(lng, 'team');
   return (
     <Card
       key={member.id}

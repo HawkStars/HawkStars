@@ -1,7 +1,11 @@
-import { PayloadRequest } from 'payload';
+import { BasePayload, PayloadRequest } from 'payload';
 
-const totalContributioValueQuery = async (req: PayloadRequest): Promise<Response> => {
-  const result = await req.payload.find({
+const totalContributioValueQuery = async ({
+  payload,
+}: {
+  payload: BasePayload;
+}): Promise<Response> => {
+  const result = await payload.find({
     collection: 'contributions',
   });
 

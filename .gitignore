@@ -56,4 +56,6 @@ storybook-static
 # builds
 dist/
 
+# storybook logs and folder
 *storybook.log
+.storybook/

@@ -1,3 +1,4 @@
+import totalContributioValueQuery from '../endpoints/totalContributioValueQuery';
 import { getPayloadConfig } from '../server';
 
 export const getChairsContributionsQuery = async () => {
@@ -25,7 +26,8 @@ export const getContributionsQuery = async () => {
 
 export const getSumContributions = async (): Promise<number> => {
   try {
-    const response = await fetch(`/api/sum-contributions`);
+    const payload = await getPayloadConfig();
+    const response = await totalContributioValueQuery({ payload });
     if (!response.ok) return 0;
     const data = await response.json();
     return (data.sum as number) || 0;

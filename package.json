@@ -91,6 +91,7 @@
     "@types/react-dom": "~19.2.3",
     "@vitest/browser-playwright": "^4.0.15",
     "@vitest/coverage-v8": "^4.0.15",
+    "chromatic": "^13.3.4",
     "eslint-config-prettier": "^10.1.8",
     "playwright": "^1.57.0",
     "storybook": "^10.1.4",

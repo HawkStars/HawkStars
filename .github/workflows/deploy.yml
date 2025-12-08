@@ -33,6 +33,7 @@ jobs:
     permissions:
       deployments: write
     runs-on: ubuntu-latest
+    needs: check
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -99,8 +100,6 @@ jobs:
             # # Stop existing PM2 process if running
             pm2 stop hawkstars 2>/dev/null || true
             pm2 delete hawkstars 2>/dev/null || true
-            pm2 stop storybook-hawkstars 2>/dev/null || true
-            pm2 delete storybook-hawkstars 2>/dev/null || true
 
             # Install dependencies and build
             pnpm install --frozen-lockfile
@@ -108,7 +107,6 @@ jobs:
 
             # Start the application with PM2
             pm2 start npm --name "hawkstars" -- start
-            pm2 start npm --name "storybook-hawkstars" -- npx http-server ./storybook-static/ -p 6006
 
       - name: Update deployment Status (success)
         if: success()
@@ -125,3 +123,19 @@ jobs:
           token: '${{ github.token }}'
           state: 'failure'
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+  storybook:
+    name: Build Storybook
+    runs-on: ubuntu-latest
+    needs: check
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: pnpm
+        #👇 Adds Chromatic as a step in the workflow
+      - uses: chromaui/action@latest
+        # Options required for Chromatic's GitHub Action
+        with:
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ to obtain it
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}

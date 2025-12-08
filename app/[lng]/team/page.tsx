@@ -9,13 +9,6 @@ import TeamCard from '@/components/team/TeamCard';
 
 export const revalidate = 7200; // 2 hours
 
-export type SelectOption = {
-  label: string;
-  value: string;
-  id: string;
-  disabled: boolean;
-};
-
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;
@@ -23,7 +16,7 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
   return metadataPage;
 }
 
-const TeamPage = async (props: { params: Promise<{ lng: string }> }) => {
+const TeamPage = async (props: LanguagePageProps) => {
   const params = await props.params;
   const { lng } = params;
   const { t } = await getServerTranslation(lng, 'team');
@@ -40,7 +33,7 @@ const TeamPage = async (props: { params: Promise<{ lng: string }> }) => {
                 {/* Team Grid */}
                 <div className='grid grid-cols-1 gap-8 md:grid-cols-3 xl:grid-cols-4'>
                   {boardMembers[section].map((member) => (
-                    <TeamCard key={member.id} member={member} />
+                    <TeamCard key={member.id} member={member} lng={lng} />
                   ))}
                 </div>
               </div>
