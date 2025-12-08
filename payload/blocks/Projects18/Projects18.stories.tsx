@@ -22,7 +22,7 @@ const sampleProjects = [
     description: 'A modern e-commerce solution built with React and Node.js',
     featured: true,
     status: 'published',
-    coverImage: {
+    image: {
       id: '1',
       alt: 'E-Commerce Platform',
       url: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop',
@@ -44,7 +44,7 @@ const sampleProjects = [
     description: 'Secure and user-friendly mobile banking application',
     featured: true,
     status: 'published',
-    coverImage: {
+    image: {
       id: '2',
       alt: 'Mobile Banking App',
       url: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop',
@@ -66,7 +66,7 @@ const sampleProjects = [
     description: 'Analytics dashboard for social media management',
     featured: false,
     status: 'published',
-    coverImage: {
+    image: {
       id: '3',
       alt: 'Social Media Dashboard',
       url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
