@@ -21,7 +21,7 @@ export const Projects18Block: React.FC<Projects18BlockProps> = ({
 
   return (
     <section className='py-32'>
-      <div className='container'>
+      <div className='container mx-auto'>
         <div>
           {subtitle && (
             <p className='text-muted-foreground mb-1 uppercase md:text-lg'>{subtitle}</p>

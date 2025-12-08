@@ -315,7 +315,11 @@ export interface BoardMember {
     | 'm_secretary'
     | 'substitute'
     | 'treasurer'
-    | 'rapporteur_secretary';
+    | 'rapporteur_secretary'
+    | 'department';
+  /**
+   * Only for board members in a department
+   */
   department?: string | null;
   photo?: (string | null) | Media;
   /**

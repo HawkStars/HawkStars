@@ -7,6 +7,7 @@ import GlobalVillageSection from '@/components/home/GlobalVillage';
 import HomeHeroSection from '@/components/home/HomeHeroSection';
 import HomeObjectivesSection from '@/components/home/HomeObjectivesSection';
 import VisionSection from '@/components/home/VisionSection';
+import { About8 } from '@/components/about8';
 
 export const revalidate = 7200; // 2 hours
 
@@ -28,6 +29,7 @@ export default async function Home(props: HomeProps) {
 
   return (
     <>
+      <About8 />
       <HomeHeroSection />
       <HomeObjectivesSection lng={lng} />
       <VisionSection lng={lng} />

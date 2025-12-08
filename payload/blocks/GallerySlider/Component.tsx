@@ -9,7 +9,7 @@ export const GallerySliderBlock: React.FC<GallerySliderProps> = ({ images }) => 
   if (!images || images.length === 0) return null;
 
   return (
-    <div className='container'>
+    <div className='container mx-auto'>
       <Slider autoplay>
         {images.map((item, index) => {
           const image = item?.image as Media;

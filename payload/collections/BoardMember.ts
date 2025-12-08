@@ -59,6 +59,7 @@ export const BoardMember: CollectionConfig = {
         { label: 'Suplente', value: 'substitute' },
         { label: 'Tesoureiro', value: 'treasurer' },
         { label: 'Secretário Relator', value: 'rapporteur_secretary' },
+        { label: 'Departamento', value: 'department' },
       ],
     },
     {
@@ -67,6 +68,10 @@ export const BoardMember: CollectionConfig = {
       type: 'text',
       required: false,
       localized: true,
+      admin: {
+        description: 'Only for board members in a department',
+        condition: (data, siblingData) => siblingData.title === 'department',
+      },
     },
     {
       name: 'photo',
