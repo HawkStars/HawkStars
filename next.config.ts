@@ -85,6 +85,10 @@ const nextConfig = {
         },
       };
     }
+    // config.resolve.alias = {
+    //   ...config.resolve.alias,
+    //   '@': __dirname,
+    // };
     return config;
   },
 } as NextConfig;
