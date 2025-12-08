@@ -20,9 +20,8 @@ export const ContentWithImage: Block = {
       name: 'description',
       type: 'richText',
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
+        features: ({}) => {
           return [
-            ...rootFeatures,
             HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
             FixedToolbarFeature(),
             InlineToolbarFeature(),

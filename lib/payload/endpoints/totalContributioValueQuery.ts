@@ -1,4 +1,4 @@
-import { BasePayload, PayloadRequest } from 'payload';
+import { BasePayload } from 'payload';
 
 const totalContributioValueQuery = async ({
   payload,

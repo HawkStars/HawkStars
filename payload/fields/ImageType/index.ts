@@ -5,7 +5,7 @@ type ImageTypeGroupProps = {
   name: string;
 };
 
-export const ImageTypeGroup = ({ label, name }: ImageTypeGroupProps) =>
+export const PayloadImageField = ({ label, name }: ImageTypeGroupProps) =>
   ({
     name: name,
     label: label,

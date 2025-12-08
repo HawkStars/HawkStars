@@ -9,7 +9,9 @@ type Props = CardGridBlockProps;
 
 const CardGridBlock: React.FC<Props> = ({ title, features, buttonText, buttonUrl }) => {
   const getIcon = (iconName: string) => {
-    const Icon = (LucideIcons as any)[iconName];
+    const Icon = (LucideIcons as unknown as Record<string, React.ComponentType>)[
+      iconName
+    ] as LucideIcons.LucideIcon;
     if (!Icon) {
       console.warn(`Icon "${iconName}" not found in lucide-react`);
       return null;

@@ -27,25 +27,8 @@ import { Header } from './payload/globals/Header/config';
 import { Pages } from './payload/collections/Pages';
 import { plugins } from './payload/plugins';
 import { HawkProject } from './payload/collections/HawkProject';
-import { CallToAction } from './payload/blocks/CallToAction/config';
-import { ColumnBased } from './payload/blocks/ColumnBased/config';
-import { ContentWithImage } from './payload/blocks/ContentWithImage/config';
-import { GallerySlider } from './payload/blocks/GallerySlider/config';
-import { Hero } from './payload/blocks/Hero/config';
-import { MediaBlock } from './payload/blocks/MediaBlock/config';
-import { VideoBlock } from './payload/blocks/VideoBlock/config';
-import { AccordionBlock } from './payload/blocks/AccordionBlock/config';
-import { ImpactBlock } from './payload/blocks/ImpactBlock/config';
-import { CardGridBlock } from './payload/blocks/CardGridBlock/config';
-import { TestimonialBlock } from './payload/blocks/TestimonialBlock/config';
-import { StatsBlock } from './payload/blocks/StatsBlock/config';
 import { MainPage } from './payload/globals/MainPage/config';
-import { TextBlock } from './payload/blocks/TextBlock/config';
-import { Projects18Block } from './payload/blocks/Projects18/config';
-import { ProcessOneBlock } from './payload/blocks/ProcessOneBlock/config';
-import { SimpleCTABlock } from './payload/blocks/SimpleCTA/config';
-import { UpdatesBlock } from './payload/blocks/UpdatesBlock/config';
-import { LogosBlock } from './payload/blocks/LogosBlock/config';
+import blocks from './payload/blocks';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -100,32 +83,14 @@ export default buildConfig({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
       BlocksFeature({
-        blocks: [
-          CallToAction,
-          ColumnBased,
-          MediaBlock,
-          GallerySlider,
-          Hero,
-          ContentWithImage,
-          VideoBlock,
-          AccordionBlock,
-          Projects18Block,
-          ProcessOneBlock,
-          ImpactBlock,
-          CardGridBlock,
-          TestimonialBlock,
-          StatsBlock,
-          TextBlock,
-          SimpleCTABlock,
-          UpdatesBlock,
-          LogosBlock,
-        ],
+        blocks: blocks,
       }),
       TextStateFeature({
         state: { color: { ...defaultColors.background, ...defaultColors.text } },
       }),
     ],
   }),
+  blocks: blocks,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

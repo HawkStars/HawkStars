@@ -1,3 +1,4 @@
+import { PayloadImageField } from '@/payload/fields/ImageType';
 import type { Block } from 'payload';
 
 export const ImageComparisonBlock: Block = {
@@ -7,54 +8,17 @@ export const ImageComparisonBlock: Block = {
     plural: 'Image Comparisons',
   },
   fields: [
-    {
-      name: 'beforeImageType',
-      type: 'select',
-      label: 'Before Image Type',
-      options: [
-        { label: 'External Image', value: 'external' },
-        { label: 'Uploaded Image', value: 'upload' },
-      ],
-    },
-    {
-      name: 'beforeImage',
-      type: 'upload',
-      relationTo: 'media',
-      required: true,
-      label: 'Before Image',
-    },
-    {
-      name: 'afterImage',
-      type: 'upload',
-      relationTo: 'media',
-      required: true,
-      label: 'After Image',
-    },
+    PayloadImageField({ label: 'Before Image', name: 'beforeImage' }),
+    PayloadImageField({ label: 'After Image', name: 'afterImage' }),
     {
       name: 'title',
       type: 'text',
-      localized: true,
       label: 'Title',
     },
     {
       name: 'description',
       type: 'textarea',
-      localized: true,
       label: 'Description',
-    },
-    {
-      name: 'beforeLabel',
-      type: 'text',
-      localized: true,
-      label: 'Before Label',
-      defaultValue: 'Before',
-    },
-    {
-      name: 'afterLabel',
-      type: 'text',
-      localized: true,
-      label: 'After Label',
-      defaultValue: 'After',
     },
     {
       name: 'initialSliderPosition',

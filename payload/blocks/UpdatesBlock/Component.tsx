@@ -1,9 +1,7 @@
 'use client';
 
-import { Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import type { UpdatesBlock as UpdatesBlockType } from '@/payload-types';

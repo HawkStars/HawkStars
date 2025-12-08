@@ -27,9 +27,8 @@ export const AccordionBlock: Block = {
           name: 'content',
           type: 'richText',
           editor: lexicalEditor({
-            features: ({ rootFeatures }) => {
+            features: ({}) => {
               return [
-                ...rootFeatures,
                 HeadingFeature({ enabledHeadingSizes: ['h3', 'h4', 'h5', 'h6'] }),
                 FixedToolbarFeature(),
                 InlineToolbarFeature(),

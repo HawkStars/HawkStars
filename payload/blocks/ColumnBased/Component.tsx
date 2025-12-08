@@ -54,7 +54,11 @@ export const ColumnBasedBlock: React.FC<ColumnBasedProps> = ({ columns }) => {
       <div className={cn('grid gap-6 md:gap-8', getGridClasses())}>
         {columns.map((column, index) => {
           // Dynamically get the icon component
-          const IconComponent = column.icon ? (LucideIcons as any)[column.icon] : null;
+          const IconComponent = column.icon
+            ? ((LucideIcons as unknown as Record<string, React.ComponentType>)[
+                column.icon
+              ] as LucideIcons.LucideIcon)
+            : null;
 
           return (
             <div key={index} className='border-border flex flex-col gap-4 rounded-lg border p-6'>
@@ -78,7 +82,7 @@ export const ColumnBasedBlock: React.FC<ColumnBasedProps> = ({ columns }) => {
                 <ul className='mt-2 space-y-2'>
                   {column.list.map((listItem, listIndex) => (
                     <li key={listIndex} className='flex items-start gap-2'>
-                      <span className='bg-primary mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full' />
+                      <span className='bg-primary mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full' />
                       <span className='text-sm'>{listItem.item}</span>
                     </li>
                   ))}

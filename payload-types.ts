@@ -65,7 +65,27 @@ export interface Config {
   auth: {
     users: UserAuthOperations;
   };
-  blocks: {};
+  blocks: {
+    cta: CallToActionBlock;
+    columnBased: ColumnBasedBlock;
+    mediaBlock: MediaBlock;
+    gallerySlider: GallerySliderBlock;
+    hero: HeroBlock;
+    contentWithImage: ContentWithImageBlock;
+    videoBlock: VideoBlock;
+    accordionBlock: AccordionBlock;
+    projects18: Projects18Block;
+    processOneBlock: ProcessOneBlock;
+    impactBlock: ImpactBlock;
+    cardGridBlock: CardGridBlock;
+    testimonialBlock: TestimonialBlock;
+    statsBlock: StatsBlock;
+    textBlock: TextBlock;
+    simpleCta: SimpleCTABlock;
+    updatesBlock: UpdatesBlock;
+    logosBlock: LogosBlock;
+    imageComparison: ImageComparison;
+  };
   collections: {
     users: User;
     media: Media;
@@ -148,30 +168,83 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "CallToActionBlock".
  */
-export interface User {
-  id: string;
-  name?: string | null;
-  isAdmin?: boolean | null;
-  isEditor?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
+export interface CallToActionBlock {
+  title: string;
+  subtitle?: string | null;
+  links?:
     | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
+        link: {
+          type: 'reference' | 'custom';
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'hawk_projects';
+                value: string | HawkProject;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
       }[]
     | null;
-  password?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: string;
+  /**
+   * The title of the page displayed in the admin panel
+   */
+  title: string;
+  /**
+   * Add, remove, and reorder blocks to build the content of the page
+   */
+  layout?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  /**
+   * The URL slug for the page, e.g. "about" for www.hawkstars.com/about
+   */
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * Upload and manage media assets such as images used throughout the website. Use a image compression tool to optimize images before uploading to improve performance. Ideally in webP
@@ -196,6 +269,709 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * Collection for managing Hawk Projects
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hawk_projects".
+ */
+export interface HawkProject {
+  id: string;
+  heading: string;
+  subheading?: string | null;
+  description?: string | null;
+  slug: string;
+  type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
+  page_content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Image representing the event on the events main page not on the event page itself
+   */
+  image: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ColumnBasedBlock".
+ */
+export interface ColumnBasedBlock {
+  columns: {
+    /**
+     * Lucide icon name (e.g., "User", "Mail", "Calendar")
+     */
+    icon?: string | null;
+    title: string;
+    subtitle?: string | null;
+    list?:
+      | {
+          item: string;
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'columnBased';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock".
+ */
+export interface MediaBlock {
+  media: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GallerySliderBlock".
+ */
+export interface GallerySliderBlock {
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  /**
+   * Enable automatic slide transition
+   */
+  autoplay?: boolean | null;
+  /**
+   * Delay between slides in milliseconds (1000-10000)
+   */
+  autoplayDelay?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallerySlider';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock".
+ */
+export interface HeroBlock {
+  /**
+   * Badge label above heading (e.g., "PLATFORM")
+   */
+  badge?: string | null;
+  /**
+   * Main heading text
+   */
+  heading: string;
+  /**
+   * Call-to-action button text
+   */
+  ctaText?: string | null;
+  /**
+   * URL for the CTA button
+   */
+  ctaLink?: string | null;
+  /**
+   * Image displayed above the heading
+   */
+  headerImage?: (string | null) | Media;
+  /**
+   * Feature cards displayed in grid (up to 4)
+   */
+  features?:
+    | {
+        /**
+         * Icon type for this feature
+         */
+        icon: 'globe' | 'rocket' | 'expand' | 'wrench';
+        /**
+         * Feature title
+         */
+        title: string;
+        /**
+         * Feature description
+         */
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithImageBlock".
+ */
+export interface ContentWithImageBlock {
+  title: string;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  image: string | Media;
+  /**
+   * Position of the image relative to the content
+   */
+  imagePosition?: ('left' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contentWithImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock".
+ */
+export interface VideoBlock {
+  /**
+   * YouTube, Vimeo, or direct video URL (mp4, webm, ogg)
+   */
+  videoUrl: string;
+  /**
+   * Optional title for the video
+   */
+  title?: string | null;
+  /**
+   * Optional caption or description
+   */
+  caption?: string | null;
+  /**
+   * Auto-play video when visible
+   */
+  autoplay?: boolean | null;
+  /**
+   * Loop video playback
+   */
+  loop?: boolean | null;
+  /**
+   * Mute video by default (required for autoplay)
+   */
+  muted?: boolean | null;
+  /**
+   * Show video controls
+   */
+  controls?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'videoBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AccordionBlock".
+ */
+export interface AccordionBlock {
+  items: {
+    title: string;
+    content: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    /**
+     * Whether this accordion item should be open by default
+     */
+    defaultOpen?: boolean | null;
+    id?: string | null;
+  }[];
+  /**
+   * Allow multiple accordion items to be open at the same time
+   */
+  allowMultipleOpen?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'accordionBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Projects18Block".
+ */
+export interface Projects18Block {
+  title: string;
+  subtitle?: string | null;
+  description?: string | null;
+  /**
+   * Select the projects you want to display in this block
+   */
+  projects: (string | HawkProject)[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'projects18';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessOneBlock".
+ */
+export interface ProcessOneBlock {
+  title: string;
+  description?: string | null;
+  ctaText?: string | null;
+  steps: {
+    step: string;
+    title: string;
+    description: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'processOneBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImpactBlock".
+ */
+export interface ImpactBlock {
+  /**
+   * Main title for the impact section
+   */
+  title: string;
+  /**
+   * Optional subtitle or description
+   */
+  subtitle?: string | null;
+  metrics: {
+    /**
+     * Description of what this number represents
+     */
+    label: string;
+    /**
+     * The numerical value
+     */
+    value: number;
+    /**
+     * Optional suffix (e.g., "+", "%", "€", "people")
+     */
+    suffix?: string | null;
+    /**
+     * Optional prefix (e.g., "€", "$", ">")
+     */
+    prefix?: string | null;
+    /**
+     * Lucide icon name (e.g., "Users", "Heart", "Target")
+     */
+    icon?: string | null;
+    color?: ('blue' | 'green' | 'red' | 'yellow' | 'purple' | 'gray') | null;
+    /**
+     * Animate the number when it comes into view
+     */
+    animateOnScroll?: boolean | null;
+    id?: string | null;
+  }[];
+  /**
+   * How to display the metrics
+   */
+  layout?: ('grid-2' | 'grid-3' | 'grid-4' | 'row') | null;
+  /**
+   * Background style for the impact section
+   */
+  background?: ('none' | 'light-gray' | 'dark' | 'gradient') | null;
+  /**
+   * Text alignment for the impact section
+   */
+  textAlign?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'impactBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardGridBlock".
+ */
+export interface CardGridBlock {
+  /**
+   * Optional title for the feature section
+   */
+  title?: string | null;
+  features: {
+    heading: string;
+    description: string;
+    /**
+     * Lucide icon name (e.g., "GitPullRequest", "SquareKanban", "RadioTower", "WandSparkles", "Layers", "BatteryCharging")
+     */
+    icon: string;
+    id?: string | null;
+  }[];
+  /**
+   * Optional button text (button hidden if empty)
+   */
+  buttonText?: string | null;
+  /**
+   * Optional button URL (button hidden if empty)
+   */
+  buttonUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cardGridBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialBlock".
+ */
+export interface TestimonialBlock {
+  /**
+   * Optional title for the testimonial section
+   */
+  title?: string | null;
+  /**
+   * Optional subtitle or description
+   */
+  subtitle?: string | null;
+  testimonials: {
+    /**
+     * The testimonial quote or review
+     */
+    quote: string;
+    author: {
+      /**
+       * Author full name
+       */
+      name: string;
+      /**
+       * Job title or role
+       */
+      title?: string | null;
+      /**
+       * Company or organization
+       */
+      company?: string | null;
+      /**
+       * Author profile photo
+       */
+      avatar?: (string | null) | Media;
+    };
+    /**
+     * Star rating (1-5 stars)
+     */
+    rating?: number | null;
+    /**
+     * Mark as featured testimonial (larger display)
+     */
+    featured?: boolean | null;
+    id?: string | null;
+  }[];
+  /**
+   * How to display the testimonials
+   */
+  layout?: ('single' | 'two-cols' | 'three-cols' | 'carousel' | 'masonry') | null;
+  /**
+   * Visual style of testimonials
+   */
+  style?: ('card' | 'quote' | 'minimal' | 'bubble') | null;
+  /**
+   * Display star ratings
+   */
+  showRatings?: boolean | null;
+  backgroundColor?: ('none' | 'light-gray' | 'dark' | 'brand') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonialBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsBlock".
+ */
+export interface StatsBlock {
+  /**
+   * Main heading (e.g., "We don't just talk we Deliver Results")
+   */
+  heading: string;
+  /**
+   * Description text under the heading
+   */
+  description?: string | null;
+  /**
+   * CTA button text (e.g., "Get Started With Us")
+   */
+  ctaButtonText?: string | null;
+  primaryStat: {
+    /**
+     * Monthly value for the main statistic
+     */
+    monthlyValue: number;
+    /**
+     * Yearly value for the main statistic
+     */
+    yearlyValue: number;
+    /**
+     * Optional prefix (e.g., "$")
+     */
+    prefix?: string | null;
+    /**
+     * Optional suffix (e.g., "M")
+     */
+    suffix?: string | null;
+  };
+  /**
+   * Text below primary stat (e.g., "And its just in a year")
+   */
+  secondaryText?: string | null;
+  /**
+   * Toggle button text (e.g., "Show Monthly Stats")
+   */
+  toggleButtonText?: string | null;
+  /**
+   * Add up to 4 secondary statistics displayed in a 2x2 grid
+   */
+  stats: {
+    /**
+     * Monthly value
+     */
+    monthlyValue: number;
+    /**
+     * Yearly value
+     */
+    yearlyValue: number;
+    /**
+     * Suffix (e.g., "k+", "%", "M", "+")
+     */
+    suffix?: string | null;
+    /**
+     * Optional prefix (e.g., "~")
+     */
+    prefix?: string | null;
+    /**
+     * Label for this statistic (e.g., "Team Members", "Company Growth")
+     */
+    label: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'statsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock".
+ */
+export interface TextBlock {
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Text alignment for the content
+   */
+  textAlign?: ('left' | 'center' | 'right' | 'justify') | null;
+  /**
+   * Maximum width constraint for the text content
+   */
+  maxWidth?: ('full' | 'large' | 'medium' | 'small') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'textBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SimpleCTABlock".
+ */
+export interface SimpleCTABlock {
+  heading: string;
+  description: string;
+  buttons?: {
+    primary?: {
+      text?: string | null;
+      url?: string | null;
+    };
+    secondary?: {
+      text?: string | null;
+      url?: string | null;
+    };
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'simpleCta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "UpdatesBlock".
+ */
+export interface UpdatesBlock {
+  /**
+   * Section heading (e.g. Resources & Whitepapers)
+   */
+  heading: string;
+  /**
+   * Section description (e.g. Explore our thoughts...)
+   */
+  description?: string | null;
+  /**
+   * Categories for filtering updates
+   */
+  categories: {
+    /**
+     * Category name (e.g. Data, AI, Security, News)
+     */
+    name: string;
+    id?: string | null;
+  }[];
+  /**
+   * Latest updates for the tabbed section
+   */
+  latestUpdates: {
+    title: string;
+    category: string;
+    date: string;
+    authors?:
+      | {
+          avatar: string;
+          id?: string | null;
+        }[]
+      | null;
+    link: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'updatesBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogosBlock".
+ */
+export interface LogosBlock {
+  /**
+   * Text for the badge (e.g. Referral Partners)
+   */
+  badgeText?: string | null;
+  /**
+   * Main heading
+   */
+  heading: string;
+  /**
+   * Description text
+   */
+  description?: string | null;
+  /**
+   * Button text (e.g. Become a partner)
+   */
+  buttonText?: string | null;
+  /**
+   * Partner logos
+   */
+  logos: {
+    name: string;
+    /**
+     * Logo image URL
+     */
+    logo: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'logosBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "imageComparison".
+ */
+export interface ImageComparison {
+  beforeImage: {
+    /**
+     * Select whether to use an external image URL or upload an image/media file.
+     */
+    imageType: 'external' | 'upload';
+    /**
+     * Upload an image or media file.
+     */
+    image?: (string | null) | Media;
+    /**
+     * Provide the URL for the external image.
+     */
+    externalImage?: string | null;
+    alt: string;
+  };
+  afterImage: {
+    /**
+     * Select whether to use an external image URL or upload an image/media file.
+     */
+    imageType: 'external' | 'upload';
+    /**
+     * Upload an image or media file.
+     */
+    image?: (string | null) | Media;
+    /**
+     * Provide the URL for the external image.
+     */
+    externalImage?: string | null;
+    alt: string;
+  };
+  title?: string | null;
+  description?: string | null;
+  /**
+   * Position of the comparison slider on load (0-100%)
+   */
+  initialSliderPosition?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'imageComparison';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: string;
+  name?: string | null;
+  isAdmin?: boolean | null;
+  isEditor?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -382,41 +1158,6 @@ export interface Contribution {
   createdAt: string;
 }
 /**
- * Collection for managing Hawk Projects
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "hawk_projects".
- */
-export interface HawkProject {
-  id: string;
-  heading: string;
-  subheading?: string | null;
-  description?: string | null;
-  slug: string;
-  type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
-  page_content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Image representing the event on the events main page not on the event page itself
-   */
-  image: string | Media;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "partners".
  */
@@ -467,51 +1208,6 @@ export interface Partner {
     | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
- */
-export interface Page {
-  id: string;
-  /**
-   * The title of the page displayed in the admin panel
-   */
-  title: string;
-  /**
-   * Add, remove, and reorder blocks to build the content of the page
-   */
-  layout?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
-  /**
-   * The URL slug for the page, e.g. "about" for www.hawkstars.com/about
-   */
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1203,637 +1899,6 @@ export interface TaskSchedulePublish {
     user?: (string | null) | User;
   };
   output?: unknown;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock".
- */
-export interface CallToActionBlock {
-  title: string;
-  subtitle?: string | null;
-  links?:
-    | {
-        link: {
-          type: 'reference' | 'custom';
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'hawk_projects';
-                value: string | HawkProject;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'cta';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ColumnBasedBlock".
- */
-export interface ColumnBasedBlock {
-  columns: {
-    /**
-     * Lucide icon name (e.g., "User", "Mail", "Calendar")
-     */
-    icon?: string | null;
-    title: string;
-    subtitle?: string | null;
-    list?:
-      | {
-          item: string;
-          id?: string | null;
-        }[]
-      | null;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'columnBased';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock".
- */
-export interface MediaBlock {
-  media: string | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "GallerySliderBlock".
- */
-export interface GallerySliderBlock {
-  images: {
-    image: string | Media;
-    id?: string | null;
-  }[];
-  /**
-   * Enable automatic slide transition
-   */
-  autoplay?: boolean | null;
-  /**
-   * Delay between slides in milliseconds (1000-10000)
-   */
-  autoplayDelay?: number | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'gallerySlider';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroBlock".
- */
-export interface HeroBlock {
-  /**
-   * Badge label above heading (e.g., "PLATFORM")
-   */
-  badge?: string | null;
-  /**
-   * Main heading text
-   */
-  heading: string;
-  /**
-   * Call-to-action button text
-   */
-  ctaText?: string | null;
-  /**
-   * URL for the CTA button
-   */
-  ctaLink?: string | null;
-  /**
-   * Image displayed above the heading
-   */
-  headerImage?: (string | null) | Media;
-  /**
-   * Feature cards displayed in grid (up to 4)
-   */
-  features?:
-    | {
-        /**
-         * Icon type for this feature
-         */
-        icon: 'globe' | 'rocket' | 'expand' | 'wrench';
-        /**
-         * Feature title
-         */
-        title: string;
-        /**
-         * Feature description
-         */
-        description: string;
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'hero';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentWithImageBlock".
- */
-export interface ContentWithImageBlock {
-  title: string;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  image: string | Media;
-  /**
-   * Position of the image relative to the content
-   */
-  imagePosition?: ('left' | 'right') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'contentWithImage';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "VideoBlock".
- */
-export interface VideoBlock {
-  /**
-   * YouTube, Vimeo, or direct video URL (mp4, webm, ogg)
-   */
-  videoUrl: string;
-  /**
-   * Optional title for the video
-   */
-  title?: string | null;
-  /**
-   * Optional caption or description
-   */
-  caption?: string | null;
-  /**
-   * Auto-play video when visible
-   */
-  autoplay?: boolean | null;
-  /**
-   * Loop video playback
-   */
-  loop?: boolean | null;
-  /**
-   * Mute video by default (required for autoplay)
-   */
-  muted?: boolean | null;
-  /**
-   * Show video controls
-   */
-  controls?: boolean | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'videoBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "AccordionBlock".
- */
-export interface AccordionBlock {
-  items: {
-    title: string;
-    content: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    };
-    /**
-     * Whether this accordion item should be open by default
-     */
-    defaultOpen?: boolean | null;
-    id?: string | null;
-  }[];
-  /**
-   * Allow multiple accordion items to be open at the same time
-   */
-  allowMultipleOpen?: boolean | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'accordionBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Projects18Block".
- */
-export interface Projects18Block {
-  title: string;
-  subtitle?: string | null;
-  description?: string | null;
-  /**
-   * Select the projects you want to display in this block
-   */
-  projects: (string | HawkProject)[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'projects18';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ProcessOneBlock".
- */
-export interface ProcessOneBlock {
-  title: string;
-  description?: string | null;
-  ctaText?: string | null;
-  steps: {
-    step: string;
-    title: string;
-    description: string;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'processOneBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImpactBlock".
- */
-export interface ImpactBlock {
-  /**
-   * Main title for the impact section
-   */
-  title: string;
-  /**
-   * Optional subtitle or description
-   */
-  subtitle?: string | null;
-  metrics: {
-    /**
-     * Description of what this number represents
-     */
-    label: string;
-    /**
-     * The numerical value
-     */
-    value: number;
-    /**
-     * Optional suffix (e.g., "+", "%", "€", "people")
-     */
-    suffix?: string | null;
-    /**
-     * Optional prefix (e.g., "€", "$", ">")
-     */
-    prefix?: string | null;
-    /**
-     * Lucide icon name (e.g., "Users", "Heart", "Target")
-     */
-    icon?: string | null;
-    color?: ('blue' | 'green' | 'red' | 'yellow' | 'purple' | 'gray') | null;
-    /**
-     * Animate the number when it comes into view
-     */
-    animateOnScroll?: boolean | null;
-    id?: string | null;
-  }[];
-  /**
-   * How to display the metrics
-   */
-  layout?: ('grid-2' | 'grid-3' | 'grid-4' | 'row') | null;
-  /**
-   * Background style for the impact section
-   */
-  background?: ('none' | 'light-gray' | 'dark' | 'gradient') | null;
-  /**
-   * Text alignment for the impact section
-   */
-  textAlign?: ('left' | 'center' | 'right') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'impactBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CardGridBlock".
- */
-export interface CardGridBlock {
-  /**
-   * Optional title for the feature section
-   */
-  title?: string | null;
-  features: {
-    heading: string;
-    description: string;
-    /**
-     * Lucide icon name (e.g., "GitPullRequest", "SquareKanban", "RadioTower", "WandSparkles", "Layers", "BatteryCharging")
-     */
-    icon: string;
-    id?: string | null;
-  }[];
-  /**
-   * Optional button text (button hidden if empty)
-   */
-  buttonText?: string | null;
-  /**
-   * Optional button URL (button hidden if empty)
-   */
-  buttonUrl?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'cardGridBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TestimonialBlock".
- */
-export interface TestimonialBlock {
-  /**
-   * Optional title for the testimonial section
-   */
-  title?: string | null;
-  /**
-   * Optional subtitle or description
-   */
-  subtitle?: string | null;
-  testimonials: {
-    /**
-     * The testimonial quote or review
-     */
-    quote: string;
-    author: {
-      /**
-       * Author full name
-       */
-      name: string;
-      /**
-       * Job title or role
-       */
-      title?: string | null;
-      /**
-       * Company or organization
-       */
-      company?: string | null;
-      /**
-       * Author profile photo
-       */
-      avatar?: (string | null) | Media;
-    };
-    /**
-     * Star rating (1-5 stars)
-     */
-    rating?: number | null;
-    /**
-     * Mark as featured testimonial (larger display)
-     */
-    featured?: boolean | null;
-    id?: string | null;
-  }[];
-  /**
-   * How to display the testimonials
-   */
-  layout?: ('single' | 'two-cols' | 'three-cols' | 'carousel' | 'masonry') | null;
-  /**
-   * Visual style of testimonials
-   */
-  style?: ('card' | 'quote' | 'minimal' | 'bubble') | null;
-  /**
-   * Display star ratings
-   */
-  showRatings?: boolean | null;
-  backgroundColor?: ('none' | 'light-gray' | 'dark' | 'brand') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'testimonialBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "StatsBlock".
- */
-export interface StatsBlock {
-  /**
-   * Main heading (e.g., "We don't just talk we Deliver Results")
-   */
-  heading: string;
-  /**
-   * Description text under the heading
-   */
-  description?: string | null;
-  /**
-   * CTA button text (e.g., "Get Started With Us")
-   */
-  ctaButtonText?: string | null;
-  primaryStat: {
-    /**
-     * Monthly value for the main statistic
-     */
-    monthlyValue: number;
-    /**
-     * Yearly value for the main statistic
-     */
-    yearlyValue: number;
-    /**
-     * Optional prefix (e.g., "$")
-     */
-    prefix?: string | null;
-    /**
-     * Optional suffix (e.g., "M")
-     */
-    suffix?: string | null;
-  };
-  /**
-   * Text below primary stat (e.g., "And its just in a year")
-   */
-  secondaryText?: string | null;
-  /**
-   * Toggle button text (e.g., "Show Monthly Stats")
-   */
-  toggleButtonText?: string | null;
-  /**
-   * Add up to 4 secondary statistics displayed in a 2x2 grid
-   */
-  stats: {
-    /**
-     * Monthly value
-     */
-    monthlyValue: number;
-    /**
-     * Yearly value
-     */
-    yearlyValue: number;
-    /**
-     * Suffix (e.g., "k+", "%", "M", "+")
-     */
-    suffix?: string | null;
-    /**
-     * Optional prefix (e.g., "~")
-     */
-    prefix?: string | null;
-    /**
-     * Label for this statistic (e.g., "Team Members", "Company Growth")
-     */
-    label: string;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'statsBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TextBlock".
- */
-export interface TextBlock {
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  /**
-   * Text alignment for the content
-   */
-  textAlign?: ('left' | 'center' | 'right' | 'justify') | null;
-  /**
-   * Maximum width constraint for the text content
-   */
-  maxWidth?: ('full' | 'large' | 'medium' | 'small') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'textBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SimpleCTABlock".
- */
-export interface SimpleCTABlock {
-  heading: string;
-  description: string;
-  buttons?: {
-    primary?: {
-      text?: string | null;
-      url?: string | null;
-    };
-    secondary?: {
-      text?: string | null;
-      url?: string | null;
-    };
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'simpleCta';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "UpdatesBlock".
- */
-export interface UpdatesBlock {
-  /**
-   * Section heading (e.g. Resources & Whitepapers)
-   */
-  heading: string;
-  /**
-   * Section description (e.g. Explore our thoughts...)
-   */
-  description?: string | null;
-  /**
-   * Categories for filtering updates
-   */
-  categories: {
-    /**
-     * Category name (e.g. Data, AI, Security, News)
-     */
-    name: string;
-    id?: string | null;
-  }[];
-  /**
-   * Latest updates for the tabbed section
-   */
-  latestUpdates: {
-    title: string;
-    category: string;
-    date: string;
-    authors?:
-      | {
-          avatar: string;
-          id?: string | null;
-        }[]
-      | null;
-    link: string;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'updatesBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LogosBlock".
- */
-export interface LogosBlock {
-  /**
-   * Text for the badge (e.g. Referral Partners)
-   */
-  badgeText?: string | null;
-  /**
-   * Main heading
-   */
-  heading: string;
-  /**
-   * Description text
-   */
-  description?: string | null;
-  /**
-   * Button text (e.g. Become a partner)
-   */
-  buttonText?: string | null;
-  /**
-   * Partner logos
-   */
-  logos: {
-    name: string;
-    /**
-     * Logo image URL
-     */
-    logo: string;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'logosBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

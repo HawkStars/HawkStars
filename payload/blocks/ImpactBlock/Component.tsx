@@ -76,8 +76,24 @@ const useAnimatedCounter = (
 };
 
 // Individual metric component
-const MetricCard: React.FC<{ metric: any; inView: boolean }> = ({ metric, inView }) => {
-  const animatedValue = useAnimatedCounter(metric.value, 2000, inView && metric.animateOnScroll);
+const MetricCard: React.FC<{
+  metric: {
+    label: string;
+    value: number;
+    suffix?: string | null | undefined;
+    prefix?: string | null | undefined;
+    icon?: string | null | undefined;
+    color?: 'blue' | 'gray' | 'green' | 'purple' | 'red' | 'yellow' | null | undefined;
+    animateOnScroll?: boolean | null | undefined;
+    id?: string | null | undefined;
+  };
+  inView: boolean;
+}> = ({ metric, inView }) => {
+  const animatedValue = useAnimatedCounter(
+    metric.value,
+    2000,
+    (inView && metric.animateOnScroll) || false
+  );
   const displayValue = metric.animateOnScroll ? animatedValue : metric.value;
 
   const colorClasses = {

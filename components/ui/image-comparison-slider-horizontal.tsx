@@ -1,6 +1,6 @@
-import * as React from "react";
-import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import * as React from 'react';
+import { cn } from '@/lib/utils';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 // Define the props for the component
 interface ImageComparisonSliderProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -11,17 +11,14 @@ interface ImageComparisonSliderProps extends React.HTMLAttributes<HTMLDivElement
   initialPosition?: number;
 }
 
-export const ImageComparisonSlider = React.forwardRef<
-  HTMLDivElement,
-  ImageComparisonSliderProps
->(
+export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageComparisonSliderProps>(
   (
     {
       className,
       leftImage,
       rightImage,
-      altLeft = "Left image",
-      altRight = "Right image",
+      altLeft = 'Left image',
+      altRight = 'Right image',
       initialPosition = 50,
       ...props
     },
@@ -59,7 +56,7 @@ export const ImageComparisonSlider = React.forwardRef<
       if (!isDragging) return;
       handleMove(e.touches[0].clientX);
     };
-    
+
     // Handlers for starting and stopping the drag interaction
     const handleInteractionStart = (e: React.MouseEvent | React.TouchEvent) => {
       setIsDragging(true);
@@ -71,20 +68,20 @@ export const ImageComparisonSlider = React.forwardRef<
     // Effect to add and remove global event listeners for dragging
     React.useEffect(() => {
       if (isDragging) {
-        document.addEventListener("mousemove", handleMouseMove);
-        document.addEventListener("touchmove", handleTouchMove);
-        document.addEventListener("mouseup", handleInteractionEnd);
-        document.addEventListener("touchend", handleInteractionEnd);
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('touchmove', handleTouchMove);
+        document.addEventListener('mouseup', handleInteractionEnd);
+        document.addEventListener('touchend', handleInteractionEnd);
         document.body.style.cursor = 'ew-resize'; // Change cursor globally
       } else {
         document.body.style.cursor = '';
       }
 
       return () => {
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("touchmove", handleTouchMove);
-        document.removeEventListener("mouseup", handleInteractionEnd);
-        document.removeEventListener("touchend", handleInteractionEnd);
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('touchmove', handleTouchMove);
+        document.removeEventListener('mouseup', handleInteractionEnd);
+        document.removeEventListener('touchend', handleInteractionEnd);
         document.body.style.cursor = '';
       };
     }, [isDragging]);
@@ -92,10 +89,7 @@ export const ImageComparisonSlider = React.forwardRef<
     return (
       <div
         ref={containerRef}
-        className={cn(
-          "relative w-full h-full overflow-hidden select-none group",
-          className
-        )}
+        className={cn('group relative h-full w-full overflow-hidden select-none', className)}
         onMouseDown={handleInteractionStart}
         onTouchStart={handleInteractionStart}
         {...props}
@@ -104,49 +98,51 @@ export const ImageComparisonSlider = React.forwardRef<
         <img
           src={rightImage}
           alt={altRight}
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          className='pointer-events-none absolute inset-0 h-full w-full object-cover'
           draggable={false}
         />
-        
+
         {/* Left Image (top layer, clipped) */}
         <div
-          className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none"
-          style={{ clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)` }}
+          className='pointer-events-none absolute inset-0 h-full w-full overflow-hidden'
+          style={{
+            clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)`,
+          }}
         >
           <img
             src={leftImage}
             alt={altLeft}
-            className="w-full h-full object-cover"
+            className='h-full w-full object-cover'
             draggable={false}
           />
         </div>
 
         {/* Slider Handle and Divider */}
         <div
-          className="absolute top-0 h-full w-1 cursor-ew-resize"
+          className='absolute top-0 h-full w-1 cursor-ew-resize'
           style={{ left: `calc(${sliderPosition}% - 2px)` }}
         >
           {/* Divider Line */}
-          <div className="absolute inset-y-0 w-1 bg-background/50 backdrop-blur-sm"></div>
-          
+          <div className='bg-background/50 absolute inset-y-0 w-1 backdrop-blur-sm'></div>
+
           {/* Handle */}
           <div
             className={cn(
-              "absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-12 w-12 flex items-center justify-center rounded-full bg-background/50 text-foreground shadow-xl backdrop-blur-md",
-              "transition-all duration-300 ease-in-out",
-              "group-hover:scale-105",
-              isDragging && "scale-105 shadow-2xl shadow-primary/50"
+              'bg-background/50 text-foreground absolute top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full shadow-xl backdrop-blur-md',
+              'transition-all duration-300 ease-in-out',
+              'group-hover:scale-105',
+              isDragging && 'shadow-primary/50 scale-105 shadow-2xl'
             )}
-            role="slider"
+            role='slider'
             aria-valuenow={sliderPosition}
             aria-valuemin={0}
             aria-valuemax={100}
-            aria-orientation="horizontal"
-            aria-label="Image comparison slider"
+            aria-orientation='horizontal'
+            aria-label='Image comparison slider'
           >
-            <div className="flex items-center text-primary">
-              <ChevronLeft className="h-5 w-5 drop-shadow-md" />
-              <ChevronRight className="h-5 w-5 drop-shadow-md" />
+            <div className='text-primary flex items-center'>
+              <ChevronLeft className='h-5 w-5 drop-shadow-md' />
+              <ChevronRight className='h-5 w-5 drop-shadow-md' />
             </div>
           </div>
         </div>
@@ -155,4 +151,4 @@ export const ImageComparisonSlider = React.forwardRef<
   }
 );
 
-ImageComparisonSlider.displayName = "ImageComparisonSlider";
+ImageComparisonSlider.displayName = 'ImageComparisonSlider';
