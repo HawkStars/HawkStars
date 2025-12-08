@@ -38,7 +38,7 @@ const TeamPage = async (props: { params: Promise<{ lng: string }> }) => {
             <div className='flex flex-col gap-3 py-5'>
               <div className='mt-3 flex flex-wrap gap-5'>
                 {/* Team Grid */}
-                <div className='grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'>
+                <div className='grid grid-cols-1 gap-8 md:grid-cols-3 xl:grid-cols-4'>
                   {boardMembers[section].map((member) => (
                     <TeamCard key={member.id} member={member} />
                   ))}

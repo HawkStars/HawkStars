@@ -3,13 +3,16 @@ import { Card } from '../ui/card';
 import { SocialIcon, SocialType } from '@/utils/models/social';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getServerTranslation } from '@/i18n';
+import { LanguageProps } from '../types';
 
-type TeamCardProps = {
+type TeamCardProps = LanguageProps & {
   member: BoardMember;
 };
 
-const TeamCard = ({ member }: TeamCardProps) => {
+const TeamCard = ({ member, lng }: TeamCardProps) => {
   const links = member.links;
+  const { t } = getServerTranslation(lng, 'team');
   return (
     <Card
       key={member.id}
@@ -20,7 +23,7 @@ const TeamCard = ({ member }: TeamCardProps) => {
         <div className='flex flex-col justify-between gap-6'>
           <div>
             <h3 className='text-foreground font-medium'>{member.name}</h3>
-            <p className='text-muted-foreground text-xs'>{member.title}</p>
+            <p className='text-muted-foreground text-xs'>{t(member.title)}</p>
           </div>
 
           <div className='flex flex-wrap gap-2'>
@@ -59,7 +62,7 @@ const TeamCard = ({ member }: TeamCardProps) => {
               height={128}
               src={(member.photo as Media).url as string}
               alt={member.name}
-              className='h-full w-full rounded-lg object-contain'
+              className='h-32 max-h-32 w-32 max-w-32 rounded-lg object-contain'
             />
           </div>
         )}

@@ -1,5 +1,3 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import { HawkProject, Media } from '@/payload-types';
 import { PaginatedDocs } from 'payload';
 import { Button } from '@/components/ui/button';

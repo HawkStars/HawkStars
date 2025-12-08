@@ -1,14 +1,10 @@
-import { HawkStarsSection } from '@/components/layout';
-
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
 import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { getSingleEventsQuery } from '@/lib/payload/queries/event';
-import Image from 'next/image';
 import { Media } from '@/payload-types';
-import RichText from '@/payload/components/RichText';
 import Post from '@/components/blog/Post';
 
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {

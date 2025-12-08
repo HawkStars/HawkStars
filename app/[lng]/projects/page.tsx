@@ -6,7 +6,6 @@ import { Language } from '@/i18n/settings';
 import { getEventsQuery } from '@/lib/payload/queries/event';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 export async function generateMetadata(props: EventsPageProps): Promise<Metadata> {
   const params = await props.params;
@@ -26,12 +25,10 @@ type EventsPageProps = {
 const EventsPage = async (props: EventsPageProps) => {
   const params = await props.params;
   const { lng } = params;
-  const { t } = await getServerTranslation(lng, 'common');
   const searchParams = await props.searchParams;
   const page = searchParams.page ? Number(searchParams.page) : 1;
 
   const events = await getEventsQuery(page);
-  const { totalPages } = events;
 
   return (
     <HawkStarsSection className='bg-bege-light gap-8 pt-10 pb-8 max-lg:px-0 max-lg:pt-0 xl:px-10!'>

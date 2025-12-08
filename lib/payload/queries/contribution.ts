@@ -25,7 +25,7 @@ export const getContributionsQuery = async () => {
 
 export const getSumContributions = async (): Promise<number> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/sum-contributions`);
+    const response = await fetch(`/api/sum-contributions`);
     if (!response.ok) return 0;
     const data = await response.json();
     return (data.sum as number) || 0;
