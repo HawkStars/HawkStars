@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ContentWithImageBlock } from './Component';
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
 const meta: Meta<typeof ContentWithImageBlock> = {
   title: 'Payload Blocks/ContentWithImage',
@@ -7,7 +8,7 @@ const meta: Meta<typeof ContentWithImageBlock> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
+  tags: [],
   argTypes: {
     imagePosition: {
       control: 'select',
@@ -43,7 +44,7 @@ const sampleDescription = {
 export const ImageRight: Story = {
   args: {
     title: 'Powerful Features',
-    description: sampleDescription,
+    description: sampleDescription as DefaultTypedEditorState,
     image: {
       id: '1',
       alt: 'Feature image',
@@ -57,16 +58,13 @@ export const ImageRight: Story = {
       updatedAt: new Date().toISOString(),
     },
     imagePosition: 'right',
-    id: '1',
-    blockName: 'ContentWithImage',
-    blockType: 'contentWithImage',
   },
 };
 
 export const ImageLeft: Story = {
   args: {
     title: 'Amazing Technology',
-    description: sampleDescription,
+    description: sampleDescription as DefaultTypedEditorState,
     image: {
       id: '2',
       alt: 'Technology image',
@@ -80,8 +78,5 @@ export const ImageLeft: Story = {
       updatedAt: new Date().toISOString(),
     },
     imagePosition: 'left',
-    id: '2',
-    blockName: 'ContentWithImage',
-    blockType: 'contentWithImage',
   },
 };

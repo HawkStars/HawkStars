@@ -7,7 +7,6 @@ const meta: Meta<typeof TestimonialBlock> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
   argTypes: {
     layout: {
       control: 'select',
@@ -29,7 +28,8 @@ export const Default: Story = {
     subtitle: 'Real feedback from real customers',
     testimonials: [
       {
-        quote: 'This platform has transformed the way we work. The features are intuitive and powerful.',
+        quote:
+          'This platform has transformed the way we work. The features are intuitive and powerful.',
         author: {
           name: 'Sarah Johnson',
           title: 'CEO',

@@ -7,7 +7,6 @@ const meta: Meta<typeof SimpleCTABlock> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
 };
 
 export default meta;

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { TextBlock } from './Component';
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
 const meta: Meta<typeof TextBlock> = {
   title: 'Payload Blocks/TextBlock',
@@ -55,7 +56,7 @@ const sampleContent = {
 
 export const Default: Story = {
   args: {
-    content: sampleContent,
+    content: sampleContent as DefaultTypedEditorState,
     textAlign: 'left',
     maxWidth: 'large',
     id: '1',

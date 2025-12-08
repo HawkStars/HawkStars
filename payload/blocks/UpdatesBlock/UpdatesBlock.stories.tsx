@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { UpdatesBlock } from './Component';
+import { UpdatesBlockComponent } from './Component';
 
-const meta: Meta<typeof UpdatesBlock> = {
+const meta: Meta<typeof UpdatesBlockComponent> = {
   title: 'Payload Blocks/UpdatesBlock',
-  component: UpdatesBlock,
+  component: UpdatesBlockComponent,
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
+  tags: [],
 };
 
 export default meta;
-type Story = StoryObj<typeof UpdatesBlock>;
+type Story = StoryObj<typeof UpdatesBlockComponent>;
 
 export const Default: Story = {
   args: {
@@ -29,8 +29,16 @@ export const Default: Story = {
         category: 'Data',
         date: 'Dec 6, 2024',
         authors: [
-          { avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=40&h=40&fit=crop', id: '1' },
-          { avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop', id: '2' },
+          {
+            avatar:
+              'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=40&h=40&fit=crop',
+            id: '1',
+          },
+          {
+            avatar:
+              'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop',
+            id: '2',
+          },
         ],
         link: '/blog/data-architecture',
         id: '1',
@@ -40,7 +48,11 @@ export const Default: Story = {
         category: 'AI',
         date: 'Dec 5, 2024',
         authors: [
-          { avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop', id: '1' },
+          {
+            avatar:
+              'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop',
+            id: '1',
+          },
         ],
         link: '/blog/ai-analytics',
         id: '2',
@@ -50,7 +62,11 @@ export const Default: Story = {
         category: 'Security',
         date: 'Dec 4, 2024',
         authors: [
-          { avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop', id: '1' },
+          {
+            avatar:
+              'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop',
+            id: '1',
+          },
         ],
         link: '/blog/security-2025',
         id: '3',
@@ -60,8 +76,16 @@ export const Default: Story = {
         category: 'News',
         date: 'Dec 3, 2024',
         authors: [
-          { avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop', id: '1' },
-          { avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=40&h=40&fit=crop', id: '2' },
+          {
+            avatar:
+              'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop',
+            id: '1',
+          },
+          {
+            avatar:
+              'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=40&h=40&fit=crop',
+            id: '2',
+          },
         ],
         link: '/blog/product-launch',
         id: '4',
@@ -77,17 +101,18 @@ export const MinimalCategories: Story = {
   args: {
     heading: 'Latest Blog Posts',
     description: 'Stay updated with our latest thoughts and articles.',
-    categories: [
-      { name: 'All', id: '1' },
-      { name: 'Tech', id: '2' },
-    ],
+    categories: [{ name: 'Tech', id: '1' }],
     latestUpdates: [
       {
         title: 'Getting Started with Next.js',
         category: 'Tech',
         date: 'Dec 7, 2024',
         authors: [
-          { avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=40&h=40&fit=crop', id: '1' },
+          {
+            avatar:
+              'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=40&h=40&fit=crop',
+            id: '1',
+          },
         ],
         link: '/blog/nextjs-guide',
         id: '1',
@@ -97,7 +122,11 @@ export const MinimalCategories: Story = {
         category: 'Tech',
         date: 'Dec 6, 2024',
         authors: [
-          { avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop', id: '1' },
+          {
+            avatar:
+              'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop',
+            id: '1',
+          },
         ],
         link: '/blog/web-performance',
         id: '2',
@@ -122,7 +151,11 @@ export const NoDescription: Story = {
         category: 'Company',
         date: 'Dec 5, 2024',
         authors: [
-          { avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop', id: '1' },
+          {
+            avatar:
+              'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop',
+            id: '1',
+          },
         ],
         link: '/news/milestone',
         id: '1',

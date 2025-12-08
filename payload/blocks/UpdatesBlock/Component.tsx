@@ -25,7 +25,7 @@ const UpdatesBlockComponent: React.FC<UpdatesBlockType> = ({
 
   return (
     <section className='py-32'>
-      <div className='container'>
+      <div className='container mx-auto'>
         {heading && <h1 className='text-4xl font-medium sm:text-6xl md:text-7xl'>{heading}</h1>}
         {description && <p className='text-muted-foreground mt-4 text-lg'>{description}</p>}
         <div className='mt-24'>

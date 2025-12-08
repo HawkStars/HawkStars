@@ -27,7 +27,7 @@ export const StatsBlock: React.FC<StatsBlockType> = ({
 
   return (
     <section className='py-32'>
-      <div className='container flex justify-center'>
+      <div className='container mx-auto flex justify-center'>
         <div className='flex w-full flex-col justify-between gap-4 lg:flex-row'>
           <div className='w-full lg:w-1/3'>
             {heading && <h1 className='font-calSans w-full text-6xl font-medium'>{heading}</h1>}

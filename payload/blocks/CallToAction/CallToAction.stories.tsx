@@ -7,7 +7,7 @@ const meta: Meta<typeof CallToActionBlock> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
+  tags: [],
 };
 
 export default meta;
@@ -53,8 +53,6 @@ export const SingleButton: Story = {
       },
     ],
     id: '2',
-    blockName: 'CallToAction',
-    blockType: 'cta',
   },
 };
 
@@ -71,7 +69,5 @@ export const NoSubtitle: Story = {
       },
     ],
     id: '3',
-    blockName: 'CallToAction',
-    blockType: 'cta',
   },
 };

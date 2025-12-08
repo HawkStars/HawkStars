@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Projects18Block } from './Component';
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
+import { HawkProject } from '@/payload-types';
 
 const meta: Meta<typeof Projects18Block> = {
   title: 'Payload Blocks/Projects18',
@@ -7,7 +9,6 @@ const meta: Meta<typeof Projects18Block> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
 };
 
 export default meta;
@@ -86,8 +87,9 @@ export const Default: Story = {
   args: {
     title: 'Our Projects',
     subtitle: 'Discover What We Have Built',
-    description: 'Explore our portfolio of successful projects and see how we help businesses grow.',
-    projects: sampleProjects,
+    description:
+      'Explore our portfolio of successful projects and see how we help businesses grow.',
+    projects: sampleProjects as unknown as (string | HawkProject)[],
     id: '1',
     blockName: 'Projects18',
     blockType: 'projects18',
@@ -98,7 +100,7 @@ export const NoSubtitle: Story = {
   args: {
     title: 'Featured Work',
     description: 'A showcase of our best projects.',
-    projects: sampleProjects.slice(0, 2),
+    projects: sampleProjects.slice(0, 2) as unknown as (string | HawkProject)[],
     id: '2',
     blockName: 'Projects18',
     blockType: 'projects18',
@@ -108,7 +110,7 @@ export const NoSubtitle: Story = {
 export const MinimalInfo: Story = {
   args: {
     title: 'Portfolio',
-    projects: sampleProjects,
+    projects: sampleProjects as unknown as (string | HawkProject)[],
     id: '3',
     blockName: 'Projects18',
     blockType: 'projects18',
