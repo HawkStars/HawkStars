@@ -85,6 +85,7 @@ export interface Config {
     updatesBlock: UpdatesBlock;
     logosBlock: LogosBlock;
     imageComparison: ImageComparison;
+    aboutBlock: AboutBlock;
   };
   collections: {
     users: User;
@@ -906,36 +907,8 @@ export interface LogosBlock {
  * via the `definition` "imageComparison".
  */
 export interface ImageComparison {
-  beforeImage: {
-    /**
-     * Select whether to use an external image URL or upload an image/media file.
-     */
-    imageType: 'external' | 'upload';
-    /**
-     * Upload an image or media file.
-     */
-    image?: (string | null) | Media;
-    /**
-     * Provide the URL for the external image.
-     */
-    externalImage?: string | null;
-    alt: string;
-  };
-  afterImage: {
-    /**
-     * Select whether to use an external image URL or upload an image/media file.
-     */
-    imageType: 'external' | 'upload';
-    /**
-     * Upload an image or media file.
-     */
-    image?: (string | null) | Media;
-    /**
-     * Provide the URL for the external image.
-     */
-    externalImage?: string | null;
-    alt: string;
-  };
+  beforeImage: ImageType;
+  afterImage: ImageType;
   title?: string | null;
   description?: string | null;
   /**
@@ -945,6 +918,37 @@ export interface ImageComparison {
   id?: string | null;
   blockName?: string | null;
   blockType: 'imageComparison';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageType".
+ */
+export interface ImageType {
+  /**
+   * Select whether to use an external image URL or upload an image/media file.
+   */
+  imageType: 'external' | 'upload';
+  /**
+   * Upload an image or media file.
+   */
+  image?: (string | null) | Media;
+  /**
+   * Provide the URL for the external image.
+   */
+  externalImage?: string | null;
+  alt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "aboutBlock".
+ */
+export interface AboutBlock {
+  title?: string | null;
+  description?: string | null;
+  image: ImageType;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'aboutBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

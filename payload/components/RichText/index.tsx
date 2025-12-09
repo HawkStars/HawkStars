@@ -1,4 +1,5 @@
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
+import { AboutBlock } from '@/payload/blocks/AboutBlock/Component';
 import { GallerySliderBlock } from '@/payload/blocks/GallerySlider/Component';
 import { HeroBlock } from '@/payload/blocks/Hero/Component';
 import { ContentWithImageBlock } from '@/payload/blocks/ContentWithImage/Component';
@@ -41,6 +42,7 @@ import type {
   ColumnBasedBlock as ColumnBasedBlockProps,
   SimpleCTABlock as SimpleCTABlockProps,
   ImageComparison as ImageComparisonProps,
+  AboutBlock as AboutBlockProps,
 } from '@/payload-types';
 
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
@@ -70,6 +72,7 @@ type NodeTypes =
       | ColumnBasedBlockProps
       | SimpleCTABlockProps
       | ImageComparisonProps
+      | AboutBlockProps
     >;
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -112,6 +115,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     columnBased: ({ node }) => <ColumnBasedBlock {...node.fields} />,
     simpleCta: ({ node }) => <SimpleCTABlockComponent {...node.fields} />,
     imageComparison: ({ node }) => <SideBySideComparison {...node.fields} />,
+    aboutBlock: ({ node }) => <AboutBlock {...node.fields} />,
   },
 });
 

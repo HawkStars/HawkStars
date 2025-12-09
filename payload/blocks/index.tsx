@@ -1,4 +1,5 @@
 import { AccordionBlock } from './AccordionBlock/config';
+import AboutBlock from './AboutBlock/config';
 import { CallToAction } from './CallToAction/config';
 import { CardGridBlock } from './CardGridBlock/config';
 import { ColumnBased } from './ColumnBased/config';
@@ -38,6 +39,7 @@ const currentBlocks = [
   UpdatesBlock,
   LogosBlock,
   ImageComparisonBlock,
+  AboutBlock,
 ];
 
 export default currentBlocks;

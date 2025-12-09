@@ -10,6 +10,7 @@ export const PayloadImageField = ({ label, name }: ImageTypeGroupProps) =>
     name: name,
     label: label,
     type: 'group',
+    interfaceName: 'ImageType',
     fields: [
       {
         name: 'imageType',
