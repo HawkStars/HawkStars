@@ -89,7 +89,10 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
     return (
       <div
         ref={containerRef}
-        className={cn('group relative h-full w-full overflow-hidden select-none', className)}
+        className={cn(
+          'group relative h-full min-h-dvh w-full overflow-hidden select-none',
+          className
+        )}
         onMouseDown={handleInteractionStart}
         onTouchStart={handleInteractionStart}
         {...props}

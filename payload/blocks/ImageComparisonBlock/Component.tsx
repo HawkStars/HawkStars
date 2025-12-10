@@ -1,7 +1,8 @@
 'use client';
 
 import { ImageComparisonSlider } from '@/components/ui/image-comparison-slider-horizontal';
-import { ImageComparison, Media } from '@/payload-types';
+import { getImagePayloadUrl } from '@/lib/image';
+import { ImageComparison } from '@/payload-types';
 import { FC } from 'react';
 
 export const SideBySideComparison: FC<ImageComparison> = ({
@@ -9,18 +10,16 @@ export const SideBySideComparison: FC<ImageComparison> = ({
   beforeImage,
   initialSliderPosition,
 }) => {
-  const leftImageType = beforeImage.imageType;
-  const rightImageType = afterImage.imageType;
-  const leftImage =
-    leftImageType === 'upload' ? (beforeImage.image as Media).url : beforeImage.externalImage;
-  const rightImage =
-    rightImageType === 'upload' ? (afterImage.image as Media).url : afterImage.externalImage;
+  const leftImage = getImagePayloadUrl(beforeImage);
+  const rightImage = getImagePayloadUrl(afterImage);
 
-  if (!leftImage || !rightImage) return null;
+  if (!leftImage.url || !rightImage.url) return null;
   return (
     <ImageComparisonSlider
-      leftImage={leftImage}
-      rightImage={rightImage}
+      leftImage={leftImage.url}
+      rightImage={rightImage.url}
+      altLeft={leftImage.alt}
+      altRight={rightImage.alt}
       initialPosition={initialSliderPosition || 50}
     />
   );

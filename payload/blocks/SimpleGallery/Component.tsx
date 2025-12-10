@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import {
   Carousel,
   CarouselContent,
@@ -8,25 +9,31 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 
-const images = [
-  'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/alex-tyson-2Fv_otxbGtg-unsplash.jpg',
-  'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/jason-leung-6uoj7DL6BFk-unsplash.jpg',
-  'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/jonathan-borba-UisC7KLAWjs-unsplash.jpg',
-  'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/jean-philippe-delberghe-fnIIuaEHvII-unsplash.jpg',
-  'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/jonathan-borba-YdomJdFdbDo-unsplash.jpg',
-  'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/jose-angel-rios-ux9cu6FLsFE-unsplash.jpg',
-  'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/zhao-yangyang-4uMRVFnJcP4-unsplash.jpg',
-];
+export interface SimpleGalleryBlockProps {
+  title?: string;
+  description?: string;
+  images: Array<{
+    image: string | { url: string };
+    alt?: string;
+  }>;
+}
 
-const Gallery28 = () => {
+const SimpleGallery: React.FC<SimpleGalleryBlockProps> = ({
+  title = 'Beautiful Interiors.',
+  description = 'Explore our curated collection of stunning interior designs.\nEach space tells a unique story through thoughtful design and attention to detail.',
+  images,
+}) => {
   return (
     <section className='py-32'>
       <div className='container'>
-        <h2 className='mb-4 text-center text-4xl font-semibold'>Beautiful Interiors.</h2>
+        <h2 className='mb-4 text-center text-4xl font-semibold'>{title}</h2>
         <p className='text-muted-foreground text-center text-sm'>
-          Explore our curated collection of stunning interior designs.
-          <br />
-          Each space tells a unique story through thoughtful design and attention to detail.
+          {description.split('\n').map((line, idx) => (
+            <React.Fragment key={idx}>
+              {line}
+              <br />
+            </React.Fragment>
+          ))}
         </p>
         <div className='mt-10'>
           <Carousel
@@ -41,11 +48,11 @@ const Gallery28 = () => {
                 backfaceVisibility: 'hidden',
               }}
             >
-              {images.map((image, index) => (
+              {images.map((img, index) => (
                 <CarouselItem key={index} className='basis-1/2'>
                   <img
-                    src={image}
-                    alt='placeholder'
+                    src={typeof img.image === 'string' ? img.image : img.image.url}
+                    alt={img.alt || 'placeholder'}
                     className='aspect-[3.8/5] w-full rounded-xl object-cover'
                   />
                 </CarouselItem>
@@ -60,4 +67,4 @@ const Gallery28 = () => {
   );
 };
 
-export { Gallery28 };
+export default SimpleGallery;
