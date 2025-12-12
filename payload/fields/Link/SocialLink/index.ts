@@ -13,7 +13,7 @@ export const SocialLinksField: ArrayField = {
     isSortable: true,
     components: {
       RowLabel: {
-        path: '@/payload/fields/SocialLink/components/SocialLinkRowLabel',
+        path: '@/payload/fields/Link/SocialLink/components/SocialLinkRowLabel',
         exportName: 'SocialLinkRowLabel',
       },
     },

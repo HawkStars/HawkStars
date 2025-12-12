@@ -7,20 +7,12 @@ import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { urls } from '@/utils/paths';
 import { useRouter } from 'next/navigation';
-import { HawkLink } from '@/components/utils/HawkLink/config';
 import HawkLinkComponent from '@/components/utils/HawkLink';
-
-type MenuColumn = {
-  data: {
-    key: string;
-    title?: string | null | undefined;
-    links?: HawkLink[] | undefined | null;
-  };
-};
+import { HeaderNavigationColumns } from '@/payload-types';
 
 type DesktopNavbarProps = {
   handleHoverMenu: (menuKey: string) => void;
-  columns: MenuColumn[];
+  columns: HeaderNavigationColumns;
 };
 
 const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns }) => {
@@ -32,21 +24,20 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns }) => 
     <div className='my-auto ml-auto hidden lg:block'>
       <div className='ml-auto flex gap-3'>
         <ul className='flex flex-row gap-4 px-1 xl:gap-8'>
-          {columns.map((section) => {
-            const column = section.data;
-            const { key, title, links } = column;
+          {columns.map((column) => {
+            const isMultiColumn = column.isMultiColumn;
 
-            if (!title && links?.length === 0) return null;
-            if (links && links.length === 1)
-              return <HawkLinkComponent key={key} link={links![0].link} className='my-auto' />;
+            if (!isMultiColumn && !!column.link) return null;
+            if (isMultiColumn && column.link) return null;
+            // return <HawkLinkComponent key={column.id} link={column.link} className='my-auto' />;
 
             return (
               <li
-                key={key}
-                onMouseEnter={() => handleHoverMenu(key)}
+                key={column.id}
+                onMouseEnter={() => handleHoverMenu(column.dropdown?.key || '')}
                 className='my-auto cursor-pointer'
               >
-                {title}
+                {column.dropdown?.dropdownTitle}
               </li>
             );
           })}

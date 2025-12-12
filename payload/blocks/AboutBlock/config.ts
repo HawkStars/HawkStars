@@ -16,7 +16,7 @@ const AboutBlock: Block = {
       name: 'description',
       type: 'textarea',
     },
-    PayloadImageField({ label: 'Image', name: 'image' }),
+    PayloadImageField({ label: 'Image' }),
   ],
 };
 

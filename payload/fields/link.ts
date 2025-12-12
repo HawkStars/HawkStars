@@ -1,32 +1,26 @@
-import type { Field, GroupField } from 'payload';
-import merge from 'lodash.merge';
+import type { Condition, Field, GroupField } from 'payload';
 
-export type LinkAppearances = 'default' | 'outline';
-
-export const appearanceOptions: Record<LinkAppearances, { label: string; value: string }> = {
-  default: {
-    label: 'Default',
-    value: 'default',
-  },
-  outline: {
-    label: 'Outline',
-    value: 'outline',
-  },
+type LinkTypeProps = {
+  localizedLabel?: boolean;
+  labelInformation?: string;
+  condition?: Condition<any, any>;
+  description?: string;
 };
 
-type LinkType = (options?: {
-  appearances?: LinkAppearances[] | false;
-  disableLabel?: boolean;
-  overrides?: Partial<GroupField>;
-}) => Field;
-
-export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
+export const link = (props?: LinkTypeProps) => {
+  const { localizedLabel, labelInformation, condition, description } = props || {
+    localizedLabel: false,
+    labelInformation: 'Link',
+  };
   const linkResult: GroupField = {
     name: 'link',
-    label: 'Link',
+    label: labelInformation,
     type: 'group',
+    interfaceName: 'LinkField',
     admin: {
       hideGutter: true,
+      description,
+      condition,
     },
     fields: [
       {
@@ -38,6 +32,8 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
             admin: {
               layout: 'horizontal',
               width: '50%',
+              description:
+                'Choose whether this link is an internal reference to a document within the site or a custom/external URL.',
             },
             defaultValue: 'reference',
             required: true,
@@ -47,7 +43,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
                 value: 'reference',
               },
               {
-                label: 'Custom URL',
+                label: 'Custom URL | External link',
                 value: 'custom',
               },
             ],
@@ -76,6 +72,8 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       type: 'relationship',
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'reference',
+        description:
+          'Select a document to link to from the existing collections present on the Administration Panel.',
       },
       label: 'Document to link to',
       relationTo: ['pages', 'hawk_projects'],
@@ -86,58 +84,49 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       type: 'text',
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'custom',
+        description: 'Enter the full URL for the link, including http:// or https://',
       },
       label: 'Custom URL',
       required: true,
     },
   ];
 
-  if (!disableLabel) {
-    linkTypes.map((linkType) => ({
-      ...linkType,
-      admin: {
-        ...linkType.admin,
-        width: '50%',
-      },
-    }));
+  linkTypes.map((linkType) => ({
+    ...linkType,
+    admin: {
+      ...linkType.admin,
+      width: '50%',
+    },
+  }));
 
-    linkResult.fields.push({
-      type: 'row',
-      fields: [
-        ...linkTypes,
-        {
-          name: 'label',
-          type: 'text',
-          admin: {
-            width: '50%',
-          },
-          label: 'Label',
-          required: true,
-          localized: true,
+  linkResult.fields.push({
+    type: 'row',
+    fields: [
+      ...linkTypes,
+      {
+        name: 'label',
+        type: 'text',
+        admin: {
+          width: '50%',
         },
-      ],
-    });
-  } else {
-    linkResult.fields = [...linkResult.fields, ...linkTypes];
-  }
-
-  if (appearances !== false) {
-    let appearanceOptionsToUse = [appearanceOptions.default, appearanceOptions.outline];
-
-    if (appearances) {
-      appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance]);
-    }
-
-    linkResult.fields.push({
-      name: 'appearance',
-      type: 'select',
-      admin: {
-        description: 'Choose how the link should be rendered.',
+        label: 'Label',
+        required: true,
+        localized: localizedLabel,
       },
-      defaultValue: 'default',
-      options: appearanceOptionsToUse,
-    });
-  }
+      {
+        name: 'section',
+        type: 'text',
+        label: 'Section ID',
+        admin: {
+          width: '50%',
+          description:
+            'Optional: Specify a section ID (without the #) to link to a specific section within the page.',
+        },
+        required: false,
+        localized: false,
+      },
+    ],
+  });
 
-  return merge(linkResult, overrides);
+  return linkResult;
 };

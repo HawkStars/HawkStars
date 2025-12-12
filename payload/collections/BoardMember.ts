@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload';
-import { SocialLinksField } from '../fields/SocialLink';
+import { SocialLinksField } from '../fields/Link/SocialLink';
 
 import { authenticated } from '../access/authenticated';
 

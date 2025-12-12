@@ -7,8 +7,8 @@ import { useMainAppContext, useSetMobileNavbarOpen } from '../../utils/contexts/
 import { hawkLogo } from '@/utils/models/images/logos';
 import { useState } from 'react';
 import DesktopNavbar from './DesktopNavbar';
-import HawkLinkComponent from '../utils/HawkLink';
 import { cn } from '@/lib/utils';
+import DropdownMenu from './DesktopDropdown/DropdownMenu';
 
 const Navbar = () => {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
@@ -18,11 +18,9 @@ const Navbar = () => {
   if (!headerInfo || !headerInfo.columns || headerInfo.columns.length === 0) return null;
   const { columns } = headerInfo;
 
-  const selectedMenu = columns.find((section) => {
-    const column = section.data;
-    return column && column.key === hoveredMenu;
+  const selectedMenu = columns.find((column) => {
+    return column.isMultiColumn && column.dropdown?.key === hoveredMenu;
   });
-  const selectedMenuOptions = selectedMenu?.data?.links;
 
   return (
     <nav onMouseLeave={() => setHoveredMenu(null)} className='relative'>
@@ -47,16 +45,21 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div
-        className={cn('bg-bege-dark absolute z-40 mx-auto flex w-full justify-center gap-5 py-2', {
-          'hidden opacity-0': !hoveredMenu,
-        })}
-        style={{ transition: 'display .3s ease-in, visibility .3s ease-in' }}
-      >
-        {selectedMenuOptions?.map((option) => (
-          <HawkLinkComponent link={option.link} key={option.id} />
-        ))}
-      </div>
+      {selectedMenu && (
+        <>
+          <div
+            className={cn(
+              'bg-bege-dark absolute z-40 mx-auto flex w-full justify-center gap-5 py-2',
+              {
+                'hidden opacity-0': !hoveredMenu,
+              }
+            )}
+            style={{ transition: 'display .3s ease-in, visibility .3s ease-in' }}
+          >
+            <DropdownMenu dropdownInfo={selectedMenu.dropdown} />
+          </div>
+        </>
+      )}
     </nav>
   );
 };

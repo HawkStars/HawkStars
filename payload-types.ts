@@ -7,6 +7,21 @@
  */
 
 /**
+ * Configure the navigation columns for the header. topbar menus
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeaderNavigationColumns".
+ */
+export type HeaderNavigationColumns = {
+  /**
+   * Enable this option if you want the links to be displayed in multiple columns in the dropdown menu.
+   */
+  isMultiColumn?: boolean | null;
+  link?: LinkField;
+  dropdown?: NavbarDropdown;
+  id?: string | null;
+}[];
+/**
  * Supported timezones in IANA format.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -176,31 +191,45 @@ export interface CallToActionBlock {
   subtitle?: string | null;
   links?:
     | {
-        link: {
-          type: 'reference' | 'custom';
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'hawk_projects';
-                value: string | HawkProject;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
+        link: LinkField;
         id?: string | null;
       }[]
     | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'cta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkField".
+ */
+export interface LinkField {
+  /**
+   * Choose whether this link is an internal reference to a document within the site or a custom/external URL.
+   */
+  type: 'reference' | 'custom';
+  newTab?: boolean | null;
+  /**
+   * Select a document to link to from the existing collections present on the Administration Panel.
+   */
+  reference?:
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'hawk_projects';
+        value: string | HawkProject;
+      } | null);
+  /**
+   * Enter the full URL for the link, including http:// or https://
+   */
+  url?: string | null;
+  label: string;
+  /**
+   * Optional: Specify a section ID (without the #) to link to a specific section within the page.
+   */
+  section?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -945,7 +974,7 @@ export interface ImageType {
 export interface AboutBlock {
   title?: string | null;
   description?: string | null;
-  image: ImageType;
+  imageField: ImageType;
   id?: string | null;
   blockName?: string | null;
   blockType: 'aboutBlock';
@@ -1673,52 +1702,59 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: string;
-  /**
-   * Configure the navigation columns for the header. topbar menus
-   */
-  columns: {
-    data: {
-      /**
-       * Unique key for the navigation group to be used on the dropdown menu
-       */
-      key: string;
-      /**
-       * The title of the navigation group to be used on the dropdown menu. Use it when you want to have the dropdown
-       */
-      title?: string | null;
-      /**
-       * Enable this option if you want the links to be displayed in multiple columns in the dropdown menu.
-       */
-      isMultiColumn?: boolean | null;
-      links?:
-        | {
-            link: {
-              type: 'reference' | 'custom';
-              newTab?: boolean | null;
-              reference?:
-                | ({
-                    relationTo: 'pages';
-                    value: string | Page;
-                  } | null)
-                | ({
-                    relationTo: 'hawk_projects';
-                    value: string | HawkProject;
-                  } | null);
-              url?: string | null;
-              label: string;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline') | null;
-            };
-            id?: string | null;
-          }[]
-        | null;
-    };
-    id?: string | null;
-  }[];
+  columns: HeaderNavigationColumns;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * Content for the dropdown menu when multiple links are present
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NavbarDropdown".
+ */
+export interface NavbarDropdown {
+  version: 'v1' | 'v2';
+  /**
+   * Title for the dropdown menu
+   */
+  dropdownTitle: string;
+  /**
+   * Unique key for the navigation group to be used on the dropdown menu
+   */
+  key: string;
+  /**
+   * Select the structure for the dropdown menu
+   */
+  structure: 'single-column' | 'two-columns';
+  /**
+   * Dropdown Navigation Links for this entry
+   */
+  links: {
+    dropdownNavLink?:
+      | {
+          featured?: boolean | null;
+          description?: string | null;
+          link: LinkField;
+          imageIcon?: ImageIcon;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageIcon".
+ */
+export interface ImageIcon {
+  /**
+   * Select whether to use an icon or an image.
+   */
+  type?: ('icon' | 'image') | null;
+  imageField?: ImageType;
+  /**
+   * Pick an icon from https://lucide.dev/icons/ and paste the SVG code here.
+   */
+  icon?: string | null;
 }
 /**
  * This is the information about the footer. Each column represents a group of navigation links
@@ -1737,25 +1773,7 @@ export interface Footer {
         column: {
           title?: string | null;
           data: {
-            link: {
-              type: 'reference' | 'custom';
-              newTab?: boolean | null;
-              reference?:
-                | ({
-                    relationTo: 'pages';
-                    value: string | Page;
-                  } | null)
-                | ({
-                    relationTo: 'hawk_projects';
-                    value: string | HawkProject;
-                  } | null);
-              url?: string | null;
-              label: string;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline') | null;
-            };
+            link: LinkField;
             id?: string | null;
           }[];
         };
@@ -1807,36 +1825,74 @@ export interface MainPage {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
-  columns?:
-    | T
-    | {
-        data?:
-          | T
-          | {
-              key?: T;
-              title?: T;
-              isMultiColumn?: T;
-              links?:
-                | T
-                | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          label?: T;
-                          appearance?: T;
-                        };
-                    id?: T;
-                  };
-            };
-        id?: T;
-      };
+  columns?: T | HeaderNavigationColumnsSelect<T>;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeaderNavigationColumns_select".
+ */
+export interface HeaderNavigationColumnsSelect<T extends boolean = true> {
+  isMultiColumn?: T;
+  link?: T | LinkFieldSelect<T>;
+  dropdown?: T | NavbarDropdownSelect<T>;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkField_select".
+ */
+export interface LinkFieldSelect<T extends boolean = true> {
+  type?: T;
+  newTab?: T;
+  reference?: T;
+  url?: T;
+  label?: T;
+  section?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NavbarDropdown_select".
+ */
+export interface NavbarDropdownSelect<T extends boolean = true> {
+  version?: T;
+  dropdownTitle?: T;
+  key?: T;
+  structure?: T;
+  links?:
+    | T
+    | {
+        dropdownNavLink?:
+          | T
+          | {
+              featured?: T;
+              description?: T;
+              link?: T | LinkFieldSelect<T>;
+              imageIcon?: T | ImageIconSelect<T>;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageIcon_select".
+ */
+export interface ImageIconSelect<T extends boolean = true> {
+  type?: T;
+  imageField?: T | ImageTypeSelect<T>;
+  icon?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageType_select".
+ */
+export interface ImageTypeSelect<T extends boolean = true> {
+  imageType?: T;
+  image?: T;
+  externalImage?: T;
+  alt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1853,16 +1909,7 @@ export interface FooterSelect<T extends boolean = true> {
               data?:
                 | T
                 | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          label?: T;
-                          appearance?: T;
-                        };
+                    link?: T | LinkFieldSelect<T>;
                     id?: T;
                   };
             };

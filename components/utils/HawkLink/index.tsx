@@ -6,6 +6,7 @@ import { HawkLink } from './config';
 type HawkLinkComponentProps = HawkLink & { className?: string };
 
 export default function HawkLinkComponent({ link, className }: HawkLinkComponentProps) {
+  debugger;
   return (
     <>
       {link.type === 'reference' && link.reference ? (
