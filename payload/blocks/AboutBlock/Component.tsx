@@ -2,8 +2,10 @@ import { type SVGProps, useId } from 'react';
 import type { AboutBlock as AboutBlockProps } from '@/payload-types';
 
 import Image from 'next/image';
+import { getImagePayloadUrl } from '@/lib/image';
 
 export const AboutBlock: React.FC<AboutBlockProps> = ({ title, description, image }) => {
+  const imageData = getImagePayloadUrl(image);
   return (
     <section className='py-32'>
       {/* Hero Section */}
@@ -11,11 +13,11 @@ export const AboutBlock: React.FC<AboutBlockProps> = ({ title, description, imag
         <div className=''>
           <h1 className='text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl'>{title}</h1>
           <p className='text-muted-foreground mt-4 max-w-2xl text-2xl md:text-3xl'>{description}</p>
-          {image?.url && (
+          {imageData?.url && (
             <div className='mt-6'>
               <Image
-                src={image.url}
-                alt={image.alt || title}
+                src={imageData.url}
+                alt={imageData.alt || title || ''}
                 width={600}
                 height={400}
                 className='rounded-lg'

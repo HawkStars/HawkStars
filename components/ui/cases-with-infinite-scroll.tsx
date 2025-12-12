@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel2';
+import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 
 function Case() {
   const [api, setApi] = useState<CarouselApi>();

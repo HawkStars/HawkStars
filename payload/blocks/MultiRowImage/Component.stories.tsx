@@ -27,9 +27,11 @@ const sampleRows: MultiRowImageBlockProps['rows'] = [
   },
 ];
 
-export default {
+const defaultComponent = {
   title: 'Blocks/MultiRowImage',
   component: MultiRowImage,
 };
+
+export default defaultComponent;
 
 export const Default = () => <MultiRowImage rows={sampleRows} rowGap={24} imageGap={16} />;

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Projects18Block } from './Component';
-import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import { HawkProject } from '@/payload-types';
 
 const meta: Meta<typeof Projects18Block> = {

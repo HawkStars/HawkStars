@@ -1,4 +1,3 @@
-import React from 'react';
 import SimpleGallery, { SimpleGalleryBlockProps } from './Component';
 
 const sampleImages: SimpleGalleryBlockProps['images'] = [

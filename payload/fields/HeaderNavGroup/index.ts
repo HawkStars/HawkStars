@@ -35,11 +35,27 @@ export const HeaderNavGroup: Field = {
       defaultValue: '',
     },
     {
+      name: 'isMultiColumn',
+      label: 'Is Multi Column',
+      type: 'checkbox',
+      admin: {
+        description:
+          'Enable this option if you want the links to be displayed in multiple columns in the dropdown menu.',
+      },
+      required: false,
+      defaultValue: false,
+    },
+    {
       name: 'links',
       label: 'Links',
       type: 'array',
       fields: [link()],
       maxRows: 6,
+      validate: (links, { siblingData }) => {
+        debugger;
+        if (!links || links.length === 0) return 'At least one link is required';
+        return true;
+      },
     },
   ],
 };

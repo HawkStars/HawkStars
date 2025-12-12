@@ -1686,6 +1686,10 @@ export interface Header {
        * The title of the navigation group to be used on the dropdown menu. Use it when you want to have the dropdown
        */
       title?: string | null;
+      /**
+       * Enable this option if you want the links to be displayed in multiple columns in the dropdown menu.
+       */
+      isMultiColumn?: boolean | null;
       links?:
         | {
             link: {
@@ -1811,6 +1815,7 @@ export interface HeaderSelect<T extends boolean = true> {
           | {
               key?: T;
               title?: T;
+              isMultiColumn?: T;
               links?:
                 | T
                 | {

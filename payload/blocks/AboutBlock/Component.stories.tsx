@@ -1,4 +1,4 @@
-import { AboutBlock, AboutBlockProps } from './Component';
+import { AboutBlock } from './Component';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof AboutBlock> = {
@@ -16,7 +16,8 @@ export const Default: Story = {
     description:
       "We're on a mission to transform financial services by harnessing vast amounts of untapped financial data.",
     image: {
-      url: 'https://placehold.co/600x400',
+      imageType: 'external',
+      externalImage: 'https://placehold.co/600x400',
       alt: 'Placeholder image',
     },
   },

@@ -1,7 +1,6 @@
 import EventsList from '@/components/events/EventsList';
 import { HawkStarsSection } from '@/components/layout';
 import { LanguageProps } from '@/components/types';
-import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
 import { getEventsQuery } from '@/lib/payload/queries/event';
 import { getMetadataPageInfo } from '@/utils/metadata';
