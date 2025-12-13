@@ -27,9 +27,9 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns }) => 
           {columns.map((column) => {
             const isMultiColumn = column.isMultiColumn;
 
-            if (!isMultiColumn && !!column.link) return null;
-            if (isMultiColumn && column.link) return null;
-            // return <HawkLinkComponent key={column.id} link={column.link} className='my-auto' />;
+            if (!isMultiColumn && !column.link) return null;
+            if (!isMultiColumn && column.link)
+              return <HawkLinkComponent key={column.id} link={column.link} className='my-auto' />;
 
             return (
               <li

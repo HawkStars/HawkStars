@@ -10,9 +10,9 @@ type DropdownMenuProps = {
 const DropdownMenu: FC<DropdownMenuProps> = ({ dropdownInfo }) => {
   if (!dropdownInfo) return null;
 
-  if (dropdownInfo.version === 'v1') return <DesktopDropdownV1 column={dropdownInfo.structure} />;
-
-  return <DesktopDropdownV2 column={dropdownInfo.structure} />;
+  if (dropdownInfo.version === 'v1')
+    return <DesktopDropdownV1 {...dropdownInfo} key='dropdown-menu-v1' />;
+  return <DesktopDropdownV2 {...dropdownInfo} key='dropdown-menu-v2' />;
 };
 
 export default DropdownMenu;

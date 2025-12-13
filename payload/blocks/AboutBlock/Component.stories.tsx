@@ -15,7 +15,7 @@ export const Default: Story = {
     title: 'A different kind of bank.',
     description:
       "We're on a mission to transform financial services by harnessing vast amounts of untapped financial data.",
-    image: {
+    imageField: {
       imageType: 'external',
       externalImage: 'https://placehold.co/600x400',
       alt: 'Placeholder image',

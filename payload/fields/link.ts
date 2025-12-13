@@ -3,7 +3,7 @@ import type { Condition, Field, GroupField } from 'payload';
 type LinkTypeProps = {
   localizedLabel?: boolean;
   labelInformation?: string;
-  condition?: Condition<any, any>;
+  condition?: Condition;
   description?: string;
 };
 

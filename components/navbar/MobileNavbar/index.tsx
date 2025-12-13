@@ -52,9 +52,7 @@ const MobileNavbar = () => {
 
         <div className='mt-5 grid grid-cols-1 gap-4'>
           {headerInfo?.columns.map((column, index) => {
-            const headerData = column.data;
-
-            return <MobileMenuItem data={headerData} key={`${column.id}-${index}`} />;
+            return <MobileMenuItem data={column} key={`${column.id}-${index}`} />;
           })}
         </div>
 

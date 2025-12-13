@@ -1,58 +1,29 @@
 'use client';
 
 import { useState } from 'react';
-import { Page, HawkProject } from '@/payload-types';
+import { Page, HawkProject, LinkField, NavbarDropdown } from '@/payload-types';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
 type MenuItemProps = {
   data: {
-    /**
-     * Unique key for the navigation group to be used on the dropdown menu
-     */
-    key: string;
-    /**
-     * The title of the navigation group to be used on the dropdown menu. Use it when you want to have the dropdown
-     */
-    title?: string | null;
-    links?:
-      | {
-          link: {
-            type: 'reference' | 'custom';
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'hawk_projects';
-                  value: string | HawkProject;
-                } | null);
-            url?: string | null;
-            label: string;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
+    isMultiColumn?: boolean | null | undefined;
+    link?: LinkField | undefined;
+    dropdown?: NavbarDropdown;
+    id?: string | null;
   };
 };
 
 const MobileMenuItem = ({ data }: MenuItemProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
-  const columnLinks = data.links || [];
-  if (columnLinks.length === 0) return null;
-
-  const title = data.title || 'Menu';
+  const isMultiColumn = data.isMultiColumn || false;
 
   return (
     <div className='cursor-pointer px-1'>
       <div className='mb-2 flex gap-3' onClick={() => setShowOptions(!showOptions)}>
-        <h6 className='font-medium text-black'>{title}</h6>
+        <h6 className='font-medium text-black'>
+          {isMultiColumn ? data.dropdown?.dropdownTitle : data.link?.label}
+        </h6>
       </div>
 
       <div
@@ -62,7 +33,7 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
         })}
       >
         <ul className='flex flex-col gap-2'>
-          {columnLinks.map((item) => {
+          {data.dropdown?.links?.dropdownNavLink?.map((item) => {
             const link = item.link;
             let href = '#';
 

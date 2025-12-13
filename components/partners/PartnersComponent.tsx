@@ -23,7 +23,7 @@ const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
 
   return (
     <section>
-      <div className='relative z-0 h-60 md:h-96 lg:h-[500px]'>
+      <div className='relative z-0 h-60 md:h-96 lg:h-125'>
         <Image
           src={partnersHero}
           alt='Hero Partners Page'

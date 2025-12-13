@@ -7,6 +7,19 @@
  */
 
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DropdownNavLink".
+ */
+export type DropdownNavLink =
+  | {
+      featured?: boolean | null;
+      description?: string | null;
+      link: LinkField;
+      imageIcon?: ImageIcon;
+      id?: string | null;
+    }[]
+  | null;
+/**
  * Configure the navigation columns for the header. topbar menus
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1730,15 +1743,7 @@ export interface NavbarDropdown {
    * Dropdown Navigation Links for this entry
    */
   links: {
-    dropdownNavLink?:
-      | {
-          featured?: boolean | null;
-          description?: string | null;
-          link: LinkField;
-          imageIcon?: ImageIcon;
-          id?: string | null;
-        }[]
-      | null;
+    dropdownNavLink?: DropdownNavLink;
   };
 }
 /**
@@ -1864,16 +1869,19 @@ export interface NavbarDropdownSelect<T extends boolean = true> {
   links?:
     | T
     | {
-        dropdownNavLink?:
-          | T
-          | {
-              featured?: T;
-              description?: T;
-              link?: T | LinkFieldSelect<T>;
-              imageIcon?: T | ImageIconSelect<T>;
-              id?: T;
-            };
+        dropdownNavLink?: T | DropdownNavLinkSelect<T>;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DropdownNavLink_select".
+ */
+export interface DropdownNavLinkSelect<T extends boolean = true> {
+  featured?: T;
+  description?: T;
+  link?: T | LinkFieldSelect<T>;
+  imageIcon?: T | ImageIconSelect<T>;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

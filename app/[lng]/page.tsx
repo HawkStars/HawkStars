@@ -2,11 +2,8 @@ import { Metadata } from 'next';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { LanguagePageProps } from './types';
 import { Language } from '@/i18n/settings';
-import ErasmusSlider from '@/components/home/ErasmusSlider';
-import GlobalVillageSection from '@/components/home/GlobalVillage';
-import HomeHeroSection from '@/components/home/HomeHeroSection';
-import HomeObjectivesSection from '@/components/home/HomeObjectivesSection';
-import VisionSection from '@/components/home/VisionSection';
+import { hawkLogo } from '@/utils/models/images/logos';
+import Image from 'next/image';
 
 export const revalidate = 7200; // 2 hours
 
@@ -27,12 +24,9 @@ export default async function Home(props: HomeProps) {
   const { lng } = params;
 
   return (
-    <>
-      <HomeHeroSection />
-      <HomeObjectivesSection lng={lng} />
-      <VisionSection lng={lng} />
-      <GlobalVillageSection lng={lng} />
-      <ErasmusSlider />
-    </>
+    <div className='mt-20 flex w-full flex-col items-center justify-center gap-20'>
+      <Image src={hawkLogo} alt='Hawk Stars Logo' />
+      <h1 className='text-xl'>We are revamping the website. See you soon!</h1>
+    </div>
   );
 }

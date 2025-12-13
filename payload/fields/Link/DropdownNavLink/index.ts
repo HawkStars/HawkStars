@@ -6,6 +6,7 @@ export const dropdownNavLink: ArrayField = {
   name: 'dropdownNavLink',
   label: '',
   type: 'array',
+  interfaceName: 'DropdownNavLink',
   admin: {
     isSortable: true,
   },

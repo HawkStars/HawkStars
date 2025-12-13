@@ -1,23 +1,4 @@
-import { Page, HawkProject } from '@/payload-types';
-
-type LinkProps = {
-  type?: 'reference' | 'custom' | null | undefined;
-  newTab?: boolean | null | undefined;
-  reference?:
-    | {
-        relationTo: 'pages';
-        value: string | Page;
-      }
-    | {
-        relationTo: 'hawk_projects';
-        value: string | HawkProject;
-      }
-    | null
-    | undefined;
-  url?: string | null;
-  label: string;
-  appearance?: ('default' | 'outline') | null;
-};
+import { Page, HawkProject, LinkField } from '@/payload-types';
 
 export type ExternalLinkProps = {
   label: string;
@@ -32,6 +13,6 @@ export type InternalLinkProps = Pick<ExternalLinkProps, 'label' | 'newTab' | 'cl
 };
 
 export type HawkLink = {
-  link: LinkProps;
+  link: LinkField;
   id?: string | null;
 };
