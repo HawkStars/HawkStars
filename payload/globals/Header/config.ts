@@ -98,7 +98,7 @@ export const Header: GlobalConfig = {
               validate: (value: string | undefined | null) => {
                 if (!value || value.length === 0) return 'Key is required';
                 // regex to check for only lowercase letters and no spaces
-                if (!/^[a-zA-Z]+$/.test(value))
+                if (!/^[a-zA-Z\-]+$/.test(value))
                   return 'Key needs to be always lowercase letters with no spaces';
 
                 return true;
