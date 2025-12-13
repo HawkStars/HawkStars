@@ -7,7 +7,6 @@ const meta: Meta<typeof VideoBlock> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
 };
 
 export default meta;

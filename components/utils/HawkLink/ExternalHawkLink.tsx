@@ -1,6 +1,6 @@
 import { ExternalLinkProps } from './config';
 
-const ExternalHawkLink = ({ href, newTab, label, className }: ExternalLinkProps) => {
+const ExternalHawkLink = ({ href, newTab, children, className }: ExternalLinkProps) => {
   if (!href) return null;
 
   return (
@@ -10,7 +10,7 @@ const ExternalHawkLink = ({ href, newTab, label, className }: ExternalLinkProps)
       target={newTab ? '_blank' : '_self'}
       href={href}
     >
-      {label}
+      {children}
     </a>
   );
 };

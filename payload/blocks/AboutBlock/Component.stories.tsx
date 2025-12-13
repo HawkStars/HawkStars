@@ -4,7 +4,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 const meta: Meta<typeof AboutBlock> = {
   title: 'Payload Blocks/AboutBlock',
   component: AboutBlock,
-  tags: ['autodocs'],
 };
 export default meta;
 

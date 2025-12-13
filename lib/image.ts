@@ -7,7 +7,12 @@ const getImagePayloadUrl = (info: ImageType) => {
   const imageInfo = info.image as Media;
   if (!imageInfo) return { url: undefined, alt: undefined };
 
-  return { url: imageInfo?.url || '', alt: imageInfo.alt || '' };
+  return {
+    url: imageInfo?.url || '',
+    alt: imageInfo.alt || '',
+    width: imageInfo.width,
+    height: imageInfo.height,
+  };
 };
 
 export { getImagePayloadUrl };

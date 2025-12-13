@@ -21,7 +21,7 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({ title, subtitle, li
                     key={i}
                     size='lg'
                     {...link}
-                    className='bg-background text-foreground hover:bg-background group relative z-99 w-fit rounded-full! border border-none px-10 tracking-tighter shadow-none!'
+                    className='bg-background text-foreground hover:bg-background group relative z-10 w-fit rounded-full! border border-none px-10 tracking-tighter shadow-none!'
                   />
                 );
               })}

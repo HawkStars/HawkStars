@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { InternalLinkProps } from './config';
 import { cn } from '@/lib/utils';
 
-const InternalHawkLink = ({ label, relationTo, url, newTab, className }: InternalLinkProps) => {
+const InternalHawkLink = ({ children, relationTo, url, newTab, className }: InternalLinkProps) => {
   let href = '#';
   if (typeof url === 'string') href = relationTo === 'pages' ? `/${url}` : `/events/${url}`;
   else if ('slug' in url && url.slug)
@@ -18,7 +18,7 @@ const InternalHawkLink = ({ label, relationTo, url, newTab, className }: Interna
         className
       )}
     >
-      {label}
+      {children}
     </Link>
   );
 };

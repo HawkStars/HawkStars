@@ -7,7 +7,6 @@ const meta: Meta<typeof ProcessOneBlock> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
 };
 
 export default meta;
@@ -22,13 +21,15 @@ export const Default: Story = {
       {
         step: '01',
         title: 'Discovery',
-        description: 'We learn about your business goals, challenges, and requirements to create a tailored solution.',
+        description:
+          'We learn about your business goals, challenges, and requirements to create a tailored solution.',
         id: '1',
       },
       {
         step: '02',
         title: 'Development',
-        description: 'Our expert team builds your solution using industry best practices and cutting-edge technology.',
+        description:
+          'Our expert team builds your solution using industry best practices and cutting-edge technology.',
         id: '2',
       },
       {

@@ -19,7 +19,8 @@ const Navbar = () => {
   const { columns } = headerInfo;
 
   const selectedMenu = columns.find((column) => {
-    return column.isMultiColumn && column.dropdown?.key === hoveredMenu;
+    return column.dropdown?.key === 'version-one';
+    //  return column.isMultiColumn && column.dropdown?.key === hoveredMenu;
   });
 
   return (
@@ -34,7 +35,11 @@ const Navbar = () => {
             </Link>
           </div>
           {/* NAVBAR DESKTOP */}
-          <DesktopNavbar handleHoverMenu={setHoveredMenu} columns={columns} />
+          <DesktopNavbar
+            handleHoverMenu={setHoveredMenu}
+            columns={columns}
+            menuKeyHovered={selectedMenu?.dropdown?.key || null}
+          />
           {/* NAVBAR MOBILE */}
           <div
             className='my-auto ml-auto block cursor-pointer lg:hidden'
@@ -49,10 +54,10 @@ const Navbar = () => {
         <>
           <div
             className={cn(
-              'bg-bege-dark absolute z-40 mx-auto flex w-full justify-center gap-5 py-2',
-              {
-                'hidden opacity-0': !hoveredMenu,
-              }
+              'absolute z-90 mx-auto flex h-fit w-full justify-center gap-5 border-b border-b-gray-200 bg-white py-4 shadow-lg'
+              // {
+              //   'hidden opacity-0': !hoveredMenu,
+              // }
             )}
             style={{ transition: 'display .3s ease-in, visibility .3s ease-in' }}
           >

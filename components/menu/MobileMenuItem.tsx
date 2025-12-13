@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Page, HawkProject, LinkField, NavbarDropdown } from '@/payload-types';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { ChevronDownIcon } from 'lucide-react';
 
 type MenuItemProps = {
   data: {
@@ -21,8 +22,15 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
   return (
     <div className='cursor-pointer px-1'>
       <div className='mb-2 flex gap-3' onClick={() => setShowOptions(!showOptions)}>
-        <h6 className='font-medium text-black'>
+        <h6 className={cn('font-medium text-black', { 'my-auto flex gap-2': isMultiColumn })}>
           {isMultiColumn ? data.dropdown?.dropdownTitle : data.link?.label}
+          {isMultiColumn && (
+            <ChevronDownIcon
+              className={cn('transition-transform duration-300', {
+                'rotate-180': showOptions,
+              })}
+            />
+          )}
         </h6>
       </div>
 

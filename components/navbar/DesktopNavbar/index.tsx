@@ -9,13 +9,16 @@ import { urls } from '@/utils/paths';
 import { useRouter } from 'next/navigation';
 import HawkLinkComponent from '@/components/utils/HawkLink';
 import { HeaderNavigationColumns } from '@/payload-types';
+import { ChevronDownIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 type DesktopNavbarProps = {
   handleHoverMenu: (menuKey: string) => void;
   columns: HeaderNavigationColumns;
+  menuKeyHovered: string | null;
 };
 
-const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns }) => {
+const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuKeyHovered }) => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
   const router = useRouter();
@@ -35,9 +38,14 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns }) => 
               <li
                 key={column.id}
                 onMouseEnter={() => handleHoverMenu(column.dropdown?.key || '')}
-                className='my-auto cursor-pointer'
+                className='my-auto flex cursor-pointer gap-1'
               >
                 {column.dropdown?.dropdownTitle}
+                <ChevronDownIcon
+                  className={cn('transition-transform duration-300', {
+                    'rotate-180': menuKeyHovered === column.dropdown?.key,
+                  })}
+                />
               </li>
             );
           })}

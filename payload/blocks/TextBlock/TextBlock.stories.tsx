@@ -8,7 +8,7 @@ const meta: Meta<typeof TextBlock> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
+
   argTypes: {
     textAlign: {
       control: 'select',

@@ -7,7 +7,7 @@ const meta: Meta<typeof ImpactBlock> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
+
   argTypes: {
     layout: {
       control: 'select',

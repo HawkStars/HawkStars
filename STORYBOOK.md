@@ -87,7 +87,7 @@ const meta: Meta<typeof BlockComponent> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
+  
 };
 
 export default meta;
