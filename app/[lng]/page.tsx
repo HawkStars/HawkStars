@@ -18,11 +18,7 @@ type HomeProps = {
   params: Promise<{ lng: Language }>;
 };
 
-export default async function Home(props: HomeProps) {
-  const params = await props.params;
-
-  const { lng } = params;
-
+export default async function Home(_props: HomeProps) {
   return (
     <div className='mt-20 flex w-full flex-col items-center justify-center gap-20'>
       <Image src={hawkLogo} alt='Hawk Stars Logo' />

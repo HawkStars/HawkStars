@@ -17,11 +17,6 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 
-// TODO: Replace with official dynamic imports to be used in multiple places
-import dynamicIconImports from 'lucide-react/dynamicIconImports';
-type IconName = keyof typeof dynamicIconImports;
-const icons = Object.keys(dynamicIconImports) as IconName[];
-
 import type { ImpactBlock as ImpactBlockProps } from '@/payload-types'; // Animated counter hook
 import { cn } from '@/lib/utils';
 
