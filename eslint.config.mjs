@@ -22,6 +22,7 @@ const eslintConfig = defineConfig([
           varsIgnorePattern: '^_',
         },
       ],
+      'react-hooks/set-state-in-effect': 'warn',
     },
   },
 ]);
