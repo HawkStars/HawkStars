@@ -1,6 +1,5 @@
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
 import { AboutBlock } from '@/payload/blocks/AboutBlock/Component';
-import { GallerySliderBlock } from '@/payload/blocks/GallerySlider/Component';
 import { HeroBlock } from '@/payload/blocks/Hero/Component';
 import { ContentWithImageBlock } from '@/payload/blocks/ContentWithImage/Component';
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
@@ -99,7 +98,6 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       />
     ),
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
-    gallerySlider: ({ node }) => <GallerySliderBlock {...node.fields} />,
     hero: ({ node }) => <HeroBlock {...node.fields} />,
     contentWithImage: ({ node }) => <ContentWithImageBlock {...node.fields} />,
     videoBlock: ({ node }) => <VideoBlock {...node.fields} />,

@@ -7,7 +7,7 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-  tags: [],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
       control: { type: 'select' },

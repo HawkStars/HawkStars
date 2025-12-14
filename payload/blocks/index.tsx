@@ -4,7 +4,6 @@ import { CallToAction } from './CallToAction/config';
 import { CardGridBlock } from './CardGridBlock/config';
 import { ColumnBased } from './ColumnBased/config';
 import { ContentWithImage } from './ContentWithImage/config';
-import { GallerySlider } from './GallerySlider/config';
 import { Hero } from './Hero/config';
 import { ImageComparisonBlock } from './ImageComparisonBlock/config';
 import { ImpactBlock } from './ImpactBlock/config';
@@ -23,7 +22,6 @@ const currentBlocks = [
   CallToAction,
   ColumnBased,
   MediaBlock,
-  GallerySlider,
   Hero,
   ContentWithImage,
   VideoBlock,

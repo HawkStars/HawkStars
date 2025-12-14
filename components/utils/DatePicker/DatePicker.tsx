@@ -34,7 +34,7 @@ function HawkStarsDatePicker({ date, onChange, labelText }: HawkStarsDatePickerP
             <Button
               variant='outline'
               data-empty={!date}
-              className='w-[280px] justify-start text-left font-normal'
+              className='w-70 justify-start text-left font-normal'
             >
               <CalendarIcon />
               {date ? format(date, 'dd-MM-yyyy') : <span>Pick a date</span>}
