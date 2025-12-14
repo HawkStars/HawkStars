@@ -22,8 +22,6 @@ type EventsPageProps = {
 };
 
 const EventsPage = async (props: EventsPageProps) => {
-  const params = await props.params;
-  const { lng } = params;
   const searchParams = await props.searchParams;
   const page = searchParams.page ? Number(searchParams.page) : 1;
 

@@ -29,7 +29,7 @@ const DesktopDropdownV2: React.FC<DesktopDropdownV2Props> = ({ structure, links 
           'grid grid-rows-3 gap-2': structure === 'single-column',
         })}
       >
-        {normalLinks.map((link, idx) => {
+        {normalLinks.map((link) => {
           if (!link) return null;
           return <NormalLink key={link.id} link={link} structure={structure} />;
         })}

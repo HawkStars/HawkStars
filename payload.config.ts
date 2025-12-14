@@ -107,7 +107,7 @@ export default buildConfig({
       handler: totalContributioValueQuery,
     },
   ],
-  onInit: async (_) => {
+  onInit: async () => {
     // await seed(payload);
   },
 });

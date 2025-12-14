@@ -43,7 +43,6 @@ const FormContributions = ({
   formType,
   onSubmit,
   lng = 'en',
-  loading = false,
   contribution,
 }: FormContributionProps) => {
   const [minDefaultValue, setMinDefaultValue] = useState<number>(0);

@@ -3,7 +3,6 @@
 import NumberFlow from '@number-flow/react';
 import { ArrowRight, RefreshCcw } from 'lucide-react';
 import { useRef, useState } from 'react';
-import { useInView } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
 // Import the generated type from Payload (adjust path if needed)
@@ -20,10 +19,6 @@ export const StatsBlock: React.FC<StatsBlockType> = ({
 }) => {
   const [showMonthlyStats, setShowMonthlyStats] = useState(false);
   const ref = useRef(null);
-  const isInView = useInView(ref);
-
-  // Only animate numbers when in view
-  const animate = isInView;
 
   return (
     <section className='py-32'>

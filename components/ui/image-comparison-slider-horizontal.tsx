@@ -22,7 +22,7 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
       initialPosition = 50,
       ...props
     },
-    ref
+    _ref
   ) => {
     // State to manage slider position (0 to 100)
     const [sliderPosition, setSliderPosition] = React.useState(initialPosition);
@@ -58,7 +58,7 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
     };
 
     // Handlers for starting and stopping the drag interaction
-    const handleInteractionStart = (e: React.MouseEvent | React.TouchEvent) => {
+    const handleInteractionStart = (_e: React.MouseEvent | React.TouchEvent) => {
       setIsDragging(true);
     };
     const handleInteractionEnd = () => {
