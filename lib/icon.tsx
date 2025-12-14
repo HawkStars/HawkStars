@@ -1,5 +1,4 @@
 import * as LucideIcons from 'lucide-react';
-import { cn } from './utils';
 
 const getIcon = (iconName?: string | null) => {
   if (!iconName) return null;

@@ -1,5 +1,6 @@
 import { Field } from 'payload';
 import { PayloadImageField } from '../ImageType';
+import { icons } from 'lucide-react';
 
 type ImageTypeGroupProps = {
   label?: string;
@@ -8,7 +9,7 @@ type ImageTypeGroupProps = {
 
 export const PayloadIconOrImage = (props?: ImageTypeGroupProps) => {
   const { label, name } = props || {
-    label: 'Icon | Image',
+    label: 'Icon or Image',
     name: 'imageIcon',
   };
 
@@ -44,13 +45,20 @@ export const PayloadIconOrImage = (props?: ImageTypeGroupProps) => {
       },
       {
         name: 'icon',
-        type: 'text',
+        type: 'select',
         label: 'Icon (SVG)',
         admin: {
-          description: 'Pick an icon from https://lucide.dev/icons/ and paste the SVG code here.',
+          description: 'Full list at https://lucide.dev/icons/ ',
           condition: (_, siblingData) => siblingData.type === 'icon',
-          components: {},
+          components: {
+            Field: '@/payload/fields/ImageIcon/components/Field',
+          },
         },
+        options: Object.keys(icons).map((iconKey) => ({
+          label: iconKey,
+          value: iconKey,
+        })),
+        defaultValue: 'Star',
       },
     ],
   } as Field;

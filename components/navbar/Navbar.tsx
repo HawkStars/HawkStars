@@ -19,8 +19,7 @@ const Navbar = () => {
   const { columns } = headerInfo;
 
   const selectedMenu = columns.find((column) => {
-    return column.dropdown?.key === 'version-one';
-    //  return column.isMultiColumn && column.dropdown?.key === hoveredMenu;
+    return column.isMultiColumn && column.dropdown?.key === hoveredMenu;
   });
 
   return (
@@ -54,10 +53,10 @@ const Navbar = () => {
         <>
           <div
             className={cn(
-              'absolute z-90 mx-auto flex h-fit w-full justify-center gap-5 border-b border-b-gray-200 bg-white py-4 shadow-lg'
-              // {
-              //   'hidden opacity-0': !hoveredMenu,
-              // }
+              'absolute z-90 mx-auto flex h-fit w-full justify-center gap-5 border-b border-b-gray-200 bg-white py-4 shadow-lg',
+              {
+                'hidden opacity-0': !hoveredMenu,
+              }
             )}
             style={{ transition: 'display .3s ease-in, visibility .3s ease-in' }}
           >
