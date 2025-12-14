@@ -97,7 +97,6 @@ export interface Config {
     cta: CallToActionBlock;
     columnBased: ColumnBasedBlock;
     mediaBlock: MediaBlock;
-    gallerySlider: GallerySliderBlock;
     hero: HeroBlock;
     contentWithImage: ContentWithImageBlock;
     videoBlock: VideoBlock;
@@ -114,6 +113,8 @@ export interface Config {
     logosBlock: LogosBlock;
     imageComparison: ImageComparison;
     aboutBlock: AboutBlock;
+    globalVillageAboutSection: GlobalVillageAboutSectionBlock;
+    globalVillageBanner: GlobalVillageBannerBlock;
   };
   collections: {
     users: User;
@@ -381,27 +382,6 @@ export interface MediaBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "GallerySliderBlock".
- */
-export interface GallerySliderBlock {
-  images: {
-    image: string | Media;
-    id?: string | null;
-  }[];
-  /**
-   * Enable automatic slide transition
-   */
-  autoplay?: boolean | null;
-  /**
-   * Delay between slides in milliseconds (1000-10000)
-   */
-  autoplayDelay?: number | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'gallerySlider';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -991,6 +971,54 @@ export interface AboutBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'aboutBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GlobalVillageAboutSectionBlock".
+ */
+export interface GlobalVillageAboutSectionBlock {
+  heading: string;
+  description?: string | null;
+  sections?:
+    | {
+        title?: string | null;
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        imageField: ImageType;
+        id?: string | null;
+      }[]
+    | null;
+  cta?: {
+    enable?: boolean | null;
+    link?: LinkField;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'globalVillageAboutSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GlobalVillageBannerBlock".
+ */
+export interface GlobalVillageBannerBlock {
+  text: string;
+  backgroundColor?: ('green' | 'bege-dark' | 'bege-light') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'globalVillageBanner';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

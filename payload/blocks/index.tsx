@@ -4,6 +4,8 @@ import { CallToAction } from './CallToAction/config';
 import { CardGridBlock } from './CardGridBlock/config';
 import { ColumnBased } from './ColumnBased/config';
 import { ContentWithImage } from './ContentWithImage/config';
+import { GlobalVillageAboutSectionBlock } from './GlobalVillageAboutSection/config';
+import { GlobalVillageBannerBlock } from './GlobalVillageBanner/config';
 import { Hero } from './Hero/config';
 import { ImageComparisonBlock } from './ImageComparisonBlock/config';
 import { ImpactBlock } from './ImpactBlock/config';
@@ -38,6 +40,8 @@ const currentBlocks = [
   LogosBlock,
   ImageComparisonBlock,
   AboutBlock,
+  GlobalVillageAboutSectionBlock,
+  GlobalVillageBannerBlock,
 ];
 
 export default currentBlocks;

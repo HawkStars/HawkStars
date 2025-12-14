@@ -5,6 +5,7 @@ import { ContentWithImageBlock } from '@/payload/blocks/ContentWithImage/Compone
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
 import { AccordionBlock } from '@/payload/blocks/AccordionBlock/Component';
 import { ImpactBlock } from '@/payload/blocks/ImpactBlock/Component';
+import { GlobalVillageAboutSectionBlockComponent } from '@/payload/blocks/GlobalVillageAboutSection/Component';
 import { CardGridBlock } from '@/payload/blocks/CardGridBlock/Component';
 import { TestimonialBlock } from '@/payload/blocks/TestimonialBlock/Component';
 import { StatsBlock } from '@/payload/blocks/StatsBlock/Component';
@@ -26,7 +27,6 @@ import {
 import type {
   CallToActionBlock as CTABlockProps,
   MediaBlock as MediaBlockProps,
-  GallerySliderBlock as GallerySliderProps,
   HeroBlock as HeroProps,
   ContentWithImageBlock as ContentWithImageProps,
   VideoBlock as VideoBlockProps,
@@ -42,6 +42,7 @@ import type {
   SimpleCTABlock as SimpleCTABlockProps,
   ImageComparison as ImageComparisonProps,
   AboutBlock as AboutBlockProps,
+  GlobalVillageAboutSectionBlock as GlobalVillageAboutSectionBlockProps,
 } from '@/payload-types';
 
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
@@ -56,7 +57,6 @@ type NodeTypes =
   | SerializedBlockNode<
       | CTABlockProps
       | MediaBlockProps
-      | GallerySliderProps
       | HeroProps
       | ContentWithImageProps
       | VideoBlockProps
@@ -72,6 +72,7 @@ type NodeTypes =
       | SimpleCTABlockProps
       | ImageComparisonProps
       | AboutBlockProps
+      | GlobalVillageAboutSectionBlockProps
     >;
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -113,6 +114,9 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     simpleCta: ({ node }) => <SimpleCTABlockComponent {...node.fields} />,
     imageComparison: ({ node }) => <SideBySideComparison {...node.fields} />,
     aboutBlock: ({ node }) => <AboutBlock {...node.fields} />,
+    globalVillageAboutSection: ({ node }) => (
+      <GlobalVillageAboutSectionBlockComponent {...node.fields} />
+    ),
   },
 });
 
