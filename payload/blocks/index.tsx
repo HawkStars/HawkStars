@@ -7,6 +7,8 @@ import { ContentWithImage } from './ContentWithImage/config';
 import { GlobalVillageAboutSectionBlock } from './GlobalVillageAboutSection/config';
 import { GlobalVillageBannerBlock } from './GlobalVillageBanner/config';
 import { Hero } from './Hero/config';
+import { HeroWithBackgroundImage } from './HeroWithBackgroundImage/config';
+import { HeroImpactStats } from './HeroImpactStats/config';
 import { ImageComparisonBlock } from './ImageComparisonBlock/config';
 import { ImpactBlock } from './ImpactBlock/config';
 import { LogosBlock } from './LogosBlock/config';
@@ -47,6 +49,8 @@ const currentBlocks = [
   ColumnBased,
   MediaBlock,
   Hero,
+  HeroWithBackgroundImage,
+  HeroImpactStats,
   ContentWithImage,
   VideoBlock,
   AccordionBlock,

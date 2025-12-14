@@ -98,6 +98,8 @@ export interface Config {
     columnBased: ColumnBasedBlock;
     mediaBlock: MediaBlock;
     hero: HeroBlock;
+    heroWithBackgroundImage: HeroWithBackgroundImageBlock;
+    heroImpactStats: HeroImpactStatsBlock;
     contentWithImage: ContentWithImageBlock;
     videoBlock: VideoBlock;
     accordionBlock: AccordionBlock;
@@ -165,9 +167,7 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents':
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -453,6 +453,112 @@ export interface HeroBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'hero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroWithBackgroundImageBlock".
+ */
+export interface HeroWithBackgroundImageBlock {
+  /**
+   * Background image for the hero section
+   */
+  backgroundImage: string | Media;
+  /**
+   * Main heading text
+   */
+  title: string;
+  /**
+   * Subtitle or description text
+   */
+  subtitle?: string | null;
+  /**
+   * Overlay darkness (0-100%)
+   */
+  overlayOpacity?: number | null;
+  /**
+   * Primary call-to-action button text
+   */
+  primaryCtaText?: string | null;
+  /**
+   * URL for the primary CTA button
+   */
+  primaryCtaLink?: string | null;
+  /**
+   * Secondary call-to-action button text
+   */
+  secondaryCtaText?: string | null;
+  /**
+   * URL for the secondary CTA button
+   */
+  secondaryCtaLink?: string | null;
+  /**
+   * Text alignment
+   */
+  textAlignment?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroWithBackgroundImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroImpactStatsBlock".
+ */
+export interface HeroImpactStatsBlock {
+  /**
+   * Small badge text (e.g., "OUR IMPACT")
+   */
+  badge?: string | null;
+  /**
+   * Main heading text
+   */
+  title: string;
+  /**
+   * Description or mission statement
+   */
+  description?: string | null;
+  /**
+   * Hero image displayed alongside content
+   */
+  heroImage?: (string | null) | Media;
+  /**
+   * Impact statistics (2-4 stats)
+   */
+  stats?:
+    | {
+        /**
+         * Statistic number (e.g., "500+", "10K")
+         */
+        number: string;
+        /**
+         * Statistic label (e.g., "Lives Changed", "Volunteers")
+         */
+        label: string;
+        /**
+         * Icon for this statistic
+         */
+        icon?: ('heart' | 'users' | 'globe' | 'target' | 'trendingUp' | 'award') | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Call-to-action button text
+   */
+  ctaText?: string | null;
+  /**
+   * URL for the CTA button
+   */
+  ctaLink?: string | null;
+  /**
+   * Secondary CTA button text
+   */
+  secondaryCtaText?: string | null;
+  /**
+   * URL for the secondary CTA button
+   */
+  secondaryCtaLink?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroImpactStats';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1254,9 +1360,7 @@ export interface EventListBlock {
          */
         endDate?: string | null;
         location?: string | null;
-        category?:
-          | ('workshop' | 'meeting' | 'fundraiser' | 'social' | 'community' | 'youth')
-          | null;
+        category?: ('workshop' | 'meeting' | 'fundraiser' | 'social' | 'community' | 'youth') | null;
         image?: (string | null) | Media;
         /**
          * Link to registration or more info
@@ -4259,6 +4363,7 @@ export interface TaskSchedulePublish {
 export interface Auth {
   [k: string]: unknown;
 }
+
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}
