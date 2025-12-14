@@ -53,6 +53,8 @@ The following Payload CMS blocks have Storybook stories:
 - **MediaBlock** - Image and media display block
 - **VideoBlock** - YouTube, Vimeo, and direct video embeds
 - **AccordionBlock** - Collapsible content sections
+- **QuoteHighlightBlock** - Pull quotes with multiple style options (centered, bordered, highlighted)
+- **FAQBlock** - Accordion-style frequently asked questions
 
 ### Layout Blocks
 
@@ -60,6 +62,8 @@ The following Payload CMS blocks have Storybook stories:
 - **ContentWithImage** - Two-column layout with content and image
 - **ColumnBased** - Multi-column layout with icons and lists
 - **GallerySlider** - Image carousel/slider
+- **TimelineBlock** - Visual timeline with vertical/horizontal orientations
+- **ImageComparisonSliderBlock** - Interactive before/after image slider
 
 ### Marketing Blocks
 
@@ -70,6 +74,31 @@ The following Payload CMS blocks have Storybook stories:
 - **StatsBlock** - Statistics display with animations
 - **ImpactBlock** - Impact metrics with icons and colors
 - **LogosBlock** - Partner/client logo showcase
+- **SocialProofBlock** - Stats display with multiple background themes
+- **CTABannerBlock** - Call-to-action banners with centered/split/image-bg variants
+
+### Fundraising & Donation Blocks
+
+- **DonationProgressBlock** - Animated fundraising progress bar with donor count
+- **PricingTableBlock** - Tiered membership/donation options with feature lists
+- **DonorWallBlock** - Donor recognition with grid/wall/cards layouts
+- **CampaignCountdownBlock** - Countdown timer for campaigns with theme options
+
+### Event & Community Blocks
+
+- **EventListBlock** - Event listings with list/grid/timeline layouts
+- **TeamGridBlock** - Team member showcase with social links
+- **VolunteerCalloutBlock** - Volunteer recruitment with opportunity cards
+- **PartnerShowcaseBlock** - Partner logos with optional details
+- **MilestoneTrackerBlock** - Project milestones with status indicators
+
+### Interactive Blocks
+
+- **NewsletterSignupBlock** - Email signup form with theme variants
+- **AnnouncementBannerBlock** - Dismissible announcement banners
+- **MapLocationBlock** - Location map with contact information
+- **ResourceDownloadBlock** - Downloadable resources with file type indicators
+- **FeatureComparisonBlock** - Feature comparison tables
 
 ### Project Blocks
 
