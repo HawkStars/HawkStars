@@ -100,7 +100,7 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlock> = (data) => {
               <div className='overflow-hidden rounded-2xl shadow-2xl'>
                 <img
                   src={image.url}
-                  alt={image.alt || 'Impact visualization'}
+                  alt={image.alt || 'Organization impact'}
                   className='h-full w-full object-cover'
                 />
               </div>
