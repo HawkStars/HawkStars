@@ -115,6 +115,26 @@ export interface Config {
     aboutBlock: AboutBlock;
     globalVillageAboutSection: GlobalVillageAboutSectionBlock;
     globalVillageBanner: GlobalVillageBannerBlock;
+    announcementBanner: AnnouncementBannerBlock;
+    campaignCountdown: CampaignCountdownBlock;
+    ctaBanner: CTABannerBlock;
+    donationProgress: DonationProgressBlock;
+    donorWall: DonorWallBlock;
+    eventList: EventListBlock;
+    faq: FAQBlock;
+    featureComparison: FeatureComparisonBlock;
+    imageComparisonSlider: ImageComparisonSliderBlock;
+    mapLocation: MapLocationBlock;
+    milestoneTracker: MilestoneTrackerBlock;
+    newsletterSignup: NewsletterSignupBlock;
+    partnerShowcase: PartnerShowcaseBlock;
+    pricingTable: PricingTableBlock;
+    quoteHighlight: QuoteHighlightBlock;
+    resourceDownload: ResourceDownloadBlock;
+    socialProof: SocialProofBlock;
+    teamGrid: TeamGridBlock;
+    timeline: TimelineBlock;
+    volunteerCallout: VolunteerCalloutBlock;
   };
   collections: {
     users: User;
@@ -145,7 +165,9 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents':
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -1019,6 +1041,577 @@ export interface GlobalVillageBannerBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'globalVillageBanner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AnnouncementBannerBlock".
+ */
+export interface AnnouncementBannerBlock {
+  message: string;
+  ctaText?: string | null;
+  ctaLink?: string | null;
+  variant?: ('info' | 'success' | 'warning' | 'urgent') | null;
+  dismissible?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'announcementBanner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CampaignCountdownBlock".
+ */
+export interface CampaignCountdownBlock {
+  /**
+   * Campaign or event title
+   */
+  title: string;
+  /**
+   * Brief description or urgency message
+   */
+  description?: string | null;
+  /**
+   * Target end date for the countdown
+   */
+  targetDate: string;
+  /**
+   * Call-to-action button text
+   */
+  ctaText?: string | null;
+  /**
+   * URL for the CTA button
+   */
+  ctaLink?: string | null;
+  showDays?: boolean | null;
+  showHours?: boolean | null;
+  showMinutes?: boolean | null;
+  showSeconds?: boolean | null;
+  /**
+   * Visual theme
+   */
+  theme?: ('light' | 'dark' | 'urgent') | null;
+  /**
+   * Message to show when countdown reaches zero
+   */
+  completedMessage?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'campaignCountdown';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTABannerBlock".
+ */
+export interface CTABannerBlock {
+  title: string;
+  description?: string | null;
+  primaryButtonText?: string | null;
+  primaryButtonLink?: string | null;
+  secondaryButtonText?: string | null;
+  secondaryButtonLink?: string | null;
+  variant?: ('centered' | 'split' | 'image-bg') | null;
+  /**
+   * For image-bg variant
+   */
+  backgroundImage?: (string | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ctaBanner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DonationProgressBlock".
+ */
+export interface DonationProgressBlock {
+  /**
+   * Campaign title
+   */
+  title: string;
+  /**
+   * Brief description of the campaign
+   */
+  description?: string | null;
+  /**
+   * Fundraising goal amount
+   */
+  goalAmount: number;
+  /**
+   * Current amount raised
+   */
+  currentAmount: number;
+  /**
+   * Currency symbol
+   */
+  currency?: string | null;
+  /**
+   * Number of donors (optional)
+   */
+  donorCount?: number | null;
+  /**
+   * Call-to-action button text
+   */
+  ctaText?: string | null;
+  /**
+   * URL for donation page
+   */
+  ctaLink?: string | null;
+  /**
+   * Display percentage progress
+   */
+  showPercentage?: boolean | null;
+  /**
+   * Animate progress bar on scroll
+   */
+  animateProgress?: boolean | null;
+  /**
+   * Visual theme for the block
+   */
+  theme?: ('light' | 'dark' | 'gradient') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'donationProgress';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DonorWallBlock".
+ */
+export interface DonorWallBlock {
+  /**
+   * Section title
+   */
+  title: string;
+  /**
+   * Optional subtitle or thank you message
+   */
+  subtitle?: string | null;
+  /**
+   * List of donors to display
+   */
+  donors?:
+    | {
+        /**
+         * Donor name or organization
+         */
+        name: string;
+        /**
+         * Donation amount (optional)
+         */
+        amount?: number | null;
+        currency?: string | null;
+        /**
+         * Donor tier/level
+         */
+        level?: ('platinum' | 'gold' | 'silver' | 'bronze' | 'supporter') | null;
+        /**
+         * Optional message or quote from donor
+         */
+        message?: string | null;
+        /**
+         * Organization logo (optional)
+         */
+        logo?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Display layout style
+   */
+  layout?: ('grid' | 'wall' | 'cards') | null;
+  /**
+   * Display donation amounts
+   */
+  showAmounts?: boolean | null;
+  /**
+   * How to sort donor display
+   */
+  sortBy?: ('amount-desc' | 'level' | 'name' | 'manual') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'donorWall';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventListBlock".
+ */
+export interface EventListBlock {
+  /**
+   * Section title
+   */
+  title?: string | null;
+  /**
+   * Section description
+   */
+  subtitle?: string | null;
+  /**
+   * List of events to display
+   */
+  events?:
+    | {
+        title: string;
+        description?: string | null;
+        date: string;
+        /**
+         * Optional end date for multi-day events
+         */
+        endDate?: string | null;
+        location?: string | null;
+        category?:
+          | ('workshop' | 'meeting' | 'fundraiser' | 'social' | 'community' | 'youth')
+          | null;
+        image?: (string | null) | Media;
+        /**
+         * Link to registration or more info
+         */
+        registrationLink?: string | null;
+        isFeatured?: boolean | null;
+        /**
+         * Maximum number of participants (optional)
+         */
+        maxParticipants?: number | null;
+        /**
+         * Number of spots remaining
+         */
+        spotsRemaining?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  layout?: ('list' | 'grid' | 'timeline') | null;
+  /**
+   * Include past events in the list
+   */
+  showPastEvents?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'eventList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQBlock".
+ */
+export interface FAQBlock {
+  title?: string | null;
+  items?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faq';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureComparisonBlock".
+ */
+export interface FeatureComparisonBlock {
+  title?: string | null;
+  columns?:
+    | {
+        name: string;
+        highlighted?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  features?:
+    | {
+        feature: string;
+        column1?: boolean | null;
+        column2?: boolean | null;
+        column3?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featureComparison';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageComparisonSliderBlock".
+ */
+export interface ImageComparisonSliderBlock {
+  title?: string | null;
+  /**
+   * Before image
+   */
+  beforeImage: string | Media;
+  /**
+   * After image
+   */
+  afterImage: string | Media;
+  beforeLabel?: string | null;
+  afterLabel?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'imageComparisonSlider';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MapLocationBlock".
+ */
+export interface MapLocationBlock {
+  title?: string | null;
+  address: string;
+  latitude: number;
+  longitude: number;
+  phone?: string | null;
+  email?: string | null;
+  /**
+   * Operating hours
+   */
+  hours?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mapLocation';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MilestoneTrackerBlock".
+ */
+export interface MilestoneTrackerBlock {
+  title?: string | null;
+  milestones?:
+    | {
+        title: string;
+        status: 'completed' | 'in-progress' | 'upcoming';
+        completedDate?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'milestoneTracker';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsletterSignupBlock".
+ */
+export interface NewsletterSignupBlock {
+  title: string;
+  description?: string | null;
+  placeholder?: string | null;
+  buttonText?: string | null;
+  /**
+   * Form submission URL (e.g., Mailchimp endpoint)
+   */
+  formAction?: string | null;
+  theme?: ('light' | 'dark' | 'gradient') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'newsletterSignup';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartnerShowcaseBlock".
+ */
+export interface PartnerShowcaseBlock {
+  title?: string | null;
+  partners?:
+    | {
+        name: string;
+        logo: string | Media;
+        website?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  layout?: ('logos' | 'detailed') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'partnerShowcase';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingTableBlock".
+ */
+export interface PricingTableBlock {
+  /**
+   * Section title
+   */
+  title?: string | null;
+  /**
+   * Section subtitle or description
+   */
+  subtitle?: string | null;
+  /**
+   * Pricing tiers (up to 4)
+   */
+  tiers?:
+    | {
+        /**
+         * Tier name (e.g., "Bronze", "Silver", "Gold")
+         */
+        name: string;
+        /**
+         * Price amount
+         */
+        price: number;
+        /**
+         * Currency symbol
+         */
+        currency?: string | null;
+        /**
+         * Billing period (e.g., "/month", "/year", "one-time")
+         */
+        period?: string | null;
+        /**
+         * Brief description of this tier
+         */
+        description?: string | null;
+        /**
+         * List of features included in this tier
+         */
+        features?:
+          | {
+              feature: string;
+              id?: string | null;
+            }[]
+          | null;
+        /**
+         * CTA button text
+         */
+        buttonText?: string | null;
+        /**
+         * CTA button URL
+         */
+        buttonLink?: string | null;
+        /**
+         * Mark this tier as featured/recommended
+         */
+        highlighted?: boolean | null;
+        /**
+         * Optional badge text (e.g., "Most Popular", "Best Value")
+         */
+        badge?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pricingTable';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuoteHighlightBlock".
+ */
+export interface QuoteHighlightBlock {
+  quote: string;
+  author: string;
+  authorTitle?: string | null;
+  authorPhoto?: (string | null) | Media;
+  style?: ('centered' | 'bordered' | 'highlighted') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'quoteHighlight';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ResourceDownloadBlock".
+ */
+export interface ResourceDownloadBlock {
+  title?: string | null;
+  resources?:
+    | {
+        title: string;
+        description?: string | null;
+        file: string | Media;
+        fileType?: ('pdf' | 'doc' | 'xls' | 'image' | 'other') | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'resourceDownload';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SocialProofBlock".
+ */
+export interface SocialProofBlock {
+  stats?:
+    | {
+        /**
+         * Number or stat (e.g., "500+", "95%")
+         */
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  backgroundColor?: ('white' | 'gray' | 'gradient') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'socialProof';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamGridBlock".
+ */
+export interface TeamGridBlock {
+  title?: string | null;
+  subtitle?: string | null;
+  members?:
+    | {
+        name: string;
+        role: string;
+        bio?: string | null;
+        photo?: (string | null) | Media;
+        email?: string | null;
+        linkedIn?: string | null;
+        twitter?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  layout?: ('cols-2' | 'cols-3' | 'cols-4') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'teamGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TimelineBlock".
+ */
+export interface TimelineBlock {
+  title?: string | null;
+  items?:
+    | {
+        year: string;
+        title: string;
+        description: string;
+        image?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  orientation?: ('vertical' | 'horizontal') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'timeline';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VolunteerCalloutBlock".
+ */
+export interface VolunteerCalloutBlock {
+  title: string;
+  description?: string | null;
+  opportunities?:
+    | {
+        role: string;
+        description?: string | null;
+        /**
+         * Time commitment (e.g., "5 hours/week")
+         */
+        commitment?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  ctaText?: string | null;
+  ctaLink?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'volunteerCallout';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3666,7 +4259,6 @@ export interface TaskSchedulePublish {
 export interface Auth {
   [k: string]: unknown;
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

@@ -20,16 +20,9 @@ const MultiRowImage: React.FC<MultiRowImageBlockProps> = ({ rows, rowGap = 24, i
   return (
     <section className='py-32'>
       <div className='relative container'>
-        <div
-          className='grid'
-          style={{ rowGap: `${rowGap}px` }}
-        >
+        <div className='grid' style={{ rowGap: `${rowGap}px` }}>
           {rows.map((row, rowIdx) => (
-            <div
-              key={rowIdx}
-              className='grid grid-cols-5'
-              style={{ columnGap: `${imageGap}px` }}
-            >
+            <div key={rowIdx} className='grid grid-cols-5' style={{ columnGap: `${imageGap}px` }}>
               {row.images.map((img, imgIdx) => (
                 <BlurVignette
                   key={imgIdx}
@@ -53,7 +46,6 @@ const MultiRowImage: React.FC<MultiRowImageBlockProps> = ({ rows, rowGap = 24, i
 };
 
 export default MultiRowImage;
-
 
 interface BlurVignetteProps {
   children: React.ReactNode;

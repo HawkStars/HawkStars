@@ -20,6 +20,28 @@ import { TextBlock } from './TextBlock/config';
 import { UpdatesBlock } from './UpdatesBlock/config';
 import { VideoBlock } from './VideoBlock/config';
 
+// New blocks
+import { AnnouncementBannerBlock } from './AnnouncementBannerBlock/config';
+import { CampaignCountdownBlock } from './CampaignCountdownBlock/config';
+import { CTABannerBlock } from './CTABannerBlock/config';
+import { DonationProgressBlock } from './DonationProgressBlock/config';
+import { DonorWallBlock } from './DonorWallBlock/config';
+import { EventListBlock } from './EventListBlock/config';
+import { FAQBlock } from './FAQBlock/config';
+import { FeatureComparisonBlock } from './FeatureComparisonBlock/config';
+import { ImageComparisonSliderBlock } from './ImageComparisonSliderBlock/config';
+import { MapLocationBlock } from './MapLocationBlock/config';
+import { MilestoneTrackerBlock } from './MilestoneTrackerBlock/config';
+import { NewsletterSignupBlock } from './NewsletterSignupBlock/config';
+import { PartnerShowcaseBlock } from './PartnerShowcaseBlock/config';
+import { PricingTableBlock } from './PricingTableBlock/config';
+import { QuoteHighlightBlock } from './QuoteHighlightBlock/config';
+import { ResourceDownloadBlock } from './ResourceDownloadBlock/config';
+import { SocialProofBlock } from './SocialProofBlock/config';
+import { TeamGridBlock } from './TeamGridBlock/config';
+import { TimelineBlock } from './TimelineBlock/config';
+import { VolunteerCalloutBlock } from './VolunteerCalloutBlock/config';
+
 const currentBlocks = [
   CallToAction,
   ColumnBased,
@@ -42,6 +64,27 @@ const currentBlocks = [
   AboutBlock,
   GlobalVillageAboutSectionBlock,
   GlobalVillageBannerBlock,
+  // New blocks
+  AnnouncementBannerBlock,
+  CampaignCountdownBlock,
+  CTABannerBlock,
+  DonationProgressBlock,
+  DonorWallBlock,
+  EventListBlock,
+  FAQBlock,
+  FeatureComparisonBlock,
+  ImageComparisonSliderBlock,
+  MapLocationBlock,
+  MilestoneTrackerBlock,
+  NewsletterSignupBlock,
+  PartnerShowcaseBlock,
+  PricingTableBlock,
+  QuoteHighlightBlock,
+  ResourceDownloadBlock,
+  SocialProofBlock,
+  TeamGridBlock,
+  TimelineBlock,
+  VolunteerCalloutBlock,
 ];
 
 export default currentBlocks;
