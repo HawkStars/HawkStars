@@ -42,9 +42,7 @@ export const Highlighted: Story = {
 export const WithPhoto: Story = {
   args: {
     ...Centered.args,
-    authorPhoto: {
-      url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop',
-      alt: 'Sofia Rodrigues',
-    },
+    authorPhoto:
+      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop',
   },
 };

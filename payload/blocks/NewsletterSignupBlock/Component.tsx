@@ -59,7 +59,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
                   type='email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder={placeholder}
+                  placeholder={placeholder as string}
                   required
                   className={cn(
                     'flex-1 rounded-lg border px-6 py-3 text-lg focus:ring-2 focus:ring-green-500 focus:outline-none',

@@ -59,14 +59,14 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
         >
           <div className='relative aspect-video w-full'>
             {/* After Image (Full) */}
-            <Image src={after.url || ''} alt={afterLabel} fill className='object-cover' />
+            <Image src={after.url || ''} alt={afterLabel || ''} fill className='object-cover' />
 
             {/* Before Image (Clipped) */}
             <div
               className='absolute inset-0 overflow-hidden'
               style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
             >
-              <Image src={before.url || ''} alt={beforeLabel} fill className='object-cover' />
+              <Image src={before.url || ''} alt={beforeLabel || ''} fill className='object-cover' />
             </div>
 
             {/* Slider */}

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ImageComparisonSliderBlock } from './Component';
+import { Media } from '@/payload-types';
 
 const meta: Meta<typeof ImageComparisonSliderBlock> = {
   title: 'Payload Blocks/ImageComparisonSliderBlock',
@@ -17,12 +18,12 @@ export const Default: Story = {
     title: 'Our Community Transformation',
     beforeImage: {
       url: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&h=675&fit=crop',
-      alt: 'Before',
-    },
+      alt: 'Before image',
+    } as Media,
     afterImage: {
       url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=675&fit=crop',
-      alt: 'After',
-    },
+      alt: 'After image',
+    } as Media,
     beforeLabel: 'Before',
     afterLabel: 'After',
     id: '1',

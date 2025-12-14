@@ -40,7 +40,7 @@ export const EventListBlock: React.FC<EventListBlockProps> = ({
 
   const filteredEvents = showPastEvents
     ? events
-    : events.filter((event) => new Date(event.date) >= new Date());
+    : events?.filter((event) => new Date(event.date) >= new Date());
 
   if (!filteredEvents || filteredEvents.length === 0) {
     return null;

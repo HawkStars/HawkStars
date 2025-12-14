@@ -19,30 +19,21 @@ export const Default: Story = {
       {
         title: 'Annual Report 2023',
         description: 'Our comprehensive annual report showcasing impact and financials.',
-        file: {
-          url: '/downloads/annual-report.pdf',
-          filename: 'annual-report-2023.pdf',
-        },
+        file: '/downloads/annual-report.pdf',
         fileType: 'pdf',
         id: '1',
       },
       {
         title: 'Membership Application',
         description: 'Fill out this form to become a member of our organization.',
-        file: {
-          url: '/downloads/membership-form.pdf',
-          filename: 'membership-form.pdf',
-        },
+        file: '/downloads/membership-form.pdf',
         fileType: 'pdf',
         id: '2',
       },
       {
         title: 'Program Guidelines',
         description: 'Detailed guidelines for all our youth programs and activities.',
-        file: {
-          url: '/downloads/program-guidelines.doc',
-          filename: 'program-guidelines.doc',
-        },
+        file: '/downloads/program-guidelines.doc',
         fileType: 'doc',
         id: '3',
       },

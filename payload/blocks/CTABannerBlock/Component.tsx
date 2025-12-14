@@ -1,6 +1,5 @@
 import React from 'react';
 import type { CTABannerBlock as CTABannerBlockProps, Media } from '@/payload-types';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
@@ -19,7 +18,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
     <section className='py-12 lg:py-20'>
       <div className='container mx-auto'>
         {variant === 'centered' && (
-          <div className='rounded-2xl bg-gradient-to-br from-green-600 to-blue-600 p-12 text-center text-white'>
+          <div className='rounded-2xl bg-linear-to-br from-green-600 to-blue-600 p-12 text-center text-white'>
             <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
             {description && (
               <p className='mx-auto mb-8 max-w-2xl text-lg opacity-90'>{description}</p>

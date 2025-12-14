@@ -19,10 +19,7 @@ const sampleMembers = [
     bio: 'Passionate about empowering young people through education and community building.',
     email: 'ana@example.com',
     linkedIn: 'https://linkedin.com',
-    photo: {
-      url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
-      alt: 'Ana Silva',
-    },
+    photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
     id: '1',
   },
   {
@@ -31,10 +28,7 @@ const sampleMembers = [
     bio: 'Dedicated to creating meaningful experiences for youth in our community.',
     email: 'joao@example.com',
     twitter: 'https://twitter.com',
-    photo: {
-      url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
-      alt: 'João Costa',
-    },
+    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
     id: '2',
   },
   {
@@ -43,10 +37,7 @@ const sampleMembers = [
     bio: 'Building partnerships to support our mission and expand our impact.',
     email: 'maria@example.com',
     linkedIn: 'https://linkedin.com',
-    photo: {
-      url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop',
-      alt: 'Maria Santos',
-    },
+    photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop',
     id: '3',
   },
 ];

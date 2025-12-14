@@ -38,9 +38,7 @@ export const ImageBackground: Story = {
   args: {
     ...Centered.args,
     variant: 'image-bg',
-    backgroundImage: {
-      url: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&h=600&fit=crop',
-      alt: 'Community',
-    },
+    backgroundImage:
+      'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&h=600&fit=crop',
   },
 };
