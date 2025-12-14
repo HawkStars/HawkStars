@@ -103,6 +103,9 @@ jobs:
             pm2 stop hawkstars 2>/dev/null || true
             pm2 delete hawkstars 2>/dev/null || true
 
+            # Delete current .next folder to ensure a clean build
+            rm -rf .next
+
             # Install dependencies and build
             pnpm install --frozen-lockfile
             pnpm build

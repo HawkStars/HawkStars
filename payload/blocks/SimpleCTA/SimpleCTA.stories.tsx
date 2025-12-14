@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { SimpleCTABlockComponent as SimpleCTABlock } from './SimpleCTAComponent';
 
 const meta: Meta<typeof SimpleCTABlock> = {
-  title: 'Payload Blocks/SimpleCTA',
+  title: 'Payload Blocks/CallToAction/SimpleCTA',
   component: SimpleCTABlock,
   parameters: {
     layout: 'fullscreen',

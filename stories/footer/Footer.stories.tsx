@@ -57,7 +57,7 @@ const emptyFooterInfo: FooterType = {
 };
 
 const meta = {
-  title: 'Layout/Footer',
+  title: 'Layout/Navigation/Footer',
   component: Footer,
   parameters: {
     layout: 'fullscreen',

@@ -3,7 +3,7 @@ import type { ImageIcon } from '@/payload-types';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'Navbar/DropdownV2',
+  title: 'Layout/Navigation/DropdownV2',
   component: DesktopDropdownV2,
   parameters: {
     layout: 'centered',
