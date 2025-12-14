@@ -50,12 +50,23 @@ const createLink = (
     url: '#',
     newTab: false,
   },
-  imageIcon: options?.iconType
-    ? {
-        type: options.iconType,
-        icon: options?.icon || ('Star' as ImageIcon['icon']),
-      }
-    : undefined,
+  imageIcon:
+    options?.iconType == 'image'
+      ? {
+          type: 'image' as const,
+          icon: undefined,
+          imageField: {
+            imageType: 'external' as const,
+            alt: `${label} image`,
+            externalImage:
+              'https://images.unsplash.com/photo-1764616683448-322320bce277?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          },
+        }
+      : {
+          type: 'icon' as const,
+          icon: options?.icon || ('Star' as ImageIcon['icon']),
+          imageField: undefined,
+        },
 });
 
 export const SingleColumnBasic: Story = {
@@ -182,6 +193,7 @@ export const MultipleFeaturedLinks: Story = {
         createLink('Global Village', {
           featured: true,
           description: 'Our flagship project bringing communities together',
+          iconType: 'image',
         }),
         createLink('Art Exhibition', {
           featured: true,

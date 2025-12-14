@@ -57,7 +57,7 @@ const FeaturedLink = (props: FeaturedImageProps) => {
   return (
     <HawkLinkComponent
       link={link.link}
-      className={cn('relative row-span-2 flex h-full max-w-60 flex-col gap-3', {
+      className={cn('relative row-span-2 flex max-w-60 flex-1 flex-col gap-3 self-stretch', {
         'px-0': imageType === 'image',
         'bg-bege-dark rounded-lg py-2': !ImageElement || imageType !== 'image',
       })}
@@ -73,7 +73,7 @@ const FeaturedLink = (props: FeaturedImageProps) => {
         </div>
       )}
       <div
-        className={cn('z-10 mt-auto flex flex-col gap-1 rounded-xs px-4 text-white', {
+        className={cn('z-10 mt-auto flex max-w-80 flex-col gap-1 rounded-xs px-4 text-white', {
           'mb-2': imageType === 'image',
         })}
       >
@@ -94,10 +94,10 @@ const NormalLink = (props: FeaturedImageProps) => {
     <HawkLinkComponent
       link={link.link}
       className={cn(
-        'group flex w-80 gap-4 border-b border-neutral-300 p-2 hover:border-neutral-900',
+        'group flex w-80 flex-1 gap-4 border-b border-neutral-300 p-2 hover:border-neutral-900',
         {
           'px-0': imageType === 'image',
-          'w-40': structure === 'single-column',
+          'max-w-80 min-w-40': structure === 'single-column',
           'flex-col': structure === 'single-column' && imageType === 'image',
         }
       )}
@@ -115,7 +115,7 @@ const NormalLink = (props: FeaturedImageProps) => {
         </div>
       )}
       <div
-        className={cn('mt-auto flex flex-col gap-1', {
+        className={cn('mt-auto flex w-full flex-col gap-1', {
           'mr-1 ml-auto': imageType === 'image',
         })}
       >
