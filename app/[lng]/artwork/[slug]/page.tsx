@@ -3,7 +3,7 @@ import { HawkStarsSection } from '@/components/layout';
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
 import { getServerTranslation } from '@/i18n';
-import Button from '@/components/utils/Button';
+import { Button } from '@/components/ui/button';
 import ArtPropertyComponent from '@/components/art/ArtProperty';
 import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
@@ -68,7 +68,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
             </div>
           )}
           {artwork.is_sold && (
-            <Button type='button' disabled variant='informative'>
+            <Button type='button' disabled variant='default'>
               {t('sold')}
             </Button>
           )}

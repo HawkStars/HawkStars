@@ -16,8 +16,8 @@ import { hawkLogo } from '@/utils/models/images/logos';
 import MobileMenuItem from '@/components/menu/MobileMenuItem';
 import LanguageSwitcher from '@/components/utils/LanguageSwitcher';
 import Socials from '@/components/utils/Socials';
-import Button from '@/components/utils/Button';
 import { useTranslation } from '@/i18n/client';
+import { Button } from '@/components/ui/button';
 
 const MobileNavbar = () => {
   const { mobileNavbarOpen, headerInfo } = useMainAppContext();
@@ -57,7 +57,7 @@ const MobileNavbar = () => {
         </div>
 
         <div className='flex flex-col'>
-          <Button type={'button'} variant='success' size='fit' onClick={() => goToUrl(urls.donate)}>
+          <Button type={'button'} variant='default' size='lg' onClick={() => goToUrl(urls.donate)}>
             {t('common.donate')}
           </Button>
         </div>

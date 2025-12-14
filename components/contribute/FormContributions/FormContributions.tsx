@@ -2,7 +2,7 @@
 
 import { Controller, SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import Input from '@/components/utils/Input/Input';
-import Button from '@/components/utils/Button';
+import { Button } from '@/components/ui/button';
 import dynamic from 'next/dynamic';
 import TextArea from '@/components/utils/TextArea/TextArea';
 import Spinner from '@/components/utils/Spinner/Spinner';
@@ -212,9 +212,7 @@ const FormContributions = ({
           />
         )}
       />
-      <Button type={'submit'} loading={loading}>
-        {formType == 'update' ? 'Update' : 'Create'}
-      </Button>
+      <Button type={'submit'}>{formType == 'update' ? 'Update' : 'Create'}</Button>
     </form>
   );
 };
