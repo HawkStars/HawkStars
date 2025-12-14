@@ -1,6 +1,8 @@
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
 import { AboutBlock } from '@/payload/blocks/AboutBlock/Component';
 import { HeroBlock } from '@/payload/blocks/Hero/Component';
+import { HeroWithBackgroundImageBlock } from '@/payload/blocks/HeroWithBackgroundImage/Component';
+import { HeroImpactStatsBlock } from '@/payload/blocks/HeroImpactStats/Component';
 import { ContentWithImageBlock } from '@/payload/blocks/ContentWithImage/Component';
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
 import { AccordionBlock } from '@/payload/blocks/AccordionBlock/Component';
@@ -28,6 +30,8 @@ import type {
   CallToActionBlock as CTABlockProps,
   MediaBlock as MediaBlockProps,
   HeroBlock as HeroProps,
+  HeroWithBackgroundImageBlock as HeroWithBackgroundImageProps,
+  HeroImpactStatsBlock as HeroImpactStatsProps,
   ContentWithImageBlock as ContentWithImageProps,
   VideoBlock as VideoBlockProps,
   StatsBlock as StatsBlockProps,
@@ -58,6 +62,8 @@ type NodeTypes =
       | CTABlockProps
       | MediaBlockProps
       | HeroProps
+      | HeroWithBackgroundImageProps
+      | HeroImpactStatsProps
       | ContentWithImageProps
       | VideoBlockProps
       | TestimonialBlockProps
@@ -100,6 +106,8 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     ),
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
     hero: ({ node }) => <HeroBlock {...node.fields} />,
+    heroWithBackgroundImage: ({ node }) => <HeroWithBackgroundImageBlock {...node.fields} />,
+    heroImpactStats: ({ node }) => <HeroImpactStatsBlock {...node.fields} />,
     contentWithImage: ({ node }) => <ContentWithImageBlock {...node.fields} />,
     videoBlock: ({ node }) => <VideoBlock {...node.fields} />,
     accordionBlock: ({ node }) => <AccordionBlock {...node.fields} />,
