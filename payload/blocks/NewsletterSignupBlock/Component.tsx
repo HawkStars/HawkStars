@@ -42,7 +42,12 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
   return (
     <section className='py-12 lg:py-16'>
       <div className='container mx-auto'>
-        <div className={cn('rounded-2xl p-8 lg:p-12', themeClasses[theme as keyof typeof themeClasses])}>
+        <div
+          className={cn(
+            'rounded-2xl p-8 lg:p-12',
+            themeClasses[theme as keyof typeof themeClasses]
+          )}
+        >
           <div className='mx-auto max-w-2xl text-center'>
             <Mail className='mx-auto mb-4 h-12 w-12' />
             <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
@@ -57,14 +62,16 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
                   placeholder={placeholder}
                   required
                   className={cn(
-                    'flex-1 rounded-lg border px-6 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-green-500',
+                    'flex-1 rounded-lg border px-6 py-3 text-lg focus:ring-2 focus:ring-green-500 focus:outline-none',
                     inputClasses[theme as keyof typeof inputClasses]
                   )}
                 />
                 <Button
                   type='submit'
                   size='lg'
-                  className={cn(theme === 'gradient' && 'bg-white text-green-600 hover:bg-gray-100')}
+                  className={cn(
+                    theme === 'gradient' && 'bg-white text-green-600 hover:bg-gray-100'
+                  )}
                 >
                   {buttonText}
                 </Button>

@@ -16,7 +16,7 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [] }) => {
     <section className='py-12 lg:py-20'>
       <div className='container mx-auto'>
         {title && <h2 className='mb-12 text-center text-3xl font-bold lg:text-4xl'>{title}</h2>}
-        
+
         <div className='mx-auto max-w-3xl space-y-4'>
           {items.map((item, index) => (
             <div key={index} className='overflow-hidden rounded-lg border border-gray-200 bg-white'>

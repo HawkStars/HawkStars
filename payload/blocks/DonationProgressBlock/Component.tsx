@@ -121,14 +121,14 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
               {/* Stats */}
               <div className='flex flex-wrap justify-between gap-4'>
                 <div>
-                  <div className='text-sm uppercase tracking-wide opacity-70'>Raised</div>
+                  <div className='text-sm tracking-wide uppercase opacity-70'>Raised</div>
                   <div className='text-2xl font-bold lg:text-3xl'>
                     {currency}
                     {currentAmount.toLocaleString()}
                   </div>
                 </div>
                 <div className='text-right'>
-                  <div className='text-sm uppercase tracking-wide opacity-70'>Goal</div>
+                  <div className='text-sm tracking-wide uppercase opacity-70'>Goal</div>
                   <div className='text-2xl font-bold lg:text-3xl'>
                     {currency}
                     {goalAmount.toLocaleString()}

@@ -16,9 +16,9 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
 
   const sortedDonors = useMemo(() => {
     if (!donors || donors.length === 0) return [];
-    
+
     const sorted = [...donors];
-    
+
     if (sortBy === 'amount-desc') {
       sorted.sort((a, b) => (b.amount || 0) - (a.amount || 0));
     } else if (sortBy === 'level') {
@@ -30,7 +30,7 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
     } else if (sortBy === 'name') {
       sorted.sort((a, b) => a.name.localeCompare(b.name));
     }
-    
+
     return sorted;
   }, [donors, sortBy]);
 
@@ -115,7 +115,7 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
                 {donor.level && (
                   <div
                     className={cn(
-                      'mt-2 text-xs uppercase tracking-wide',
+                      'mt-2 text-xs tracking-wide uppercase',
                       levelTextColors[donor.level as keyof typeof levelTextColors]
                     )}
                   >
@@ -173,7 +173,7 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
                   </div>
                 </div>
                 {donor.message && (
-                  <p className='mt-4 italic text-gray-600'>&ldquo;{donor.message}&rdquo;</p>
+                  <p className='mt-4 text-gray-600 italic'>&ldquo;{donor.message}&rdquo;</p>
                 )}
               </div>
             ))}

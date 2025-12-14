@@ -15,7 +15,8 @@ type Story = StoryObj<typeof VolunteerCalloutBlock>;
 export const Default: Story = {
   args: {
     title: 'Become a Volunteer',
-    description: 'Join our team of dedicated volunteers and help make a difference in the community',
+    description:
+      'Join our team of dedicated volunteers and help make a difference in the community',
     opportunities: [
       {
         role: 'Event Coordinator',

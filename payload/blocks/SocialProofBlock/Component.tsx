@@ -23,7 +23,12 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
           {stats.map((stat, index) => (
             <div key={index} className='text-center'>
               <div className='mb-2 text-4xl font-bold lg:text-5xl'>{stat.value}</div>
-              <div className={cn('text-sm font-medium uppercase tracking-wide', backgroundColor === 'gradient' ? 'opacity-90' : 'text-gray-600')}>
+              <div
+                className={cn(
+                  'text-sm font-medium tracking-wide uppercase',
+                  backgroundColor === 'gradient' ? 'opacity-90' : 'text-gray-600'
+                )}
+              >
                 {stat.label}
               </div>
             </div>

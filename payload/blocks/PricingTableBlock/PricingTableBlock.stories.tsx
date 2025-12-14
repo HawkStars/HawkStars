@@ -86,10 +86,7 @@ export const DonationOptions: Story = {
         price: 25,
         currency: '€',
         period: 'one-time',
-        features: [
-          { feature: 'Helps fund educational materials' },
-          { feature: 'Tax deductible' },
-        ],
+        features: [{ feature: 'Helps fund educational materials' }, { feature: 'Tax deductible' }],
         buttonText: 'Donate €25',
         buttonLink: '#donate-25',
         highlighted: false,
@@ -143,10 +140,7 @@ export const TwoTiers: Story = {
         price: 15,
         currency: '€',
         period: '/month',
-        features: [
-          { feature: 'Monthly updates' },
-          { feature: 'Event discounts' },
-        ],
+        features: [{ feature: 'Monthly updates' }, { feature: 'Event discounts' }],
         buttonText: 'Join as Individual',
         buttonLink: '#individual',
         highlighted: false,

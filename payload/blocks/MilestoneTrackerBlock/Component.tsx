@@ -33,16 +33,16 @@ export const MilestoneTrackerBlock: React.FC<MilestoneTrackerBlockProps> = ({
     <section className='py-12 lg:py-20'>
       <div className='container mx-auto'>
         {title && <h2 className='mb-12 text-center text-3xl font-bold lg:text-4xl'>{title}</h2>}
-        
+
         <div className='mx-auto max-w-3xl'>
           <div className='relative'>
-            <div className='absolute left-6 top-0 bottom-0 w-0.5 bg-gray-300' />
-            
+            <div className='absolute top-0 bottom-0 left-6 w-0.5 bg-gray-300' />
+
             <div className='space-y-8'>
               {milestones.map((milestone, index) => {
                 const config = statusConfig[milestone.status as keyof typeof statusConfig];
                 const Icon = config.icon;
-                
+
                 return (
                   <div key={index} className='relative flex gap-6'>
                     <div
@@ -53,7 +53,7 @@ export const MilestoneTrackerBlock: React.FC<MilestoneTrackerBlockProps> = ({
                     >
                       <Icon className={cn('h-6 w-6', config.color)} />
                     </div>
-                    
+
                     <div className='flex-1 pb-8'>
                       <div className='mb-2 flex items-center gap-3'>
                         <h3 className='text-xl font-semibold'>{milestone.title}</h3>
@@ -67,7 +67,7 @@ export const MilestoneTrackerBlock: React.FC<MilestoneTrackerBlockProps> = ({
                           {milestone.status.replace('-', ' ')}
                         </span>
                       </div>
-                      
+
                       {milestone.completedDate && (
                         <div className='mb-2 text-sm text-gray-600'>
                           {new Date(milestone.completedDate).toLocaleDateString('en-US', {
@@ -77,7 +77,7 @@ export const MilestoneTrackerBlock: React.FC<MilestoneTrackerBlockProps> = ({
                           })}
                         </div>
                       )}
-                      
+
                       {milestone.description && (
                         <p className='text-gray-700'>{milestone.description}</p>
                       )}

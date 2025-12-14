@@ -30,7 +30,9 @@ export const TeamGridBlock: React.FC<TeamGridBlockProps> = ({
           </div>
         )}
 
-        <div className={cn('grid grid-cols-1 gap-8', gridClasses[layout as keyof typeof gridClasses])}>
+        <div
+          className={cn('grid grid-cols-1 gap-8', gridClasses[layout as keyof typeof gridClasses])}
+        >
           {members.map((member, index) => (
             <div key={index} className='group text-center'>
               {/* Photo */}
@@ -44,14 +46,12 @@ export const TeamGridBlock: React.FC<TeamGridBlockProps> = ({
                   />
                 </div>
               )}
-              
+
               {/* Info */}
               <h3 className='mb-1 text-xl font-semibold'>{member.name}</h3>
               <div className='mb-3 text-green-600'>{member.role}</div>
-              
-              {member.bio && (
-                <p className='mb-4 text-sm text-gray-600'>{member.bio}</p>
-              )}
+
+              {member.bio && <p className='mb-4 text-sm text-gray-600'>{member.bio}</p>}
 
               {/* Social Links */}
               <div className='flex justify-center gap-3'>

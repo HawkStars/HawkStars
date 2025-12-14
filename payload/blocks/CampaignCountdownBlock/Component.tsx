@@ -110,7 +110,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
                   >
                     {String(unit.value).padStart(2, '0')}
                   </div>
-                  <div className='text-sm font-semibold uppercase tracking-wider opacity-70'>
+                  <div className='text-sm font-semibold tracking-wider uppercase opacity-70'>
                     {unit.label}
                   </div>
                 </div>
@@ -123,7 +123,10 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
             <div className='text-center'>
               <Button
                 size='lg'
-                className={cn('text-lg', theme === 'urgent' && 'bg-white text-red-600 hover:bg-gray-100')}
+                className={cn(
+                  'text-lg',
+                  theme === 'urgent' && 'bg-white text-red-600 hover:bg-gray-100'
+                )}
                 asChild
               >
                 <a href={ctaLink}>{ctaText}</a>

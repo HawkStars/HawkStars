@@ -16,7 +16,7 @@ export const FeatureComparisonBlock: React.FC<FeatureComparisonBlockProps> = ({
     <section className='py-12 lg:py-20'>
       <div className='container mx-auto'>
         {title && <h2 className='mb-12 text-center text-3xl font-bold lg:text-4xl'>{title}</h2>}
-        
+
         <div className='overflow-x-auto'>
           <table className='w-full border-collapse'>
             <thead>
@@ -32,7 +32,7 @@ export const FeatureComparisonBlock: React.FC<FeatureComparisonBlockProps> = ({
                   >
                     <div className='text-xl font-bold'>{column.name}</div>
                     {column.highlighted && (
-                      <div className='mt-1 text-xs font-semibold uppercase text-green-600'>
+                      <div className='mt-1 text-xs font-semibold text-green-600 uppercase'>
                         Recommended
                       </div>
                     )}
@@ -45,15 +45,13 @@ export const FeatureComparisonBlock: React.FC<FeatureComparisonBlockProps> = ({
                 <tr key={featureIndex} className='border-b border-gray-100'>
                   <td className='p-4 font-medium'>{feature.feature}</td>
                   {columns.map((column, columnIndex) => {
-                    const hasFeature = feature[`column${columnIndex + 1}` as 'column1' | 'column2' | 'column3'];
-                    
+                    const hasFeature =
+                      feature[`column${columnIndex + 1}` as 'column1' | 'column2' | 'column3'];
+
                     return (
                       <td
                         key={columnIndex}
-                        className={cn(
-                          'p-4 text-center',
-                          column.highlighted && 'bg-green-50/50'
-                        )}
+                        className={cn('p-4 text-center', column.highlighted && 'bg-green-50/50')}
                       >
                         {hasFeature ? (
                           <Check className='mx-auto h-6 w-6 text-green-600' />

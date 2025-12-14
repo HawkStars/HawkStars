@@ -14,7 +14,8 @@ type Story = StoryObj<typeof QuoteHighlightBlock>;
 
 export const Centered: Story = {
   args: {
-    quote: 'This organization has transformed my life. The support and opportunities they provide are incredible.',
+    quote:
+      'This organization has transformed my life. The support and opportunities they provide are incredible.',
     author: 'Sofia Rodrigues',
     authorTitle: 'Program Participant',
     style: 'centered',

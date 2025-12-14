@@ -19,11 +19,17 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
 
         {orientation === 'vertical' && (
           <div className='relative'>
-            <div className='absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 bg-gray-300' />
-            
+            <div className='absolute top-0 bottom-0 left-1/2 w-0.5 -translate-x-1/2 bg-gray-300' />
+
             {items.map((item, index) => (
-              <div key={index} className={cn('relative mb-12 flex items-center', index % 2 === 0 ? 'justify-start' : 'justify-end')}>
-                <div className={cn('w-5/12', index % 2 === 0 ? 'text-right pr-12' : 'pl-12')}>
+              <div
+                key={index}
+                className={cn(
+                  'relative mb-12 flex items-center',
+                  index % 2 === 0 ? 'justify-start' : 'justify-end'
+                )}
+              >
+                <div className={cn('w-5/12', index % 2 === 0 ? 'pr-12 text-right' : 'pl-12')}>
                   <div className='rounded-lg bg-white p-6 shadow-md'>
                     <div className='mb-2 text-2xl font-bold text-green-600'>{item.year}</div>
                     <h3 className='mb-2 text-xl font-semibold'>{item.title}</h3>
@@ -40,7 +46,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
                     )}
                   </div>
                 </div>
-                
+
                 <div className='absolute left-1/2 z-10 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full border-4 border-white bg-green-600 text-white shadow-md' />
               </div>
             ))}
@@ -52,7 +58,9 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
             <div className='flex min-w-max gap-8 pb-4'>
               {items.map((item, index) => (
                 <div key={index} className='w-80 shrink-0'>
-                  <div className='mb-4 text-center text-2xl font-bold text-green-600'>{item.year}</div>
+                  <div className='mb-4 text-center text-2xl font-bold text-green-600'>
+                    {item.year}
+                  </div>
                   <div className='rounded-lg bg-white p-6 shadow-md'>
                     <h3 className='mb-2 text-xl font-semibold'>{item.title}</h3>
                     <p className='text-gray-700'>{item.description}</p>

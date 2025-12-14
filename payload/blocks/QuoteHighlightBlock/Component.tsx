@@ -17,7 +17,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
         {style === 'centered' && (
           <div className='mx-auto max-w-3xl text-center'>
             <Quote className='mx-auto mb-6 h-12 w-12 text-green-600' />
-            <blockquote className='mb-6 text-2xl font-medium italic leading-relaxed lg:text-3xl'>
+            <blockquote className='mb-6 text-2xl leading-relaxed font-medium italic lg:text-3xl'>
               &ldquo;{quote}&rdquo;
             </blockquote>
             <div className='flex items-center justify-center gap-4'>
@@ -41,7 +41,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
 
         {style === 'bordered' && (
           <div className='mx-auto max-w-4xl border-l-4 border-green-600 bg-gray-50 p-8 lg:p-12'>
-            <blockquote className='mb-4 text-xl font-medium leading-relaxed lg:text-2xl'>
+            <blockquote className='mb-4 text-xl leading-relaxed font-medium lg:text-2xl'>
               &ldquo;{quote}&rdquo;
             </blockquote>
             <div className='flex items-center gap-4'>
@@ -66,7 +66,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
         {style === 'highlighted' && (
           <div className='mx-auto max-w-4xl rounded-2xl bg-gradient-to-br from-green-500 to-blue-600 p-8 text-white lg:p-12'>
             <Quote className='mb-6 h-12 w-12 opacity-50' />
-            <blockquote className='mb-6 text-2xl font-medium leading-relaxed lg:text-3xl'>
+            <blockquote className='mb-6 text-2xl leading-relaxed font-medium lg:text-3xl'>
               &ldquo;{quote}&rdquo;
             </blockquote>
             <div className='flex items-center gap-4'>

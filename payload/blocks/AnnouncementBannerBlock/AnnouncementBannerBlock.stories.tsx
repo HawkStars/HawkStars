@@ -36,7 +36,7 @@ export const Success: Story = {
 export const Warning: Story = {
   args: {
     ...Info.args,
-    message: 'Registration closes in 3 days. Don\'t miss out!',
+    message: "Registration closes in 3 days. Don't miss out!",
     variant: 'warning',
   },
 };

@@ -71,9 +71,7 @@ export const EventListBlock: React.FC<EventListBlockProps> = ({
                 <div className='flex flex-col gap-6 p-6 md:flex-row'>
                   {/* Date Badge */}
                   <div className='flex shrink-0 flex-col items-center justify-center rounded-lg bg-green-600 p-4 text-white md:w-24'>
-                    <div className='text-3xl font-bold'>
-                      {new Date(event.date).getDate()}
-                    </div>
+                    <div className='text-3xl font-bold'>{new Date(event.date).getDate()}</div>
                     <div className='text-sm uppercase'>
                       {new Date(event.date).toLocaleDateString('en-US', { month: 'short' })}
                     </div>
@@ -119,9 +117,7 @@ export const EventListBlock: React.FC<EventListBlockProps> = ({
                       )}
                     </div>
 
-                    {event.description && (
-                      <p className='mb-4 text-gray-700'>{event.description}</p>
-                    )}
+                    {event.description && <p className='mb-4 text-gray-700'>{event.description}</p>}
 
                     {event.registrationLink && (
                       <Button size='sm' asChild>
@@ -206,7 +202,7 @@ export const EventListBlock: React.FC<EventListBlockProps> = ({
         {/* Timeline Layout */}
         {layout === 'timeline' && (
           <div className='relative'>
-            <div className='absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300' />
+            <div className='absolute top-0 bottom-0 left-8 w-0.5 bg-gray-300' />
             <div className='space-y-8'>
               {filteredEvents.map((event, index) => (
                 <div key={index} className='relative flex gap-6'>

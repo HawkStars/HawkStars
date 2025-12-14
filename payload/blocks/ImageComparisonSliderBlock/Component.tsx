@@ -2,7 +2,10 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import type { ImageComparisonSliderBlock as ImageComparisonSliderBlockProps, Media } from '@/payload-types';
+import type {
+  ImageComparisonSliderBlock as ImageComparisonSliderBlockProps,
+  Media,
+} from '@/payload-types';
 
 export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProps> = ({
   title,
@@ -45,9 +48,9 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
     <section className='py-12 lg:py-20'>
       <div className='container mx-auto'>
         {title && <h2 className='mb-8 text-center text-3xl font-bold lg:text-4xl'>{title}</h2>}
-        
+
         <div
-          className='relative mx-auto max-w-4xl select-none overflow-hidden rounded-xl'
+          className='relative mx-auto max-w-4xl overflow-hidden rounded-xl select-none'
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
@@ -75,8 +78,18 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
             >
               <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform'>
                 <div className='flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-lg'>
-                  <svg className='h-6 w-6 text-gray-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M8 9l4-4 4 4m0 6l-4 4-4-4' />
+                  <svg
+                    className='h-6 w-6 text-gray-700'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M8 9l4-4 4 4m0 6l-4 4-4-4'
+                    />
                   </svg>
                 </div>
               </div>

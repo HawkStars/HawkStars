@@ -58,9 +58,7 @@ export const PricingTableBlock: React.FC<PricingTableBlockProps> = ({
               <h3 className='mb-2 text-2xl font-bold'>{tier.name}</h3>
 
               {/* Description */}
-              {tier.description && (
-                <p className='mb-6 text-sm text-gray-600'>{tier.description}</p>
-              )}
+              {tier.description && <p className='mb-6 text-sm text-gray-600'>{tier.description}</p>}
 
               {/* Price */}
               <div className='mb-6'>

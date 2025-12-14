@@ -15,7 +15,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
     <section className='py-12 lg:py-20'>
       <div className='container mx-auto'>
         {title && <h2 className='mb-8 text-center text-3xl font-bold lg:text-4xl'>{title}</h2>}
-        
+
         <div className='grid gap-8 lg:grid-cols-2'>
           {/* Map */}
           <div className='overflow-hidden rounded-xl border border-gray-200'>

@@ -30,7 +30,8 @@ futureDate3.setDate(futureDate3.getDate() + 20);
 const sampleEvents = [
   {
     title: 'Youth Leadership Workshop',
-    description: 'An interactive workshop focused on developing leadership skills for young people aged 16-25.',
+    description:
+      'An interactive workshop focused on developing leadership skills for young people aged 16-25.',
     date: futureDate1.toISOString(),
     location: 'Community Center, Lisbon',
     category: 'workshop' as const,
@@ -42,7 +43,8 @@ const sampleEvents = [
   },
   {
     title: 'Community Fundraising Gala',
-    description: 'Join us for an evening of celebration and fundraising to support our new building project.',
+    description:
+      'Join us for an evening of celebration and fundraising to support our new building project.',
     date: futureDate2.toISOString(),
     location: 'Grand Hall, Porto',
     category: 'fundraiser' as const,

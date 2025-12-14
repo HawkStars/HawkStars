@@ -23,14 +23,17 @@ export const ResourceDownloadBlock: React.FC<ResourceDownloadBlockProps> = ({
     <section className='py-12 lg:py-20'>
       <div className='container mx-auto'>
         {title && <h2 className='mb-12 text-center text-3xl font-bold lg:text-4xl'>{title}</h2>}
-        
+
         <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
           {resources.map((resource, index) => {
             const Icon = icons[resource.fileType as keyof typeof icons] || File;
             const file = typeof resource.file === 'string' ? null : (resource.file as Media);
-            
+
             return (
-              <div key={index} className='rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md'>
+              <div
+                key={index}
+                className='rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md'
+              >
                 <div className='mb-4 inline-flex rounded-full bg-green-100 p-3'>
                   <Icon className='h-6 w-6 text-green-600' />
                 </div>

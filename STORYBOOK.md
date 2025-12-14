@@ -48,18 +48,21 @@ payload/blocks/
 The following Payload CMS blocks have Storybook stories:
 
 ### Content Blocks
+
 - **TextBlock** - Rich text content with alignment and width options
 - **MediaBlock** - Image and media display block
 - **VideoBlock** - YouTube, Vimeo, and direct video embeds
 - **AccordionBlock** - Collapsible content sections
 
 ### Layout Blocks
+
 - **Hero** - Hero section with features grid
 - **ContentWithImage** - Two-column layout with content and image
 - **ColumnBased** - Multi-column layout with icons and lists
 - **GallerySlider** - Image carousel/slider
 
 ### Marketing Blocks
+
 - **CallToAction** - CTA section with globe animation
 - **SimpleCTA** - Simple CTA with primary and secondary buttons
 - **CardGridBlock** - Feature cards in a grid layout
@@ -69,6 +72,7 @@ The following Payload CMS blocks have Storybook stories:
 - **LogosBlock** - Partner/client logo showcase
 
 ### Project Blocks
+
 - **Projects18** - Project showcase with images
 - **UpdatesBlock** - Blog posts/updates with categories
 - **ProcessOneBlock** - Step-by-step process display
@@ -87,7 +91,6 @@ const meta: Meta<typeof BlockComponent> = {
   parameters: {
     layout: 'fullscreen',
   },
-  
 };
 
 export default meta;
@@ -113,7 +116,7 @@ export const Variant: Story = {
 The main Storybook configuration is in `.storybook/main.ts`:
 
 - **Stories**: Includes stories from `payload/blocks/**/*.stories.tsx`
-- **Addons**: 
+- **Addons**:
   - `@chromatic-com/storybook` - Visual testing
   - `@storybook/addon-a11y` - Accessibility testing
   - `@storybook/addon-docs` - Auto-generated documentation
@@ -135,6 +138,7 @@ The preview configuration in `.storybook/preview.ts`:
 ### Using Controls
 
 Most stories include interactive controls in the Storybook UI. You can:
+
 - Edit text content
 - Change select options (alignment, layout, style)
 - Toggle boolean flags (autoplay, show ratings)
@@ -171,16 +175,19 @@ The new story will automatically be picked up by Storybook.
 ## Troubleshooting
 
 ### Storybook won't start
+
 - Check for TypeScript errors in story files
 - Ensure all imports are correct
 - Verify component exports match story imports
 
 ### Component not rendering
+
 - Check that sample data matches the TypeScript types
 - Verify required props are provided
 - Check browser console for errors
 
 ### Styles not loading
+
 - Ensure `globals.css` is imported in `.storybook/preview.ts`
 - Check that Tailwind CSS is properly configured
 - Verify custom CSS classes are defined

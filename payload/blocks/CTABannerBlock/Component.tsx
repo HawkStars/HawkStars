@@ -21,7 +21,9 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
         {variant === 'centered' && (
           <div className='rounded-2xl bg-gradient-to-br from-green-600 to-blue-600 p-12 text-center text-white'>
             <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
-            {description && <p className='mx-auto mb-8 max-w-2xl text-lg opacity-90'>{description}</p>}
+            {description && (
+              <p className='mx-auto mb-8 max-w-2xl text-lg opacity-90'>{description}</p>
+            )}
             <div className='flex flex-col justify-center gap-4 sm:flex-row'>
               {primaryButtonLink && primaryButtonText && (
                 <Button size='lg' className='bg-white text-green-600 hover:bg-gray-100' asChild>
@@ -29,7 +31,12 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
                 </Button>
               )}
               {secondaryButtonLink && secondaryButtonText && (
-                <Button size='lg' variant='outline' className='border-white text-white hover:bg-white/10' asChild>
+                <Button
+                  size='lg'
+                  variant='outline'
+                  className='border-white text-white hover:bg-white/10'
+                  asChild
+                >
                   <a href={secondaryButtonLink}>{secondaryButtonText}</a>
                 </Button>
               )}
@@ -51,7 +58,12 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
                   </Button>
                 )}
                 {secondaryButtonLink && secondaryButtonText && (
-                  <Button size='lg' variant='outline' className='border-white text-white hover:bg-white/10' asChild>
+                  <Button
+                    size='lg'
+                    variant='outline'
+                    className='border-white text-white hover:bg-white/10'
+                    asChild
+                  >
                     <a href={secondaryButtonLink}>{secondaryButtonText}</a>
                   </Button>
                 )}
@@ -64,7 +76,9 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
           <div
             className='relative overflow-hidden rounded-2xl bg-cover bg-center p-12 text-white'
             style={{
-              backgroundImage: bgImage ? `url(${bgImage.url})` : 'linear-gradient(135deg, #0a7558 0%, #1e40af 100%)',
+              backgroundImage: bgImage
+                ? `url(${bgImage.url})`
+                : 'linear-gradient(135deg, #0a7558 0%, #1e40af 100%)',
             }}
           >
             <div className='absolute inset-0 bg-black/50' />
@@ -78,7 +92,12 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
                   </Button>
                 )}
                 {secondaryButtonLink && secondaryButtonText && (
-                  <Button size='lg' variant='outline' className='border-white text-white hover:bg-white/10' asChild>
+                  <Button
+                    size='lg'
+                    variant='outline'
+                    className='border-white text-white hover:bg-white/10'
+                    asChild
+                  >
                     <a href={secondaryButtonLink}>{secondaryButtonText}</a>
                   </Button>
                 )}

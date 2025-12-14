@@ -41,7 +41,7 @@ export const AnnouncementBannerBlock: React.FC<AnnouncementBannerBlockProps> = (
             <Icon className='h-6 w-6 shrink-0' />
             <p className='flex-1 font-medium'>{message}</p>
           </div>
-          
+
           <div className='flex items-center gap-3'>
             {ctaLink && ctaText && (
               <Button size='sm' variant='outline' asChild>

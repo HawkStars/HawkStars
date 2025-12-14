@@ -15,7 +15,8 @@ type Story = StoryObj<typeof NewsletterSignupBlock>;
 export const Light: Story = {
   args: {
     title: 'Stay Updated',
-    description: 'Get the latest news and updates about our programs and events delivered to your inbox.',
+    description:
+      'Get the latest news and updates about our programs and events delivered to your inbox.',
     placeholder: 'Enter your email',
     buttonText: 'Subscribe',
     theme: 'light',

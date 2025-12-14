@@ -16,12 +16,12 @@ export const PartnerShowcaseBlock: React.FC<PartnerShowcaseBlockProps> = ({
     <section className='bg-gray-50 py-12 lg:py-20'>
       <div className='container mx-auto'>
         {title && <h2 className='mb-12 text-center text-3xl font-bold lg:text-4xl'>{title}</h2>}
-        
+
         {layout === 'logos' && (
           <div className='grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4'>
             {partners.map((partner, index) => {
               const logo = typeof partner.logo === 'string' ? null : (partner.logo as Media);
-              
+
               return (
                 <div
                   key={index}
@@ -58,7 +58,7 @@ export const PartnerShowcaseBlock: React.FC<PartnerShowcaseBlockProps> = ({
           <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
             {partners.map((partner, index) => {
               const logo = typeof partner.logo === 'string' ? null : (partner.logo as Media);
-              
+
               return (
                 <div key={index} className='rounded-xl bg-white p-6 shadow-sm'>
                   {logo && (
