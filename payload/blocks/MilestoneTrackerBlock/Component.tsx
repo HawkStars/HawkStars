@@ -14,13 +14,13 @@ export const MilestoneTrackerBlock: React.FC<MilestoneTrackerBlockProps> = ({
   const statusConfig = {
     completed: {
       icon: CheckCircle,
-      color: 'text-green-600',
-      bg: 'bg-green-100',
+      color: 'text-green',
+      bg: 'bg-bege-light',
     },
     'in-progress': {
       icon: Clock,
-      color: 'text-blue-600',
-      bg: 'bg-blue-100',
+      color: 'text-green',
+      bg: 'bg-bege-dark',
     },
     upcoming: {
       icon: Circle,

@@ -30,8 +30,8 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
                 )}
               >
                 <div className={cn('w-5/12', index % 2 === 0 ? 'pr-12 text-right' : 'pl-12')}>
-                  <div className='rounded-lg bg-white p-6 shadow-md'>
-                    <div className='mb-2 text-2xl font-bold text-green-600'>{item.year}</div>
+                  <div className='card-md rounded-lg p-6'>
+                    <div className='text-green mb-2 text-2xl font-bold'>{item.year}</div>
                     <h3 className='mb-2 text-xl font-semibold'>{item.title}</h3>
                     <p className='text-gray-700'>{item.description}</p>
                     {item.image && typeof item.image !== 'string' && (
@@ -47,7 +47,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
                   </div>
                 </div>
 
-                <div className='absolute left-1/2 z-10 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full border-4 border-white bg-green-600 text-white shadow-md' />
+                <div className='bg-green card-md absolute left-1/2 z-10 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full border-4 border-white text-white' />
               </div>
             ))}
           </div>
@@ -58,10 +58,8 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
             <div className='flex min-w-max gap-8 pb-4'>
               {items.map((item, index) => (
                 <div key={index} className='w-80 shrink-0'>
-                  <div className='mb-4 text-center text-2xl font-bold text-green-600'>
-                    {item.year}
-                  </div>
-                  <div className='rounded-lg bg-white p-6 shadow-md'>
+                  <div className='text-green mb-4 text-center text-2xl font-bold'>{item.year}</div>
+                  <div className='card-md rounded-lg p-6'>
                     <h3 className='mb-2 text-xl font-semibold'>{item.title}</h3>
                     <p className='text-gray-700'>{item.description}</p>
                   </div>

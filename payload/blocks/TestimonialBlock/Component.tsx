@@ -30,7 +30,7 @@ const StarRating: React.FC<{ rating: number; showRating: boolean | null }> = ({
       {Array.from({ length: 5 }, (_, i) => (
         <Star
           key={i}
-          className={cn('h-4 w-4', i < rating ? 'fill-current text-yellow-400' : 'text-gray-300')}
+          className={cn('h-4 w-4', i < rating ? 'text-bege-dark fill-current' : 'text-gray-300')}
         />
       ))}
     </div>
@@ -46,22 +46,22 @@ const TestimonialCard: React.FC<{
   const { quote, author, rating = 0, featured = false } = testimonial;
 
   const cardClasses = {
-    card: `bg-white rounded-lg shadow-md border border-gray-200 p-6 ${isDark ? 'bg-gray-800 border-gray-600 text-white' : ''}`,
+    card: `card-md border border-gray-200 p-6 ${isDark ? 'bg-gray-800 border-gray-600 text-white' : ''}`,
     quote: `relative p-6 ${isDark ? 'text-white' : ''}`,
     minimal: `p-4 ${isDark ? 'text-white' : ''}`,
-    bubble: `bg-white rounded-2xl shadow-lg p-6 relative ${isDark ? 'bg-gray-800 text-white' : ''}`,
+    bubble: `card-lg p-6 relative ${isDark ? 'bg-gray-800 text-white' : ''}`,
   };
 
   return (
     <div
       className={cn(
         cardClasses[style as keyof typeof cardClasses],
-        featured && 'ring-opacity-50 ring-2 ring-blue-500',
+        featured && 'ring-opacity-50 ring-green ring-2',
         'h-full'
       )}
     >
       {/* Quote Icon for quote style */}
-      {style === 'quote' && <Quote className='mb-4 h-8 w-8 text-blue-500' />}
+      {style === 'quote' && <Quote className='text-green mb-4 h-8 w-8' />}
 
       {/* Rating */}
       <StarRating rating={rating || 1} showRating={showRatings} />
@@ -205,7 +205,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
                   className={cn(
                     'absolute top-1/2 left-0 -translate-y-1/2 transform',
                     'flex h-10 w-10 items-center justify-center rounded-full',
-                    'bg-white shadow-lg transition-shadow hover:shadow-xl',
+                    'card-lg card-hover-lg',
                     isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
                   )}
                 >
@@ -216,7 +216,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
                   className={cn(
                     'absolute top-1/2 right-0 -translate-y-1/2 transform',
                     'flex h-10 w-10 items-center justify-center rounded-full',
-                    'bg-white shadow-lg transition-shadow hover:shadow-xl',
+                    'card-lg card-hover-lg',
                     isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
                   )}
                 >

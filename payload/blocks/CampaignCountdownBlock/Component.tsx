@@ -55,8 +55,8 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
 
   const themeClasses = {
     light: 'bg-white border-gray-200 text-gray-900',
-    dark: 'bg-gray-900 border-gray-700 text-white',
-    urgent: 'bg-gradient-to-br from-red-600 to-orange-600 border-red-700 text-white',
+    dark: 'bg-black border-gray-700 text-white',
+    urgent: 'bg-gradient-to-br from-green to-bege-dark border-green text-white',
   };
 
   const digitBgClasses = {
@@ -77,14 +77,14 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
       <div className='container mx-auto'>
         <div
           className={cn(
-            'rounded-2xl border p-8 shadow-lg lg:p-12',
+            'card-lg rounded-2xl border p-8 lg:p-12',
             themeClasses[theme as keyof typeof themeClasses]
           )}
         >
           {/* Header */}
           <div className='mb-8 text-center'>
-            <div className='mb-4 inline-flex rounded-full bg-orange-100 p-3'>
-              <Clock className='h-6 w-6 text-orange-600' />
+            <div className='bg-bege-light mb-4 inline-flex rounded-full p-3'>
+              <Clock className='text-green h-6 w-6' />
             </div>
             <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
             {description && <p className='mx-auto max-w-2xl text-lg opacity-90'>{description}</p>}
@@ -93,7 +93,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
           {/* Countdown or Completed Message */}
           {isComplete ? (
             <div className='mb-8 text-center'>
-              <div className='inline-flex items-center gap-2 rounded-lg bg-yellow-100 px-6 py-4 text-2xl font-bold text-yellow-900'>
+              <div className='bg-bege-dark inline-flex items-center gap-2 rounded-lg px-6 py-4 text-2xl font-bold text-black'>
                 <Calendar className='h-8 w-8' />
                 {completedMessage}
               </div>
@@ -125,7 +125,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
                 size='lg'
                 className={cn(
                   'text-lg',
-                  theme === 'urgent' && 'bg-white text-red-600 hover:bg-gray-100'
+                  theme === 'urgent' && 'text-green hover:bg-bege-light bg-white'
                 )}
                 asChild
               >

@@ -74,6 +74,31 @@
     letter-spacing: 0;
   }
 
+  /** Cards **/
+  .card {
+    @apply rounded-lg bg-white shadow-sm;
+  }
+
+  .card-sm {
+    @apply rounded-lg bg-white shadow-sm;
+  }
+
+  .card-md {
+    @apply rounded-lg bg-white shadow-md;
+  }
+
+  .card-lg {
+    @apply rounded-xl bg-white shadow-lg;
+  }
+
+  .card-hover {
+    @apply transition-shadow hover:shadow-md;
+  }
+
+  .card-hover-lg {
+    @apply transition-shadow hover:shadow-lg;
+  }
+
   /** Layout **/
   .max-layout {
     @media (min-width: 1024px) {

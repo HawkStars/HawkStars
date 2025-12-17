@@ -44,20 +44,18 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
       />
 
       {/* Content */}
-      <div className='container relative z-10 mx-auto flex min-h-[600px] flex-col justify-center px-4 py-32 lg:min-h-[700px]'>
+      <div className='relative z-10 container mx-auto flex min-h-[600px] flex-col justify-center px-4 py-32 lg:min-h-[700px]'>
         <div
           className={cn(
             'flex max-w-4xl flex-col gap-6',
-            alignmentClasses[textAlignment as keyof typeof alignmentClasses],
+            alignmentClasses[textAlignment as keyof typeof alignmentClasses]
           )}
         >
           {title && (
             <h1 className='text-4xl font-bold text-white lg:text-6xl xl:text-7xl'>{title}</h1>
           )}
 
-          {subtitle && (
-            <p className='max-w-2xl text-lg text-white/90 lg:text-xl'>{subtitle}</p>
-          )}
+          {subtitle && <p className='max-w-2xl text-lg text-white/90 lg:text-xl'>{subtitle}</p>}
 
           {(primaryCtaText || secondaryCtaText) && (
             <div className='mt-4 flex flex-col gap-4 sm:flex-row'>

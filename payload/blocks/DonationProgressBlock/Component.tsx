@@ -52,13 +52,13 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
 
   const themeClasses = {
     light: 'bg-white border border-gray-200',
-    dark: 'bg-gray-900 text-white border border-gray-700',
-    gradient: 'bg-gradient-to-br from-blue-500 to-purple-600 text-white',
+    dark: 'bg-black text-white border border-gray-700',
+    gradient: 'bg-gradient-to-br from-green to-bege-dark text-white',
   };
 
   const progressBarClasses = {
-    light: 'bg-green-500',
-    dark: 'bg-green-400',
+    light: 'bg-green',
+    dark: 'bg-green',
     gradient: 'bg-white',
   };
 
@@ -73,15 +73,15 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
       <div className='container mx-auto'>
         <div
           className={cn(
-            'rounded-2xl p-8 shadow-lg lg:p-12',
+            'card-lg rounded-2xl p-8 lg:p-12',
             themeClasses[theme as keyof typeof themeClasses]
           )}
         >
           <div className='flex flex-col gap-8'>
             {/* Header */}
             <div className='text-center'>
-              <div className='mb-4 inline-flex rounded-full bg-green-100 p-3'>
-                <Target className='h-6 w-6 text-green-600' />
+              <div className='bg-bege-light mb-4 inline-flex rounded-full p-3'>
+                <Target className='text-green h-6 w-6' />
               </div>
               <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
               {description && (
@@ -152,7 +152,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
                   size='lg'
                   className={cn(
                     'group',
-                    theme === 'gradient' && 'bg-white text-purple-600 hover:bg-gray-100'
+                    theme === 'gradient' && 'text-green hover:bg-bege-light bg-white'
                   )}
                   asChild
                 >

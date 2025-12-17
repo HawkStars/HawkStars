@@ -23,10 +23,7 @@ export const PartnerShowcaseBlock: React.FC<PartnerShowcaseBlockProps> = ({
               const logo = typeof partner.logo === 'string' ? null : (partner.logo as Media);
 
               return (
-                <div
-                  key={index}
-                  className='flex items-center justify-center rounded-lg bg-white p-6 transition-shadow hover:shadow-md'
-                >
+                <div key={index} className='card card-hover flex items-center justify-center p-6'>
                   {logo && (
                     <div className='relative h-20 w-full'>
                       {partner.website ? (
@@ -60,7 +57,7 @@ export const PartnerShowcaseBlock: React.FC<PartnerShowcaseBlockProps> = ({
               const logo = typeof partner.logo === 'string' ? null : (partner.logo as Media);
 
               return (
-                <div key={index} className='rounded-xl bg-white p-6 shadow-sm'>
+                <div key={index} className='card-sm rounded-xl p-6'>
                   {logo && (
                     <div className='relative mb-4 h-24 w-full'>
                       <Image
