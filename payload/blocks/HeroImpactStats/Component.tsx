@@ -94,13 +94,8 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlock> = (data) => {
           {/* Right Column - Image */}
           {image && image.url && (
             <div className='relative'>
-<<<<<<< HEAD
               <div className='overflow-hidden rounded-2xl shadow-2xl'>
                 <Image
-=======
-              <div className='card-lg overflow-hidden rounded-2xl'>
-                <img
->>>>>>> origin/main
                   src={image.url}
                   alt={image.alt || 'Organization impact'}
                   className='h-full w-full object-cover'
