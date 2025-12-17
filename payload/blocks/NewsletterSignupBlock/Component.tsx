@@ -27,9 +27,9 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
   };
 
   const themeClasses = {
-    light: 'bg-gray-50 text-gray-900',
-    dark: 'bg-gray-900 text-white',
-    gradient: 'bg-gradient-to-br from-green-500 to-blue-600 text-white',
+    light: 'bg-bege-light text-gray-900',
+    dark: 'bg-black text-white',
+    gradient: 'bg-gradient-to-br from-green to-bege-dark text-white',
   };
 
   const inputClasses = {

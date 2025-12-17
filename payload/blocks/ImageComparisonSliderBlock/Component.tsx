@@ -71,13 +71,13 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
 
             {/* Slider */}
             <div
-              className='absolute top-0 bottom-0 w-1 cursor-ew-resize bg-white shadow-lg'
+              className='card-lg absolute top-0 bottom-0 w-1 cursor-ew-resize bg-white'
               style={{ left: `${sliderPosition}%` }}
               onMouseDown={handleMouseDown}
               onTouchStart={() => setIsDragging(true)}
             >
               <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform'>
-                <div className='flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-lg'>
+                <div className='card-lg flex h-12 w-12 items-center justify-center rounded-full bg-white'>
                   <svg
                     className='h-6 w-6 text-gray-700'
                     fill='none'

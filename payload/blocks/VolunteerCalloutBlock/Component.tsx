@@ -11,7 +11,7 @@ export const VolunteerCalloutBlock: React.FC<VolunteerCalloutBlockProps> = ({
   ctaLink,
 }) => {
   return (
-    <section className='bg-gradient-to-br from-purple-500 to-pink-600 py-12 text-white lg:py-20'>
+    <section className='from-green to-bege-dark bg-gradient-to-br py-12 text-white lg:py-20'>
       <div className='container mx-auto'>
         <div className='mb-12 text-center'>
           <Heart className='mx-auto mb-4 h-16 w-16' />
@@ -38,7 +38,7 @@ export const VolunteerCalloutBlock: React.FC<VolunteerCalloutBlockProps> = ({
 
         {ctaLink && ctaText && (
           <div className='text-center'>
-            <Button size='lg' className='bg-white text-purple-600 hover:bg-gray-100' asChild>
+            <Button size='lg' className='text-green hover:bg-bege-light bg-white' asChild>
               <a href={ctaLink}>{ctaText}</a>
             </Button>
           </div>

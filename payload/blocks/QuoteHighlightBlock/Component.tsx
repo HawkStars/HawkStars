@@ -63,7 +63,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
         )}
 
         {style === 'highlighted' && (
-          <div className='mx-auto max-w-4xl rounded-2xl bg-gradient-to-br from-green-500 to-blue-600 p-8 text-white lg:p-12'>
+          <div className='from-green to-bege-dark mx-auto max-w-4xl rounded-2xl bg-gradient-to-br p-8 text-white lg:p-12'>
             <Quote className='mb-6 h-12 w-12 opacity-50' />
             <blockquote className='mb-6 text-2xl leading-relaxed font-medium lg:text-3xl'>
               &ldquo;{quote}&rdquo;

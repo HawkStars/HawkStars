@@ -92,11 +92,11 @@ const MetricCard: React.FC<{
   const displayValue = metric.animateOnScroll ? animatedValue : metric.value;
 
   const colorClasses = {
-    blue: 'text-blue-600 bg-blue-50 border-blue-200',
-    green: 'text-green-600 bg-green-50 border-green-200',
-    red: 'text-red-600 bg-red-50 border-red-200',
-    yellow: 'text-yellow-600 bg-yellow-50 border-yellow-200',
-    purple: 'text-purple-600 bg-purple-50 border-purple-200',
+    blue: 'text-green bg-bege-light border-bege-dark',
+    green: 'text-green bg-bege-light border-green',
+    red: 'text-black bg-bege-dark border-black',
+    yellow: 'text-black bg-bege-dark border-bege-dark',
+    purple: 'text-green bg-bege-light border-green',
     gray: 'text-gray-600 bg-gray-50 border-gray-200',
   } as const;
 
@@ -105,7 +105,7 @@ const MetricCard: React.FC<{
   const IconComponent = metric.icon ? iconMap[metric.icon] : null;
 
   return (
-    <div className='rounded-lg border bg-white p-6 text-center shadow-md transition-shadow duration-300 hover:shadow-lg'>
+    <div className='card-md card-hover-lg p-6 text-center transition-shadow duration-300'>
       {IconComponent && (
         <div
           className={cn(
@@ -156,9 +156,9 @@ export const ImpactBlock: React.FC<ImpactBlockProps> = ({
 
   const backgroundClasses = {
     none: '',
-    'light-gray': 'bg-gray-50',
-    dark: 'bg-gray-900 text-white',
-    gradient: 'bg-gradient-to-br from-blue-500 to-purple-600 text-white',
+    'light-gray': 'bg-bege-light',
+    dark: 'bg-black text-white',
+    gradient: 'bg-gradient-to-br from-green to-bege-dark text-white',
   };
 
   const layoutClasses = {

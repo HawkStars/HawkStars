@@ -13,12 +13,12 @@ export const EventListBlock: React.FC<EventListBlockProps> = ({
   showPastEvents = false,
 }) => {
   const categoryColors = {
-    workshop: 'bg-blue-100 text-blue-700',
-    meeting: 'bg-gray-100 text-gray-700',
-    fundraiser: 'bg-green-100 text-green-700',
-    social: 'bg-purple-100 text-purple-700',
-    community: 'bg-orange-100 text-orange-700',
-    youth: 'bg-pink-100 text-pink-700',
+    workshop: 'bg-bege-light text-black',
+    meeting: 'bg-bege-dark text-black',
+    fundraiser: 'bg-bege-light text-green',
+    social: 'bg-bege-dark text-green',
+    community: 'bg-bege-light text-black',
+    youth: 'bg-bege-dark text-black',
   };
 
   const formatDate = (dateString: string) => {
@@ -64,13 +64,13 @@ export const EventListBlock: React.FC<EventListBlockProps> = ({
               <div
                 key={index}
                 className={cn(
-                  'overflow-hidden rounded-xl border bg-white shadow-sm transition-shadow hover:shadow-md',
-                  event.isFeatured && 'border-green-500 ring-2 ring-green-500'
+                  'card-sm card-hover overflow-hidden rounded-xl border bg-white',
+                  event.isFeatured && 'border-green ring-green ring-2'
                 )}
               >
                 <div className='flex flex-col gap-6 p-6 md:flex-row'>
                   {/* Date Badge */}
-                  <div className='flex shrink-0 flex-col items-center justify-center rounded-lg bg-green-600 p-4 text-white md:w-24'>
+                  <div className='bg-green flex shrink-0 flex-col items-center justify-center rounded-lg p-4 text-white md:w-24'>
                     <div className='text-3xl font-bold'>{new Date(event.date).getDate()}</div>
                     <div className='text-sm uppercase'>
                       {new Date(event.date).toLocaleDateString('en-US', { month: 'short' })}
@@ -92,7 +92,7 @@ export const EventListBlock: React.FC<EventListBlockProps> = ({
                         </span>
                       )}
                       {event.isFeatured && (
-                        <span className='rounded-full bg-yellow-100 px-3 py-1 text-xs font-semibold text-yellow-700'>
+                        <span className='bg-bege-dark rounded-full px-3 py-1 text-xs font-semibold text-black'>
                           Featured
                         </span>
                       )}
@@ -149,7 +149,7 @@ export const EventListBlock: React.FC<EventListBlockProps> = ({
             {filteredEvents.map((event, index) => (
               <div
                 key={index}
-                className='overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-lg'
+                className='card-sm card-hover-lg overflow-hidden rounded-xl border border-gray-200 bg-white'
               >
                 {event.image && typeof event.image !== 'string' && (
                   <div className='relative h-48 w-full'>
@@ -206,10 +206,10 @@ export const EventListBlock: React.FC<EventListBlockProps> = ({
             <div className='space-y-8'>
               {filteredEvents.map((event, index) => (
                 <div key={index} className='relative flex gap-6'>
-                  <div className='z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-4 border-white bg-green-600 text-white shadow-md'>
+                  <div className='bg-green card-md z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-4 border-white text-white'>
                     <Calendar className='h-6 w-6' />
                   </div>
-                  <div className='flex-1 rounded-xl border border-gray-200 bg-white p-6 shadow-sm'>
+                  <div className='card-sm flex-1 rounded-xl border border-gray-200 bg-white p-6'>
                     <div className='mb-2 flex items-center gap-3'>
                       <h3 className='text-xl font-semibold'>{event.title}</h3>
                       {event.category && (
@@ -223,7 +223,7 @@ export const EventListBlock: React.FC<EventListBlockProps> = ({
                         </span>
                       )}
                     </div>
-                    <div className='mb-3 text-sm font-medium text-green-600'>
+                    <div className='text-green mb-3 text-sm font-medium'>
                       {formatDate(event.date)} at {formatTime(event.date)}
                     </div>
                     {event.location && (

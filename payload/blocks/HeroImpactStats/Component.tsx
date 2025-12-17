@@ -37,7 +37,7 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlock> = (data) => {
           {/* Left Column - Content */}
           <div className='space-y-8'>
             {badge && (
-              <span className='inline-block rounded-full bg-green-600 px-4 py-1.5 text-sm font-semibold text-white'>
+              <span className='bg-green inline-block rounded-full px-4 py-1.5 text-sm font-semibold text-white'>
                 {badge}
               </span>
             )}
@@ -94,8 +94,13 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlock> = (data) => {
           {/* Right Column - Image */}
           {image && image.url && (
             <div className='relative'>
+<<<<<<< HEAD
               <div className='overflow-hidden rounded-2xl shadow-2xl'>
                 <Image
+=======
+              <div className='card-lg overflow-hidden rounded-2xl'>
+                <img
+>>>>>>> origin/main
                   src={image.url}
                   alt={image.alt || 'Organization impact'}
                   className='h-full w-full object-cover'
