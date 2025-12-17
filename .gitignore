@@ -58,4 +58,4 @@ dist/
 
 # storybook logs and folder
 *storybook.log
-.storybook/
+.storybook/package-lock.json

@@ -35,19 +35,19 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
   }, [donors, sortBy]);
 
   const levelColors = {
-    platinum: 'from-slate-400 to-slate-200',
-    gold: 'from-yellow-400 to-yellow-200',
+    platinum: 'from-gray-400 to-gray-200',
+    gold: 'from-bege-dark to-bege-light',
     silver: 'from-gray-400 to-gray-200',
-    bronze: 'from-orange-400 to-orange-300',
-    supporter: 'from-blue-400 to-blue-200',
+    bronze: 'from-bege-dark to-bege-light',
+    supporter: 'from-green to-bege-light',
   };
 
   const levelTextColors = {
-    platinum: 'text-slate-700',
-    gold: 'text-yellow-700',
+    platinum: 'text-gray-700',
+    gold: 'text-black',
     silver: 'text-gray-700',
-    bronze: 'text-orange-700',
-    supporter: 'text-blue-700',
+    bronze: 'text-black',
+    supporter: 'text-green',
   };
 
   if (!sortedDonors || sortedDonors.length === 0) {
@@ -59,8 +59,8 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
       <div className='container mx-auto'>
         {/* Header */}
         <div className='mb-12 text-center'>
-          <div className='mb-4 inline-flex rounded-full bg-red-100 p-3'>
-            <Heart className='h-6 w-6 text-red-600' />
+          <div className='bg-bege-light mb-4 inline-flex rounded-full p-3'>
+            <Heart className='text-green h-6 w-6' />
           </div>
           <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
           {subtitle && <p className='mx-auto max-w-2xl text-lg text-gray-600'>{subtitle}</p>}
@@ -73,7 +73,7 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
               <div
                 key={index}
                 className={cn(
-                  'rounded-full px-6 py-3 font-semibold shadow-md',
+                  'card-md rounded-full px-6 py-3 font-semibold',
                   'bg-gradient-to-r',
                   levelColors[donor.level as keyof typeof levelColors] || levelColors.supporter
                 )}
@@ -91,7 +91,7 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
             {sortedDonors.map((donor, index) => (
               <div
                 key={index}
-                className='flex flex-col items-center rounded-lg border border-gray-200 bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-md'
+                className='card-sm card-hover flex flex-col items-center border border-gray-200 p-6 text-center'
               >
                 {donor.logo && typeof donor.logo !== 'string' && (
                   <div className='relative mb-4 h-16 w-16'>
@@ -136,10 +136,7 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
         {layout === 'cards' && (
           <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
             {sortedDonors.map((donor, index) => (
-              <div
-                key={index}
-                className='rounded-xl border border-gray-200 bg-white p-6 shadow-md transition-shadow hover:shadow-lg'
-              >
+              <div key={index} className='card-md card-hover-lg border border-gray-200 p-6'>
                 <div className='flex items-start gap-4'>
                   {donor.logo && typeof donor.logo !== 'string' && (
                     <div className='relative h-16 w-16 shrink-0'>

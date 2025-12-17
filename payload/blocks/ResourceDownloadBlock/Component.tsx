@@ -30,10 +30,7 @@ export const ResourceDownloadBlock: React.FC<ResourceDownloadBlockProps> = ({
             const file = typeof resource.file === 'string' ? null : (resource.file as Media);
 
             return (
-              <div
-                key={index}
-                className='rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md'
-              >
+              <div key={index} className='card-sm card-hover rounded-xl border border-gray-200 p-6'>
                 <div className='mb-4 inline-flex rounded-full bg-green-100 p-3'>
                   <Icon className='h-6 w-6 text-green-600' />
                 </div>

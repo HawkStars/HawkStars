@@ -38,16 +38,16 @@ export const PricingTableBlock: React.FC<PricingTableBlockProps> = ({
             <div
               key={index}
               className={cn(
-                'relative flex flex-col rounded-2xl border bg-white p-8 shadow-lg transition-transform duration-300 hover:scale-105',
+                'card-lg relative flex flex-col rounded-2xl border p-8 transition-transform duration-300 hover:scale-105',
                 tier.highlighted
-                  ? 'border-green-500 ring-2 ring-green-500 ring-offset-2'
+                  ? 'border-green ring-green ring-2 ring-offset-2'
                   : 'border-gray-200'
               )}
             >
               {/* Badge */}
               {tier.badge && (
                 <div className='absolute -top-4 left-1/2 -translate-x-1/2 transform'>
-                  <span className='flex items-center gap-1 rounded-full bg-green-500 px-4 py-1 text-sm font-semibold text-white'>
+                  <span className='bg-green flex items-center gap-1 rounded-full px-4 py-1 text-sm font-semibold text-white'>
                     <Star className='h-4 w-4' />
                     {tier.badge}
                   </span>
