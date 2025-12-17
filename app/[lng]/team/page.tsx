@@ -2,10 +2,9 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { LanguagePageProps } from '../types';
 import { Language } from '@/i18n/settings';
-import { boardSections, sectionLabels } from './config';
 import { getServerTranslation } from '@/i18n';
 import { getBoardMembers } from '@/lib/payload/queries/team';
-import TeamCard from '@/components/team/TeamCard';
+import TeamInformation from '@/components/team/TeamInformation';
 
 export const revalidate = 7200; // 2 hours
 
@@ -23,24 +22,15 @@ const TeamPage = async (props: LanguagePageProps) => {
   const boardMembers = await getBoardMembers();
 
   return (
-    <div className='mt-5 flex flex-col gap-8 border-b px-4 lg:mt-10'>
-      {boardSections.map((section, index) => {
-        return (
-          <div key={index} className='text-h2_light'>
-            <h6>{t(sectionLabels[section])}</h6>
-            <div className='flex flex-col gap-3 py-5'>
-              <div className='mt-3 flex flex-wrap gap-5'>
-                {/* Team Grid */}
-                <div className='grid grid-cols-1 gap-8 md:grid-cols-3 xl:grid-cols-4'>
-                  {boardMembers[section].map((member) => (
-                    <TeamCard key={member.id} member={member} lng={lng} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      })}
+    <div className='mt-5 flex gap-20 px-4 max-lg:flex-col max-lg:gap-8 lg:mt-10'>
+      {/* Header Section */}
+      <div className='flex w-1/2 flex-col gap-4 pl-4'>
+        <h1 className='text-h1_semibold'>{t('title')}</h1>
+        <p className='text-body max-w-3xl text-gray-600'>{t('description')}</p>
+      </div>
+      <div className='w-1/2'>
+        <TeamInformation boardMembers={boardMembers} lng={lng} />
+      </div>
     </div>
   );
 };

@@ -23,7 +23,7 @@ export default {
   component: SimpleGallery,
 };
 
-export const Default = () => (
+const Default = () => (
   <SimpleGallery
     title='Beautiful Interiors.'
     description={
@@ -32,3 +32,5 @@ export const Default = () => (
     images={sampleImages}
   />
 );
+
+export { Default };

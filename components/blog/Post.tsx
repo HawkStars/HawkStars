@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import RichText from '@/payload/components/RichText';
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
+import Image from 'next/image';
 
 interface BlogPostData {
   title: string;
@@ -23,7 +24,7 @@ const Post = ({ title, image, pubDate, description, content }: BlogPostData) => 
             <span className='ml-1'>on {format(pubDate, 'MMMM d, yyyy')}</span>
           </div>
 
-          <img
+          <Image
             src={image}
             alt='placeholder'
             className='mt-4 mb-8 aspect-video w-full rounded-lg border object-cover'

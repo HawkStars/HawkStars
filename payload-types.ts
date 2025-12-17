@@ -4872,6 +4872,7 @@ export interface ImageIcon {
         | 'Stethoscope'
         | 'Sticker'
         | 'StickyNote'
+        | 'Stone'
         | 'Store'
         | 'StretchHorizontal'
         | 'StretchVertical'

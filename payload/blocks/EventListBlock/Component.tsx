@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Calendar, MapPin, Users, Clock, Tag } from 'lucide-react';
+import { Calendar, MapPin, Users, Clock } from 'lucide-react';
 import type { EventListBlock as EventListBlockProps, Media } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';

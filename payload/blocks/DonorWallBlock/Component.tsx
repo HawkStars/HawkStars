@@ -32,7 +32,7 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
     }
 
     return sorted;
-  }, [donors, sortBy]);
+  }, [donors, sortBy, levelOrder]);
 
   const levelColors = {
     platinum: 'from-slate-400 to-slate-200',

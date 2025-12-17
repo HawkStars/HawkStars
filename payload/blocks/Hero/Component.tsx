@@ -1,5 +1,5 @@
 import { Expand, Globe, MoveRight, Rocket, Wrench } from 'lucide-react';
-
+import Image from 'next/image';
 import type { HeroBlock } from '@/payload-types';
 
 import { Button } from '@/components/ui/button';
@@ -27,7 +27,7 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
       <div className='container mx-auto'>
         <div className='text-center'>
           {headerImage && typeof headerImage !== 'string' && headerImage.url && (
-            <img
+            <Image
               src={headerImage.url}
               alt={headerImage.alt || 'Hero'}
               className='mx-auto mb-5 w-16 md:mb-6 md:w-24 lg:mb-7 lg:w-28'

@@ -1,4 +1,6 @@
 {
+  "title": "A Nossa Equipa",
+  "description": "Somos um grupo diverso de pessoas apaixonadas pelo desenvolvimento social e cultural do interior de Portugal. Unidos pela missão de transformar a nossa comunidade rural, trabalhamos voluntariamente para criar oportunidades e promover a inovação social na região de Pinhel.",
   "geral": "Assembleia Geral",
   "fiscal": "Conselho Fiscal",
   "board": "Direção",
@@ -10,6 +12,7 @@
     "m_secretary": "Secretário",
     "substitute": "Suplente",
     "treasurer": "Tesoureiro",
-    "rapporteur_secretary": "Secretário Relator"
+    "rapporteur_secretary": "Secretário Relator",
+    "department": "Departmento"
   }
 }

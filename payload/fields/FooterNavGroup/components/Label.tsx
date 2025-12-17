@@ -1,6 +1,5 @@
 'use client';
 
-import { LinkField, NavbarDropdown } from '@/payload-types';
 import { useRowLabel } from '@payloadcms/ui';
 
 const HeaderLabel = () => {

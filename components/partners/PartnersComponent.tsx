@@ -11,10 +11,14 @@ import { HawkStarsSection } from '../layout';
 import type { JSX } from 'react';
 import { Media, Partner } from '@/payload-types';
 import RichText from '@/payload/components/RichText';
+import { Map, MapTileLayer } from '@/components/ui/map';
+import { LatLngExpression } from 'leaflet';
 
 type PartnersComponentProps = LanguageProps & {
   partners: Partner[];
 };
+
+const TORONTO_COORDINATES = [43.6532, -79.3832] satisfies LatLngExpression;
 
 const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
   const { t } = await getServerTranslation(lng, 'partners');
@@ -24,6 +28,9 @@ const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
   return (
     <section>
       <div className='relative z-0 h-60 md:h-96 lg:h-125'>
+        <Map center={TORONTO_COORDINATES}>
+          <MapTileLayer />
+        </Map>
         <Image
           src={partnersHero}
           alt='Hero Partners Page'
@@ -35,9 +42,11 @@ const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
         {nationalPartners.length > 0 && (
           <div className='mt-10'>
             <h2 className='mb-5 text-center'>{t('national')}</h2>
-            {nationalPartners.map((partner, index) => (
-              <PartnerCard {...partner} key={index} name={t(partner.name)} />
-            ))}
+            <div className='flex gap-5'>
+              {nationalPartners.map((partner, index) => (
+                <PartnerCard {...partner} key={index} name={t(partner.name)} />
+              ))}
+            </div>
           </div>
         )}
         {internationalPartners.length > 0 && (
@@ -99,7 +108,6 @@ const PartnerCard = (partner: Partner): JSX.Element => {
           </>
         </div>
       )}
-      <div className='bg-bege-light mt-5 h-5'></div>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { BoardMember } from '@/payload-types';
 import groupBy from 'lodash.groupby';
 import { getPayloadConfig } from '../server';
 
-type GroupedBoardMembers = {
+export type GroupedBoardMembers = {
   board: BoardMember[];
   geral: BoardMember[];
   fiscal: BoardMember[];
@@ -10,7 +10,7 @@ type GroupedBoardMembers = {
 
 export const getBoardMembers = async (): Promise<GroupedBoardMembers> => {
   const payload = await getPayloadConfig();
-  const data = await payload.find({ collection: 'board-members' });
+  const data = await payload.find({ collection: 'board-members', limit: 1000 });
   const boardMembers = data.docs;
 
   const groupedMembers = groupBy(boardMembers, 'section');

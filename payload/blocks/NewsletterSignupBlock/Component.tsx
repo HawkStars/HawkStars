@@ -11,7 +11,6 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
   description,
   placeholder = 'Enter your email',
   buttonText = 'Subscribe',
-  formAction,
   theme = 'light',
 }) => {
   const [email, setEmail] = useState('');

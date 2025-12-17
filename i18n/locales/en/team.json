@@ -1,4 +1,6 @@
 {
+  "title": "Our Team",
+  "description": "We are a diverse group of people passionate about the social and cultural development of rural Portugal. United by the mission to transform our community, we work voluntarily to create opportunities and promote social innovation in the Pinhel region.",
   "geral": "General Assembly",
   "fiscal": "Fiscal Council",
   "board": "Board",
@@ -10,6 +12,7 @@
     "m_secretary": "Secretary",
     "substitute": "Deputy board member",
     "treasurer": "Treasury Manager",
-    "rapporteur_secretary": "Reporting Secretary"
+    "rapporteur_secretary": "Reporting Secretary",
+    "department": "Department"
   }
 }

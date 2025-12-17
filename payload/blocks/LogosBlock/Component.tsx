@@ -1,6 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { LogosBlock as LogosBlockType } from '@/payload-types';
+import Image from 'next/image';
 
 export const LogosBlock: React.FC<LogosBlockType> = ({
   badgeText,
@@ -31,7 +32,7 @@ export const LogosBlock: React.FC<LogosBlockType> = ({
       </div>
       <div className='mx-auto mt-24 grid max-w-5xl grid-cols-2 place-items-center gap-x-4 gap-y-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-6'>
         {logos?.map((logo) => (
-          <img
+          <Image
             className='grayscale'
             src={logo.logo}
             key={logo.name}

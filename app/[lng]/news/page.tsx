@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 export const revalidate = 7200; // 2 hours
 
@@ -123,7 +124,8 @@ const NewsIndexPage = () => {
             <a key={post.id} href={post.href} className='group flex flex-col'>
               <div className='mb-4 flex overflow-clip rounded-xl md:mb-5'>
                 <div className='transition-opacity duration-300 group-hover:opacity-80'>
-                  <img
+                  <Image
+                    fill
                     src={post.image}
                     alt={post.title}
                     className='aspect-3/2 h-full w-full object-cover object-center'

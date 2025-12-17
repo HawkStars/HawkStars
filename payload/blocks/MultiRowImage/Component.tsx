@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import React from 'react';
 
 export interface MultiRowImageBlockProps {
@@ -28,7 +29,7 @@ const MultiRowImage: React.FC<MultiRowImageBlockProps> = ({ rows, rowGap = 24, i
                   key={imgIdx}
                   className={img.className || 'col-span-1 h-82 rounded-[2.5rem]'}
                 >
-                  <img
+                  <Image
                     width={200}
                     height={200}
                     className='size-full rounded-[2.5rem] object-cover'
