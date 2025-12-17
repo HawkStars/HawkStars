@@ -30,7 +30,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
                 )}
               >
                 <div className={cn('w-5/12', index % 2 === 0 ? 'pr-12 text-right' : 'pl-12')}>
-                  <div className='card-md rounded-lg p-6'>
+                  <div className='card-md p-6'>
                     <div className='text-green mb-2 text-2xl font-bold'>{item.year}</div>
                     <h3 className='mb-2 text-xl font-semibold'>{item.title}</h3>
                     <p className='text-gray-700'>{item.description}</p>
@@ -59,7 +59,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
               {items.map((item, index) => (
                 <div key={index} className='w-80 shrink-0'>
                   <div className='text-green mb-4 text-center text-2xl font-bold'>{item.year}</div>
-                  <div className='card-md rounded-lg p-6'>
+                  <div className='card-md p-6'>
                     <h3 className='mb-2 text-xl font-semibold'>{item.title}</h3>
                     <p className='text-gray-700'>{item.description}</p>
                   </div>

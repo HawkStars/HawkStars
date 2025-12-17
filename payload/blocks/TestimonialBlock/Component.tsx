@@ -46,10 +46,10 @@ const TestimonialCard: React.FC<{
   const { quote, author, rating = 0, featured = false } = testimonial;
 
   const cardClasses = {
-    card: `card-md border border-gray-200 p-6 ${isDark ? 'bg-gray-800 border-gray-600 text-white' : ''}`,
+    card: `rounded-lg shadow-md border p-6 ${isDark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-200'}`,
     quote: `relative p-6 ${isDark ? 'text-white' : ''}`,
     minimal: `p-4 ${isDark ? 'text-white' : ''}`,
-    bubble: `card-lg p-6 relative ${isDark ? 'bg-gray-800 text-white' : ''}`,
+    bubble: `rounded-2xl shadow-lg p-6 relative ${isDark ? 'bg-gray-800 text-white' : 'bg-white'}`,
   };
 
   return (
