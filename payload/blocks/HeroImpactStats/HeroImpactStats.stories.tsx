@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { HeroImpactStatsBlock } from './Component';
 
 const meta: Meta<typeof HeroImpactStatsBlock> = {
-  title: 'Payload Blocks/HeroImpactStats',
+  title: 'Payload Blocks/HeroImpactStats/Community Impact',
   component: HeroImpactStatsBlock,
   parameters: {
     layout: 'fullscreen',
@@ -83,7 +83,10 @@ export const Default: Story = {
   },
 };
 
-export const MinimalStats: Story = {
+export const MinimalImpact: Story = {
+  parameters: {
+    title: 'Payload Blocks/HeroImpactStats/Marketing',
+  },
   args: {
     title: 'Our Growing Impact',
     description: "Every day we're making progress towards our mission.",
@@ -109,7 +112,10 @@ export const MinimalStats: Story = {
   },
 };
 
-export const WithoutImage: Story = {
+export const FinancialTransparency: Story = {
+  parameters: {
+    title: 'Payload Blocks/HeroImpactStats/Financial Transparency',
+  },
   args: {
     badge: 'TRANSPARENCY',
     title: 'Financial Impact Report',
@@ -148,7 +154,10 @@ export const WithoutImage: Story = {
   },
 };
 
-export const CommunityFocus: Story = {
+export const CommunityDevelopment: Story = {
+  parameters: {
+    title: 'Payload Blocks/HeroImpactStats/Community Development',
+  },
   args: {
     badge: 'COMMUNITY',
     title: 'Building Stronger Communities Together',
@@ -202,7 +211,10 @@ export const CommunityFocus: Story = {
   },
 };
 
-export const SingleCTA: Story = {
+export const VolunteerRecruitment: Story = {
+  parameters: {
+    title: 'Payload Blocks/HeroImpactStats/Volunteer Recruitment',
+  },
   args: {
     badge: 'GET INVOLVED',
     title: 'Ready to Make a Difference?',

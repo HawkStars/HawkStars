@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { HeroWithBackgroundImageBlock } from './Component';
 
 const meta: Meta<typeof HeroWithBackgroundImageBlock> = {
-  title: 'Payload Blocks/HeroWithBackgroundImage',
+  title: 'Payload Blocks/HeroWithBackgroundImage/Text Alignment',
   component: HeroWithBackgroundImageBlock,
   parameters: {
     layout: 'fullscreen',
@@ -65,7 +65,10 @@ export const Default: Story = {
   },
 };
 
-export const LeftAligned: Story = {
+export const CommunityBuilding: Story = {
+  parameters: {
+    title: 'Payload Blocks/HeroWithBackgroundImage/Community Building',
+  },
   args: {
     backgroundImage: {
       id: '2',
@@ -94,7 +97,10 @@ export const LeftAligned: Story = {
   },
 };
 
-export const RightAligned: Story = {
+export const DonationCampaign: Story = {
+  parameters: {
+    title: 'Payload Blocks/HeroWithBackgroundImage/Donation Campaign',
+  },
   args: {
     backgroundImage: {
       id: '3',
@@ -123,7 +129,10 @@ export const RightAligned: Story = {
   },
 };
 
-export const LightOverlay: Story = {
+export const BrightBackground: Story = {
+  parameters: {
+    title: 'Payload Blocks/HeroWithBackgroundImage/Overlay Styles',
+  },
   args: {
     backgroundImage: {
       id: '4',
@@ -149,7 +158,10 @@ export const LightOverlay: Story = {
   },
 };
 
-export const DarkOverlay: Story = {
+export const UrbanDevelopment: Story = {
+  parameters: {
+    title: 'Payload Blocks/HeroWithBackgroundImage/Urban Development',
+  },
   args: {
     backgroundImage: {
       id: '5',
@@ -178,7 +190,10 @@ export const DarkOverlay: Story = {
   },
 };
 
-export const SingleCTA: Story = {
+export const UnityCampaign: Story = {
+  parameters: {
+    title: 'Payload Blocks/HeroWithBackgroundImage/Unity Campaign',
+  },
   args: {
     backgroundImage: {
       id: '6',
@@ -205,7 +220,10 @@ export const SingleCTA: Story = {
   },
 };
 
-export const NoSubtitle: Story = {
+export const MinimalistDesign: Story = {
+  parameters: {
+    title: 'Payload Blocks/HeroWithBackgroundImage/Minimalist Design',
+  },
   args: {
     backgroundImage: {
       id: '7',

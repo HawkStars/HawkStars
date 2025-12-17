@@ -22,7 +22,7 @@ const AboutPage = async ({ lng }: LanguageProps) => {
             <h1 className='lg:text-h1_semibold text-h2_bold'>{t('title')}</h1>
             <p className='lg:text-h2_light text-body_regular'>{t('description')}</p>
           </div>
-          <div className='mx-auto mt-10 grid grid-cols-2 grid-rows-7 lg:w-[500px]'>
+          <div className='mx-auto mt-10 grid grid-cols-2 grid-rows-7 lg:w-125'>
             <div className='row-span-3'>
               <Image height={260} width={249} alt='' src='/images/about/hero/top-left.png' />
             </div>

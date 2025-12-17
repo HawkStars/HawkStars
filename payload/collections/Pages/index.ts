@@ -10,6 +10,7 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
+import blocks from '@/payload/blocks';
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -53,9 +54,28 @@ export const Pages: CollectionConfig<'pages'> = {
               type: 'richText',
               required: false,
               localized: true,
+              label: 'Page Layout w/ Rich Text',
+            },
+            {
+              name: 'blocks',
+              type: 'blocks',
+              blocks: blocks,
+              admin: {
+                description: 'In case you want to use blocks separately from the rich text layout',
+              },
+              required: false,
+              localized: true,
+              label: 'Page Blocks Only',
+              labels: {
+                singular: 'Page Block',
+                plural: 'Page Blocks',
+              },
             },
           ],
           label: 'Content',
+          admin: {
+            description: 'Manage the main content of the page',
+          },
         },
         {
           name: 'meta',

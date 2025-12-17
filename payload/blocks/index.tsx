@@ -68,7 +68,6 @@ const currentBlocks = [
   AboutBlock,
   GlobalVillageAboutSectionBlock,
   GlobalVillageBannerBlock,
-  // New blocks
   AnnouncementBannerBlock,
   CampaignCountdownBlock,
   CTABannerBlock,

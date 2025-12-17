@@ -31,9 +31,11 @@ const Index = async (props: PageProps) => {
   const { lng, slug } = params;
   if (!slug) notFound();
   const pageInformation = await getSinglePageSlug(slug, lng);
-  if (!pageInformation || !pageInformation.layout) notFound();
+  if (!pageInformation) notFound();
 
-  return <RichText data={pageInformation.layout} />;
+  if (pageInformation.layout) return <RichText data={pageInformation.layout} />;
+
+  return;
 };
 
 export default Index;

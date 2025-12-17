@@ -4,6 +4,7 @@ import {
   lexicalEditor,
   defaultColors,
   TextStateFeature,
+  FixedToolbarFeature,
 } from '@payloadcms/richtext-lexical';
 import path from 'path';
 import { buildConfig } from 'payload';
@@ -88,6 +89,7 @@ export default buildConfig({
       TextStateFeature({
         state: { color: { ...defaultColors.background, ...defaultColors.text } },
       }),
+      FixedToolbarFeature(),
     ],
   }),
   blocks: blocks,

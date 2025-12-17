@@ -295,6 +295,75 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * In case you want to use blocks separately from the rich text layout
+   */
+  blocks?:
+    | (
+        | CallToActionBlock
+        | ColumnBasedBlock
+        | MediaBlock
+        | HeroBlock
+        | HeroWithBackgroundImageBlock
+        | HeroImpactStatsBlock
+        | ContentWithImageBlock
+        | VideoBlock
+        | AccordionBlock
+        | Projects18Block
+        | ProcessOneBlock
+        | ImpactBlock
+        | CardGridBlock
+        | TestimonialBlock
+        | StatsBlock
+        | TextBlock
+        | SimpleCTABlock
+        | UpdatesBlock
+        | LogosBlock
+        | {
+            beforeImage: ImageType;
+            afterImage: ImageType;
+            title?: string | null;
+            description?: string | null;
+            /**
+             * Position of the comparison slider on load (0-100%)
+             */
+            initialSliderPosition?: number | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageComparison';
+          }
+        | {
+            title?: string | null;
+            description?: string | null;
+            imageField: ImageType;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'aboutBlock';
+          }
+        | GlobalVillageAboutSectionBlock
+        | GlobalVillageBannerBlock
+        | AnnouncementBannerBlock
+        | CampaignCountdownBlock
+        | CTABannerBlock
+        | DonationProgressBlock
+        | DonorWallBlock
+        | EventListBlock
+        | FAQBlock
+        | FeatureComparisonBlock
+        | ImageComparisonSliderBlock
+        | MapLocationBlock
+        | MilestoneTrackerBlock
+        | NewsletterSignupBlock
+        | PartnerShowcaseBlock
+        | PricingTableBlock
+        | QuoteHighlightBlock
+        | ResourceDownloadBlock
+        | SocialProofBlock
+        | TeamGridBlock
+        | TimelineBlock
+        | VolunteerCalloutBlock
+      )[]
+    | null;
   meta?: {
     title?: string | null;
     /**
@@ -311,65 +380,6 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * Upload and manage media assets such as images used throughout the website. Use a image compression tool to optimize images before uploading to improve performance. Ideally in webP
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: string;
-  /**
-   * Alternative text for the media item, used for accessibility.
-   */
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * Collection for managing Hawk Projects
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "hawk_projects".
- */
-export interface HawkProject {
-  id: string;
-  heading: string;
-  subheading?: string | null;
-  description?: string | null;
-  slug: string;
-  type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
-  page_content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Image representing the event on the events main page not on the event page itself
-   */
-  image: string | Media;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -404,6 +414,30 @@ export interface MediaBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
+}
+/**
+ * Upload and manage media assets such as images used throughout the website. Use a image compression tool to optimize images before uploading to improve performance. Ideally in webP
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  /**
+   * Alternative text for the media item, used for accessibility.
+   */
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -678,6 +712,41 @@ export interface Projects18Block {
   id?: string | null;
   blockName?: string | null;
   blockType: 'projects18';
+}
+/**
+ * Collection for managing Hawk Projects
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hawk_projects".
+ */
+export interface HawkProject {
+  id: string;
+  heading: string;
+  subheading?: string | null;
+  description?: string | null;
+  slug: string;
+  type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
+  page_content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Image representing the event on the events main page not on the event page itself
+   */
+  image: string | Media;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1054,23 +1123,6 @@ export interface LogosBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "imageComparison".
- */
-export interface ImageComparison {
-  beforeImage: ImageType;
-  afterImage: ImageType;
-  title?: string | null;
-  description?: string | null;
-  /**
-   * Position of the comparison slider on load (0-100%)
-   */
-  initialSliderPosition?: number | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'imageComparison';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ImageType".
  */
 export interface ImageType {
@@ -1087,18 +1139,6 @@ export interface ImageType {
    */
   externalImage?: string | null;
   alt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "aboutBlock".
- */
-export interface AboutBlock {
-  title?: string | null;
-  description?: string | null;
-  imageField: ImageType;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'aboutBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1716,6 +1756,35 @@ export interface VolunteerCalloutBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'volunteerCallout';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "imageComparison".
+ */
+export interface ImageComparison {
+  beforeImage: ImageType;
+  afterImage: ImageType;
+  title?: string | null;
+  description?: string | null;
+  /**
+   * Position of the comparison slider on load (0-100%)
+   */
+  initialSliderPosition?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'imageComparison';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "aboutBlock".
+ */
+export interface AboutBlock {
+  title?: string | null;
+  description?: string | null;
+  imageField: ImageType;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'aboutBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2347,6 +2416,71 @@ export interface PartnersSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   layout?: T;
+  blocks?:
+    | T
+    | {
+        cta?: T | CallToActionBlockSelect<T>;
+        columnBased?: T | ColumnBasedBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
+        hero?: T | HeroBlockSelect<T>;
+        heroWithBackgroundImage?: T | HeroWithBackgroundImageBlockSelect<T>;
+        heroImpactStats?: T | HeroImpactStatsBlockSelect<T>;
+        contentWithImage?: T | ContentWithImageBlockSelect<T>;
+        videoBlock?: T | VideoBlockSelect<T>;
+        accordionBlock?: T | AccordionBlockSelect<T>;
+        projects18?: T | Projects18BlockSelect<T>;
+        processOneBlock?: T | ProcessOneBlockSelect<T>;
+        impactBlock?: T | ImpactBlockSelect<T>;
+        cardGridBlock?: T | CardGridBlockSelect<T>;
+        testimonialBlock?: T | TestimonialBlockSelect<T>;
+        statsBlock?: T | StatsBlockSelect<T>;
+        textBlock?: T | TextBlockSelect<T>;
+        simpleCta?: T | SimpleCTABlockSelect<T>;
+        updatesBlock?: T | UpdatesBlockSelect<T>;
+        logosBlock?: T | LogosBlockSelect<T>;
+        imageComparison?:
+          | T
+          | {
+              beforeImage?: T | ImageTypeSelect<T>;
+              afterImage?: T | ImageTypeSelect<T>;
+              title?: T;
+              description?: T;
+              initialSliderPosition?: T;
+              id?: T;
+              blockName?: T;
+            };
+        aboutBlock?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              imageField?: T | ImageTypeSelect<T>;
+              id?: T;
+              blockName?: T;
+            };
+        globalVillageAboutSection?: T | GlobalVillageAboutSectionBlockSelect<T>;
+        globalVillageBanner?: T | GlobalVillageBannerBlockSelect<T>;
+        announcementBanner?: T | AnnouncementBannerBlockSelect<T>;
+        campaignCountdown?: T | CampaignCountdownBlockSelect<T>;
+        ctaBanner?: T | CTABannerBlockSelect<T>;
+        donationProgress?: T | DonationProgressBlockSelect<T>;
+        donorWall?: T | DonorWallBlockSelect<T>;
+        eventList?: T | EventListBlockSelect<T>;
+        faq?: T | FAQBlockSelect<T>;
+        featureComparison?: T | FeatureComparisonBlockSelect<T>;
+        imageComparisonSlider?: T | ImageComparisonSliderBlockSelect<T>;
+        mapLocation?: T | MapLocationBlockSelect<T>;
+        milestoneTracker?: T | MilestoneTrackerBlockSelect<T>;
+        newsletterSignup?: T | NewsletterSignupBlockSelect<T>;
+        partnerShowcase?: T | PartnerShowcaseBlockSelect<T>;
+        pricingTable?: T | PricingTableBlockSelect<T>;
+        quoteHighlight?: T | QuoteHighlightBlockSelect<T>;
+        resourceDownload?: T | ResourceDownloadBlockSelect<T>;
+        socialProof?: T | SocialProofBlockSelect<T>;
+        teamGrid?: T | TeamGridBlockSelect<T>;
+        timeline?: T | TimelineBlockSelect<T>;
+        volunteerCallout?: T | VolunteerCalloutBlockSelect<T>;
+      };
   meta?:
     | T
     | {
@@ -2359,6 +2493,816 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CallToActionBlock_select".
+ */
+export interface CallToActionBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  links?:
+    | T
+    | {
+        link?: T | LinkFieldSelect<T>;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkField_select".
+ */
+export interface LinkFieldSelect<T extends boolean = true> {
+  type?: T;
+  newTab?: T;
+  reference?: T;
+  url?: T;
+  label?: T;
+  section?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ColumnBasedBlock_select".
+ */
+export interface ColumnBasedBlockSelect<T extends boolean = true> {
+  columns?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        subtitle?: T;
+        list?:
+          | T
+          | {
+              item?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock_select".
+ */
+export interface MediaBlockSelect<T extends boolean = true> {
+  media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock_select".
+ */
+export interface HeroBlockSelect<T extends boolean = true> {
+  badge?: T;
+  heading?: T;
+  ctaText?: T;
+  ctaLink?: T;
+  headerImage?: T;
+  features?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroWithBackgroundImageBlock_select".
+ */
+export interface HeroWithBackgroundImageBlockSelect<T extends boolean = true> {
+  backgroundImage?: T;
+  title?: T;
+  subtitle?: T;
+  overlayOpacity?: T;
+  primaryCtaText?: T;
+  primaryCtaLink?: T;
+  secondaryCtaText?: T;
+  secondaryCtaLink?: T;
+  textAlignment?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroImpactStatsBlock_select".
+ */
+export interface HeroImpactStatsBlockSelect<T extends boolean = true> {
+  badge?: T;
+  title?: T;
+  description?: T;
+  heroImage?: T;
+  stats?:
+    | T
+    | {
+        number?: T;
+        label?: T;
+        icon?: T;
+        id?: T;
+      };
+  ctaText?: T;
+  ctaLink?: T;
+  secondaryCtaText?: T;
+  secondaryCtaLink?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithImageBlock_select".
+ */
+export interface ContentWithImageBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  image?: T;
+  imagePosition?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock_select".
+ */
+export interface VideoBlockSelect<T extends boolean = true> {
+  videoUrl?: T;
+  title?: T;
+  caption?: T;
+  autoplay?: T;
+  loop?: T;
+  muted?: T;
+  controls?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AccordionBlock_select".
+ */
+export interface AccordionBlockSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        title?: T;
+        content?: T;
+        defaultOpen?: T;
+        id?: T;
+      };
+  allowMultipleOpen?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Projects18Block_select".
+ */
+export interface Projects18BlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  projects?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessOneBlock_select".
+ */
+export interface ProcessOneBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  ctaText?: T;
+  steps?:
+    | T
+    | {
+        step?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImpactBlock_select".
+ */
+export interface ImpactBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  metrics?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        suffix?: T;
+        prefix?: T;
+        icon?: T;
+        color?: T;
+        animateOnScroll?: T;
+        id?: T;
+      };
+  layout?: T;
+  background?: T;
+  textAlign?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardGridBlock_select".
+ */
+export interface CardGridBlockSelect<T extends boolean = true> {
+  title?: T;
+  features?:
+    | T
+    | {
+        heading?: T;
+        description?: T;
+        icon?: T;
+        id?: T;
+      };
+  buttonText?: T;
+  buttonUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialBlock_select".
+ */
+export interface TestimonialBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  testimonials?:
+    | T
+    | {
+        quote?: T;
+        author?:
+          | T
+          | {
+              name?: T;
+              title?: T;
+              company?: T;
+              avatar?: T;
+            };
+        rating?: T;
+        featured?: T;
+        id?: T;
+      };
+  layout?: T;
+  style?: T;
+  showRatings?: T;
+  backgroundColor?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsBlock_select".
+ */
+export interface StatsBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  ctaButtonText?: T;
+  primaryStat?:
+    | T
+    | {
+        monthlyValue?: T;
+        yearlyValue?: T;
+        prefix?: T;
+        suffix?: T;
+      };
+  secondaryText?: T;
+  toggleButtonText?: T;
+  stats?:
+    | T
+    | {
+        monthlyValue?: T;
+        yearlyValue?: T;
+        suffix?: T;
+        prefix?: T;
+        label?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock_select".
+ */
+export interface TextBlockSelect<T extends boolean = true> {
+  content?: T;
+  textAlign?: T;
+  maxWidth?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SimpleCTABlock_select".
+ */
+export interface SimpleCTABlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  buttons?:
+    | T
+    | {
+        primary?:
+          | T
+          | {
+              text?: T;
+              url?: T;
+            };
+        secondary?:
+          | T
+          | {
+              text?: T;
+              url?: T;
+            };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "UpdatesBlock_select".
+ */
+export interface UpdatesBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  categories?:
+    | T
+    | {
+        name?: T;
+        id?: T;
+      };
+  latestUpdates?:
+    | T
+    | {
+        title?: T;
+        category?: T;
+        date?: T;
+        authors?:
+          | T
+          | {
+              avatar?: T;
+              id?: T;
+            };
+        link?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogosBlock_select".
+ */
+export interface LogosBlockSelect<T extends boolean = true> {
+  badgeText?: T;
+  heading?: T;
+  description?: T;
+  buttonText?: T;
+  logos?:
+    | T
+    | {
+        name?: T;
+        logo?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageType_select".
+ */
+export interface ImageTypeSelect<T extends boolean = true> {
+  imageType?: T;
+  image?: T;
+  externalImage?: T;
+  alt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GlobalVillageAboutSectionBlock_select".
+ */
+export interface GlobalVillageAboutSectionBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  sections?:
+    | T
+    | {
+        title?: T;
+        content?: T;
+        imageField?: T | ImageTypeSelect<T>;
+        id?: T;
+      };
+  cta?:
+    | T
+    | {
+        enable?: T;
+        link?: T | LinkFieldSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GlobalVillageBannerBlock_select".
+ */
+export interface GlobalVillageBannerBlockSelect<T extends boolean = true> {
+  text?: T;
+  backgroundColor?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AnnouncementBannerBlock_select".
+ */
+export interface AnnouncementBannerBlockSelect<T extends boolean = true> {
+  message?: T;
+  ctaText?: T;
+  ctaLink?: T;
+  variant?: T;
+  dismissible?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CampaignCountdownBlock_select".
+ */
+export interface CampaignCountdownBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  targetDate?: T;
+  ctaText?: T;
+  ctaLink?: T;
+  showDays?: T;
+  showHours?: T;
+  showMinutes?: T;
+  showSeconds?: T;
+  theme?: T;
+  completedMessage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTABannerBlock_select".
+ */
+export interface CTABannerBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  primaryButtonText?: T;
+  primaryButtonLink?: T;
+  secondaryButtonText?: T;
+  secondaryButtonLink?: T;
+  variant?: T;
+  backgroundImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DonationProgressBlock_select".
+ */
+export interface DonationProgressBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  goalAmount?: T;
+  currentAmount?: T;
+  currency?: T;
+  donorCount?: T;
+  ctaText?: T;
+  ctaLink?: T;
+  showPercentage?: T;
+  animateProgress?: T;
+  theme?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DonorWallBlock_select".
+ */
+export interface DonorWallBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  donors?:
+    | T
+    | {
+        name?: T;
+        amount?: T;
+        currency?: T;
+        level?: T;
+        message?: T;
+        logo?: T;
+        id?: T;
+      };
+  layout?: T;
+  showAmounts?: T;
+  sortBy?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventListBlock_select".
+ */
+export interface EventListBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  events?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        date?: T;
+        endDate?: T;
+        location?: T;
+        category?: T;
+        image?: T;
+        registrationLink?: T;
+        isFeatured?: T;
+        maxParticipants?: T;
+        spotsRemaining?: T;
+        id?: T;
+      };
+  layout?: T;
+  showPastEvents?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQBlock_select".
+ */
+export interface FAQBlockSelect<T extends boolean = true> {
+  title?: T;
+  items?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureComparisonBlock_select".
+ */
+export interface FeatureComparisonBlockSelect<T extends boolean = true> {
+  title?: T;
+  columns?:
+    | T
+    | {
+        name?: T;
+        highlighted?: T;
+        id?: T;
+      };
+  features?:
+    | T
+    | {
+        feature?: T;
+        column1?: T;
+        column2?: T;
+        column3?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageComparisonSliderBlock_select".
+ */
+export interface ImageComparisonSliderBlockSelect<T extends boolean = true> {
+  title?: T;
+  beforeImage?: T;
+  afterImage?: T;
+  beforeLabel?: T;
+  afterLabel?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MapLocationBlock_select".
+ */
+export interface MapLocationBlockSelect<T extends boolean = true> {
+  title?: T;
+  address?: T;
+  latitude?: T;
+  longitude?: T;
+  phone?: T;
+  email?: T;
+  hours?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MilestoneTrackerBlock_select".
+ */
+export interface MilestoneTrackerBlockSelect<T extends boolean = true> {
+  title?: T;
+  milestones?:
+    | T
+    | {
+        title?: T;
+        status?: T;
+        completedDate?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsletterSignupBlock_select".
+ */
+export interface NewsletterSignupBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  placeholder?: T;
+  buttonText?: T;
+  formAction?: T;
+  theme?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartnerShowcaseBlock_select".
+ */
+export interface PartnerShowcaseBlockSelect<T extends boolean = true> {
+  title?: T;
+  partners?:
+    | T
+    | {
+        name?: T;
+        logo?: T;
+        website?: T;
+        description?: T;
+        id?: T;
+      };
+  layout?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingTableBlock_select".
+ */
+export interface PricingTableBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  tiers?:
+    | T
+    | {
+        name?: T;
+        price?: T;
+        currency?: T;
+        period?: T;
+        description?: T;
+        features?:
+          | T
+          | {
+              feature?: T;
+              id?: T;
+            };
+        buttonText?: T;
+        buttonLink?: T;
+        highlighted?: T;
+        badge?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuoteHighlightBlock_select".
+ */
+export interface QuoteHighlightBlockSelect<T extends boolean = true> {
+  quote?: T;
+  author?: T;
+  authorTitle?: T;
+  authorPhoto?: T;
+  style?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ResourceDownloadBlock_select".
+ */
+export interface ResourceDownloadBlockSelect<T extends boolean = true> {
+  title?: T;
+  resources?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        file?: T;
+        fileType?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SocialProofBlock_select".
+ */
+export interface SocialProofBlockSelect<T extends boolean = true> {
+  stats?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  backgroundColor?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamGridBlock_select".
+ */
+export interface TeamGridBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  members?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        bio?: T;
+        photo?: T;
+        email?: T;
+        linkedIn?: T;
+        twitter?: T;
+        id?: T;
+      };
+  layout?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TimelineBlock_select".
+ */
+export interface TimelineBlockSelect<T extends boolean = true> {
+  title?: T;
+  items?:
+    | T
+    | {
+        year?: T;
+        title?: T;
+        description?: T;
+        image?: T;
+        id?: T;
+      };
+  orientation?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VolunteerCalloutBlock_select".
+ */
+export interface VolunteerCalloutBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  opportunities?:
+    | T
+    | {
+        role?: T;
+        description?: T;
+        commitment?: T;
+        id?: T;
+      };
+  ctaText?: T;
+  ctaLink?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4164,22 +5108,26 @@ export interface Footer {
   id: string;
   columns?:
     | {
-        /**
-         * Footer column. If there is only 1 link, it will be displayed without a title.
-         */
-        column: {
-          title?: string | null;
-          data: {
-            link: LinkField;
-            id?: string | null;
-          }[];
-        };
+        column: FooterNavGroup;
         id?: string | null;
       }[]
     | null;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * Footer column. If there is only 1 link, it will be displayed without a title.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FooterNavGroup".
+ */
+export interface FooterNavGroup {
+  title?: string | null;
+  data: {
+    link: LinkField;
+    id?: string | null;
+  }[];
 }
 /**
  * Configure the main landing page of the website.
@@ -4239,18 +5187,6 @@ export interface HeaderNavigationColumnsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LinkField_select".
- */
-export interface LinkFieldSelect<T extends boolean = true> {
-  type?: T;
-  newTab?: T;
-  reference?: T;
-  url?: T;
-  label?: T;
-  section?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "NavbarDropdown_select".
  */
 export interface NavbarDropdownSelect<T extends boolean = true> {
@@ -4286,39 +5222,32 @@ export interface ImageIconSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageType_select".
- */
-export interface ImageTypeSelect<T extends boolean = true> {
-  imageType?: T;
-  image?: T;
-  externalImage?: T;
-  alt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
   columns?:
     | T
     | {
-        column?:
-          | T
-          | {
-              title?: T;
-              data?:
-                | T
-                | {
-                    link?: T | LinkFieldSelect<T>;
-                    id?: T;
-                  };
-            };
+        column?: T | FooterNavGroupSelect<T>;
         id?: T;
       };
   _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FooterNavGroup_select".
+ */
+export interface FooterNavGroupSelect<T extends boolean = true> {
+  title?: T;
+  data?:
+    | T
+    | {
+        link?: T | LinkFieldSelect<T>;
+        id?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

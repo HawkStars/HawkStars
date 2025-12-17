@@ -21,10 +21,7 @@ export const Header: GlobalConfig = {
       admin: {
         description: 'Configure the navigation columns for the header. topbar menus',
         components: {
-          RowLabel: {
-            path: '@/payload/globals/Header/components/HeaderLabel',
-            exportName: 'HeaderLabel',
-          },
+          RowLabel: '@/payload/globals/Header/components/HeaderLabel',
         },
       },
       type: 'array',
@@ -41,7 +38,6 @@ export const Header: GlobalConfig = {
           required: false,
           defaultValue: false,
         },
-        // Single Link Condition
         link({
           localizedLabel: true,
           condition: (_, siblingData) => siblingData.isMultiColumn === false,

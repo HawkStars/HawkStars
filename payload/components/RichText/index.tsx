@@ -126,6 +126,10 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       <GlobalVillageAboutSectionBlockComponent {...node.fields} />
     ),
   },
+  list: ({ node }) => {
+    debugger;
+    return <p>aa</p>;
+  },
 });
 
 export type RichTextProps = {
