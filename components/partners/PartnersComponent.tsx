@@ -8,17 +8,14 @@ import { LanguageProps } from '../types';
 import partnersHero from '@/public/images/partners/hero.jpg';
 import { HawkStarsSection } from '../layout';
 
-import type { JSX } from 'react';
+import { type JSX } from 'react';
 import { Media, Partner } from '@/payload-types';
 import RichText from '@/payload/components/RichText';
-import { Map, MapTileLayer } from '@/components/ui/map';
-import { LatLngExpression } from 'leaflet';
+import PartnersMapWrapper from './PartnersMapWrapper';
 
 type PartnersComponentProps = LanguageProps & {
   partners: Partner[];
 };
-
-const TORONTO_COORDINATES = [43.6532, -79.3832] satisfies LatLngExpression;
 
 const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
   const { t } = await getServerTranslation(lng, 'partners');
@@ -28,9 +25,7 @@ const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
   return (
     <section>
       <div className='relative z-0 h-60 md:h-96 lg:h-125'>
-        <Map center={TORONTO_COORDINATES}>
-          <MapTileLayer />
-        </Map>
+        <PartnersMapWrapper />
         <Image
           src={partnersHero}
           alt='Hero Partners Page'
