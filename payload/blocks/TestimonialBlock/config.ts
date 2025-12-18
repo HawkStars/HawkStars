@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const TestimonialBlock: Block = {
@@ -177,6 +178,7 @@ export const TestimonialBlock: Block = {
       ],
       defaultValue: 'none',
     },
+    SectionID,
   ],
   labels: {
     plural: 'Testimonial Blocks',

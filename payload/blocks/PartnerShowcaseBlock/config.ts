@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const PartnerShowcaseBlock: Block = {
@@ -43,6 +44,7 @@ export const PartnerShowcaseBlock: Block = {
       ],
       defaultValue: 'logos',
     },
+    SectionID,
   ],
   labels: {
     plural: 'Partner Showcases',

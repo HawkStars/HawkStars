@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const FAQBlock: Block = {
@@ -26,6 +27,7 @@ export const FAQBlock: Block = {
         },
       ],
     },
+    SectionID,
   ],
   labels: {
     plural: 'FAQ Blocks',

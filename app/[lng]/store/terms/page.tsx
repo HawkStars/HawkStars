@@ -26,9 +26,7 @@ type SubArticle = {
 
 export default async function Page(props: LanguagePageProps) {
   const params = await props.params;
-
   const { lng } = params;
-
   const { t } = await getServerTranslation(lng, 'terms');
 
   const preamble = t('preamble', { returnObjects: true }) as {

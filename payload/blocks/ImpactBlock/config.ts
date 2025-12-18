@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const ImpactBlock: Block = {
@@ -181,6 +182,7 @@ export const ImpactBlock: Block = {
         description: 'Text alignment for the impact section',
       },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Impact Blocks',

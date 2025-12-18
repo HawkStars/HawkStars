@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const PricingTableBlock: Block = {
@@ -112,6 +113,7 @@ export const PricingTableBlock: Block = {
         description: 'Pricing tiers (up to 4)',
       },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Pricing Tables',

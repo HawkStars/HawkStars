@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const EventListBlock: Block = {
@@ -122,6 +123,7 @@ export const EventListBlock: Block = {
         description: 'Include past events in the list',
       },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Event Lists',

@@ -27,11 +27,15 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
       <div className='container mx-auto'>
         <div className='text-center'>
           {headerImage && typeof headerImage !== 'string' && headerImage.url && (
-            <Image
-              src={headerImage.url}
-              alt={headerImage.alt || 'Hero'}
-              className='mx-auto mb-5 w-16 md:mb-6 md:w-24 lg:mb-7 lg:w-28'
-            />
+            <div className='flex justify-center'>
+              <Image
+                src={headerImage.url}
+                alt={headerImage.alt || 'Hero'}
+                height={32}
+                width={32}
+                className='absolute mx-auto mb-5 aspect-square w-16 md:mb-6 md:w-24 lg:mb-7 lg:w-28'
+              />
+            </div>
           )}
           {badge && (
             <span className='text-muted-foreground mb-3 text-sm tracking-widest md:text-base'>

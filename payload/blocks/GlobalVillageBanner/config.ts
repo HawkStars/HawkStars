@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const GlobalVillageBannerBlock: Block = {
@@ -26,5 +27,6 @@ export const GlobalVillageBannerBlock: Block = {
         { label: 'Bege Light', value: 'bege-light' },
       ],
     },
+    SectionID,
   ],
 };

@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const CardGridBlock: Block = {
@@ -56,6 +57,7 @@ export const CardGridBlock: Block = {
         description: 'Optional button URL (button hidden if empty)',
       },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Card Grid Blocks',

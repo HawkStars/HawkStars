@@ -101,7 +101,7 @@ export function Globe({
   }, [rs, config]);
 
   return (
-    <div className={cn('absolute inset-0 mx-auto aspect-square w-full max-w-[600px]', className)}>
+    <div className={cn('absolute inset-0 mx-auto aspect-square w-full max-w-150', className)}>
       <canvas
         className={cn(
           'size-full opacity-0 transition-opacity duration-500 contain-[layout_paint_size]'

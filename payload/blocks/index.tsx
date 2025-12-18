@@ -1,4 +1,3 @@
-import { AccordionBlock } from './AccordionBlock/config';
 import AboutBlock from './AboutBlock/config';
 import { CallToAction } from './CallToAction/config';
 import { CardGridBlock } from './CardGridBlock/config';
@@ -53,7 +52,6 @@ const currentBlocks = [
   HeroImpactStats,
   ContentWithImage,
   VideoBlock,
-  AccordionBlock,
   Projects18Block,
   ProcessOneBlock,
   ImpactBlock,

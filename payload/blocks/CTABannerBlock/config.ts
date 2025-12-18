@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const CTABannerBlock: Block = {
@@ -47,6 +48,7 @@ export const CTABannerBlock: Block = {
         description: 'For image-bg variant',
       },
     },
+    SectionID,
   ],
   labels: {
     plural: 'CTA Banners',

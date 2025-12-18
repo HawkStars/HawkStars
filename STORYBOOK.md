@@ -32,10 +32,6 @@ All block stories are located in their respective block directories:
 
 ```
 payload/blocks/
-├── AccordionBlock/
-│   ├── Component.tsx
-│   ├── config.ts
-│   └── AccordionBlock.stories.tsx
 ├── CallToAction/
 │   ├── Component.tsx
 │   ├── config.ts

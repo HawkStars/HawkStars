@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const HeroImpactStats: Block = {
@@ -104,6 +105,7 @@ export const HeroImpactStats: Block = {
         description: 'URL for the secondary CTA button',
       },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Hero Impact Stats Sections',

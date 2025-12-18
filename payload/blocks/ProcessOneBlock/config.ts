@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const ProcessOneBlock: Block = {
@@ -52,6 +53,7 @@ export const ProcessOneBlock: Block = {
         },
       ],
     },
+    SectionID,
   ],
   labels: {
     singular: 'Process One Block',

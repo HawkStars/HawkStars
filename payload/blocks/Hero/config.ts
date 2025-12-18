@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const Hero: Block = {
@@ -82,6 +83,7 @@ export const Hero: Block = {
         description: 'Feature cards displayed in grid (up to 4)',
       },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Hero Sections',

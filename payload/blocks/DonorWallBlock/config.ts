@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const DonorWallBlock: Block = {
@@ -113,6 +114,7 @@ export const DonorWallBlock: Block = {
         description: 'How to sort donor display',
       },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Donor Walls',

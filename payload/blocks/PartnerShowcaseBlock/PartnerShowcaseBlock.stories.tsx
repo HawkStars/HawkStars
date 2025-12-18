@@ -3,7 +3,7 @@ import { PartnerShowcaseBlock } from './Component';
 import { Media } from '@/payload-types';
 
 const meta: Meta<typeof PartnerShowcaseBlock> = {
-  title: 'Payload Blocks/PartnerShowcaseBlock',
+  title: 'Payload Blocks/Cards/PartnerShowcaseBlock',
   component: PartnerShowcaseBlock,
   parameters: {
     layout: 'fullscreen',

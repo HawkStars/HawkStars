@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const VideoBlock: Block = {
@@ -58,6 +59,7 @@ export const VideoBlock: Block = {
         description: 'Show video controls',
       },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Video Blocks',

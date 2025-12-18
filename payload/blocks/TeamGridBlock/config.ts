@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const TeamGridBlock: Block = {
@@ -60,6 +61,7 @@ export const TeamGridBlock: Block = {
       ],
       defaultValue: 'cols-3',
     },
+    SectionID,
   ],
   labels: {
     plural: 'Team Grids',

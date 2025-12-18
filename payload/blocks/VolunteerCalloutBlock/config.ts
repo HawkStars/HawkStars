@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const VolunteerCalloutBlock: Block = {
@@ -45,6 +46,7 @@ export const VolunteerCalloutBlock: Block = {
       name: 'ctaLink',
       type: 'text',
     },
+    SectionID,
   ],
   labels: {
     plural: 'Volunteer Callouts',

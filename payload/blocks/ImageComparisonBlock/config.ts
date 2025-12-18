@@ -1,4 +1,5 @@
 import { PayloadImageField } from '@/payload/fields/ImageType';
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const ImageComparisonBlock: Block = {
@@ -31,5 +32,6 @@ export const ImageComparisonBlock: Block = {
         description: 'Position of the comparison slider on load (0-100%)',
       },
     },
+    SectionID,
   ],
 };

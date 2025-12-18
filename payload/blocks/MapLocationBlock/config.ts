@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const MapLocationBlock: Block = {
@@ -38,6 +39,7 @@ export const MapLocationBlock: Block = {
         description: 'Operating hours',
       },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Map Locations',

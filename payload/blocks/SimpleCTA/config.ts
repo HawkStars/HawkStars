@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const SimpleCTABlock: Block = {
@@ -63,6 +64,7 @@ export const SimpleCTABlock: Block = {
         },
       ],
     },
+    SectionID,
   ],
   labels: {
     plural: 'Simple CTAs',

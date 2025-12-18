@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { AnnouncementBannerBlock } from './Component';
 
 const meta: Meta<typeof AnnouncementBannerBlock> = {
-  title: 'Payload Blocks/AnnouncementBannerBlock',
+  title: 'Payload Blocks/Banner/AnnouncementBannerBlock',
   component: AnnouncementBannerBlock,
   parameters: {
     layout: 'fullscreen',

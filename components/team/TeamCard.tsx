@@ -30,10 +30,11 @@ const TeamCard = ({ member, lng }: TeamCardProps) => {
       <div>
         <h3 className='text-foreground mt-2 font-medium'>{member.name}</h3>
         <p className='text-muted-foreground text-xs capitalize'>{t(`roles.${member.title}`)}</p>
+        {member.department && <p className='text-muted-foreground text-sm'>{member.department}</p>}
       </div>
 
       {links && links.length > 0 && (
-        <div className='mt-3 flex flex-wrap justify-center gap-2'>
+        <div className='mt-3 flex min-h-5 flex-wrap justify-center gap-2'>
           {/* Social Media Buttons */}
           {links?.map((link, index) => {
             if (!link.isVisible) return null;

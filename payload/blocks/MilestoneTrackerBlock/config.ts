@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const MilestoneTrackerBlock: Block = {
@@ -38,6 +39,7 @@ export const MilestoneTrackerBlock: Block = {
         },
       ],
     },
+    SectionID,
   ],
   labels: {
     plural: 'Milestone Trackers',

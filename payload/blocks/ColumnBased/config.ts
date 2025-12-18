@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const ColumnBased: Block = {
@@ -40,6 +41,7 @@ export const ColumnBased: Block = {
         },
       ],
     },
+    SectionID,
   ],
   labels: {
     plural: 'Column Based Blocks',

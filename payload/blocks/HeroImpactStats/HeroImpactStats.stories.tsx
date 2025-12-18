@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { HeroImpactStatsBlock } from './Component';
 
 const meta: Meta<typeof HeroImpactStatsBlock> = {
-  title: 'Payload Blocks/HeroImpactStats/Community Impact',
+  title: 'Payload Blocks/Hero/Community Impact',
   component: HeroImpactStatsBlock,
   parameters: {
     layout: 'fullscreen',

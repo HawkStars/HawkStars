@@ -2,7 +2,7 @@ import { AboutBlock } from './Component';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof AboutBlock> = {
-  title: 'Payload Blocks/AboutBlock',
+  title: 'Payload Blocks/Main Block/AboutBlock',
   component: AboutBlock,
 };
 export default meta;

@@ -5,7 +5,6 @@ import { HeroWithBackgroundImageBlock } from '@/payload/blocks/HeroWithBackgroun
 import { HeroImpactStatsBlock } from '@/payload/blocks/HeroImpactStats/Component';
 import { ContentWithImageBlock } from '@/payload/blocks/ContentWithImage/Component';
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
-import { AccordionBlock } from '@/payload/blocks/AccordionBlock/Component';
 import { ImpactBlock } from '@/payload/blocks/ImpactBlock/Component';
 import { GlobalVillageAboutSectionBlockComponent } from '@/payload/blocks/GlobalVillageAboutSection/Component';
 import { CardGridBlock } from '@/payload/blocks/CardGridBlock/Component';
@@ -37,7 +36,6 @@ import type {
   StatsBlock as StatsBlockProps,
   TestimonialBlock as TestimonialBlockProps,
   TextBlock as TextBlockProps,
-  AccordionBlock as AccordionBlockProps,
   Projects18Block as Projects18BlockProps,
   ProcessOneBlock as ProcessOneBlockProps,
   ImpactBlock as ImpactBlockProps,
@@ -69,7 +67,6 @@ type NodeTypes =
       | TestimonialBlockProps
       | StatsBlockProps
       | TextBlockProps
-      | AccordionBlockProps
       | Projects18BlockProps
       | ProcessOneBlockProps
       | ImpactBlockProps
@@ -110,7 +107,6 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     heroImpactStats: ({ node }) => <HeroImpactStatsBlock {...node.fields} />,
     contentWithImage: ({ node }) => <ContentWithImageBlock {...node.fields} />,
     videoBlock: ({ node }) => <VideoBlock {...node.fields} />,
-    accordionBlock: ({ node }) => <AccordionBlock {...node.fields} />,
     projects18: ({ node }) => <Projects18Block {...node.fields} />,
     processOneBlock: ({ node }) => <ProcessOneBlock {...node.fields} />,
     impactBlock: ({ node }) => <ImpactBlock {...node.fields} />,

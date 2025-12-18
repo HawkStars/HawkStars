@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import { Block } from 'payload';
 
 const MultiRowImage: Block = {
@@ -50,6 +51,7 @@ const MultiRowImage: Block = {
       required: false,
       defaultValue: 16,
     },
+    SectionID,
   ],
 };
 

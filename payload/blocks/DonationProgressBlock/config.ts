@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const DonationProgressBlock: Block = {
@@ -94,6 +95,7 @@ export const DonationProgressBlock: Block = {
         description: 'Visual theme for the block',
       },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Donation Progress Blocks',

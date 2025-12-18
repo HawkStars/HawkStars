@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import { Block } from 'payload';
 
 const SimpleGallery: Block = {
@@ -43,6 +44,7 @@ const SimpleGallery: Block = {
         },
       ],
     },
+    SectionID,
   ],
 };
 

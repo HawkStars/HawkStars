@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ImpactBlock } from './Component';
 
 const meta: Meta<typeof ImpactBlock> = {
-  title: 'Payload Blocks/ImpactBlock',
+  title: 'Payload Blocks/Cards/ImpactBlock',
   component: ImpactBlock,
   parameters: {
     layout: 'fullscreen',

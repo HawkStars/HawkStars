@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { HeroWithBackgroundImageBlock } from './Component';
 
 const meta: Meta<typeof HeroWithBackgroundImageBlock> = {
-  title: 'Payload Blocks/HeroWithBackgroundImage/Text Alignment',
+  title: 'Payload Blocks/Hero/Text Alignment',
   component: HeroWithBackgroundImageBlock,
   parameters: {
     layout: 'fullscreen',

@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const LogosBlock: Block = {
@@ -43,6 +44,7 @@ export const LogosBlock: Block = {
       ],
       admin: { description: 'Partner logos' },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Logos Blocks',

@@ -8,6 +8,7 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical';
+import SectionID from '@/payload/fields/SectionID';
 
 export const GlobalVillageAboutSectionBlock: Block = {
   slug: 'globalVillageAboutSection',
@@ -84,5 +85,6 @@ export const GlobalVillageAboutSectionBlock: Block = {
         }),
       ],
     },
+    SectionID,
   ],
 };

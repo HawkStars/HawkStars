@@ -102,7 +102,6 @@ export interface Config {
     heroImpactStats: HeroImpactStatsBlock;
     contentWithImage: ContentWithImageBlock;
     videoBlock: VideoBlock;
-    accordionBlock: AccordionBlock;
     projects18: Projects18Block;
     processOneBlock: ProcessOneBlock;
     impactBlock: ImpactBlock;
@@ -231,6 +230,10 @@ export interface CallToActionBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'cta';
@@ -308,7 +311,6 @@ export interface Page {
         | HeroImpactStatsBlock
         | ContentWithImageBlock
         | VideoBlock
-        | AccordionBlock
         | Projects18Block
         | ProcessOneBlock
         | ImpactBlock
@@ -328,6 +330,10 @@ export interface Page {
              * Position of the comparison slider on load (0-100%)
              */
             initialSliderPosition?: number | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'imageComparison';
@@ -335,6 +341,10 @@ export interface Page {
         | {
             title?: string | null;
             description?: string | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
             imageField: ImageType;
             id?: string | null;
             blockName?: string | null;
@@ -401,6 +411,10 @@ export interface ColumnBasedBlock {
       | null;
     id?: string | null;
   }[];
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'columnBased';
@@ -411,6 +425,10 @@ export interface ColumnBasedBlock {
  */
 export interface MediaBlock {
   media: string | Media;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
@@ -484,6 +502,10 @@ export interface HeroBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'hero';
@@ -529,6 +551,10 @@ export interface HeroWithBackgroundImageBlock {
    * Text alignment
    */
   textAlignment?: ('left' | 'center' | 'right') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroWithBackgroundImage';
@@ -590,6 +616,10 @@ export interface HeroImpactStatsBlock {
    * URL for the secondary CTA button
    */
   secondaryCtaLink?: string | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroImpactStats';
@@ -620,6 +650,10 @@ export interface ContentWithImageBlock {
    * Position of the image relative to the content
    */
   imagePosition?: ('left' | 'right') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'contentWithImage';
@@ -657,45 +691,13 @@ export interface VideoBlock {
    * Show video controls
    */
   controls?: boolean | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'videoBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "AccordionBlock".
- */
-export interface AccordionBlock {
-  items: {
-    title: string;
-    content: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    };
-    /**
-     * Whether this accordion item should be open by default
-     */
-    defaultOpen?: boolean | null;
-    id?: string | null;
-  }[];
-  /**
-   * Allow multiple accordion items to be open at the same time
-   */
-  allowMultipleOpen?: boolean | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'accordionBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -709,6 +711,10 @@ export interface Projects18Block {
    * Select the projects you want to display in this block
    */
   projects: (string | HawkProject)[];
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'projects18';
@@ -762,6 +768,10 @@ export interface ProcessOneBlock {
     description: string;
     id?: string | null;
   }[];
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'processOneBlock';
@@ -819,6 +829,10 @@ export interface ImpactBlock {
    * Text alignment for the impact section
    */
   textAlign?: ('left' | 'center' | 'right') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'impactBlock';
@@ -849,6 +863,10 @@ export interface CardGridBlock {
    * Optional button URL (button hidden if empty)
    */
   buttonUrl?: string | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'cardGridBlock';
@@ -912,6 +930,10 @@ export interface TestimonialBlock {
    */
   showRatings?: boolean | null;
   backgroundColor?: ('none' | 'light-gray' | 'dark' | 'brand') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonialBlock';
@@ -985,6 +1007,10 @@ export interface StatsBlock {
     label: string;
     id?: string | null;
   }[];
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'statsBlock';
@@ -1017,6 +1043,10 @@ export interface TextBlock {
    * Maximum width constraint for the text content
    */
   maxWidth?: ('full' | 'large' | 'medium' | 'small') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'textBlock';
@@ -1038,6 +1068,10 @@ export interface SimpleCTABlock {
       url?: string | null;
     };
   };
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'simpleCta';
@@ -1081,6 +1115,10 @@ export interface UpdatesBlock {
     link: string;
     id?: string | null;
   }[];
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'updatesBlock';
@@ -1117,6 +1155,10 @@ export interface LogosBlock {
     logo: string;
     id?: string | null;
   }[];
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'logosBlock';
@@ -1173,6 +1215,10 @@ export interface GlobalVillageAboutSectionBlock {
     enable?: boolean | null;
     link?: LinkField;
   };
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'globalVillageAboutSection';
@@ -1184,6 +1230,10 @@ export interface GlobalVillageAboutSectionBlock {
 export interface GlobalVillageBannerBlock {
   text: string;
   backgroundColor?: ('green' | 'bege-dark' | 'bege-light') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'globalVillageBanner';
@@ -1198,6 +1248,10 @@ export interface AnnouncementBannerBlock {
   ctaLink?: string | null;
   variant?: ('info' | 'success' | 'warning' | 'urgent') | null;
   dismissible?: boolean | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'announcementBanner';
@@ -1239,6 +1293,10 @@ export interface CampaignCountdownBlock {
    * Message to show when countdown reaches zero
    */
   completedMessage?: string | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'campaignCountdown';
@@ -1259,6 +1317,10 @@ export interface CTABannerBlock {
    * For image-bg variant
    */
   backgroundImage?: (string | null) | Media;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'ctaBanner';
@@ -1312,6 +1374,10 @@ export interface DonationProgressBlock {
    * Visual theme for the block
    */
   theme?: ('light' | 'dark' | 'gradient') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'donationProgress';
@@ -1370,6 +1436,10 @@ export interface DonorWallBlock {
    * How to sort donor display
    */
   sortBy?: ('amount-desc' | 'level' | 'name' | 'manual') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'donorWall';
@@ -1423,6 +1493,10 @@ export interface EventListBlock {
    * Include past events in the list
    */
   showPastEvents?: boolean | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'eventList';
@@ -1440,6 +1514,10 @@ export interface FAQBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'faq';
@@ -1466,6 +1544,10 @@ export interface FeatureComparisonBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'featureComparison';
@@ -1486,6 +1568,10 @@ export interface ImageComparisonSliderBlock {
   afterImage: string | Media;
   beforeLabel?: string | null;
   afterLabel?: string | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'imageComparisonSlider';
@@ -1505,6 +1591,10 @@ export interface MapLocationBlock {
    * Operating hours
    */
   hours?: string | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mapLocation';
@@ -1524,6 +1614,10 @@ export interface MilestoneTrackerBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'milestoneTracker';
@@ -1542,6 +1636,10 @@ export interface NewsletterSignupBlock {
    */
   formAction?: string | null;
   theme?: ('light' | 'dark' | 'gradient') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'newsletterSignup';
@@ -1562,6 +1660,10 @@ export interface PartnerShowcaseBlock {
       }[]
     | null;
   layout?: ('logos' | 'detailed') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'partnerShowcase';
@@ -1632,6 +1734,10 @@ export interface PricingTableBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'pricingTable';
@@ -1646,6 +1752,10 @@ export interface QuoteHighlightBlock {
   authorTitle?: string | null;
   authorPhoto?: (string | null) | Media;
   style?: ('centered' | 'bordered' | 'highlighted') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'quoteHighlight';
@@ -1665,6 +1775,10 @@ export interface ResourceDownloadBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'resourceDownload';
@@ -1685,6 +1799,10 @@ export interface SocialProofBlock {
       }[]
     | null;
   backgroundColor?: ('white' | 'gray' | 'gradient') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'socialProof';
@@ -1709,6 +1827,10 @@ export interface TeamGridBlock {
       }[]
     | null;
   layout?: ('cols-2' | 'cols-3' | 'cols-4') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'teamGrid';
@@ -1729,6 +1851,10 @@ export interface TimelineBlock {
       }[]
     | null;
   orientation?: ('vertical' | 'horizontal') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'timeline';
@@ -1753,6 +1879,10 @@ export interface VolunteerCalloutBlock {
     | null;
   ctaText?: string | null;
   ctaLink?: string | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'volunteerCallout';
@@ -1770,6 +1900,10 @@ export interface ImageComparison {
    * Position of the comparison slider on load (0-100%)
    */
   initialSliderPosition?: number | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'imageComparison';
@@ -1781,6 +1915,10 @@ export interface ImageComparison {
 export interface AboutBlock {
   title?: string | null;
   description?: string | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
   imageField: ImageType;
   id?: string | null;
   blockName?: string | null;
@@ -2427,7 +2565,6 @@ export interface PagesSelect<T extends boolean = true> {
         heroImpactStats?: T | HeroImpactStatsBlockSelect<T>;
         contentWithImage?: T | ContentWithImageBlockSelect<T>;
         videoBlock?: T | VideoBlockSelect<T>;
-        accordionBlock?: T | AccordionBlockSelect<T>;
         projects18?: T | Projects18BlockSelect<T>;
         processOneBlock?: T | ProcessOneBlockSelect<T>;
         impactBlock?: T | ImpactBlockSelect<T>;
@@ -2446,6 +2583,7 @@ export interface PagesSelect<T extends boolean = true> {
               title?: T;
               description?: T;
               initialSliderPosition?: T;
+              sectionId?: T;
               id?: T;
               blockName?: T;
             };
@@ -2454,6 +2592,7 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               title?: T;
               description?: T;
+              sectionId?: T;
               imageField?: T | ImageTypeSelect<T>;
               id?: T;
               blockName?: T;
@@ -2507,6 +2646,7 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
         link?: T | LinkFieldSelect<T>;
         id?: T;
       };
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2541,6 +2681,7 @@ export interface ColumnBasedBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2550,6 +2691,7 @@ export interface ColumnBasedBlockSelect<T extends boolean = true> {
  */
 export interface MediaBlockSelect<T extends boolean = true> {
   media?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2571,6 +2713,7 @@ export interface HeroBlockSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2588,6 +2731,7 @@ export interface HeroWithBackgroundImageBlockSelect<T extends boolean = true> {
   secondaryCtaText?: T;
   secondaryCtaLink?: T;
   textAlignment?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2612,6 +2756,7 @@ export interface HeroImpactStatsBlockSelect<T extends boolean = true> {
   ctaLink?: T;
   secondaryCtaText?: T;
   secondaryCtaLink?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2624,6 +2769,7 @@ export interface ContentWithImageBlockSelect<T extends boolean = true> {
   description?: T;
   image?: T;
   imagePosition?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2639,23 +2785,7 @@ export interface VideoBlockSelect<T extends boolean = true> {
   loop?: T;
   muted?: T;
   controls?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "AccordionBlock_select".
- */
-export interface AccordionBlockSelect<T extends boolean = true> {
-  items?:
-    | T
-    | {
-        title?: T;
-        content?: T;
-        defaultOpen?: T;
-        id?: T;
-      };
-  allowMultipleOpen?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2668,6 +2798,7 @@ export interface Projects18BlockSelect<T extends boolean = true> {
   subtitle?: T;
   description?: T;
   projects?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2687,6 +2818,7 @@ export interface ProcessOneBlockSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2712,6 +2844,7 @@ export interface ImpactBlockSelect<T extends boolean = true> {
   layout?: T;
   background?: T;
   textAlign?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2731,6 +2864,7 @@ export interface CardGridBlockSelect<T extends boolean = true> {
       };
   buttonText?: T;
   buttonUrl?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2761,6 +2895,7 @@ export interface TestimonialBlockSelect<T extends boolean = true> {
   style?: T;
   showRatings?: T;
   backgroundColor?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2792,6 +2927,7 @@ export interface StatsBlockSelect<T extends boolean = true> {
         label?: T;
         id?: T;
       };
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2803,6 +2939,7 @@ export interface TextBlockSelect<T extends boolean = true> {
   content?: T;
   textAlign?: T;
   maxWidth?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2829,6 +2966,7 @@ export interface SimpleCTABlockSelect<T extends boolean = true> {
               url?: T;
             };
       };
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2860,6 +2998,7 @@ export interface UpdatesBlockSelect<T extends boolean = true> {
         link?: T;
         id?: T;
       };
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2879,6 +3018,7 @@ export interface LogosBlockSelect<T extends boolean = true> {
         logo?: T;
         id?: T;
       };
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2913,6 +3053,7 @@ export interface GlobalVillageAboutSectionBlockSelect<T extends boolean = true> 
         enable?: T;
         link?: T | LinkFieldSelect<T>;
       };
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2923,6 +3064,7 @@ export interface GlobalVillageAboutSectionBlockSelect<T extends boolean = true> 
 export interface GlobalVillageBannerBlockSelect<T extends boolean = true> {
   text?: T;
   backgroundColor?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2936,6 +3078,7 @@ export interface AnnouncementBannerBlockSelect<T extends boolean = true> {
   ctaLink?: T;
   variant?: T;
   dismissible?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2955,6 +3098,7 @@ export interface CampaignCountdownBlockSelect<T extends boolean = true> {
   showSeconds?: T;
   theme?: T;
   completedMessage?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2971,6 +3115,7 @@ export interface CTABannerBlockSelect<T extends boolean = true> {
   secondaryButtonLink?: T;
   variant?: T;
   backgroundImage?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -2990,6 +3135,7 @@ export interface DonationProgressBlockSelect<T extends boolean = true> {
   showPercentage?: T;
   animateProgress?: T;
   theme?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3014,6 +3160,7 @@ export interface DonorWallBlockSelect<T extends boolean = true> {
   layout?: T;
   showAmounts?: T;
   sortBy?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3042,6 +3189,7 @@ export interface EventListBlockSelect<T extends boolean = true> {
       };
   layout?: T;
   showPastEvents?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3058,6 +3206,7 @@ export interface FAQBlockSelect<T extends boolean = true> {
         answer?: T;
         id?: T;
       };
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3083,6 +3232,7 @@ export interface FeatureComparisonBlockSelect<T extends boolean = true> {
         column3?: T;
         id?: T;
       };
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3096,6 +3246,7 @@ export interface ImageComparisonSliderBlockSelect<T extends boolean = true> {
   afterImage?: T;
   beforeLabel?: T;
   afterLabel?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3111,6 +3262,7 @@ export interface MapLocationBlockSelect<T extends boolean = true> {
   phone?: T;
   email?: T;
   hours?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3129,6 +3281,7 @@ export interface MilestoneTrackerBlockSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3143,6 +3296,7 @@ export interface NewsletterSignupBlockSelect<T extends boolean = true> {
   buttonText?: T;
   formAction?: T;
   theme?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3162,6 +3316,7 @@ export interface PartnerShowcaseBlockSelect<T extends boolean = true> {
         id?: T;
       };
   layout?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3192,6 +3347,7 @@ export interface PricingTableBlockSelect<T extends boolean = true> {
         badge?: T;
         id?: T;
       };
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3205,6 +3361,7 @@ export interface QuoteHighlightBlockSelect<T extends boolean = true> {
   authorTitle?: T;
   authorPhoto?: T;
   style?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3223,6 +3380,7 @@ export interface ResourceDownloadBlockSelect<T extends boolean = true> {
         fileType?: T;
         id?: T;
       };
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3239,6 +3397,7 @@ export interface SocialProofBlockSelect<T extends boolean = true> {
         id?: T;
       };
   backgroundColor?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3262,6 +3421,7 @@ export interface TeamGridBlockSelect<T extends boolean = true> {
         id?: T;
       };
   layout?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3281,6 +3441,7 @@ export interface TimelineBlockSelect<T extends boolean = true> {
         id?: T;
       };
   orientation?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }
@@ -3301,6 +3462,7 @@ export interface VolunteerCalloutBlockSelect<T extends boolean = true> {
       };
   ctaText?: T;
   ctaLink?: T;
+  sectionId?: T;
   id?: T;
   blockName?: T;
 }

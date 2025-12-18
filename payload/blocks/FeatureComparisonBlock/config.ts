@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const FeatureComparisonBlock: Block = {
@@ -52,6 +53,7 @@ export const FeatureComparisonBlock: Block = {
         },
       ],
     },
+    SectionID,
   ],
   labels: {
     plural: 'Feature Comparisons',

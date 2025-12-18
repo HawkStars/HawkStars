@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const TimelineBlock: Block = {
@@ -44,6 +45,7 @@ export const TimelineBlock: Block = {
       ],
       defaultValue: 'vertical',
     },
+    SectionID,
   ],
   labels: {
     plural: 'Timelines',

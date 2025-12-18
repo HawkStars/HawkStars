@@ -1,5 +1,6 @@
 import type { Block } from 'payload';
 import { HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
+import SectionID from '@/payload/fields/SectionID';
 
 export const TextBlock: Block = {
   slug: 'textBlock',
@@ -71,6 +72,7 @@ export const TextBlock: Block = {
         description: 'Maximum width constraint for the text content',
       },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Text Blocks',

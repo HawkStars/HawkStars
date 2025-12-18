@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const CampaignCountdownBlock: Block = {
@@ -86,6 +87,7 @@ export const CampaignCountdownBlock: Block = {
         description: 'Message to show when countdown reaches zero',
       },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Campaign Countdowns',

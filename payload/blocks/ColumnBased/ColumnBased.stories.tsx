@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ColumnBasedBlock } from './Component';
 
 const meta: Meta<typeof ColumnBasedBlock> = {
-  title: 'Payload Blocks/ColumnBased',
+  title: 'Payload Blocks/Structure/ColumnBased',
   component: ColumnBasedBlock,
   parameters: {
     layout: 'fullscreen',

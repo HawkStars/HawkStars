@@ -1,6 +1,7 @@
 import type { Block } from 'payload';
 
 import { linkGroup } from '../../fields/linkGroup';
+import SectionID from '@/payload/fields/SectionID';
 
 export const CallToAction: Block = {
   slug: 'cta',
@@ -18,6 +19,7 @@ export const CallToAction: Block = {
         maxRows: 2,
       },
     }),
+    SectionID,
   ],
   labels: {
     plural: 'Calls to Action',

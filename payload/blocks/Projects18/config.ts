@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const Projects18Block: Block = {
@@ -34,6 +35,7 @@ export const Projects18Block: Block = {
         description: 'Select the projects you want to display in this block',
       },
     },
+    SectionID,
   ],
   labels: {
     singular: 'Projects18 Block',

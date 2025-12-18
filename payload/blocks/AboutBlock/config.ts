@@ -1,4 +1,5 @@
 import { PayloadImageField } from '@/payload/fields/ImageType';
+import SectionID from '@/payload/fields/SectionID';
 import { Block } from 'payload';
 
 const AboutBlock: Block = {
@@ -16,6 +17,7 @@ const AboutBlock: Block = {
       name: 'description',
       type: 'textarea',
     },
+    SectionID,
     PayloadImageField({ label: 'Image' }),
   ],
 };

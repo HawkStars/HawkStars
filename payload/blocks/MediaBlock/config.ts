@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const MediaBlock: Block = {
@@ -10,5 +11,6 @@ export const MediaBlock: Block = {
       relationTo: 'media',
       required: true,
     },
+    SectionID,
   ],
 };

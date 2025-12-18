@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const HeroWithBackgroundImage: Block = {
@@ -79,6 +80,7 @@ export const HeroWithBackgroundImage: Block = {
         description: 'Text alignment',
       },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Hero with Background Image Sections',

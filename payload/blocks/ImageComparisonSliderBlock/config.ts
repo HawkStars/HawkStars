@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const ImageComparisonSliderBlock: Block = {
@@ -36,6 +37,7 @@ export const ImageComparisonSliderBlock: Block = {
       type: 'text',
       defaultValue: 'After',
     },
+    SectionID,
   ],
   labels: {
     plural: 'Image Comparison Sliders',

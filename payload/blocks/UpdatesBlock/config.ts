@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const UpdatesBlock: Block = {
@@ -51,6 +52,7 @@ export const UpdatesBlock: Block = {
       ],
       admin: { description: 'Latest updates for the tabbed section' },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Updates Blocks',

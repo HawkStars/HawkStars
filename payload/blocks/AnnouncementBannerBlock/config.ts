@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const AnnouncementBannerBlock: Block = {
@@ -33,6 +34,7 @@ export const AnnouncementBannerBlock: Block = {
       type: 'checkbox',
       defaultValue: true,
     },
+    SectionID,
   ],
   labels: {
     plural: 'Announcement Banners',

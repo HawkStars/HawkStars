@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const QuoteHighlightBlock: Block = {
@@ -33,6 +34,7 @@ export const QuoteHighlightBlock: Block = {
       ],
       defaultValue: 'centered',
     },
+    SectionID,
   ],
   labels: {
     plural: 'Quote Highlights',

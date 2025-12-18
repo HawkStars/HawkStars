@@ -26,7 +26,7 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
   };
 
   return (
-    <section className='relative min-h-[600px] w-full lg:min-h-[700px]'>
+    <section className='relative min-h-150 w-full lg:min-h-175'>
       {/* Background Image */}
       {bgImage && bgImage.url && (
         <div
@@ -44,7 +44,7 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
       />
 
       {/* Content */}
-      <div className='relative z-10 container mx-auto flex min-h-[600px] flex-col justify-center px-4 py-32 lg:min-h-[700px]'>
+      <div className='relative z-10 container mx-auto flex min-h-150 flex-col justify-center px-4 py-32 lg:min-h-[700px]'>
         <div
           className={cn(
             'flex max-w-4xl flex-col gap-6',

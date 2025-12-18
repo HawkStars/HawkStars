@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const SocialProofBlock: Block = {
@@ -35,6 +36,7 @@ export const SocialProofBlock: Block = {
       ],
       defaultValue: 'white',
     },
+    SectionID,
   ],
   labels: {
     plural: 'Social Proof Blocks',

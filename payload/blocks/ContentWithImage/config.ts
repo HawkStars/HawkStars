@@ -6,6 +6,7 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical';
+import SectionID from '@/payload/fields/SectionID';
 
 export const ContentWithImage: Block = {
   slug: 'contentWithImage',
@@ -54,6 +55,7 @@ export const ContentWithImage: Block = {
         description: 'Position of the image relative to the content',
       },
     },
+    SectionID,
   ],
   labels: {
     plural: 'Content with Image Blocks',

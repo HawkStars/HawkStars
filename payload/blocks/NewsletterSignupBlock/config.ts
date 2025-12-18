@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const NewsletterSignupBlock: Block = {
@@ -41,6 +42,7 @@ export const NewsletterSignupBlock: Block = {
       ],
       defaultValue: 'light',
     },
+    SectionID,
   ],
   labels: {
     plural: 'Newsletter Signups',

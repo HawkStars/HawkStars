@@ -1,3 +1,4 @@
+import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
 export const StatsBlock: Block = {
@@ -134,6 +135,7 @@ export const StatsBlock: Block = {
         },
       ],
     },
+    SectionID,
   ],
   labels: {
     plural: 'Stats Blocks',

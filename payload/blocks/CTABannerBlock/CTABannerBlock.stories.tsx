@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { CTABannerBlock } from './Component';
 
 const meta: Meta<typeof CTABannerBlock> = {
-  title: 'Payload Blocks/CTABannerBlock',
+  title: 'Payload Blocks/Main Block/CTABannerBlock',
   component: CTABannerBlock,
   parameters: {
     layout: 'fullscreen',
