@@ -9,7 +9,7 @@ import { cloudinaryAdapter } from '@/lib/cloudinary/adapter';
 import { v2 as cloudinary } from 'cloudinary';
 
 const generateTitle: GenerateTitle<Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template';
+  return doc?.title || 'Payload Website Template';
 };
 
 const generateURL: GenerateURL<Page> = ({ doc }) => {
@@ -22,17 +22,15 @@ export const plugins: Plugin[] = [
   seoPlugin({
     generateTitle,
     generateURL,
+    generateDescription: ({ doc }) => doc?.description || 'A website built with Payload CMS',
+    generateImage: ({ doc }) => doc?.image || null,
   }),
   cloudStoragePlugin({
     collections: {
       media: {
         adapter: cloudinaryAdapter,
-
         disableLocalStorage: true, // Prevent Payload from saving files to disk
-
-        generateFileURL: ({ filename }) => {
-          return cloudinary.url(`media/${filename}`, { secure: true });
-        },
+        generateFileURL: ({ filename }) => cloudinary.url(`media/${filename}`, { secure: true }),
       },
     },
   }),

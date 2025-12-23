@@ -53,6 +53,9 @@ import './richtext.scss';
 import { ColumnBasedBlock } from '@/payload/blocks/ColumnBased/Component';
 import { SimpleCTABlockComponent } from '@/payload/blocks/SimpleCTA/SimpleCTAComponent';
 import { SideBySideComparison } from '@/payload/blocks/ImageComparisonBlock/Component';
+import List from '../utils/list';
+import ListItem from '../utils/listItem';
+import Paragraph from '../utils/paragraph';
 
 type NodeTypes =
   | DefaultNodeTypes
@@ -122,6 +125,9 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       <GlobalVillageAboutSectionBlockComponent {...node.fields} />
     ),
   },
+  list: List,
+  listitem: ListItem,
+  paragraph: Paragraph,
 });
 
 export type RichTextProps = {

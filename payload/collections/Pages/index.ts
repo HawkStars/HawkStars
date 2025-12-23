@@ -20,9 +20,6 @@ export const Pages: CollectionConfig<'pages'> = {
     read: () => true,
     update: authenticated,
   },
-  // This config controls what's populated by default when a page is referenced
-  // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
-  // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'pages'>
   defaultPopulate: {
     title: true,
     slug: true,
@@ -86,19 +83,34 @@ export const Pages: CollectionConfig<'pages'> = {
               descriptionPath: 'meta.description',
               imagePath: 'meta.image',
             }),
+
             MetaTitleField({
               hasGenerateFn: true,
-            }),
-            MetaImageField({
-              relationTo: 'media',
+              overrides: {
+                maxLength: 60,
+              },
             }),
 
-            MetaDescriptionField({}),
+            MetaImageField({
+              relationTo: 'media',
+              hasGenerateFn: true,
+              overrides: {
+                admin: {
+                  description: 'Recommended size: 1200x630 pixels',
+                },
+              },
+            }),
+
+            MetaDescriptionField({
+              hasGenerateFn: true,
+              overrides: {
+                maxLength: 160,
+              },
+            }),
+
             PreviewField({
               // if the `generateUrl` function is configured
               hasGenerateFn: true,
-
-              // field paths to match the target field for data
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
             }),

@@ -377,7 +377,7 @@ export interface Page {
   meta?: {
     title?: string | null;
     /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     * Recommended size: 1200x630 pixels
      */
     image?: (string | null) | Media;
     description?: string | null;
