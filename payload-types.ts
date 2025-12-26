@@ -99,6 +99,7 @@ export interface Config {
     mediaBlock: MediaBlock;
     hero: HeroBlock;
     heroWithBackgroundImage: HeroWithBackgroundImageBlock;
+    heroSlideshowBlock: HeroSlideshowBlock;
     heroImpactStats: HeroImpactStatsBlock;
     contentWithImage: ContentWithImageBlock;
     videoBlock: VideoBlock;
@@ -107,6 +108,7 @@ export interface Config {
     impactBlock: ImpactBlock;
     cardGridBlock: CardGridBlock;
     testimonialBlock: TestimonialBlock;
+    projectTestimonialBlock: ProjectTestimonialBlock;
     statsBlock: StatsBlock;
     textBlock: TextBlock;
     simpleCta: SimpleCTABlock;
@@ -308,6 +310,7 @@ export interface Page {
         | MediaBlock
         | HeroBlock
         | HeroWithBackgroundImageBlock
+        | HeroSlideshowBlock
         | HeroImpactStatsBlock
         | ContentWithImageBlock
         | VideoBlock
@@ -316,6 +319,7 @@ export interface Page {
         | ImpactBlock
         | CardGridBlock
         | TestimonialBlock
+        | ProjectTestimonialBlock
         | StatsBlock
         | TextBlock
         | SimpleCTABlock
@@ -558,6 +562,70 @@ export interface HeroWithBackgroundImageBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroWithBackgroundImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroSlideshowBlock".
+ */
+export interface HeroSlideshowBlock {
+  slides: {
+    /**
+     * Background image for this slide
+     */
+    backgroundImage: string | Media;
+    /**
+     * Main heading text for this slide
+     */
+    title?: string | null;
+    /**
+     * Subtitle or description text for this slide
+     */
+    subtitle?: string | null;
+    /**
+     * Call-to-action button text
+     */
+    ctaText?: string | null;
+    /**
+     * URL for the CTA button
+     */
+    ctaLink?: string | null;
+    id?: string | null;
+  }[];
+  /**
+   * Overlay darkness for all slides (0-100%)
+   */
+  overlayOpacity?: number | null;
+  /**
+   * Text alignment for all slides
+   */
+  textAlignment?: ('left' | 'center' | 'right') | null;
+  /**
+   * Automatically cycle through slides
+   */
+  autoplay?: boolean | null;
+  /**
+   * Time between slides in milliseconds (only if autoplay is enabled)
+   */
+  autoplayInterval?: number | null;
+  /**
+   * Show previous/next arrows
+   */
+  showNavigation?: boolean | null;
+  /**
+   * Show navigation dots
+   */
+  showDots?: boolean | null;
+  /**
+   * Height of the hero section
+   */
+  height?: ('fullscreen' | 'large' | 'medium' | 'small') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroSlideshowBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -937,6 +1005,85 @@ export interface TestimonialBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonialBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectTestimonialBlock".
+ */
+export interface ProjectTestimonialBlock {
+  /**
+   * Optional section title
+   */
+  title?: string | null;
+  /**
+   * Optional section subtitle
+   */
+  subtitle?: string | null;
+  author: {
+    /**
+     * Profile image of the person giving the testimonial
+     */
+    profileImage: string | Media;
+    /**
+     * Author full name
+     */
+    name: string;
+    /**
+     * Author role or position
+     */
+    role?: string | null;
+    /**
+     * Company or organization
+     */
+    organization?: string | null;
+  };
+  /**
+   * The testimonial quote or review text
+   */
+  testimonial: string;
+  /**
+   * Images showing the project group or related visuals
+   */
+  projectMedia: {
+    /**
+     * How to display project images
+     */
+    displayMode?: ('single' | 'slideshow') | null;
+    images: {
+      /**
+       * Project group image
+       */
+      image: string | Media;
+      /**
+       * Optional caption for this image
+       */
+      caption?: string | null;
+      id?: string | null;
+    }[];
+    /**
+     * Automatically cycle through images (slideshow mode only)
+     */
+    autoplay?: boolean | null;
+    /**
+     * Time between slides in milliseconds
+     */
+    autoplayInterval?: number | null;
+  };
+  /**
+   * Position of the project images relative to the testimonial
+   */
+  layout?: ('imageLeft' | 'imageRight') | null;
+  /**
+   * Background color for the section
+   */
+  backgroundColor?: ('none' | 'light' | 'dark' | 'brand') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'projectTestimonialBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2562,6 +2709,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         hero?: T | HeroBlockSelect<T>;
         heroWithBackgroundImage?: T | HeroWithBackgroundImageBlockSelect<T>;
+        heroSlideshowBlock?: T | HeroSlideshowBlockSelect<T>;
         heroImpactStats?: T | HeroImpactStatsBlockSelect<T>;
         contentWithImage?: T | ContentWithImageBlockSelect<T>;
         videoBlock?: T | VideoBlockSelect<T>;
@@ -2570,6 +2718,7 @@ export interface PagesSelect<T extends boolean = true> {
         impactBlock?: T | ImpactBlockSelect<T>;
         cardGridBlock?: T | CardGridBlockSelect<T>;
         testimonialBlock?: T | TestimonialBlockSelect<T>;
+        projectTestimonialBlock?: T | ProjectTestimonialBlockSelect<T>;
         statsBlock?: T | StatsBlockSelect<T>;
         textBlock?: T | TextBlockSelect<T>;
         simpleCta?: T | SimpleCTABlockSelect<T>;
@@ -2737,6 +2886,32 @@ export interface HeroWithBackgroundImageBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroSlideshowBlock_select".
+ */
+export interface HeroSlideshowBlockSelect<T extends boolean = true> {
+  slides?:
+    | T
+    | {
+        backgroundImage?: T;
+        title?: T;
+        subtitle?: T;
+        ctaText?: T;
+        ctaLink?: T;
+        id?: T;
+      };
+  overlayOpacity?: T;
+  textAlignment?: T;
+  autoplay?: T;
+  autoplayInterval?: T;
+  showNavigation?: T;
+  showDots?: T;
+  height?: T;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HeroImpactStatsBlock_select".
  */
 export interface HeroImpactStatsBlockSelect<T extends boolean = true> {
@@ -2894,6 +3069,42 @@ export interface TestimonialBlockSelect<T extends boolean = true> {
   layout?: T;
   style?: T;
   showRatings?: T;
+  backgroundColor?: T;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectTestimonialBlock_select".
+ */
+export interface ProjectTestimonialBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  author?:
+    | T
+    | {
+        profileImage?: T;
+        name?: T;
+        role?: T;
+        organization?: T;
+      };
+  testimonial?: T;
+  projectMedia?:
+    | T
+    | {
+        displayMode?: T;
+        images?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              id?: T;
+            };
+        autoplay?: T;
+        autoplayInterval?: T;
+      };
+  layout?: T;
   backgroundColor?: T;
   sectionId?: T;
   id?: T;

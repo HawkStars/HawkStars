@@ -7,7 +7,9 @@ import { GlobalVillageAboutSectionBlock } from './GlobalVillageAboutSection/conf
 import { GlobalVillageBannerBlock } from './GlobalVillageBanner/config';
 import { Hero } from './Hero/config';
 import { HeroWithBackgroundImage } from './HeroWithBackgroundImage/config';
+import { HeroSlideshowBlock } from './HeroSlideshowBlock/config';
 import { HeroImpactStats } from './HeroImpactStats/config';
+import { ProjectTestimonialBlock } from './ProjectTestimonialBlock/config';
 import { ImageComparisonBlock } from './ImageComparisonBlock/config';
 import { ImpactBlock } from './ImpactBlock/config';
 import { LogosBlock } from './LogosBlock/config';
@@ -49,6 +51,7 @@ const currentBlocks = [
   MediaBlock,
   Hero,
   HeroWithBackgroundImage,
+  HeroSlideshowBlock,
   HeroImpactStats,
   ContentWithImage,
   VideoBlock,
@@ -57,6 +60,7 @@ const currentBlocks = [
   ImpactBlock,
   CardGridBlock,
   TestimonialBlock,
+  ProjectTestimonialBlock,
   StatsBlock,
   TextBlock,
   SimpleCTABlock,
