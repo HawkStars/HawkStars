@@ -138,6 +138,7 @@ export interface Config {
     teamGrid: TeamGridBlock;
     timeline: TimelineBlock;
     volunteerCallout: VolunteerCalloutBlock;
+    multiRowImage: MultiRowImage;
   };
   collections: {
     users: User;
@@ -376,6 +377,25 @@ export interface Page {
         | TeamGridBlock
         | TimelineBlock
         | VolunteerCalloutBlock
+        | {
+            rows: {
+              images: {
+                image: string | Media;
+                alt?: string | null;
+                id?: string | null;
+              }[];
+              id?: string | null;
+            }[];
+            rowGap?: number | null;
+            imageGap?: number | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'multiRowImage';
+          }
       )[]
     | null;
   meta?: {
@@ -569,10 +589,7 @@ export interface HeroWithBackgroundImageBlock {
  */
 export interface HeroSlideshowBlock {
   slides: {
-    /**
-     * Background image for this slide
-     */
-    backgroundImage: string | Media;
+    backgroundImage: ImageType;
     /**
      * Main heading text for this slide
      */
@@ -626,6 +643,25 @@ export interface HeroSlideshowBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroSlideshowBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageType".
+ */
+export interface ImageType {
+  /**
+   * Select whether to use an external image URL or upload an image/media file.
+   */
+  imageType: 'external' | 'upload';
+  /**
+   * Upload an image or media file.
+   */
+  image?: (string | null) | Media;
+  /**
+   * Provide the URL for the external image.
+   */
+  externalImage?: string | null;
+  alt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1309,25 +1345,6 @@ export interface LogosBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'logosBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageType".
- */
-export interface ImageType {
-  /**
-   * Select whether to use an external image URL or upload an image/media file.
-   */
-  imageType: 'external' | 'upload';
-  /**
-   * Upload an image or media file.
-   */
-  image?: (string | null) | Media;
-  /**
-   * Provide the URL for the external image.
-   */
-  externalImage?: string | null;
-  alt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2073,6 +2090,29 @@ export interface AboutBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "multiRowImage".
+ */
+export interface MultiRowImage {
+  rows: {
+    images: {
+      image: string | Media;
+      alt?: string | null;
+      id?: string | null;
+    }[];
+    id?: string | null;
+  }[];
+  rowGap?: number | null;
+  imageGap?: number | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'multiRowImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -2768,6 +2808,27 @@ export interface PagesSelect<T extends boolean = true> {
         teamGrid?: T | TeamGridBlockSelect<T>;
         timeline?: T | TimelineBlockSelect<T>;
         volunteerCallout?: T | VolunteerCalloutBlockSelect<T>;
+        multiRowImage?:
+          | T
+          | {
+              rows?:
+                | T
+                | {
+                    images?:
+                      | T
+                      | {
+                          image?: T;
+                          alt?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              rowGap?: T;
+              imageGap?: T;
+              sectionId?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   meta?:
     | T
@@ -2892,7 +2953,7 @@ export interface HeroSlideshowBlockSelect<T extends boolean = true> {
   slides?:
     | T
     | {
-        backgroundImage?: T;
+        backgroundImage?: T | ImageTypeSelect<T>;
         title?: T;
         subtitle?: T;
         ctaText?: T;
@@ -2909,6 +2970,16 @@ export interface HeroSlideshowBlockSelect<T extends boolean = true> {
   sectionId?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageType_select".
+ */
+export interface ImageTypeSelect<T extends boolean = true> {
+  imageType?: T;
+  image?: T;
+  externalImage?: T;
+  alt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3232,16 +3303,6 @@ export interface LogosBlockSelect<T extends boolean = true> {
   sectionId?: T;
   id?: T;
   blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageType_select".
- */
-export interface ImageTypeSelect<T extends boolean = true> {
-  imageType?: T;
-  image?: T;
-  externalImage?: T;
-  alt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

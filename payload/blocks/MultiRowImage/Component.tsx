@@ -1,16 +1,18 @@
 'use client';
 
+import { Media } from '@/payload-types';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import React from 'react';
 
 export interface MultiRowImageBlockProps {
   rows: Array<{
-    images: Array<{
-      image: string | { url: string }; // URL or media object
-      alt?: string;
-      className?: string;
-    }>;
+    images: {
+      image: string | Media;
+      alt?: string | null;
+      id?: string | null;
+      className: string;
+    }[];
     className?: string;
   }>;
   rowGap?: number;
@@ -33,7 +35,7 @@ const MultiRowImage: React.FC<MultiRowImageBlockProps> = ({ rows, rowGap = 24, i
                     width={200}
                     height={200}
                     className='size-full rounded-[2.5rem] object-cover'
-                    src={typeof img.image === 'string' ? img.image : img.image?.url}
+                    src={typeof img.image === 'string' ? img.image : img.image?.url || ''}
                     alt={img.alt || ''}
                   />
                 </BlurVignette>

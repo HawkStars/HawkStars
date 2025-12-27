@@ -1,3 +1,4 @@
+import { PayloadImageField } from '@/payload/fields/ImageType';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
@@ -15,15 +16,7 @@ export const HeroSlideshowBlock: Block = {
         plural: 'Slides',
       },
       fields: [
-        {
-          name: 'backgroundImage',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-          admin: {
-            description: 'Background image for this slide',
-          },
-        },
+        PayloadImageField({ name: 'backgroundImage', label: 'Background Image' }),
         {
           name: 'title',
           type: 'textarea',

@@ -1,16 +1,19 @@
-/* eslint-disable */
-// TODO: fix the linter
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import type { HeroSlideshowBlock as HeroSlideshowBlockProps, Media } from '@/payload-types';
+import type {
+  HeroSlideshowBlock as HeroSlideshowBlockProps,
+  ImageType,
+  Media,
+} from '@/payload-types';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { getImagePayloadUrl } from '@/lib/image';
 
 type Slide = {
-  backgroundImage: string | Media;
+  backgroundImage: ImageType;
   title?: string | null;
   subtitle?: string | null;
   ctaText?: string | null;
@@ -19,6 +22,8 @@ type Slide = {
 };
 
 const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   if (!data) return null;
 
   const {
@@ -32,8 +37,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
     height = 'large',
   } = data;
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  if (!slides || slides.length === 0) return null;
 
   const heightClasses = {
     fullscreen: 'min-h-screen',
@@ -73,8 +77,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
     return () => clearInterval(interval);
   }, [autoplay, autoplayInterval, nextSlide, slides.length]);
 
-  if (!slides || slides.length === 0) return null;
-
+  debugger;
   return (
     <section
       className={cn(
@@ -84,8 +87,9 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
     >
       {/* Slides */}
       {slides.map((slide: Slide, index: number) => {
-        const bgImage =
-          typeof slide.backgroundImage === 'string' ? null : (slide.backgroundImage as Media);
+        const bgImageInfo =
+          typeof slide.backgroundImage === 'string' ? null : (slide.backgroundImage as ImageType);
+        const bgImage = bgImageInfo && getImagePayloadUrl(bgImageInfo);
 
         return (
           <div

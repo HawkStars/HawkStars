@@ -61,11 +61,13 @@ export const Default: Story = {
     slides: [
       {
         id: 'slide-1',
-        backgroundImage: createMediaObject(
-          '1',
-          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&crop=center',
-          'Mountain landscape'
-        ),
+        backgroundImage: {
+          externalImage:
+            'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&crop=center',
+          image: null,
+          imageType: 'external' as const,
+          alt: 'Mountain landscape',
+        },
         title: 'Welcome to Our Mission',
         subtitle:
           'Join us in creating lasting positive change in communities around the world through sustainable development.',
@@ -74,11 +76,13 @@ export const Default: Story = {
       },
       {
         id: 'slide-2',
-        backgroundImage: createMediaObject(
-          '2',
-          'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&h=1080&fit=crop&crop=center',
-          'Community working together'
-        ),
+        backgroundImage: {
+          externalImage:
+            'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&h=1080&fit=crop&crop=center',
+          image: null,
+          imageType: 'external' as const,
+          alt: 'Community working together',
+        },
         title: 'Building Stronger Communities',
         subtitle: 'Empowering local leaders through community-centered initiatives.',
         ctaText: 'Join Our Network',
@@ -86,11 +90,13 @@ export const Default: Story = {
       },
       {
         id: 'slide-3',
-        backgroundImage: createMediaObject(
-          '3',
-          'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&h=1080&fit=crop&crop=center',
-          'Volunteers helping'
-        ),
+        backgroundImage: {
+          externalImage:
+            'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&h=1080&fit=crop&crop=center',
+          image: null,
+          imageType: 'external' as const,
+          alt: 'Volunteers helping',
+        },
         title: 'Make a Real Difference',
         subtitle: 'Your contribution creates immediate impact in communities that need it most.',
         ctaText: 'Donate Now',
@@ -202,11 +208,14 @@ export const SingleSlide: Story = {
     slides: [
       {
         id: 'slide-1',
-        backgroundImage: createMediaObject(
-          '1',
-          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&crop=center',
-          'Mountain landscape'
-        ),
+        backgroundImage: {
+          externalImage:
+            'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&crop=center',
+          image: null,
+          imageType: 'external' as const,
+          alt: 'Mountain landscape',
+        },
+
         title: 'Single Slide Hero',
         subtitle: 'This hero has only one slide, so navigation is hidden.',
         ctaText: 'Learn More',
@@ -231,11 +240,13 @@ export const ManySlides: Story = {
     slides: [
       {
         id: 'slide-1',
-        backgroundImage: createMediaObject(
-          '1',
-          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&crop=center',
-          'Mountains'
-        ),
+        backgroundImage: {
+          externalImage:
+            'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&crop=center',
+          image: null,
+          imageType: 'external' as const,
+          alt: 'Mountains',
+        },
         title: 'Slide One',
         subtitle: 'First of many slides',
         ctaText: 'Explore',
@@ -243,11 +254,13 @@ export const ManySlides: Story = {
       },
       {
         id: 'slide-2',
-        backgroundImage: createMediaObject(
-          '2',
-          'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&h=1080&fit=crop&crop=center',
-          'Community'
-        ),
+        backgroundImage: {
+          externalImage:
+            'https://images.unsplash.com/photo-1559027615-cd4628905-cd4628902d4a?w=1920&h=1080&fit=crop&crop=center',
+          image: null,
+          imageType: 'external' as const,
+          alt: 'Community',
+        },
         title: 'Slide Two',
         subtitle: 'Second slide',
         ctaText: 'Discover',
@@ -255,11 +268,13 @@ export const ManySlides: Story = {
       },
       {
         id: 'slide-3',
-        backgroundImage: createMediaObject(
-          '3',
-          'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&h=1080&fit=crop&crop=center',
-          'Volunteers'
-        ),
+        backgroundImage: {
+          externalImage:
+            'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&h=1080&fit=crop&crop=center',
+          image: null,
+          imageType: 'external' as const,
+          alt: 'Volunteers',
+        },
         title: 'Slide Three',
         subtitle: 'Third slide',
         ctaText: 'Join',
@@ -267,11 +282,13 @@ export const ManySlides: Story = {
       },
       {
         id: 'slide-4',
-        backgroundImage: createMediaObject(
-          '4',
-          'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&h=1080&fit=crop&crop=center',
-          'Forest'
-        ),
+        backgroundImage: {
+          externalImage:
+            'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&h=1080&fit=crop&crop=center',
+          image: null,
+          imageType: 'external' as const,
+          alt: 'Forest',
+        },
         title: 'Slide Four',
         subtitle: 'Fourth slide',
         ctaText: 'Learn',
@@ -279,11 +296,13 @@ export const ManySlides: Story = {
       },
       {
         id: 'slide-5',
-        backgroundImage: createMediaObject(
-          '5',
-          'https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1920&h=1080&fit=crop&crop=center',
-          'City'
-        ),
+        backgroundImage: {
+          externalImage:
+            'https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1920&h=1080&fit=crop&crop=center',
+          image: null,
+          imageType: 'external' as const,
+          alt: 'City',
+        },
         title: 'Slide Five',
         subtitle: 'Fifth slide',
         ctaText: 'Connect',
@@ -308,21 +327,25 @@ export const NoCTA: Story = {
     slides: [
       {
         id: 'slide-1',
-        backgroundImage: createMediaObject(
-          '1',
-          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&crop=center',
-          'Mountain landscape'
-        ),
+        backgroundImage: {
+          externalImage:
+            'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&crop=center',
+          image: null,
+          imageType: 'external' as const,
+          alt: 'Mountain landscape',
+        },
         title: 'Content Without Actions',
         subtitle: 'Sometimes you just want to display information without a call to action.',
       },
       {
         id: 'slide-2',
-        backgroundImage: createMediaObject(
-          '2',
-          'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&h=1080&fit=crop&crop=center',
-          'Community'
-        ),
+        backgroundImage: {
+          externalImage:
+            'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&h=1080&fit=crop&crop=center',
+          image: null,
+          imageType: 'external' as const,
+          alt: 'Community',
+        },
         title: 'Pure Visual Storytelling',
         subtitle: 'Let the images and text speak for themselves.',
       },

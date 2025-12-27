@@ -44,6 +44,7 @@ import { SocialProofBlock } from './SocialProofBlock/config';
 import { TeamGridBlock } from './TeamGridBlock/config';
 import { TimelineBlock } from './TimelineBlock/config';
 import { VolunteerCalloutBlock } from './VolunteerCalloutBlock/config';
+import MultiRowImage from './MultiRowImage/config';
 
 const currentBlocks = [
   CallToAction,
@@ -90,6 +91,7 @@ const currentBlocks = [
   TeamGridBlock,
   TimelineBlock,
   VolunteerCalloutBlock,
+  MultiRowImage,
 ];
 
 export default currentBlocks;

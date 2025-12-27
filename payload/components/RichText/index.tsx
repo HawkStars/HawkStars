@@ -45,6 +45,8 @@ import type {
   ImageComparison as ImageComparisonProps,
   AboutBlock as AboutBlockProps,
   GlobalVillageAboutSectionBlock as GlobalVillageAboutSectionBlockProps,
+  HeroSlideshowBlock as HeroSlideshowBlockProps,
+  MultiRowImage as MultiRowImageProps,
 } from '@/payload-types';
 
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
@@ -56,6 +58,8 @@ import { SideBySideComparison } from '@/payload/blocks/ImageComparisonBlock/Comp
 import List from '../utils/list';
 import ListItem from '../utils/listItem';
 import Paragraph from '../utils/paragraph';
+import { HeroSlideshowBlock } from '@/payload/blocks/HeroSlideshowBlock/Component';
+import MultiRowImage from '@/payload/blocks/MultiRowImage/Component';
 
 type NodeTypes =
   | DefaultNodeTypes
@@ -79,6 +83,8 @@ type NodeTypes =
       | ImageComparisonProps
       | AboutBlockProps
       | GlobalVillageAboutSectionBlockProps
+      | HeroSlideshowBlockProps
+      | MultiRowImageProps
     >;
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -107,6 +113,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
     hero: ({ node }) => <HeroBlock {...node.fields} />,
     heroWithBackgroundImage: ({ node }) => <HeroWithBackgroundImageBlock {...node.fields} />,
+    heroSlideshowBlock: ({ node }) => <HeroSlideshowBlock {...node.fields} />,
     heroImpactStats: ({ node }) => <HeroImpactStatsBlock {...node.fields} />,
     contentWithImage: ({ node }) => <ContentWithImageBlock {...node.fields} />,
     videoBlock: ({ node }) => <VideoBlock {...node.fields} />,
@@ -124,6 +131,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     globalVillageAboutSection: ({ node }) => (
       <GlobalVillageAboutSectionBlockComponent {...node.fields} />
     ),
+    multiRowImage: ({ node }) => <MultiRowImage {...node.fields} />,
   },
   list: List,
   listitem: ListItem,

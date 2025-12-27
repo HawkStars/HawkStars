@@ -10,6 +10,8 @@ export const Media: CollectionConfig = {
     staticDir: 'media',
     mimeTypes: ['image/*'],
     disableLocalStorage: true,
+    bulkUpload: true,
+    displayPreview: true,
   },
   fields: [
     {
