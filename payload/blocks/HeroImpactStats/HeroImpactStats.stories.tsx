@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { HeroImpactStatsBlock } from './Component';
 
 const meta: Meta<typeof HeroImpactStatsBlock> = {
-  title: 'Payload Blocks/Hero/Community Impact',
+  title: 'Hero/Community Impact',
   component: HeroImpactStatsBlock,
   parameters: {
     layout: 'fullscreen',
@@ -85,7 +85,7 @@ export const Default: Story = {
 
 export const MinimalImpact: Story = {
   parameters: {
-    title: 'Payload Blocks/HeroImpactStats/Marketing',
+    title: 'Hero/HeroImpactStats/Marketing',
   },
   args: {
     title: 'Our Growing Impact',
@@ -114,7 +114,7 @@ export const MinimalImpact: Story = {
 
 export const FinancialTransparency: Story = {
   parameters: {
-    title: 'Payload Blocks/HeroImpactStats/Financial Transparency',
+    title: 'Hero/HeroImpactStats/Financial Transparency',
   },
   args: {
     badge: 'TRANSPARENCY',
@@ -156,7 +156,7 @@ export const FinancialTransparency: Story = {
 
 export const CommunityDevelopment: Story = {
   parameters: {
-    title: 'Payload Blocks/HeroImpactStats/Community Development',
+    title: 'Hero/HeroImpactStats/Community Development',
   },
   args: {
     badge: 'COMMUNITY',
@@ -213,7 +213,7 @@ export const CommunityDevelopment: Story = {
 
 export const VolunteerRecruitment: Story = {
   parameters: {
-    title: 'Payload Blocks/HeroImpactStats/Volunteer Recruitment',
+    title: 'Hero/HeroImpactStats/Volunteer Recruitment',
   },
   args: {
     badge: 'GET INVOLVED',

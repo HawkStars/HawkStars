@@ -3,11 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import type {
-  HeroSlideshowBlock as HeroSlideshowBlockProps,
-  ImageType,
-  Media,
-} from '@/payload-types';
+import type { HeroSlideshowBlock as HeroSlideshowBlockProps, ImageType } from '@/payload-types';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
@@ -21,10 +17,22 @@ type Slide = {
   id?: string | null;
 };
 
+const heightClasses = {
+  fullscreen: 'min-h-screen',
+  large: 'min-h-[700px]',
+  medium: 'min-h-[500px]',
+  small: 'min-h-[400px]',
+} as const;
+
+const alignmentClasses = {
+  left: 'text-left items-start',
+  center: 'text-center items-center',
+  right: 'text-right items-end',
+} as const;
+
 const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  if (!data) return null;
 
   const {
     slides = [],
@@ -35,22 +43,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
     showNavigation = true,
     showDots = true,
     height = 'large',
-  } = data;
-
-  if (!slides || slides.length === 0) return null;
-
-  const heightClasses = {
-    fullscreen: 'min-h-screen',
-    large: 'min-h-[700px]',
-    medium: 'min-h-[500px]',
-    small: 'min-h-[400px]',
-  };
-
-  const alignmentClasses = {
-    left: 'text-left items-start',
-    center: 'text-center items-center',
-    right: 'text-right items-end',
-  };
+  } = data || {};
 
   const goToSlide = useCallback(
     (index: number) => {
@@ -63,21 +56,22 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
   );
 
   const nextSlide = useCallback(() => {
-    goToSlide((currentSlide + 1) % slides.length);
-  }, [currentSlide, slides.length, goToSlide]);
+    goToSlide((currentSlide + 1) % (slides?.length || 1));
+  }, [currentSlide, slides?.length, goToSlide]);
 
   const prevSlide = useCallback(() => {
-    goToSlide((currentSlide - 1 + slides.length) % slides.length);
-  }, [currentSlide, slides.length, goToSlide]);
+    goToSlide((currentSlide - 1 + (slides?.length || 1)) % (slides?.length || 1));
+  }, [currentSlide, slides?.length, goToSlide]);
 
   useEffect(() => {
-    if (!autoplay || slides.length <= 1) return;
+    if (!autoplay || !slides || slides.length <= 1) return;
 
     const interval = setInterval(nextSlide, autoplayInterval || 1000);
     return () => clearInterval(interval);
-  }, [autoplay, autoplayInterval, nextSlide, slides.length]);
+  }, [autoplay, autoplayInterval, nextSlide, slides]);
 
-  debugger;
+  if (!data || !slides || slides.length === 0) return null;
+
   return (
     <section
       className={cn(

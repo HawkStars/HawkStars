@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DonationProgressBlock } from './Component';
 
 const meta: Meta<typeof DonationProgressBlock> = {
-  title: 'Payload Blocks/DonationProgressBlock',
+  title: 'Extra/DonationProgressBlock',
   component: DonationProgressBlock,
   parameters: {
     layout: 'fullscreen',

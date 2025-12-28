@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ResourceDownloadBlock } from './Component';
 
 const meta: Meta<typeof ResourceDownloadBlock> = {
-  title: 'Payload Blocks/ResourceDownloadBlock',
+  title: 'Cards/Resource Download Block',
   component: ResourceDownloadBlock,
   parameters: {
     layout: 'fullscreen',

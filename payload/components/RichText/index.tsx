@@ -10,7 +10,6 @@ import { GlobalVillageAboutSectionBlockComponent } from '@/payload/blocks/Global
 import { CardGridBlock } from '@/payload/blocks/CardGridBlock/Component';
 import { TestimonialBlock } from '@/payload/blocks/TestimonialBlock/Component';
 import { StatsBlock } from '@/payload/blocks/StatsBlock/Component';
-import { TextBlock } from '@/payload/blocks/TextBlock/Component';
 import { Projects18Block } from '@/payload/blocks/Projects18/Component';
 import { ProcessOneBlock } from '@/payload/blocks/ProcessOneBlock/ProcessOneBlockComponent';
 import {
@@ -46,7 +45,7 @@ import type {
   AboutBlock as AboutBlockProps,
   GlobalVillageAboutSectionBlock as GlobalVillageAboutSectionBlockProps,
   HeroSlideshowBlock as HeroSlideshowBlockProps,
-  MultiRowImage as MultiRowImageProps,
+  MultiRowImageBlock as MultiRowImageProps,
 } from '@/payload-types';
 
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
@@ -123,7 +122,6 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     cardGridBlock: ({ node }) => <CardGridBlock {...node.fields} />,
     testimonialBlock: ({ node }) => <TestimonialBlock {...node.fields} />,
     statsBlock: ({ node }) => <StatsBlock {...node.fields} />,
-    textBlock: ({ node }) => <TextBlock {...node.fields} />,
     columnBased: ({ node }) => <ColumnBasedBlock {...node.fields} />,
     simpleCta: ({ node }) => <SimpleCTABlockComponent {...node.fields} />,
     imageComparison: ({ node }) => <SideBySideComparison {...node.fields} />,

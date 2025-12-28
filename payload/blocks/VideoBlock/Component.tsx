@@ -90,7 +90,7 @@ export const VideoBlock: React.FC<Props> = (props) => {
   return (
     <div
       className={cn(
-        'my-8',
+        'mx-auto my-8',
         {
           container: enableGutter,
         },

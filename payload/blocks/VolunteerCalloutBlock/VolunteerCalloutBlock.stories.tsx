@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { VolunteerCalloutBlock } from './Component';
 
 const meta: Meta<typeof VolunteerCalloutBlock> = {
-  title: 'Payload Blocks/VolunteerCalloutBlock',
+  title: 'Section/Volunteer Callout Block',
   component: VolunteerCalloutBlock,
   parameters: {
     layout: 'fullscreen',

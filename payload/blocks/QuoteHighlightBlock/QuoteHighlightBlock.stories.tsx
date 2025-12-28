@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { QuoteHighlightBlock } from './Component';
 
 const meta: Meta<typeof QuoteHighlightBlock> = {
-  title: 'Payload Blocks/QuoteHighlightBlock',
+  title: 'Section/QuoteHighlightBlock',
   component: QuoteHighlightBlock,
   parameters: {
     layout: 'fullscreen',

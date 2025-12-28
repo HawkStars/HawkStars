@@ -9,7 +9,7 @@ const getImagePayloadUrl = (info: ImageType) => {
 
   return {
     url: imageInfo?.url || '',
-    alt: imageInfo.alt || '',
+    alt: info.alt || imageInfo.alt || '',
     width: imageInfo.width,
     height: imageInfo.height,
   };

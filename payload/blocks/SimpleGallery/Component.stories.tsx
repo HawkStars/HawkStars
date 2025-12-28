@@ -18,8 +18,8 @@ const sampleImages: SimpleGalleryBlockProps['images'] = [
   },
 ];
 
-export default {
-  title: 'Blocks/Images/Simple Gallery',
+const Gallery = {
+  title: 'Media/Simple Gallery',
   component: SimpleGallery,
 };
 
@@ -34,3 +34,5 @@ const Default = () => (
 );
 
 export { Default };
+
+export default Gallery;

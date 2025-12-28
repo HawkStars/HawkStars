@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { LogosBlock } from './Component';
 
 const meta: Meta<typeof LogosBlock> = {
-  title: 'Payload Blocks/LogosBlock',
+  title: 'Media/Logos',
   component: LogosBlock,
   parameters: {
     layout: 'fullscreen',

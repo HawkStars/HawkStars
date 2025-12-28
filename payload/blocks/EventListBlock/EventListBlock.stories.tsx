@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { EventListBlock } from './Component';
 
 const meta: Meta<typeof EventListBlock> = {
-  title: 'Payload Blocks/EventListBlock',
+  title: 'Extra/EventListBlock',
   component: EventListBlock,
   parameters: {
     layout: 'fullscreen',

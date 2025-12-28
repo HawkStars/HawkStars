@@ -12,7 +12,7 @@ export const LogosBlock: React.FC<LogosBlockType> = ({
 }) => {
   return (
     <section className='py-32'>
-      <div className='container'>
+      <div className='container mx-auto'>
         <div className='text-center'>
           {badgeText && <Badge variant='outline'>{badgeText}</Badge>}
           {heading && (

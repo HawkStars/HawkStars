@@ -3,7 +3,7 @@ import { Projects18Block } from './Component';
 import { HawkProject } from '@/payload-types';
 
 const meta: Meta<typeof Projects18Block> = {
-  title: 'Payload Blocks/Projects18',
+  title: 'Extra/Projects18',
   component: Projects18Block,
   parameters: {
     layout: 'fullscreen',

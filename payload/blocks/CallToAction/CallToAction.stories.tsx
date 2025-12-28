@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { CallToActionBlock } from './Component';
 
 const meta: Meta<typeof CallToActionBlock> = {
-  title: 'Payload Blocks/CallToAction/Globe',
+  title: 'Call To Action/Globe',
   component: CallToActionBlock,
   parameters: {
     layout: 'fullscreen',

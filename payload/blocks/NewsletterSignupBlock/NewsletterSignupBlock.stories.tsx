@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { NewsletterSignupBlock } from './Component';
 
 const meta: Meta<typeof NewsletterSignupBlock> = {
-  title: 'Payload Blocks/NewsletterSignupBlock',
+  title: 'Extra/NewsletterSignupBlock',
   component: NewsletterSignupBlock,
   parameters: {
     layout: 'fullscreen',

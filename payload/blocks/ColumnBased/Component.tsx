@@ -50,7 +50,7 @@ export const ColumnBasedBlock: React.FC<ColumnBasedProps> = ({ columns }) => {
   };
 
   return (
-    <div className='container'>
+    <div className='container mx-auto'>
       <div className={cn('grid gap-6 md:gap-8', getGridClasses())}>
         {columns.map((column, index) => {
           // Dynamically get the icon component

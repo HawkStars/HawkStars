@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { MapLocationBlock } from './Component';
 
 const meta: Meta<typeof MapLocationBlock> = {
-  title: 'Payload Blocks/MapLocationBlock',
+  title: 'Maps/MapLocationBlock',
   component: MapLocationBlock,
   parameters: {
     layout: 'fullscreen',

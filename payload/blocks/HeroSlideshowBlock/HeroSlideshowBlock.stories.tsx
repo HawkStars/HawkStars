@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { HeroSlideshowBlock } from './Component';
 
 const meta: Meta<typeof HeroSlideshowBlock> = {
-  title: 'Payload Blocks/Hero/Slideshow',
+  title: 'Hero/Slideshow',
   component: HeroSlideshowBlock,
   parameters: {
     layout: 'fullscreen',
@@ -42,19 +42,6 @@ const meta: Meta<typeof HeroSlideshowBlock> = {
 
 export default meta;
 type Story = StoryObj<typeof HeroSlideshowBlock>;
-
-const createMediaObject = (id: string, url: string, alt: string) => ({
-  id,
-  alt,
-  url,
-  filename: `slide-${id}.jpg`,
-  mimeType: 'image/jpeg' as const,
-  filesize: 500000,
-  width: 1920,
-  height: 1080,
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
-});
 
 export const Default: Story = {
   args: {

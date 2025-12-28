@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { MediaBlock } from './Component';
 
 const meta: Meta<typeof MediaBlock> = {
-  title: 'Payload Blocks/Media/ImageBlock',
+  title: 'Media/Image Block',
   component: MediaBlock,
   parameters: {
     layout: 'fullscreen',

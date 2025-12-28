@@ -1,47 +1,98 @@
 'use client';
 
-import { Media } from '@/payload-types';
-import { motion } from 'framer-motion';
+import { getImagePayloadUrl } from '@/lib/image';
+import { cn } from '@/lib/utils';
+import { MultiRowImageBlock } from '@/payload-types';
 import Image from 'next/image';
 import React from 'react';
 
-export interface MultiRowImageBlockProps {
-  rows: Array<{
-    images: {
-      image: string | Media;
-      alt?: string | null;
-      id?: string | null;
-      className: string;
-    }[];
-    className?: string;
-  }>;
-  rowGap?: number;
-  imageGap?: number;
-}
+const gridColumn = {
+  2: 'grid-cols-2',
+  3: 'grid-cols-3',
+  4: 'grid-cols-4',
+  5: 'grid-cols-5',
+  6: 'grid-cols-6',
+  7: 'grid-cols-7',
+  8: 'grid-cols-8',
+  9: 'grid-cols-9',
+  10: 'grid-cols-10',
+  11: 'grid-cols-11',
+  12: 'grid-cols-12',
+};
 
-const MultiRowImage: React.FC<MultiRowImageBlockProps> = ({ rows, rowGap = 24, imageGap = 16 }) => {
+const rowSpan = {
+  1: 'row-span-1',
+  2: 'row-span-2',
+  3: 'row-span-3',
+  4: 'row-span-4',
+  5: 'row-span-5',
+  6: 'row-span-6',
+  7: 'row-span-7',
+  8: 'row-span-8',
+  9: 'row-span-9',
+  10: 'row-span-10',
+  11: 'row-span-11',
+  12: 'row-span-12',
+} as const;
+
+const colSpan = {
+  1: 'col-span-1',
+  2: 'col-span-2',
+  3: 'col-span-3',
+  4: 'col-span-4',
+  5: 'col-span-5',
+  6: 'col-span-6',
+  7: 'col-span-7',
+  8: 'col-span-8',
+  9: 'col-span-9',
+  10: 'col-span-10',
+  11: 'col-span-11',
+  12: 'col-span-12',
+} as const;
+
+const MultiRowImage: React.FC<MultiRowImageBlock> = ({
+  rows,
+  rowGap = 24,
+  columnGap = 16,
+  sectionId,
+  numberColumns,
+}) => {
+  const rowInfo = rows && rows[0];
+  if (!rowInfo) return null;
   return (
-    <section className='py-32'>
-      <div className='relative container'>
-        <div className='grid' style={{ rowGap: `${rowGap}px` }}>
-          {rows.map((row, rowIdx) => (
-            <div key={rowIdx} className='grid grid-cols-5' style={{ columnGap: `${imageGap}px` }}>
-              {row.images.map((img, imgIdx) => (
-                <BlurVignette
-                  key={imgIdx}
-                  className={img.className || 'col-span-1 h-82 rounded-[2.5rem]'}
-                >
-                  <Image
-                    width={200}
-                    height={200}
-                    className='size-full rounded-[2.5rem] object-cover'
-                    src={typeof img.image === 'string' ? img.image : img.image?.url || ''}
-                    alt={img.alt || ''}
-                  />
-                </BlurVignette>
-              ))}
-            </div>
-          ))}
+    <section className='py-32' id={sectionId || undefined}>
+      <div className='relative container mx-auto'>
+        <div
+          className={cn(`grid grid-flow-dense`, {
+            [gridColumn[numberColumns]]: numberColumns !== undefined,
+          })}
+          style={{
+            rowGap: `${rowGap}px`,
+            columnGap: `${columnGap}px`,
+          }}
+        >
+          {rowInfo.images.map((img, imgIdx) => {
+            const { image, column_size, row_size } = img;
+            const imgInfo = getImagePayloadUrl(image);
+            if (!imgInfo?.url) return null;
+
+            return (
+              <div
+                className={cn(`relative aspect-video h-full w-full grow`, {
+                  [colSpan[column_size]]: column_size,
+                  [rowSpan[row_size]]: row_size,
+                })}
+                key={img.id || imgIdx}
+              >
+                <Image
+                  className={cn('absolute rounded-2xl object-cover')}
+                  src={imgInfo.url}
+                  fill
+                  alt={imgInfo.alt || `Multi Row Image -${imgIdx + 1}`}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -49,96 +100,3 @@ const MultiRowImage: React.FC<MultiRowImageBlockProps> = ({ rows, rowGap = 24, i
 };
 
 export default MultiRowImage;
-
-interface BlurVignetteProps {
-  children: React.ReactNode;
-  className?: string;
-  radius?: string;
-  inset?: string;
-  transitionLength?: string;
-  blur?: string;
-}
-
-const BlurVignette = ({
-  children,
-  className = '',
-  radius = '24px',
-  inset = '16px',
-  transitionLength = '32px',
-  blur = '21px',
-}: BlurVignetteProps) => {
-  return (
-    <motion.div
-      initial={{
-        opacity: 0,
-        scale: 0.9,
-        y: -50,
-      }}
-      whileInView={{
-        opacity: 1,
-        scale: 1,
-        y: 0,
-      }}
-      viewport={{ once: true, amount: 0.2 }}
-      className={`group relative cursor-pointer overflow-hidden ${className}`}
-    >
-      <style>
-        {`
-          .blur-vignette {
-            --radius: ${radius};
-            --inset: ${inset};
-            --transition-length: ${transitionLength};
-            --blur: ${blur};
-            position: absolute;
-            inset: 0;
-            -webkit-backdrop-filter: blur(var(--blur));
-            backdrop-filter: blur(var(--blur));
-            --r: max(var(--transition-length), calc(var(--radius) - var(--inset)));
-            --corner-size: calc(var(--r) + var(--inset)) calc(var(--r) + var(--inset));
-            --corner-gradient: transparent 0px,
-              transparent calc(var(--r) - var(--transition-length)), 
-              black var(--r);
-            --fill-gradient: black, 
-              black var(--inset),
-              transparent calc(var(--inset) + var(--transition-length)),
-              transparent calc(100% - var(--transition-length) - var(--inset)),
-              black calc(100% - var(--inset));
-            --fill-narrow-size: calc(100% - (var(--inset) + var(--r)) * 2);
-            --fill-farther-position: calc(var(--inset) + var(--r));
-            -webkit-mask-image: linear-gradient(to right, var(--fill-gradient)),
-              linear-gradient(to bottom, var(--fill-gradient)),
-              radial-gradient(at bottom right, var(--corner-gradient)),
-              radial-gradient(at bottom left, var(--corner-gradient)),
-              radial-gradient(at top left, var(--corner-gradient)),
-              radial-gradient(at top right, var(--corner-gradient));
-            -webkit-mask-size: 100% var(--fill-narrow-size), 
-              var(--fill-narrow-size) 100%,
-              var(--corner-size), 
-              var(--corner-size), 
-              var(--corner-size),
-              var(--corner-size);
-            -webkit-mask-position: 0 var(--fill-farther-position), 
-              var(--fill-farther-position) 0,
-              0 0, 
-              100% 0, 
-              100% 100%, 
-              0 100%;
-            -webkit-mask-repeat: no-repeat;
-            opacity: 0;
-            transition: opacity 0.3s ease;    
-        }
-
-        .blur-vignette.active {
-        opacity: 1;
-        }
-
-        .group:hover .blur-vignette {
-        opacity: 0;
-        }
-        `}
-      </style>
-      <div className='blur-vignette active' />
-      {children}
-    </motion.div>
-  );
-};

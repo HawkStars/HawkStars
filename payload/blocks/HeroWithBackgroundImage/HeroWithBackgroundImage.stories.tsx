@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { HeroWithBackgroundImageBlock } from './Component';
 
 const meta: Meta<typeof HeroWithBackgroundImageBlock> = {
-  title: 'Payload Blocks/Hero/Background Image',
+  title: 'Hero/Background Image',
   component: HeroWithBackgroundImageBlock,
   parameters: {
     layout: 'fullscreen',
@@ -67,7 +67,7 @@ export const Default: Story = {
 
 export const CommunityBuilding: Story = {
   parameters: {
-    title: 'Payload Blocks/HeroWithBackgroundImage/Community Building',
+    title: 'Hero/HeroWithBackgroundImage/Community Building',
   },
   args: {
     backgroundImage: {
@@ -99,7 +99,7 @@ export const CommunityBuilding: Story = {
 
 export const DonationCampaign: Story = {
   parameters: {
-    title: 'Payload Blocks/HeroWithBackgroundImage/Donation Campaign',
+    title: 'Hero/HeroWithBackgroundImage/Donation Campaign',
   },
   args: {
     backgroundImage: {
@@ -131,7 +131,7 @@ export const DonationCampaign: Story = {
 
 export const BrightBackground: Story = {
   parameters: {
-    title: 'Payload Blocks/HeroWithBackgroundImage/Overlay Styles',
+    title: 'Hero/HeroWithBackgroundImage/Overlay Styles',
   },
   args: {
     backgroundImage: {
@@ -160,7 +160,7 @@ export const BrightBackground: Story = {
 
 export const UrbanDevelopment: Story = {
   parameters: {
-    title: 'Payload Blocks/HeroWithBackgroundImage/Urban Development',
+    title: 'Hero/HeroWithBackgroundImage/Urban Development',
   },
   args: {
     backgroundImage: {
@@ -192,7 +192,7 @@ export const UrbanDevelopment: Story = {
 
 export const UnityCampaign: Story = {
   parameters: {
-    title: 'Payload Blocks/HeroWithBackgroundImage/Unity Campaign',
+    title: 'Hero/HeroWithBackgroundImage/Unity Campaign',
   },
   args: {
     backgroundImage: {
@@ -222,7 +222,7 @@ export const UnityCampaign: Story = {
 
 export const MinimalistDesign: Story = {
   parameters: {
-    title: 'Payload Blocks/HeroWithBackgroundImage/Minimalist Design',
+    title: 'Hero/HeroWithBackgroundImage/Minimalist Design',
   },
   args: {
     backgroundImage: {

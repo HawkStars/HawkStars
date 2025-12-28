@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { MilestoneTrackerBlock } from './Component';
 
 const meta: Meta<typeof MilestoneTrackerBlock> = {
-  title: 'Payload Blocks/MilestoneTrackerBlock',
+  title: 'Extra/MilestoneTrackerBlock',
   component: MilestoneTrackerBlock,
   parameters: {
     layout: 'fullscreen',

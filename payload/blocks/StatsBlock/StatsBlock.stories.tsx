@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { StatsBlock } from './Component';
 
 const meta: Meta<typeof StatsBlock> = {
-  title: 'Payload Blocks/StatsBlock',
+  title: 'Extra/StatsBlock',
   component: StatsBlock,
   parameters: {
     layout: 'fullscreen',

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { GlobalVillageBannerBlockComponent as GlobalVillageBannerBlock } from './Component';
 
 const meta: Meta<typeof GlobalVillageBannerBlock> = {
-  title: 'Payload Blocks/GlobalVillageBanner',
+  title: 'Banner/GlobalVillageBanner',
   component: GlobalVillageBannerBlock,
   parameters: {
     layout: 'fullscreen',

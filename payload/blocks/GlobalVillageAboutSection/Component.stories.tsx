@@ -4,7 +4,7 @@ import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import { GlobalVillageAboutSectionBlockComponent as GlobalVillageAboutSectionBlock } from './Component';
 
 const meta: Meta<typeof GlobalVillageAboutSectionBlock> = {
-  title: 'Payload Blocks/GlobalVillageAboutSection',
+  title: 'Section/GlobalVillageAboutSection',
   component: GlobalVillageAboutSectionBlock,
   parameters: {
     layout: 'fullscreen',

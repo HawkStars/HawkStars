@@ -23,7 +23,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
   return (
     <div
       className={cn(
-        '',
+        'mx-auto',
         {
           container: enableGutter,
         },

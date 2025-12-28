@@ -2,7 +2,7 @@ import { SideBySideComparison } from './Component';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof SideBySideComparison> = {
-  title: 'Payload Blocks/ImageBlocks/ImageComparisonBlock',
+  title: 'Media/Image Comparison Block V1',
   component: SideBySideComparison,
 };
 

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ProcessOneBlock } from './ProcessOneBlockComponent';
 
 const meta: Meta<typeof ProcessOneBlock> = {
-  title: 'Payload Blocks/ProcessOneBlock',
+  title: 'Extra/ProcessOneBlock',
   component: ProcessOneBlock,
   parameters: {
     layout: 'fullscreen',

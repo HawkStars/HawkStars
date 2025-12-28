@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TeamGridBlock } from './Component';
 
 const meta: Meta<typeof TeamGridBlock> = {
-  title: 'Payload Blocks/Cards/TeamGridBlock',
+  title: 'Cards/TeamGridBlock',
   component: TeamGridBlock,
   parameters: {
     layout: 'fullscreen',

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { FeatureComparisonBlock } from './Component';
 
 const meta: Meta<typeof FeatureComparisonBlock> = {
-  title: 'Payload Blocks/FeatureComparisonBlock',
+  title: 'Extra/FeatureComparisonBlock',
   component: FeatureComparisonBlock,
   parameters: {
     layout: 'fullscreen',

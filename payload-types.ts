@@ -8,6 +8,22 @@
 
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "multiRowContent".
+ */
+export type MultiRowContent = {
+  image: ImageType;
+  /**
+   * Select the size of the image based on the grid columns. 1 to 6 columns.
+   */
+  column_size: '1' | '2' | '3' | '4' | '5' | '6';
+  /**
+   * Select the size of the image based on the grid rows. 1 to 6 rows.
+   */
+  row_size: '1' | '2' | '3' | '4' | '5' | '6';
+  id?: string | null;
+}[];
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DropdownNavLink".
  */
 export type DropdownNavLink =
@@ -138,7 +154,7 @@ export interface Config {
     teamGrid: TeamGridBlock;
     timeline: TimelineBlock;
     volunteerCallout: VolunteerCalloutBlock;
-    multiRowImage: MultiRowImage;
+    multiRowImage: MultiRowImageBlock;
   };
   collections: {
     users: User;
@@ -377,25 +393,7 @@ export interface Page {
         | TeamGridBlock
         | TimelineBlock
         | VolunteerCalloutBlock
-        | {
-            rows: {
-              images: {
-                image: string | Media;
-                alt?: string | null;
-                id?: string | null;
-              }[];
-              id?: string | null;
-            }[];
-            rowGap?: number | null;
-            imageGap?: number | null;
-            /**
-             * Unique identifier for the section (used for anchor links)
-             */
-            sectionId?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'multiRowImage';
-          }
+        | MultiRowImageBlock
       )[]
     | null;
   meta?: {
@@ -2053,6 +2051,29 @@ export interface VolunteerCalloutBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MultiRowImageBlock".
+ */
+export interface MultiRowImageBlock {
+  rows: {
+    images: MultiRowContent;
+    id?: string | null;
+  }[];
+  rowGap?: number | null;
+  columnGap?: number | null;
+  /**
+   * Number of columns in the grid. Dividing the screen width in x columns.
+   */
+  numberColumns: '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'multiRowImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "imageComparison".
  */
 export interface ImageComparison {
@@ -2087,29 +2108,6 @@ export interface AboutBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'aboutBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "multiRowImage".
- */
-export interface MultiRowImage {
-  rows: {
-    images: {
-      image: string | Media;
-      alt?: string | null;
-      id?: string | null;
-    }[];
-    id?: string | null;
-  }[];
-  rowGap?: number | null;
-  imageGap?: number | null;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'multiRowImage';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2808,27 +2806,7 @@ export interface PagesSelect<T extends boolean = true> {
         teamGrid?: T | TeamGridBlockSelect<T>;
         timeline?: T | TimelineBlockSelect<T>;
         volunteerCallout?: T | VolunteerCalloutBlockSelect<T>;
-        multiRowImage?:
-          | T
-          | {
-              rows?:
-                | T
-                | {
-                    images?:
-                      | T
-                      | {
-                          image?: T;
-                          alt?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                  };
-              rowGap?: T;
-              imageGap?: T;
-              sectionId?: T;
-              id?: T;
-              blockName?: T;
-            };
+        multiRowImage?: T | MultiRowImageBlockSelect<T>;
       };
   meta?:
     | T
@@ -3737,6 +3715,34 @@ export interface VolunteerCalloutBlockSelect<T extends boolean = true> {
   sectionId?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MultiRowImageBlock_select".
+ */
+export interface MultiRowImageBlockSelect<T extends boolean = true> {
+  rows?:
+    | T
+    | {
+        images?: T | MultiRowContentSelect<T>;
+        id?: T;
+      };
+  rowGap?: T;
+  columnGap?: T;
+  numberColumns?: T;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "multiRowContent_select".
+ */
+export interface MultiRowContentSelect<T extends boolean = true> {
+  image?: T | ImageTypeSelect<T>;
+  column_size?: T;
+  row_size?: T;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -19,7 +19,6 @@ import { Projects18Block } from './Projects18/config';
 import { SimpleCTABlock } from './SimpleCTA/config';
 import { StatsBlock } from './StatsBlock/config';
 import { TestimonialBlock } from './TestimonialBlock/config';
-import { TextBlock } from './TextBlock/config';
 import { UpdatesBlock } from './UpdatesBlock/config';
 import { VideoBlock } from './VideoBlock/config';
 
@@ -63,7 +62,6 @@ const currentBlocks = [
   TestimonialBlock,
   ProjectTestimonialBlock,
   StatsBlock,
-  TextBlock,
   SimpleCTABlock,
   UpdatesBlock,
   LogosBlock,

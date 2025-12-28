@@ -4,6 +4,8 @@ import { Award, Heart } from 'lucide-react';
 import type { DonorWallBlock as DonorWallBlockProps, Media } from '@/payload-types';
 import { cn } from '@/lib/utils';
 
+const levelOrder = { platinum: 1, gold: 2, silver: 3, bronze: 4, supporter: 5 } as const;
+
 export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
   title,
   subtitle,
@@ -12,8 +14,6 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
   showAmounts = false,
   sortBy = 'level',
 }) => {
-  const levelOrder = { platinum: 1, gold: 2, silver: 3, bronze: 4, supporter: 5 };
-
   const sortedDonors = useMemo(() => {
     if (!donors || donors.length === 0) return [];
 
@@ -32,7 +32,7 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
     }
 
     return sorted;
-  }, [donors, sortBy, levelOrder]);
+  }, [donors, sortBy]);
 
   const levelColors = {
     platinum: 'from-gray-400 to-gray-200',

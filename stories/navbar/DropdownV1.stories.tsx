@@ -3,7 +3,7 @@ import type { ImageIcon } from '@/payload-types';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'Layout/Navigation/DropdownV1',
+  title: 'Header/DropdownV1',
   component: DesktopDropdownV1,
   parameters: {
     layout: 'centered',
@@ -21,7 +21,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div className='min-w-[600px] rounded-lg border bg-white p-4 shadow-lg'>
+      <div className='min-w-150 rounded-lg border bg-white p-4 shadow-lg'>
         <Story />
       </div>
     ),

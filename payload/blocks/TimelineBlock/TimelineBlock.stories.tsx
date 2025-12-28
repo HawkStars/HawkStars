@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TimelineBlock } from './Component';
 
 const meta: Meta<typeof TimelineBlock> = {
-  title: 'Payload Blocks/TimelineBlock',
+  title: 'Extra/TimelineBlock',
   component: TimelineBlock,
   parameters: {
     layout: 'fullscreen',

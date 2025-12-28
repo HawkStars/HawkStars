@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TestimonialBlock } from './Component';
 
 const meta: Meta<typeof TestimonialBlock> = {
-  title: 'Payload Blocks/Cards/TestimonialBlock',
+  title: 'Cards/TestimonialBlock',
   component: TestimonialBlock,
   parameters: {
     layout: 'fullscreen',

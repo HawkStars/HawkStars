@@ -3,7 +3,7 @@ import { ImageComparisonSliderBlock } from './Component';
 import { Media } from '@/payload-types';
 
 const meta: Meta<typeof ImageComparisonSliderBlock> = {
-  title: 'Payload Blocks/ImageComparisonSliderBlock',
+  title: 'Media/Image Comparison Slider Block V2',
   component: ImageComparisonSliderBlock,
   parameters: {
     layout: 'fullscreen',

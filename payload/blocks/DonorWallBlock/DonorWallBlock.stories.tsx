@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DonorWallBlock } from './Component';
 
 const meta: Meta<typeof DonorWallBlock> = {
-  title: 'Payload Blocks/Cards/DonorWallBlock',
+  title: 'Cards/DonorWallBlock',
   component: DonorWallBlock,
   parameters: {
     layout: 'fullscreen',

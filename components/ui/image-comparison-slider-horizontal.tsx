@@ -84,7 +84,7 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
         document.removeEventListener('touchend', handleInteractionEnd);
         document.body.style.cursor = '';
       };
-    }, [isDragging]);
+    }, [isDragging, handleMouseMove, handleTouchMove]);
 
     return (
       <div

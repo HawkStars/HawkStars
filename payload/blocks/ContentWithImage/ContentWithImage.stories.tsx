@@ -3,7 +3,7 @@ import { ContentWithImageBlock } from './Component';
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
 const meta: Meta<typeof ContentWithImageBlock> = {
-  title: 'Payload Blocks/Main Block/ContentWithImage',
+  title: 'Main Block/Content With Image',
   component: ContentWithImageBlock,
   parameters: {
     layout: 'fullscreen',
