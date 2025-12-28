@@ -13,7 +13,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
   const isImageLeft = imagePosition === 'left';
 
   return (
-    <div className='container mx-auto'>
+    <div className='container mx-auto py-52'>
       <div className='grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12'>
         {/* Image Section */}
         <div className={cn('w-full', isImageLeft ? 'lg:order-2' : 'lg:order-1')}>

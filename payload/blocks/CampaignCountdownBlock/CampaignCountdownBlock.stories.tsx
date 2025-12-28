@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { CampaignCountdownBlock } from './Component';
 
 const meta: Meta<typeof CampaignCountdownBlock> = {
-  title: 'Main Block/CampaignCountdownBlock',
+  title: 'Section/CampaignCountdownBlock',
   component: CampaignCountdownBlock,
   parameters: {
     layout: 'fullscreen',

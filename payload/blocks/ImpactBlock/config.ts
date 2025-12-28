@@ -1,3 +1,4 @@
+import { icons } from 'lucide-react';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
@@ -62,10 +63,19 @@ export const ImpactBlock: Block = {
         },
         {
           name: 'icon',
-          type: 'text',
+          type: 'select',
+          label: 'Icon (SVG)',
           admin: {
-            description: 'Lucide icon name (e.g., "Users", "Heart", "Target")',
+            description: 'Full list at https://lucide.dev/icons/ ',
+            components: {
+              Field: '@/payload/fields/ImageIcon/components/Field',
+            },
           },
+          options: Object.keys(icons).map((iconKey) => ({
+            label: iconKey,
+            value: iconKey,
+          })),
+          defaultValue: 'Star',
         },
         {
           name: 'color',

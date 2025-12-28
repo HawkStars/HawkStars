@@ -34,7 +34,6 @@ import type {
   VideoBlock as VideoBlockProps,
   StatsBlock as StatsBlockProps,
   TestimonialBlock as TestimonialBlockProps,
-  TextBlock as TextBlockProps,
   Projects18Block as Projects18BlockProps,
   ProcessOneBlock as ProcessOneBlockProps,
   ImpactBlock as ImpactBlockProps,
@@ -46,6 +45,7 @@ import type {
   GlobalVillageAboutSectionBlock as GlobalVillageAboutSectionBlockProps,
   HeroSlideshowBlock as HeroSlideshowBlockProps,
   MultiRowImageBlock as MultiRowImageProps,
+  TitleDescriptionBlock as TitleDescriptionBlockProps,
 } from '@/payload-types';
 
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
@@ -59,6 +59,7 @@ import ListItem from '../utils/listItem';
 import Paragraph from '../utils/paragraph';
 import { HeroSlideshowBlock } from '@/payload/blocks/HeroSlideshowBlock/Component';
 import MultiRowImage from '@/payload/blocks/MultiRowImage/Component';
+import { TitleDescriptionBlock } from '@/payload/blocks/TitleDescriptionBlock/Component';
 
 type NodeTypes =
   | DefaultNodeTypes
@@ -72,7 +73,6 @@ type NodeTypes =
       | VideoBlockProps
       | TestimonialBlockProps
       | StatsBlockProps
-      | TextBlockProps
       | Projects18BlockProps
       | ProcessOneBlockProps
       | ImpactBlockProps
@@ -84,6 +84,7 @@ type NodeTypes =
       | GlobalVillageAboutSectionBlockProps
       | HeroSlideshowBlockProps
       | MultiRowImageProps
+      | TitleDescriptionBlockProps
     >;
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -130,6 +131,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       <GlobalVillageAboutSectionBlockComponent {...node.fields} />
     ),
     multiRowImage: ({ node }) => <MultiRowImage {...node.fields} />,
+    titleDescriptionBlock: ({ node }) => <TitleDescriptionBlock {...node.fields} />,
   },
   list: List,
   listitem: ListItem,

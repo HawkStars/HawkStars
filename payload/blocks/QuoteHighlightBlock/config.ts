@@ -1,3 +1,4 @@
+import { PayloadImageField } from '@/payload/fields/ImageType';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
@@ -19,11 +20,7 @@ export const QuoteHighlightBlock: Block = {
       name: 'authorTitle',
       type: 'text',
     },
-    {
-      name: 'authorPhoto',
-      type: 'upload',
-      relationTo: 'media',
-    },
+    PayloadImageField({ label: 'Author Photo', name: 'authorPhoto', required: false }),
     {
       name: 'style',
       type: 'select',

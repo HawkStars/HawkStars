@@ -44,6 +44,7 @@ import { TeamGridBlock } from './TeamGridBlock/config';
 import { TimelineBlock } from './TimelineBlock/config';
 import { VolunteerCalloutBlock } from './VolunteerCalloutBlock/config';
 import MultiRowImage from './MultiRowImage/config';
+import TitleDescriptionBlock from './TitleDescriptionBlock/config';
 
 const currentBlocks = [
   CallToAction,
@@ -90,6 +91,7 @@ const currentBlocks = [
   TimelineBlock,
   VolunteerCalloutBlock,
   MultiRowImage,
+  TitleDescriptionBlock,
 ];
 
 export default currentBlocks;

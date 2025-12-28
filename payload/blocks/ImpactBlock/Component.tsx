@@ -1,40 +1,10 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  Users,
-  Heart,
-  Target,
-  Award,
-  TrendingUp,
-  Globe,
-  Star,
-  CheckCircle,
-  DollarSign,
-  Calendar,
-  MapPin,
-  Zap,
-  type LucideIcon,
-} from 'lucide-react';
 
 import type { ImpactBlock as ImpactBlockProps } from '@/payload-types'; // Animated counter hook
 import { cn } from '@/lib/utils';
-
-// Icon mapping for common impact icons
-const iconMap: Record<string, LucideIcon> = {
-  Users,
-  Heart,
-  Target,
-  Award,
-  TrendingUp,
-  Globe,
-  Star,
-  CheckCircle,
-  DollarSign,
-  Calendar,
-  MapPin,
-  Zap,
-};
+import { getIcon } from '@/lib/icon';
 
 const useAnimatedCounter = (
   targetValue: number,
@@ -102,7 +72,7 @@ const MetricCard: React.FC<{
 
   type ColorClass = keyof typeof colorClasses;
 
-  const IconComponent = metric.icon ? iconMap[metric.icon] : null;
+  const IconComponent = getIcon(metric.icon);
 
   return (
     <div className='card-md card-hover-lg p-6 text-center transition-shadow duration-300'>
@@ -113,7 +83,7 @@ const MetricCard: React.FC<{
             colorClasses[(metric.color as ColorClass) || 'blue']
           )}
         >
-          <IconComponent className='h-6 w-6' />
+          {IconComponent}
         </div>
       )}
 

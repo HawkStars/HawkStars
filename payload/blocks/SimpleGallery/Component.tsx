@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import {
   Carousel,
   CarouselContent,
@@ -50,10 +49,11 @@ const SimpleGallery: React.FC<SimpleGalleryBlockProps> = ({
               }}
             >
               {images.map((img, index) => (
-                <CarouselItem key={index} className='basis-1/2'>
-                  <Image
+                <CarouselItem key={index} className='min-h-dvh basis-1/2'>
+                  <img
                     src={typeof img.image === 'string' ? img.image : img.image.url}
                     alt={img.alt || 'placeholder'}
+                    loading='lazy'
                     className='aspect-[3.8/5] w-full rounded-xl object-cover'
                   />
                 </CarouselItem>

@@ -4,6 +4,7 @@ import { Metadata } from 'next/types';
 
 import { Language, fallbackLng, languages } from '@/i18n/settings';
 import { HawkStarsPaths, urls } from './paths';
+import { Media } from '@/payload-types';
 
 export const defaultMetadata = {
   icons: {
@@ -22,6 +23,30 @@ const readMetadataLanguageFile = (lng: Language) => {
     console.error('Error reading metadata file for language:', lng, err);
     return undefined;
   }
+};
+
+const prepareMetadataInfo = ({
+  title,
+  description,
+}: {
+  title?: string | null;
+  description?: string | null;
+  image?: string | Media | null;
+}): Metadata => {
+  // TODO: missing the image
+  return {
+    title,
+    description,
+    icons: {
+      icon: 'public/images/logos/logo.webp',
+      shortcut: 'public/images/logos/logo.webp',
+    },
+    openGraph: {
+      title: title || '',
+      description: description || '',
+      siteName: 'Hawk Stars NGO',
+    },
+  };
 };
 
 const getMetadataPageInfo = (lng: Language, page: HawkStarsPaths): Metadata => {
@@ -76,4 +101,4 @@ const transformToMetadataObject = (
   } as Metadata;
 };
 
-export { getMetadataPageInfo };
+export { getMetadataPageInfo, prepareMetadataInfo };

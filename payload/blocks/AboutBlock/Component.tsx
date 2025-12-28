@@ -7,7 +7,7 @@ import { getImagePayloadUrl } from '@/lib/image';
 export const AboutBlock: React.FC<AboutBlockProps> = ({ title, description, imageField }) => {
   const imageData = getImagePayloadUrl(imageField);
   return (
-    <section className='py-32'>
+    <section className='mx-auto py-32'>
       {/* Hero Section */}
       <section className='relative container mx-auto max-w-5xl py-10 md:py-12 lg:py-15'>
         <div className=''>

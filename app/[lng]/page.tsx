@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getMetadataPageInfo } from '@/utils/metadata';
+import { getMetadataPageInfo, prepareMetadataInfo } from '@/utils/metadata';
 import { LanguagePageProps } from './types';
 import { Language } from '@/i18n/settings';
 import { hawkLogo } from '@/utils/models/images/logos';
@@ -12,6 +12,9 @@ export const revalidate = 7200; // 2 hours
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;
+  const pageInformation = await getMainPageInformation(lng as Language);
+  if (pageInformation && pageInformation.meta) return prepareMetadataInfo(pageInformation.meta);
+
   const metadataPage = getMetadataPageInfo(lng as Language, 'home');
   return metadataPage;
 }

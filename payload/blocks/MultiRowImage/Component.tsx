@@ -60,12 +60,10 @@ const MultiRowImage: React.FC<MultiRowImageBlock> = ({
   const rowInfo = rows && rows[0];
   if (!rowInfo) return null;
   return (
-    <section className='py-32' id={sectionId || undefined}>
+    <section className='pb-16' id={sectionId || undefined}>
       <div className='relative container mx-auto'>
         <div
-          className={cn(`grid grid-flow-dense`, {
-            [gridColumn[numberColumns]]: numberColumns !== undefined,
-          })}
+          className={cn(`grid grid-flow-dense lg:${gridColumn[numberColumns]}`)}
           style={{
             rowGap: `${rowGap}px`,
             columnGap: `${columnGap}px`,
@@ -78,10 +76,13 @@ const MultiRowImage: React.FC<MultiRowImageBlock> = ({
 
             return (
               <div
-                className={cn(`relative aspect-video h-full w-full grow`, {
-                  [colSpan[column_size]]: column_size,
-                  [rowSpan[row_size]]: row_size,
-                })}
+                className={cn(
+                  `relative aspect-video h-full w-full grow max-lg:col-span-1! max-lg:row-span-1!`,
+                  {
+                    [`${colSpan[column_size]}`]: column_size,
+                    [`${rowSpan[row_size]}`]: row_size,
+                  }
+                )}
                 key={img.id || imgIdx}
               >
                 <Image
