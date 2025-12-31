@@ -24,6 +24,42 @@ export type MultiRowContent = {
 }[];
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BentoGridItem".
+ */
+export type BentoGridItem = {
+  title: string;
+  description?: string | null;
+  backgroundImage?: ImageType;
+  /**
+   * Darkness of the overlay on the background image
+   */
+  overlayOpacity?: ('0' | '25' | '50' | '75' | '90') | null;
+  link: LinkField;
+  /**
+   * Select the width of the item based on grid columns (1 to 6)
+   */
+  column_size: '1' | '2' | '3' | '4' | '5' | '6';
+  /**
+   * Select the height of the item based on grid rows (1 to 6)
+   */
+  row_size: '1' | '2' | '3' | '4' | '5' | '6';
+  contentPosition?:
+    | (
+        | 'top-left'
+        | 'top-center'
+        | 'top-right'
+        | 'center-left'
+        | 'center'
+        | 'center-right'
+        | 'bottom-left'
+        | 'bottom-center'
+        | 'bottom-right'
+      )
+    | null;
+  id?: string | null;
+}[];
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DropdownNavLink".
  */
 export type DropdownNavLink =
@@ -155,6 +191,7 @@ export interface Config {
     volunteerCallout: VolunteerCalloutBlock;
     multiRowImage: MultiRowImageBlock;
     titleDescriptionBlock: TitleDescriptionBlock;
+    bentoGrid: BentoGridBlock;
   };
   collections: {
     users: User;
@@ -185,7 +222,9 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents':
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -394,6 +433,7 @@ export interface Page {
         | VolunteerCalloutBlock
         | MultiRowImageBlock
         | TitleDescriptionBlock
+        | BentoGridBlock
       )[]
     | null;
   meta?: {
@@ -3264,7 +3304,9 @@ export interface EventListBlock {
          */
         endDate?: string | null;
         location?: string | null;
-        category?: ('workshop' | 'meeting' | 'fundraiser' | 'social' | 'community' | 'youth') | null;
+        category?:
+          | ('workshop' | 'meeting' | 'fundraiser' | 'social' | 'community' | 'youth')
+          | null;
         image?: (string | null) | Media;
         /**
          * Link to registration or more info
@@ -3718,6 +3760,38 @@ export interface TitleDescriptionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'titleDescriptionBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BentoGridBlock".
+ */
+export interface BentoGridBlock {
+  /**
+   * Optional title displayed above the grid
+   */
+  sectionTitle?: string | null;
+  /**
+   * Optional description displayed below the section title
+   */
+  sectionDescription?: string | null;
+  items: BentoGridItem;
+  rowGap?: number | null;
+  columnGap?: number | null;
+  /**
+   * Number of columns in the grid. Dividing the screen width in x columns.
+   */
+  numberColumns: '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
+  /**
+   * Minimum height for each grid row
+   */
+  minRowHeight?: number | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bentoGrid';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4454,6 +4528,7 @@ export interface PagesSelect<T extends boolean = true> {
         volunteerCallout?: T | VolunteerCalloutBlockSelect<T>;
         multiRowImage?: T | MultiRowImageBlockSelect<T>;
         titleDescriptionBlock?: T | TitleDescriptionBlockSelect<T>;
+        bentoGrid?: T | BentoGridBlockSelect<T>;
       };
   meta?:
     | T
@@ -5389,6 +5464,37 @@ export interface TitleDescriptionBlockSelect<T extends boolean = true> {
   sectionId?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BentoGridBlock_select".
+ */
+export interface BentoGridBlockSelect<T extends boolean = true> {
+  sectionTitle?: T;
+  sectionDescription?: T;
+  items?: T | BentoGridItemSelect<T>;
+  rowGap?: T;
+  columnGap?: T;
+  numberColumns?: T;
+  minRowHeight?: T;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BentoGridItem_select".
+ */
+export interface BentoGridItemSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  backgroundImage?: T | ImageTypeSelect<T>;
+  overlayOpacity?: T;
+  link?: T | LinkFieldSelect<T>;
+  column_size?: T;
+  row_size?: T;
+  contentPosition?: T;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -7379,7 +7485,6 @@ export interface TaskSchedulePublish {
 export interface Auth {
   [k: string]: unknown;
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

@@ -11,13 +11,16 @@ export const PayloadImageField = ({
   label = 'Image Data',
   name = 'imageField',
   required = false,
-}: ImageTypeGroupProps) =>
+}: ImageTypeGroupProps): Field =>
   ({
     name: name,
     label: label,
     type: 'group',
     interfaceName: 'ImageType',
     required,
+    admin: {
+      description: 'Upload an image or provide an external image URL',
+    },
     fields: [
       ImageTypeField,
       UploadField,

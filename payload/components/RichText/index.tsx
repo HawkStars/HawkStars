@@ -12,46 +12,16 @@ import { TestimonialBlock } from '@/payload/blocks/TestimonialBlock/Component';
 import { StatsBlock } from '@/payload/blocks/StatsBlock/Component';
 import { Projects18Block } from '@/payload/blocks/Projects18/Component';
 import { ProcessOneBlock } from '@/payload/blocks/ProcessOneBlock/ProcessOneBlockComponent';
-import {
-  DefaultNodeTypes,
-  SerializedBlockNode,
-  SerializedLinkNode,
-  type DefaultTypedEditorState,
-} from '@payloadcms/richtext-lexical';
+import { SerializedLinkNode, type DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import {
   JSXConvertersFunction,
   LinkJSXConverter,
   RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react';
 
-import type {
-  CallToActionBlock as CTABlockProps,
-  MediaBlock as MediaBlockProps,
-  HeroBlock as HeroProps,
-  HeroWithBackgroundImageBlock as HeroWithBackgroundImageProps,
-  HeroImpactStatsBlock as HeroImpactStatsProps,
-  ContentWithImageBlock as ContentWithImageProps,
-  VideoBlock as VideoBlockProps,
-  StatsBlock as StatsBlockProps,
-  TestimonialBlock as TestimonialBlockProps,
-  Projects18Block as Projects18BlockProps,
-  ProcessOneBlock as ProcessOneBlockProps,
-  ImpactBlock as ImpactBlockProps,
-  CardGridBlock as CardGridBlockProps,
-  ColumnBasedBlock as ColumnBasedBlockProps,
-  SimpleCTABlock as SimpleCTABlockProps,
-  ImageComparison as ImageComparisonProps,
-  AboutBlock as AboutBlockProps,
-  GlobalVillageAboutSectionBlock as GlobalVillageAboutSectionBlockProps,
-  HeroSlideshowBlock as HeroSlideshowBlockProps,
-  MultiRowImageBlock as MultiRowImageProps,
-  TitleDescriptionBlock as TitleDescriptionBlockProps,
-} from '@/payload-types';
-
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
 import { cn } from '@/lib/utils';
 import './richtext.scss';
-import { ColumnBasedBlock } from '@/payload/blocks/ColumnBased/Component';
 import { SimpleCTABlockComponent } from '@/payload/blocks/SimpleCTA/SimpleCTAComponent';
 import { SideBySideComparison } from '@/payload/blocks/ImageComparisonBlock/Component';
 import List from '../utils/list';
@@ -60,32 +30,8 @@ import Paragraph from '../utils/paragraph';
 import { HeroSlideshowBlock } from '@/payload/blocks/HeroSlideshowBlock/Component';
 import MultiRowImage from '@/payload/blocks/MultiRowImage/Component';
 import { TitleDescriptionBlock } from '@/payload/blocks/TitleDescriptionBlock/Component';
-
-type NodeTypes =
-  | DefaultNodeTypes
-  | SerializedBlockNode<
-      | CTABlockProps
-      | MediaBlockProps
-      | HeroProps
-      | HeroWithBackgroundImageProps
-      | HeroImpactStatsProps
-      | ContentWithImageProps
-      | VideoBlockProps
-      | TestimonialBlockProps
-      | StatsBlockProps
-      | Projects18BlockProps
-      | ProcessOneBlockProps
-      | ImpactBlockProps
-      | CardGridBlockProps
-      | ColumnBasedBlockProps
-      | SimpleCTABlockProps
-      | ImageComparisonProps
-      | AboutBlockProps
-      | GlobalVillageAboutSectionBlockProps
-      | HeroSlideshowBlockProps
-      | MultiRowImageProps
-      | TitleDescriptionBlockProps
-    >;
+import { NodeTypes } from './config';
+import BentoGridBlock from '@/payload/blocks/BentoGridBlock/Component';
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -123,7 +69,6 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     cardGridBlock: ({ node }) => <CardGridBlock {...node.fields} />,
     testimonialBlock: ({ node }) => <TestimonialBlock {...node.fields} />,
     statsBlock: ({ node }) => <StatsBlock {...node.fields} />,
-    columnBased: ({ node }) => <ColumnBasedBlock {...node.fields} />,
     simpleCta: ({ node }) => <SimpleCTABlockComponent {...node.fields} />,
     imageComparison: ({ node }) => <SideBySideComparison {...node.fields} />,
     aboutBlock: ({ node }) => <AboutBlock {...node.fields} />,
@@ -132,6 +77,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     ),
     multiRowImage: ({ node }) => <MultiRowImage {...node.fields} />,
     titleDescriptionBlock: ({ node }) => <TitleDescriptionBlock {...node.fields} />,
+    bentoGrid: ({ node }) => <BentoGridBlock {...node.fields} />,
   },
   list: List,
   listitem: ListItem,

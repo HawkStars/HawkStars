@@ -7,27 +7,31 @@ import { getImagePayloadUrl } from '@/lib/image';
 export const AboutBlock: React.FC<AboutBlockProps> = ({ title, description, imageField }) => {
   const imageData = getImagePayloadUrl(imageField);
   return (
-    <section className='mx-auto py-32'>
+    <section className='mx-auto py-16 sm:py-20 md:py-24 lg:py-32'>
       {/* Hero Section */}
-      <section className='relative container mx-auto max-w-5xl py-10 md:py-12 lg:py-15'>
+      <section className='relative container mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10 md:py-12 lg:px-8 lg:py-15'>
         <div className=''>
-          <h1 className='text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl'>{title}</h1>
-          <p className='text-muted-foreground mt-4 max-w-2xl text-2xl md:text-3xl'>{description}</p>
+          <h1 className='text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl'>
+            {title}
+          </h1>
+          <p className='text-muted-foreground mt-3 max-w-2xl text-base sm:mt-4 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl'>
+            {description}
+          </p>
           {imageData?.url && (
-            <div className='mt-6'>
+            <div className='mt-5 sm:mt-6'>
               <Image
                 src={imageData.url}
                 alt={imageData.alt || title || ''}
                 width={600}
                 height={400}
-                className='rounded-lg'
+                className='w-full max-w-full rounded-lg object-cover sm:max-w-md md:max-w-lg lg:max-w-xl'
               />
             </div>
           )}
         </div>
         {/* Background decoration */}
         <>
-          <div className='absolute -inset-40 z-[-1] mask-[radial-gradient(circle_at_center,black_0%,black_20%,transparent_80%)]'>
+          <div className='absolute -inset-20 z-[-1] mask-[radial-gradient(circle_at_center,black_0%,black_20%,transparent_80%)] sm:-inset-28 md:-inset-32 lg:-inset-40'>
             <PlusSigns className='text-foreground/5 h-full w-full' />
           </div>
         </>

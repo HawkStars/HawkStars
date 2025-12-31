@@ -1,7 +1,6 @@
 import AboutBlock from './AboutBlock/config';
 import { CallToAction } from './CallToAction/config';
 import { CardGridBlock } from './CardGridBlock/config';
-import { ColumnBased } from './ColumnBased/config';
 import { ContentWithImage } from './ContentWithImage/config';
 import { GlobalVillageAboutSectionBlock } from './GlobalVillageAboutSection/config';
 import { GlobalVillageBannerBlock } from './GlobalVillageBanner/config';
@@ -45,10 +44,10 @@ import { TimelineBlock } from './TimelineBlock/config';
 import { VolunteerCalloutBlock } from './VolunteerCalloutBlock/config';
 import MultiRowImage from './MultiRowImage/config';
 import TitleDescriptionBlock from './TitleDescriptionBlock/config';
+import { BentoGridBlock } from './BentoGridBlock/config';
 
 const currentBlocks = [
   CallToAction,
-  ColumnBased,
   MediaBlock,
   Hero,
   HeroWithBackgroundImage,
@@ -92,6 +91,7 @@ const currentBlocks = [
   VolunteerCalloutBlock,
   MultiRowImage,
   TitleDescriptionBlock,
+  BentoGridBlock,
 ];
 
 export default currentBlocks;

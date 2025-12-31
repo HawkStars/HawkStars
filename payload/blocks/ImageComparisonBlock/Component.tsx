@@ -13,6 +13,7 @@ export const SideBySideComparison: FC<ImageComparison> = ({
   const leftImage = getImagePayloadUrl(beforeImage);
   const rightImage = getImagePayloadUrl(afterImage);
 
+  if (!leftImage || !rightImage) return null;
   if (!leftImage.url || !rightImage.url) return null;
   return (
     <ImageComparisonSlider

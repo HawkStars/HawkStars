@@ -93,7 +93,7 @@ const NormalLinkItem: React.FC<LinkProps> = ({ link }) => {
     >
       {/* Icon */}
       {ImageElement && imageType === 'icon' && (
-        <div className='flex h-8 w-8 items-center justify-center rounded-md bg-green-100 text-green-700 transition-colors duration-200 group-hover:bg-green-700 group-hover:text-white'>
+        <div className='flex h-8 w-8 items-center justify-center rounded-md bg-green-100 p-1 text-green-700 transition-colors duration-200 group-hover:bg-green-700 group-hover:text-white'>
           {ImageElement}
         </div>
       )}

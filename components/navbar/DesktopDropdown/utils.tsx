@@ -28,7 +28,7 @@ export const getDropdownImageElement = (link: DropdownLinkField, className?: str
   if (!imageInformation) return null;
 
   const imageElement = getImagePayloadUrl(imageInformation);
-  if (!imageElement.url) return null;
+  if (!imageElement?.url) return null;
 
   return (
     <Image
