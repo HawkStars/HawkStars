@@ -208,6 +208,7 @@ export const NoBackgroundImages = () => (
         },
         column_size: '3',
         row_size: '1',
+        backgroundImage: { externalImage: '', alt: '', imageType: 'external' },
       },
       {
         id: '2',
@@ -223,6 +224,7 @@ export const NoBackgroundImages = () => (
         },
         column_size: '3',
         row_size: '1',
+        backgroundImage: { externalImage: '', alt: '', imageType: 'external' },
       },
       {
         id: '3',
@@ -238,6 +240,7 @@ export const NoBackgroundImages = () => (
         },
         column_size: '3',
         row_size: '1',
+        backgroundImage: { externalImage: '', alt: '', imageType: 'external' },
       },
       {
         id: '4',
@@ -253,6 +256,7 @@ export const NoBackgroundImages = () => (
         },
         column_size: '3',
         row_size: '1',
+        backgroundImage: { externalImage: '', alt: '', imageType: 'external' },
       },
     ]}
     rowGap={16}
@@ -342,6 +346,7 @@ export const MixedLayout = () => (
         },
         column_size: '3',
         row_size: '1',
+        backgroundImage: { externalImage: '', alt: '', imageType: 'external' },
       },
       {
         id: '5',
@@ -357,6 +362,7 @@ export const MixedLayout = () => (
         },
         column_size: '3',
         row_size: '1',
+        backgroundImage: { externalImage: '', alt: '', imageType: 'external' },
       },
     ]}
     rowGap={20}

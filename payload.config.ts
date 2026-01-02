@@ -85,6 +85,7 @@ export default buildConfig({
       ...defaultFeatures,
       BlocksFeature({
         blocks: blocks,
+        inlineBlocks: [],
       }),
       TextStateFeature({
         state: { color: { ...defaultColors.background, ...defaultColors.text } },

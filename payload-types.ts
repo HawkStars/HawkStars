@@ -29,7 +29,7 @@ export type MultiRowContent = {
 export type BentoGridItem = {
   title: string;
   description?: string | null;
-  backgroundImage?: ImageType;
+  backgroundImage: ImageType;
   /**
    * Darkness of the overlay on the background image
    */
@@ -67,7 +67,7 @@ export type DropdownNavLink =
       featured?: boolean | null;
       description?: string | null;
       link: LinkField;
-      imageIcon?: ImageIcon;
+      imageIcon: ImageIcon;
       id?: string | null;
     }[]
   | null;
@@ -147,7 +147,6 @@ export interface Config {
   };
   blocks: {
     cta: CallToActionBlock;
-    columnBased: ColumnBasedBlock;
     mediaBlock: MediaBlock;
     hero: HeroBlock;
     heroWithBackgroundImage: HeroWithBackgroundImageBlock;
@@ -156,16 +155,10 @@ export interface Config {
     contentWithImage: ContentWithImageBlock;
     videoBlock: VideoBlock;
     projects18: Projects18Block;
-    processOneBlock: ProcessOneBlock;
     impactBlock: ImpactBlock;
-    cardGridBlock: CardGridBlock;
     testimonialBlock: TestimonialBlock;
     projectTestimonialBlock: ProjectTestimonialBlock;
-    statsBlock: StatsBlock;
-    simpleCta: SimpleCTABlock;
-    updatesBlock: UpdatesBlock;
     logosBlock: LogosBlock;
-    imageComparison: ImageComparison;
     aboutBlock: AboutBlock;
     globalVillageAboutSection: GlobalVillageAboutSectionBlock;
     globalVillageBanner: GlobalVillageBannerBlock;
@@ -176,19 +169,15 @@ export interface Config {
     donorWall: DonorWallBlock;
     eventList: EventListBlock;
     faq: FAQBlock;
-    featureComparison: FeatureComparisonBlock;
     imageComparisonSlider: ImageComparisonSliderBlock;
     mapLocation: MapLocationBlock;
-    milestoneTracker: MilestoneTrackerBlock;
     newsletterSignup: NewsletterSignupBlock;
-    partnerShowcase: PartnerShowcaseBlock;
     pricingTable: PricingTableBlock;
     quoteHighlight: QuoteHighlightBlock;
     resourceDownload: ResourceDownloadBlock;
     socialProof: SocialProofBlock;
     teamGrid: TeamGridBlock;
     timeline: TimelineBlock;
-    volunteerCallout: VolunteerCalloutBlock;
     multiRowImage: MultiRowImageBlock;
     titleDescriptionBlock: TitleDescriptionBlock;
     bentoGrid: BentoGridBlock;
@@ -222,9 +211,7 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents':
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -362,7 +349,6 @@ export interface Page {
   blocks?:
     | (
         | CallToActionBlock
-        | ColumnBasedBlock
         | MediaBlock
         | HeroBlock
         | HeroWithBackgroundImageBlock
@@ -371,32 +357,10 @@ export interface Page {
         | ContentWithImageBlock
         | VideoBlock
         | Projects18Block
-        | ProcessOneBlock
         | ImpactBlock
-        | CardGridBlock
         | TestimonialBlock
         | ProjectTestimonialBlock
-        | StatsBlock
-        | SimpleCTABlock
-        | UpdatesBlock
         | LogosBlock
-        | {
-            beforeImage: ImageType;
-            afterImage: ImageType;
-            title?: string | null;
-            description?: string | null;
-            /**
-             * Position of the comparison slider on load (0-100%)
-             */
-            initialSliderPosition?: number | null;
-            /**
-             * Unique identifier for the section (used for anchor links)
-             */
-            sectionId?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'imageComparison';
-          }
         | {
             title?: string | null;
             description?: string | null;
@@ -418,19 +382,15 @@ export interface Page {
         | DonorWallBlock
         | EventListBlock
         | FAQBlock
-        | FeatureComparisonBlock
         | ImageComparisonSliderBlock
         | MapLocationBlock
-        | MilestoneTrackerBlock
         | NewsletterSignupBlock
-        | PartnerShowcaseBlock
         | PricingTableBlock
         | QuoteHighlightBlock
         | ResourceDownloadBlock
         | SocialProofBlock
         | TeamGridBlock
         | TimelineBlock
-        | VolunteerCalloutBlock
         | MultiRowImageBlock
         | TitleDescriptionBlock
         | BentoGridBlock
@@ -452,34 +412,6 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ColumnBasedBlock".
- */
-export interface ColumnBasedBlock {
-  columns: {
-    /**
-     * Lucide icon name (e.g., "User", "Mail", "Calendar")
-     */
-    icon?: string | null;
-    title: string;
-    subtitle?: string | null;
-    list?:
-      | {
-          item: string;
-          id?: string | null;
-        }[]
-      | null;
-    id?: string | null;
-  }[];
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'columnBased';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -683,6 +615,8 @@ export interface HeroSlideshowBlock {
   blockType: 'heroSlideshowBlock';
 }
 /**
+ * Upload an image or provide an external image URL
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ImageType".
  */
@@ -895,28 +829,6 @@ export interface HawkProject {
   image: string | Media;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ProcessOneBlock".
- */
-export interface ProcessOneBlock {
-  title: string;
-  description?: string | null;
-  ctaText?: string | null;
-  steps: {
-    step: string;
-    title: string;
-    description: string;
-    id?: string | null;
-  }[];
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'processOneBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2649,40 +2561,6 @@ export interface ImpactBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CardGridBlock".
- */
-export interface CardGridBlock {
-  /**
-   * Optional title for the feature section
-   */
-  title?: string | null;
-  features: {
-    heading: string;
-    description: string;
-    /**
-     * Lucide icon name (e.g., "GitPullRequest", "SquareKanban", "RadioTower", "WandSparkles", "Layers", "BatteryCharging")
-     */
-    icon: string;
-    id?: string | null;
-  }[];
-  /**
-   * Optional button text (button hidden if empty)
-   */
-  buttonText?: string | null;
-  /**
-   * Optional button URL (button hidden if empty)
-   */
-  buttonUrl?: string | null;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'cardGridBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TestimonialBlock".
  */
 export interface TestimonialBlock {
@@ -2826,155 +2704,6 @@ export interface ProjectTestimonialBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'projectTestimonialBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "StatsBlock".
- */
-export interface StatsBlock {
-  /**
-   * Main heading (e.g., "We don't just talk we Deliver Results")
-   */
-  heading: string;
-  /**
-   * Description text under the heading
-   */
-  description?: string | null;
-  /**
-   * CTA button text (e.g., "Get Started With Us")
-   */
-  ctaButtonText?: string | null;
-  primaryStat: {
-    /**
-     * Monthly value for the main statistic
-     */
-    monthlyValue: number;
-    /**
-     * Yearly value for the main statistic
-     */
-    yearlyValue: number;
-    /**
-     * Optional prefix (e.g., "$")
-     */
-    prefix?: string | null;
-    /**
-     * Optional suffix (e.g., "M")
-     */
-    suffix?: string | null;
-  };
-  /**
-   * Text below primary stat (e.g., "And its just in a year")
-   */
-  secondaryText?: string | null;
-  /**
-   * Toggle button text (e.g., "Show Monthly Stats")
-   */
-  toggleButtonText?: string | null;
-  /**
-   * Add up to 4 secondary statistics displayed in a 2x2 grid
-   */
-  stats: {
-    /**
-     * Monthly value
-     */
-    monthlyValue: number;
-    /**
-     * Yearly value
-     */
-    yearlyValue: number;
-    /**
-     * Suffix (e.g., "k+", "%", "M", "+")
-     */
-    suffix?: string | null;
-    /**
-     * Optional prefix (e.g., "~")
-     */
-    prefix?: string | null;
-    /**
-     * Label for this statistic (e.g., "Team Members", "Company Growth")
-     */
-    label: string;
-    id?: string | null;
-  }[];
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'statsBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SimpleCTABlock".
- */
-export interface SimpleCTABlock {
-  heading: string;
-  description: string;
-  buttons?: {
-    primary?: {
-      text?: string | null;
-      url?: string | null;
-    };
-    secondary?: {
-      text?: string | null;
-      url?: string | null;
-    };
-  };
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'simpleCta';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "UpdatesBlock".
- */
-export interface UpdatesBlock {
-  /**
-   * Section heading (e.g. Resources & Whitepapers)
-   */
-  heading: string;
-  /**
-   * Section description (e.g. Explore our thoughts...)
-   */
-  description?: string | null;
-  /**
-   * Categories for filtering updates
-   */
-  categories: {
-    /**
-     * Category name (e.g. Data, AI, Security, News)
-     */
-    name: string;
-    id?: string | null;
-  }[];
-  /**
-   * Latest updates for the tabbed section
-   */
-  latestUpdates: {
-    title: string;
-    category: string;
-    date: string;
-    authors?:
-      | {
-          avatar: string;
-          id?: string | null;
-        }[]
-      | null;
-    link: string;
-    id?: string | null;
-  }[];
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'updatesBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3304,9 +3033,7 @@ export interface EventListBlock {
          */
         endDate?: string | null;
         location?: string | null;
-        category?:
-          | ('workshop' | 'meeting' | 'fundraiser' | 'social' | 'community' | 'youth')
-          | null;
+        category?: ('workshop' | 'meeting' | 'fundraiser' | 'social' | 'community' | 'youth') | null;
         image?: (string | null) | Media;
         /**
          * Link to registration or more info
@@ -3360,36 +3087,6 @@ export interface FAQBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeatureComparisonBlock".
- */
-export interface FeatureComparisonBlock {
-  title?: string | null;
-  columns?:
-    | {
-        name: string;
-        highlighted?: boolean | null;
-        id?: string | null;
-      }[]
-    | null;
-  features?:
-    | {
-        feature: string;
-        column1?: boolean | null;
-        column2?: boolean | null;
-        column3?: boolean | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'featureComparison';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ImageComparisonSliderBlock".
  */
 export interface ImageComparisonSliderBlock {
@@ -3437,29 +3134,6 @@ export interface MapLocationBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MilestoneTrackerBlock".
- */
-export interface MilestoneTrackerBlock {
-  title?: string | null;
-  milestones?:
-    | {
-        title: string;
-        status: 'completed' | 'in-progress' | 'upcoming';
-        completedDate?: string | null;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'milestoneTracker';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "NewsletterSignupBlock".
  */
 export interface NewsletterSignupBlock {
@@ -3479,30 +3153,6 @@ export interface NewsletterSignupBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'newsletterSignup';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PartnerShowcaseBlock".
- */
-export interface PartnerShowcaseBlock {
-  title?: string | null;
-  partners?:
-    | {
-        name: string;
-        logo: string | Media;
-        website?: string | null;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  layout?: ('logos' | 'detailed') | null;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'partnerShowcase';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3697,34 +3347,6 @@ export interface TimelineBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "VolunteerCalloutBlock".
- */
-export interface VolunteerCalloutBlock {
-  title: string;
-  description?: string | null;
-  opportunities?:
-    | {
-        role: string;
-        description?: string | null;
-        /**
-         * Time commitment (e.g., "5 hours/week")
-         */
-        commitment?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  ctaText?: string | null;
-  ctaLink?: string | null;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'volunteerCallout';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "MultiRowImageBlock".
  */
 export interface MultiRowImageBlock {
@@ -3792,27 +3414,6 @@ export interface BentoGridBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bentoGrid';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "imageComparison".
- */
-export interface ImageComparison {
-  beforeImage: ImageType;
-  afterImage: ImageType;
-  title?: string | null;
-  description?: string | null;
-  /**
-   * Position of the comparison slider on load (0-100%)
-   */
-  initialSliderPosition?: number | null;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'imageComparison';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4464,7 +4065,6 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         cta?: T | CallToActionBlockSelect<T>;
-        columnBased?: T | ColumnBasedBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         hero?: T | HeroBlockSelect<T>;
         heroWithBackgroundImage?: T | HeroWithBackgroundImageBlockSelect<T>;
@@ -4473,27 +4073,10 @@ export interface PagesSelect<T extends boolean = true> {
         contentWithImage?: T | ContentWithImageBlockSelect<T>;
         videoBlock?: T | VideoBlockSelect<T>;
         projects18?: T | Projects18BlockSelect<T>;
-        processOneBlock?: T | ProcessOneBlockSelect<T>;
         impactBlock?: T | ImpactBlockSelect<T>;
-        cardGridBlock?: T | CardGridBlockSelect<T>;
         testimonialBlock?: T | TestimonialBlockSelect<T>;
         projectTestimonialBlock?: T | ProjectTestimonialBlockSelect<T>;
-        statsBlock?: T | StatsBlockSelect<T>;
-        simpleCta?: T | SimpleCTABlockSelect<T>;
-        updatesBlock?: T | UpdatesBlockSelect<T>;
         logosBlock?: T | LogosBlockSelect<T>;
-        imageComparison?:
-          | T
-          | {
-              beforeImage?: T | ImageTypeSelect<T>;
-              afterImage?: T | ImageTypeSelect<T>;
-              title?: T;
-              description?: T;
-              initialSliderPosition?: T;
-              sectionId?: T;
-              id?: T;
-              blockName?: T;
-            };
         aboutBlock?:
           | T
           | {
@@ -4513,19 +4096,15 @@ export interface PagesSelect<T extends boolean = true> {
         donorWall?: T | DonorWallBlockSelect<T>;
         eventList?: T | EventListBlockSelect<T>;
         faq?: T | FAQBlockSelect<T>;
-        featureComparison?: T | FeatureComparisonBlockSelect<T>;
         imageComparisonSlider?: T | ImageComparisonSliderBlockSelect<T>;
         mapLocation?: T | MapLocationBlockSelect<T>;
-        milestoneTracker?: T | MilestoneTrackerBlockSelect<T>;
         newsletterSignup?: T | NewsletterSignupBlockSelect<T>;
-        partnerShowcase?: T | PartnerShowcaseBlockSelect<T>;
         pricingTable?: T | PricingTableBlockSelect<T>;
         quoteHighlight?: T | QuoteHighlightBlockSelect<T>;
         resourceDownload?: T | ResourceDownloadBlockSelect<T>;
         socialProof?: T | SocialProofBlockSelect<T>;
         teamGrid?: T | TeamGridBlockSelect<T>;
         timeline?: T | TimelineBlockSelect<T>;
-        volunteerCallout?: T | VolunteerCalloutBlockSelect<T>;
         multiRowImage?: T | MultiRowImageBlockSelect<T>;
         titleDescriptionBlock?: T | TitleDescriptionBlockSelect<T>;
         bentoGrid?: T | BentoGridBlockSelect<T>;
@@ -4571,29 +4150,6 @@ export interface LinkFieldSelect<T extends boolean = true> {
   url?: T;
   label?: T;
   section?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ColumnBasedBlock_select".
- */
-export interface ColumnBasedBlockSelect<T extends boolean = true> {
-  columns?:
-    | T
-    | {
-        icon?: T;
-        title?: T;
-        subtitle?: T;
-        list?:
-          | T
-          | {
-              item?: T;
-              id?: T;
-            };
-        id?: T;
-      };
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4750,26 +4306,6 @@ export interface Projects18BlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ProcessOneBlock_select".
- */
-export interface ProcessOneBlockSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  ctaText?: T;
-  steps?:
-    | T
-    | {
-        step?: T;
-        title?: T;
-        description?: T;
-        id?: T;
-      };
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ImpactBlock_select".
  */
 export interface ImpactBlockSelect<T extends boolean = true> {
@@ -4790,26 +4326,6 @@ export interface ImpactBlockSelect<T extends boolean = true> {
   layout?: T;
   background?: T;
   textAlign?: T;
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CardGridBlock_select".
- */
-export interface CardGridBlockSelect<T extends boolean = true> {
-  title?: T;
-  features?:
-    | T
-    | {
-        heading?: T;
-        description?: T;
-        icon?: T;
-        id?: T;
-      };
-  buttonText?: T;
-  buttonUrl?: T;
   sectionId?: T;
   id?: T;
   blockName?: T;
@@ -4877,97 +4393,6 @@ export interface ProjectTestimonialBlockSelect<T extends boolean = true> {
       };
   layout?: T;
   backgroundColor?: T;
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "StatsBlock_select".
- */
-export interface StatsBlockSelect<T extends boolean = true> {
-  heading?: T;
-  description?: T;
-  ctaButtonText?: T;
-  primaryStat?:
-    | T
-    | {
-        monthlyValue?: T;
-        yearlyValue?: T;
-        prefix?: T;
-        suffix?: T;
-      };
-  secondaryText?: T;
-  toggleButtonText?: T;
-  stats?:
-    | T
-    | {
-        monthlyValue?: T;
-        yearlyValue?: T;
-        suffix?: T;
-        prefix?: T;
-        label?: T;
-        id?: T;
-      };
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SimpleCTABlock_select".
- */
-export interface SimpleCTABlockSelect<T extends boolean = true> {
-  heading?: T;
-  description?: T;
-  buttons?:
-    | T
-    | {
-        primary?:
-          | T
-          | {
-              text?: T;
-              url?: T;
-            };
-        secondary?:
-          | T
-          | {
-              text?: T;
-              url?: T;
-            };
-      };
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "UpdatesBlock_select".
- */
-export interface UpdatesBlockSelect<T extends boolean = true> {
-  heading?: T;
-  description?: T;
-  categories?:
-    | T
-    | {
-        name?: T;
-        id?: T;
-      };
-  latestUpdates?:
-    | T
-    | {
-        title?: T;
-        category?: T;
-        date?: T;
-        authors?:
-          | T
-          | {
-              avatar?: T;
-              id?: T;
-            };
-        link?: T;
-        id?: T;
-      };
   sectionId?: T;
   id?: T;
   blockName?: T;
@@ -5172,32 +4597,6 @@ export interface FAQBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeatureComparisonBlock_select".
- */
-export interface FeatureComparisonBlockSelect<T extends boolean = true> {
-  title?: T;
-  columns?:
-    | T
-    | {
-        name?: T;
-        highlighted?: T;
-        id?: T;
-      };
-  features?:
-    | T
-    | {
-        feature?: T;
-        column1?: T;
-        column2?: T;
-        column3?: T;
-        id?: T;
-      };
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ImageComparisonSliderBlock_select".
  */
 export interface ImageComparisonSliderBlockSelect<T extends boolean = true> {
@@ -5228,25 +4627,6 @@ export interface MapLocationBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MilestoneTrackerBlock_select".
- */
-export interface MilestoneTrackerBlockSelect<T extends boolean = true> {
-  title?: T;
-  milestones?:
-    | T
-    | {
-        title?: T;
-        status?: T;
-        completedDate?: T;
-        description?: T;
-        id?: T;
-      };
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "NewsletterSignupBlock_select".
  */
 export interface NewsletterSignupBlockSelect<T extends boolean = true> {
@@ -5256,26 +4636,6 @@ export interface NewsletterSignupBlockSelect<T extends boolean = true> {
   buttonText?: T;
   formAction?: T;
   theme?: T;
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PartnerShowcaseBlock_select".
- */
-export interface PartnerShowcaseBlockSelect<T extends boolean = true> {
-  title?: T;
-  partners?:
-    | T
-    | {
-        name?: T;
-        logo?: T;
-        website?: T;
-        description?: T;
-        id?: T;
-      };
-  layout?: T;
   sectionId?: T;
   id?: T;
   blockName?: T;
@@ -5401,27 +4761,6 @@ export interface TimelineBlockSelect<T extends boolean = true> {
         id?: T;
       };
   orientation?: T;
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "VolunteerCalloutBlock_select".
- */
-export interface VolunteerCalloutBlockSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  opportunities?:
-    | T
-    | {
-        role?: T;
-        description?: T;
-        commitment?: T;
-        id?: T;
-      };
-  ctaText?: T;
-  ctaLink?: T;
   sectionId?: T;
   id?: T;
   blockName?: T;
@@ -5616,7 +4955,7 @@ export interface ImageIcon {
    * Select whether to use an icon or an image.
    */
   type?: ('icon' | 'image') | null;
-  imageField?: ImageType;
+  imageField: ImageType;
   /**
    * Full list at https://lucide.dev/icons/
    */
@@ -7485,6 +6824,7 @@ export interface TaskSchedulePublish {
 export interface Auth {
   [k: string]: unknown;
 }
+
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

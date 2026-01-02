@@ -6,15 +6,9 @@ import type {
   HeroImpactStatsBlock as HeroImpactStatsProps,
   ContentWithImageBlock as ContentWithImageProps,
   VideoBlock as VideoBlockProps,
-  StatsBlock as StatsBlockProps,
   TestimonialBlock as TestimonialBlockProps,
   Projects18Block as Projects18BlockProps,
-  ProcessOneBlock as ProcessOneBlockProps,
   ImpactBlock as ImpactBlockProps,
-  CardGridBlock as CardGridBlockProps,
-  ColumnBasedBlock as ColumnBasedBlockProps,
-  SimpleCTABlock as SimpleCTABlockProps,
-  ImageComparison as ImageComparisonProps,
   AboutBlock as AboutBlockProps,
   GlobalVillageAboutSectionBlock as GlobalVillageAboutSectionBlockProps,
   HeroSlideshowBlock as HeroSlideshowBlockProps,
@@ -35,14 +29,8 @@ export type BlockNodeTypes = SerializedBlockNode<
   | ContentWithImageProps
   | VideoBlockProps
   | TestimonialBlockProps
-  | StatsBlockProps
   | Projects18BlockProps
-  | ProcessOneBlockProps
   | ImpactBlockProps
-  | CardGridBlockProps
-  | ColumnBasedBlockProps
-  | SimpleCTABlockProps
-  | ImageComparisonProps
   | AboutBlockProps
   | GlobalVillageAboutSectionBlockProps
   | HeroSlideshowBlockProps

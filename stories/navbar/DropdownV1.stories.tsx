@@ -1,5 +1,5 @@
 import DesktopDropdownV1 from '@/components/navbar/DesktopDropdown/DropdownV1';
-import type { ImageIcon } from '@/payload-types';
+import type { ImageIcon, ImageType } from '@/payload-types';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
@@ -50,12 +50,16 @@ const createLink = (
     url: '#',
     newTab: false,
   },
-  imageIcon: options?.iconType
-    ? {
-        type: options.iconType,
-        icon: options?.icon || ('Star' as ImageIcon['icon']),
-      }
-    : undefined,
+  imageIcon: {
+    type: options?.iconType || null,
+    icon: ((options?.iconType == 'icon' && options?.icon) || ('Star' as ImageIcon['icon'])) ?? null,
+    imageField: {
+      imageType: 'external',
+      alt: '',
+      externalImage:
+        'https://images.unsplash.com/photo-1764616683448-322320bce277?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    } as ImageType,
+  },
 });
 
 export const SingleColumnBasic: Story = {

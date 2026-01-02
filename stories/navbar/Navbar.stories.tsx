@@ -1,7 +1,7 @@
 import Navbar from '@/components/navbar/Navbar';
 import AppProvider from '@/utils/contexts/AppProvider';
 import type { Meta, StoryObj } from '@storybook/react';
-import type { NavbarDropdown, Header, ImageIcon } from '@/payload-types';
+import type { NavbarDropdown, Header, ImageIcon, ImageType } from '@/payload-types';
 
 // Helper to create link items for dropdowns
 const createDropdownLink = (
@@ -22,12 +22,16 @@ const createDropdownLink = (
     url: '#',
     newTab: false,
   },
-  imageIcon: options?.iconType
-    ? {
-        type: options.iconType,
-        icon: options?.icon || ('Star' as ImageIcon['icon']),
-      }
-    : undefined,
+  imageIcon: {
+    type: options?.iconType || null,
+    icon: ((options?.iconType == 'icon' && options?.icon) || ('Star' as ImageIcon['icon'])) ?? null,
+    imageField: {
+      imageType: 'external',
+      alt: '',
+      externalImage:
+        'https://images.unsplash.com/photo-1764616683448-322320bce277?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    } as ImageType,
+  },
 });
 
 // Sample dropdown configurations
@@ -41,7 +45,7 @@ const aboutDropdownV1: NavbarDropdown = {
       createDropdownLink('Our Mission', {
         description: 'Learn about our purpose and goals',
         iconType: 'icon',
-        icon: 'Target',
+        icon: 'Star',
       }),
       createDropdownLink('Team', {
         description: 'Meet the people behind HawkStars',
