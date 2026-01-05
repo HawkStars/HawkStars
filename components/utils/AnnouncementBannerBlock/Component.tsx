@@ -2,9 +2,16 @@
 
 import React, { useState } from 'react';
 import { AlertCircle, CheckCircle, Info, X } from 'lucide-react';
-import type { AnnouncementBannerBlock as AnnouncementBannerBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+
+type AnnouncementBannerBlockProps = {
+  message: string;
+  ctaText?: string;
+  ctaLink?: string;
+  variant?: 'info' | 'success' | 'warning' | 'urgent';
+  dismissible?: boolean;
+};
 
 export const AnnouncementBannerBlock: React.FC<AnnouncementBannerBlockProps> = ({
   message,

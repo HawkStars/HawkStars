@@ -8,7 +8,6 @@ import type {
   VideoBlock as VideoBlockProps,
   TestimonialBlock as TestimonialBlockProps,
   Projects18Block as Projects18BlockProps,
-  ImpactBlock as ImpactBlockProps,
   AboutBlock as AboutBlockProps,
   GlobalVillageAboutSectionBlock as GlobalVillageAboutSectionBlockProps,
   HeroSlideshowBlock as HeroSlideshowBlockProps,
@@ -30,7 +29,6 @@ export type BlockNodeTypes = SerializedBlockNode<
   | VideoBlockProps
   | TestimonialBlockProps
   | Projects18BlockProps
-  | ImpactBlockProps
   | AboutBlockProps
   | GlobalVillageAboutSectionBlockProps
   | HeroSlideshowBlockProps

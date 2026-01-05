@@ -68,7 +68,6 @@ The following Payload CMS blocks have Storybook stories:
 - **CardGridBlock** - Feature cards in a grid layout
 - **TestimonialBlock** - Customer testimonials with various layouts
 - **StatsBlock** - Statistics display with animations
-- **ImpactBlock** - Impact metrics with icons and colors
 - **LogosBlock** - Partner/client logo showcase
 - **SocialProofBlock** - Stats display with multiple background themes
 - **CTABannerBlock** - Call-to-action banners with centered/split/image-bg variants
@@ -91,7 +90,6 @@ The following Payload CMS blocks have Storybook stories:
 ### Interactive Blocks
 
 - **NewsletterSignupBlock** - Email signup form with theme variants
-- **AnnouncementBannerBlock** - Dismissible announcement banners
 - **MapLocationBlock** - Location map with contact information
 - **ResourceDownloadBlock** - Downloadable resources with file type indicators
 - **FeatureComparisonBlock** - Feature comparison tables

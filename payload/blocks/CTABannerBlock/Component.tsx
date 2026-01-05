@@ -18,7 +18,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
     <section className='py-12 lg:py-20'>
       <div className='container mx-auto'>
         {variant === 'centered' && (
-          <div className='from-green to-bege-dark rounded-2xl bg-gradient-to-br p-12 text-center text-white'>
+          <div className='from-green to-bege-dark rounded-2xl bg-linear-to-br p-12 text-center text-white'>
             <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
             {description && (
               <p className='mx-auto mb-8 max-w-2xl text-lg opacity-90'>{description}</p>
@@ -44,7 +44,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
         )}
 
         {variant === 'split' && (
-          <div className='from-green to-bege-dark overflow-hidden rounded-2xl bg-gradient-to-br'>
+          <div className='from-green to-bege-dark overflow-hidden rounded-2xl bg-linear-to-br'>
             <div className='flex flex-col gap-8 p-12 text-white lg:flex-row lg:items-center lg:justify-between'>
               <div className='flex-1'>
                 <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>

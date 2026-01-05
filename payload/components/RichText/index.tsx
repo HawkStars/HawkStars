@@ -5,7 +5,6 @@ import { HeroWithBackgroundImageBlock } from '@/payload/blocks/HeroWithBackgroun
 import { HeroImpactStatsBlock } from '@/payload/blocks/HeroImpactStats/Component';
 import { ContentWithImageBlock } from '@/payload/blocks/ContentWithImage/Component';
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
-import { ImpactBlock } from '@/payload/blocks/ImpactBlock/Component';
 import { GlobalVillageAboutSectionBlockComponent } from '@/payload/blocks/GlobalVillageAboutSection/Component';
 import { TestimonialBlock } from '@/payload/blocks/TestimonialBlock/Component';
 import { Projects18Block } from '@/payload/blocks/Projects18/Component';
@@ -61,7 +60,6 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     contentWithImage: ({ node }) => <ContentWithImageBlock {...node.fields} />,
     videoBlock: ({ node }) => <VideoBlock {...node.fields} />,
     projects18: ({ node }) => <Projects18Block {...node.fields} />,
-    impactBlock: ({ node }) => <ImpactBlock {...node.fields} />,
     testimonialBlock: ({ node }) => <TestimonialBlock {...node.fields} />,
     aboutBlock: ({ node }) => <AboutBlock {...node.fields} />,
     globalVillageAboutSection: ({ node }) => (

@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { SerializedHeadingNode, SerializedParagraphNode } from '@payloadcms/richtext-lexical';
+import { SerializedHeadingNode } from '@payloadcms/richtext-lexical';
 import { JSXConverter } from '@payloadcms/richtext-lexical/react';
 
 const Heading: JSXConverter<SerializedHeadingNode> = ({ converters, node, nodesToJSX, parent }) => {

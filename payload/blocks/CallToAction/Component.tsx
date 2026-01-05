@@ -3,7 +3,7 @@ import React from 'react';
 import type { CallToActionBlock as CTABlockProps } from '@/payload-types';
 
 import { CMSLink } from '@/payload/components/Link';
-import { Globe } from '@/components/magicui/globe';
+import Image from 'next/image';
 
 export const CallToActionBlock: React.FC<CTABlockProps> = ({ title, subtitle, links }) => {
   return (
@@ -28,7 +28,7 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({ title, subtitle, li
             </div>
           </div>
           <div className='relative size-full'>
-            <Globe className='absolute top-0 md:top-10 md:-right-100 md:scale-150' />
+            <Image src='' alt='' />
           </div>
         </div>
       </div>

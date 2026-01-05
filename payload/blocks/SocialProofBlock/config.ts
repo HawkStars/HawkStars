@@ -6,6 +6,24 @@ export const SocialProofBlock: Block = {
   interfaceName: 'SocialProofBlock',
   fields: [
     {
+      name: 'title',
+      type: 'text',
+      required: false,
+      localized: false,
+      admin: {
+        description: 'Main title for the social proof section. Optional.',
+      },
+    },
+    {
+      name: 'subtitle',
+      type: 'text',
+      localized: false,
+      required: false,
+      admin: {
+        description: 'Optional subtitle or description. Optional.x',
+      },
+    },
+    {
       name: 'stats',
       type: 'array',
       minRows: 2,
@@ -35,6 +53,28 @@ export const SocialProofBlock: Block = {
         { label: 'Gradient', value: 'gradient' },
       ],
       defaultValue: 'white',
+    },
+    {
+      name: 'textAlign',
+      type: 'select',
+      options: [
+        {
+          label: 'Left',
+          value: 'left',
+        },
+        {
+          label: 'Center',
+          value: 'center',
+        },
+        {
+          label: 'Right',
+          value: 'right',
+        },
+      ],
+      defaultValue: 'center',
+      admin: {
+        description: 'Text alignment for the social proof section',
+      },
     },
     SectionID,
   ],

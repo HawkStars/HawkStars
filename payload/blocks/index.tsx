@@ -1,4 +1,5 @@
 import AboutBlock from './AboutBlock/config';
+import { AccordionBlock } from './AccordionBlock/config';
 import { CallToAction } from './CallToAction/config';
 import { ContentWithImage } from './ContentWithImage/config';
 import { GlobalVillageAboutSectionBlock } from './GlobalVillageAboutSection/config';
@@ -8,7 +9,6 @@ import { HeroWithBackgroundImage } from './HeroWithBackgroundImage/config';
 import { HeroSlideshowBlock } from './HeroSlideshowBlock/config';
 import { HeroImpactStats } from './HeroImpactStats/config';
 import { ProjectTestimonialBlock } from './ProjectTestimonialBlock/config';
-import { ImpactBlock } from './ImpactBlock/config';
 import { LogosBlock } from './LogosBlock/config';
 import { MediaBlock } from './MediaBlock/config';
 import { Projects18Block } from './Projects18/config';
@@ -16,7 +16,6 @@ import { TestimonialBlock } from './TestimonialBlock/config';
 import { VideoBlock } from './VideoBlock/config';
 
 // New blocks
-import { AnnouncementBannerBlock } from './AnnouncementBannerBlock/config';
 import { CampaignCountdownBlock } from './CampaignCountdownBlock/config';
 import { CTABannerBlock } from './CTABannerBlock/config';
 import { DonationProgressBlock } from './DonationProgressBlock/config';
@@ -37,6 +36,7 @@ import TitleDescriptionBlock from './TitleDescriptionBlock/config';
 import { BentoGridBlock } from './BentoGridBlock/config';
 
 const currentBlocks = [
+  AccordionBlock,
   CallToAction,
   MediaBlock,
   Hero,
@@ -46,14 +46,13 @@ const currentBlocks = [
   ContentWithImage,
   VideoBlock,
   Projects18Block,
-  ImpactBlock,
+
   TestimonialBlock,
   ProjectTestimonialBlock,
   LogosBlock,
   AboutBlock,
   GlobalVillageAboutSectionBlock,
   GlobalVillageBannerBlock,
-  AnnouncementBannerBlock,
   CampaignCountdownBlock,
   CTABannerBlock,
   DonationProgressBlock,

@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Quote } from 'lucide-react';
-import type { QuoteHighlightBlock as QuoteHighlightBlockProps, Media } from '@/payload-types';
+import type { QuoteHighlightBlock as QuoteHighlightBlockProps } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 
 export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
