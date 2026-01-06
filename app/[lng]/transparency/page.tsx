@@ -19,7 +19,6 @@ const TransparencyPage = async ({ params }: LanguagePageProps) => {
 
   const data = await params;
   const { lng } = data;
-
   const organizationContributions = await getContributionsQuery();
 
   return (
