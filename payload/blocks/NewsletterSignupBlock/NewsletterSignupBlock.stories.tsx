@@ -17,25 +17,9 @@ export const Light: Story = {
     title: 'Stay Updated',
     description:
       'Get the latest news and updates about our programs and events delivered to your inbox.',
-    placeholder: 'Enter your email',
     buttonText: 'Subscribe',
-    theme: 'light',
     id: '1',
     blockName: 'NewsletterSignupBlock',
     blockType: 'newsletterSignup',
-  },
-};
-
-export const Dark: Story = {
-  args: {
-    ...Light.args,
-    theme: 'dark',
-  },
-};
-
-export const Gradient: Story = {
-  args: {
-    ...Light.args,
-    theme: 'gradient',
   },
 };

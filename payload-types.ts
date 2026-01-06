@@ -156,6 +156,7 @@ export interface Config {
     contentWithImage: ContentWithImageBlock;
     videoBlock: VideoBlock;
     projects18: Projects18Block;
+    simpleGallery: SimpleGallery;
     testimonialBlock: TestimonialBlock;
     projectTestimonialBlock: ProjectTestimonialBlock;
     logosBlock: LogosBlock;
@@ -389,6 +390,21 @@ export interface Page {
         | ContentWithImageBlock
         | VideoBlock
         | Projects18Block
+        | {
+            title?: string | null;
+            description?: string | null;
+            images: {
+              image: ImageType;
+              id?: string | null;
+            }[];
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'simpleGallery';
+          }
         | TestimonialBlock
         | ProjectTestimonialBlock
         | LogosBlock
@@ -606,16 +622,16 @@ export interface HeroSlideshowBlock {
      * URL for the CTA button
      */
     ctaLink?: string | null;
+    /**
+     * Text alignment for all slides
+     */
+    textAlignment: 'left' | 'center' | 'right';
     id?: string | null;
   }[];
   /**
    * Overlay darkness for all slides (0-100%)
    */
   overlayOpacity?: number | null;
-  /**
-   * Text alignment for all slides
-   */
-  textAlignment?: ('left' | 'center' | 'right') | null;
   /**
    * Automatically cycle through slides
    */
@@ -663,6 +679,9 @@ export interface ImageType {
    * Provide the URL for the external image.
    */
   externalImage?: string | null;
+  /**
+   * Alt text for the image for accessibility and SEO | Caption Image
+   */
   alt: string;
 }
 /**
@@ -941,10 +960,7 @@ export interface ProjectTestimonialBlock {
    */
   subtitle?: string | null;
   author: {
-    /**
-     * Profile image of the person giving the testimonial
-     */
-    profileImage: string | Media;
+    profileImage: ImageType;
     /**
      * Author full name
      */
@@ -971,14 +987,7 @@ export interface ProjectTestimonialBlock {
      */
     displayMode?: ('single' | 'slideshow') | null;
     images: {
-      /**
-       * Project group image
-       */
-      image: string | Media;
-      /**
-       * Optional caption for this image
-       */
-      caption?: string | null;
+      image: ImageType;
       id?: string | null;
     }[];
     /**
@@ -1093,7 +1102,6 @@ export interface GlobalVillageAboutSectionBlock {
  */
 export interface GlobalVillageBannerBlock {
   text: string;
-  backgroundColor?: ('green' | 'bege-dark' | 'bege-light') | null;
   /**
    * Unique identifier for the section (used for anchor links)
    */
@@ -1382,7 +1390,13 @@ export interface ImageComparisonSliderBlock {
    * After image
    */
   afterImage: string | Media;
+  /**
+   * Label for the before image
+   */
   beforeLabel?: string | null;
+  /**
+   * Label for the after image
+   */
   afterLabel?: string | null;
   /**
    * Unique identifier for the section (used for anchor links)
@@ -1422,13 +1436,7 @@ export interface MapLocationBlock {
 export interface NewsletterSignupBlock {
   title: string;
   description?: string | null;
-  placeholder?: string | null;
   buttonText?: string | null;
-  /**
-   * Form submission URL (e.g., Mailchimp endpoint)
-   */
-  formAction?: string | null;
-  theme?: ('light' | 'dark' | 'gradient') | null;
   /**
    * Unique identifier for the section (used for anchor links)
    */
@@ -1709,6 +1717,25 @@ export interface BentoGridBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bentoGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "simpleGallery".
+ */
+export interface SimpleGallery {
+  title?: string | null;
+  description?: string | null;
+  images: {
+    image: ImageType;
+    id?: string | null;
+  }[];
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'simpleGallery';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2369,6 +2396,21 @@ export interface PagesSelect<T extends boolean = true> {
         contentWithImage?: T | ContentWithImageBlockSelect<T>;
         videoBlock?: T | VideoBlockSelect<T>;
         projects18?: T | Projects18BlockSelect<T>;
+        simpleGallery?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              images?:
+                | T
+                | {
+                    image?: T | ImageTypeSelect<T>;
+                    id?: T;
+                  };
+              sectionId?: T;
+              id?: T;
+              blockName?: T;
+            };
         testimonialBlock?: T | TestimonialBlockSelect<T>;
         projectTestimonialBlock?: T | ProjectTestimonialBlockSelect<T>;
         logosBlock?: T | LogosBlockSelect<T>;
@@ -2529,10 +2571,10 @@ export interface HeroSlideshowBlockSelect<T extends boolean = true> {
         subtitle?: T;
         ctaText?: T;
         ctaLink?: T;
+        textAlignment?: T;
         id?: T;
       };
   overlayOpacity?: T;
-  textAlignment?: T;
   autoplay?: T;
   autoplayInterval?: T;
   showNavigation?: T;
@@ -2660,7 +2702,7 @@ export interface ProjectTestimonialBlockSelect<T extends boolean = true> {
   author?:
     | T
     | {
-        profileImage?: T;
+        profileImage?: T | ImageTypeSelect<T>;
         name?: T;
         role?: T;
         organization?: T;
@@ -2673,8 +2715,7 @@ export interface ProjectTestimonialBlockSelect<T extends boolean = true> {
         images?:
           | T
           | {
-              image?: T;
-              caption?: T;
+              image?: T | ImageTypeSelect<T>;
               id?: T;
             };
         autoplay?: T;
@@ -2737,7 +2778,6 @@ export interface GlobalVillageAboutSectionBlockSelect<T extends boolean = true> 
  */
 export interface GlobalVillageBannerBlockSelect<T extends boolean = true> {
   text?: T;
-  backgroundColor?: T;
   sectionId?: T;
   id?: T;
   blockName?: T;
@@ -2907,10 +2947,7 @@ export interface MapLocationBlockSelect<T extends boolean = true> {
 export interface NewsletterSignupBlockSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  placeholder?: T;
   buttonText?: T;
-  formAction?: T;
-  theme?: T;
   sectionId?: T;
   id?: T;
   blockName?: T;

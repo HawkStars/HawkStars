@@ -9,9 +9,7 @@ import { Button } from '@/components/ui/button';
 export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
   title,
   description,
-  placeholder = 'Enter your email',
   buttonText = 'Subscribe',
-  theme = 'light',
 }) => {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -26,27 +24,10 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
     }, 3000);
   };
 
-  const themeClasses = {
-    light: 'bg-bege-light text-gray-900',
-    dark: 'bg-black text-white',
-    gradient: 'bg-gradient-to-br from-green to-bege-dark text-white',
-  };
-
-  const inputClasses = {
-    light: 'bg-white border-gray-300',
-    dark: 'bg-gray-800 border-gray-700 text-white',
-    gradient: 'bg-white/20 border-white/30 text-white placeholder:text-white/70',
-  };
-
   return (
     <section className='py-12 lg:py-16'>
       <div className='container mx-auto'>
-        <div
-          className={cn(
-            'rounded-2xl p-8 lg:p-12',
-            themeClasses[theme as keyof typeof themeClasses]
-          )}
-        >
+        <div className={cn('rounded-2xl p-8 lg:p-12')}>
           <div className='mx-auto max-w-2xl text-center'>
             <Mail className='mx-auto mb-4 h-12 w-12' />
             <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
@@ -58,20 +39,13 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
                   type='email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder={placeholder as string}
+                  placeholder={'Your email address'}
                   required
                   className={cn(
-                    'flex-1 rounded-lg border px-6 py-3 text-lg focus:ring-2 focus:ring-green-500 focus:outline-none',
-                    inputClasses[theme as keyof typeof inputClasses]
+                    'flex-1 rounded-lg border px-6 py-3 text-lg focus:ring-2 focus:ring-green-500 focus:outline-none'
                   )}
                 />
-                <Button
-                  type='submit'
-                  size='lg'
-                  className={cn(
-                    theme === 'gradient' && 'bg-white text-green-600 hover:bg-gray-100'
-                  )}
-                >
+                <Button type='submit' size='lg'>
                   {buttonText}
                 </Button>
               </form>

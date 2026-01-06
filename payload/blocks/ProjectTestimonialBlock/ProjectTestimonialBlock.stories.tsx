@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ProjectTestimonialBlock } from './Component';
+import { ImageType } from '@/payload-types';
 
 const meta: Meta<typeof ProjectTestimonialBlock> = {
   title: 'Testimonials/Project Testimonial',
@@ -37,17 +38,10 @@ const meta: Meta<typeof ProjectTestimonialBlock> = {
 export default meta;
 type Story = StoryObj<typeof ProjectTestimonialBlock>;
 
-const createMediaObject = (id: string, url: string, alt: string) => ({
-  id,
+const createMediaObject = (id: string, url: string, alt: string): ImageType => ({
+  imageType: 'external',
+  externalImage: url,
   alt,
-  url,
-  filename: `image-${id}.jpg`,
-  mimeType: 'image/jpeg' as const,
-  filesize: 300000,
-  width: 800,
-  height: 600,
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
 });
 
 export const Default: Story = {
@@ -76,7 +70,6 @@ export const Default: Story = {
             'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&h=600&fit=crop&crop=center',
             'Team working together'
           ),
-          caption: 'Our team during the 2024 community project',
         },
       ],
       autoplay: true,
@@ -144,7 +137,6 @@ export const WithSlideshow: Story = {
             'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&h=600&fit=crop&crop=center',
             'Community gathering'
           ),
-          caption: 'Community gathering - Day 1',
         },
         {
           id: 'img-2',
@@ -153,7 +145,6 @@ export const WithSlideshow: Story = {
             'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&h=600&fit=crop&crop=center',
             'Volunteers at work'
           ),
-          caption: 'Our volunteers making progress',
         },
         {
           id: 'img-3',
@@ -162,7 +153,6 @@ export const WithSlideshow: Story = {
             'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=800&h=600&fit=crop&crop=center',
             'Project completion'
           ),
-          caption: 'The completed project celebration',
         },
       ],
       autoplay: true,
@@ -249,7 +239,6 @@ export const MinimalAuthor: Story = {
             'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop&crop=center',
             'Group photo'
           ),
-          caption: 'Making memories together',
         },
       ],
       autoplay: true,
@@ -335,7 +324,6 @@ export const MultipleSlideshowImages: Story = {
             'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&h=600&fit=crop&crop=center',
             'Phase 1'
           ),
-          caption: 'Phase 1: Community Engagement',
         },
         {
           id: 'img-2',
@@ -344,7 +332,6 @@ export const MultipleSlideshowImages: Story = {
             'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&h=600&fit=crop&crop=center',
             'Phase 2'
           ),
-          caption: 'Phase 2: Construction Begins',
         },
         {
           id: 'img-3',
@@ -353,7 +340,6 @@ export const MultipleSlideshowImages: Story = {
             'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=800&h=600&fit=crop&crop=center',
             'Phase 3'
           ),
-          caption: 'Phase 3: Training Programs',
         },
         {
           id: 'img-4',
@@ -362,7 +348,6 @@ export const MultipleSlideshowImages: Story = {
             'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800&h=600&fit=crop&crop=center',
             'Phase 4'
           ),
-          caption: 'Phase 4: Community Celebration',
         },
         {
           id: 'img-5',
@@ -371,7 +356,6 @@ export const MultipleSlideshowImages: Story = {
             'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop&crop=center',
             'Phase 5'
           ),
-          caption: 'Phase 5: Long-term Impact',
         },
       ],
       autoplay: true,

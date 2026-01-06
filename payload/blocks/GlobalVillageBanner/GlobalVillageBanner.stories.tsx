@@ -13,32 +13,8 @@ const meta: Meta<typeof GlobalVillageBannerBlock> = {
 export default meta;
 type Story = StoryObj<typeof GlobalVillageBannerBlock>;
 
-export const Green: Story = {
-  args: {
-    text: 'Celebrating culture, collaboration, and community across the globe.',
-    backgroundColor: 'green',
-    id: '1',
-    blockName: 'GlobalVillageBanner',
-    blockType: 'globalVillageBanner',
-  },
-};
-
-export const BegeDark: Story = {
+export const Story: Story = {
   args: {
     text: 'Join the movement to build thriving cultural hubs in every village.',
-    backgroundColor: 'bege-dark',
-    id: '2',
-    blockName: 'GlobalVillageBanner',
-    blockType: 'globalVillageBanner',
-  },
-};
-
-export const BegeLight: Story = {
-  args: {
-    text: 'Amplifying voices, sharing stories, and weaving resilient communities.',
-    backgroundColor: 'bege-light',
-    id: '3',
-    blockName: 'GlobalVillageBanner',
-    blockType: 'globalVillageBanner',
   },
 };

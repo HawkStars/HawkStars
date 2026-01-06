@@ -26,8 +26,5 @@ export const Default: Story = {
     } as Media,
     beforeLabel: 'Before',
     afterLabel: 'After',
-    id: '1',
-    blockName: 'ImageComparisonSliderBlock',
-    blockType: 'imageComparisonSlider',
   },
 };

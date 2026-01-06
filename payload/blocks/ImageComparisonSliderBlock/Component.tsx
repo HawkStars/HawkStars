@@ -40,9 +40,7 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
   const before = typeof beforeImage === 'string' ? null : (beforeImage as Media);
   const after = typeof afterImage === 'string' ? null : (afterImage as Media);
 
-  if (!before || !after) {
-    return null;
-  }
+  if (!before || !after) return null;
 
   return (
     <section className='py-12 lg:py-20'>

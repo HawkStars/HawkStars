@@ -5,17 +5,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
-import type {
-  ProjectTestimonialBlock as ProjectTestimonialBlockProps,
-  Media,
-} from '@/payload-types';
+import type { ProjectTestimonialBlock as ProjectTestimonialBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
-
-type ProjectImage = {
-  image: string | Media;
-  caption?: string | null;
-  id?: string | null;
-};
+import { getImagePayloadUrl } from '@/lib/image';
 
 const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) => {
   if (!data) return null;
@@ -84,29 +76,29 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
     return () => clearInterval(interval);
   }, [displayMode, autoplay, autoplayInterval, nextImage, images.length]);
 
-  const profileImage =
-    typeof author?.profileImage === 'string' ? null : (author?.profileImage as Media);
+  const profileImage = getImagePayloadUrl(author.profileImage);
 
   const renderProjectMedia = () => {
     if (images.length === 0) return null;
 
     if (displayMode === 'single') {
       const img = images[0];
-      const mediaImage = typeof img.image === 'string' ? null : (img.image as Media);
+      const mediaImage = getImagePayloadUrl(img.image);
+      if (!mediaImage) return null;
 
       return (
         <div className='relative aspect-4/3 w-full overflow-hidden rounded-2xl'>
           {mediaImage?.url && (
             <Image
               src={mediaImage.url}
-              alt={mediaImage.alt || img.caption || 'Project image'}
+              alt={mediaImage.alt || 'Project image'}
               fill
               className='object-cover'
             />
           )}
-          {img.caption && (
+          {mediaImage.alt && (
             <div className='absolute inset-x-0 bottom-0 bg-linear-to-t from-black/60 to-transparent p-4'>
-              <p className='text-sm text-white'>{img.caption}</p>
+              <p className='text-sm text-white'>{mediaImage.alt}</p>
             </div>
           )}
         </div>
@@ -116,8 +108,9 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
     // Slideshow mode
     return (
       <div className='relative aspect-4/3 w-full overflow-hidden rounded-2xl'>
-        {images.map((img: ProjectImage, index: number) => {
-          const mediaImage = typeof img.image === 'string' ? null : (img.image as Media);
+        {images.map((img, index: number) => {
+          const mediaImage = getImagePayloadUrl(img.image);
+          if (!mediaImage) return null;
 
           return (
             <div
@@ -130,14 +123,14 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
               {mediaImage?.url && (
                 <Image
                   src={mediaImage.url}
-                  alt={mediaImage.alt || img.caption || `Project image ${index + 1}`}
+                  alt={mediaImage.alt || `Project image ${index + 1}`}
                   fill
                   className='object-cover'
                 />
               )}
-              {img.caption && (
+              {mediaImage.alt && (
                 <div className='absolute inset-x-0 bottom-0 bg-linear-to-t from-black/60 to-transparent p-4'>
-                  <p className='text-sm text-white'>{img.caption}</p>
+                  <p className='text-sm text-white'>{mediaImage.alt}</p>
                 </div>
               )}
             </div>

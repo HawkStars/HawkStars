@@ -28,6 +28,7 @@ export const MainPage: GlobalConfig = {
               name: 'layout',
               type: 'richText',
               required: true,
+              localized: true,
             },
           ],
           label: 'Content',

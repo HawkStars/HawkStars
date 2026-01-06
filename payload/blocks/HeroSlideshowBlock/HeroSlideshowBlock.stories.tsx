@@ -7,11 +7,8 @@ const meta: Meta<typeof HeroSlideshowBlock> = {
   parameters: {
     layout: 'fullscreen',
   },
+
   argTypes: {
-    textAlignment: {
-      control: 'select',
-      options: ['left', 'center', 'right'],
-    },
     height: {
       control: 'select',
       options: ['fullscreen', 'large', 'medium', 'small'],
@@ -37,7 +34,20 @@ const meta: Meta<typeof HeroSlideshowBlock> = {
         disable: true,
       },
     },
+    slides: {
+      object: {
+        backgroundImage: {
+          title: 'Welcome to Our Mission',
+          subtitle:
+            'Join us in creating lasting positive change in communities around the world through sustainable development.',
+          ctaText: 'Get Started',
+          ctaLink: '/contribute',
+          textAlignment: 'left',
+        },
+      },
+    },
   },
+  tags: ['autodocs'],
 };
 
 export default meta;
@@ -47,7 +57,6 @@ export const Default: Story = {
   args: {
     slides: [
       {
-        id: 'slide-1',
         backgroundImage: {
           externalImage:
             'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&crop=center',
@@ -60,9 +69,9 @@ export const Default: Story = {
           'Join us in creating lasting positive change in communities around the world through sustainable development.',
         ctaText: 'Get Started',
         ctaLink: '/contribute',
+        textAlignment: 'left',
       },
       {
-        id: 'slide-2',
         backgroundImage: {
           externalImage:
             'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&h=1080&fit=crop&crop=center',
@@ -74,9 +83,9 @@ export const Default: Story = {
         subtitle: 'Empowering local leaders through community-centered initiatives.',
         ctaText: 'Join Our Network',
         ctaLink: '/network',
+        textAlignment: 'left',
       },
       {
-        id: 'slide-3',
         backgroundImage: {
           externalImage:
             'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&h=1080&fit=crop&crop=center',
@@ -88,32 +97,28 @@ export const Default: Story = {
         subtitle: 'Your contribution creates immediate impact in communities that need it most.',
         ctaText: 'Donate Now',
         ctaLink: '/donate',
+        textAlignment: 'center',
       },
     ],
     overlayOpacity: 40,
-    textAlignment: 'center',
+
     autoplay: true,
     autoplayInterval: 5000,
     showNavigation: true,
     showDots: true,
     height: 'large',
-    id: '1',
-    blockName: 'HeroSlideshow',
-    blockType: 'heroSlideshowBlock',
   },
 };
 
 export const LeftAligned: Story = {
   args: {
     ...Default.args,
-    textAlignment: 'left',
   },
 };
 
 export const RightAligned: Story = {
   args: {
     ...Default.args,
-    textAlignment: 'right',
   },
 };
 
@@ -207,18 +212,15 @@ export const SingleSlide: Story = {
         subtitle: 'This hero has only one slide, so navigation is hidden.',
         ctaText: 'Learn More',
         ctaLink: '/about',
+        textAlignment: 'center',
       },
     ],
     overlayOpacity: 40,
-    textAlignment: 'center',
     autoplay: true,
     autoplayInterval: 5000,
     showNavigation: true,
     showDots: true,
     height: 'large',
-    id: '2',
-    blockName: 'HeroSlideshow',
-    blockType: 'heroSlideshowBlock',
   },
 };
 
@@ -226,7 +228,6 @@ export const ManySlides: Story = {
   args: {
     slides: [
       {
-        id: 'slide-1',
         backgroundImage: {
           externalImage:
             'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&crop=center',
@@ -238,9 +239,9 @@ export const ManySlides: Story = {
         subtitle: 'First of many slides',
         ctaText: 'Explore',
         ctaLink: '/1',
+        textAlignment: 'left',
       },
       {
-        id: 'slide-2',
         backgroundImage: {
           externalImage:
             'https://images.unsplash.com/photo-1559027615-cd4628905-cd4628902d4a?w=1920&h=1080&fit=crop&crop=center',
@@ -252,9 +253,9 @@ export const ManySlides: Story = {
         subtitle: 'Second slide',
         ctaText: 'Discover',
         ctaLink: '/2',
+        textAlignment: 'right',
       },
       {
-        id: 'slide-3',
         backgroundImage: {
           externalImage:
             'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&h=1080&fit=crop&crop=center',
@@ -266,9 +267,9 @@ export const ManySlides: Story = {
         subtitle: 'Third slide',
         ctaText: 'Join',
         ctaLink: '/3',
+        textAlignment: 'center',
       },
       {
-        id: 'slide-4',
         backgroundImage: {
           externalImage:
             'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&h=1080&fit=crop&crop=center',
@@ -280,9 +281,9 @@ export const ManySlides: Story = {
         subtitle: 'Fourth slide',
         ctaText: 'Learn',
         ctaLink: '/4',
+        textAlignment: 'left',
       },
       {
-        id: 'slide-5',
         backgroundImage: {
           externalImage:
             'https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1920&h=1080&fit=crop&crop=center',
@@ -294,18 +295,15 @@ export const ManySlides: Story = {
         subtitle: 'Fifth slide',
         ctaText: 'Connect',
         ctaLink: '/5',
+        textAlignment: 'center',
       },
     ],
     overlayOpacity: 50,
-    textAlignment: 'center',
     autoplay: true,
     autoplayInterval: 3000,
     showNavigation: true,
     showDots: true,
     height: 'large',
-    id: '3',
-    blockName: 'HeroSlideshow',
-    blockType: 'heroSlideshowBlock',
   },
 };
 
@@ -313,7 +311,6 @@ export const NoCTA: Story = {
   args: {
     slides: [
       {
-        id: 'slide-1',
         backgroundImage: {
           externalImage:
             'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&crop=center',
@@ -323,9 +320,9 @@ export const NoCTA: Story = {
         },
         title: 'Content Without Actions',
         subtitle: 'Sometimes you just want to display information without a call to action.',
+        textAlignment: 'left',
       },
       {
-        id: 'slide-2',
         backgroundImage: {
           externalImage:
             'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&h=1080&fit=crop&crop=center',
@@ -335,17 +332,14 @@ export const NoCTA: Story = {
         },
         title: 'Pure Visual Storytelling',
         subtitle: 'Let the images and text speak for themselves.',
+        textAlignment: 'center',
       },
     ],
     overlayOpacity: 40,
-    textAlignment: 'center',
     autoplay: true,
     autoplayInterval: 5000,
     showNavigation: true,
     showDots: true,
     height: 'large',
-    id: '4',
-    blockName: 'HeroSlideshow',
-    blockType: 'heroSlideshowBlock',
   },
 };

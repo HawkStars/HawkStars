@@ -31,11 +31,19 @@ export const ImageComparisonSliderBlock: Block = {
       name: 'beforeLabel',
       type: 'text',
       defaultValue: 'Before',
+      admin: {
+        description: 'Label for the before image',
+      },
+      required: false,
     },
     {
       name: 'afterLabel',
       type: 'text',
       defaultValue: 'After',
+      admin: {
+        description: 'Label for the after image',
+      },
+      required: false,
     },
     SectionID,
   ],

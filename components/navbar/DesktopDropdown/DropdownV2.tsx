@@ -44,7 +44,7 @@ type FeaturedImageProps = {
 };
 
 const StyleImage = {
-  icon: 'p-4 bg-neutral-200 rounded-lg',
+  icon: 'h-8 w-8 p-1 bg-neutral-200 rounded-md',
   image: 'rounded-md',
 };
 
@@ -88,7 +88,7 @@ const NormalLink = (props: FeaturedImageProps) => {
   const { link, structure } = props;
   const imageType = link.imageIcon?.type;
 
-  const ImageElement = getDropdownImageElement(link, 'p-4 bg-neutral-200 rounded-lg');
+  const ImageElement = getDropdownImageElement(link, 'h-8 w-8 p-1 bg-neutral-200 rounded-md');
 
   return (
     <HawkLinkComponent
@@ -119,16 +119,18 @@ const NormalLink = (props: FeaturedImageProps) => {
           'mr-1 ml-auto': imageType === 'image',
         })}
       >
-        <h6
-          className={cn('text-body text-h2_light', {
+        <span
+          className={cn('text-sm font-medium text-gray-900', {
             'text-left': structure === 'single-column',
             'text-right': structure === 'two-columns',
           })}
         >
           {link.link.label}
-        </h6>
+        </span>
         {structure === 'two-columns' && (
-          <p className={cn('line-clamp-2 text-right text-xs')}>{link.description}</p>
+          <span className={cn('line-clamp-2 text-right text-xs text-gray-500')}>
+            {link.description}
+          </span>
         )}
       </div>
     </HawkLinkComponent>

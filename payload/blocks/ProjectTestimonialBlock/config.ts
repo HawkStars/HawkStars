@@ -1,3 +1,4 @@
+import { PayloadImageField } from '@/payload/fields/ImageType';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
@@ -26,15 +27,12 @@ export const ProjectTestimonialBlock: Block = {
       type: 'group',
       label: 'Author',
       fields: [
-        {
+        PayloadImageField({
+          label: 'Profile Image',
           name: 'profileImage',
-          type: 'upload',
-          relationTo: 'media',
           required: true,
-          admin: {
-            description: 'Profile image of the person giving the testimonial',
-          },
-        },
+          description: 'Profile image of the person giving the testimonial',
+        }),
         {
           name: 'name',
           type: 'text',
@@ -99,23 +97,12 @@ export const ProjectTestimonialBlock: Block = {
             plural: 'Images',
           },
           fields: [
-            {
+            PayloadImageField({
+              label: 'Image',
               name: 'image',
-              type: 'upload',
-              relationTo: 'media',
               required: true,
-              admin: {
-                description: 'Project group image',
-              },
-            },
-            {
-              name: 'caption',
-              type: 'text',
-              localized: true,
-              admin: {
-                description: 'Optional caption for this image',
-              },
-            },
+              hideGutter: true,
+            }),
           ],
         },
         {

@@ -7,18 +7,9 @@ import { cn } from '@/lib/utils';
 import starPng from '@/public/images/icons/training_center/star.png';
 import gridPng from '@/public/images/icons/training_center/grid.png';
 
-const backgroundColors = {
-  green: 'bg-green',
-  'bege-dark': 'bg-bege-dark',
-  'bege-light': 'bg-bege-light',
-};
-
-export const GlobalVillageBannerBlockComponent: React.FC<GlobalVillageBannerBlock> = ({
-  text,
-  backgroundColor = 'green',
-}) => {
+export const GlobalVillageBannerBlockComponent: React.FC<GlobalVillageBannerBlock> = ({ text }) => {
   return (
-    <section className={cn('mb-12', backgroundColor && backgroundColors[backgroundColor])}>
+    <section className={cn('bg-green mb-12')}>
       <div className='relative mx-auto max-w-6xl px-3 py-24 lg:px-40 lg:py-40'>
         <p className='text-white'>{text}</p>
         <Image

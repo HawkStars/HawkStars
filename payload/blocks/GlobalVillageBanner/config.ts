@@ -16,17 +16,6 @@ export const GlobalVillageBannerBlock: Block = {
       required: true,
       localized: true,
     },
-    {
-      name: 'backgroundColor',
-      type: 'select',
-      label: 'Background Color',
-      defaultValue: 'green',
-      options: [
-        { label: 'Green', value: 'green' },
-        { label: 'Bege Dark', value: 'bege-dark' },
-        { label: 'Bege Light', value: 'bege-light' },
-      ],
-    },
     SectionID,
   ],
 };

@@ -48,6 +48,20 @@ export const HeroSlideshowBlock: Block = {
             description: 'URL for the CTA button',
           },
         },
+        {
+          name: 'textAlignment',
+          type: 'select',
+          required: true,
+          options: [
+            { label: 'Left', value: 'left' },
+            { label: 'Center', value: 'center' },
+            { label: 'Right', value: 'right' },
+          ],
+          defaultValue: 'center',
+          admin: {
+            description: 'Text alignment for all slides',
+          },
+        },
       ],
     },
     {
@@ -58,19 +72,6 @@ export const HeroSlideshowBlock: Block = {
       defaultValue: 40,
       admin: {
         description: 'Overlay darkness for all slides (0-100%)',
-      },
-    },
-    {
-      name: 'textAlignment',
-      type: 'select',
-      options: [
-        { label: 'Left', value: 'left' },
-        { label: 'Center', value: 'center' },
-        { label: 'Right', value: 'right' },
-      ],
-      defaultValue: 'center',
-      admin: {
-        description: 'Text alignment for all slides',
       },
     },
     {

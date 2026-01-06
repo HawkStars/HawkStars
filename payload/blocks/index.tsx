@@ -34,6 +34,7 @@ import { TimelineBlock } from './TimelineBlock/config';
 import MultiRowImage from './MultiRowImage/config';
 import TitleDescriptionBlock from './TitleDescriptionBlock/config';
 import { BentoGridBlock } from './BentoGridBlock/config';
+import SimpleGallery from './SimpleGallery/config';
 
 const currentBlocks = [
   AccordionBlock,
@@ -46,7 +47,7 @@ const currentBlocks = [
   ContentWithImage,
   VideoBlock,
   Projects18Block,
-
+  SimpleGallery,
   TestimonialBlock,
   ProjectTestimonialBlock,
   LogosBlock,

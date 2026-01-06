@@ -8,15 +8,6 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 
-type Slide = {
-  backgroundImage: ImageType;
-  title?: string | null;
-  subtitle?: string | null;
-  ctaText?: string | null;
-  ctaLink?: string | null;
-  id?: string | null;
-};
-
 const heightClasses = {
   fullscreen: 'min-h-screen',
   large: 'min-h-[700px]',
@@ -37,7 +28,6 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
   const {
     slides = [],
     overlayOpacity = 40,
-    textAlignment = 'center',
     autoplay = true,
     autoplayInterval = 5000,
     showNavigation = true,
@@ -80,7 +70,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
       )}
     >
       {/* Slides */}
-      {slides.map((slide: Slide, index: number) => {
+      {slides.map((slide, index: number) => {
         const bgImageInfo =
           typeof slide.backgroundImage === 'string' ? null : (slide.backgroundImage as ImageType);
         const bgImage = bgImageInfo && getImagePayloadUrl(bgImageInfo);
@@ -114,15 +104,11 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
             <div
               className={cn(
                 'relative z-10 container mx-auto flex h-full flex-col justify-center px-4 py-16',
-                heightClasses[height as keyof typeof heightClasses]
+                heightClasses[height as keyof typeof heightClasses],
+                alignmentClasses[slide.textAlignment as keyof typeof alignmentClasses]
               )}
             >
-              <div
-                className={cn(
-                  'flex max-w-4xl flex-col gap-6',
-                  alignmentClasses[textAlignment as keyof typeof alignmentClasses]
-                )}
-              >
+              <div className={cn('flex max-w-4xl flex-col gap-6')}>
                 {slide.title && (
                   <h1 className='text-4xl font-bold text-white lg:text-6xl xl:text-7xl'>
                     {slide.title}
