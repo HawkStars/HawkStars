@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { DonorWallBlock } from './Component';
 
 const meta: Meta<typeof DonorWallBlock> = {

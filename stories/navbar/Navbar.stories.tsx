@@ -1,6 +1,6 @@
 import Navbar from '@/components/navbar/Navbar';
 import AppProvider from '@/utils/contexts/AppProvider';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import type { NavbarDropdown, Header, ImageIcon, ImageType } from '@/payload-types';
 
 // Helper to create link items for dropdowns

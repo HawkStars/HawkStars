@@ -1,6 +1,6 @@
 import Footer from '@/components/footer/Footer';
 import AppProvider from '@/utils/contexts/AppProvider';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import type { Footer as FooterType } from '@/payload-types';
 import { createFooterLink, DUMMY_FOOTER_INFO } from './utils';
 

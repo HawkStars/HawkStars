@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { CallToActionBlock } from './Component';
 
 const meta: Meta<typeof CallToActionBlock> = {

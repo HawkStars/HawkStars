@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { SocialProofBlock } from './Component';
 
 const meta: Meta<typeof SocialProofBlock> = {

@@ -1,5 +1,5 @@
 import { AccordionBlock } from '@/payload/blocks/AccordionBlock/Component';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 const meta: Meta<typeof AccordionBlock> = {
   title: 'Blocks/AccordionBlock',

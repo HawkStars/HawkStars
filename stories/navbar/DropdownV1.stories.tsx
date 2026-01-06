@@ -1,6 +1,6 @@
 import DesktopDropdownV1 from '@/components/navbar/DesktopDropdown/DropdownV1';
 import type { ImageIcon, ImageType } from '@/payload-types';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 const meta = {
   title: 'Header/DropdownV1',

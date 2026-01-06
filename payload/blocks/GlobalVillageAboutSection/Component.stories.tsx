@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
 import { GlobalVillageAboutSectionBlockComponent as GlobalVillageAboutSectionBlock } from './Component';

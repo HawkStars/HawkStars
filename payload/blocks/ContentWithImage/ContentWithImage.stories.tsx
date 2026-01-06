@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { ContentWithImageBlock } from './Component';
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
