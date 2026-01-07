@@ -42,16 +42,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   ...LinkJSXConverter({ internalDocToHref }),
   inlineBlocks: {},
   blocks: {
-    mediaBlock: ({ node }) => (
-      <MediaBlock
-        className='col-span-3 col-start-1'
-        imgClassName='m-0'
-        {...node.fields}
-        captionClassName='mx-auto max-w-[48rem]'
-        enableGutter={false}
-        disableInnerContainer={true}
-      />
-    ),
+    mediaBlock: ({ node }) => <MediaBlock {...node.fields} />,
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
     hero: ({ node }) => <HeroBlock {...node.fields} />,
     heroWithBackgroundImage: ({ node }) => <HeroWithBackgroundImageBlock {...node.fields} />,

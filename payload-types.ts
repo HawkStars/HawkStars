@@ -464,7 +464,7 @@ export interface Page {
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
-  media: string | Media;
+  media: ImageType;
   /**
    * Unique identifier for the section (used for anchor links)
    */
@@ -472,6 +472,30 @@ export interface MediaBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
+}
+/**
+ * Upload an image or provide an external image URL
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageType".
+ */
+export interface ImageType {
+  /**
+   * Select whether to use an external image URL or upload an image/media file.
+   */
+  imageType: 'external' | 'upload';
+  /**
+   * Upload an image or media file.
+   */
+  image?: (string | null) | Media;
+  /**
+   * Provide the URL for the external image.
+   */
+  externalImage?: string | null;
+  /**
+   * Alt text for the image for accessibility and SEO | Caption Image
+   */
+  alt: string;
 }
 /**
  * Upload and manage media assets such as images used throughout the website. Use a image compression tool to optimize images before uploading to improve performance. Ideally in webP
@@ -510,18 +534,8 @@ export interface HeroBlock {
    * Main heading text
    */
   heading: string;
-  /**
-   * Call-to-action button text
-   */
-  ctaText?: string | null;
-  /**
-   * URL for the CTA button
-   */
-  ctaLink?: string | null;
-  /**
-   * Image displayed above the heading
-   */
-  headerImage?: (string | null) | Media;
+  ctaLink: LinkField;
+  headerImage: ImageType;
   /**
    * Feature cards displayed in grid (up to 4)
    */
@@ -555,10 +569,7 @@ export interface HeroBlock {
  * via the `definition` "HeroWithBackgroundImageBlock".
  */
 export interface HeroWithBackgroundImageBlock {
-  /**
-   * Background image for the hero section
-   */
-  backgroundImage: string | Media;
+  backgroundImage: ImageType;
   /**
    * Main heading text
    */
@@ -571,22 +582,12 @@ export interface HeroWithBackgroundImageBlock {
    * Overlay darkness (0-100%)
    */
   overlayOpacity?: number | null;
-  /**
-   * Primary call-to-action button text
-   */
-  primaryCtaText?: string | null;
-  /**
-   * URL for the primary CTA button
-   */
-  primaryCtaLink?: string | null;
-  /**
-   * Secondary call-to-action button text
-   */
-  secondaryCtaText?: string | null;
-  /**
-   * URL for the secondary CTA button
-   */
-  secondaryCtaLink?: string | null;
+  links?:
+    | {
+        link: LinkField;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Text alignment
    */
@@ -659,30 +660,6 @@ export interface HeroSlideshowBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroSlideshowBlock';
-}
-/**
- * Upload an image or provide an external image URL
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageType".
- */
-export interface ImageType {
-  /**
-   * Select whether to use an external image URL or upload an image/media file.
-   */
-  imageType: 'external' | 'upload';
-  /**
-   * Upload an image or media file.
-   */
-  image?: (string | null) | Media;
-  /**
-   * Provide the URL for the external image.
-   */
-  externalImage?: string | null;
-  /**
-   * Alt text for the image for accessibility and SEO | Caption Image
-   */
-  alt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2513,10 +2490,20 @@ export interface LinkFieldSelect<T extends boolean = true> {
  * via the `definition` "MediaBlock_select".
  */
 export interface MediaBlockSelect<T extends boolean = true> {
-  media?: T;
+  media?: T | ImageTypeSelect<T>;
   sectionId?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageType_select".
+ */
+export interface ImageTypeSelect<T extends boolean = true> {
+  imageType?: T;
+  image?: T;
+  externalImage?: T;
+  alt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2525,9 +2512,8 @@ export interface MediaBlockSelect<T extends boolean = true> {
 export interface HeroBlockSelect<T extends boolean = true> {
   badge?: T;
   heading?: T;
-  ctaText?: T;
-  ctaLink?: T;
-  headerImage?: T;
+  ctaLink?: T | LinkFieldSelect<T>;
+  headerImage?: T | ImageTypeSelect<T>;
   features?:
     | T
     | {
@@ -2545,14 +2531,16 @@ export interface HeroBlockSelect<T extends boolean = true> {
  * via the `definition` "HeroWithBackgroundImageBlock_select".
  */
 export interface HeroWithBackgroundImageBlockSelect<T extends boolean = true> {
-  backgroundImage?: T;
+  backgroundImage?: T | ImageTypeSelect<T>;
   title?: T;
   subtitle?: T;
   overlayOpacity?: T;
-  primaryCtaText?: T;
-  primaryCtaLink?: T;
-  secondaryCtaText?: T;
-  secondaryCtaLink?: T;
+  links?:
+    | T
+    | {
+        link?: T | LinkFieldSelect<T>;
+        id?: T;
+      };
   textAlignment?: T;
   sectionId?: T;
   id?: T;
@@ -2583,16 +2571,6 @@ export interface HeroSlideshowBlockSelect<T extends boolean = true> {
   sectionId?: T;
   id?: T;
   blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageType_select".
- */
-export interface ImageTypeSelect<T extends boolean = true> {
-  imageType?: T;
-  image?: T;
-  externalImage?: T;
-  alt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

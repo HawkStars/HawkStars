@@ -1,3 +1,6 @@
+import { PayloadImageField } from '@/payload/fields/ImageType';
+import { link } from '@/payload/fields/link';
+import { linkGroup } from '@/payload/fields/linkGroup';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
@@ -5,15 +8,12 @@ export const HeroWithBackgroundImage: Block = {
   slug: 'heroWithBackgroundImage',
   interfaceName: 'HeroWithBackgroundImageBlock',
   fields: [
-    {
+    PayloadImageField({
       name: 'backgroundImage',
-      type: 'upload',
-      relationTo: 'media',
+      label: 'Background Image',
       required: true,
-      admin: {
-        description: 'Background image for the hero section',
-      },
-    },
+      description: 'Background image for the hero section',
+    }),
     {
       name: 'title',
       type: 'textarea',
@@ -39,34 +39,7 @@ export const HeroWithBackgroundImage: Block = {
         description: 'Overlay darkness (0-100%)',
       },
     },
-    {
-      name: 'primaryCtaText',
-      type: 'text',
-      admin: {
-        description: 'Primary call-to-action button text',
-      },
-    },
-    {
-      name: 'primaryCtaLink',
-      type: 'text',
-      admin: {
-        description: 'URL for the primary CTA button',
-      },
-    },
-    {
-      name: 'secondaryCtaText',
-      type: 'text',
-      admin: {
-        description: 'Secondary call-to-action button text',
-      },
-    },
-    {
-      name: 'secondaryCtaLink',
-      type: 'text',
-      admin: {
-        description: 'URL for the secondary CTA button',
-      },
-    },
+    linkGroup({ overrides: { maxRows: 2 } }),
     {
       name: 'textAlignment',
       type: 'select',

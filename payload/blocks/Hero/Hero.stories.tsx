@@ -16,8 +16,12 @@ export const Default: Story = {
   args: {
     badge: 'PLATFORM',
     heading: 'Build amazing experiences with our powerful platform',
-    ctaText: 'Start now for free',
-    ctaLink: '/signup',
+    ctaLink: {
+      type: 'custom',
+      url: '/get-started',
+      newTab: false,
+      label: 'Get started',
+    },
     features: [
       {
         icon: 'globe',
@@ -40,9 +44,6 @@ export const Default: Story = {
         description: 'Adapt our platform to your specific needs with powerful tools.',
       },
     ],
-    id: '1',
-    blockName: 'Hero',
-    blockType: 'hero',
   },
 };
 
@@ -50,16 +51,10 @@ export const WithHeaderImage: Story = {
   args: {
     ...Default.args,
     headerImage: {
-      id: '1',
-      alt: 'Logo',
-      url: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=128&h=128&fit=crop',
-      filename: 'logo.png',
-      mimeType: 'image/png',
-      filesize: 5000,
-      width: 128,
-      height: 128,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      imageType: 'external',
+      externalImage:
+        'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=128&h=128&fit=crop',
+      alt: 'Header image showing a futuristic cityscape',
     },
   },
 };
@@ -67,8 +62,12 @@ export const WithHeaderImage: Story = {
 export const NoBadge: Story = {
   args: {
     heading: 'Welcome to the future of development',
-    ctaText: 'Get started',
-    ctaLink: '/start',
+    ctaLink: {
+      type: 'custom',
+      url: '/get-started',
+      newTab: false,
+      label: 'Get started',
+    },
     features: [
       {
         icon: 'rocket',
@@ -81,9 +80,6 @@ export const NoBadge: Story = {
         description: 'Complete flexibility to customize every aspect of your project.',
       },
     ],
-    id: '2',
-    blockName: 'Hero',
-    blockType: 'hero',
   },
 };
 
@@ -91,10 +87,11 @@ export const NoFeatures: Story = {
   args: {
     badge: 'NEW RELEASE',
     heading: 'Introducing our revolutionary platform',
-    ctaText: 'Learn more',
-    ctaLink: '/features',
-    id: '3',
-    blockName: 'Hero',
-    blockType: 'hero',
+    ctaLink: {
+      type: 'custom',
+      url: '/get-started',
+      newTab: false,
+      label: 'Get started',
+    },
   },
 };

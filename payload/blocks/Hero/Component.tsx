@@ -3,6 +3,8 @@ import Image from 'next/image';
 import type { HeroBlock } from '@/payload-types';
 
 import { Button } from '@/components/ui/button';
+import { getImagePayloadUrl } from '@/lib/image';
+import { getLinkFieldInformation } from '@/utils/page';
 
 const iconMap = {
   globe: Globe,
@@ -13,23 +15,20 @@ const iconMap = {
 
 const HeroBlock: React.FC<HeroBlock> = (data) => {
   if (!data) return null;
-  const {
-    badge,
-    heading,
-    ctaText = 'Start now for free',
-    ctaLink,
-    headerImage,
-    features = [],
-  } = data;
+  const { badge, heading, ctaLink, headerImage, features = [] } = data;
+
+  const bgImage = getImagePayloadUrl(headerImage);
+
+  const linkInfo = getLinkFieldInformation(ctaLink);
 
   return (
     <section className='py-32'>
       <div className='container mx-auto'>
         <div className='text-center'>
-          {headerImage && typeof headerImage !== 'string' && headerImage.url && (
+          {bgImage && bgImage.url && (
             <div className='flex justify-center'>
               <Image
-                src={headerImage.url}
+                src={bgImage.url}
                 alt={headerImage.alt || 'Hero'}
                 height={32}
                 width={32}
@@ -45,18 +44,13 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
           {heading && (
             <h1 className='mt-4 text-4xl font-semibold text-balance lg:text-6xl'>{heading}</h1>
           )}
-          {ctaText && (
+          {linkInfo && (
             <Button className='mt-8' size='lg' asChild={!!ctaLink}>
-              {ctaLink ? (
-                <a href={ctaLink}>
-                  {ctaText}
+              {ctaLink && (
+                <a href={linkInfo.url}>
+                  {linkInfo.label}
                   <MoveRight className='ml-2' strokeWidth={1} />
                 </a>
-              ) : (
-                <>
-                  {ctaText}
-                  <MoveRight className='ml-2' strokeWidth={1} />
-                </>
               )}
             </Button>
           )}

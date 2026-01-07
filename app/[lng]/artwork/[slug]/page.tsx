@@ -42,9 +42,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
     <>
       <HawkStarsSection className='bg-bege-light flex gap-8 pt-10 pb-8 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
         <div className='max-lg:mx-auto lg:w-7/12'>
-          {artwork.image && (
-            <MediaBlock media={artwork.image} imgClassName='rounded-xl' blockType='mediaBlock' />
-          )}
+          {artwork.image && <MediaBlock media={artwork.image} />}
         </div>
         <div className='font-oswald flex flex-col px-5 pt-5 lg:w-5/12'>
           <h2 className='text-h1_semibold text-disabled mb-2'>

@@ -1,42 +1,24 @@
-import type { StaticImageData } from 'next/image';
-
 import React from 'react';
+import Image from 'next/image';
 
 import type { MediaBlock as MediaBlockProps } from '@/payload-types';
+import { getImagePayloadUrl } from '@/lib/image';
 
-import { Media } from '../../components/Media';
-import { cn } from '@/lib/utils';
+export const MediaBlock: React.FC<MediaBlockProps> = (props) => {
+  const { media } = props;
 
-type Props = MediaBlockProps & {
-  breakout?: boolean;
-  captionClassName?: string;
-  className?: string;
-  enableGutter?: boolean;
-  imgClassName?: string;
-  staticImage?: StaticImageData;
-  disableInnerContainer?: boolean;
-};
-
-export const MediaBlock: React.FC<Props> = (props) => {
-  const { className, enableGutter = true, imgClassName, media, staticImage } = props;
+  const image = getImagePayloadUrl(media);
+  if (!image) return null;
 
   return (
-    <div
-      className={cn(
-        'mx-auto',
-        {
-          container: enableGutter,
-        },
-        className
-      )}
-    >
-      {(media || staticImage) && (
-        <Media
-          imgClassName={cn('border border-border rounded-[0.8rem]', imgClassName)}
-          resource={media}
-          src={staticImage}
-        />
-      )}
+    <div className='mx-auto'>
+      <Image
+        src={image.url}
+        alt={media.alt || ''}
+        height={image.height || undefined}
+        width={image.width || undefined}
+        fill={image.width === undefined || image.height === undefined}
+      />
     </div>
   );
 };

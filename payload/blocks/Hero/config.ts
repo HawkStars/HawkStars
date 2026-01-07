@@ -1,3 +1,5 @@
+import { PayloadImageField } from '@/payload/fields/ImageType';
+import { link } from '@/payload/fields/link';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
@@ -20,29 +22,13 @@ export const Hero: Block = {
         description: 'Main heading text',
       },
     },
-    {
-      name: 'ctaText',
-      type: 'text',
-      defaultValue: 'Start now for free',
-      admin: {
-        description: 'Call-to-action button text',
-      },
-    },
-    {
-      name: 'ctaLink',
-      type: 'text',
-      admin: {
-        description: 'URL for the CTA button',
-      },
-    },
-    {
+    link({ name: 'ctaLink', description: 'Call-to-action button information' }),
+    PayloadImageField({
       name: 'headerImage',
-      type: 'upload',
-      relationTo: 'media',
-      admin: {
-        description: 'Image displayed above the heading',
-      },
-    },
+      label: 'Header Image',
+      required: false,
+      description: 'Image displayed above the heading',
+    }),
     {
       name: 'features',
       type: 'array',

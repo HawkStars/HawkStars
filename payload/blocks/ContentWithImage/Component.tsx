@@ -1,6 +1,5 @@
 import React from 'react';
 import type { ContentWithImageBlock as ContentWithImageProps } from '@/payload-types';
-import { Media } from '../../components/Media';
 import RichText from '@/payload/components/RichText';
 import { cn } from '@/lib/utils';
 

@@ -5,15 +5,16 @@ type LinkTypeProps = {
   labelInformation?: string;
   condition?: Condition;
   description?: string;
+  name?: string;
 };
 
 export const link = (props?: LinkTypeProps) => {
-  const { localizedLabel, labelInformation, condition, description } = props || {
+  const { localizedLabel, labelInformation, condition, description, name } = props || {
     localizedLabel: false,
     labelInformation: 'Link',
   };
   const linkResult: GroupField = {
-    name: 'link',
+    name: name || 'link',
     label: labelInformation,
     type: 'group',
     interfaceName: 'LinkField',

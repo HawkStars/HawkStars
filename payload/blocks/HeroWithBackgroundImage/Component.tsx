@@ -2,6 +2,14 @@ import React from 'react';
 import type { HeroWithBackgroundImageBlock } from '@/payload-types';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { getImagePayloadUrl } from '@/lib/image';
+import { getLinkFieldInformation } from '@/utils/page';
+
+const alignmentClasses = {
+  left: 'text-left items-start',
+  center: 'text-center items-center',
+  right: 'text-right items-end',
+};
 
 const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (data) => {
   if (!data) return null;
@@ -11,19 +19,16 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
     title,
     subtitle,
     overlayOpacity = 50,
-    primaryCtaText,
-    primaryCtaLink,
-    secondaryCtaText,
-    secondaryCtaLink,
+    links = [],
     textAlignment = 'center',
   } = data;
 
-  const bgImage = typeof backgroundImage === 'string' ? null : backgroundImage;
-  const alignmentClasses = {
-    left: 'text-left items-start',
-    center: 'text-center items-center',
-    right: 'text-right items-end',
-  };
+  const bgImage = getImagePayloadUrl(backgroundImage);
+
+  const primaryCta = links && links[0]?.link;
+  const secondaryCta = links && links[1]?.link;
+  const primaryCTAInfo = primaryCta && getLinkFieldInformation(primaryCta);
+  const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta);
 
   return (
     <section className='relative min-h-150 w-full lg:min-h-175'>
@@ -57,21 +62,21 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
 
           {subtitle && <p className='max-w-2xl text-lg text-white/90 lg:text-xl'>{subtitle}</p>}
 
-          {(primaryCtaText || secondaryCtaText) && (
+          {(primaryCTAInfo || secondaryCTAInfo) && (
             <div className='mt-4 flex flex-col gap-4 sm:flex-row'>
-              {primaryCtaLink && primaryCtaText && (
+              {primaryCTAInfo && (
                 <Button size='lg' className='bg-white text-gray-900 hover:bg-gray-100' asChild>
-                  <a href={primaryCtaLink}>{primaryCtaText}</a>
+                  <a href={primaryCTAInfo.url}>{primaryCTAInfo.label}</a>
                 </Button>
               )}
-              {secondaryCtaLink && secondaryCtaText && (
+              {secondaryCTAInfo && (
                 <Button
                   size='lg'
                   variant='outline'
                   className='border-white text-white hover:bg-white/10'
                   asChild
                 >
-                  <a href={secondaryCtaLink}>{secondaryCtaText}</a>
+                  <a href={secondaryCTAInfo.url}>{secondaryCTAInfo.label}</a>
                 </Button>
               )}
             </div>
