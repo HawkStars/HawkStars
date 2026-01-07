@@ -49,7 +49,7 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
       />
 
       {/* Content */}
-      <div className='relative z-10 container mx-auto flex min-h-150 flex-col justify-center px-4 py-32 lg:min-h-[700px]'>
+      <div className='relative z-10 container mx-auto flex min-h-150 flex-col justify-center px-4 py-32 lg:min-h-175'>
         <div
           className={cn(
             'flex max-w-4xl flex-col gap-6',

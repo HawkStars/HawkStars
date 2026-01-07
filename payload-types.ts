@@ -307,6 +307,7 @@ export interface CallToActionBlock {
         id?: string | null;
       }[]
     | null;
+  image: ImageType;
   /**
    * Unique identifier for the section (used for anchor links)
    */
@@ -678,10 +679,7 @@ export interface HeroImpactStatsBlock {
    * Description or mission statement
    */
   description?: string | null;
-  /**
-   * Hero image displayed alongside content
-   */
-  heroImage?: (string | null) | Media;
+  heroImage: ImageType;
   /**
    * Impact statistics (2-4 stats)
    */
@@ -702,22 +700,12 @@ export interface HeroImpactStatsBlock {
         id?: string | null;
       }[]
     | null;
-  /**
-   * Call-to-action button text
-   */
-  ctaText?: string | null;
-  /**
-   * URL for the CTA button
-   */
-  ctaLink?: string | null;
-  /**
-   * Secondary CTA button text
-   */
-  secondaryCtaText?: string | null;
-  /**
-   * URL for the secondary CTA button
-   */
-  secondaryCtaLink?: string | null;
+  links?:
+    | {
+        link: LinkField;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Unique identifier for the section (used for anchor links)
    */
@@ -747,7 +735,7 @@ export interface ContentWithImageBlock {
     };
     [k: string]: unknown;
   };
-  image: string | Media;
+  image: ImageType;
   /**
    * Position of the image relative to the content
    */
@@ -1139,15 +1127,14 @@ export interface CampaignCountdownBlock {
 export interface CTABannerBlock {
   title: string;
   description?: string | null;
-  primaryButtonText?: string | null;
-  primaryButtonLink?: string | null;
-  secondaryButtonText?: string | null;
-  secondaryButtonLink?: string | null;
+  links?:
+    | {
+        link: LinkField;
+        id?: string | null;
+      }[]
+    | null;
   variant?: ('centered' | 'split' | 'image-bg') | null;
-  /**
-   * For image-bg variant
-   */
-  backgroundImage?: (string | null) | Media;
+  backgroundImage: ImageType;
   /**
    * Unique identifier for the section (used for anchor links)
    */
@@ -2469,6 +2456,7 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
         link?: T | LinkFieldSelect<T>;
         id?: T;
       };
+  image?: T | ImageTypeSelect<T>;
   sectionId?: T;
   id?: T;
   blockName?: T;
@@ -2487,16 +2475,6 @@ export interface LinkFieldSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock_select".
- */
-export interface MediaBlockSelect<T extends boolean = true> {
-  media?: T | ImageTypeSelect<T>;
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ImageType_select".
  */
 export interface ImageTypeSelect<T extends boolean = true> {
@@ -2504,6 +2482,16 @@ export interface ImageTypeSelect<T extends boolean = true> {
   image?: T;
   externalImage?: T;
   alt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock_select".
+ */
+export interface MediaBlockSelect<T extends boolean = true> {
+  media?: T | ImageTypeSelect<T>;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2580,7 +2568,7 @@ export interface HeroImpactStatsBlockSelect<T extends boolean = true> {
   badge?: T;
   title?: T;
   description?: T;
-  heroImage?: T;
+  heroImage?: T | ImageTypeSelect<T>;
   stats?:
     | T
     | {
@@ -2589,10 +2577,12 @@ export interface HeroImpactStatsBlockSelect<T extends boolean = true> {
         icon?: T;
         id?: T;
       };
-  ctaText?: T;
-  ctaLink?: T;
-  secondaryCtaText?: T;
-  secondaryCtaLink?: T;
+  links?:
+    | T
+    | {
+        link?: T | LinkFieldSelect<T>;
+        id?: T;
+      };
   sectionId?: T;
   id?: T;
   blockName?: T;
@@ -2604,7 +2594,7 @@ export interface HeroImpactStatsBlockSelect<T extends boolean = true> {
 export interface ContentWithImageBlockSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  image?: T;
+  image?: T | ImageTypeSelect<T>;
   imagePosition?: T;
   sectionId?: T;
   id?: T;
@@ -2787,12 +2777,14 @@ export interface CampaignCountdownBlockSelect<T extends boolean = true> {
 export interface CTABannerBlockSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  primaryButtonText?: T;
-  primaryButtonLink?: T;
-  secondaryButtonText?: T;
-  secondaryButtonLink?: T;
+  links?:
+    | T
+    | {
+        link?: T | LinkFieldSelect<T>;
+        id?: T;
+      };
   variant?: T;
-  backgroundImage?: T;
+  backgroundImage?: T | ImageTypeSelect<T>;
   sectionId?: T;
   id?: T;
   blockName?: T;

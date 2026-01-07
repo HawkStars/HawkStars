@@ -4,8 +4,11 @@ import type { CallToActionBlock as CTABlockProps } from '@/payload-types';
 
 import { CMSLink } from '@/payload/components/Link';
 import Image from 'next/image';
+import { getImagePayloadUrl } from '@/lib/image';
 
-export const CallToActionBlock: React.FC<CTABlockProps> = ({ title, subtitle, links }) => {
+export const CallToActionBlock: React.FC<CTABlockProps> = ({ title, subtitle, links, image }) => {
+  const imageInfo = getImagePayloadUrl(image);
+
   return (
     <section className='py-32'>
       <div className='container mx-auto'>
@@ -27,9 +30,11 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({ title, subtitle, li
               })}
             </div>
           </div>
-          <div className='relative size-full'>
-            <Image src='' alt='' />
-          </div>
+          {imageInfo && (
+            <div className='relative ml-5 size-full rounded-4xl'>
+              <Image src={imageInfo.url} alt={imageInfo.alt || ''} fill className='object-cover' />
+            </div>
+          )}
         </div>
       </div>
     </section>

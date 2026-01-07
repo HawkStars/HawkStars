@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { HeroImpactStatsBlock } from './Component';
+import { createPayloadExternalImage, createPayloadLink } from '@/utils/storybook';
 
 const meta: Meta<typeof HeroImpactStatsBlock> = {
   title: 'Hero/Community Impact',
@@ -35,18 +36,11 @@ export const Default: Story = {
     title: 'Making a Difference in Communities Worldwide',
     description:
       "Through our dedicated efforts and community partnerships, we've been able to create lasting positive change that impacts thousands of lives.",
-    heroImage: {
-      id: '1',
-      alt: 'Impact hero image',
-      url: 'https://images.unsplash.com/photo-1593113598332-cd288d649433?w=600&h=400&fit=crop&crop=center',
-      filename: 'impact-hero.jpg',
-      mimeType: 'image/jpeg',
-      filesize: 150000,
-      width: 600,
-      height: 400,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    },
+    heroImage: createPayloadExternalImage(
+      'external',
+      'https://images.unsplash.com/photo-1593113598332-cd288d649433?w=600&h=400&fit=crop&crop=center',
+      'Impact hero image'
+    ),
     stats: [
       {
         number: '10,000+',
@@ -73,13 +67,10 @@ export const Default: Story = {
         id: '4',
       },
     ],
-    ctaText: 'Join Our Mission',
-    ctaLink: '/contribute',
-    secondaryCtaText: 'Learn More',
-    secondaryCtaLink: '/about',
-    id: '1',
-    blockName: 'HeroImpactStats',
-    blockType: 'heroImpactStats',
+    links: [
+      { link: createPayloadLink('custom', '/get-started', false, 'Join Our Mission') },
+      { link: createPayloadLink('custom', '/methodology', false, 'Learn More') },
+    ],
   },
 };
 
@@ -104,11 +95,7 @@ export const MinimalImpact: Story = {
         id: '2',
       },
     ],
-    ctaText: 'Get Involved',
-    ctaLink: '/volunteer',
-    id: '2',
-    blockName: 'HeroImpactStats',
-    blockType: 'heroImpactStats',
+    links: [{ link: createPayloadLink('custom', '/get-started', false, 'Get Involved') }],
   },
 };
 
@@ -146,11 +133,7 @@ export const FinancialTransparency: Story = {
         id: '4',
       },
     ],
-    ctaText: 'View Full Report',
-    ctaLink: '/transparency',
-    id: '3',
-    blockName: 'HeroImpactStats',
-    blockType: 'heroImpactStats',
+    links: [{ link: createPayloadLink('custom', '/get-started', false, 'View Full Report') }],
   },
 };
 
@@ -163,18 +146,11 @@ export const CommunityDevelopment: Story = {
     title: 'Building Stronger Communities Together',
     description:
       'Our community-centered approach ensures sustainable, long-term positive change that grows from within.',
-    heroImage: {
-      id: '2',
-      alt: 'Community gathering',
-      url: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&h=400&fit=crop&crop=center',
-      filename: 'community.jpg',
-      mimeType: 'image/jpeg',
-      filesize: 120000,
-      width: 600,
-      height: 400,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    },
+    heroImage: createPayloadExternalImage(
+      'external',
+      'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&h=400&fit=crop&crop=center',
+      'Community gathering'
+    ),
     stats: [
       {
         number: '200+',
@@ -201,13 +177,10 @@ export const CommunityDevelopment: Story = {
         id: '4',
       },
     ],
-    ctaText: 'Partner With Us',
-    ctaLink: '/partners',
-    secondaryCtaText: 'Our Approach',
-    secondaryCtaLink: '/methodology',
-    id: '4',
-    blockName: 'HeroImpactStats',
-    blockType: 'heroImpactStats',
+    links: [
+      { link: createPayloadLink('custom', '/get-started', false, 'Partner With Us') },
+      { link: createPayloadLink('custom', '/methodology', false, 'Our Approach') },
+    ],
   },
 };
 
@@ -220,18 +193,11 @@ export const VolunteerRecruitment: Story = {
     title: 'Ready to Make a Difference?',
     description:
       'Join thousands of volunteers and donors who are creating positive change in communities around the world.',
-    heroImage: {
-      id: '3',
-      alt: 'Volunteers working together',
-      url: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=600&h=400&fit=crop&crop=center',
-      filename: 'volunteers.jpg',
-      mimeType: 'image/jpeg',
-      filesize: 180000,
-      width: 600,
-      height: 400,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    },
+    heroImage: createPayloadExternalImage(
+      'external',
+      'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=600&h=400&fit=crop&crop=center',
+      'Volunteers helping out'
+    ),
     stats: [
       {
         number: '2,400+',
@@ -246,10 +212,6 @@ export const VolunteerRecruitment: Story = {
         id: '2',
       },
     ],
-    ctaText: 'Start Your Journey',
-    ctaLink: '/get-started',
-    id: '5',
-    blockName: 'HeroImpactStats',
-    blockType: 'heroImpactStats',
+    links: [{ link: createPayloadLink('custom', '/get-started', false, 'Start Your Journey') }],
   },
 };

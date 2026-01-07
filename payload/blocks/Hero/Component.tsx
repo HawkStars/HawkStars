@@ -26,13 +26,13 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
       <div className='container mx-auto'>
         <div className='text-center'>
           {bgImage && bgImage.url && (
-            <div className='flex justify-center'>
+            <div className='relative flex min-h-8 justify-center'>
               <Image
                 src={bgImage.url}
                 alt={headerImage.alt || 'Hero'}
                 height={32}
                 width={32}
-                className='absolute mx-auto mb-5 aspect-square w-16 md:mb-6 md:w-24 lg:mb-7 lg:w-28'
+                className='absolute mx-auto mb-5 aspect-square'
               />
             </div>
           )}

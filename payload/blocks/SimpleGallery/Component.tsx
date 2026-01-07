@@ -25,7 +25,7 @@ const SimpleGallery: React.FC<SimpleGalleryBlockProps> = ({
 }) => {
   return (
     <section className='py-32'>
-      <div className='container'>
+      <div className='container mx-auto'>
         <h2 className='mb-4 text-center text-4xl font-semibold'>{title}</h2>
         <p className='text-muted-foreground text-center text-sm'>
           {description.split('\n').map((line, idx) => (

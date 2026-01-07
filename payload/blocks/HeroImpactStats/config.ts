@@ -1,3 +1,5 @@
+import { PayloadImageField } from '@/payload/fields/ImageType';
+import { linkGroup } from '@/payload/fields/linkGroup';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
@@ -27,14 +29,12 @@ export const HeroImpactStats: Block = {
         description: 'Description or mission statement',
       },
     },
-    {
+    PayloadImageField({
       name: 'heroImage',
-      type: 'upload',
-      relationTo: 'media',
-      admin: {
-        description: 'Hero image displayed alongside content',
-      },
-    },
+      label: 'Hero Image',
+      required: false,
+      description: 'Hero image displayed alongside content',
+    }),
     {
       name: 'stats',
       type: 'array',
@@ -77,34 +77,7 @@ export const HeroImpactStats: Block = {
         description: 'Impact statistics (2-4 stats)',
       },
     },
-    {
-      name: 'ctaText',
-      type: 'text',
-      admin: {
-        description: 'Call-to-action button text',
-      },
-    },
-    {
-      name: 'ctaLink',
-      type: 'text',
-      admin: {
-        description: 'URL for the CTA button',
-      },
-    },
-    {
-      name: 'secondaryCtaText',
-      type: 'text',
-      admin: {
-        description: 'Secondary CTA button text',
-      },
-    },
-    {
-      name: 'secondaryCtaLink',
-      type: 'text',
-      admin: {
-        description: 'URL for the secondary CTA button',
-      },
-    },
+    linkGroup({ overrides: { maxRows: 2 } }),
     SectionID,
   ],
   labels: {

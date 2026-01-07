@@ -7,6 +7,7 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical';
 import SectionID from '@/payload/fields/SectionID';
+import { PayloadImageField } from '@/payload/fields/ImageType';
 
 export const ContentWithImage: Block = {
   slug: 'contentWithImage',
@@ -31,12 +32,7 @@ export const ContentWithImage: Block = {
       }),
       required: true,
     },
-    {
-      name: 'image',
-      type: 'upload',
-      relationTo: 'media',
-      required: true,
-    },
+    PayloadImageField({ name: 'image', label: 'Image', required: true }),
     {
       name: 'imagePosition',
       type: 'select',

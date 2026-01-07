@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { CallToActionBlock } from './Component';
+import { createPayloadExternalImage } from '@/utils/storybook';
 
 const meta: Meta<typeof CallToActionBlock> = {
   title: 'Call To Action/Globe',
@@ -33,9 +34,11 @@ export const Default: Story = {
         },
       },
     ],
-    id: '1',
-    blockName: 'CallToAction',
-    blockType: 'cta',
+    image: createPayloadExternalImage(
+      'external',
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=600&fit=crop',
+      'CTA Image'
+    ),
   },
 };
 

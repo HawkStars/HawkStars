@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { ContentWithImageBlock } from './Component';
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
+import { createPayloadExternalImage } from '@/utils/storybook';
 
 const meta: Meta<typeof ContentWithImageBlock> = {
   title: 'Section/Content With Image',
@@ -45,18 +46,11 @@ export const ImageRight: Story = {
   args: {
     title: 'Powerful Features',
     description: sampleDescription as DefaultTypedEditorState,
-    image: {
-      id: '1',
-      alt: 'Feature image',
-      url: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop',
-      filename: 'feature.jpg',
-      mimeType: 'image/jpeg',
-      filesize: 123456,
-      width: 800,
-      height: 600,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    },
+    image: createPayloadExternalImage(
+      'external',
+      'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop',
+      'Feature image'
+    ),
     imagePosition: 'right',
   },
 };
@@ -65,18 +59,11 @@ export const ImageLeft: Story = {
   args: {
     title: 'Amazing Technology',
     description: sampleDescription as DefaultTypedEditorState,
-    image: {
-      id: '2',
-      alt: 'Technology image',
-      url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop',
-      filename: 'tech.jpg',
-      mimeType: 'image/jpeg',
-      filesize: 123456,
-      width: 800,
-      height: 600,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    },
+    image: createPayloadExternalImage(
+      'external',
+      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop',
+      'Technology image'
+    ),
     imagePosition: 'left',
   },
 };

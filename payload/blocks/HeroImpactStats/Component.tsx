@@ -3,6 +3,8 @@ import { Heart, Users, Globe, Target, TrendingUp, Award } from 'lucide-react';
 import type { HeroImpactStatsBlock } from '@/payload-types';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import { getImagePayloadUrl } from '@/lib/image';
+import { getLinkFieldInformation } from '@/utils/page';
 
 const iconMap = {
   heart: Heart,
@@ -16,19 +18,13 @@ const iconMap = {
 const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlock> = (data) => {
   if (!data) return null;
 
-  const {
-    badge,
-    title,
-    description,
-    heroImage,
-    stats = [],
-    ctaText,
-    ctaLink,
-    secondaryCtaText,
-    secondaryCtaLink,
-  } = data;
+  const { badge, title, description, heroImage, stats = [], links = [] } = data;
 
-  const image = typeof heroImage === 'string' ? null : heroImage;
+  const image = getImagePayloadUrl(heroImage);
+  const primaryCta = links && links[0]?.link;
+  const secondaryCta = links && links[1]?.link;
+  const primaryCTAInfo = primaryCta && getLinkFieldInformation(primaryCta);
+  const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta);
 
   return (
     <section className='bg-linear-to-br from-green-50 to-blue-50 py-16 lg:py-24'>
@@ -75,16 +71,16 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlock> = (data) => {
             )}
 
             {/* CTA Buttons */}
-            {(ctaText || secondaryCtaText) && (
+            {(primaryCTAInfo || secondaryCTAInfo) && (
               <div className='flex flex-col gap-4 sm:flex-row'>
-                {ctaLink && ctaText && (
+                {primaryCTAInfo && (
                   <Button size='lg' className='bg-green-600 hover:bg-green-700' asChild>
-                    <a href={ctaLink}>{ctaText}</a>
+                    <a href={primaryCTAInfo.url}>{primaryCTAInfo.url}</a>
                   </Button>
                 )}
-                {secondaryCtaLink && secondaryCtaText && (
+                {secondaryCTAInfo && (
                   <Button size='lg' variant='outline' asChild>
-                    <a href={secondaryCtaLink}>{secondaryCtaText}</a>
+                    <a href={secondaryCTAInfo.url}>{secondaryCTAInfo.url}</a>
                   </Button>
                 )}
               </div>

@@ -2,6 +2,7 @@ import type { Block } from 'payload';
 
 import { linkGroup } from '../../fields/linkGroup';
 import SectionID from '@/payload/fields/SectionID';
+import { PayloadImageField } from '@/payload/fields/ImageType';
 
 export const CallToAction: Block = {
   slug: 'cta',
@@ -19,6 +20,7 @@ export const CallToAction: Block = {
         maxRows: 2,
       },
     }),
+    PayloadImageField({ name: 'image', label: 'Image' }),
     SectionID,
   ],
   labels: {

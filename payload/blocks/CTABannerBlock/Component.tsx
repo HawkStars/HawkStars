@@ -1,18 +1,21 @@
 import React from 'react';
 import type { CTABannerBlock as CTABannerBlockProps, Media } from '@/payload-types';
 import { Button } from '@/components/ui/button';
+import { getImagePayloadUrl } from '@/lib/image';
+import { getLinkFieldInformation } from '@/utils/page';
 
 export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
   title,
   description,
-  primaryButtonText,
-  primaryButtonLink,
-  secondaryButtonText,
-  secondaryButtonLink,
+  links,
   variant = 'centered',
   backgroundImage,
 }) => {
-  const bgImage = typeof backgroundImage === 'string' ? null : (backgroundImage as Media);
+  const bgImage = getImagePayloadUrl(backgroundImage);
+  const primaryCta = links && links[0]?.link;
+  const secondaryCta = links && links[1]?.link;
+  const primaryCTAInfo = primaryCta && getLinkFieldInformation(primaryCta);
+  const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta);
 
   return (
     <section className='py-12 lg:py-20'>
@@ -24,19 +27,19 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
               <p className='mx-auto mb-8 max-w-2xl text-lg opacity-90'>{description}</p>
             )}
             <div className='flex flex-col justify-center gap-4 sm:flex-row'>
-              {primaryButtonLink && primaryButtonText && (
+              {primaryCTAInfo && (
                 <Button size='lg' className='text-green hover:bg-bege-light bg-white' asChild>
-                  <a href={primaryButtonLink}>{primaryButtonText}</a>
+                  <a href={primaryCTAInfo.url}>{primaryCTAInfo.label}</a>
                 </Button>
               )}
-              {secondaryButtonLink && secondaryButtonText && (
+              {secondaryCTAInfo && (
                 <Button
                   size='lg'
                   variant='outline'
                   className='border-white text-white hover:bg-white/10'
                   asChild
                 >
-                  <a href={secondaryButtonLink}>{secondaryButtonText}</a>
+                  <a href={secondaryCTAInfo.url}>{secondaryCTAInfo.label}</a>
                 </Button>
               )}
             </div>
@@ -51,19 +54,19 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
                 {description && <p className='text-lg opacity-90'>{description}</p>}
               </div>
               <div className='flex flex-col gap-4 sm:flex-row lg:shrink-0'>
-                {primaryButtonLink && primaryButtonText && (
+                {primaryCTAInfo && (
                   <Button size='lg' className='text-green hover:bg-bege-light bg-white' asChild>
-                    <a href={primaryButtonLink}>{primaryButtonText}</a>
+                    <a href={primaryCTAInfo.url}>{primaryCTAInfo.label}</a>
                   </Button>
                 )}
-                {secondaryButtonLink && secondaryButtonText && (
+                {secondaryCTAInfo && (
                   <Button
                     size='lg'
                     variant='outline'
                     className='border-white text-white hover:bg-white/10'
                     asChild
                   >
-                    <a href={secondaryButtonLink}>{secondaryButtonText}</a>
+                    <a href={secondaryCTAInfo.url}>{secondaryCTAInfo.label}</a>
                   </Button>
                 )}
               </div>
@@ -85,19 +88,19 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
               <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
               {description && <p className='mx-auto mb-8 max-w-2xl text-lg'>{description}</p>}
               <div className='flex flex-col justify-center gap-4 sm:flex-row'>
-                {primaryButtonLink && primaryButtonText && (
+                {primaryCTAInfo && (
                   <Button size='lg' className='bg-white text-gray-900 hover:bg-gray-100' asChild>
-                    <a href={primaryButtonLink}>{primaryButtonText}</a>
+                    <a href={primaryCTAInfo.url}>{primaryCTAInfo.label}</a>
                   </Button>
                 )}
-                {secondaryButtonLink && secondaryButtonText && (
+                {secondaryCTAInfo && (
                   <Button
                     size='lg'
                     variant='outline'
                     className='border-white text-white hover:bg-white/10'
                     asChild
                   >
-                    <a href={secondaryButtonLink}>{secondaryButtonText}</a>
+                    <a href={secondaryCTAInfo.url}>{secondaryCTAInfo.label}</a>
                   </Button>
                 )}
               </div>

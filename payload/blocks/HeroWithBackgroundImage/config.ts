@@ -1,5 +1,4 @@
 import { PayloadImageField } from '@/payload/fields/ImageType';
-import { link } from '@/payload/fields/link';
 import { linkGroup } from '@/payload/fields/linkGroup';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';

@@ -1,3 +1,5 @@
+import { PayloadImageField } from '@/payload/fields/ImageType';
+import { linkGroup } from '@/payload/fields/linkGroup';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
@@ -14,22 +16,11 @@ export const CTABannerBlock: Block = {
       name: 'description',
       type: 'textarea',
     },
-    {
-      name: 'primaryButtonText',
-      type: 'text',
-    },
-    {
-      name: 'primaryButtonLink',
-      type: 'text',
-    },
-    {
-      name: 'secondaryButtonText',
-      type: 'text',
-    },
-    {
-      name: 'secondaryButtonLink',
-      type: 'text',
-    },
+    linkGroup({
+      overrides: {
+        maxRows: 2,
+      },
+    }),
     {
       name: 'variant',
       type: 'select',
@@ -40,14 +31,7 @@ export const CTABannerBlock: Block = {
       ],
       defaultValue: 'centered',
     },
-    {
-      name: 'backgroundImage',
-      type: 'upload',
-      relationTo: 'media',
-      admin: {
-        description: 'For image-bg variant',
-      },
-    },
+    PayloadImageField({ name: 'backgroundImage', description: 'For image-bg variant' }),
     SectionID,
   ],
   labels: {
