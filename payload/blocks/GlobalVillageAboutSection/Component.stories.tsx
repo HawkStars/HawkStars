@@ -57,7 +57,7 @@ export const Default: Story = {
         content: makeSectionContent(
           'Immersive programs that connect artists and innovators to mentor emerging leaders globally.'
         ),
-        imageField: {
+        sectionImage: {
           imageType: 'external',
           externalImage: 'https://placehold.co/600x400?text=Co-Creation',
           alt: 'Collaborative session with creative leaders',
@@ -69,7 +69,7 @@ export const Default: Story = {
         content: makeSectionContent(
           'Grassroots initiatives that strengthen cultural infrastructure across villages and cities.'
         ),
-        imageField: {
+        sectionImage: {
           imageType: 'external',
           externalImage: 'https://placehold.co/600x400?text=Community',
           alt: 'Community gathering in a cultural hub',
@@ -81,7 +81,7 @@ export const Default: Story = {
         content: makeSectionContent(
           'Residencies and exchange programs designed to amplify diverse voices and shared learning.'
         ),
-        imageField: {
+        sectionImage: {
           imageType: 'external',
           externalImage: 'https://placehold.co/600x400?text=Exchange',
           alt: 'Artists collaborating in an international program',

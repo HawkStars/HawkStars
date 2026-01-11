@@ -18,7 +18,7 @@ const AboutBlock: Block = {
       type: 'textarea',
     },
     SectionID,
-    PayloadImageField({ label: 'Image' }),
+    PayloadImageField({ label: 'Image', name: 'image' }),
   ],
 };
 

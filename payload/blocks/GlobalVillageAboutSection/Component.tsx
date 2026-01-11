@@ -24,7 +24,9 @@ export const GlobalVillageAboutSectionBlockComponent: React.FC<
       <div className='bg-bege-light py-20'>
         <div className='mx-3 flex max-w-6xl flex-col gap-8 lg:mx-auto lg:flex-row'>
           {sections.map((section, index) => {
-            const imageData = section.imageField ? getImagePayloadUrl(section.imageField) : null;
+            const imageData = section.sectionImage
+              ? getImagePayloadUrl(section.sectionImage)
+              : null;
             const key = section.id ?? `section-${index}`;
 
             return (

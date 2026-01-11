@@ -62,7 +62,7 @@ export const GlobalVillageAboutSectionBlock: Block = {
             ],
           }),
         },
-        PayloadImageField({ label: 'Section Image' }),
+        PayloadImageField({ label: 'Section Image', name: 'sectionImage' }),
       ],
     },
     {

@@ -416,7 +416,7 @@ export interface Page {
              * Unique identifier for the section (used for anchor links)
              */
             sectionId?: string | null;
-            imageField: ImageType;
+            image: ImageType;
             id?: string | null;
             blockName?: string | null;
             blockType: 'aboutBlock';
@@ -1043,7 +1043,7 @@ export interface GlobalVillageAboutSectionBlock {
           };
           [k: string]: unknown;
         };
-        imageField: ImageType;
+        sectionImage: ImageType;
         id?: string | null;
       }[]
     | null;
@@ -1706,7 +1706,7 @@ export interface AboutBlock {
    * Unique identifier for the section (used for anchor links)
    */
   sectionId?: string | null;
-  imageField: ImageType;
+  image: ImageType;
   id?: string | null;
   blockName?: string | null;
   blockType: 'aboutBlock';
@@ -2378,7 +2378,7 @@ export interface PagesSelect<T extends boolean = true> {
               title?: T;
               description?: T;
               sectionId?: T;
-              imageField?: T | ImageTypeSelect<T>;
+              image?: T | ImageTypeSelect<T>;
               id?: T;
               blockName?: T;
             };
@@ -2725,7 +2725,7 @@ export interface GlobalVillageAboutSectionBlockSelect<T extends boolean = true> 
     | {
         title?: T;
         content?: T;
-        imageField?: T | ImageTypeSelect<T>;
+        sectionImage?: T | ImageTypeSelect<T>;
         id?: T;
       };
   cta?:
