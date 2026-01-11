@@ -354,6 +354,7 @@ export interface LinkField {
  */
 export interface Page {
   id: string;
+  _order?: string | null;
   /**
    * The title of the page displayed in the admin panel
    */
@@ -510,6 +511,10 @@ export interface Media {
    * Alternative text for the media item, used for accessibility.
    */
   alt: string;
+  /**
+   * For organizational purposes, specify the section of the website where this media will be used (e.g., Homepage, About Us, Gallery).
+   */
+  section?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -2199,6 +2204,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  section?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -2339,6 +2345,7 @@ export interface PartnersSelect<T extends boolean = true> {
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
+  _order?: T;
   title?: T;
   layout?: T;
   blocks?:

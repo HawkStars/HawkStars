@@ -22,5 +22,14 @@ export const Media: CollectionConfig = {
         description: 'Alternative text for the media item, used for accessibility.',
       },
     },
+    {
+      name: 'section',
+      type: 'text',
+      required: false,
+      admin: {
+        description:
+          'For organizational purposes, specify the section of the website where this media will be used (e.g., Homepage, About Us, Gallery).',
+      },
+    },
   ],
 };

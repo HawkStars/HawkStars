@@ -14,6 +14,9 @@ import blocks from '@/payload/blocks';
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
+  orderable: true,
+  defaultSort: 'title',
+
   access: {
     create: authenticated,
     delete: authenticated,
@@ -148,6 +151,6 @@ export const Pages: CollectionConfig<'pages'> = {
       },
       schedulePublish: true,
     },
-    maxPerDoc: 50,
+    maxPerDoc: 10,
   },
 };
