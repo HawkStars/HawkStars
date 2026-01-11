@@ -7,6 +7,7 @@ import { Language } from '@/i18n/settings';
 import Image from 'next/image';
 import { Media } from '@/payload-types';
 import RichText from '@/payload/components/RichText';
+import { connection } from 'next/server';
 
 const getCuratorInformation = async (slug: string, locale: Language) => {
   const response = await getSingleCuratorQuery(slug, locale);
@@ -16,6 +17,7 @@ const getCuratorInformation = async (slug: string, locale: Language) => {
 type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
 const CuratorPage = async (props: CuratorPageProps) => {
+  await connection();
   const params = await props.params;
   const { lng, slug } = params;
   const curator = await getCuratorInformation(slug, lng);

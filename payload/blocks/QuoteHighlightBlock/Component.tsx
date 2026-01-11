@@ -10,10 +10,11 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
   authorTitle,
   authorPhoto,
   style = 'centered',
+  sectionId,
 }) => {
   const authorImage = getImagePayloadUrl(authorPhoto);
   return (
-    <section className='py-12 lg:py-20'>
+    <section className='py-12 lg:py-20' id={sectionId || ''}>
       <div className='container mx-auto'>
         {style === 'centered' && (
           <div className='mx-auto max-w-3xl text-center'>

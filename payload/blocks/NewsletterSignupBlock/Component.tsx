@@ -10,6 +10,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
   title,
   description,
   buttonText = 'Subscribe',
+  sectionId,
 }) => {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -25,7 +26,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
   };
 
   return (
-    <section className='py-12 lg:py-16'>
+    <section className='py-12 lg:py-16' id={sectionId || ''}>
       <div className='container mx-auto'>
         <div className={cn('rounded-2xl p-8 lg:p-12')}>
           <div className='mx-auto max-w-2xl text-center'>

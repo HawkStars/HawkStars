@@ -1,3 +1,5 @@
+'use client';
+
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
 import { AboutBlock } from '@/payload/blocks/AboutBlock/Component';
 import { HeroBlock } from '@/payload/blocks/Hero/Component';

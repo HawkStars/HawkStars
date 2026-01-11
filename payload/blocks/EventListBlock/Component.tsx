@@ -11,6 +11,7 @@ export const EventListBlock: React.FC<EventListBlockProps> = ({
   events = [],
   layout = 'list',
   showPastEvents = false,
+  sectionId,
 }) => {
   const categoryColors = {
     workshop: 'bg-bege-light text-black',
@@ -47,7 +48,7 @@ export const EventListBlock: React.FC<EventListBlockProps> = ({
   }
 
   return (
-    <section className='py-12 lg:py-20'>
+    <section className='py-12 lg:py-20' id={sectionId || ''}>
       <div className='container mx-auto'>
         {/* Header */}
         {(title || subtitle) && (

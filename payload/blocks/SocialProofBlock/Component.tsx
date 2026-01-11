@@ -14,10 +14,9 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
   textAlign = 'center',
   title,
   subtitle,
+  sectionId,
 }) => {
-  if (!stats || stats.length === 0) {
-    return null;
-  }
+  if (!stats || stats.length === 0) return null;
 
   const bgClasses = {
     white: 'bg-white',
@@ -26,7 +25,10 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
   };
 
   return (
-    <section className={cn('py-12 lg:py-16', bgClasses[backgroundColor as keyof typeof bgClasses])}>
+    <section
+      className={cn('py-12 lg:py-16', bgClasses[backgroundColor as keyof typeof bgClasses])}
+      id={sectionId || ''}
+    >
       <div className='container mx-auto'>
         <div
           className={cn(

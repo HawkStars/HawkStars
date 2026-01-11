@@ -3253,7 +3253,7 @@ export interface ImageIcon {
   /**
    * Select whether to use an icon or an image.
    */
-  type?: ('icon' | 'image') | null;
+  type?: ('icon' | 'image' | 'none') | null;
   image?: ImageType;
   /**
    * Full list at https://lucide.dev/icons/

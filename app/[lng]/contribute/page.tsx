@@ -33,8 +33,6 @@ import BrandingSection from '@/components/contribute/BrandingSection';
 import { Contribution } from '@/payload-types';
 import { getChairsContributionsQuery } from '@/lib/payload/queries/contribution';
 
-export const revalidate = 7200; // 2 hours
-
 const getChairsContribute = async () => {
   const data = await getChairsContributionsQuery();
   const contributions = data.docs || [];

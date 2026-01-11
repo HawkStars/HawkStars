@@ -25,6 +25,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
   showSeconds = true,
   theme = 'light',
   completedMessage = 'Campaign Ended',
+  sectionId,
 }) => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [isComplete, setIsComplete] = useState(false);
@@ -73,7 +74,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
   ].filter((unit) => unit.show);
 
   return (
-    <section className='py-12 lg:py-16'>
+    <section className='py-12 lg:py-16' id={sectionId || ''}>
       <div className='container mx-auto'>
         <div
           className={cn(

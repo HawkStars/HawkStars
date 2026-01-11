@@ -18,6 +18,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
   showPercentage = true,
   animateProgress = true,
   theme = 'light',
+  sectionId,
 }) => {
   const [progress, setProgress] = useState(0);
   const [inView, setInView] = useState(false);
@@ -69,7 +70,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
   };
 
   return (
-    <section ref={sectionRef} className='py-12 lg:py-16'>
+    <section ref={sectionRef} className='py-12 lg:py-16' id={sectionId || ''}>
       <div className='container mx-auto'>
         <div
           className={cn(

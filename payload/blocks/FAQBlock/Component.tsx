@@ -5,7 +5,7 @@ import { ChevronDown } from 'lucide-react';
 import type { FAQBlock as FAQBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 
-export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [] }) => {
+export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   if (!items || items.length === 0) {
@@ -13,7 +13,7 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [] }) => {
   }
 
   return (
-    <section className='py-12 lg:py-20'>
+    <section className='py-12 lg:py-20' id={sectionId || ''}>
       <div className='container mx-auto'>
         {title && <h2 className='mb-12 text-center text-3xl font-bold lg:text-4xl'>{title}</h2>}
 

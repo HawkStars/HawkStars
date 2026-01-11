@@ -10,6 +10,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
   links,
   variant = 'centered',
   backgroundImage,
+  sectionId,
 }) => {
   const bgImage = getImagePayloadUrl(backgroundImage);
   const primaryCta = links && links[0]?.link;
@@ -18,7 +19,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
   const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta);
 
   return (
-    <section className='py-12 lg:py-20'>
+    <section className='py-12 lg:py-20' id={sectionId || ''}>
       <div className='container mx-auto'>
         {variant === 'centered' && (
           <div className='from-green to-bege-dark rounded-2xl bg-linear-to-br p-12 text-center text-white'>

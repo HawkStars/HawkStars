@@ -1,4 +1,4 @@
-import { Condition, Field, FieldBase, GroupField } from 'payload';
+import { Condition, Field, FieldBase } from 'payload';
 import { ExternalImageField, ImageTypeField, UploadField } from '../Image/fields';
 
 type ImageTypeGroupProps = Pick<FieldBase, 'label' | 'name' | 'required'> & {

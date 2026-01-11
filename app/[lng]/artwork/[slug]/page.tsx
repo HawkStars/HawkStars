@@ -12,6 +12,7 @@ import { getSingleArtwork } from '@/lib/payload/queries/artwork';
 import { Curator, Media } from '@/payload-types';
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
 import RichText from '@/payload/components/RichText';
+import { connection } from 'next/server';
 
 const getCuratorInformation = async (slug: string, locale: Language) => {
   const response = await getSingleArtwork(slug, locale);
@@ -30,6 +31,7 @@ export async function generateMetadata(props: CuratorPageProps): Promise<Metadat
 type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
 const CuratorPage = async (props: CuratorPageProps) => {
+  await connection();
   const params = await props.params;
   const { lng, slug } = params;
   if (!slug) return notFound();

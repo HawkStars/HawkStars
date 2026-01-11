@@ -1,7 +1,7 @@
 /**
  *
  *  WEBSITE ROUTES
- *
+ * TODO: change this to the dynamic routes
  **/
 
 export const urls = {

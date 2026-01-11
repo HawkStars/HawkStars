@@ -9,6 +9,7 @@ export const TeamGridBlock: React.FC<TeamGridBlockProps> = ({
   subtitle,
   members = [],
   layout = 'cols-3',
+  sectionId,
 }) => {
   const gridClasses = {
     'cols-2': 'md:grid-cols-2',
@@ -16,12 +17,10 @@ export const TeamGridBlock: React.FC<TeamGridBlockProps> = ({
     'cols-4': 'md:grid-cols-2 lg:grid-cols-4',
   };
 
-  if (!members || members.length === 0) {
-    return null;
-  }
+  if (!members || members.length === 0) return null;
 
   return (
-    <section className='py-12 lg:py-20'>
+    <section className='py-12 lg:py-20' id={sectionId || ''}>
       <div className='container mx-auto'>
         {(title || subtitle) && (
           <div className='mb-12 text-center'>

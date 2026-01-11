@@ -5,13 +5,13 @@ import type { MediaBlock as MediaBlockProps } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 
 export const MediaBlock: React.FC<MediaBlockProps> = (props) => {
-  const { media } = props;
+  const { media, sectionId } = props;
 
   const image = getImagePayloadUrl(media);
   if (!image) return null;
 
   return (
-    <div className='mx-auto'>
+    <div className='mx-auto' id={sectionId || ''}>
       <Image
         src={image.url}
         alt={media.alt || ''}

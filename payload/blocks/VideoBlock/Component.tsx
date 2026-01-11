@@ -53,6 +53,7 @@ export const VideoBlock: React.FC<Props> = (props) => {
     className,
     captionClassName,
     enableGutter = true,
+    sectionId,
   } = props;
 
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -96,6 +97,7 @@ export const VideoBlock: React.FC<Props> = (props) => {
         },
         className
       )}
+      id={sectionId || ''}
     >
       <div className='w-full'>
         {title && <h3 className='text-h3_semibold mb-4'>{title}</h3>}

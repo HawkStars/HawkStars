@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 export const ResourceDownloadBlock: React.FC<ResourceDownloadBlockProps> = ({
   title,
   resources = [],
+  sectionId,
 }) => {
   const icons = {
     pdf: FileText,
@@ -20,7 +21,7 @@ export const ResourceDownloadBlock: React.FC<ResourceDownloadBlockProps> = ({
   }
 
   return (
-    <section className='py-12 lg:py-20'>
+    <section className='py-12 lg:py-20' id={sectionId || ''}>
       <div className='container mx-auto'>
         {title && <h2 className='mb-12 text-center text-3xl font-bold lg:text-4xl'>{title}</h2>}
 

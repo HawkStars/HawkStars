@@ -13,6 +13,7 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
   layout = 'grid',
   showAmounts = false,
   sortBy = 'level',
+  sectionId,
 }) => {
   const sortedDonors = useMemo(() => {
     if (!donors || donors.length === 0) return [];
@@ -55,7 +56,7 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
   }
 
   return (
-    <section className='py-12 lg:py-20'>
+    <section className='py-12 lg:py-20' id={sectionId || ''}>
       <div className='container mx-auto'>
         {/* Header */}
         <div className='mb-12 text-center'>
@@ -74,7 +75,7 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
                 key={index}
                 className={cn(
                   'card-md rounded-full px-6 py-3 font-semibold',
-                  'bg-gradient-to-r',
+                  'bg-linear-to-r',
                   levelColors[donor.level as keyof typeof levelColors] || levelColors.supporter
                 )}
               >
@@ -154,7 +155,7 @@ export const DonorWallBlock: React.FC<DonorWallBlockProps> = ({
                       <span
                         className={cn(
                           'inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase',
-                          'bg-gradient-to-r',
+                          'bg-linear-to-r',
                           levelColors[donor.level as keyof typeof levelColors]
                         )}
                       >

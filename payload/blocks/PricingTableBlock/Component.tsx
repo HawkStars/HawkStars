@@ -8,13 +8,14 @@ export const PricingTableBlock: React.FC<PricingTableBlockProps> = ({
   title,
   subtitle,
   tiers = [],
+  sectionId,
 }) => {
   if (!tiers || tiers.length === 0) {
     return null;
   }
 
   return (
-    <section className='py-12 lg:py-20'>
+    <section className='py-12 lg:py-20' id={sectionId || ''}>
       <div className='container mx-auto'>
         {/* Header */}
         {(title || subtitle) && (

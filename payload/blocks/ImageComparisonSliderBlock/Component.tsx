@@ -13,6 +13,7 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
   afterImage,
   beforeLabel = 'Before',
   afterLabel = 'After',
+  sectionId,
 }) => {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
@@ -43,7 +44,7 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
   if (!before || !after) return null;
 
   return (
-    <section className='py-12 lg:py-20'>
+    <section className='py-12 lg:py-20' id={sectionId || ''}>
       <div className='container mx-auto'>
         {title && <h2 className='mb-8 text-center text-3xl font-bold lg:text-4xl'>{title}</h2>}
 

@@ -6,6 +6,7 @@ const inter = Inter({ variable: '--font-inter', subsets: ['latin'], display: 'sw
 const oswald = Oswald({ variable: '--font-oswald', subsets: ['latin'], display: 'swap' });
 
 import { Metadata } from 'next';
+import { headers } from 'next/headers';
 import Script from 'next/script';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import Footer from '@/components/footer/Footer';
@@ -32,6 +33,7 @@ export default async function RootLayout(props: {
   children: React.ReactNode;
   params: Promise<{ lng?: string }>;
 }) {
+  await headers();
   const params = await props.params;
   const { lng } = params;
   const { children } = props;

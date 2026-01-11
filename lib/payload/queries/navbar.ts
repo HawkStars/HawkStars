@@ -1,7 +1,11 @@
 import { Language } from '@/i18n/settings';
 import { getPayloadConfig } from '../server';
+import { cacheTag } from 'next/cache';
 
 const getHeaderQuery = async (lng: Language) => {
+  'use cache';
+  cacheTag('hawk-header');
+
   const payload = await getPayloadConfig();
   return await payload.findGlobal({
     slug: 'header',

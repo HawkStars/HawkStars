@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload';
 import { anyone } from '@/payload/access/anyone';
 import { dropdownNavLink } from '@/payload/fields/Link/DropdownNavLink';
 import { link } from '@/payload/fields/link';
+import { revalidateHeader } from './hooks/revalidateHeader';
 
 export const Header: GlobalConfig = {
   slug: 'header',
@@ -140,7 +141,7 @@ export const Header: GlobalConfig = {
     },
   ],
   hooks: {
-    afterChange: [],
+    afterChange: [revalidateHeader],
   },
   versions: {
     drafts: {

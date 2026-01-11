@@ -15,14 +15,14 @@ const iconMap = {
 
 const HeroBlock: React.FC<HeroBlock> = (data) => {
   if (!data) return null;
-  const { badge, heading, ctaLink, headerImage, features = [] } = data;
+  const { badge, heading, ctaLink, headerImage, features = [], sectionId } = data;
 
   const bgImage = getImagePayloadUrl(headerImage);
 
   const linkInfo = getLinkFieldInformation(ctaLink);
 
   return (
-    <section className='py-32'>
+    <section className='py-32' id={sectionId || ''}>
       <div className='container mx-auto'>
         <div className='text-center'>
           {bgImage && bgImage.url && (

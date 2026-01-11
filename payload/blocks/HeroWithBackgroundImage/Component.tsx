@@ -21,6 +21,7 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
     overlayOpacity = 50,
     links = [],
     textAlignment = 'center',
+    sectionId,
   } = data;
 
   const bgImage = getImagePayloadUrl(backgroundImage);
@@ -31,7 +32,7 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
   const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta);
 
   return (
-    <section className='relative min-h-150 w-full lg:min-h-175'>
+    <section className='relative min-h-150 w-full lg:min-h-175' id={sectionId || ''}>
       {/* Background Image */}
       {bgImage && bgImage.url && (
         <div

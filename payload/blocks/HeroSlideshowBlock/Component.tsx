@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import type { HeroSlideshowBlock as HeroSlideshowBlockProps, ImageType } from '@/payload-types';
+import type { HeroSlideshowBlock as HeroSlideshowBlockProps } from '@/payload-types';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
@@ -34,6 +34,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
     showNavigation = true,
     showDots = true,
     height = 'large',
+    sectionId,
   } = data || {};
 
   const goToSlide = useCallback(
@@ -69,6 +70,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
         'relative w-full overflow-hidden',
         heightClasses[height as keyof typeof heightClasses]
       )}
+      id={sectionId || ''}
     >
       {/* Slides */}
       {slides.map((slide, index: number) => {

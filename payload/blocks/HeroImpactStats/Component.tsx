@@ -18,7 +18,7 @@ const iconMap = {
 const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlock> = (data) => {
   if (!data) return null;
 
-  const { badge, title, description, heroImage, stats = [], links = [] } = data;
+  const { badge, title, description, heroImage, stats = [], links = [], sectionId } = data;
 
   const image = getImagePayloadUrl(heroImage);
   const primaryCta = links && links[0]?.link;
@@ -27,7 +27,10 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlock> = (data) => {
   const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta);
 
   return (
-    <section className='bg-linear-to-br from-green-50 to-blue-50 py-16 lg:py-24'>
+    <section
+      className='bg-linear-to-br from-green-50 to-blue-50 py-16 lg:py-24'
+      id={sectionId || ''}
+    >
       <div className='container mx-auto px-4'>
         <div className='grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16'>
           {/* Left Column - Content */}

@@ -7,9 +7,12 @@ import { cn } from '@/lib/utils';
 import starPng from '@/public/images/icons/training_center/star.png';
 import gridPng from '@/public/images/icons/training_center/grid.png';
 
-export const GlobalVillageBannerBlockComponent: React.FC<GlobalVillageBannerBlock> = ({ text }) => {
+export const GlobalVillageBannerBlockComponent: React.FC<GlobalVillageBannerBlock> = ({
+  text,
+  sectionId,
+}) => {
   return (
-    <section className={cn('bg-green mb-12')}>
+    <section className={cn('bg-green mb-12')} id={sectionId || ''}>
       <div className='relative mx-auto max-w-6xl px-3 py-24 lg:px-40 lg:py-40'>
         <p className='text-white'>{text}</p>
         <Image

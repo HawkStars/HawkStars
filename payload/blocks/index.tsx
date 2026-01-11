@@ -14,8 +14,6 @@ import { MediaBlock } from './MediaBlock/config';
 import { Projects18Block } from './Projects18/config';
 import { TestimonialBlock } from './TestimonialBlock/config';
 import { VideoBlock } from './VideoBlock/config';
-
-// New blocks
 import { CampaignCountdownBlock } from './CampaignCountdownBlock/config';
 import { CTABannerBlock } from './CTABannerBlock/config';
 import { DonationProgressBlock } from './DonationProgressBlock/config';

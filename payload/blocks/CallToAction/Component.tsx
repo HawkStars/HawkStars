@@ -6,11 +6,17 @@ import { CMSLink } from '@/payload/components/Link';
 import Image from 'next/image';
 import { getImagePayloadUrl } from '@/lib/image';
 
-export const CallToActionBlock: React.FC<CTABlockProps> = ({ title, subtitle, links, image }) => {
+export const CallToActionBlock: React.FC<CTABlockProps> = ({
+  title,
+  subtitle,
+  links,
+  image,
+  sectionId,
+}) => {
   const imageInfo = getImagePayloadUrl(image);
 
   return (
-    <section className='py-32'>
+    <section className='py-32' id={sectionId || ''}>
       <div className='container mx-auto'>
         <div className='bg-muted relative flex h-92 w-full flex-col justify-between overflow-hidden rounded-4xl border p-8 md:flex-row'>
           <div className='flex h-full max-w-lg flex-col justify-center gap-4'>

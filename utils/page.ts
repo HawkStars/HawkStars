@@ -1,19 +1,28 @@
 import { LinkField } from '@/payload-types';
+import { useLanguageCookie } from './contexts/AppProvider';
 
-export type LoadingState = 'idle' | 'submitting' | 'success' | 'error';
+type LinkInformation = { url: string; newTab?: boolean | null; label?: string | null };
 
-export const PAGE_SIZE = 10 as const;
+export const getLinkFieldInformation = (link: LinkField): LinkInformation | undefined => {
+  if (link.type === 'custom') {
+    if (!link.url) return undefined;
 
-export const getLinkFieldInformation = (
-  link: LinkField
-): { url: string; newTab?: boolean | null; label?: string | null } | undefined => {
+    return {
+      url: link.url,
+      newTab: link.newTab,
+      label: link.label,
+    };
+  }
+
   if (link.type === 'reference' && link.reference) {
+    const lng = useLanguageCookie();
     let href = '#';
 
     const { relationTo, value: url } = link.reference;
-    if (typeof url === 'string') href = relationTo === 'pages' ? `/${url}` : `/events/${url}`;
+    if (typeof url === 'string')
+      href = relationTo === 'pages' ? `/${lng}/${url}` : `/${lng}/events/${url}`;
     else if ('slug' in url && url.slug)
-      href = relationTo === 'pages' ? `/${url.slug}` : `/events/${url.slug}`;
+      href = relationTo === 'pages' ? `/${lng}/${url.slug}` : `/${lng}/events/${url.slug}`;
 
     return {
       url: href,
@@ -21,11 +30,6 @@ export const getLinkFieldInformation = (
       label: link.label,
     };
   }
-  if (link.type === 'custom' && link.url) {
-    return {
-      url: link.url,
-      newTab: link.newTab,
-      label: link.label,
-    };
-  }
+
+  return undefined;
 };

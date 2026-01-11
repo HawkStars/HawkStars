@@ -4,10 +4,11 @@ import type { AboutBlock as AboutBlockProps } from '@/payload-types';
 import Image from 'next/image';
 import { getImagePayloadUrl } from '@/lib/image';
 
-export const AboutBlock: React.FC<AboutBlockProps> = ({ title, description, image }) => {
+export const AboutBlock: React.FC<AboutBlockProps> = ({ title, description, image, sectionId }) => {
   const imageData = getImagePayloadUrl(image);
+
   return (
-    <section className='mx-auto py-16 sm:py-20 md:py-24 lg:py-32'>
+    <section className='mx-auto py-16 sm:py-20 md:py-24 lg:py-32' id={sectionId || ''}>
       {/* Hero Section */}
       <section className='relative container mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10 md:py-12 lg:px-8 lg:py-15'>
         <div className=''>

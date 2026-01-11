@@ -20,6 +20,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
     projectMedia,
     layout = 'imageRight',
     backgroundColor = 'none',
+    sectionId,
   } = data;
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -234,6 +235,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
         'py-16 lg:py-24',
         backgroundClasses[backgroundColor as keyof typeof backgroundClasses]
       )}
+      id={sectionId || ''}
     >
       <div className='container mx-auto px-4'>
         {/* Section Header */}

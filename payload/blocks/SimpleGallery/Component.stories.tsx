@@ -1,20 +1,30 @@
-import SimpleGallery, { SimpleGalleryBlockProps } from './Component';
+import SimpleGallery from './Component';
+import { SimpleGallery as SimpleGalleryProps } from '@/payload-types';
 
-const sampleImages: SimpleGalleryBlockProps['images'] = [
+const sampleImages: SimpleGalleryProps['images'] = [
   {
-    image:
-      'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/alex-tyson-2Fv_otxbGtg-unsplash.jpg',
-    alt: 'Interior 1',
+    image: {
+      externalImage:
+        'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/alex-tyson-2Fv_otxbGtg-unsplash.jpg',
+      imageType: 'external',
+      alt: 'Interior 1',
+    },
   },
   {
-    image:
-      'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/jason-leung-6uoj7DL6BFk-unsplash.jpg',
-    alt: 'Interior 2',
+    image: {
+      externalImage:
+        'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/jason-leung-6uoj7DL6BFk-unsplash.jpg',
+      imageType: 'external',
+      alt: 'Interior 2',
+    },
   },
   {
-    image:
-      'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/jonathan-borba-UisC7KLAWjs-unsplash.jpg',
-    alt: 'Interior 3',
+    image: {
+      externalImage:
+        'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/jonathan-borba-UisC7KLAWjs-unsplash.jpg',
+      imageType: 'external',
+      alt: 'Interior 3',
+    },
   },
 ];
 
@@ -30,6 +40,7 @@ const Default = () => (
       'Explore our curated collection of stunning interior designs.\nEach space tells a unique story through thoughtful design and attention to detail.'
     }
     images={sampleImages}
+    blockType={'simpleGallery'}
   />
 );
 

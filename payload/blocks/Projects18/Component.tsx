@@ -9,6 +9,7 @@ export const Projects18Block: React.FC<Projects18BlockProps> = ({
   subtitle,
   description,
   projects,
+  sectionId,
 }) => {
   if (!projects || projects.length === 0) return null;
 
@@ -20,7 +21,7 @@ export const Projects18Block: React.FC<Projects18BlockProps> = ({
   if (projectsList.length === 0) return null;
 
   return (
-    <section className='py-32'>
+    <section className='py-32' id={sectionId || ''}>
       <div className='container mx-auto'>
         <div>
           {subtitle && (
