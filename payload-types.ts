@@ -616,14 +616,12 @@ export interface HeroSlideshowBlock {
      * Subtitle or description text for this slide
      */
     subtitle?: string | null;
-    /**
-     * Call-to-action button text
-     */
-    ctaText?: string | null;
-    /**
-     * URL for the CTA button
-     */
-    ctaLink?: string | null;
+    links?:
+      | {
+          link: LinkField;
+          id?: string | null;
+        }[]
+      | null;
     /**
      * Text alignment for all slides
      */
@@ -1092,14 +1090,12 @@ export interface CampaignCountdownBlock {
    * Target end date for the countdown
    */
   targetDate: string;
-  /**
-   * Call-to-action button text
-   */
-  ctaText?: string | null;
-  /**
-   * URL for the CTA button
-   */
-  ctaLink?: string | null;
+  links?:
+    | {
+        link: LinkField;
+        id?: string | null;
+      }[]
+    | null;
   showDays?: boolean | null;
   showHours?: boolean | null;
   showMinutes?: boolean | null;
@@ -1172,14 +1168,12 @@ export interface DonationProgressBlock {
    * Number of donors (optional)
    */
   donorCount?: number | null;
-  /**
-   * Call-to-action button text
-   */
-  ctaText?: string | null;
-  /**
-   * URL for donation page
-   */
-  ctaLink?: string | null;
+  links?:
+    | {
+        link: LinkField;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Display percentage progress
    */
@@ -2545,8 +2539,12 @@ export interface HeroSlideshowBlockSelect<T extends boolean = true> {
         backgroundImage?: T | ImageTypeSelect<T>;
         title?: T;
         subtitle?: T;
-        ctaText?: T;
-        ctaLink?: T;
+        links?:
+          | T
+          | {
+              link?: T | LinkFieldSelect<T>;
+              id?: T;
+            };
         textAlignment?: T;
         id?: T;
       };
@@ -2758,8 +2756,12 @@ export interface CampaignCountdownBlockSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   targetDate?: T;
-  ctaText?: T;
-  ctaLink?: T;
+  links?:
+    | T
+    | {
+        link?: T | LinkFieldSelect<T>;
+        id?: T;
+      };
   showDays?: T;
   showHours?: T;
   showMinutes?: T;
@@ -2800,8 +2802,12 @@ export interface DonationProgressBlockSelect<T extends boolean = true> {
   currentAmount?: T;
   currency?: T;
   donorCount?: T;
-  ctaText?: T;
-  ctaLink?: T;
+  links?:
+    | T
+    | {
+        link?: T | LinkFieldSelect<T>;
+        id?: T;
+      };
   showPercentage?: T;
   animateProgress?: T;
   theme?: T;

@@ -5,6 +5,7 @@ import { Target, Users, Heart } from 'lucide-react';
 import type { DonationProgressBlock as DonationProgressBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { getLinkFieldInformation } from '@/utils/page';
 
 export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
   title,
@@ -13,8 +14,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
   currentAmount,
   currency = '€',
   donorCount,
-  ctaText = 'Donate Now',
-  ctaLink,
+  links,
   showPercentage = true,
   animateProgress = true,
   theme = 'light',
@@ -147,21 +147,31 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
                   </span>
                 </div>
               )}
-              {ctaLink && ctaText && (
-                <Button
-                  size='lg'
-                  className={cn(
-                    'group',
-                    theme === 'gradient' && 'text-green hover:bg-bege-light bg-white'
-                  )}
-                  asChild
-                >
-                  <a href={ctaLink}>
-                    <Heart className='mr-2 h-5 w-5' />
-                    {ctaText}
-                  </a>
-                </Button>
-              )}
+              {links?.map((link, index) => {
+                const linkInfo = getLinkFieldInformation(link.link);
+                if (!linkInfo) return null;
+                const { url, label, newTab } = linkInfo;
+                return (
+                  <Button
+                    key={index}
+                    size='lg'
+                    className={cn(
+                      'group',
+                      theme === 'gradient' && 'text-green hover:bg-bege-light bg-white'
+                    )}
+                    asChild
+                  >
+                    <a
+                      href={url}
+                      target={newTab ? '_blank' : '_self'}
+                      rel={newTab ? 'noopener noreferrer' : undefined}
+                    >
+                      <Heart className='mr-2 h-5 w-5' />
+                      {label}
+                    </a>
+                  </Button>
+                );
+              })}
             </div>
           </div>
         </div>

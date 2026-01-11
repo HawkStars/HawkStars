@@ -1,5 +1,5 @@
 import React from 'react';
-import type { CTABannerBlock as CTABannerBlockProps, Media } from '@/payload-types';
+import type { CTABannerBlock as CTABannerBlockProps } from '@/payload-types';
 import { Button } from '@/components/ui/button';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';

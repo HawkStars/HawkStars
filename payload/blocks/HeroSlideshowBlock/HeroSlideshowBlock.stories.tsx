@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { HeroSlideshowBlock } from './Component';
+import { createPayloadLink } from '@/utils/storybook';
 
 const meta: Meta<typeof HeroSlideshowBlock> = {
   title: 'Hero/Slideshow',
@@ -40,8 +41,6 @@ const meta: Meta<typeof HeroSlideshowBlock> = {
           title: 'Welcome to Our Mission',
           subtitle:
             'Join us in creating lasting positive change in communities around the world through sustainable development.',
-          ctaText: 'Get Started',
-          ctaLink: '/contribute',
           textAlignment: 'left',
         },
       },
@@ -67,8 +66,7 @@ export const Default: Story = {
         title: 'Welcome to Our Mission',
         subtitle:
           'Join us in creating lasting positive change in communities around the world through sustainable development.',
-        ctaText: 'Get Started',
-        ctaLink: '/contribute',
+        links: [{ link: createPayloadLink('custom', '#contribute', true, 'Get started') }],
         textAlignment: 'left',
       },
       {
@@ -81,8 +79,7 @@ export const Default: Story = {
         },
         title: 'Building Stronger Communities',
         subtitle: 'Empowering local leaders through community-centered initiatives.',
-        ctaText: 'Join Our Network',
-        ctaLink: '/network',
+        links: [{ link: createPayloadLink('custom', '#network', true, 'Join Our Network') }],
         textAlignment: 'left',
       },
       {
@@ -95,8 +92,7 @@ export const Default: Story = {
         },
         title: 'Make a Real Difference',
         subtitle: 'Your contribution creates immediate impact in communities that need it most.',
-        ctaText: 'Donate Now',
-        ctaLink: '/donate',
+        links: [{ link: createPayloadLink('custom', '#donate', true, 'Donate Noew') }],
         textAlignment: 'center',
       },
     ],
@@ -210,8 +206,7 @@ export const SingleSlide: Story = {
 
         title: 'Single Slide Hero',
         subtitle: 'This hero has only one slide, so navigation is hidden.',
-        ctaText: 'Learn More',
-        ctaLink: '/about',
+        links: [{ link: createPayloadLink('custom', '#about', true, 'Learn More') }],
         textAlignment: 'center',
       },
     ],
@@ -237,8 +232,7 @@ export const ManySlides: Story = {
         },
         title: 'Slide One',
         subtitle: 'First of many slides',
-        ctaText: 'Explore',
-        ctaLink: '/1',
+        links: [{ link: createPayloadLink('custom', '#explore', true, 'Explore') }],
         textAlignment: 'left',
       },
       {
@@ -251,8 +245,7 @@ export const ManySlides: Story = {
         },
         title: 'Slide Two',
         subtitle: 'Second slide',
-        ctaText: 'Discover',
-        ctaLink: '/2',
+        links: [{ link: createPayloadLink('custom', '#', true, 'Discover') }],
         textAlignment: 'right',
       },
       {
@@ -265,8 +258,7 @@ export const ManySlides: Story = {
         },
         title: 'Slide Three',
         subtitle: 'Third slide',
-        ctaText: 'Join',
-        ctaLink: '/3',
+        links: [{ link: createPayloadLink('custom', '#contribute', true, 'Get started') }],
         textAlignment: 'center',
       },
       {
@@ -279,8 +271,7 @@ export const ManySlides: Story = {
         },
         title: 'Slide Four',
         subtitle: 'Fourth slide',
-        ctaText: 'Learn',
-        ctaLink: '/4',
+        links: [{ link: createPayloadLink('custom', '#contribute', true, 'Learn') }],
         textAlignment: 'left',
       },
       {
@@ -293,8 +284,7 @@ export const ManySlides: Story = {
         },
         title: 'Slide Five',
         subtitle: 'Fifth slide',
-        ctaText: 'Connect',
-        ctaLink: '/5',
+        links: [{ link: createPayloadLink('custom', '#contribute', true, 'Connect') }],
         textAlignment: 'center',
       },
     ],

@@ -7,6 +7,7 @@ import type { HeroSlideshowBlock as HeroSlideshowBlockProps, ImageType } from '@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
+import { getLinkFieldInformation } from '@/utils/page';
 
 const heightClasses = {
   fullscreen: 'min-h-screen',
@@ -119,13 +120,28 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
                   <p className='max-w-2xl text-lg text-white/90 lg:text-xl'>{slide.subtitle}</p>
                 )}
 
-                {slide.ctaText && slide.ctaLink && (
-                  <div className='mt-4'>
-                    <Button size='lg' className='bg-white text-gray-900 hover:bg-gray-100' asChild>
-                      <a href={slide.ctaLink}>{slide.ctaText}</a>
-                    </Button>
-                  </div>
-                )}
+                {slide.links?.map((link, index) => {
+                  const linkInfo = getLinkFieldInformation(link.link);
+                  if (!linkInfo) return null;
+                  const { url, label, newTab } = linkInfo;
+                  return (
+                    <div className='mt-4' key={index}>
+                      <Button
+                        size='lg'
+                        className='bg-white text-gray-900 hover:bg-gray-100'
+                        asChild
+                      >
+                        <a
+                          href={url}
+                          target={newTab ? '_blank' : '_self'}
+                          rel={newTab ? 'noopener noreferrer' : undefined}
+                        >
+                          {label}
+                        </a>
+                      </Button>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

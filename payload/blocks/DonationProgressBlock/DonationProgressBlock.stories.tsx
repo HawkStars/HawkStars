@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { DonationProgressBlock } from './Component';
+import { createPayloadLink } from '@/utils/storybook';
 
 const meta: Meta<typeof DonationProgressBlock> = {
   title: 'Extra/DonationProgressBlock',
@@ -33,8 +34,7 @@ export const Default: Story = {
     currentAmount: 67500,
     currency: '€',
     donorCount: 234,
-    ctaText: 'Donate Now',
-    ctaLink: '#donate',
+    links: [{ link: createPayloadLink('custom', '#donate', true, 'Donate Now') }],
     showPercentage: true,
     animateProgress: true,
     theme: 'light',

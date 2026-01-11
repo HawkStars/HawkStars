@@ -5,6 +5,7 @@ import { Clock, Calendar } from 'lucide-react';
 import type { CampaignCountdownBlock as CampaignCountdownBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { getLinkFieldInformation } from '@/utils/page';
 
 interface TimeLeft {
   days: number;
@@ -17,8 +18,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
   title,
   description,
   targetDate,
-  ctaText = 'Take Action',
-  ctaLink,
+  links,
   showDays = true,
   showHours = true,
   showMinutes = true,
@@ -119,20 +119,32 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
           )}
 
           {/* CTA */}
-          {ctaLink && ctaText && (
-            <div className='text-center'>
-              <Button
-                size='lg'
-                className={cn(
-                  'text-lg',
-                  theme === 'urgent' && 'text-green hover:bg-bege-light bg-white'
-                )}
-                asChild
-              >
-                <a href={ctaLink}>{ctaText}</a>
-              </Button>
-            </div>
-          )}
+          {links?.map((link, index) => {
+            const linkInfo = getLinkFieldInformation(link.link);
+            if (!linkInfo) return null;
+            const { url, label, newTab } = linkInfo;
+
+            return (
+              <div key={index} className='text-center'>
+                <Button
+                  size='lg'
+                  className={cn(
+                    'text-lg',
+                    theme === 'urgent' && 'text-green hover:bg-bege-light bg-white'
+                  )}
+                  asChild
+                >
+                  <a
+                    href={url}
+                    target={newTab ? '_blank' : '_self'}
+                    rel={newTab ? 'noopener noreferrer' : undefined}
+                  >
+                    {label}
+                  </a>
+                </Button>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

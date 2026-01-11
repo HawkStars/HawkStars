@@ -1,4 +1,5 @@
 import { PayloadImageField } from '@/payload/fields/ImageType';
+import { linkGroup } from '@/payload/fields/linkGroup';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
@@ -33,21 +34,7 @@ export const HeroSlideshowBlock: Block = {
             description: 'Subtitle or description text for this slide',
           },
         },
-        {
-          name: 'ctaText',
-          type: 'text',
-          localized: true,
-          admin: {
-            description: 'Call-to-action button text',
-          },
-        },
-        {
-          name: 'ctaLink',
-          type: 'text',
-          admin: {
-            description: 'URL for the CTA button',
-          },
-        },
+        linkGroup({ overrides: { maxRows: 2 } }),
         {
           name: 'textAlignment',
           type: 'select',

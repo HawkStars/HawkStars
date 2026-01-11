@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { CampaignCountdownBlock } from './Component';
+import { createPayloadLink } from '@/utils/storybook';
 
 const meta: Meta<typeof CampaignCountdownBlock> = {
   title: 'Section/CampaignCountdownBlock',
@@ -27,8 +28,7 @@ export const Default: Story = {
     title: 'Campaign Ends Soon!',
     description: 'Support us before time runs out. Every contribution makes a difference.',
     targetDate: futureDate.toISOString(),
-    ctaText: 'Donate Now',
-    ctaLink: '#donate',
+    links: [{ link: createPayloadLink('custom', '#donate', true, 'Donate Now') }],
     showDays: true,
     showHours: true,
     showMinutes: true,
@@ -71,7 +71,6 @@ export const EventCountdown: Story = {
     ...Default.args,
     title: 'Annual Gala Event',
     description: 'Join us for an evening of celebration and fundraising',
-    ctaText: 'Register Now',
-    ctaLink: '#register',
+    links: [{ link: createPayloadLink('custom', '#register', true, 'Register Now') }],
   },
 };

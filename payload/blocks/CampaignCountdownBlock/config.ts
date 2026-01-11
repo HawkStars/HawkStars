@@ -1,3 +1,4 @@
+import { linkGroup } from '@/payload/fields/linkGroup';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
@@ -31,21 +32,7 @@ export const CampaignCountdownBlock: Block = {
         },
       },
     },
-    {
-      name: 'ctaText',
-      type: 'text',
-      defaultValue: 'Take Action',
-      admin: {
-        description: 'Call-to-action button text',
-      },
-    },
-    {
-      name: 'ctaLink',
-      type: 'text',
-      admin: {
-        description: 'URL for the CTA button',
-      },
-    },
+    linkGroup({ overrides: { maxRows: 2 } }),
     {
       name: 'showDays',
       type: 'checkbox',
