@@ -73,6 +73,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
       {/* Slides */}
       {slides.map((slide, index: number) => {
         const bgImage = getImagePayloadUrl(slide.backgroundImage);
+        if (!bgImage) return null;
 
         return (
           <div

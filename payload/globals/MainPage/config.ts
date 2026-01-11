@@ -28,7 +28,6 @@ export const MainPage: GlobalConfig = {
               name: 'layout',
               type: 'richText',
               required: true,
-              localized: true,
             },
           ],
           label: 'Content',
@@ -76,5 +75,6 @@ export const MainPage: GlobalConfig = {
         interval: 100, // We set this interval for optimal live preview
       },
     },
+    max: 3,
   },
 };

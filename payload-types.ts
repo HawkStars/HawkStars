@@ -3207,6 +3207,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Header {
   id: string;
   columns: HeaderNavigationColumns;
+  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -4994,6 +4995,7 @@ export interface MainPage {
  */
 export interface HeaderSelect<T extends boolean = true> {
   columns?: T | HeaderNavigationColumnsSelect<T>;
+  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
