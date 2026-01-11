@@ -5,12 +5,14 @@ import { icons } from 'lucide-react';
 type ImageTypeGroupProps = {
   label?: string;
   name?: string;
+  required?: boolean;
 };
 
 export const PayloadIconOrImage = (props?: ImageTypeGroupProps) => {
-  const { label, name } = props || {
+  const { label, name, required } = props || {
     label: 'Icon or Image',
     name: 'imageIcon',
+    required: false,
   };
 
   return {
@@ -18,6 +20,7 @@ export const PayloadIconOrImage = (props?: ImageTypeGroupProps) => {
     label: label,
     type: 'group',
     interfaceName: 'ImageIcon',
+    required: required,
     admin: {
       hideGutter: true,
     },
