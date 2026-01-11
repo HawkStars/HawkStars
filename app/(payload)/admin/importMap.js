@@ -38,6 +38,7 @@ import { default as default_b86140c7b9e4a7df31f494d137f580e8 } from '@/payload/f
 import { default as default_f89cbbda01850af27d943f60ccf826ac } from '@/payload/fields/FooterNavGroup/components/Label'
 import { FooterLabel as FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd } from '@/payload/globals/Footer/components/FooterLabel'
 import { default as default_91bbc66a9b3ed1dae52e0caef1a54af7 } from '@/payload/components/Logo'
+import { CollectionCards as CollectionCards_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -79,5 +80,6 @@ export const importMap = {
   "@/payload/fields/Link/components/LinkLabel#default": default_b86140c7b9e4a7df31f494d137f580e8,
   "@/payload/fields/FooterNavGroup/components/Label#default": default_f89cbbda01850af27d943f60ccf826ac,
   "@/payload/globals/Footer/components/FooterLabel#FooterLabel": FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd,
-  "@/payload/components/Logo#default": default_91bbc66a9b3ed1dae52e0caef1a54af7
+  "@/payload/components/Logo#default": default_91bbc66a9b3ed1dae52e0caef1a54af7,
+  "@payloadcms/ui/rsc#CollectionCards": CollectionCards_ab83ff7e88da8d3530831f296ec4756a
 }

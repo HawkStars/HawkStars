@@ -37,14 +37,12 @@ export const PayloadIconOrImage = (props?: ImageTypeGroupProps) => {
         },
       },
       {
-        name: 'image',
-        label: 'Image',
-        admin: {
-          description: 'Upload an image or media file.',
+        ...PayloadImageField({
+          label: 'Image',
+          name: 'image',
+          required: false,
           condition: (_, siblingData) => siblingData.type === 'image',
-          hideGutter: true,
-        },
-        ...PayloadImageField({ label: 'Image' }),
+        }),
       },
       {
         name: 'icon',

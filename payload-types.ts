@@ -67,7 +67,7 @@ export type DropdownNavLink =
       featured?: boolean | null;
       description?: string | null;
       link: LinkField;
-      imageIcon: ImageIcon;
+      imageIcon?: ImageIcon;
       id?: string | null;
     }[]
   | null;
@@ -3246,7 +3246,7 @@ export interface ImageIcon {
    * Select whether to use an icon or an image.
    */
   type?: ('icon' | 'image') | null;
-  imageField: ImageType;
+  image?: ImageType;
   /**
    * Full list at https://lucide.dev/icons/
    */
@@ -5040,7 +5040,7 @@ export interface DropdownNavLinkSelect<T extends boolean = true> {
  */
 export interface ImageIconSelect<T extends boolean = true> {
   type?: T;
-  imageField?: T | ImageTypeSelect<T>;
+  image?: T | ImageTypeSelect<T>;
   icon?: T;
 }
 /**
