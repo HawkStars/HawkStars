@@ -3,13 +3,26 @@ import { InternalLinkProps } from './config';
 import { cn } from '@/lib/utils';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
-const InternalHawkLink = ({ children, relationTo, url, newTab, className }: InternalLinkProps) => {
+const InternalHawkLink = ({
+  children,
+  relationTo,
+  url,
+  newTab,
+  className,
+  section,
+}: InternalLinkProps) => {
   const lng = useLanguageCookie();
   let href = '#';
   if (typeof url === 'string')
-    href = relationTo === 'pages' ? `/${lng}/${url}` : `/events/${lng}/${url}`;
+    href =
+      relationTo === 'pages'
+        ? `/${lng}/${url}${section ? `#${section}` : ''}`
+        : `/events/${lng}/${url}${section ? `#${section}` : ''}`;
   else if ('slug' in url && url.slug)
-    href = relationTo === 'pages' ? `/${lng}/${url.slug}` : `/events/${lng}/${url.slug}`;
+    href =
+      relationTo === 'pages'
+        ? `/${lng}/${url.slug}${section ? `#${section}` : ''}`
+        : `/events/${lng}/${url.slug}${section ? `#${section}` : ''}`;
 
   return (
     <Link

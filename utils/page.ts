@@ -1,7 +1,12 @@
 import { LinkField } from '@/payload-types';
 import { Language } from '@/i18n/settings';
 
-type LinkInformation = { url: string; newTab?: boolean | null; label?: string | null };
+type LinkInformation = {
+  url: string;
+  newTab?: boolean | null;
+  label?: string | null;
+  internal?: boolean;
+};
 
 export const getLinkFieldInformation = (
   link: LinkField,
@@ -14,22 +19,32 @@ export const getLinkFieldInformation = (
       url: link.url,
       newTab: link.newTab,
       label: link.label,
+      internal: false,
     };
   }
 
   if (link.type === 'reference' && link.reference) {
     let href = '#';
 
+    const { section } = link;
     const { relationTo, value: url } = link.reference;
+
     if (typeof url === 'string')
-      href = relationTo === 'pages' ? `/${lng}/${url}` : `/${lng}/events/${url}`;
+      href =
+        relationTo === 'pages'
+          ? `/${lng}/${url}${section ? `#${section}` : ''}`
+          : `/${lng}/events/${url}${section ? `#${section}` : ''}`;
     else if ('slug' in url && url.slug)
-      href = relationTo === 'pages' ? `/${lng}/${url.slug}` : `/${lng}/events/${url.slug}`;
+      href =
+        relationTo === 'pages'
+          ? `/${lng}/${url.slug}${section ? `#${section}` : ''}`
+          : `/${lng}/events/${url.slug}${section ? `#${section}` : ''}`;
 
     return {
       url: href,
       newTab: link.newTab,
       label: link.label,
+      internal: true,
     };
   }
 

@@ -11,13 +11,14 @@ export const MediaBlock: React.FC<MediaBlockProps> = (props) => {
   if (!image) return null;
 
   return (
-    <div className='mx-auto' id={sectionId || ''}>
+    <div className='relative mx-auto h-screen w-full' id={sectionId || ''}>
       <Image
         src={image.url}
         alt={media.alt || ''}
         height={image.height || undefined}
         width={image.width || undefined}
         fill={image.width === undefined || image.height === undefined}
+        className='object-cover'
       />
     </div>
   );

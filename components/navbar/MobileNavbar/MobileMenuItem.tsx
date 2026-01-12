@@ -5,6 +5,8 @@ import { Page, HawkProject, LinkField, NavbarDropdown } from '@/payload-types';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { ChevronDownIcon } from 'lucide-react';
+import { getLinkFieldInformation } from '@/utils/page';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 type MenuItemProps = {
   data: {
@@ -16,6 +18,7 @@ type MenuItemProps = {
 };
 
 const MobileMenuItem = ({ data }: MenuItemProps) => {
+  const lng = useLanguageCookie();
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const isMultiColumn = data.isMultiColumn || false;
 
@@ -42,38 +45,27 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
       >
         <ul className='flex flex-col gap-2'>
           {data.dropdown?.links?.dropdownNavLink?.map((item) => {
-            const link = item.link;
-            let href = '#';
-
-            if (link.type === 'custom' && link.url) {
-              href = link.url;
-            } else if (link.type === 'reference') {
-              const relationTo = link.reference?.relationTo;
-
-              href =
-                relationTo === 'pages'
-                  ? `/${(link.reference?.value as Page).slug}`
-                  : `/events/${(link.reference?.value as HawkProject).slug}`;
-            }
+            const linkInfo = getLinkFieldInformation(item.link, lng);
+            if (!linkInfo) return null;
 
             return (
-              <li key={item.id || link.label}>
-                {link.type === 'reference' && link.reference ? (
+              <li key={item.id || linkInfo?.label}>
+                {linkInfo?.internal ? (
                   <Link
-                    href={href}
-                    target={link.newTab ? '_blank' : '_self'}
+                    href={linkInfo.url}
+                    target={linkInfo.newTab ? '_blank' : '_self'}
                     className='text-gray-500 transition-colors duration-200 hover:text-gray-600'
                   >
-                    {link.label}
+                    {linkInfo.label}
                   </Link>
                 ) : (
                   <a
                     type='button'
                     className='text-gray-500 transition-colors duration-200 hover:text-gray-600'
-                    target={link.newTab ? '_blank' : '_self'}
-                    href={href}
+                    target={linkInfo.newTab ? '_blank' : '_self'}
+                    href={linkInfo.url}
                   >
-                    {link.label}
+                    {linkInfo.label}
                   </a>
                 )}
               </li>

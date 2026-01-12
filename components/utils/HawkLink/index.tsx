@@ -14,6 +14,7 @@ export default function HawkLinkComponent({ link, className, children }: HawkLin
           url={link.reference.value}
           newTab={link.newTab}
           className={className}
+          section={link.section}
         >
           {children ?? link.label}
         </InternalHawkLink>

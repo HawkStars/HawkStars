@@ -10,6 +10,7 @@ export type ExternalLinkProps = {
 export type InternalLinkProps = Pick<ExternalLinkProps, 'children' | 'newTab' | 'className'> & {
   relationTo: string;
   url: string | Page | HawkProject;
+  section?: string | null | undefined;
 };
 
 export type HawkLink = {

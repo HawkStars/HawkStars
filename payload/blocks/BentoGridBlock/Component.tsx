@@ -6,7 +6,9 @@ import { BentoGridBlock as BentoGridBlockProps } from '@/payload-types';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { use } from 'react';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { getLinkFieldInformation } from '@/utils/page';
 
 const gridColumnLg = {
   2: 'lg:grid-cols-2',
@@ -69,29 +71,6 @@ const contentPositionMap = {
   'bottom-right': 'items-end justify-end text-right',
 } as const;
 
-const getLinkHref = (link: BentoGridBlockProps['items'][number]['link']) => {
-  if (!link) return '#';
-
-  if (link.type === 'custom' && link.url) {
-    return link.section ? `${link.url}#${link.section}` : link.url;
-  }
-
-  if (link.type === 'reference' && link.reference) {
-    const { relationTo, value } = link.reference;
-    let href = '#';
-
-    if (typeof value === 'string') {
-      href = relationTo === 'pages' ? `/${value}` : `/events/${value}`;
-    } else if (value && 'slug' in value && value.slug) {
-      href = relationTo === 'pages' ? `/${value.slug}` : `/events/${value.slug}`;
-    }
-
-    return link.section ? `${href}#${link.section}` : href;
-  }
-
-  return '#';
-};
-
 const BentoGridBlock: React.FC<BentoGridBlockProps> = ({
   sectionTitle,
   sectionDescription,
@@ -102,6 +81,7 @@ const BentoGridBlock: React.FC<BentoGridBlockProps> = ({
   minRowHeight = 200,
   sectionId,
 }) => {
+  const lng = useLanguageCookie();
   if (!items || items.length === 0) return null;
 
   return (
@@ -139,7 +119,7 @@ const BentoGridBlock: React.FC<BentoGridBlockProps> = ({
             const overlayOpacity = (item.overlayOpacity || '50') as keyof typeof overlayOpacityMap;
             const contentPosition = (item.contentPosition ||
               'bottom-left') as keyof typeof contentPositionMap;
-            const href = getLinkHref(link);
+            const linkInfo = getLinkFieldInformation(item.link, lng);
             const isExternalLink = link?.type === 'custom' && link?.newTab;
 
             return (
@@ -215,11 +195,11 @@ const BentoGridBlock: React.FC<BentoGridBlockProps> = ({
                         className='mt-1 sm:mt-2'
                       >
                         <Link
-                          href={href}
+                          href={linkInfo?.url || '#'}
                           target={isExternalLink ? '_blank' : '_self'}
                           rel={isExternalLink ? 'noopener noreferrer' : undefined}
                         >
-                          {link.label}
+                          {linkInfo?.label}
                         </Link>
                       </Button>
                     )}
