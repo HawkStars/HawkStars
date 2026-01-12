@@ -5,6 +5,7 @@ import type { HeroBlock } from '@/payload-types';
 import { Button } from '@/components/ui/button';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 const iconMap = {
   globe: Globe,
@@ -14,12 +15,13 @@ const iconMap = {
 };
 
 const HeroBlock: React.FC<HeroBlock> = (data) => {
+  const lng = useLanguageCookie();
   if (!data) return null;
   const { badge, heading, ctaLink, headerImage, features = [], sectionId } = data;
 
   const bgImage = getImagePayloadUrl(headerImage);
 
-  const linkInfo = getLinkFieldInformation(ctaLink);
+  const linkInfo = getLinkFieldInformation(ctaLink, lng);
 
   return (
     <section className='py-32' id={sectionId || ''}>

@@ -6,6 +6,7 @@ import type { CampaignCountdownBlock as CampaignCountdownBlockProps } from '@/pa
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { getLinkFieldInformation } from '@/utils/page';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 interface TimeLeft {
   days: number;
@@ -27,6 +28,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
   completedMessage = 'Campaign Ended',
   sectionId,
 }) => {
+  const lng = useLanguageCookie();
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [isComplete, setIsComplete] = useState(false);
 
@@ -121,7 +123,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
 
           {/* CTA */}
           {links?.map((link, index) => {
-            const linkInfo = getLinkFieldInformation(link.link);
+            const linkInfo = getLinkFieldInformation(link.link, lng);
             if (!linkInfo) return null;
             const { url, label, newTab } = linkInfo;
 

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 const iconMap = {
   heart: Heart,
@@ -16,6 +17,7 @@ const iconMap = {
 };
 
 const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlock> = (data) => {
+  const lng = useLanguageCookie();
   if (!data) return null;
 
   const { badge, title, description, heroImage, stats = [], links = [], sectionId } = data;
@@ -23,8 +25,8 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlock> = (data) => {
   const image = getImagePayloadUrl(heroImage);
   const primaryCta = links && links[0]?.link;
   const secondaryCta = links && links[1]?.link;
-  const primaryCTAInfo = primaryCta && getLinkFieldInformation(primaryCta);
-  const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta);
+  const primaryCTAInfo = primaryCta && getLinkFieldInformation(primaryCta, lng);
+  const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta, lng);
 
   return (
     <section

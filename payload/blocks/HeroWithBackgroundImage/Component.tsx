@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 const alignmentClasses = {
   left: 'text-left items-start',
@@ -12,6 +13,7 @@ const alignmentClasses = {
 };
 
 const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (data) => {
+  const lng = useLanguageCookie();
   if (!data) return null;
 
   const {
@@ -28,8 +30,8 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
 
   const primaryCta = links && links[0]?.link;
   const secondaryCta = links && links[1]?.link;
-  const primaryCTAInfo = primaryCta && getLinkFieldInformation(primaryCta);
-  const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta);
+  const primaryCTAInfo = primaryCta && getLinkFieldInformation(primaryCta, lng);
+  const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta, lng);
 
   return (
     <section className='relative min-h-150 w-full lg:min-h-175' id={sectionId || ''}>

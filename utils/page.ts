@@ -1,9 +1,12 @@
 import { LinkField } from '@/payload-types';
-import { useLanguageCookie } from './contexts/AppProvider';
+import { Language } from '@/i18n/settings';
 
 type LinkInformation = { url: string; newTab?: boolean | null; label?: string | null };
 
-export const getLinkFieldInformation = (link: LinkField): LinkInformation | undefined => {
+export const getLinkFieldInformation = (
+  link: LinkField,
+  lng: Language
+): LinkInformation | undefined => {
   if (link.type === 'custom') {
     if (!link.url) return undefined;
 
@@ -15,7 +18,6 @@ export const getLinkFieldInformation = (link: LinkField): LinkInformation | unde
   }
 
   if (link.type === 'reference' && link.reference) {
-    const lng = useLanguageCookie();
     let href = '#';
 
     const { relationTo, value: url } = link.reference;

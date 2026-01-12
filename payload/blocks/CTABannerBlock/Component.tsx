@@ -3,6 +3,7 @@ import type { CTABannerBlock as CTABannerBlockProps } from '@/payload-types';
 import { Button } from '@/components/ui/button';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
   title,
@@ -12,11 +13,12 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
   backgroundImage,
   sectionId,
 }) => {
+  const lng = useLanguageCookie();
   const bgImage = getImagePayloadUrl(backgroundImage);
   const primaryCta = links && links[0]?.link;
   const secondaryCta = links && links[1]?.link;
-  const primaryCTAInfo = primaryCta && getLinkFieldInformation(primaryCta);
-  const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta);
+  const primaryCTAInfo = primaryCta && getLinkFieldInformation(primaryCta, lng);
+  const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta, lng);
 
   return (
     <section className='py-12 lg:py-20' id={sectionId || ''}>

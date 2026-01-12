@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 const heightClasses = {
   fullscreen: 'min-h-screen',
@@ -23,6 +24,7 @@ const alignmentClasses = {
 } as const;
 
 const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
+  const lng = useLanguageCookie();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -122,7 +124,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
                 )}
 
                 {slide.links?.map((link, index) => {
-                  const linkInfo = getLinkFieldInformation(link.link);
+                  const linkInfo = getLinkFieldInformation(link.link, lng);
                   if (!linkInfo) return null;
                   const { url, label, newTab } = linkInfo;
                   return (

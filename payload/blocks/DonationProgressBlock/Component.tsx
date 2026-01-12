@@ -6,6 +6,7 @@ import type { DonationProgressBlock as DonationProgressBlockProps } from '@/payl
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { getLinkFieldInformation } from '@/utils/page';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
   title,
@@ -20,6 +21,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
   theme = 'light',
   sectionId,
 }) => {
+  const lng = useLanguageCookie();
   const [progress, setProgress] = useState(0);
   const [inView, setInView] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -149,7 +151,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
                 </div>
               )}
               {links?.map((link, index) => {
-                const linkInfo = getLinkFieldInformation(link.link);
+                const linkInfo = getLinkFieldInformation(link.link, lng);
                 if (!linkInfo) return null;
                 const { url, label, newTab } = linkInfo;
                 return (
