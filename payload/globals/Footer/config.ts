@@ -1,6 +1,7 @@
 import type { GlobalConfig } from 'payload';
 import { FooterNavGroup } from '@/payload/fields/FooterNavGroup';
 import { authenticatedEditor } from '@/payload/access/authenticatedEditor';
+import { revalidateFooter } from './hooks/revalidateFooter';
 
 export const Footer: GlobalConfig = {
   slug: 'footer',
@@ -29,8 +30,7 @@ export const Footer: GlobalConfig = {
     },
   ],
   hooks: {
-    // TODO: add the cache here for footer global
-    afterChange: [],
+    afterChange: [revalidateFooter],
   },
   versions: {
     drafts: {

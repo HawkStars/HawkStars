@@ -6,8 +6,8 @@ const inter = Inter({ variable: '--font-inter', subsets: ['latin'], display: 'sw
 const oswald = Oswald({ variable: '--font-oswald', subsets: ['latin'], display: 'swap' });
 
 import { Metadata } from 'next';
-import { headers } from 'next/headers';
 import Script from 'next/script';
+import { Suspense } from 'react';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import Footer from '@/components/footer/Footer';
 import AppProvider from '@/utils/contexts/AppProvider';
@@ -33,28 +33,17 @@ export default async function RootLayout(props: {
   children: React.ReactNode;
   params: Promise<{ lng?: string }>;
 }) {
-  await headers();
   const params = await props.params;
   const { lng } = params;
   const { children } = props;
 
-  const headerInfo = await getHeaderQuery(lng as Language);
-  const footerInfo = await getFooterQuery(lng as Language);
-
   return (
     <html lang={lng} data-color-mode='light' className={`${inter.variable} ${oswald.variable}`}>
-      <AppProvider
-        lng={(lng as Language) || fallbackLng}
-        headerInfo={headerInfo}
-        footerInfo={footerInfo}
-      >
-        <body>
-          <MobileNavbar />
-          <Navbar />
-          <main className='bg-body min-h-screen'>{children}</main>
-          <Footer />
-        </body>
-      </AppProvider>
+      <body>
+        <Suspense>
+          <LayoutContent lng={lng}>{children}</LayoutContent>
+        </Suspense>
+      </body>
       <Script async src='https://www.googletagmanager.com/gtag/js?id=G-PEH83S3H3K'></Script>
       <Script id='google-analytics'>
         {`window.dataLayer = window.dataLayer || [];
@@ -65,5 +54,29 @@ export default async function RootLayout(props: {
         `}
       </Script>
     </html>
+  );
+}
+
+async function LayoutContent({
+  children,
+  lng,
+}: {
+  children: React.ReactNode;
+  lng: string | undefined;
+}) {
+  const headerInfo = await getHeaderQuery(lng as Language);
+  const footerInfo = await getFooterQuery(lng as Language);
+
+  return (
+    <AppProvider
+      lng={(lng as Language) || fallbackLng}
+      headerInfo={headerInfo}
+      footerInfo={footerInfo}
+    >
+      <MobileNavbar />
+      <Navbar />
+      <main className='bg-body min-h-screen'>{children}</main>
+      <Footer />
+    </AppProvider>
   );
 }

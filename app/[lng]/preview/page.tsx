@@ -5,6 +5,8 @@ import { getMainPageInformation } from '@/lib/payload/main-page';
 import RichText from '@/payload/components/RichText';
 import { connection } from 'next/server';
 
+export const revalidate = 600; // invalidate every 10 minutes
+
 export async function generateMetadata(): Promise<Metadata> {
   return { robots: 'noindex, nofollow' };
 }

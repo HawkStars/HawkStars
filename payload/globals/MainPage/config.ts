@@ -8,6 +8,7 @@ import {
   MetaDescriptionField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
+import { revalidateMainPage } from './hooks/revalidateMainPage';
 
 export const MainPage: GlobalConfig = {
   slug: 'main-page',
@@ -69,6 +70,9 @@ export const MainPage: GlobalConfig = {
       },
     },
   ],
+  hooks: {
+    afterChange: [revalidateMainPage],
+  },
   versions: {
     drafts: {
       autosave: {

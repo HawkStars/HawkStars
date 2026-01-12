@@ -8,11 +8,19 @@ Sentry.init({
   dsn: 'https://dcd0b62fe22e09947f1387cdca2b7016@o222628.ingest.us.sentry.io/4507475922583552',
 
   // Adjust this value in production, or use tracesSampler for greater control
-  tracesSampleRate: 1,
+  tracesSampleRate: process.env.NODE_ENV === 'production' ? 1 : 0,
 
   // Setting this option to true will print useful information to the console while you're setting up Sentry.
   debug: false,
-  enabled: process.env.NODE_ENV != 'development',
   // Uncomment the line below to enable Spotlight (https://spotlightjs.com)
   // spotlight: process.env.NODE_ENV === 'development',
+
+  // Add this to prevent issues with prerendering
+  beforeSend(event) {
+    // Don't send events during build/prerender
+    if (process.env.NEXT_PHASE === 'phase-production-build') {
+      return null;
+    }
+    return event;
+  },
 });

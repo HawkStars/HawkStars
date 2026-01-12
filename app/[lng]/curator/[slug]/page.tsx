@@ -9,6 +9,8 @@ import { Media } from '@/payload-types';
 import RichText from '@/payload/components/RichText';
 import { connection } from 'next/server';
 
+export const revalidate = 600; // invalidate every 10 minutes
+
 const getCuratorInformation = async (slug: string, locale: Language) => {
   const response = await getSingleCuratorQuery(slug, locale);
   return response;

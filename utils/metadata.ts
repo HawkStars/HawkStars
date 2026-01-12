@@ -75,8 +75,13 @@ const transformToMetadataObject = (
   url: string
 ): Metadata => {
   const { title, description, keywords } = info || { title: '', description: '', keyords: '' };
-  if (title == '' || description == '')
-    Sentry.captureMessage(`${url} is missing metadata`, { extra: { url, lng } });
+  if (title == '' || description == '') {
+    // Defer Sentry logging to avoid crypto.randomUUID() during static prerendering
+    // See: https://nextjs.org/docs/messages/next-prerender-crypto
+    setTimeout(() => {
+      Sentry.captureMessage(`${url} is missing metadata`, { extra: { url, lng } });
+    }, 0);
+  }
 
   if (url === '/') url = '';
 

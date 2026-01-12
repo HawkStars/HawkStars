@@ -5,6 +5,5 @@ export const HEADER_CACHE_TAG = 'hawk-header' as const;
 
 export const revalidateHeader: GlobalAfterChangeHook = ({ doc }) => {
   revalidateTag(HEADER_CACHE_TAG, 'max');
-
   return doc;
 };

@@ -6,7 +6,8 @@ import { hawkLogo } from '@/utils/models/images/logos';
 import Image from 'next/image';
 import { getMainPageInformation } from '@/lib/payload/main-page';
 import RichTextWrapper from '@/payload/components/RichText/RichTextWrapper';
-import { headers } from 'next/headers';
+
+export const revalidate = 600; // invalidate every 10 minutes
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -23,7 +24,6 @@ type HomeProps = {
 };
 
 export default async function Home(props: HomeProps) {
-  await headers();
   const params = await props.params;
   const { lng } = params;
   const pageInformation = await getMainPageInformation(lng as Language);

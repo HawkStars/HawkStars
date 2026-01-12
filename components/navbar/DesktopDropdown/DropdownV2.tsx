@@ -46,6 +46,7 @@ type FeaturedImageProps = {
 const StyleImage = {
   icon: 'h-8 w-8 p-1 bg-neutral-200 rounded-md',
   image: 'rounded-md',
+  none: '',
 };
 
 const FeaturedLink = (props: FeaturedImageProps) => {

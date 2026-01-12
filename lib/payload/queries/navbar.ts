@@ -1,10 +1,11 @@
 import { Language } from '@/i18n/settings';
 import { getPayloadConfig } from '../server';
-import { cacheTag } from 'next/cache';
+// import { cacheTag } from 'next/cache';
+// import { HEADER_CACHE_TAG } from '@/payload/globals/Header/hooks/revalidateHeader';
+// import { FOOTER_CACHE_TAG } from '@/payload/globals/Footer/hooks/revalidateFooter';
 
 const getHeaderQuery = async (lng: Language) => {
-  'use cache';
-  cacheTag('hawk-header');
+  // cacheTag(HEADER_CACHE_TAG);
 
   const payload = await getPayloadConfig();
   return await payload.findGlobal({
@@ -16,6 +17,8 @@ const getHeaderQuery = async (lng: Language) => {
 };
 
 const getFooterQuery = async (lng: Language) => {
+  // cacheTag(FOOTER_CACHE_TAG);
+
   const payload = await getPayloadConfig();
   return await payload.findGlobal({
     slug: 'footer',

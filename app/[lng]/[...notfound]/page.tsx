@@ -1,11 +1,12 @@
 import Image from 'next/image';
-
-import { urls } from '@/utils/paths';
+import { connection } from 'next/server';
 import Link from 'next/link';
 
+import { urls } from '@/utils/paths';
 import { hawkLogo } from '@/utils/models/images/logos';
 
-const NotFoundPage = () => {
+export default async function NotFoundPage() {
+  await connection();
   return (
     <div className='my-auto flex items-center'>
       <div className='mx-auto flex w-2/3 flex-col justify-center gap-10 align-middle'>
@@ -20,6 +21,4 @@ const NotFoundPage = () => {
       </div>
     </div>
   );
-};
-
-export default NotFoundPage;
+}
