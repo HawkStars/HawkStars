@@ -16,7 +16,7 @@ export const getLinkFieldInformation = (
     if (!link.url) return undefined;
 
     return {
-      url: link.url,
+      url: link.url.startsWith('/') ? `/${lng}${link.url}` : link.url,
       newTab: link.newTab,
       label: link.label,
       internal: false,

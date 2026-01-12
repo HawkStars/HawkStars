@@ -5,6 +5,18 @@ export const Media: CollectionConfig = {
   admin: {
     description:
       'Upload and manage media assets such as images used throughout the website. Use a image compression tool to optimize images before uploading to improve performance. Ideally in webP',
+    components: {
+      views: {
+        list: {
+          Component: '@/payload/components/admin/MediaListView',
+          actions: [],
+        },
+      },
+    },
+    pagination: {
+      limits: [10, 25, 50, 100],
+      defaultLimit: 2,
+    },
   },
   upload: {
     staticDir: 'media',
