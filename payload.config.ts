@@ -22,6 +22,7 @@ import { ContributionCollection as Contribution } from './payload/collections/Co
 import { Curator } from './payload/collections/Curator';
 import { Partner } from './payload/collections/Partner';
 import totalContributioValueQuery from './lib/payload/endpoints/totalContributioValueQuery';
+import dashboardStatsHandler from './payload/endpoints/dashboardStats';
 
 import { Footer } from './payload/globals/Footer/config';
 import { Header } from './payload/globals/Header/config';
@@ -57,8 +58,9 @@ export default buildConfig({
       graphics: {
         Logo: '@/payload/components/Logo',
       },
-      afterDashboard: [],
+      afterDashboard: ['@/payload/components/admin/DashboardStats'],
     },
+    avatar: { Component: '@/payload/components/admin/avatar' },
   },
   localization: {
     defaultLocale: 'pt',
@@ -108,6 +110,11 @@ export default buildConfig({
       path: '/sum-contributions',
       method: 'get',
       handler: totalContributioValueQuery,
+    },
+    {
+      path: '/dashboard-stats',
+      method: 'get',
+      handler: dashboardStatsHandler,
     },
   ],
   onInit: async () => {

@@ -15,11 +15,30 @@ export const BoardMember: CollectionConfig = {
     update: authenticated,
     admin: authenticated,
   },
+  defaultPopulate: {
+    name: true,
+    section: true,
+    title: true,
+    department: true,
+    position: true,
+    photo: true,
+  },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'title', 'section', 'position'],
     description: 'Board Members of the Association',
     listSearchableFields: ['name', 'title', 'section'],
+    pagination: {
+      defaultLimit: 50,
+      limits: [25, 50, 100],
+    },
+    components: {
+      views: {
+        list: {
+          Component: '@/payload/components/admin/BoardMemberListView',
+        },
+      },
+    },
   },
   fields: [
     {

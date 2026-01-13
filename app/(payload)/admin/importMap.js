@@ -27,6 +27,7 @@ import { UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997e
 import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { SocialLinkRowLabel as SocialLinkRowLabel_0e87c54efb8c46e191c53393194f32db } from '@/payload/fields/Link/SocialLink/components/SocialLinkRowLabel'
+import { default as default_0a9616af2082f80ec778e6175bbe9f27 } from '@/payload/components/admin/BoardMemberListView'
 import { default as default_db1be60011a020b87f4310c749582476 } from '@/components/payload/ContributionSelect'
 import { OverviewComponent as OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
@@ -38,7 +39,9 @@ import { default as default_697dbdb7f6f9ef4ce600690b2392d8d4 } from '@/payload/g
 import { default as default_b86140c7b9e4a7df31f494d137f580e8 } from '@/payload/fields/Link/components/LinkLabel'
 import { default as default_f89cbbda01850af27d943f60ccf826ac } from '@/payload/fields/FooterNavGroup/components/Label'
 import { FooterLabel as FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd } from '@/payload/globals/Footer/components/FooterLabel'
+import { default as default_311a5f154e8b373fc453af30d4e74fc0 } from '@/payload/components/admin/avatar'
 import { default as default_91bbc66a9b3ed1dae52e0caef1a54af7 } from '@/payload/components/Logo'
+import { default as default_d49a4ffdd2cc75d82d4c892f1e79350d } from '@/payload/components/admin/DashboardStats'
 import { CollectionCards as CollectionCards_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 
 export const importMap = {
@@ -71,6 +74,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@/payload/fields/Link/SocialLink/components/SocialLinkRowLabel#SocialLinkRowLabel": SocialLinkRowLabel_0e87c54efb8c46e191c53393194f32db,
+  "@/payload/components/admin/BoardMemberListView#default": default_0a9616af2082f80ec778e6175bbe9f27,
   "@/components/payload/ContributionSelect#default": default_db1be60011a020b87f4310c749582476,
   "@payloadcms/plugin-seo/client#OverviewComponent": OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#MetaTitleComponent": MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860,
@@ -82,6 +86,8 @@ export const importMap = {
   "@/payload/fields/Link/components/LinkLabel#default": default_b86140c7b9e4a7df31f494d137f580e8,
   "@/payload/fields/FooterNavGroup/components/Label#default": default_f89cbbda01850af27d943f60ccf826ac,
   "@/payload/globals/Footer/components/FooterLabel#FooterLabel": FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd,
+  "@/payload/components/admin/avatar#default": default_311a5f154e8b373fc453af30d4e74fc0,
   "@/payload/components/Logo#default": default_91bbc66a9b3ed1dae52e0caef1a54af7,
+  "@/payload/components/admin/DashboardStats#default": default_d49a4ffdd2cc75d82d4c892f1e79350d,
   "@payloadcms/ui/rsc#CollectionCards": CollectionCards_ab83ff7e88da8d3530831f296ec4756a
 }
