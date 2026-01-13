@@ -2,10 +2,16 @@
 
 import { useRowLabel } from '@payloadcms/ui';
 
-const LinkLabel = () => {
-  const { data } = useRowLabel<{ label: string }>();
+type LinkLabelProps = {
+  link?: {
+    label: string;
+  };
+};
 
-  return <div style={{ textTransform: 'capitalize' }}>{data?.label || 'Link'}</div>;
+const LinkLabel = () => {
+  const { data } = useRowLabel<LinkLabelProps>();
+
+  return <div style={{ textTransform: 'capitalize' }}>Link - {data?.link?.label}</div>;
 };
 
 export default LinkLabel;
