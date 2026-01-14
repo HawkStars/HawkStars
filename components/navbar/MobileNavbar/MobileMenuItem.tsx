@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { ChevronDownIcon } from 'lucide-react';
 import { getLinkFieldInformation } from '@/utils/page';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { useLanguageCookie, useSetMobileNavbarOpen } from '@/utils/contexts/AppProvider';
 
 type MenuItemProps = {
   data: {
@@ -19,6 +19,7 @@ type MenuItemProps = {
 
 const MobileMenuItem = ({ data }: MenuItemProps) => {
   const lng = useLanguageCookie();
+  const setMobileMenuOpen = useSetMobileNavbarOpen();
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const isMultiColumn = data.isMultiColumn || false;
 
@@ -55,6 +56,7 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
                     href={linkInfo.url}
                     target={linkInfo.newTab ? '_blank' : '_self'}
                     className='text-gray-500 transition-colors duration-200 hover:text-gray-600'
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     {linkInfo.label}
                   </Link>
@@ -64,6 +66,7 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
                     className='text-gray-500 transition-colors duration-200 hover:text-gray-600'
                     target={linkInfo.newTab ? '_blank' : '_self'}
                     href={linkInfo.url}
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     {linkInfo.label}
                   </a>

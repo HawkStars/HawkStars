@@ -18,7 +18,7 @@ const Footer = () => {
 
   return (
     <footer className='mt-4'>
-      <div className='flex gap-10 p-5'>
+      <div className='flex gap-10 p-5 max-lg:flex-col'>
         <div className='flex flex-col gap-5'>
           <Image
             className='max-w-40'
@@ -39,7 +39,7 @@ const Footer = () => {
           </Button>
         </div>
 
-        <div className='mt-10 grid grid-cols-4 gap-10 max-sm:grid-cols-1'>
+        <div className='mt-10 grid grid-cols-6 gap-10 max-lg:grid-cols-3 max-sm:grid-cols-1'>
           {footerInfo?.columns?.map((column) => (
             <FooterMenu key={column.id} data={column} />
           ))}
