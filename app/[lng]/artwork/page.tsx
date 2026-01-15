@@ -8,6 +8,8 @@ import { Media } from '@/payload-types';
 import { Language } from '@/i18n/settings';
 import { cn } from '@/lib/utils';
 
+export const revalidate = 1800; // invalidate every 30 minutes
+
 const getArtwork = async (locale: Language) => {
   const images = await getAllArtworkImagesQuery(locale);
   return images;
