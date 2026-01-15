@@ -30,6 +30,25 @@ import { NodeTypes } from './config';
 import BentoGridBlock from '@/payload/blocks/BentoGridBlock/Component';
 import Heading from '../utils/heading';
 import { StatsBlock } from '@/payload/blocks/StatsBlock/Component';
+import { AccordionBlock } from '@/payload/blocks/AccordionBlock/Component';
+import SimpleGallery from '@/payload/blocks/SimpleGallery/Component';
+import { ProjectTestimonialBlock } from '@/payload/blocks/ProjectTestimonialBlock/Component';
+import { LogosBlock } from '@/payload/blocks/LogosBlock/Component';
+import { GlobalVillageBannerBlockComponent } from '@/payload/blocks/GlobalVillageBanner/Component';
+import { CampaignCountdownBlock } from '@/payload/blocks/CampaignCountdownBlock/Component';
+import { CTABannerBlock } from '@/payload/blocks/CTABannerBlock/Component';
+import { DonationProgressBlock } from '@/payload/blocks/DonationProgressBlock/Component';
+import { EventListBlock } from '@/payload/blocks/EventListBlock/Component';
+import { FAQBlock } from '@/payload/blocks/FAQBlock/Component';
+import { ImageComparisonSliderBlock } from '@/payload/blocks/ImageComparisonSliderBlock/Component';
+import { MapLocationBlock } from '@/payload/blocks/MapLocationBlock/Component';
+import { NewsletterSignupBlock } from '@/payload/blocks/NewsletterSignupBlock/Component';
+import { PricingTableBlock } from '@/payload/blocks/PricingTableBlock/Component';
+import { QuoteHighlightBlock } from '@/payload/blocks/QuoteHighlightBlock/Component';
+import { ResourceDownloadBlock } from '@/payload/blocks/ResourceDownloadBlock/Component';
+import { SocialProofBlock } from '@/payload/blocks/SocialProofBlock/Component';
+import { TeamGridBlock } from '@/payload/blocks/TeamGridBlock/Component';
+import { TimelineBlock } from '@/payload/blocks/TimelineBlock/Component';
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -63,6 +82,25 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     titleDescriptionBlock: ({ node }) => <TitleDescriptionBlock {...node.fields} />,
     bentoGrid: ({ node }) => <BentoGridBlock {...node.fields} />,
     statsBlock: ({ node }) => <StatsBlock {...node.fields} />,
+    accordion: ({ node }) => <AccordionBlock {...node.fields} />,
+    simpleGallery: ({ node }) => <SimpleGallery {...node.fields} />,
+    projectTestimonialBlock: ({ node }) => <ProjectTestimonialBlock {...node.fields} />,
+    logosBlock: ({ node }) => <LogosBlock {...node.fields} />,
+    globalVillageBanner: ({ node }) => <GlobalVillageBannerBlockComponent {...node.fields} />,
+    campaignCountdown: ({ node }) => <CampaignCountdownBlock {...node.fields} />,
+    ctaBanner: ({ node }) => <CTABannerBlock {...node.fields} />,
+    donationProgress: ({ node }) => <DonationProgressBlock {...node.fields} />,
+    eventList: ({ node }) => <EventListBlock {...node.fields} />,
+    faq: ({ node }) => <FAQBlock {...node.fields} />,
+    imageComparisonSlider: ({ node }) => <ImageComparisonSliderBlock {...node.fields} />,
+    mapLocation: ({ node }) => <MapLocationBlock {...node.fields} />,
+    newsletterSignup: ({ node }) => <NewsletterSignupBlock {...node.fields} />,
+    pricingTable: ({ node }) => <PricingTableBlock {...node.fields} />,
+    quoteHighlight: ({ node }) => <QuoteHighlightBlock {...node.fields} />,
+    resourceDownload: ({ node }) => <ResourceDownloadBlock {...node.fields} />,
+    socialProof: ({ node }) => <SocialProofBlock {...node.fields} />,
+    teamGrid: ({ node }) => <TeamGridBlock {...node.fields} />,
+    timeline: ({ node }) => <TimelineBlock {...node.fields} />,
   },
   list: List,
   listitem: ListItem,

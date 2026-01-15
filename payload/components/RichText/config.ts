@@ -14,6 +14,26 @@ import type {
   MultiRowImageBlock as MultiRowImageProps,
   TitleDescriptionBlock as TitleDescriptionBlockProps,
   BentoGridBlock as BentoGridBlockProps,
+  StatsBlock as StatsBlockProps,
+  AccordionBlock as AccordionBlockProps,
+  SimpleGallery as SimpleGalleryBlockProps,
+  ProjectTestimonialBlock as ProjectTestimonialBlockProps,
+  LogosBlock as LogosBlockProps,
+  GlobalVillageBannerBlock as GlobalVillageBannerBlockProps,
+  CampaignCountdownBlock as CampaignCountdownBlockProps,
+  CTABannerBlock as CTABannerBlockProps,
+  DonationProgressBlock as DonationProgressBlockProps,
+  EventListBlock as EventListBlockProps,
+  FAQBlock as FAQBlockProps,
+  ImageComparisonSliderBlock as ImageComparisonSliderBlockProps,
+  MapLocationBlock as MapLocationBlockProps,
+  NewsletterSignupBlock as NewsletterSignupBlockProps,
+  PricingTableBlock as PricingTableBlockProps,
+  QuoteHighlightBlock as QuoteHighlightBlockProps,
+  ResourceDownloadBlock as ResourceDownloadBlockProps,
+  SocialProofBlock as SocialProofBlockProps,
+  TeamGridBlock as TeamGridBlockProps,
+  TimelineBlock as TimelineBlockProps,
 } from '@/payload-types';
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical';
 
@@ -35,4 +55,24 @@ export type BlockNodeTypes = SerializedBlockNode<
   | MultiRowImageProps
   | TitleDescriptionBlockProps
   | BentoGridBlockProps
+  | StatsBlockProps
+  | AccordionBlockProps
+  | SimpleGalleryBlockProps
+  | ProjectTestimonialBlockProps
+  | LogosBlockProps
+  | GlobalVillageBannerBlockProps
+  | CampaignCountdownBlockProps
+  | CTABannerBlockProps
+  | DonationProgressBlockProps
+  | EventListBlockProps
+  | FAQBlockProps
+  | ImageComparisonSliderBlockProps
+  | MapLocationBlockProps
+  | NewsletterSignupBlockProps
+  | PricingTableBlockProps
+  | QuoteHighlightBlockProps
+  | ResourceDownloadBlockProps
+  | SocialProofBlockProps
+  | TeamGridBlockProps
+  | TimelineBlockProps
 >;
