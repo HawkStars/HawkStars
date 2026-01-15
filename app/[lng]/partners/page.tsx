@@ -5,6 +5,8 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import { Language } from '@/i18n/settings';
 import { getPartnersQuery } from '@/lib/payload/queries/partner';
 
+export const revalidate = 1800; // invalidate every 10 minutes
+
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;
