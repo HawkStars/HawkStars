@@ -6,7 +6,7 @@ import { getServerTranslation } from '@/i18n';
 import { getBoardMembers } from '@/lib/payload/queries/team';
 import TeamInformation from '@/components/team/TeamInformation';
 
-export const revalidate = 600; // invalidate every 10 minutes
+export const revalidate = 6000; // invalidate every 100 minutes
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;

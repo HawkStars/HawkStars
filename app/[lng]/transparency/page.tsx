@@ -6,6 +6,8 @@ import { getContributionsQuery, getSumContributions } from '@/lib/payload/querie
 import ContributionProjectGoal from '@/components/transparency/ContributionProjectGoal';
 import OrganizationContributionsTable from '@/components/transparency/OrganizationContributionsTable';
 
+export const revalidate = 600; // invalidate every 10 minutes
+
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;

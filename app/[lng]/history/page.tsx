@@ -14,6 +14,8 @@ import humanitarian_1 from '@/public/images/history/humanitarian_1.jpeg';
 import global_village_image from '@/public/images/hero.png';
 import { OffsetSection } from '@/components/layout/OffsetSection';
 
+export const revalidate = 600; // invalidate every 10 minutes
+
 const HawkHistoryPage = async (props: LanguagePageProps) => {
   const params = await props.params;
 
