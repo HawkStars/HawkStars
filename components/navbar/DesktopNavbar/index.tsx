@@ -26,7 +26,7 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuK
   return (
     <div className='my-auto ml-auto hidden lg:block'>
       <div className='ml-auto flex gap-3'>
-        <ul className='flex flex-row gap-4 px-1 xl:gap-8'>
+        <ul className='flex flex-row gap-4 px-1 max-xl:text-sm xl:gap-8'>
           {columns.map((column) => {
             const isMultiColumn = column.isMultiColumn;
 

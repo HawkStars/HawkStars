@@ -24,9 +24,9 @@ const TeamPage = async (props: LanguagePageProps) => {
   return (
     <div className='mt-5 flex flex-col gap-20 px-4 max-lg:gap-8 lg:mt-10'>
       {/* Header Section */}
-      <div className='flex flex-col justify-center gap-4 pl-4'>
-        <h1 className='text-h1_semibold'>{t('title')}</h1>
-        <p className='text-body max-w-3xl text-gray-600'>{t('description')}</p>
+      <div className='flex flex-col gap-4 pl-4'>
+        <h1 className='text-h1_semibold text-center'>{t('title')}</h1>
+        <p className='text-body mx-auto max-w-3xl text-gray-600'>{t('description')}</p>
       </div>
       <div className='flex flex-col justify-center lg:mr-4'>
         <TeamInformation boardMembers={boardMembers} lng={lng} />

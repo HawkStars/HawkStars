@@ -76,7 +76,7 @@ The following Payload CMS blocks have Storybook stories:
 
 - **DonationProgressBlock** - Animated fundraising progress bar with donor count
 - **PricingTableBlock** - Tiered membership/donation options with feature lists
-- **DonorWallBlock** - Donor recognition with grid/wall/cards layouts
+- **StatsBlock** - Customizable statistics grid with icons, multiple column layouts, and CTA buttons
 - **CampaignCountdownBlock** - Countdown timer for campaigns with theme options
 
 ### Event & Community Blocks

@@ -29,6 +29,7 @@ import { TitleDescriptionBlock } from '@/payload/blocks/TitleDescriptionBlock/Co
 import { NodeTypes } from './config';
 import BentoGridBlock from '@/payload/blocks/BentoGridBlock/Component';
 import Heading from '../utils/heading';
+import { StatsBlock } from '@/payload/blocks/StatsBlock/Component';
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -61,6 +62,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     multiRowImage: ({ node }) => <MultiRowImage {...node.fields} />,
     titleDescriptionBlock: ({ node }) => <TitleDescriptionBlock {...node.fields} />,
     bentoGrid: ({ node }) => <BentoGridBlock {...node.fields} />,
+    statsBlock: ({ node }) => <StatsBlock {...node.fields} />,
   },
   list: List,
   listitem: ListItem,

@@ -17,7 +17,7 @@ import { VideoBlock } from './VideoBlock/config';
 import { CampaignCountdownBlock } from './CampaignCountdownBlock/config';
 import { CTABannerBlock } from './CTABannerBlock/config';
 import { DonationProgressBlock } from './DonationProgressBlock/config';
-import { DonorWallBlock } from './DonorWallBlock/config';
+import { StatsBlock } from './StatsBlock/config';
 import { EventListBlock } from './EventListBlock/config';
 import { FAQBlock } from './FAQBlock/config';
 import { ImageComparisonSliderBlock } from './ImageComparisonSliderBlock/config';
@@ -55,7 +55,7 @@ const currentBlocks = [
   CampaignCountdownBlock,
   CTABannerBlock,
   DonationProgressBlock,
-  DonorWallBlock,
+  StatsBlock,
   EventListBlock,
   FAQBlock,
   ImageComparisonSliderBlock,

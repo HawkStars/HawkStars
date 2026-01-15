@@ -36,7 +36,7 @@ const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
       </div>
       <HawkStarsSection>
         {nationalPartners.length > 0 && (
-          <div className='mt-10'>
+          <div className='mt-10' id='national-partners'>
             <h2 className='mb-5 text-center'>{t('national')}</h2>
             <div className='grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4'>
               {nationalPartners.map((partner, index) => (
@@ -46,7 +46,7 @@ const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
           </div>
         )}
         {internationalPartners.length > 0 && (
-          <div className='mt-10'>
+          <div className='mt-10' id='international-partners'>
             <h2 className='mb-5 text-center'>{t('internacional')}</h2>
             <div className='grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4'>
               {internationalPartners.map((partner, index) => (
