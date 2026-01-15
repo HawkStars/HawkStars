@@ -22,13 +22,13 @@ const TeamPage = async (props: LanguagePageProps) => {
   const boardMembers = await getBoardMembers();
 
   return (
-    <div className='mt-5 flex gap-20 px-4 max-lg:flex-col max-lg:gap-8 lg:mt-10'>
+    <div className='mt-5 flex flex-col gap-20 px-4 max-lg:gap-8 lg:mt-10'>
       {/* Header Section */}
-      <div className='flex flex-col gap-4 pl-4 lg:w-1/3'>
+      <div className='flex flex-col justify-center gap-4 pl-4'>
         <h1 className='text-h1_semibold'>{t('title')}</h1>
         <p className='text-body max-w-3xl text-gray-600'>{t('description')}</p>
       </div>
-      <div className='lg:mr-4 lg:w-2/3'>
+      <div className='flex flex-col justify-center lg:mr-4'>
         <TeamInformation boardMembers={boardMembers} lng={lng} />
       </div>
     </div>

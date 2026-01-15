@@ -12,6 +12,7 @@ import { type JSX } from 'react';
 import { Media, Partner } from '@/payload-types';
 import RichText from '@/payload/components/RichText';
 import PartnersMapWrapper from './PartnersMapWrapper';
+import { FlagIcons } from '@/lib/flags';
 
 type PartnersComponentProps = LanguageProps & {
   partners: Partner[];
@@ -37,7 +38,7 @@ const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
         {nationalPartners.length > 0 && (
           <div className='mt-10'>
             <h2 className='mb-5 text-center'>{t('national')}</h2>
-            <div className='flex gap-5'>
+            <div className='grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4'>
               {nationalPartners.map((partner, index) => (
                 <PartnerCard {...partner} key={index} name={t(partner.name)} />
               ))}
@@ -47,9 +48,11 @@ const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
         {internationalPartners.length > 0 && (
           <div className='mt-10'>
             <h2 className='mb-5 text-center'>{t('internacional')}</h2>
-            {internationalPartners.map((partner, index) => (
-              <PartnerCard {...partner} key={index} />
-            ))}
+            <div className='grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4'>
+              {internationalPartners.map((partner, index) => (
+                <PartnerCard {...partner} key={index} />
+              ))}
+            </div>
           </div>
         )}
       </HawkStarsSection>
@@ -60,22 +63,28 @@ const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
 const PartnerCard = (partner: Partner): JSX.Element => {
   const { name, description, logo, country, links } = partner;
 
+  const flagIcon = country && FlagIcons[country];
+
   return (
-    <div className='my-20 flex flex-col gap-5'>
+    <div className='bg-bege-dark flex flex-col gap-1 rounded-xl'>
       {/* Country If exists*/}
-      {country && (
-        <h6 className='border-green text-green w-fit rounded-xl border-2 p-1'>{country}</h6>
+      {flagIcon && (
+        <div className='flex justify-between px-4 pt-2'>
+          <h6 className='text-green w-fit p-1'>
+            {flagIcon({ title: country, className: 'h-4 w-9' })}
+          </h6>
+          <h3>{name}</h3>
+        </div>
       )}
-      {/* Title */}
-      <h3 className=''>{name}</h3>
 
       {/* Image */}
-      <div className='relative h-36 max-w-xs'>
+      <div className='relative min-h-64 w-full rounded-xl'>
         <Image
           src={(logo as Media).url as string}
           alt={`${name} logo`}
           fill
-          style={{ objectFit: 'contain' }}
+          className='px-6'
+          style={{ objectFit: 'cover', borderRadius: '999px' }}
         />
       </div>
 
@@ -84,23 +93,20 @@ const PartnerCard = (partner: Partner): JSX.Element => {
 
       {/* Contacts */}
       {links && links.length > 0 && (
-        <div className='flex gap-2'>
-          <>
-            <p className='bold'>Contacts:</p>
-            {links.map((link, index) => {
-              const icon = link && SocialIcon[link.platform as SocialType];
+        <div className='flex justify-end gap-1 px-3 py-1'>
+          {links.map((link, index) => {
+            const icon = link && SocialIcon[link.platform as SocialType];
 
-              return (
-                <div key={index}>
-                  <Link href={link.url} className='underline' target='_blank'>
-                    {icon && (
-                      <Image src={icon} alt={`${link.platform} icon`} width={24} height={24} />
-                    )}
-                  </Link>
-                </div>
-              );
-            })}
-          </>
+            return (
+              <div key={index}>
+                <Link href={link.url} className='underline' target='_blank'>
+                  {icon && (
+                    <Image src={icon} alt={`${link.platform} icon`} width={24} height={24} />
+                  )}
+                </Link>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
