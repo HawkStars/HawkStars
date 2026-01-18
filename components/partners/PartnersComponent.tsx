@@ -38,7 +38,7 @@ const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
         {nationalPartners.length > 0 && (
           <div className='mt-10' id='national-partners'>
             <h2 className='mb-5 text-center'>{t('national')}</h2>
-            <div className='grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4'>
+            <div className='grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-4'>
               {nationalPartners.map((partner, index) => (
                 <PartnerCard {...partner} key={index} name={t(partner.name)} />
               ))}
@@ -48,7 +48,7 @@ const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
         {internationalPartners.length > 0 && (
           <div className='mt-10' id='international-partners'>
             <h2 className='mb-5 text-center'>{t('internacional')}</h2>
-            <div className='grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4'>
+            <div className='grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-4'>
               {internationalPartners.map((partner, index) => (
                 <PartnerCard {...partner} key={index} />
               ))}
@@ -64,36 +64,40 @@ const PartnerCard = (partner: Partner): JSX.Element => {
   const { name, description, logo, country, links } = partner;
 
   const flagIcon = country && FlagIcons[country];
+  const url = (logo as Media).url;
 
   return (
-    <div className='bg-bege-dark flex flex-col gap-1 rounded-xl'>
+    <div className='border-bege-dark mb-5 flex flex-col gap-3 border-b-2 pb-5'>
       {/* Country If exists*/}
       {flagIcon && (
-        <div className='flex justify-between px-4 pt-2'>
+        <div className='flex justify-center px-4 pt-2'>
           <h6 className='text-green w-fit p-1'>
             {flagIcon({ title: country, className: 'h-4 w-9' })}
           </h6>
-          <h3>{name}</h3>
         </div>
       )}
 
       {/* Image */}
-      <div className='relative min-h-64 w-full rounded-xl'>
-        <Image
-          src={(logo as Media).url as string}
-          alt={`${name} logo`}
-          fill
-          className='px-6'
-          style={{ objectFit: 'cover', borderRadius: '999px' }}
-        />
-      </div>
+      {url && (
+        <div className='flex justify-center py-4'>
+          <Image
+            src={url as string}
+            alt={`${name} logo`}
+            width={256}
+            height={256}
+            className='aspect-square rounded-t-2xl px-6'
+            style={{ objectFit: 'cover' }}
+          />
+        </div>
+      )}
 
+      <h3 className='mt-auto text-center'>{name}</h3>
       {/* Description */}
       {description && <RichText data={description} />}
 
       {/* Contacts */}
       {links && links.length > 0 && (
-        <div className='flex justify-end gap-1 px-3 py-1'>
+        <div className='flex justify-center gap-2'>
           {links.map((link, index) => {
             const icon = link && SocialIcon[link.platform as SocialType];
 
