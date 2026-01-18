@@ -103,6 +103,19 @@ const transformToMetadataObject = (
       description,
       url: `${process.env.NEXT_PUBLIC_APP_URL}/${lng}`,
     },
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/favicon.ico',
+      apple: '/favicon.ico',
+    },
+    applicationName: 'Hawk Stars NGO Website',
+    generator: 'Next.js',
+    creator: 'Hawk Stars NGO',
+    publisher: 'Hawk Stars NGO',
+    robots: {
+      index: true,
+      follow: true,
+    },
   } as Metadata;
 };
 

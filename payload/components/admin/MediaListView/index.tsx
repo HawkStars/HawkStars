@@ -12,6 +12,7 @@ import {
   ListControls,
   SelectionProvider,
   TableColumnsProvider,
+  useListDrawerContext,
 } from '@payloadcms/ui';
 import { useBulkUpload } from '@payloadcms/ui';
 import { useConfig } from '@payloadcms/ui';
@@ -38,6 +39,7 @@ export default function MediaListView(props: ListViewClientProps) {
   const { data, handlePageChange, handlePerPageChange } = useListQuery();
   const { openModal } = useModal();
   const { drawerSlug: bulkUploadDrawerSlug, setCollectionSlug, setOnSuccess } = useBulkUpload();
+  const { isInDrawer, onSelect } = useListDrawerContext();
 
   const {
     config: {
@@ -129,11 +131,35 @@ export default function MediaListView(props: ListViewClientProps) {
                     path: `/collections/${collectionSlug}/${doc.id}`,
                   });
 
-                  return (
-                    <Link
-                      key={doc.id}
-                      href={editUrl}
-                      className='group flex flex-col overflow-hidden rounded-lg border border-zinc-200 bg-zinc-50 text-inherit no-underline transition-all hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-lg focus:outline-2 focus:outline-offset-2 focus:outline-green-500 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:border-zinc-600'
+                  const handleClick = (e: React.MouseEvent) => {
+                    if (isInDrawer && onSelect) {
+                      e.preventDefault();
+                      onSelect({
+                        collectionSlug,
+                        doc,
+                        docID: doc.id,
+                      });
+                    }
+                  };
+
+                  const element = (
+                    <div
+                      onClick={handleClick}
+                      role={isInDrawer ? 'button' : undefined}
+                      tabIndex={isInDrawer ? 0 : undefined}
+                      onKeyDown={(e) => {
+                        if (isInDrawer && onSelect && (e.key === 'Enter' || e.key === ' ')) {
+                          e.preventDefault();
+                          onSelect({
+                            collectionSlug,
+                            doc,
+                            docID: doc.id,
+                          });
+                        }
+                      }}
+                      className={`group flex flex-col overflow-hidden rounded-lg border border-zinc-200 bg-zinc-50 text-inherit transition-all hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-lg focus:outline-2 focus:outline-offset-2 focus:outline-green-500 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:border-zinc-600 ${
+                        isInDrawer ? 'cursor-pointer' : ''
+                      }`}
                     >
                       <div className='relative aspect-4/3 w-full overflow-hidden bg-zinc-200 lg:aspect-3/2 dark:bg-zinc-700'>
                         {imageUrl ? (
@@ -170,6 +196,16 @@ export default function MediaListView(props: ListViewClientProps) {
                           </span>
                         )}
                       </div>
+                    </div>
+                  );
+
+                  if (isInDrawer) {
+                    return <Fragment key={doc.id}>{element}</Fragment>;
+                  }
+
+                  return (
+                    <Link key={doc.id} href={editUrl} className='no-underline'>
+                      {element}
                     </Link>
                   );
                 })}
