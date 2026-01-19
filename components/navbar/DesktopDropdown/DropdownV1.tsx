@@ -54,14 +54,12 @@ const FeaturedLinkCard: React.FC<LinkProps> = ({ link }) => {
       link={link.link}
       className={cn(
         'group relative flex min-h-30 w-56 flex-col justify-end overflow-hidden rounded-xl p-4 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl',
-        { 'bg-linear-to-br from-green-800 to-green-950': imageType === 'none' }
+        { 'bg-linear-to-br from-green-800 to-green-950': imageType !== 'image' }
       )}
     >
       {/* Background image or gradient overlay */}
       {ImageElement && imageType === 'image' && (
-        <div className='absolute inset-0 opacity-40 transition-opacity duration-300 group-hover:opacity-60'>
-          {ImageElement}
-        </div>
+        <div className='absolute inset-0 duration-300'>{ImageElement}</div>
       )}
 
       {/* Icon overlay */}

@@ -59,10 +59,10 @@
   }
   .leaflet-tooltip,
   .leaflet-draw-tooltip {
-    @apply bg-foreground! text-background! animate-none! rounded-md! !border-none !p-0 !px-3 !py-1.5 !shadow-none;
+    @apply bg-foreground! text-background! animate-none! rounded-md! border-none! p-0! px-3! py-1.5! shadow-none!;
   }
   .leaflet-draw-tooltip:before {
-    @apply bg-foreground top-1/2! right-0.5! size-2.5 translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[2px] !border-none;
+    @apply bg-foreground top-1/2! right-0.5! size-2.5 translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[2px] border-none!;
   }
   .leaflet-error-draw-tooltip {
     @apply bg-destructive! text-white!;
@@ -81,7 +81,7 @@
     @apply hidden;
   }
   .leaflet-control-attribution {
-    @apply bg-muted! rounded-md !px-[4px] !py-[2px] text-[10px] !leading-none !text-inherit;
+    @apply bg-muted! rounded-md px-1! py-0.5! text-[10px] leading-none! text-inherit!;
   }
   .leaflet-draw-guide-dash {
     @apply rounded-full;
