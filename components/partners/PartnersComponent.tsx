@@ -85,7 +85,7 @@ const PartnerCard = (partner: Partner): JSX.Element => {
             alt={`${name} logo`}
             width={256}
             height={256}
-            className='aspect-square rounded-t-2xl object-center px-6'
+            className='aspect-square rounded-t-2xl object-contain object-center px-6'
           />
         </div>
       )}

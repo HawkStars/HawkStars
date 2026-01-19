@@ -52,7 +52,10 @@ const FeaturedLinkCard: React.FC<LinkProps> = ({ link }) => {
   return (
     <HawkLinkComponent
       link={link.link}
-      className='group relative flex min-h-30 w-56 flex-col justify-end overflow-hidden rounded-xl bg-linear-to-br from-green-800 to-green-950 p-4 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl'
+      className={cn(
+        'group relative flex min-h-30 w-56 flex-col justify-end overflow-hidden rounded-xl p-4 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl',
+        { 'bg-linear-to-br from-green-800 to-green-950': imageType === 'none' }
+      )}
     >
       {/* Background image or gradient overlay */}
       {ImageElement && imageType === 'image' && (
