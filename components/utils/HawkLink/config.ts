@@ -5,12 +5,15 @@ export type ExternalLinkProps = {
   href: string | undefined | null;
   newTab: boolean | null | undefined;
   className?: string;
+  section?: string | null | undefined;
 };
 
-export type InternalLinkProps = Pick<ExternalLinkProps, 'children' | 'newTab' | 'className'> & {
+export type InternalLinkProps = Pick<
+  ExternalLinkProps,
+  'children' | 'newTab' | 'className' | 'section'
+> & {
   relationTo: string;
   url: string | Page | HawkProject;
-  section?: string | null | undefined;
 };
 
 export type HawkLink = {
