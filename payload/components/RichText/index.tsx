@@ -107,6 +107,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   paragraph: Paragraph,
   horizontalrule: () => <hr className='bg-dark-bege mx-8 my-8 h-4 lg:mx-20' />,
   heading: Heading,
+  linebreak: () => <br />,
 });
 
 export type RichTextProps = {

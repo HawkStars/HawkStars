@@ -22,9 +22,8 @@ const ListItem: JSXConverter<SerializedListItemNode> = ({
   return (
     <li
       className={cn('', {
-        'text-h2_bold': indent === 0 && listType === 'number',
+        'text-body_regular': indent === 0 && listType === 'number',
       })}
-      style={{ marginLeft: `${(indent + 1) * 8}px` }}
     >
       {checked !== undefined && listType === 'check' ? (
         <input type='checkbox' checked={checked} name={node.value.toString()} readOnly />
