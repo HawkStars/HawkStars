@@ -37,7 +37,7 @@ const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
       <HawkStarsSection>
         {nationalPartners.length > 0 && (
           <div className='mt-10' id='national-partners'>
-            <h2 className='mb-5 text-center'>{t('national')}</h2>
+            <h2 className='text-h1_semibold mb-5 pb-6 text-center'>{t('national')}</h2>
             <div className='grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-4'>
               {nationalPartners.map((partner, index) => (
                 <PartnerCard {...partner} key={index} name={t(partner.name)} />
@@ -47,7 +47,7 @@ const PartnersComponent = async ({ lng, partners }: PartnersComponentProps) => {
         )}
         {internationalPartners.length > 0 && (
           <div className='mt-10' id='international-partners'>
-            <h2 className='mb-5 text-center'>{t('internacional')}</h2>
+            <h2 className='text-h1_semibold mb-5 pb-6 text-center'>{t('internacional')}</h2>
             <div className='grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-4'>
               {internationalPartners.map((partner, index) => (
                 <PartnerCard {...partner} key={index} />
@@ -71,15 +71,15 @@ const PartnerCard = (partner: Partner): JSX.Element => {
       {/* Country If exists*/}
       {flagIcon && (
         <div className='flex justify-center px-4 pt-2'>
-          <h6 className='text-green w-fit p-1'>
-            {flagIcon({ title: country, className: 'h-4 w-9' })}
+          <h6 className='text-green bg-bege-dark w-fit rounded-xl p-2 shadow-2xs'>
+            {flagIcon({ title: country, className: 'w-8' })}
           </h6>
         </div>
       )}
 
       {/* Image */}
       {url && (
-        <div className='flex justify-center py-4'>
+        <div className='flex justify-center pb-4'>
           <Image
             src={url as string}
             alt={`${name} logo`}
