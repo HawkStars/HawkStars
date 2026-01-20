@@ -18,11 +18,11 @@ const List: JSXConverter<SerializedListNode> = ({ converters, node, nodesToJSX, 
       children: ReactNode[];
     };
 
-    const hasList = props.children?.filter((p: any) => {
+    const hasList = props.children?.filter((p: unknown) => {
       if (p instanceof Array) {
         return (
           p.filter(
-            (item: any) =>
+            (item: { type: string }) =>
               item instanceof Object && 'type' in item && ['ul', 'ol'].includes(item.type)
           )?.length > 0
         );
