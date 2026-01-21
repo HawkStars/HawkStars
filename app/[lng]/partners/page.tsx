@@ -1,4 +1,3 @@
-import PartnersComponent from '../../../components/partners/PartnerCard';
 import { Metadata } from 'next';
 import { LanguagePageProps } from '../types';
 import { getMetadataPageInfo } from '@/utils/metadata';

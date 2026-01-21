@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Page, HawkProject, LinkField, NavbarDropdown } from '@/payload-types';
+import { LinkField, NavbarDropdown } from '@/payload-types';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { ChevronDownIcon } from 'lucide-react';
