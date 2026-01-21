@@ -17,6 +17,7 @@ export const HeroWithBackgroundImage: Block = {
       name: 'title',
       type: 'textarea',
       required: true,
+      localized: true,
       admin: {
         description: 'Main heading text',
       },
@@ -24,6 +25,7 @@ export const HeroWithBackgroundImage: Block = {
     {
       name: 'subtitle',
       type: 'textarea',
+      localized: true,
       admin: {
         description: 'Subtitle or description text',
       },

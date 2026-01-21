@@ -9,6 +9,7 @@ export const EventListBlock: Block = {
       name: 'title',
       type: 'text',
       defaultValue: 'Upcoming Events',
+      localized: true,
       admin: {
         description: 'Section title',
       },
@@ -16,6 +17,7 @@ export const EventListBlock: Block = {
     {
       name: 'subtitle',
       type: 'textarea',
+      localized: true,
       admin: {
         description: 'Section description',
       },
@@ -28,10 +30,12 @@ export const EventListBlock: Block = {
           name: 'title',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'description',
           type: 'textarea',
+          localized: true,
         },
         {
           name: 'date',

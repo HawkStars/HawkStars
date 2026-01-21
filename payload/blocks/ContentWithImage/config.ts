@@ -17,10 +17,12 @@ export const ContentWithImage: Block = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'description',
       type: 'richText',
+      localized: true,
       editor: lexicalEditor({
         features: ({}) => {
           return [

@@ -10,6 +10,7 @@ export const HeroImpactStats: Block = {
     {
       name: 'badge',
       type: 'text',
+      localized: true,
       admin: {
         description: 'Small badge text (e.g., "OUR IMPACT")',
       },
@@ -18,6 +19,7 @@ export const HeroImpactStats: Block = {
       name: 'title',
       type: 'textarea',
       required: true,
+      localized: true,
       admin: {
         description: 'Main heading text',
       },
@@ -25,6 +27,7 @@ export const HeroImpactStats: Block = {
     {
       name: 'description',
       type: 'textarea',
+      localized: true,
       admin: {
         description: 'Description or mission statement',
       },
@@ -43,6 +46,7 @@ export const HeroImpactStats: Block = {
           name: 'number',
           type: 'text',
           required: true,
+          localized: true,
           admin: {
             description: 'Statistic number (e.g., "500+", "10K")',
           },
@@ -51,6 +55,7 @@ export const HeroImpactStats: Block = {
           name: 'label',
           type: 'text',
           required: true,
+          localized: true,
           admin: {
             description: 'Statistic label (e.g., "Lives Changed", "Volunteers")',
           },

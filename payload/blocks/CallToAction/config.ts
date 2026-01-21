@@ -13,8 +13,9 @@ export const CallToAction: Block = {
       type: 'text',
       label: 'Title',
       required: true,
+      localized: true,
     },
-    { name: 'subtitle', type: 'text', label: 'Subtitle' },
+    { name: 'subtitle', type: 'text', label: 'Subtitle', localized: true },
     linkGroup({
       overrides: {
         maxRows: 2,

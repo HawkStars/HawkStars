@@ -53,7 +53,6 @@ export const Pages: CollectionConfig<'pages'> = {
               },
               type: 'richText',
               required: false,
-              localized: true,
               label: 'Page Layout w/ Rich Text',
             },
             {
@@ -64,7 +63,6 @@ export const Pages: CollectionConfig<'pages'> = {
                 description: 'In case you want to use blocks separately from the rich text layout',
               },
               required: false,
-              localized: true,
               label: 'Page Blocks Only',
               labels: {
                 singular: 'Page Block',

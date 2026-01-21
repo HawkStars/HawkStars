@@ -9,6 +9,7 @@ export const TimelineBlock: Block = {
       name: 'title',
       type: 'text',
       defaultValue: 'Our Journey',
+      localized: true,
     },
     {
       name: 'items',
@@ -23,11 +24,13 @@ export const TimelineBlock: Block = {
           name: 'title',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'description',
           type: 'textarea',
           required: true,
+          localized: true,
         },
         {
           name: 'image',

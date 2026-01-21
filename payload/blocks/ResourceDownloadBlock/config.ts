@@ -9,6 +9,7 @@ export const ResourceDownloadBlock: Block = {
       name: 'title',
       type: 'text',
       defaultValue: 'Download Resources',
+      localized: true,
     },
     {
       name: 'resources',
@@ -18,10 +19,12 @@ export const ResourceDownloadBlock: Block = {
           name: 'title',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'description',
           type: 'textarea',
+          localized: true,
         },
         {
           name: 'file',

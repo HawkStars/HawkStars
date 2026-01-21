@@ -10,15 +10,18 @@ export const QuoteHighlightBlock: Block = {
       name: 'quote',
       type: 'textarea',
       required: true,
+      localized: true,
     },
     {
       name: 'author',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'authorTitle',
       type: 'text',
+      localized: true,
     },
     PayloadImageField({ label: 'Author Photo', name: 'authorPhoto', required: false }),
     {

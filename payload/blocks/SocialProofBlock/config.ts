@@ -9,7 +9,7 @@ export const SocialProofBlock: Block = {
       name: 'title',
       type: 'text',
       required: false,
-      localized: false,
+      localized: true,
       admin: {
         description: 'Main title for the social proof section. Optional.',
       },
@@ -17,7 +17,7 @@ export const SocialProofBlock: Block = {
     {
       name: 'subtitle',
       type: 'text',
-      localized: false,
+      localized: true,
       required: false,
       admin: {
         description: 'Optional subtitle or description. Optional.x',
@@ -33,6 +33,7 @@ export const SocialProofBlock: Block = {
           name: 'value',
           type: 'text',
           required: true,
+          localized: true,
           admin: {
             description: 'Number or stat (e.g., "500+", "95%")',
           },
@@ -41,6 +42,7 @@ export const SocialProofBlock: Block = {
           name: 'label',
           type: 'text',
           required: true,
+          localized: true,
         },
       ],
     },

@@ -9,10 +9,12 @@ export const TeamGridBlock: Block = {
       name: 'title',
       type: 'text',
       defaultValue: 'Our Team',
+      localized: true,
     },
     {
       name: 'subtitle',
       type: 'textarea',
+      localized: true,
     },
     {
       name: 'members',
@@ -22,15 +24,18 @@ export const TeamGridBlock: Block = {
           name: 'name',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'role',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'bio',
           type: 'textarea',
+          localized: true,
         },
         {
           name: 'photo',

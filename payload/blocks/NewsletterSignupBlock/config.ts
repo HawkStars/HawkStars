@@ -10,15 +10,18 @@ export const NewsletterSignupBlock: Block = {
       type: 'text',
       defaultValue: 'Stay Updated',
       required: true,
+      localized: true,
     },
     {
       name: 'description',
       type: 'textarea',
+      localized: true,
     },
     {
       name: 'buttonText',
       type: 'text',
       defaultValue: 'Subscribe',
+      localized: true,
     },
     SectionID,
   ],

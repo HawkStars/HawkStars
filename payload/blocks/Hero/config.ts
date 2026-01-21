@@ -10,6 +10,7 @@ export const Hero: Block = {
     {
       name: 'badge',
       type: 'text',
+      localized: true,
       admin: {
         description: 'Badge label above heading (e.g., "PLATFORM")',
       },
@@ -18,6 +19,7 @@ export const Hero: Block = {
       name: 'heading',
       type: 'textarea',
       required: true,
+      localized: true,
       admin: {
         description: 'Main heading text',
       },
@@ -51,6 +53,7 @@ export const Hero: Block = {
           name: 'title',
           type: 'text',
           required: true,
+          localized: true,
           admin: {
             description: 'Feature title',
           },
@@ -59,6 +62,7 @@ export const Hero: Block = {
           name: 'description',
           type: 'textarea',
           required: true,
+          localized: true,
           admin: {
             description: 'Feature description',
           },

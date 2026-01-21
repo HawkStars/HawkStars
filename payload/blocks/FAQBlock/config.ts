@@ -10,6 +10,7 @@ export const FAQBlock: Block = {
       name: 'title',
       type: 'text',
       defaultValue: 'Frequently Asked Questions',
+      localized: true,
     },
     {
       name: 'items',
@@ -19,11 +20,13 @@ export const FAQBlock: Block = {
           name: 'question',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'answer',
           type: 'textarea',
           required: true,
+          localized: true,
         },
       ],
     },

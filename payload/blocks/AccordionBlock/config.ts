@@ -10,6 +10,7 @@ export const AccordionBlock: Block = {
       name: 'title',
       type: 'text',
       label: 'Section Title',
+      localized: true,
       admin: {
         description: 'Optional title displayed above the accordion',
       },
@@ -18,6 +19,7 @@ export const AccordionBlock: Block = {
       name: 'description',
       type: 'textarea',
       label: 'Section Description',
+      localized: true,
       admin: {
         description: 'Optional description displayed below the title',
       },
@@ -33,12 +35,14 @@ export const AccordionBlock: Block = {
           name: 'title',
           type: 'text',
           required: true,
+          localized: true,
           label: 'Item Title',
         },
         {
           name: 'content',
           type: 'textarea',
           required: true,
+          localized: true,
           label: 'Item Content',
         },
         {

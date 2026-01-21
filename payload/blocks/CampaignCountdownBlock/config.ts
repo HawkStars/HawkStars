@@ -10,6 +10,7 @@ export const CampaignCountdownBlock: Block = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
       admin: {
         description: 'Campaign or event title',
       },
@@ -17,6 +18,7 @@ export const CampaignCountdownBlock: Block = {
     {
       name: 'description',
       type: 'textarea',
+      localized: true,
       admin: {
         description: 'Brief description or urgency message',
       },
@@ -70,6 +72,7 @@ export const CampaignCountdownBlock: Block = {
       name: 'completedMessage',
       type: 'text',
       defaultValue: 'Campaign Ended',
+      localized: true,
       admin: {
         description: 'Message to show when countdown reaches zero',
       },

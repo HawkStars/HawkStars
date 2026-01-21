@@ -8,6 +8,7 @@ export const PricingTableBlock: Block = {
     {
       name: 'title',
       type: 'text',
+      localized: true,
       admin: {
         description: 'Section title',
       },
@@ -15,6 +16,7 @@ export const PricingTableBlock: Block = {
     {
       name: 'subtitle',
       type: 'textarea',
+      localized: true,
       admin: {
         description: 'Section subtitle or description',
       },
@@ -29,6 +31,7 @@ export const PricingTableBlock: Block = {
           name: 'name',
           type: 'text',
           required: true,
+          localized: true,
           admin: {
             description: 'Tier name (e.g., "Bronze", "Silver", "Gold")',
           },
@@ -53,6 +56,7 @@ export const PricingTableBlock: Block = {
           name: 'period',
           type: 'text',
           defaultValue: '/month',
+          localized: true,
           admin: {
             description: 'Billing period (e.g., "/month", "/year", "one-time")',
           },
@@ -60,6 +64,7 @@ export const PricingTableBlock: Block = {
         {
           name: 'description',
           type: 'textarea',
+          localized: true,
           admin: {
             description: 'Brief description of this tier',
           },
@@ -72,6 +77,7 @@ export const PricingTableBlock: Block = {
               name: 'feature',
               type: 'text',
               required: true,
+              localized: true,
             },
           ],
           admin: {
@@ -82,6 +88,7 @@ export const PricingTableBlock: Block = {
           name: 'buttonText',
           type: 'text',
           defaultValue: 'Choose Plan',
+          localized: true,
           admin: {
             description: 'CTA button text',
           },

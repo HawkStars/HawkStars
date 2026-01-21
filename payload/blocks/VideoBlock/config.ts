@@ -16,6 +16,7 @@ export const VideoBlock: Block = {
     {
       name: 'title',
       type: 'text',
+      localized: true,
       admin: {
         description: 'Optional title for the video',
       },
@@ -23,6 +24,7 @@ export const VideoBlock: Block = {
     {
       name: 'caption',
       type: 'textarea',
+      localized: true,
       admin: {
         description: 'Optional caption or description',
       },

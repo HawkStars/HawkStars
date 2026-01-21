@@ -8,6 +8,7 @@ export const ImageComparisonSliderBlock: Block = {
     {
       name: 'title',
       type: 'text',
+      localized: true,
     },
     {
       name: 'beforeImage',
@@ -31,6 +32,7 @@ export const ImageComparisonSliderBlock: Block = {
       name: 'beforeLabel',
       type: 'text',
       defaultValue: 'Before',
+      localized: true,
       admin: {
         description: 'Label for the before image',
       },
@@ -40,6 +42,7 @@ export const ImageComparisonSliderBlock: Block = {
       name: 'afterLabel',
       type: 'text',
       defaultValue: 'After',
+      localized: true,
       admin: {
         description: 'Label for the after image',
       },

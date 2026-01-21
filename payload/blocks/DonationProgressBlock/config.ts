@@ -10,6 +10,7 @@ export const DonationProgressBlock: Block = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
       admin: {
         description: 'Campaign title',
       },
@@ -17,6 +18,7 @@ export const DonationProgressBlock: Block = {
     {
       name: 'description',
       type: 'textarea',
+      localized: true,
       admin: {
         description: 'Brief description of the campaign',
       },

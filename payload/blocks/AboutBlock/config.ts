@@ -12,10 +12,12 @@ const AboutBlock: Block = {
     {
       name: 'title',
       type: 'text',
+      localized: true,
     },
     {
       name: 'description',
       type: 'textarea',
+      localized: true,
     },
     SectionID,
     PayloadImageField({ label: 'Image', name: 'image' }),

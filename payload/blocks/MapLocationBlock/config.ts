@@ -8,11 +8,13 @@ export const MapLocationBlock: Block = {
     {
       name: 'title',
       type: 'text',
+      localized: true,
     },
     {
       name: 'address',
       type: 'textarea',
       required: true,
+      localized: true,
     },
     {
       name: 'latitude',
@@ -27,14 +29,17 @@ export const MapLocationBlock: Block = {
     {
       name: 'phone',
       type: 'text',
+      localized: true,
     },
     {
       name: 'email',
       type: 'email',
+      localized: true,
     },
     {
       name: 'hours',
       type: 'textarea',
+      localized: true,
       admin: {
         description: 'Operating hours',
       },

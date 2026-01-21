@@ -85,6 +85,7 @@ export const StatsBlock: Block = {
         {
           name: 'title',
           type: 'text',
+          localized: true,
           admin: {
             description: 'Optional stat title or value (e.g., "500+", "10K Users")',
           },
@@ -107,6 +108,7 @@ export const StatsBlock: Block = {
         {
           name: 'description',
           type: 'textarea',
+          localized: true,
           admin: {
             description: 'Optional description or label for the stat',
           },
