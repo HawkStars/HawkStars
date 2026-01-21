@@ -1,7 +1,6 @@
 {
-  "national": "Partners",
-  "internacional": "Internacional Cooperation",
-  "partners": {
-    "aaa": "Founded in 1986, the Association of Friends of Almeida (AAA) aims to strengthen ties between the inhabitants of Almeida and the Almeidense communities in Portugal and abroad, as well as promoting cultural, recreational and sporting activities, aiming at dissemination, progress , protection and development of Almeida.\n With a view to fulfilling these objectives, the activity of this Association has been centered on the preparation and distribution of the monthly newspaper Praça Alta. It is through its pages that AAA seeks not only to inform and stimulate the critical spirit, but, equally, to strengthen ties between all Almeidenses, wherever they are. It is also on its pages that the numerous cultural and sporting activities that take place at all times not only in Almeida, but also in the other parishes of its municipality are publicized.\n In addition to the newspaper, over the years AAA has directly contributed for the cultural dynamism of Almeida through exhibitions, videos, concerts and lectures, as well as publishing books and placing plaques alluding to personalities born in Almeida."
-  }
+  "title": "Our Partners",
+  "description": "We are proud to collaborate with a diverse range of partners who share our commitment to excellence and innovation. Explore our network of national and international partners below.",
+  "national": "National Partnerships",
+  "international": "International Cooperation"
 }
