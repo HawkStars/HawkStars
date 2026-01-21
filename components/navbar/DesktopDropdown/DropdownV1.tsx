@@ -47,7 +47,10 @@ type LinkProps = {
 
 const FeaturedLinkCard: React.FC<LinkProps> = ({ link }) => {
   const imageType = link.imageIcon?.type;
-  const ImageElement = getDropdownImageElement(link, 'rounded-lg object-cover');
+  const ImageElement = getDropdownImageElement(link, 'rounded-lg object-cover', {
+    height: 120,
+    width: 224,
+  });
 
   return (
     <HawkLinkComponent

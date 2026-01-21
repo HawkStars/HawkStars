@@ -13,7 +13,16 @@ export type DropdownLinkField = {
   id?: string | null;
 };
 
-export const getDropdownImageElement = (link: DropdownLinkField, className?: string) => {
+export type DropdownImageElementOptions = {
+  height?: number;
+  width?: number;
+};
+
+export const getDropdownImageElement = (
+  link: DropdownLinkField,
+  className?: string,
+  opts?: DropdownImageElementOptions
+) => {
   const imageIcon = link.imageIcon;
   if (!imageIcon) return null;
   const isIcon = imageIcon?.type === 'icon';
@@ -29,12 +38,15 @@ export const getDropdownImageElement = (link: DropdownLinkField, className?: str
 
   const imageElement = getImagePayloadUrl(imageInformation);
   if (!imageElement?.url) return null;
+  const { height, width } = opts || {};
 
   return (
     <Image
       src={imageElement.url}
       alt={imageElement.alt}
-      fill
+      height={height}
+      width={width}
+      fill={!(height || width)}
       className={cn('object-cover', className)}
     />
   );
