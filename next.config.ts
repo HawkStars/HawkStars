@@ -15,7 +15,7 @@ const cspHeader = `
     block-all-mixed-content;
     upgrade-insecure-requests;
     frame-src *.google.com https://upload-widget.cloudinary.com;
-    connect-src 'self' *.google-analytics.com *.sentry.io ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:` : 'http://127.0.0.1:54321'};
+    connect-src 'self' *.google-analytics.com *.de.sentry.io ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:` : 'http://127.0.0.1:54321'};
 `;
 
 const prepCSPHeader =
@@ -102,11 +102,11 @@ const payloadConfig = withPayload(nextConfig);
 
 export default withSentryConfig(payloadConfig, {
   // For all available options, see:
-  // https://github.com/getsentry/sentry-webpack-plugin#options
+  // https://www.npmjs.com/package/@sentry/webpack-plugin#options
 
-  org: 'paulo-goncalves-cardoso',
-  project: 'hawk-stars',
-  authToken: process.env.SENTRY_AUTH_TOKEN,
+  org: 'hawkstars',
+
+  project: 'website',
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
@@ -122,4 +122,12 @@ export default withSentryConfig(payloadConfig, {
   // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
   // side errors will fail.
   // tunnelRoute: "/monitoring",
+
+  webpack: {
+    // Tree-shaking options for reducing bundle size
+    treeshake: {
+      // Automatically tree-shake Sentry logger statements to reduce bundle size
+      removeDebugLogging: true,
+    },
+  },
 });
