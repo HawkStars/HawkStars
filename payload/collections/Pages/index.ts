@@ -53,6 +53,7 @@ export const Pages: CollectionConfig<'pages'> = {
               },
               type: 'richText',
               required: false,
+              localized: true,
               label: 'Page Layout w/ Rich Text',
             },
             {
