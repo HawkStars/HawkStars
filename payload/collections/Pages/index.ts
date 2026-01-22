@@ -137,6 +137,13 @@ export const Pages: CollectionConfig<'pages'> = {
         description: 'The URL slug for the page, e.g. "about" for www.hawkstars.com/about',
       },
     },
+    {
+      name: 'Visible',
+      type: 'checkbox',
+      label: 'Visible on site',
+      defaultValue: false,
+      admin: { position: 'sidebar' },
+    },
   ],
   hooks: {
     afterChange: [revalidatePage],
@@ -146,7 +153,7 @@ export const Pages: CollectionConfig<'pages'> = {
   versions: {
     drafts: {
       autosave: {
-        interval: 100, // We set this interval for optimal live preview
+        interval: 100,
       },
       schedulePublish: true,
     },

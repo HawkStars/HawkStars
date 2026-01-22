@@ -15,11 +15,20 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
   const isImageLeft = imagePosition === 'left';
   const imageInfo = getImagePayloadUrl(image);
 
+  const customizedHeight = image.height;
+  const height = imageInfo?.height;
+  const width = imageInfo?.width;
+
   return (
     <div className='container mx-auto py-52' id={sectionId || ''}>
       <div className='grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12'>
         {/* Image Section */}
-        <div className={cn('relative w-full', isImageLeft ? 'lg:order-2' : 'lg:order-1')}>
+        <div
+          className={cn('relative w-full', isImageLeft ? 'lg:order-2' : 'lg:order-1', {
+            'min-h-lvh': !customizedHeight && (!height || !width),
+          })}
+          style={{ height: customizedHeight ? `${customizedHeight}px` : undefined }}
+        >
           {imageInfo && (
             <Image
               src={imageInfo.url}
@@ -34,7 +43,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
 
         {/* Content Section */}
         <div className={cn('w-full', isImageLeft ? 'lg:order-1' : 'lg:order-2')}>
-          <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
+          <h2 className='mb-4 text-3xl font-bold max-lg:text-center lg:text-4xl'>{title}</h2>
           {description && <RichText data={description} />}
         </div>
       </div>

@@ -36,9 +36,19 @@ export const PayloadImageField = ({
       {
         name: 'alt',
         type: 'text',
-        label: 'Label Text',
+        label: 'Caption / Alt Textß',
         required: true,
         admin: { description: 'Alt text for the image for accessibility and SEO | Caption Image' },
+      },
+      {
+        name: 'height',
+        type: 'number',
+        label: 'Height',
+        required: false,
+        admin: {
+          description: 'Height of the image in pixels',
+          condition: (data, siblingData) => siblingData.imageType === 'external',
+        },
       },
     ],
   }) as Field;

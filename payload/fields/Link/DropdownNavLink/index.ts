@@ -14,7 +14,25 @@ export const dropdownNavLink: ArrayField = {
     },
   },
   fields: [
-    { name: 'featured', type: 'checkbox', label: 'Featured Link', required: false },
+    {
+      name: 'featured',
+      type: 'checkbox',
+      label: 'Featured Link',
+      required: false,
+      admin: {
+        description: 'Mark this link as featured to highlight it in the dropdown menu.',
+      },
+    },
+    {
+      name: 'visible',
+      type: 'checkbox',
+      label: 'Visible On the Header',
+      required: false,
+      defaultValue: true,
+      admin: {
+        description: 'Uncheck this to hide the link from the header dropdown menu.',
+      },
+    },
     { name: 'description', type: 'text', localized: true },
     link({ localizedLabel: true }),
     PayloadIconOrImage(),

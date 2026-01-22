@@ -64,7 +64,14 @@ export type BentoGridItem = {
  */
 export type DropdownNavLink =
   | {
+      /**
+       * Mark this link as featured to highlight it in the dropdown menu.
+       */
       featured?: boolean | null;
+      /**
+       * Uncheck this to hide the link from the header dropdown menu.
+       */
+      visible?: boolean | null;
       description?: string | null;
       link: LinkField;
       imageIcon?: ImageIcon;
@@ -457,6 +464,7 @@ export interface Page {
    * The URL slug for the page, e.g. "about" for www.hawkstars.com/about
    */
   slug: string;
+  Visible?: boolean | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -498,6 +506,10 @@ export interface ImageType {
    * Alt text for the image for accessibility and SEO | Caption Image
    */
   alt: string;
+  /**
+   * Height of the image in pixels
+   */
+  height?: number | null;
 }
 /**
  * Upload and manage media assets such as images used throughout the website. Use a image compression tool to optimize images before uploading to improve performance. Ideally in webP
@@ -4089,6 +4101,7 @@ export interface PagesSelect<T extends boolean = true> {
       };
   publishedAt?: T;
   slug?: T;
+  Visible?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -4153,6 +4166,7 @@ export interface ImageTypeSelect<T extends boolean = true> {
   image?: T;
   externalImage?: T;
   alt?: T;
+  height?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6712,6 +6726,7 @@ export interface NavbarDropdownSelect<T extends boolean = true> {
  */
 export interface DropdownNavLinkSelect<T extends boolean = true> {
   featured?: T;
+  visible?: T;
   description?: T;
   link?: T | LinkFieldSelect<T>;
   imageIcon?: T | ImageIconSelect<T>;

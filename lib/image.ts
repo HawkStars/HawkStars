@@ -2,6 +2,7 @@ import { ImageType, Media } from '@/payload-types';
 
 const getImagePayloadUrl = (info: ImageType) => {
   if (!info) return undefined;
+  debugger;
   if (info.imageType === 'external') return { url: info.externalImage || '', alt: info.alt || '' };
   if (typeof info.image === 'string') return { url: info.image, alt: info.alt || '' };
 
