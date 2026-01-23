@@ -13,8 +13,9 @@ const DesktopDropdownV1: React.FC<DesktopDropdownV1Props> = ({ structure, links 
   if (!links || !links.dropdownNavLink || links.dropdownNavLink.length === 0) return null;
   const linkList = links.dropdownNavLink;
 
-  const featuredLinks = linkList.filter((link) => link.featured);
-  const normalLinks = linkList.filter((link) => !link.featured);
+  const visibleLinks = linkList.filter((link) => link.visible);
+  const featuredLinks = visibleLinks.filter((link) => link.featured);
+  const normalLinks = visibleLinks.filter((link) => !link.featured);
 
   return (
     <div className='mx-auto flex max-w-5xl gap-6 p-4'>

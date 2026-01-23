@@ -1,3 +1,4 @@
+import { PayloadImageField } from '@/payload/fields/ImageType';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
@@ -73,11 +74,7 @@ export const EventListBlock: Block = {
             { label: 'Youth Program', value: 'youth' },
           ],
         },
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-        },
+        PayloadImageField({ label: 'Event Image', name: 'image', required: false }),
         {
           name: 'registrationLink',
           type: 'text',

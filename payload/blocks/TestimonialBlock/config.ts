@@ -1,3 +1,4 @@
+import { PayloadImageField } from '@/payload/fields/ImageType';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
@@ -65,14 +66,12 @@ export const TestimonialBlock: Block = {
                 description: 'Company or organization',
               },
             },
-            {
+            PayloadImageField({
+              label: 'Avatar',
               name: 'avatar',
-              type: 'upload',
-              relationTo: 'media',
-              admin: {
-                description: 'Author profile photo',
-              },
-            },
+              required: false,
+              description: 'Author profile photo',
+            }),
           ],
         },
         {

@@ -16,6 +16,7 @@ const createDropdownLink = (
   id: `link-${label.toLowerCase().replace(/\s+/g, '-')}`,
   featured: options?.featured ?? false,
   description: options?.description,
+  visible: true,
   link: {
     type: 'custom' as const,
     label,

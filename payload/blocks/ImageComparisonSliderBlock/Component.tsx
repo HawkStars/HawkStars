@@ -2,10 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import type {
-  ImageComparisonSliderBlock as ImageComparisonSliderBlockProps,
-  Media,
-} from '@/payload-types';
+import type { ImageComparisonSliderBlock as ImageComparisonSliderBlockProps } from '@/payload-types';
+import { getImagePayloadUrl } from '@/lib/image';
 
 export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProps> = ({
   title,
@@ -38,8 +36,8 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
     handleMove(e.touches[0].clientX, rect);
   };
 
-  const before = typeof beforeImage === 'string' ? null : (beforeImage as Media);
-  const after = typeof afterImage === 'string' ? null : (afterImage as Media);
+  const before = getImagePayloadUrl(beforeImage);
+  const after = getImagePayloadUrl(afterImage);
 
   if (!before || !after) return null;
 

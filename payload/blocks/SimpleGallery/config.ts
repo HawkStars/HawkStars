@@ -4,6 +4,7 @@ import { Block } from 'payload';
 
 const SimpleGallery: Block = {
   slug: 'simpleGallery',
+  interfaceName: 'SimpleGallery',
   labels: {
     singular: 'Simple Gallery',
     plural: 'Simple Galleries',

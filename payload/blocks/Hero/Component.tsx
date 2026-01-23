@@ -31,7 +31,7 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
             <div className='relative flex min-h-8 justify-center'>
               <Image
                 src={bgImage.url}
-                alt={headerImage.alt || 'Hero'}
+                alt={bgImage.alt || 'Hero'}
                 height={32}
                 width={32}
                 className='absolute mx-auto mb-5 aspect-square'

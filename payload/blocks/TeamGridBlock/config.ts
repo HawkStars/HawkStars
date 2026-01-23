@@ -1,3 +1,4 @@
+import { PayloadImageField } from '@/payload/fields/ImageType';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
@@ -37,11 +38,7 @@ export const TeamGridBlock: Block = {
           type: 'textarea',
           localized: true,
         },
-        {
-          name: 'photo',
-          type: 'upload',
-          relationTo: 'media',
-        },
+        PayloadImageField({ label: 'Photo', name: 'photo', required: false }),
         {
           name: 'email',
           type: 'email',

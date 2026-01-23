@@ -1,4 +1,4 @@
-import { Condition, Field, FieldBase } from 'payload';
+import { Condition, FieldBase, GroupField } from 'payload';
 import { ExternalImageField, ImageTypeField, UploadField } from '../Image/fields';
 
 type ImageTypeGroupProps = Pick<FieldBase, 'label' | 'name' | 'required'> & {
@@ -14,7 +14,7 @@ export const PayloadImageField = ({
   description,
   hideGutter = false,
   condition,
-}: ImageTypeGroupProps): Field =>
+}: ImageTypeGroupProps): GroupField =>
   ({
     name: name,
     label: label,
@@ -30,25 +30,24 @@ export const PayloadImageField = ({
       condition: condition,
     },
     fields: [
-      ImageTypeField,
+      ImageTypeField({ required }),
       UploadField,
       ExternalImageField,
       {
         name: 'alt',
         type: 'text',
         label: 'Caption / Alt Textß',
-        required: true,
+        required,
         admin: { description: 'Alt text for the image for accessibility and SEO | Caption Image' },
       },
       {
         name: 'height',
         type: 'number',
         label: 'Height',
-        required: false,
         admin: {
           description: 'Height of the image in pixels',
           condition: (data, siblingData) => siblingData.imageType === 'external',
         },
       },
     ],
-  }) as Field;
+  }) as GroupField;

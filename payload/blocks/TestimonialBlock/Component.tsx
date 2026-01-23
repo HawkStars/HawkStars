@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
-import type { Media, TestimonialBlock as TestimonialBlockProps } from '@/payload-types';
+import type { ImageType, TestimonialBlock as TestimonialBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
+import { getImagePayloadUrl } from '@/lib/image';
 
 type Testimonial = {
   quote: string;
@@ -12,7 +13,7 @@ type Testimonial = {
     name: string;
     title?: string | null | undefined;
     company?: string | null | undefined;
-    avatar?: string | Media | null | undefined;
+    avatar?: ImageType;
   };
   rating?: number | null;
   featured?: boolean | null;
@@ -52,6 +53,8 @@ const TestimonialCard: React.FC<{
     bubble: `rounded-2xl shadow-lg p-6 relative ${isDark ? 'bg-gray-800 text-white' : 'bg-white'}`,
   };
 
+  const authorImage = getImagePayloadUrl(author.avatar);
+
   return (
     <div
       className={cn(
@@ -77,18 +80,9 @@ const TestimonialCard: React.FC<{
 
       {/* Author */}
       <div className='flex items-center gap-3'>
-        {author.avatar && (
+        {authorImage && (
           <div className='relative h-10 w-10 shrink-0 overflow-hidden rounded-full'>
-            <Image
-              src={
-                typeof author.avatar === 'string'
-                  ? author.avatar
-                  : author.avatar.url || '/placeholder.jpg'
-              }
-              alt={author.name}
-              fill
-              className='object-cover'
-            />
+            <Image src={authorImage?.url} alt={author.name} fill className='object-cover' />
           </div>
         )}
         <div>

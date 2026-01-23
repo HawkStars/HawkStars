@@ -2,6 +2,7 @@ import { HawkProject, Media } from '@/payload-types';
 import { PaginatedDocs } from 'payload';
 import { Button } from '@/components/ui/button';
 import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
+import { getImagePayloadUrl } from '@/lib/image';
 
 type EventsListProps = {
   events: PaginatedDocs<HawkProject>;
@@ -35,7 +36,7 @@ const EventsList = ({ events }: EventsListProps) => {
               href={`/projects/${project.slug}`}
               className='group relative isolate min-h-72 bg-cover bg-center px-5 py-14 lg:px-12 lg:py-24'
               style={{
-                backgroundImage: `url(${(project.image as Media).url})`,
+                backgroundImage: `url(${(getImagePayloadUrl(project.image) as Media).url})`,
               }}
             >
               <div className='relative z-10 flex flex-col gap-7 text-white/80 transition-colors duration-300 ease-out group-hover:text-white lg:flex-row'>

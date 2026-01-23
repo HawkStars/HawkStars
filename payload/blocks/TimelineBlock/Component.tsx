@@ -1,7 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
-import type { TimelineBlock as TimelineBlockProps, Media } from '@/payload-types';
+import type { TimelineBlock as TimelineBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
+import { getImagePayloadUrl } from '@/lib/image';
 
 export const TimelineBlock: React.FC<TimelineBlockProps> = ({
   title,
@@ -35,10 +36,10 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
                     <div className='text-green mb-2 text-2xl font-bold'>{item.year}</div>
                     <h3 className='mb-2 text-xl font-semibold'>{item.title}</h3>
                     <p className='text-gray-700'>{item.description}</p>
-                    {item.image && typeof item.image !== 'string' && (
+                    {item.image && (
                       <div className='relative mt-4 h-48 w-full overflow-hidden rounded-lg'>
                         <Image
-                          src={(item.image as Media).url || ''}
+                          src={getImagePayloadUrl(item.image)?.url || ''}
                           alt={item.title}
                           fill
                           className='object-cover'

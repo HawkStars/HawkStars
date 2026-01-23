@@ -1,3 +1,4 @@
+import { PayloadImageField } from '@/payload/fields/ImageType';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
@@ -10,24 +11,18 @@ export const ImageComparisonSliderBlock: Block = {
       type: 'text',
       localized: true,
     },
-    {
+    PayloadImageField({
+      label: 'Before Image',
       name: 'beforeImage',
-      type: 'upload',
-      relationTo: 'media',
       required: true,
-      admin: {
-        description: 'Before image',
-      },
-    },
-    {
+      description: 'Image shown on the left side',
+    }),
+    PayloadImageField({
+      label: 'After Image',
       name: 'afterImage',
-      type: 'upload',
-      relationTo: 'media',
       required: true,
-      admin: {
-        description: 'After image',
-      },
-    },
+      description: 'Image shown on the right side',
+    }),
     {
       name: 'beforeLabel',
       type: 'text',

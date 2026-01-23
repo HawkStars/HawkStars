@@ -4,6 +4,7 @@ import { Block } from 'payload';
 
 const AboutBlock: Block = {
   slug: 'aboutBlock',
+  interfaceName: 'AboutBlock',
   labels: {
     singular: 'About Block',
     plural: 'About Blocks',

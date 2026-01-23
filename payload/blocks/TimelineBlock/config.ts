@@ -1,3 +1,4 @@
+import { PayloadImageField } from '@/payload/fields/ImageType';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
 
@@ -32,11 +33,12 @@ export const TimelineBlock: Block = {
           required: true,
           localized: true,
         },
-        {
+        PayloadImageField({
+          label: 'Image',
           name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-        },
+          required: false,
+          description: 'Image for the timeline item',
+        }),
       ],
     },
     {

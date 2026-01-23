@@ -1,8 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
 import { Mail, Linkedin, Twitter } from 'lucide-react';
-import type { TeamGridBlock as TeamGridBlockProps, Media } from '@/payload-types';
+import type { TeamGridBlock as TeamGridBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
+import { getImagePayloadUrl } from '@/lib/image';
 
 export const TeamGridBlock: React.FC<TeamGridBlockProps> = ({
   title,
@@ -35,10 +36,10 @@ export const TeamGridBlock: React.FC<TeamGridBlockProps> = ({
           {members.map((member, index) => (
             <div key={index} className='group text-center'>
               {/* Photo */}
-              {member.photo && typeof member.photo !== 'string' && (
+              {member.photo && (
                 <div className='relative mx-auto mb-4 h-48 w-48 overflow-hidden rounded-full'>
                   <Image
-                    src={(member.photo as Media).url || ''}
+                    src={getImagePayloadUrl(member.photo)?.url || ''}
                     alt={member.name}
                     fill
                     className='object-cover transition-transform duration-300 group-hover:scale-110'

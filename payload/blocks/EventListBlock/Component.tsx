@@ -1,9 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 import { Calendar, MapPin, Users, Clock } from 'lucide-react';
-import type { EventListBlock as EventListBlockProps, Media } from '@/payload-types';
+import type { EventListBlock as EventListBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { getImagePayloadUrl } from '@/lib/image';
 
 export const EventListBlock: React.FC<EventListBlockProps> = ({
   title,
@@ -128,10 +129,10 @@ export const EventListBlock: React.FC<EventListBlockProps> = ({
                   </div>
 
                   {/* Event Image */}
-                  {event.image && typeof event.image !== 'string' && (
+                  {event.image && (
                     <div className='relative h-40 w-full shrink-0 overflow-hidden rounded-lg md:h-auto md:w-48'>
                       <Image
-                        src={(event.image as Media).url || ''}
+                        src={getImagePayloadUrl(event?.image)?.url || ''}
                         alt={event.title}
                         fill
                         className='object-cover'
@@ -152,10 +153,10 @@ export const EventListBlock: React.FC<EventListBlockProps> = ({
                 key={index}
                 className='card-sm card-hover-lg overflow-hidden rounded-xl border border-gray-200 bg-white'
               >
-                {event.image && typeof event.image !== 'string' && (
+                {event.image && (
                   <div className='relative h-48 w-full'>
                     <Image
-                      src={(event.image as Media).url || ''}
+                      src={getImagePayloadUrl(event?.image)?.url || ''}
                       alt={event.title}
                       fill
                       className='object-cover'

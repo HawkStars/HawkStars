@@ -6,6 +6,7 @@ import { Metadata } from 'next';
 import { getSingleEventsQuery } from '@/lib/payload/queries/event';
 import { Media } from '@/payload-types';
 import Post from '@/components/blog/Post';
+import { getImagePayloadUrl } from '@/lib/image';
 
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
   const params = await props.params;
@@ -26,11 +27,13 @@ const EventPage = async (props: EventPageProps) => {
   const event = await getSingleEventsQuery(slug);
   if (!event) notFound();
 
+  const image = getImagePayloadUrl(event.image);
+
   return (
     <Post
       content={event.page_content || undefined}
       title={event.heading}
-      image={(event?.image as Media)?.url || ''}
+      image={image?.url || ''}
       pubDate={new Date(event.updatedAt)}
       description={event.description || undefined}
     />

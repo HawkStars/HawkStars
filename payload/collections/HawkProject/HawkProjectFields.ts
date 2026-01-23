@@ -1,3 +1,4 @@
+import { PayloadImageField } from '@/payload/fields/ImageType';
 import { Tab } from 'payload';
 
 const HawkProjectDetails: Tab = {
@@ -33,17 +34,13 @@ const HawkProjectDetails: Tab = {
       ],
     },
     { name: 'page_content', label: 'Page Content', type: 'richText', localized: true },
-    {
-      name: 'image',
+    PayloadImageField({
       label: 'Image',
-      type: 'upload',
-      relationTo: 'media',
+      name: 'image',
       required: true,
-      admin: {
-        description:
-          'Image representing the event on the events main page not on the event page itself',
-      },
-    },
+      description:
+        'Image representing the event on the events main page not on the event page itself',
+    }),
   ],
 };
 

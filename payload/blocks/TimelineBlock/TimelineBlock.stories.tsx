@@ -18,24 +18,28 @@ const sampleItems = [
     title: 'Foundation',
     description: 'Our organization was founded to support young people in the community.',
     id: '1',
+    image: undefined,
   },
   {
     year: '2021',
     title: 'First Programs',
     description: 'Launched our first youth leadership and skills development programs.',
     id: '2',
+    image: undefined,
   },
   {
     year: '2022',
     title: 'Community Expansion',
     description: 'Expanded our reach to serve 500+ young people across the region.',
     id: '3',
+    image: undefined,
   },
   {
     year: '2023',
     title: 'Building Campaign',
     description: 'Started fundraising for our permanent community center.',
     id: '4',
+    image: undefined,
   },
 ];
 

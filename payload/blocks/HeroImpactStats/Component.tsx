@@ -80,12 +80,22 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlock> = (data) => {
               <div className='flex flex-col gap-4 sm:flex-row'>
                 {primaryCTAInfo && (
                   <Button size='lg' className='bg-green-600 hover:bg-green-700' asChild>
-                    <a href={primaryCTAInfo.url}>{primaryCTAInfo.url}</a>
+                    <a
+                      href={primaryCTAInfo.url}
+                      target={primaryCTAInfo.newTab ? '_blank' : undefined}
+                    >
+                      {primaryCTAInfo.label}
+                    </a>
                   </Button>
                 )}
                 {secondaryCTAInfo && (
                   <Button size='lg' variant='outline' asChild>
-                    <a href={secondaryCTAInfo.url}>{secondaryCTAInfo.url}</a>
+                    <a
+                      href={secondaryCTAInfo.url}
+                      target={secondaryCTAInfo.newTab ? '_blank' : undefined}
+                    >
+                      {secondaryCTAInfo.label}
+                    </a>
                   </Button>
                 )}
               </div>

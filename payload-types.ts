@@ -11,7 +11,7 @@
  * via the `definition` "multiRowContent".
  */
 export type MultiRowContent = {
-  image: ImageType;
+  image?: ImageType;
   /**
    * Select the size of the image based on the grid columns. 1 to 6 columns.
    */
@@ -29,7 +29,7 @@ export type MultiRowContent = {
 export type BentoGridItem = {
   title: string;
   description?: string | null;
-  backgroundImage: ImageType;
+  backgroundImage?: ImageType;
   /**
    * Darkness of the overlay on the background image
    */
@@ -314,7 +314,7 @@ export interface CallToActionBlock {
         id?: string | null;
       }[]
     | null;
-  image: ImageType;
+  image?: ImageType;
   /**
    * Unique identifier for the section (used for anchor links)
    */
@@ -399,36 +399,11 @@ export interface Page {
         | ContentWithImageBlock
         | VideoBlock
         | Projects18Block
-        | {
-            title?: string | null;
-            description?: string | null;
-            images: {
-              image: ImageType;
-              id?: string | null;
-            }[];
-            /**
-             * Unique identifier for the section (used for anchor links)
-             */
-            sectionId?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'simpleGallery';
-          }
+        | SimpleGallery
         | TestimonialBlock
         | ProjectTestimonialBlock
         | LogosBlock
-        | {
-            title?: string | null;
-            description?: string | null;
-            /**
-             * Unique identifier for the section (used for anchor links)
-             */
-            sectionId?: string | null;
-            image: ImageType;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'aboutBlock';
-          }
+        | AboutBlock
         | GlobalVillageAboutSectionBlock
         | GlobalVillageBannerBlock
         | CampaignCountdownBlock
@@ -493,7 +468,7 @@ export interface ImageType {
   /**
    * Select whether to use an external image URL or upload an image/media file.
    */
-  imageType: 'external' | 'upload';
+  imageType?: ('external' | 'upload') | null;
   /**
    * Upload an image or media file.
    */
@@ -505,7 +480,7 @@ export interface ImageType {
   /**
    * Alt text for the image for accessibility and SEO | Caption Image
    */
-  alt: string;
+  alt?: string | null;
   /**
    * Height of the image in pixels
    */
@@ -553,7 +528,7 @@ export interface HeroBlock {
    */
   heading: string;
   ctaLink: LinkField;
-  headerImage: ImageType;
+  headerImage?: ImageType;
   /**
    * Feature cards displayed in grid (up to 4)
    */
@@ -624,7 +599,7 @@ export interface HeroWithBackgroundImageBlock {
  */
 export interface HeroSlideshowBlock {
   slides: {
-    backgroundImage: ImageType;
+    backgroundImage?: ImageType;
     /**
      * Main heading text for this slide
      */
@@ -694,7 +669,7 @@ export interface HeroImpactStatsBlock {
    * Description or mission statement
    */
   description?: string | null;
-  heroImage: ImageType;
+  heroImage?: ImageType;
   /**
    * Impact statistics (2-4 stats)
    */
@@ -852,12 +827,28 @@ export interface HawkProject {
     };
     [k: string]: unknown;
   } | null;
-  /**
-   * Image representing the event on the events main page not on the event page itself
-   */
-  image: string | Media;
+  image: ImageType;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SimpleGallery".
+ */
+export interface SimpleGallery {
+  title?: string | null;
+  description?: string | null;
+  images: {
+    image?: ImageType;
+    id?: string | null;
+  }[];
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'simpleGallery';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -890,10 +881,7 @@ export interface TestimonialBlock {
        * Company or organization
        */
       company?: string | null;
-      /**
-       * Author profile photo
-       */
-      avatar?: (string | null) | Media;
+      avatar?: ImageType;
     };
     /**
      * Star rating (1-5 stars)
@@ -1037,6 +1025,22 @@ export interface LogosBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutBlock".
+ */
+export interface AboutBlock {
+  title?: string | null;
+  description?: string | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  image?: ImageType;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'aboutBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "GlobalVillageAboutSectionBlock".
  */
 export interface GlobalVillageAboutSectionBlock {
@@ -1060,7 +1064,7 @@ export interface GlobalVillageAboutSectionBlock {
           };
           [k: string]: unknown;
         };
-        sectionImage: ImageType;
+        sectionImage?: ImageType;
         id?: string | null;
       }[]
     | null;
@@ -1147,7 +1151,7 @@ export interface CTABannerBlock {
       }[]
     | null;
   variant?: ('centered' | 'split' | 'image-bg') | null;
-  backgroundImage: ImageType;
+  backgroundImage?: ImageType;
   /**
    * Unique identifier for the section (used for anchor links)
    */
@@ -2970,7 +2974,7 @@ export interface EventListBlock {
         endDate?: string | null;
         location?: string | null;
         category?: ('workshop' | 'meeting' | 'fundraiser' | 'social' | 'community' | 'youth') | null;
-        image?: (string | null) | Media;
+        image?: ImageType;
         /**
          * Link to registration or more info
          */
@@ -3027,14 +3031,8 @@ export interface FAQBlock {
  */
 export interface ImageComparisonSliderBlock {
   title?: string | null;
-  /**
-   * Before image
-   */
-  beforeImage: string | Media;
-  /**
-   * After image
-   */
-  afterImage: string | Media;
+  beforeImage: ImageType;
+  afterImage: ImageType;
   /**
    * Label for the before image
    */
@@ -3172,7 +3170,7 @@ export interface QuoteHighlightBlock {
   quote: string;
   author: string;
   authorTitle?: string | null;
-  authorPhoto: ImageType;
+  authorPhoto?: ImageType;
   style?: ('centered' | 'bordered' | 'highlighted') | null;
   /**
    * Unique identifier for the section (used for anchor links)
@@ -3253,7 +3251,7 @@ export interface TeamGridBlock {
         name: string;
         role: string;
         bio?: string | null;
-        photo?: (string | null) | Media;
+        photo?: ImageType;
         email?: string | null;
         linkedIn?: string | null;
         twitter?: string | null;
@@ -3280,7 +3278,7 @@ export interface TimelineBlock {
         year: string;
         title: string;
         description: string;
-        image?: (string | null) | Media;
+        image?: ImageType;
         id?: string | null;
       }[]
     | null;
@@ -3362,41 +3360,6 @@ export interface BentoGridBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bentoGrid';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "simpleGallery".
- */
-export interface SimpleGallery {
-  title?: string | null;
-  description?: string | null;
-  images: {
-    image: ImageType;
-    id?: string | null;
-  }[];
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'simpleGallery';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "aboutBlock".
- */
-export interface AboutBlock {
-  title?: string | null;
-  description?: string | null;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  image: ImageType;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'aboutBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3997,9 +3960,20 @@ export interface HawkProjectsSelect<T extends boolean = true> {
   slug?: T;
   type_event?: T;
   page_content?: T;
-  image?: T;
+  image?: T | ImageTypeSelect<T>;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageType_select".
+ */
+export interface ImageTypeSelect<T extends boolean = true> {
+  imageType?: T;
+  image?: T;
+  externalImage?: T;
+  alt?: T;
+  height?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4043,34 +4017,11 @@ export interface PagesSelect<T extends boolean = true> {
         contentWithImage?: T | ContentWithImageBlockSelect<T>;
         videoBlock?: T | VideoBlockSelect<T>;
         projects18?: T | Projects18BlockSelect<T>;
-        simpleGallery?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-              images?:
-                | T
-                | {
-                    image?: T | ImageTypeSelect<T>;
-                    id?: T;
-                  };
-              sectionId?: T;
-              id?: T;
-              blockName?: T;
-            };
+        simpleGallery?: T | SimpleGallerySelect<T>;
         testimonialBlock?: T | TestimonialBlockSelect<T>;
         projectTestimonialBlock?: T | ProjectTestimonialBlockSelect<T>;
         logosBlock?: T | LogosBlockSelect<T>;
-        aboutBlock?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-              sectionId?: T;
-              image?: T | ImageTypeSelect<T>;
-              id?: T;
-              blockName?: T;
-            };
+        aboutBlock?: T | AboutBlockSelect<T>;
         globalVillageAboutSection?: T | GlobalVillageAboutSectionBlockSelect<T>;
         globalVillageBanner?: T | GlobalVillageBannerBlockSelect<T>;
         campaignCountdown?: T | CampaignCountdownBlockSelect<T>;
@@ -4156,17 +4107,6 @@ export interface LinkFieldSelect<T extends boolean = true> {
   url?: T;
   label?: T;
   section?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageType_select".
- */
-export interface ImageTypeSelect<T extends boolean = true> {
-  imageType?: T;
-  image?: T;
-  externalImage?: T;
-  alt?: T;
-  height?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4320,6 +4260,23 @@ export interface Projects18BlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SimpleGallery_select".
+ */
+export interface SimpleGallerySelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  images?:
+    | T
+    | {
+        image?: T | ImageTypeSelect<T>;
+        id?: T;
+      };
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TestimonialBlock_select".
  */
 export interface TestimonialBlockSelect<T extends boolean = true> {
@@ -4335,7 +4292,7 @@ export interface TestimonialBlockSelect<T extends boolean = true> {
               name?: T;
               title?: T;
               company?: T;
-              avatar?: T;
+              avatar?: T | ImageTypeSelect<T>;
             };
         rating?: T;
         featured?: T;
@@ -4401,6 +4358,18 @@ export interface LogosBlockSelect<T extends boolean = true> {
         id?: T;
       };
   sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutBlock_select".
+ */
+export interface AboutBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  sectionId?: T;
+  image?: T | ImageTypeSelect<T>;
   id?: T;
   blockName?: T;
 }
@@ -4551,7 +4520,7 @@ export interface EventListBlockSelect<T extends boolean = true> {
         endDate?: T;
         location?: T;
         category?: T;
-        image?: T;
+        image?: T | ImageTypeSelect<T>;
         registrationLink?: T;
         isFeatured?: T;
         maxParticipants?: T;
@@ -4587,8 +4556,8 @@ export interface FAQBlockSelect<T extends boolean = true> {
  */
 export interface ImageComparisonSliderBlockSelect<T extends boolean = true> {
   title?: T;
-  beforeImage?: T;
-  afterImage?: T;
+  beforeImage?: T | ImageTypeSelect<T>;
+  afterImage?: T | ImageTypeSelect<T>;
   beforeLabel?: T;
   afterLabel?: T;
   sectionId?: T;
@@ -4720,7 +4689,7 @@ export interface TeamGridBlockSelect<T extends boolean = true> {
         name?: T;
         role?: T;
         bio?: T;
-        photo?: T;
+        photo?: T | ImageTypeSelect<T>;
         email?: T;
         linkedIn?: T;
         twitter?: T;
@@ -4743,7 +4712,7 @@ export interface TimelineBlockSelect<T extends boolean = true> {
         year?: T;
         title?: T;
         description?: T;
-        image?: T;
+        image?: T | ImageTypeSelect<T>;
         id?: T;
       };
   orientation?: T;
