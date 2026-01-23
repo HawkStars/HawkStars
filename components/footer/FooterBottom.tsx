@@ -11,7 +11,7 @@ const FooterBottom = () => {
 
   return (
     <div className='mt-10 grid grid-cols-1 pb-3 lg:mt-0 lg:grid-cols-2 lg:border-t lg:px-2 lg:pt-1'>
-      <div className='mt-auto mb-2 flex px-2 max-lg:justify-between lg:order-2 lg:my-auto lg:ml-auto'>
+      <div className='mt-auto mb-2 flex px-2 max-lg:flex-col max-lg:justify-between max-lg:gap-4 lg:order-2 lg:my-auto lg:ml-auto'>
         <Link href={urls.terms} className='mr-2 -mb-1 text-neutral-400'>
           {t('navbar.art_gallery.terms_and_conditions')}
         </Link>

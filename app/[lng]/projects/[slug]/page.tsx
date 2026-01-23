@@ -4,7 +4,6 @@ import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { getSingleEventsQuery } from '@/lib/payload/queries/event';
-import { Media } from '@/payload-types';
 import Post from '@/components/blog/Post';
 import { getImagePayloadUrl } from '@/lib/image';
 

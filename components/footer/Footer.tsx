@@ -17,7 +17,7 @@ const Footer = () => {
   const { t } = useTranslation(lng, 'common');
 
   return (
-    <footer className='mt-4'>
+    <footer className='mt-8'>
       <div className='flex gap-10 p-5 max-lg:flex-col'>
         <div className='flex flex-col gap-5'>
           <Image
