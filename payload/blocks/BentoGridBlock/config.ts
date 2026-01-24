@@ -36,6 +36,12 @@ export const BentoGridBlock: Block = {
       required: true,
       minRows: 1,
       interfaceName: 'BentoGridItem',
+      admin: {
+        description: 'Add items to the Bento Grid',
+        components: {
+          RowLabel: '@/payload/blocks/BentoGridBlock/admin/RowLabel',
+        },
+      },
       fields: [
         {
           name: 'title',

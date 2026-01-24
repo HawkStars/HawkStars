@@ -23,6 +23,8 @@ export type MultiRowContent = {
   id?: string | null;
 }[];
 /**
+ * Add items to the Bento Grid
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "BentoGridItem".
  */
@@ -3497,7 +3499,7 @@ export interface BoardMember {
   /**
    * Section out of the three that is to add the member
    */
-  section: 'geral' | 'fiscal' | 'board';
+  section: 'geral' | 'fiscal' | 'board' | 'advisory' | 'gaming';
   title:
     | 'president'
     | 'vice_president'
@@ -3507,7 +3509,15 @@ export interface BoardMember {
     | 'substitute'
     | 'treasurer'
     | 'rapporteur_secretary'
-    | 'department';
+    | 'department'
+    | 'gaming_coordinator'
+    | 'gaming_staff'
+    | 'advisory_member'
+    | 'other'
+    | 'art_director'
+    | 'curator'
+    | 'project_coordinator'
+    | 'partnerships_manager';
   /**
    * Only for board members in a department
    */
