@@ -31,6 +31,8 @@ import { plugins } from './payload/plugins';
 import { HawkProject } from './payload/collections/HawkProject';
 import { MainPage } from './payload/globals/MainPage/config';
 import blocks from './payload/blocks';
+import { NewsList } from './payload/globals/NewsList/config';
+import { ProjectsList } from './payload/globals/ProjectsList/config';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -81,7 +83,7 @@ export default buildConfig({
     Partner,
     Pages,
   ],
-  globals: [Header, Footer, MainPage],
+  globals: [Header, Footer, MainPage, NewsList, ProjectsList],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,

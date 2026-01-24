@@ -232,11 +232,15 @@ export interface Config {
     header: Header;
     footer: Footer;
     'main-page': MainPage;
+    'news-list': NewsList;
+    'projects-list': ProjectsList;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     'main-page': MainPageSelect<false> | MainPageSelect<true>;
+    'news-list': NewsListSelect<false> | NewsListSelect<true>;
+    'projects-list': ProjectsListSelect<false> | ProjectsListSelect<true>;
   };
   locale: 'en' | 'pt';
   user: User & {
@@ -6664,6 +6668,38 @@ export interface MainPage {
   createdAt?: string | null;
 }
 /**
+ * Configure the list of news list information.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news-list".
+ */
+export interface NewsList {
+  id: string;
+  title: string;
+  subtitle?: string | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Configure the list of projects list information.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects-list".
+ */
+export interface ProjectsList {
+  id: string;
+  title: string;
+  subtitle?: string | null;
+  /**
+   * Show the latest project video
+   */
+  video?: string | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
@@ -6763,6 +6799,31 @@ export interface MainPageSelect<T extends boolean = true> {
         description?: T;
       };
   publishedAt?: T;
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news-list_select".
+ */
+export interface NewsListSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects-list_select".
+ */
+export interface ProjectsListSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  video?: T;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;
