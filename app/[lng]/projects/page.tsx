@@ -1,6 +1,7 @@
 import EventsList from '@/components/events/EventsList';
 import { HawkStarsSection } from '@/components/layout';
 import { LanguageProps } from '@/components/types';
+import { Button } from '@/components/ui/button';
 import { Language } from '@/i18n/settings';
 import { getEventsQuery } from '@/lib/payload/queries/event';
 import { getProjectsListHeaderInfo } from '@/lib/payload/queries/globals/projectsList';
@@ -34,13 +35,20 @@ const EventsPage = async (props: EventsPageProps) => {
 
   return (
     <HawkStarsSection className='bg-bege-light gap-8 pt-10 pb-8 max-lg:px-0 max-lg:pt-0 xl:px-10!'>
-      <h1 className='text-h2_bold mb-4 text-center'>{projectListInformation?.title}</h1>
-      <h2 className='text-body_regular mx-auto max-w-3xl text-center'>
-        {projectListInformation?.subtitle}
-      </h2>
-      {projectListInformation.video && (
-        <VideoBlock videoUrl={projectListInformation.video} blockType={'videoBlock'} autoplay />
-      )}
+      <div className='container py-32'>
+        <div>
+          <p className='text-muted-foreground mb-1 uppercase md:text-lg'>
+            {projectListInformation?.title}
+          </p>
+          <h1 className='text-3xl font-bold uppercase md:text-7xl'>Projects</h1>
+          <p className='text-muted-foreground mt-7 max-w-2xl'>{projectListInformation?.subtitle}</p>
+        </div>
+        {projectListInformation.video && (
+          <div className='mx-auto flex justify-center'>
+            <VideoBlock videoUrl={projectListInformation.video} blockType={'videoBlock'} autoplay />
+          </div>
+        )}
+      </div>
 
       <EventsList events={events} />
       {/* missing pagination logic */}
