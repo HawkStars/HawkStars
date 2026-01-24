@@ -61,6 +61,8 @@ export const BoardMember: CollectionConfig = {
         { label: 'Assembleia Geral', value: 'geral' },
         { label: 'Conselho Fiscal', value: 'fiscal' },
         { label: 'Direção', value: 'board' },
+        { label: 'Conselho Consultivo', value: 'advisory' },
+        { label: 'Gaming Staff', value: 'gaming' },
       ],
     },
     {
@@ -79,6 +81,14 @@ export const BoardMember: CollectionConfig = {
         { label: 'Tesoureiro', value: 'treasurer' },
         { label: 'Secretário Relator', value: 'rapporteur_secretary' },
         { label: 'Departamento', value: 'department' },
+        { label: 'Coordenador de Gaming', value: 'gaming_coordinator' },
+        { label: 'Staff de Gaming', value: 'gaming_staff' },
+        { label: 'Membro Consultivo', value: 'advisory_member' },
+        { label: 'Outro', value: 'other' },
+        { label: 'Diretor de Arte', value: 'art_director' },
+        { label: 'Curador', value: 'curator' },
+        { label: 'Coordenador de Projetos', value: 'project_coordinator' },
+        { label: 'Gerente de Parcerias', value: 'partnerships_manager' },
       ],
     },
     {

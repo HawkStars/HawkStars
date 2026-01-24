@@ -4,6 +4,8 @@
   "geral": "General Assembly",
   "fiscal": "Fiscal Council",
   "board": "Board",
+  "advisory": "Advisory Council",
+  "gaming": "Gaming Staff",
   "roles": {
     "president": "President",
     "vice_president": "Vice-President",
@@ -13,6 +15,14 @@
     "substitute": "Deputy board member",
     "treasurer": "Treasury Manager",
     "rapporteur_secretary": "Reporting Secretary",
-    "department": "Department"
+    "department": "Department",
+    "gaming_coordinator": "Gaming Coordinator",
+    "gaming_staff": "Gaming Staff",
+    "advisory_member": "Advisory Member",
+    "other": "Other",
+    "art_director": "Art Director",
+    "curator": "Curator",
+    "project_coordinator": "Project Coordinator",
+    "partnerships_manager": "Partnerships Manager"
   }
 }
