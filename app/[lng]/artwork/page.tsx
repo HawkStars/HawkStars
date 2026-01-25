@@ -7,8 +7,17 @@ import { getAllArtworkImagesQuery } from '@/lib/payload/queries/artwork';
 import { Media } from '@/payload-types';
 import { Language } from '@/i18n/settings';
 import { cn } from '@/lib/utils';
+import { Metadata } from 'next';
+import { getMetadataPageInfo } from '@/utils/metadata';
 
 export const revalidate = 1800; // invalidate every 30 minutes
+
+export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
+  const params = await props.params;
+  const { lng } = params;
+  const metadataPage = getMetadataPageInfo(lng as Language, 'artwork');
+  return metadataPage;
+}
 
 const getArtwork = async (locale: Language) => {
   const images = await getAllArtworkImagesQuery(locale);

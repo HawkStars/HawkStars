@@ -126,5 +126,54 @@
       "Portugal",
       "Non-profit Organization."
     ]
+  },
+  "artwork": {
+    "title": "Art Gallery - Social Impact Collection by Hawk Stars NGO",
+    "description": "Explore the Social Impact Art Gallery curated by Hawk Stars NGO. Discover unique artwork pieces that combine artistic expression with social consciousness and cultural development.",
+    "keywords": [
+      "Hawk Stars NGO",
+      "Art Gallery",
+      "Social Impact",
+      "Artwork",
+      "Curated Collection",
+      "Cultural Development",
+      "Art Exhibition",
+      "Pinhel",
+      "Portugal"
+    ]
+  },
+  "contribute": {
+    "title": "Contribute to Hawk Stars NGO - Make an Impact Today",
+    "description": "Support Hawk Stars NGO through donations, chair sponsorships, and branding opportunities. Help us build the International Training Center in Pinhel, Portugal. Multiple contribution options available including bank transfer and crypto.",
+    "keywords": [
+      "Contribute",
+      "Donation",
+      "Support",
+      "Hawk Stars NGO",
+      "Chair Sponsorship",
+      "Branding Opportunities",
+      "International Training Center",
+      "Bank Transfer",
+      "Crypto Donation",
+      "Pinhel",
+      "Portugal",
+      "Social Impact"
+    ]
+  },
+  "history": {
+    "title": "Hawk Stars History - From Euro Hawk to Global Village",
+    "description": "Discover the journey of Hawk Stars NGO, from its origins as Euro Hawk to becoming a leading force in social innovation. Learn about our humanitarian efforts, including aid to Ukraine, and our vision for The Global Village Project.",
+    "keywords": [
+      "Hawk Stars NGO",
+      "Euro Hawk",
+      "History",
+      "Humanitarian Aid",
+      "Ukraine Support",
+      "Global Village",
+      "Social Innovation",
+      "NGO Evolution",
+      "Pinhel",
+      "Portugal"
+    ]
   }
 }

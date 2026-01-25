@@ -8,8 +8,38 @@ import Image from 'next/image';
 import { Media } from '@/payload-types';
 import RichText from '@/payload/components/RichText';
 import { connection } from 'next/server';
+import { Metadata } from 'next';
 
 export const revalidate = 600; // invalidate every 10 minutes
+
+type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
+
+export async function generateMetadata(props: CuratorPageProps): Promise<Metadata> {
+  const params = await props.params;
+  const { lng, slug } = params;
+  const curator = await getSingleCuratorQuery(slug, lng);
+
+  if (!curator) {
+    return {
+      title: 'Curator Not Found',
+      description: 'The requested curator profile could not be found.',
+    };
+  }
+
+  return {
+    title: `${curator.name} - Curator | Hawk Stars NGO`,
+    description:
+      curator.description && curator.description.length > 0
+        ? `Learn about ${curator.name}, curator at Hawk Stars NGO Social Impact Art Gallery.`
+        : `${curator.name} - Curator at Hawk Stars NGO Social Impact Art Gallery in Pinhel, Portugal.`,
+    keywords: ['Hawk Stars NGO', 'Curator', curator.name || '', 'Art Gallery', 'Social Impact'],
+    openGraph: {
+      title: `${curator.name} - Curator | Hawk Stars NGO`,
+      description: `${curator.name} - Curator at Hawk Stars NGO Social Impact Art Gallery`,
+      images: curator.image ? [(curator.image as Media)?.url || ''] : [],
+    },
+  };
+}
 
 const getCuratorInformation = async (slug: string, locale: Language) => {
   const response = await getSingleCuratorQuery(slug, locale);

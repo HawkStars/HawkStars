@@ -12,9 +12,9 @@ type PageProps = {
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng, slug } = params;
-  if (!slug) return {};
+  if (!slug) return { robots: 'noindex, nofollow' };
   const pageInformation = await getSinglePageSlug(slug, lng);
-  if (!pageInformation) return {};
+  if (!pageInformation) return { robots: 'noindex, nofollow' };
 
   const { title, description }: Metadata = pageInformation.meta || {
     title: undefined,
@@ -24,6 +24,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   return {
     title: title || pageInformation.title,
     description: description,
+    robots: 'noindex, nofollow',
   };
 }
 

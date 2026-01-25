@@ -13,8 +13,18 @@ import { HawkStarsOffSetSection, HawkStarsSection } from '@/components/layout';
 import humanitarian_1 from '@/public/images/history/humanitarian_1.jpeg';
 import global_village_image from '@/public/images/hero.png';
 import { OffsetSection } from '@/components/layout/OffsetSection';
+import { Metadata } from 'next';
+import { getMetadataPageInfo } from '@/utils/metadata';
+import { Language } from '@/i18n/settings';
 
 export const revalidate = 600; // invalidate every 10 minutes
+
+export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
+  const params = await props.params;
+  const { lng } = params;
+  const metadataPage = getMetadataPageInfo(lng as Language, 'history');
+  return metadataPage;
+}
 
 const HawkHistoryPage = async (props: LanguagePageProps) => {
   const params = await props.params;
