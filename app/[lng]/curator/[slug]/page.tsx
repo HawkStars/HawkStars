@@ -26,10 +26,12 @@ export async function generateMetadata(props: CuratorPageProps): Promise<Metadat
     };
   }
 
+  const hasDescription = curator.description && Array.isArray(curator.description) && curator.description.length > 0;
+
   return {
     title: `${curator.name} - Curator | Hawk Stars NGO`,
     description:
-      curator.description && curator.description.length > 0
+      hasDescription
         ? `Learn about ${curator.name}, curator at Hawk Stars NGO Social Impact Art Gallery.`
         : `${curator.name} - Curator at Hawk Stars NGO Social Impact Art Gallery in Pinhel, Portugal.`,
     keywords: ['Hawk Stars NGO', 'Curator', curator.name || '', 'Art Gallery', 'Social Impact'],
@@ -45,8 +47,6 @@ const getCuratorInformation = async (slug: string, locale: Language) => {
   const response = await getSingleCuratorQuery(slug, locale);
   return response;
 };
-
-type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
 const CuratorPage = async (props: CuratorPageProps) => {
   await connection();
