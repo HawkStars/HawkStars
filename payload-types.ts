@@ -201,6 +201,7 @@ export interface Config {
     hawk_projects: HawkProject;
     partners: Partner;
     pages: Page;
+    news: News;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -218,6 +219,7 @@ export interface Config {
     hawk_projects: HawkProjectsSelect<false> | HawkProjectsSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    news: NewsSelect<false> | NewsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -3639,6 +3641,65 @@ export interface Partner {
   createdAt: string;
 }
 /**
+ * Collection for managing News articles
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news".
+ */
+export interface News {
+  id: string;
+  /**
+   * The title of the news article
+   */
+  title: string;
+  /**
+   * The type of the news article
+   */
+  type: 'blog' | 'news' | 'press_release' | 'announcement' | 'other';
+  /**
+   * The main content of the news article
+   */
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  mainImage: ImageType;
+  meta?: {
+    title?: string | null;
+    /**
+     * Recommended size: 1200x630 pixels
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  /**
+   * The URL slug for the news article, e.g. "my-article" for www.hawkstars.com/news/my-article
+   */
+  slug: string;
+  /**
+   * The date when the article was published
+   */
+  publishedAt?: string | null;
+  /**
+   * Whether the article is visible on the site
+   */
+  Visible?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -3789,6 +3850,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'news';
+        value: string | News;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -4803,6 +4868,29 @@ export interface BentoGridItemSelect<T extends boolean = true> {
   row_size?: T;
   contentPosition?: T;
   id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news_select".
+ */
+export interface NewsSelect<T extends boolean = true> {
+  title?: T;
+  type?: T;
+  content?: T;
+  mainImage?: T | ImageTypeSelect<T>;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  slug?: T;
+  publishedAt?: T;
+  Visible?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6837,10 +6925,15 @@ export interface TaskSchedulePublish {
   input: {
     type?: ('publish' | 'unpublish') | null;
     locale?: string | null;
-    doc?: {
-      relationTo: 'pages';
-      value: string | Page;
-    } | null;
+    doc?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'news';
+          value: string | News;
+        } | null);
     global?: string | null;
     user?: (string | null) | User;
   };
