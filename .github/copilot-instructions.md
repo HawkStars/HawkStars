@@ -226,6 +226,13 @@ The repository uses GitHub Actions for automated deployment (`.github/workflows/
 - `CLOUDINARY_API_KEY`: Cloudinary API key
 - `CLOUDINARY_API_SECRET`: Cloudinary API secret
 
+**Security Notes**:
+- ⚠️ **NEVER commit `.env` files or secrets to git** - they are in `.gitignore` for a reason
+- Use GitHub Secrets for CI/CD environment variables
+- Restrict `.env` file permissions: `chmod 600 .env` in production
+- Rotate secrets regularly, especially if exposed
+- Use different secrets for development/staging/production environments
+
 **Development**: Copy `.env.variables` to `.env.local` and fill in values
 
 ### Deployment Flow
@@ -267,6 +274,7 @@ When reviewing PRs, check for:
 
 **Problem**: `pnpm build` fails with module not found
 - **Solution**: Run `pnpm install --frozen-lockfile` to ensure all dependencies are installed
+- **Solution**: Clear build cache: `rm -rf .next && pnpm build`
 - **Check**: Verify `pnpm-lock.yaml` is in sync with `package.json`
 
 **Problem**: Type errors after adding/modifying Payload blocks
@@ -275,6 +283,8 @@ When reviewing PRs, check for:
 
 **Problem**: Build fails with memory issues
 - **Solution**: Increase Node.js memory: `NODE_OPTIONS="--max-old-space-size=4096" pnpm build`
+- **Note**: Adjust memory value (2048-8192) based on project size and available system RAM
+- **Alternative**: Try `NODE_OPTIONS="--max-old-space-size=2048"` first, increase if still failing
 
 #### Development Issues
 
