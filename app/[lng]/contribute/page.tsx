@@ -32,8 +32,19 @@ import groupBy from 'lodash.groupby';
 import BrandingSection from '@/components/contribute/BrandingSection';
 import { Contribution } from '@/payload-types';
 import { getChairsContributionsQuery } from '@/lib/payload/queries/contribution';
+import { Metadata } from 'next';
+import { getMetadataPageInfo } from '@/utils/metadata';
 
 export const revalidate = 1200; // invalidate every 20 minutes
+
+export async function generateMetadata(props: {
+  params: Promise<{ lng: Language }>;
+}): Promise<Metadata> {
+  const params = await props.params;
+  const { lng } = params;
+  const metadataPage = getMetadataPageInfo(lng as Language, 'contribute');
+  return metadataPage;
+}
 
 const getChairsContribute = async () => {
   const data = await getChairsContributionsQuery();

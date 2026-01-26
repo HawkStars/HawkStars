@@ -4,6 +4,15 @@ import Link from 'next/link';
 
 import { urls } from '@/utils/paths';
 import { hawkLogo } from '@/utils/models/images/logos';
+import { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: '404 - Page Not Found | Hawk Stars NGO',
+    description: 'The page you are looking for could not be found.',
+    robots: 'noindex, nofollow',
+  };
+}
 
 export default async function NotFoundPage() {
   await connection();

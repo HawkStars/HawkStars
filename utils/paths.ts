@@ -5,17 +5,17 @@
  **/
 
 export const urls = {
-  about: '/about', // Dynamic page via [slug] route
   donate: '/contribute',
-  gallery: '/art',
+  contribute: '/contribute',
   artwork: '/artwork',
+  history: '/history',
+  events: '/events',
+  gallery: '/art',
   global_village: '/village',
   global_village_arquitecture: '/village#arquitecture',
   global_village_objectives: '/village#objetives',
-  history: '/history',
   home: '/',
   news: '/news',
-  OAUTH_CALLBACK_URL: '/auth/callback',
   partners: '/partners',
   projects: '/projects',
   transparency: '/transparency',

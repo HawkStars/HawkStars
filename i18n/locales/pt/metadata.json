@@ -149,5 +149,54 @@
       "Galeria de Arte",
       "Galeria de Arte Social"
     ]
+  },
+  "artwork": {
+    "title": "Galeria de Arte - Coleção de Impacto Social pela Hawk Stars NGO",
+    "description": "Explore a Galeria de Arte de Impacto Social curada pela Hawk Stars NGO. Descubra peças de arte únicas que combinam expressão artística com consciência social e desenvolvimento cultural.",
+    "keywords": [
+      "ONG Hawk Stars",
+      "Galeria de Arte",
+      "Impacto Social",
+      "Obras de Arte",
+      "Coleção Curada",
+      "Desenvolvimento Cultural",
+      "Exposição de Arte",
+      "Pinhel",
+      "Portugal"
+    ]
+  },
+  "contribute": {
+    "title": "Contribua para a ONG Hawk Stars - Faça a Diferença Hoje",
+    "description": "Apoie a ONG Hawk Stars através de doações, patrocínio de cadeiras e oportunidades de branding. Ajude-nos a construir o Centro Internacional de Treinamento em Pinhel, Portugal. Várias opções de contribuição disponíveis, incluindo transferência bancária e cripto.",
+    "keywords": [
+      "Contribuir",
+      "Doação",
+      "Apoiar",
+      "ONG Hawk Stars",
+      "Patrocínio de Cadeiras",
+      "Oportunidades de Branding",
+      "Centro Internacional de Treinamento",
+      "Transferência Bancária",
+      "Doação Cripto",
+      "Pinhel",
+      "Portugal",
+      "Impacto Social"
+    ]
+  },
+  "history": {
+    "title": "História da Hawk Stars - De Euro Hawk à Aldeia Global",
+    "description": "Descubra a jornada da ONG Hawk Stars, desde suas origens como Euro Hawk até se tornar uma força líder em inovação social. Conheça nossos esforços humanitários, incluindo ajuda à Ucrânia, e nossa visão para o Projeto Aldeia Global.",
+    "keywords": [
+      "ONG Hawk Stars",
+      "Euro Hawk",
+      "História",
+      "Ajuda Humanitária",
+      "Apoio à Ucrânia",
+      "Aldeia Global",
+      "Inovação Social",
+      "Evolução da ONG",
+      "Pinhel",
+      "Portugal"
+    ]
   }
 }
