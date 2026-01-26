@@ -88,7 +88,8 @@ export const News: CollectionConfig = {
       unique: true,
       admin: {
         position: 'sidebar',
-        description: 'The URL slug for the news article, e.g. "my-article" for www.hawkstars.com/news/my-article',
+        description:
+          'The URL slug for the news article, e.g. "my-article" for www.hawkstars.com/news/my-article',
       },
     },
     {
@@ -100,7 +101,7 @@ export const News: CollectionConfig = {
       },
     },
     {
-      name: 'Visible',
+      name: 'visible',
       type: 'checkbox',
       label: 'Visible on site',
       defaultValue: false,

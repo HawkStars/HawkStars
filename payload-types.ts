@@ -447,7 +447,7 @@ export interface Page {
    * The URL slug for the page, e.g. "about" for www.hawkstars.com/about
    */
   slug: string;
-  Visible?: boolean | null;
+  visible?: boolean | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -3694,7 +3694,7 @@ export interface News {
   /**
    * Whether the article is visible on the site
    */
-  Visible?: boolean | null;
+  visible?: boolean | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -4131,7 +4131,7 @@ export interface PagesSelect<T extends boolean = true> {
       };
   publishedAt?: T;
   slug?: T;
-  Visible?: T;
+  visible?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -4887,7 +4887,7 @@ export interface NewsSelect<T extends boolean = true> {
       };
   slug?: T;
   publishedAt?: T;
-  Visible?: T;
+  visible?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

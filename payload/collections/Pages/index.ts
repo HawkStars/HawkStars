@@ -138,7 +138,7 @@ export const Pages: CollectionConfig<'pages'> = {
       },
     },
     {
-      name: 'Visible',
+      name: 'visible',
       type: 'checkbox',
       label: 'Visible on site',
       defaultValue: false,
