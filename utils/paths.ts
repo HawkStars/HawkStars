@@ -5,11 +5,8 @@
  **/
 
 export const urls = {
-  about: '/about',
-  be_member: '/be_member',
+  about: '/about', // Dynamic page via [slug] route
   donate: '/contribute',
-  events: '/events',
-  erasmus: '/erasmus',
   gallery: '/art',
   artwork: '/artwork',
   global_village: '/village',
@@ -17,9 +14,10 @@ export const urls = {
   global_village_objectives: '/village#objetives',
   history: '/history',
   home: '/',
+  news: '/news',
   OAUTH_CALLBACK_URL: '/auth/callback',
   partners: '/partners',
-  pinhel: '/pinhel',
+  projects: '/projects',
   transparency: '/transparency',
   team: '/team',
   terms: '/store/terms',
@@ -61,14 +59,15 @@ type MetadataRoute = {
 
 export const routes = [
   { url: urls.home, priority: 1 },
-  { url: urls.about, priority: 0.5 },
   { url: urls.team, priority: 0.5 },
   { url: urls.partners, priority: 0.8 },
   { url: urls.global_village, priority: 1 },
   { url: urls.donate, priority: 1 },
   { url: urls.transparency, priority: 1 },
   { url: urls.history, priority: 0.5 },
-  { url: urls.events, priority: 0.7 },
-  { url: urls.erasmus, priority: 0.7 },
-  { url: urls.pinhel, priority: 0.5 },
+  { url: urls.gallery, priority: 0.8 },
+  { url: urls.artwork, priority: 0.7 },
+  { url: urls.projects, priority: 0.7 },
+  { url: urls.news, priority: 0.6 },
+  { url: urls.terms, priority: 0.3 },
 ] as MetadataRoute[];
