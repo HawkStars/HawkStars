@@ -42,10 +42,11 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuK
               >
                 {column.dropdown?.dropdownTitle}
                 <ChevronDownIcon
-                  className={cn('transition-transform duration-300', {
+                  className={cn('my-auto transition-transform duration-300', {
                     'rotate-180': menuKeyHovered === column.dropdown?.key,
                   })}
                   height={20}
+                  width={20}
                 />
               </li>
             );
