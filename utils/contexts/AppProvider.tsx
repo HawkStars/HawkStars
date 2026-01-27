@@ -17,7 +17,9 @@ const defaultAppProperties: MainAppProperties = {
 };
 
 const MainAppContext = createContext<MainAppProperties>(defaultAppProperties);
-const SetMainAppContext = createContext<Dispatch<MainAppProperties>>(() => {});
+const SetMainAppContext = createContext<Dispatch<React.SetStateAction<MainAppProperties>>>(
+  () => {}
+);
 
 type AppProviderProps = {
   children: ReactNode;
@@ -55,24 +57,25 @@ export const useSetMainProperties = () => {
 };
 
 export const useSetMobileNavbarOpen = () => {
-  const mainProperties = useContext(MainAppContext);
   const setMainProperties = useContext(SetMainAppContext);
   return (value: boolean) => {
-    setMainProperties({
-      ...mainProperties,
-      mobileNavbarOpen: value,
-    });
+    setMainProperties(
+      (mainProperties: MainAppProperties) =>
+        ({
+          ...mainProperties,
+          mobileNavbarOpen: value,
+        }) as MainAppProperties
+    );
   };
 };
 
 export const useSetLanguageCookie = () => {
-  const mainProperties = useContext(MainAppContext);
   const setMainProperties = useContext(SetMainAppContext);
   return (newLng: Language) => {
-    setMainProperties({
+    setMainProperties((mainProperties: MainAppProperties) => ({
       ...mainProperties,
       lng: newLng,
-    });
+    }));
   };
 };
 

@@ -9,6 +9,7 @@ import { useState } from 'react';
 import DesktopNavbar from './DesktopNavbar';
 import { cn } from '@/lib/utils';
 import DropdownMenu from './DesktopDropdown/DropdownMenu';
+import LanguageSwitcher from '../utils/LanguageSwitcher';
 
 const Navbar = () => {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
@@ -40,11 +41,15 @@ const Navbar = () => {
             menuKeyHovered={selectedMenu?.dropdown?.key || null}
           />
           {/* NAVBAR MOBILE */}
+
           <div
-            className='my-auto ml-auto block cursor-pointer lg:hidden'
+            className='my-auto ml-auto flex cursor-pointer lg:hidden'
             onClick={() => setMobileMenuOpen(true)}
           >
-            <Image src={HamburgerIcon} alt='Menu' width={28} height={28} />
+            <div className='my-auto ml-auto'>
+              <LanguageSwitcher />
+            </div>
+            <Image src={HamburgerIcon} alt='Menu' width={32} height={32} />
           </div>
         </div>
       </div>

@@ -43,7 +43,7 @@ const LanguageSwitcher = ({ isFooter = false }: LanguageSwitcherProps) => {
       .splice(1);
 
     const newPath = `/${newLng}/${urlValues.join('/')}`;
-    router.push(newPath);
+    window.location.href = newPath;
   };
 
   return (

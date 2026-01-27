@@ -120,7 +120,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
                 )}
 
                 {slide.subtitle && (
-                  <p className='max-w-2xl text-lg text-white/90 lg:text-xl'>{slide.subtitle}</p>
+                  <p className='max-w-4xl text-lg text-white/90 lg:text-xl'>{slide.subtitle}</p>
                 )}
 
                 {slide.links?.map((link, index) => {

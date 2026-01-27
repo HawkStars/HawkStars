@@ -99,7 +99,6 @@ export const BoardMember: CollectionConfig = {
       localized: true,
       admin: {
         description: 'Only for board members in a department',
-        condition: (data, siblingData) => siblingData.title === 'department',
       },
     },
     {
