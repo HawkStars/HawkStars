@@ -13,7 +13,6 @@ import {
 } from '@/utils/contexts/AppProvider';
 
 import { hawkLogo } from '@/utils/models/images/logos';
-import LanguageSwitcher from '@/components/utils/LanguageSwitcher';
 import Socials from '@/components/utils/Socials';
 import { useTranslation } from '@/i18n/client';
 import { Button } from '@/components/ui/button';

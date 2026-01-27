@@ -45,6 +45,7 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuK
                   className={cn('transition-transform duration-300', {
                     'rotate-180': menuKeyHovered === column.dropdown?.key,
                   })}
+                  height={20}
                 />
               </li>
             );

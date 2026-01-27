@@ -17,7 +17,7 @@ const getLocale = async (request: NextRequest): Promise<NextResponse> => {
     !languages.some((loc) => request.nextUrl.pathname.startsWith(`/${loc}`)) &&
     !request.nextUrl.pathname.startsWith('/_next')
   ) {
-    return NextResponse.redirect(new URL(`/${lng}${request.nextUrl.pathname}`, request.url));
+    return NextResponse.redirect(new URL(`/${lng}${request.nextUrl.pathname}`, request.url), 301);
   }
   if (request.headers.has('referer')) {
     const refererUrl = new URL(request.headers.get('referer') || '');

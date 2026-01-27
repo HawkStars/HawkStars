@@ -5,7 +5,6 @@ import { PT, GB, FlagComponent } from 'country-flag-icons/react/3x2';
 import { useLanguageCookie, useSetLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Language } from '@/i18n/settings';
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
 
 type FlagIconProps = {
   icon: FlagComponent;
@@ -31,7 +30,6 @@ type LanguageSwitcherProps = {
 };
 
 const LanguageSwitcher = ({ isFooter = false }: LanguageSwitcherProps) => {
-  const router = useRouter();
   const lng = useLanguageCookie();
   const setLng = useSetLanguageCookie();
 
@@ -43,7 +41,7 @@ const LanguageSwitcher = ({ isFooter = false }: LanguageSwitcherProps) => {
       .splice(1);
 
     const newPath = `/${newLng}/${urlValues.join('/')}`;
-    window.location.href = newPath;
+    window.location.assign(newPath);
   };
 
   return (

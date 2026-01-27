@@ -1,7 +1,7 @@
 import { HawkProject, Media } from '@/payload-types';
 import { PaginatedDocs } from 'payload';
 import { Button } from '@/components/ui/button';
-import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { getImagePayloadUrl } from '@/lib/image';
 
 type EventsListProps = {
