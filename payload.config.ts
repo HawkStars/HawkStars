@@ -61,6 +61,7 @@ export default buildConfig({
       graphics: {
         Logo: '@/payload/components/Logo',
       },
+      beforeDashboard: ['@/payload/components/admin/WelcomeDashboard'],
       afterDashboard: ['@/payload/components/admin/DashboardStats'],
     },
     avatar: { Component: '@/payload/components/admin/avatar' },
