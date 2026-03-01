@@ -14,6 +14,7 @@ export const FooterNavGroup: GroupField = {
   },
   fields: [
     { name: 'title', type: 'text', label: 'Title', required: false, localized: true },
+    { name: 'visible', type: 'checkbox', label: 'Visible', required: false, localized: false },
     {
       name: 'data',
       label: 'Links',

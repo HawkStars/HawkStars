@@ -245,9 +245,10 @@ export interface Config {
     'projects-list': ProjectsListSelect<false> | ProjectsListSelect<true>;
   };
   locale: 'en' | 'pt';
-  user: User & {
-    collection: 'users';
+  widgets: {
+    collections: CollectionsWidget;
   };
+  user: User;
   jobs: {
     tasks: {
       schedulePublish: TaskSchedulePublish;
@@ -397,41 +398,2749 @@ export interface Page {
    */
   blocks?:
     | (
-        | AccordionBlock
-        | CallToActionBlock
-        | MediaBlock
-        | HeroBlock
-        | HeroWithBackgroundImageBlock
-        | HeroSlideshowBlock
-        | HeroImpactStatsBlock
-        | ContentWithImageBlock
-        | VideoBlock
-        | Projects18Block
-        | SimpleGallery
-        | TestimonialBlock
-        | ProjectTestimonialBlock
-        | LogosBlock
-        | AboutBlock
-        | GlobalVillageAboutSectionBlock
-        | GlobalVillageBannerBlock
-        | CampaignCountdownBlock
-        | CTABannerBlock
-        | DonationProgressBlock
-        | StatsBlock
-        | EventListBlock
-        | FAQBlock
-        | ImageComparisonSliderBlock
-        | MapLocationBlock
-        | NewsletterSignupBlock
-        | PricingTableBlock
-        | QuoteHighlightBlock
-        | ResourceDownloadBlock
-        | SocialProofBlock
-        | TeamGridBlock
-        | TimelineBlock
-        | MultiRowImageBlock
-        | TitleDescriptionBlock
-        | BentoGridBlock
+        | {
+            /**
+             * Optional title displayed above the accordion
+             */
+            title?: string | null;
+            /**
+             * Optional description displayed below the title
+             */
+            description?: string | null;
+            items: {
+              title: string;
+              content: string;
+              defaultOpen?: boolean | null;
+              id?: string | null;
+            }[];
+            /**
+             * Allow multiple accordion items to be open at the same time
+             */
+            allowMultiple?: boolean | null;
+            variant?: ('default' | 'bordered' | 'separated') | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'accordion';
+          }
+        | {
+            title: string;
+            subtitle?: string | null;
+            links?:
+              | {
+                  link: LinkField;
+                  id?: string | null;
+                }[]
+              | null;
+            image?: ImageType;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
+        | {
+            media: ImageType;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'mediaBlock';
+          }
+        | {
+            /**
+             * Badge label above heading (e.g., "PLATFORM")
+             */
+            badge?: string | null;
+            /**
+             * Main heading text
+             */
+            heading: string;
+            ctaLink: LinkField;
+            headerImage?: ImageType;
+            /**
+             * Feature cards displayed in grid (up to 4)
+             */
+            features?:
+              | {
+                  /**
+                   * Icon type for this feature
+                   */
+                  icon: 'globe' | 'rocket' | 'expand' | 'wrench';
+                  /**
+                   * Feature title
+                   */
+                  title: string;
+                  /**
+                   * Feature description
+                   */
+                  description: string;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            backgroundImage: ImageType;
+            /**
+             * Main heading text
+             */
+            title: string;
+            /**
+             * Subtitle or description text
+             */
+            subtitle?: string | null;
+            /**
+             * Overlay darkness (0-100%)
+             */
+            overlayOpacity?: number | null;
+            links?:
+              | {
+                  link: LinkField;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Text alignment
+             */
+            textAlignment?: ('left' | 'center' | 'right') | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'heroWithBackgroundImage';
+          }
+        | {
+            slides: {
+              backgroundImage?: ImageType;
+              /**
+               * Main heading text for this slide
+               */
+              title?: string | null;
+              /**
+               * Subtitle or description text for this slide
+               */
+              subtitle?: string | null;
+              links?:
+                | {
+                    link: LinkField;
+                    id?: string | null;
+                  }[]
+                | null;
+              /**
+               * Text alignment for all slides
+               */
+              textAlignment: 'left' | 'center' | 'right';
+              id?: string | null;
+            }[];
+            /**
+             * Overlay darkness for all slides (0-100%)
+             */
+            overlayOpacity?: number | null;
+            /**
+             * Automatically cycle through slides
+             */
+            autoplay?: boolean | null;
+            /**
+             * Time between slides in milliseconds (only if autoplay is enabled)
+             */
+            autoplayInterval?: number | null;
+            /**
+             * Show previous/next arrows
+             */
+            showNavigation?: boolean | null;
+            /**
+             * Show navigation dots
+             */
+            showDots?: boolean | null;
+            /**
+             * Height of the hero section
+             */
+            height?: ('fullscreen' | 'large' | 'medium' | 'small') | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'heroSlideshowBlock';
+          }
+        | {
+            /**
+             * Small badge text (e.g., "OUR IMPACT")
+             */
+            badge?: string | null;
+            /**
+             * Main heading text
+             */
+            title: string;
+            /**
+             * Description or mission statement
+             */
+            description?: string | null;
+            heroImage?: ImageType;
+            /**
+             * Impact statistics (2-4 stats)
+             */
+            stats?:
+              | {
+                  /**
+                   * Statistic number (e.g., "500+", "10K")
+                   */
+                  number: string;
+                  /**
+                   * Statistic label (e.g., "Lives Changed", "Volunteers")
+                   */
+                  label: string;
+                  /**
+                   * Icon for this statistic
+                   */
+                  icon?: ('heart' | 'users' | 'globe' | 'target' | 'trendingUp' | 'award') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            links?:
+              | {
+                  link: LinkField;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'heroImpactStats';
+          }
+        | {
+            title: string;
+            description: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            image: ImageType;
+            /**
+             * Position of the image relative to the content
+             */
+            imagePosition?: ('left' | 'right') | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contentWithImage';
+          }
+        | {
+            /**
+             * YouTube, Vimeo, or direct video URL (mp4, webm, ogg)
+             */
+            videoUrl: string;
+            /**
+             * Optional title for the video
+             */
+            title?: string | null;
+            /**
+             * Optional caption or description
+             */
+            caption?: string | null;
+            /**
+             * Auto-play video when visible
+             */
+            autoplay?: boolean | null;
+            /**
+             * Loop video playback
+             */
+            loop?: boolean | null;
+            /**
+             * Mute video by default (required for autoplay)
+             */
+            muted?: boolean | null;
+            /**
+             * Show video controls
+             */
+            controls?: boolean | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'videoBlock';
+          }
+        | {
+            title: string;
+            subtitle?: string | null;
+            description?: string | null;
+            /**
+             * Select the projects you want to display in this block
+             */
+            projects: (string | HawkProject)[];
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'projects18';
+          }
+        | {
+            title?: string | null;
+            description?: string | null;
+            images: {
+              image?: ImageType;
+              id?: string | null;
+            }[];
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'simpleGallery';
+          }
+        | {
+            /**
+             * Optional title for the testimonial section
+             */
+            title?: string | null;
+            /**
+             * Optional subtitle or description
+             */
+            subtitle?: string | null;
+            testimonials: {
+              /**
+               * The testimonial quote or review
+               */
+              quote: string;
+              author: {
+                /**
+                 * Author full name
+                 */
+                name: string;
+                /**
+                 * Job title or role
+                 */
+                title?: string | null;
+                /**
+                 * Company or organization
+                 */
+                company?: string | null;
+                avatar?: ImageType;
+              };
+              /**
+               * Star rating (1-5 stars)
+               */
+              rating?: number | null;
+              /**
+               * Mark as featured testimonial (larger display)
+               */
+              featured?: boolean | null;
+              id?: string | null;
+            }[];
+            /**
+             * How to display the testimonials
+             */
+            layout?: ('single' | 'two-cols' | 'three-cols' | 'carousel' | 'masonry') | null;
+            /**
+             * Visual style of testimonials
+             */
+            style?: ('card' | 'quote' | 'minimal' | 'bubble') | null;
+            /**
+             * Display star ratings
+             */
+            showRatings?: boolean | null;
+            backgroundColor?: ('none' | 'light-gray' | 'dark' | 'brand') | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonialBlock';
+          }
+        | {
+            /**
+             * Optional section title
+             */
+            title?: string | null;
+            /**
+             * Optional section subtitle
+             */
+            subtitle?: string | null;
+            author: {
+              profileImage: ImageType;
+              /**
+               * Author full name
+               */
+              name: string;
+              /**
+               * Author role or position
+               */
+              role?: string | null;
+              /**
+               * Company or organization
+               */
+              organization?: string | null;
+            };
+            /**
+             * The testimonial quote or review text
+             */
+            testimonial: string;
+            /**
+             * Images showing the project group or related visuals
+             */
+            projectMedia: {
+              /**
+               * How to display project images
+               */
+              displayMode?: ('single' | 'slideshow') | null;
+              images: {
+                image: ImageType;
+                id?: string | null;
+              }[];
+              /**
+               * Automatically cycle through images (slideshow mode only)
+               */
+              autoplay?: boolean | null;
+              /**
+               * Time between slides in milliseconds
+               */
+              autoplayInterval?: number | null;
+            };
+            /**
+             * Position of the project images relative to the testimonial
+             */
+            layout?: ('imageLeft' | 'imageRight') | null;
+            /**
+             * Background color for the section
+             */
+            backgroundColor?: ('none' | 'light' | 'dark' | 'brand') | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'projectTestimonialBlock';
+          }
+        | {
+            /**
+             * Text for the badge (e.g. Referral Partners)
+             */
+            badgeText?: string | null;
+            /**
+             * Main heading
+             */
+            heading: string;
+            /**
+             * Description text
+             */
+            description?: string | null;
+            /**
+             * Button text (e.g. Become a partner)
+             */
+            buttonText?: string | null;
+            /**
+             * Partner logos
+             */
+            logos: {
+              name: string;
+              /**
+               * Logo image URL
+               */
+              logo: string;
+              id?: string | null;
+            }[];
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'logosBlock';
+          }
+        | {
+            title?: string | null;
+            description?: string | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            image?: ImageType;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'aboutBlock';
+          }
+        | {
+            heading: string;
+            description?: string | null;
+            sections?:
+              | {
+                  title?: string | null;
+                  content: {
+                    root: {
+                      type: string;
+                      children: {
+                        type: any;
+                        version: number;
+                        [k: string]: unknown;
+                      }[];
+                      direction: ('ltr' | 'rtl') | null;
+                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                      indent: number;
+                      version: number;
+                    };
+                    [k: string]: unknown;
+                  };
+                  sectionImage?: ImageType;
+                  id?: string | null;
+                }[]
+              | null;
+            cta?: {
+              enable?: boolean | null;
+              link?: LinkField;
+            };
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'globalVillageAboutSection';
+          }
+        | {
+            text: string;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'globalVillageBanner';
+          }
+        | {
+            /**
+             * Campaign or event title
+             */
+            title: string;
+            /**
+             * Brief description or urgency message
+             */
+            description?: string | null;
+            /**
+             * Target end date for the countdown
+             */
+            targetDate: string;
+            links?:
+              | {
+                  link: LinkField;
+                  id?: string | null;
+                }[]
+              | null;
+            showDays?: boolean | null;
+            showHours?: boolean | null;
+            showMinutes?: boolean | null;
+            showSeconds?: boolean | null;
+            /**
+             * Visual theme
+             */
+            theme?: ('light' | 'dark' | 'urgent') | null;
+            /**
+             * Message to show when countdown reaches zero
+             */
+            completedMessage?: string | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'campaignCountdown';
+          }
+        | {
+            title: string;
+            description?: string | null;
+            links?:
+              | {
+                  link: LinkField;
+                  id?: string | null;
+                }[]
+              | null;
+            variant?: ('centered' | 'split' | 'image-bg') | null;
+            backgroundImage?: ImageType;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ctaBanner';
+          }
+        | {
+            /**
+             * Campaign title
+             */
+            title: string;
+            /**
+             * Brief description of the campaign
+             */
+            description?: string | null;
+            /**
+             * Fundraising goal amount
+             */
+            goalAmount: number;
+            /**
+             * Current amount raised
+             */
+            currentAmount: number;
+            /**
+             * Currency symbol
+             */
+            currency?: string | null;
+            /**
+             * Number of donors (optional)
+             */
+            donorCount?: number | null;
+            links?:
+              | {
+                  link: LinkField;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Display percentage progress
+             */
+            showPercentage?: boolean | null;
+            /**
+             * Animate progress bar on scroll
+             */
+            animateProgress?: boolean | null;
+            /**
+             * Visual theme for the block
+             */
+            theme?: ('light' | 'dark' | 'gradient') | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'donationProgress';
+          }
+        | {
+            /**
+             * Number of stat cards per row
+             */
+            columns: '2' | '3' | '4' | '5';
+            /**
+             * Background color for the section
+             */
+            background: 'white' | 'bege' | 'green';
+            /**
+             * Border color on card hover
+             */
+            hoverBorderColor: 'green' | 'bege';
+            /**
+             * List of stat cards to display
+             */
+            stats: {
+              /**
+               * Optional icon from Lucide (https://lucide.dev/icons/)
+               */
+              icon?:
+                | (
+                    | 'AArrowDown'
+                    | 'AArrowUp'
+                    | 'ALargeSmall'
+                    | 'Accessibility'
+                    | 'Activity'
+                    | 'AirVent'
+                    | 'Airplay'
+                    | 'AlarmClock'
+                    | 'AlarmClockCheck'
+                    | 'AlarmClockMinus'
+                    | 'AlarmClockOff'
+                    | 'AlarmClockPlus'
+                    | 'AlarmSmoke'
+                    | 'Album'
+                    | 'AlignCenterHorizontal'
+                    | 'AlignCenterVertical'
+                    | 'AlignEndHorizontal'
+                    | 'AlignEndVertical'
+                    | 'AlignHorizontalDistributeCenter'
+                    | 'AlignHorizontalDistributeEnd'
+                    | 'AlignHorizontalDistributeStart'
+                    | 'AlignHorizontalJustifyCenter'
+                    | 'AlignHorizontalJustifyEnd'
+                    | 'AlignHorizontalJustifyStart'
+                    | 'AlignHorizontalSpaceAround'
+                    | 'AlignHorizontalSpaceBetween'
+                    | 'AlignStartHorizontal'
+                    | 'AlignStartVertical'
+                    | 'AlignVerticalDistributeCenter'
+                    | 'AlignVerticalDistributeEnd'
+                    | 'AlignVerticalDistributeStart'
+                    | 'AlignVerticalJustifyCenter'
+                    | 'AlignVerticalJustifyEnd'
+                    | 'AlignVerticalJustifyStart'
+                    | 'AlignVerticalSpaceAround'
+                    | 'AlignVerticalSpaceBetween'
+                    | 'Ambulance'
+                    | 'Ampersand'
+                    | 'Ampersands'
+                    | 'Amphora'
+                    | 'Anchor'
+                    | 'Angry'
+                    | 'Annoyed'
+                    | 'Antenna'
+                    | 'Anvil'
+                    | 'Aperture'
+                    | 'AppWindow'
+                    | 'AppWindowMac'
+                    | 'Apple'
+                    | 'Archive'
+                    | 'ArchiveRestore'
+                    | 'ArchiveX'
+                    | 'Armchair'
+                    | 'ArrowBigDown'
+                    | 'ArrowBigDownDash'
+                    | 'ArrowBigLeft'
+                    | 'ArrowBigLeftDash'
+                    | 'ArrowBigRight'
+                    | 'ArrowBigRightDash'
+                    | 'ArrowBigUp'
+                    | 'ArrowBigUpDash'
+                    | 'ArrowDown'
+                    | 'ArrowDown01'
+                    | 'ArrowDown10'
+                    | 'ArrowDownAZ'
+                    | 'ArrowDownFromLine'
+                    | 'ArrowDownLeft'
+                    | 'ArrowDownNarrowWide'
+                    | 'ArrowDownRight'
+                    | 'ArrowDownToDot'
+                    | 'ArrowDownToLine'
+                    | 'ArrowDownUp'
+                    | 'ArrowDownWideNarrow'
+                    | 'ArrowDownZA'
+                    | 'ArrowLeft'
+                    | 'ArrowLeftFromLine'
+                    | 'ArrowLeftRight'
+                    | 'ArrowLeftToLine'
+                    | 'ArrowRight'
+                    | 'ArrowRightFromLine'
+                    | 'ArrowRightLeft'
+                    | 'ArrowRightToLine'
+                    | 'ArrowUp'
+                    | 'ArrowUp01'
+                    | 'ArrowUp10'
+                    | 'ArrowUpAZ'
+                    | 'ArrowUpDown'
+                    | 'ArrowUpFromDot'
+                    | 'ArrowUpFromLine'
+                    | 'ArrowUpLeft'
+                    | 'ArrowUpNarrowWide'
+                    | 'ArrowUpRight'
+                    | 'ArrowUpToLine'
+                    | 'ArrowUpWideNarrow'
+                    | 'ArrowUpZA'
+                    | 'ArrowsUpFromLine'
+                    | 'Asterisk'
+                    | 'AtSign'
+                    | 'Atom'
+                    | 'AudioLines'
+                    | 'AudioWaveform'
+                    | 'Award'
+                    | 'Axe'
+                    | 'Axis3d'
+                    | 'Baby'
+                    | 'Backpack'
+                    | 'Badge'
+                    | 'BadgeAlert'
+                    | 'BadgeCent'
+                    | 'BadgeCheck'
+                    | 'BadgeDollarSign'
+                    | 'BadgeEuro'
+                    | 'BadgeIndianRupee'
+                    | 'BadgeInfo'
+                    | 'BadgeJapaneseYen'
+                    | 'BadgeMinus'
+                    | 'BadgePercent'
+                    | 'BadgePlus'
+                    | 'BadgePoundSterling'
+                    | 'BadgeQuestionMark'
+                    | 'BadgeRussianRuble'
+                    | 'BadgeSwissFranc'
+                    | 'BadgeTurkishLira'
+                    | 'BadgeX'
+                    | 'BaggageClaim'
+                    | 'Balloon'
+                    | 'Ban'
+                    | 'Banana'
+                    | 'Bandage'
+                    | 'Banknote'
+                    | 'BanknoteArrowDown'
+                    | 'BanknoteArrowUp'
+                    | 'BanknoteX'
+                    | 'Barcode'
+                    | 'Barrel'
+                    | 'Baseline'
+                    | 'Bath'
+                    | 'Battery'
+                    | 'BatteryCharging'
+                    | 'BatteryFull'
+                    | 'BatteryLow'
+                    | 'BatteryMedium'
+                    | 'BatteryPlus'
+                    | 'BatteryWarning'
+                    | 'Beaker'
+                    | 'Bean'
+                    | 'BeanOff'
+                    | 'Bed'
+                    | 'BedDouble'
+                    | 'BedSingle'
+                    | 'Beef'
+                    | 'Beer'
+                    | 'BeerOff'
+                    | 'Bell'
+                    | 'BellDot'
+                    | 'BellElectric'
+                    | 'BellMinus'
+                    | 'BellOff'
+                    | 'BellPlus'
+                    | 'BellRing'
+                    | 'BetweenHorizontalEnd'
+                    | 'BetweenHorizontalStart'
+                    | 'BetweenVerticalEnd'
+                    | 'BetweenVerticalStart'
+                    | 'BicepsFlexed'
+                    | 'Bike'
+                    | 'Binary'
+                    | 'Binoculars'
+                    | 'Biohazard'
+                    | 'Bird'
+                    | 'Birdhouse'
+                    | 'Bitcoin'
+                    | 'Blend'
+                    | 'Blinds'
+                    | 'Blocks'
+                    | 'Bluetooth'
+                    | 'BluetoothConnected'
+                    | 'BluetoothOff'
+                    | 'BluetoothSearching'
+                    | 'Bold'
+                    | 'Bolt'
+                    | 'Bomb'
+                    | 'Bone'
+                    | 'Book'
+                    | 'BookA'
+                    | 'BookAlert'
+                    | 'BookAudio'
+                    | 'BookCheck'
+                    | 'BookCopy'
+                    | 'BookDashed'
+                    | 'BookDown'
+                    | 'BookHeadphones'
+                    | 'BookHeart'
+                    | 'BookImage'
+                    | 'BookKey'
+                    | 'BookLock'
+                    | 'BookMarked'
+                    | 'BookMinus'
+                    | 'BookOpen'
+                    | 'BookOpenCheck'
+                    | 'BookOpenText'
+                    | 'BookPlus'
+                    | 'BookSearch'
+                    | 'BookText'
+                    | 'BookType'
+                    | 'BookUp'
+                    | 'BookUp2'
+                    | 'BookUser'
+                    | 'BookX'
+                    | 'Bookmark'
+                    | 'BookmarkCheck'
+                    | 'BookmarkMinus'
+                    | 'BookmarkPlus'
+                    | 'BookmarkX'
+                    | 'BoomBox'
+                    | 'Bot'
+                    | 'BotMessageSquare'
+                    | 'BotOff'
+                    | 'BottleWine'
+                    | 'BowArrow'
+                    | 'Box'
+                    | 'Boxes'
+                    | 'Braces'
+                    | 'Brackets'
+                    | 'Brain'
+                    | 'BrainCircuit'
+                    | 'BrainCog'
+                    | 'BrickWall'
+                    | 'BrickWallFire'
+                    | 'BrickWallShield'
+                    | 'Briefcase'
+                    | 'BriefcaseBusiness'
+                    | 'BriefcaseConveyorBelt'
+                    | 'BriefcaseMedical'
+                    | 'BringToFront'
+                    | 'Brush'
+                    | 'BrushCleaning'
+                    | 'Bubbles'
+                    | 'Bug'
+                    | 'BugOff'
+                    | 'BugPlay'
+                    | 'Building'
+                    | 'Building2'
+                    | 'Bus'
+                    | 'BusFront'
+                    | 'Cable'
+                    | 'CableCar'
+                    | 'Cake'
+                    | 'CakeSlice'
+                    | 'Calculator'
+                    | 'Calendar'
+                    | 'Calendar1'
+                    | 'CalendarArrowDown'
+                    | 'CalendarArrowUp'
+                    | 'CalendarCheck'
+                    | 'CalendarCheck2'
+                    | 'CalendarClock'
+                    | 'CalendarCog'
+                    | 'CalendarDays'
+                    | 'CalendarFold'
+                    | 'CalendarHeart'
+                    | 'CalendarMinus'
+                    | 'CalendarMinus2'
+                    | 'CalendarOff'
+                    | 'CalendarPlus'
+                    | 'CalendarPlus2'
+                    | 'CalendarRange'
+                    | 'CalendarSearch'
+                    | 'CalendarSync'
+                    | 'CalendarX'
+                    | 'CalendarX2'
+                    | 'Calendars'
+                    | 'Camera'
+                    | 'CameraOff'
+                    | 'Candy'
+                    | 'CandyCane'
+                    | 'CandyOff'
+                    | 'Cannabis'
+                    | 'CannabisOff'
+                    | 'Captions'
+                    | 'CaptionsOff'
+                    | 'Car'
+                    | 'CarFront'
+                    | 'CarTaxiFront'
+                    | 'Caravan'
+                    | 'CardSim'
+                    | 'Carrot'
+                    | 'CaseLower'
+                    | 'CaseSensitive'
+                    | 'CaseUpper'
+                    | 'CassetteTape'
+                    | 'Cast'
+                    | 'Castle'
+                    | 'Cat'
+                    | 'Cctv'
+                    | 'ChartArea'
+                    | 'ChartBar'
+                    | 'ChartBarBig'
+                    | 'ChartBarDecreasing'
+                    | 'ChartBarIncreasing'
+                    | 'ChartBarStacked'
+                    | 'ChartCandlestick'
+                    | 'ChartColumn'
+                    | 'ChartColumnBig'
+                    | 'ChartColumnDecreasing'
+                    | 'ChartColumnIncreasing'
+                    | 'ChartColumnStacked'
+                    | 'ChartGantt'
+                    | 'ChartLine'
+                    | 'ChartNetwork'
+                    | 'ChartNoAxesColumn'
+                    | 'ChartNoAxesColumnDecreasing'
+                    | 'ChartNoAxesColumnIncreasing'
+                    | 'ChartNoAxesCombined'
+                    | 'ChartNoAxesGantt'
+                    | 'ChartPie'
+                    | 'ChartScatter'
+                    | 'ChartSpline'
+                    | 'Check'
+                    | 'CheckCheck'
+                    | 'CheckLine'
+                    | 'ChefHat'
+                    | 'Cherry'
+                    | 'ChessBishop'
+                    | 'ChessKing'
+                    | 'ChessKnight'
+                    | 'ChessPawn'
+                    | 'ChessQueen'
+                    | 'ChessRook'
+                    | 'ChevronDown'
+                    | 'ChevronFirst'
+                    | 'ChevronLast'
+                    | 'ChevronLeft'
+                    | 'ChevronRight'
+                    | 'ChevronUp'
+                    | 'ChevronsDown'
+                    | 'ChevronsDownUp'
+                    | 'ChevronsLeft'
+                    | 'ChevronsLeftRight'
+                    | 'ChevronsLeftRightEllipsis'
+                    | 'ChevronsRight'
+                    | 'ChevronsRightLeft'
+                    | 'ChevronsUp'
+                    | 'ChevronsUpDown'
+                    | 'Chromium'
+                    | 'Church'
+                    | 'Cigarette'
+                    | 'CigaretteOff'
+                    | 'Circle'
+                    | 'CircleAlert'
+                    | 'CircleArrowDown'
+                    | 'CircleArrowLeft'
+                    | 'CircleArrowOutDownLeft'
+                    | 'CircleArrowOutDownRight'
+                    | 'CircleArrowOutUpLeft'
+                    | 'CircleArrowOutUpRight'
+                    | 'CircleArrowRight'
+                    | 'CircleArrowUp'
+                    | 'CircleCheck'
+                    | 'CircleCheckBig'
+                    | 'CircleChevronDown'
+                    | 'CircleChevronLeft'
+                    | 'CircleChevronRight'
+                    | 'CircleChevronUp'
+                    | 'CircleDashed'
+                    | 'CircleDivide'
+                    | 'CircleDollarSign'
+                    | 'CircleDot'
+                    | 'CircleDotDashed'
+                    | 'CircleEllipsis'
+                    | 'CircleEqual'
+                    | 'CircleFadingArrowUp'
+                    | 'CircleFadingPlus'
+                    | 'CircleGauge'
+                    | 'CircleMinus'
+                    | 'CircleOff'
+                    | 'CircleParking'
+                    | 'CircleParkingOff'
+                    | 'CirclePause'
+                    | 'CirclePercent'
+                    | 'CirclePile'
+                    | 'CirclePlay'
+                    | 'CirclePlus'
+                    | 'CirclePoundSterling'
+                    | 'CirclePower'
+                    | 'CircleQuestionMark'
+                    | 'CircleSlash'
+                    | 'CircleSlash2'
+                    | 'CircleSmall'
+                    | 'CircleStar'
+                    | 'CircleStop'
+                    | 'CircleUser'
+                    | 'CircleUserRound'
+                    | 'CircleX'
+                    | 'CircuitBoard'
+                    | 'Citrus'
+                    | 'Clapperboard'
+                    | 'Clipboard'
+                    | 'ClipboardCheck'
+                    | 'ClipboardClock'
+                    | 'ClipboardCopy'
+                    | 'ClipboardList'
+                    | 'ClipboardMinus'
+                    | 'ClipboardPaste'
+                    | 'ClipboardPen'
+                    | 'ClipboardPenLine'
+                    | 'ClipboardPlus'
+                    | 'ClipboardType'
+                    | 'ClipboardX'
+                    | 'Clock'
+                    | 'Clock1'
+                    | 'Clock10'
+                    | 'Clock11'
+                    | 'Clock12'
+                    | 'Clock2'
+                    | 'Clock3'
+                    | 'Clock4'
+                    | 'Clock5'
+                    | 'Clock6'
+                    | 'Clock7'
+                    | 'Clock8'
+                    | 'Clock9'
+                    | 'ClockAlert'
+                    | 'ClockArrowDown'
+                    | 'ClockArrowUp'
+                    | 'ClockCheck'
+                    | 'ClockFading'
+                    | 'ClockPlus'
+                    | 'ClosedCaption'
+                    | 'Cloud'
+                    | 'CloudAlert'
+                    | 'CloudBackup'
+                    | 'CloudCheck'
+                    | 'CloudCog'
+                    | 'CloudDownload'
+                    | 'CloudDrizzle'
+                    | 'CloudFog'
+                    | 'CloudHail'
+                    | 'CloudLightning'
+                    | 'CloudMoon'
+                    | 'CloudMoonRain'
+                    | 'CloudOff'
+                    | 'CloudRain'
+                    | 'CloudRainWind'
+                    | 'CloudSnow'
+                    | 'CloudSun'
+                    | 'CloudSunRain'
+                    | 'CloudSync'
+                    | 'CloudUpload'
+                    | 'Cloudy'
+                    | 'Clover'
+                    | 'Club'
+                    | 'Code'
+                    | 'CodeXml'
+                    | 'Codepen'
+                    | 'Codesandbox'
+                    | 'Coffee'
+                    | 'Cog'
+                    | 'Coins'
+                    | 'Columns2'
+                    | 'Columns3'
+                    | 'Columns3Cog'
+                    | 'Columns4'
+                    | 'Combine'
+                    | 'Command'
+                    | 'Compass'
+                    | 'Component'
+                    | 'Computer'
+                    | 'ConciergeBell'
+                    | 'Cone'
+                    | 'Construction'
+                    | 'Contact'
+                    | 'ContactRound'
+                    | 'Container'
+                    | 'Contrast'
+                    | 'Cookie'
+                    | 'CookingPot'
+                    | 'Copy'
+                    | 'CopyCheck'
+                    | 'CopyMinus'
+                    | 'CopyPlus'
+                    | 'CopySlash'
+                    | 'CopyX'
+                    | 'Copyleft'
+                    | 'Copyright'
+                    | 'CornerDownLeft'
+                    | 'CornerDownRight'
+                    | 'CornerLeftDown'
+                    | 'CornerLeftUp'
+                    | 'CornerRightDown'
+                    | 'CornerRightUp'
+                    | 'CornerUpLeft'
+                    | 'CornerUpRight'
+                    | 'Cpu'
+                    | 'CreativeCommons'
+                    | 'CreditCard'
+                    | 'Croissant'
+                    | 'Crop'
+                    | 'Cross'
+                    | 'Crosshair'
+                    | 'Crown'
+                    | 'Cuboid'
+                    | 'CupSoda'
+                    | 'Currency'
+                    | 'Cylinder'
+                    | 'Dam'
+                    | 'Database'
+                    | 'DatabaseBackup'
+                    | 'DatabaseZap'
+                    | 'DecimalsArrowLeft'
+                    | 'DecimalsArrowRight'
+                    | 'Delete'
+                    | 'Dessert'
+                    | 'Diameter'
+                    | 'Diamond'
+                    | 'DiamondMinus'
+                    | 'DiamondPercent'
+                    | 'DiamondPlus'
+                    | 'Dice1'
+                    | 'Dice2'
+                    | 'Dice3'
+                    | 'Dice4'
+                    | 'Dice5'
+                    | 'Dice6'
+                    | 'Dices'
+                    | 'Diff'
+                    | 'Disc'
+                    | 'Disc2'
+                    | 'Disc3'
+                    | 'DiscAlbum'
+                    | 'Divide'
+                    | 'Dna'
+                    | 'DnaOff'
+                    | 'Dock'
+                    | 'Dog'
+                    | 'DollarSign'
+                    | 'Donut'
+                    | 'DoorClosed'
+                    | 'DoorClosedLocked'
+                    | 'DoorOpen'
+                    | 'Dot'
+                    | 'Download'
+                    | 'DraftingCompass'
+                    | 'Drama'
+                    | 'Dribbble'
+                    | 'Drill'
+                    | 'Drone'
+                    | 'Droplet'
+                    | 'DropletOff'
+                    | 'Droplets'
+                    | 'Drum'
+                    | 'Drumstick'
+                    | 'Dumbbell'
+                    | 'Ear'
+                    | 'EarOff'
+                    | 'Earth'
+                    | 'EarthLock'
+                    | 'Eclipse'
+                    | 'Egg'
+                    | 'EggFried'
+                    | 'EggOff'
+                    | 'Ellipsis'
+                    | 'EllipsisVertical'
+                    | 'Equal'
+                    | 'EqualApproximately'
+                    | 'EqualNot'
+                    | 'Eraser'
+                    | 'EthernetPort'
+                    | 'Euro'
+                    | 'EvCharger'
+                    | 'Expand'
+                    | 'ExternalLink'
+                    | 'Eye'
+                    | 'EyeClosed'
+                    | 'EyeOff'
+                    | 'Facebook'
+                    | 'Factory'
+                    | 'Fan'
+                    | 'FastForward'
+                    | 'Feather'
+                    | 'Fence'
+                    | 'FerrisWheel'
+                    | 'Figma'
+                    | 'File'
+                    | 'FileArchive'
+                    | 'FileAxis3d'
+                    | 'FileBadge'
+                    | 'FileBox'
+                    | 'FileBraces'
+                    | 'FileBracesCorner'
+                    | 'FileChartColumn'
+                    | 'FileChartColumnIncreasing'
+                    | 'FileChartLine'
+                    | 'FileChartPie'
+                    | 'FileCheck'
+                    | 'FileCheckCorner'
+                    | 'FileClock'
+                    | 'FileCode'
+                    | 'FileCodeCorner'
+                    | 'FileCog'
+                    | 'FileDiff'
+                    | 'FileDigit'
+                    | 'FileDown'
+                    | 'FileExclamationPoint'
+                    | 'FileHeadphone'
+                    | 'FileHeart'
+                    | 'FileImage'
+                    | 'FileInput'
+                    | 'FileKey'
+                    | 'FileLock'
+                    | 'FileMinus'
+                    | 'FileMinusCorner'
+                    | 'FileMusic'
+                    | 'FileOutput'
+                    | 'FilePen'
+                    | 'FilePenLine'
+                    | 'FilePlay'
+                    | 'FilePlus'
+                    | 'FilePlusCorner'
+                    | 'FileQuestionMark'
+                    | 'FileScan'
+                    | 'FileSearch'
+                    | 'FileSearchCorner'
+                    | 'FileSignal'
+                    | 'FileSliders'
+                    | 'FileSpreadsheet'
+                    | 'FileStack'
+                    | 'FileSymlink'
+                    | 'FileTerminal'
+                    | 'FileText'
+                    | 'FileType'
+                    | 'FileTypeCorner'
+                    | 'FileUp'
+                    | 'FileUser'
+                    | 'FileVideoCamera'
+                    | 'FileVolume'
+                    | 'FileX'
+                    | 'FileXCorner'
+                    | 'Files'
+                    | 'Film'
+                    | 'FingerprintPattern'
+                    | 'FireExtinguisher'
+                    | 'Fish'
+                    | 'FishOff'
+                    | 'FishSymbol'
+                    | 'FishingHook'
+                    | 'Flag'
+                    | 'FlagOff'
+                    | 'FlagTriangleLeft'
+                    | 'FlagTriangleRight'
+                    | 'Flame'
+                    | 'FlameKindling'
+                    | 'Flashlight'
+                    | 'FlashlightOff'
+                    | 'FlaskConical'
+                    | 'FlaskConicalOff'
+                    | 'FlaskRound'
+                    | 'FlipHorizontal'
+                    | 'FlipHorizontal2'
+                    | 'FlipVertical'
+                    | 'FlipVertical2'
+                    | 'Flower'
+                    | 'Flower2'
+                    | 'Focus'
+                    | 'FoldHorizontal'
+                    | 'FoldVertical'
+                    | 'Folder'
+                    | 'FolderArchive'
+                    | 'FolderCheck'
+                    | 'FolderClock'
+                    | 'FolderClosed'
+                    | 'FolderCode'
+                    | 'FolderCog'
+                    | 'FolderDot'
+                    | 'FolderDown'
+                    | 'FolderGit'
+                    | 'FolderGit2'
+                    | 'FolderHeart'
+                    | 'FolderInput'
+                    | 'FolderKanban'
+                    | 'FolderKey'
+                    | 'FolderLock'
+                    | 'FolderMinus'
+                    | 'FolderOpen'
+                    | 'FolderOpenDot'
+                    | 'FolderOutput'
+                    | 'FolderPen'
+                    | 'FolderPlus'
+                    | 'FolderRoot'
+                    | 'FolderSearch'
+                    | 'FolderSearch2'
+                    | 'FolderSymlink'
+                    | 'FolderSync'
+                    | 'FolderTree'
+                    | 'FolderUp'
+                    | 'FolderX'
+                    | 'Folders'
+                    | 'Footprints'
+                    | 'Forklift'
+                    | 'Form'
+                    | 'Forward'
+                    | 'Frame'
+                    | 'Framer'
+                    | 'Frown'
+                    | 'Fuel'
+                    | 'Fullscreen'
+                    | 'Funnel'
+                    | 'FunnelPlus'
+                    | 'FunnelX'
+                    | 'GalleryHorizontal'
+                    | 'GalleryHorizontalEnd'
+                    | 'GalleryThumbnails'
+                    | 'GalleryVertical'
+                    | 'GalleryVerticalEnd'
+                    | 'Gamepad'
+                    | 'Gamepad2'
+                    | 'GamepadDirectional'
+                    | 'Gauge'
+                    | 'Gavel'
+                    | 'Gem'
+                    | 'GeorgianLari'
+                    | 'Ghost'
+                    | 'Gift'
+                    | 'GitBranch'
+                    | 'GitBranchMinus'
+                    | 'GitBranchPlus'
+                    | 'GitCommitHorizontal'
+                    | 'GitCommitVertical'
+                    | 'GitCompare'
+                    | 'GitCompareArrows'
+                    | 'GitFork'
+                    | 'GitGraph'
+                    | 'GitMerge'
+                    | 'GitPullRequest'
+                    | 'GitPullRequestArrow'
+                    | 'GitPullRequestClosed'
+                    | 'GitPullRequestCreate'
+                    | 'GitPullRequestCreateArrow'
+                    | 'GitPullRequestDraft'
+                    | 'Github'
+                    | 'Gitlab'
+                    | 'GlassWater'
+                    | 'Glasses'
+                    | 'Globe'
+                    | 'GlobeLock'
+                    | 'Goal'
+                    | 'Gpu'
+                    | 'GraduationCap'
+                    | 'Grape'
+                    | 'Grid2x2'
+                    | 'Grid2x2Check'
+                    | 'Grid2x2Plus'
+                    | 'Grid2x2X'
+                    | 'Grid3x2'
+                    | 'Grid3x3'
+                    | 'Grip'
+                    | 'GripHorizontal'
+                    | 'GripVertical'
+                    | 'Group'
+                    | 'Guitar'
+                    | 'Ham'
+                    | 'Hamburger'
+                    | 'Hammer'
+                    | 'Hand'
+                    | 'HandCoins'
+                    | 'HandFist'
+                    | 'HandGrab'
+                    | 'HandHeart'
+                    | 'HandHelping'
+                    | 'HandMetal'
+                    | 'HandPlatter'
+                    | 'Handbag'
+                    | 'Handshake'
+                    | 'HardDrive'
+                    | 'HardDriveDownload'
+                    | 'HardDriveUpload'
+                    | 'HardHat'
+                    | 'Hash'
+                    | 'HatGlasses'
+                    | 'Haze'
+                    | 'Hd'
+                    | 'HdmiPort'
+                    | 'Heading'
+                    | 'Heading1'
+                    | 'Heading2'
+                    | 'Heading3'
+                    | 'Heading4'
+                    | 'Heading5'
+                    | 'Heading6'
+                    | 'HeadphoneOff'
+                    | 'Headphones'
+                    | 'Headset'
+                    | 'Heart'
+                    | 'HeartCrack'
+                    | 'HeartHandshake'
+                    | 'HeartMinus'
+                    | 'HeartOff'
+                    | 'HeartPlus'
+                    | 'HeartPulse'
+                    | 'Heater'
+                    | 'Helicopter'
+                    | 'Hexagon'
+                    | 'Highlighter'
+                    | 'History'
+                    | 'Hop'
+                    | 'HopOff'
+                    | 'Hospital'
+                    | 'Hotel'
+                    | 'Hourglass'
+                    | 'House'
+                    | 'HouseHeart'
+                    | 'HousePlug'
+                    | 'HousePlus'
+                    | 'HouseWifi'
+                    | 'IceCreamBowl'
+                    | 'IceCreamCone'
+                    | 'IdCard'
+                    | 'IdCardLanyard'
+                    | 'Image'
+                    | 'ImageDown'
+                    | 'ImageMinus'
+                    | 'ImageOff'
+                    | 'ImagePlay'
+                    | 'ImagePlus'
+                    | 'ImageUp'
+                    | 'ImageUpscale'
+                    | 'Images'
+                    | 'Import'
+                    | 'Inbox'
+                    | 'IndianRupee'
+                    | 'Infinity'
+                    | 'Info'
+                    | 'InspectionPanel'
+                    | 'Instagram'
+                    | 'Italic'
+                    | 'IterationCcw'
+                    | 'IterationCw'
+                    | 'JapaneseYen'
+                    | 'Joystick'
+                    | 'Kanban'
+                    | 'Kayak'
+                    | 'Key'
+                    | 'KeyRound'
+                    | 'KeySquare'
+                    | 'Keyboard'
+                    | 'KeyboardMusic'
+                    | 'KeyboardOff'
+                    | 'Lamp'
+                    | 'LampCeiling'
+                    | 'LampDesk'
+                    | 'LampFloor'
+                    | 'LampWallDown'
+                    | 'LampWallUp'
+                    | 'LandPlot'
+                    | 'Landmark'
+                    | 'Languages'
+                    | 'Laptop'
+                    | 'LaptopMinimal'
+                    | 'LaptopMinimalCheck'
+                    | 'Lasso'
+                    | 'LassoSelect'
+                    | 'Laugh'
+                    | 'Layers'
+                    | 'Layers2'
+                    | 'LayersPlus'
+                    | 'LayoutDashboard'
+                    | 'LayoutGrid'
+                    | 'LayoutList'
+                    | 'LayoutPanelLeft'
+                    | 'LayoutPanelTop'
+                    | 'LayoutTemplate'
+                    | 'Leaf'
+                    | 'LeafyGreen'
+                    | 'Lectern'
+                    | 'Library'
+                    | 'LibraryBig'
+                    | 'LifeBuoy'
+                    | 'Ligature'
+                    | 'Lightbulb'
+                    | 'LightbulbOff'
+                    | 'LineSquiggle'
+                    | 'Link'
+                    | 'Link2'
+                    | 'Link2Off'
+                    | 'Linkedin'
+                    | 'List'
+                    | 'ListCheck'
+                    | 'ListChecks'
+                    | 'ListChevronsDownUp'
+                    | 'ListChevronsUpDown'
+                    | 'ListCollapse'
+                    | 'ListEnd'
+                    | 'ListFilter'
+                    | 'ListFilterPlus'
+                    | 'ListIndentDecrease'
+                    | 'ListIndentIncrease'
+                    | 'ListMinus'
+                    | 'ListMusic'
+                    | 'ListOrdered'
+                    | 'ListPlus'
+                    | 'ListRestart'
+                    | 'ListStart'
+                    | 'ListTodo'
+                    | 'ListTree'
+                    | 'ListVideo'
+                    | 'ListX'
+                    | 'Loader'
+                    | 'LoaderCircle'
+                    | 'LoaderPinwheel'
+                    | 'Locate'
+                    | 'LocateFixed'
+                    | 'LocateOff'
+                    | 'Lock'
+                    | 'LockKeyhole'
+                    | 'LockKeyholeOpen'
+                    | 'LockOpen'
+                    | 'LogIn'
+                    | 'LogOut'
+                    | 'Logs'
+                    | 'Lollipop'
+                    | 'Luggage'
+                    | 'Magnet'
+                    | 'Mail'
+                    | 'MailCheck'
+                    | 'MailMinus'
+                    | 'MailOpen'
+                    | 'MailPlus'
+                    | 'MailQuestionMark'
+                    | 'MailSearch'
+                    | 'MailWarning'
+                    | 'MailX'
+                    | 'Mailbox'
+                    | 'Mails'
+                    | 'Map'
+                    | 'MapMinus'
+                    | 'MapPin'
+                    | 'MapPinCheck'
+                    | 'MapPinCheckInside'
+                    | 'MapPinHouse'
+                    | 'MapPinMinus'
+                    | 'MapPinMinusInside'
+                    | 'MapPinOff'
+                    | 'MapPinPen'
+                    | 'MapPinPlus'
+                    | 'MapPinPlusInside'
+                    | 'MapPinX'
+                    | 'MapPinXInside'
+                    | 'MapPinned'
+                    | 'MapPlus'
+                    | 'Mars'
+                    | 'MarsStroke'
+                    | 'Martini'
+                    | 'Maximize'
+                    | 'Maximize2'
+                    | 'Medal'
+                    | 'Megaphone'
+                    | 'MegaphoneOff'
+                    | 'Meh'
+                    | 'MemoryStick'
+                    | 'Menu'
+                    | 'Merge'
+                    | 'MessageCircle'
+                    | 'MessageCircleCode'
+                    | 'MessageCircleDashed'
+                    | 'MessageCircleHeart'
+                    | 'MessageCircleMore'
+                    | 'MessageCircleOff'
+                    | 'MessageCirclePlus'
+                    | 'MessageCircleQuestionMark'
+                    | 'MessageCircleReply'
+                    | 'MessageCircleWarning'
+                    | 'MessageCircleX'
+                    | 'MessageSquare'
+                    | 'MessageSquareCode'
+                    | 'MessageSquareDashed'
+                    | 'MessageSquareDiff'
+                    | 'MessageSquareDot'
+                    | 'MessageSquareHeart'
+                    | 'MessageSquareLock'
+                    | 'MessageSquareMore'
+                    | 'MessageSquareOff'
+                    | 'MessageSquarePlus'
+                    | 'MessageSquareQuote'
+                    | 'MessageSquareReply'
+                    | 'MessageSquareShare'
+                    | 'MessageSquareText'
+                    | 'MessageSquareWarning'
+                    | 'MessageSquareX'
+                    | 'MessagesSquare'
+                    | 'Mic'
+                    | 'MicOff'
+                    | 'MicVocal'
+                    | 'Microchip'
+                    | 'Microscope'
+                    | 'Microwave'
+                    | 'Milestone'
+                    | 'Milk'
+                    | 'MilkOff'
+                    | 'Minimize'
+                    | 'Minimize2'
+                    | 'Minus'
+                    | 'Monitor'
+                    | 'MonitorCheck'
+                    | 'MonitorCloud'
+                    | 'MonitorCog'
+                    | 'MonitorDot'
+                    | 'MonitorDown'
+                    | 'MonitorOff'
+                    | 'MonitorPause'
+                    | 'MonitorPlay'
+                    | 'MonitorSmartphone'
+                    | 'MonitorSpeaker'
+                    | 'MonitorStop'
+                    | 'MonitorUp'
+                    | 'MonitorX'
+                    | 'Moon'
+                    | 'MoonStar'
+                    | 'Motorbike'
+                    | 'Mountain'
+                    | 'MountainSnow'
+                    | 'Mouse'
+                    | 'MouseOff'
+                    | 'MousePointer'
+                    | 'MousePointer2'
+                    | 'MousePointer2Off'
+                    | 'MousePointerBan'
+                    | 'MousePointerClick'
+                    | 'Move'
+                    | 'Move3d'
+                    | 'MoveDiagonal'
+                    | 'MoveDiagonal2'
+                    | 'MoveDown'
+                    | 'MoveDownLeft'
+                    | 'MoveDownRight'
+                    | 'MoveHorizontal'
+                    | 'MoveLeft'
+                    | 'MoveRight'
+                    | 'MoveUp'
+                    | 'MoveUpLeft'
+                    | 'MoveUpRight'
+                    | 'MoveVertical'
+                    | 'Music'
+                    | 'Music2'
+                    | 'Music3'
+                    | 'Music4'
+                    | 'Navigation'
+                    | 'Navigation2'
+                    | 'Navigation2Off'
+                    | 'NavigationOff'
+                    | 'Network'
+                    | 'Newspaper'
+                    | 'Nfc'
+                    | 'NonBinary'
+                    | 'Notebook'
+                    | 'NotebookPen'
+                    | 'NotebookTabs'
+                    | 'NotebookText'
+                    | 'NotepadText'
+                    | 'NotepadTextDashed'
+                    | 'Nut'
+                    | 'NutOff'
+                    | 'Octagon'
+                    | 'OctagonAlert'
+                    | 'OctagonMinus'
+                    | 'OctagonPause'
+                    | 'OctagonX'
+                    | 'Omega'
+                    | 'Option'
+                    | 'Orbit'
+                    | 'Origami'
+                    | 'Package'
+                    | 'Package2'
+                    | 'PackageCheck'
+                    | 'PackageMinus'
+                    | 'PackageOpen'
+                    | 'PackagePlus'
+                    | 'PackageSearch'
+                    | 'PackageX'
+                    | 'PaintBucket'
+                    | 'PaintRoller'
+                    | 'Paintbrush'
+                    | 'PaintbrushVertical'
+                    | 'Palette'
+                    | 'Panda'
+                    | 'PanelBottom'
+                    | 'PanelBottomClose'
+                    | 'PanelBottomDashed'
+                    | 'PanelBottomOpen'
+                    | 'PanelLeft'
+                    | 'PanelLeftClose'
+                    | 'PanelLeftDashed'
+                    | 'PanelLeftOpen'
+                    | 'PanelLeftRightDashed'
+                    | 'PanelRight'
+                    | 'PanelRightClose'
+                    | 'PanelRightDashed'
+                    | 'PanelRightOpen'
+                    | 'PanelTop'
+                    | 'PanelTopBottomDashed'
+                    | 'PanelTopClose'
+                    | 'PanelTopDashed'
+                    | 'PanelTopOpen'
+                    | 'PanelsLeftBottom'
+                    | 'PanelsRightBottom'
+                    | 'PanelsTopLeft'
+                    | 'Paperclip'
+                    | 'Parentheses'
+                    | 'ParkingMeter'
+                    | 'PartyPopper'
+                    | 'Pause'
+                    | 'PawPrint'
+                    | 'PcCase'
+                    | 'Pen'
+                    | 'PenLine'
+                    | 'PenOff'
+                    | 'PenTool'
+                    | 'Pencil'
+                    | 'PencilLine'
+                    | 'PencilOff'
+                    | 'PencilRuler'
+                    | 'Pentagon'
+                    | 'Percent'
+                    | 'PersonStanding'
+                    | 'PhilippinePeso'
+                    | 'Phone'
+                    | 'PhoneCall'
+                    | 'PhoneForwarded'
+                    | 'PhoneIncoming'
+                    | 'PhoneMissed'
+                    | 'PhoneOff'
+                    | 'PhoneOutgoing'
+                    | 'Pi'
+                    | 'Piano'
+                    | 'Pickaxe'
+                    | 'PictureInPicture'
+                    | 'PictureInPicture2'
+                    | 'PiggyBank'
+                    | 'Pilcrow'
+                    | 'PilcrowLeft'
+                    | 'PilcrowRight'
+                    | 'Pill'
+                    | 'PillBottle'
+                    | 'Pin'
+                    | 'PinOff'
+                    | 'Pipette'
+                    | 'Pizza'
+                    | 'Plane'
+                    | 'PlaneLanding'
+                    | 'PlaneTakeoff'
+                    | 'Play'
+                    | 'Plug'
+                    | 'Plug2'
+                    | 'PlugZap'
+                    | 'Plus'
+                    | 'Pocket'
+                    | 'PocketKnife'
+                    | 'Podcast'
+                    | 'Pointer'
+                    | 'PointerOff'
+                    | 'Popcorn'
+                    | 'Popsicle'
+                    | 'PoundSterling'
+                    | 'Power'
+                    | 'PowerOff'
+                    | 'Presentation'
+                    | 'Printer'
+                    | 'PrinterCheck'
+                    | 'Projector'
+                    | 'Proportions'
+                    | 'Puzzle'
+                    | 'Pyramid'
+                    | 'QrCode'
+                    | 'Quote'
+                    | 'Rabbit'
+                    | 'Radar'
+                    | 'Radiation'
+                    | 'Radical'
+                    | 'Radio'
+                    | 'RadioReceiver'
+                    | 'RadioTower'
+                    | 'Radius'
+                    | 'RailSymbol'
+                    | 'Rainbow'
+                    | 'Rat'
+                    | 'Ratio'
+                    | 'Receipt'
+                    | 'ReceiptCent'
+                    | 'ReceiptEuro'
+                    | 'ReceiptIndianRupee'
+                    | 'ReceiptJapaneseYen'
+                    | 'ReceiptPoundSterling'
+                    | 'ReceiptRussianRuble'
+                    | 'ReceiptSwissFranc'
+                    | 'ReceiptText'
+                    | 'ReceiptTurkishLira'
+                    | 'RectangleCircle'
+                    | 'RectangleEllipsis'
+                    | 'RectangleGoggles'
+                    | 'RectangleHorizontal'
+                    | 'RectangleVertical'
+                    | 'Recycle'
+                    | 'Redo'
+                    | 'Redo2'
+                    | 'RedoDot'
+                    | 'RefreshCcw'
+                    | 'RefreshCcwDot'
+                    | 'RefreshCw'
+                    | 'RefreshCwOff'
+                    | 'Refrigerator'
+                    | 'Regex'
+                    | 'RemoveFormatting'
+                    | 'Repeat'
+                    | 'Repeat1'
+                    | 'Repeat2'
+                    | 'Replace'
+                    | 'ReplaceAll'
+                    | 'Reply'
+                    | 'ReplyAll'
+                    | 'Rewind'
+                    | 'Ribbon'
+                    | 'Rocket'
+                    | 'RockingChair'
+                    | 'RollerCoaster'
+                    | 'Rose'
+                    | 'Rotate3d'
+                    | 'RotateCcw'
+                    | 'RotateCcwKey'
+                    | 'RotateCcwSquare'
+                    | 'RotateCw'
+                    | 'RotateCwSquare'
+                    | 'Route'
+                    | 'RouteOff'
+                    | 'Router'
+                    | 'Rows2'
+                    | 'Rows3'
+                    | 'Rows4'
+                    | 'Rss'
+                    | 'Ruler'
+                    | 'RulerDimensionLine'
+                    | 'RussianRuble'
+                    | 'Sailboat'
+                    | 'Salad'
+                    | 'Sandwich'
+                    | 'Satellite'
+                    | 'SatelliteDish'
+                    | 'SaudiRiyal'
+                    | 'Save'
+                    | 'SaveAll'
+                    | 'SaveOff'
+                    | 'Scale'
+                    | 'Scale3d'
+                    | 'Scaling'
+                    | 'Scan'
+                    | 'ScanBarcode'
+                    | 'ScanEye'
+                    | 'ScanFace'
+                    | 'ScanHeart'
+                    | 'ScanLine'
+                    | 'ScanQrCode'
+                    | 'ScanSearch'
+                    | 'ScanText'
+                    | 'School'
+                    | 'Scissors'
+                    | 'ScissorsLineDashed'
+                    | 'Scooter'
+                    | 'ScreenShare'
+                    | 'ScreenShareOff'
+                    | 'Scroll'
+                    | 'ScrollText'
+                    | 'Search'
+                    | 'SearchAlert'
+                    | 'SearchCheck'
+                    | 'SearchCode'
+                    | 'SearchSlash'
+                    | 'SearchX'
+                    | 'Section'
+                    | 'Send'
+                    | 'SendHorizontal'
+                    | 'SendToBack'
+                    | 'SeparatorHorizontal'
+                    | 'SeparatorVertical'
+                    | 'Server'
+                    | 'ServerCog'
+                    | 'ServerCrash'
+                    | 'ServerOff'
+                    | 'Settings'
+                    | 'Settings2'
+                    | 'Shapes'
+                    | 'Share'
+                    | 'Share2'
+                    | 'Sheet'
+                    | 'Shell'
+                    | 'Shield'
+                    | 'ShieldAlert'
+                    | 'ShieldBan'
+                    | 'ShieldCheck'
+                    | 'ShieldEllipsis'
+                    | 'ShieldHalf'
+                    | 'ShieldMinus'
+                    | 'ShieldOff'
+                    | 'ShieldPlus'
+                    | 'ShieldQuestionMark'
+                    | 'ShieldUser'
+                    | 'ShieldX'
+                    | 'Ship'
+                    | 'ShipWheel'
+                    | 'Shirt'
+                    | 'ShoppingBag'
+                    | 'ShoppingBasket'
+                    | 'ShoppingCart'
+                    | 'Shovel'
+                    | 'ShowerHead'
+                    | 'Shredder'
+                    | 'Shrimp'
+                    | 'Shrink'
+                    | 'Shrub'
+                    | 'Shuffle'
+                    | 'Sigma'
+                    | 'Signal'
+                    | 'SignalHigh'
+                    | 'SignalLow'
+                    | 'SignalMedium'
+                    | 'SignalZero'
+                    | 'Signature'
+                    | 'Signpost'
+                    | 'SignpostBig'
+                    | 'Siren'
+                    | 'SkipBack'
+                    | 'SkipForward'
+                    | 'Skull'
+                    | 'Slack'
+                    | 'Slash'
+                    | 'Slice'
+                    | 'SlidersHorizontal'
+                    | 'SlidersVertical'
+                    | 'Smartphone'
+                    | 'SmartphoneCharging'
+                    | 'SmartphoneNfc'
+                    | 'Smile'
+                    | 'SmilePlus'
+                    | 'Snail'
+                    | 'Snowflake'
+                    | 'SoapDispenserDroplet'
+                    | 'Sofa'
+                    | 'SolarPanel'
+                    | 'Soup'
+                    | 'Space'
+                    | 'Spade'
+                    | 'Sparkle'
+                    | 'Sparkles'
+                    | 'Speaker'
+                    | 'Speech'
+                    | 'SpellCheck'
+                    | 'SpellCheck2'
+                    | 'Spline'
+                    | 'SplinePointer'
+                    | 'Split'
+                    | 'Spool'
+                    | 'Spotlight'
+                    | 'SprayCan'
+                    | 'Sprout'
+                    | 'Square'
+                    | 'SquareActivity'
+                    | 'SquareArrowDown'
+                    | 'SquareArrowDownLeft'
+                    | 'SquareArrowDownRight'
+                    | 'SquareArrowLeft'
+                    | 'SquareArrowOutDownLeft'
+                    | 'SquareArrowOutDownRight'
+                    | 'SquareArrowOutUpLeft'
+                    | 'SquareArrowOutUpRight'
+                    | 'SquareArrowRight'
+                    | 'SquareArrowUp'
+                    | 'SquareArrowUpLeft'
+                    | 'SquareArrowUpRight'
+                    | 'SquareAsterisk'
+                    | 'SquareBottomDashedScissors'
+                    | 'SquareChartGantt'
+                    | 'SquareCheck'
+                    | 'SquareCheckBig'
+                    | 'SquareChevronDown'
+                    | 'SquareChevronLeft'
+                    | 'SquareChevronRight'
+                    | 'SquareChevronUp'
+                    | 'SquareCode'
+                    | 'SquareDashed'
+                    | 'SquareDashedBottom'
+                    | 'SquareDashedBottomCode'
+                    | 'SquareDashedKanban'
+                    | 'SquareDashedMousePointer'
+                    | 'SquareDashedTopSolid'
+                    | 'SquareDivide'
+                    | 'SquareDot'
+                    | 'SquareEqual'
+                    | 'SquareFunction'
+                    | 'SquareKanban'
+                    | 'SquareLibrary'
+                    | 'SquareM'
+                    | 'SquareMenu'
+                    | 'SquareMinus'
+                    | 'SquareMousePointer'
+                    | 'SquareParking'
+                    | 'SquareParkingOff'
+                    | 'SquarePause'
+                    | 'SquarePen'
+                    | 'SquarePercent'
+                    | 'SquarePi'
+                    | 'SquarePilcrow'
+                    | 'SquarePlay'
+                    | 'SquarePlus'
+                    | 'SquarePower'
+                    | 'SquareRadical'
+                    | 'SquareRoundCorner'
+                    | 'SquareScissors'
+                    | 'SquareSigma'
+                    | 'SquareSlash'
+                    | 'SquareSplitHorizontal'
+                    | 'SquareSplitVertical'
+                    | 'SquareSquare'
+                    | 'SquareStack'
+                    | 'SquareStar'
+                    | 'SquareStop'
+                    | 'SquareTerminal'
+                    | 'SquareUser'
+                    | 'SquareUserRound'
+                    | 'SquareX'
+                    | 'SquaresExclude'
+                    | 'SquaresIntersect'
+                    | 'SquaresSubtract'
+                    | 'SquaresUnite'
+                    | 'Squircle'
+                    | 'SquircleDashed'
+                    | 'Squirrel'
+                    | 'Stamp'
+                    | 'Star'
+                    | 'StarHalf'
+                    | 'StarOff'
+                    | 'StepBack'
+                    | 'StepForward'
+                    | 'Stethoscope'
+                    | 'Sticker'
+                    | 'StickyNote'
+                    | 'Stone'
+                    | 'Store'
+                    | 'StretchHorizontal'
+                    | 'StretchVertical'
+                    | 'Strikethrough'
+                    | 'Subscript'
+                    | 'Sun'
+                    | 'SunDim'
+                    | 'SunMedium'
+                    | 'SunMoon'
+                    | 'SunSnow'
+                    | 'Sunrise'
+                    | 'Sunset'
+                    | 'Superscript'
+                    | 'SwatchBook'
+                    | 'SwissFranc'
+                    | 'SwitchCamera'
+                    | 'Sword'
+                    | 'Swords'
+                    | 'Syringe'
+                    | 'Table'
+                    | 'Table2'
+                    | 'TableCellsMerge'
+                    | 'TableCellsSplit'
+                    | 'TableColumnsSplit'
+                    | 'TableOfContents'
+                    | 'TableProperties'
+                    | 'TableRowsSplit'
+                    | 'Tablet'
+                    | 'TabletSmartphone'
+                    | 'Tablets'
+                    | 'Tag'
+                    | 'Tags'
+                    | 'Tally1'
+                    | 'Tally2'
+                    | 'Tally3'
+                    | 'Tally4'
+                    | 'Tally5'
+                    | 'Tangent'
+                    | 'Target'
+                    | 'Telescope'
+                    | 'Tent'
+                    | 'TentTree'
+                    | 'Terminal'
+                    | 'TestTube'
+                    | 'TestTubeDiagonal'
+                    | 'TestTubes'
+                    | 'TextAlignCenter'
+                    | 'TextAlignEnd'
+                    | 'TextAlignJustify'
+                    | 'TextAlignStart'
+                    | 'TextCursor'
+                    | 'TextCursorInput'
+                    | 'TextInitial'
+                    | 'TextQuote'
+                    | 'TextSearch'
+                    | 'TextSelect'
+                    | 'TextWrap'
+                    | 'Theater'
+                    | 'Thermometer'
+                    | 'ThermometerSnowflake'
+                    | 'ThermometerSun'
+                    | 'ThumbsDown'
+                    | 'ThumbsUp'
+                    | 'Ticket'
+                    | 'TicketCheck'
+                    | 'TicketMinus'
+                    | 'TicketPercent'
+                    | 'TicketPlus'
+                    | 'TicketSlash'
+                    | 'TicketX'
+                    | 'Tickets'
+                    | 'TicketsPlane'
+                    | 'Timer'
+                    | 'TimerOff'
+                    | 'TimerReset'
+                    | 'ToggleLeft'
+                    | 'ToggleRight'
+                    | 'Toilet'
+                    | 'ToolCase'
+                    | 'Tornado'
+                    | 'Torus'
+                    | 'Touchpad'
+                    | 'TouchpadOff'
+                    | 'TowerControl'
+                    | 'ToyBrick'
+                    | 'Tractor'
+                    | 'TrafficCone'
+                    | 'TrainFront'
+                    | 'TrainFrontTunnel'
+                    | 'TrainTrack'
+                    | 'TramFront'
+                    | 'Transgender'
+                    | 'Trash'
+                    | 'Trash2'
+                    | 'TreeDeciduous'
+                    | 'TreePalm'
+                    | 'TreePine'
+                    | 'Trees'
+                    | 'Trello'
+                    | 'TrendingDown'
+                    | 'TrendingUp'
+                    | 'TrendingUpDown'
+                    | 'Triangle'
+                    | 'TriangleAlert'
+                    | 'TriangleDashed'
+                    | 'TriangleRight'
+                    | 'Trophy'
+                    | 'Truck'
+                    | 'TruckElectric'
+                    | 'TurkishLira'
+                    | 'Turntable'
+                    | 'Turtle'
+                    | 'Tv'
+                    | 'TvMinimal'
+                    | 'TvMinimalPlay'
+                    | 'Twitch'
+                    | 'Twitter'
+                    | 'Type'
+                    | 'TypeOutline'
+                    | 'Umbrella'
+                    | 'UmbrellaOff'
+                    | 'Underline'
+                    | 'Undo'
+                    | 'Undo2'
+                    | 'UndoDot'
+                    | 'UnfoldHorizontal'
+                    | 'UnfoldVertical'
+                    | 'Ungroup'
+                    | 'University'
+                    | 'Unlink'
+                    | 'Unlink2'
+                    | 'Unplug'
+                    | 'Upload'
+                    | 'Usb'
+                    | 'User'
+                    | 'UserCheck'
+                    | 'UserCog'
+                    | 'UserLock'
+                    | 'UserMinus'
+                    | 'UserPen'
+                    | 'UserPlus'
+                    | 'UserRound'
+                    | 'UserRoundCheck'
+                    | 'UserRoundCog'
+                    | 'UserRoundMinus'
+                    | 'UserRoundPen'
+                    | 'UserRoundPlus'
+                    | 'UserRoundSearch'
+                    | 'UserRoundX'
+                    | 'UserSearch'
+                    | 'UserStar'
+                    | 'UserX'
+                    | 'Users'
+                    | 'UsersRound'
+                    | 'Utensils'
+                    | 'UtensilsCrossed'
+                    | 'UtilityPole'
+                    | 'Van'
+                    | 'Variable'
+                    | 'Vault'
+                    | 'VectorSquare'
+                    | 'Vegan'
+                    | 'VenetianMask'
+                    | 'Venus'
+                    | 'VenusAndMars'
+                    | 'Vibrate'
+                    | 'VibrateOff'
+                    | 'Video'
+                    | 'VideoOff'
+                    | 'Videotape'
+                    | 'View'
+                    | 'Voicemail'
+                    | 'Volleyball'
+                    | 'Volume'
+                    | 'Volume1'
+                    | 'Volume2'
+                    | 'VolumeOff'
+                    | 'VolumeX'
+                    | 'Vote'
+                    | 'Wallet'
+                    | 'WalletCards'
+                    | 'WalletMinimal'
+                    | 'Wallpaper'
+                    | 'Wand'
+                    | 'WandSparkles'
+                    | 'Warehouse'
+                    | 'WashingMachine'
+                    | 'Watch'
+                    | 'Waves'
+                    | 'WavesArrowDown'
+                    | 'WavesArrowUp'
+                    | 'WavesLadder'
+                    | 'Waypoints'
+                    | 'Webcam'
+                    | 'Webhook'
+                    | 'WebhookOff'
+                    | 'Weight'
+                    | 'WeightTilde'
+                    | 'Wheat'
+                    | 'WheatOff'
+                    | 'WholeWord'
+                    | 'Wifi'
+                    | 'WifiCog'
+                    | 'WifiHigh'
+                    | 'WifiLow'
+                    | 'WifiOff'
+                    | 'WifiPen'
+                    | 'WifiSync'
+                    | 'WifiZero'
+                    | 'Wind'
+                    | 'WindArrowDown'
+                    | 'Wine'
+                    | 'WineOff'
+                    | 'Workflow'
+                    | 'Worm'
+                    | 'Wrench'
+                    | 'X'
+                    | 'Youtube'
+                    | 'Zap'
+                    | 'ZapOff'
+                    | 'ZoomIn'
+                    | 'ZoomOut'
+                  )
+                | null;
+              /**
+               * Horizontal alignment of the icon
+               */
+              iconAlign?: ('left' | 'center' | 'right') | null;
+              /**
+               * Optional stat title or value (e.g., "500+", "10K Users")
+               */
+              title?: string | null;
+              /**
+               * Horizontal alignment of the title
+               */
+              titleAlign?: ('left' | 'center' | 'right') | null;
+              /**
+               * Optional description or label for the stat
+               */
+              description?: string | null;
+              /**
+               * Horizontal alignment of the description
+               */
+              descriptionAlign?: ('left' | 'center' | 'right') | null;
+              id?: string | null;
+            }[];
+            /**
+             * Optional CTA buttons (max 2)
+             */
+            links?:
+              | {
+                  link: LinkField;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'statsBlock';
+          }
+        | {
+            /**
+             * Section title
+             */
+            title?: string | null;
+            /**
+             * Section description
+             */
+            subtitle?: string | null;
+            /**
+             * List of events to display
+             */
+            events?:
+              | {
+                  title: string;
+                  description?: string | null;
+                  date: string;
+                  /**
+                   * Optional end date for multi-day events
+                   */
+                  endDate?: string | null;
+                  location?: string | null;
+                  category?: ('workshop' | 'meeting' | 'fundraiser' | 'social' | 'community' | 'youth') | null;
+                  image?: ImageType;
+                  /**
+                   * Link to registration or more info
+                   */
+                  registrationLink?: string | null;
+                  isFeatured?: boolean | null;
+                  /**
+                   * Maximum number of participants (optional)
+                   */
+                  maxParticipants?: number | null;
+                  /**
+                   * Number of spots remaining
+                   */
+                  spotsRemaining?: number | null;
+                  id?: string | null;
+                }[]
+              | null;
+            layout?: ('list' | 'grid' | 'timeline') | null;
+            /**
+             * Include past events in the list
+             */
+            showPastEvents?: boolean | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'eventList';
+          }
+        | {
+            title?: string | null;
+            items?:
+              | {
+                  question: string;
+                  answer: string;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faq';
+          }
+        | {
+            title?: string | null;
+            beforeImage: ImageType;
+            afterImage: ImageType;
+            /**
+             * Label for the before image
+             */
+            beforeLabel?: string | null;
+            /**
+             * Label for the after image
+             */
+            afterLabel?: string | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageComparisonSlider';
+          }
+        | {
+            title?: string | null;
+            address: string;
+            latitude: number;
+            longitude: number;
+            phone?: string | null;
+            email?: string | null;
+            /**
+             * Operating hours
+             */
+            hours?: string | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'mapLocation';
+          }
+        | {
+            title: string;
+            description?: string | null;
+            buttonText?: string | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'newsletterSignup';
+          }
+        | {
+            /**
+             * Section title
+             */
+            title?: string | null;
+            /**
+             * Section subtitle or description
+             */
+            subtitle?: string | null;
+            /**
+             * Pricing tiers (up to 4)
+             */
+            tiers?:
+              | {
+                  /**
+                   * Tier name (e.g., "Bronze", "Silver", "Gold")
+                   */
+                  name: string;
+                  /**
+                   * Price amount
+                   */
+                  price: number;
+                  /**
+                   * Currency symbol
+                   */
+                  currency?: string | null;
+                  /**
+                   * Billing period (e.g., "/month", "/year", "one-time")
+                   */
+                  period?: string | null;
+                  /**
+                   * Brief description of this tier
+                   */
+                  description?: string | null;
+                  /**
+                   * List of features included in this tier
+                   */
+                  features?:
+                    | {
+                        feature: string;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  /**
+                   * CTA button text
+                   */
+                  buttonText?: string | null;
+                  /**
+                   * CTA button URL
+                   */
+                  buttonLink?: string | null;
+                  /**
+                   * Mark this tier as featured/recommended
+                   */
+                  highlighted?: boolean | null;
+                  /**
+                   * Optional badge text (e.g., "Most Popular", "Best Value")
+                   */
+                  badge?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'pricingTable';
+          }
+        | {
+            quote: string;
+            author: string;
+            authorTitle?: string | null;
+            authorPhoto?: ImageType;
+            style?: ('centered' | 'bordered' | 'highlighted') | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quoteHighlight';
+          }
+        | {
+            title?: string | null;
+            resources?:
+              | {
+                  title: string;
+                  description?: string | null;
+                  file: string | Media;
+                  fileType?: ('pdf' | 'doc' | 'xls' | 'image' | 'other') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'resourceDownload';
+          }
+        | {
+            /**
+             * Main title for the social proof section. Optional.
+             */
+            title?: string | null;
+            /**
+             * Optional subtitle or description. Optional.x
+             */
+            subtitle?: string | null;
+            stats?:
+              | {
+                  /**
+                   * Number or stat (e.g., "500+", "95%")
+                   */
+                  value: string;
+                  label: string;
+                  id?: string | null;
+                }[]
+              | null;
+            backgroundColor?: ('white' | 'gray' | 'gradient') | null;
+            /**
+             * Text alignment for the social proof section
+             */
+            textAlign?: ('left' | 'center' | 'right') | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'socialProof';
+          }
+        | {
+            title?: string | null;
+            subtitle?: string | null;
+            members?:
+              | {
+                  name: string;
+                  role: string;
+                  bio?: string | null;
+                  photo?: ImageType;
+                  email?: string | null;
+                  linkedIn?: string | null;
+                  twitter?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            layout?: ('cols-2' | 'cols-3' | 'cols-4') | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'teamGrid';
+          }
+        | {
+            title?: string | null;
+            items?:
+              | {
+                  year: string;
+                  title: string;
+                  description: string;
+                  image?: ImageType;
+                  id?: string | null;
+                }[]
+              | null;
+            orientation?: ('vertical' | 'horizontal') | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'timeline';
+          }
+        | {
+            rows: {
+              images: MultiRowContent;
+              id?: string | null;
+            }[];
+            rowGap?: number | null;
+            columnGap?: number | null;
+            /**
+             * Number of columns in the grid. Dividing the screen width in x columns.
+             */
+            numberColumns: '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'multiRowImage';
+          }
+        | {
+            title: string;
+            description?: string | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'titleDescriptionBlock';
+          }
+        | {
+            /**
+             * Optional title displayed above the grid
+             */
+            sectionTitle?: string | null;
+            /**
+             * Optional description displayed below the section title
+             */
+            sectionDescription?: string | null;
+            items: BentoGridItem;
+            rowGap?: number | null;
+            columnGap?: number | null;
+            /**
+             * Number of columns in the grid. Dividing the screen width in x columns.
+             */
+            numberColumns: '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
+            /**
+             * Minimum height for each grid row
+             */
+            minRowHeight?: number | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'bentoGrid';
+          }
       )[]
     | null;
   meta?: {
@@ -451,20 +3160,6 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock".
- */
-export interface MediaBlock {
-  media: ImageType;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaBlock';
 }
 /**
  * Upload an image or provide an external image URL
@@ -521,6 +3216,52 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * Collection for managing Hawk Projects
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hawk_projects".
+ */
+export interface HawkProject {
+  id: string;
+  heading: string;
+  subheading?: string | null;
+  description?: string | null;
+  slug: string;
+  type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
+  page_content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image: ImageType;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock".
+ */
+export interface MediaBlock {
+  media: ImageType;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -806,38 +3547,6 @@ export interface Projects18Block {
   id?: string | null;
   blockName?: string | null;
   blockType: 'projects18';
-}
-/**
- * Collection for managing Hawk Projects
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "hawk_projects".
- */
-export interface HawkProject {
-  id: string;
-  heading: string;
-  subheading?: string | null;
-  description?: string | null;
-  slug: string;
-  type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
-  page_content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  image: ImageType;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3395,6 +6104,7 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6714,6 +9424,7 @@ export interface Footer {
  */
 export interface FooterNavGroup {
   title?: string | null;
+  visible?: boolean | null;
   data: {
     link: LinkField;
     id?: string | null;
@@ -6866,6 +9577,7 @@ export interface FooterSelect<T extends boolean = true> {
  */
 export interface FooterNavGroupSelect<T extends boolean = true> {
   title?: T;
+  visible?: T;
   data?:
     | T
     | {
@@ -6916,6 +9628,16 @@ export interface ProjectsListSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

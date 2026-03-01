@@ -32,7 +32,9 @@ export const cloudinaryAdapter = () => ({
             resolve(result); // hanlde result
           }
         );
-        uploadStream.end(file.buffer); // this line send the file to cloudinary it means entire file is already in memory and will be send whole thing at once not in chunk
+
+        const buffer = file.buffer instanceof Buffer ? file.buffer : Buffer.from(file.buffer);
+        uploadStream.end(buffer); // this line send the file to cloudinary it means entire file is already in memory and will be send whole thing at once not in chunk
       });
       file.filename = uploadResult.public_id; // Use Cloudinary's public_id as the file's unique name
       file.mimeType = `${uploadResult.format}`; // Set MIME type based on Cloudinary's format (e.g., image/png)

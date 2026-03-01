@@ -44,7 +44,7 @@ import { default as default_311a5f154e8b373fc453af30d4e74fc0 } from '@/payload/c
 import { default as default_91bbc66a9b3ed1dae52e0caef1a54af7 } from '@/payload/components/Logo'
 import { default as default_d49a4ffdd2cc75d82d4c892f1e79350d } from '@/payload/components/admin/DashboardStats'
 import { default as default_86602b1dc72813c56de877a02ce02144 } from '@/payload/components/admin/WelcomeDashboard'
-import { CollectionCards as CollectionCards_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
+import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 export const importMap = {
   "@/payload/components/admin/MediaListView#default": default_253012d53b276ab9680cd5ce4360cb35,
@@ -93,5 +93,5 @@ export const importMap = {
   "@/payload/components/Logo#default": default_91bbc66a9b3ed1dae52e0caef1a54af7,
   "@/payload/components/admin/DashboardStats#default": default_d49a4ffdd2cc75d82d4c892f1e79350d,
   "@/payload/components/admin/WelcomeDashboard#default": default_86602b1dc72813c56de877a02ce02144,
-  "@payloadcms/ui/rsc#CollectionCards": CollectionCards_ab83ff7e88da8d3530831f296ec4756a
+  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

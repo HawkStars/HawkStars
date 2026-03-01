@@ -1,4 +1,3 @@
-// storage-adapter-import-placeholder
 import {
   BlocksFeature,
   lexicalEditor,
