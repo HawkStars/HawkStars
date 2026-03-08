@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { anyone } from '../../access/anyone';
 import { authenticated } from '../../access/authenticated';
 import HawkProjectFields from './HawkProjectFields';
+import { sanitizeBrokenImageRelationship } from '../../hooks/sanitizeBrokenImageRelationship';
 
 export const HawkProject: CollectionConfig = {
   slug: 'hawk_projects',
@@ -23,6 +24,9 @@ export const HawkProject: CollectionConfig = {
     create: authenticated,
     delete: authenticated,
     update: authenticated,
+  },
+  hooks: {
+    afterRead: [sanitizeBrokenImageRelationship],
   },
   fields: [
     {

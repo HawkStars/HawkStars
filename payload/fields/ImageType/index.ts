@@ -36,7 +36,7 @@ export const PayloadImageField = ({
       {
         name: 'alt',
         type: 'text',
-        label: 'Caption / Alt Textß',
+        label: 'Caption / Alt Text',
         required,
         admin: { description: 'Alt text for the image for accessibility and SEO | Caption Image' },
       },
