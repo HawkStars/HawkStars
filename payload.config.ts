@@ -11,6 +11,8 @@ import { fileURLToPath } from 'url';
 import sharp from 'sharp';
 
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
+import nodemailer from 'nodemailer';
 
 import assert from 'assert';
 import { ArtCollection } from './payload/collections/ArtCollection';
@@ -106,6 +108,21 @@ export default buildConfig({
   },
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || 'mongodb://localhost:27017/hawkstars',
+  }),
+  email: nodemailerAdapter({
+    defaultFromAddress: 'tech@hawkstars.org',
+    defaultFromName: 'HawkStarsNGO - Tech Team',
+    transport: await nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        type: 'OAuth2',
+        user: process.env.GOOGLE_EMAIL_USER,
+        clientId: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
+        expires: 3599,
+      },
+    }),
   }),
   sharp,
   plugins: plugins,
