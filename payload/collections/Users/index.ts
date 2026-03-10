@@ -15,6 +15,8 @@ export const Users: CollectionConfig = {
   admin: {
     defaultColumns: ['name', 'email', 'isAdmin', 'isEditor', 'updatedAt'],
     useAsTitle: 'name',
+    description:
+      'Manage admin panel users and their roles. Admins have full access; Editors can manage content but not users or settings. Only admins can create new users.',
   },
   auth: {
     tokenExpiration: 60 * 60 * 24 * 30, // 30 days

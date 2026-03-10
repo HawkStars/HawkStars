@@ -10,7 +10,12 @@ export const Partner: CollectionConfig = {
     singular: 'Partner',
     plural: 'Partners',
   },
-  admin: { useAsTitle: 'name', defaultColumns: ['name'] },
+  admin: {
+    useAsTitle: 'name',
+    defaultColumns: ['name', 'country', 'type'],
+    description:
+      'Manage national and international partner organizations. Add their logo, country, and social links. Partners are displayed on the public partners page.',
+  },
   access: {
     admin: authenticatedEditor,
     read: anyone,

@@ -31,6 +31,8 @@ export const Pages: CollectionConfig<'pages'> = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'updatedAt'],
+    description:
+      'Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search engine optimization. Toggle "Visible on site" in the sidebar to publish.',
   },
   fields: [
     {

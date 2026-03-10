@@ -21,7 +21,8 @@ export const News: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'type', 'slug', 'updatedAt'],
-    description: 'Collection for managing News articles',
+    description:
+      'Write and publish news articles for the HawkStars website. Each article has its own slug-based URL. Use the SEO tab for search optimization and toggle "Visible on site" to publish.',
   },
   defaultPopulate: {
     title: true,

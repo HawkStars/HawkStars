@@ -26,7 +26,8 @@ export const BoardMember: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'title', 'section', 'position'],
-    description: 'Board Members of the Association',
+    description:
+      'Manage board member profiles across all sections (Assembleia Geral, Conselho Fiscal, Direção, and more). Add photos, titles, and social links. The position number controls display order on the website.',
     listSearchableFields: ['name', 'title', 'section'],
     pagination: {
       defaultLimit: 50,

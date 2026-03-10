@@ -61,7 +61,8 @@ export const ContributionCollection: CollectionConfig = {
       'contribution_date',
       'is_anonymous',
     ],
-    description: 'Manage organization contributions',
+    description:
+      'Track all donations and contributions to HawkStars. Record donor details, amounts (EUR), and contribution type (chairs, wall names, bank transfers, etc.). Mark the "Payment is Confirmed" checkbox once payment is verified.',
   },
   hooks: {
     afterChange: [notifyOnContribution],

@@ -19,6 +19,8 @@ export const ArtCollection: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'artist', 'year', 'is_sold'],
+    description:
+      'Manage the art collection catalogue. Add new artworks with details like artist, year, medium, and sale status. These appear in the public gallery on the website.',
   },
 
   fields: [
