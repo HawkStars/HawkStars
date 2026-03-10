@@ -202,6 +202,7 @@ export interface Config {
     partners: Partner;
     pages: Page;
     news: News;
+    notifications: Notification;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -220,6 +221,7 @@ export interface Config {
     partners: PartnersSelect<false> | PartnersSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
+    notifications: NotificationsSelect<false> | NotificationsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -6486,6 +6488,50 @@ export interface News {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * System notifications for admin activity tracking
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "notifications".
+ */
+export interface Notification {
+  id: string;
+  /**
+   * Short summary of what happened
+   */
+  title: string;
+  /**
+   * Detailed notification message
+   */
+  message?: string | null;
+  type:
+    | 'contribution_created'
+    | 'contribution_confirmed'
+    | 'page_published'
+    | 'page_updated'
+    | 'news_published'
+    | 'news_updated'
+    | 'media_uploaded'
+    | 'general';
+  /**
+   * Whether this notification has been read
+   */
+  read?: boolean | null;
+  /**
+   * Admin panel link to the related document
+   */
+  link?: string | null;
+  /**
+   * The collection slug this notification refers to
+   */
+  relatedCollection?: string | null;
+  /**
+   * The ID of the related document
+   */
+  relatedDocId?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -6640,6 +6686,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'news';
         value: string | News;
+      } | null)
+    | ({
+        relationTo: 'notifications';
+        value: string | Notification;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -7677,6 +7727,21 @@ export interface NewsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "notifications_select".
+ */
+export interface NotificationsSelect<T extends boolean = true> {
+  title?: T;
+  message?: T;
+  type?: T;
+  read?: T;
+  link?: T;
+  relatedCollection?: T;
+  relatedDocId?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

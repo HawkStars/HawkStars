@@ -24,6 +24,11 @@ import { Curator } from './payload/collections/Curator';
 import { Partner } from './payload/collections/Partner';
 import totalContributioValueQuery from './lib/payload/endpoints/totalContributioValueQuery';
 import dashboardStatsHandler from './payload/endpoints/dashboardStats';
+import {
+  getNotificationsHandler,
+  markNotificationsReadHandler,
+} from './payload/endpoints/notifications';
+import { Notification } from './payload/collections/Notification';
 
 import { Footer } from './payload/globals/Footer/config';
 import { Header } from './payload/globals/Header/config';
@@ -64,6 +69,7 @@ export default buildConfig({
       },
       beforeDashboard: ['@/payload/components/admin/WelcomeDashboard'],
       afterDashboard: ['@/payload/components/admin/DashboardStats'],
+      afterNavLinks: ['@/payload/components/admin/NotificationBell'],
     },
     avatar: { Component: '@/payload/components/admin/avatar' },
   },
@@ -86,6 +92,7 @@ export default buildConfig({
     Partner,
     Pages,
     News,
+    Notification,
   ],
   globals: [Header, Footer, MainPage, NewsList, ProjectsList],
   editor: lexicalEditor({
@@ -136,6 +143,16 @@ export default buildConfig({
       path: '/dashboard-stats',
       method: 'get',
       handler: dashboardStatsHandler,
+    },
+    {
+      path: '/notifications',
+      method: 'get',
+      handler: getNotificationsHandler,
+    },
+    {
+      path: '/notifications/mark-read',
+      method: 'post',
+      handler: markNotificationsReadHandler,
     },
   ],
   onInit: async () => {

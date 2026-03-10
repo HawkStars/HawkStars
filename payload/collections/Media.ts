@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload';
+import { notifyOnMediaDelete, notifyOnMediaUpload } from '@/payload/hooks/notifyOnMediaUpload';
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -24,6 +25,10 @@ export const Media: CollectionConfig = {
     disableLocalStorage: true,
     bulkUpload: true,
     displayPreview: true,
+  },
+  hooks: {
+    afterChange: [notifyOnMediaUpload],
+    afterDelete: [notifyOnMediaDelete],
   },
   fields: [
     {

@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { authenticated } from '@/payload/access/authenticated';
 import { populatePublishedAt } from '../../hooks/populatePublishedAt';
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage';
+import { notifyOnPageChange } from '@/payload/hooks/notifyOnPageChange';
 
 import {
   MetaDescriptionField,
@@ -146,7 +147,7 @@ export const Pages: CollectionConfig<'pages'> = {
     },
   ],
   hooks: {
-    afterChange: [revalidatePage],
+    afterChange: [revalidatePage, notifyOnPageChange],
     beforeChange: [populatePublishedAt],
     afterDelete: [revalidateDelete],
   },

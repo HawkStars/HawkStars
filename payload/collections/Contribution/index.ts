@@ -2,6 +2,7 @@ import { authenticated } from '@/payload/access/authenticated';
 import { AccessArgs, CollectionConfig } from 'payload';
 import { contributionTypeOptions } from './config';
 import { User } from '@/payload-types';
+import { notifyOnContribution } from '@/payload/hooks/notifyOnContribution';
 
 const validateContributionAccess = (args: AccessArgs<User>) => authenticated(args);
 
@@ -61,5 +62,8 @@ export const ContributionCollection: CollectionConfig = {
       'is_anonymous',
     ],
     description: 'Manage organization contributions',
+  },
+  hooks: {
+    afterChange: [notifyOnContribution],
   },
 };

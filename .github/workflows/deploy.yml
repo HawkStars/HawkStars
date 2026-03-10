@@ -60,13 +60,17 @@ jobs:
           CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
           CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_EMAIL_USER: ${{ secrets.GOOGLE_EMAIL_USER }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: 22
-          envs: NEXT_PUBLIC_APP_URL,PAYLOAD_SECRET,SENTRY_AUTH_TOKEN,CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY,CLOUDINARY_API_SECRET
+          envs: NEXT_PUBLIC_APP_URL,PAYLOAD_SECRET,SENTRY_AUTH_TOKEN,CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY,CLOUDINARY_API_SECRET,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,GOOGLE_REFRESH_TOKEN,GOOGLE_EMAIL_USER
           script: |
             git config --global url."https://${{ secrets.PERSONAL_GITHUB_TOKEN }}:@github.com".insteadOf "https://github.com"
             cd app/
@@ -94,6 +98,10 @@ jobs:
             CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
             CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
             CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+            GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+            GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+            GOOGLE_REFRESH_TOKEN=${GOOGLE_REFRESH_TOKEN}
+            GOOGLE_EMAIL_USER=${GOOGLE_EMAIL_USER}
             EOF
 
             # Restrict permissions so only owner can read
