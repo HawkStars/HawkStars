@@ -41,17 +41,17 @@ export default function DonationWidget() {
         <div style={styles.stepIndicator}>
           <span style={styles.lockIcon}>
             <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              width='14'
+              height='14'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='white'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
             >
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              <rect x='3' y='11' width='18' height='11' rx='2' ry='2' />
+              <path d='M7 11V7a5 5 0 0 1 10 0v4' />
             </svg>
           </span>
           {STEPS.map((step, i) => (
@@ -71,19 +71,19 @@ export default function DonationWidget() {
               }
             }}
             disabled={!activeAmount || activeAmount <= 0}
-            aria-label="Next step"
+            aria-label='Next step'
           >
             <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              width='20'
+              height='20'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='white'
+              strokeWidth='2.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
             >
-              <polyline points="9 18 15 12 9 6" />
+              <polyline points='9 18 15 12 9 6' />
             </svg>
           </button>
         </div>
@@ -142,12 +142,12 @@ export default function DonationWidget() {
         <div style={styles.customAmountWrapper}>
           <span style={styles.currencySymbol}>€</span>
           <input
-            type="text"
-            placeholder="Custom Amount"
+            type='text'
+            placeholder='Custom Amount'
             value={customAmount}
             onChange={handleCustomChange}
             style={styles.customInput}
-            aria-label="Custom donation amount"
+            aria-label='Custom donation amount'
           />
         </div>
 
@@ -155,7 +155,7 @@ export default function DonationWidget() {
         <div style={styles.commentSection}>
           <label style={styles.commentLabel}>
             <input
-              type="checkbox"
+              type='checkbox'
               checked={showComment}
               onChange={(e) => setShowComment(e.target.checked)}
               style={styles.checkbox}
@@ -166,7 +166,7 @@ export default function DonationWidget() {
             <textarea
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              placeholder="Your message (optional)"
+              placeholder='Your message (optional)'
               rows={3}
               style={styles.commentTextarea}
             />

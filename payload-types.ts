@@ -367,6 +367,8 @@ export interface LinkField {
   section?: string | null;
 }
 /**
+ * Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search engine optimization. Toggle "Visible on site" in the sidebar to publish.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
@@ -3258,7 +3260,7 @@ export interface Media {
   focalY?: number | null;
 }
 /**
- * Collection for managing Hawk Projects
+ * Manage HawkStars projects and events. Add event details, images, and descriptions. Each project gets its own public page based on its slug.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "hawk_projects".
@@ -6157,6 +6159,8 @@ export interface BentoGridBlock {
   blockType: 'bentoGrid';
 }
 /**
+ * Manage admin panel users and their roles. Admins have full access; Editors can manage content but not users or settings. Only admins can create new users.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -6185,6 +6189,8 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Manage the art collection catalogue. Add new artworks with details like artist, year, medium, and sale status. These appear in the public gallery on the website.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "artworks".
  */
@@ -6234,6 +6240,8 @@ export interface Artwork {
   createdAt: string;
 }
 /**
+ * Manage art curators who oversee and contribute to the HawkStars collection. Add their profiles, roles, and SEO information for their public pages.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "curators".
  */
@@ -6282,7 +6290,7 @@ export interface SeoFields {
   description?: string | null;
 }
 /**
- * Board Members of the Association
+ * Manage board member profiles across all sections (Assembleia Geral, Conselho Fiscal, Direção, and more). Add photos, titles, and social links. The position number controls display order on the website.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "board-members".
@@ -6349,7 +6357,7 @@ export interface BoardMember {
   createdAt: string;
 }
 /**
- * Manage organization contributions
+ * Track all donations and contributions to HawkStars. Record donor details, amounts (EUR), and contribution type (chairs, wall names, bank transfers, etc.). Mark the "Payment is Confirmed" checkbox once payment is verified.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contributions".
@@ -6377,6 +6385,8 @@ export interface Contribution {
   createdAt: string;
 }
 /**
+ * Manage national and international partner organizations. Add their logo, country, and social links. Partners are displayed on the public partners page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "partners".
  */
@@ -6429,7 +6439,7 @@ export interface Partner {
   createdAt: string;
 }
 /**
- * Collection for managing News articles
+ * Write and publish news articles for the HawkStars website. Each article has its own slug-based URL. Use the SEO tab for search optimization and toggle "Visible on site" to publish.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "news".
