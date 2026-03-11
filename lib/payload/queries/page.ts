@@ -12,7 +12,7 @@ export const getSinglePageSlug = async (
   const payload = await getPayloadConfig();
   const page = await payload.find({
     collection: PAGES_COLLECTIONS,
-    where: { slug: { equals: slug }, visible: { equals: true } },
+    where: { slug: { equals: slug }, status: { equals: 'published' } },
     locale,
     limit: 1,
     draft: opts?.preview || false,

@@ -144,17 +144,6 @@ export const Pages: CollectionConfig<'pages'> = {
         description: 'The URL slug for the page, e.g. "about" for www.hawkstars.com/about',
       },
     },
-    {
-      name: 'visible',
-      type: 'checkbox',
-      label: 'Visible on site',
-      defaultValue: false,
-      admin: {
-        position: 'sidebar',
-        description: 'Automatically managed by the status workflow. Set to true when Published.',
-        readOnly: true,
-      },
-    },
   ],
   hooks: {
     afterChange: [revalidatePage, notifyOnStatusChange],

@@ -105,17 +105,6 @@ export const News: CollectionConfig = {
         description: 'Automatically set when status changes to Published',
       },
     },
-    {
-      name: 'visible',
-      type: 'checkbox',
-      label: 'Visible on site',
-      defaultValue: false,
-      admin: {
-        position: 'sidebar',
-        description: 'Automatically managed by the status workflow. Set to true when Published.',
-        readOnly: true,
-      },
-    },
   ],
   hooks: {
     afterChange: [notifyOnStatusChange],
