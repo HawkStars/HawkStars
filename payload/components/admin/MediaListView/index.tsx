@@ -169,6 +169,7 @@ export default function MediaListView(props: ListViewClientProps) {
                             alt={doc.alt || doc.filename || 'Media'}
                             className='h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]'
                             loading='lazy'
+                            fill
                           />
                         ) : (
                           <div className='flex h-full w-full items-center justify-center bg-zinc-200 text-sm text-zinc-500 dark:bg-zinc-700 dark:text-zinc-400'>

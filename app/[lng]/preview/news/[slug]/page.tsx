@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
-import { getSinglePageSlug } from '@/lib/payload/queries/page';
+import { getSingleNewsSlug } from '@/lib/payload/queries/news';
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
-import { LivePreviewPage } from '@/payload/components/LivePreview/LivePreviewPage';
+import { LivePreviewNews } from '@/payload/components/LivePreview/LivePreviewNews';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import { connection } from 'next/server';
 
@@ -14,15 +14,15 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   return { robots: 'noindex, nofollow' };
 }
 
-const Index = async (props: PageProps) => {
+const NewsPreview = async (props: PageProps) => {
   await connection();
   const params = await props.params;
   const { lng, slug } = params;
   if (!slug) notFound();
-  const pageInformation = await getSinglePageSlug(slug, lng, { preview: true });
-  if (!pageInformation) notFound();
+  const newsArticle = await getSingleNewsSlug(slug, lng, { preview: true });
+  if (!newsArticle) notFound();
 
-  return <LivePreviewPage initialData={pageInformation} serverURL={getServerSideURL()} />;
+  return <LivePreviewNews initialData={newsArticle} serverURL={getServerSideURL()} />;
 };
 
-export default Index;
+export default NewsPreview;

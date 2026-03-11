@@ -40,6 +40,7 @@ import blocks from './payload/blocks';
 import { NewsList } from './payload/globals/NewsList/config';
 import { ProjectsList } from './payload/globals/ProjectsList/config';
 import { News } from './payload/collections/News';
+import { getServerSideURL } from './payload/utilities/getURL';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -72,6 +73,24 @@ export default buildConfig({
       afterNavLinks: ['@/payload/components/admin/NotificationBell'],
     },
     avatar: { Component: '@/payload/components/admin/avatar' },
+    livePreview: {
+      breakpoints: [
+        { label: 'Mobile', name: 'mobile', width: 375, height: 667 },
+        { label: 'Tablet', name: 'tablet', width: 768, height: 1024 },
+        { label: 'Desktop', name: 'desktop', width: 1440, height: 900 },
+      ],
+      collections: ['pages', 'news'],
+      url: ({ data, collectionConfig, locale }) => {
+        const baseUrl = getServerSideURL();
+        const lang = locale?.code || 'pt';
+
+        if (collectionConfig?.slug === 'news') {
+          return `${baseUrl}/${lang}/preview/news/${data?.slug || ''}`;
+        }
+
+        return `${baseUrl}/${lang}/preview/${data?.slug || ''}`;
+      },
+    },
   },
   localization: {
     defaultLocale: 'pt',

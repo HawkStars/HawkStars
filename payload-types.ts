@@ -368,7 +368,7 @@ export interface LinkField {
   section?: string | null;
 }
 /**
- * Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search engine optimization. Toggle "Visible on site" in the sidebar to publish.
+ * Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search optimization. Pages follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
@@ -3194,12 +3194,18 @@ export interface Page {
     image?: (string | null) | Media;
     description?: string | null;
   };
+  /**
+   * Draft → In Review → Published. Editors submit for review; Admins approve and publish.
+   */
+  status: 'draft' | 'in_review' | 'published';
+  /**
+   * Automatically set when status changes to Published
+   */
   publishedAt?: string | null;
   /**
    * The URL slug for the page, e.g. "about" for www.hawkstars.com/about
    */
   slug: string;
-  visible?: boolean | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -6440,7 +6446,7 @@ export interface Partner {
   createdAt: string;
 }
 /**
- * Write and publish news articles for the HawkStars website. Each article has its own slug-based URL. Use the SEO tab for search optimization and toggle "Visible on site" to publish.
+ * Write and publish news articles for the HawkStars website. Articles follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "news".
@@ -6483,17 +6489,17 @@ export interface News {
     description?: string | null;
   };
   /**
+   * Draft → In Review → Published. Editors submit for review; Admins approve and publish.
+   */
+  status: 'draft' | 'in_review' | 'published';
+  /**
    * The URL slug for the news article, e.g. "my-article" for www.hawkstars.com/news/my-article
    */
   slug: string;
   /**
-   * The date when the article was published
+   * Automatically set when status changes to Published
    */
   publishedAt?: string | null;
-  /**
-   * Whether the article is visible on the site
-   */
-  visible?: boolean | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -6968,9 +6974,9 @@ export interface PagesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
+  status?: T;
   publishedAt?: T;
   slug?: T;
-  visible?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -7725,9 +7731,9 @@ export interface NewsSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
+  status?: T;
   slug?: T;
   publishedAt?: T;
-  visible?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
