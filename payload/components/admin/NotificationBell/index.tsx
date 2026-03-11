@@ -3,36 +3,72 @@
 import Link from 'next/link';
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 
-type NotificationType =
-  | 'contribution_created'
-  | 'contribution_confirmed'
-  | 'page_published'
-  | 'page_updated'
-  | 'news_published'
-  | 'news_updated'
-  | 'media_uploaded'
-  | 'general';
+type SituationType = 'create' | 'update' | 'delete' | 'message' | 'other';
 
 type NotificationDoc = {
   id: string;
   title: string;
   message?: string;
-  type: NotificationType;
+  situation: SituationType;
   read: boolean;
   link?: string;
+  relatedCollection?: string;
   createdAt: string;
 };
 
-const typeIcons: Record<NotificationType, string> = {
-  contribution_created: '💰',
-  contribution_confirmed: '✅',
-  page_published: '📄',
-  page_updated: '📝',
-  news_published: '📰',
-  news_updated: '✏️',
-  media_uploaded: '🖼️',
-  general: '🔔',
-};
+/**
+ * Derives an icon based on the notification's related collection and situation.
+ */
+function getNotificationIcon(notification: NotificationDoc): string {
+  const col = notification.relatedCollection || '';
+  const situation = notification.situation;
+
+  if (col === 'contributions') {
+    return situation === 'create' ? '💰' : '✅';
+  }
+  if (col === 'pages') {
+    if (notification.title.toLowerCase().includes('published')) return '📄';
+    if (notification.title.toLowerCase().includes('review')) return '👁️';
+    return '📝';
+  }
+  if (col === 'news') {
+    if (notification.title.toLowerCase().includes('published')) return '📰';
+    if (notification.title.toLowerCase().includes('review')) return '👁️';
+    return '✏️';
+  }
+  if (col === 'media') return '🖼️';
+
+  // Fallback by situation
+  const situationIcons: Record<SituationType, string> = {
+    create: '🆕',
+    update: '📝',
+    delete: '🗑️',
+    message: '💬',
+    other: '🔔',
+  };
+  return situationIcons[situation] || '🔔';
+}
+
+/**
+ * Derives a left-border color based on the notification context.
+ */
+function getNotificationColor(notification: NotificationDoc): string {
+  const col = notification.relatedCollection || '';
+
+  if (col === 'contributions') return '#22c55e';
+  if (col === 'pages') {
+    if (notification.title.toLowerCase().includes('published')) return '#3b82f6';
+    if (notification.title.toLowerCase().includes('review')) return '#f59e0b';
+    return '#60a5fa';
+  }
+  if (col === 'news') {
+    if (notification.title.toLowerCase().includes('published')) return '#a855f7';
+    if (notification.title.toLowerCase().includes('review')) return '#f59e0b';
+    return '#c084fc';
+  }
+  if (col === 'media') return '#f97316';
+  return '#94a3b8';
+}
 
 function timeAgo(dateString: string): string {
   const now = new Date();
@@ -302,12 +338,12 @@ export const NotificationBell: React.FC = () => {
                       ? 'transparent'
                       : 'var(--theme-elevation-50, rgba(59,130,246,0.04))',
                     borderBottom: '1px solid var(--theme-elevation-100, #f1f5f9)',
-                    borderLeft: `3px solid`,
+                    borderLeft: '3px solid',
                     borderTop: 'none',
                     borderRight: 'none',
                     borderLeftColor: notification.read
                       ? 'transparent'
-                      : getTypeColor(notification.type),
+                      : getNotificationColor(notification),
                     cursor: notification.link ? 'pointer' : 'default',
                     textAlign: 'left',
                     transition: 'background-color 0.15s',
@@ -324,7 +360,7 @@ export const NotificationBell: React.FC = () => {
                   }}
                 >
                   <span style={{ fontSize: '18px', flexShrink: 0, marginTop: '1px' }}>
-                    {typeIcons[notification.type] || '🔔'}
+                    {getNotificationIcon(notification)}
                   </span>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div
@@ -405,19 +441,5 @@ export const NotificationBell: React.FC = () => {
     </div>
   );
 };
-
-function getTypeColor(type: NotificationType): string {
-  const colors: Record<NotificationType, string> = {
-    contribution_created: '#22c55e',
-    contribution_confirmed: '#10b981',
-    page_published: '#3b82f6',
-    page_updated: '#60a5fa',
-    news_published: '#a855f7',
-    news_updated: '#c084fc',
-    media_uploaded: '#f97316',
-    general: '#94a3b8',
-  };
-  return colors[type] || '#94a3b8';
-}
 
 export default NotificationBell;

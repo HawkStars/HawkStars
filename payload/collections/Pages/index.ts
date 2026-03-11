@@ -2,7 +2,9 @@ import type { CollectionConfig } from 'payload';
 import { authenticated } from '@/payload/access/authenticated';
 import { populatePublishedAt } from '../../hooks/populatePublishedAt';
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage';
-import { notifyOnPageChange } from '@/payload/hooks/notifyOnPageChange';
+import { notifyOnStatusChange } from '@/payload/hooks/notifyOnStatusChange';
+import { validateStatusTransition } from '@/payload/hooks/validateStatusTransition';
+import { contentStatusField } from '@/payload/fields/contentStatus';
 
 import {
   MetaDescriptionField,
@@ -30,9 +32,9 @@ export const Pages: CollectionConfig<'pages'> = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    defaultColumns: ['title', 'slug', 'status', 'updatedAt'],
     description:
-      'Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search engine optimization. Toggle "Visible on site" in the sidebar to publish.',
+      'Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search optimization. Pages follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.',
   },
   fields: [
     {
@@ -123,11 +125,13 @@ export const Pages: CollectionConfig<'pages'> = {
         },
       ],
     },
+    contentStatusField,
     {
       name: 'publishedAt',
       type: 'date',
       admin: {
         position: 'sidebar',
+        description: 'Automatically set when status changes to Published',
       },
     },
     {
@@ -145,12 +149,16 @@ export const Pages: CollectionConfig<'pages'> = {
       type: 'checkbox',
       label: 'Visible on site',
       defaultValue: false,
-      admin: { position: 'sidebar' },
+      admin: {
+        position: 'sidebar',
+        description: 'Automatically managed by the status workflow. Set to true when Published.',
+        readOnly: true,
+      },
     },
   ],
   hooks: {
-    afterChange: [revalidatePage, notifyOnPageChange],
-    beforeChange: [populatePublishedAt],
+    afterChange: [revalidatePage, notifyOnStatusChange],
+    beforeChange: [validateStatusTransition, populatePublishedAt],
     afterDelete: [revalidateDelete],
   },
   versions: {

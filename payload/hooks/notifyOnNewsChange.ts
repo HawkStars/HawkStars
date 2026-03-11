@@ -33,7 +33,6 @@ export const notifyOnNewsChange: CollectionAfterChangeHook = async ({
           title: `Article published: "${title}"`,
           message: `The news article "${title}" is now visible on the site.`,
           situation: 'update',
-          read: false,
           link: `/admin/collections/news/${doc.id}`,
           relatedCollection: 'news',
           relatedDocId: String(doc.id),

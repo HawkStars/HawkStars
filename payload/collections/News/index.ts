@@ -2,7 +2,9 @@ import type { CollectionConfig } from 'payload';
 import { authenticated } from '@/payload/access/authenticated';
 import { anyone } from '@/payload/access/anyone';
 import { populatePublishedAt } from '@/payload/hooks/populatePublishedAt';
-import { notifyOnNewsChange } from '@/payload/hooks/notifyOnNewsChange';
+import { notifyOnStatusChange } from '@/payload/hooks/notifyOnStatusChange';
+import { validateStatusTransition } from '@/payload/hooks/validateStatusTransition';
+import { contentStatusField } from '@/payload/fields/contentStatus';
 import NewsDetails from './NewsFields';
 import {
   MetaDescriptionField,
@@ -20,9 +22,9 @@ export const News: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'type', 'slug', 'updatedAt'],
+    defaultColumns: ['title', 'type', 'slug', 'status', 'updatedAt'],
     description:
-      'Write and publish news articles for the HawkStars website. Each article has its own slug-based URL. Use the SEO tab for search optimization and toggle "Visible on site" to publish.',
+      'Write and publish news articles for the HawkStars website. Articles follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.',
   },
   defaultPopulate: {
     title: true,
@@ -83,6 +85,7 @@ export const News: CollectionConfig = {
         },
       ],
     },
+    contentStatusField,
     {
       name: 'slug',
       type: 'text',
@@ -99,7 +102,7 @@ export const News: CollectionConfig = {
       type: 'date',
       admin: {
         position: 'sidebar',
-        description: 'The date when the article was published',
+        description: 'Automatically set when status changes to Published',
       },
     },
     {
@@ -109,13 +112,14 @@ export const News: CollectionConfig = {
       defaultValue: false,
       admin: {
         position: 'sidebar',
-        description: 'Whether the article is visible on the site',
+        description: 'Automatically managed by the status workflow. Set to true when Published.',
+        readOnly: true,
       },
     },
   ],
   hooks: {
-    afterChange: [notifyOnNewsChange],
-    beforeChange: [populatePublishedAt],
+    afterChange: [notifyOnStatusChange],
+    beforeChange: [validateStatusTransition, populatePublishedAt],
   },
   versions: {
     drafts: {
