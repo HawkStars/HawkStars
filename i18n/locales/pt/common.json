@@ -23,38 +23,12 @@
     },
     "global_village": "A HawkStars Aldeia Global é uma iniciativa em curso que permitirá mais eventos na região de Pinhel e arredores."
   },
-  "navbar": {
-    "ngo": "ONG",
-    "about": "Quem Somos",
-    "team": "Equipa",
-    "partners": "Parceiros",
-    "events": "Eventos",
-    "erasmus": "Erasmus",
-    "ativities": "Atividades",
-    "history": "História",
-    "hawk_store": "Loja Hawk",
-    "global_village": {
-      "title": "The Global Village",
-      "pinhel": "Pinhel",
-      "project": "Apresentação",
-      "arquitecture": "Arquitectura",
-      "objectives": "Objectivos",
-      "transparency": "Transparência",
-      "contribute": "Contribuição direta"
-    },
-    "art_gallery": {
-      "title": "Galeria Arte",
-      "presentation": "Apresentação",
-      "curation": "Curadoria",
-      "art": "Obras de arte",
-      "terms_and_conditions": "Termos e Condições"
-    }
-  },
   "common": {
-    "donate": "Doações",
+    "donate": "Contribuições",
     "be_member": "Sê um membro"
   },
   "yes": "Sim",
   "no": "Não",
-  "see_more": "Ver Mais"
+  "see_more": "Ver Mais",
+  "terms_and_conditions": "Termos e Condições"
 }

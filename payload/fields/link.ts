@@ -6,12 +6,14 @@ type LinkTypeProps = {
   condition?: Condition;
   description?: string;
   name?: string;
+  visible?: boolean;
 };
 
 export const link = (props?: LinkTypeProps) => {
-  const { localizedLabel, labelInformation, condition, description, name } = props || {
+  const { localizedLabel, labelInformation, condition, description, name, visible } = props || {
     localizedLabel: false,
     labelInformation: 'Link',
+    visible: false,
   };
   const linkResult: GroupField = {
     name: name || 'link',
@@ -56,11 +58,21 @@ export const link = (props?: LinkTypeProps) => {
             defaultValue: false,
             admin: {
               style: {
-                alignSelf: 'flex-end',
+                alignSelf: 'center',
               },
-              width: '50%',
+              width: '25%',
             },
             label: 'Open in new tab',
+          },
+          {
+            name: 'visible',
+            type: 'checkbox',
+            defaultValue: true,
+            admin: {
+              style: { alignSelf: 'center' },
+              width: '25%',
+            },
+            hidden: !visible,
           },
         ],
       },

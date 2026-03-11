@@ -20,6 +20,7 @@ import React, { Fragment, useEffect, useMemo, useState } from 'react';
 
 import { getMediaUrl } from '@/payload/utilities/getMediaUrl';
 import type { BoardMember, Media } from '@/payload-types';
+import Image from 'next/image';
 
 const sectionLabels: Record<string, string> = {
   geral: 'Assembleia Geral',
@@ -226,7 +227,7 @@ export default function BoardMemberListView(props: ListViewClientProps) {
                             {/* Photo */}
                             <div className='relative aspect-square w-full overflow-hidden bg-zinc-100 dark:bg-zinc-700'>
                               {imageUrl ? (
-                                <img
+                                <Image
                                   src={imageUrl}
                                   alt={member.name || 'Board Member'}
                                   className='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'

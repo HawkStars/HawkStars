@@ -18,7 +18,7 @@ export const notifyOnContribution: CollectionAfterChangeHook = async ({
         data: {
           title: `New contribution from ${donor}`,
           message: `A new contribution of €${value} (${doc.contribution_type || 'Unknown type'}) has been received and is ${doc.is_confirmed ? 'confirmed' : 'pending confirmation'}.`,
-          type: 'contribution_created',
+          situation: 'create',
           read: false,
           link: `/admin/collections/contributions/${doc.id}`,
           relatedCollection: 'contributions',
@@ -41,7 +41,7 @@ export const notifyOnContribution: CollectionAfterChangeHook = async ({
         data: {
           title: `Contribution from ${donor} confirmed`,
           message: `The €${value} contribution from ${donor} has been confirmed.`,
-          type: 'contribution_confirmed',
+          situation: 'update',
           read: false,
           link: `/admin/collections/contributions/${doc.id}`,
           relatedCollection: 'contributions',

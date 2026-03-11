@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/carousel';
 import { SimpleGallery as SimpleGalleryProps } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
+import Image from 'next/image';
 
 const SimpleGallery: React.FC<SimpleGalleryProps> = ({
   title = 'Beautiful Interiors.',
@@ -47,7 +48,7 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({
                 if (!image) return null;
                 return (
                   <CarouselItem key={index} className='min-h-dvh basis-1/2'>
-                    <img
+                    <Image
                       src={image.url}
                       alt={image.alt || 'placeholder'}
                       loading='lazy'

@@ -23,38 +23,12 @@
     },
     "global_village": "HawkStars Global Village is an ongoing iniciative that will allow more events on the region of Pinhel and its surrondings."
   },
-  "navbar": {
-    "ngo": "NGO",
-    "about": "Who are we",
-    "team": "Team",
-    "partners": "Partnerships",
-    "events": "Events",
-    "erasmus": "Erasmus",
-    "ativities": "Activities",
-    "history": "History",
-    "hawk_store": "Hawk Store",
-    "global_village": {
-      "title": "The Global Village",
-      "pinhel": "Pinhel",
-      "project": "Presentation",
-      "arquitecture": "Arquitecture",
-      "objectives": "Objectives",
-      "transparency": "Transparency",
-      "contribute": "Direct contribution"
-    },
-    "art_gallery": {
-      "title": "Art Gallery",
-      "presentation": "Presentation",
-      "curation": "Curators",
-      "art": "Artwork",
-      "terms_and_conditions": "Terms & Conditions"
-    }
-  },
   "common": {
     "donate": "Donate",
     "be_member": "Be a Member"
   },
   "yes": "Yes",
   "no": "No",
-  "see_more": "See More"
+  "see_more": "See More",
+  "terms_and_conditions": "Terms & Conditions"
 }

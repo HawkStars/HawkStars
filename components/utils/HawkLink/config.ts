@@ -19,4 +19,5 @@ export type InternalLinkProps = Pick<
 export type HawkLink = {
   link: LinkField;
   id?: string | null;
+  visible?: boolean | null | undefined;
 };

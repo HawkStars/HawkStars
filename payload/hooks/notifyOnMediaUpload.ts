@@ -13,8 +13,7 @@ export const notifyOnMediaUpload: CollectionAfterChangeHook = async ({ doc, oper
         data: {
           title: `New media uploaded: "${filename}"`,
           message: `A new media file "${filename}"${section} has been uploaded.`,
-          type: 'media_uploaded',
-          read: false,
+          situation: 'create',
           link: `/admin/collections/media/${doc.id}`,
           relatedCollection: 'media',
           relatedDocId: String(doc.id),
@@ -40,8 +39,8 @@ export const notifyOnMediaDelete: CollectionAfterDeleteHook = async ({ doc, coll
       data: {
         title: `Media deleted: "${filename}"`,
         message: `The media file "${filename}"${section} has been deleted.`,
-        type: 'media_deleted',
-        read: false,
+        relatedCollection: 'media',
+        situation: 'delete',
       },
     });
   } catch (error) {

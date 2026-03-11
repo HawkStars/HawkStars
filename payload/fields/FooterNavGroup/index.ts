@@ -14,12 +14,11 @@ export const FooterNavGroup: GroupField = {
   },
   fields: [
     { name: 'title', type: 'text', label: 'Title', required: false, localized: true },
-    { name: 'visible', type: 'checkbox', label: 'Visible', required: false, localized: false },
     {
       name: 'data',
       label: 'Links',
       type: 'array',
-      fields: [link()],
+      fields: [link({ visible: true })],
       maxRows: 6,
       minRows: 1,
       required: true,

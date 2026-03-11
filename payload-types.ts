@@ -344,6 +344,7 @@ export interface LinkField {
    */
   type: 'reference' | 'custom';
   newTab?: boolean | null;
+  visible?: boolean | null;
   /**
    * Select a document to link to from the existing collections present on the Administration Panel.
    */
@@ -6513,15 +6514,7 @@ export interface Notification {
    * Detailed notification message
    */
   message?: string | null;
-  type:
-    | 'contribution_created'
-    | 'contribution_confirmed'
-    | 'page_published'
-    | 'page_updated'
-    | 'news_published'
-    | 'news_updated'
-    | 'media_uploaded'
-    | 'general';
+  situation: 'create' | 'update' | 'delete' | 'message' | 'other';
   /**
    * Whether this notification has been read
    */
@@ -7028,6 +7021,7 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
 export interface LinkFieldSelect<T extends boolean = true> {
   type?: T;
   newTab?: T;
+  visible?: T;
   reference?: T;
   url?: T;
   label?: T;
@@ -7745,7 +7739,7 @@ export interface NewsSelect<T extends boolean = true> {
 export interface NotificationsSelect<T extends boolean = true> {
   title?: T;
   message?: T;
-  type?: T;
+  situation?: T;
   read?: T;
   link?: T;
   relatedCollection?: T;
@@ -9613,7 +9607,6 @@ export interface Footer {
  */
 export interface FooterNavGroup {
   title?: string | null;
-  visible?: boolean | null;
   data: {
     link: LinkField;
     id?: string | null;
@@ -9766,7 +9759,6 @@ export interface FooterSelect<T extends boolean = true> {
  */
 export interface FooterNavGroupSelect<T extends boolean = true> {
   title?: T;
-  visible?: T;
   data?:
     | T
     | {
