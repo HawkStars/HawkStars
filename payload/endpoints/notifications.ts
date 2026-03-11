@@ -1,5 +1,7 @@
 import type { PayloadHandler } from 'payload';
 
+const CONTRIBUTIONS_TABLE = 'contributions' as const;
+
 /**
  * GET /api/notifications
  * Returns the latest notifications with unread count.
@@ -19,17 +21,17 @@ export const getNotificationsHandler: PayloadHandler = async (req) => {
     const limit = Math.min(parseInt(url.searchParams.get('limit') || '20', 10), 100);
     const unreadOnly = url.searchParams.get('unreadOnly') === 'true';
 
-    const where = unreadOnly ? { read: { equals: false } } : {};
+    const where = unreadOnly ? { read: { equals: false } } : undefined;
 
     const [notifications, unreadCount] = await Promise.all([
       payload.find({
-        collection: 'notifications',
+        collection: CONTRIBUTIONS_TABLE,
         sort: '-createdAt',
         limit,
         where,
       }),
       payload.count({
-        collection: 'notifications',
+        collection: CONTRIBUTIONS_TABLE,
         where: { read: { equals: false } },
       }),
     ]);
@@ -40,7 +42,6 @@ export const getNotificationsHandler: PayloadHandler = async (req) => {
       totalDocs: notifications.totalDocs,
     });
   } catch (error) {
-    console.error('Failed to fetch notifications:', error);
     return Response.json({ error: 'Failed to fetch notifications' }, { status: 500 });
   }
 };
@@ -94,7 +95,6 @@ export const markNotificationsReadHandler: PayloadHandler = async (req) => {
 
     return Response.json({ error: 'Provide { id } or { all: true }' }, { status: 400 });
   } catch (error) {
-    console.error('Failed to mark notifications:', error);
     return Response.json({ error: 'Failed to mark notifications' }, { status: 500 });
   }
 };

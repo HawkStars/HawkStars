@@ -28,17 +28,8 @@ export type SinglePaymentQuery = {
   value: number;
   method: SinglePaymentMethod;
   key: string;
-  customer: {
-    id: string;
-    name: string;
-    email: string;
-    phone: string;
-    phone_indicative: string;
-    fiscal_number: string;
-    key: string;
-    language: string;
-  };
-  sdd_mandate: SDDMandateQuery;
+  customer?: EasyPayCustomerInfo;
+  sdd_mandate?: SDDMandateQuery;
   notification: { customer_method_instructions_email: boolean };
 };
 
@@ -90,6 +81,7 @@ export type SubscriptionPaymentQuery = {
  * COMMON TYPES
  */
 
+// SDD = SEPA Direct Debit - Only required for Debit payments, but can be included in the payload for other payment types if needed for future use or specific cases.
 export type SDDMandateQuery = {
   iban: string;
   key: string;
@@ -102,8 +94,8 @@ export type SDDMandateQuery = {
   billing_entity: string;
 };
 
-export type SinglePaymentMethod = 'CC' | 'VI' | 'DD' | 'MB' | 'MBW';
-export type SubscriptionPaymentMethod = 'CC' | 'DD';
+export type SinglePaymentMethod = 'CC' | 'MB' | 'MBW';
+export type SubscriptionPaymentMethod = 'CC';
 export type SubscriptionFrequency =
   | '1D'
   | '1W'
@@ -116,3 +108,14 @@ export type SubscriptionFrequency =
   | '1Y'
   | '2Y'
   | '3Y';
+
+export type EasyPayCustomerInfo = {
+  id?: string;
+  name?: string;
+  email?: string;
+  phone?: string;
+  phone_indicative?: string;
+  fiscal_number?: string;
+  key?: string;
+  language?: string;
+};

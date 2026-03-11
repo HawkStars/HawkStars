@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 
 type NotificationType =
@@ -31,17 +32,6 @@ const typeIcons: Record<NotificationType, string> = {
   news_updated: '✏️',
   media_uploaded: '🖼️',
   general: '🔔',
-};
-
-const typeColors: Record<NotificationType, string> = {
-  contribution_created: 'border-l-green-500',
-  contribution_confirmed: 'border-l-emerald-500',
-  page_published: 'border-l-blue-500',
-  page_updated: 'border-l-blue-400',
-  news_published: 'border-l-purple-500',
-  news_updated: 'border-l-purple-400',
-  media_uploaded: 'border-l-orange-500',
-  general: 'border-l-gray-400',
 };
 
 function timeAgo(dateString: string): string {
@@ -105,9 +95,7 @@ export const NotificationBell: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id }),
       });
-      setNotifications((prev) =>
-        prev.map((n) => (n.id === id ? { ...n, read: true } : n))
-      );
+      setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
       setUnreadCount((prev) => Math.max(0, prev - 1));
     } catch {
       // Silently fail
@@ -399,7 +387,7 @@ export const NotificationBell: React.FC = () => {
                 textAlign: 'center',
               }}
             >
-              <a
+              <Link
                 href='/admin/collections/notifications'
                 style={{
                   color: '#3b82f6',
@@ -409,7 +397,7 @@ export const NotificationBell: React.FC = () => {
                 }}
               >
                 View all notifications
-              </a>
+              </Link>
             </div>
           )}
         </div>

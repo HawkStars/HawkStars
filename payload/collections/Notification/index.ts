@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { authenticated } from '@/payload/access/authenticated';
+import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 
 export const Notification: CollectionConfig = {
   slug: 'notifications',
@@ -9,15 +10,15 @@ export const Notification: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'type', 'read', 'createdAt'],
+    defaultColumns: ['title', 'situation', 'read', 'createdAt'],
     description: 'System notifications for admin activity tracking',
     group: 'System',
   },
   access: {
     read: authenticated,
-    create: authenticated,
-    update: authenticated,
-    delete: authenticated,
+    create: authenticatedAdmin,
+    update: authenticatedAdmin,
+    delete: authenticatedAdmin,
   },
   defaultSort: '-createdAt',
   fields: [
@@ -38,20 +39,17 @@ export const Notification: CollectionConfig = {
       },
     },
     {
-      name: 'type',
+      name: 'situation',
       type: 'select',
       required: true,
       options: [
-        { label: 'New Contribution', value: 'contribution_created' },
-        { label: 'Contribution Confirmed', value: 'contribution_confirmed' },
-        { label: 'Page Published', value: 'page_published' },
-        { label: 'Page Updated', value: 'page_updated' },
-        { label: 'News Published', value: 'news_published' },
-        { label: 'News Updated', value: 'news_updated' },
-        { label: 'Media Uploaded', value: 'media_uploaded' },
-        { label: 'General', value: 'general' },
+        { label: 'Creation', value: 'create' },
+        { label: 'Update', value: 'update' },
+        { label: 'Deletion', value: 'delete' },
+        { label: 'Message', value: 'message' },
+        { label: 'Other', value: 'other' },
       ],
-      defaultValue: 'general',
+      defaultValue: 'other',
     },
     {
       name: 'read',
