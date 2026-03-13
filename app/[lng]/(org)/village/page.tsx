@@ -1,5 +1,5 @@
-import GlobalVillageArquitecture from '../../../components/GlobalVillage/Arquitecture/Arquitecture';
-import GlobalVillageObjectives from '../../../components/GlobalVillage/Objetives/Objetives';
+import GlobalVillageArquitecture from '../../../../components/GlobalVillage/Arquitecture/Arquitecture';
+import GlobalVillageObjectives from '../../../../components/GlobalVillage/Objetives/Objetives';
 
 import type { Metadata } from 'next';
 import { LanguagePageProps } from '../types';

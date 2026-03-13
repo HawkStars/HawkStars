@@ -2,7 +2,7 @@
 
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { useTranslation } from '@/i18n/client';
-import MainHawkStarsLoading from '@/app/[lng]/loading';
+import MainHawkStarsLoading from '@/app/[lng]/(org)/loading';
 import dynamic from 'next/dynamic';
 
 export const PROJECT_GOAL = 900000;

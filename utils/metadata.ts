@@ -74,8 +74,8 @@ const transformToMetadataObject = (
   lng: Language,
   url: string
 ): Metadata => {
-  const { title, description, keywords } = info || { title: '', description: '', keyords: '' };
-  if (title == '' || description == '') {
+  const { title, description, keywords } = info || {};
+  if (!title || !description) {
     // Defer Sentry logging to avoid crypto.randomUUID() during static prerendering
     // See: https://nextjs.org/docs/messages/next-prerender-crypto
     setTimeout(() => {
@@ -86,9 +86,20 @@ const transformToMetadataObject = (
   if (url === '/') url = '';
 
   return {
-    title: title,
-    description: description,
-    keywords: keywords,
+    title,
+    description,
+    keywords,
+    authors: [
+      {
+        name: 'Paulo Cardoso',
+        url: 'https://www.linkedin.com/in/pcardosolei/',
+      },
+    ],
+    appleWebApp: false,
+    twitter: {
+      title,
+      description,
+    },
     referrer: 'no-referrer-when-downgrade',
     metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL!),
     alternates: {

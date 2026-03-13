@@ -1,6 +1,6 @@
 'use client';
 
-import { boardSections, OrgSection, sectionLabels } from '@/app/[lng]/team/config';
+import { boardSections, OrgSection, sectionLabels } from '@/app/[lng]/(org)/team/config';
 import { useTranslation } from '@/i18n/client';
 import { GroupedBoardMembers } from '@/lib/payload/queries/team';
 import { useMemo, useState } from 'react';

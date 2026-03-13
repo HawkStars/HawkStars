@@ -5,7 +5,7 @@ import { Language } from '@/i18n/settings';
 import { getPartnersQuery } from '@/lib/payload/queries/partner';
 import { getServerTranslation } from '@/i18n';
 import { HawkStarsSection } from '@/components/layout';
-import PartnerCard from '../../../components/partners/PartnerCard';
+import PartnerCard from '../../../../components/partners/PartnerCard';
 
 export const revalidate = 1800; // invalidate every 10 minutes
 

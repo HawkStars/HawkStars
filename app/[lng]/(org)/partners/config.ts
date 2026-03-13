@@ -1,4 +1,4 @@
-import { SocialContact } from '../../../utils/models/social';
+import { SocialContact } from '../../../../utils/models/social';
 
 export type PartnersInfo = {
   image: string;
