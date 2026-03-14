@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { Language } from '@/i18n/settings';
 
 import { getMainPageInformation } from '@/lib/payload/main-page';
-import RichText from '@/payload/components/RichText';
 import { connection } from 'next/server';
 import { LivePreviewPage } from '@/payload/components/LivePreview/LivePreviewPage';
 import { getServerSideURL } from '@/payload/utilities/getURL';

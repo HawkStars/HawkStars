@@ -20,7 +20,7 @@ const GamingIndexPage = async () => {
       {/* Hero */}
       <section className='relative flex min-h-[70vh] flex-col items-center justify-center px-4 text-center'>
         <div className='flex flex-col items-center gap-6'>
-          <span className='rounded-full border border-gaming-accent/20 bg-gaming-accent/10 px-4 py-1.5 text-xs font-medium tracking-widest text-gaming-accent uppercase'>
+          <span className='border-gaming-accent/20 bg-gaming-accent/10 text-gaming-accent rounded-full border px-4 py-1.5 text-xs font-medium tracking-widest uppercase'>
             Hawk Stars NGO Gaming Division
           </span>
           <h1 className='font-magistral max-w-4xl text-5xl leading-tight tracking-wider text-white uppercase md:text-7xl lg:text-8xl'>
@@ -28,20 +28,20 @@ const GamingIndexPage = async () => {
             <br />
             E-Sports Team
           </h1>
-          <p className='max-w-xl text-lg leading-relaxed text-gaming-text-muted'>
-            Competing, training, and building a community of gamers from the heart of Portugal.
-            Part of The Global Village Project by Hawk Stars NGO.
+          <p className='text-gaming-text-muted max-w-xl text-lg leading-relaxed'>
+            Competing, training, and building a community of gamers from the heart of Portugal. Part
+            of The Global Village Project by Hawk Stars NGO.
           </p>
           <div className='mt-4 flex flex-wrap justify-center gap-4'>
             <Link
               href='#games'
-              className='font-magistral gaming-gradient-border rounded-lg bg-gaming-surface px-8 py-3 text-sm tracking-wider text-gaming-accent uppercase transition-all duration-300 hover:bg-gaming-surface-light'
+              className='font-magistral gaming-gradient-border bg-gaming-surface text-gaming-accent hover:bg-gaming-surface-light rounded-lg px-8 py-3 text-sm tracking-wider uppercase transition-all duration-300'
             >
               Our Games
             </Link>
             <Link
               href='#about'
-              className='rounded-lg border border-gaming-border bg-transparent px-8 py-3 text-sm font-medium text-gaming-text transition-all duration-300 hover:border-gaming-text-muted hover:bg-gaming-surface'
+              className='border-gaming-border text-gaming-text hover:border-gaming-text-muted hover:bg-gaming-surface rounded-lg border bg-transparent px-8 py-3 text-sm font-medium transition-all duration-300'
             >
               Learn More
             </Link>
@@ -50,17 +50,17 @@ const GamingIndexPage = async () => {
       </section>
 
       {/* Stats bar */}
-      <section className='border-y border-gaming-border bg-gaming-surface/50'>
+      <section className='border-gaming-border bg-gaming-surface/50 border-y'>
         <div className='mx-auto grid max-w-5xl grid-cols-2 md:grid-cols-4'>
-          {STATS.map((stat, i) => (
+          {STATS.map((stat, _) => (
             <div
               key={stat.label}
-              className='flex flex-col items-center gap-1 border-gaming-border px-6 py-8 [&:not(:last-child)]:border-r'
+              className='border-gaming-border flex flex-col items-center gap-1 px-6 py-8 [&:not(:last-child)]:border-r'
             >
-              <span className='font-magistral text-3xl tracking-wider text-gaming-accent'>
+              <span className='font-magistral text-gaming-accent text-3xl tracking-wider'>
                 {stat.value}
               </span>
-              <span className='text-xs tracking-widest text-gaming-text-muted uppercase'>
+              <span className='text-gaming-text-muted text-xs tracking-widest uppercase'>
                 {stat.label}
               </span>
             </div>
@@ -74,9 +74,7 @@ const GamingIndexPage = async () => {
           <h2 className='font-magistral text-3xl tracking-wider text-white uppercase md:text-4xl'>
             Our <span className='text-gaming-accent'>Games</span>
           </h2>
-          <p className='mt-3 text-gaming-text-muted'>
-            Titles where The Hawkis compete and train
-          </p>
+          <p className='text-gaming-text-muted mt-3'>Titles where The Hawkis compete and train</p>
         </div>
         <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
           {FEATURED_GAMES.map((game) => (
@@ -94,7 +92,7 @@ const GamingIndexPage = async () => {
               </div>
               <div>
                 <h3 className='font-magistral text-lg tracking-wide text-white'>{game.name}</h3>
-                <span className='mt-1 inline-block rounded-full bg-gaming-surface-light px-3 py-0.5 text-xs text-gaming-text-muted'>
+                <span className='bg-gaming-surface-light text-gaming-text-muted mt-1 inline-block rounded-full px-3 py-0.5 text-xs'>
                   {game.tag}
                 </span>
               </div>
@@ -104,12 +102,12 @@ const GamingIndexPage = async () => {
       </section>
 
       {/* About / CTA */}
-      <section id='about' className='border-t border-gaming-border bg-gaming-surface/30 py-20'>
+      <section id='about' className='border-gaming-border bg-gaming-surface/30 border-t py-20'>
         <div className='mx-auto flex max-w-5xl flex-col items-center gap-8 px-4 text-center'>
           <h2 className='font-magistral text-3xl tracking-wider text-white uppercase md:text-4xl'>
             Gaming <span className='gaming-glow-purple text-gaming-accent-secondary'>Academy</span>
           </h2>
-          <p className='max-w-2xl text-lg leading-relaxed text-gaming-text-muted'>
+          <p className='text-gaming-text-muted max-w-2xl text-lg leading-relaxed'>
             The Hawkis Gaming Academy is part of Hawk Stars NGO&rsquo;s International Training
             Center in Pinhel. We provide structured training, mentoring, and competitive
             opportunities for aspiring e-sports players.
@@ -117,7 +115,7 @@ const GamingIndexPage = async () => {
           <div className='grid gap-4 sm:grid-cols-3'>
             {['Structured Coaching', 'Team Scrims', 'Tournament Entry'].map((item) => (
               <div key={item} className='gaming-card rounded-xl px-6 py-5'>
-                <span className='text-sm font-medium text-gaming-text'>{item}</span>
+                <span className='text-gaming-text text-sm font-medium'>{item}</span>
               </div>
             ))}
           </div>

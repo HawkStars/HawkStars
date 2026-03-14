@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { EventListBlock } from './Component';
+import { ImageType } from '@/payload-types';
 
 const meta: Meta<typeof EventListBlock> = {
   title: 'Extra/EventListBlock',
@@ -99,8 +100,9 @@ export const WithImages: Story = {
     events: sampleEvents.map((event) => ({
       ...event,
       image: {
+        imageType: 'external' as const,
         externalImage: `https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop`,
-      },
+      } as ImageType,
     })),
   },
 };

@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { getSingleNewsSlug } from '@/lib/payload/queries/news';
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
 import { getServerSideURL } from '@/payload/utilities/getURL';
@@ -11,7 +10,7 @@ type PageProps = {
   params: Promise<LanguageProps & { slug: string }>;
 };
 
-export async function generateMetadata(props: PageProps): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   return { robots: 'noindex, nofollow' };
 }
 

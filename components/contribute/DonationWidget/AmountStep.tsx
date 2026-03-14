@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { DonationType, PRESET_AMOUNTS, getActiveAmount, DonationState } from './types';
+import { DonationType, PRESET_AMOUNTS, getActiveAmount } from './types';
 
 type AmountStepProps = {
   frequency: DonationType;

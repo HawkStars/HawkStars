@@ -10,7 +10,7 @@ type PageProps = {
   params: Promise<LanguageProps & { slug: string }>;
 };
 
-export async function generateMetadata(props: PageProps): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   return { robots: 'noindex, nofollow' };
 }
 

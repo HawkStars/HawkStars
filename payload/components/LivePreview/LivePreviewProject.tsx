@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useLivePreview } from '@payloadcms/live-preview-react';
-import type { HawkProject, News } from '@/payload-types';
+import type { HawkProject } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 import Post from '@/components/blog/Post';
 

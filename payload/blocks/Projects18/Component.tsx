@@ -3,6 +3,7 @@
 import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { Projects18Block as Projects18BlockProps, Media, HawkProject } from '@/payload-types';
+import { getImagePayloadUrl } from '@/lib/image';
 
 export const Projects18Block: React.FC<Projects18BlockProps> = ({
   title,
@@ -36,10 +37,7 @@ export const Projects18Block: React.FC<Projects18BlockProps> = ({
         </div>
         <div className='mt-24 flex flex-col gap-5 md:mt-36'>
           {projectsList.map((project, idx) => {
-            const imageUrl =
-              typeof project.image === 'string'
-                ? project.image
-                : (project.image as Media)?.url || '';
+            const image = getImagePayloadUrl(project.image);
 
             return (
               <a
@@ -47,7 +45,7 @@ export const Projects18Block: React.FC<Projects18BlockProps> = ({
                 href={project.slug || '#'}
                 className='group relative isolate min-h-72 bg-cover bg-center px-5 py-14 lg:px-12 lg:py-24'
                 style={{
-                  backgroundImage: `url(${imageUrl})`,
+                  backgroundImage: `url(${image})`,
                 }}
               >
                 <div className='relative z-10 flex flex-col gap-7 text-white/80 transition-colors duration-300 ease-out group-hover:text-white lg:flex-row'>

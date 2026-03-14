@@ -27,7 +27,7 @@ export const notifyOnMediaUpload: CollectionAfterChangeHook = async ({ doc, oper
   return doc;
 };
 
-export const notifyOnMediaDelete: CollectionAfterDeleteHook = async ({ doc, collection, req }) => {
+export const notifyOnMediaDelete: CollectionAfterDeleteHook = async ({ doc, req }) => {
   const { payload } = req;
 
   try {

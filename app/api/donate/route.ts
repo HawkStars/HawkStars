@@ -34,8 +34,6 @@ export async function POST(request: Request) {
 }
 
 function prepareEasyPayRequestBody(body: Record<string, unknown>): SinglePaymentQuery {
-  z;
-
   const schema = z.object({
     value: z.coerce.number().positive(),
     paymentType: z.enum(['CC', 'MB', 'MBW']),
