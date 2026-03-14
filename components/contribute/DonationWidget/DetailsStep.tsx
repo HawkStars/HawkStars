@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 type DetailsStepProps = {
   comment: string;
@@ -8,12 +10,14 @@ type DetailsStepProps = {
 };
 
 const DetailsStep = ({ comment, onCommentChange, onBack, onNext }: DetailsStepProps) => {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'contribute');
   const [showComment, setShowComment] = useState(!!comment);
 
   return (
     <div className='flex flex-col gap-5'>
       <p className='text-center text-[15px] leading-relaxed text-[#333]'>
-        Would you like to add any details to your donation?
+        {t('donation_widget.details.description')}
       </p>
 
       {/* Comment Toggle */}
@@ -28,13 +32,13 @@ const DetailsStep = ({ comment, onCommentChange, onBack, onNext }: DetailsStepPr
             }}
             className='h-4 w-4 cursor-pointer accent-[#c0392b]'
           />
-          <span className='text-sm text-[#555]'>Write us a comment</span>
+          <span className='text-sm text-[#555]'>{t('donation_widget.details.write_comment')}</span>
         </label>
         {showComment && (
           <textarea
             value={comment}
             onChange={(e) => onCommentChange(e.target.value)}
-            placeholder='Your message (optional)'
+            placeholder={t('donation_widget.details.comment_placeholder')}
             rows={3}
             style={{ resize: 'vertical' }}
             className='mt-2.5 w-full rounded-lg border border-[#ddd] px-3 py-2.5 font-[inherit] text-sm outline-none focus:border-[#c0392b]'
@@ -48,13 +52,13 @@ const DetailsStep = ({ comment, onCommentChange, onBack, onNext }: DetailsStepPr
           onClick={onBack}
           className='flex-1 cursor-pointer rounded-lg border border-[#ddd] bg-white py-3 text-sm font-medium text-[#333] transition-colors duration-150 hover:border-[#c0392b]'
         >
-          Back
+          {t('donation_widget.back')}
         </button>
         <button
           onClick={onNext}
           className='flex-1 cursor-pointer rounded-lg border-none bg-linear-to-br from-[#c0392b] to-[#e74c3c] py-3 text-sm font-semibold text-white transition-opacity duration-200'
         >
-          Continue
+          {t('donation_widget.continue')}
         </button>
       </div>
     </div>

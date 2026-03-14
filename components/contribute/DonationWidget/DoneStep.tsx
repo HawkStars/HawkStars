@@ -1,4 +1,6 @@
 import { DonationState, getActiveAmount } from './types';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 type DoneStepProps = {
   donationState: DonationState;
@@ -6,6 +8,8 @@ type DoneStepProps = {
 };
 
 const DoneStep = ({ donationState, onReset }: DoneStepProps) => {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'contribute');
   const activeAmount = getActiveAmount(donationState);
 
   return (
@@ -26,18 +30,19 @@ const DoneStep = ({ donationState, onReset }: DoneStepProps) => {
         </svg>
       </div>
 
-      <h3 className='text-xl font-semibold text-[#333]'>Thank you!</h3>
+      <h3 className='text-xl font-semibold text-[#333]'>{t('donation_widget.done.title')}</h3>
       <p className='text-center text-[15px] leading-relaxed text-[#555]'>
-        Your &euro;{activeAmount}
-        {donationState.frequency === 'monthly' ? '/month' : ''} donation to HawkStars has been
-        registered. Together we make a difference.
+        {t('donation_widget.done.description', {
+          amount: activeAmount,
+          frequency: donationState.frequency === 'monthly' ? t('donation_widget.done.per_month') : '',
+        })}
       </p>
 
       <button
         onClick={onReset}
         className='mt-2 cursor-pointer rounded-lg border border-[#c0392b] bg-white px-8 py-3 text-sm font-medium text-[#c0392b] transition-colors duration-150 hover:bg-[#c0392b] hover:text-white'
       >
-        Make another donation
+        {t('donation_widget.done.make_another')}
       </button>
     </div>
   );

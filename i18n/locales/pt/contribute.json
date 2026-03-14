@@ -63,6 +63,50 @@
     "anomymous": "Pretende que seja uma doação anónima?",
     "anonymous_donor": "Doador Anónimo"
   },
+  "donation_widget": {
+    "steps": {
+      "choose_amount": "Escolher valor",
+      "add_details": "Adicionar detalhes",
+      "payment_method": "Método de pagamento",
+      "confirm_donation": "Confirmar doação",
+      "thank_you": "Obrigado!"
+    },
+    "amount": {
+      "description": "A sua doação à <strong>HawkStars</strong> é crucial para apoiar a nossa missão de promover arte, cultura e projetos comunitários. Cada contribuição faz a diferença. Obrigado pela sua generosidade.",
+      "one_time": "Única",
+      "monthly": "Mensal",
+      "custom_amount": "Valor Personalizado",
+      "donate": "Doar",
+      "per_month": "/ mês"
+    },
+    "details": {
+      "description": "Gostaria de adicionar algum detalhe à sua doação?",
+      "write_comment": "Escreva-nos um comentário",
+      "comment_placeholder": "A sua mensagem (opcional)"
+    },
+    "payment": {
+      "description": "Escolha o seu método de pagamento preferido.",
+      "bank_transfer": "Transferência Bancária",
+      "crypto_transfer": "Transferência Crypto"
+    },
+    "confirm": {
+      "description": "Por favor, reveja os detalhes da sua doação.",
+      "amount_label": "Valor",
+      "frequency_label": "Frequência",
+      "comment_label": "Comentário",
+      "frequency_monthly": "Mensal",
+      "frequency_one_time": "Única",
+      "confirm_button": "Confirmar Doação"
+    },
+    "done": {
+      "title": "Obrigado!",
+      "description": "A sua doação de €{{amount}}{{frequency}} à HawkStars foi registada. Juntos fazemos a diferença.",
+      "per_month": "/mês",
+      "make_another": "Fazer outra doação"
+    },
+    "back": "Voltar",
+    "continue": "Continuar"
+  },
   "movement_form": {
     "value": "Valor",
     "description": "Descrição",

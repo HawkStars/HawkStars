@@ -63,6 +63,50 @@
     "anomymous": "Want to be an anomymous donation?",
     "anonymous_donor": "Anonymous Donor"
   },
+  "donation_widget": {
+    "steps": {
+      "choose_amount": "Choose amount",
+      "add_details": "Add details",
+      "payment_method": "Payment method",
+      "confirm_donation": "Confirm donation",
+      "thank_you": "Thank you!"
+    },
+    "amount": {
+      "description": "Your donation to <strong>HawkStars</strong> is crucial in supporting our mission to promote art, culture, and community projects. Every contribution makes a difference. Thank you for your generosity.",
+      "one_time": "One-time",
+      "monthly": "Monthly",
+      "custom_amount": "Custom Amount",
+      "donate": "Donate",
+      "per_month": "/ month"
+    },
+    "details": {
+      "description": "Would you like to add any details to your donation?",
+      "write_comment": "Write us a comment",
+      "comment_placeholder": "Your message (optional)"
+    },
+    "payment": {
+      "description": "Choose your preferred payment method.",
+      "bank_transfer": "Bank Transfer",
+      "crypto_transfer": "Crypto Transfer"
+    },
+    "confirm": {
+      "description": "Please review your donation details.",
+      "amount_label": "Amount",
+      "frequency_label": "Frequency",
+      "comment_label": "Comment",
+      "frequency_monthly": "Monthly",
+      "frequency_one_time": "One-time",
+      "confirm_button": "Confirm Donation"
+    },
+    "done": {
+      "title": "Thank you!",
+      "description": "Your €{{amount}}{{frequency}} donation to HawkStars has been registered. Together we make a difference.",
+      "per_month": "/month",
+      "make_another": "Make another donation"
+    },
+    "back": "Back",
+    "continue": "Continue"
+  },
   "movement_form": {
     "value": "Value",
     "description": "Description",

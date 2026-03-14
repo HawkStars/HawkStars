@@ -10,7 +10,7 @@ type DonationHeaderProps = {
 
 const DonationHeader = ({ title, currentStep, canAdvance, onNextStep }: DonationHeaderProps) => {
   return (
-    <div className='flex items-center justify-between bg-linear-to-br from-[#c0392b] to-[#e74c3c] px-5 py-4.5'>
+    <div className='bg-green flex items-center justify-between px-5 py-4.5'>
       <h2 className='m-0 text-lg font-semibold text-white'>{title}</h2>
       <div className='flex items-center gap-1.5'>
         <span className='mr-1 flex items-center'>
