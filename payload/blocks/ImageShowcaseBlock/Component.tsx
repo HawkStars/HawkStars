@@ -84,14 +84,6 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
               const isActive = index === activeIndex;
               const isUpcoming = autoplay && index === upcomingIndex;
 
-              // Determine grayscale for this thumbnail
-              let thumbGrayscale = 100;
-              if (isActive) {
-                thumbGrayscale = 0;
-              } else if (isUpcoming) {
-                thumbGrayscale = grayscale;
-              }
-
               return (
                 <button
                   key={img.id || index}
@@ -107,7 +99,7 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
                     alt={image.alt || ''}
                     fill
                     className='object-cover transition-[filter] duration-100'
-                    style={{ filter: `grayscale(${thumbGrayscale}%)` }}
+                    style={{ filter: `grayscale(${isActive ? grayscale : 100}%)` }}
                   />
                 </button>
               );
