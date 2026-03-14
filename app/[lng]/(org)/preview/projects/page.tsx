@@ -10,6 +10,8 @@ type PageProps = {
   params: Promise<LanguageProps & { slug: string }>;
 };
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata(): Promise<Metadata> {
   return { robots: 'noindex, nofollow' };
 }

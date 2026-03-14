@@ -6,6 +6,8 @@ import { LivePreviewPage } from '@/payload/components/LivePreview/LivePreviewPag
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import { connection } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 type PageProps = {
   params: Promise<LanguageProps & { slug: string }>;
 };
