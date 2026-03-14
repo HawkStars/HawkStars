@@ -33,6 +33,8 @@ import MultiRowImage from './MultiRowImage/config';
 import TitleDescriptionBlock from './TitleDescriptionBlock/config';
 import { BentoGridBlock } from './BentoGridBlock/config';
 import SimpleGallery from './SimpleGallery/config';
+import { ImageShowcaseBlock } from './ImageShowcaseBlock/config';
+import { DonationWidgetBlock } from './DonationWidgetBlock/config';
 
 const currentBlocks = [
   AccordionBlock,
@@ -70,6 +72,8 @@ const currentBlocks = [
   MultiRowImage,
   TitleDescriptionBlock,
   BentoGridBlock,
+  ImageShowcaseBlock,
+  DonationWidgetBlock,
 ];
 
 export default currentBlocks;

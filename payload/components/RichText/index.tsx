@@ -49,6 +49,8 @@ import { ResourceDownloadBlock } from '@/payload/blocks/ResourceDownloadBlock/Co
 import { SocialProofBlock } from '@/payload/blocks/SocialProofBlock/Component';
 import { TeamGridBlock } from '@/payload/blocks/TeamGridBlock/Component';
 import { TimelineBlock } from '@/payload/blocks/TimelineBlock/Component';
+import { ImageShowcaseBlock } from '@/payload/blocks/ImageShowcaseBlock/Component';
+import { DonationWidgetBlock } from '@/payload/blocks/DonationWidgetBlock/Component';
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -101,6 +103,8 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     socialProof: ({ node }) => <SocialProofBlock {...node.fields} />,
     teamGrid: ({ node }) => <TeamGridBlock {...node.fields} />,
     timeline: ({ node }) => <TimelineBlock {...node.fields} />,
+    imageShowcase: ({ node }) => <ImageShowcaseBlock {...node.fields} />,
+    donationWidget: ({ node }) => <DonationWidgetBlock {...node.fields} />,
   },
   list: List,
   listitem: ListItem,

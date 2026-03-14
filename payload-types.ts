@@ -190,6 +190,8 @@ export interface Config {
     multiRowImage: MultiRowImageBlock;
     titleDescriptionBlock: TitleDescriptionBlock;
     bentoGrid: BentoGridBlock;
+    imageShowcase: ImageShowcaseBlock;
+    donationWidget: DonationWidgetBlock;
   };
   collections: {
     users: User;
@@ -3184,6 +3186,32 @@ export interface Page {
             blockName?: string | null;
             blockType: 'bentoGrid';
           }
+        | {
+            images: {
+              image: ImageType;
+              id?: string | null;
+            }[];
+            /**
+             * Time in milliseconds for each image to transition from grayscale to color (default: 5000ms)
+             */
+            transitionDuration?: number | null;
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageShowcase';
+          }
+        | {
+            /**
+             * Unique identifier for the section (used for anchor links)
+             */
+            sectionId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'donationWidget';
+          }
       )[]
     | null;
   meta?: {
@@ -3220,7 +3248,7 @@ export interface ImageType {
   /**
    * Select whether to use an external image URL or upload an image/media file.
    */
-  imageType?: ('external' | 'upload') | null;
+  imageType: 'external' | 'upload';
   /**
    * Upload an image or media file.
    */
@@ -3232,7 +3260,7 @@ export interface ImageType {
   /**
    * Alt text for the image for accessibility and SEO | Caption Image
    */
-  alt?: string | null;
+  alt: string;
   /**
    * Height of the image in pixels
    */
@@ -6166,6 +6194,40 @@ export interface BentoGridBlock {
   blockType: 'bentoGrid';
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageShowcaseBlock".
+ */
+export interface ImageShowcaseBlock {
+  images: {
+    image: ImageType;
+    id?: string | null;
+  }[];
+  /**
+   * Time in milliseconds for each image to transition from grayscale to color (default: 5000ms)
+   */
+  transitionDuration?: number | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'imageShowcase';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DonationWidgetBlock".
+ */
+export interface DonationWidgetBlock {
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'donationWidget';
+}
+/**
  * Manage admin panel users and their roles. Admins have full access; Editors can manage content but not users or settings. Only admins can create new users.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6966,6 +7028,8 @@ export interface PagesSelect<T extends boolean = true> {
         multiRowImage?: T | MultiRowImageBlockSelect<T>;
         titleDescriptionBlock?: T | TitleDescriptionBlockSelect<T>;
         bentoGrid?: T | BentoGridBlockSelect<T>;
+        imageShowcase?: T | ImageShowcaseBlockSelect<T>;
+        donationWidget?: T | DonationWidgetBlockSelect<T>;
       };
   meta?:
     | T
@@ -7714,6 +7778,31 @@ export interface BentoGridItemSelect<T extends boolean = true> {
   row_size?: T;
   contentPosition?: T;
   id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageShowcaseBlock_select".
+ */
+export interface ImageShowcaseBlockSelect<T extends boolean = true> {
+  images?:
+    | T
+    | {
+        image?: T | ImageTypeSelect<T>;
+        id?: T;
+      };
+  transitionDuration?: T;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DonationWidgetBlock_select".
+ */
+export interface DonationWidgetBlockSelect<T extends boolean = true> {
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

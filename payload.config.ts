@@ -79,13 +79,22 @@ export default buildConfig({
         { label: 'Tablet', name: 'tablet', width: 768, height: 1024 },
         { label: 'Desktop', name: 'desktop', width: 1440, height: 900 },
       ],
-      collections: ['pages', 'news'],
-      url: ({ data, collectionConfig, locale }) => {
+      collections: ['pages', 'news', 'hawk_projects'],
+      globals: ['main-page'],
+      url: ({ data, collectionConfig, globalConfig, locale }) => {
         const baseUrl = getServerSideURL();
         const lang = locale?.code || 'pt';
 
         if (collectionConfig?.slug === 'news') {
           return `${baseUrl}/${lang}/preview/news/${data?.slug || ''}`;
+        }
+
+        if (collectionConfig?.slug === 'hawk_projects') {
+          return `${baseUrl}/${lang}/preview/projects/${data?.slug || ''}`;
+        }
+
+        if (globalConfig?.slug === 'main-page') {
+          return `${baseUrl}/${lang}/preview`;
         }
 
         return `${baseUrl}/${lang}/preview/${data?.slug || ''}`;

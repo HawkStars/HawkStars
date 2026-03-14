@@ -20,10 +20,10 @@ type EventPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
 const EventPage = async (props: EventPageProps) => {
   const params = await props.params;
-  const { slug } = params;
+  const { slug, lng } = params;
   if (!slug) return notFound();
 
-  const event = await getSingleEventsQuery(slug);
+  const event = await getSingleEventsQuery(slug, lng);
   if (!event) notFound();
 
   const image = getImagePayloadUrl(event.image);
