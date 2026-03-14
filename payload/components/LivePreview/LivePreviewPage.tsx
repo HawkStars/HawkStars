@@ -2,16 +2,18 @@
 
 import React from 'react';
 import { useLivePreview } from '@payloadcms/live-preview-react';
-import type { Page } from '@/payload-types';
+import type { MainPage, Page } from '@/payload-types';
 import RichText from '@/payload/components/RichText';
 
+type LivePreviewDataTypes = Page | MainPage;
+
 type LivePreviewPageProps = {
-  initialData: Page;
+  initialData: LivePreviewDataTypes;
   serverURL: string;
 };
 
 export const LivePreviewPage: React.FC<LivePreviewPageProps> = ({ initialData, serverURL }) => {
-  const { data } = useLivePreview<Page>({
+  const { data } = useLivePreview<LivePreviewDataTypes>({
     initialData,
     serverURL,
     depth: 2,

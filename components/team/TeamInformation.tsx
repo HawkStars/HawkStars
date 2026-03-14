@@ -44,7 +44,7 @@ const TeamInformation = ({ boardMembers, lng }: TeamInformationProps) => {
         ))}
       </div>
 
-      <div className='mt-10 grid grid-cols-2 gap-8 md:grid-cols-3 xl:grid-cols-5'>
+      <div className='mx-auto mt-10 grid max-w-6xl grid-cols-2 gap-8 md:grid-cols-3 xl:grid-cols-5'>
         {currentBoardMembers.map((member) => (
           <TeamCard key={member.id} member={member} lng={lng} />
         ))}

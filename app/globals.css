@@ -15,6 +15,18 @@
   --color-transparent: transparent;
   --color-gray-light: #d3d3d3;
   --color-red-dark: #8b0000;
+
+  /* Gaming theme */
+  --color-gaming-bg: #0a0a0f;
+  --color-gaming-surface: #12121a;
+  --color-gaming-surface-light: #1a1a2e;
+  --color-gaming-border: #2a2a3e;
+  --color-gaming-accent: #00f0ff;
+  --color-gaming-accent-secondary: #7b2ff7;
+  --color-gaming-text: #e4e4f0;
+  --color-gaming-text-muted: #8888a0;
+  --color-gaming-danger: #ff3a5e;
+  --color-gaming-success: #00e676;
 }
 
 @layer base {
@@ -183,6 +195,60 @@
   }
   .leaflet-edit-marker-selected {
     @apply border-transparent! bg-transparent!;
+  }
+
+  /* ========== GAMING SECTION ========== */
+
+  .font-magistral {
+    font-family: 'Oswald', 'Impact', sans-serif;
+    font-weight: 800;
+  }
+
+  .gaming-glow {
+    text-shadow:
+      0 0 20px rgba(0, 240, 255, 0.5),
+      0 0 40px rgba(0, 240, 255, 0.2);
+  }
+
+  .gaming-glow-purple {
+    text-shadow:
+      0 0 20px rgba(123, 47, 247, 0.5),
+      0 0 40px rgba(123, 47, 247, 0.2);
+  }
+
+  .gaming-card {
+    @apply border-gaming-border bg-gaming-surface rounded-xl border;
+    box-shadow:
+      0 0 0 1px rgba(0, 240, 255, 0.05),
+      0 4px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .gaming-card-hover {
+    @apply transition-all duration-300;
+    &:hover {
+      border-color: rgba(0, 240, 255, 0.3);
+      box-shadow:
+        0 0 0 1px rgba(0, 240, 255, 0.1),
+        0 4px 32px rgba(0, 240, 255, 0.1),
+        0 8px 40px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  .gaming-gradient-border {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, #00f0ff, #7b2ff7);
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+    }
   }
 }
 

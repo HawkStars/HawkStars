@@ -92,7 +92,7 @@ const AmountStep = ({
       {/* Donate Button */}
       <button
         className={cn(
-          'w-full rounded-lg border-none bg-gradient-to-br from-[#c0392b] to-[#e74c3c] py-4 text-base font-semibold text-white transition-[opacity,transform] duration-200',
+          'w-full rounded-lg border-none bg-linear-to-br from-[#c0392b] to-[#e74c3c] py-4 text-base font-semibold text-white transition-[opacity,transform] duration-200',
           activeAmount && activeAmount > 0
             ? 'cursor-pointer opacity-100'
             : 'cursor-not-allowed opacity-50'

@@ -19,13 +19,11 @@ const ConfirmStep = ({ donationState, onBack, onConfirm }: ConfirmStepProps) => 
       <div className='rounded-lg border border-[#ddd] bg-[#fafafa] p-4'>
         <div className='flex items-center justify-between border-b border-[#eee] pb-3'>
           <span className='text-sm text-[#555]'>Amount</span>
-          <span className='text-base font-semibold text-[#333]'>
-            &euro;{activeAmount}
-          </span>
+          <span className='text-base font-semibold text-[#333]'>&euro;{activeAmount}</span>
         </div>
         <div className='flex items-center justify-between border-b border-[#eee] py-3'>
           <span className='text-sm text-[#555]'>Frequency</span>
-          <span className='text-sm font-medium capitalize text-[#333]'>
+          <span className='text-sm font-medium text-[#333] capitalize'>
             {donationState.frequency === 'monthly' ? 'Monthly' : 'One-time'}
           </span>
         </div>
@@ -47,7 +45,7 @@ const ConfirmStep = ({ donationState, onBack, onConfirm }: ConfirmStepProps) => 
         </button>
         <button
           onClick={onConfirm}
-          className='flex-1 cursor-pointer rounded-lg border-none bg-gradient-to-br from-[#c0392b] to-[#e74c3c] py-3 text-sm font-semibold text-white transition-opacity duration-200'
+          className='flex-1 cursor-pointer rounded-lg border-none bg-linear-to-br from-[#c0392b] to-[#e74c3c] py-3 text-sm font-semibold text-white transition-opacity duration-200'
         >
           Confirm Donation
         </button>

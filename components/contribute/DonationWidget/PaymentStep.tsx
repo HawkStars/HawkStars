@@ -38,7 +38,7 @@ const PaymentStep = ({ onBack, onNext }: PaymentStepProps) => {
         </button>
         <button
           onClick={onNext}
-          className='flex-1 cursor-pointer rounded-lg border-none bg-gradient-to-br from-[#c0392b] to-[#e74c3c] py-3 text-sm font-semibold text-white transition-opacity duration-200'
+          className='flex-1 cursor-pointer rounded-lg border-none bg-linear-to-br from-[#c0392b] to-[#e74c3c] py-3 text-sm font-semibold text-white transition-opacity duration-200'
         >
           Continue
         </button>
