@@ -6,8 +6,6 @@ import { connection } from 'next/server';
 import { LivePreviewPage } from '@/payload/components/LivePreview/LivePreviewPage';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 
-export const dynamic = 'force-dynamic';
-
 export async function generateMetadata(): Promise<Metadata> {
   return { robots: 'noindex, nofollow' };
 }

@@ -16,7 +16,7 @@ import { useConfig } from '@payloadcms/ui';
 import { useTranslation } from '@payloadcms/ui';
 import { formatAdminURL } from '@payloadcms/ui/shared';
 import Link from 'next/link';
-import React, { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 
 import { getMediaUrl } from '@/payload/utilities/getMediaUrl';
 import type { BoardMember, Media } from '@/payload-types';
