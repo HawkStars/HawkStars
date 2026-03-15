@@ -25,7 +25,8 @@ const sampleImages = [
     id: '2',
     image: {
       imageType: 'external' as const,
-      externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw8.jpeg',
+      externalImage:
+        'https://images.unsplash.com/photo-1534237710431-e2fc698436d0?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       alt: 'Ocean view',
     },
   },
@@ -33,7 +34,8 @@ const sampleImages = [
     id: '3',
     image: {
       imageType: 'external' as const,
-      externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw12.jpeg',
+      externalImage:
+        'https://images.unsplash.com/photo-1494145904049-0dca59b4bbad?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       alt: 'Forest path',
     },
   },
@@ -41,7 +43,8 @@ const sampleImages = [
     id: '4',
     image: {
       imageType: 'external' as const,
-      externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw13.jpeg',
+      externalImage:
+        'https://images.unsplash.com/photo-1534237710431-e2fc698436d0?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       alt: 'City skyline',
     },
   },
@@ -49,7 +52,8 @@ const sampleImages = [
     id: '5',
     image: {
       imageType: 'external' as const,
-      externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw8.jpeg',
+      externalImage:
+        'https://images.unsplash.com/photo-1534237710431-e2fc698436d0?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       alt: 'Desert sunset',
     },
   },
@@ -62,7 +66,7 @@ const sampleImages = [
     },
   },
   {
-    id: '1',
+    id: '7',
     image: {
       imageType: 'external' as const,
       externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw13.jpeg',
@@ -70,15 +74,16 @@ const sampleImages = [
     },
   },
   {
-    id: '2',
+    id: '8',
     image: {
       imageType: 'external' as const,
-      externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw8.jpeg',
+      externalImage:
+        'https://images.unsplash.com/photo-1481026469463-66327c86e544?q=80&w=908&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       alt: 'Ocean view',
     },
   },
   {
-    id: '3',
+    id: '9',
     image: {
       imageType: 'external' as const,
       externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw12.jpeg',
@@ -86,7 +91,7 @@ const sampleImages = [
     },
   },
   {
-    id: '4',
+    id: '10',
     image: {
       imageType: 'external' as const,
       externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw13.jpeg',
@@ -94,7 +99,7 @@ const sampleImages = [
     },
   },
   {
-    id: '5',
+    id: '11',
     image: {
       imageType: 'external' as const,
       externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw8.jpeg',
@@ -102,7 +107,7 @@ const sampleImages = [
     },
   },
   {
-    id: '6',
+    id: '12',
     image: {
       imageType: 'external' as const,
       externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw12.jpeg',
@@ -116,6 +121,7 @@ export const Default: Story = {
     blockType: 'imageShowcase',
     images: sampleImages,
     transitionDuration: 5000,
+    gridColumns: '1',
   },
 };
 

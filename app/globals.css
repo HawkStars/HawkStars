@@ -27,6 +27,19 @@
   --color-gaming-text-muted: #8888a0;
   --color-gaming-danger: #ff3a5e;
   --color-gaming-success: #00e676;
+
+  --animate-grayscale: grayscale 1s ease-in-out;
+  @keyframes grayscale {
+    0% {
+      filter: grayscale(0);
+    }
+    50% {
+      filter: grayscale(50%);
+    }
+    100% {
+      filter: grayscale(100%);
+    }
+  }
 }
 
 @layer base {

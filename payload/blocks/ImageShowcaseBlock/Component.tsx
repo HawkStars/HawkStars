@@ -11,43 +11,52 @@ const TICK_INTERVAL = 50;
 export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
   images,
   transitionDuration = 5000,
+  autoplay = true,
+  gridColumns = '2',
   sectionId,
 }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [grayscale, setGrayscale] = useState<number>(100);
-  const [autoplay, setAutoplay] = useState<boolean>(true);
+  const [autoplayState, setAutoplayState] = useState<boolean>(autoplay ?? true);
   const progressRef = useRef<number>(0);
+  const mainImageRef = useRef<HTMLDivElement>(null);
+  const [thumbnailMaxH, setThumbnailMaxH] = useState<number | undefined>(undefined);
 
   const imageCount = images?.length ?? 0;
 
   const nextIndex = useCallback((current: number) => (current + 1) % imageCount, [imageCount]);
 
+  // Track main image height for thumbnail container constraint
+  useEffect(() => {
+    const el = mainImageRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(([entry]) => {
+      setThumbnailMaxH(entry.contentRect.height);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   // Auto-transition timer
   useEffect(() => {
-    if (!autoplay || imageCount <= 1) return;
+    if (!autoplayState || imageCount <= 1) return;
 
     progressRef.current = 0;
-    setGrayscale(100);
 
     const interval = setInterval(() => {
       progressRef.current += TICK_INTERVAL;
       const progress = Math.min(progressRef.current / (transitionDuration ?? 5000), 1);
-      const currentGrayscale = Math.round(100 * (1 - progress));
-      setGrayscale(currentGrayscale);
 
       if (progress >= 1) {
         progressRef.current = 0;
-        setGrayscale(100);
         setActiveIndex((prev) => nextIndex(prev));
       }
     }, TICK_INTERVAL);
 
     return () => clearInterval(interval);
-  }, [autoplay, activeIndex, imageCount, transitionDuration, nextIndex]);
+  }, [autoplayState, activeIndex, imageCount, transitionDuration, nextIndex]);
 
   const handleImageClick = (index: number) => {
-    setAutoplay(false);
-    setGrayscale(0);
+    setAutoplayState(false);
     setActiveIndex(index);
   };
 
@@ -61,28 +70,39 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
   return (
     <section className='py-16 lg:py-24' id={sectionId || ''}>
       <div className='container mx-auto px-4'>
-        <div className='grid gap-6 lg:grid-cols-[2fr_1fr] lg:gap-8'>
+        <div className='grid gap-2 lg:grid-cols-[3fr_1fr] lg:gap-4'>
           {/* Main showcased image */}
-          <div className='relative aspect-4/3 w-full overflow-hidden rounded-xl'>
+          <div ref={mainImageRef} className='relative max-h-120 min-h-180 w-full rounded-xl'>
             {activeImage && (
               <Image
                 src={activeImage.url}
                 alt={activeImage.alt || ''}
                 fill
-                className='object-cover'
+                className='rounded-2xl object-contain'
                 priority
               />
             )}
           </div>
 
           {/* Thumbnail grid */}
-          <div className='flex gap-3 max-lg:flex-nowrap max-lg:overflow-x-auto lg:grid lg:grid-cols-2 lg:gap-4'>
+          <div
+            className={cn(
+              'flex gap-2 max-lg:flex-nowrap max-lg:overflow-x-auto lg:grid lg:auto-rows-min lg:gap-3 lg:overflow-y-auto',
+              {
+                'lg:grid-cols-1': gridColumns === '1',
+                'lg:grid-cols-2': gridColumns === '2',
+              }
+            )}
+            style={thumbnailMaxH ? { maxHeight: thumbnailMaxH } : undefined}
+          >
             {images.map((img, index) => {
               const image = getImagePayloadUrl(img.image);
               if (!image) return null;
 
               const isActive = index === activeIndex;
-              // const isUpcoming = autoplay && index === upcomingIndex;
+              const isUpcoming = autoplay && index === upcomingIndex;
+
+              const hasTransition = isActive || isUpcoming;
 
               return (
                 <button
@@ -90,15 +110,21 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
                   type='button'
                   onClick={() => handleImageClick(index)}
                   className={cn(
-                    'relative aspect-square w-full min-w-15 overflow-hidden rounded-lg transition-shadow duration-300'
+                    'relative aspect-square w-full min-w-15 overflow-hidden rounded-lg'
                   )}
                 >
                   <Image
                     src={image.url}
                     alt={image.alt || ''}
                     fill
-                    className='object-cover transition-[filter] duration-100'
-                    style={{ filter: `grayscale(${isActive ? 100 - grayscale : 100}%)` }}
+                    className={cn('object-cover', {
+                      'animate-grayscale': hasTransition,
+                      'grayscale-100': !hasTransition,
+                    })}
+                    style={{
+                      animationDirection: isActive ? 'normal' : isUpcoming ? 'reverse' : '',
+                      animationDuration: `${transitionDuration}ms`,
+                    }}
                   />
                 </button>
               );

@@ -94,7 +94,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
                 alt={bgImage.alt || slide.title || `Slide ${index + 1}`}
                 fill
                 className='object-cover'
-                priority={index === 0}
+                priority
               />
             )}
 
@@ -107,7 +107,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
             {/* Content */}
             <div
               className={cn(
-                'relative z-10 container mx-auto flex h-full flex-col justify-center px-4 py-16',
+                'relative z-10 container mx-auto flex h-full flex-col justify-center py-16 lg:px-8',
                 heightClasses[height as keyof typeof heightClasses],
                 alignmentClasses[slide.textAlignment as keyof typeof alignmentClasses]
               )}

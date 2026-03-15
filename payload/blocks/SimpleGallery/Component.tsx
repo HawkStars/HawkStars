@@ -47,11 +47,12 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({
                 const image = getImagePayloadUrl(img.image);
                 if (!image) return null;
                 return (
-                  <CarouselItem key={index} className='min-h-dvh basis-1/2'>
+                  <CarouselItem key={index} className='relative min-h-dvh basis-1/2'>
                     <Image
                       src={image.url}
                       alt={image.alt || 'placeholder'}
                       loading='lazy'
+                      fill
                       className='aspect-[3.8/5] w-full rounded-xl object-cover'
                     />
                   </CarouselItem>
