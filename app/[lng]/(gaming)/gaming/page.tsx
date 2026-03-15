@@ -55,7 +55,7 @@ const GamingIndexPage = async () => {
           {STATS.map((stat, _) => (
             <div
               key={stat.label}
-              className='border-gaming-border flex flex-col items-center gap-1 px-6 py-8 [&:not(:last-child)]:border-r'
+              className='border-gaming-border flex flex-col items-center gap-1 px-6 py-8 not-last:border-r'
             >
               <span className='font-magistral text-gaming-accent text-3xl tracking-wider'>
                 {stat.value}

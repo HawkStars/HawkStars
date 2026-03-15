@@ -34,6 +34,29 @@ export const ImageShowcaseBlock: Block = {
           'Time in milliseconds for each image to transition from grayscale to color (default: 5000ms)',
       },
     },
+    {
+      name: 'autoplay',
+      type: 'checkbox',
+      label: 'Autoplay',
+      defaultValue: true,
+      admin: {
+        description: 'Whether the image showcase should automatically transition between images.',
+      },
+    },
+    {
+      name: 'gridColumns',
+      type: 'select',
+      label: 'Grid Columns',
+      defaultValue: '2',
+      options: [
+        { label: '1 Column', value: '1' },
+        { label: '2 Columns', value: '2' },
+      ],
+      admin: {
+        description:
+          'Number of columns to display in the thumbnail grid (default: 2). Note: For best results, use images with a 1:1 aspect ratio.',
+      },
+    },
     SectionID,
   ],
 };

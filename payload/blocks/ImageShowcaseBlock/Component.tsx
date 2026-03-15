@@ -76,13 +76,13 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
           </div>
 
           {/* Thumbnail grid */}
-          <div className='grid grid-cols-2 gap-3 lg:grid-cols-2 lg:gap-4'>
+          <div className='flex gap-3 max-lg:flex-nowrap max-lg:overflow-x-auto lg:grid lg:grid-cols-2 lg:gap-4'>
             {images.map((img, index) => {
               const image = getImagePayloadUrl(img.image);
               if (!image) return null;
 
               const isActive = index === activeIndex;
-              const isUpcoming = autoplay && index === upcomingIndex;
+              // const isUpcoming = autoplay && index === upcomingIndex;
 
               return (
                 <button
@@ -90,8 +90,7 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
                   type='button'
                   onClick={() => handleImageClick(index)}
                   className={cn(
-                    'relative aspect-square w-full overflow-hidden rounded-lg transition-shadow duration-300',
-                    isActive && 'ring-primary ring-2 ring-offset-2'
+                    'relative aspect-square w-full min-w-15 overflow-hidden rounded-lg transition-shadow duration-300'
                   )}
                 >
                   <Image
@@ -99,7 +98,7 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
                     alt={image.alt || ''}
                     fill
                     className='object-cover transition-[filter] duration-100'
-                    style={{ filter: `grayscale(${isActive ? grayscale : 100}%)` }}
+                    style={{ filter: `grayscale(${isActive ? 100 - grayscale : 100}%)` }}
                   />
                 </button>
               );

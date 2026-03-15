@@ -35,19 +35,19 @@ export default async function GamingLayout(props: {
 
   return (
     <html lang={lng} className={`${inter.variable}`}>
-      <body className='bg-gaming-bg font-[Inter,sans-serif] text-gaming-text antialiased'>
+      <body className='bg-gaming-bg text-gaming-text font-[Inter,sans-serif] antialiased'>
         {/* Background ambient effects */}
         <div className='pointer-events-none fixed inset-0 z-0'>
           {/* Top-left cyan glow */}
           <div
-            className='absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full opacity-[0.07]'
+            className='absolute -top-40 -left-40 h-125 w-125 rounded-full opacity-[0.07]'
             style={{
               background: 'radial-gradient(circle, #00f0ff 0%, transparent 70%)',
             }}
           />
           {/* Bottom-right purple glow */}
           <div
-            className='absolute -right-40 -bottom-40 h-[600px] w-[600px] rounded-full opacity-[0.05]'
+            className='absolute -right-40 -bottom-40 h-150 w-150 rounded-full opacity-[0.05]'
             style={{
               background: 'radial-gradient(circle, #7b2ff7 0%, transparent 70%)',
             }}

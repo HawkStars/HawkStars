@@ -26,7 +26,7 @@ const Curators = async ({ lng }: LanguageProps) => {
                   <Image
                     src={(curator.image as Media)?.url || ''}
                     alt={(curator.image as Media)?.alt || 'Event Image'}
-                    className='max-lg:w-96 lg:h-[400px] lg:rounded-md'
+                    className='max-lg:w-96 lg:h-100 lg:rounded-md'
                   />
                 </div>
                 <h6 className='text-h2_bold max-lg:pl-4 md:text-center'>{curator.name}</h6>

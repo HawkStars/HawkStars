@@ -3196,6 +3196,14 @@ export interface Page {
              */
             transitionDuration?: number | null;
             /**
+             * Whether the image showcase should automatically transition between images.
+             */
+            autoplay?: boolean | null;
+            /**
+             * Number of columns to display in the thumbnail grid (default: 2). Note: For best results, use images with a 1:1 aspect ratio.
+             */
+            gridColumns?: ('1' | '2') | null;
+            /**
              * Unique identifier for the section (used for anchor links)
              */
             sectionId?: string | null;
@@ -6207,6 +6215,14 @@ export interface ImageShowcaseBlock {
    */
   transitionDuration?: number | null;
   /**
+   * Whether the image showcase should automatically transition between images.
+   */
+  autoplay?: boolean | null;
+  /**
+   * Number of columns to display in the thumbnail grid (default: 2). Note: For best results, use images with a 1:1 aspect ratio.
+   */
+  gridColumns?: ('1' | '2') | null;
+  /**
    * Unique identifier for the section (used for anchor links)
    */
   sectionId?: string | null;
@@ -7791,6 +7807,8 @@ export interface ImageShowcaseBlockSelect<T extends boolean = true> {
         id?: T;
       };
   transitionDuration?: T;
+  autoplay?: T;
+  gridColumns?: T;
   sectionId?: T;
   id?: T;
   blockName?: T;

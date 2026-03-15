@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { ImageShowcaseBlock } from './Component';
 
 const meta: Meta<typeof ImageShowcaseBlock> = {
-  title: 'Blocks/ImageShowcase',
+  title: 'Media/ImageShowcase',
   component: ImageShowcaseBlock,
   parameters: {
     layout: 'fullscreen',
@@ -13,6 +13,54 @@ export default meta;
 type Story = StoryObj<typeof ImageShowcaseBlock>;
 
 const sampleImages = [
+  {
+    id: '1',
+    image: {
+      imageType: 'external' as const,
+      externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw13.jpeg',
+      alt: 'Mountain landscape',
+    },
+  },
+  {
+    id: '2',
+    image: {
+      imageType: 'external' as const,
+      externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw8.jpeg',
+      alt: 'Ocean view',
+    },
+  },
+  {
+    id: '3',
+    image: {
+      imageType: 'external' as const,
+      externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw12.jpeg',
+      alt: 'Forest path',
+    },
+  },
+  {
+    id: '4',
+    image: {
+      imageType: 'external' as const,
+      externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw13.jpeg',
+      alt: 'City skyline',
+    },
+  },
+  {
+    id: '5',
+    image: {
+      imageType: 'external' as const,
+      externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw8.jpeg',
+      alt: 'Desert sunset',
+    },
+  },
+  {
+    id: '6',
+    image: {
+      imageType: 'external' as const,
+      externalImage: 'https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw12.jpeg',
+      alt: 'Snowy peaks',
+    },
+  },
   {
     id: '1',
     image: {

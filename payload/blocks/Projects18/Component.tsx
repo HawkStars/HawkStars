@@ -2,7 +2,7 @@
 
 import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import type { Projects18Block as Projects18BlockProps, Media, HawkProject } from '@/payload-types';
+import type { Projects18Block as Projects18BlockProps, HawkProject } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 
 export const Projects18Block: React.FC<Projects18BlockProps> = ({
