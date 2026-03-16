@@ -52,6 +52,7 @@ const nextConfig = {
   experimental: {
     taint: true,
     turbopackFileSystemCacheForDev: true,
+    inlineCss: true,
   },
   serverExternalPackages: [],
   staticPageGenerationTimeout: 120,
