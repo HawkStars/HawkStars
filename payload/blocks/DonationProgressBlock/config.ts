@@ -5,6 +5,9 @@ import type { Block } from 'payload';
 export const DonationProgressBlock: Block = {
   slug: 'donationProgress',
   interfaceName: 'DonationProgressBlock',
+  admin: {
+    group: 'CTA & Engagement',
+  },
   fields: [
     {
       name: 'title',

@@ -40,6 +40,9 @@ export const BoardMember: CollectionConfig = {
         },
       },
     },
+    group: {
+      name: 'Management',
+    },
   },
   fields: [
     {

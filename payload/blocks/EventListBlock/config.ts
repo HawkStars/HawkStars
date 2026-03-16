@@ -5,6 +5,9 @@ import type { Block } from 'payload';
 export const EventListBlock: Block = {
   slug: 'eventList',
   interfaceName: 'EventListBlock',
+  admin: {
+    group: 'Map & Events',
+  },
   fields: [
     {
       name: 'title',

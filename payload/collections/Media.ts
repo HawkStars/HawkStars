@@ -18,6 +18,9 @@ export const Media: CollectionConfig = {
       limits: [10, 25, 50, 100],
       defaultLimit: 2,
     },
+    group: {
+      name: 'Management',
+    },
   },
   upload: {
     staticDir: 'media',

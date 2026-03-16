@@ -5,6 +5,9 @@ import type { Block } from 'payload';
 export const TestimonialBlock: Block = {
   slug: 'testimonialBlock',
   interfaceName: 'TestimonialBlock',
+  admin: {
+    group: 'Social Proof',
+  },
   fields: [
     {
       name: 'title',

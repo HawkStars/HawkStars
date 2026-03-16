@@ -25,6 +25,9 @@ export const News: CollectionConfig = {
     defaultColumns: ['title', 'type', 'slug', 'status', 'updatedAt'],
     description:
       'Write and publish news articles for the HawkStars website. Articles follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.',
+    group: {
+      name: 'Daily Work',
+    },
   },
   defaultPopulate: {
     title: true,

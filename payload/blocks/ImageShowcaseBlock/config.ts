@@ -9,6 +9,9 @@ export const ImageShowcaseBlock: Block = {
     singular: 'Image Showcase',
     plural: 'Image Showcases',
   },
+  admin: {
+    group: 'Media',
+  },
   fields: [
     {
       name: 'images',

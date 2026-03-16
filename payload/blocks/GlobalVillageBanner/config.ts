@@ -8,6 +8,9 @@ export const GlobalVillageBannerBlock: Block = {
     singular: 'Global Village Banner',
     plural: 'Global Village Banners',
   },
+  admin: {
+    group: 'Global Village',
+  },
   fields: [
     {
       name: 'text',

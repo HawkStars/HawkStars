@@ -5,6 +5,9 @@ import type { Block } from 'payload';
 export const QuoteHighlightBlock: Block = {
   slug: 'quoteHighlight',
   interfaceName: 'QuoteHighlightBlock',
+  admin: {
+    group: 'Content',
+  },
   fields: [
     {
       name: 'quote',

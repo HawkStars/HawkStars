@@ -9,6 +9,9 @@ const SimpleGallery: Block = {
     singular: 'Simple Gallery',
     plural: 'Simple Galleries',
   },
+  admin: {
+    group: 'Media',
+  },
   fields: [
     {
       name: 'title',

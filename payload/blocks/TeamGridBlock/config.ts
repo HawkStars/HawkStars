@@ -5,6 +5,9 @@ import type { Block } from 'payload';
 export const TeamGridBlock: Block = {
   slug: 'teamGrid',
   interfaceName: 'TeamGridBlock',
+  admin: {
+    group: 'Layout',
+  },
   fields: [
     {
       name: 'title',

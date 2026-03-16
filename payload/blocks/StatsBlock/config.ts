@@ -6,6 +6,9 @@ import type { Block } from 'payload';
 export const StatsBlock: Block = {
   slug: 'statsBlock',
   interfaceName: 'StatsBlock',
+  admin: {
+    group: 'Social Proof',
+  },
   fields: [
     {
       name: 'columns',

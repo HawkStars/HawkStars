@@ -4,6 +4,9 @@ import type { Block } from 'payload';
 export const MapLocationBlock: Block = {
   slug: 'mapLocation',
   interfaceName: 'MapLocationBlock',
+  admin: {
+    group: 'Map & Events',
+  },
   fields: [
     {
       name: 'title',

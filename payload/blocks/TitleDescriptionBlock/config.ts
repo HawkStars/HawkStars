@@ -8,6 +8,9 @@ const TitleDescriptionBlock: Block = {
     plural: 'Title & Description Blocks',
   },
   interfaceName: 'TitleDescriptionBlock',
+  admin: {
+    group: 'Content',
+  },
   fields: [
     {
       name: 'title',

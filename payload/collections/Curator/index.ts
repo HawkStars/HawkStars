@@ -22,6 +22,9 @@ export const Curator: CollectionConfig = {
     defaultColumns: ['name', 'role', 'updatedAt'],
     description:
       'Manage art curators who oversee and contribute to the HawkStars collection. Add their profiles, roles, and SEO information for their public pages.',
+    group: {
+      name: 'Art Gallery',
+    },
   },
   fields: [
     {

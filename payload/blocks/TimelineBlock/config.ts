@@ -5,6 +5,9 @@ import type { Block } from 'payload';
 export const TimelineBlock: Block = {
   slug: 'timeline',
   interfaceName: 'TimelineBlock',
+  admin: {
+    group: 'Layout',
+  },
   fields: [
     {
       name: 'title',

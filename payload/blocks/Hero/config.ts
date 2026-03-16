@@ -6,6 +6,9 @@ import type { Block } from 'payload';
 export const Hero: Block = {
   slug: 'hero',
   interfaceName: 'HeroBlock',
+  admin: {
+    group: 'Hero',
+  },
   fields: [
     {
       name: 'badge',

@@ -4,6 +4,9 @@ import type { Block } from 'payload';
 export const ResourceDownloadBlock: Block = {
   slug: 'resourceDownload',
   interfaceName: 'ResourceDownloadBlock',
+  admin: {
+    group: 'Layout',
+  },
   fields: [
     {
       name: 'title',

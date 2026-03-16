@@ -5,6 +5,9 @@ export const AccordionBlock: Block = {
   slug: 'accordion',
   interfaceName: 'AccordionBlock',
   imageAltText: 'Accordion Block',
+  admin: {
+    group: 'Content',
+  },
   fields: [
     {
       name: 'title',

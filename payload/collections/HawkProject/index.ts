@@ -15,6 +15,9 @@ export const HawkProject: CollectionConfig = {
     useAsTitle: 'heading',
     description:
       'Manage HawkStars projects and events. Add event details, images, and descriptions. Each project gets its own public page based on its slug.',
+    group: {
+      name: 'Daily Work',
+    },
   },
   defaultPopulate: {
     slug: true,

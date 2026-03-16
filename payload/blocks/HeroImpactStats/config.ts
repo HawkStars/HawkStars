@@ -6,6 +6,9 @@ import type { Block } from 'payload';
 export const HeroImpactStats: Block = {
   slug: 'heroImpactStats',
   interfaceName: 'HeroImpactStatsBlock',
+  admin: {
+    group: 'Hero',
+  },
   fields: [
     {
       name: 'badge',

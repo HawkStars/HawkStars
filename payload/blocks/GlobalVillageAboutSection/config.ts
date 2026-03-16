@@ -17,6 +17,9 @@ export const GlobalVillageAboutSectionBlock: Block = {
     singular: 'Global Village About Section',
     plural: 'Global Village About Sections',
   },
+  admin: {
+    group: 'Global Village',
+  },
   fields: [
     {
       name: 'heading',

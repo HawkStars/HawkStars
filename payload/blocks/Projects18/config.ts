@@ -4,6 +4,9 @@ import type { Block } from 'payload';
 export const Projects18Block: Block = {
   slug: 'projects18',
   interfaceName: 'Projects18Block',
+  admin: {
+    group: 'Layout',
+  },
   fields: [
     {
       name: 'title',

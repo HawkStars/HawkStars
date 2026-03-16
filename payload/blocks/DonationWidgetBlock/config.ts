@@ -8,5 +8,8 @@ export const DonationWidgetBlock: Block = {
     singular: 'Donation Widget',
     plural: 'Donation Widgets',
   },
+  admin: {
+    group: 'CTA & Engagement',
+  },
   fields: [SectionID],
 };

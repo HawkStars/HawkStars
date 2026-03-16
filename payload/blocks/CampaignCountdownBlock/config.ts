@@ -5,6 +5,9 @@ import type { Block } from 'payload';
 export const CampaignCountdownBlock: Block = {
   slug: 'campaignCountdown',
   interfaceName: 'CampaignCountdownBlock',
+  admin: {
+    group: 'CTA & Engagement',
+  },
   fields: [
     {
       name: 'title',

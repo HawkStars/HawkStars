@@ -15,6 +15,9 @@ export const Partner: CollectionConfig = {
     defaultColumns: ['name', 'country', 'type'],
     description:
       'Manage national and international partner organizations. Add their logo, country, and social links. Partners are displayed on the public partners page.',
+    group: {
+      name: 'Erasmus',
+    },
   },
   access: {
     admin: authenticatedEditor,

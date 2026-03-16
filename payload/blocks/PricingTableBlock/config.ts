@@ -4,6 +4,9 @@ import type { Block } from 'payload';
 export const PricingTableBlock: Block = {
   slug: 'pricingTable',
   interfaceName: 'PricingTableBlock',
+  admin: {
+    group: 'CTA & Engagement',
+  },
   fields: [
     {
       name: 'title',

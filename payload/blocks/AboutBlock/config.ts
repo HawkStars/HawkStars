@@ -9,6 +9,9 @@ const AboutBlock: Block = {
     singular: 'About Block',
     plural: 'About Blocks',
   },
+  admin: {
+    group: 'Content',
+  },
   fields: [
     {
       name: 'title',

@@ -4,6 +4,9 @@ import type { Block } from 'payload';
 export const LogosBlock: Block = {
   slug: 'logosBlock',
   interfaceName: 'LogosBlock',
+  admin: {
+    group: 'Social Proof',
+  },
   fields: [
     {
       name: 'badgeText',

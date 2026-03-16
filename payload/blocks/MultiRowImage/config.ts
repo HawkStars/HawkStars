@@ -4,6 +4,10 @@ import { Block } from 'payload';
 
 const MultiRowImage: Block = {
   slug: 'multiRowImage',
+  admin: {
+    group: 'Media',
+  },
+
   labels: {
     singular: 'Multi Row Image',
     plural: 'Multi Row Images',

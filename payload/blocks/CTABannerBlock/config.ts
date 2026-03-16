@@ -6,6 +6,9 @@ import type { Block } from 'payload';
 export const CTABannerBlock: Block = {
   slug: 'ctaBanner',
   interfaceName: 'CTABannerBlock',
+  admin: {
+    group: 'CTA & Engagement',
+  },
   fields: [
     {
       name: 'title',

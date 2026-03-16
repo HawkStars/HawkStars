@@ -5,6 +5,9 @@ export const FAQBlock: Block = {
   slug: 'faq',
   interfaceName: 'FAQBlock',
   imageAltText: 'FAQ Block',
+  admin: {
+    group: 'Content',
+  },
   fields: [
     {
       name: 'title',

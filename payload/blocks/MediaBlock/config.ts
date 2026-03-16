@@ -5,5 +5,8 @@ import type { Block } from 'payload';
 export const MediaBlock: Block = {
   slug: 'mediaBlock',
   interfaceName: 'MediaBlock',
+  admin: {
+    group: 'Media',
+  },
   fields: [PayloadImageField({ name: 'media', label: 'Media', required: true }), SectionID],
 };

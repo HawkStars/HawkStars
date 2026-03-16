@@ -10,6 +10,9 @@ export const BentoGridBlock: Block = {
     plural: 'Bento Grids',
   },
   interfaceName: 'BentoGridBlock',
+  admin: {
+    group: 'Layout',
+  },
   fields: [
     {
       name: 'sectionTitle',

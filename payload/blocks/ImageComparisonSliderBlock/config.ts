@@ -5,6 +5,9 @@ import type { Block } from 'payload';
 export const ImageComparisonSliderBlock: Block = {
   slug: 'imageComparisonSlider',
   interfaceName: 'ImageComparisonSliderBlock',
+  admin: {
+    group: 'Media',
+  },
   fields: [
     {
       name: 'title',

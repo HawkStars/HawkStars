@@ -4,6 +4,9 @@ import type { Block } from 'payload';
 export const NewsletterSignupBlock: Block = {
   slug: 'newsletterSignup',
   interfaceName: 'NewsletterSignupBlock',
+  admin: {
+    group: 'CTA & Engagement',
+  },
   fields: [
     {
       name: 'title',

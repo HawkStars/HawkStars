@@ -12,6 +12,9 @@ import { PayloadImageField } from '@/payload/fields/ImageType';
 export const ContentWithImage: Block = {
   slug: 'contentWithImage',
   interfaceName: 'ContentWithImageBlock',
+  admin: {
+    group: 'Content',
+  },
   fields: [
     {
       name: 'title',

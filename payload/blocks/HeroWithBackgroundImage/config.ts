@@ -6,6 +6,9 @@ import type { Block } from 'payload';
 export const HeroWithBackgroundImage: Block = {
   slug: 'heroWithBackgroundImage',
   interfaceName: 'HeroWithBackgroundImageBlock',
+  admin: {
+    group: 'Hero',
+  },
   fields: [
     PayloadImageField({
       name: 'backgroundImage',

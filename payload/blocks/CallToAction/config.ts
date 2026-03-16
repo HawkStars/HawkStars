@@ -7,6 +7,9 @@ import { PayloadImageField } from '@/payload/fields/ImageType';
 export const CallToAction: Block = {
   slug: 'cta',
   interfaceName: 'CallToActionBlock',
+  admin: {
+    group: 'CTA & Engagement',
+  },
   fields: [
     {
       name: 'title',

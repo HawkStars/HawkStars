@@ -35,6 +35,9 @@ export const Pages: CollectionConfig<'pages'> = {
     defaultColumns: ['title', 'slug', 'status', 'updatedAt'],
     description:
       'Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search optimization. Pages follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.',
+    group: {
+      name: 'Daily Work',
+    },
   },
   fields: [
     {
