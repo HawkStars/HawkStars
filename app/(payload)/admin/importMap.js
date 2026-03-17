@@ -42,9 +42,8 @@ import { default as default_f89cbbda01850af27d943f60ccf826ac } from '@/payload/f
 import { FooterLabel as FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd } from '@/payload/globals/Footer/components/FooterLabel'
 import { default as default_311a5f154e8b373fc453af30d4e74fc0 } from '@/payload/components/admin/avatar'
 import { default as default_91bbc66a9b3ed1dae52e0caef1a54af7 } from '@/payload/components/Logo'
-import { default as default_d49a4ffdd2cc75d82d4c892f1e79350d } from '@/payload/components/admin/DashboardStats'
 import { default as default_fa93fe34eeaf7350879c70581ad783f9 } from '@/payload/components/admin/NotificationBell'
-import { default as default_86602b1dc72813c56de877a02ce02144 } from '@/payload/components/admin/WelcomeDashboard'
+import { default as default_712dd420d5f8ea4249144c8245228f86 } from '@/payload/components/admin/CustomDashboard'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 export const importMap = {
@@ -92,8 +91,7 @@ export const importMap = {
   "@/payload/globals/Footer/components/FooterLabel#FooterLabel": FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd,
   "@/payload/components/admin/avatar#default": default_311a5f154e8b373fc453af30d4e74fc0,
   "@/payload/components/Logo#default": default_91bbc66a9b3ed1dae52e0caef1a54af7,
-  "@/payload/components/admin/DashboardStats#default": default_d49a4ffdd2cc75d82d4c892f1e79350d,
   "@/payload/components/admin/NotificationBell#default": default_fa93fe34eeaf7350879c70581ad783f9,
-  "@/payload/components/admin/WelcomeDashboard#default": default_86602b1dc72813c56de877a02ce02144,
+  "@/payload/components/admin/CustomDashboard#default": default_712dd420d5f8ea4249144c8245228f86,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

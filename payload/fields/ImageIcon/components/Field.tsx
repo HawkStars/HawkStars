@@ -1,22 +1,27 @@
 'use client';
 import type { SelectFieldClientComponent } from 'payload';
 
-import { SelectField } from '@payloadcms/ui';
+import { SelectField, useField } from '@payloadcms/ui';
 import { icons, LucideIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 const IconSelectField: SelectFieldClientComponent = (props) => {
-  const { field, value, path } = props;
-  const [selectedIcon, setSelectedIcon] = useState<string>((value as string) || 'Star');
+  const { field, path } = props;
+  const data = useField({ path });
+  const { initialValue } = data;
 
-  const IconComponent = selectedIcon
-    ? (icons[selectedIcon as keyof typeof icons] as LucideIcon)
-    : null;
+  const [selectedIcon, setSelectedIcon] = useState<string>(initialValue as string);
 
   const handleIconChange = (newValue: string | string[]) => {
     const iconValue = Array.isArray(newValue) ? newValue[0] : newValue;
     setSelectedIcon(iconValue);
   };
+
+  const IconComponent = useMemo(() => {
+    if (!selectedIcon) return null;
+
+    return icons[selectedIcon as keyof typeof icons] as LucideIcon;
+  }, [selectedIcon]);
 
   return (
     <div className='field-type select flex gap-2'>

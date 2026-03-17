@@ -60,7 +60,6 @@ export const PayloadIconOrImage = (props?: ImageTypeGroupProps) => {
           label: iconKey,
           value: iconKey,
         })),
-        defaultValue: 'Star',
       },
     ],
   } as Field;

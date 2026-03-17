@@ -1,0 +1,30 @@
+{
+  "title": "Agenda",
+  "subtitle": "Fique atualizado com os nossos próximos eventos, projetos e atividades. Clique num dia para ver o que está a acontecer.",
+  "noEvents": "Sem eventos agendados para este dia.",
+  "today": "Hoje",
+  "viewProject": "Ver projeto",
+  "months": {
+    "january": "Janeiro",
+    "february": "Fevereiro",
+    "march": "Março",
+    "april": "Abril",
+    "may": "Maio",
+    "june": "Junho",
+    "july": "Julho",
+    "august": "Agosto",
+    "september": "Setembro",
+    "october": "Outubro",
+    "november": "Novembro",
+    "december": "Dezembro"
+  },
+  "days": {
+    "sun": "Dom",
+    "mon": "Seg",
+    "tue": "Ter",
+    "wed": "Qua",
+    "thu": "Qui",
+    "fri": "Sex",
+    "sat": "Sáb"
+  }
+}
