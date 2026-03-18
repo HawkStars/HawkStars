@@ -134,40 +134,40 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
   }
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className='flex flex-col gap-8'>
       {/* Header */}
-      <div className="flex flex-col gap-4">
-        <h1 className="text-3xl font-bold uppercase md:text-5xl">{translations.title}</h1>
-        <p className="text-muted-foreground max-w-2xl">{translations.subtitle}</p>
+      <div className='flex flex-col gap-4'>
+        <h1 className='text-3xl font-bold uppercase md:text-5xl'>{translations.title}</h1>
+        <p className='text-muted-foreground max-w-2xl'>{translations.subtitle}</p>
       </div>
 
-      <div className="flex flex-col gap-8 lg:flex-row">
+      <div className='flex flex-col gap-8 lg:flex-row'>
         {/* Calendar Grid */}
-        <div className="flex-1 rounded-xl border bg-white p-4 shadow-sm md:p-6">
+        <div className='flex-1 rounded-xl border bg-white p-4 shadow-sm md:p-6'>
           {/* Month Navigation */}
-          <div className="mb-6 flex items-center justify-between">
-            <Button variant="ghost" size="icon" onClick={prevMonth}>
-              <ChevronLeft className="h-5 w-5" />
+          <div className='mb-6 flex items-center justify-between'>
+            <Button variant='ghost' size='icon' onClick={prevMonth}>
+              <ChevronLeft className='h-5 w-5' />
             </Button>
-            <div className="flex items-center gap-3">
-              <h2 className="text-xl font-semibold capitalize">
+            <div className='flex items-center gap-3'>
+              <h2 className='text-xl font-semibold capitalize'>
                 {translations.monthNames[currentMonth]} {currentYear}
               </h2>
-              <Button variant="outline" size="sm" onClick={goToToday} className="text-xs">
+              <Button variant='outline' size='sm' onClick={goToToday} className='text-xs'>
                 {translations.today}
               </Button>
             </div>
-            <Button variant="ghost" size="icon" onClick={nextMonth}>
-              <ChevronRight className="h-5 w-5" />
+            <Button variant='ghost' size='icon' onClick={nextMonth}>
+              <ChevronRight className='h-5 w-5' />
             </Button>
           </div>
 
           {/* Day Headers */}
-          <div className="mb-2 grid grid-cols-7 gap-1">
+          <div className='mb-2 grid grid-cols-7 gap-1'>
             {translations.dayNames.map((day) => (
               <div
                 key={day}
-                className="text-muted-foreground py-2 text-center text-xs font-medium uppercase"
+                className='text-muted-foreground py-2 text-center text-xs font-medium uppercase'
               >
                 {day}
               </div>
@@ -175,10 +175,10 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
           </div>
 
           {/* Calendar Days */}
-          <div className="grid grid-cols-7 gap-1">
+          <div className='grid grid-cols-7 gap-1'>
             {calendarDays.map((day, index) => {
               if (day === null) {
-                return <div key={`empty-${index}`} className="aspect-square" />;
+                return <div key={`empty-${index}`} className='aspect-square' />;
               }
 
               const dateKey = getDateKey(day);
@@ -208,7 +208,7 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
                     {day}
                   </span>
                   {hasEvents && (
-                    <div className="mt-0.5 flex gap-0.5">
+                    <div className='mt-0.5 flex gap-0.5'>
                       {dayEvents.slice(0, 3).map((evt, i) => (
                         <div
                           key={i}
@@ -232,9 +232,9 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
           </div>
 
           {/* Legend */}
-          <div className="mt-4 flex flex-wrap gap-4 border-t pt-4">
-            {Object.entries(categoryColors).map(([key, classes]) => (
-              <div key={key} className="flex items-center gap-1.5">
+          <div className='mt-4 flex flex-wrap gap-4 border-t pt-4'>
+            {Object.entries(categoryColors).map(([key]) => (
+              <div key={key} className='flex items-center gap-1.5'>
                 <div
                   className={cn(
                     'h-2.5 w-2.5 rounded-full',
@@ -247,7 +247,7 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
                           : 'bg-green'
                   )}
                 />
-                <span className="text-xs text-gray-600">
+                <span className='text-xs text-gray-600'>
                   {categoryLabels[lng]?.[key] || categoryLabels['en'][key]}
                 </span>
               </div>
@@ -256,11 +256,11 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
         </div>
 
         {/* Selected Day Events Sidebar */}
-        <div className="w-full lg:w-96">
-          <div className="sticky top-4 rounded-xl border bg-white p-4 shadow-sm md:p-6">
-            <div className="mb-4 flex items-center gap-2">
-              <Calendar className="text-green h-5 w-5" />
-              <h3 className="text-lg font-semibold">
+        <div className='w-full lg:w-96'>
+          <div className='sticky top-4 rounded-xl border bg-white p-4 shadow-sm md:p-6'>
+            <div className='mb-4 flex items-center gap-2'>
+              <Calendar className='text-green h-5 w-5' />
+              <h3 className='text-lg font-semibold'>
                 {selectedDate
                   ? new Date(selectedDate + 'T12:00:00').toLocaleDateString(
                       lng === 'pt' ? 'pt-PT' : 'en-US',
@@ -276,38 +276,38 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
             </div>
 
             {!selectedDate && (
-              <p className="text-muted-foreground text-sm">
+              <p className='text-muted-foreground text-sm'>
                 {translations.noEvents.replace('{action}', '')}
               </p>
             )}
 
             {selectedDate && selectedEvents.length === 0 && (
-              <p className="text-muted-foreground text-sm">{translations.noEvents}</p>
+              <p className='text-muted-foreground text-sm'>{translations.noEvents}</p>
             )}
 
             {selectedEvents.length > 0 && (
-              <div className="flex flex-col gap-4">
+              <div className='flex flex-col gap-4'>
                 {selectedEvents.map((event) => {
                   const imageInfo = event.image ? getImagePayloadUrl(event.image) : null;
                   return (
                     <a
                       key={event.id}
                       href={`/${lng}/projects/${event.slug}`}
-                      className="group block overflow-hidden rounded-lg border transition-shadow hover:shadow-md"
+                      className='group block overflow-hidden rounded-lg border transition-shadow hover:shadow-md'
                     >
                       {imageInfo?.url && (
-                        <div className="relative h-32 w-full overflow-hidden">
+                        <div className='relative h-32 w-full overflow-hidden'>
                           <Image
                             src={imageInfo.url}
                             alt={imageInfo.alt || event.title}
                             fill
-                            className="object-cover transition-transform group-hover:scale-105"
+                            className='object-cover transition-transform group-hover:scale-105'
                           />
                         </div>
                       )}
-                      <div className="p-3">
-                        <div className="mb-1 flex items-center gap-2">
-                          <h4 className="font-semibold">{event.title}</h4>
+                      <div className='p-3'>
+                        <div className='mb-1 flex items-center gap-2'>
+                          <h4 className='font-semibold'>{event.title}</h4>
                           {event.type && (
                             <span
                               className={cn(
@@ -322,10 +322,10 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
                           )}
                         </div>
                         {event.description && (
-                          <p className="line-clamp-2 text-sm text-gray-600">{event.description}</p>
+                          <p className='line-clamp-2 text-sm text-gray-600'>{event.description}</p>
                         )}
-                        <div className="mt-2 flex items-center gap-1 text-xs text-gray-500">
-                          <Clock className="h-3 w-3" />
+                        <div className='mt-2 flex items-center gap-1 text-xs text-gray-500'>
+                          <Clock className='h-3 w-3' />
                           <span>
                             {new Date(event.date).toLocaleTimeString(
                               lng === 'pt' ? 'pt-PT' : 'en-US',
@@ -336,7 +336,7 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
                             )}
                           </span>
                         </div>
-                        <span className="text-green mt-2 inline-block text-xs font-medium">
+                        <span className='text-green mt-2 inline-block text-xs font-medium'>
                           {translations.viewProject} →
                         </span>
                       </div>

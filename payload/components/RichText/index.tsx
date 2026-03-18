@@ -49,6 +49,7 @@ import { TeamGridBlock } from '@/payload/blocks/TeamGridBlock/Component';
 import { TimelineBlock } from '@/payload/blocks/TimelineBlock/Component';
 import { ImageShowcaseBlock } from '@/payload/blocks/ImageShowcaseBlock/Component';
 import { DonationWidgetBlock } from '@/payload/blocks/DonationWidgetBlock/Component';
+import { DataGridBlock } from '@/payload/blocks/DataGridBlock/Component';
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -101,6 +102,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     timeline: ({ node }) => <TimelineBlock {...node.fields} />,
     imageShowcase: ({ node }) => <ImageShowcaseBlock {...node.fields} />,
     donationWidget: ({ node }) => <DonationWidgetBlock {...node.fields} />,
+    dataGridBlock: ({ node }) => <DataGridBlock {...node.fields} />,
   },
   list: List,
   listitem: ListItem,
