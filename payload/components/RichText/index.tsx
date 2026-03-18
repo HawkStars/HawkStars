@@ -4,12 +4,10 @@ import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
 import { AboutBlock } from '@/payload/blocks/AboutBlock/Component';
 import { HeroBlock } from '@/payload/blocks/Hero/Component';
 import { HeroWithBackgroundImageBlock } from '@/payload/blocks/HeroWithBackgroundImage/Component';
-import { HeroImpactStatsBlock } from '@/payload/blocks/HeroImpactStats/Component';
 import { ContentWithImageBlock } from '@/payload/blocks/ContentWithImage/Component';
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
 import { GlobalVillageAboutSectionBlockComponent } from '@/payload/blocks/GlobalVillageAboutSection/Component';
 import { TestimonialBlock } from '@/payload/blocks/TestimonialBlock/Component';
-import { Projects18Block } from '@/payload/blocks/Projects18/Component';
 import { SerializedLinkNode, type DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import {
   JSXConvertersFunction,
@@ -71,10 +69,8 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     hero: ({ node }) => <HeroBlock {...node.fields} />,
     heroWithBackgroundImage: ({ node }) => <HeroWithBackgroundImageBlock {...node.fields} />,
     heroSlideshowBlock: ({ node }) => <HeroSlideshowBlock {...node.fields} />,
-    heroImpactStats: ({ node }) => <HeroImpactStatsBlock {...node.fields} />,
     contentWithImage: ({ node }) => <ContentWithImageBlock {...node.fields} />,
     videoBlock: ({ node }) => <VideoBlock {...node.fields} />,
-    projects18: ({ node }) => <Projects18Block {...node.fields} />,
     testimonialBlock: ({ node }) => <TestimonialBlock {...node.fields} />,
     aboutBlock: ({ node }) => <AboutBlock {...node.fields} />,
     globalVillageAboutSection: ({ node }) => (

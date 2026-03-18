@@ -17,7 +17,7 @@ export const GlobalVillageAboutSectionBlockComponent: React.FC<
   return (
     <section id={sectionId || ''}>
       <div className='mx-3 mb-10 flex max-w-6xl flex-col gap-6 px-0 text-center lg:mx-auto lg:px-8'>
-        {heading && <h2 className='text-body_semibold lg:text-h1_semibold'>{heading}</h2>}
+        {heading && <h2 className='text-h1_semibold'>{heading}</h2>}
         {description && <p className='text-body_regular'>{description}</p>}
       </div>
 

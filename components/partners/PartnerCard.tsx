@@ -33,6 +33,8 @@ const PartnerCard = (partner: Partner): JSX.Element => {
             width={256}
             height={256}
             className='aspect-square rounded-t-2xl object-contain object-center px-6'
+            placeholder='blur'
+            blurDataURL={url as string} // TODO: change this to a low quality image placeholder (LQIP) instead of the original image for better performance
           />
         </div>
       )}

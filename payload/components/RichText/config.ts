@@ -3,11 +3,9 @@ import type {
   MediaBlock as MediaBlockProps,
   HeroBlock as HeroProps,
   HeroWithBackgroundImageBlock as HeroWithBackgroundImageProps,
-  HeroImpactStatsBlock as HeroImpactStatsProps,
   ContentWithImageBlock as ContentWithImageProps,
   VideoBlock as VideoBlockProps,
   TestimonialBlock as TestimonialBlockProps,
-  Projects18Block as Projects18BlockProps,
   AboutBlock as AboutBlockProps,
   GlobalVillageAboutSectionBlock as GlobalVillageAboutSectionBlockProps,
   HeroSlideshowBlock as HeroSlideshowBlockProps,
@@ -46,11 +44,9 @@ export type BlockNodeTypes = SerializedBlockNode<
   | MediaBlockProps
   | HeroProps
   | HeroWithBackgroundImageProps
-  | HeroImpactStatsProps
   | ContentWithImageProps
   | VideoBlockProps
   | TestimonialBlockProps
-  | Projects18BlockProps
   | AboutBlockProps
   | GlobalVillageAboutSectionBlockProps
   | HeroSlideshowBlockProps

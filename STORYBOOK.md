@@ -96,7 +96,6 @@ The following Payload CMS blocks have Storybook stories:
 
 ### Project Blocks
 
-- **Projects18** - Project showcase with images
 - **UpdatesBlock** - Blog posts/updates with categories
 - **ProcessOneBlock** - Step-by-step process display
 

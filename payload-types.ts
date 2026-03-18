@@ -161,10 +161,8 @@ export interface Config {
     hero: HeroBlock;
     heroWithBackgroundImage: HeroWithBackgroundImageBlock;
     heroSlideshowBlock: HeroSlideshowBlock;
-    heroImpactStats: HeroImpactStatsBlock;
     contentWithImage: ContentWithImageBlock;
     videoBlock: VideoBlock;
-    projects18: Projects18Block;
     simpleGallery: SimpleGallery;
     testimonialBlock: TestimonialBlock;
     projectTestimonialBlock: ProjectTestimonialBlock;
@@ -192,6 +190,7 @@ export interface Config {
     bentoGrid: BentoGridBlock;
     imageShowcase: ImageShowcaseBlock;
     donationWidget: DonationWidgetBlock;
+    dataGridBlock: DataGridBlock;
   };
   collections: {
     users: User;
@@ -411,10 +410,8 @@ export interface Page {
         | HeroBlock
         | HeroWithBackgroundImageBlock
         | HeroSlideshowBlock
-        | HeroImpactStatsBlock
         | ContentWithImageBlock
         | VideoBlock
-        | Projects18Block
         | SimpleGallery
         | TestimonialBlock
         | ProjectTestimonialBlock
@@ -442,6 +439,7 @@ export interface Page {
         | BentoGridBlock
         | ImageShowcaseBlock
         | DonationWidgetBlock
+        | DataGridBlock
       )[]
     | null;
   meta?: {
@@ -678,58 +676,6 @@ export interface HeroSlideshowBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroImpactStatsBlock".
- */
-export interface HeroImpactStatsBlock {
-  /**
-   * Small badge text (e.g., "OUR IMPACT")
-   */
-  badge?: string | null;
-  /**
-   * Main heading text
-   */
-  title: string;
-  /**
-   * Description or mission statement
-   */
-  description?: string | null;
-  heroImage?: ImageType;
-  /**
-   * Impact statistics (2-4 stats)
-   */
-  stats?:
-    | {
-        /**
-         * Statistic number (e.g., "500+", "10K")
-         */
-        number: string;
-        /**
-         * Statistic label (e.g., "Lives Changed", "Volunteers")
-         */
-        label: string;
-        /**
-         * Icon for this statistic
-         */
-        icon?: ('heart' | 'users' | 'globe' | 'target' | 'trendingUp' | 'award') | null;
-        id?: string | null;
-      }[]
-    | null;
-  links?:
-    | {
-        link: LinkField;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'heroImpactStats';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ContentWithImageBlock".
  */
 export interface ContentWithImageBlock {
@@ -802,58 +748,6 @@ export interface VideoBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'videoBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Projects18Block".
- */
-export interface Projects18Block {
-  title: string;
-  subtitle?: string | null;
-  description?: string | null;
-  /**
-   * Select the projects you want to display in this block
-   */
-  projects: (string | HawkProject)[];
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'projects18';
-}
-/**
- * Manage HawkStars projects and events. Add event details, images, and descriptions. Each project gets its own public page based on its slug.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "hawk_projects".
- */
-export interface HawkProject {
-  id: string;
-  heading: string;
-  subheading?: string | null;
-  description?: string | null;
-  slug: string;
-  type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
-  page_content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  image: ImageType;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3466,6 +3360,74 @@ export interface DonationWidgetBlock {
   blockType: 'donationWidget';
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DataGridBlock".
+ */
+export interface DataGridBlock {
+  /**
+   * Title displayed above the grid
+   */
+  title: string;
+  /**
+   * Header for the first column
+   */
+  columnOneHeader: string;
+  /**
+   * Header for the second column
+   */
+  columnTwoHeader: string;
+  rows: {
+    /**
+     * Value for the first column
+     */
+    columnOne: string;
+    /**
+     * Value for the second column
+     */
+    columnTwo: string;
+    id?: string | null;
+  }[];
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'dataGridBlock';
+}
+/**
+ * Manage HawkStars projects and events. Add event details, images, and descriptions. Each project gets its own public page based on its slug.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hawk_projects".
+ */
+export interface HawkProject {
+  id: string;
+  heading: string;
+  subheading?: string | null;
+  description?: string | null;
+  slug: string;
+  type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
+  page_content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image: ImageType;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Manage admin panel users and their roles. Admins have full access; Editors can manage content but not users or settings. Only admins can create new users.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4237,10 +4199,8 @@ export interface PagesSelect<T extends boolean = true> {
         hero?: T | HeroBlockSelect<T>;
         heroWithBackgroundImage?: T | HeroWithBackgroundImageBlockSelect<T>;
         heroSlideshowBlock?: T | HeroSlideshowBlockSelect<T>;
-        heroImpactStats?: T | HeroImpactStatsBlockSelect<T>;
         contentWithImage?: T | ContentWithImageBlockSelect<T>;
         videoBlock?: T | VideoBlockSelect<T>;
-        projects18?: T | Projects18BlockSelect<T>;
         simpleGallery?: T | SimpleGallerySelect<T>;
         testimonialBlock?: T | TestimonialBlockSelect<T>;
         projectTestimonialBlock?: T | ProjectTestimonialBlockSelect<T>;
@@ -4268,6 +4228,7 @@ export interface PagesSelect<T extends boolean = true> {
         bentoGrid?: T | BentoGridBlockSelect<T>;
         imageShowcase?: T | ImageShowcaseBlockSelect<T>;
         donationWidget?: T | DonationWidgetBlockSelect<T>;
+        dataGridBlock?: T | DataGridBlockSelect<T>;
       };
   meta?:
     | T
@@ -4418,33 +4379,6 @@ export interface HeroSlideshowBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroImpactStatsBlock_select".
- */
-export interface HeroImpactStatsBlockSelect<T extends boolean = true> {
-  badge?: T;
-  title?: T;
-  description?: T;
-  heroImage?: T | ImageTypeSelect<T>;
-  stats?:
-    | T
-    | {
-        number?: T;
-        label?: T;
-        icon?: T;
-        id?: T;
-      };
-  links?:
-    | T
-    | {
-        link?: T | LinkFieldSelect<T>;
-        id?: T;
-      };
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ContentWithImageBlock_select".
  */
 export interface ContentWithImageBlockSelect<T extends boolean = true> {
@@ -4468,19 +4402,6 @@ export interface VideoBlockSelect<T extends boolean = true> {
   loop?: T;
   muted?: T;
   controls?: T;
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Projects18Block_select".
- */
-export interface Projects18BlockSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  description?: T;
-  projects?: T;
   sectionId?: T;
   id?: T;
   blockName?: T;
@@ -5040,6 +4961,25 @@ export interface ImageShowcaseBlockSelect<T extends boolean = true> {
  * via the `definition` "DonationWidgetBlock_select".
  */
 export interface DonationWidgetBlockSelect<T extends boolean = true> {
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DataGridBlock_select".
+ */
+export interface DataGridBlockSelect<T extends boolean = true> {
+  title?: T;
+  columnOneHeader?: T;
+  columnTwoHeader?: T;
+  rows?:
+    | T
+    | {
+        columnOne?: T;
+        columnTwo?: T;
+        id?: T;
+      };
   sectionId?: T;
   id?: T;
   blockName?: T;

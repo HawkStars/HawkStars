@@ -7,6 +7,7 @@ import {
   HeadingFeature,
   InlineToolbarFeature,
   lexicalEditor,
+  UnorderedListFeature,
 } from '@payloadcms/richtext-lexical';
 import SectionID from '@/payload/fields/SectionID';
 
@@ -62,6 +63,7 @@ export const GlobalVillageAboutSectionBlock: Block = {
               HeadingFeature({ enabledHeadingSizes: ['h3', 'h4'] }),
               FixedToolbarFeature(),
               InlineToolbarFeature(),
+              UnorderedListFeature(),
             ],
           }),
         },

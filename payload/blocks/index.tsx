@@ -7,11 +7,9 @@ import { GlobalVillageBannerBlock } from './GlobalVillageBanner/config';
 import { Hero } from './Hero/config';
 import { HeroWithBackgroundImage } from './HeroWithBackgroundImage/config';
 import { HeroSlideshowBlock } from './HeroSlideshowBlock/config';
-import { HeroImpactStats } from './HeroImpactStats/config';
 import { ProjectTestimonialBlock } from './ProjectTestimonialBlock/config';
 import { LogosBlock } from './LogosBlock/config';
 import { MediaBlock } from './MediaBlock/config';
-import { Projects18Block } from './Projects18/config';
 import { TestimonialBlock } from './TestimonialBlock/config';
 import { VideoBlock } from './VideoBlock/config';
 import { CampaignCountdownBlock } from './CampaignCountdownBlock/config';
@@ -35,6 +33,7 @@ import { BentoGridBlock } from './BentoGridBlock/config';
 import SimpleGallery from './SimpleGallery/config';
 import { ImageShowcaseBlock } from './ImageShowcaseBlock/config';
 import { DonationWidgetBlock } from './DonationWidgetBlock/config';
+import { DataGridBlock } from './DataGridBlock/config';
 
 const currentBlocks = [
   AccordionBlock,
@@ -43,10 +42,8 @@ const currentBlocks = [
   Hero,
   HeroWithBackgroundImage,
   HeroSlideshowBlock,
-  HeroImpactStats,
   ContentWithImage,
   VideoBlock,
-  Projects18Block,
   SimpleGallery,
   TestimonialBlock,
   ProjectTestimonialBlock,
@@ -74,6 +71,7 @@ const currentBlocks = [
   BentoGridBlock,
   ImageShowcaseBlock,
   DonationWidgetBlock,
+  DataGridBlock,
 ];
 
 export default currentBlocks;
