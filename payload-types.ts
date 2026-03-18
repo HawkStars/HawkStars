@@ -191,6 +191,8 @@ export interface Config {
     imageShowcase: ImageShowcaseBlock;
     donationWidget: DonationWidgetBlock;
     dataGridBlock: DataGridBlock;
+    whyHereWhyNowBlock: WhyHereWhyNowBlock;
+    growthVisionBlock: GrowthVisionBlock;
   };
   collections: {
     users: User;
@@ -440,6 +442,8 @@ export interface Page {
         | ImageShowcaseBlock
         | DonationWidgetBlock
         | DataGridBlock
+        | WhyHereWhyNowBlock
+        | GrowthVisionBlock
       )[]
     | null;
   meta?: {
@@ -481,7 +485,7 @@ export interface MediaBlock {
   blockType: 'mediaBlock';
 }
 /**
- * Upload an image or provide an external image URL
+ * Illustration or icon representing this growth phase
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ImageType".
@@ -3396,6 +3400,96 @@ export interface DataGridBlock {
   blockType: 'dataGridBlock';
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhyHereWhyNowBlock".
+ */
+export interface WhyHereWhyNowBlock {
+  /**
+   * Main heading for the section
+   */
+  title: string;
+  /**
+   * Subtitle displayed below the title (e.g., "A região da Beira Interior enfrenta hoje:")
+   */
+  subtitle?: string | null;
+  /**
+   * Optional badge/tag text displayed in the top-right corner (e.g., "Think Global, Act Local")
+   */
+  badge?: string | null;
+  /**
+   * Background color for the section
+   */
+  background: 'white' | 'bege' | 'green';
+  /**
+   * List of regional challenges/statistics to display (max 6)
+   */
+  challenges: {
+    icon: ImageType;
+    /**
+     * Optional highlighted statistic overlaid on the image (e.g., "13,8%")
+     */
+    highlightValue?: string | null;
+    /**
+     * Description text below the icon (e.g., "Inversão da pirâmide demográfica")
+     */
+    label: string;
+    id?: string | null;
+  }[];
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'whyHereWhyNowBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GrowthVisionBlock".
+ */
+export interface GrowthVisionBlock {
+  /**
+   * Main heading for the section
+   */
+  title: string;
+  /**
+   * Subtitle displayed below the title (e.g., "(Curto, Médio e Longo Prazo)")
+   */
+  subtitle?: string | null;
+  /**
+   * Background color for the section
+   */
+  background: 'white' | 'bege' | 'green';
+  /**
+   * Growth phases with their respective goals
+   */
+  phases: {
+    icon: ImageType;
+    /**
+     * Phase name (e.g., "Curto prazo (até 2026)")
+     */
+    phaseName: string;
+    /**
+     * List of goals/milestones for this phase
+     */
+    items: {
+      /**
+       * Goal or milestone description
+       */
+      text: string;
+      id?: string | null;
+    }[];
+    id?: string | null;
+  }[];
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'growthVisionBlock';
+}
+/**
  * Manage HawkStars projects and events. Add event details, images, and descriptions. Each project gets its own public page based on its slug.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4229,6 +4323,8 @@ export interface PagesSelect<T extends boolean = true> {
         imageShowcase?: T | ImageShowcaseBlockSelect<T>;
         donationWidget?: T | DonationWidgetBlockSelect<T>;
         dataGridBlock?: T | DataGridBlockSelect<T>;
+        whyHereWhyNowBlock?: T | WhyHereWhyNowBlockSelect<T>;
+        growthVisionBlock?: T | GrowthVisionBlockSelect<T>;
       };
   meta?:
     | T
@@ -4978,6 +5074,52 @@ export interface DataGridBlockSelect<T extends boolean = true> {
     | {
         columnOne?: T;
         columnTwo?: T;
+        id?: T;
+      };
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhyHereWhyNowBlock_select".
+ */
+export interface WhyHereWhyNowBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  badge?: T;
+  background?: T;
+  challenges?:
+    | T
+    | {
+        icon?: T | ImageTypeSelect<T>;
+        highlightValue?: T;
+        label?: T;
+        id?: T;
+      };
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GrowthVisionBlock_select".
+ */
+export interface GrowthVisionBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  background?: T;
+  phases?:
+    | T
+    | {
+        icon?: T | ImageTypeSelect<T>;
+        phaseName?: T;
+        items?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
         id?: T;
       };
   sectionId?: T;

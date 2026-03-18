@@ -34,6 +34,8 @@ import SimpleGallery from './SimpleGallery/config';
 import { ImageShowcaseBlock } from './ImageShowcaseBlock/config';
 import { DonationWidgetBlock } from './DonationWidgetBlock/config';
 import { DataGridBlock } from './DataGridBlock/config';
+import { WhyHereWhyNowBlock } from './WhyHereWhyNowBlock/config';
+import { GrowthVisionBlock } from './GrowthVisionBlock/config';
 
 const currentBlocks = [
   AccordionBlock,
@@ -72,6 +74,8 @@ const currentBlocks = [
   ImageShowcaseBlock,
   DonationWidgetBlock,
   DataGridBlock,
+  WhyHereWhyNowBlock,
+  GrowthVisionBlock,
 ];
 
 export default currentBlocks;
