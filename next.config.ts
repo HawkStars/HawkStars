@@ -46,6 +46,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      { protocol: 'https', hostname: 'scontent.cdninstagram.com' },
     ],
     qualities: [50, 75, 80, 100],
     deviceSizes: [320, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -58,6 +59,21 @@ const nextConfig = {
   serverExternalPackages: [],
   staticPageGenerationTimeout: 120,
   productionBrowserSourceMaps: true,
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.hawkstars.org',
+          },
+        ],
+        destination: 'https://hawkstars.org/:path*',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

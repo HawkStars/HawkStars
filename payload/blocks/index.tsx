@@ -36,6 +36,9 @@ import { DonationWidgetBlock } from './DonationWidgetBlock/config';
 import { DataGridBlock } from './DataGridBlock/config';
 import { WhyHereWhyNowBlock } from './WhyHereWhyNowBlock/config';
 import { GrowthVisionBlock } from './GrowthVisionBlock/config';
+import { LatestNewsBlock } from './LatestNewsBlock/config';
+import { UpcomingHawkEventBlock } from './UpcomingHawkEventBlock/config';
+import { SponsorsBlock } from './SponsorsBlock/config';
 
 const currentBlocks = [
   AccordionBlock,
@@ -76,6 +79,9 @@ const currentBlocks = [
   DataGridBlock,
   WhyHereWhyNowBlock,
   GrowthVisionBlock,
+  LatestNewsBlock,
+  UpcomingHawkEventBlock,
+  SponsorsBlock,
 ];
 
 export default currentBlocks;

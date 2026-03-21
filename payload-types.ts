@@ -193,6 +193,9 @@ export interface Config {
     dataGridBlock: DataGridBlock;
     whyHereWhyNowBlock: WhyHereWhyNowBlock;
     growthVisionBlock: GrowthVisionBlock;
+    latestNews: LatestNewsBlock;
+    upcomingHawkEvent: UpcomingHawkEventBlock;
+    sponsorsBlock: SponsorsBlock;
   };
   collections: {
     users: User;
@@ -203,6 +206,7 @@ export interface Config {
     curators: Curator;
     hawk_projects: HawkProject;
     partners: Partner;
+    sponsors: Sponsor;
     pages: Page;
     news: News;
     notifications: Notification;
@@ -222,6 +226,7 @@ export interface Config {
     curators: CuratorsSelect<false> | CuratorsSelect<true>;
     hawk_projects: HawkProjectsSelect<false> | HawkProjectsSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
+    sponsors: SponsorsSelect<false> | SponsorsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
     notifications: NotificationsSelect<false> | NotificationsSelect<true>;
@@ -444,6 +449,9 @@ export interface Page {
         | DataGridBlock
         | WhyHereWhyNowBlock
         | GrowthVisionBlock
+        | LatestNewsBlock
+        | UpcomingHawkEventBlock
+        | SponsorsBlock
       )[]
     | null;
   meta?: {
@@ -3426,10 +3434,6 @@ export interface WhyHereWhyNowBlock {
   challenges: {
     icon: ImageType;
     /**
-     * Optional highlighted statistic overlaid on the image (e.g., "13,8%")
-     */
-    highlightValue?: string | null;
-    /**
      * Description text below the icon (e.g., "Inversão da pirâmide demográfica")
      */
     label: string;
@@ -3488,6 +3492,101 @@ export interface GrowthVisionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'growthVisionBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LatestNewsBlock".
+ */
+export interface LatestNewsBlock {
+  /**
+   * Section heading displayed above the item
+   */
+  title?: string | null;
+  /**
+   * Optional section description
+   */
+  subtitle?: string | null;
+  /**
+   * Choose which collection to pull the latest item from.
+   */
+  source: 'news' | 'hawk_projects';
+  /**
+   * Filter by news type. Leave empty to show the latest regardless of type.
+   */
+  newsType?: ('blog' | 'news' | 'press_release' | 'announcement' | 'other')[] | null;
+  /**
+   * Filter by event type. Leave empty to show the latest regardless of type.
+   */
+  eventType?: ('erasmus' | 'local_event' | 'international_event' | 'other')[] | null;
+  /**
+   * Label for the link to the full article or event
+   */
+  linkLabel?: string | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'latestNews';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "UpcomingHawkEventBlock".
+ */
+export interface UpcomingHawkEventBlock {
+  /**
+   * Section heading displayed above the event
+   */
+  title?: string | null;
+  /**
+   * Optional section description
+   */
+  subtitle?: string | null;
+  /**
+   * Filter by event type. Leave empty to show the next upcoming event regardless of type.
+   */
+  eventType?: ('erasmus' | 'local_event' | 'international_event' | 'other')[] | null;
+  /**
+   * Label for the link to the event page
+   */
+  linkLabel?: string | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'upcomingHawkEvent';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SponsorsBlock".
+ */
+export interface SponsorsBlock {
+  /**
+   * Section heading displayed above the sponsors grid
+   */
+  title?: string | null;
+  /**
+   * Optional section description
+   */
+  subtitle?: string | null;
+  /**
+   * Filter by sponsor tier. Leave empty to show all sponsors.
+   */
+  tier?: ('gold' | 'silver' | 'bronze')[] | null;
+  /**
+   * Maximum number of sponsors to display
+   */
+  limit?: number | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sponsorsBlock';
 }
 /**
  * Manage HawkStars projects and events. Add event details, images, and descriptions. Each project gets its own public page based on its slug.
@@ -3802,6 +3901,24 @@ export interface Partner {
   createdAt: string;
 }
 /**
+ * Manage sponsors and their branding. Sponsors are displayed on the website through the Sponsors block.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sponsors".
+ */
+export interface Sponsor {
+  id: string;
+  name: string;
+  logo: string | Media;
+  /**
+   * External link to the sponsor website
+   */
+  website?: string | null;
+  tier: 'gold' | 'silver' | 'bronze';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Write and publish news articles for the HawkStars website. Articles follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4045,6 +4162,10 @@ export interface PayloadLockedDocument {
         value: string | Partner;
       } | null)
     | ({
+        relationTo: 'sponsors';
+        value: string | Sponsor;
+      } | null)
+    | ({
         relationTo: 'pages';
         value: string | Page;
       } | null)
@@ -4278,6 +4399,18 @@ export interface PartnersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sponsors_select".
+ */
+export interface SponsorsSelect<T extends boolean = true> {
+  name?: T;
+  logo?: T;
+  website?: T;
+  tier?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
@@ -4325,6 +4458,9 @@ export interface PagesSelect<T extends boolean = true> {
         dataGridBlock?: T | DataGridBlockSelect<T>;
         whyHereWhyNowBlock?: T | WhyHereWhyNowBlockSelect<T>;
         growthVisionBlock?: T | GrowthVisionBlockSelect<T>;
+        latestNews?: T | LatestNewsBlockSelect<T>;
+        upcomingHawkEvent?: T | UpcomingHawkEventBlockSelect<T>;
+        sponsorsBlock?: T | SponsorsBlockSelect<T>;
       };
   meta?:
     | T
@@ -5093,7 +5229,6 @@ export interface WhyHereWhyNowBlockSelect<T extends boolean = true> {
     | T
     | {
         icon?: T | ImageTypeSelect<T>;
-        highlightValue?: T;
         label?: T;
         id?: T;
       };
@@ -5122,6 +5257,47 @@ export interface GrowthVisionBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LatestNewsBlock_select".
+ */
+export interface LatestNewsBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  source?: T;
+  newsType?: T;
+  eventType?: T;
+  linkLabel?: T;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "UpcomingHawkEventBlock_select".
+ */
+export interface UpcomingHawkEventBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  eventType?: T;
+  linkLabel?: T;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SponsorsBlock_select".
+ */
+export interface SponsorsBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  tier?: T;
+  limit?: T;
   sectionId?: T;
   id?: T;
   blockName?: T;

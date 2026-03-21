@@ -6,6 +6,7 @@ import { getAgendaEventsQuery } from '@/lib/payload/queries/agenda';
 import AgendaCalendar from '@/components/agenda/AgendaCalendar';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
+import { InstagramEmbedWidget } from '@/components/socials/InstagramFeed';
 
 export const revalidate = 600; // invalidate every 10 minutes
 
@@ -65,9 +66,10 @@ const AgendaPage = async (props: LanguagePageProps) => {
   };
 
   return (
-    <HawkStarsSection className="bg-bege-light gap-8 pt-10 pb-8 max-lg:px-0 max-lg:pt-0 xl:px-10!">
-      <div className="container py-20 md:py-32">
+    <HawkStarsSection className='bg-bege-light gap-8 pt-10 pb-8 max-lg:px-0 max-lg:pt-0 xl:px-10!'>
+      <div className='container py-20 md:py-32'>
         <AgendaCalendar events={events} translations={translations} lng={lng} />
+        <InstagramEmbedWidget />
       </div>
     </HawkStarsSection>
   );

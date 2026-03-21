@@ -22,6 +22,7 @@ import { BoardMember } from './payload/collections/BoardMember';
 import { ContributionCollection as Contribution } from './payload/collections/Contribution';
 import { Curator } from './payload/collections/Curator';
 import { Partner } from './payload/collections/Partner';
+import { Sponsor } from './payload/collections/Sponsor';
 import totalContributioValueQuery from './lib/payload/endpoints/totalContributioValueQuery';
 import dashboardStatsHandler from './payload/endpoints/dashboardStats';
 import {
@@ -118,6 +119,7 @@ export default buildConfig({
     Curator,
     HawkProject,
     Partner,
+    Sponsor,
     Pages,
     News,
     Notification,
