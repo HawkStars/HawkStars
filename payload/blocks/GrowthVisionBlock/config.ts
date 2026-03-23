@@ -20,13 +20,10 @@ export const GrowthVisionBlock: Block = {
       },
     },
     {
-      name: 'subtitle',
-      type: 'text',
-      localized: true,
-      admin: {
-        description:
-          'Subtitle displayed below the title (e.g., "(Curto, Médio e Longo Prazo)")',
-      },
+      name: 'titleLocation',
+      type: 'select',
+      options: ['left', 'center', 'right'],
+      defaultValue: 'center',
     },
     {
       name: 'background',

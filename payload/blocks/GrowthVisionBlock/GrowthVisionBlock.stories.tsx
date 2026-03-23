@@ -13,6 +13,10 @@ const meta: Meta<typeof GrowthVisionBlock> = {
       control: 'select',
       options: ['white', 'bege', 'green'],
     },
+    titleLocation: {
+      control: 'select',
+      options: ['left', 'center', 'right'],
+    },
   },
 };
 
@@ -21,7 +25,7 @@ type Story = StoryObj<typeof GrowthVisionBlock>;
 
 const mockIcon = (label: string): ImageType => ({
   imageType: 'external',
-  externalImage: `https://placehold.co/96x96?text=${encodeURIComponent(label)}`,
+  externalImage: `https://images.unsplash.com/photo-1773781556147-2106e3145777?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`,
   alt: label,
 });
 
@@ -65,9 +69,9 @@ export const Default: Story = {
     blockName: 'GrowthVisionBlock',
     blockType: 'growthVisionBlock',
     title: 'Uma visão em crescimento',
-    subtitle: '(Curto, Médio e Longo Prazo)',
     background: 'bege',
     phases: samplePhases,
+    titleLocation: 'left',
   },
 };
 
@@ -75,6 +79,7 @@ export const WhiteBackground: Story = {
   args: {
     ...Default.args,
     background: 'white',
+    titleLocation: 'left',
   },
 };
 

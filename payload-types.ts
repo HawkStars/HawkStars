@@ -3456,10 +3456,7 @@ export interface GrowthVisionBlock {
    * Main heading for the section
    */
   title: string;
-  /**
-   * Subtitle displayed below the title (e.g., "(Curto, Médio e Longo Prazo)")
-   */
-  subtitle?: string | null;
+  titleLocation?: ('left' | 'center' | 'right') | null;
   /**
    * Background color for the section
    */
@@ -5242,7 +5239,7 @@ export interface WhyHereWhyNowBlockSelect<T extends boolean = true> {
  */
 export interface GrowthVisionBlockSelect<T extends boolean = true> {
   title?: T;
-  subtitle?: T;
+  titleLocation?: T;
   background?: T;
   phases?:
     | T
