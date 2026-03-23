@@ -42,6 +42,7 @@ import { NewsList } from './payload/globals/NewsList/config';
 import { ProjectsList } from './payload/globals/ProjectsList/config';
 import { News } from './payload/collections/News';
 import { getServerSideURL } from './payload/utilities/getURL';
+import { seed } from './payload/seed';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -185,7 +186,8 @@ export default buildConfig({
       handler: markNotificationsReadHandler,
     },
   ],
-  onInit: async () => {
-    // await seed(payload);
+  onInit: async (payload) => {
+    if (process.env.NODE_ENV === 'production') return;
+    await seed(payload);
   },
 });

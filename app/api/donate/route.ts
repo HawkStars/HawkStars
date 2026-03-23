@@ -28,7 +28,10 @@ export async function POST(request: Request) {
     }
 
     const data = await response.json();
+    debugger;
+    return new Response(JSON.stringify(data), { status: 200 });
   } catch (e: unknown) {
+    debugger;
     return new Response('error on the client', { status: 404 });
   }
 }

@@ -1,6 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import { Mail, Linkedin, Twitter } from 'lucide-react';
+import LinkedinIcon from '@/public/images/icons/socials/linkedin.svg';
+import TwitterIcon from '@/public/images/icons/socials/twitter.svg';
+
+import { Mail } from 'lucide-react';
 import type { TeamGridBlock as TeamGridBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
@@ -70,7 +73,7 @@ export const TeamGridBlock: React.FC<TeamGridBlockProps> = ({
                     rel='noopener noreferrer'
                     className='rounded-full bg-gray-100 p-2 text-gray-600 transition-colors hover:bg-green-600 hover:text-white'
                   >
-                    <Linkedin className='h-4 w-4' />
+                    <LinkedinIcon className='h-4 w-4' />
                   </a>
                 )}
                 {member.twitter && (
@@ -80,7 +83,7 @@ export const TeamGridBlock: React.FC<TeamGridBlockProps> = ({
                     rel='noopener noreferrer'
                     className='rounded-full bg-gray-100 p-2 text-gray-600 transition-colors hover:bg-green-600 hover:text-white'
                   >
-                    <Twitter className='h-4 w-4' />
+                    <TwitterIcon className='h-4 w-4' />
                   </a>
                 )}
               </div>

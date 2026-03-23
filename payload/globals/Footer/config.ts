@@ -2,11 +2,12 @@ import type { GlobalConfig } from 'payload';
 import { FooterNavGroup } from '@/payload/fields/FooterNavGroup';
 import { authenticatedEditor } from '@/payload/access/authenticatedEditor';
 import { revalidateFooter } from './hooks/revalidateFooter';
+import { authenticated } from '@/payload/access/authenticated';
 
 export const Footer: GlobalConfig = {
   slug: 'footer',
   access: {
-    read: () => true,
+    read: authenticated,
     update: authenticatedEditor,
   },
   admin: {

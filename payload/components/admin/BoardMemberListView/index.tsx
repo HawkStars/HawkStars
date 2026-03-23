@@ -232,6 +232,7 @@ export default function BoardMemberListView(props: ListViewClientProps) {
                                   alt={member.name || 'Board Member'}
                                   className='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
                                   loading='lazy'
+                                  fill
                                 />
                               ) : (
                                 <div className='flex h-full w-full items-center justify-center'>
