@@ -1,5 +1,13 @@
 import type { Preview } from '@storybook/nextjs-vite';
+import { initialize, mswLoader } from 'msw-storybook-addon';
 import '../app/globals.css';
+
+/*
+ * Initializes MSW
+ * See https://github.com/mswjs/msw-storybook-addon#configuring-msw
+ * to learn how to customize it
+ */
+initialize();
 
 const preview: Preview = {
   parameters: {
@@ -29,6 +37,7 @@ const preview: Preview = {
       value: 'light',
     },
   },
+  loaders: [mswLoader],
 };
 
 export default preview;
