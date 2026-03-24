@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { DonationType, PRESET_AMOUNTS, getActiveAmount } from './types';
+import { DonationType, PRESET_AMOUNTS } from './types';
 import { useState } from 'react';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';

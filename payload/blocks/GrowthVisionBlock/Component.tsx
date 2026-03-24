@@ -16,12 +16,6 @@ const phaseNameStyles = {
   green: 'text-white',
 } as const;
 
-const dotStyles = {
-  white: 'bg-green',
-  bege: 'bg-green',
-  green: 'bg-white',
-} as const;
-
 const titleLocationStyles = {
   left: 'text-left ml-40',
   center: 'text-center',

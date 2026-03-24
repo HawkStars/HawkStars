@@ -47,7 +47,7 @@ export const UpcomingHawkEventBlock: React.FC<UpcomingHawkEventBlockProps> = ({
       console.error('Error fetching upcoming event:', error);
       setUpcomingEvent(null);
     }
-  }, []);
+  }, [eventType]);
 
   useEffect(() => {
     getUpcomingEvent();
