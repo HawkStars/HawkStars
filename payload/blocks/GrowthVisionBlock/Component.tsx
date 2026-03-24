@@ -91,13 +91,11 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
                   <h3 className={cn('text-h2_bold mb-3 lg:text-start', phaseNameStyles[bg])}>
                     {phase.phaseName}
                   </h3>
-                  <ul className={cn('text-body_regular space-y-2', !isEven && 'lg:ml-auto')}>
+                  <ul className={cn('text-body_regular space-y-1', !isEven && 'lg:ml-auto')}>
                     {phase.items?.map((item, itemIndex) => (
                       <li
                         key={item.id || itemIndex}
-                        className={cn(
-                          'flex list-none items-start justify-center gap-2 lg:justify-start'
-                        )}
+                        className={cn('flex list-none items-start justify-center lg:justify-start')}
                       >
                         <span className='text-sm opacity-80'>{item.text}</span>
                       </li>

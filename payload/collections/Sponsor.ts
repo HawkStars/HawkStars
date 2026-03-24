@@ -54,6 +54,9 @@ export const Sponsor: CollectionConfig = {
       required: true,
       defaultValue: 'bronze',
       options: [
+        { label: 'Exclusive', value: 'exclusive' },
+        { label: 'Diamond', value: 'diamond' },
+        { label: 'Platinum', value: 'platinum' },
         { label: 'Gold', value: 'gold' },
         { label: 'Silver', value: 'silver' },
         { label: 'Bronze', value: 'bronze' },

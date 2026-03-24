@@ -3911,7 +3911,7 @@ export interface Sponsor {
    * External link to the sponsor website
    */
   website?: string | null;
-  tier: 'gold' | 'silver' | 'bronze';
+  tier: 'exclusive' | 'diamond' | 'platinum' | 'gold' | 'silver' | 'bronze';
   updatedAt: string;
   createdAt: string;
 }

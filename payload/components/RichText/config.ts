@@ -35,6 +35,7 @@ import type {
   ImageShowcaseBlock as ImageShowcaseBlockProps,
   DonationWidgetBlock as DonationWidgetBlockProps,
   DataGridBlock as DataGridBlockProps,
+  SponsorsBlock as SponsorsBlockProps,
 } from '@/payload-types';
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical';
 
@@ -77,4 +78,5 @@ export type BlockNodeTypes = SerializedBlockNode<
   | ImageShowcaseBlockProps
   | DonationWidgetBlockProps
   | DataGridBlockProps
+  | SponsorsBlockProps
 >;
