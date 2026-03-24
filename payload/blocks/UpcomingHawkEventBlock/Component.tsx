@@ -1,9 +1,12 @@
-import React from 'react';
-import type { UpcomingHawkEventBlock as UpcomingHawkEventBlockProps } from '@/payload-types';
+import React, { useCallback, useEffect, useState } from 'react';
+import type {
+  HawkProject,
+  UpcomingHawkEventBlock as UpcomingHawkEventBlockProps,
+} from '@/payload-types';
 import type { Where } from 'payload';
-import { getPayloadConfig } from '@/lib/payload/server';
 import { getImagePayloadUrl } from '@/lib/image';
 import { UpcomingHawkEventBlockView } from './UpcomingHawkEventBlockView';
+import { stringify } from 'qs-esm';
 
 const typeLabels: Record<string, string> = {
   erasmus: 'Erasmus +',
@@ -12,35 +15,47 @@ const typeLabels: Record<string, string> = {
   other: 'Other',
 };
 
-export const UpcomingHawkEventBlock: React.FC<UpcomingHawkEventBlockProps> = async ({
+export const UpcomingHawkEventBlock: React.FC<UpcomingHawkEventBlockProps> = ({
   title,
   subtitle,
   eventType,
   linkLabel = 'Learn more',
   sectionId,
 }) => {
-  const payload = await getPayloadConfig();
+  const [upcomingEvent, setUpcomingEvent] = useState<HawkProject | null>(null);
 
-  const where: Where = {};
+  const getUpcomingEvent = useCallback(async () => {
+    const where: Where = {};
+    if (eventType && eventType.length > 0) where.type_event = { in: eventType };
 
-  if (eventType && eventType.length > 0) {
-    where.type_event = { in: eventType };
-  }
+    const stringifiedQuery = stringify({ where, limit: 1 }, { addQueryPrefix: true });
 
-  const result = await payload.find({
-    collection: 'hawk_projects',
-    where,
-    sort: '-createdAt',
-    limit: 1,
-  });
+    try {
+      const response = await fetch(`/api/hawk_projects${stringifiedQuery}`, {
+        method: 'GET',
+      });
 
-  const doc = result.docs[0] ?? null;
+      if (!response.ok) {
+        console.error('Failed to fetch upcoming event:', response.statusText);
+        setUpcomingEvent(null);
+        return;
+      }
 
-  if (!doc) {
-    return null;
-  }
+      const data = await response.json();
+      setUpcomingEvent(data?.docs?.[0] || null);
+    } catch (error) {
+      console.error('Error fetching upcoming event:', error);
+      setUpcomingEvent(null);
+    }
+  }, []);
 
-  const image = getImagePayloadUrl(doc.image);
+  useEffect(() => {
+    getUpcomingEvent();
+  }, [getUpcomingEvent]);
+
+  if (!upcomingEvent) return null;
+
+  const image = getImagePayloadUrl(upcomingEvent.image);
 
   return (
     <UpcomingHawkEventBlockView
@@ -49,12 +64,14 @@ export const UpcomingHawkEventBlock: React.FC<UpcomingHawkEventBlockProps> = asy
       linkLabel={linkLabel}
       sectionId={sectionId}
       event={{
-        heading: doc.heading,
-        subheading: doc.subheading,
-        description: doc.description,
-        badge: doc.type_event ? (typeLabels[doc.type_event] || doc.type_event) : null,
+        heading: upcomingEvent.heading,
+        subheading: upcomingEvent.subheading,
+        description: upcomingEvent.description,
+        badge: upcomingEvent.type_event
+          ? typeLabels[upcomingEvent.type_event] || upcomingEvent.type_event
+          : null,
         image: image ?? null,
-        href: `/events/${doc.slug}`,
+        href: `/events/${upcomingEvent.slug}`,
       }}
     />
   );

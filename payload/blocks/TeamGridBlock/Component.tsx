@@ -8,6 +8,12 @@ import type { TeamGridBlock as TeamGridBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 
+const gridClasses = {
+  'cols-2': 'md:grid-cols-2',
+  'cols-3': 'md:grid-cols-2 lg:grid-cols-3',
+  'cols-4': 'md:grid-cols-2 lg:grid-cols-4',
+} as const;
+
 export const TeamGridBlock: React.FC<TeamGridBlockProps> = ({
   title,
   subtitle,
@@ -15,12 +21,6 @@ export const TeamGridBlock: React.FC<TeamGridBlockProps> = ({
   layout = 'cols-3',
   sectionId,
 }) => {
-  const gridClasses = {
-    'cols-2': 'md:grid-cols-2',
-    'cols-3': 'md:grid-cols-2 lg:grid-cols-3',
-    'cols-4': 'md:grid-cols-2 lg:grid-cols-4',
-  };
-
   if (!members || members.length === 0) return null;
 
   return (
@@ -73,7 +73,7 @@ export const TeamGridBlock: React.FC<TeamGridBlockProps> = ({
                     rel='noopener noreferrer'
                     className='rounded-full bg-gray-100 p-2 text-gray-600 transition-colors hover:bg-green-600 hover:text-white'
                   >
-                    <LinkedinIcon className='h-4 w-4' />
+                    <Image src={LinkedinIcon} alt='LinkedIn' className='h-4 w-4' />
                   </a>
                 )}
                 {member.twitter && (
@@ -83,7 +83,7 @@ export const TeamGridBlock: React.FC<TeamGridBlockProps> = ({
                     rel='noopener noreferrer'
                     className='rounded-full bg-gray-100 p-2 text-gray-600 transition-colors hover:bg-green-600 hover:text-white'
                   >
-                    <TwitterIcon className='h-4 w-4' />
+                    <Image src={TwitterIcon} alt='Twitter' className='h-4 w-4' />
                   </a>
                 )}
               </div>

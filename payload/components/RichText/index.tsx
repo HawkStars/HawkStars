@@ -1,5 +1,9 @@
 'use client';
 
+import './richtext.scss';
+
+import { cn } from '@/lib/utils';
+
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
 import { AboutBlock } from '@/payload/blocks/AboutBlock/Component';
 import { HeroBlock } from '@/payload/blocks/Hero/Component';
@@ -16,8 +20,7 @@ import {
 } from '@payloadcms/richtext-lexical/react';
 
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
-import { cn } from '@/lib/utils';
-import './richtext.scss';
+
 import List from '../utils/list';
 import ListItem from '../utils/listItem';
 import Paragraph from '../utils/paragraph';
@@ -51,6 +54,8 @@ import { ImageShowcaseBlock } from '@/payload/blocks/ImageShowcaseBlock/Componen
 import { DonationWidgetBlock } from '@/payload/blocks/DonationWidgetBlock/Component';
 import { DataGridBlock } from '@/payload/blocks/DataGridBlock/Component';
 import { SponsorsBlock } from '@/payload/blocks/SponsorsBlock/Component';
+import { UpcomingHawkEventBlock } from '@/payload/blocks/UpcomingHawkEventBlock/Component';
+import { LatestNewsBlock } from '@/payload/blocks/LatestNewsBlock/Component';
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -105,6 +110,8 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     donationWidget: ({ node }) => <DonationWidgetBlock {...node.fields} />,
     dataGridBlock: ({ node }) => <DataGridBlock {...node.fields} />,
     sponsorsBlock: ({ node }) => <SponsorsBlock {...node.fields} />,
+    upcomingHawkEvent: ({ node }) => <UpcomingHawkEventBlock {...node.fields} />,
+    latestNews: ({ node }) => <LatestNewsBlock {...node.fields} />,
   },
   list: List,
   listitem: ListItem,

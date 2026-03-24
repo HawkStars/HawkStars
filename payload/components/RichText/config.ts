@@ -36,6 +36,8 @@ import type {
   DonationWidgetBlock as DonationWidgetBlockProps,
   DataGridBlock as DataGridBlockProps,
   SponsorsBlock as SponsorsBlockProps,
+  UpcomingHawkEventBlock as UpcomingHawkEventBlockProps,
+  LatestNewsBlock as LatestNewsBlockProps,
 } from '@/payload-types';
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical';
 
@@ -79,4 +81,6 @@ export type BlockNodeTypes = SerializedBlockNode<
   | DonationWidgetBlockProps
   | DataGridBlockProps
   | SponsorsBlockProps
+  | UpcomingHawkEventBlockProps
+  | LatestNewsBlockProps
 >;

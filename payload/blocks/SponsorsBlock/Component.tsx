@@ -19,7 +19,7 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
     if (tier && tier.length > 0) where.tier = { in: tier };
 
     try {
-      const stringifiedQuery = stringify(where, { addQueryPrefix: true });
+      const stringifiedQuery = stringify({ where, limit: limit ?? 12 }, { addQueryPrefix: true });
       const response = await fetch(`/api/sponsors${stringifiedQuery}`, {
         method: 'GET',
       });

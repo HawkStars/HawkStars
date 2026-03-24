@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import type { LatestNewsBlock as LatestNewsBlockProps } from '@/payload-types';
 import type { Where } from 'payload';
-import { getPayloadConfig } from '@/lib/payload/server';
 import { getImagePayloadUrl } from '@/lib/image';
 import { LatestNewsBlockView, type LatestNewsItem } from './LatestNewsBlockView';
+import { stringify } from 'qs-esm';
 
 const newsTypeLabels: Record<string, string> = {
   blog: 'Blog',
@@ -20,9 +20,9 @@ const eventTypeLabels: Record<string, string> = {
   other: 'Other',
 };
 
-async function fetchLatestNews(newsType?: LatestNewsBlockProps['newsType']): Promise<LatestNewsItem | null> {
-  const payload = await getPayloadConfig();
-
+async function fetchLatestNews(
+  newsType?: LatestNewsBlockProps['newsType']
+): Promise<LatestNewsItem | null> {
   const where: Where = {
     _status: { equals: 'published' },
   };
@@ -31,19 +31,26 @@ async function fetchLatestNews(newsType?: LatestNewsBlockProps['newsType']): Pro
     where.type = { in: newsType };
   }
 
-  const result = await payload.find({
-    collection: 'news',
-    where,
-    sort: '-publishedAt',
-    limit: 1,
+  const queryString = stringify(
+    { where, limit: 1, sort: '-publishedAt' },
+    { addQueryPrefix: true }
+  );
+  const data = await fetch(`/api/news?${queryString}`, {
+    method: 'GET',
   });
 
+  if (!data.ok) {
+    console.error('Failed to fetch latest news:', data.statusText);
+    return null;
+  }
+
+  const result = await data.json();
   const doc = result.docs[0] ?? null;
   if (!doc) return null;
 
   return {
     heading: doc.title,
-    badge: doc.type ? (newsTypeLabels[doc.type] || doc.type) : null,
+    badge: doc.type ? newsTypeLabels[doc.type] || doc.type : null,
     date: doc.publishedAt ?? null,
     description: null,
     image: getImagePayloadUrl(doc.mainImage) ?? null,
@@ -51,28 +58,31 @@ async function fetchLatestNews(newsType?: LatestNewsBlockProps['newsType']): Pro
   };
 }
 
-async function fetchLatestHawkProject(eventType?: LatestNewsBlockProps['eventType']): Promise<LatestNewsItem | null> {
-  const payload = await getPayloadConfig();
-
+async function fetchLatestHawkProject(
+  eventType?: LatestNewsBlockProps['eventType']
+): Promise<LatestNewsItem | null> {
   const where: Where = {};
 
-  if (eventType && eventType.length > 0) {
-    where.type_event = { in: eventType };
+  if (eventType && eventType.length > 0) where.type_event = { in: eventType };
+
+  const queryString = stringify({ where, limit: 1, sort: '-createdAt' }, { addQueryPrefix: true });
+  const data = await fetch(`/api/hawk_projects?${queryString}`, {
+    method: 'GET',
+  });
+
+  if (!data.ok) {
+    console.error('Failed to fetch latest Hawk project:', data.statusText);
+    return null;
   }
 
-  const result = await payload.find({
-    collection: 'hawk_projects',
-    where,
-    sort: '-createdAt',
-    limit: 1,
-  });
+  const result = await data.json();
 
   const doc = result.docs[0] ?? null;
   if (!doc) return null;
 
   return {
     heading: doc.heading,
-    badge: doc.type_event ? (eventTypeLabels[doc.type_event] || doc.type_event) : null,
+    badge: doc.type_event ? eventTypeLabels[doc.type_event] || doc.type_event : null,
     date: null,
     description: doc.description ?? null,
     image: getImagePayloadUrl(doc.image) ?? null,
@@ -80,7 +90,16 @@ async function fetchLatestHawkProject(eventType?: LatestNewsBlockProps['eventTyp
   };
 }
 
-export const LatestNewsBlock: React.FC<LatestNewsBlockProps> = async ({
+type LatestEvent = {
+  heading: string;
+  badge: string | null;
+  date: string | null;
+  description: string | null;
+  image: { url: string; alt?: string } | null | undefined;
+  href: string;
+};
+
+export const LatestNewsBlock: React.FC<LatestNewsBlockProps> = ({
   title,
   subtitle,
   source = 'news',
@@ -89,14 +108,21 @@ export const LatestNewsBlock: React.FC<LatestNewsBlockProps> = async ({
   linkLabel = 'Read more',
   sectionId,
 }) => {
-  const item =
-    source === 'hawk_projects'
-      ? await fetchLatestHawkProject(eventType)
-      : await fetchLatestNews(newsType);
+  const [item, setItem] = useState<LatestEvent | null>(null);
 
-  if (!item) {
-    return null;
-  }
+  const fetchData = useCallback(() => {
+    if (source === 'hawk_projects') {
+      fetchLatestHawkProject(eventType).then((data) => setItem(data));
+    } else {
+      fetchLatestNews(newsType).then((data) => setItem(data));
+    }
+  }, [source, newsType, eventType]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  if (!item) return null;
 
   return (
     <LatestNewsBlockView
