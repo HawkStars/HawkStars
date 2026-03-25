@@ -38,6 +38,9 @@ import type {
   SponsorsBlock as SponsorsBlockProps,
   UpcomingHawkEventBlock as UpcomingHawkEventBlockProps,
   LatestNewsBlock as LatestNewsBlockProps,
+  GrowthVisionBlock as GrowthVisionBlockProps,
+  WhyHereWhyNowBlock as WhyHereWhyNowBlockProps,
+  InstagramBlock as InstagramBlockProps,
 } from '@/payload-types';
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical';
 
@@ -83,4 +86,7 @@ export type BlockNodeTypes = SerializedBlockNode<
   | SponsorsBlockProps
   | UpcomingHawkEventBlockProps
   | LatestNewsBlockProps
+  | GrowthVisionBlockProps
+  | WhyHereWhyNowBlockProps
+  | InstagramBlockProps
 >;

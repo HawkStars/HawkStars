@@ -196,6 +196,7 @@ export interface Config {
     latestNews: LatestNewsBlock;
     upcomingHawkEvent: UpcomingHawkEventBlock;
     sponsorsBlock: SponsorsBlock;
+    instagram: InstagramBlock;
   };
   collections: {
     users: User;
@@ -246,6 +247,7 @@ export interface Config {
     'main-page': MainPage;
     'news-list': NewsList;
     'projects-list': ProjectsList;
+    settings: Setting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -253,6 +255,7 @@ export interface Config {
     'main-page': MainPageSelect<false> | MainPageSelect<true>;
     'news-list': NewsListSelect<false> | NewsListSelect<true>;
     'projects-list': ProjectsListSelect<false> | ProjectsListSelect<true>;
+    settings: SettingsSelect<false> | SettingsSelect<true>;
   };
   locale: 'en' | 'pt';
   widgets: {
@@ -452,6 +455,7 @@ export interface Page {
         | LatestNewsBlock
         | UpcomingHawkEventBlock
         | SponsorsBlock
+        | InstagramBlock
       )[]
     | null;
   meta?: {
@@ -3586,6 +3590,23 @@ export interface SponsorsBlock {
   blockType: 'sponsorsBlock';
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstagramBlock".
+ */
+export interface InstagramBlock {
+  /**
+   * Pick the version of the Instagram block to display.
+   */
+  version?: ('grid' | 'widget') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instagram';
+}
+/**
  * Manage HawkStars projects and events. Add event details, images, and descriptions. Each project gets its own public page based on its slug.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4458,6 +4479,7 @@ export interface PagesSelect<T extends boolean = true> {
         latestNews?: T | LatestNewsBlockSelect<T>;
         upcomingHawkEvent?: T | UpcomingHawkEventBlockSelect<T>;
         sponsorsBlock?: T | SponsorsBlockSelect<T>;
+        instagram?: T | InstagramBlockSelect<T>;
       };
   meta?:
     | T
@@ -5295,6 +5317,16 @@ export interface SponsorsBlockSelect<T extends boolean = true> {
   subtitle?: T;
   tier?: T;
   limit?: T;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstagramBlock_select".
+ */
+export interface InstagramBlockSelect<T extends boolean = true> {
+  version?: T;
   sectionId?: T;
   id?: T;
   blockName?: T;
@@ -7271,6 +7303,23 @@ export interface ProjectsList {
   createdAt?: string | null;
 }
 /**
+ * This is the information about the settings. Each column represents a group of navigation links
+ *       that will be displayed in the settings section of the website side by side or at the mobile.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings".
+ */
+export interface Setting {
+  id: string;
+  /**
+   * Access token for Instagram API to fetch posts for the Instagram feed. You can generate a token using the Instagram Graph API Explorer.
+   */
+  instagramToken?: string | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
@@ -7395,6 +7444,17 @@ export interface ProjectsListSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
   video?: T;
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings_select".
+ */
+export interface SettingsSelect<T extends boolean = true> {
+  instagramToken?: T;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;

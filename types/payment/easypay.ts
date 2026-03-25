@@ -23,6 +23,7 @@ export type SinglePaymentCaptureQuery = {
 };
 
 export type SinglePaymentQuery = {
+  type?: 'sale' | 'authorisation';
   capture?: SinglePaymentCaptureQuery;
   currency?: string;
   value: number;
@@ -30,7 +31,7 @@ export type SinglePaymentQuery = {
   key: string;
   customer?: EasyPayCustomerInfo;
   sdd_mandate?: SDDMandateQuery;
-  notification: { customer_method_instructions_email: boolean };
+  notification?: { customer_method_instructions_email: boolean };
 };
 
 export type MultibancoQuery = {
@@ -51,30 +52,84 @@ export type MultibancoProductType = 'FILE' | 'SPG' | 'CHECKDIGIT';
  */
 
 export type SubscriptionPaymentQuery = {
-  frequent_id: string;
-  expiration_time: string;
+  frequent_id?: string;
+  expiration_time?: string;
   currency: string;
   capture: {
     transaction_key: string;
-    account: { id: string };
+    account?: { id: string };
     descriptive: string;
   };
   customer: {
-    id: string;
+    id?: string;
     name: string;
     email: string;
+    phone?: string;
+    phone_indicative?: string;
+    key?: string;
+    language?: string;
   };
   key: string;
   value: number;
   frequency: SubscriptionFrequency;
-  max_captures: number;
-  unlimited_payments: boolean;
+  max_captures?: number;
+  unlimited_payments?: boolean;
   start_time: string;
-  failover: boolean;
-  capture_now: boolean;
-  retries: number;
+  failover?: boolean;
+  capture_now?: boolean;
+  retries?: number;
   method: SubscriptionPaymentMethod;
-  sdd_mandate: SDDMandateQuery;
+  sdd_mandate?: SDDMandateQuery;
+};
+
+/**
+ *
+ * EASYPAY
+ * -----
+ * WEBHOOK / NOTIFICATION TYPES
+ *
+ */
+
+export type EasyPayGenericNotification = {
+  id: string;
+  key: string;
+  type: 'capture' | 'single' | 'subscription' | 'authorisation';
+  status: 'success' | 'failed' | 'pending';
+  messages: string[];
+  date: string;
+};
+
+export type EasyPayAuthorisationNotification = {
+  id: string;
+  value: number;
+  currency: string;
+  key: string;
+  expiration_time?: string;
+  customer: {
+    id: string;
+    name: string;
+    email: string;
+    phone?: string;
+    phone_indicative?: string;
+    fiscal_number?: string;
+    key?: string;
+    language?: string;
+  };
+  method: string;
+  account: { id: string };
+  authorisation: { id: string };
+};
+
+export type EasyPayTransactionNotification = {
+  id: string;
+  key: string;
+  type: 'capture' | 'single' | 'subscription';
+  status: 'success' | 'failed' | 'pending';
+  messages: string[];
+  date: string;
+  value?: number;
+  currency?: string;
+  method?: string;
 };
 
 /**

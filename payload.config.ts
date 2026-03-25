@@ -43,6 +43,7 @@ import { ProjectsList } from './payload/globals/ProjectsList/config';
 import { News } from './payload/collections/News';
 import { getServerSideURL } from './payload/utilities/getURL';
 import { seed } from './payload/seed';
+import { WebsiteSettings } from './payload/globals/Settings/config';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -125,7 +126,7 @@ export default buildConfig({
     News,
     Notification,
   ],
-  globals: [Header, Footer, MainPage, NewsList, ProjectsList],
+  globals: [Header, Footer, MainPage, NewsList, ProjectsList, WebsiteSettings],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
@@ -186,6 +187,7 @@ export default buildConfig({
       handler: markNotificationsReadHandler,
     },
   ],
+  jobs: {},
   onInit: async (payload) => {
     if (process.env.NODE_ENV === 'production') return;
     await seed(payload);

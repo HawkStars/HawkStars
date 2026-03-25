@@ -6,12 +6,14 @@ import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import type { InstagramPost, InstagramEmbedWidgetProps } from './types';
+import {
+  type InstagramPost,
+  type InstagramEmbedWidgetProps,
+  INSTAGRAM_PROFILE_URL,
+  INSTAGRAM_HANDLE,
+} from './types';
 
 import InstagramIcon from '@/public/images/icons/socials/instagram.svg';
-
-const INSTAGRAM_PROFILE_URL = 'https://www.instagram.com/hawk.starsngo';
-const INSTAGRAM_HANDLE = '@hawk.starsngo';
 
 declare global {
   interface Window {
@@ -79,14 +81,9 @@ function EmbedPost({ permalink }: { permalink: string }) {
 function WidgetHeader() {
   return (
     <div className='flex items-center gap-3 border-b border-neutral-200 px-4 py-3 dark:border-neutral-700'>
-      <div className='flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 p-0.5'>
+      <div className='flex size-10 items-center justify-center rounded-full bg-linear-to-br from-purple-500 via-pink-500 to-orange-400 p-0.5'>
         <div className='flex size-full items-center justify-center rounded-full bg-white dark:bg-neutral-900'>
-          <Image
-            src={InstagramIcon}
-            alt='Instagram'
-            width={20}
-            height={20}
-          />
+          <Image src={InstagramIcon} alt='Instagram' width={20} height={20} />
         </div>
       </div>
       <div className='flex-1'>
@@ -104,7 +101,7 @@ function WidgetHeader() {
         href={INSTAGRAM_PROFILE_URL}
         target='_blank'
         rel='noopener noreferrer'
-        className='text-muted-foreground transition-colors hover:text-foreground'
+        className='text-muted-foreground hover:text-foreground transition-colors'
         aria-label='Open Instagram profile'
       >
         <ExternalLink className='size-4' />
@@ -117,7 +114,10 @@ function EmbedSkeleton() {
   return (
     <div className='space-y-4 p-4'>
       {Array.from({ length: 2 }).map((_, i) => (
-        <div key={i} className='animate-pulse space-y-3 rounded-lg border border-neutral-200 p-4 dark:border-neutral-700'>
+        <div
+          key={i}
+          className='animate-pulse space-y-3 rounded-lg border border-neutral-200 p-4 dark:border-neutral-700'
+        >
           <div className='flex items-center gap-2'>
             <div className='size-8 rounded-full bg-neutral-200 dark:bg-neutral-700' />
             <div className='h-3 w-24 rounded bg-neutral-200 dark:bg-neutral-700' />
@@ -136,7 +136,6 @@ function EmbedSkeleton() {
 export default function InstagramEmbedWidget({
   maxPosts = 3,
   showHeader = true,
-  className,
 }: InstagramEmbedWidgetProps) {
   const [posts, setPosts] = useState<InstagramPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -179,8 +178,7 @@ export default function InstagramEmbedWidget({
   return (
     <div
       className={cn(
-        'overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900',
-        className
+        'mx-auto max-w-7xl overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900'
       )}
     >
       {showHeader && <WidgetHeader />}
@@ -194,7 +192,7 @@ export default function InstagramEmbedWidget({
             href={INSTAGRAM_PROFILE_URL}
             target='_blank'
             rel='noopener noreferrer'
-            className='text-sm font-medium text-green underline-offset-4 hover:underline'
+            className='text-green text-sm font-medium underline-offset-4 hover:underline'
           >
             Visit us on Instagram
           </Link>
@@ -202,7 +200,7 @@ export default function InstagramEmbedWidget({
       )}
 
       {!loading && !error && posts.length > 0 && (
-        <div className='max-h-[600px] space-y-4 overflow-y-auto p-4'>
+        <div className='flex max-h-150 space-y-4 overflow-y-auto p-4'>
           {posts.map((post) => (
             <EmbedPost key={post.id} permalink={post.permalink} />
           ))}
@@ -216,7 +214,7 @@ export default function InstagramEmbedWidget({
             href={INSTAGRAM_PROFILE_URL}
             target='_blank'
             rel='noopener noreferrer'
-            className='text-sm font-medium text-green underline-offset-4 hover:underline'
+            className='text-green text-sm font-medium underline-offset-4 hover:underline'
           >
             Visit us on Instagram
           </Link>
@@ -228,7 +226,7 @@ export default function InstagramEmbedWidget({
           href={INSTAGRAM_PROFILE_URL}
           target='_blank'
           rel='noopener noreferrer'
-          className='text-sm font-medium text-green underline-offset-4 hover:underline'
+          className='text-green text-sm font-medium underline-offset-4 hover:underline'
         >
           Follow {INSTAGRAM_HANDLE} on Instagram
         </Link>

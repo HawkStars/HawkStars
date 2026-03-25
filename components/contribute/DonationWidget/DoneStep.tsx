@@ -4,13 +4,18 @@ import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 type DoneStepProps = {
   donationState: DonationState;
+  paymentResponse: Record<string, unknown> | null;
   onReset: () => void;
 };
 
-const DoneStep = ({ donationState, onReset }: DoneStepProps) => {
+const DoneStep = ({ donationState, paymentResponse, onReset }: DoneStepProps) => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'contribute');
   const activeAmount = getActiveAmount(donationState);
+
+  // Extract MB reference info if available (for Multibanco payments)
+  const mbEntity = paymentResponse?.method as Record<string, unknown> | undefined;
+  const hasMBReference = mbEntity && 'entity' in mbEntity;
 
   return (
     <div className='flex flex-col items-center gap-5 py-4'>
@@ -34,9 +39,36 @@ const DoneStep = ({ donationState, onReset }: DoneStepProps) => {
       <p className='text-center text-[15px] leading-relaxed text-[#555]'>
         {t('donation_widget.done.description', {
           amount: activeAmount,
-          frequency: donationState.frequency === 'monthly' ? t('donation_widget.done.per_month') : '',
+          frequency:
+            donationState.frequency === 'monthly' ? t('donation_widget.done.per_month') : '',
         })}
       </p>
+
+      {/* Multibanco reference details */}
+      {hasMBReference && (
+        <div className='w-full rounded-lg border border-[#ddd] bg-[#fafafa] p-4'>
+          <p className='mb-2 text-center text-sm font-medium text-[#333]'>
+            {t('donation_widget.done.mb_reference_title')}
+          </p>
+          <div className='flex flex-col gap-1 text-center text-sm text-[#555]'>
+            <span>
+              {t('donation_widget.done.mb_entity')}: {String(mbEntity.entity)}
+            </span>
+            <span>
+              {t('donation_widget.done.mb_reference')}: {String(mbEntity.reference)}
+            </span>
+            <span>
+              {t('donation_widget.done.mb_value')}: &euro;{activeAmount}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {donationState.frequency === 'monthly' && (
+        <p className='text-center text-xs text-[#888]'>
+          {t('donation_widget.done.subscription_note')}
+        </p>
+      )}
 
       <button
         onClick={onReset}

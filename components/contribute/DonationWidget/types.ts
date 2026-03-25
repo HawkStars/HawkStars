@@ -1,9 +1,18 @@
+import { SinglePaymentMethod } from '@/types/payment/easypay';
+
 export type DonationType = 'one-time' | 'monthly';
+
+export type PaymentMethodOption = SinglePaymentMethod;
 
 export type DonationState = {
   frequency: DonationType;
   amount: number | null;
   comment: string;
+  name: string;
+  email: string;
+  phone_number: string;
+  phone_indicative: string;
+  paymentMethod: PaymentMethodOption | null;
 };
 
 export type StepConfig = {

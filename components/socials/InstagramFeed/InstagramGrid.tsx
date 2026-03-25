@@ -6,9 +6,7 @@ import Link from 'next/link';
 import { Heart, MessageCircle, Play, Layers } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import type { InstagramPost, InstagramGridProps } from './types';
-
-const INSTAGRAM_PROFILE_URL = 'https://www.instagram.com/hawk.starsngo';
+import { type InstagramPost, type InstagramGridProps, INSTAGRAM_PROFILE_URL } from './types';
 
 function PostOverlay({ post }: { post: InstagramPost }) {
   return (
@@ -54,7 +52,6 @@ export default function InstagramGrid({
   maxPosts = 9,
   columns = 3,
   showOverlay = true,
-  className,
 }: InstagramGridProps) {
   const [posts, setPosts] = useState<InstagramPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -86,7 +83,7 @@ export default function InstagramGrid({
 
   if (loading) {
     return (
-      <div className={className}>
+      <div className='mx-auto max-w-6xl'>
         <GridSkeleton count={maxPosts} columns={columns} />
       </div>
     );
@@ -94,7 +91,11 @@ export default function InstagramGrid({
 
   if (error || posts.length === 0) {
     return (
-      <div className={cn('flex flex-col items-center justify-center py-12 text-center', className)}>
+      <div
+        className={cn(
+          'mx-auto flex max-w-6xl flex-col items-center justify-center py-12 text-center'
+        )}
+      >
         <p className='text-muted-foreground mb-4 text-sm'>{error ?? 'No posts to display yet.'}</p>
         <Link
           href={INSTAGRAM_PROFILE_URL}
@@ -109,7 +110,7 @@ export default function InstagramGrid({
   }
 
   return (
-    <div className={className}>
+    <div className='mx-auto max-w-6xl'>
       <div className={cn('grid gap-1', columns === 3 ? 'grid-cols-3' : 'grid-cols-4')}>
         {posts.slice(0, maxPosts).map((post) => (
           <Link

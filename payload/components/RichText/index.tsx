@@ -56,6 +56,9 @@ import { DataGridBlock } from '@/payload/blocks/DataGridBlock/Component';
 import { SponsorsBlock } from '@/payload/blocks/SponsorsBlock/Component';
 import { UpcomingHawkEventBlock } from '@/payload/blocks/UpcomingHawkEventBlock/Component';
 import { LatestNewsBlock } from '@/payload/blocks/LatestNewsBlock/Component';
+import { WhyHereWhyNowBlock } from '@/payload/blocks/WhyHereWhyNowBlock/Component';
+import { GrowthVisionBlock } from '@/payload/blocks/GrowthVisionBlock/Component';
+import { InstagramBlockComponent } from '@/payload/blocks/InstagramBlock/Component';
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -112,6 +115,9 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     sponsorsBlock: ({ node }) => <SponsorsBlock {...node.fields} />,
     upcomingHawkEvent: ({ node }) => <UpcomingHawkEventBlock {...node.fields} />,
     latestNews: ({ node }) => <LatestNewsBlock {...node.fields} />,
+    growthVisionBlock: ({ node }) => <GrowthVisionBlock {...node.fields} />,
+    whyHereWhyNowBlock: ({ node }) => <WhyHereWhyNowBlock {...node.fields} />,
+    instagram: ({ node }) => <InstagramBlockComponent {...node.fields} />,
   },
   list: List,
   listitem: ListItem,

@@ -1,3 +1,6 @@
+export const INSTAGRAM_PROFILE_URL = 'https://www.instagram.com/hawk.starsngo';
+export const INSTAGRAM_HANDLE = '@hawk.starsngo';
+
 export interface InstagramPost {
   id: string;
   caption?: string;
@@ -13,8 +16,6 @@ export interface InstagramPost {
 export interface InstagramFeedProps {
   /** Maximum number of posts to display */
   maxPosts?: number;
-  /** Additional CSS classes */
-  className?: string;
 }
 
 export interface InstagramGridProps extends InstagramFeedProps {
@@ -27,8 +28,6 @@ export interface InstagramGridProps extends InstagramFeedProps {
 export interface InstagramEmbedWidgetProps {
   /** Maximum number of embedded posts to show */
   maxPosts?: number;
-  /** Additional CSS classes */
-  className?: string;
   /** Show the Instagram header with profile info */
   showHeader?: boolean;
 }

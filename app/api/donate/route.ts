@@ -4,35 +4,41 @@ import * as z from 'zod';
 import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(request: Request) {
-  checkEasyPaySetup();
-
-  const body = await request.json();
-  if (!body) return new Response('Missing Information', { status: 404 });
-
-  const requestBody = prepareEasyPayRequestBody(body);
-
   try {
-    const query = fetch(`${process.env.EASYPAY_API_URL}/single`, {
+    checkEasyPaySetup();
+
+    const body = await request.json();
+    if (!body) {
+      return Response.json({ error: 'Missing request body' }, { status: 400 });
+    }
+
+    const requestBody = prepareEasyPayRequestBody(body);
+
+    const response = await fetch(`${process.env.EASYPAY_API_URL}/single`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        AccountId: process.env.EASYPAY_ACCOUNT_ID || '',
-        ApiKey: process.env.EASYPAY_API_KEY || '',
+        AccountId: process.env.EASYPAY_ACCOUNT_ID!,
+        ApiKey: process.env.EASYPAY_API_KEY!,
       },
       body: JSON.stringify(requestBody),
     });
 
-    const response = await query;
     if (!response.ok) {
-      return new Response('Error processing payment', { status: 404 });
+      const errorText = await response.text();
+      debugger;
+      console.error('EasyPay single payment error:', response.status, errorText);
+      return Response.json({ error: 'Error processing payment' }, { status: response.status });
     }
 
     const data = await response.json();
-    debugger;
-    return new Response(JSON.stringify(data), { status: 200 });
+    return Response.json(data, { status: 200 });
   } catch (e: unknown) {
-    debugger;
-    return new Response('error on the client', { status: 404 });
+    if (e instanceof z.ZodError) {
+      return Response.json({ error: 'Invalid request data', details: e.issues }, { status: 400 });
+    }
+    console.error('Donate route error:', e);
+    return Response.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
@@ -41,32 +47,35 @@ function prepareEasyPayRequestBody(body: Record<string, unknown>): SinglePayment
     value: z.coerce.number().positive(),
     paymentType: z.enum(['CC', 'MB', 'MBW']),
     email: z.email(),
-    name: z.string(),
-    currency: z.enum(['EUR']),
+    name: z.string().min(1),
+    currency: z.enum(['EUR']).default('EUR'),
     phone_number: z.string().optional(),
-    phone_indiciative: z.string().optional(),
+    phone_indicative: z.string().optional(),
     reason: z.string().optional(),
   });
 
   const parsedBody = schema.parse(body);
 
+  const transactionKey = uuidv4();
+
   return {
+    type: 'sale',
     customer: {
       name: parsedBody.name,
       email: parsedBody.email,
       phone: parsedBody.phone_number,
-      phone_indicative: parsedBody.phone_indiciative,
+      phone_indicative: parsedBody.phone_indicative,
       key: parsedBody.email,
       language: 'PT',
     },
     currency: parsedBody.currency,
-    key: 'merchant identification key Example',
+    key: transactionKey,
     value: parsedBody.value,
     method: parsedBody.paymentType,
     capture: {
       descriptive:
-        parsedBody.reason || `Donation - ${parsedBody.email} - ${new Date().toISOString()}`,
-      transaction_key: uuidv4(),
+        parsedBody.reason || `Donation - ${parsedBody.name} - ${new Date().toISOString()}`,
+      transaction_key: transactionKey,
     },
     notification: {
       customer_method_instructions_email: true,
