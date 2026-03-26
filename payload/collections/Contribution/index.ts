@@ -50,6 +50,36 @@ export const ContributionCollection: CollectionConfig = {
       },
     },
     { type: 'text', name: 'extra_info', label: 'Extra Information' },
+    {
+      type: 'collapsible',
+      label: 'Payment Details (EasyPay)',
+      admin: { initCollapsed: true },
+      fields: [
+        {
+          type: 'text',
+          name: 'transaction_key',
+          label: 'Transaction Key',
+          admin: { description: 'UUID key used to identify this payment in EasyPay' },
+        },
+        {
+          type: 'text',
+          name: 'easypay_id',
+          label: 'EasyPay ID',
+          admin: { description: 'EasyPay authorisation or payment ID' },
+        },
+        {
+          type: 'select',
+          name: 'payment_method',
+          label: 'Payment Method',
+          options: [
+            { label: 'Credit Card (CC)', value: 'CC' },
+            { label: 'Multibanco (MB)', value: 'MB' },
+            { label: 'MB Way (MBW)', value: 'MBW' },
+          ],
+          admin: { description: 'Payment method used in EasyPay' },
+        },
+      ],
+    },
   ],
   defaultSort: '-contribution_date',
   admin: {
