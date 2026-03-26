@@ -1,3 +1,6 @@
 pnpm lint
 pnpm tsc
-pnpm build
+# Skip build in CI environments (the full build is handled by the CI/CD pipeline)
+if [ "$CI" != "true" ]; then
+  pnpm build
+fi
