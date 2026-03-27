@@ -1,3 +1,6 @@
 pnpm lint
 pnpm tsc
-pnpm build
+# Skip build in CI environments where font fetching may be restricted
+if [ "$CI" != "true" ]; then
+  pnpm build
+fi
