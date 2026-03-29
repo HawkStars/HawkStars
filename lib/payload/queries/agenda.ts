@@ -9,7 +9,7 @@ export const getAgendaEventsQuery = async (locale: Language): Promise<HawkProjec
   const events = await payload.find({
     collection: EVENTS_COLLECTION,
     limit: 100,
-    sort: '-createdAt',
+    sort: 'date',
     locale,
   });
 

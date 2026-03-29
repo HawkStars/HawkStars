@@ -22,6 +22,19 @@ const HawkProjectDetails: Tab = {
       },
     },
     {
+      name: 'date',
+      label: 'Event Date',
+      type: 'date',
+      required: true,
+      admin: {
+        description: 'The date when this event/project takes place',
+        date: {
+          pickerAppearance: 'dayOnly',
+          displayFormat: 'dd/MM/yyyy',
+        },
+      },
+    },
+    {
       name: 'type_event',
       label: 'Type of Event',
       type: 'select',

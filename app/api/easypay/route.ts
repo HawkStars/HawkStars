@@ -74,6 +74,16 @@ async function handleGenericNotification(notification: EasyPayGenericNotificatio
   }
 }
 
+const VALID_PAYMENT_METHODS = ['CC', 'MB', 'MBW'] as const;
+type ValidPaymentMethod = (typeof VALID_PAYMENT_METHODS)[number];
+
+function toPaymentMethod(method: string): ValidPaymentMethod | undefined {
+  const upper = method.toUpperCase();
+  return VALID_PAYMENT_METHODS.includes(upper as ValidPaymentMethod)
+    ? (upper as ValidPaymentMethod)
+    : undefined;
+}
+
 /**
  * Handle authorisation notifications (payment authorised)
  */
@@ -98,6 +108,9 @@ async function handleAuthorisationNotification(
         contribution_date: new Date().toISOString(),
         contribution_type: 'BANK',
         extra_info: `EasyPay ${notification.method.toUpperCase()} - Auth ID: ${notification.authorisation?.id || notification.id}`,
+        transaction_key: notification.key,
+        easypay_id: notification.authorisation?.id || notification.id,
+        payment_method: toPaymentMethod(notification.method),
       },
     });
   } catch (error) {
@@ -132,12 +145,12 @@ async function updateContributionStatus(
   try {
     const payload = await getPayloadConfig();
 
-    // Find contribution by the transaction key stored in extra_info
+    // Find contribution by the transaction key field
     const contributions = await payload.find({
       collection: CONTRIBUTION_COLLECTION,
       where: {
-        extra_info: {
-          contains: transactionKey,
+        transaction_key: {
+          equals: transactionKey,
         },
       },
       limit: 1,

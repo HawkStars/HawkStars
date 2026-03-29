@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { getPayloadConfig } from '@/lib/payload/server';
 
 /**
  * Instagram Graph API integration for @hawk.starsngo
@@ -9,12 +10,12 @@ import { NextResponse, type NextRequest } from 'next/server';
  * 3. Connect your Instagram Business/Creator account
  * 4. Generate a long-lived access token (valid for 60 days)
  * 5. Set the following environment variables:
- *    - INSTAGRAM_ACCESS_TOKEN: Your long-lived access token
+ *    - INSTAGRAM_ACCESS_TOKEN: Your long-lived access token (fallback)
  *    - INSTAGRAM_USER_ID: Your Instagram Business account user ID
  *
- * Token refresh: Long-lived tokens expire after 60 days.
- * Use the /api/instagram/refresh endpoint or set up a cron job to refresh automatically.
- * See: https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/refresh_access_token
+ * Token refresh: The Payload job `refreshInstagramToken` automatically refreshes
+ * the token twice a week and stores the updated value in Website Settings.
+ * See: https://developers.facebook.com/docs/instagram-platform/reference/refresh_access_token/
  */
 
 const INSTAGRAM_API_BASE = 'https://graph.instagram.com';
@@ -58,7 +59,21 @@ export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const limit = Math.min(Number(searchParams.get('limit') ?? 12), 50);
 
-  const accessToken = process.env.INSTAGRAM_ACCESS_TOKEN;
+  // Prefer the token stored in Website Settings (kept up-to-date by the
+  // refreshInstagramToken job), falling back to the environment variable.
+  let accessToken: string | null | undefined;
+  try {
+    const payload = await getPayloadConfig();
+    const settings = await payload.findGlobal({ slug: 'settings' });
+    accessToken = settings?.instagramToken ?? process.env.INSTAGRAM_ACCESS_TOKEN;
+  } catch (err) {
+    console.error(
+      'Could not read Instagram token from Website Settings, falling back to env var:',
+      err
+    );
+    accessToken = process.env.INSTAGRAM_ACCESS_TOKEN;
+  }
+
   const userId = process.env.INSTAGRAM_USER_ID;
 
   if (!accessToken || !userId) {

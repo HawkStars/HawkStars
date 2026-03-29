@@ -44,7 +44,7 @@ import { News } from './payload/collections/News';
 import { getServerSideURL } from './payload/utilities/getURL';
 import { seed } from './payload/seed';
 import { WebsiteSettings } from './payload/globals/Settings/config';
-import { cleanReadNotificationsTask } from './payload/jobs/cleanReadNotifications';
+import { jobs } from './payload/jobs';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -188,16 +188,7 @@ export default buildConfig({
       handler: markNotificationsReadHandler,
     },
   ],
-  jobs: {
-    tasks: [cleanReadNotificationsTask],
-    autoRun: [
-      {
-        queue: 'default',
-        cron: '*/5 * * * *', // Check for and process queued jobs every 5 minutes
-      },
-    ],
-    deleteJobOnComplete: true,
-  },
+  jobs,
   onInit: async (payload) => {
     if (process.env.NODE_ENV === 'production') return;
     await seed(payload);

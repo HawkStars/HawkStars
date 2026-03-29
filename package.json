@@ -11,6 +11,7 @@
     "lint": "eslint .",
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
+    "test": "vitest run",
     "payload:generate": "payload generate:types",
     "payload:generateMapping": "payload generate:importmap",
     "storybook": "storybook dev -p 6006",
