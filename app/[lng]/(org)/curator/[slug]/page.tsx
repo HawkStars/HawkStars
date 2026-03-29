@@ -26,19 +26,28 @@ export async function generateMetadata(props: CuratorPageProps): Promise<Metadat
     };
   }
 
-  const hasDescriptionContent = curator.description && Array.isArray(curator.description) && curator.description.length > 0;
+  const hasDescriptionContent =
+    curator.description && Array.isArray(curator.description) && curator.description.length > 0;
 
   return {
     title: `${curator.name} - Curator | Hawk Stars NGO`,
-    description:
-      hasDescriptionContent
-        ? `Learn about ${curator.name}, curator at Hawk Stars NGO Social Impact Art Gallery.`
-        : `${curator.name} - Curator at Hawk Stars NGO Social Impact Art Gallery in Pinhel, Portugal.`,
-    keywords: ['Hawk Stars NGO', 'Curator', curator.name || 'Unknown Curator', 'Art Gallery', 'Social Impact'],
+    description: hasDescriptionContent
+      ? `Learn about ${curator.name}, curator at Hawk Stars NGO Social Impact Art Gallery.`
+      : `${curator.name} - Curator at Hawk Stars NGO Social Impact Art Gallery in Pinhel, Portugal.`,
+    keywords: [
+      'Hawk Stars NGO',
+      'Curator',
+      curator.name || 'Unknown Curator',
+      'Art Gallery',
+      'Social Impact',
+    ],
     openGraph: {
       title: `${curator.name} - Curator | Hawk Stars NGO`,
       description: `${curator.name} - Curator at Hawk Stars NGO Social Impact Art Gallery`,
-      images: curator.image && (curator.image as Media)?.url ? [(curator.image as Media).url as string] : [],
+      images:
+        curator.image && (curator.image as Media)?.url
+          ? [(curator.image as Media).url as string]
+          : [],
     },
   };
 }

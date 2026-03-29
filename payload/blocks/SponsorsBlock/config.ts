@@ -35,8 +35,7 @@ export const SponsorsBlock: Block = {
         { label: 'Bronze', value: 'bronze' },
       ],
       admin: {
-        description:
-          'Filter by sponsor tier. Leave empty to show all sponsors.',
+        description: 'Filter by sponsor tier. Leave empty to show all sponsors.',
       },
     },
     {

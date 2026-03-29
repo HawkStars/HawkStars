@@ -21,7 +21,10 @@ export const getSingleNewsSlug = async (
   return news ? news.docs[0] : null;
 };
 
-export const getNewsQuery = async (page: number, locale: Language): Promise<PaginatedDocs<News>> => {
+export const getNewsQuery = async (
+  page: number,
+  locale: Language
+): Promise<PaginatedDocs<News>> => {
   const payload = await getPayloadConfig();
   return await payload.find({
     collection: NEWS_COLLECTION,
