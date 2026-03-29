@@ -62,9 +62,7 @@ function isTransactionNotification(
 /**
  * Handle generic notifications (capture success/failure)
  */
-async function handleGenericNotification(
-  notification: EasyPayGenericNotification
-): Promise<void> {
+async function handleGenericNotification(notification: EasyPayGenericNotification): Promise<void> {
   console.log(
     `EasyPay generic notification: type=${notification.type}, status=${notification.status}, id=${notification.id}`
   );
@@ -167,13 +165,9 @@ async function updateContributionStatus(
           is_confirmed: isConfirmed,
         },
       });
-      console.log(
-        `Contribution ${contribution.id} updated: is_confirmed=${isConfirmed}`
-      );
+      console.log(`Contribution ${contribution.id} updated: is_confirmed=${isConfirmed}`);
     } else {
-      console.warn(
-        `No contribution found for transaction key: ${transactionKey}`
-      );
+      console.warn(`No contribution found for transaction key: ${transactionKey}`);
     }
   } catch (error) {
     console.error('Error updating contribution status:', error);

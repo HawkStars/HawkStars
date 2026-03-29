@@ -124,9 +124,7 @@ export default function DonationWidget() {
       setCurrentStep(5);
     } catch (error) {
       console.error('Payment error:', error);
-      setSubmitError(
-        error instanceof Error ? error.message : 'An unexpected error occurred'
-      );
+      setSubmitError(error instanceof Error ? error.message : 'An unexpected error occurred');
     } finally {
       setIsSubmitting(false);
     }

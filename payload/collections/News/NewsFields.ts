@@ -49,7 +49,8 @@ const NewsDetails: Tab = {
       label: 'Main Image',
       name: 'mainImage',
       required: true,
-      description: 'The main image for the news article displayed on listing pages and article page',
+      description:
+        'The main image for the news article displayed on listing pages and article page',
     }),
   ],
 };

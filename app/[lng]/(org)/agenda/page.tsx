@@ -28,7 +28,7 @@ const AgendaPage = async (props: LanguagePageProps) => {
     id: project.id,
     title: project.heading,
     description: project.description,
-    date: project.createdAt,
+    date: project.date ?? project.createdAt,
     type: project.type_event,
     slug: project.slug,
     image: project.image,

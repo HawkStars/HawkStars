@@ -50,8 +50,7 @@ export const LatestNewsBlock: Block = {
         { label: 'Other', value: 'other' },
       ],
       admin: {
-        description:
-          'Filter by news type. Leave empty to show the latest regardless of type.',
+        description: 'Filter by news type. Leave empty to show the latest regardless of type.',
         condition: (_, siblingData) => siblingData?.source === 'news',
       },
     },
@@ -66,8 +65,7 @@ export const LatestNewsBlock: Block = {
         { label: 'Other', value: 'other' },
       ],
       admin: {
-        description:
-          'Filter by event type. Leave empty to show the latest regardless of type.',
+        description: 'Filter by event type. Leave empty to show the latest regardless of type.',
         condition: (_, siblingData) => siblingData?.source === 'hawk_projects',
       },
     },
