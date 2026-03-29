@@ -3861,6 +3861,18 @@ export interface Contribution {
     | 'BUILDING_NAMING'
     | 'TRAINING_ROOM_NAMING';
   extra_info?: string | null;
+  /**
+   * UUID key used to identify this payment in EasyPay
+   */
+  transaction_key?: string | null;
+  /**
+   * EasyPay authorisation or payment ID
+   */
+  easypay_id?: string | null;
+  /**
+   * Payment method used in EasyPay
+   */
+  payment_method?: ('CC' | 'MB' | 'MBW') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4335,6 +4347,9 @@ export interface ContributionsSelect<T extends boolean = true> {
   contribution_date?: T;
   contribution_type?: T;
   extra_info?: T;
+  transaction_key?: T;
+  easypay_id?: T;
+  payment_method?: T;
   updatedAt?: T;
   createdAt?: T;
 }
