@@ -378,6 +378,7 @@ export async function seed(payload: Payload): Promise<void> {
         description: 'Um programa de intercâmbio juvenil focado em cidadania ativa e inclusão.',
         slug: 'erasmus-youth-exchange-2025',
         type_event: 'erasmus' as const,
+        date: '2025-09-15T00:00:00.000Z',
         image: {
           imageType: 'upload' as const,
           upload: mediaId(3),
@@ -393,6 +394,7 @@ export async function seed(payload: Payload): Promise<void> {
         description: 'Festival anual com música, arte e gastronomia.',
         slug: 'festival-cultural-hawkstars',
         type_event: 'local_event' as const,
+        date: '2024-07-20T00:00:00.000Z',
         image: {
           imageType: 'upload' as const,
           upload: mediaId(3),
@@ -406,6 +408,7 @@ export async function seed(payload: Payload): Promise<void> {
         description: 'Conferência internacional sobre trabalho juvenil.',
         slug: 'international-conference-youth-work',
         type_event: 'international_event' as const,
+        date: '2024-11-10T00:00:00.000Z',
         image: {
           imageType: 'upload' as const,
           upload: mediaId(3),

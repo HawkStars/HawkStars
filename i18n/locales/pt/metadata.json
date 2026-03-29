@@ -198,5 +198,46 @@
       "Pinhel",
       "Portugal"
     ]
+  },
+  "news": {
+    "title": "Notícias e Atualizações - ONG Hawk Stars",
+    "description": "Fique informado com as últimas notícias, artigos de blog, anúncios e comunicados de imprensa da ONG Hawk Stars.",
+    "keywords": [
+      "ONG Hawk Stars",
+      "Notícias",
+      "Blog",
+      "Anúncios",
+      "Comunicados de Imprensa",
+      "Atualizações",
+      "Pinhel",
+      "Portugal"
+    ]
+  },
+  "projects": {
+    "title": "Projetos e Eventos - ONG Hawk Stars",
+    "description": "Explore os projetos e eventos passados e futuros da ONG Hawk Stars. Desde programas Erasmus+ a eventos locais e internacionais, descubra o nosso trabalho.",
+    "keywords": [
+      "ONG Hawk Stars",
+      "Projetos",
+      "Eventos",
+      "Erasmus+",
+      "Eventos Locais",
+      "Eventos Internacionais",
+      "Pinhel",
+      "Portugal"
+    ]
+  },
+  "agenda": {
+    "title": "Agenda - Calendário de Eventos da ONG Hawk Stars",
+    "description": "Consulte o calendário completo de eventos da ONG Hawk Stars. Fique a par de todos os nossos projetos e atividades programados.",
+    "keywords": [
+      "ONG Hawk Stars",
+      "Agenda",
+      "Calendário",
+      "Eventos",
+      "Programação",
+      "Pinhel",
+      "Portugal"
+    ]
   }
 }

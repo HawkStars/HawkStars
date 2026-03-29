@@ -21,14 +21,50 @@ export const getSingleEventsQuery = async (
   return event.docs[0] ?? null;
 };
 
-export const getEventsQuery = async (page: number): Promise<PaginatedDocs<HawkProject>> => {
+export const getEventsQuery = async (
+  page: number,
+  locale: Language
+): Promise<PaginatedDocs<HawkProject>> => {
   const payload = await getPayloadConfig();
   const events = await payload.find({
     collection: EVENTS_COLLECTION,
     limit: 10,
     page,
     sort: '-date',
+    locale,
   });
 
   return events;
+};
+
+export type SplitProjectsResult = {
+  upcoming: HawkProject[];
+  past: HawkProject[];
+};
+
+export const getProjectsSplitByDate = async (locale: Language): Promise<SplitProjectsResult> => {
+  const payload = await getPayloadConfig();
+  const now = new Date().toISOString();
+
+  const [upcomingResult, pastResult] = await Promise.all([
+    payload.find({
+      collection: EVENTS_COLLECTION,
+      where: { date: { greater_than_equal: now } },
+      sort: 'date',
+      limit: 100,
+      locale,
+    }),
+    payload.find({
+      collection: EVENTS_COLLECTION,
+      where: { date: { less_than: now } },
+      sort: '-date',
+      limit: 100,
+      locale,
+    }),
+  ]);
+
+  return {
+    upcoming: upcomingResult.docs,
+    past: pastResult.docs,
+  };
 };

@@ -175,5 +175,38 @@
       "Pinhel",
       "Portugal"
     ]
+  },
+  "news": {
+    "title": "News & Updates - Hawk Stars NGO",
+    "description": "Stay informed with the latest news, blog posts, announcements and press releases from Hawk Stars NGO.",
+    "keywords": [
+      "Hawk Stars NGO",
+      "News",
+      "Blog",
+      "Announcements",
+      "Press Releases",
+      "Updates",
+      "Pinhel",
+      "Portugal"
+    ]
+  },
+  "projects": {
+    "title": "Projects & Events - Hawk Stars NGO",
+    "description": "Explore Hawk Stars NGO's upcoming and past projects and events. From Erasmus+ programmes to local and international events, discover our work.",
+    "keywords": [
+      "Hawk Stars NGO",
+      "Projects",
+      "Events",
+      "Erasmus+",
+      "Local Events",
+      "International Events",
+      "Pinhel",
+      "Portugal"
+    ]
+  },
+  "agenda": {
+    "title": "Agenda - Hawk Stars NGO Events Calendar",
+    "description": "Browse the full Hawk Stars NGO events calendar. Stay up to date with all our scheduled projects and activities.",
+    "keywords": ["Hawk Stars NGO", "Agenda", "Calendar", "Events", "Schedule", "Pinhel", "Portugal"]
   }
 }

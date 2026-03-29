@@ -84,18 +84,21 @@ This is considered the source of truth for all content on the site with a few ex
 ## Development Commands
 
 ### Development
+
 ```bash
 pnpm dev              # Start Next.js dev server with Turbopack
 pnpm dev:inspect      # Start dev server with Node.js inspector for debugging
 ```
 
 ### Building
+
 ```bash
 pnpm build            # Production build with Next.js
 pnpm start            # Start production server
 ```
 
 ### Code Quality
+
 ```bash
 pnpm lint             # Check code with ESLint
 pnpm format           # Check formatting with Prettier
@@ -104,12 +107,14 @@ pnpm tsc              # Type check with TypeScript compiler
 ```
 
 ### Payload CMS
+
 ```bash
 pnpm payload:generate          # Regenerate TypeScript types from CMS schema
 pnpm payload:generateMapping   # Generate import map for Payload blocks
 ```
 
 ### Storybook
+
 ```bash
 pnpm storybook        # Start Storybook dev server (port 6006)
 pnpm build-storybook  # Build static Storybook
@@ -180,6 +185,7 @@ pnpm build-storybook  # Build static Storybook
 ### Pre-commit Checks
 
 Before committing, ensure:
+
 1. `pnpm lint` passes (no errors)
 2. `pnpm tsc` passes (no type errors)
 3. `pnpm format` passes (no formatting issues)
@@ -195,6 +201,7 @@ The repository uses GitHub Actions for automated deployment (`.github/workflows/
 **Trigger**: Push to `main` branch
 
 **Jobs**:
+
 1. **check**: Validates code quality
    - Runs `pnpm lint` to check code style
    - Runs `pnpm tsc` to verify type safety
@@ -217,6 +224,7 @@ The repository uses GitHub Actions for automated deployment (`.github/workflows/
 ### Environment Variables
 
 **Required for Production**:
+
 - `NODE_ENV`: Set to `production`
 - `NEXT_PUBLIC_APP_URL`: Public URL of the application
 - `PAYLOAD_SECRET`: Secret key for Payload CMS authentication
@@ -227,6 +235,7 @@ The repository uses GitHub Actions for automated deployment (`.github/workflows/
 - `CLOUDINARY_API_SECRET`: Cloudinary API secret
 
 **Security Notes**:
+
 - ⚠️ **NEVER commit `.env` files or secrets to git** - they are in `.gitignore` for a reason
 - Use GitHub Secrets for CI/CD environment variables
 - Restrict `.env` file permissions: `chmod 600 .env` in production
@@ -238,7 +247,7 @@ The repository uses GitHub Actions for automated deployment (`.github/workflows/
 ### Deployment Flow
 
 ```
-Push to main → Lint & Type Check → SSH to VPS → Pull Code → 
+Push to main → Lint & Type Check → SSH to VPS → Pull Code →
 Install Deps → Build → Start with PM2 → Update Status
 ```
 
@@ -258,6 +267,7 @@ Install Deps → Build → Start with PM2 → Update Status
 ### Code Review Standards
 
 When reviewing PRs, check for:
+
 - [ ] Type safety: No `any` types, proper TypeScript usage
 - [ ] Accessibility: Proper semantic HTML, ARIA labels where needed
 - [ ] Performance: Optimize images, lazy load components where appropriate
@@ -273,15 +283,18 @@ When reviewing PRs, check for:
 #### Build Issues
 
 **Problem**: `pnpm build` fails with module not found
+
 - **Solution**: Run `pnpm install --frozen-lockfile` to ensure all dependencies are installed
 - **Solution**: Clear build cache: `rm -rf .next && pnpm build`
 - **Check**: Verify `pnpm-lock.yaml` is in sync with `package.json`
 
 **Problem**: Type errors after adding/modifying Payload blocks
+
 - **Solution**: Run `pnpm payload:generate` to regenerate types
 - **Solution**: Run `pnpm payload:generateMapping` if block not rendering
 
 **Problem**: Build fails with memory issues
+
 - **Solution**: Increase Node.js memory: `NODE_OPTIONS="--max-old-space-size=4096" pnpm build`
 - **Note**: Adjust memory value (2048-8192) based on project size and available system RAM
 - **Alternative**: Try `NODE_OPTIONS="--max-old-space-size=2048"` first, increase if still failing
@@ -289,20 +302,24 @@ When reviewing PRs, check for:
 #### Development Issues
 
 **Problem**: i18n not working, always shows default language
+
 - **Solution**: Check middleware is running, verify `i18next` cookie is set
 - **Solution**: Use `transformUrl(lng, path)` for all internal links, not raw paths
 
 **Problem**: Payload block not rendering on frontend
+
 - **Solution**: Add block component to `app/(payload)/importMap`
 - **Solution**: Run `pnpm payload:generate -- --importMap` to update import mapping
 - **Solution**: Verify block is added to collection's `blocks` array
 
 **Problem**: Images not loading from Cloudinary
+
 - **Solution**: Verify Cloudinary credentials in `.env`
 - **Solution**: Check `next.config.ts` has Cloudinary domain in `remotePatterns`
 - **Solution**: Ensure image URLs use correct Cloudinary format
 
 **Problem**: Tailwind classes not working
+
 - **Solution**: Check class name is valid Tailwind utility or defined in `globals.css`
 - **Solution**: Verify `tailwind.config.ts` includes file path in `content` array
 - **Solution**: Custom classes must be defined in `@layer` directives
@@ -310,16 +327,19 @@ When reviewing PRs, check for:
 #### Payload CMS Issues
 
 **Problem**: Can't access admin panel (`/admin`)
+
 - **Solution**: Ensure MongoDB is running and `DATABASE_URI` is correct
 - **Solution**: Check Payload configuration in `payload.config.ts`
 - **Solution**: Verify user exists in database with proper credentials
 
 **Problem**: Localized content not showing in correct language
+
 - **Solution**: Verify collection has `localization: true` in config
 - **Solution**: Check field has localized content for both `pt` and `en`
 - **Solution**: Use correct language parameter when querying Payload API
 
 **Problem**: Changes to Payload config not reflected
+
 - **Solution**: Restart dev server after config changes
 - **Solution**: Run `pnpm payload:generate` to regenerate types
 - **Solution**: Clear `.next` folder: `rm -rf .next && pnpm dev`
@@ -327,11 +347,13 @@ When reviewing PRs, check for:
 #### Storybook Issues
 
 **Problem**: Storybook won't start
+
 - **Solution**: Check for TypeScript errors in `.stories.tsx` files
 - **Solution**: Verify imports match component exports
 - **Solution**: Clear Storybook cache: `rm -rf node_modules/.cache/storybook`
 
 **Problem**: Styles not loading in Storybook
+
 - **Solution**: Ensure `app/globals.css` imported in `.storybook/preview.ts`
 - **Solution**: Verify Tailwind config includes story file paths
 
@@ -346,6 +368,7 @@ When reviewing PRs, check for:
 ### Migration & Updates
 
 When updating dependencies:
+
 1. Test locally with `pnpm install` and `pnpm dev`
 2. Run full build: `pnpm build`
 3. Check for breaking changes in major version updates

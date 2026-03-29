@@ -1,9 +1,10 @@
-import EventsList from '@/components/events/EventsList';
 import { HawkStarsSection } from '@/components/layout';
 import { HeroImpactStatsBlock } from '@/components/projects/HeroImpactStats';
+import ProjectsList from '@/components/projects/ProjectsList';
 import { LanguageProps } from '@/components/types';
+import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
-import { getEventsQuery } from '@/lib/payload/queries/event';
+import { getProjectsSplitByDate } from '@/lib/payload/queries/event';
 import { getProjectsListHeaderInfo } from '@/lib/payload/queries/globals/projectsList';
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
 import { getMetadataPageInfo } from '@/utils/metadata';
@@ -13,7 +14,7 @@ export async function generateMetadata(props: EventsPageProps): Promise<Metadata
   const params = await props.params;
   const { lng } = params;
 
-  const metadataPage = getMetadataPageInfo(lng as Language, 'home');
+  const metadataPage = getMetadataPageInfo(lng as Language, 'projects');
   return metadataPage;
 }
 
@@ -26,12 +27,23 @@ type EventsPageProps = {
 
 const EventsPage = async (props: EventsPageProps) => {
   const params = await props.params;
-  const searchParams = await props.searchParams;
-  const page = searchParams.page ? Number(searchParams.page) : 1;
   const { lng } = params;
 
-  const projectListInformation = await getProjectsListHeaderInfo(lng);
-  const events = await getEventsQuery(page);
+  const [projectListInformation, projects, { t }] = await Promise.all([
+    getProjectsListHeaderInfo(lng),
+    getProjectsSplitByDate(lng as Language),
+    getServerTranslation(lng, 'projects'),
+  ]);
+
+  const translations = {
+    upcomingProjects: t('upcomingProjects'),
+    pastProjects: t('pastProjects'),
+    noUpcomingProjects: t('noUpcomingProjects'),
+    noPastProjects: t('noPastProjects'),
+    viewAgenda: t('viewAgenda'),
+    viewAgendaDescription: t('viewAgendaDescription'),
+    viewProject: t('viewProject'),
+  };
 
   return (
     <>
@@ -42,10 +54,7 @@ const EventsPage = async (props: EventsPageProps) => {
             <VideoBlock videoUrl={projectListInformation.video} blockType={'videoBlock'} autoplay />
           </div>
         )}
-
-        <EventsList events={events} />
-        {/* missing pagination logic */}
-        {/* {totalPages > page && <Link href={`/events?page=${page + 1}`}>Next Page</Link>} */}
+        <ProjectsList projects={projects} lng={lng} translations={translations} />
       </HawkStarsSection>
     </>
   );
