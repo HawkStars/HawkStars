@@ -4,7 +4,7 @@ import type { NextConfig } from 'next';
 
 const cspHeader = `
     default-src 'self';
-    script-src 'self' blob: https://www.googletagmanager.com https://upload-widget.cloudinary.com 'unsafe-inline';
+    script-src 'self' blob: https://www.googletagmanager.com https://upload-widget.cloudinary.com https://www.instagram.com/embed.js 'unsafe-inline';
     style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
     img-src 'self' blob: data: www.googletagmanager.com https://*.unsplash.com https://*.cdninstagram.com https://*.cloudinary.com https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com;
     font-src 'self' https://fonts.gstatic.com data:;
