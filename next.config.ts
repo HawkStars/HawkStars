@@ -6,7 +6,7 @@ const cspHeader = `
     default-src 'self';
     script-src 'self' blob: https://www.googletagmanager.com https://upload-widget.cloudinary.com 'unsafe-inline';
     style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
-    img-src 'self' blob: data: www.googletagmanager.com https://*.unsplash.com https://*.cloudinary.com https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com;
+    img-src 'self' blob: data: www.googletagmanager.com https://*.unsplash.com https://*.cdninstagram.com https://*.cloudinary.com https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com;
     font-src 'self' https://fonts.gstatic.com data:;
     object-src 'none';
     base-uri 'self';
