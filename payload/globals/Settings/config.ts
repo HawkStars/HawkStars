@@ -3,7 +3,10 @@ import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 
 export const WebsiteSettings: GlobalConfig = {
   slug: 'settings',
-  label: 'Configurações / Settings',
+  label: {
+    pt: 'Configurações',
+    en: 'Settings',
+  },
   access: {
     read: authenticatedAdmin,
     update: authenticatedAdmin,
@@ -21,6 +24,12 @@ export const WebsiteSettings: GlobalConfig = {
         description:
           'Access token for Instagram API to fetch posts for the Instagram feed. You can generate a token using the Instagram Graph API Explorer.',
       },
+    },
+    {
+      name: 'instagramUserId',
+      label: 'Instagram User ID',
+      type: 'text',
+      admin: { description: 'User ID for Instagram API to fetch posts for the Instagram feed.' },
     },
   ],
   lockDocuments: {

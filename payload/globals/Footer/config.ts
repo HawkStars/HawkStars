@@ -6,7 +6,10 @@ import { authenticated } from '@/payload/access/authenticated';
 
 export const Footer: GlobalConfig = {
   slug: 'footer',
-  label: 'Rodapé / Footer',
+  label: {
+    pt: 'Rodapé',
+    en: 'Footer',
+  },
   access: {
     read: authenticated,
     update: authenticatedEditor,

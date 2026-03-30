@@ -4,6 +4,10 @@ import { authenticated } from '@/payload/access/authenticated';
 
 export const ProjectsList: GlobalConfig = {
   slug: 'projects-list',
+  label: {
+    pt: 'Lista de Projetos',
+    en: 'Projects List',
+  },
   admin: {
     description: 'Configure the list of projects list information.',
   },
@@ -15,14 +19,28 @@ export const ProjectsList: GlobalConfig = {
     {
       name: 'title',
       type: 'text',
-      label: 'Projects List Title',
+      label: {
+        pt: 'Título da Lista de Projetos',
+        en: 'Projects List Title',
+      },
       required: true,
     },
-    { name: 'subtitle', type: 'text', label: 'Projects List Subtitle', required: false },
+    {
+      name: 'subtitle',
+      type: 'text',
+      label: {
+        pt: 'Subtítulo da Lista de Projetos',
+        en: 'Projects List Subtitle',
+      },
+      required: false,
+    },
     {
       name: 'video',
       type: 'text',
-      label: 'Projects List Video URL',
+      label: {
+        pt: 'URL do Vídeo da Lista de Projetos',
+        en: 'Projects List Video URL',
+      },
       required: false,
       admin: { description: 'Show the latest project video' },
     },

@@ -233,9 +233,7 @@ export interface Config {
     notifications: NotificationsSelect<false> | NotificationsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents':
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -250,6 +248,7 @@ export interface Config {
     'news-list': NewsList;
     'projects-list': ProjectsList;
     settings: Setting;
+    'payload-jobs-stats': PayloadJobsStat;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -258,6 +257,7 @@ export interface Config {
     'news-list': NewsListSelect<false> | NewsListSelect<true>;
     'projects-list': ProjectsListSelect<false> | ProjectsListSelect<true>;
     settings: SettingsSelect<false> | SettingsSelect<true>;
+    'payload-jobs-stats': PayloadJobsStatsSelect<false> | PayloadJobsStatsSelect<true>;
   };
   locale: 'en' | 'pt';
   widgets: {
@@ -266,6 +266,8 @@ export interface Config {
   user: User;
   jobs: {
     tasks: {
+      refreshInstagramToken: TaskRefreshInstagramToken;
+      cleanReadNotifications: TaskCleanReadNotifications;
       schedulePublish: TaskSchedulePublish;
       inline: {
         input: unknown;
@@ -2947,9 +2949,7 @@ export interface EventListBlock {
          */
         endDate?: string | null;
         location?: string | null;
-        category?:
-          | ('workshop' | 'meeting' | 'fundraiser' | 'social' | 'community' | 'youth')
-          | null;
+        category?: ('workshop' | 'meeting' | 'fundraiser' | 'social' | 'community' | 'youth') | null;
         image?: ImageType;
         /**
          * Link to registration or more info
@@ -3622,6 +3622,10 @@ export interface HawkProject {
   subheading?: string | null;
   description?: string | null;
   slug: string;
+  /**
+   * The date when this event/project takes place
+   */
+  date: string;
   type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
   page_content?: {
     root: {
@@ -3639,7 +3643,6 @@ export interface HawkProject {
     [k: string]: unknown;
   } | null;
   image: ImageType;
-  date: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -4117,7 +4120,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'schedulePublish';
+        taskSlug: 'inline' | 'refreshInstagramToken' | 'cleanReadNotifications' | 'schedulePublish';
         taskID: string;
         input?:
           | {
@@ -4150,10 +4153,19 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  taskSlug?: ('inline' | 'schedulePublish') | null;
+  taskSlug?: ('inline' | 'refreshInstagramToken' | 'cleanReadNotifications' | 'schedulePublish') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
+  meta?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4397,8 +4409,8 @@ export interface HawkProjectsSelect<T extends boolean = true> {
   subheading?: T;
   description?: T;
   slug?: T;
-  type_event?: T;
   date?: T;
+  type_event?: T;
   page_content?: T;
   image?: T | ImageTypeSelect<T>;
   updatedAt?: T;
@@ -5426,6 +5438,7 @@ export interface PayloadJobsSelect<T extends boolean = true> {
   queue?: T;
   waitUntil?: T;
   processing?: T;
+  meta?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -7336,7 +7349,29 @@ export interface Setting {
    * Access token for Instagram API to fetch posts for the Instagram feed. You can generate a token using the Instagram Graph API Explorer.
    */
   instagramToken?: string | null;
+  /**
+   * User ID for Instagram API to fetch posts for the Instagram feed.
+   */
+  instagramUserId?: string | null;
   _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs-stats".
+ */
+export interface PayloadJobsStat {
+  id: string;
+  stats?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -7476,7 +7511,18 @@ export interface ProjectsListSelect<T extends boolean = true> {
  */
 export interface SettingsSelect<T extends boolean = true> {
   instagramToken?: T;
+  instagramUserId?: T;
   _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs-stats_select".
+ */
+export interface PayloadJobsStatsSelect<T extends boolean = true> {
+  stats?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -7490,6 +7536,24 @@ export interface CollectionsWidget {
     [k: string]: unknown;
   };
   width: 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskRefreshInstagramToken".
+ */
+export interface TaskRefreshInstagramToken {
+  input?: unknown;
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskCleanReadNotifications".
+ */
+export interface TaskCleanReadNotifications {
+  input?: unknown;
+  output: {
+    deletedCount?: number | null;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -7520,6 +7584,7 @@ export interface TaskSchedulePublish {
 export interface Auth {
   [k: string]: unknown;
 }
+
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

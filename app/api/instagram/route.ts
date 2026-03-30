@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { getPayloadConfig } from '@/lib/payload/server';
+import * as Sentry from '@sentry/nextjs';
 
 /**
  * Instagram Graph API integration for @hawk.starsngo
@@ -62,56 +63,50 @@ export async function GET(request: NextRequest) {
   // Prefer the token stored in Website Settings (kept up-to-date by the
   // refreshInstagramToken job), falling back to the environment variable.
   let accessToken: string | null | undefined;
-  try {
-    const payload = await getPayloadConfig();
-    const settings = await payload.findGlobal({ slug: 'settings' });
-    accessToken = settings?.instagramToken ?? process.env.INSTAGRAM_ACCESS_TOKEN;
-  } catch (err) {
-    console.error(
-      'Could not read Instagram token from Website Settings, falling back to env var:',
-      err
-    );
-    accessToken = process.env.INSTAGRAM_ACCESS_TOKEN;
-  }
 
-  const userId = process.env.INSTAGRAM_USER_ID;
+  const payload = await getPayloadConfig();
+  const settings = await payload.findGlobal({ slug: 'settings' });
 
-  if (!accessToken || !userId) {
+  const { instagramToken, instagramUserId } = settings || {};
+  if (!instagramToken || !instagramUserId) {
     return NextResponse.json(
       {
-        error:
-          'Instagram API is not configured. Set INSTAGRAM_ACCESS_TOKEN and INSTAGRAM_USER_ID environment variables.',
-        posts: [],
+        error: 'Instagram API is not configured.',
       },
-      { status: 200 }
+      { status: 400 }
     );
   }
 
   try {
     const fields =
       'id,caption,media_url,media_type,permalink,thumbnail_url,timestamp,like_count,comments_count';
-    const url = `${INSTAGRAM_API_BASE}/${userId}/media?fields=${fields}&limit=${limit}&access_token=${accessToken}`;
+    const url = `${INSTAGRAM_API_BASE}/${instagramUserId}/media?fields=${fields}&limit=${limit}&access_token=${instagramToken}`;
 
     const response = await fetch(url, {
       next: { revalidate: CACHE_DURATION_SECONDS },
     } as RequestInit);
 
     if (!response.ok) {
-      const errorBody = await response.json().catch(() => null);
-      console.error('Instagram API error:', response.status, errorBody);
+      Sentry.captureMessage(`Instagram API error: ${response.status} ${response.statusText}`, {
+        level: 'error',
+      });
 
       // If token expired, return a helpful message
       if (response.status === 190 || response.status === 401) {
         return NextResponse.json(
           {
             error: 'Instagram access token has expired. Please refresh it.',
-            posts: [],
           },
-          { status: 200 }
+          { status: 401 }
         );
       }
 
-      throw new Error(`Instagram API returned ${response.status}`);
+      return NextResponse.json(
+        {
+          error: `Instagram API returned an error: ${response.status} ${response.statusText}`,
+        },
+        { status: 400 }
+      );
     }
 
     const data: InstagramApiResponse = await response.json();
@@ -126,7 +121,6 @@ export async function GET(request: NextRequest) {
       }
     );
   } catch (error) {
-    console.error('Error fetching Instagram feed:', error);
     return NextResponse.json(
       { error: 'Failed to fetch Instagram feed', posts: [] },
       { status: 500 }

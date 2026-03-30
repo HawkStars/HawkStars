@@ -1,4 +1,5 @@
 import type { TaskConfig } from 'payload';
+import * as Sentry from '@sentry/nextjs';
 
 const INSTAGRAM_API_BASE = 'https://graph.instagram.com';
 
@@ -27,12 +28,13 @@ export const refreshInstagramTokenTask: TaskConfig<RefreshTokenTaskIO> = {
 
     // Read the current token from the settings global, falling back to the env var
     const settings = await payload.findGlobal({ slug: 'settings' });
-    const currentToken = settings?.instagramToken ?? process.env.INSTAGRAM_ACCESS_TOKEN;
+    const currentToken = settings?.instagramToken;
 
     if (!currentToken) {
-      throw new Error(
-        'No Instagram access token found. Set instagramToken in Website Settings or the INSTAGRAM_ACCESS_TOKEN environment variable.'
-      );
+      Sentry.captureMessage('No Instagram access token found in settings during refresh task', {
+        level: 'error',
+      });
+      throw new Error('No Instagram access token found. Missing configuration.');
     }
 
     // The Instagram refresh endpoint only supports GET with the token as a query
@@ -51,6 +53,12 @@ export const refreshInstagramTokenTask: TaskConfig<RefreshTokenTaskIO> = {
     try {
       data = await response.json();
     } catch {
+      Sentry.captureMessage(
+        `Failed to parse Instagram refresh response (status ${response.status}): response was not valid JSON`,
+        {
+          level: 'error',
+        }
+      );
       throw new Error(
         `Failed to parse Instagram refresh response (status ${response.status}): response was not valid JSON`
       );
@@ -58,6 +66,9 @@ export const refreshInstagramTokenTask: TaskConfig<RefreshTokenTaskIO> = {
 
     if (!response.ok || data.error) {
       const message = data.error?.message ?? `Instagram API returned status ${response.status}`;
+      Sentry.captureMessage(`Failed to refresh Instagram access token: ${message}`, {
+        level: 'error',
+      });
       throw new Error(`Failed to refresh Instagram access token: ${message}`);
     }
 

@@ -4,6 +4,10 @@ import { authenticated } from '@/payload/access/authenticated';
 
 export const NewsList: GlobalConfig = {
   slug: 'news-list',
+  label: {
+    pt: 'Lista de Notícias',
+    en: 'News List',
+  },
   admin: {
     description: 'Configure the list of news list information.',
   },
@@ -15,10 +19,21 @@ export const NewsList: GlobalConfig = {
     {
       name: 'title',
       type: 'text',
-      label: 'News List Title',
+      label: {
+        pt: 'Título da Lista de Notícias',
+        en: 'News List Title',
+      },
       required: true,
     },
-    { name: 'subtitle', type: 'text', label: 'News List Subtitle', required: false },
+    {
+      name: 'subtitle',
+      type: 'text',
+      label: {
+        pt: 'Subtítulo da Lista de Notícias',
+        en: 'News List Subtitle',
+      },
+      required: false,
+    },
   ],
   versions: {
     drafts: {

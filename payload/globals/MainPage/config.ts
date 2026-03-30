@@ -12,6 +12,10 @@ import { revalidateMainPage } from './hooks/revalidateMainPage';
 
 export const MainPage: GlobalConfig = {
   slug: 'main-page',
+  label: {
+    pt: 'Página Principal',
+    en: 'Main Page',
+  },
   admin: {
     description: 'Configure the main landing page of the website.',
   },
