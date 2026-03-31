@@ -35,7 +35,7 @@ const nextConfig = {
   turbopack: {
     resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'],
   },
-  // cacheComponents: true,
+  cacheComponents: true,
   images: {
     remotePatterns: [
       {
@@ -45,6 +45,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'scontent.cdninstagram.com',
       },
     ],
     qualities: [50, 75, 80, 100],
