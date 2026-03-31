@@ -35,7 +35,7 @@ const nextConfig = {
   turbopack: {
     resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'],
   },
-  cacheComponents: true,
+  // cacheComponents: true,
   images: {
     remotePatterns: [
       {
