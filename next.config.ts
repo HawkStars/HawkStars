@@ -37,6 +37,7 @@ const nextConfig = {
   },
   // cacheComponents: true,
   images: {
+    minimumCacheTTL: 43200,
     remotePatterns: [
       {
         protocol: 'https',
@@ -48,7 +49,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'scontent.cdninstagram.com',
+        hostname: 'cdninstagram.com',
       },
     ],
     qualities: [50, 75, 80, 100],
