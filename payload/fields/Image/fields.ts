@@ -9,6 +9,7 @@ const ImageTypeField = ({ required = false }: { required: boolean }) =>
     options: [
       { label: 'External Image', value: 'external' },
       { label: 'Uploaded Image/Media', value: 'upload' },
+      { label: 'None', value: 'none' },
     ],
     admin: {
       description: 'Select whether to use an external image URL or upload an image/media file.',

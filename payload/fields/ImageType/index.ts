@@ -38,7 +38,10 @@ export const PayloadImageField = ({
         type: 'text',
         label: 'Caption / Alt Text',
         required,
-        admin: { description: 'Alt text for the image for accessibility and SEO | Caption Image' },
+        admin: {
+          description: 'Alt text for the image for accessibility and SEO | Caption Image',
+          condition: (_, siblingData) => siblingData.imageType !== 'none',
+        },
       },
       {
         name: 'height',
@@ -50,4 +53,19 @@ export const PayloadImageField = ({
         },
       },
     ],
+    hooks: {
+      afterChange: [
+        ({ value }) => {
+          if (value.imageType !== 'none') return;
+
+          return {
+            imageType: 'none',
+            image: null,
+            externalImage: null,
+            alt: null,
+            height: null,
+          };
+        },
+      ],
+    },
   }) as GroupField;

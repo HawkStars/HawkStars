@@ -49,11 +49,6 @@ const EventsPage = async (props: EventsPageProps) => {
     <>
       <HeroImpactStatsBlock {...projectListInformation} />
       <HawkStarsSection className='bg-bege-light gap-8 pt-10 pb-8 max-lg:px-0 max-lg:pt-0 xl:px-10!'>
-        {projectListInformation.video && (
-          <div className='mx-auto flex justify-center'>
-            <VideoBlock videoUrl={projectListInformation.video} blockType={'videoBlock'} autoplay />
-          </div>
-        )}
         <ProjectsList projects={projects} lng={lng} translations={translations} />
       </HawkStarsSection>
     </>
