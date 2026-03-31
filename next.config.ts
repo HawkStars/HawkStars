@@ -49,7 +49,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'cdninstagram.com',
+        hostname: '*.cdninstagram.com',
       },
     ],
     qualities: [50, 75, 80, 100],
