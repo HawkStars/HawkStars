@@ -9,14 +9,15 @@ import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { getIcon } from '@/lib/icon';
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
 import { cn } from '@/lib/utils';
+import { ImageType, LinkGroupItem } from '@/payload-types';
 
 type HeroImpactStatsBlockProps = {
   title: string;
   subtitle?: string | null;
   badge?: string | null;
-  heroImage?: any;
+  heroImage?: ImageType;
   stats?: Array<{ icon?: string | null; number: string; label: string }> | null;
-  links?: Array<{ link: any }> | null;
+  links?: LinkGroupItem | null;
   sectionId?: string | null;
   video?: string | null;
 };

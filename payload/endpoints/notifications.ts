@@ -41,7 +41,7 @@ export const getNotificationsHandler: PayloadHandler = async (req) => {
       unreadCount: unreadCount.totalDocs,
       totalDocs: notifications.totalDocs,
     });
-  } catch (error) {
+  } catch (_) {
     return Response.json({ error: 'Failed to fetch notifications' }, { status: 500 });
   }
 };
@@ -94,7 +94,7 @@ export const markNotificationsReadHandler: PayloadHandler = async (req) => {
     }
 
     return Response.json({ error: 'Provide { id } or { all: true }' }, { status: 400 });
-  } catch (error) {
+  } catch (_) {
     return Response.json({ error: 'Failed to mark notifications' }, { status: 500 });
   }
 };

@@ -7,6 +7,18 @@
  */
 
 /**
+ * Optional CTA buttons (max 2)
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkGroupItem".
+ */
+export type LinkGroupItem =
+  | {
+      link: LinkField;
+      id?: string | null;
+    }[]
+  | null;
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "multiRowContent".
  */
@@ -233,9 +245,7 @@ export interface Config {
     notifications: NotificationsSelect<false> | NotificationsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents':
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -336,12 +346,7 @@ export interface AccordionBlock {
 export interface CallToActionBlock {
   title: string;
   subtitle?: string | null;
-  links?:
-    | {
-        link: LinkField;
-        id?: string | null;
-      }[]
-    | null;
+  links?: LinkGroupItem;
   image?: ImageType;
   /**
    * Unique identifier for the section (used for anchor links)
@@ -619,12 +624,7 @@ export interface HeroWithBackgroundImageBlock {
    * Overlay darkness (0-100%)
    */
   overlayOpacity?: number | null;
-  links?:
-    | {
-        link: LinkField;
-        id?: string | null;
-      }[]
-    | null;
+  links?: LinkGroupItem;
   /**
    * Text alignment
    */
@@ -652,12 +652,7 @@ export interface HeroSlideshowBlock {
      * Subtitle or description text for this slide
      */
     subtitle?: string | null;
-    links?:
-      | {
-          link: LinkField;
-          id?: string | null;
-        }[]
-      | null;
+    links?: LinkGroupItem;
     /**
      * Text alignment for all slides
      */
@@ -1051,12 +1046,7 @@ export interface CampaignCountdownBlock {
    * Target end date for the countdown
    */
   targetDate: string;
-  links?:
-    | {
-        link: LinkField;
-        id?: string | null;
-      }[]
-    | null;
+  links?: LinkGroupItem;
   showDays?: boolean | null;
   showHours?: boolean | null;
   showMinutes?: boolean | null;
@@ -1084,12 +1074,7 @@ export interface CampaignCountdownBlock {
 export interface CTABannerBlock {
   title: string;
   description?: string | null;
-  links?:
-    | {
-        link: LinkField;
-        id?: string | null;
-      }[]
-    | null;
+  links?: LinkGroupItem;
   variant?: ('centered' | 'split' | 'image-bg') | null;
   backgroundImage?: ImageType;
   /**
@@ -1129,12 +1114,7 @@ export interface DonationProgressBlock {
    * Number of donors (optional)
    */
   donorCount?: number | null;
-  links?:
-    | {
-        link: LinkField;
-        id?: string | null;
-      }[]
-    | null;
+  links?: LinkGroupItem;
   /**
    * Display percentage progress
    */
@@ -2908,15 +2888,7 @@ export interface StatsBlock {
     descriptionAlign?: ('left' | 'center' | 'right') | null;
     id?: string | null;
   }[];
-  /**
-   * Optional CTA buttons (max 2)
-   */
-  links?:
-    | {
-        link: LinkField;
-        id?: string | null;
-      }[]
-    | null;
+  links?: LinkGroupItem;
   /**
    * Unique identifier for the section (used for anchor links)
    */
@@ -2951,9 +2923,7 @@ export interface EventListBlock {
          */
         endDate?: string | null;
         location?: string | null;
-        category?:
-          | ('workshop' | 'meeting' | 'fundraiser' | 'social' | 'community' | 'youth')
-          | null;
+        category?: ('workshop' | 'meeting' | 'fundraiser' | 'social' | 'community' | 'youth') | null;
         image?: ImageType;
         /**
          * Link to registration or more info
@@ -4157,9 +4127,7 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  taskSlug?:
-    | ('inline' | 'refreshInstagramToken' | 'cleanReadNotifications' | 'schedulePublish')
-    | null;
+  taskSlug?: ('inline' | 'refreshInstagramToken' | 'cleanReadNotifications' | 'schedulePublish') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -4562,16 +4530,19 @@ export interface AccordionBlockSelect<T extends boolean = true> {
 export interface CallToActionBlockSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
-  links?:
-    | T
-    | {
-        link?: T | LinkFieldSelect<T>;
-        id?: T;
-      };
+  links?: T | LinkGroupItemSelect<T>;
   image?: T | ImageTypeSelect<T>;
   sectionId?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkGroupItem_select".
+ */
+export interface LinkGroupItemSelect<T extends boolean = true> {
+  link?: T | LinkFieldSelect<T>;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4626,12 +4597,7 @@ export interface HeroWithBackgroundImageBlockSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
   overlayOpacity?: T;
-  links?:
-    | T
-    | {
-        link?: T | LinkFieldSelect<T>;
-        id?: T;
-      };
+  links?: T | LinkGroupItemSelect<T>;
   textAlignment?: T;
   sectionId?: T;
   id?: T;
@@ -4648,12 +4614,7 @@ export interface HeroSlideshowBlockSelect<T extends boolean = true> {
         backgroundImage?: T | ImageTypeSelect<T>;
         title?: T;
         subtitle?: T;
-        links?:
-          | T
-          | {
-              link?: T | LinkFieldSelect<T>;
-              id?: T;
-            };
+        links?: T | LinkGroupItemSelect<T>;
         textAlignment?: T;
         id?: T;
       };
@@ -4854,12 +4815,7 @@ export interface CampaignCountdownBlockSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   targetDate?: T;
-  links?:
-    | T
-    | {
-        link?: T | LinkFieldSelect<T>;
-        id?: T;
-      };
+  links?: T | LinkGroupItemSelect<T>;
   showDays?: T;
   showHours?: T;
   showMinutes?: T;
@@ -4877,12 +4833,7 @@ export interface CampaignCountdownBlockSelect<T extends boolean = true> {
 export interface CTABannerBlockSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  links?:
-    | T
-    | {
-        link?: T | LinkFieldSelect<T>;
-        id?: T;
-      };
+  links?: T | LinkGroupItemSelect<T>;
   variant?: T;
   backgroundImage?: T | ImageTypeSelect<T>;
   sectionId?: T;
@@ -4900,12 +4851,7 @@ export interface DonationProgressBlockSelect<T extends boolean = true> {
   currentAmount?: T;
   currency?: T;
   donorCount?: T;
-  links?:
-    | T
-    | {
-        link?: T | LinkFieldSelect<T>;
-        id?: T;
-      };
+  links?: T | LinkGroupItemSelect<T>;
   showPercentage?: T;
   animateProgress?: T;
   theme?: T;
@@ -4932,12 +4878,7 @@ export interface StatsBlockSelect<T extends boolean = true> {
         descriptionAlign?: T;
         id?: T;
       };
-  links?:
-    | T
-    | {
-        link?: T | LinkFieldSelect<T>;
-        id?: T;
-      };
+  links?: T | LinkGroupItemSelect<T>;
   sectionId?: T;
   id?: T;
   blockName?: T;
@@ -7335,7 +7276,7 @@ export interface ProjectsList {
   title: string;
   subtitle?: string | null;
   /**
-   * Show the latest project video
+   * Show the latest project video.
    */
   video?: string | null;
   badge?: string | null;
@@ -9058,15 +8999,7 @@ export interface ProjectsList {
     label: string;
     id?: string | null;
   }[];
-  /**
-   * Add links to the projects list page as buttons
-   */
-  links?:
-    | {
-        link: LinkField;
-        id?: string | null;
-      }[]
-    | null;
+  links?: LinkGroupItem;
   /**
    * Unique identifier for the section (used for anchor links)
    */
@@ -9249,12 +9182,7 @@ export interface ProjectsListSelect<T extends boolean = true> {
         label?: T;
         id?: T;
       };
-  links?:
-    | T
-    | {
-        link?: T | LinkFieldSelect<T>;
-        id?: T;
-      };
+  links?: T | LinkGroupItemSelect<T>;
   sectionId?: T;
   _status?: T;
   updatedAt?: T;
@@ -9340,6 +9268,7 @@ export interface TaskSchedulePublish {
 export interface Auth {
   [k: string]: unknown;
 }
+
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

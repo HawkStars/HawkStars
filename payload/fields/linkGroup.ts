@@ -9,6 +9,7 @@ export const linkGroup: LinkGroupType = ({ overrides = {} } = {}) => {
   const generatedLinkGroup: Field = {
     name: 'links',
     type: 'array',
+    interfaceName: 'LinkGroupItem',
     fields: [link()],
     admin: {
       initCollapsed: true,
