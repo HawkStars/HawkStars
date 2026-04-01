@@ -7,6 +7,8 @@ import { prepareMetadataInfo, getMetadataPageInfo } from '@/utils/metadata';
 import { HawkStarsSection } from '@/components/layout';
 import RichTextWrapper from '@/payload/components/RichText/RichTextWrapper';
 import { LanguageProps } from '@/components/types';
+import { Media } from '@/payload-types';
+import { getImagePayloadUrl } from '@/lib/image';
 
 type NewsSlugPageProps = {
   params: Promise<LanguageProps & { slug: string }>;
@@ -39,24 +41,27 @@ const NewsSlugPage = async (props: NewsSlugPageProps) => {
 
   const { title, type, content, mainImage, publishedAt } = article;
 
+  const image = getImagePayloadUrl(mainImage);
   return (
     <>
       {/* Hero image */}
-      <HawkStarsSection className='relative h-[420px] overflow-hidden p-0 lg:h-[560px]'>
-        <Image
-          src={(mainImage as { url: string }).url}
-          alt={(mainImage as { alt?: string }).alt ?? title}
-          fill
-          className='object-cover'
-          priority
-        />
-        <div className='absolute inset-0 bg-black/40' />
-      </HawkStarsSection>
+      {image && (
+        <HawkStarsSection className='relative h-105 overflow-hidden p-0 lg:h-140'>
+          <Image
+            src={image?.url || ''}
+            alt={image?.alt || title}
+            fill
+            className='object-cover'
+            priority
+          />
+          <div className='absolute inset-0 bg-black/40' />
+        </HawkStarsSection>
+      )}
 
       {/* Article header */}
       <HawkStarsSection className='bg-bege-light py-8 lg:py-12'>
-        <div className='flex flex-col gap-3 max-w-3xl'>
-          <span className='text-body_small uppercase tracking-widest text-primary'>
+        <div className='flex max-w-3xl flex-col gap-3'>
+          <span className='text-body_small text-primary tracking-widest uppercase'>
             {type.replace('_', ' ')}
           </span>
           <h1 className='text-h1_semibold'>{title}</h1>
