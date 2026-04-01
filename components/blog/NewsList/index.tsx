@@ -25,7 +25,7 @@ const NewsList = ({ news, lng }: NewsListProps) => {
 
   return (
     <div>
-      <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
+      <div className='flex flex-col gap-6'>
         {docs.map((article) => {
           const image = getImagePayloadUrl(article.mainImage);
           const articleUrl = transformUrl(lng, `${urls.news}/${article.slug}`);
@@ -33,7 +33,7 @@ const NewsList = ({ news, lng }: NewsListProps) => {
           return (
             <article
               key={article.id}
-              className='flex flex-col overflow-hidden rounded-xl border bg-white shadow-sm transition-shadow hover:shadow-md'
+              className='border-bege-dark flex flex-col overflow-hidden border-b-2'
             >
               {image?.url && (
                 <Link href={articleUrl} className='block aspect-video overflow-hidden'>

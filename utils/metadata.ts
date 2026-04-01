@@ -38,8 +38,8 @@ const prepareMetadataInfo = ({
     title,
     description,
     icons: {
-      icon: 'public/images/logos/logo.webp',
-      shortcut: 'public/images/logos/logo.webp',
+      icon: '/images/logos/logo.webp',
+      shortcut: '/images/logos/logo.webp',
     },
     openGraph: {
       title: title || '',
