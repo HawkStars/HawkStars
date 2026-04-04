@@ -7,7 +7,6 @@ import { prepareMetadataInfo, getMetadataPageInfo } from '@/utils/metadata';
 import { HawkStarsSection } from '@/components/layout';
 import RichTextWrapper from '@/payload/components/RichText/RichTextWrapper';
 import { LanguageProps } from '@/components/types';
-import { Media } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 
 type NewsSlugPageProps = {

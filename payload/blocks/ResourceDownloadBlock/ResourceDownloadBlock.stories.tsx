@@ -7,6 +7,12 @@ const meta: Meta<typeof ResourceDownloadBlock> = {
   parameters: {
     layout: 'fullscreen',
   },
+  argTypes: {
+    variation: {
+      control: { type: 'select' },
+      options: ['list', 'card'],
+    },
+  },
 };
 
 export default meta;
@@ -39,7 +45,6 @@ export const Default: Story = {
       },
     ],
     id: '1',
-    blockName: 'ResourceDownloadBlock',
-    blockType: 'resourceDownload',
+    variation: 'list',
   },
 };

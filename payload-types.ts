@@ -20,6 +20,28 @@ export type LinkGroupItem =
   | null;
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ResourceItem".
+ */
+export type ResourceItem =
+  | {
+      /**
+       * A descriptive title for the resource.
+       */
+      title: string;
+      /**
+       * A brief description of the resource.
+       */
+      description?: string | null;
+      file: string | HawkDocument;
+      /**
+       * Optional - Used to determine the icon displayed for the resource.
+       */
+      fileType?: ('pdf' | 'doc' | 'xls' | 'image' | 'other') | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "multiRowContent".
  */
 export type MultiRowContent = {
@@ -213,6 +235,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    documents: HawkDocument;
     artworks: Artwork;
     'board-members': BoardMember;
     contributions: Contribution;
@@ -233,6 +256,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    documents: DocumentsSelect<false> | DocumentsSelect<true>;
     artworks: ArtworksSelect<false> | ArtworksSelect<true>;
     'board-members': BoardMembersSelect<false> | BoardMembersSelect<true>;
     contributions: ContributionsSelect<false> | ContributionsSelect<true>;
@@ -3135,16 +3159,15 @@ export interface QuoteHighlightBlock {
  * via the `definition` "ResourceDownloadBlock".
  */
 export interface ResourceDownloadBlock {
+  /**
+   * The title displayed above the list of resources.
+   */
   title?: string | null;
-  resources?:
-    | {
-        title: string;
-        description?: string | null;
-        file: string | Media;
-        fileType?: ('pdf' | 'doc' | 'xls' | 'image' | 'other') | null;
-        id?: string | null;
-      }[]
-    | null;
+  /**
+   * Optional - Used to apply different styles to the resource item. Default is "Default".
+   */
+  variation?: ('list' | 'card') | null;
+  resources?: ResourceItem;
   /**
    * Unique identifier for the section (used for anchor links)
    */
@@ -3152,6 +3175,34 @@ export interface ResourceDownloadBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'resourceDownload';
+}
+/**
+ * Upload and manage documents such as PDFs, spreadsheets, and other files used throughout the website.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents".
+ */
+export interface HawkDocument {
+  id: string;
+  /**
+   * A descriptive title for the document.
+   */
+  title: string;
+  /**
+   * Optional description of the document contents or purpose.
+   */
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4159,6 +4210,10 @@ export interface PayloadLockedDocument {
         value: string | Media;
       } | null)
     | ({
+        relationTo: 'documents';
+        value: string | HawkDocument;
+      } | null)
+    | ({
         relationTo: 'artworks';
         value: string | Artwork;
       } | null)
@@ -4272,6 +4327,25 @@ export interface UsersSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   section?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents_select".
+ */
+export interface DocumentsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -5022,18 +5096,22 @@ export interface QuoteHighlightBlockSelect<T extends boolean = true> {
  */
 export interface ResourceDownloadBlockSelect<T extends boolean = true> {
   title?: T;
-  resources?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        file?: T;
-        fileType?: T;
-        id?: T;
-      };
+  variation?: T;
+  resources?: T | ResourceItemSelect<T>;
   sectionId?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ResourceItem_select".
+ */
+export interface ResourceItemSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  file?: T;
+  fileType?: T;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

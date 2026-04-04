@@ -18,6 +18,7 @@ import assert from 'assert';
 import { ArtCollection } from './payload/collections/ArtCollection';
 import { Users } from './payload/collections/Users';
 import { Media } from './payload/collections/Media';
+import { Documents } from './payload/collections/Documents';
 import { BoardMember } from './payload/collections/BoardMember';
 import { ContributionCollection as Contribution } from './payload/collections/Contribution';
 import { Curator } from './payload/collections/Curator';
@@ -116,6 +117,7 @@ export default buildConfig({
   collections: [
     Users,
     Media,
+    Documents,
     ArtCollection,
     BoardMember,
     Contribution,

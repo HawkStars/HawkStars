@@ -6,6 +6,7 @@ import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types';
 import { Page } from '@/payload-types';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import { cloudinaryAdapter } from '@/lib/cloudinary/adapter';
+import { googleDriveAdapter, generateGoogleDriveURL } from '@/lib/google-drive/adapter';
 import { v2 as cloudinary } from 'cloudinary';
 
 const generateTitle: GenerateTitle<Page> = ({ doc }) => {
@@ -31,6 +32,12 @@ export const plugins: Plugin[] = [
         adapter: cloudinaryAdapter,
         disableLocalStorage: true, // Prevent Payload from saving files to disk
         generateFileURL: ({ filename }) => cloudinary.url(`media/${filename}`, { secure: true }),
+      },
+      documents: {
+        adapter: googleDriveAdapter(),
+        disableLocalStorage: true,
+        disablePayloadAccessControl: true,
+        generateFileURL: ({ filename }) => generateGoogleDriveURL(filename),
       },
     },
   }),

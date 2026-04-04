@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { SponsorsBlock } from './Component';
-import { http, HttpResponse, delay } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 const meta: Meta<typeof SponsorsBlock> = {
   title: 'Organization/Sponsors',

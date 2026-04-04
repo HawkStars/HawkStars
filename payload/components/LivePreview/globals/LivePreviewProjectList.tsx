@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useLivePreview } from '@payloadcms/live-preview-react';
-import type { News, NewsList, ProjectsList } from '@/payload-types';
+import type { ProjectsList } from '@/payload-types';
 import { Language } from '@/i18n/settings';
 import { SplitProjectsResult } from '@/lib/payload/queries/event';
 import ProjectsListComponent from '@/components/projects/list/ProjectsListComponent';
@@ -11,7 +11,15 @@ import HeroImpactStatsBlock from '@/components/projects/list/HeroImpactStatsBloc
 type LivePreviewData = {
   projectListInformation: ProjectsList;
   projects: SplitProjectsResult;
-  translations: any;
+  translations: {
+    upcomingProjects: string;
+    pastProjects: string;
+    noUpcomingProjects: string;
+    noPastProjects: string;
+    viewAgenda: string;
+    viewAgendaDescription: string;
+    viewProject: string;
+  };
 };
 
 type LivePreviewProjectListProps = {
@@ -25,11 +33,7 @@ export const LivePreviewProjectList: React.FC<LivePreviewProjectListProps> = ({
   serverURL,
   lng,
 }) => {
-  const { data } = useLivePreview<{
-    projectListInformation: ProjectsList;
-    projects: SplitProjectsResult;
-    translations: any;
-  }>({
+  const { data } = useLivePreview<LivePreviewData>({
     initialData,
     serverURL,
     depth: 2,
