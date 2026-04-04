@@ -27,6 +27,12 @@ const prepCSPHeader =
     : { key: 'test', value: 'test' };
 
 const nextConfig = {
+  typescript: {
+    // Type-checking runs as a separate CI step (pnpm typecheck).
+    // Skipping it here prevents the build worker from hitting the Node.js
+    // heap limit on memory-constrained servers.
+    ignoreBuildErrors: true,
+  },
   logging: {
     fetches: {
       fullUrl: true,

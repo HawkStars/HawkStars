@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "dev:inspect": "NODE_OPTIONS='--inspect' next dev",
-    "build": "next build",
+    "build": "NODE_OPTIONS='--max-old-space-size=4096' next build",
+    "typecheck": "NODE_OPTIONS='--max-old-space-size=4096' tsc --noEmit",
     "start": "next start",
     "lint": "eslint .",
     "format": "prettier --check --ignore-path .gitignore .",
