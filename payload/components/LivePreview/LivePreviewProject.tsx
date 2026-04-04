@@ -4,7 +4,7 @@ import React from 'react';
 import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { HawkProject } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
-import Post from '@/components/blog/Post';
+import Post from '@/components/news/Post';
 
 type LivePreviewProjectProps = {
   initialData: HawkProject;

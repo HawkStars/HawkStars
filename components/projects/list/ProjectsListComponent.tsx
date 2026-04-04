@@ -78,8 +78,8 @@ const ProjectCard = ({ project, index, lng, viewProjectLabel }: ProjectCardProps
   );
 };
 
-const ProjectsList = ({ projects, lng, translations }: ProjectsListProps) => {
-  const { upcoming, past } = projects;
+const ProjectsListComponent = ({ projects, lng, translations }: ProjectsListProps) => {
+  const { upcoming, past } = projects || {};
   const {
     upcomingProjects,
     pastProjects,
@@ -148,4 +148,4 @@ const ProjectsList = ({ projects, lng, translations }: ProjectsListProps) => {
   );
 };
 
-export default ProjectsList;
+export default ProjectsListComponent;

@@ -1,6 +1,7 @@
 import type { GlobalConfig } from 'payload';
 
 import { authenticated } from '@/payload/access/authenticated';
+import { getServerSideURL } from '@/payload/utilities/getURL';
 
 export const NewsList: GlobalConfig = {
   slug: 'news-list',
@@ -10,6 +11,14 @@ export const NewsList: GlobalConfig = {
   },
   admin: {
     description: 'Configure the list of news list information.',
+    livePreview: {
+      url: ({ locale }) => {
+        const baseUrl = getServerSideURL();
+        const lang = locale?.code || 'pt';
+
+        return `${baseUrl}/${lang}/preview/news`;
+      },
+    },
   },
   access: {
     read: authenticated,
@@ -43,6 +52,7 @@ export const NewsList: GlobalConfig = {
       required: false,
     },
   ],
+
   versions: {
     drafts: {
       autosave: {

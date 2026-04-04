@@ -1,11 +1,11 @@
-import { HawkStarsSection } from '@/components/layout';
-import NewsList from '@/components/blog/NewsList';
 import { LanguageProps } from '@/components/types';
 import { Language } from '@/i18n/settings';
 import { getNewsQuery } from '@/lib/payload/queries/news';
 import { getNewsListHeader } from '@/lib/payload/queries/globals/newsList';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
+import NewsListComponent from '@/components/news/list/NewsListComponent';
+import NewsListHeader from '@/components/news/list/NewsListHeader';
 
 type NewsPageProps = {
   params: Promise<LanguageProps>;
@@ -33,17 +33,8 @@ const NewsIndexPage = async (props: NewsPageProps) => {
 
   return (
     <>
-      <HawkStarsSection className='bg-bege-light py-10 lg:py-14'>
-        <div className='flex flex-col gap-2'>
-          <h1 className='text-h1_semibold'>{newsListHeader.title}</h1>
-          {newsListHeader.subtitle && (
-            <p className='lg:text-h2_light text-body_regular'>{newsListHeader.subtitle}</p>
-          )}
-        </div>
-      </HawkStarsSection>
-      <HawkStarsSection className='py-10 lg:py-14'>
-        <NewsList news={news} lng={lng} />
-      </HawkStarsSection>
+      <NewsListHeader title={newsListHeader?.title || 'News'} subtitle={newsListHeader?.subtitle} />
+      <NewsListComponent news={news} lng={lng} />
     </>
   );
 };

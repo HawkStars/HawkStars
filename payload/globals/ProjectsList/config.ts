@@ -6,6 +6,7 @@ import SectionID from '@/payload/fields/SectionID';
 import { authenticatedEditor } from '@/payload/access/authenticatedEditor';
 import { PayloadImageField } from '@/payload/fields/ImageType';
 import { linkGroup } from '@/payload/fields/linkGroup';
+import { getServerSideURL } from '@/payload/utilities/getURL';
 
 export const ProjectsList: GlobalConfig = {
   slug: 'projects-list',
@@ -15,6 +16,14 @@ export const ProjectsList: GlobalConfig = {
   },
   admin: {
     description: 'Configure the list of projects list information.',
+    livePreview: {
+      url: ({ locale }) => {
+        const baseUrl = getServerSideURL();
+        const lang = locale?.code || 'pt';
+
+        return `${baseUrl}/${lang}/preview/projects`;
+      },
+    },
   },
   access: {
     read: authenticated,

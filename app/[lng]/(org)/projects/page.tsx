@@ -1,12 +1,10 @@
-import { HawkStarsSection } from '@/components/layout';
-import { HeroImpactStatsBlock } from '@/components/projects/HeroImpactStats';
-import ProjectsList from '@/components/projects/ProjectsList';
+import HeroImpactStatsBlock from '@/components/projects/list/HeroImpactStatsBlock';
+import ProjectsList from '@/components/projects/list/ProjectsListComponent';
 import { LanguageProps } from '@/components/types';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
 import { getProjectsSplitByDate } from '@/lib/payload/queries/event';
 import { getProjectsListHeaderInfo } from '@/lib/payload/queries/globals/projectsList';
-import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 
@@ -48,9 +46,7 @@ const EventsPage = async (props: EventsPageProps) => {
   return (
     <>
       <HeroImpactStatsBlock {...projectListInformation} />
-      <HawkStarsSection className='bg-bege-light gap-8 pt-10 pb-8 max-lg:px-0 max-lg:pt-0 xl:px-10!'>
-        <ProjectsList projects={projects} lng={lng} translations={translations} />
-      </HawkStarsSection>
+      <ProjectsList projects={projects} lng={lng} translations={translations} />
     </>
   );
 };

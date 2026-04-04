@@ -4,7 +4,7 @@ import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { getSingleEventsQuery } from '@/lib/payload/queries/event';
-import Post from '@/components/blog/Post';
+import Post from '@/components/news/Post';
 import { getImagePayloadUrl } from '@/lib/image';
 
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
