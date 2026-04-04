@@ -2,7 +2,7 @@ import { Condition, FieldBase, GroupField } from 'payload';
 import { ExternalImageField, ImageTypeField, UploadField } from '../Image/fields';
 
 type ImageTypeGroupProps = Pick<FieldBase, 'label' | 'name' | 'required'> & {
-  description?: string;
+  description?: string | Record<string, string>;
   hideGutter?: boolean;
   condition?: Condition;
 };

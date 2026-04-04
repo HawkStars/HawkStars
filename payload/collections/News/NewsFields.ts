@@ -1,5 +1,7 @@
+import SimpleGallery from '@/payload/blocks/SimpleGallery/config';
 import { PayloadImageField } from '@/payload/fields/ImageType';
 import {
+  BlocksFeature,
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
@@ -50,10 +52,11 @@ const NewsDetails: Tab = {
       localized: true,
       editor: lexicalEditor({
         features: () => [
-          HeadingFeature({ enabledHeadingSizes: ['h3', 'h4'] }),
+          HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4', 'h5', 'h6'] }),
           FixedToolbarFeature(),
           InlineToolbarFeature(),
           UnorderedListFeature(),
+          BlocksFeature({ blocks: [SimpleGallery] }),
         ],
       }),
       admin: {
@@ -61,11 +64,13 @@ const NewsDetails: Tab = {
       },
     },
     PayloadImageField({
-      label: 'Main Image',
+      label: { en: 'Main Image', pt: 'Imagem Principal' },
       name: 'mainImage',
       required: false,
-      description:
-        'The main image for the news article displayed on listing pages and article page',
+      description: {
+        en: 'The main image for the news article displayed on listing pages and article page',
+        pt: 'A imagem principal para o artigo de notícias exibida nas páginas de listagem e na página do artigo',
+      },
     }),
   ],
 };

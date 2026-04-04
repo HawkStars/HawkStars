@@ -19,7 +19,7 @@ const FooterMenu = ({ data }: FooterMenuProps) => {
         <ul className='flex flex-col gap-2'>
           {column.data.map((item) => {
             const link = item.link;
-            const visible = item.visible;
+            const { visible } = link || { visible: false };
 
             if (!visible) return null;
 
