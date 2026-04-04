@@ -15,7 +15,7 @@ function toAgendaItem(project: HawkProject): AgendaEventItem {
     subheading: project.subheading ?? null,
     description: project.description ?? null,
     badge: project.type_event ?? null,
-    image: image ? { url: image } : null,
+    image: image ? image : null,
     href: `/events/${project.slug}`,
     date: project.date ?? null,
     endDate: project.endDate ?? null,

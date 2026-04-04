@@ -56,7 +56,7 @@ export default function InstagramUserIdField(props: TextFieldClientProps) {
           <TextInput
             path={path}
             value={value ?? ''}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
             placeholder='e.g. 123456789012345'
           />
         </div>
