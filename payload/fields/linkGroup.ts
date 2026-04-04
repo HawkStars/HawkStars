@@ -5,12 +5,13 @@ import { link } from './link';
 
 type LinkGroupType = (options?: { overrides?: Partial<ArrayField> }) => Field;
 
-export const linkGroup: LinkGroupType = ({ overrides = {} } = {}) => {
+export const linkGroup: LinkGroupType = ({ overrides = { localized: false } } = {}) => {
+  const { localized } = overrides;
   const generatedLinkGroup: Field = {
     name: 'links',
     type: 'array',
     interfaceName: 'LinkGroupItem',
-    fields: [link()],
+    fields: [link({ localizedLabel: localized })],
     admin: {
       initCollapsed: true,
     },

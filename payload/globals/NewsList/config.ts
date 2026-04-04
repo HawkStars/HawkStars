@@ -23,6 +23,10 @@ export const NewsList: GlobalConfig = {
         pt: 'Título da Lista de Notícias',
         en: 'News List Title',
       },
+      admin: {
+        description: 'This title will be used as the main heading for the news list page.',
+      },
+      localized: true,
       required: true,
     },
     {
@@ -32,6 +36,10 @@ export const NewsList: GlobalConfig = {
         pt: 'Subtítulo da Lista de Notícias',
         en: 'News List Subtitle',
       },
+      admin: {
+        description: 'This subtitle will be used as the secondary heading for the news list page.',
+      },
+      localized: true,
       required: false,
     },
   ],

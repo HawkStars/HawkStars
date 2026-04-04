@@ -123,7 +123,7 @@ export const link = (props?: LinkTypeProps) => {
           width: '50%',
         },
         label: 'Label',
-        required: true,
+        required: false,
         localized: localizedLabel,
       },
       {

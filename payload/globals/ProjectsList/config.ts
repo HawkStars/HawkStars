@@ -29,6 +29,7 @@ export const ProjectsList: GlobalConfig = {
         en: 'Projects List Title',
       },
       required: true,
+      localized: true,
     },
     {
       name: 'subtitle',
@@ -38,6 +39,7 @@ export const ProjectsList: GlobalConfig = {
         en: 'Projects List Subtitle',
       },
       required: false,
+      localized: true,
     },
     {
       name: 'video',
@@ -49,7 +51,14 @@ export const ProjectsList: GlobalConfig = {
       required: false,
       admin: { description: 'Show the latest project video.' },
     },
-    { name: 'badge', type: 'text', label: { pt: 'Badge', en: 'Badge' }, required: false },
+    {
+      name: 'badge',
+      type: 'text',
+      label: { pt: 'Badge', en: 'Badge' },
+      required: false,
+      localized: true,
+      admin: { description: 'A small badge displayed next to the title.' },
+    },
     PayloadImageField({
       name: 'heroImage',
       label: 'Hero Image',
@@ -80,7 +89,13 @@ export const ProjectsList: GlobalConfig = {
           required: false,
         },
         { name: 'number', type: 'text', label: { pt: 'Número', en: 'Number' }, required: true },
-        { name: 'label', type: 'text', label: { pt: 'Rótulo', en: 'Label' }, required: true },
+        {
+          name: 'label',
+          type: 'text',
+          label: { pt: 'Rótulo', en: 'Label' },
+          required: true,
+          localized: true,
+        },
       ],
       maxRows: 4,
       required: true,
@@ -91,6 +106,7 @@ export const ProjectsList: GlobalConfig = {
         admin: {
           description: 'Add links to the projects list page as buttons',
         },
+        localized: true,
       },
     }),
     SectionID,
