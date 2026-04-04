@@ -10,7 +10,6 @@ export const Media: CollectionConfig = {
       views: {
         list: {
           Component: '@/payload/components/admin/MediaListView',
-          actions: [],
         },
       },
     },

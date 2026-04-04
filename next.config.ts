@@ -68,7 +68,7 @@ const nextConfig = {
   },
   serverExternalPackages: [],
   staticPageGenerationTimeout: 120,
-  productionBrowserSourceMaps: true,
+  productionBrowserSourceMaps: false,
   async redirects() {
     return [
       {
@@ -106,23 +106,6 @@ const nextConfig = {
         ],
       },
     ];
-  },
-  // Optimize webpack configuration
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          default: false,
-          vendors: false,
-        },
-      };
-    }
-    // config.resolve.alias = {
-    //   ...config.resolve.alias,
-    //   '@': __dirname,
-    // };
-    return config;
   },
 } as NextConfig;
 
