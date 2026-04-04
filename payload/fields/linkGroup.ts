@@ -14,6 +14,9 @@ export const linkGroup: LinkGroupType = ({ overrides = { localized: false } } = 
     fields: [link({ localizedLabel: localized })],
     admin: {
       initCollapsed: true,
+      components: {
+        RowLabel: '@/payload/fields/LinkGroupLabel',
+      },
     },
   };
 

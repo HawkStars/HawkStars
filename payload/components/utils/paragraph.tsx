@@ -18,7 +18,7 @@ const Paragraph: JSXConverter<SerializedParagraphNode> = ({
   if (children.length === 0) return <br />;
   return (
     <p
-      className={cn('text-body my-1 text-justify', {
+      className={cn('text-body mx-auto my-1 max-w-6xl', {
         [`max-lg:mx-${(indent + 1) * 1} mx-${(indent + 1) * 2}`]: indent > 0,
       })}
     >

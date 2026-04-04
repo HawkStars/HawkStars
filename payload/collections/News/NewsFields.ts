@@ -1,4 +1,11 @@
 import { PayloadImageField } from '@/payload/fields/ImageType';
+import {
+  FixedToolbarFeature,
+  HeadingFeature,
+  InlineToolbarFeature,
+  lexicalEditor,
+  UnorderedListFeature,
+} from '@payloadcms/richtext-lexical';
 import { Tab } from 'payload';
 
 const NewsDetails: Tab = {
@@ -41,6 +48,14 @@ const NewsDetails: Tab = {
       type: 'richText',
       required: true,
       localized: true,
+      editor: lexicalEditor({
+        features: () => [
+          HeadingFeature({ enabledHeadingSizes: ['h3', 'h4'] }),
+          FixedToolbarFeature(),
+          InlineToolbarFeature(),
+          UnorderedListFeature(),
+        ],
+      }),
       admin: {
         description: 'The main content of the news article',
       },
@@ -48,7 +63,7 @@ const NewsDetails: Tab = {
     PayloadImageField({
       label: 'Main Image',
       name: 'mainImage',
-      required: true,
+      required: false,
       description:
         'The main image for the news article displayed on listing pages and article page',
     }),

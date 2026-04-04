@@ -79,7 +79,7 @@ const NewsSlugPage = async (props: NewsSlugPageProps) => {
 
       {/* Article body */}
       <HawkStarsSection className='py-10 lg:py-14'>
-        <div className='max-w-3xl'>
+        <div className='max-w-6xl'>
           <RichTextWrapper data={content} />
         </div>
       </HawkStarsSection>

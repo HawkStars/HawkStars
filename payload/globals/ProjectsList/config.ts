@@ -70,7 +70,12 @@ export const ProjectsList: GlobalConfig = {
       name: 'stats',
       type: 'array',
       label: { pt: 'Estatísticas de Impacto', en: 'Impact Stats' },
-      admin: { description: 'Show the projects stats' },
+      admin: {
+        description: 'Show the projects stats',
+        components: {
+          RowLabel: '@/payload/globals/ProjectsList/components/StatsLabel',
+        },
+      },
       fields: [
         {
           name: 'icon',

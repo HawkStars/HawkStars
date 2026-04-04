@@ -383,7 +383,7 @@ export interface LinkField {
    * Enter the full URL for the link, including http:// or https://
    */
   url?: string | null;
-  label: string;
+  label?: string | null;
   /**
    * Optional: Specify a section ID (without the #) to link to a specific section within the page.
    */
@@ -3964,7 +3964,7 @@ export interface News {
     };
     [k: string]: unknown;
   };
-  mainImage: ImageType;
+  mainImage?: ImageType;
   meta?: {
     title?: string | null;
     /**
@@ -7259,7 +7259,13 @@ export interface MainPage {
  */
 export interface NewsList {
   id: string;
+  /**
+   * This title will be used as the main heading for the news list page.
+   */
   title: string;
+  /**
+   * This subtitle will be used as the secondary heading for the news list page.
+   */
   subtitle?: string | null;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
@@ -7279,6 +7285,9 @@ export interface ProjectsList {
    * Show the latest project video.
    */
   video?: string | null;
+  /**
+   * A small badge displayed next to the title.
+   */
   badge?: string | null;
   heroImage?: ImageType;
   /**

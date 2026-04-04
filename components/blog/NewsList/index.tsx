@@ -31,34 +31,30 @@ const NewsList = ({ news, lng }: NewsListProps) => {
           const articleUrl = transformUrl(lng, `${urls.news}/${article.slug}`);
 
           return (
-            <article
-              key={article.id}
-              className='border-bege-dark flex flex-col overflow-hidden border-b-2'
-            >
-              {image?.url && (
-                <Link href={articleUrl} className='block aspect-video overflow-hidden'>
-                  <Image
-                    src={image.url}
-                    alt={image.alt || article.title}
-                    width={600}
-                    height={338}
-                    className='h-full w-full object-cover transition-transform duration-300 hover:scale-105'
-                  />
-                </Link>
-              )}
-              <div className='flex flex-1 flex-col gap-3 p-5'>
-                <div className='flex items-center gap-2'>
-                  <Badge variant='secondary'>{NewsTypeLabels[article.type]}</Badge>
-                  {article.publishedAt && (
-                    <span className='text-muted-foreground text-xs'>
-                      {format(new Date(article.publishedAt), 'MMM d, yyyy')}
-                    </span>
-                  )}
-                </div>
-                <Link href={articleUrl} className='hover:underline'>
+            <article key={article.id} className='border-bege-dark flex border-b-2'>
+              <Link href={articleUrl} className='relative flex w-full gap-2'>
+                <div className='flex flex-1 flex-col gap-3 p-5'>
+                  <div className='flex items-center gap-2'>
+                    <Badge variant='secondary'>{NewsTypeLabels[article.type]}</Badge>
+                    {article.publishedAt && (
+                      <span className='text-muted-foreground text-xs'>
+                        {format(new Date(article.publishedAt), 'MMM d, yyyy')}
+                      </span>
+                    )}
+                  </div>
                   <h2 className='line-clamp-2 text-lg font-semibold'>{article.title}</h2>
-                </Link>
-              </div>
+                </div>
+                {image?.url && (
+                  <div className='relative min-w-32 lg:ml-auto'>
+                    <Image
+                      src={image.url}
+                      alt={image.alt || article.title}
+                      fill
+                      className='object-contain'
+                    />
+                  </div>
+                )}
+              </Link>
             </article>
           );
         })}
