@@ -24,11 +24,9 @@ const Post = ({ title, image, pubDate, description, content }: BlogPostData) => 
             <span className='ml-1'>on {format(pubDate, 'MMMM d, yyyy')}</span>
           </div>
 
-          <Image
-            src={image}
-            alt='placeholder'
-            className='mt-4 mb-8 aspect-video w-full rounded-lg border object-cover'
-          />
+          <div className='relative mt-4 mb-8 h-80 max-h-80 w-full'>
+            <Image src={image} alt='placeholder' className='aspect-video object-contain' fill />
+          </div>
         </div>
       </div>
       {content && <RichText data={content} />}

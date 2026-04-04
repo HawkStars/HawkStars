@@ -121,7 +121,7 @@ export default function InstagramGrid({
             className='group relative aspect-square overflow-hidden bg-neutral-100 dark:bg-neutral-900'
           >
             <Image
-              src={post.thumbnailUrl ?? post.mediaUrl}
+              src={post.imageUrl}
               alt={post.caption?.slice(0, 100) ?? 'Instagram post'}
               fill
               sizes={columns === 3 ? '33vw' : '25vw'}

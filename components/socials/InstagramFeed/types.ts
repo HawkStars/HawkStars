@@ -5,6 +5,12 @@ export interface InstagramPost {
   id: string;
   caption?: string;
   mediaUrl: string;
+  /**
+   * Always points to a displayable image regardless of media type.
+   * For VIDEO posts this is the thumbnail; for IMAGE / CAROUSEL it equals mediaUrl.
+   * Use this when you just need a src for an <img> / next/image.
+   */
+  imageUrl: string;
   mediaType: 'IMAGE' | 'VIDEO' | 'CAROUSEL_ALBUM';
   permalink: string;
   thumbnailUrl?: string;

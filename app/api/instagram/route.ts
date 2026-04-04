@@ -43,10 +43,14 @@ interface InstagramApiResponse {
 }
 
 function normalizePost(item: InstagramMediaItem) {
+  const imageUrl =
+    item.media_type === 'VIDEO' ? (item.thumbnail_url ?? item.media_url) : item.media_url;
+
   return {
     id: item.id,
     caption: item.caption,
     mediaUrl: item.media_url,
+    imageUrl,
     mediaType: item.media_type,
     permalink: item.permalink,
     thumbnailUrl: item.thumbnail_url,

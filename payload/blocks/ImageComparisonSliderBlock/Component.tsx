@@ -76,7 +76,7 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
               <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform'>
                 <div className='card-lg flex h-12 w-12 items-center justify-center rounded-full bg-white'>
                   <svg
-                    className='h-6 w-6 text-gray-700'
+                    className='h-6 w-6 rotate-90 text-gray-700'
                     fill='none'
                     viewBox='0 0 24 24'
                     stroke='currentColor'

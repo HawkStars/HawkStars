@@ -23,12 +23,14 @@ import type { BoardMember, Media } from '@/payload-types';
 import Image from 'next/image';
 
 const sectionLabels: Record<string, string> = {
+  board: 'Direção',
   geral: 'Assembleia Geral',
   fiscal: 'Conselho Fiscal',
-  board: 'Direção',
+  advisory: 'Conselho Consultivo',
+  gaming: 'Gaming Staff',
 };
 
-const sectionOrder = ['board', 'geral', 'fiscal'];
+const sectionOrder = ['board', 'geral', 'fiscal', 'advisory', 'gaming'];
 
 const titleLabels: Record<string, string> = {
   president: 'Presidente',
@@ -40,6 +42,14 @@ const titleLabels: Record<string, string> = {
   treasurer: 'Tesoureiro',
   rapporteur_secretary: 'Secretário Relator',
   department: 'Departamento',
+  gaming_coordinator: 'Coordenador de Gaming',
+  gaming_staff: 'Staff de Gaming',
+  advisory_member: 'Membro Consultivo',
+  art_director: 'Diretor de Arte',
+  curator: 'Curador',
+  project_coordinator: 'Coordenador de Projetos',
+  partnerships_manager: 'Gerente de Parcerias',
+  other: 'Outro',
 };
 
 export default function BoardMemberListView(props: ListViewClientProps) {
@@ -93,6 +103,7 @@ export default function BoardMemberListView(props: ListViewClientProps) {
           depth: '1',
           limit: String(data.limit || 50),
           page: String(data.page || 1),
+          sort: 'position',
         });
 
         const response = await fetch(`/api/board-members?${params.toString()}`);

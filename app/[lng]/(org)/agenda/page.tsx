@@ -29,6 +29,8 @@ const AgendaPage = async (props: LanguagePageProps) => {
     title: project.heading,
     description: project.description,
     date: project.date ?? project.createdAt,
+    endDate: project.endDate ?? null,
+    isDateRange: Boolean(project.isDateRange),
     type: project.type_event,
     slug: project.slug,
     image: project.image,
@@ -40,6 +42,7 @@ const AgendaPage = async (props: LanguagePageProps) => {
     noEvents: t('noEvents'),
     today: t('today'),
     viewProject: t('viewProject'),
+    multiDay: t('multiDay'),
     monthNames: [
       t('months.january'),
       t('months.february'),

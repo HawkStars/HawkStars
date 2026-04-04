@@ -29,7 +29,10 @@ export const WebsiteSettings: GlobalConfig = {
       name: 'instagramUserId',
       label: 'Instagram User ID',
       type: 'text',
-      admin: { description: 'User ID for Instagram API to fetch posts for the Instagram feed.' },
+      admin: {
+        description:
+          'Numeric user ID for the Instagram Graph API. Use the "Fetch from token" button to resolve it automatically once the access token above is saved.',
+      },
     },
   ],
   lockDocuments: {

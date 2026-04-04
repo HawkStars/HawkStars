@@ -40,6 +40,7 @@ import { LatestNewsBlock } from './LatestNewsBlock/config';
 import { UpcomingHawkEventBlock } from './UpcomingHawkEventBlock/config';
 import { SponsorsBlock } from './SponsorsBlock/config';
 import { InstagramBlock } from './InstagramBlock/config';
+import { AgendaBlock } from './AgendaBlock/config';
 
 const currentBlocks = [
   AccordionBlock,
@@ -84,6 +85,7 @@ const currentBlocks = [
   UpcomingHawkEventBlock,
   SponsorsBlock,
   InstagramBlock,
+  AgendaBlock,
 ];
 
 export default currentBlocks;

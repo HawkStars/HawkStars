@@ -41,6 +41,7 @@ import type {
   GrowthVisionBlock as GrowthVisionBlockProps,
   WhyHereWhyNowBlock as WhyHereWhyNowBlockProps,
   InstagramBlock as InstagramBlockProps,
+  AgendaBlock as AgendaBlockProps,
 } from '@/payload-types';
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical';
 
@@ -89,4 +90,5 @@ export type BlockNodeTypes = SerializedBlockNode<
   | GrowthVisionBlockProps
   | WhyHereWhyNowBlockProps
   | InstagramBlockProps
+  | AgendaBlockProps
 >;

@@ -231,6 +231,7 @@ export interface Config {
     upcomingHawkEvent: UpcomingHawkEventBlock;
     sponsorsBlock: SponsorsBlock;
     instagram: InstagramBlock;
+    agenda: AgendaBlock;
   };
   collections: {
     users: User;
@@ -491,6 +492,7 @@ export interface Page {
         | UpcomingHawkEventBlock
         | SponsorsBlock
         | InstagramBlock
+        | AgendaBlock
       )[]
     | null;
   meta?: {
@@ -3636,6 +3638,43 @@ export interface InstagramBlock {
   blockType: 'instagram';
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AgendaBlock".
+ */
+export interface AgendaBlock {
+  /**
+   * Heading displayed above the event list
+   */
+  title?: string | null;
+  /**
+   * Optional description shown below the title
+   */
+  subtitle?: string | null;
+  /**
+   * Filter by event type. Leave empty to show all upcoming events regardless of type.
+   */
+  eventType?: ('erasmus' | 'local_event' | 'international_event' | 'other')[] | null;
+  /**
+   * Maximum number of upcoming events to display (1–20)
+   */
+  maxEvents?: number | null;
+  /**
+   * Visual style for the event list
+   */
+  layout?: ('list' | 'compact' | 'cards') | null;
+  /**
+   * Text for the "learn more" link on each event card
+   */
+  linkLabel?: string | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'agenda';
+}
+/**
  * Manage HawkStars projects and events. Add event details, images, and descriptions. Each project gets its own public page based on its slug.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3645,12 +3684,23 @@ export interface HawkProject {
   id: string;
   heading: string;
   subheading?: string | null;
+  /**
+   * Short description shown on the homepage top
+   */
   description?: string | null;
   slug: string;
   /**
-   * The date when this event/project takes place
+   * Enable if the event spans more than one day
+   */
+  isDateRange?: boolean | null;
+  /**
+   * Event date, or the first day for multi-day events
    */
   date: string;
+  /**
+   * Last day of the event (only for multi-day events)
+   */
+  endDate?: string | null;
   type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
   page_content?: {
     root: {
@@ -3668,6 +3718,10 @@ export interface HawkProject {
     [k: string]: unknown;
   } | null;
   image: ImageType;
+  /**
+   * Only the ID, not the full URL
+   */
+  instagram?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4457,10 +4511,13 @@ export interface HawkProjectsSelect<T extends boolean = true> {
   subheading?: T;
   description?: T;
   slug?: T;
+  isDateRange?: T;
   date?: T;
+  endDate?: T;
   type_event?: T;
   page_content?: T;
   image?: T | ImageTypeSelect<T>;
+  instagram?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4561,6 +4618,7 @@ export interface PagesSelect<T extends boolean = true> {
         upcomingHawkEvent?: T | UpcomingHawkEventBlockSelect<T>;
         sponsorsBlock?: T | SponsorsBlockSelect<T>;
         instagram?: T | InstagramBlockSelect<T>;
+        agenda?: T | AgendaBlockSelect<T>;
       };
   meta?:
     | T
@@ -5385,6 +5443,21 @@ export interface SponsorsBlockSelect<T extends boolean = true> {
  */
 export interface InstagramBlockSelect<T extends boolean = true> {
   version?: T;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AgendaBlock_select".
+ */
+export interface AgendaBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  eventType?: T;
+  maxEvents?: T;
+  layout?: T;
+  linkLabel?: T;
   sectionId?: T;
   id?: T;
   blockName?: T;
@@ -9109,7 +9182,7 @@ export interface Setting {
    */
   instagramToken?: string | null;
   /**
-   * User ID for Instagram API to fetch posts for the Instagram feed.
+   * Numeric user ID for the Instagram Graph API. Use the "Fetch from token" button to resolve it automatically once the access token above is saved.
    */
   instagramUserId?: string | null;
   _status?: ('draft' | 'published') | null;

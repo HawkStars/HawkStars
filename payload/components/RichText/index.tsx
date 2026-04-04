@@ -59,6 +59,7 @@ import { LatestNewsBlock } from '@/payload/blocks/LatestNewsBlock/Component';
 import { WhyHereWhyNowBlock } from '@/payload/blocks/WhyHereWhyNowBlock/Component';
 import { GrowthVisionBlock } from '@/payload/blocks/GrowthVisionBlock/Component';
 import { InstagramBlockComponent } from '@/payload/blocks/InstagramBlock/Component';
+import { AgendaBlockComponent } from '@/payload/blocks/AgendaBlock/Component';
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -118,6 +119,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     growthVisionBlock: ({ node }) => <GrowthVisionBlock {...node.fields} />,
     whyHereWhyNowBlock: ({ node }) => <WhyHereWhyNowBlock {...node.fields} />,
     instagram: ({ node }) => <InstagramBlockComponent {...node.fields} />,
+    agenda: ({ node }) => <AgendaBlockComponent {...node.fields} />,
   },
   list: List,
   listitem: ListItem,
