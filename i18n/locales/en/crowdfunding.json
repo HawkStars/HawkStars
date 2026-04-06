@@ -1,0 +1,259 @@
+{
+  "hero": {
+    "badge": "Public Crowdfunding Campaign",
+    "title_prefix": "Help us build the",
+    "title_suffix": "in Pinhel",
+    "subtitle": "We are transforming a vacant building in the historic centre of Pinhel into a multidisciplinary centre for training, social innovation, culture, gaming and digital creation.",
+    "cta_support": "Support Now",
+    "cta_video": "Watch the Video",
+    "disclaimer": "Public campaign with phased goals, a commitment to transparency and various forms of support.",
+    "tags": {
+      "location": "Pinhel",
+      "education": "Education",
+      "innovation": "Social Innovation"
+    },
+    "stats": {
+      "raised_label": "Raised so far",
+      "percentage_label": "of the campaign goal",
+      "campaign_goal_label": "Current Campaign Goal",
+      "project_goal_label": "Global Project Goal",
+      "last_update_label": "Last Update",
+      "last_update_date": "January 18, 2025"
+    }
+  },
+  "video": {
+    "badge": "Documentary Video",
+    "overlay_line1": "From the Interior",
+    "overlay_line2": "To the Future",
+    "title": "See why this project needs to happen now",
+    "description": "Global Village is not an abstract idea. It is a concrete response to breathe new life into a vacant building in Pinhel and create a space for training, culture, innovation and community.",
+    "duration_label": "Duration",
+    "duration_value": "3:24 MIN",
+    "tagline_label": "Short Tagline",
+    "tagline_value": "From the interior to the future.",
+    "cta_support": "I Want to Support This Project",
+    "cta_share": "Share Campaign"
+  },
+  "about": {
+    "badge": "About the Project",
+    "title": "What is Global Village?",
+    "description": "Global Village – International Training Center aims to create, in Pinhel, an infrastructure capable of bringing together training, entrepreneurship, culture, creativity, technology and community participation in one place.",
+    "tagline": "More than rehabilitating a space, we want to open new possibilities for the territory.",
+    "features": {
+      "formacao": {
+        "title": "Training",
+        "description": "Workshops, practical learning, residencies and skills development."
+      },
+      "coworking": {
+        "title": "Coworking & Incubation",
+        "description": "A space for ideas to grow, projects to be born and talent to stay in the region."
+      },
+      "cultura": {
+        "title": "Culture & Arts",
+        "description": "Social Gallery, cultural programming and promotion of artists and creators."
+      },
+      "gaming": {
+        "title": "Gaming & Digital",
+        "description": "Gaming Hub, digital content and technological skills for new career paths."
+      },
+      "comunidade": {
+        "title": "Community & Internationalisation",
+        "description": "A space designed for young people, residents, partners and international participants."
+      },
+      "reabilitacao": {
+        "title": "Urban Rehabilitation",
+        "description": "Bringing new life to a vacant building and reinforcing Pinhel's identity."
+      }
+    }
+  },
+  "transparency": {
+    "badge": "Transparency",
+    "title": "Every contribution helps unlock the next phase",
+    "description": "The current campaign is focused on a first goal of €100,000, designed to help unlock licensing, property preparation, the start of the first phase of construction and working capital. The global project is presented with an estimated cost of €900,000.",
+    "cta_money": "See how the money will be used →",
+    "raised_label": "Raised So Far",
+    "weekly_increase": "€ 4,250 this week",
+    "campaign_goal_label": "Current Campaign Goal",
+    "percentage_label": "% of goal",
+    "project_goal_label": "Global Project Goal",
+    "project_total_label": "Total project",
+    "last_update_label": "Last Update",
+    "last_update_date": "January 18, 2025",
+    "phases": {
+      "phase1": { "title": "Phase 1", "description": "Studies, licensing and launch" },
+      "phase2": { "title": "Phase 2", "description": "Construction and equipment" },
+      "phase3": { "title": "Phase 3", "description": "Progressive activation of the space" }
+    }
+  },
+  "rewards": {
+    "badge": "Rewards & Tiers",
+    "title_prefix": "Choose the form of participation that makes",
+    "title_highlight": "the most sense for you.",
+    "description": "From symbolic support to unique experiences and premium support. Every contribution brings Global Village closer to becoming a reality.",
+    "how_to_badge": "How to Contribute",
+    "cta_all": "View All Tiers →",
+    "steps": {
+      "step1": "Choose your support tier",
+      "step2": "Make your contribution on the platform or by direct contact",
+      "step3": "Receive confirmation and campaign updates"
+    },
+    "tiers": {
+      "simple": {
+        "title": "Simple Support",
+        "subtitle": "Small gestures, big impact.",
+        "items": {
+          "digital_thanks": { "label": "Digital thank-you", "price": "From €10" },
+          "tshirt": { "label": "Donor T-shirt", "price": "From €50" },
+          "basket": { "label": "Product basket", "price": "From €60" },
+          "polaroid": { "label": "Polaroid photo", "price": "From €90" },
+          "windbreaker": { "label": "Windbreaker", "price": "From €130" }
+        }
+      },
+      "recognition": {
+        "title": "Recognition in the Space",
+        "subtitle": "Your name, part of this story.",
+        "items": {
+          "brick_wall": { "label": "Brick Wall", "price": "from €250" },
+          "name_walls": { "label": "Name Walls", "price": "from €500" },
+          "chairs": { "label": "Chair naming", "price": "€250 / €350" }
+        }
+      },
+      "experiences": {
+        "title": "Experiences in Pinhel",
+        "subtitle": "Live the territory. Create memories.",
+        "items": {
+          "guided_tour": { "label": "Guided tour + lunch", "price": "" },
+          "pinhel_crawl": { "label": "Pinhel Crawl", "price": "" },
+          "weekend": { "label": "Weekend at Cidadela", "price": "" },
+          "faia_brava": { "label": "Faia Brava / Rewilding Experiences", "price": "" },
+          "masterclasses": { "label": "Special masterclasses", "price": "" }
+        }
+      },
+      "premium": {
+        "title": "Naming & Premium Support",
+        "subtitle": "For companies, foundations and patrons.",
+        "items": {
+          "meeting_rooms": { "label": "Meeting rooms", "price": "from €11,500" },
+          "training_rooms": { "label": "Training rooms", "price": "from €40,000" },
+          "auditorium": { "label": "Auditorium", "price": "€105,000" },
+          "coworking": { "label": "Coworking / Anti-Café", "price": "€115,000" },
+          "naming_itc": { "label": "ITC general naming", "price": "min. €550,000" }
+        }
+      }
+    }
+  },
+  "updates": {
+    "badge": "Campaign Updates",
+    "title_prefix": "Follow the campaign",
+    "title_highlight": "in real time.",
+    "description": "Goals, behind the scenes, new support and next steps. A living campaign, built with you.",
+    "cta_all": "View All Updates →",
+    "badge_highlight": "Featured",
+    "badge_new": "New",
+    "cards": {
+      "first24h": { "title": "First 24h: what we have already achieved together", "date": "18 JAN 2025" },
+      "unlock100k": { "title": "What the €100,000 will unlock", "date": "15 JAN 2025" },
+      "new_reward": {
+        "title": "New reward available",
+        "description": "Hawk Stars donor T-shirt. A symbol of belonging.",
+        "date": "15 JAN 2025"
+      },
+      "event": {
+        "title": "Launch event in Pinhel",
+        "description": "Join us and see the project live.",
+        "date": "10 JAN 2025"
+      }
+    }
+  },
+  "business": {
+    "badge": "Business Support & Possible Patronage Framework",
+    "title_prefix": "Join a project that transforms territory and generates",
+    "title_highlight": "real impact.",
+    "description": "Associate your company or foundation with a project in education, innovation, culture and youth, with lasting impact in Pinhel.",
+    "cta": "Talk About Business Support →",
+    "disclaimer": "Tax benefits are not guaranteed. Donations without commercial consideration may fall under the Tax Benefits Statute. Contact us to evaluate your options.",
+    "benefits": {
+      "impact": {
+        "title": "Impact",
+        "description": "Education, youth, culture and innovation that revitalise the interior."
+      },
+      "reputation": {
+        "title": "Reputation",
+        "description": "A public initiative, visible and with a transformative vocation for the territory."
+      },
+      "transparency": {
+        "title": "Rigour & Transparency",
+        "description": "Support analysed case by case, with full transparency on the use of funds."
+      }
+    }
+  },
+  "partners": {
+    "badge": "Already Supported By",
+    "title_prefix": "People and organisations that",
+    "title_highlight": "believe",
+    "title_suffix": "in this project.",
+    "description": "A growing network of patrons, partners, donors and community already making it happen.",
+    "tabs": {
+      "godparents": "Patrons",
+      "partners": "Partners",
+      "donors": "Donors",
+      "community": "Community"
+    },
+    "entities": {
+      "hawk_stars": { "name": "Hawk Stars", "subtitle": "NGO for Education, Innovation & Social Development" },
+      "ipdj": { "name": "IPDJ", "subtitle": "Portuguese Institute for Sport and Youth, I.P." },
+      "politecnico": { "name": "Polytechnic of Guarda", "subtitle": "" },
+      "camara": { "name": "Municipality of Pinhel", "subtitle": "" },
+      "guarda": { "name": "Guarda", "subtitle": "Guarda for itself." }
+    }
+  },
+  "faq": {
+    "badge": "Frequently Asked Questions",
+    "title_line1": "Get your questions answered.",
+    "title_highlight": "Transparency",
+    "title_line2": "is our promise.",
+    "description_prefix": "We have gathered here the answers to the most common questions about the campaign and the project",
+    "items": {
+      "how_to_support": {
+        "question": "How can I support?",
+        "answer": "You can contribute through our crowdfunding campaign, make a direct donation, support as a company or buy from our solidarity shop."
+      },
+      "other_ways": {
+        "question": "Are there ways to donate outside the platform?",
+        "answer": "Yes. You can make a bank transfer, donate via MBWay or talk to us about business support and patronage."
+      },
+      "rewards": {
+        "question": "How do the rewards work?",
+        "answer": "Each support tier has an associated reward. You will receive all the details after your contribution."
+      },
+      "goal_not_met": {
+        "question": "What happens if the goal is not reached?",
+        "answer": "Every euro raised will be applied to the project launch. The campaign is all-or-nothing; if we do not reach the goal, funds are returned."
+      },
+      "transparency": {
+        "question": "How does transparency work?",
+        "answer": "We publish regular updates, reports on the use of funds and project milestones. Follow everything in the Updates section."
+      },
+      "companies": {
+        "question": "Are there options for companies?",
+        "answer": "Yes. We offer naming options, partnerships, patronage and visibility benefits. Contact us to find out more."
+      },
+      "abroad": {
+        "question": "Can I support from abroad?",
+        "answer": "Yes. The platform accepts international contributions and we provide a donation receipt."
+      },
+      "receipt": {
+        "question": "How do I receive my receipt?",
+        "answer": "You will receive it automatically by email after your contribution. For donations and business support, we issue a receipt for tax purposes."
+      }
+    }
+  },
+  "cta": {
+    "title_line1": "The future of the interior",
+    "title_highlight": "is also built like this.",
+    "description": "Every contribution helps transform vision into real space, community into movement and territory into opportunity.",
+    "cta_support": "Support Now →",
+    "cta_share": "Share Campaign →",
+    "cta_team": "Talk to the Team →"
+  }
+}

@@ -57,44 +57,6 @@ export type MultiRowContent = {
   id?: string | null;
 }[];
 /**
- * Add items to the Bento Grid
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BentoGridItem".
- */
-export type BentoGridItem = {
-  title: string;
-  description?: string | null;
-  backgroundImage?: ImageType;
-  /**
-   * Darkness of the overlay on the background image
-   */
-  overlayOpacity?: ('0' | '25' | '50' | '75' | '90') | null;
-  link: LinkField;
-  /**
-   * Select the width of the item based on grid columns (1 to 6)
-   */
-  column_size: '1' | '2' | '3' | '4' | '5' | '6';
-  /**
-   * Select the height of the item based on grid rows (1 to 6)
-   */
-  row_size: '1' | '2' | '3' | '4' | '5' | '6';
-  contentPosition?:
-    | (
-        | 'top-left'
-        | 'top-center'
-        | 'top-right'
-        | 'center-left'
-        | 'center'
-        | 'center-right'
-        | 'bottom-left'
-        | 'bottom-center'
-        | 'bottom-right'
-      )
-    | null;
-  id?: string | null;
-}[];
-/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DropdownNavLink".
  */
@@ -183,6 +145,44 @@ export type SupportedTimezones =
   | 'Pacific/Noumea'
   | 'Pacific/Auckland'
   | 'Pacific/Fiji';
+/**
+ * Add items to the Bento Grid
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BentoGridItem".
+ */
+export type BentoGridItem = {
+  title: string;
+  description?: string | null;
+  backgroundImage?: ImageType;
+  /**
+   * Darkness of the overlay on the background image
+   */
+  overlayOpacity?: ('0' | '25' | '50' | '75' | '90') | null;
+  link: LinkField;
+  /**
+   * Select the width of the item based on grid columns (1 to 6)
+   */
+  column_size: '1' | '2' | '3' | '4' | '5' | '6';
+  /**
+   * Select the height of the item based on grid rows (1 to 6)
+   */
+  row_size: '1' | '2' | '3' | '4' | '5' | '6';
+  contentPosition?:
+    | (
+        | 'top-left'
+        | 'top-center'
+        | 'top-right'
+        | 'center-left'
+        | 'center'
+        | 'center-right'
+        | 'bottom-left'
+        | 'bottom-center'
+        | 'bottom-right'
+      )
+    | null;
+  id?: string | null;
+}[];
 
 export interface Config {
   auth: {
@@ -194,7 +194,6 @@ export interface Config {
     mediaBlock: MediaBlock;
     hero: HeroBlock;
     heroWithBackgroundImage: HeroWithBackgroundImageBlock;
-    heroSlideshowBlock: HeroSlideshowBlock;
     contentWithImage: ContentWithImageBlock;
     videoBlock: VideoBlock;
     simpleGallery: SimpleGallery;
@@ -208,7 +207,6 @@ export interface Config {
     ctaBanner: CTABannerBlock;
     donationProgress: DonationProgressBlock;
     statsBlock: StatsBlock;
-    eventList: EventListBlock;
     faq: FAQBlock;
     imageComparisonSlider: ImageComparisonSliderBlock;
     mapLocation: MapLocationBlock;
@@ -217,11 +215,9 @@ export interface Config {
     quoteHighlight: QuoteHighlightBlock;
     resourceDownload: ResourceDownloadBlock;
     socialProof: SocialProofBlock;
-    teamGrid: TeamGridBlock;
     timeline: TimelineBlock;
     multiRowImage: MultiRowImageBlock;
     titleDescriptionBlock: TitleDescriptionBlock;
-    bentoGrid: BentoGridBlock;
     imageShowcase: ImageShowcaseBlock;
     donationWidget: DonationWidgetBlock;
     dataGridBlock: DataGridBlock;
@@ -230,8 +226,8 @@ export interface Config {
     latestNews: LatestNewsBlock;
     upcomingHawkEvent: UpcomingHawkEventBlock;
     sponsorsBlock: SponsorsBlock;
-    instagram: InstagramBlock;
     agenda: AgendaBlock;
+    crowdfundingImageBanner: CrowdfundingImageBannerBlock;
   };
   collections: {
     users: User;
@@ -428,6 +424,10 @@ export interface Page {
    */
   title: string;
   /**
+   * Choose how to build the page content. "Rich Text Layout" allows mixing text and blocks in a flexible layout, while "Blocks Only" provides a simpler interface for adding blocks without rich text.
+   */
+  contentType?: ('richText' | 'blocks') | null;
+  /**
    * Add, remove, and reorder blocks to build the content of the page
    */
   layout?: {
@@ -455,7 +455,6 @@ export interface Page {
         | MediaBlock
         | HeroBlock
         | HeroWithBackgroundImageBlock
-        | HeroSlideshowBlock
         | ContentWithImageBlock
         | VideoBlock
         | SimpleGallery
@@ -469,7 +468,6 @@ export interface Page {
         | CTABannerBlock
         | DonationProgressBlock
         | StatsBlock
-        | EventListBlock
         | FAQBlock
         | ImageComparisonSliderBlock
         | MapLocationBlock
@@ -478,11 +476,9 @@ export interface Page {
         | QuoteHighlightBlock
         | ResourceDownloadBlock
         | SocialProofBlock
-        | TeamGridBlock
         | TimelineBlock
         | MultiRowImageBlock
         | TitleDescriptionBlock
-        | BentoGridBlock
         | ImageShowcaseBlock
         | DonationWidgetBlock
         | DataGridBlock
@@ -491,8 +487,8 @@ export interface Page {
         | LatestNewsBlock
         | UpcomingHawkEventBlock
         | SponsorsBlock
-        | InstagramBlock
         | AgendaBlock
+        | CrowdfundingImageBannerBlock
       )[]
     | null;
   meta?: {
@@ -534,7 +530,7 @@ export interface MediaBlock {
   blockType: 'mediaBlock';
 }
 /**
- * Illustration or icon representing this growth phase
+ * Full-width banner image displayed across pages.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ImageType".
@@ -662,60 +658,6 @@ export interface HeroWithBackgroundImageBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroWithBackgroundImage';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroSlideshowBlock".
- */
-export interface HeroSlideshowBlock {
-  slides: {
-    backgroundImage?: ImageType;
-    /**
-     * Main heading text for this slide
-     */
-    title?: string | null;
-    /**
-     * Subtitle or description text for this slide
-     */
-    subtitle?: string | null;
-    links?: LinkGroupItem;
-    /**
-     * Text alignment for all slides
-     */
-    textAlignment: 'left' | 'center' | 'right';
-    id?: string | null;
-  }[];
-  /**
-   * Overlay darkness for all slides (0-100%)
-   */
-  overlayOpacity?: number | null;
-  /**
-   * Automatically cycle through slides
-   */
-  autoplay?: boolean | null;
-  /**
-   * Time between slides in milliseconds (only if autoplay is enabled)
-   */
-  autoplayInterval?: number | null;
-  /**
-   * Show previous/next arrows
-   */
-  showNavigation?: boolean | null;
-  /**
-   * Show navigation dots
-   */
-  showDots?: boolean | null;
-  /**
-   * Height of the hero section
-   */
-  height?: ('fullscreen' | 'large' | 'medium' | 'small') | null;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'heroSlideshowBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2925,63 +2867,6 @@ export interface StatsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "EventListBlock".
- */
-export interface EventListBlock {
-  /**
-   * Section title
-   */
-  title?: string | null;
-  /**
-   * Section description
-   */
-  subtitle?: string | null;
-  /**
-   * List of events to display
-   */
-  events?:
-    | {
-        title: string;
-        description?: string | null;
-        date: string;
-        /**
-         * Optional end date for multi-day events
-         */
-        endDate?: string | null;
-        location?: string | null;
-        category?: ('workshop' | 'meeting' | 'fundraiser' | 'social' | 'community' | 'youth') | null;
-        image?: ImageType;
-        /**
-         * Link to registration or more info
-         */
-        registrationLink?: string | null;
-        isFeatured?: boolean | null;
-        /**
-         * Maximum number of participants (optional)
-         */
-        maxParticipants?: number | null;
-        /**
-         * Number of spots remaining
-         */
-        spotsRemaining?: number | null;
-        id?: string | null;
-      }[]
-    | null;
-  layout?: ('list' | 'grid' | 'timeline') | null;
-  /**
-   * Include past events in the list
-   */
-  showPastEvents?: boolean | null;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'eventList';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FAQBlock".
  */
 export interface FAQBlock {
@@ -3244,34 +3129,6 @@ export interface SocialProofBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TeamGridBlock".
- */
-export interface TeamGridBlock {
-  title?: string | null;
-  subtitle?: string | null;
-  members?:
-    | {
-        name: string;
-        role: string;
-        bio?: string | null;
-        photo?: ImageType;
-        email?: string | null;
-        linkedIn?: string | null;
-        twitter?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  layout?: ('cols-2' | 'cols-3' | 'cols-4') | null;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'teamGrid';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TimelineBlock".
  */
 export interface TimelineBlock {
@@ -3331,38 +3188,6 @@ export interface TitleDescriptionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'titleDescriptionBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BentoGridBlock".
- */
-export interface BentoGridBlock {
-  /**
-   * Optional title displayed above the grid
-   */
-  sectionTitle?: string | null;
-  /**
-   * Optional description displayed below the section title
-   */
-  sectionDescription?: string | null;
-  items: BentoGridItem;
-  rowGap?: number | null;
-  columnGap?: number | null;
-  /**
-   * Number of columns in the grid. Dividing the screen width in x columns.
-   */
-  numberColumns: '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
-  /**
-   * Minimum height for each grid row
-   */
-  minRowHeight?: number | null;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'bentoGrid';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3622,23 +3447,6 @@ export interface SponsorsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InstagramBlock".
- */
-export interface InstagramBlock {
-  /**
-   * Pick the version of the Instagram block to display.
-   */
-  version?: ('grid' | 'widget') | null;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'instagram';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AgendaBlock".
  */
 export interface AgendaBlock {
@@ -3673,6 +3481,24 @@ export interface AgendaBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'agenda';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CrowdfundingImageBannerBlock".
+ */
+export interface CrowdfundingImageBannerBlock {
+  image: ImageType;
+  /**
+   * URL to navigate to when the banner is clicked.
+   */
+  url: string;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'crowdfundingImageBanner';
 }
 /**
  * Manage HawkStars projects and events. Add event details, images, and descriptions. Each project gets its own public page based on its slug.
@@ -3734,7 +3560,13 @@ export interface HawkProject {
 export interface User {
   id: string;
   name?: string | null;
+  /**
+   * Admins have full access to all collections, globals, and settings.
+   */
   isAdmin?: boolean | null;
+  /**
+   * Editors have access to manage content but cannot manage users or settings.
+   */
   isEditor?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -4572,6 +4404,7 @@ export interface SponsorsSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   _order?: T;
   title?: T;
+  contentType?: T;
   layout?: T;
   blocks?:
     | T
@@ -4581,7 +4414,6 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         hero?: T | HeroBlockSelect<T>;
         heroWithBackgroundImage?: T | HeroWithBackgroundImageBlockSelect<T>;
-        heroSlideshowBlock?: T | HeroSlideshowBlockSelect<T>;
         contentWithImage?: T | ContentWithImageBlockSelect<T>;
         videoBlock?: T | VideoBlockSelect<T>;
         simpleGallery?: T | SimpleGallerySelect<T>;
@@ -4595,7 +4427,6 @@ export interface PagesSelect<T extends boolean = true> {
         ctaBanner?: T | CTABannerBlockSelect<T>;
         donationProgress?: T | DonationProgressBlockSelect<T>;
         statsBlock?: T | StatsBlockSelect<T>;
-        eventList?: T | EventListBlockSelect<T>;
         faq?: T | FAQBlockSelect<T>;
         imageComparisonSlider?: T | ImageComparisonSliderBlockSelect<T>;
         mapLocation?: T | MapLocationBlockSelect<T>;
@@ -4604,11 +4435,9 @@ export interface PagesSelect<T extends boolean = true> {
         quoteHighlight?: T | QuoteHighlightBlockSelect<T>;
         resourceDownload?: T | ResourceDownloadBlockSelect<T>;
         socialProof?: T | SocialProofBlockSelect<T>;
-        teamGrid?: T | TeamGridBlockSelect<T>;
         timeline?: T | TimelineBlockSelect<T>;
         multiRowImage?: T | MultiRowImageBlockSelect<T>;
         titleDescriptionBlock?: T | TitleDescriptionBlockSelect<T>;
-        bentoGrid?: T | BentoGridBlockSelect<T>;
         imageShowcase?: T | ImageShowcaseBlockSelect<T>;
         donationWidget?: T | DonationWidgetBlockSelect<T>;
         dataGridBlock?: T | DataGridBlockSelect<T>;
@@ -4617,8 +4446,8 @@ export interface PagesSelect<T extends boolean = true> {
         latestNews?: T | LatestNewsBlockSelect<T>;
         upcomingHawkEvent?: T | UpcomingHawkEventBlockSelect<T>;
         sponsorsBlock?: T | SponsorsBlockSelect<T>;
-        instagram?: T | InstagramBlockSelect<T>;
         agenda?: T | AgendaBlockSelect<T>;
+        crowdfundingImageBanner?: T | CrowdfundingImageBannerBlockSelect<T>;
       };
   meta?:
     | T
@@ -4731,31 +4560,6 @@ export interface HeroWithBackgroundImageBlockSelect<T extends boolean = true> {
   overlayOpacity?: T;
   links?: T | LinkGroupItemSelect<T>;
   textAlignment?: T;
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroSlideshowBlock_select".
- */
-export interface HeroSlideshowBlockSelect<T extends boolean = true> {
-  slides?:
-    | T
-    | {
-        backgroundImage?: T | ImageTypeSelect<T>;
-        title?: T;
-        subtitle?: T;
-        links?: T | LinkGroupItemSelect<T>;
-        textAlignment?: T;
-        id?: T;
-      };
-  overlayOpacity?: T;
-  autoplay?: T;
-  autoplayInterval?: T;
-  showNavigation?: T;
-  showDots?: T;
-  height?: T;
   sectionId?: T;
   id?: T;
   blockName?: T;
@@ -5017,35 +4821,6 @@ export interface StatsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "EventListBlock_select".
- */
-export interface EventListBlockSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  events?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        date?: T;
-        endDate?: T;
-        location?: T;
-        category?: T;
-        image?: T | ImageTypeSelect<T>;
-        registrationLink?: T;
-        isFeatured?: T;
-        maxParticipants?: T;
-        spotsRemaining?: T;
-        id?: T;
-      };
-  layout?: T;
-  showPastEvents?: T;
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FAQBlock_select".
  */
 export interface FAQBlockSelect<T extends boolean = true> {
@@ -5193,30 +4968,6 @@ export interface SocialProofBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TeamGridBlock_select".
- */
-export interface TeamGridBlockSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  members?:
-    | T
-    | {
-        name?: T;
-        role?: T;
-        bio?: T;
-        photo?: T | ImageTypeSelect<T>;
-        email?: T;
-        linkedIn?: T;
-        twitter?: T;
-        id?: T;
-      };
-  layout?: T;
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TimelineBlock_select".
  */
 export interface TimelineBlockSelect<T extends boolean = true> {
@@ -5273,37 +5024,6 @@ export interface TitleDescriptionBlockSelect<T extends boolean = true> {
   sectionId?: T;
   id?: T;
   blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BentoGridBlock_select".
- */
-export interface BentoGridBlockSelect<T extends boolean = true> {
-  sectionTitle?: T;
-  sectionDescription?: T;
-  items?: T | BentoGridItemSelect<T>;
-  rowGap?: T;
-  columnGap?: T;
-  numberColumns?: T;
-  minRowHeight?: T;
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BentoGridItem_select".
- */
-export interface BentoGridItemSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  backgroundImage?: T | ImageTypeSelect<T>;
-  overlayOpacity?: T;
-  link?: T | LinkFieldSelect<T>;
-  column_size?: T;
-  row_size?: T;
-  contentPosition?: T;
-  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5439,16 +5159,6 @@ export interface SponsorsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InstagramBlock_select".
- */
-export interface InstagramBlockSelect<T extends boolean = true> {
-  version?: T;
-  sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AgendaBlock_select".
  */
 export interface AgendaBlockSelect<T extends boolean = true> {
@@ -5458,6 +5168,17 @@ export interface AgendaBlockSelect<T extends boolean = true> {
   maxEvents?: T;
   layout?: T;
   linkLabel?: T;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CrowdfundingImageBannerBlock_select".
+ */
+export interface CrowdfundingImageBannerBlockSelect<T extends boolean = true> {
+  image?: T | ImageTypeSelect<T>;
+  url?: T;
   sectionId?: T;
   id?: T;
   blockName?: T;
@@ -9420,6 +9141,109 @@ export interface TaskSchedulePublish {
     user?: (string | null) | User;
   };
   output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroSlideshowBlock".
+ */
+export interface HeroSlideshowBlock {
+  slides: {
+    backgroundImage?: ImageType;
+    /**
+     * Main heading text for this slide
+     */
+    title?: string | null;
+    /**
+     * Subtitle or description text for this slide
+     */
+    subtitle?: string | null;
+    links?: LinkGroupItem;
+    /**
+     * Text alignment for all slides
+     */
+    textAlignment: 'left' | 'center' | 'right';
+    id?: string | null;
+  }[];
+  /**
+   * Overlay darkness for all slides (0-100%)
+   */
+  overlayOpacity?: number | null;
+  /**
+   * Automatically cycle through slides
+   */
+  autoplay?: boolean | null;
+  /**
+   * Time between slides in milliseconds (only if autoplay is enabled)
+   */
+  autoplayInterval?: number | null;
+  /**
+   * Show previous/next arrows
+   */
+  showNavigation?: boolean | null;
+  /**
+   * Show navigation dots
+   */
+  showDots?: boolean | null;
+  /**
+   * Height of the hero section
+   */
+  height?: ('fullscreen' | 'large' | 'medium' | 'small') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroSlideshowBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstagramBlock".
+ */
+export interface InstagramBlock {
+  /**
+   * Pick the version of the Instagram block to display.
+   */
+  version?: ('grid' | 'widget') | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instagram';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BentoGridBlock".
+ */
+export interface BentoGridBlock {
+  /**
+   * Optional title displayed above the grid
+   */
+  sectionTitle?: string | null;
+  /**
+   * Optional description displayed below the section title
+   */
+  sectionDescription?: string | null;
+  items: BentoGridItem;
+  rowGap?: number | null;
+  columnGap?: number | null;
+  /**
+   * Number of columns in the grid. Dividing the screen width in x columns.
+   */
+  numberColumns: '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
+  /**
+   * Minimum height for each grid row
+   */
+  minRowHeight?: number | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bentoGrid';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

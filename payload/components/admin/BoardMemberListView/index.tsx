@@ -103,7 +103,7 @@ export default function BoardMemberListView(props: ListViewClientProps) {
           depth: '1',
           limit: String(data.limit || 50),
           page: String(data.page || 1),
-          sort: 'position',
+          sort: 'section:asc,position:asc', // Ensure consistent ordering
         });
 
         const response = await fetch(`/api/board-members?${params.toString()}`);

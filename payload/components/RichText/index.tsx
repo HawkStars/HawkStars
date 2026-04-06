@@ -39,7 +39,6 @@ import { GlobalVillageBannerBlockComponent } from '@/payload/blocks/GlobalVillag
 import { CampaignCountdownBlock } from '@/payload/blocks/CampaignCountdownBlock/Component';
 import { CTABannerBlock } from '@/payload/blocks/CTABannerBlock/Component';
 import { DonationProgressBlock } from '@/payload/blocks/DonationProgressBlock/Component';
-import { EventListBlock } from '@/payload/blocks/EventListBlock/Component';
 import { FAQBlock } from '@/payload/blocks/FAQBlock/Component';
 import { ImageComparisonSliderBlock } from '@/payload/blocks/ImageComparisonSliderBlock/Component';
 import { MapLocationBlock } from '@/payload/blocks/MapLocationBlock/Component';
@@ -48,7 +47,6 @@ import { PricingTableBlock } from '@/payload/blocks/PricingTableBlock/Component'
 import { QuoteHighlightBlock } from '@/payload/blocks/QuoteHighlightBlock/Component';
 import { ResourceDownloadBlock } from '@/payload/blocks/ResourceDownloadBlock/Component';
 import { SocialProofBlock } from '@/payload/blocks/SocialProofBlock/Component';
-import { TeamGridBlock } from '@/payload/blocks/TeamGridBlock/Component';
 import { TimelineBlock } from '@/payload/blocks/TimelineBlock/Component';
 import { ImageShowcaseBlock } from '@/payload/blocks/ImageShowcaseBlock/Component';
 import { DonationWidgetBlock } from '@/payload/blocks/DonationWidgetBlock/Component';
@@ -60,6 +58,7 @@ import { WhyHereWhyNowBlock } from '@/payload/blocks/WhyHereWhyNowBlock/Componen
 import { GrowthVisionBlock } from '@/payload/blocks/GrowthVisionBlock/Component';
 import { InstagramBlockComponent } from '@/payload/blocks/InstagramBlock/Component';
 import { AgendaBlockComponent } from '@/payload/blocks/AgendaBlock/Component';
+import { CrowdfundingImageBannerBlockComponent } from '@/payload/blocks/CrowdfundingImageBanner/Component';
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -99,7 +98,6 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     campaignCountdown: ({ node }) => <CampaignCountdownBlock {...node.fields} />,
     ctaBanner: ({ node }) => <CTABannerBlock {...node.fields} />,
     donationProgress: ({ node }) => <DonationProgressBlock {...node.fields} />,
-    eventList: ({ node }) => <EventListBlock {...node.fields} />,
     faq: ({ node }) => <FAQBlock {...node.fields} />,
     imageComparisonSlider: ({ node }) => <ImageComparisonSliderBlock {...node.fields} />,
     mapLocation: ({ node }) => <MapLocationBlock {...node.fields} />,
@@ -108,7 +106,6 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     quoteHighlight: ({ node }) => <QuoteHighlightBlock {...node.fields} />,
     resourceDownload: ({ node }) => <ResourceDownloadBlock {...node.fields} />,
     socialProof: ({ node }) => <SocialProofBlock {...node.fields} />,
-    teamGrid: ({ node }) => <TeamGridBlock {...node.fields} />,
     timeline: ({ node }) => <TimelineBlock {...node.fields} />,
     imageShowcase: ({ node }) => <ImageShowcaseBlock {...node.fields} />,
     donationWidget: ({ node }) => <DonationWidgetBlock {...node.fields} />,
@@ -120,6 +117,9 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     whyHereWhyNowBlock: ({ node }) => <WhyHereWhyNowBlock {...node.fields} />,
     instagram: ({ node }) => <InstagramBlockComponent {...node.fields} />,
     agenda: ({ node }) => <AgendaBlockComponent {...node.fields} />,
+    crowdfundingImageBanner: ({ node }) => (
+      <CrowdfundingImageBannerBlockComponent {...node.fields} />
+    ),
   },
   list: List,
   listitem: ListItem,

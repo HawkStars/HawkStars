@@ -13,7 +13,7 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
-import blocks from '@/payload/blocks';
+import { DefaultBlocks } from '@/payload/blocks';
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -55,9 +55,23 @@ export const Pages: CollectionConfig<'pages'> = {
         {
           fields: [
             {
+              name: 'contentType',
+              type: 'radio',
+              options: [
+                { label: 'Rich Text Layout', value: 'richText' },
+                { label: 'Blocks Only', value: 'blocks' },
+              ],
+              defaultValue: 'richText',
+              admin: {
+                description:
+                  'Choose how to build the page content. "Rich Text Layout" allows mixing text and blocks in a flexible layout, while "Blocks Only" provides a simpler interface for adding blocks without rich text.',
+              },
+            },
+            {
               name: 'layout',
               admin: {
                 description: 'Add, remove, and reorder blocks to build the content of the page',
+                condition: (data) => data.contentType === 'richText',
               },
               type: 'richText',
               required: false,
@@ -67,9 +81,10 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'blocks',
               type: 'blocks',
-              blocks: blocks,
+              blocks: DefaultBlocks,
               admin: {
                 description: 'In case you want to use blocks separately from the rich text layout',
+                condition: (data) => data.contentType === 'blocks',
               },
               required: false,
               label: 'Page Blocks Only',

@@ -31,8 +31,26 @@ export const Users: CollectionConfig = {
       name: 'name',
       type: 'text',
     },
-    { type: 'checkbox', name: 'isAdmin', label: 'Is Admin', defaultValue: false },
-    { type: 'checkbox', name: 'isEditor', label: 'Is Editor', defaultValue: false },
+    {
+      type: 'checkbox',
+      name: 'isAdmin',
+      label: 'Is Admin',
+      defaultValue: false,
+      admin: {
+        description: 'Admins have full access to all collections, globals, and settings.',
+        condition: (data, { isAdmin }) => isAdmin === true,
+      },
+    },
+    {
+      type: 'checkbox',
+      name: 'isEditor',
+      label: 'Is Editor',
+      defaultValue: false,
+      admin: {
+        description: 'Editors have access to manage content but cannot manage users or settings.',
+        condition: (data, { isAdmin }) => isAdmin === true,
+      },
+    },
   ],
   timestamps: true,
 };

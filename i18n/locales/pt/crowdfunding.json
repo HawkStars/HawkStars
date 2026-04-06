@@ -1,0 +1,259 @@
+{
+  "hero": {
+    "badge": "Campanha Pública de Crowdfunding",
+    "title_prefix": "Ajuda-nos a construir o",
+    "title_suffix": "em Pinhel",
+    "subtitle": "Estamos a transformar um edifício devoluto no centro histórico de Pinhel num centro multidisciplinar de formação, inovação social, cultura, gaming e criação digital.",
+    "cta_support": "Apoiar Agora",
+    "cta_video": "Ver o Vídeo",
+    "disclaimer": "Campanha pública com metas faseadas, compromisso de transparência e várias formas de apoio.",
+    "tags": {
+      "location": "Pinhel",
+      "education": "Educação",
+      "innovation": "Inovação Social"
+    },
+    "stats": {
+      "raised_label": "Angariado até agora",
+      "percentage_label": "da meta da campanha",
+      "campaign_goal_label": "Meta da Campanha Atual",
+      "project_goal_label": "Meta Global do Projeto",
+      "last_update_label": "Última Atualização",
+      "last_update_date": "18 de janeiro de 2025"
+    }
+  },
+  "video": {
+    "badge": "Vídeo Documentário",
+    "overlay_line1": "Do Interior",
+    "overlay_line2": "Para o Futuro",
+    "title": "Vê porque é que este projeto precisa de nascer agora",
+    "description": "O Global Village não é uma ideia abstrata. É uma resposta concreta para dar nova vida a um edifício devoluto em Pinhel e criar um espaço de formação, cultura, inovação e comunidade.",
+    "duration_label": "Duração",
+    "duration_value": "3:24 MIN",
+    "tagline_label": "Legenda Curta",
+    "tagline_value": "Do interior para o futuro.",
+    "cta_support": "Quero Apoiar Este Projeto",
+    "cta_share": "Partilhar Campanha"
+  },
+  "about": {
+    "badge": "Sobre o Projeto",
+    "title": "O que é o Global Village?",
+    "description": "O Global Village – International Training Center quer criar, em Pinhel, uma infraestrutura capaz de juntar formação, empreendedorismo, cultura, criatividade, tecnologia e participação comunitária num só lugar.",
+    "tagline": "Mais do que reabilitar um espaço, queremos abrir novas possibilidades para o território.",
+    "features": {
+      "formacao": {
+        "title": "Formação",
+        "description": "Workshops, aprendizagens práticas, residências e desenvolvimento de competências."
+      },
+      "coworking": {
+        "title": "Coworking e Incubação",
+        "description": "Espaço para ideias crescerem, projetos nascerem e talento ficar no interior."
+      },
+      "cultura": {
+        "title": "Cultura e Artes",
+        "description": "Galeria Social, programação cultural e valorização de artistas e criadores."
+      },
+      "gaming": {
+        "title": "Gaming e Digital",
+        "description": "Gaming Hub, conteúdos digitais e competências tecnológicas para novos percursos."
+      },
+      "comunidade": {
+        "title": "Comunidade e Internacionalização",
+        "description": "Um espaço pensado para jovens, residentes, parceiros e participantes internacionais."
+      },
+      "reabilitacao": {
+        "title": "Reabilitação Urbana",
+        "description": "Dar nova vida a um edifício devoluto e reforçar a identidade de Pinhel."
+      }
+    }
+  },
+  "transparency": {
+    "badge": "Transparência",
+    "title": "Cada contributo ajuda a desbloquear a próxima fase",
+    "description": "A campanha atual está focada numa primeira meta de 100.000€, pensada para ajudar a desbloquear licenciamento, preparação do imóvel, arranque da primeira fase da obra e fundo de maneio. O projeto global é apresentado com um custo estimado de 900.000€.",
+    "cta_money": "Ver como o dinheiro será aplicado →",
+    "raised_label": "Angariado Até Agora",
+    "weekly_increase": "€ 4.250 esta semana",
+    "campaign_goal_label": "Meta da Campanha Atual",
+    "percentage_label": "% da meta",
+    "project_goal_label": "Meta Global do Projeto",
+    "project_total_label": "Projeto total",
+    "last_update_label": "Última Atualização",
+    "last_update_date": "18 de janeiro de 2025",
+    "phases": {
+      "phase1": { "title": "Fase 1", "description": "Estudos, licenciamento e arranque" },
+      "phase2": { "title": "Fase 2", "description": "Construção e equipagem" },
+      "phase3": { "title": "Fase 3", "description": "Ativação progressiva do espaço" }
+    }
+  },
+  "rewards": {
+    "badge": "Rewards e Modalidades",
+    "title_prefix": "Escolhe a forma de participação que faz",
+    "title_highlight": "mais sentido para ti.",
+    "description": "Desde apoios simbólicos a experiências únicas e apoios premium. Cada contributo aproxima o Global Village de se tornar realidade.",
+    "how_to_badge": "Como Contribuir",
+    "cta_all": "Ver Todas as Modalidades →",
+    "steps": {
+      "step1": "Escolhe a modalidade de apoio",
+      "step2": "Faz o contributo na plataforma ou por contacto direto",
+      "step3": "Recebe confirmação e acompanhamento da campanha"
+    },
+    "tiers": {
+      "simple": {
+        "title": "Apoios Simples",
+        "subtitle": "Pequenos gestos, grande impacto.",
+        "items": {
+          "digital_thanks": { "label": "Agradecimento digital", "price": "Desde 10€" },
+          "tshirt": { "label": "T-shirt de doador", "price": "Desde 50€" },
+          "basket": { "label": "Cabaz de produtos", "price": "Desde 60€" },
+          "polaroid": { "label": "Foto polaroid", "price": "Desde 90€" },
+          "windbreaker": { "label": "Windbreaker", "price": "Desde 130€" }
+        }
+      },
+      "recognition": {
+        "title": "Reconhecimento no Espaço",
+        "subtitle": "O teu nome, parte desta história.",
+        "items": {
+          "brick_wall": { "label": "Brick Wall", "price": "desde 250€" },
+          "name_walls": { "label": "Name Walls", "price": "desde 500€" },
+          "chairs": { "label": "Naming de cadeiras", "price": "250€ / 350€" }
+        }
+      },
+      "experiences": {
+        "title": "Experiências em Pinhel",
+        "subtitle": "Vive o território. Cria memórias.",
+        "items": {
+          "guided_tour": { "label": "Visita guiada + almoço", "price": "" },
+          "pinhel_crawl": { "label": "Pinhel Crawl", "price": "" },
+          "weekend": { "label": "Fim de semana em Cidadela", "price": "" },
+          "faia_brava": { "label": "Experiências Faia Brava / Rewilding", "price": "" },
+          "masterclasses": { "label": "Masterclasses especiais", "price": "" }
+        }
+      },
+      "premium": {
+        "title": "Naming e Apoio Premium",
+        "subtitle": "Para empresas, fundações e mecenas.",
+        "items": {
+          "meeting_rooms": { "label": "Salas de reunião", "price": "desde 11.500€" },
+          "training_rooms": { "label": "Salas de formação", "price": "desde 40.000€" },
+          "auditorium": { "label": "Auditório", "price": "105.000€" },
+          "coworking": { "label": "Coworking / Anti-Café", "price": "115.000€" },
+          "naming_itc": { "label": "Naming geral do ITC", "price": "min. 550.000€" }
+        }
+      }
+    }
+  },
+  "updates": {
+    "badge": "Atualizações da Campanha",
+    "title_prefix": "Acompanha a campanha",
+    "title_highlight": "em tempo real.",
+    "description": "Metas, bastidores, novos apoios e próximos passos. Uma campanha viva, construída contigo.",
+    "cta_all": "Ver Todas as Atualizações →",
+    "badge_highlight": "Destaque",
+    "badge_new": "Novo",
+    "cards": {
+      "first24h": { "title": "Primeiras 24h: o que já conseguimos juntos", "date": "18 JAN 2025" },
+      "unlock100k": { "title": "O que os 100.000€ desbloqueiam", "date": "15 JAN 2025" },
+      "new_reward": {
+        "title": "Novo reward disponível",
+        "description": "T-shirt de doador Hawk Stars. Um símbolo de pertença.",
+        "date": "15 JAN 2025"
+      },
+      "event": {
+        "title": "Evento de apresentação em Pinhel",
+        "description": "Junta-te a nós e conhece o projeto ao vivo.",
+        "date": "10 JAN 2025"
+      }
+    }
+  },
+  "business": {
+    "badge": "Apoio Empresarial e Possível Enquadramento em Mecenato",
+    "title_prefix": "Participe num projeto que transforma território e gera",
+    "title_highlight": "impacto real.",
+    "description": "Associe a sua empresa ou fundação a um projeto de educação, inovação, cultura e juventude, com impacto duradouro em Pinhel.",
+    "cta": "Falar Sobre Apoio Empresarial →",
+    "disclaimer": "Os benefícios fiscais não são garantidos. Donativos sem contrapartidas comerciais podem enquadrar-se no Estatuto dos Benefícios Fiscais. Fale connosco para avaliar a modalidade.",
+    "benefits": {
+      "impact": {
+        "title": "Impacto",
+        "description": "Educação, juventude, cultura e inovação que revitalizam o interior."
+      },
+      "reputation": {
+        "title": "Reputação",
+        "description": "Uma iniciativa pública, visível e com vocação transformadora para o território."
+      },
+      "transparency": {
+        "title": "Rigor e Transparência",
+        "description": "Apoios analisados caso a caso, com total transparência sobre a aplicação dos fundos."
+      }
+    }
+  },
+  "partners": {
+    "badge": "Já Contamos com o Apoio de",
+    "title_prefix": "Pessoas e entidades que",
+    "title_highlight": "acreditam",
+    "title_suffix": "neste projeto.",
+    "description": "Uma rede crescente de padrinhos, parceiros, doadores e comunidade que já está a fazer acontecer.",
+    "tabs": {
+      "godparents": "Padrinhos",
+      "partners": "Parceiros",
+      "donors": "Doadores",
+      "community": "Comunidade"
+    },
+    "entities": {
+      "hawk_stars": { "name": "Hawk Stars", "subtitle": "ONG para Educação, Inovação & Desenvolvimento Social" },
+      "ipdj": { "name": "IPDJ", "subtitle": "Instituto Português do Desporto e Juventude, I.P." },
+      "politecnico": { "name": "Politécnico da Guarda", "subtitle": "" },
+      "camara": { "name": "Câmara Municipal de Pinhel", "subtitle": "" },
+      "guarda": { "name": "Guarda", "subtitle": "A Guarda por si." }
+    }
+  },
+  "faq": {
+    "badge": "Perguntas Frequentes",
+    "title_line1": "Tira as tuas dúvidas.",
+    "title_highlight": "A transparência",
+    "title_line2": "é a nossa promessa.",
+    "description_prefix": "Reunimos aqui as respostas às perguntas mais comuns sobre a campanha e sobre o projeto",
+    "items": {
+      "how_to_support": {
+        "question": "Como posso apoiar?",
+        "answer": "Podes contribuir através da nossa campanha de crowdfunding, fazer uma doação direta, apoiar como empresa ou comprar na nossa loja solidária."
+      },
+      "other_ways": {
+        "question": "Há formas de doar fora da plataforma?",
+        "answer": "Sim. Podes fazer uma transferência bancária, doar por MBWay ou falar connosco sobre apoio empresarial e mecenato."
+      },
+      "rewards": {
+        "question": "Como funcionam os rewards?",
+        "answer": "Cada modalidade de apoio tem uma recompensa associada. Vais receber todos os detalhes após o teu contributo."
+      },
+      "goal_not_met": {
+        "question": "O que acontece se a meta não for atingida?",
+        "answer": "Cada euro angariado será aplicado no arranque do projeto. A campanha é tudo-ou-nada; se não atingirmos a meta, os fundos são devolvidos."
+      },
+      "transparency": {
+        "question": "Como funciona a transparência?",
+        "answer": "Publicamos atualizações regulares, relatórios sobre o uso dos fundos e marcos do projeto. Acompanha tudo na secção Updates."
+      },
+      "companies": {
+        "question": "Há modalidades para empresas?",
+        "answer": "Sim. Oferecemos opções de naming, parcerias, mecenato e benefícios de visibilidade. Fala connosco para saber mais."
+      },
+      "abroad": {
+        "question": "Posso apoiar a partir do estrangeiro?",
+        "answer": "Sim. A plataforma aceita contribuições internacionais e disponibilizamos comprovativo de doação."
+      },
+      "receipt": {
+        "question": "Como recebo comprovativo?",
+        "answer": "Recebes automaticamente por email após o contributo. Para donativos e apoios empresariais, emitimos recibo para efeitos fiscais."
+      }
+    }
+  },
+  "cta": {
+    "title_line1": "O futuro do interior",
+    "title_highlight": "também se constrói assim.",
+    "description": "Cada contributo ajuda a transformar visão em espaço real, comunidade em movimento e território em oportunidade.",
+    "cta_support": "Apoiar Agora →",
+    "cta_share": "Partilhar Campanha →",
+    "cta_team": "Falar com a Equipa →"
+  }
+}

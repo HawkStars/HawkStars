@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 
 import type { GlobalVillageBannerBlock } from '@/payload-types';
-import { cn } from '@/lib/utils';
 
 import starPng from '@/public/images/icons/training_center/star.png';
 import gridPng from '@/public/images/icons/training_center/grid.png';
@@ -12,7 +11,7 @@ export const GlobalVillageBannerBlockComponent: React.FC<GlobalVillageBannerBloc
   sectionId,
 }) => {
   return (
-    <section className={cn('bg-green mb-12')} id={sectionId || ''}>
+    <section className={'bg-green'} id={sectionId || ''}>
       <div className='relative mx-auto max-w-6xl px-3 py-24 lg:px-40 lg:py-40'>
         <p className='text-white'>{text}</p>
         <Image

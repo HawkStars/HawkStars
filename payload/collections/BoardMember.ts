@@ -31,7 +31,7 @@ export const BoardMember: CollectionConfig = {
     listSearchableFields: ['name', 'title', 'section'],
     pagination: {
       defaultLimit: 50,
-      limits: [25, 50, 100],
+      limits: [50, 100],
     },
     components: {
       views: {

@@ -1,0 +1,11 @@
+export { default as CrowdfundingHero } from './CrowdfundingHero';
+export { default as CrowdfundingVideo } from './CrowdfundingVideo';
+export { default as CrowdfundingAbout } from './CrowdfundingAbout';
+export { default as CrowdfundingTransparency } from './CrowdfundingTransparency';
+export { default as CrowdfundingRewards } from './CrowdfundingRewards';
+export { default as CrowdfundingUpdates } from './CrowdfundingUpdates';
+export { default as CrowdfundingBusiness } from './CrowdfundingBusiness';
+export { default as CrowdfundingPartners } from './CrowdfundingPartners';
+export { default as CrowdfundingFAQ } from './CrowdfundingFAQ';
+export { default as CrowdfundingCTA } from './CrowdfundingCTA';
+export { default as CrowdfundingBanner } from './CrowdfundingBanner';

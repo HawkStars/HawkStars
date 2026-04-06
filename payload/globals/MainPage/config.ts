@@ -9,6 +9,8 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
 import { revalidateMainPage } from './hooks/revalidateMainPage';
+import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
+import { MainPageBlocks } from '@/payload/blocks';
 
 export const MainPage: GlobalConfig = {
   slug: 'main-page',
@@ -33,6 +35,15 @@ export const MainPage: GlobalConfig = {
               name: 'layout',
               type: 'richText',
               required: true,
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => [
+                  ...rootFeatures,
+                  BlocksFeature({
+                    blocks: MainPageBlocks,
+                    inlineBlocks: [],
+                  }),
+                ],
+              }),
             },
           ],
           label: 'Content',

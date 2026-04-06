@@ -38,7 +38,7 @@ import { Pages } from './payload/collections/Pages';
 import { plugins } from './payload/plugins';
 import { HawkProject } from './payload/collections/HawkProject';
 import { MainPage } from './payload/globals/MainPage/config';
-import blocks from './payload/blocks';
+import { DefaultBlocks } from './payload/blocks';
 import { NewsList } from './payload/globals/NewsList/config';
 import { ProjectsList } from './payload/globals/ProjectsList/config';
 import { News } from './payload/collections/News';
@@ -134,7 +134,7 @@ export default buildConfig({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
       BlocksFeature({
-        blocks: blocks,
+        blocks: DefaultBlocks,
         inlineBlocks: [],
       }),
       TextStateFeature({
@@ -143,7 +143,7 @@ export default buildConfig({
       FixedToolbarFeature(),
     ],
   }),
-  blocks: blocks,
+  blocks: DefaultBlocks,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

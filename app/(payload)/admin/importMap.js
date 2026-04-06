@@ -10,7 +10,6 @@ import { default as default_1d7832d54154df3998b4e5488dcf373f } from '@/payload/f
 import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { HeadingFeatureClient as HeadingFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { UnorderedListFeatureClient as UnorderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
-import { default as default_2b7ccde5d3739b53425ce7b9eb4364f8 } from '@/payload/blocks/BentoGridBlock/admin/RowLabel'
 import { HorizontalRuleFeatureClient as HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { UploadFeatureClient as UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { BlockquoteFeatureClient as BlockquoteFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
@@ -41,6 +40,7 @@ import { default as default_b86140c7b9e4a7df31f494d137f580e8 } from '@/payload/f
 import { default as default_697dbdb7f6f9ef4ce600690b2392d8d4 } from '@/payload/globals/Header/components/HeaderLabel'
 import { default as default_f89cbbda01850af27d943f60ccf826ac } from '@/payload/fields/FooterNavGroup/components/Label'
 import { FooterLabel as FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd } from '@/payload/globals/Footer/components/FooterLabel'
+import { default as default_2b7ccde5d3739b53425ce7b9eb4364f8 } from '@/payload/blocks/BentoGridBlock/admin/RowLabel'
 import { default as default_a124e7a1baf393d361b39feebeca9df4 } from '@/payload/globals/ProjectsList/components/StatsLabel'
 import { default as default_311a5f154e8b373fc453af30d4e74fc0 } from '@/payload/components/admin/avatar'
 import { default as default_91bbc66a9b3ed1dae52e0caef1a54af7 } from '@/payload/components/Logo'
@@ -62,7 +62,6 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#HeadingFeatureClient": HeadingFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#UnorderedListFeatureClient": UnorderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  "@/payload/blocks/BentoGridBlock/admin/RowLabel#default": default_2b7ccde5d3739b53425ce7b9eb4364f8,
   "@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient": HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#UploadFeatureClient": UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#BlockquoteFeatureClient": BlockquoteFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
@@ -93,6 +92,7 @@ export const importMap = {
   "@/payload/globals/Header/components/HeaderLabel#default": default_697dbdb7f6f9ef4ce600690b2392d8d4,
   "@/payload/fields/FooterNavGroup/components/Label#default": default_f89cbbda01850af27d943f60ccf826ac,
   "@/payload/globals/Footer/components/FooterLabel#FooterLabel": FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd,
+  "@/payload/blocks/BentoGridBlock/admin/RowLabel#default": default_2b7ccde5d3739b53425ce7b9eb4364f8,
   "@/payload/globals/ProjectsList/components/StatsLabel#default": default_a124e7a1baf393d361b39feebeca9df4,
   "@/payload/components/admin/avatar#default": default_311a5f154e8b373fc453af30d4e74fc0,
   "@/payload/components/Logo#default": default_91bbc66a9b3ed1dae52e0caef1a54af7,

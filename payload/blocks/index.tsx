@@ -16,7 +16,6 @@ import { CampaignCountdownBlock } from './CampaignCountdownBlock/config';
 import { CTABannerBlock } from './CTABannerBlock/config';
 import { DonationProgressBlock } from './DonationProgressBlock/config';
 import { StatsBlock } from './StatsBlock/config';
-import { EventListBlock } from './EventListBlock/config';
 import { FAQBlock } from './FAQBlock/config';
 import { ImageComparisonSliderBlock } from './ImageComparisonSliderBlock/config';
 import { MapLocationBlock } from './MapLocationBlock/config';
@@ -25,7 +24,6 @@ import { PricingTableBlock } from './PricingTableBlock/config';
 import { QuoteHighlightBlock } from './QuoteHighlightBlock/config';
 import { ResourceDownloadBlock } from './ResourceDownloadBlock/config';
 import { SocialProofBlock } from './SocialProofBlock/config';
-import { TeamGridBlock } from './TeamGridBlock/config';
 import { TimelineBlock } from './TimelineBlock/config';
 import MultiRowImage from './MultiRowImage/config';
 import TitleDescriptionBlock from './TitleDescriptionBlock/config';
@@ -41,14 +39,14 @@ import { UpcomingHawkEventBlock } from './UpcomingHawkEventBlock/config';
 import { SponsorsBlock } from './SponsorsBlock/config';
 import { InstagramBlock } from './InstagramBlock/config';
 import { AgendaBlock } from './AgendaBlock/config';
+import { CrowdfundingImageBannerBlock } from './CrowdfundingImageBanner/config';
 
-const currentBlocks = [
+const DefaultBlocks = [
   AccordionBlock,
   CallToAction,
   MediaBlock,
   Hero,
   HeroWithBackgroundImage,
-  HeroSlideshowBlock,
   ContentWithImage,
   VideoBlock,
   SimpleGallery,
@@ -62,7 +60,6 @@ const currentBlocks = [
   CTABannerBlock,
   DonationProgressBlock,
   StatsBlock,
-  EventListBlock,
   FAQBlock,
   ImageComparisonSliderBlock,
   MapLocationBlock,
@@ -71,11 +68,9 @@ const currentBlocks = [
   QuoteHighlightBlock,
   ResourceDownloadBlock,
   SocialProofBlock,
-  TeamGridBlock,
   TimelineBlock,
   MultiRowImage,
   TitleDescriptionBlock,
-  BentoGridBlock,
   ImageShowcaseBlock,
   DonationWidgetBlock,
   DataGridBlock,
@@ -84,8 +79,10 @@ const currentBlocks = [
   LatestNewsBlock,
   UpcomingHawkEventBlock,
   SponsorsBlock,
-  InstagramBlock,
   AgendaBlock,
+  CrowdfundingImageBannerBlock,
 ];
 
-export default currentBlocks;
+const MainPageBlocks = [...DefaultBlocks, HeroSlideshowBlock, InstagramBlock, BentoGridBlock];
+
+export { DefaultBlocks, MainPageBlocks };
