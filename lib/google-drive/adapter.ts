@@ -18,13 +18,13 @@ function getDrive() {
   return google.drive({ version: 'v3', auth: getAuth() });
 }
 
-export const googleDriveAdapter = (folderId?: string) => () => ({
+export const googleDriveAdapter = () => () => ({
   name: 'google-drive-adapter',
 
   async handleUpload({ file }: Parameters<HandleUpload>[0]) {
     try {
       const drive = getDrive();
-      const targetFolderId = folderId || process.env.GOOGLE_DRIVE_FOLDER_ID;
+      const targetFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
 
       const buffer = file.buffer instanceof Buffer ? file.buffer : Buffer.from(file.buffer);
       const stream = Readable.from(buffer);

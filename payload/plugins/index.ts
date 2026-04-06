@@ -34,7 +34,7 @@ export const plugins: Plugin[] = [
         generateFileURL: ({ filename }) => cloudinary.url(`media/${filename}`, { secure: true }),
       },
       documents: {
-        adapter: googleDriveAdapter(),
+        adapter: googleDriveAdapter,
         disableLocalStorage: true,
         disablePayloadAccessControl: true,
         generateFileURL: ({ filename }) => generateGoogleDriveURL(filename),
