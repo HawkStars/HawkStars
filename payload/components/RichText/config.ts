@@ -40,6 +40,7 @@ import type {
   WhyHereWhyNowBlock as WhyHereWhyNowBlockProps,
   InstagramBlock as InstagramBlockProps,
   AgendaBlock as AgendaBlockProps,
+  CrowdfundingImageBannerBlock as CrowdfundingImageBannerBlockProps,
 } from '@/payload-types';
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical';
 
@@ -87,4 +88,5 @@ export type BlockNodeTypes = SerializedBlockNode<
   | WhyHereWhyNowBlockProps
   | InstagramBlockProps
   | AgendaBlockProps
+  | CrowdfundingImageBannerBlockProps
 >;
