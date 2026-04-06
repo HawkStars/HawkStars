@@ -68,7 +68,6 @@ export type BlockNodeTypes = SerializedBlockNode<
   | CampaignCountdownBlockProps
   | CTABannerBlockProps
   | DonationProgressBlockProps
-  | EventListBlockProps
   | FAQBlockProps
   | ImageComparisonSliderBlockProps
   | MapLocationBlockProps
@@ -77,7 +76,6 @@ export type BlockNodeTypes = SerializedBlockNode<
   | QuoteHighlightBlockProps
   | ResourceDownloadBlockProps
   | SocialProofBlockProps
-  | TeamGridBlockProps
   | TimelineBlockProps
   | ImageShowcaseBlockProps
   | DonationWidgetBlockProps

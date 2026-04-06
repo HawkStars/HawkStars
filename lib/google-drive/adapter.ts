@@ -1,6 +1,7 @@
 import type { HandleUpload, HandleDelete } from '@payloadcms/plugin-cloud-storage/types';
 import { google } from 'googleapis';
 import { Readable } from 'stream';
+import * as Sentry from '@sentry/nextjs';
 
 function getAuth() {
   const oauth2Client = new google.auth.OAuth2(
@@ -18,7 +19,7 @@ function getDrive() {
   return google.drive({ version: 'v3', auth: getAuth() });
 }
 
-export const googleDriveAdapter = () => () => ({
+export const googleDriveAdapter = () => ({
   name: 'google-drive-adapter',
 
   async handleUpload({ file }: Parameters<HandleUpload>[0]) {
@@ -57,9 +58,7 @@ export const googleDriveAdapter = () => () => ({
       file.filename = fileId;
       file.filesize = Number(response.data.size) || file.filesize;
     } catch (error) {
-      console.error('Google Drive Upload Error:', error);
-      const message = error instanceof Error ? error.message : 'Unknown error';
-      return new Response('Upload failed', { status: 500, statusText: message });
+      Sentry.captureException(error, {});
     }
   },
 
