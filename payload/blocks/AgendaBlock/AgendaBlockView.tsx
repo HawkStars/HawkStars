@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ArrowRight, Calendar, MapPin } from 'lucide-react';
+import { ArrowRight, Calendar } from 'lucide-react';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -80,7 +80,7 @@ function BadgeChip({ badge }: { badge: string }) {
   const colors = typeColors[badge] ?? typeColors.other;
   return (
     <span
-      className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide ${colors.bg} ${colors.text}`}
+      className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wide uppercase ${colors.bg} ${colors.text}`}
     >
       {badge.replace('_', ' ')}
     </span>
@@ -89,13 +89,7 @@ function BadgeChip({ badge }: { badge: string }) {
 
 // ─── List layout ─────────────────────────────────────────────────────────────
 
-function ListItem({
-  event,
-  linkLabel,
-}: {
-  event: AgendaEventItem;
-  linkLabel: string;
-}) {
+function ListItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: string }) {
   const dateStr = formatEventDate(event.date, event.endDate, event.isDateRange);
 
   return (
@@ -104,10 +98,10 @@ function ListItem({
       <div className='hidden w-28 shrink-0 flex-col items-center justify-start pt-1 sm:flex'>
         {event.date && (
           <>
-            <span className='text-3xl font-bold tabular-nums text-zinc-800 dark:text-zinc-100'>
+            <span className='text-3xl font-bold text-zinc-800 tabular-nums dark:text-zinc-100'>
               {new Date(event.date).getDate()}
             </span>
-            <span className='text-sm font-medium uppercase text-zinc-500 dark:text-zinc-400'>
+            <span className='text-sm font-medium text-zinc-500 uppercase dark:text-zinc-400'>
               {new Date(event.date).toLocaleDateString('pt-PT', { month: 'short' })}
             </span>
             <span className='text-xs text-zinc-400 dark:text-zinc-500'>
@@ -174,13 +168,7 @@ function ListItem({
 
 // ─── Compact layout ───────────────────────────────────────────────────────────
 
-function CompactItem({
-  event,
-  linkLabel,
-}: {
-  event: AgendaEventItem;
-  linkLabel: string;
-}) {
+function CompactItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: string }) {
   const dateStr = formatEventDate(event.date, event.endDate, event.isDateRange);
 
   return (
@@ -189,7 +177,7 @@ function CompactItem({
       className='group flex items-center gap-4 rounded-lg border border-zinc-100 px-4 py-3 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/50'
     >
       <Calendar className='h-4 w-4 shrink-0 text-zinc-400' />
-      <span className='w-36 shrink-0 text-sm font-mono text-zinc-500 dark:text-zinc-400'>
+      <span className='w-36 shrink-0 font-mono text-sm text-zinc-500 dark:text-zinc-400'>
         {dateStr}
       </span>
       <span className='flex-1 font-medium text-zinc-900 group-hover:text-green-600 dark:text-zinc-100 dark:group-hover:text-green-400'>
@@ -203,13 +191,7 @@ function CompactItem({
 
 // ─── Cards layout ─────────────────────────────────────────────────────────────
 
-function CardItem({
-  event,
-  linkLabel,
-}: {
-  event: AgendaEventItem;
-  linkLabel: string;
-}) {
+function CardItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: string }) {
   const dateStr = formatEventDate(event.date, event.endDate, event.isDateRange);
 
   return (
@@ -287,9 +269,7 @@ export function AgendaBlockView({
             {title && (
               <h2 className='mb-2 text-3xl font-bold text-zinc-900 dark:text-zinc-100'>{title}</h2>
             )}
-            {subtitle && (
-              <p className='text-lg text-zinc-600 dark:text-zinc-400'>{subtitle}</p>
-            )}
+            {subtitle && <p className='text-lg text-zinc-600 dark:text-zinc-400'>{subtitle}</p>}
           </div>
         )}
 
