@@ -40,7 +40,7 @@ export const PayloadImageField = ({
         required,
         admin: {
           description: 'Alt text for the image for accessibility and SEO | Caption Image',
-          condition: (_, siblingData) => siblingData.imageType !== 'none',
+          condition: (_, siblingData) => siblingData.imageType === 'external',
         },
       },
       {

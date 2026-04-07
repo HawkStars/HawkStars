@@ -70,6 +70,7 @@ export type DropdownNavLink =
        * Uncheck this to hide the link from the header dropdown menu.
        */
       visible?: boolean | null;
+      imagePosition?: ('top' | 'center' | 'bottom') | null;
       description?: string | null;
       link: LinkField;
       imageIcon?: ImageIcon;
@@ -3292,7 +3293,7 @@ export interface WhyHereWhyNowBlock {
    * List of regional challenges/statistics to display (max 6)
    */
   challenges: {
-    icon: ImageType;
+    icon?: ImageType;
     /**
      * Description text below the icon (e.g., "Inversão da pirâmide demográfica")
      */
@@ -8971,6 +8972,7 @@ export interface NavbarDropdownSelect<T extends boolean = true> {
 export interface DropdownNavLinkSelect<T extends boolean = true> {
   featured?: T;
   visible?: T;
+  imagePosition?: T;
   description?: T;
   link?: T | LinkFieldSelect<T>;
   imageIcon?: T | ImageIconSelect<T>;

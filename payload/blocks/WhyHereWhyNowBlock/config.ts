@@ -65,7 +65,7 @@ export const WhyHereWhyNowBlock: Block = {
         PayloadImageField({
           label: 'Icon Image',
           name: 'icon',
-          required: true,
+          required: false,
           description: 'Illustration or icon representing this challenge',
         }),
         {

@@ -39,7 +39,7 @@ const DesktopDropdownV2: React.FC<DesktopDropdownV2Props> = ({ structure, links 
 };
 
 type FeaturedImageProps = {
-  link: DropdownLinkField;
+  link: DropdownLinkField & { imagePosition?: 'top' | 'center' | 'bottom' | null };
   structure: 'single-column' | 'two-columns';
 };
 
@@ -52,6 +52,7 @@ const StyleImage = {
 const FeaturedLink = (props: FeaturedImageProps) => {
   const { link } = props;
   const imageType = link.imageIcon?.type;
+  const imagePosition = link?.imagePosition || 'center';
 
   const ImageElement = getDropdownImageElement(link, StyleImage[imageType || 'image']);
 
@@ -68,6 +69,9 @@ const FeaturedLink = (props: FeaturedImageProps) => {
           className={cn({
             'absolute h-full w-full transition-transform duration-300 hover:scale-105':
               imageType === 'image',
+            'object-bottom': imagePosition === 'bottom',
+            'object-center': imagePosition === 'center',
+            'object-top': imagePosition === 'top',
           })}
         >
           {ImageElement}

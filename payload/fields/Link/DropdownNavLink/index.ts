@@ -33,6 +33,17 @@ export const dropdownNavLink: ArrayField = {
         description: 'Uncheck this to hide the link from the header dropdown menu.',
       },
     },
+    {
+      name: 'imagePosition',
+      type: 'select',
+      label: 'Image Position',
+      options: [
+        { label: 'Top', value: 'top' },
+        { label: 'Center', value: 'center' },
+        { label: 'Bottom', value: 'bottom' },
+      ],
+      required: false,
+    },
     { name: 'description', type: 'text', localized: true },
     link({ localizedLabel: true }),
     PayloadIconOrImage(),
