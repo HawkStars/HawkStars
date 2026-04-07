@@ -13,7 +13,7 @@ export const getSingleEventsQuery = async (
   const payload = await getPayloadConfig();
   const event = await payload.find({
     collection: EVENTS_COLLECTION,
-    where: { slug: { equals: slug } },
+    where: { slug: { equals: slug }, status: { equals: 'published' } },
     locale,
     limit: 1,
     draft: opts?.preview || false,

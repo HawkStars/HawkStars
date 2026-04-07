@@ -380,6 +380,8 @@ export interface CallToActionBlock {
   blockType: 'cta';
 }
 /**
+ * URL to navigate to when the banner is clicked.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "LinkField".
  */
@@ -3475,10 +3477,7 @@ export interface AgendaBlock {
  */
 export interface CrowdfundingImageBannerBlock {
   image: ImageType;
-  /**
-   * URL to navigate to when the banner is clicked.
-   */
-  url: string;
+  url: LinkField;
   /**
    * Unique identifier for the section (used for anchor links)
    */
@@ -5188,7 +5187,7 @@ export interface AgendaBlockSelect<T extends boolean = true> {
  */
 export interface CrowdfundingImageBannerBlockSelect<T extends boolean = true> {
   image?: T | ImageTypeSelect<T>;
-  url?: T;
+  url?: T | LinkFieldSelect<T>;
   sectionId?: T;
   id?: T;
   blockName?: T;

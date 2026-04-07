@@ -13,7 +13,7 @@ export const getSingleNewsSlug = async (
   const payload = await getPayloadConfig();
   const news = await payload.find({
     collection: NEWS_COLLECTION,
-    where: { slug: { equals: slug } },
+    where: { slug: { equals: slug }, status: { equals: 'published' } },
     locale,
     limit: 1,
     draft: opts?.preview || false,

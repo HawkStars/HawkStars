@@ -1,6 +1,7 @@
 import type { Block } from 'payload';
 import { PayloadImageField } from '@/payload/fields/ImageType';
 import SectionID from '@/payload/fields/SectionID';
+import { link } from '@/payload/fields/link';
 
 export const CrowdfundingImageBannerBlock: Block = {
   slug: 'crowdfundingImageBanner',
@@ -19,15 +20,12 @@ export const CrowdfundingImageBannerBlock: Block = {
       required: true,
       description: 'Full-width banner image displayed across pages.',
     }),
-    {
+    link({
+      localizedLabel: true,
       name: 'url',
-      type: 'text',
-      label: 'Link URL',
-      required: true,
-      admin: {
-        description: 'URL to navigate to when the banner is clicked.',
-      },
-    },
+      labelInformation: 'Link URL',
+      description: 'URL to navigate to when the banner is clicked.',
+    }),
     SectionID,
   ],
 };
