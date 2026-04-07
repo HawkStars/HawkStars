@@ -68,17 +68,12 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
           {(primaryCTAInfo || secondaryCTAInfo) && (
             <div className='mt-4 flex flex-col gap-4 sm:flex-row'>
               {primaryCTAInfo && (
-                <Button size='lg' className='bg-white text-gray-900 hover:bg-gray-100' asChild>
+                <Button size='lg' variant='secondary' asChild>
                   <a href={primaryCTAInfo.url}>{primaryCTAInfo.label}</a>
                 </Button>
               )}
               {secondaryCTAInfo && (
-                <Button
-                  size='lg'
-                  variant='outline'
-                  className='border-white text-white hover:bg-white/10'
-                  asChild
-                >
+                <Button size='lg' variant='outline' asChild>
                   <a href={secondaryCTAInfo.url}>{secondaryCTAInfo.label}</a>
                 </Button>
               )}

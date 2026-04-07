@@ -33,8 +33,8 @@ const SectionList = ({
             itemClassName
           )}
         >
-          <span className='text-md font-bold text-white'>
-            {ordered && <span className='mr-1.5 text-[#c9b08a]/60'>{index + 1}.</span>}
+          <span className='text-md font-bold text-black'>
+            {ordered && <span className='mr-1.5 text-gray-700/60'>{index + 1}.</span>}
             {item.label}
           </span>
           {item.description && (

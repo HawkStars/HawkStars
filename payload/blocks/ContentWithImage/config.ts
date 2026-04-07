@@ -3,6 +3,7 @@ import type { Block } from 'payload';
 import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 import SectionID from '@/payload/fields/SectionID';
 import { PayloadImageField } from '@/payload/fields/ImageType';
+import { SectionListBlock } from '../SectionListBlock/config';
 
 export const ContentWithImage: Block = {
   slug: 'contentWithImage',
@@ -25,7 +26,7 @@ export const ContentWithImage: Block = {
         features: ({ rootFeatures }) => [
           ...rootFeatures,
           BlocksFeature({
-            blocks: [],
+            blocks: [SectionListBlock],
             inlineBlocks: [],
           }),
         ],

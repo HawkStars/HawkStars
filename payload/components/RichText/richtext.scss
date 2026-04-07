@@ -29,4 +29,8 @@
       @apply flex gap-2;
     }
   }
+
+  img {
+    @apply my-4 max-w-full rounded-lg;
+  }
 }
