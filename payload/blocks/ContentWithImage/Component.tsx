@@ -45,7 +45,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
         </div>
 
         {/* Content Section */}
-        <div className={cn('w-full', isImageLeft ? 'lg:order-1' : 'lg:order-2')}>
+        <div className={cn('w-full max-lg:px-2', isImageLeft ? 'lg:order-1' : 'lg:order-2')}>
           <h2 className='mb-4 text-3xl font-bold max-lg:text-center lg:text-4xl'>{title}</h2>
           {description && <RichText data={description} />}
         </div>

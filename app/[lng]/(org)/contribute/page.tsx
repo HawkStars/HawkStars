@@ -24,7 +24,6 @@ import loungeChair from '@/public/images/icons/contribute/lounge-fill.svg';
 import standardLoungeChair from '@/public/images/icons/contribute/lounge.svg';
 import standardChair from '@/public/images/icons/contribute/standard.svg';
 
-import ContributeFormSection from '@/components/contribute/ContributeFormSection';
 import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';
 
@@ -34,6 +33,7 @@ import { Contribution } from '@/payload-types';
 import { getChairsContributionsQuery } from '@/lib/payload/queries/contribution';
 import { Metadata } from 'next';
 import { getMetadataPageInfo } from '@/utils/metadata';
+import DonationWidget from '@/components/contribute/DonationWidget';
 
 export const revalidate = 1200; // invalidate every 20 minutes
 
@@ -261,7 +261,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
       </div>
       <section className='bg-bege-light py-10' id='form'>
         <h3 className='text-h2_bold text-green flex justify-center'>{t('helps_us_donate')}</h3>
-        <ContributeFormSection lng={lng} />
+        <DonationWidget />
       </section>
     </div>
   );
