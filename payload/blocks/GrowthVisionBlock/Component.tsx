@@ -68,7 +68,7 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
                       // fill
                       height={300}
                       width={450}
-                      className='aspect-video rounded-2xl'
+                      className='aspect-video rounded-2xl object-contain'
                     />
                   ) : (
                     <div className='h-full w-full' />
@@ -78,7 +78,7 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
                 {/* Content */}
                 <div
                   className={cn(
-                    'text-h2_bold flex-1 text-center lg:text-left',
+                    'text-h2_bold flex-1 pt-5 text-center lg:text-left',
                     !isEven && 'lg:text-right'
                   )}
                 >

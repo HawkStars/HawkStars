@@ -1,11 +1,6 @@
 import type { Block } from 'payload';
 
-import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical';
+import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 import SectionID from '@/payload/fields/SectionID';
 import { PayloadImageField } from '@/payload/fields/ImageType';
 
@@ -27,13 +22,13 @@ export const ContentWithImage: Block = {
       type: 'richText',
       localized: true,
       editor: lexicalEditor({
-        features: ({}) => {
-          return [
-            HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ];
-        },
+        features: ({ rootFeatures }) => [
+          ...rootFeatures,
+          BlocksFeature({
+            blocks: [],
+            inlineBlocks: [],
+          }),
+        ],
       }),
       required: true,
     },

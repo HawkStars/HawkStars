@@ -69,9 +69,9 @@ const FeaturedLink = (props: FeaturedImageProps) => {
           className={cn({
             'absolute h-full w-full transition-transform duration-300 hover:scale-105':
               imageType === 'image',
-            'object-bottom': imagePosition === 'bottom',
-            'object-center': imagePosition === 'center',
-            'object-top': imagePosition === 'top',
+            'bg-bottom': imagePosition === 'bottom',
+            'bg-center': imagePosition === 'center',
+            'bg-top': imagePosition === 'top',
           })}
         >
           {ImageElement}

@@ -17,7 +17,7 @@ const CrowdfundingBanner = ({ image, alt, href, sectionId }: CrowdfundingBannerP
           alt={alt}
           width={1920}
           height={400}
-          className='h-auto w-full object-cover'
+          className='h-auto w-full object-contain'
         />
       </Link>
     </section>
