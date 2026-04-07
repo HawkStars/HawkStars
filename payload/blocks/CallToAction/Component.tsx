@@ -17,8 +17,8 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
 
   return (
     <section className='py-32' id={sectionId || ''}>
-      <div className='container mx-auto'>
-        <div className='bg-muted relative flex h-92 w-full flex-col justify-between overflow-hidden rounded-4xl border p-8 md:flex-row'>
+      <div className='container mx-auto max-lg:px-2'>
+        <div className='bg-muted relative flex w-full flex-col justify-between overflow-hidden rounded-4xl border p-8 md:flex-row'>
           <div className='flex h-full max-w-lg flex-col justify-center gap-4'>
             <h1 className='text-4xl font-medium tracking-tighter md:text-6xl'>{title}</h1>
             <p className='text-muted-foreground/70'>{subtitle}</p>
@@ -30,14 +30,14 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
                     key={i}
                     size='lg'
                     {...link}
-                    className='text-foreground hover:bg-background group relative z-10 w-fit rounded-full! border border-none px-10 tracking-tighter shadow-none!'
+                    className='text-foreground hover:bg-background group border-green relative z-10 w-fit rounded-full! border px-10 py-4 tracking-tighter shadow-none!'
                   />
                 );
               })}
             </div>
           </div>
           {imageInfo && (
-            <div className='relative ml-5 size-full rounded-4xl'>
+            <div className='relative ml-5 size-full h-92 rounded-4xl'>
               <Image src={imageInfo.url} alt={imageInfo.alt || ''} fill className='object-cover' />
             </div>
           )}

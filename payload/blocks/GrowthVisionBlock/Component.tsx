@@ -17,9 +17,9 @@ const phaseNameStyles = {
 } as const;
 
 const titleLocationStyles = {
-  left: 'text-left ml-40',
+  left: 'text-left ml-40 max-lg:ml-1',
   center: 'text-center',
-  right: 'text-right mr-40',
+  right: 'text-right mr-40 max-lg:mr-1',
 } as const;
 
 export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
@@ -65,7 +65,6 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
                     <Image
                       src={img.url}
                       alt={img.alt}
-                      // fill
                       height={300}
                       width={450}
                       className='aspect-video rounded-2xl object-contain'

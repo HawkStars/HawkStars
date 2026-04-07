@@ -34,6 +34,7 @@ import { getChairsContributionsQuery } from '@/lib/payload/queries/contribution'
 import { Metadata } from 'next';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import DonationWidget from '@/components/contribute/DonationWidget';
+import { Button } from '@/components/ui/button';
 
 export const revalidate = 1200; // invalidate every 20 minutes
 
@@ -161,6 +162,9 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
                 description={t('brand.room_branding.description')}
               />
             </div>
+            <Link href='mailto:geral@hawkstars.org' className='mx-auto mt-auto'>
+              <Button>{t('contact_us')}</Button>
+            </Link>
           </div>
         </HawkStarsSection>
         <HawkStarsSection>
@@ -259,9 +263,11 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           />
         </div>
       </div>
-      <section className='bg-bege-light py-10' id='form'>
+      <section className='bg-bege-light flex w-full flex-col gap-5 py-10' id='form'>
         <h3 className='text-h2_bold text-green flex justify-center'>{t('helps_us_donate')}</h3>
-        <DonationWidget />
+        <div className='mx-auto'>
+          <DonationWidget />
+        </div>
       </section>
     </div>
   );

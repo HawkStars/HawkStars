@@ -12,7 +12,7 @@ export const DataGridBlock: React.FC<DataGridBlockProps> = ({
       <div className='container mx-auto px-4'>
         {title && <h2 className='text-h2_bold mb-8 text-center tracking-tight'>{title}</h2>}
         <div className='overflow-x-auto rounded-lg'>
-          <table className='mx-auto min-w-6xl'>
+          <table className='lg:mx-auto lg:min-w-6xl'>
             <thead>
               <tr className='bg-bege-dark border-bege-light border-b'>
                 <th className='px-6 py-4 text-center text-sm font-semibold'>{columnOneHeader}</th>

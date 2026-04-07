@@ -79,7 +79,7 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
                   src={activeImage.url}
                   alt={activeImage.alt || ''}
                   fill
-                  className='rounded-2xl'
+                  className='rounded-2xl max-lg:object-contain'
                   priority
                 />
                 <span className='absolute right-2 bottom-2 rounded-2xl bg-white p-2'>
