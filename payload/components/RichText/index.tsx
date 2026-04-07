@@ -5,7 +5,6 @@ import './richtext.scss';
 import { cn } from '@/lib/utils';
 
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
-import { AboutBlock } from '@/payload/blocks/AboutBlock/Component';
 import { HeroBlock } from '@/payload/blocks/Hero/Component';
 import { HeroWithBackgroundImageBlock } from '@/payload/blocks/HeroWithBackgroundImage/Component';
 import { ContentWithImageBlock } from '@/payload/blocks/ContentWithImage/Component';
@@ -59,6 +58,8 @@ import { GrowthVisionBlock } from '@/payload/blocks/GrowthVisionBlock/Component'
 import { InstagramBlockComponent } from '@/payload/blocks/InstagramBlock/Component';
 import { AgendaBlockComponent } from '@/payload/blocks/AgendaBlock/Component';
 import { CrowdfundingImageBannerBlockComponent } from '@/payload/blocks/CrowdfundingImageBanner/Component';
+import { SectionTitleBlockComponent } from '@/payload/blocks/SectionTitleBlock/Component';
+import { SectionListBlockComponent } from '@/payload/blocks/SectionListBlock/Component';
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -82,7 +83,6 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     contentWithImage: ({ node }) => <ContentWithImageBlock {...node.fields} />,
     videoBlock: ({ node }) => <VideoBlock {...node.fields} />,
     testimonialBlock: ({ node }) => <TestimonialBlock {...node.fields} />,
-    aboutBlock: ({ node }) => <AboutBlock {...node.fields} />,
     globalVillageAboutSection: ({ node }) => (
       <GlobalVillageAboutSectionBlockComponent {...node.fields} />
     ),
@@ -120,6 +120,8 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     crowdfundingImageBanner: ({ node }) => (
       <CrowdfundingImageBannerBlockComponent {...node.fields} />
     ),
+    sectionTitleBlock: ({ node }) => <SectionTitleBlockComponent {...node.fields} />,
+    sectionListBlock: ({ node }) => <SectionListBlockComponent {...node.fields} />,
   },
   list: List,
   listitem: ListItem,

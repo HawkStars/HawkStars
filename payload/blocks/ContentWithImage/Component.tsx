@@ -36,7 +36,10 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
               fill={imageInfo.width === undefined && imageInfo.height === undefined}
               width={imageInfo.width || undefined}
               height={imageInfo.height || undefined}
-              className='absolute max-w-full rounded-lg object-cover'
+              className={cn({
+                'absolute object-cover':
+                  imageInfo.width === undefined && imageInfo.height === undefined,
+              })}
             />
           )}
         </div>

@@ -201,7 +201,6 @@ export interface Config {
     testimonialBlock: TestimonialBlock;
     projectTestimonialBlock: ProjectTestimonialBlock;
     logosBlock: LogosBlock;
-    aboutBlock: AboutBlock;
     globalVillageAboutSection: GlobalVillageAboutSectionBlock;
     globalVillageBanner: GlobalVillageBannerBlock;
     campaignCountdown: CampaignCountdownBlock;
@@ -229,6 +228,8 @@ export interface Config {
     sponsorsBlock: SponsorsBlock;
     agenda: AgendaBlock;
     crowdfundingImageBanner: CrowdfundingImageBannerBlock;
+    sectionTitleBlock: SectionTitleBlock;
+    sectionListBlock: SectionListBlock;
   };
   collections: {
     users: User;
@@ -462,7 +463,6 @@ export interface Page {
         | TestimonialBlock
         | ProjectTestimonialBlock
         | LogosBlock
-        | AboutBlock
         | GlobalVillageAboutSectionBlock
         | GlobalVillageBannerBlock
         | CampaignCountdownBlock
@@ -490,6 +490,8 @@ export interface Page {
         | SponsorsBlock
         | AgendaBlock
         | CrowdfundingImageBannerBlock
+        | SectionTitleBlock
+        | SectionListBlock
       )[]
     | null;
   meta?: {
@@ -926,22 +928,6 @@ export interface LogosBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'logosBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "AboutBlock".
- */
-export interface AboutBlock {
-  title?: string | null;
-  description?: string | null;
-  /**
-   * Unique identifier for the section (used for anchor links)
-   */
-  sectionId?: string | null;
-  image?: ImageType;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'aboutBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3502,6 +3488,40 @@ export interface CrowdfundingImageBannerBlock {
   blockType: 'crowdfundingImageBanner';
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionTitleBlock".
+ */
+export interface SectionTitleBlock {
+  title: string;
+  subtitle?: string | null;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sectionTitleBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionListBlock".
+ */
+export interface SectionListBlock {
+  ordered?: boolean | null;
+  items: {
+    label: string;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sectionListBlock';
+}
+/**
  * Manage HawkStars projects and events. Add event details, images, and descriptions. Each project gets its own public page based on its slug.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4421,7 +4441,6 @@ export interface PagesSelect<T extends boolean = true> {
         testimonialBlock?: T | TestimonialBlockSelect<T>;
         projectTestimonialBlock?: T | ProjectTestimonialBlockSelect<T>;
         logosBlock?: T | LogosBlockSelect<T>;
-        aboutBlock?: T | AboutBlockSelect<T>;
         globalVillageAboutSection?: T | GlobalVillageAboutSectionBlockSelect<T>;
         globalVillageBanner?: T | GlobalVillageBannerBlockSelect<T>;
         campaignCountdown?: T | CampaignCountdownBlockSelect<T>;
@@ -4449,6 +4468,8 @@ export interface PagesSelect<T extends boolean = true> {
         sponsorsBlock?: T | SponsorsBlockSelect<T>;
         agenda?: T | AgendaBlockSelect<T>;
         crowdfundingImageBanner?: T | CrowdfundingImageBannerBlockSelect<T>;
+        sectionTitleBlock?: T | SectionTitleBlockSelect<T>;
+        sectionListBlock?: T | SectionListBlockSelect<T>;
       };
   meta?:
     | T
@@ -4694,18 +4715,6 @@ export interface LogosBlockSelect<T extends boolean = true> {
         id?: T;
       };
   sectionId?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "AboutBlock_select".
- */
-export interface AboutBlockSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  sectionId?: T;
-  image?: T | ImageTypeSelect<T>;
   id?: T;
   blockName?: T;
 }
@@ -5180,6 +5189,34 @@ export interface AgendaBlockSelect<T extends boolean = true> {
 export interface CrowdfundingImageBannerBlockSelect<T extends boolean = true> {
   image?: T | ImageTypeSelect<T>;
   url?: T;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionTitleBlock_select".
+ */
+export interface SectionTitleBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionListBlock_select".
+ */
+export interface SectionListBlockSelect<T extends boolean = true> {
+  ordered?: T;
+  items?:
+    | T
+    | {
+        label?: T;
+        description?: T;
+        id?: T;
+      };
   sectionId?: T;
   id?: T;
   blockName?: T;

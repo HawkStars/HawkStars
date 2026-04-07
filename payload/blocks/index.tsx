@@ -1,4 +1,3 @@
-import AboutBlock from './AboutBlock/config';
 import { AccordionBlock } from './AccordionBlock/config';
 import { CallToAction } from './CallToAction/config';
 import { ContentWithImage } from './ContentWithImage/config';
@@ -40,6 +39,8 @@ import { SponsorsBlock } from './SponsorsBlock/config';
 import { InstagramBlock } from './InstagramBlock/config';
 import { AgendaBlock } from './AgendaBlock/config';
 import { CrowdfundingImageBannerBlock } from './CrowdfundingImageBanner/config';
+import { SectionTitleBlock } from './SectionTitleBlock/config';
+import { SectionListBlock } from './SectionListBlock/config';
 
 const DefaultBlocks = [
   AccordionBlock,
@@ -53,7 +54,6 @@ const DefaultBlocks = [
   TestimonialBlock,
   ProjectTestimonialBlock,
   LogosBlock,
-  AboutBlock,
   GlobalVillageAboutSectionBlock,
   GlobalVillageBannerBlock,
   CampaignCountdownBlock,
@@ -81,6 +81,8 @@ const DefaultBlocks = [
   SponsorsBlock,
   AgendaBlock,
   CrowdfundingImageBannerBlock,
+  SectionTitleBlock,
+  SectionListBlock,
 ];
 
 const MainPageBlocks = [...DefaultBlocks, HeroSlideshowBlock, InstagramBlock, BentoGridBlock];

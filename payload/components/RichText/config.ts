@@ -6,7 +6,6 @@ import type {
   ContentWithImageBlock as ContentWithImageProps,
   VideoBlock as VideoBlockProps,
   TestimonialBlock as TestimonialBlockProps,
-  AboutBlock as AboutBlockProps,
   GlobalVillageAboutSectionBlock as GlobalVillageAboutSectionBlockProps,
   HeroSlideshowBlock as HeroSlideshowBlockProps,
   MultiRowImageBlock as MultiRowImageProps,
@@ -41,6 +40,8 @@ import type {
   InstagramBlock as InstagramBlockProps,
   AgendaBlock as AgendaBlockProps,
   CrowdfundingImageBannerBlock as CrowdfundingImageBannerBlockProps,
+  SectionListBlock as SectionListBlockProps,
+  SectionTitleBlock as SectionTitleBlockProps,
 } from '@/payload-types';
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical';
 
@@ -54,7 +55,6 @@ export type BlockNodeTypes = SerializedBlockNode<
   | ContentWithImageProps
   | VideoBlockProps
   | TestimonialBlockProps
-  | AboutBlockProps
   | GlobalVillageAboutSectionBlockProps
   | HeroSlideshowBlockProps
   | MultiRowImageProps
@@ -89,4 +89,6 @@ export type BlockNodeTypes = SerializedBlockNode<
   | InstagramBlockProps
   | AgendaBlockProps
   | CrowdfundingImageBannerBlockProps
+  | SectionListBlockProps
+  | SectionTitleBlockProps
 >;
