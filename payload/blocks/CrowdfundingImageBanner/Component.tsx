@@ -25,7 +25,7 @@ export const CrowdfundingImageBannerBlockComponent: React.FC<CrowdfundingImageBa
           alt={imageData.alt}
           width={imageData.width || 1920}
           height={imageData.height || 400}
-          className='mx-auto h-auto w-full object-contain'
+          className='mx-auto h-auto object-contain'
         />
       </Link>
     </section>
