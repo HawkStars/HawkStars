@@ -20,7 +20,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
   const width = imageInfo?.width;
 
   return (
-    <div className='container mx-auto py-52' id={sectionId || ''}>
+    <div className='container mx-auto py-20 max-lg:py-16' id={sectionId || ''}>
       <div className='grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12'>
         {/* Image Section */}
         <div
@@ -36,7 +36,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
               fill={imageInfo.width === undefined && imageInfo.height === undefined}
               width={imageInfo.width || undefined}
               height={imageInfo.height || undefined}
-              className='border-border absolute w-full rounded-lg border object-cover'
+              className='absolute max-w-full rounded-lg object-cover'
             />
           )}
         </div>

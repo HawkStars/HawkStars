@@ -74,13 +74,18 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
           {/* Main showcased image */}
           <div ref={mainImageRef} className='relative max-h-120 min-h-180 w-full rounded-xl'>
             {activeImage && (
-              <Image
-                src={activeImage.url}
-                alt={activeImage.alt || ''}
-                fill
-                className='rounded-2xl object-contain'
-                priority
-              />
+              <>
+                <Image
+                  src={activeImage.url}
+                  alt={activeImage.alt || ''}
+                  fill
+                  className='rounded-2xl object-contain'
+                  priority
+                />
+                <span className='absolute right-2 bottom-2 rounded-2xl bg-white px-2 py-1'>
+                  {activeImage.alt}
+                </span>
+              </>
             )}
           </div>
 
