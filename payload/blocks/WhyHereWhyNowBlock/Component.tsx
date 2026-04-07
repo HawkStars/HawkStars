@@ -2,26 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
-import type { ImageType } from '@/payload-types';
-
-type Challenge = {
-  icon: ImageType;
-  highlightValue?: string | null;
-  label: string;
-  id?: string | null;
-};
-
-type WhyHereWhyNowBlockProps = {
-  id?: string | null;
-  blockName?: string | null;
-  blockType?: string;
-  title?: string | null;
-  subtitle?: string | null;
-  badge?: string | null;
-  background?: 'white' | 'bege' | 'green' | null;
-  challenges: Challenge[];
-  sectionId?: string | null;
-};
+import { WhyHereWhyNowBlock as WhyHereWhyNowBlockProps } from '@/payload-types';
 
 const backgroundStyles = {
   white: 'bg-white text-black',

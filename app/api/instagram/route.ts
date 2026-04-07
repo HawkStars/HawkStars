@@ -64,10 +64,6 @@ export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const limit = Math.min(Number(searchParams.get('limit') ?? 12), 50);
 
-  // Prefer the token stored in Website Settings (kept up-to-date by the
-  // refreshInstagramToken job), falling back to the environment variable.
-  let accessToken: string | null | undefined;
-
   const payload = await getPayloadConfig();
   const settings = await payload.findGlobal({ slug: 'settings' });
 
@@ -126,7 +122,11 @@ export async function GET(request: NextRequest) {
     );
   } catch (error) {
     return NextResponse.json(
-      { error: 'Failed to fetch Instagram feed', posts: [] },
+      {
+        error: 'Failed to fetch Instagram feed',
+        posts: [],
+        message: error instanceof Error ? error.message : String(error),
+      },
       { status: 500 }
     );
   }

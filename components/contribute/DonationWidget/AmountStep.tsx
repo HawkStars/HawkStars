@@ -11,12 +11,7 @@ type AmountStepProps = {
   onHandleDonationValue: (amount: number) => void;
 };
 
-const AmountStep = ({
-  frequency,
-  selectedAmount,
-  onFrequencyChange,
-  onHandleDonationValue,
-}: AmountStepProps) => {
+const AmountStep = ({ frequency, onFrequencyChange, onHandleDonationValue }: AmountStepProps) => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'contribute');
   const [customAmount, setCustomAmount] = useState<number | null>(null);
