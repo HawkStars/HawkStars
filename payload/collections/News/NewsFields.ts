@@ -64,13 +64,11 @@ const NewsDetails: Tab = {
       },
     },
     PayloadImageField({
-      label: { en: 'Main Image', pt: 'Imagem Principal' },
+      label: 'Imagem Principal',
       name: 'mainImage',
       required: false,
-      description: {
-        en: 'The main image for the news article displayed on listing pages and article page',
-        pt: 'A imagem principal para o artigo de notícias exibida nas páginas de listagem e na página do artigo',
-      },
+      description:
+        'The main image for the news article displayed on listing pages and article page',
     }),
   ],
 };

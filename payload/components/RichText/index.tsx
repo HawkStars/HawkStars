@@ -1,5 +1,6 @@
 'use client';
 
+import * as Sentry from '@sentry/nextjs';
 import './richtext.scss';
 
 import { cn } from '@/lib/utils';
@@ -60,6 +61,7 @@ import { AgendaBlockComponent } from '@/payload/blocks/AgendaBlock/Component';
 import { CrowdfundingImageBannerBlockComponent } from '@/payload/blocks/CrowdfundingImageBanner/Component';
 import { SectionTitleBlockComponent } from '@/payload/blocks/SectionTitleBlock/Component';
 import { SectionListBlockComponent } from '@/payload/blocks/SectionListBlock/Component';
+import Upload from '../utils/upload';
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -129,6 +131,16 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   horizontalrule: () => <hr className='bg-dark-bege mx-8 my-8 h-4 lg:mx-20' />,
   heading: Heading,
   linebreak: () => <br />,
+  unknown: ({ node }) => {
+    if (process.env.NODE_ENV === 'production') {
+      Sentry.captureMessage(`Unknown node type: ${node.type}`, {
+        level: 'warning',
+        extra: { node },
+      });
+    }
+    return null;
+  },
+  upload: Upload,
 });
 
 export type RichTextProps = {
