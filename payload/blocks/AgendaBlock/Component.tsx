@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { stringify } from 'qs-esm';
 import type { Where } from 'payload';
 import type { AgendaBlock as AgendaBlockProps, HawkProject } from '@/payload-types';
