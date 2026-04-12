@@ -8961,22 +8961,22 @@ export interface ProjectsList {
  */
 export interface Setting {
   id: string;
-  'Instagram Feed'?: {
-    /**
-     * Access token for Instagram API to fetch posts for the Instagram feed. You can generate a token using the Instagram Graph API Explorer.
-     */
-    instagramToken?: string | null;
-    /**
-     * Numeric user ID for the Instagram Graph API. Use the "Fetch from token" button to resolve it automatically once the access token above is saved.
-     */
-    instagramUserId?: string | null;
-  };
-  'Google Drive'?: {
-    /**
-     * API key for Google Drive integration.
-     */
-    googleDriveApiKey?: string | null;
-  };
+  /**
+   * Access token for Instagram API to fetch posts for the Instagram feed. You can generate a token using the Instagram Graph API Explorer.
+   */
+  instagramToken?: string | null;
+  /**
+   * Numeric user ID for the Instagram Graph API. Use the "Fetch from token" button to resolve it automatically once the access token above is saved.
+   */
+  instagramUserId?: string | null;
+  /**
+   * API key for Google Drive integration.
+   */
+  googleDriveApiKey?: string | null;
+  /**
+   * OAuth2 refresh token for Google API access. Automatically populated via the /api/google/refresh-token callback.
+   */
+  googleRefreshToken?: string | null;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -9147,17 +9147,10 @@ export interface ProjectsListSelect<T extends boolean = true> {
  * via the `definition` "settings_select".
  */
 export interface SettingsSelect<T extends boolean = true> {
-  'Instagram Feed'?:
-    | T
-    | {
-        instagramToken?: T;
-        instagramUserId?: T;
-      };
-  'Google Drive'?:
-    | T
-    | {
-        googleDriveApiKey?: T;
-      };
+  instagramToken?: T;
+  instagramUserId?: T;
+  googleDriveApiKey?: T;
+  googleRefreshToken?: T;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;

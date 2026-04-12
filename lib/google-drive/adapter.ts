@@ -1,5 +1,5 @@
 import type { HandleUpload, HandleDelete } from '@payloadcms/plugin-cloud-storage/types';
-import { google } from 'googleapis';
+import { google, docs_v1 } from 'googleapis';
 
 import { Readable } from 'stream';
 import * as Sentry from '@sentry/nextjs';
@@ -25,12 +25,6 @@ export const googleDriveAdapter = () => ({
 
   async handleUpload({ file }: Parameters<HandleUpload>[0]) {
     try {
-      const auth = new docs.auth.GoogleAuth({
-        keyFilename: 'PATH_TO_SERVICE_ACCOUNT_KEY.json',
-        // Scopes can be specified either as an array or as a single, space-delimited string.
-        scopes: ['https://www.googleapis.com/auth/documents'],
-      });
-
       const drive = getDrive();
       const targetFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
 
@@ -40,7 +34,6 @@ export const googleDriveAdapter = () => ({
       const response = await drive.files.create({
         requestBody: {
           name: file.filename,
-          ...(targetFolderId ? { parents: [targetFolderId] } : {}),
         },
         media: {
           mimeType: file.mimeType,

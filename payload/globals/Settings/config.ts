@@ -18,7 +18,7 @@ export const WebsiteSettings: GlobalConfig = {
   },
   fields: [
     {
-      name: 'Instagram Feed',
+      label: 'Instagram Feed',
       type: 'group',
       fields: [
         {
@@ -43,7 +43,7 @@ export const WebsiteSettings: GlobalConfig = {
       ],
     },
     {
-      name: 'Google Drive',
+      label: 'Google Drive',
       type: 'group',
       fields: [
         {
@@ -51,6 +51,15 @@ export const WebsiteSettings: GlobalConfig = {
           label: 'Google Drive API Key',
           type: 'text',
           admin: { description: 'API key for Google Drive integration.' },
+        },
+        {
+          name: 'googleRefreshToken',
+          label: 'Google Refresh Token',
+          type: 'text',
+          admin: {
+            description:
+              'OAuth2 refresh token for Google API access. Automatically populated via the /api/google/refresh-token callback.',
+          },
         },
       ],
     },
