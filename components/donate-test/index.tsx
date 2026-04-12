@@ -14,7 +14,6 @@ const DonateTest = () => {
     });
 
     if (!response.ok) {
-      debugger;
       console.error('Failed to initiate donation:', await response.text());
       alert('Failed to initiate donation. Please try again later.');
       return;

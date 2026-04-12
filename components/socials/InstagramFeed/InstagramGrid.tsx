@@ -7,6 +7,8 @@ import { Heart, MessageCircle, Play, Layers } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { type InstagramPost, type InstagramGridProps, INSTAGRAM_PROFILE_URL } from './types';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 function PostOverlay({ post }: { post: InstagramPost }) {
   return (
@@ -53,6 +55,9 @@ export default function InstagramGrid({
   columns = 3,
   showOverlay = true,
 }: InstagramGridProps) {
+  const lng = useLanguageCookie();
+  const { i18n } = useTranslation(lng, 'common');
+
   const [posts, setPosts] = useState<InstagramPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -111,7 +116,8 @@ export default function InstagramGrid({
 
   return (
     <div className='mx-auto max-w-6xl'>
-      <div className={cn('grid gap-1', columns === 3 ? 'grid-cols-3' : 'grid-cols-4')}>
+      <h2 className='text-h2_bold mb-8 text-center'>{i18n.t('instagram')}</h2>
+      <div className={cn('grid lg:gap-1', columns === 3 ? 'grid-cols-3' : 'grid-cols-4')}>
         {posts.slice(0, maxPosts).map((post) => (
           <Link
             key={post.id}

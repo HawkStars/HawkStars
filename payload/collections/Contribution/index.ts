@@ -15,12 +15,19 @@ export const ContributionCollection: CollectionConfig = {
     admin: validateContributionAccess,
   },
   fields: [
-    { type: 'text', name: 'donor', label: 'The name of the donor' },
+    {
+      type: 'text',
+      name: 'donor',
+      label: 'The name of the donor',
+      required: false,
+      admin: { description: 'Leave blank for anonymous donations' },
+    },
     {
       type: 'checkbox',
       name: 'is_confirmed',
       label: 'Payment is Confirmed',
       defaultValue: false,
+      admin: { description: 'Check this box once the payment has been verified' },
     },
     {
       type: 'checkbox',
@@ -35,8 +42,15 @@ export const ContributionCollection: CollectionConfig = {
       required: true,
       validate: (value: number | undefined | null) =>
         (value && value > 0) || 'Value must be greater than 0',
+      admin: { description: 'The amount of the donation in EUR' },
     },
-    { type: 'date', name: 'contribution_date', label: 'Contribution Date', required: true },
+    {
+      type: 'date',
+      name: 'contribution_date',
+      label: 'Contribution Date',
+      required: true,
+      admin: { description: 'The date when the contribution was made' },
+    },
     {
       type: 'select',
       name: 'contribution_type',
@@ -47,13 +61,25 @@ export const ContributionCollection: CollectionConfig = {
         components: {
           Field: '@/components/payload/ContributionSelect',
         },
+        description:
+          'The type of contribution (e.g. chair donation, wall name, bank transfer, etc.)',
       },
     },
-    { type: 'text', name: 'extra_info', label: 'Extra Information' },
+    {
+      type: 'json',
+      name: 'extra_info',
+      label: 'Extra Information',
+      admin: { description: 'Any additional information about the contribution' },
+    },
     {
       type: 'collapsible',
       label: 'Payment Details (EasyPay)',
       admin: { initCollapsed: true },
+      access: {
+        read: () => true,
+        create: () => false,
+        update: () => false,
+      },
       fields: [
         {
           type: 'text',

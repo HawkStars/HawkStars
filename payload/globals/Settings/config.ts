@@ -14,25 +14,45 @@ export const WebsiteSettings: GlobalConfig = {
   admin: {
     description: `This is the information about the settings. Each column represents a group of navigation links
       that will be displayed in the settings section of the website side by side or at the mobile.`,
+    components: {},
   },
   fields: [
     {
-      name: 'instagramToken',
-      label: 'Instagram Access Token',
-      type: 'text',
-      admin: {
-        description:
-          'Access token for Instagram API to fetch posts for the Instagram feed. You can generate a token using the Instagram Graph API Explorer.',
-      },
+      name: 'Instagram Feed',
+      type: 'group',
+      fields: [
+        {
+          name: 'instagramToken',
+          label: 'Instagram Access Token',
+          type: 'text',
+          admin: {
+            description:
+              'Access token for Instagram API to fetch posts for the Instagram feed. You can generate a token using the Instagram Graph API Explorer.',
+            disabled: true,
+          },
+        },
+        {
+          name: 'instagramUserId',
+          label: 'Instagram User ID',
+          type: 'text',
+          admin: {
+            description:
+              'Numeric user ID for the Instagram Graph API. Use the "Fetch from token" button to resolve it automatically once the access token above is saved.',
+          },
+        },
+      ],
     },
     {
-      name: 'instagramUserId',
-      label: 'Instagram User ID',
-      type: 'text',
-      admin: {
-        description:
-          'Numeric user ID for the Instagram Graph API. Use the "Fetch from token" button to resolve it automatically once the access token above is saved.',
-      },
+      name: 'Google Drive',
+      type: 'group',
+      fields: [
+        {
+          name: 'googleDriveApiKey',
+          label: 'Google Drive API Key',
+          type: 'text',
+          admin: { description: 'API key for Google Drive integration.' },
+        },
+      ],
     },
   ],
   lockDocuments: {

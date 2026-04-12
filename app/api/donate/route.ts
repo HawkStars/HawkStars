@@ -2,8 +2,12 @@ import { SinglePaymentQuery } from '@/types/payment/easypay';
 import { checkEasyPaySetup } from '@/utils/payment/easypay';
 import * as z from 'zod';
 import { v4 as uuidv4 } from 'uuid';
+import { getPayloadConfig } from '@/lib/payload/server';
+
+const CONTRIBUTION_COLLECTION = 'contributions';
 
 export async function POST(request: Request) {
+  const payload = await getPayloadConfig();
   try {
     checkEasyPaySetup();
 
@@ -26,13 +30,30 @@ export async function POST(request: Request) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      debugger;
       console.error('EasyPay single payment error:', response.status, errorText);
       return Response.json({ error: 'Error processing payment' }, { status: response.status });
     }
 
     const data = await response.json();
-    return Response.json(data, { status: 200 });
+
+    await payload.create({
+      collection: CONTRIBUTION_COLLECTION,
+      data: {
+        donor: requestBody.customer?.name,
+        contribution_type: 'BANK',
+        value: requestBody.value,
+        contribution_date: new Date().toISOString(),
+        is_confirmed: false,
+        easypay_id: requestBody.key,
+        transaction_key: requestBody.key,
+        payment_method: requestBody.method,
+        extra_info: {
+          ...data,
+        },
+      },
+    });
+
+    return Response.json('OK', { status: 200 });
   } catch (e: unknown) {
     if (e instanceof z.ZodError) {
       return Response.json({ error: 'Invalid request data', details: e.issues }, { status: 400 });

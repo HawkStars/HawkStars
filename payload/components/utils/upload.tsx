@@ -4,7 +4,7 @@ import { SerializedUploadNode } from '@payloadcms/richtext-lexical';
 import { JSXConverter } from '@payloadcms/richtext-lexical/react';
 import { Media } from '@/payload-types';
 
-const Upload: JSXConverter<SerializedUploadNode> = ({ converters, node, nodesToJSX, parent }) => {
+const Upload: JSXConverter<SerializedUploadNode> = ({ node }) => {
   const { value } = node;
   const { url, alt, section, height, width } = value as unknown as Media;
 

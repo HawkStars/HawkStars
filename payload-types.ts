@@ -3783,11 +3783,26 @@ export interface BoardMember {
  */
 export interface Contribution {
   id: string;
+  /**
+   * Leave blank for anonymous donations
+   */
   donor?: string | null;
+  /**
+   * Check this box once the payment has been verified
+   */
   is_confirmed?: boolean | null;
   is_anonymous?: boolean | null;
+  /**
+   * The amount of the donation in EUR
+   */
   value: number;
+  /**
+   * The date when the contribution was made
+   */
   contribution_date: string;
+  /**
+   * The type of contribution (e.g. chair donation, wall name, bank transfer, etc.)
+   */
   contribution_type:
     | 'BANK'
     | 'CRYPTO'
@@ -3799,7 +3814,18 @@ export interface Contribution {
     | 'AUDITORIUM_CHAIR'
     | 'BUILDING_NAMING'
     | 'TRAINING_ROOM_NAMING';
-  extra_info?: string | null;
+  /**
+   * Any additional information about the contribution
+   */
+  extra_info?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   /**
    * UUID key used to identify this payment in EasyPay
    */
@@ -8935,14 +8961,22 @@ export interface ProjectsList {
  */
 export interface Setting {
   id: string;
-  /**
-   * Access token for Instagram API to fetch posts for the Instagram feed. You can generate a token using the Instagram Graph API Explorer.
-   */
-  instagramToken?: string | null;
-  /**
-   * Numeric user ID for the Instagram Graph API. Use the "Fetch from token" button to resolve it automatically once the access token above is saved.
-   */
-  instagramUserId?: string | null;
+  'Instagram Feed'?: {
+    /**
+     * Access token for Instagram API to fetch posts for the Instagram feed. You can generate a token using the Instagram Graph API Explorer.
+     */
+    instagramToken?: string | null;
+    /**
+     * Numeric user ID for the Instagram Graph API. Use the "Fetch from token" button to resolve it automatically once the access token above is saved.
+     */
+    instagramUserId?: string | null;
+  };
+  'Google Drive'?: {
+    /**
+     * API key for Google Drive integration.
+     */
+    googleDriveApiKey?: string | null;
+  };
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -9113,8 +9147,17 @@ export interface ProjectsListSelect<T extends boolean = true> {
  * via the `definition` "settings_select".
  */
 export interface SettingsSelect<T extends boolean = true> {
-  instagramToken?: T;
-  instagramUserId?: T;
+  'Instagram Feed'?:
+    | T
+    | {
+        instagramToken?: T;
+        instagramUserId?: T;
+      };
+  'Google Drive'?:
+    | T
+    | {
+        googleDriveApiKey?: T;
+      };
   _status?: T;
   updatedAt?: T;
   createdAt?: T;
