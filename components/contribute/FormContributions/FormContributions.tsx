@@ -165,7 +165,7 @@ const FormContributions = ({
           <TextArea
             labelText={t('contribution_form.other_information')}
             name={name}
-            value={value || ''}
+            value={value as string}
             onChange={onChange}
             inputHintText='Nome Completo / Número de Identificação Fiscal (NIF) / Morada'
           />
