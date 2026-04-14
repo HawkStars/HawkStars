@@ -5,28 +5,22 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { hawkLogo } from '@/utils/models/images/logos';
+import { useTranslation } from '@/i18n/client';
 
 type CrowdfundingNavbarProps = {
   lng: string;
 };
 
 const NAV_LINKS = [
-  { labelKey: 'about', href: '#about' },
-  { labelKey: 'rewards', href: '#rewards' },
-  { labelKey: 'transparency', href: '#transparency' },
-  { labelKey: 'faq', href: '#faq' },
+  { key: 'about', href: '#about' },
+  { key: 'rewards', href: '#rewards' },
+  { key: 'transparency', href: '#transparency' },
+  { key: 'faq', href: '#faq' },
 ] as const;
-
-const NAV_LABELS: Record<string, { pt: string; en: string }> = {
-  about: { pt: 'Sobre', en: 'About' },
-  rewards: { pt: 'Recompensas', en: 'Rewards' },
-  transparency: { pt: 'Transparência', en: 'Transparency' },
-  faq: { pt: 'FAQ', en: 'FAQ' },
-};
 
 const CrowdfundingNavbar = ({ lng }: CrowdfundingNavbarProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const lang = lng as 'pt' | 'en';
+  const { t } = useTranslation(lng, 'crowdfunding');
 
   return (
     <nav className='bg-crowdfunding-bg sticky top-0 z-50 border-b border-white/10'>
@@ -44,7 +38,7 @@ const CrowdfundingNavbar = ({ lng }: CrowdfundingNavbarProps) => {
               href={link.href}
               className='rounded-lg px-4 py-2 text-sm font-medium text-white/70 transition-colors duration-200 hover:bg-white/10 hover:text-white'
             >
-              {NAV_LABELS[link.labelKey][lang] ?? NAV_LABELS[link.labelKey].en}
+              {t(`nav.${link.key}`)}
             </a>
           ))}
         </div>
@@ -56,7 +50,7 @@ const CrowdfundingNavbar = ({ lng }: CrowdfundingNavbarProps) => {
             href={`/${lng}`}
             className='hidden text-xs text-white/50 transition-colors hover:text-white/80 md:block'
           >
-            hawkstars.org
+            {t('nav.back_to_site')}
           </Link>
 
           {/* Support CTA */}
@@ -64,7 +58,7 @@ const CrowdfundingNavbar = ({ lng }: CrowdfundingNavbarProps) => {
             href='#support'
             className='rounded-full bg-orange-500 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-orange-600'
           >
-            {lang === 'pt' ? 'Apoiar' : 'Support'}
+            {t('nav.support')}
           </a>
 
           {/* Mobile burger */}
@@ -103,7 +97,7 @@ const CrowdfundingNavbar = ({ lng }: CrowdfundingNavbarProps) => {
               onClick={() => setMobileOpen(false)}
               className='rounded-lg px-4 py-3 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white'
             >
-              {NAV_LABELS[link.labelKey][lang] ?? NAV_LABELS[link.labelKey].en}
+              {t(`nav.${link.key}`)}
             </a>
           ))}
           <Link
@@ -111,7 +105,7 @@ const CrowdfundingNavbar = ({ lng }: CrowdfundingNavbarProps) => {
             onClick={() => setMobileOpen(false)}
             className='mt-2 rounded-lg px-4 py-3 text-xs text-white/50 transition-colors hover:bg-white/10 hover:text-white/80'
           >
-            &larr; hawkstars.org
+            &larr; {t('nav.back_to_site')}
           </Link>
         </div>
       </div>
