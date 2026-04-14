@@ -26,7 +26,7 @@ const CrowdfundingHero = async ({ lng }: Props) => {
         className='absolute inset-0 bg-cover bg-center opacity-30'
         style={{ backgroundImage: "url('/images/projects/1.jpeg')" }}
       />
-      <div className='absolute inset-0 bg-gradient-to-r from-[#0d0d0d] via-[#0d0d0d]/80 to-transparent' />
+      <div className='absolute inset-0 bg-linear-to-r from-[#0d0d0d] via-[#0d0d0d]/80 to-transparent' />
 
       <div className='relative mx-auto flex max-w-7xl flex-col gap-8 px-4 py-16 lg:flex-row lg:items-center lg:gap-12 lg:px-8 lg:py-24'>
         {/* Left content */}
@@ -36,8 +36,7 @@ const CrowdfundingHero = async ({ lng }: Props) => {
           </span>
 
           <h1 className='font-oswald text-4xl leading-tight font-bold text-white lg:text-6xl'>
-            {t('hero.title_prefix')}{' '}
-            <span className='text-orange-500'>Global Village</span>{' '}
+            {t('hero.title_prefix')} <span className='text-orange-500'>Global Village</span>{' '}
             {t('hero.title_suffix')}
           </h1>
 
@@ -65,7 +64,11 @@ const CrowdfundingHero = async ({ lng }: Props) => {
           </div>
 
           <div className='flex items-start gap-2 text-sm text-gray-400'>
-            <svg className='mt-0.5 h-4 w-4 shrink-0 text-orange-500' fill='currentColor' viewBox='0 0 20 20'>
+            <svg
+              className='mt-0.5 h-4 w-4 shrink-0 text-orange-500'
+              fill='currentColor'
+              viewBox='0 0 20 20'
+            >
               <path
                 fillRule='evenodd'
                 d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
@@ -83,12 +86,26 @@ const CrowdfundingHero = async ({ lng }: Props) => {
               >
                 {icon === 'pin' && (
                   <svg className='h-3 w-3 text-orange-500' fill='currentColor' viewBox='0 0 20 20'>
-                    <path fillRule='evenodd' d='M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z' clipRule='evenodd' />
+                    <path
+                      fillRule='evenodd'
+                      d='M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z'
+                      clipRule='evenodd'
+                    />
                   </svg>
                 )}
                 {icon === 'book' && (
-                  <svg className='h-3 w-3 text-orange-500' fill='none' stroke='currentColor' viewBox='0 0 24 24' strokeWidth={2}>
-                    <path strokeLinecap='round' strokeLinejoin='round' d='M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' />
+                  <svg
+                    className='h-3 w-3 text-orange-500'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'
+                    />
                   </svg>
                 )}
                 {icon === 'star' && (
@@ -103,12 +120,14 @@ const CrowdfundingHero = async ({ lng }: Props) => {
         </div>
 
         {/* Right - Funding stats card */}
-        <div className='w-full rounded-2xl border border-white/10 bg-[#1a1a1a]/90 p-6 backdrop-blur-sm lg:w-[420px]'>
+        <div className='w-full rounded-2xl border border-white/10 bg-[#1a1a1a]/90 p-6 backdrop-blur-sm lg:w-105'>
           <p className='mb-1 text-xs font-semibold tracking-wider text-gray-400 uppercase'>
             {t('hero.stats.raised_label')}
           </p>
           <div className='flex items-baseline gap-3'>
-            <h2 className='text-4xl font-bold text-white'>€ {raised.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}</h2>
+            <h2 className='text-4xl font-bold text-white'>
+              € {raised.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
+            </h2>
             <span className='text-lg font-bold text-orange-500'>{percentage}%</span>
             <span className='text-xs text-gray-400'>{t('hero.stats.percentage_label')}</span>
           </div>

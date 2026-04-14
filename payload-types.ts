@@ -3536,7 +3536,6 @@ export interface HawkProject {
    * Short description shown on the homepage top
    */
   description?: string | null;
-  slug: string;
   /**
    * Enable if the event spans more than one day
    */
@@ -3549,6 +3548,7 @@ export interface HawkProject {
    * Last day of the event (only for multi-day events)
    */
   endDate?: string | null;
+  slug: string;
   type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
   page_content?: {
     root: {
@@ -4390,10 +4390,10 @@ export interface HawkProjectsSelect<T extends boolean = true> {
   heading?: T;
   subheading?: T;
   description?: T;
-  slug?: T;
   isDateRange?: T;
   date?: T;
   endDate?: T;
+  slug?: T;
   type_event?: T;
   page_content?: T;
   image?: T | ImageTypeSelect<T>;
@@ -8972,10 +8972,6 @@ export interface Setting {
    */
   instagramUserId?: string | null;
   /**
-   * API key for Google Drive integration.
-   */
-  googleDriveApiKey?: string | null;
-  /**
    * OAuth2 refresh token for Google API access. Automatically populated via the /api/google/refresh-token callback.
    */
   googleRefreshToken?: string | null;
@@ -9183,7 +9179,6 @@ export interface ProjectsListSelect<T extends boolean = true> {
 export interface SettingsSelect<T extends boolean = true> {
   instagramToken?: T;
   instagramUserId?: T;
-  googleDriveApiKey?: T;
   googleRefreshToken?: T;
   _status?: T;
   updatedAt?: T;

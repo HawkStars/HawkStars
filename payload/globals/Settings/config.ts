@@ -14,7 +14,6 @@ export const WebsiteSettings: GlobalConfig = {
   admin: {
     description: `This is the information about the settings. Each column represents a group of navigation links
       that will be displayed in the settings section of the website side by side or at the mobile.`,
-    components: {},
   },
   fields: [
     {
@@ -28,7 +27,7 @@ export const WebsiteSettings: GlobalConfig = {
           admin: {
             description:
               'Access token for Instagram API to fetch posts for the Instagram feed. You can generate a token using the Instagram Graph API Explorer.',
-            disabled: true,
+            readOnly: true,
           },
         },
         {
@@ -47,18 +46,16 @@ export const WebsiteSettings: GlobalConfig = {
       type: 'group',
       fields: [
         {
-          name: 'googleDriveApiKey',
-          label: 'Google Drive API Key',
-          type: 'text',
-          admin: { description: 'API key for Google Drive integration.' },
-        },
-        {
           name: 'googleRefreshToken',
           label: 'Google Refresh Token',
           type: 'text',
           admin: {
             description:
               'OAuth2 refresh token for Google API access. Automatically populated via the /api/google/refresh-token callback.',
+            readOnly: true,
+            components: {
+              afterInput: ['@/payload/globals/Settings/components/RefreshTokenButton'],
+            },
           },
         },
       ],
