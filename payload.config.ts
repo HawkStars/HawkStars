@@ -45,6 +45,7 @@ import { News } from './payload/collections/News';
 import { getServerSideURL } from './payload/utilities/getURL';
 import { seed } from './payload/seed';
 import { WebsiteSettings } from './payload/globals/Settings/config';
+import { CrowdfundingSettings } from './payload/globals/CrowdfundingSettings/config';
 import { jobs } from './payload/jobs';
 
 const filename = fileURLToPath(import.meta.url);
@@ -129,7 +130,7 @@ export default buildConfig({
     News,
     Notification,
   ],
-  globals: [Header, Footer, MainPage, NewsList, ProjectsList, WebsiteSettings],
+  globals: [Header, Footer, MainPage, NewsList, ProjectsList, WebsiteSettings, CrowdfundingSettings],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
