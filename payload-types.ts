@@ -283,7 +283,7 @@ export interface Config {
     'news-list': NewsList;
     'projects-list': ProjectsList;
     settings: Setting;
-    'crowdfunding-settings': CrowdfundingSettings;
+    'crowdfunding-settings': CrowdfundingSetting;
     'payload-jobs-stats': PayloadJobsStat;
   };
   globalsSelect: {
@@ -8989,7 +8989,7 @@ export interface Setting {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "crowdfunding-settings".
  */
-export interface CrowdfundingSettings {
+export interface CrowdfundingSetting {
   id: string;
   /**
    * Total amount raised so far, in euros.
