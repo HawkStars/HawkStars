@@ -15,7 +15,7 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
   const percentage = Math.round((raised / campaignGoal) * 100);
 
   return (
-    <section className='w-full bg-[#111111] py-16'>
+    <section id='transparency' className='w-full bg-[#111111] py-16'>
       <div className='mx-auto max-w-7xl px-4 lg:px-8'>
         <div className='flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-16'>
           {/* Left text */}

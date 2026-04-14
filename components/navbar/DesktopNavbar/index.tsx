@@ -16,10 +16,9 @@ type DesktopNavbarProps = {
   handleHoverMenu: (menuKey: string) => void;
   columns: HeaderNavigationColumns;
   menuKeyHovered: string | null;
-  isDark?: boolean;
 };
 
-const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuKeyHovered, isDark }) => {
+const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuKeyHovered }) => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
   const router = useRouter();
@@ -27,13 +26,13 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuK
   return (
     <div className='my-auto ml-auto hidden lg:block'>
       <div className='ml-auto flex gap-3'>
-        <ul className={cn('flex flex-row gap-4 px-1 max-xl:text-sm xl:gap-8', isDark && 'text-white')}>
+        <ul className='flex flex-row gap-4 px-1 max-xl:text-sm xl:gap-8'>
           {columns.map((column) => {
             const isMultiColumn = column.isMultiColumn;
 
             if (!isMultiColumn && !column.link) return null;
             if (!isMultiColumn && column.link)
-              return <HawkLinkComponent key={column.id} link={column.link} className={cn('my-auto', isDark && 'text-white hover:text-white/80')} />;
+              return <HawkLinkComponent key={column.id} link={column.link} className='my-auto' />;
 
             return (
               <li

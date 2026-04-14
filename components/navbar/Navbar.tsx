@@ -10,14 +10,11 @@ import DesktopNavbar from './DesktopNavbar';
 import { cn } from '@/lib/utils';
 import DropdownMenu from './DesktopDropdown/DropdownMenu';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
-import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
   const { headerInfo } = useMainAppContext();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
-  const pathname = usePathname();
-  const isCrowdfunding = pathname?.includes('/crowdfunding') ?? false;
 
   if (!headerInfo || !headerInfo.columns || headerInfo.columns.length === 0) return null;
   const { columns } = headerInfo;
@@ -28,7 +25,7 @@ const Navbar = () => {
 
   return (
     <nav onMouseLeave={() => setHoveredMenu(null)} className='relative'>
-      <div className={cn('z-50 px-4 lg:px-14', isCrowdfunding ? 'bg-crowdfunding-bg' : 'bg-bege-dark')}>
+      <div className='bg-bege-dark z-50 px-4 lg:px-14'>
         <div className='flex gap-3'>
           <div className='my-auto flex justify-center py-3'>
             <Link href='/' className='normal-case' aria-label='Go to the home hawkstars website'>
@@ -42,7 +39,6 @@ const Navbar = () => {
             handleHoverMenu={setHoveredMenu}
             columns={columns}
             menuKeyHovered={selectedMenu?.dropdown?.key || null}
-            isDark={isCrowdfunding}
           />
           {/* NAVBAR MOBILE */}
 
