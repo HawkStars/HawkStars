@@ -28,7 +28,7 @@ const Navbar = () => {
 
   return (
     <nav onMouseLeave={() => setHoveredMenu(null)} className='relative'>
-      <div className={cn('z-50 px-4 lg:px-14', isCrowdfunding ? 'bg-[#0d0d0d]' : 'bg-bege-dark')}>
+      <div className={cn('z-50 px-4 lg:px-14', isCrowdfunding ? 'bg-crowdfunding-bg' : 'bg-bege-dark')}>
         <div className='flex gap-3'>
           <div className='my-auto flex justify-center py-3'>
             <Link href='/' className='normal-case' aria-label='Go to the home hawkstars website'>

@@ -16,6 +16,9 @@
   --color-gray-light: #d3d3d3;
   --color-red-dark: #8b0000;
 
+  /* Crowdfunding theme */
+  --color-crowdfunding-bg: #0d0d0d;
+
   /* Gaming theme */
   --color-gaming-bg: #0a0a0f;
   --color-gaming-surface: #12121a;

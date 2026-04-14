@@ -33,7 +33,7 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuK
 
             if (!isMultiColumn && !column.link) return null;
             if (!isMultiColumn && column.link)
-              return <HawkLinkComponent key={column.id} link={column.link} className={cn('my-auto', isDark && 'text-white hover:text-gray-300')} />;
+              return <HawkLinkComponent key={column.id} link={column.link} className={cn('my-auto', isDark && 'text-white hover:text-white/80')} />;
 
             return (
               <li
