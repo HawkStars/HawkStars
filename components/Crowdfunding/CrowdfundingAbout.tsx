@@ -105,6 +105,11 @@ const CrowdfundingAbout = async ({ lng }: Props) => {
 
   return (
     <section id='about' className='w-full bg-[#0d0d0d] py-16'>
+      <div className='mx-auto max-w-7xl px-4 lg:px-8'>
+        <div className='mb-12 text-center'>
+          <span className='flex items-center justify-center gap-2 text-xs font-semibold tracking-widest text-orange-500 uppercase'>
+            <span className='inline-block h-2 w-2 rounded-full bg-orange-500' />
+            {t('about.badge')}
           </span>
           <h2 className='font-oswald mt-4 text-3xl font-bold text-white lg:text-4xl'>
             {t('about.title')}
