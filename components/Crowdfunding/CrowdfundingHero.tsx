@@ -108,7 +108,7 @@ const CrowdfundingHero = async ({ lng }: Props) => {
             {t('hero.stats.raised_label')}
           </p>
           <div className='flex items-baseline gap-3'>
-            <h2 className='text-4xl font-bold text-white'>€ {raised.toLocaleString('pt-PT')}</h2>
+            <h2 className='text-4xl font-bold text-white'>€ {raised.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}</h2>
             <span className='text-lg font-bold text-orange-500'>{percentage}%</span>
             <span className='text-xs text-gray-400'>{t('hero.stats.percentage_label')}</span>
           </div>
@@ -126,7 +126,7 @@ const CrowdfundingHero = async ({ lng }: Props) => {
                 {t('hero.stats.campaign_goal_label')}
               </p>
               <p className='mt-1 text-lg font-bold text-white'>
-                € {campaignGoal.toLocaleString('pt-PT')}
+                € {campaignGoal.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
               </p>
             </div>
             <div>
@@ -134,7 +134,7 @@ const CrowdfundingHero = async ({ lng }: Props) => {
                 {t('hero.stats.project_goal_label')}
               </p>
               <p className='mt-1 text-lg font-bold text-white'>
-                € {projectGoal.toLocaleString('pt-PT')}
+                € {projectGoal.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
               </p>
             </div>
             <div>

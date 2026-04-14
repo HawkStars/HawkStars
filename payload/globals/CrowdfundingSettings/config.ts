@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload';
 
+import { anyone } from '@/payload/access/anyone';
 import { authenticated } from '@/payload/access/authenticated';
 
 export const CrowdfundingSettings: GlobalConfig = {
@@ -12,7 +13,7 @@ export const CrowdfundingSettings: GlobalConfig = {
     description: 'Configure the dynamic numbers and dates shown on the Crowdfunding page.',
   },
   access: {
-    read: authenticated,
+    read: anyone,
     update: authenticated,
   },
   fields: [

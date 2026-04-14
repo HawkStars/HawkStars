@@ -44,7 +44,7 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
                 <p className='text-[10px] font-semibold tracking-wider text-gray-500 uppercase'>
                   {t('transparency.raised_label')}
                 </p>
-                <p className='mt-1 text-2xl font-bold text-white'>€ {raised.toLocaleString('pt-PT')}</p>
+                <p className='mt-1 text-2xl font-bold text-white'>€ {raised.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}</p>
                 <p className='mt-1 flex items-center gap-1 text-xs text-green-500'>
                   <svg className='h-3 w-3' fill='currentColor' viewBox='0 0 20 20'>
                     <path
@@ -60,7 +60,7 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
                 <p className='text-[10px] font-semibold tracking-wider text-gray-500 uppercase'>
                   {t('transparency.campaign_goal_label')}
                 </p>
-                <p className='mt-1 text-2xl font-bold text-white'>€ {campaignGoal.toLocaleString('pt-PT')}</p>
+                <p className='mt-1 text-2xl font-bold text-white'>€ {campaignGoal.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}</p>
                 <p className='mt-1 text-xs text-gray-500'>
                   {percentage}
                   {t('transparency.percentage_label')}
@@ -71,7 +71,7 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
                   {t('transparency.project_goal_label')}
                 </p>
                 <p className='mt-1 text-2xl font-bold text-white'>
-                  € {projectGoal.toLocaleString('pt-PT')}
+                  € {projectGoal.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
                 </p>
                 <p className='mt-1 text-xs text-gray-500'>
                   {t('transparency.project_total_label')}
