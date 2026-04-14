@@ -1,15 +1,17 @@
 import React from 'react';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
+import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
 
 type Props = { lng: Language };
 
 const CrowdfundingHero = async ({ lng }: Props) => {
   const { t } = await getServerTranslation(lng, 'crowdfunding');
+  const settings = await getCrowdfundingSettings(lng);
 
-  const raised = 32450;
-  const campaignGoal = 100000;
-  const projectGoal = 900000;
+  const raised = settings?.raisedAmount ?? 32450;
+  const campaignGoal = settings?.campaignGoal ?? 100000;
+  const projectGoal = settings?.projectGoal ?? 900000;
   const percentage = Math.round((raised / campaignGoal) * 100);
 
   const tags = [
@@ -106,7 +108,7 @@ const CrowdfundingHero = async ({ lng }: Props) => {
             {t('hero.stats.raised_label')}
           </p>
           <div className='flex items-baseline gap-3'>
-            <h2 className='text-4xl font-bold text-white'>€ 32.450</h2>
+            <h2 className='text-4xl font-bold text-white'>€ {raised.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}</h2>
             <span className='text-lg font-bold text-orange-500'>{percentage}%</span>
             <span className='text-xs text-gray-400'>{t('hero.stats.percentage_label')}</span>
           </div>
@@ -124,7 +126,7 @@ const CrowdfundingHero = async ({ lng }: Props) => {
                 {t('hero.stats.campaign_goal_label')}
               </p>
               <p className='mt-1 text-lg font-bold text-white'>
-                € {campaignGoal.toLocaleString('pt-PT')}
+                € {campaignGoal.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
               </p>
             </div>
             <div>
@@ -132,14 +134,16 @@ const CrowdfundingHero = async ({ lng }: Props) => {
                 {t('hero.stats.project_goal_label')}
               </p>
               <p className='mt-1 text-lg font-bold text-white'>
-                € {projectGoal.toLocaleString('pt-PT')}
+                € {projectGoal.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
               </p>
             </div>
             <div>
               <p className='text-[10px] font-semibold tracking-wider text-gray-500 uppercase'>
                 {t('hero.stats.last_update_label')}
               </p>
-              <p className='mt-1 text-sm font-medium text-white'>{t('hero.stats.last_update_date')}</p>
+              <p className='mt-1 text-sm font-medium text-white'>
+                {settings?.lastUpdateDate || t('hero.stats.last_update_date')}
+              </p>
             </div>
           </div>
         </div>

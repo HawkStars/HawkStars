@@ -80,9 +80,18 @@
     "last_update_label": "Last Update",
     "last_update_date": "January 18, 2025",
     "phases": {
-      "phase1": { "title": "Phase 1", "description": "Studies, licensing and launch" },
-      "phase2": { "title": "Phase 2", "description": "Construction and equipment" },
-      "phase3": { "title": "Phase 3", "description": "Progressive activation of the space" }
+      "phase1": {
+        "title": "Phase 1",
+        "description": "Studies, licensing and launch"
+      },
+      "phase2": {
+        "title": "Phase 2",
+        "description": "Construction and equipment"
+      },
+      "phase3": {
+        "title": "Phase 3",
+        "description": "Progressive activation of the space"
+      }
     }
   },
   "rewards": {
@@ -102,42 +111,96 @@
         "title": "Simple Support",
         "subtitle": "Small gestures, big impact.",
         "items": {
-          "digital_thanks": { "label": "Digital thank-you", "price": "From €10" },
-          "tshirt": { "label": "Donor T-shirt", "price": "From €50" },
-          "basket": { "label": "Product basket", "price": "From €60" },
-          "polaroid": { "label": "Polaroid photo", "price": "From €90" },
-          "windbreaker": { "label": "Windbreaker", "price": "From €130" }
+          "digital_thanks": {
+            "label": "Digital thank-you",
+            "price": "From €10"
+          },
+          "tshirt": {
+            "label": "Donor T-shirt",
+            "price": "From €50"
+          },
+          "basket": {
+            "label": "Product basket",
+            "price": "From €60"
+          },
+          "polaroid": {
+            "label": "Polaroid photo",
+            "price": "From €90"
+          },
+          "windbreaker": {
+            "label": "Windbreaker",
+            "price": "From €130"
+          }
         }
       },
       "recognition": {
         "title": "Recognition in the Space",
         "subtitle": "Your name, part of this story.",
         "items": {
-          "brick_wall": { "label": "Brick Wall", "price": "from €250" },
-          "name_walls": { "label": "Name Walls", "price": "from €500" },
-          "chairs": { "label": "Chair naming", "price": "€250 / €350" }
+          "brick_wall": {
+            "label": "Brick Wall",
+            "price": "from €250"
+          },
+          "name_walls": {
+            "label": "Name Walls",
+            "price": "from €500"
+          },
+          "chairs": {
+            "label": "Chair naming",
+            "price": "€250 / €350"
+          }
         }
       },
       "experiences": {
         "title": "Experiences in Pinhel",
         "subtitle": "Live the territory. Create memories.",
         "items": {
-          "guided_tour": { "label": "Guided tour + lunch", "price": "" },
-          "pinhel_crawl": { "label": "Pinhel Crawl", "price": "" },
-          "weekend": { "label": "Weekend at Cidadela", "price": "" },
-          "faia_brava": { "label": "Faia Brava / Rewilding Experiences", "price": "" },
-          "masterclasses": { "label": "Special masterclasses", "price": "" }
+          "guided_tour": {
+            "label": "Guided tour + lunch",
+            "price": ""
+          },
+          "pinhel_crawl": {
+            "label": "Pinhel Crawl",
+            "price": ""
+          },
+          "weekend": {
+            "label": "Weekend at Cidadela",
+            "price": ""
+          },
+          "faia_brava": {
+            "label": "Faia Brava / Rewilding Experiences",
+            "price": ""
+          },
+          "masterclasses": {
+            "label": "Special masterclasses",
+            "price": ""
+          }
         }
       },
       "premium": {
         "title": "Naming & Premium Support",
         "subtitle": "For companies, foundations and patrons.",
         "items": {
-          "meeting_rooms": { "label": "Meeting rooms", "price": "from €11,500" },
-          "training_rooms": { "label": "Training rooms", "price": "from €40,000" },
-          "auditorium": { "label": "Auditorium", "price": "€105,000" },
-          "coworking": { "label": "Coworking / Anti-Café", "price": "€115,000" },
-          "naming_itc": { "label": "ITC general naming", "price": "min. €550,000" }
+          "meeting_rooms": {
+            "label": "Meeting rooms",
+            "price": "from €11,500"
+          },
+          "training_rooms": {
+            "label": "Training rooms",
+            "price": "from €40,000"
+          },
+          "auditorium": {
+            "label": "Auditorium",
+            "price": "€105,000"
+          },
+          "coworking": {
+            "label": "Coworking / Anti-Café",
+            "price": "€115,000"
+          },
+          "naming_itc": {
+            "label": "ITC general naming",
+            "price": "min. €550,000"
+          }
         }
       }
     }
@@ -151,8 +214,14 @@
     "badge_highlight": "Featured",
     "badge_new": "New",
     "cards": {
-      "first24h": { "title": "First 24h: what we have already achieved together", "date": "18 JAN 2025" },
-      "unlock100k": { "title": "What the €100,000 will unlock", "date": "15 JAN 2025" },
+      "first24h": {
+        "title": "First 24h: what we have already achieved together",
+        "date": "18 JAN 2025"
+      },
+      "unlock100k": {
+        "title": "What the €100,000 will unlock",
+        "date": "15 JAN 2025"
+      },
       "new_reward": {
         "title": "New reward available",
         "description": "Hawk Stars donor T-shirt. A symbol of belonging.",
@@ -200,11 +269,26 @@
       "community": "Community"
     },
     "entities": {
-      "hawk_stars": { "name": "Hawk Stars", "subtitle": "NGO for Education, Innovation & Social Development" },
-      "ipdj": { "name": "IPDJ", "subtitle": "Portuguese Institute for Sport and Youth, I.P." },
-      "politecnico": { "name": "Polytechnic of Guarda", "subtitle": "" },
-      "camara": { "name": "Municipality of Pinhel", "subtitle": "" },
-      "guarda": { "name": "Guarda", "subtitle": "Guarda for itself." }
+      "hawk_stars": {
+        "name": "Hawk Stars",
+        "subtitle": "NGO for Education, Innovation & Social Development"
+      },
+      "ipdj": {
+        "name": "IPDJ",
+        "subtitle": "Portuguese Institute for Sport and Youth, I.P."
+      },
+      "politecnico": {
+        "name": "Polytechnic of Guarda",
+        "subtitle": ""
+      },
+      "camara": {
+        "name": "Municipality of Pinhel",
+        "subtitle": ""
+      },
+      "guarda": {
+        "name": "Guarda",
+        "subtitle": "Guarda for itself."
+      }
     }
   },
   "faq": {
@@ -255,5 +339,13 @@
     "cta_support": "Support Now →",
     "cta_share": "Share Campaign →",
     "cta_team": "Talk to the Team →"
+  },
+  "nav": {
+    "about": "About",
+    "rewards": "Rewards",
+    "transparency": "Transparency",
+    "faq": "FAQ",
+    "support": "Support",
+    "back_to_site": "hawkstars.org"
   }
 }

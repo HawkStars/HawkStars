@@ -283,6 +283,7 @@ export interface Config {
     'news-list': NewsList;
     'projects-list': ProjectsList;
     settings: Setting;
+    'crowdfunding-settings': CrowdfundingSettings;
     'payload-jobs-stats': PayloadJobsStat;
   };
   globalsSelect: {
@@ -292,6 +293,7 @@ export interface Config {
     'news-list': NewsListSelect<false> | NewsListSelect<true>;
     'projects-list': ProjectsListSelect<false> | ProjectsListSelect<true>;
     settings: SettingsSelect<false> | SettingsSelect<true>;
+    'crowdfunding-settings': CrowdfundingSettingsSelect<false> | CrowdfundingSettingsSelect<true>;
     'payload-jobs-stats': PayloadJobsStatsSelect<false> | PayloadJobsStatsSelect<true>;
   };
   locale: 'en' | 'pt';
@@ -8982,6 +8984,38 @@ export interface Setting {
   createdAt?: string | null;
 }
 /**
+ * Configure the dynamic numbers and dates shown on the Crowdfunding page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crowdfunding-settings".
+ */
+export interface CrowdfundingSettings {
+  id: string;
+  /**
+   * Total amount raised so far, in euros.
+   */
+  raisedAmount: number;
+  /**
+   * The fundraising target for the campaign phase, in euros.
+   */
+  campaignGoal: number;
+  /**
+   * The full investment target for the project, in euros.
+   */
+  projectGoal: number;
+  /**
+   * Displayed date of the last statistics update (e.g. "Março 2025").
+   */
+  lastUpdateDate?: string | null;
+  /**
+   * Short label shown next to the raised amount to indicate weekly growth (e.g. "+2.3% esta semana").
+   */
+  weeklyIncrease?: string | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs-stats".
  */
@@ -9151,6 +9185,21 @@ export interface SettingsSelect<T extends boolean = true> {
   instagramUserId?: T;
   googleDriveApiKey?: T;
   googleRefreshToken?: T;
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crowdfunding-settings_select".
+ */
+export interface CrowdfundingSettingsSelect<T extends boolean = true> {
+  raisedAmount?: T;
+  campaignGoal?: T;
+  projectGoal?: T;
+  lastUpdateDate?: T;
+  weeklyIncrease?: T;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;

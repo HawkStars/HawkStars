@@ -80,9 +80,18 @@
     "last_update_label": "Última Atualização",
     "last_update_date": "18 de janeiro de 2025",
     "phases": {
-      "phase1": { "title": "Fase 1", "description": "Estudos, licenciamento e arranque" },
-      "phase2": { "title": "Fase 2", "description": "Construção e equipagem" },
-      "phase3": { "title": "Fase 3", "description": "Ativação progressiva do espaço" }
+      "phase1": {
+        "title": "Fase 1",
+        "description": "Estudos, licenciamento e arranque"
+      },
+      "phase2": {
+        "title": "Fase 2",
+        "description": "Construção e equipagem"
+      },
+      "phase3": {
+        "title": "Fase 3",
+        "description": "Ativação progressiva do espaço"
+      }
     }
   },
   "rewards": {
@@ -102,42 +111,96 @@
         "title": "Apoios Simples",
         "subtitle": "Pequenos gestos, grande impacto.",
         "items": {
-          "digital_thanks": { "label": "Agradecimento digital", "price": "Desde 10€" },
-          "tshirt": { "label": "T-shirt de doador", "price": "Desde 50€" },
-          "basket": { "label": "Cabaz de produtos", "price": "Desde 60€" },
-          "polaroid": { "label": "Foto polaroid", "price": "Desde 90€" },
-          "windbreaker": { "label": "Windbreaker", "price": "Desde 130€" }
+          "digital_thanks": {
+            "label": "Agradecimento digital",
+            "price": "Desde 10€"
+          },
+          "tshirt": {
+            "label": "T-shirt de doador",
+            "price": "Desde 50€"
+          },
+          "basket": {
+            "label": "Cabaz de produtos",
+            "price": "Desde 60€"
+          },
+          "polaroid": {
+            "label": "Foto polaroid",
+            "price": "Desde 90€"
+          },
+          "windbreaker": {
+            "label": "Windbreaker",
+            "price": "Desde 130€"
+          }
         }
       },
       "recognition": {
         "title": "Reconhecimento no Espaço",
         "subtitle": "O teu nome, parte desta história.",
         "items": {
-          "brick_wall": { "label": "Brick Wall", "price": "desde 250€" },
-          "name_walls": { "label": "Name Walls", "price": "desde 500€" },
-          "chairs": { "label": "Naming de cadeiras", "price": "250€ / 350€" }
+          "brick_wall": {
+            "label": "Brick Wall",
+            "price": "desde 250€"
+          },
+          "name_walls": {
+            "label": "Name Walls",
+            "price": "desde 500€"
+          },
+          "chairs": {
+            "label": "Naming de cadeiras",
+            "price": "250€ / 350€"
+          }
         }
       },
       "experiences": {
         "title": "Experiências em Pinhel",
         "subtitle": "Vive o território. Cria memórias.",
         "items": {
-          "guided_tour": { "label": "Visita guiada + almoço", "price": "" },
-          "pinhel_crawl": { "label": "Pinhel Crawl", "price": "" },
-          "weekend": { "label": "Fim de semana em Cidadela", "price": "" },
-          "faia_brava": { "label": "Experiências Faia Brava / Rewilding", "price": "" },
-          "masterclasses": { "label": "Masterclasses especiais", "price": "" }
+          "guided_tour": {
+            "label": "Visita guiada + almoço",
+            "price": ""
+          },
+          "pinhel_crawl": {
+            "label": "Pinhel Crawl",
+            "price": ""
+          },
+          "weekend": {
+            "label": "Fim de semana em Cidadela",
+            "price": ""
+          },
+          "faia_brava": {
+            "label": "Experiências Faia Brava / Rewilding",
+            "price": ""
+          },
+          "masterclasses": {
+            "label": "Masterclasses especiais",
+            "price": ""
+          }
         }
       },
       "premium": {
         "title": "Naming e Apoio Premium",
         "subtitle": "Para empresas, fundações e mecenas.",
         "items": {
-          "meeting_rooms": { "label": "Salas de reunião", "price": "desde 11.500€" },
-          "training_rooms": { "label": "Salas de formação", "price": "desde 40.000€" },
-          "auditorium": { "label": "Auditório", "price": "105.000€" },
-          "coworking": { "label": "Coworking / Anti-Café", "price": "115.000€" },
-          "naming_itc": { "label": "Naming geral do ITC", "price": "min. 550.000€" }
+          "meeting_rooms": {
+            "label": "Salas de reunião",
+            "price": "desde 11.500€"
+          },
+          "training_rooms": {
+            "label": "Salas de formação",
+            "price": "desde 40.000€"
+          },
+          "auditorium": {
+            "label": "Auditório",
+            "price": "105.000€"
+          },
+          "coworking": {
+            "label": "Coworking / Anti-Café",
+            "price": "115.000€"
+          },
+          "naming_itc": {
+            "label": "Naming geral do ITC",
+            "price": "min. 550.000€"
+          }
         }
       }
     }
@@ -151,8 +214,14 @@
     "badge_highlight": "Destaque",
     "badge_new": "Novo",
     "cards": {
-      "first24h": { "title": "Primeiras 24h: o que já conseguimos juntos", "date": "18 JAN 2025" },
-      "unlock100k": { "title": "O que os 100.000€ desbloqueiam", "date": "15 JAN 2025" },
+      "first24h": {
+        "title": "Primeiras 24h: o que já conseguimos juntos",
+        "date": "18 JAN 2025"
+      },
+      "unlock100k": {
+        "title": "O que os 100.000€ desbloqueiam",
+        "date": "15 JAN 2025"
+      },
       "new_reward": {
         "title": "Novo reward disponível",
         "description": "T-shirt de doador Hawk Stars. Um símbolo de pertença.",
@@ -200,11 +269,26 @@
       "community": "Comunidade"
     },
     "entities": {
-      "hawk_stars": { "name": "Hawk Stars", "subtitle": "ONG para Educação, Inovação & Desenvolvimento Social" },
-      "ipdj": { "name": "IPDJ", "subtitle": "Instituto Português do Desporto e Juventude, I.P." },
-      "politecnico": { "name": "Politécnico da Guarda", "subtitle": "" },
-      "camara": { "name": "Câmara Municipal de Pinhel", "subtitle": "" },
-      "guarda": { "name": "Guarda", "subtitle": "A Guarda por si." }
+      "hawk_stars": {
+        "name": "Hawk Stars",
+        "subtitle": "ONG para Educação, Inovação & Desenvolvimento Social"
+      },
+      "ipdj": {
+        "name": "IPDJ",
+        "subtitle": "Instituto Português do Desporto e Juventude, I.P."
+      },
+      "politecnico": {
+        "name": "Politécnico da Guarda",
+        "subtitle": ""
+      },
+      "camara": {
+        "name": "Câmara Municipal de Pinhel",
+        "subtitle": ""
+      },
+      "guarda": {
+        "name": "Guarda",
+        "subtitle": "A Guarda por si."
+      }
     }
   },
   "faq": {
@@ -255,5 +339,13 @@
     "cta_support": "Apoiar Agora →",
     "cta_share": "Partilhar Campanha →",
     "cta_team": "Falar com a Equipa →"
+  },
+  "nav": {
+    "about": "Sobre",
+    "rewards": "Recompensas",
+    "transparency": "Transparência",
+    "faq": "FAQ",
+    "support": "Apoiar",
+    "back_to_site": "hawkstars.org"
   }
 }

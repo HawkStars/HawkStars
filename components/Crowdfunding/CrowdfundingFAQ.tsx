@@ -46,7 +46,7 @@ const CrowdfundingFAQ = async ({ lng }: Props) => {
   const { t } = await getServerTranslation(lng, 'crowdfunding');
 
   return (
-    <section className='relative w-full overflow-hidden bg-[#0d0d0d] py-16'>
+    <section id='faq' className='relative w-full overflow-hidden bg-[#0d0d0d] py-16'>
       <div
         className='absolute top-0 right-0 h-full w-1/3 bg-cover bg-center opacity-20'
         style={{ backgroundImage: "url('/images/projects/7.jpeg')" }}

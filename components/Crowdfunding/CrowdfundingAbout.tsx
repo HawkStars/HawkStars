@@ -104,7 +104,7 @@ const CrowdfundingAbout = async ({ lng }: Props) => {
   const { t } = await getServerTranslation(lng, 'crowdfunding');
 
   return (
-    <section className='w-full bg-[#0d0d0d] py-16'>
+    <section id='about' className='w-full bg-[#0d0d0d] py-16'>
       <div className='mx-auto max-w-7xl px-4 lg:px-8'>
         <div className='mb-12 text-center'>
           <span className='flex items-center justify-center gap-2 text-xs font-semibold tracking-widest text-orange-500 uppercase'>
