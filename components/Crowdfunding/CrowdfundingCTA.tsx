@@ -8,7 +8,7 @@ const CrowdfundingCTA = async ({ lng }: Props) => {
   const { t } = await getServerTranslation(lng, 'crowdfunding');
 
   return (
-    <section className='relative w-full overflow-hidden bg-[#0d0d0d]'>
+    <section id='support' className='relative w-full overflow-hidden bg-[#0d0d0d]'>
       <div
         className='absolute inset-0 bg-cover bg-center opacity-40'
         style={{ backgroundImage: "url('/images/projects/8.jpeg')" }}
