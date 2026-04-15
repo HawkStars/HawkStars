@@ -1,5 +1,5 @@
 import type { HandleUpload, HandleDelete } from '@payloadcms/plugin-cloud-storage/types';
-import { google, docs_v1 } from 'googleapis';
+import { google } from 'googleapis';
 
 import { Readable } from 'stream';
 import * as Sentry from '@sentry/nextjs';
