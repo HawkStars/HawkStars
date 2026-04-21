@@ -3570,8 +3570,317 @@ export interface HawkProject {
    * Only the ID, not the full URL
    */
   instagram?: string | null;
+  /**
+   * Top area of the project page: badge, stats, video, metadata, and country flags.
+   */
+  hero?: {
+    projectBadge?: ImageType;
+    /**
+     * Number of participants (e.g. 36)
+     */
+    participants?: number | null;
+    /**
+     * Total funded amount (e.g. 38064)
+     */
+    fundedAmount?: number | null;
+    /**
+     * YouTube or other embed URL shown in the hero section
+     */
+    videoUrl?: string | null;
+    /**
+     * e.g. AI4YOU(th) – AI IN EVERYDAY LIFE
+     */
+    projectFullName?: string | null;
+    /**
+     * e.g. KA152-YOU - Mobility of young people
+     */
+    actionType?: string | null;
+    /**
+     * e.g. 2024-1-PT02-KA152-YOU-000232143
+     */
+    referenceNumber?: string | null;
+    /**
+     * e.g. Hawk Stars (Portugal)
+     */
+    beneficiary?: string | null;
+    /**
+     * e.g. Pinhel, Portugal
+     */
+    location?: string | null;
+    /**
+     * Country flags displayed in the hero section
+     */
+    countries?:
+      | {
+          country:
+            | 'Albania'
+            | 'Armenia'
+            | 'Austria'
+            | 'Belgium'
+            | 'BosniaAndHerzegovina'
+            | 'Bulgaria'
+            | 'Croatia'
+            | 'Cyprus'
+            | 'CzechRepublic'
+            | 'Denmark'
+            | 'England'
+            | 'Estonia'
+            | 'Finland'
+            | 'France'
+            | 'Georgia'
+            | 'Germany'
+            | 'Greece'
+            | 'Hungary'
+            | 'Iceland'
+            | 'Ireland'
+            | 'Italy'
+            | 'Kosovo'
+            | 'Latvia'
+            | 'Lithuania'
+            | 'Luxembourg'
+            | 'Malta'
+            | 'Moldova'
+            | 'Montenegro'
+            | 'Netherlands'
+            | 'NorthMacedonia'
+            | 'Norway'
+            | 'Poland'
+            | 'Portugal'
+            | 'Romania'
+            | 'Serbia'
+            | 'Slovakia'
+            | 'Slovenia'
+            | 'Spain'
+            | 'Sweden'
+            | 'Switzerland'
+            | 'Turkey'
+            | 'Ukraine';
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Main description block shown below the hero section.
+   */
+  projectDescription?: {
+    /**
+     * Main paragraph describing the project
+     */
+    text?: string | null;
+    /**
+     * Bullet points for educational phases or key points
+     */
+    phases?:
+      | {
+          /**
+           * e.g. "Integração do grupo"
+           */
+          title?: string | null;
+          /**
+           * e.g. "dinâmicas de teambuilding, criação de um contrato social..."
+           */
+          description?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Select partner organisations for this project. They will be grouped by country automatically.
+   */
+  projectPartners?: (string | Partner)[] | null;
+  /**
+   * Project objectives section with an intro paragraph and bullet items.
+   */
+  objectives?: {
+    /**
+     * Introductory paragraph before the objectives list
+     */
+    introduction?: string | null;
+    items?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Project results — text on the left, image on the right.
+   */
+  results?: {
+    text?: string | null;
+    image?: ImageType;
+  };
+  /**
+   * Dissemination links per country and official reports.
+   */
+  dissemination?: {
+    /**
+     * Each row = one country with its social media / dissemination links
+     */
+    countryLinks?:
+      | {
+          country:
+            | 'Albania'
+            | 'Armenia'
+            | 'Austria'
+            | 'Belgium'
+            | 'BosniaAndHerzegovina'
+            | 'Bulgaria'
+            | 'Croatia'
+            | 'Cyprus'
+            | 'CzechRepublic'
+            | 'Denmark'
+            | 'England'
+            | 'Estonia'
+            | 'Finland'
+            | 'France'
+            | 'Georgia'
+            | 'Germany'
+            | 'Greece'
+            | 'Hungary'
+            | 'Iceland'
+            | 'Ireland'
+            | 'Italy'
+            | 'Kosovo'
+            | 'Latvia'
+            | 'Lithuania'
+            | 'Luxembourg'
+            | 'Malta'
+            | 'Moldova'
+            | 'Montenegro'
+            | 'Netherlands'
+            | 'NorthMacedonia'
+            | 'Norway'
+            | 'Poland'
+            | 'Portugal'
+            | 'Romania'
+            | 'Serbia'
+            | 'Slovakia'
+            | 'Slovenia'
+            | 'Spain'
+            | 'Sweden'
+            | 'Switzerland'
+            | 'Turkey'
+            | 'Ukraine';
+          links?:
+            | {
+                platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'website' | 'other';
+                url: string;
+                /**
+                 * e.g. "Disseminação via Facebook" — if empty, auto-generated from platform
+                 */
+                label?: string | null;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Official reports (Salto, Project Report, etc.)
+     */
+    reports?:
+      | {
+          /**
+           * e.g. "Relatório Salto", "Project Report"
+           */
+          label: string;
+          url: string;
+          reportBadge?: ImageType;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  gallery?: MultiImageType;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * Manage national and international partner organizations. Add their logo, country, and social links. Partners are displayed on the public partners page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: string;
+  name: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  logo?: (string | null) | Media;
+  country: string;
+  type: 'national' | 'international';
+  /**
+   * Social Media Links for this entry
+   */
+  links?:
+    | {
+        platform:
+          | 'linkedin'
+          | 'twitter'
+          | 'facebook'
+          | 'instagram'
+          | 'website'
+          | 'email'
+          | 'youtube'
+          | 'github'
+          | 'tiktok'
+          | 'whatsapp';
+        url: string;
+        /**
+         * Toggle visibility of this link
+         */
+        isVisible?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Photos displayed at the bottom of the project page
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MultiImageType".
+ */
+export interface MultiImageType {
+  /**
+   * Images uploaded to the Media library.
+   */
+  internalImages?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Images hosted externally — provide a URL and alt text.
+   */
+  externalImages?:
+    | {
+        /**
+         * Full URL of the external image (https://…)
+         */
+        url: string;
+        /**
+         * Accessible description of the image.
+         */
+        alt: string;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * Manage admin panel users and their roles. Admins have full access; Editors can manage content but not users or settings. Only admins can create new users.
@@ -3840,60 +4149,6 @@ export interface Contribution {
    * Payment method used in EasyPay
    */
   payment_method?: ('CC' | 'MB' | 'MBW') | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * Manage national and international partner organizations. Add their logo, country, and social links. Partners are displayed on the public partners page.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partners".
- */
-export interface Partner {
-  id: string;
-  name: string;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  logo?: (string | null) | Media;
-  country: string;
-  type: 'national' | 'international';
-  /**
-   * Social Media Links for this entry
-   */
-  links?:
-    | {
-        platform:
-          | 'linkedin'
-          | 'twitter'
-          | 'facebook'
-          | 'instagram'
-          | 'website'
-          | 'email'
-          | 'youtube'
-          | 'github'
-          | 'tiktok'
-          | 'whatsapp';
-        url: string;
-        /**
-         * Toggle visibility of this link
-         */
-        isVisible?: boolean | null;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4398,6 +4653,82 @@ export interface HawkProjectsSelect<T extends boolean = true> {
   page_content?: T;
   image?: T | ImageTypeSelect<T>;
   instagram?: T;
+  hero?:
+    | T
+    | {
+        projectBadge?: T | ImageTypeSelect<T>;
+        participants?: T;
+        fundedAmount?: T;
+        videoUrl?: T;
+        projectFullName?: T;
+        actionType?: T;
+        referenceNumber?: T;
+        beneficiary?: T;
+        location?: T;
+        countries?:
+          | T
+          | {
+              country?: T;
+              id?: T;
+            };
+      };
+  projectDescription?:
+    | T
+    | {
+        text?: T;
+        phases?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+  projectPartners?: T;
+  objectives?:
+    | T
+    | {
+        introduction?: T;
+        items?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+      };
+  results?:
+    | T
+    | {
+        text?: T;
+        image?: T | ImageTypeSelect<T>;
+      };
+  dissemination?:
+    | T
+    | {
+        countryLinks?:
+          | T
+          | {
+              country?: T;
+              links?:
+                | T
+                | {
+                    platform?: T;
+                    url?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        reports?:
+          | T
+          | {
+              label?: T;
+              url?: T;
+              reportBadge?: T | ImageTypeSelect<T>;
+              id?: T;
+            };
+      };
+  gallery?: T | MultiImageTypeSelect<T>;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4411,6 +4742,25 @@ export interface ImageTypeSelect<T extends boolean = true> {
   externalImage?: T;
   alt?: T;
   height?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MultiImageType_select".
+ */
+export interface MultiImageTypeSelect<T extends boolean = true> {
+  internalImages?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  externalImages?:
+    | T
+    | {
+        url?: T;
+        alt?: T;
+        id?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

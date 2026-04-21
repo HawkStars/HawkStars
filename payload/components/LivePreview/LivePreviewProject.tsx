@@ -3,8 +3,7 @@
 import React from 'react';
 import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { HawkProject } from '@/payload-types';
-import { getImagePayloadUrl } from '@/lib/image';
-import Post from '@/components/news/Post';
+import ProjectPage from '@/components/projects/ProjectPage';
 
 type LivePreviewProjectProps = {
   initialData: HawkProject;
@@ -23,15 +22,5 @@ export const LivePreviewProject: React.FC<LivePreviewProjectProps> = ({
 
   if (!data) return null;
 
-  const image = getImagePayloadUrl(data.image);
-
-  return (
-    <Post
-      content={data.page_content || undefined}
-      title={data.heading}
-      image={image?.url || ''}
-      pubDate={new Date(data.updatedAt)}
-      description={data.description || undefined}
-    />
-  );
+  return <ProjectPage project={data} />;
 };

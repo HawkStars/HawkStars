@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
 const CrowdfundingPage = async (props: { params: Promise<{ lng: Language }> }) => {
   const { lng } = await props.params;
   return (
-    <div className='flex flex-col bg-[#0d0d0d]'>
+    <div className='bg-crowdfunding-bg flex flex-col'>
       <CrowdfundingHero lng={lng} />
       <CrowdfundingVideo lng={lng} />
       <CrowdfundingAbout lng={lng} />

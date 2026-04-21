@@ -16,6 +16,7 @@ export const getSingleEventsQuery = async (
     where: { slug: { equals: slug }, status: { equals: 'published' } },
     locale,
     limit: 1,
+    depth: 2,
     draft: opts?.preview || false,
   });
   return event.docs[0] ?? null;

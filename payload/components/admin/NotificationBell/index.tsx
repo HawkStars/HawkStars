@@ -220,7 +220,7 @@ export const NotificationBell: React.FC = () => {
           style={{
             position: 'absolute',
             top: '100%',
-            right: 0,
+            left: 0,
             marginTop: '8px',
             width: '380px',
             maxHeight: '480px',

@@ -1,0 +1,363 @@
+import { PayloadImageField } from '@/payload/fields/ImageType';
+import { MultiImageField } from '@/payload/fields/MultiImage';
+import { Tab } from 'payload';
+
+/* ------------------------------------------------------------------ */
+/*  Dissemination link platform options                                */
+/* ------------------------------------------------------------------ */
+const disseminationPlatformOptions = [
+  { label: 'Facebook', value: 'facebook' },
+  { label: 'Instagram', value: 'instagram' },
+  { label: 'LinkedIn', value: 'linkedin' },
+  { label: 'YouTube', value: 'youtube' },
+  { label: 'TikTok', value: 'tiktok' },
+  { label: 'Website', value: 'website' },
+  { label: 'Other', value: 'other' },
+];
+
+/* ================================================================== */
+/*  PROJECT PAGE TAB — Structured fields so every project page        */
+/*  renders with the same layout as the AI4You(th) sample.            */
+/* ================================================================== */
+const HawkProjectPageTab: Tab = {
+  label: 'Project Page',
+  description: 'Structured content for the public project page',
+  fields: [
+    /* -------------------------------------------------------------- */
+    /*  1. HERO SECTION                                               */
+    /* -------------------------------------------------------------- */
+    {
+      type: 'group',
+      name: 'hero',
+      label: 'Hero Section',
+      admin: {
+        description:
+          'Top area of the project page: badge, stats, video, metadata, and country flags.',
+      },
+      fields: [
+        /* Project badge / icon (e.g. "Youth Exchange" logo) */
+        PayloadImageField({
+          name: 'projectBadge',
+          label: 'Project Badge / Icon',
+          description: 'Small badge image shown above the title (e.g. Youth Exchange logo)',
+        }),
+
+        /* Key stats row */
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'participants',
+              label: 'Participants',
+              type: 'number',
+              admin: {
+                description: 'Number of participants (e.g. 36)',
+                width: '25%',
+              },
+            },
+            {
+              name: 'fundedAmount',
+              label: 'Funded Amount',
+              type: 'number',
+              admin: {
+                description: 'Total funded amount (e.g. 38064)',
+                width: '25%',
+              },
+            },
+          ],
+        },
+
+        /* Video embed */
+        {
+          name: 'videoUrl',
+          label: 'Video URL',
+          type: 'text',
+          admin: {
+            description: 'YouTube or other embed URL shown in the hero section',
+          },
+        },
+
+        /* Project metadata — shown next to the video */
+        {
+          type: 'collapsible',
+          label: 'Project Metadata',
+          admin: {
+            description: 'Official project details displayed beside the video',
+            initCollapsed: false,
+          },
+          fields: [
+            {
+              name: 'projectFullName',
+              label: 'Full Project Name',
+              type: 'text',
+              localized: true,
+              admin: {
+                description: 'e.g. AI4YOU(th) – AI IN EVERYDAY LIFE',
+              },
+            },
+            {
+              name: 'actionType',
+              label: 'Action Type',
+              type: 'text',
+              admin: {
+                description: 'e.g. KA152-YOU - Mobility of young people',
+              },
+            },
+            {
+              name: 'referenceNumber',
+              label: 'Reference Number',
+              type: 'text',
+              admin: {
+                description: 'e.g. 2024-1-PT02-KA152-YOU-000232143',
+              },
+            },
+            {
+              name: 'beneficiary',
+              label: 'Beneficiary',
+              type: 'text',
+              admin: {
+                description: 'e.g. Hawk Stars (Portugal)',
+              },
+            },
+            {
+              name: 'location',
+              label: 'Location',
+              type: 'text',
+              localized: true,
+              admin: {
+                description: 'e.g. Pinhel, Portugal',
+              },
+            },
+          ],
+        },
+      ],
+    },
+
+    /* -------------------------------------------------------------- */
+    /*  2. DESCRIPTION SECTION                                        */
+    /* -------------------------------------------------------------- */
+    {
+      type: 'group',
+      name: 'projectDescription',
+      label: 'Description',
+      admin: {
+        description: 'Main description block shown below the hero section.',
+      },
+      fields: [
+        {
+          name: 'text',
+          label: 'Description Text',
+          type: 'textarea',
+          localized: true,
+          admin: {
+            description: 'Main paragraph describing the project',
+            rows: 6,
+          },
+        },
+        {
+          name: 'phases',
+          label: 'Phases / Key Points',
+          type: 'array',
+          admin: {
+            description: 'Bullet points for educational phases or key points',
+            initCollapsed: true,
+          },
+          fields: [
+            {
+              name: 'title',
+              label: 'Phase Title',
+              type: 'text',
+              localized: true,
+              admin: { description: 'e.g. "Integração do grupo"' },
+            },
+            {
+              name: 'description',
+              label: 'Phase Description',
+              type: 'textarea',
+              localized: true,
+              admin: {
+                description: 'e.g. "dinâmicas de teambuilding, criação de um contrato social..."',
+              },
+            },
+          ],
+        },
+      ],
+    },
+
+    /* -------------------------------------------------------------- */
+    /*  3. PARTNERS SECTION                                           */
+    /* -------------------------------------------------------------- */
+    {
+      name: 'projectPartners',
+      label: 'Partners',
+      type: 'relationship',
+      relationTo: 'partners',
+      hasMany: true,
+      admin: {
+        description:
+          'Select partner organisations for this project. They will be grouped by country automatically.',
+      },
+    },
+
+    /* -------------------------------------------------------------- */
+    /*  4. OBJECTIVES SECTION                                         */
+    /* -------------------------------------------------------------- */
+    {
+      type: 'group',
+      name: 'objectives',
+      label: 'Objectives',
+      admin: {
+        description: 'Project objectives section with an intro paragraph and bullet items.',
+      },
+      fields: [
+        {
+          name: 'introduction',
+          label: 'Introduction',
+          type: 'textarea',
+          localized: true,
+          admin: {
+            description: 'Introductory paragraph before the objectives list',
+            rows: 4,
+          },
+        },
+        {
+          name: 'items',
+          label: 'Objective Items',
+          type: 'array',
+          admin: { initCollapsed: true },
+          fields: [
+            {
+              name: 'text',
+              label: 'Objective',
+              type: 'textarea',
+              localized: true,
+              required: true,
+            },
+          ],
+        },
+      ],
+    },
+
+    /* -------------------------------------------------------------- */
+    /*  5. RESULTS SECTION                                            */
+    /* -------------------------------------------------------------- */
+    {
+      type: 'group',
+      name: 'results',
+      label: 'Results',
+      admin: {
+        description: 'Project results — text on the left, image on the right.',
+      },
+      fields: [
+        {
+          name: 'text',
+          label: 'Results Text',
+          type: 'textarea',
+          localized: true,
+          admin: { rows: 6 },
+        },
+        PayloadImageField({
+          name: 'image',
+          label: 'Results Image',
+          description: 'Image displayed alongside the results text',
+        }),
+      ],
+    },
+
+    /* -------------------------------------------------------------- */
+    /*  6. DISSEMINATION SECTION                                      */
+    /* -------------------------------------------------------------- */
+    {
+      type: 'group',
+      name: 'dissemination',
+      label: 'Dissemination',
+      admin: {
+        description: 'Dissemination links per country and official reports.',
+      },
+      fields: [
+        {
+          name: 'countryLinks',
+          label: 'Country Dissemination Links',
+          type: 'array',
+          admin: {
+            description: 'Each row = one country with its social media / dissemination links',
+            initCollapsed: true,
+          },
+          fields: [
+            {
+              name: 'links',
+              label: 'Links',
+              type: 'array',
+              fields: [
+                {
+                  name: 'platform',
+                  label: 'Platform',
+                  type: 'select',
+                  required: true,
+                  options: disseminationPlatformOptions,
+                },
+                {
+                  name: 'url',
+                  label: 'URL',
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'label',
+                  label: 'Button Label',
+                  type: 'text',
+                  localized: true,
+                  admin: {
+                    description:
+                      'e.g. "Disseminação via Facebook" — if empty, auto-generated from platform',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'reports',
+          label: 'Reports',
+          type: 'array',
+          admin: {
+            description: 'Official reports (Salto, Project Report, etc.)',
+            initCollapsed: true,
+          },
+          fields: [
+            {
+              name: 'label',
+              label: 'Report Label',
+              type: 'text',
+              required: true,
+              localized: true,
+              admin: { description: 'e.g. "Relatório Salto", "Project Report"' },
+            },
+            {
+              name: 'url',
+              label: 'Report URL',
+              type: 'text',
+              required: true,
+            },
+            PayloadImageField({
+              name: 'reportBadge',
+              label: 'Report Badge',
+              description: 'Optional badge/logo shown next to the report link (e.g. EU flag)',
+            }),
+          ],
+        },
+      ],
+    },
+
+    /* -------------------------------------------------------------- */
+    /*  7. PHOTO GALLERY                                              */
+    /* -------------------------------------------------------------- */
+    MultiImageField({
+      name: 'gallery',
+      label: 'Photo Gallery',
+      description: 'Photos displayed at the bottom of the project page',
+    }),
+  ],
+};
+
+export default HawkProjectPageTab;

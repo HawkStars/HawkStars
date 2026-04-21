@@ -1,20 +1,20 @@
 import type { CollectionConfig } from 'payload';
 import { anyone } from '../../access/anyone';
 import { authenticated } from '../../access/authenticated';
-import HawkProjectPageTab from './HawkProjectPageTab';
 import { sanitizeBrokenImageRelationship } from '../../hooks/sanitizeBrokenImageRelationship';
+import HawkProjectFields from './HawkProjectFields';
 
-export const HawkProject: CollectionConfig = {
-  slug: 'hawk_projects',
+export const HawkEvent: CollectionConfig = {
+  slug: 'hawk_events',
   labels: {
-    singular: 'Hawk Project',
-    plural: 'Hawk Projects',
+    singular: 'Hawk Event',
+    plural: 'Hawk Events',
   },
   admin: {
     defaultColumns: ['type_event', 'slug'],
     useAsTitle: 'heading',
     description:
-      'Manage HawkStars projects and events. Add project details, images, and descriptions. Each project gets its own public page based on its slug.',
+      'Manage HawkStars projects and events. Add event details, images, and descriptions. Each project gets its own public page based on its slug.',
     group: {
       name: 'Daily Work',
     },
@@ -35,8 +35,8 @@ export const HawkProject: CollectionConfig = {
   fields: [
     {
       type: 'tabs',
-      label: 'Hawk Project Details',
-      tabs: [HawkProjectPageTab],
+      label: 'Hawk Event Details',
+      tabs: [HawkProjectFields],
     },
   ],
 };

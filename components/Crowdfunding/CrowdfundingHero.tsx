@@ -21,12 +21,12 @@ const CrowdfundingHero = async ({ lng }: Props) => {
   ] as const;
 
   return (
-    <section className='relative w-full overflow-hidden bg-[#0d0d0d]'>
+    <section className='bg-crowdfunding-bg relative w-full overflow-hidden'>
       <div
         className='absolute inset-0 bg-cover bg-center opacity-30'
         style={{ backgroundImage: "url('/images/projects/1.jpeg')" }}
       />
-      <div className='absolute inset-0 bg-linear-to-r from-[#0d0d0d] via-[#0d0d0d]/80 to-transparent' />
+      <div className='from-crowdfunding-bg via-crowdfunding-bg/80 absolute inset-0 bg-linear-to-r to-transparent' />
 
       <div className='relative mx-auto flex max-w-7xl flex-col gap-8 px-4 py-16 lg:flex-row lg:items-center lg:gap-12 lg:px-8 lg:py-24'>
         {/* Left content */}

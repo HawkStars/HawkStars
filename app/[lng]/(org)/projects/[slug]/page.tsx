@@ -4,13 +4,11 @@ import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { getSingleEventsQuery } from '@/lib/payload/queries/event';
-import Post from '@/components/news/Post';
-import { getImagePayloadUrl } from '@/lib/image';
+import ProjectPage from '@/components/projects/ProjectPage';
 
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;
-  // const event = await getSingleEventsQuery(slug);
 
   const metadataPage = getMetadataPageInfo(lng as Language, 'home');
   return metadataPage;
@@ -26,17 +24,7 @@ const EventPage = async (props: EventPageProps) => {
   const event = await getSingleEventsQuery(slug, lng);
   if (!event) notFound();
 
-  const image = getImagePayloadUrl(event.image);
-
-  return (
-    <Post
-      content={event.page_content || undefined}
-      title={event.heading}
-      image={image?.url || ''}
-      pubDate={new Date(event.updatedAt)}
-      description={event.description || undefined}
-    />
-  );
+  return <ProjectPage project={event} />;
 };
 
 export default EventPage;

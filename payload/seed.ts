@@ -1,3 +1,4 @@
+import { Contribution } from '@/payload-types';
 import path from 'path';
 import type { Payload } from 'payload';
 import { fileURLToPath } from 'url';
@@ -330,7 +331,7 @@ export async function seed(payload: Payload): Promise<void> {
         value: 300,
         contribution_date: '2025-03-15T00:00:00.000Z',
         contribution_type: 'OFFICE_CHAIR' as const,
-        extra_info: 'Cadeira doada em nome da família.',
+        extra_info: { information: 'Cadeira doada em nome da família.' },
       },
       {
         donor: 'Anonymous Donor',
@@ -357,7 +358,7 @@ export async function seed(payload: Payload): Promise<void> {
         contribution_date: '2025-11-10T00:00:00.000Z',
         contribution_type: 'AUDITORIUM_CHAIR' as const,
       },
-    ];
+    ] as Contribution[];
 
     for (const contribution of contributions) {
       await payload.create({ collection: 'contributions', data: contribution });

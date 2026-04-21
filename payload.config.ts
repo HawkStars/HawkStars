@@ -47,6 +47,7 @@ import { seed } from './payload/seed';
 import { WebsiteSettings } from './payload/globals/Settings/config';
 import { CrowdfundingSettings } from './payload/globals/CrowdfundingSettings/config';
 import { jobs } from './payload/jobs';
+import { HawkEvent } from './payload/collections/HawkEvent';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -76,7 +77,7 @@ export default buildConfig({
       },
       beforeDashboard: ['@/payload/components/admin/WelcomeDashboard'],
       afterDashboard: ['@/payload/components/admin/DashboardStats'],
-      afterNavLinks: ['@/payload/components/admin/NotificationBell'],
+      beforeNav: ['@/payload/components/admin/NotificationBell'],
     },
     avatar: { Component: '@/payload/components/admin/avatar' },
     livePreview: {
@@ -124,13 +125,22 @@ export default buildConfig({
     Contribution,
     Curator,
     HawkProject,
+    HawkEvent,
     Partner,
     Sponsor,
     Pages,
     News,
     Notification,
   ],
-  globals: [Header, Footer, MainPage, NewsList, ProjectsList, WebsiteSettings, CrowdfundingSettings],
+  globals: [
+    Header,
+    Footer,
+    MainPage,
+    NewsList,
+    ProjectsList,
+    WebsiteSettings,
+    CrowdfundingSettings,
+  ],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
@@ -148,6 +158,7 @@ export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
+    autoGenerate: true,
   },
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || 'mongodb://localhost:27017/hawkstars',
