@@ -12,7 +12,6 @@ export const HawkProject: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['type_event', 'slug'],
-    useAsTitle: 'heading',
     description:
       'Manage HawkStars projects and events. Add project details, images, and descriptions. Each project gets its own public page based on its slug.',
     group: {

@@ -1,0 +1,9 @@
+{
+  "upcomingEvents": "Eventos Futuros",
+  "pastEvents": "Eventos Passados",
+  "noUpcomingEvents": "Sem eventos futuros de momento.",
+  "noPastEvents": "Ainda sem eventos passados.",
+  "viewAgenda": "Ver Agenda",
+  "viewAgendaDescription": "Consulte o nosso calendário completo com todos os eventos e atividades programados.",
+  "viewEvent": "Ver evento"
+}

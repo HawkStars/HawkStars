@@ -48,6 +48,7 @@ import { WebsiteSettings } from './payload/globals/Settings/config';
 import { CrowdfundingSettings } from './payload/globals/CrowdfundingSettings/config';
 import { jobs } from './payload/jobs';
 import { HawkEvent } from './payload/collections/HawkEvent';
+import { EventsList } from './payload/globals/EventsList/config';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -86,7 +87,7 @@ export default buildConfig({
         { label: 'Tablet', name: 'tablet', width: 768, height: 1024 },
         { label: 'Desktop', name: 'desktop', width: 1440, height: 900 },
       ],
-      collections: ['pages', 'news', 'hawk_projects'],
+      collections: ['pages', 'news', 'hawk_projects', 'hawk_events'],
       globals: ['main-page'],
       url: ({ data, collectionConfig, globalConfig, locale }) => {
         const baseUrl = getServerSideURL();
@@ -98,6 +99,10 @@ export default buildConfig({
 
         if (collectionConfig?.slug === 'hawk_projects') {
           return `${baseUrl}/${lang}/preview/projects/${data?.slug || ''}`;
+        }
+
+        if (collectionConfig?.slug === 'hawk_events') {
+          return `${baseUrl}/${lang}/preview/events/${data?.slug || ''}`;
         }
 
         if (globalConfig?.slug === 'main-page') {
@@ -138,6 +143,7 @@ export default buildConfig({
     MainPage,
     NewsList,
     ProjectsList,
+    EventsList,
     WebsiteSettings,
     CrowdfundingSettings,
   ],

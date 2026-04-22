@@ -70,6 +70,7 @@ export const routes = [
   { url: urls.gallery, priority: 0.8 },
   { url: urls.artwork, priority: 0.7 },
   { url: urls.projects, priority: 0.7 },
+  { url: urls.events, priority: 0.7 },
   { url: urls.erasmus, priority: 0.7 },
   { url: urls.agenda, priority: 0.7 },
   { url: urls.news, priority: 0.6 },

@@ -34,7 +34,6 @@ import { OverviewComponent as OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860
 import { MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
-import { CountryRowLabel as CountryRowLabel_61e83ea626140ff43b36689b07e86f27 } from '@/payload/collections/HawkProject/components/CountryRowLabel'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { default as default_5fcf80ad7799f85e06683d7dbd0ce58f } from '@/payload/fields/ImageIcon/components/Field'
 import { default as default_b86140c7b9e4a7df31f494d137f580e8 } from '@/payload/fields/Link/components/LinkLabel'
@@ -43,6 +42,7 @@ import { default as default_f89cbbda01850af27d943f60ccf826ac } from '@/payload/f
 import { FooterLabel as FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd } from '@/payload/globals/Footer/components/FooterLabel'
 import { default as default_2b7ccde5d3739b53425ce7b9eb4364f8 } from '@/payload/blocks/BentoGridBlock/admin/RowLabel'
 import { default as default_a124e7a1baf393d361b39feebeca9df4 } from '@/payload/globals/ProjectsList/components/StatsLabel'
+import { default as default_e3e0508c4af1bd54a085ab28d2517f80 } from '@/payload/globals/EventsList/components/StatsLabel'
 import { default as default_f1058c6327a7987eb96b4edb557d08ee } from '@/payload/globals/Settings/components/RefreshTokenButton'
 import { default as default_311a5f154e8b373fc453af30d4e74fc0 } from '@/payload/components/admin/avatar'
 import { default as default_91bbc66a9b3ed1dae52e0caef1a54af7 } from '@/payload/components/Logo'
@@ -88,7 +88,6 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaTitleComponent": MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
-  "@/payload/collections/HawkProject/components/CountryRowLabel#CountryRowLabel": CountryRowLabel_61e83ea626140ff43b36689b07e86f27,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@/payload/fields/ImageIcon/components/Field#default": default_5fcf80ad7799f85e06683d7dbd0ce58f,
   "@/payload/fields/Link/components/LinkLabel#default": default_b86140c7b9e4a7df31f494d137f580e8,
@@ -97,6 +96,7 @@ export const importMap = {
   "@/payload/globals/Footer/components/FooterLabel#FooterLabel": FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd,
   "@/payload/blocks/BentoGridBlock/admin/RowLabel#default": default_2b7ccde5d3739b53425ce7b9eb4364f8,
   "@/payload/globals/ProjectsList/components/StatsLabel#default": default_a124e7a1baf393d361b39feebeca9df4,
+  "@/payload/globals/EventsList/components/StatsLabel#default": default_e3e0508c4af1bd54a085ab28d2517f80,
   "@/payload/globals/Settings/components/RefreshTokenButton#default": default_f1058c6327a7987eb96b4edb557d08ee,
   "@/payload/components/admin/avatar#default": default_311a5f154e8b373fc453af30d4e74fc0,
   "@/payload/components/Logo#default": default_91bbc66a9b3ed1dae52e0caef1a54af7,

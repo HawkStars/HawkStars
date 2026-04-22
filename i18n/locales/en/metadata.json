@@ -209,6 +209,19 @@
     "description": "Browse the full Hawk Stars NGO events calendar. Stay up to date with all our scheduled projects and activities.",
     "keywords": ["Hawk Stars NGO", "Agenda", "Calendar", "Events", "Schedule", "Pinhel", "Portugal"]
   },
+  "events": {
+    "title": "Events - Hawk Stars NGO",
+    "description": "Discover Hawk Stars NGO's upcoming and past events. From local gatherings to international activities, stay up to date with everything happening.",
+    "keywords": [
+      "Hawk Stars NGO",
+      "Events",
+      "Local Events",
+      "International Events",
+      "Activities",
+      "Pinhel",
+      "Portugal"
+    ]
+  },
   "erasmus": {
     "title": "Erasmus+ Projects - Hawk Stars NGO",
     "description": "Explore Hawk Stars NGO's Erasmus+ programmes and international mobility projects fostering youth development, cultural exchange and European cooperation.",
