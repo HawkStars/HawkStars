@@ -1,9 +1,4 @@
-import {
-  MetaDescriptionField,
-  MetaImageField,
-  MetaTitleField,
-  OverviewField,
-} from '@payloadcms/plugin-seo/fields';
+import { MetaDescriptionField, MetaTitleField, OverviewField } from '@payloadcms/plugin-seo/fields';
 import { GroupField, Tab } from 'payload';
 
 export const HawkProjectSEOFields: GroupField = {
@@ -19,9 +14,6 @@ export const HawkProjectSEOFields: GroupField = {
     }),
     MetaTitleField({
       hasGenerateFn: true,
-    }),
-    MetaImageField({
-      relationTo: 'media',
     }),
     MetaDescriptionField({}),
   ],

@@ -23,6 +23,16 @@ const HawkProjectPageTab: Tab = {
   label: 'Project Page',
   description: 'Structured content for the public project page',
   fields: [
+    {
+      name: 'projectFullName',
+      label: 'Full Project Name',
+      type: 'text',
+      localized: true,
+      admin: {
+        description: 'e.g. AI4YOU(th) – AI IN EVERYDAY LIFE',
+      },
+    },
+
     /* -------------------------------------------------------------- */
     /*  1. HERO SECTION                                               */
     /* -------------------------------------------------------------- */
@@ -40,6 +50,7 @@ const HawkProjectPageTab: Tab = {
           name: 'projectBadge',
           label: 'Project Badge / Icon',
           description: 'Small badge image shown above the title (e.g. Youth Exchange logo)',
+          hideGutter: true,
         }),
 
         /* Key stats row */
@@ -64,68 +75,14 @@ const HawkProjectPageTab: Tab = {
                 width: '25%',
               },
             },
-          ],
-        },
-
-        /* Video embed */
-        {
-          name: 'videoUrl',
-          label: 'Video URL',
-          type: 'text',
-          admin: {
-            description: 'YouTube or other embed URL shown in the hero section',
-          },
-        },
-
-        /* Project metadata — shown next to the video */
-        {
-          type: 'collapsible',
-          label: 'Project Metadata',
-          admin: {
-            description: 'Official project details displayed beside the video',
-            initCollapsed: false,
-          },
-          fields: [
+            /* Video embed */
             {
-              name: 'projectFullName',
-              label: 'Full Project Name',
-              type: 'text',
-              localized: true,
-              admin: {
-                description: 'e.g. AI4YOU(th) – AI IN EVERYDAY LIFE',
-              },
-            },
-            {
-              name: 'actionType',
-              label: 'Action Type',
+              name: 'videoUrl',
+              label: 'Video URL',
               type: 'text',
               admin: {
-                description: 'e.g. KA152-YOU - Mobility of young people',
-              },
-            },
-            {
-              name: 'referenceNumber',
-              label: 'Reference Number',
-              type: 'text',
-              admin: {
-                description: 'e.g. 2024-1-PT02-KA152-YOU-000232143',
-              },
-            },
-            {
-              name: 'beneficiary',
-              label: 'Beneficiary',
-              type: 'text',
-              admin: {
-                description: 'e.g. Hawk Stars (Portugal)',
-              },
-            },
-            {
-              name: 'location',
-              label: 'Location',
-              type: 'text',
-              localized: true,
-              admin: {
-                description: 'e.g. Pinhel, Portugal',
+                description: 'YouTube or other embed URL shown in the hero section',
+                width: '50%',
               },
             },
           ],

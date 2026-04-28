@@ -3,6 +3,8 @@ import { anyone } from '../../access/anyone';
 import { authenticated } from '../../access/authenticated';
 import HawkProjectPageTab from './HawkProjectPageTab';
 import { sanitizeBrokenImageRelationship } from '../../hooks/sanitizeBrokenImageRelationship';
+import { HawkProjectSeoTab } from './HawkProjectSeoTab';
+import { contentStatusField } from '@/payload/fields/contentStatus';
 
 export const HawkProject: CollectionConfig = {
   slug: 'hawk_projects',
@@ -11,7 +13,7 @@ export const HawkProject: CollectionConfig = {
     plural: 'Hawk Projects',
   },
   admin: {
-    defaultColumns: ['type_event', 'slug'],
+    defaultColumns: ['hero', 'slug', 'startDate'],
     description:
       'Manage HawkStars projects and events. Add project details, images, and descriptions. Each project gets its own public page based on its slug.',
     group: {
@@ -35,7 +37,68 @@ export const HawkProject: CollectionConfig = {
     {
       type: 'tabs',
       label: 'Hawk Project Details',
-      tabs: [HawkProjectPageTab],
+      tabs: [HawkProjectPageTab, HawkProjectSeoTab],
     },
+    /* -------------------------------------------------------------- */
+    /*  ADMIN SECTION                                                 */
+    /* -------------------------------------------------------------- */
+    {
+      name: 'slug',
+      label: 'Slug',
+      type: 'text',
+      unique: true,
+      admin: {
+        description:
+          'Unique slug used in the project page URL (e.g. "ai4youth"). Auto-generated from the title if left empty.',
+        position: 'sidebar',
+      },
+      hooks: {
+        beforeChange: [
+          ({ data }) => {
+            data?.title?.replace(/\s+/g, '-').toLowerCase();
+          },
+        ],
+      },
+    },
+    {
+      name: 'actionType',
+      label: 'Action Type',
+      type: 'text',
+      admin: {
+        description: 'e.g. KA152-YOU - Mobility of young people',
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'referenceNumber',
+      label: 'Reference Number',
+      type: 'text',
+      admin: {
+        description: 'e.g. 2024-1-PT02-KA152-YOU-000232143',
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'beneficiary',
+      label: 'Beneficiary',
+      type: 'text',
+      admin: {
+        description: 'e.g. Hawk Stars (Portugal)',
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'location',
+      label: 'Location',
+      type: 'text',
+      localized: true,
+      admin: {
+        description: 'e.g. Pinhel, Portugal',
+        position: 'sidebar',
+      },
+    },
+    { name: 'startDate', label: 'Start Date', type: 'date', admin: { position: 'sidebar' } },
+    { name: 'endDate', label: 'End Date', type: 'date', admin: { position: 'sidebar' } },
+    contentStatusField,
   ],
 };

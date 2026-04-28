@@ -50,14 +50,14 @@ export const getProjectsSplitByDate = async (locale: Language): Promise<SplitPro
   const [upcomingResult, pastResult] = await Promise.all([
     payload.find({
       collection: EVENTS_COLLECTION,
-      where: { date: { greater_than_equal: now } },
+      where: { startDate: { greater_than_equal: now } },
       sort: 'date',
       limit: 100,
       locale,
     }),
     payload.find({
       collection: EVENTS_COLLECTION,
-      where: { date: { less_than: now } },
+      where: { endDate: { less_than: now } },
       sort: '-date',
       limit: 100,
       locale,

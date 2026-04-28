@@ -3535,6 +3535,10 @@ export interface SectionListBlock {
 export interface HawkProject {
   id: string;
   /**
+   * e.g. AI4YOU(th) – AI IN EVERYDAY LIFE
+   */
+  projectFullName?: string | null;
+  /**
    * Top area of the project page: badge, stats, video, metadata, and country flags.
    */
   hero?: {
@@ -3551,26 +3555,6 @@ export interface HawkProject {
      * YouTube or other embed URL shown in the hero section
      */
     videoUrl?: string | null;
-    /**
-     * e.g. AI4YOU(th) – AI IN EVERYDAY LIFE
-     */
-    projectFullName?: string | null;
-    /**
-     * e.g. KA152-YOU - Mobility of young people
-     */
-    actionType?: string | null;
-    /**
-     * e.g. 2024-1-PT02-KA152-YOU-000232143
-     */
-    referenceNumber?: string | null;
-    /**
-     * e.g. Hawk Stars (Portugal)
-     */
-    beneficiary?: string | null;
-    /**
-     * e.g. Pinhel, Portugal
-     */
-    location?: string | null;
   };
   /**
    * Main description block shown below the hero section.
@@ -3662,6 +3646,33 @@ export interface HawkProject {
       | null;
   };
   gallery?: MultiImageType;
+  seo?: SEO;
+  /**
+   * Unique slug used in the project page URL (e.g. "ai4youth"). Auto-generated from the title if left empty.
+   */
+  slug?: string | null;
+  /**
+   * e.g. KA152-YOU - Mobility of young people
+   */
+  actionType?: string | null;
+  /**
+   * e.g. 2024-1-PT02-KA152-YOU-000232143
+   */
+  referenceNumber?: string | null;
+  /**
+   * e.g. Hawk Stars (Portugal)
+   */
+  beneficiary?: string | null;
+  /**
+   * e.g. Pinhel, Portugal
+   */
+  location?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  /**
+   * Draft → In Review → Published. Editors submit for review; Admins approve and publish.
+   */
+  status: 'draft' | 'in_review' | 'published';
   updatedAt: string;
   createdAt: string;
 }
@@ -3751,6 +3762,21 @@ export interface MultiImageType {
         id?: string | null;
       }[]
     | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SEO".
+ */
+export interface SEO {
+  seo?: HawkProjectSeoFields;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkProjectSeoFields".
+ */
+export interface HawkProjectSeoFields {
+  title?: string | null;
+  description?: string | null;
 }
 /**
  * Manage admin panel users and their roles. Admins have full access; Editors can manage content but not users or settings. Only admins can create new users.
@@ -3869,25 +3895,6 @@ export interface Curator {
   seo?: SEO;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SEO".
- */
-export interface SEO {
-  seo?: SeoFields;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SeoFields".
- */
-export interface SeoFields {
-  title?: string | null;
-  /**
-   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-   */
-  image?: (string | null) | Media;
-  description?: string | null;
 }
 /**
  * Manage board member profiles across all sections (Assembleia Geral, Conselho Fiscal, Direção, and more). Add photos, titles, and social links. The position number controls display order on the website.
@@ -4551,15 +4558,14 @@ export interface CuratorsSelect<T extends boolean = true> {
  * via the `definition` "SEO_select".
  */
 export interface SEOSelect<T extends boolean = true> {
-  seo?: T | SeoFieldsSelect<T>;
+  seo?: T | HawkProjectSeoFieldsSelect<T>;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SeoFields_select".
+ * via the `definition` "HawkProjectSeoFields_select".
  */
-export interface SeoFieldsSelect<T extends boolean = true> {
+export interface HawkProjectSeoFieldsSelect<T extends boolean = true> {
   title?: T;
-  image?: T;
   description?: T;
 }
 /**
@@ -4567,6 +4573,7 @@ export interface SeoFieldsSelect<T extends boolean = true> {
  * via the `definition` "hawk_projects_select".
  */
 export interface HawkProjectsSelect<T extends boolean = true> {
+  projectFullName?: T;
   hero?:
     | T
     | {
@@ -4574,11 +4581,6 @@ export interface HawkProjectsSelect<T extends boolean = true> {
         participants?: T;
         fundedAmount?: T;
         videoUrl?: T;
-        projectFullName?: T;
-        actionType?: T;
-        referenceNumber?: T;
-        beneficiary?: T;
-        location?: T;
       };
   projectDescription?:
     | T
@@ -4636,6 +4638,15 @@ export interface HawkProjectsSelect<T extends boolean = true> {
             };
       };
   gallery?: T | MultiImageTypeSelect<T>;
+  seo?: T | SEOSelect<T>;
+  slug?: T;
+  actionType?: T;
+  referenceNumber?: T;
+  beneficiary?: T;
+  location?: T;
+  startDate?: T;
+  endDate?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -11409,6 +11420,27 @@ export interface BentoGridBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bentoGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SeoFields".
+ */
+export interface SeoFields {
+  title?: string | null;
+  /**
+   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+   */
+  image?: (string | null) | Media;
+  description?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SeoFields_select".
+ */
+export interface SeoFieldsSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  description?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
