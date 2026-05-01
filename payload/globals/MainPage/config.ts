@@ -11,6 +11,7 @@ import {
 import { revalidateMainPage } from './hooks/revalidateMainPage';
 import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 import { MainPageBlocks } from '@/payload/blocks';
+import { getServerSideURL } from '@/payload/utilities/getURL';
 
 export const MainPage: GlobalConfig = {
   slug: 'main-page',
@@ -20,6 +21,15 @@ export const MainPage: GlobalConfig = {
   },
   admin: {
     description: 'Configure the main landing page of the website.',
+    preview: () => `/`,
+    livePreview: {
+      url: ({ locale }) => {
+        const baseUrl = getServerSideURL();
+        const lang = locale?.code || 'pt';
+
+        return `${baseUrl}/${lang}/preview`;
+      },
+    },
   },
   access: {
     read: authenticated,

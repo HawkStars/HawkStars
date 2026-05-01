@@ -105,10 +105,6 @@ export default buildConfig({
           return `${baseUrl}/${lang}/preview/events/${data?.slug || ''}`;
         }
 
-        if (globalConfig?.slug === 'main-page') {
-          return `${baseUrl}/${lang}/preview`;
-        }
-
         return `${baseUrl}/${lang}/preview/${data?.slug || ''}`;
       },
     },

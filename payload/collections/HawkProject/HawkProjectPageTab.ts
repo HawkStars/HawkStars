@@ -1,19 +1,7 @@
 import { PayloadImageField } from '@/payload/fields/ImageType';
 import { MultiImageField } from '@/payload/fields/MultiImage';
 import { Tab } from 'payload';
-
-/* ------------------------------------------------------------------ */
-/*  Dissemination link platform options                                */
-/* ------------------------------------------------------------------ */
-const disseminationPlatformOptions = [
-  { label: 'Facebook', value: 'facebook' },
-  { label: 'Instagram', value: 'instagram' },
-  { label: 'LinkedIn', value: 'linkedin' },
-  { label: 'YouTube', value: 'youtube' },
-  { label: 'TikTok', value: 'tiktok' },
-  { label: 'Website', value: 'website' },
-  { label: 'Other', value: 'other' },
-];
+import HawkProjectPartnersInformation from './HawkProjectPartnersInformation';
 
 /* ================================================================== */
 /*  PROJECT PAGE TAB — Structured fields so every project page        */
@@ -144,17 +132,7 @@ const HawkProjectPageTab: Tab = {
     /* -------------------------------------------------------------- */
     /*  3. PARTNERS SECTION                                           */
     /* -------------------------------------------------------------- */
-    {
-      name: 'projectPartners',
-      label: 'Partners',
-      type: 'relationship',
-      relationTo: 'partners',
-      hasMany: true,
-      admin: {
-        description:
-          'Select partner organisations for this project. They will be grouped by country automatically.',
-      },
-    },
+    HawkProjectPartnersInformation,
 
     /* -------------------------------------------------------------- */
     /*  4. OBJECTIVES SECTION                                         */
@@ -232,47 +210,6 @@ const HawkProjectPageTab: Tab = {
         description: 'Dissemination links per country and official reports.',
       },
       fields: [
-        {
-          name: 'countryLinks',
-          label: 'Country Dissemination Links',
-          type: 'array',
-          admin: {
-            description: 'Each row = one country with its social media / dissemination links',
-            initCollapsed: true,
-          },
-          fields: [
-            {
-              name: 'links',
-              label: 'Links',
-              type: 'array',
-              fields: [
-                {
-                  name: 'platform',
-                  label: 'Platform',
-                  type: 'select',
-                  required: true,
-                  options: disseminationPlatformOptions,
-                },
-                {
-                  name: 'url',
-                  label: 'URL',
-                  type: 'text',
-                  required: true,
-                },
-                {
-                  name: 'label',
-                  label: 'Button Label',
-                  type: 'text',
-                  localized: true,
-                  admin: {
-                    description:
-                      'e.g. "Disseminação via Facebook" — if empty, auto-generated from platform',
-                  },
-                },
-              ],
-            },
-          ],
-        },
         {
           name: 'reports',
           label: 'Reports',

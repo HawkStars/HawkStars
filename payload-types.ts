@@ -3582,9 +3582,25 @@ export interface HawkProject {
       | null;
   };
   /**
-   * Select partner organisations for this project. They will be grouped by country automatically.
+   * Information about the project's partners, including their names, roles, and contributions.
    */
-  projectPartners?: (string | Partner)[] | null;
+  partnersInfo?: {
+    /**
+     * Select partner organisations for this project. They will be grouped by country automatically.
+     */
+    projectPartners?: (string | null) | Partner;
+    reports?:
+      | {
+          platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'website' | 'other';
+          url: string;
+          /**
+           * e.g. "Disseminação via Facebook" — if empty, auto-generated from platform
+           */
+          label?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
   /**
    * Project objectives section with an intro paragraph and bullet items.
    */
@@ -3611,25 +3627,6 @@ export interface HawkProject {
    * Dissemination links per country and official reports.
    */
   dissemination?: {
-    /**
-     * Each row = one country with its social media / dissemination links
-     */
-    countryLinks?:
-      | {
-          links?:
-            | {
-                platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'website' | 'other';
-                url: string;
-                /**
-                 * e.g. "Disseminação via Facebook" — if empty, auto-generated from platform
-                 */
-                label?: string | null;
-                id?: string | null;
-              }[]
-            | null;
-          id?: string | null;
-        }[]
-      | null;
     /**
      * Official reports (Salto, Project Report, etc.)
      */
@@ -3667,7 +3664,13 @@ export interface HawkProject {
    * e.g. Pinhel, Portugal
    */
   location?: string | null;
-  startDate?: string | null;
+  /**
+   * Start date of the project
+   */
+  startDate: string;
+  /**
+   * End date of the project. Optional Value if it is just a single day for the project
+   */
   endDate?: string | null;
   /**
    * Draft → In Review → Published. Editors submit for review; Admins approve and publish.
@@ -4594,7 +4597,19 @@ export interface HawkProjectsSelect<T extends boolean = true> {
               id?: T;
             };
       };
-  projectPartners?: T;
+  partnersInfo?:
+    | T
+    | {
+        projectPartners?: T;
+        reports?:
+          | T
+          | {
+              platform?: T;
+              url?: T;
+              label?: T;
+              id?: T;
+            };
+      };
   objectives?:
     | T
     | {
@@ -4615,19 +4630,6 @@ export interface HawkProjectsSelect<T extends boolean = true> {
   dissemination?:
     | T
     | {
-        countryLinks?:
-          | T
-          | {
-              links?:
-                | T
-                | {
-                    platform?: T;
-                    url?: T;
-                    label?: T;
-                    id?: T;
-                  };
-              id?: T;
-            };
         reports?:
           | T
           | {

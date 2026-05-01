@@ -14,7 +14,7 @@ const cspHeader = `
     frame-ancestors 'self';
     block-all-mixed-content;
     upgrade-insecure-requests;
-    frame-src 'self' *.google.com https://www.instagram.com/ https://upload-widget.cloudinary.com;
+    frame-src 'self' *.google.com https://www.instagram.com/ https://upload-widget.cloudinary.com https://www.youtube.com;
     connect-src 'self' *.google-analytics.com *.de.sentry.io ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:` : 'http://127.0.0.1:54321'};
 `;
 
@@ -89,10 +89,6 @@ const nextConfig = {
       {
         source: '/(.*)',
         headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN',
-          },
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff',

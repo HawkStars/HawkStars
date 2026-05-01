@@ -19,6 +19,7 @@ export const HawkProject: CollectionConfig = {
     group: {
       name: 'Daily Work',
     },
+    preview: (doc) => `/projects/${doc.slug}`,
   },
   defaultPopulate: {
     slug: true,
@@ -97,8 +98,24 @@ export const HawkProject: CollectionConfig = {
         position: 'sidebar',
       },
     },
-    { name: 'startDate', label: 'Start Date', type: 'date', admin: { position: 'sidebar' } },
-    { name: 'endDate', label: 'End Date', type: 'date', admin: { position: 'sidebar' } },
+    {
+      name: 'startDate',
+      label: 'Start Date',
+      type: 'date',
+      admin: { position: 'sidebar', description: 'Start date of the project' },
+      required: true,
+    },
+    {
+      name: 'endDate',
+      label: 'End Date',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+        description:
+          'End date of the project. Optional Value if it is just a single day for the project',
+      },
+      required: false,
+    },
     contentStatusField,
   ],
 };

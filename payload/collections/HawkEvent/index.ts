@@ -18,6 +18,7 @@ export const HawkEvent: CollectionConfig = {
     group: {
       name: 'Daily Work',
     },
+    preview: (doc) => `/events/${doc.slug}`,
   },
   defaultPopulate: {
     slug: true,

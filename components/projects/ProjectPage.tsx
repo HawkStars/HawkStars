@@ -62,14 +62,14 @@ export default function ProjectPage({ project }: ProjectPageProps) {
   const partners = project.projectPartners as Partner[] | undefined;
 
   /* Date formatting */
-  const startDate = project.date ? new Date(project.date) : null;
+  const startDate = project.startDate ? new Date(project.startDate) : null;
   const endDate = project.endDate ? new Date(project.endDate) : null;
 
   const dateLabel = (() => {
     if (!startDate) return '';
-    if (endDate && project.isDateRange) {
+    if (endDate)
       return `${format(startDate, 'd', { locale: pt })} a ${format(endDate, "d 'de' MMMM 'de' yyyy", { locale: pt })}`;
-    }
+
     return format(startDate, "d 'de' MMMM 'de' yyyy", { locale: pt });
   })();
 
@@ -99,11 +99,11 @@ export default function ProjectPage({ project }: ProjectPageProps) {
             )}
 
             {/* Title */}
-            <h1 className='text-4xl font-bold md:text-5xl'>{project.heading}</h1>
+            <h1 className='text-4xl font-bold md:text-5xl'>{project.projectFullName}</h1>
 
             {/* Stats row */}
             {(hero?.participants || hero?.fundedAmount) && (
-              <div className='mt-6 flex flex-wrap items-center gap-8'>
+              <div className='mt-6 flex flex-wrap items-center gap-8' data-project-stats>
                 {hero.participants && (
                   <div className='flex items-center gap-2'>
                     <svg
@@ -160,9 +160,9 @@ export default function ProjectPage({ project }: ProjectPageProps) {
             )}
 
             {/* Country flags */}
-            {hero?.countries && hero.countries.length > 0 && (
+            {partners && partners.length > 0 && (
               <div className='mt-6 flex flex-wrap gap-3'>
-                {hero.countries.map((c, i) => (
+                {partners.map((c, i) => (
                   <FlagIcon
                     key={i}
                     country={c.country}
@@ -190,30 +190,30 @@ export default function ProjectPage({ project }: ProjectPageProps) {
 
             {/* Metadata */}
             <div className='space-y-1 text-sm text-gray-700'>
-              {hero?.projectFullName && (
+              {project.projectFullName && (
                 <p>
-                  <span className='font-semibold'>Nome do Projeto:</span> {hero.projectFullName}
+                  <span className='font-semibold'>Nome do Projeto:</span> {project.projectFullName}
                 </p>
               )}
-              {hero?.actionType && (
+              {project.actionType && (
                 <p>
-                  <span className='font-semibold'>Tipo de Ação:</span> {hero.actionType}
+                  <span className='font-semibold'>Tipo de Ação:</span> {project.actionType}
                 </p>
               )}
-              {hero?.referenceNumber && (
+              {project.referenceNumber && (
                 <p>
                   <span className='font-semibold'>Número de Referência:</span>{' '}
-                  {hero.referenceNumber}
+                  {project.referenceNumber}
                 </p>
               )}
-              {hero?.beneficiary && (
+              {project.beneficiary && (
                 <p>
-                  <span className='font-semibold'>Beneficiário:</span> {hero.beneficiary}
+                  <span className='font-semibold'>Beneficiário:</span> {project.beneficiary}
                 </p>
               )}
-              {hero?.location && (
+              {project.location && (
                 <p>
-                  <span className='font-semibold'>Localização:</span> {hero.location}
+                  <span className='font-semibold'>Localização:</span> {project.location}
                 </p>
               )}
             </div>
