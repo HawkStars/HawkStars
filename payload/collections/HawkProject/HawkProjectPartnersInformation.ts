@@ -1,4 +1,4 @@
-import { GroupField } from 'payload';
+import { Tab } from 'payload';
 
 /* ------------------------------------------------------------------ */
 /*  Dissemination link platform options                                */
@@ -13,52 +13,72 @@ const disseminationPlatformOptions = [
   { label: 'Other', value: 'other' },
 ];
 
-const HawkProjectPartnersInformation: GroupField = {
-  name: 'partnersInfo',
-  label: 'Partners Information',
-  type: 'group',
+const HawkProjectPartnersInformation: Tab = {
+  name: 'partners',
+  label: 'Partners',
   admin: {
     description:
       "Information about the project's partners, including their names, roles, and contributions.",
   },
   fields: [
     {
-      name: 'projectPartners',
-      label: 'Partners',
-      type: 'relationship',
-      relationTo: 'partners',
-      admin: {
-        description:
-          'Select partner organisations for this project. They will be grouped by country automatically.',
-      },
-    },
-    {
-      name: 'reports',
-      label: 'Official Reports',
+      name: 'info',
+      label: 'Partner Information',
       type: 'array',
+      admin: {
+        description: 'List of partner organizations involved in the project',
+        initCollapsed: true,
+        components: {
+          RowLabel: '@/payload/collections/HawkProject/components/partners/PartnersRowLabel',
+        },
+      },
       fields: [
         {
-          name: 'platform',
-          label: 'Platform',
-          type: 'select',
-          required: true,
-          options: disseminationPlatformOptions,
-        },
-        {
-          name: 'url',
-          label: 'URL',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'label',
-          label: 'Button Label',
-          type: 'text',
-          localized: true,
+          name: 'name',
+          label: 'Partners',
+          type: 'relationship',
+          relationTo: 'partners',
+          hasMany: false,
           admin: {
             description:
-              'e.g. "Disseminação via Facebook" — if empty, auto-generated from platform',
+              'Select partner organisations for this project. They will be grouped by country automatically.',
           },
+        },
+        {
+          name: 'reports',
+          label: 'Official Reports',
+          type: 'array',
+          fields: [
+            {
+              name: 'platform',
+              label: 'Platform',
+              type: 'select',
+              required: true,
+              options: disseminationPlatformOptions,
+              admin: {
+                description: 'Select the platform where the partner disseminated project results',
+              },
+            },
+            {
+              name: 'url',
+              label: 'URL',
+              type: 'text',
+              required: true,
+              admin: {
+                description: 'Link to the partner’s report or dissemination page',
+              },
+            },
+            {
+              name: 'label',
+              label: 'Button Label',
+              type: 'text',
+              localized: true,
+              admin: {
+                description:
+                  'e.g. "Disseminação via Facebook" — if empty, auto-generated from platform',
+              },
+            },
+          ],
         },
       ],
     },

@@ -5,6 +5,7 @@ import HawkProjectPageTab from './HawkProjectPageTab';
 import { sanitizeBrokenImageRelationship } from '../../hooks/sanitizeBrokenImageRelationship';
 import { HawkProjectSeoTab } from './HawkProjectSeoTab';
 import { contentStatusField } from '@/payload/fields/contentStatus';
+import HawkProjectPartnersInformation from './HawkProjectPartnersInformation';
 
 export const HawkProject: CollectionConfig = {
   slug: 'hawk_projects',
@@ -38,7 +39,7 @@ export const HawkProject: CollectionConfig = {
     {
       type: 'tabs',
       label: 'Hawk Project Details',
-      tabs: [HawkProjectPageTab, HawkProjectSeoTab],
+      tabs: [HawkProjectPageTab, HawkProjectSeoTab, HawkProjectPartnersInformation],
     },
     /* -------------------------------------------------------------- */
     /*  ADMIN SECTION                                                 */

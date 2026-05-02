@@ -3582,26 +3582,6 @@ export interface HawkProject {
       | null;
   };
   /**
-   * Information about the project's partners, including their names, roles, and contributions.
-   */
-  partnersInfo?: {
-    /**
-     * Select partner organisations for this project. They will be grouped by country automatically.
-     */
-    projectPartners?: (string | null) | Partner;
-    reports?:
-      | {
-          platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'website' | 'other';
-          url: string;
-          /**
-           * e.g. "Disseminação via Facebook" — if empty, auto-generated from platform
-           */
-          label?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  /**
    * Project objectives section with an intro paragraph and bullet items.
    */
   objectives?: {
@@ -3645,6 +3625,40 @@ export interface HawkProject {
   gallery?: MultiImageType;
   seo?: SEO;
   /**
+   * Information about the project's partners, including their names, roles, and contributions.
+   */
+  partners?: {
+    /**
+     * List of partner organizations involved in the project
+     */
+    info?:
+      | {
+          /**
+           * Select partner organisations for this project. They will be grouped by country automatically.
+           */
+          name?: (string | null) | Partner;
+          reports?:
+            | {
+                /**
+                 * Select the platform where the partner disseminated project results
+                 */
+                platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'website' | 'other';
+                /**
+                 * Link to the partner’s report or dissemination page
+                 */
+                url: string;
+                /**
+                 * e.g. "Disseminação via Facebook" — if empty, auto-generated from platform
+                 */
+                label?: string | null;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
    * Unique slug used in the project page URL (e.g. "ai4youth"). Auto-generated from the title if left empty.
    */
   slug?: string | null;
@@ -3678,6 +3692,54 @@ export interface HawkProject {
   status: 'draft' | 'in_review' | 'published';
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * Photos displayed at the bottom of the project page
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MultiImageType".
+ */
+export interface MultiImageType {
+  /**
+   * Images uploaded to the Media library.
+   */
+  internalImages?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Images hosted externally — provide a URL and alt text.
+   */
+  externalImages?:
+    | {
+        /**
+         * Full URL of the external image (https://…)
+         */
+        url: string;
+        /**
+         * Accessible description of the image.
+         */
+        alt: string;
+        id?: string | null;
+      }[]
+    | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SEO".
+ */
+export interface SEO {
+  seo?: HawkProjectSeoFields;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkProjectSeoFields".
+ */
+export interface HawkProjectSeoFields {
+  title?: string | null;
+  description?: string | null;
 }
 /**
  * Manage national and international partner organizations. Add their logo, country, and social links. Partners are displayed on the public partners page.
@@ -3732,54 +3794,6 @@ export interface Partner {
     | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * Photos displayed at the bottom of the project page
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MultiImageType".
- */
-export interface MultiImageType {
-  /**
-   * Images uploaded to the Media library.
-   */
-  internalImages?:
-    | {
-        image: string | Media;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Images hosted externally — provide a URL and alt text.
-   */
-  externalImages?:
-    | {
-        /**
-         * Full URL of the external image (https://…)
-         */
-        url: string;
-        /**
-         * Accessible description of the image.
-         */
-        alt: string;
-        id?: string | null;
-      }[]
-    | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SEO".
- */
-export interface SEO {
-  seo?: HawkProjectSeoFields;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HawkProjectSeoFields".
- */
-export interface HawkProjectSeoFields {
-  title?: string | null;
-  description?: string | null;
 }
 /**
  * Manage admin panel users and their roles. Admins have full access; Editors can manage content but not users or settings. Only admins can create new users.
@@ -4597,19 +4611,6 @@ export interface HawkProjectsSelect<T extends boolean = true> {
               id?: T;
             };
       };
-  partnersInfo?:
-    | T
-    | {
-        projectPartners?: T;
-        reports?:
-          | T
-          | {
-              platform?: T;
-              url?: T;
-              label?: T;
-              id?: T;
-            };
-      };
   objectives?:
     | T
     | {
@@ -4641,6 +4642,24 @@ export interface HawkProjectsSelect<T extends boolean = true> {
       };
   gallery?: T | MultiImageTypeSelect<T>;
   seo?: T | SEOSelect<T>;
+  partners?:
+    | T
+    | {
+        info?:
+          | T
+          | {
+              name?: T;
+              reports?:
+                | T
+                | {
+                    platform?: T;
+                    url?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+      };
   slug?: T;
   actionType?: T;
   referenceNumber?: T;
