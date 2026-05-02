@@ -3559,7 +3559,7 @@ export interface HawkProject {
   /**
    * Main description block shown below the hero section.
    */
-  projectDescription?: {
+  details?: {
     /**
      * Main paragraph describing the project
      */
@@ -4606,7 +4606,7 @@ export interface HawkProjectsSelect<T extends boolean = true> {
         fundedAmount?: T;
         videoUrl?: T;
       };
-  projectDescription?:
+  details?:
     | T
     | {
         text?: T;

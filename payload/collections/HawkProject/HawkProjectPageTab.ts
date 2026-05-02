@@ -83,7 +83,7 @@ const HawkProjectPageTab: Tab = {
     /* -------------------------------------------------------------- */
     {
       type: 'group',
-      name: 'projectDescription',
+      name: 'details',
       label: 'Description',
       admin: {
         description: 'Main description block shown below the hero section.',

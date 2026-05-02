@@ -26,14 +26,13 @@ const AgendaPage = async (props: LanguagePageProps) => {
 
   const events = projects.map((project) => ({
     id: project.id,
-    title: project.heading,
+    title: project.projectFullName,
     description: project.description,
-    date: project.date ?? project.createdAt,
+    date: project.startDate ?? project.createdAt,
     endDate: project.endDate ?? null,
-    isDateRange: Boolean(project.isDateRange),
-    type: project.type_event,
+    isDateRange: !!project.endDate,
+    type: "project",
     slug: project.slug,
-    image: project.image,
   }));
 
   const translations = {
