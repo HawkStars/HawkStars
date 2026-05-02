@@ -45,9 +45,29 @@ const HawkProjectPartnersInformation: Tab = {
           },
         },
         {
+          name: 'role',
+          label: 'Role',
+          type: 'select',
+          options: [
+            { label: 'Hosting organisation', value: 'hosting_org' },
+            { label: 'Sending organisation', value: 'sending_org' },
+          ],
+          admin: {
+            description: 'Select the role of the partner organisation in this project',
+          },
+          defaultValue: 'sending_org',
+        },
+        {
           name: 'reports',
           label: 'Official Reports',
           type: 'array',
+          admin: {
+            description: 'Official reports related to this partner (Salto, Project Report, etc.)',
+            initCollapsed: true,
+            components: {
+              RowLabel: '@/payload/collections/HawkProject/components/partners/ReportsRowLabel',
+            },
+          },
           fields: [
             {
               name: 'platform',

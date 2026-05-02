@@ -3637,6 +3637,13 @@ export interface HawkProject {
            * Select partner organisations for this project. They will be grouped by country automatically.
            */
           name?: (string | null) | Partner;
+          /**
+           * Select the role of the partner organisation in this project
+           */
+          role?: ('hosting_org' | 'sending_org') | null;
+          /**
+           * Official reports related to this partner (Salto, Project Report, etc.)
+           */
           reports?:
             | {
                 /**
@@ -4649,6 +4656,7 @@ export interface HawkProjectsSelect<T extends boolean = true> {
           | T
           | {
               name?: T;
+              role?: T;
               reports?:
                 | T
                 | {
