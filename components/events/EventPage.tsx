@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
-import { Media } from '@/payload-types';
+
 import { getImagePayloadUrl } from '@/lib/image';
 import { RichText } from '@payloadcms/richtext-lexical/react';
 

@@ -26,7 +26,7 @@ export const googleDriveAdapter = () => ({
   async handleUpload({ file }: Parameters<HandleUpload>[0]) {
     try {
       const drive = getDrive();
-      const targetFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
+      const _targetFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
 
       const buffer = file.buffer instanceof Buffer ? file.buffer : Buffer.from(file.buffer);
       const stream = Readable.from(buffer);

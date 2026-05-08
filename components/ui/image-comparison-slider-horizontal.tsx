@@ -45,28 +45,25 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
       setSliderPosition(newPosition);
     };
 
-    // Mouse move handler
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging) return;
-      handleMove(e.clientX);
-    };
-
-    // Touch move handler
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!isDragging) return;
-      handleMove(e.touches[0].clientX);
-    };
-
     // Handlers for starting and stopping the drag interaction
     const handleInteractionStart = (_e: React.MouseEvent | React.TouchEvent) => {
       setIsDragging(true);
     };
-    const handleInteractionEnd = () => {
-      setIsDragging(false);
-    };
 
     // Effect to add and remove global event listeners for dragging
     React.useEffect(() => {
+      const handleMouseMove = (e: MouseEvent) => {
+        handleMove(e.clientX);
+      };
+
+      const handleTouchMove = (e: TouchEvent) => {
+        handleMove(e.touches[0].clientX);
+      };
+
+      const handleInteractionEnd = () => {
+        setIsDragging(false);
+      };
+
       if (isDragging) {
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('touchmove', handleTouchMove);
@@ -84,7 +81,7 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
         document.removeEventListener('touchend', handleInteractionEnd);
         document.body.style.cursor = '';
       };
-    }, [isDragging, handleMouseMove, handleTouchMove]);
+    }, [isDragging]);
 
     return (
       <div

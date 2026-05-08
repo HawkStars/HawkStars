@@ -1,8 +1,7 @@
 import { PayloadImageField } from '@/payload/fields/ImageType';
 import { MultiImageField } from '@/payload/fields/MultiImage';
 import { Tab } from 'payload';
-import HawkProjectPartnersInformation from './HawkProjectPartnersInformation';
-import { FixedToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
+
 
 /* ================================================================== */
 /*  PROJECT PAGE TAB — Structured fields so every project page        */

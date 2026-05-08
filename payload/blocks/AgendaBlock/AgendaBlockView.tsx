@@ -168,7 +168,7 @@ function ListItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
 
 // ─── Compact layout ───────────────────────────────────────────────────────────
 
-function CompactItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: string }) {
+function CompactItem({ event }: { event: AgendaEventItem; linkLabel: string }) {
   const dateStr = formatEventDate(event.date, event.endDate, event.isDateRange);
 
   return (

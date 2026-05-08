@@ -10,7 +10,7 @@ const List: JSXConverter<SerializedListNode> = ({ converters, node, nodesToJSX, 
     parent: { ...node, parent },
   });
 
-  const indent = node.indent || 0;
+  const _indent = node.indent || 0;
   if (!children || children.length === 0) return null;
 
   const hasNestedList = children.every((child) => {

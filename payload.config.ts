@@ -89,7 +89,7 @@ export default buildConfig({
       ],
       collections: ['pages', 'news', 'hawk_projects', 'hawk_events'],
       globals: ['main-page'],
-      url: ({ data, collectionConfig, globalConfig, locale }) => {
+      url: ({ data, collectionConfig, locale }) => {
         const baseUrl = getServerSideURL();
         const lang = locale?.code || 'pt';
 

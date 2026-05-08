@@ -1,4 +1,4 @@
-import { HawkEvent, HawkProject } from '@/payload-types';
+import { HawkEvent } from '@/payload-types';
 import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
 

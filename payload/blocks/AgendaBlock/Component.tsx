@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { stringify } from 'qs-esm';
 import type { Where } from 'payload';
-import type { AgendaBlock as AgendaBlockProps, HawkEvent, HawkProject } from '@/payload-types';
+import type { AgendaBlock as AgendaBlockProps, HawkEvent } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { AgendaBlockView, type AgendaEventItem } from './AgendaBlockView';
 

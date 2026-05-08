@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 
 type SituationType = 'create' | 'update' | 'delete' | 'message' | 'other';
@@ -83,6 +84,7 @@ function timeAgo(dateString: string): string {
 }
 
 export const NotificationBell: React.FC = () => {
+  const router = useRouter();
   const [notifications, setNotifications] = useState<NotificationDoc[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -157,7 +159,7 @@ export const NotificationBell: React.FC = () => {
       markAsRead(notification.id);
     }
     if (notification.link) {
-      window.location.href = notification.link;
+      router.push(notification.link);
     }
   };
 
