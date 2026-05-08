@@ -16,6 +16,8 @@ import { Language, fallbackLng, languages } from '@/i18n/settings';
 import { getFooterQuery, getHeaderQuery } from '@/lib/payload/queries/navbar';
 import MobileNavbar from '@/components/navbar/MobileNavbar';
 import Navbar from '@/components/navbar/Navbar';
+import { OrganizationJsonLd } from '@/components/seo/JsonLd';
+import { GA_MEASUREMENT_ID } from '@/lib/constants';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -39,18 +41,25 @@ export default async function RootLayout(props: {
 
   return (
     <html lang={lng} data-color-mode='light' className={`${inter.variable} ${oswald.variable}`}>
+      <head>
+        <OrganizationJsonLd lng={lng || 'pt'} />
+      </head>
       <body>
         <Suspense>
           <LayoutContent lng={lng}>{children}</LayoutContent>
         </Suspense>
       </body>
-      <Script async src='https://www.googletagmanager.com/gtag/js?id=G-PEH83S3H3K'></Script>
-      <Script id='google-analytics'>
+      <Script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        strategy='afterInteractive'
+      />
+      <Script id='google-analytics' strategy='afterInteractive'>
         {`window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', 'G-PEH83S3H3K');
+          gtag('config', '${GA_MEASUREMENT_ID}');
         `}
       </Script>
     </html>

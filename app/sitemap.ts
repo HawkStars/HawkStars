@@ -2,8 +2,7 @@ import { MetadataRoute } from 'next';
 import { languages } from '@/i18n/settings';
 import { routes } from '@/utils/paths';
 import { getPayloadConfig } from '@/lib/payload/server';
-
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://hawkstars.org';
+import { BASE_URL } from '@/lib/constants';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const sitemapRoutes = [] as MetadataRoute.Sitemap;

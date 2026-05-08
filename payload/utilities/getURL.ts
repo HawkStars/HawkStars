@@ -1,7 +1,8 @@
 import canUseDOM from './canUseDOM';
+import { BASE_URL_DEV } from '@/lib/constants';
 
 export const getServerSideURL = () => {
-  return process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+  return BASE_URL_DEV;
 };
 
 export const getClientSideURL = () => {
@@ -13,5 +14,5 @@ export const getClientSideURL = () => {
     return `${protocol}//${domain}${port ? `:${port}` : ''}`;
   }
 
-  return process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+  return BASE_URL_DEV;
 };
