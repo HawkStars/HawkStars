@@ -11079,6 +11079,22 @@ export interface CrowdfundingSetting {
    */
   weeklyIncrease?: string | null;
   /**
+   * Link for all "Support" / "Donate" buttons across the crowdfunding page (e.g. a payment or contribute page URL).
+   */
+  supportUrl?: string | null;
+  /**
+   * Link for the "Become a partner" button in the Business section (e.g. a contact form or partnership page).
+   */
+  businessCtaUrl?: string | null;
+  /**
+   * Link for the "Where does the money go?" button in the Transparency section (e.g. a public report or document).
+   */
+  transparencyDocUrl?: string | null;
+  /**
+   * Link for the "Contact the team" button in the CTA section (e.g. mailto: link, contact form, or social media page).
+   */
+  contactUrl?: string | null;
+  /**
    * Background image for the hero section at the top of the crowdfunding page.
    */
   heroImage?: (string | null) | Media;
@@ -11096,6 +11112,24 @@ export interface CrowdfundingSetting {
   updateCardImages?:
     | {
         image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * People and entities that support the project. Shown in the "Já Contamos com o Apoio de" section.
+   */
+  supporters?:
+    | {
+        name: string;
+        /**
+         * Role, title, or short description (e.g. "Município de Pinhel").
+         */
+        subname?: string | null;
+        type: 'person' | 'entity';
+        /**
+         * Optional logo or photo. If empty, the name initials will be shown.
+         */
+        logo?: (string | null) | Media;
         id?: string | null;
       }[]
     | null;
@@ -11316,6 +11350,10 @@ export interface CrowdfundingSettingsSelect<T extends boolean = true> {
   projectGoal?: T;
   lastUpdateDate?: T;
   weeklyIncrease?: T;
+  supportUrl?: T;
+  businessCtaUrl?: T;
+  transparencyDocUrl?: T;
+  contactUrl?: T;
   heroImage?: T;
   videoThumbnail?: T;
   videoUrl?: T;
@@ -11323,6 +11361,15 @@ export interface CrowdfundingSettingsSelect<T extends boolean = true> {
     | T
     | {
         image?: T;
+        id?: T;
+      };
+  supporters?:
+    | T
+    | {
+        name?: T;
+        subname?: T;
+        type?: T;
+        logo?: T;
         id?: T;
       };
   ctaImage?: T;

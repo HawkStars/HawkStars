@@ -9,3 +9,5 @@ export { default as CrowdfundingPartners } from './CrowdfundingPartners';
 export { default as CrowdfundingFAQ } from './CrowdfundingFAQ';
 export { default as CrowdfundingCTA } from './CrowdfundingCTA';
 export { default as CrowdfundingBanner } from './CrowdfundingBanner';
+export { ShareButton } from './ShareButton';
+export { VideoEmbed } from './VideoEmbed';

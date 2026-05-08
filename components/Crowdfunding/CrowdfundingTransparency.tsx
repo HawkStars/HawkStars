@@ -32,9 +32,20 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
             <p className='mt-4 text-sm leading-relaxed text-gray-400'>
               {t('transparency.description')}
             </p>
-            <button className='mt-4 text-sm font-semibold text-orange-500 transition hover:text-orange-400'>
-              {t('transparency.cta_money')}
-            </button>
+            {settings?.transparencyDocUrl ? (
+              <a
+                href={settings.transparencyDocUrl}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='mt-4 inline-block text-sm font-semibold text-orange-500 transition hover:text-orange-400'
+              >
+                {t('transparency.cta_money')}
+              </a>
+            ) : (
+              <span className='mt-4 inline-block text-sm font-semibold text-orange-500'>
+                {t('transparency.cta_money')}
+              </span>
+            )}
           </div>
 
           {/* Right stats */}

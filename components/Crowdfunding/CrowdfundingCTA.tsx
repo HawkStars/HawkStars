@@ -3,6 +3,7 @@ import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
 import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
 import { Media } from '@/payload-types';
+import { ShareButton } from './ShareButton';
 
 type Props = { lng: Language };
 
@@ -33,29 +34,20 @@ const CrowdfundingCTA = async ({ lng }: Props) => {
         </p>
 
         <div className='mt-8 flex flex-wrap gap-4'>
-          <button className='flex items-center gap-2 rounded-full bg-orange-500 px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-orange-600'>
+          <a
+            href={settings?.supportUrl || '#support'}
+            className='flex items-center gap-2 rounded-full bg-orange-500 px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-orange-600'
+          >
             <svg className='h-4 w-4' fill='currentColor' viewBox='0 0 20 20'>
               <path d='M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z' />
             </svg>
             {t('cta.cta_support')}
-          </button>
-          <button className='flex items-center gap-2 rounded-full border border-white/30 px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10'>
-            <svg
-              className='h-4 w-4'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z'
-              />
-            </svg>
-            {t('cta.cta_share')}
-          </button>
-          <button className='flex items-center gap-2 rounded-full border border-white/30 px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10'>
+          </a>
+          <ShareButton label={t('cta.cta_share')} />
+          <a
+            href={settings?.contactUrl || '#support'}
+            className='flex items-center gap-2 rounded-full border border-white/30 px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10'
+          >
             <svg
               className='h-4 w-4'
               fill='none'
@@ -70,7 +62,7 @@ const CrowdfundingCTA = async ({ lng }: Props) => {
               />
             </svg>
             {t('cta.cta_team')}
-          </button>
+          </a>
         </div>
       </div>
     </section>

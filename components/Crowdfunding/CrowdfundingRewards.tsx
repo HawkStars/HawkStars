@@ -1,6 +1,7 @@
 import React from 'react';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
+import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
 
 type Props = { lng: Language };
 
@@ -58,6 +59,7 @@ const stepKeys = ['step1', 'step2', 'step3'] as const;
 
 const CrowdfundingRewards = async ({ lng }: Props) => {
   const { t } = await getServerTranslation(lng, 'crowdfunding');
+  const settings = await getCrowdfundingSettings(lng);
 
   return (
     <section id='rewards' className='w-full bg-[#0d0d0d] py-16'>
@@ -146,9 +148,12 @@ const CrowdfundingRewards = async ({ lng }: Props) => {
               </React.Fragment>
             ))}
 
-            <button className='ml-auto flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600'>
+            <a
+              href={settings?.supportUrl || '#support'}
+              className='ml-auto flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600'
+            >
               {t('rewards.cta_all')}
-            </button>
+            </a>
           </div>
         </div>
       </div>
