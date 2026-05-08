@@ -3,23 +3,23 @@
 import { useCallback, useEffect, useState } from 'react';
 import { stringify } from 'qs-esm';
 import type { Where } from 'payload';
-import type { AgendaBlock as AgendaBlockProps, HawkProject } from '@/payload-types';
+import type { AgendaBlock as AgendaBlockProps, HawkEvent, HawkProject } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { AgendaBlockView, type AgendaEventItem } from './AgendaBlockView';
 
-function toAgendaItem(project: HawkProject): AgendaEventItem {
-  const image = getImagePayloadUrl(project.image);
+function toAgendaItem(event: HawkEvent): AgendaEventItem {
+  const image = getImagePayloadUrl(event.image);
   return {
-    id: project.id,
-    heading: project.heading,
-    subheading: project.subheading ?? null,
-    description: project.description ?? null,
-    badge: project.type_event ?? null,
+    id: event.id,
+    heading: event.heading,
+    subheading: event.subheading ?? null,
+    description: event.description ?? null,
+    badge: event.type_event ?? null,
     image: image ? image : null,
-    href: `/events/${project.slug}`,
-    date: project.date ?? null,
-    endDate: project.endDate ?? null,
-    isDateRange: Boolean(project.isDateRange),
+    href: `/events/${event.slug}`,
+    date: event.date ?? null,
+    endDate: event.endDate ?? null,
+    isDateRange: Boolean(event.isDateRange),
   };
 }
 

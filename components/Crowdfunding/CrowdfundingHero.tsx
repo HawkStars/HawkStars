@@ -2,6 +2,7 @@ import React from 'react';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
 import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
+import { Media } from '@/payload-types';
 
 type Props = { lng: Language };
 
@@ -14,6 +15,12 @@ const CrowdfundingHero = async ({ lng }: Props) => {
   const projectGoal = settings?.projectGoal ?? 900000;
   const percentage = Math.round((raised / campaignGoal) * 100);
 
+  const heroImage =
+    typeof settings?.heroImage === 'object'
+      ? (settings.heroImage as Media)?.url
+      : null;
+  const heroImageUrl = heroImage || '/images/projects/1.jpeg';
+
   const tags = [
     { key: 'location', icon: 'pin' },
     { key: 'education', icon: 'book' },
@@ -24,7 +31,7 @@ const CrowdfundingHero = async ({ lng }: Props) => {
     <section className='bg-crowdfunding-bg relative w-full overflow-hidden'>
       <div
         className='absolute inset-0 bg-cover bg-center opacity-30'
-        style={{ backgroundImage: "url('/images/projects/1.jpeg')" }}
+        style={{ backgroundImage: `url('${heroImageUrl}')` }}
       />
       <div className='from-crowdfunding-bg via-crowdfunding-bg/80 absolute inset-0 bg-linear-to-r to-transparent' />
 

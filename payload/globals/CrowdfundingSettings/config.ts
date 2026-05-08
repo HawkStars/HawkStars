@@ -10,7 +10,8 @@ export const CrowdfundingSettings: GlobalConfig = {
     en: 'Crowdfunding Settings',
   },
   admin: {
-    description: 'Configure the dynamic numbers and dates shown on the Crowdfunding page.',
+    description:
+      'Configure the dynamic numbers, dates, images, and videos shown on the Crowdfunding page.',
   },
   access: {
     read: anyone,
@@ -26,6 +27,7 @@ export const CrowdfundingSettings: GlobalConfig = {
       },
       admin: {
         description: 'Total amount raised so far, in euros.',
+        width: '33%',
       },
       required: true,
       defaultValue: 0,
@@ -39,6 +41,7 @@ export const CrowdfundingSettings: GlobalConfig = {
       },
       admin: {
         description: 'The fundraising target for the campaign phase, in euros.',
+        width: '33%',
       },
       required: true,
       defaultValue: 100000,
@@ -52,6 +55,7 @@ export const CrowdfundingSettings: GlobalConfig = {
       },
       admin: {
         description: 'The full investment target for the project, in euros.',
+        width: '33%',
       },
       required: true,
       defaultValue: 900000,
@@ -82,6 +86,81 @@ export const CrowdfundingSettings: GlobalConfig = {
       },
       localized: true,
       required: false,
+    },
+    // ── Images & Video ──────────────────────────────────────────────
+    {
+      name: 'heroImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: {
+        pt: 'Imagem de Fundo do Hero',
+        en: 'Hero Background Image',
+      },
+      admin: {
+        description: 'Background image for the hero section at the top of the crowdfunding page.',
+      },
+    },
+    {
+      name: 'videoThumbnail',
+      type: 'upload',
+      relationTo: 'media',
+      label: {
+        pt: 'Thumbnail do Vídeo',
+        en: 'Video Thumbnail',
+      },
+      admin: {
+        description: 'Thumbnail image shown before the video is played.',
+      },
+    },
+    {
+      name: 'videoUrl',
+      type: 'text',
+      label: {
+        pt: 'URL do Vídeo',
+        en: 'Video URL',
+      },
+      admin: {
+        description:
+          'YouTube or Vimeo URL for the documentary video (e.g. "https://www.youtube.com/watch?v=...").',
+      },
+    },
+    {
+      name: 'updateCardImages',
+      type: 'array',
+      label: {
+        pt: 'Imagens dos Cartões de Atualizações',
+        en: 'Update Card Images',
+      },
+      admin: {
+        description:
+          'Images for each update card in the Updates section. Add one per card, in order.',
+      },
+      maxRows: 10,
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          label: {
+            pt: 'Imagem',
+            en: 'Image',
+          },
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'ctaImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: {
+        pt: 'Imagem de Fundo do CTA',
+        en: 'CTA Background Image',
+      },
+      admin: {
+        description:
+          'Background image for the final call-to-action section at the bottom of the page.',
+      },
     },
   ],
   versions: {

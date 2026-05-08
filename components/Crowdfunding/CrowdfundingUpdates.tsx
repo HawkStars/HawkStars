@@ -1,28 +1,36 @@
 import React from 'react';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
+import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
+import { Media } from '@/payload-types';
 
 type Props = { lng: Language };
 
-const updateCards = [
-  {
-    key: 'first24h',
-    badgeKey: 'badge_highlight',
-    badgeColor: 'bg-orange-500',
-    image: '/images/projects/3.jpeg',
-  },
-  { key: 'unlock100k', badgeKey: null, badgeColor: '', image: '/images/projects/4.jpeg' },
-  {
-    key: 'new_reward',
-    badgeKey: 'badge_new',
-    badgeColor: 'bg-green-600',
-    image: '/images/projects/5.jpeg',
-  },
-  { key: 'event', badgeKey: null, badgeColor: '', image: '/images/projects/6.jpeg' },
+const defaultImages = [
+  '/images/projects/3.jpeg',
+  '/images/projects/4.jpeg',
+  '/images/projects/5.jpeg',
+  '/images/projects/6.jpeg',
+];
+
+const updateCardsMeta = [
+  { key: 'first24h', badgeKey: 'badge_highlight', badgeColor: 'bg-orange-500' },
+  { key: 'unlock100k', badgeKey: null, badgeColor: '' },
+  { key: 'new_reward', badgeKey: 'badge_new', badgeColor: 'bg-green-600' },
+  { key: 'event', badgeKey: null, badgeColor: '' },
 ] as const;
 
 const CrowdfundingUpdates = async ({ lng }: Props) => {
   const { t } = await getServerTranslation(lng, 'crowdfunding');
+  const settings = await getCrowdfundingSettings(lng);
+
+  const cardImages = updateCardsMeta.map((_, index) => {
+    const entry = settings?.updateCardImages?.[index];
+    if (entry && typeof entry.image === 'object') {
+      return (entry.image as Media)?.url || defaultImages[index];
+    }
+    return defaultImages[index];
+  });
 
   return (
     <section className='w-full bg-[#111111] py-16'>
@@ -44,7 +52,8 @@ const CrowdfundingUpdates = async ({ lng }: Props) => {
           </div>
 
           <div className='flex flex-1 gap-4 overflow-x-auto pb-4'>
-            {updateCards.map(({ key, badgeKey, badgeColor, image }) => {
+            {updateCardsMeta.map(({ key, badgeKey, badgeColor }, index) => {
+              const image = cardImages[index];
               const description = t(`updates.cards.${key}.description` as Parameters<typeof t>[0], {
                 defaultValue: '',
               });

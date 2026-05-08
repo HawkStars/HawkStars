@@ -5,7 +5,7 @@ const getCrowdfundingSettings = async (lng: Language) => {
   const payload = await getPayloadConfig();
   return await payload.findGlobal({
     slug: 'crowdfunding-settings',
-    depth: 0,
+    depth: 1,
     locale: lng,
   });
 };

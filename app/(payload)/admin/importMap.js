@@ -53,6 +53,7 @@ import { default as default_86602b1dc72813c56de877a02ce02144 } from '@/payload/c
 import { default as default_fa93fe34eeaf7350879c70581ad783f9 } from '@/payload/components/admin/NotificationBell'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
+/** @type import('payload').ImportMap */
 export const importMap = {
   "@/payload/components/admin/MediaListView#default": default_253012d53b276ab9680cd5ce4360cb35,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,

@@ -22,18 +22,7 @@ const AgendaPage = async (props: LanguagePageProps) => {
   const { lng } = params;
   const { t } = await getServerTranslation(lng, 'agenda');
 
-  const projects = await getAgendaEventsQuery(lng as Language);
-
-  const events = projects.map((project) => ({
-    id: project.id,
-    title: project.projectFullName,
-    description: project.description,
-    date: project.startDate ?? project.createdAt,
-    endDate: project.endDate ?? null,
-    isDateRange: !!project.endDate,
-    type: "project",
-    slug: project.slug,
-  }));
+  const events = await getAgendaEventsQuery(lng as Language);
 
   const translations = {
     title: t('title'),

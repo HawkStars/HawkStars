@@ -2,7 +2,7 @@ import { PayloadImageField } from '@/payload/fields/ImageType';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { Tab } from 'payload';
 
-const HawkProjectDetails: Tab = {
+const HawkEventDetails: Tab = {
   label: 'Details',
   description: 'Information about the Hawk Event',
   admin: {
@@ -67,7 +67,7 @@ const HawkProjectDetails: Tab = {
       unique: true,
       required: true,
       hooks: {
-        beforeChange: [({ data }) => data?.title?.replace(/\s+/g, '-').toLowerCase()],
+        beforeChange: [({ data }) => data?.heading?.replace(/\s+/g, '-').toLowerCase()],
       },
     },
 
@@ -106,4 +106,4 @@ const HawkProjectDetails: Tab = {
   ],
 };
 
-export default HawkProjectDetails;
+export default HawkEventDetails;

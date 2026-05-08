@@ -3537,7 +3537,8 @@ export interface HawkProject {
   /**
    * e.g. AI4YOU(th) – AI IN EVERYDAY LIFE
    */
-  projectFullName?: string | null;
+  heading?: string | null;
+  coverImage?: ImageType;
   /**
    * Top area of the project page: badge, stats, video, metadata, and country flags.
    */
@@ -3624,47 +3625,7 @@ export interface HawkProject {
   };
   gallery?: MultiImageType;
   seo?: SEO;
-  /**
-   * Information about the project's partners, including their names, roles, and contributions.
-   */
-  partners?: {
-    /**
-     * List of partner organizations involved in the project
-     */
-    info?:
-      | {
-          /**
-           * Select partner organisations for this project. They will be grouped by country automatically.
-           */
-          name?: (string | null) | Partner;
-          /**
-           * Select the role of the partner organisation in this project
-           */
-          role?: ('hosting_org' | 'sending_org') | null;
-          /**
-           * Official reports related to this partner (Salto, Project Report, etc.)
-           */
-          reports?:
-            | {
-                /**
-                 * Select the platform where the partner disseminated project results
-                 */
-                platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'website' | 'other';
-                /**
-                 * Link to the partner’s report or dissemination page
-                 */
-                url: string;
-                /**
-                 * e.g. "Disseminação via Facebook" — if empty, auto-generated from platform
-                 */
-                label?: string | null;
-                id?: string | null;
-              }[]
-            | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
+  partnersInformation?: HawkProjectPartnersInformation;
   /**
    * Unique slug used in the project page URL (e.g. "ai4youth"). Auto-generated from the title if left empty.
    */
@@ -3747,6 +3708,50 @@ export interface SEO {
 export interface HawkProjectSeoFields {
   title?: string | null;
   description?: string | null;
+}
+/**
+ * Information about the project's partners, including their names, roles, and contributions.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkProjectPartnersInformation".
+ */
+export interface HawkProjectPartnersInformation {
+  /**
+   * List of partner organizations involved in the project
+   */
+  partners?:
+    | {
+        /**
+         * Select partner organisations for this project. They will be grouped by country automatically.
+         */
+        partner: string | Partner;
+        /**
+         * Select the role of the partner organisation in this project
+         */
+        role?: ('hosting_org' | 'sending_org') | null;
+        /**
+         * Official reports related to this partner (Salto, Project Report, etc.)
+         */
+        reports?:
+          | {
+              /**
+               * Select the platform where the partner disseminated project results
+               */
+              platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'website' | 'other';
+              /**
+               * Link to the partner’s report or dissemination page
+               */
+              url: string;
+              /**
+               * e.g. "Disseminação via Facebook" — if empty, auto-generated from platform
+               */
+              label?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * Manage national and international partner organizations. Add their logo, country, and social links. Partners are displayed on the public partners page.
@@ -4597,7 +4602,8 @@ export interface HawkProjectSeoFieldsSelect<T extends boolean = true> {
  * via the `definition` "hawk_projects_select".
  */
 export interface HawkProjectsSelect<T extends boolean = true> {
-  projectFullName?: T;
+  heading?: T;
+  coverImage?: T | ImageTypeSelect<T>;
   hero?:
     | T
     | {
@@ -4649,25 +4655,7 @@ export interface HawkProjectsSelect<T extends boolean = true> {
       };
   gallery?: T | MultiImageTypeSelect<T>;
   seo?: T | SEOSelect<T>;
-  partners?:
-    | T
-    | {
-        info?:
-          | T
-          | {
-              name?: T;
-              role?: T;
-              reports?:
-                | T
-                | {
-                    platform?: T;
-                    url?: T;
-                    label?: T;
-                    id?: T;
-                  };
-              id?: T;
-            };
-      };
+  partnersInformation?: T | HawkProjectPartnersInformationSelect<T>;
   slug?: T;
   actionType?: T;
   referenceNumber?: T;
@@ -4706,6 +4694,27 @@ export interface MultiImageTypeSelect<T extends boolean = true> {
     | {
         url?: T;
         alt?: T;
+        id?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkProjectPartnersInformation_select".
+ */
+export interface HawkProjectPartnersInformationSelect<T extends boolean = true> {
+  partners?:
+    | T
+    | {
+        partner?: T;
+        role?: T;
+        reports?:
+          | T
+          | {
+              platform?: T;
+              url?: T;
+              label?: T;
+              id?: T;
+            };
         id?: T;
       };
 }
@@ -11042,7 +11051,7 @@ export interface Setting {
   createdAt?: string | null;
 }
 /**
- * Configure the dynamic numbers and dates shown on the Crowdfunding page.
+ * Configure the dynamic numbers, dates, images, and videos shown on the Crowdfunding page.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "crowdfunding-settings".
@@ -11069,6 +11078,31 @@ export interface CrowdfundingSetting {
    * Short label shown next to the raised amount to indicate weekly growth (e.g. "+2.3% esta semana").
    */
   weeklyIncrease?: string | null;
+  /**
+   * Background image for the hero section at the top of the crowdfunding page.
+   */
+  heroImage?: (string | null) | Media;
+  /**
+   * Thumbnail image shown before the video is played.
+   */
+  videoThumbnail?: (string | null) | Media;
+  /**
+   * YouTube or Vimeo URL for the documentary video (e.g. "https://www.youtube.com/watch?v=...").
+   */
+  videoUrl?: string | null;
+  /**
+   * Images for each update card in the Updates section. Add one per card, in order.
+   */
+  updateCardImages?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Background image for the final call-to-action section at the bottom of the page.
+   */
+  ctaImage?: (string | null) | Media;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -11282,6 +11316,16 @@ export interface CrowdfundingSettingsSelect<T extends boolean = true> {
   projectGoal?: T;
   lastUpdateDate?: T;
   weeklyIncrease?: T;
+  heroImage?: T;
+  videoThumbnail?: T;
+  videoUrl?: T;
+  updateCardImages?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  ctaImage?: T;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;

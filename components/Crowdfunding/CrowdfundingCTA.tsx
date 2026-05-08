@@ -1,19 +1,26 @@
 import React from 'react';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
+import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
+import { Media } from '@/payload-types';
 
 type Props = { lng: Language };
 
 const CrowdfundingCTA = async ({ lng }: Props) => {
   const { t } = await getServerTranslation(lng, 'crowdfunding');
+  const settings = await getCrowdfundingSettings(lng);
+
+  const ctaImage =
+    typeof settings?.ctaImage === 'object' ? (settings.ctaImage as Media)?.url : null;
+  const ctaImageUrl = ctaImage || '/images/projects/8.jpeg';
 
   return (
-    <section id='support' className='relative w-full overflow-hidden bg-[#0d0d0d]'>
+    <section id='support' className='bg-crowdfunding-bg relative w-full overflow-hidden'>
       <div
         className='absolute inset-0 bg-cover bg-center opacity-40'
-        style={{ backgroundImage: "url('/images/projects/8.jpeg')" }}
+        style={{ backgroundImage: `url('${ctaImageUrl}')` }}
       />
-      <div className='absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/60 to-[#0d0d0d]/80' />
+      <div className='from-crowdfunding-bg via-crowdfunding-bg/60 to-crowdfunding-bg/80 absolute inset-0 bg-linear-to-t' />
 
       <div className='relative mx-auto max-w-7xl px-4 py-20 lg:px-8 lg:py-32'>
         <h2 className='font-oswald text-3xl font-bold text-white lg:text-5xl'>
@@ -33,14 +40,34 @@ const CrowdfundingCTA = async ({ lng }: Props) => {
             {t('cta.cta_support')}
           </button>
           <button className='flex items-center gap-2 rounded-full border border-white/30 px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10'>
-            <svg className='h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24' strokeWidth={2}>
-              <path strokeLinecap='round' strokeLinejoin='round' d='M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z' />
+            <svg
+              className='h-4 w-4'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z'
+              />
             </svg>
             {t('cta.cta_share')}
           </button>
           <button className='flex items-center gap-2 rounded-full border border-white/30 px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10'>
-            <svg className='h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24' strokeWidth={2}>
-              <path strokeLinecap='round' strokeLinejoin='round' d='M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z' />
+            <svg
+              className='h-4 w-4'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z'
+              />
             </svg>
             {t('cta.cta_team')}
           </button>

@@ -14,15 +14,16 @@ const disseminationPlatformOptions = [
 ];
 
 const HawkProjectPartnersInformation: Tab = {
-  name: 'partners',
+  name: 'partnersInformation',
   label: 'Partners',
+  interfaceName: 'HawkProjectPartnersInformation',
   admin: {
     description:
       "Information about the project's partners, including their names, roles, and contributions.",
   },
   fields: [
     {
-      name: 'info',
+      name: 'partners',
       label: 'Partner Information',
       type: 'array',
       admin: {
@@ -34,11 +35,11 @@ const HawkProjectPartnersInformation: Tab = {
       },
       fields: [
         {
-          name: 'name',
+          name: 'partner',
           label: 'Partners',
           type: 'relationship',
           relationTo: 'partners',
-          hasMany: false,
+          required: true,
           admin: {
             description:
               'Select partner organisations for this project. They will be grouped by country automatically.',

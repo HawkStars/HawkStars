@@ -20,7 +20,7 @@ const EventsList = ({ events }: EventsListProps) => {
             href={`/projects/${project.slug}`}
             className='group relative isolate min-h-72 bg-cover bg-center px-5 py-14 lg:px-12 lg:py-24'
             style={{
-              backgroundImage: `url(${(getImagePayloadUrl(project.image) as Media)?.url})`,
+              backgroundImage: `url(${(getImagePayloadUrl(project.coverImage) as Media)?.url})`,
             }}
           >
             <div className='relative z-10 flex flex-col gap-7 text-white/80 transition-colors duration-300 ease-out group-hover:text-white lg:flex-row'>
@@ -30,11 +30,11 @@ const EventsList = ({ events }: EventsListProps) => {
               </div>
               <div className='flex flex-1 flex-col gap-2.5'>
                 <h3 className='text-2xl font-bold lg:text-4xl'>{project.heading}</h3>
-                <p className='text-sm font-medium uppercase'>{project.subheading}</p>
+                <p className='text-sm font-medium uppercase'>{project.details?.text}</p>
               </div>
               <div className='flex-1'>
                 <div className='flex flex-col'>
-                  <p>{project.description}</p>
+                  <p>{project.details?.text}</p>
                   <div className='mt-2.5 h-0 overflow-hidden transition-all duration-300 ease-out group-hover:h-10'>
                     <div>
                       <Button

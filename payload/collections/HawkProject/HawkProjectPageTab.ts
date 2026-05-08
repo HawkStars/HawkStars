@@ -2,6 +2,7 @@ import { PayloadImageField } from '@/payload/fields/ImageType';
 import { MultiImageField } from '@/payload/fields/MultiImage';
 import { Tab } from 'payload';
 import HawkProjectPartnersInformation from './HawkProjectPartnersInformation';
+import { FixedToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 
 /* ================================================================== */
 /*  PROJECT PAGE TAB — Structured fields so every project page        */
@@ -12,7 +13,7 @@ const HawkProjectPageTab: Tab = {
   description: 'Structured content for the public project page',
   fields: [
     {
-      name: 'projectFullName',
+      name: 'heading',
       label: 'Full Project Name',
       type: 'text',
       localized: true,
@@ -20,6 +21,12 @@ const HawkProjectPageTab: Tab = {
         description: 'e.g. AI4YOU(th) – AI IN EVERYDAY LIFE',
       },
     },
+
+    PayloadImageField({
+      name: 'coverImage',
+      label: 'Cover Image',
+      description: 'Main image shown at the top of the project page',
+    }),
 
     /* -------------------------------------------------------------- */
     /*  1. HERO SECTION                                               */
@@ -71,6 +78,21 @@ const HawkProjectPageTab: Tab = {
               admin: {
                 description: 'YouTube or other embed URL shown in the hero section',
                 width: '50%',
+              },
+              required: false,
+              validate: (value: string | undefined | null) => {
+                if (value) {
+                  if (value.includes('youtube.com') || value.includes('youtu.be')) {
+                    if (value.includes('embed') || value.includes('watch?v=')) {
+                      return true;
+                    }
+                    return "Please provide a valid YouTube URL (must contain 'embed' or 'watch?v=')";
+                  }
+
+                  return true;
+                }
+
+                return 'Missing Link Url';
               },
             },
           ],

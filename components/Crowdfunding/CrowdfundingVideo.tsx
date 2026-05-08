@@ -1,11 +1,21 @@
 import React from 'react';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
+import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
+import { Media } from '@/payload-types';
 
 type Props = { lng: Language };
 
 const CrowdfundingVideo = async ({ lng }: Props) => {
   const { t } = await getServerTranslation(lng, 'crowdfunding');
+  const settings = await getCrowdfundingSettings(lng);
+
+  const videoThumbnail =
+    typeof settings?.videoThumbnail === 'object'
+      ? (settings.videoThumbnail as Media)?.url
+      : null;
+  const videoThumbnailUrl = videoThumbnail || '/images/projects/2.jpeg';
+  const videoUrl = settings?.videoUrl || null;
 
   return (
     <section className='w-full bg-[#0d0d0d] py-16'>
@@ -15,7 +25,7 @@ const CrowdfundingVideo = async ({ lng }: Props) => {
           <div className='relative aspect-video w-full overflow-hidden rounded-2xl bg-[#1a1a1a]'>
             <div
               className='absolute inset-0 bg-cover bg-center'
-              style={{ backgroundImage: "url('/images/projects/2.jpeg')" }}
+              style={{ backgroundImage: `url('${videoThumbnailUrl}')` }}
             />
             <div className='absolute inset-0 bg-black/30' />
 
@@ -29,15 +39,32 @@ const CrowdfundingVideo = async ({ lng }: Props) => {
             </div>
 
             <div className='absolute inset-0 flex items-center justify-center'>
-              <button className='flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition hover:bg-white/30'>
-                <svg className='ml-1 h-8 w-8 text-white' fill='currentColor' viewBox='0 0 20 20'>
-                  <path
-                    fillRule='evenodd'
-                    d='M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z'
-                    clipRule='evenodd'
-                  />
-                </svg>
-              </button>
+              {videoUrl ? (
+                <a
+                  href={videoUrl}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition hover:bg-white/30'
+                >
+                  <svg className='ml-1 h-8 w-8 text-white' fill='currentColor' viewBox='0 0 20 20'>
+                    <path
+                      fillRule='evenodd'
+                      d='M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z'
+                      clipRule='evenodd'
+                    />
+                  </svg>
+                </a>
+              ) : (
+                <button className='flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition hover:bg-white/30'>
+                  <svg className='ml-1 h-8 w-8 text-white' fill='currentColor' viewBox='0 0 20 20'>
+                    <path
+                      fillRule='evenodd'
+                      d='M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z'
+                      clipRule='evenodd'
+                    />
+                  </svg>
+                </button>
+              )}
             </div>
 
             <div className='absolute bottom-0 left-0 right-0 bg-black/50 px-4 py-2'>

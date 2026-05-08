@@ -29,7 +29,7 @@ type ProjectCardProps = {
 };
 
 const ProjectCard = ({ project, index, lng, viewProjectLabel }: ProjectCardProps) => {
-  const image = getImagePayloadUrl(project.image);
+  const image = getImagePayloadUrl(project.coverImage);
   const projectUrl = transformUrl(lng, `${urls.projects}/${project.slug}`);
 
   return (
@@ -47,17 +47,17 @@ const ProjectCard = ({ project, index, lng, viewProjectLabel }: ProjectCardProps
         </div>
         <div className='flex flex-1 flex-col gap-2.5'>
           <h3 className='text-2xl font-bold lg:text-4xl'>{project.heading}</h3>
-          <p className='text-sm font-medium uppercase'>{project.subheading}</p>
-          {project.date && (
+          <p className='text-sm font-medium uppercase'>{project.details?.text}</p>
+          {project.startDate && (
             <div className='flex items-center gap-1.5 text-sm font-medium'>
               <CalendarDays className='size-4' />
-              <span>{format(new Date(project.date), 'dd MMM yyyy')}</span>
+              <span>{format(new Date(project.startDate), 'dd MMM yyyy')}</span>
             </div>
           )}
         </div>
         <div className='flex-1'>
           <div className='flex flex-col'>
-            <p>{project.description}</p>
+            <p>{project.details?.text}</p>
             <div className='mt-2.5 h-0 overflow-hidden transition-all duration-300 ease-out group-hover:h-10'>
               <div>
                 <Button

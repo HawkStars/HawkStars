@@ -1,4 +1,4 @@
-import { Contribution } from '@/payload-types';
+import { Contribution, HawkProject } from '@/payload-types';
 import path from 'path';
 import type { Payload } from 'payload';
 import { fileURLToPath } from 'url';
@@ -405,18 +405,19 @@ export async function seed(payload: Payload): Promise<void> {
       },
       {
         heading: 'International Conference on Youth Work',
-        subheading: 'Building bridges across borders',
-        description: 'Conferência internacional sobre trabalho juvenil.',
+        details: {
+          text: 'Building bridges across borders',
+          description: 'Conferência internacional sobre trabalho juvenil.',
+        },
         slug: 'international-conference-youth-work',
-        type_event: 'international_event' as const,
-        date: '2024-11-10T00:00:00.000Z',
-        image: {
+        startDate: '2024-11-10T00:00:00.000Z',
+        coverImage: {
           imageType: 'upload' as const,
           upload: mediaId(3),
           alt: 'International Conference',
         },
       },
-    ];
+    ] as unknown as HawkProject[];
 
     for (const project of projects) {
       const doc = await payload.create({
@@ -431,8 +432,7 @@ export async function seed(payload: Payload): Promise<void> {
         locale: 'en',
         data: {
           heading: project.heading,
-          subheading: project.subheading ? `${project.subheading} (EN)` : undefined,
-          description: project.description ? `${project.description} (English version)` : undefined,
+          details: project.details,
         },
       });
     }

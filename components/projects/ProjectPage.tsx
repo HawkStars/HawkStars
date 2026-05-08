@@ -5,6 +5,7 @@ import { pt } from 'date-fns/locale';
 import { HawkProject, Media, Partner } from '@/payload-types';
 import { FlagIcons } from '@/lib/flags';
 import { getImagePayloadUrl } from '@/lib/image';
+import RichText from '@/payload/components/RichText';
 
 /* ================================================================== */
 /*  Helper: render a flag icon by FlagIcons key                       */
@@ -53,13 +54,14 @@ interface ProjectPageProps {
 }
 
 export default function ProjectPage({ project }: ProjectPageProps) {
-  const hero = project.hero;
-  const desc = project.projectDescription;
+  const { hero, partnersInformation, details } = project;
+  const { partners } = partnersInformation || {};
+  const { text, phases } = details || {};
+
   const objectives = project.objectives;
   const results = project.results;
   const dissemination = project.dissemination;
   const gallery = project.gallery;
-  const partners = project.projectPartners as Partner[] | undefined;
 
   /* Date formatting */
   const startDate = project.startDate ? new Date(project.startDate) : null;
@@ -99,7 +101,7 @@ export default function ProjectPage({ project }: ProjectPageProps) {
             )}
 
             {/* Title */}
-            <h1 className='text-4xl font-bold md:text-5xl'>{project.projectFullName}</h1>
+            <h1 className='text-4xl font-bold md:text-5xl'>{project.heading}</h1>
 
             {/* Stats row */}
             {(hero?.participants || hero?.fundedAmount) && (
@@ -165,7 +167,7 @@ export default function ProjectPage({ project }: ProjectPageProps) {
                 {partners.map((c, i) => (
                   <FlagIcon
                     key={i}
-                    country={c.country}
+                    country={(c.partner as Partner).country}
                     className='h-10 w-10 overflow-hidden rounded-full'
                   />
                 ))}
@@ -190,9 +192,9 @@ export default function ProjectPage({ project }: ProjectPageProps) {
 
             {/* Metadata */}
             <div className='space-y-1 text-sm text-gray-700'>
-              {project.projectFullName && (
+              {project.heading && (
                 <p>
-                  <span className='font-semibold'>Nome do Projeto:</span> {project.projectFullName}
+                  <span className='font-semibold'>Nome do Projeto:</span> {project.heading}
                 </p>
               )}
               {project.actionType && (
@@ -221,21 +223,20 @@ export default function ProjectPage({ project }: ProjectPageProps) {
         </div>
 
         {/* Description below hero grid */}
-        {desc?.text && (
-          <div className='mt-10'>
-            <p className='text-justify text-base leading-relaxed text-gray-800'>{desc.text}</p>
-            {desc.phases && desc.phases.length > 0 && (
-              <ul className='mt-4 list-disc space-y-2 pl-6 text-gray-800'>
-                {desc.phases.map((phase, i) => (
-                  <li key={i}>
-                    {phase.title && <span className='font-semibold'>{phase.title}: </span>}
-                    {phase.description}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        )}
+
+        <div className='mt-10'>
+          {text && <p className='text-justify text-base leading-relaxed text-gray-800'>{text}</p>}
+          {phases && phases.length > 0 && (
+            <ul className='mt-4 list-disc space-y-2 pl-6 text-gray-800'>
+              {phases.map((phase, i) => (
+                <li key={i}>
+                  {phase.title && <span className='font-semibold'>{phase.title}: </span>}
+                  {phase.description}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </Section>
 
       {/* ---------------------------------------------------------- */}
@@ -246,14 +247,15 @@ export default function ProjectPage({ project }: ProjectPageProps) {
           <h2 className='mb-10 text-4xl font-bold'>Parceiros</h2>
           <div className='grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
             {partners.map((partner) => {
-              const logoUrl = partner.logo ? (partner.logo as Media).url : null;
+              const { country, logo, name } = partner.partner as Partner;
+              const logoUrl = logo ? (logo as Media).url : null;
               return (
                 <div key={partner.id} className='flex flex-col items-center gap-3 text-center'>
-                  <h3 className='text-sm font-semibold'>{partner.country}</h3>
+                  <h3 className='text-sm font-semibold'>{country}</h3>
                   {logoUrl && (
                     <Image
                       src={logoUrl}
-                      alt={`${partner.name} logo`}
+                      alt={`${name} logo`}
                       width={120}
                       height={120}
                       className='h-24 w-24 object-contain'
@@ -317,71 +319,39 @@ export default function ProjectPage({ project }: ProjectPageProps) {
         </Section>
       )}
 
-      {/* ---------------------------------------------------------- */}
-      {/*  5. DISSEMINATION SECTION                                  */}
-      {/* ---------------------------------------------------------- */}
-      {dissemination &&
-        ((dissemination.countryLinks && dissemination.countryLinks.length > 0) ||
-          (dissemination.reports && dissemination.reports.length > 0)) && (
-          <Section alt>
-            <h2 className='mb-8 text-4xl font-bold'>Disseminação</h2>
+      <Section alt>
+        <h2 className='mb-8 text-4xl font-bold'>Disseminação</h2>
+        {/* ---------------------------------------------------------- */}
+        {/*  5. DISSEMINATION SECTION                                  */}
+        {/* ---------------------------------------------------------- */}
+        {partners?.map((p) => {
+          const partner = p.partner as Partner;
+          const reports = p.reports || [];
 
-            {/* Country links */}
-            {dissemination.countryLinks && dissemination.countryLinks.length > 0 && (
-              <div className='space-y-4'>
-                {dissemination.countryLinks.map((cl, i) => (
-                  <div key={i} className='flex flex-wrap items-center gap-4'>
-                    <FlagIcon
-                      country={cl.country}
-                      className='h-8 w-8 overflow-hidden rounded-full'
-                    />
-                    {cl.links &&
-                      cl.links.map((link, j) => (
-                        <Link
-                          key={j}
-                          href={link.url}
-                          target='_blank'
-                          className='rounded-full bg-amber-400 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-500'
-                        >
-                          {link.label ||
-                            `Disseminação via ${link.platform.charAt(0).toUpperCase() + link.platform.slice(1)}`}
-                        </Link>
-                      ))}
-                  </div>
-                ))}
+          return (
+            <div className='space-y-4'>
+              <div key={partner.id} className='flex flex-wrap items-center gap-4'>
+                <FlagIcon
+                  country={partner.country}
+                  className='h-8 w-8 overflow-hidden rounded-full'
+                />
+                {reports &&
+                  reports.map((report, j) => (
+                    <Link
+                      key={j}
+                      href={report.url}
+                      target='_blank'
+                      className='rounded-full bg-amber-400 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-500'
+                    >
+                      {report.label ||
+                        `Disseminação via ${report.platform.charAt(0).toUpperCase() + report.platform.slice(1)}`}
+                    </Link>
+                  ))}
               </div>
-            )}
-
-            {/* Reports */}
-            {dissemination.reports && dissemination.reports.length > 0 && (
-              <div className='mt-8 flex flex-wrap items-center gap-4'>
-                {dissemination.reports.map((report, i) => {
-                  const badge = report.reportBadge ? getImagePayloadUrl(report.reportBadge) : null;
-                  return (
-                    <div key={i} className='flex items-center gap-3'>
-                      {badge?.url && (
-                        <Image
-                          src={badge.url}
-                          alt=''
-                          width={40}
-                          height={40}
-                          className='object-contain'
-                        />
-                      )}
-                      <Link
-                        href={report.url}
-                        target='_blank'
-                        className='rounded-full bg-amber-400 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-500'
-                      >
-                        {report.label}
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </Section>
-        )}
+            </div>
+          );
+        })}
+      </Section>
 
       {/* ---------------------------------------------------------- */}
       {/*  6. PHOTO GALLERY                                          */}

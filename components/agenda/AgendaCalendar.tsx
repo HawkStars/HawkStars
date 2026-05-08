@@ -6,25 +6,12 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { getImagePayloadUrl } from '@/lib/image';
-import type { HawkProject } from '@/payload-types';
+import type { HawkEvent } from '@/payload-types';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type AgendaEvent = {
-  id: string;
-  title: string;
-  description?: string | null;
-  date: string;
-  /** ISO string — present for multi-day events */
-  endDate?: string | null;
-  isDateRange?: boolean;
-  type?: string | null;
-  slug: string;
-  image?: HawkProject['image'];
-};
-
 type AgendaCalendarProps = {
-  events: AgendaEvent[];
+  events: HawkEvent[];
   translations: {
     title: string;
     subtitle: string;
@@ -107,7 +94,7 @@ function dateKeysInRange(startISO: string, endISO: string): string[] {
 function formatDateRange(
   startISO: string,
   endISO: string | null | undefined,
-  locale: string,
+  locale: string
 ): string {
   if (!endISO) {
     return new Date(startISO).toLocaleDateString(locale === 'pt' ? 'pt-PT' : 'en-US', {
@@ -146,7 +133,7 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
    * Multi-day events are added to every day they span.
    */
   const eventsByDate = useMemo(() => {
-    const map: Record<string, AgendaEvent[]> = {};
+    const map: Record<string, HawkEvent[]> = {};
 
     events.forEach((event) => {
       const keys =
@@ -274,14 +261,14 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
                     'hover:bg-gray-50',
                     isToday(day) && 'ring-green ring-2',
                     isSelected && 'bg-green/10',
-                    hasEvents && 'cursor-pointer',
+                    hasEvents && 'cursor-pointer'
                   )}
                 >
                   <span
                     className={cn(
                       'text-sm font-medium md:text-base',
                       isToday(day) && 'text-green font-bold',
-                      !hasEvents && 'text-gray-400',
+                      !hasEvents && 'text-gray-400'
                     )}
                   >
                     {day}
@@ -290,25 +277,27 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
                   {hasEvents && (
                     <div className='mt-0.5 flex items-center gap-0.5'>
                       {/* Dots for single-day events, bar for range events */}
-                      {dayEvents.slice(0, 3).map((evt, i) =>
-                        evt.isDateRange ? (
-                          <div
-                            key={i}
-                            className={cn(
-                              'h-1.5 w-3 rounded-sm md:h-2 md:w-4',
-                              categoryDotColors[evt.type ?? 'other'] ?? 'bg-green-500',
-                            )}
-                          />
-                        ) : (
-                          <div
-                            key={i}
-                            className={cn(
-                              'h-1.5 w-1.5 rounded-full md:h-2 md:w-2',
-                              categoryDotColors[evt.type ?? 'other'] ?? 'bg-green-500',
-                            )}
-                          />
-                        ),
-                      )}
+                      {dayEvents
+                        .slice(0, 3)
+                        .map((evt, i) =>
+                          evt.isDateRange ? (
+                            <div
+                              key={i}
+                              className={cn(
+                                'h-1.5 w-3 rounded-sm md:h-2 md:w-4',
+                                categoryDotColors[evt.type_event ?? 'other'] ?? 'bg-green-500'
+                              )}
+                            />
+                          ) : (
+                            <div
+                              key={i}
+                              className={cn(
+                                'h-1.5 w-1.5 rounded-full md:h-2 md:w-2',
+                                categoryDotColors[evt.type_event ?? 'other'] ?? 'bg-green-500'
+                              )}
+                            />
+                          )
+                        )}
                     </div>
                   )}
 
@@ -348,7 +337,7 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
                 {selectedDate
                   ? new Date(selectedDate + 'T12:00:00').toLocaleDateString(
                       lng === 'pt' ? 'pt-PT' : 'en-US',
-                      { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' },
+                      { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
                     )
                   : translations.title}
               </h3>
@@ -378,7 +367,7 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
                         <div className='relative h-32 w-full overflow-hidden'>
                           <Image
                             src={imageInfo.url}
-                            alt={imageInfo.alt || event.title}
+                            alt={imageInfo.alt || event.heading}
                             fill
                             className='object-cover transition-transform group-hover:scale-105'
                           />
@@ -387,16 +376,16 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
                       <div className='p-3'>
                         {/* Type badge + multi-day badge */}
                         <div className='mb-1.5 flex flex-wrap items-center gap-2'>
-                          {event.type && (
+                          {event.type_event && (
                             <span
                               className={cn(
                                 'rounded-full px-2 py-0.5 text-[10px] font-medium uppercase',
-                                categoryColors[event.type] ?? categoryColors.other,
+                                categoryColors[event.type_event] ?? categoryColors.other
                               )}
                             >
-                              {categoryLabels[lng]?.[event.type] ||
-                                categoryLabels['en'][event.type] ||
-                                event.type}
+                              {categoryLabels[lng]?.[event.type_event] ||
+                                categoryLabels['en'][event.type_event] ||
+                                event.type_event}
                             </span>
                           )}
                           {event.isDateRange && (
@@ -407,7 +396,7 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
                           )}
                         </div>
 
-                        <h4 className='font-semibold'>{event.title}</h4>
+                        <h4 className='font-semibold'>{event.heading}</h4>
 
                         {event.description && (
                           <p className='mt-1 line-clamp-2 text-sm text-gray-600'>

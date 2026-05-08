@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import type {
-  HawkProject,
+  HawkEvent,
   UpcomingHawkEventBlock as UpcomingHawkEventBlockProps,
 } from '@/payload-types';
 import type { Where } from 'payload';
@@ -22,7 +22,7 @@ export const UpcomingHawkEventBlock: React.FC<UpcomingHawkEventBlockProps> = ({
   linkLabel = 'Learn more',
   sectionId,
 }) => {
-  const [upcomingEvent, setUpcomingEvent] = useState<HawkProject | null>(null);
+  const [upcomingEvent, setUpcomingEvent] = useState<HawkEvent | null>(null);
 
   const getUpcomingEvent = useCallback(async () => {
     const where: Where = {};
@@ -31,7 +31,7 @@ export const UpcomingHawkEventBlock: React.FC<UpcomingHawkEventBlockProps> = ({
     const stringifiedQuery = stringify({ where, limit: 1 }, { addQueryPrefix: true });
 
     try {
-      const response = await fetch(`/api/hawk_projects${stringifiedQuery}`, {
+      const response = await fetch(`/api/hawk_events${stringifiedQuery}`, {
         method: 'GET',
       });
 
