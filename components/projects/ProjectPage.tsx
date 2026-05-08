@@ -5,7 +5,6 @@ import { pt } from 'date-fns/locale';
 import { HawkProject, Media, Partner } from '@/payload-types';
 import { FlagIcons } from '@/lib/flags';
 import { getImagePayloadUrl } from '@/lib/image';
-import RichText from '@/payload/components/RichText';
 
 /* ================================================================== */
 /*  Helper: render a flag icon by FlagIcons key                       */
@@ -60,7 +59,6 @@ export default function ProjectPage({ project }: ProjectPageProps) {
 
   const objectives = project.objectives;
   const results = project.results;
-  const dissemination = project.dissemination;
   const gallery = project.gallery;
 
   /* Date formatting */
@@ -329,7 +327,7 @@ export default function ProjectPage({ project }: ProjectPageProps) {
           const reports = p.reports || [];
 
           return (
-            <div className='space-y-4'>
+            <div className='space-y-4' key={p.id}>
               <div key={partner.id} className='flex flex-wrap items-center gap-4'>
                 <FlagIcon
                   country={partner.country}

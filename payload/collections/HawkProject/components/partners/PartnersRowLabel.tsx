@@ -9,8 +9,6 @@ const PartnersRowLabel = () => {
     name: string;
   }>();
 
-  if (!rowData || !rowData.name) return <div>Unnamed Partner</div>;
-
   const [{ data, isError, isLoading }] = usePayloadAPI(
     `/api/${partnersCollection}/${rowData?.name}`,
     {
@@ -18,6 +16,7 @@ const PartnersRowLabel = () => {
     }
   );
 
+  if (!rowData || !rowData.name) return <div>Unnamed Partner</div>;
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Unnamed Partner</div>;
 
