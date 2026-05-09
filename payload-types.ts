@@ -7500,6 +7500,20 @@ export interface MainPage {
     };
     [k: string]: unknown;
   };
+  /**
+   * Optional banner displayed at the top of the page.
+   */
+  Banner?: {
+    /**
+     * Hex color code for the banner background (e.g. #ff0000)
+     */
+    bannerColor?: string | null;
+    /**
+     * Text to display in the banner
+     */
+    bannerText?: string | null;
+    bannerImage?: ImageType;
+  };
   meta?: {
     title?: string | null;
     /**
@@ -11252,6 +11266,13 @@ export interface FooterNavGroupSelect<T extends boolean = true> {
  */
 export interface MainPageSelect<T extends boolean = true> {
   layout?: T;
+  Banner?:
+    | T
+    | {
+        bannerColor?: T;
+        bannerText?: T;
+        bannerImage?: T | ImageTypeSelect<T>;
+      };
   meta?:
     | T
     | {

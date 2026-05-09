@@ -6,6 +6,7 @@ import { hawkLogo } from '@/utils/models/images/logos';
 import Image from 'next/image';
 import { getMainPageInformation } from '@/lib/payload/main-page';
 import RichTextWrapper from '@/payload/components/RichText/RichTextWrapper';
+import MainPageBanner from '@/components/main-page/MainPageBanner';
 
 export const revalidate = 600; // invalidate every 10 minutes
 
@@ -35,5 +36,17 @@ export default async function Home(props: HomeProps) {
         <h1 className='text-xl'>We are revamping the website. See you soon!</h1>
       </div>
     );
-  } else return <RichTextWrapper data={pageInformation.layout} />;
+  } else {
+    const { bannerText, bannerColor, bannerImage } = pageInformation.Banner || {};
+    return (
+      <>
+        <MainPageBanner
+          bannerText={bannerText}
+          bannerColor={bannerColor}
+          bannerImage={bannerImage}
+        />
+        <RichTextWrapper data={pageInformation.layout} />
+      </>
+    );
+  }
 }

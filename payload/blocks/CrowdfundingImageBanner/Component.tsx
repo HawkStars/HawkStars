@@ -6,6 +6,7 @@ import type { CrowdfundingImageBannerBlock } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { cn } from '@/lib/utils';
 
 export const CrowdfundingImageBannerBlockComponent: React.FC<CrowdfundingImageBannerBlock> = ({
   image,
@@ -25,7 +26,7 @@ export const CrowdfundingImageBannerBlockComponent: React.FC<CrowdfundingImageBa
           alt={imageData.alt}
           width={imageData.width || 1920}
           height={imageData.height || 400}
-          className='mx-auto h-auto object-contain'
+          className={cn('mx-auto h-auto w-full object-contain', {})}
         />
       </Link>
     </section>

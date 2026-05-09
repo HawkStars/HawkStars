@@ -1,4 +1,3 @@
-import React from 'react';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
 

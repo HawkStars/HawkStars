@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
-import { hawkLogo } from '@/utils/models/images/logos';
+import { globalVillageLogo } from '@/utils/models/images/logos';
 import { useTranslation } from '@/i18n/client';
 
 type CrowdfundingNavbarProps = {
@@ -26,8 +26,12 @@ const CrowdfundingNavbar = ({ lng }: CrowdfundingNavbarProps) => {
     <nav className='bg-crowdfunding-bg sticky top-0 z-50 border-b border-white/10'>
       <div className='mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:px-8'>
         {/* Logo */}
-        <Link href={`/${lng}`} className='flex items-center' aria-label='Go to the Hawk Stars website'>
-          <Image src={hawkLogo} alt='Hawk Stars Logo' width={130} priority />
+        <Link
+          href={`/${lng}`}
+          className='flex items-center'
+          aria-label='Go to the Hawk Stars website'
+        >
+          <Image src={globalVillageLogo} alt='Global Village Logo' width={130} priority />
         </Link>
 
         {/* Desktop links */}
@@ -67,7 +71,14 @@ const CrowdfundingNavbar = ({ lng }: CrowdfundingNavbarProps) => {
             className='flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border-none bg-white/10 text-white md:hidden'
             aria-label='Toggle menu'
           >
-            <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2'>
+            <svg
+              width='20'
+              height='20'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='2'
+            >
               {mobileOpen ? (
                 <path d='M18 6L6 18M6 6l12 12' strokeLinecap='round' />
               ) : (

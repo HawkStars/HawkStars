@@ -15,9 +15,9 @@ import { LanguagePageProps } from './types';
 import { Language, fallbackLng, languages } from '@/i18n/settings';
 import { getFooterQuery, getHeaderQuery } from '@/lib/payload/queries/navbar';
 import MobileNavbar from '@/components/navbar/MobileNavbar';
-import Navbar from '@/components/navbar/Navbar';
 import { OrganizationJsonLd } from '@/components/seo/JsonLd';
 import { GA_MEASUREMENT_ID } from '@/lib/constants';
+import Navbar from '@/components/navbar/Navbar';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));

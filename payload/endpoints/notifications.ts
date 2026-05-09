@@ -62,7 +62,6 @@ export const markNotificationsReadHandler: PayloadHandler = async (req) => {
     const body = await req.json?.();
 
     if (body?.all === true) {
-      // Mark all unread notifications as read
       const unread = await payload.find({
         collection: 'notifications',
         where: { read: { equals: false } },
