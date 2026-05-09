@@ -40,8 +40,8 @@ const Navbar = () => {
             columns={columns}
             menuKeyHovered={selectedMenu?.dropdown?.key || null}
           />
-          {/* NAVBAR MOBILE */}
 
+          {/* NAVBAR MOBILE */}
           <div
             className='my-auto ml-auto flex cursor-pointer lg:hidden'
             onClick={() => setMobileMenuOpen(true)}
@@ -55,19 +55,17 @@ const Navbar = () => {
       </div>
 
       {selectedMenu && (
-        <>
-          <div
-            className={cn(
-              'absolute z-90 mx-auto flex h-fit w-full justify-center gap-5 border-b border-b-gray-200 bg-white py-4 shadow-lg',
-              {
-                'hidden opacity-0': !hoveredMenu,
-              }
-            )}
-            style={{ transition: 'display .3s ease-in, visibility .3s ease-in' }}
-          >
-            <DropdownMenu dropdownInfo={selectedMenu.dropdown} />
-          </div>
-        </>
+        <div
+          className={cn(
+            'absolute z-90 mx-auto flex h-fit w-full justify-center gap-5 border-b border-b-gray-200 bg-white py-4 shadow-lg',
+            {
+              'hidden opacity-0': !hoveredMenu,
+            }
+          )}
+          style={{ transition: 'display .3s ease-in, visibility .3s ease-in' }}
+        >
+          <DropdownMenu dropdownInfo={selectedMenu.dropdown} />
+        </div>
       )}
     </nav>
   );

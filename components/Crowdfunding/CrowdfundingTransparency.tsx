@@ -55,7 +55,9 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
                 <p className='text-[10px] font-semibold tracking-wider text-gray-500 uppercase'>
                   {t('transparency.raised_label')}
                 </p>
-                <p className='mt-1 text-2xl font-bold text-white'>€ {raised.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}</p>
+                <p className='mt-1 text-2xl font-bold text-white'>
+                  € {raised.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
+                </p>
                 <p className='mt-1 flex items-center gap-1 text-xs text-green-500'>
                   <svg className='h-3 w-3' fill='currentColor' viewBox='0 0 20 20'>
                     <path
@@ -71,7 +73,9 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
                 <p className='text-[10px] font-semibold tracking-wider text-gray-500 uppercase'>
                   {t('transparency.campaign_goal_label')}
                 </p>
-                <p className='mt-1 text-2xl font-bold text-white'>€ {campaignGoal.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}</p>
+                <p className='mt-1 text-2xl font-bold text-white'>
+                  € {campaignGoal.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
+                </p>
                 <p className='mt-1 text-xs text-gray-500'>
                   {percentage}
                   {t('transparency.percentage_label')}
@@ -124,7 +128,7 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
               {phaseKeys.map((key, index) => (
                 <div
                   key={key}
-                  className='flex items-center gap-3 rounded-xl border border-white/10 bg-[#0d0d0d] px-4 py-3'
+                  className='bg-crowdfunding-bg flex items-center gap-3 rounded-xl border border-white/10 px-4 py-3'
                 >
                   <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-orange-500 text-sm font-bold text-orange-500'>
                     {index + 1}

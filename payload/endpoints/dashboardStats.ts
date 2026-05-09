@@ -4,7 +4,6 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
   const { payload } = req;
 
   try {
-    // Fetch collection counts in parallel
     const [
       artCollectionCount,
       boardMembersCount,

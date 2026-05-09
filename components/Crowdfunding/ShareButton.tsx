@@ -17,18 +17,14 @@ export const ShareButton = ({ label }: Props) => {
       try {
         await navigator.share({ title, url });
         return;
-      } catch {
-        // User cancelled or share failed — fall through to clipboard
-      }
+      } catch {}
     }
 
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard not available
-    }
+    } catch {}
   }, []);
 
   return (

@@ -5,6 +5,7 @@ import { Metadata } from 'next/types';
 import { Language, fallbackLng, languages } from '@/i18n/settings';
 import { HawkStarsPaths, urls } from './paths';
 import { Media } from '@/payload-types';
+import { BASE_URL, OG_IMAGE_FALLBACK, SITE_NAME, SITE_LOCALE_PT, SITE_LOCALE_EN } from '@/lib/constants';
 
 export const defaultMetadata = {
   icons: {
@@ -28,12 +29,19 @@ const readMetadataLanguageFile = (lng: Language) => {
 const prepareMetadataInfo = ({
   title,
   description,
+  image,
 }: {
   title?: string | null;
   description?: string | null;
   image?: string | Media | null;
 }): Metadata => {
-  // TODO: missing the image
+  const ogImage =
+    typeof image === 'string'
+      ? image
+      : image && typeof image === 'object' && 'url' in image
+        ? (image as Media).url || OG_IMAGE_FALLBACK
+        : OG_IMAGE_FALLBACK;
+
   return {
     title,
     description,
@@ -45,7 +53,14 @@ const prepareMetadataInfo = ({
     openGraph: {
       title: title || '',
       description: description || '',
-      siteName: 'Hawk Stars NGO',
+      siteName: SITE_NAME,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title || SITE_NAME }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: title || '',
+      description: description || '',
+      images: [ogImage],
     },
   };
 };
@@ -86,6 +101,8 @@ const transformToMetadataObject = (
 
   if (url === '/') url = '';
 
+  const canonicalUrl = `${BASE_URL}/${lng}${url}`;
+
   return {
     title,
     description,
@@ -98,12 +115,15 @@ const transformToMetadataObject = (
     ],
     appleWebApp: false,
     twitter: {
+      card: 'summary_large_image',
       title,
       description,
+      images: [OG_IMAGE_FALLBACK],
     },
     referrer: 'no-referrer-when-downgrade',
-    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL!),
+    metadataBase: new URL(BASE_URL),
     alternates: {
+      canonical: canonicalUrl,
       languages: {
         en: `/en${url}`,
         pt: `/pt${url}`,
@@ -113,20 +133,38 @@ const transformToMetadataObject = (
       type: 'website',
       title,
       description,
-      url: `${process.env.NEXT_PUBLIC_APP_URL}/${lng}`,
+      url: canonicalUrl,
+      siteName: SITE_NAME,
+      locale: lng === 'pt' ? SITE_LOCALE_PT : SITE_LOCALE_EN,
+      alternateLocale: lng === 'pt' ? SITE_LOCALE_EN : SITE_LOCALE_PT,
+      images: [
+        {
+          url: OG_IMAGE_FALLBACK,
+          width: 1200,
+          height: 630,
+          alt: title || SITE_NAME,
+        },
+      ],
     },
     icons: {
       icon: '/favicon.ico',
-      shortcut: '/favicon.ico',
-      apple: '/favicon.ico',
+      shortcut: '/favicon/favicon-16x16.png',
+      apple: '/favicon/apple-touch-icon.png',
     },
-    applicationName: 'Hawk Stars NGO Website',
+    applicationName: `${SITE_NAME} Website`,
     generator: 'Next.js',
-    creator: 'Hawk Stars NGO',
-    publisher: 'Hawk Stars NGO',
+    creator: SITE_NAME,
+    publisher: SITE_NAME,
     robots: {
       index: true,
       follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
   } as Metadata;
 };

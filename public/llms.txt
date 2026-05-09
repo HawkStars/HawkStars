@@ -1,0 +1,54 @@
+# Hawk Stars NGO — Associação HawkStars
+
+> Hawk Stars is a Portuguese non-profit (NGO) based in Pinhel, Portugal, dedicated to education, social innovation, cultural development, and international cooperation. Our flagship initiative is The Global Village Project.
+
+## About
+
+Hawk Stars NGO (Associação HawkStars) was founded to foster positive change in Pinhel and beyond. We operate across education, entrepreneurship, technology, cultural development, and youth empowerment through Erasmus+ programmes and local community projects.
+
+- Website: https://hawkstars.org
+- Languages: Portuguese (primary), English
+- Location: Pinhel, Portugal
+- Type: Non-profit / NGO
+
+## Key Pages
+
+- Home: https://hawkstars.org/pt
+- About / History: https://hawkstars.org/pt/history
+- The Global Village Project: https://hawkstars.org/pt/village
+- Projects: https://hawkstars.org/pt/projects
+- Events: https://hawkstars.org/pt/events
+- Erasmus+ Programmes: https://hawkstars.org/pt/erasmus
+- News: https://hawkstars.org/pt/news
+- Team: https://hawkstars.org/pt/team
+- Partners: https://hawkstars.org/pt/partners
+- Contribute / Donate: https://hawkstars.org/pt/contribute
+- Transparency: https://hawkstars.org/pt/transparency
+- Art Gallery: https://hawkstars.org/pt/artwork
+- Agenda: https://hawkstars.org/pt/agenda
+
+## The Global Village Project
+
+The Global Village is Hawk Stars' flagship initiative — a visionary project in Pinhel to build an International Training Center that fosters learning, innovation, entrepreneurship, e-sports, and cultural development. It aims to redefine urban landscapes and create a sustainable, inclusive community hub.
+
+## Erasmus+ & International
+
+Hawk Stars actively participates in Erasmus+ programmes, facilitating international youth exchanges, mobility projects, and European cooperation focused on education, inclusion, and cultural exchange.
+
+## How to Contribute
+
+Supporters can donate via bank transfer or cryptocurrency, sponsor chairs for the training center, or explore branding partnership opportunities. Visit https://hawkstars.org/pt/contribute for details.
+
+## Sitemap
+
+- https://hawkstars.org/sitemap.xml
+
+## Technical
+
+- Built with: Next.js, Payload CMS
+- Content: Dynamic pages managed via headless CMS
+- i18n: Portuguese (pt) and English (en)
+
+## Contact
+
+For partnerships, volunteering, or inquiries, visit the website or reach out through social media channels linked on the site.
