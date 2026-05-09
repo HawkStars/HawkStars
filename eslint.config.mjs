@@ -19,6 +19,11 @@ const eslintConfig = defineConfig([
     'storybook-static/**',
   ]),
   {
+    settings: {
+      react: {
+        version: '19',
+      },
+    },
     rules: {
       '@typescript-eslint/no-unused-vars': [
         'warn',

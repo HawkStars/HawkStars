@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Quote } from 'lucide-react';
+import { LuQuote } from 'react-icons/lu';
 import type { QuoteHighlightBlock as QuoteHighlightBlockProps } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { cn } from '@/lib/utils';
@@ -21,7 +21,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
       <div className='container mx-auto'>
         {style === 'centered' && (
           <div className='mx-auto max-w-5xl text-center'>
-            <Quote className='mx-auto mb-6 h-12 w-12 text-green-600' />
+            <LuQuote className='mx-auto mb-6 h-12 w-12 text-green-600' />
             <blockquote
               className={cn('mb-6 leading-relaxed font-medium italic', {
                 'text-xl lg:text-3xl': quoteLength < 150,
@@ -72,7 +72,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
 
         {style === 'highlighted' && (
           <div className='from-green to-bege-dark mx-auto max-w-5xl rounded-2xl bg-linear-to-br p-8 text-white lg:p-12'>
-            <Quote className='mb-6 h-12 w-12 opacity-50' />
+            <LuQuote className='mb-6 h-12 w-12 opacity-50' />
             <blockquote
               className={cn('mb-6 leading-relaxed font-medium', {
                 'text-xl lg:text-3xl': quoteLength < 150,

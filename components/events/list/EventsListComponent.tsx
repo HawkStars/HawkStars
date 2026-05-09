@@ -1,5 +1,5 @@
 import { Media } from '@/payload-types';
-import { ArrowUpRight, CalendarDays } from 'lucide-react';
+import { LuArrowUpRight, LuCalendarDays } from 'react-icons/lu';
 import { getImagePayloadUrl } from '@/lib/image';
 import { Button } from '@/components/ui/button';
 import { transformUrl, urls } from '@/utils/paths';
@@ -51,7 +51,7 @@ const EventCard = ({ event, index, lng, viewEventLabel }: EventCardProps) => {
           <p className='text-sm font-medium uppercase'>{event.subheading}</p>
           {event.date && (
             <div className='flex items-center gap-1.5 text-sm font-medium'>
-              <CalendarDays className='size-4' />
+              <LuCalendarDays className='size-4' />
               <span>{format(new Date(event.date), 'dd MMM yyyy')}</span>
             </div>
           )}
@@ -67,7 +67,7 @@ const EventCard = ({ event, index, lng, viewEventLabel }: EventCardProps) => {
                   className='dark w-fit opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100'
                 >
                   {viewEventLabel}
-                  <ArrowUpRight className='size-4' />
+                  <LuArrowUpRight className='size-4' />
                 </Button>
               </div>
             </div>
@@ -100,7 +100,7 @@ const EventsListComponent = ({ events, lng, translations }: EventsListProps) => 
         </div>
         <Button asChild size='lg' className='shrink-0'>
           <Link href={transformUrl(lng, urls.agenda)}>
-            <CalendarDays className='size-4' />
+            <LuCalendarDays className='size-4' />
             {viewAgenda}
           </Link>
         </Button>

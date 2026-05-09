@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Heart, MessageCircle, Play, Layers } from 'lucide-react';
+import { LuHeart, LuMessageCircle, LuPlay, LuLayers } from 'react-icons/lu';
 
 import { cn } from '@/lib/utils';
 import { type InstagramPost, type InstagramGridProps, INSTAGRAM_PROFILE_URL } from './types';
@@ -15,13 +15,13 @@ function PostOverlay({ post }: { post: InstagramPost }) {
     <div className='absolute inset-0 flex items-center justify-center gap-6 bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100'>
       {post.likeCount !== undefined && (
         <span className='flex items-center gap-1.5 text-sm font-semibold text-white'>
-          <Heart className='size-5 fill-white' />
+          <LuHeart className='size-5 fill-white' />
           {post.likeCount.toLocaleString()}
         </span>
       )}
       {post.commentsCount !== undefined && (
         <span className='flex items-center gap-1.5 text-sm font-semibold text-white'>
-          <MessageCircle className='size-5 fill-white' />
+          <LuMessageCircle className='size-5 fill-white' />
           {post.commentsCount.toLocaleString()}
         </span>
       )}
@@ -34,8 +34,8 @@ function MediaTypeIndicator({ mediaType }: { mediaType: InstagramPost['mediaType
 
   return (
     <div className='absolute top-2 right-2 z-10'>
-      {mediaType === 'VIDEO' && <Play className='size-5 fill-white text-white drop-shadow-md' />}
-      {mediaType === 'CAROUSEL_ALBUM' && <Layers className='size-5 text-white drop-shadow-md' />}
+      {mediaType === 'VIDEO' && <LuPlay className='size-5 fill-white text-white drop-shadow-md' />}
+      {mediaType === 'CAROUSEL_ALBUM' && <LuLayers className='size-5 text-white drop-shadow-md' />}
     </div>
   );
 }

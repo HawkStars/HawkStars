@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { LuMapPin, LuPhone, LuMail, LuClock } from 'react-icons/lu';
 import type { MapLocationBlock as MapLocationBlockProps } from '@/payload-types';
 
 export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
@@ -35,7 +35,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
           {/* Contact Info */}
           <div className='space-y-6'>
             <div className='flex gap-4'>
-              <MapPin className='h-6 w-6 shrink-0 text-green-600' />
+              <LuMapPin className='h-6 w-6 shrink-0 text-green-600' />
               <div>
                 <h3 className='mb-1 font-semibold'>Address</h3>
                 <p className='whitespace-pre-line text-gray-700'>{address}</p>
@@ -44,7 +44,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
 
             {phone && (
               <div className='flex gap-4'>
-                <Phone className='h-6 w-6 shrink-0 text-green-600' />
+                <LuPhone className='h-6 w-6 shrink-0 text-green-600' />
                 <div>
                   <h3 className='mb-1 font-semibold'>Phone</h3>
                   <a href={`tel:${phone}`} className='text-green-600 hover:underline'>
@@ -56,7 +56,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
 
             {email && (
               <div className='flex gap-4'>
-                <Mail className='h-6 w-6 shrink-0 text-green-600' />
+                <LuMail className='h-6 w-6 shrink-0 text-green-600' />
                 <div>
                   <h3 className='mb-1 font-semibold'>Email</h3>
                   <a href={`mailto:${email}`} className='text-green-600 hover:underline'>
@@ -68,7 +68,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
 
             {hours && (
               <div className='flex gap-4'>
-                <Clock className='h-6 w-6 shrink-0 text-green-600' />
+                <LuClock className='h-6 w-6 shrink-0 text-green-600' />
                 <div>
                   <h3 className='mb-1 font-semibold'>Hours</h3>
                   <p className='whitespace-pre-line text-gray-700'>{hours}</p>

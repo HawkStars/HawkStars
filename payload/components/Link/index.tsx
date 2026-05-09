@@ -1,9 +1,12 @@
-import { Button, type ButtonProps } from '@/payload/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
+import type { VariantProps } from 'class-variance-authority';
 import Link from 'next/link';
 import React from 'react';
 
 import type { HawkProject, Page } from '@/payload-types';
 import { cn } from '@/lib/utils';
+
+type ButtonProps = VariantProps<typeof buttonVariants>;
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant'];

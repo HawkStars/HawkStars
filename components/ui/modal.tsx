@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { XIcon } from 'lucide-react';
+import { LuX } from 'react-icons/lu';
 
 import { cn } from '@/lib/utils';
 
@@ -70,7 +70,7 @@ function ModalContent({
               '[&_svg:not([class*="size-"])]:size-4'
             )}
           >
-            <XIcon />
+            <LuX />
             <span className='sr-only'>Close</span>
           </DialogPrimitive.Close>
         )}

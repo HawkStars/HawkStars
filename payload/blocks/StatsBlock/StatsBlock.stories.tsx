@@ -175,10 +175,10 @@ export const TitlesOnly: Story = {
     ...ThreeColumns.args,
     columns: '4',
     stats: [
-      { icon: 'Zap', title: 'Fast', id: '1' },
-      { icon: 'Shield', title: 'Secure', id: '2' },
-      { icon: 'Sparkles', title: 'Innovative', id: '3' },
-      { icon: 'Rocket', title: 'Scalable', id: '4' },
+      { icon: 'LuZap', title: 'Fast', id: '1' },
+      { icon: 'LuShield', title: 'Secure', id: '2' },
+      { icon: 'LuSparkles', title: 'Innovative', id: '3' },
+      { icon: 'LuRocket', title: 'Scalable', id: '4' },
     ],
   },
 };

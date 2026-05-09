@@ -1,5 +1,5 @@
-import { User } from 'lucide-react';
+import { LuUser } from 'react-icons/lu';
 
-const Avatar = () => <User className='h-6 w-6' />;
+const Avatar = () => <LuUser className='h-6 w-6' />;
 
 export default Avatar;

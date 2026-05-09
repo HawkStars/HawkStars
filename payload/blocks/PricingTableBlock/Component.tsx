@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, Star } from 'lucide-react';
+import { LuCheck, LuStar } from 'react-icons/lu';
 import type { PricingTableBlock as PricingTableBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -49,7 +49,7 @@ export const PricingTableBlock: React.FC<PricingTableBlockProps> = ({
               {tier.badge && (
                 <div className='absolute -top-4 left-1/2 -translate-x-1/2 transform'>
                   <span className='bg-green flex items-center gap-1 rounded-full px-4 py-1 text-sm font-semibold text-white'>
-                    <Star className='h-4 w-4' />
+                    <LuStar className='h-4 w-4' />
                     {tier.badge}
                   </span>
                 </div>
@@ -75,7 +75,7 @@ export const PricingTableBlock: React.FC<PricingTableBlockProps> = ({
                 <ul className='mb-8 flex-1 space-y-3'>
                   {tier.features.map((item, featureIndex) => (
                     <li key={featureIndex} className='flex items-start gap-3'>
-                      <Check className='mt-0.5 h-5 w-5 shrink-0 text-green-500' />
+                      <LuCheck className='mt-0.5 h-5 w-5 shrink-0 text-green-500' />
                       <span className='text-gray-700'>{item.feature}</span>
                     </li>
                   ))}

@@ -1,5 +1,6 @@
-import React, { FC, ForwardRefExoticComponent, RefAttributes } from 'react';
-import { FileText, File, Table, Image as ImageIcon, LucideProps } from 'lucide-react';
+import React, { FC } from 'react';
+import { LuFileText, LuFile, LuTable, LuImage } from 'react-icons/lu';
+import type { IconBaseProps } from 'react-icons';
 import type {
   ResourceDownloadBlock as ResourceDownloadBlockProps,
   HawkDocument,
@@ -9,15 +10,15 @@ import Link from 'next/link';
 import { useTranslation } from '@/i18n/client';
 
 const icons = {
-  pdf: FileText,
-  doc: FileText,
-  xls: Table,
-  image: ImageIcon,
-  other: File,
+  pdf: LuFileText,
+  doc: LuFileText,
+  xls: LuTable,
+  image: LuImage,
+  other: LuFile,
 };
 
 type ResourceItem = {
-  icon: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>;
+  icon: React.ComponentType<IconBaseProps>;
   file: HawkDocument | null;
   title: string;
   description?: string | null;
@@ -52,7 +53,7 @@ export const ResourceDownloadBlock: React.FC<ResourceDownloadBlockProps> = ({
           })}
         >
           {resources.map((resource) => {
-            const Icon = icons[resource.fileType as keyof typeof icons] || File;
+            const Icon = icons[resource.fileType as keyof typeof icons] || LuFile;
             const file = typeof resource.file === 'string' ? null : (resource.file as HawkDocument);
 
             return variation === 'card' ? (

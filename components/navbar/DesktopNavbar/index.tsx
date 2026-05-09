@@ -9,7 +9,7 @@ import { urls } from '@/utils/paths';
 import { useRouter } from 'next/navigation';
 import HawkLinkComponent from '@/components/utils/HawkLink';
 import { HeaderNavigationColumns } from '@/payload-types';
-import { ChevronDownIcon } from 'lucide-react';
+import { LuChevronDown } from 'react-icons/lu';
 import { cn } from '@/lib/utils';
 
 type DesktopNavbarProps = {
@@ -41,12 +41,11 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuK
                 className='my-auto flex cursor-pointer gap-1'
               >
                 {column.dropdown?.dropdownTitle}
-                <ChevronDownIcon
+                <LuChevronDown
                   className={cn('my-auto transition-transform duration-300', {
                     'rotate-180': menuKeyHovered === column.dropdown?.key,
                   })}
-                  height={20}
-                  width={20}
+                  size={20}
                 />
               </li>
             );

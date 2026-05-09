@@ -11,6 +11,7 @@ import { HawkStarsSection } from '@/components/layout';
 type NewsListProps = {
   news: PaginatedDocs<News>;
   lng: string;
+  projectSlug?: string;
 };
 
 const NewsTypeLabels: Record<News['type'], string> = {
@@ -21,8 +22,9 @@ const NewsTypeLabels: Record<News['type'], string> = {
   other: 'Other',
 };
 
-const NewsListComponent = ({ news, lng }: NewsListProps) => {
+const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {
   const { docs, totalPages, page, hasPrevPage, hasNextPage } = news || {};
+  const projectParam = projectSlug ? `&project=${projectSlug}` : '';
 
   return (
     <HawkStarsSection className='py-10 lg:py-14'>
@@ -66,7 +68,7 @@ const NewsListComponent = ({ news, lng }: NewsListProps) => {
         <nav className='mt-10 flex items-center justify-center gap-2' aria-label='Pagination'>
           {hasPrevPage && (
             <Link
-              href={`${transformUrl(lng, urls.news)}?page=${(page ?? 1) - 1}`}
+              href={`${transformUrl(lng, urls.news)}?page=${(page ?? 1) - 1}${projectParam}`}
               className='rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100'
             >
               ← Previous
@@ -77,7 +79,7 @@ const NewsListComponent = ({ news, lng }: NewsListProps) => {
           </span>
           {hasNextPage && (
             <Link
-              href={`${transformUrl(lng, urls.news)}?page=${(page ?? 1) + 1}`}
+              href={`${transformUrl(lng, urls.news)}?page=${(page ?? 1) + 1}${projectParam}`}
               className='rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100'
             >
               Next →

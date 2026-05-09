@@ -1,6 +1,6 @@
 import type { GlobalConfig } from 'payload';
 
-import { icons } from 'lucide-react';
+import * as LuIcons from 'react-icons/lu';
 import { authenticated } from '@/payload/access/authenticated';
 import SectionID from '@/payload/fields/SectionID';
 import { authenticatedEditor } from '@/payload/access/authenticatedEditor';
@@ -96,7 +96,7 @@ export const ProjectsList: GlobalConfig = {
               Field: '@/payload/fields/ImageIcon/components/Field',
             },
           },
-          options: Object.keys(icons).map((iconKey) => ({
+          options: Object.keys(LuIcons).map((iconKey) => ({
             label: iconKey,
             value: iconKey,
           })),

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
+import { LuStar, LuQuote, LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import type { ImageType, TestimonialBlock as TestimonialBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
@@ -29,7 +29,7 @@ const StarRating: React.FC<{ rating: number; showRating: boolean | null }> = ({
   return (
     <div className='mb-3 flex items-center gap-1'>
       {Array.from({ length: 5 }, (_, i) => (
-        <Star
+        <LuStar
           key={i}
           className={cn('h-4 w-4', i < rating ? 'text-bege-dark fill-current' : 'text-gray-300')}
         />
@@ -64,7 +64,7 @@ const TestimonialCard: React.FC<{
       )}
     >
       {/* Quote Icon for quote style */}
-      {style === 'quote' && <Quote className='text-green mb-4 h-8 w-8' />}
+      {style === 'quote' && <LuQuote className='text-green mb-4 h-8 w-8' />}
 
       {/* Rating */}
       <StarRating rating={rating || 1} showRating={showRatings} />
@@ -203,7 +203,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
                     isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
                   )}
                 >
-                  <ChevronLeft className='h-5 w-5' />
+                  <LuChevronLeft className='h-5 w-5' />
                 </button>
                 <button
                   onClick={nextSlide}
@@ -214,7 +214,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
                     isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
                   )}
                 >
-                  <ChevronRight className='h-5 w-5' />
+                  <LuChevronRight className='h-5 w-5' />
                 </button>
 
                 {/* Dots indicator */}

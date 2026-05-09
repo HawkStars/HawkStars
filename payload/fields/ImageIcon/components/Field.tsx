@@ -2,7 +2,8 @@
 import type { SelectFieldClientComponent } from 'payload';
 
 import { SelectField, useField } from '@payloadcms/ui';
-import { icons, LucideIcon } from 'lucide-react';
+import * as LuIcons from 'react-icons/lu';
+import { IconType } from 'react-icons';
 import { useMemo, useState } from 'react';
 
 const IconSelectField: SelectFieldClientComponent = (props) => {
@@ -20,7 +21,7 @@ const IconSelectField: SelectFieldClientComponent = (props) => {
   const IconComponent = useMemo(() => {
     if (!selectedIcon) return null;
 
-    return icons[selectedIcon as keyof typeof icons] as LucideIcon;
+    return (LuIcons as unknown as Record<string, IconType>)[selectedIcon] as IconType;
   }, [selectedIcon]);
 
   return (
@@ -33,7 +34,7 @@ const IconSelectField: SelectFieldClientComponent = (props) => {
             alignItems: 'center',
           }}
         >
-          <IconComponent size={24} strokeWidth={2} />
+          <IconComponent size={24} />
         </div>
       )}
       <SelectField

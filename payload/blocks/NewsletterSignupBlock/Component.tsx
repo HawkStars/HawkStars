@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Mail, CheckCircle } from 'lucide-react';
+import { LuMail } from 'react-icons/lu';
+import { PiCheckCircleThin } from 'react-icons/pi';
 import type { NewsletterSignupBlock as NewsletterSignupBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -30,7 +31,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
       <div className='container mx-auto'>
         <div className={cn('rounded-2xl p-8 lg:p-12')}>
           <div className='mx-auto max-w-2xl text-center'>
-            <Mail className='mx-auto mb-4 h-12 w-12' />
+            <LuMail className='mx-auto mb-4 h-12 w-12' />
             <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
             {description && <p className='mb-8 text-lg opacity-90'>{description}</p>}
 
@@ -52,7 +53,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
               </form>
             ) : (
               <div className='flex items-center justify-center gap-3 rounded-lg bg-green-100 p-4 text-green-800'>
-                <CheckCircle className='h-6 w-6' />
+                <PiCheckCircleThin className='h-6 w-6' />
                 <span className='text-lg font-semibold'>Thank you for subscribing!</span>
               </div>
             )}

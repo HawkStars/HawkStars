@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 
 // Define the props for the component
 interface ImageComparisonSliderProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -141,8 +141,8 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
             aria-label='Image comparison slider'
           >
             <div className='text-primary flex items-center'>
-              <ChevronLeft className='h-5 w-5 drop-shadow-md' />
-              <ChevronRight className='h-5 w-5 drop-shadow-md' />
+              <LuChevronLeft className='h-5 w-5 drop-shadow-md' />
+              <LuChevronRight className='h-5 w-5 drop-shadow-md' />
             </div>
           </div>
         </div>

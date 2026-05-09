@@ -1,7 +1,7 @@
 import { HawkProject, Media } from '@/payload-types';
 import { PaginatedDocs } from 'payload';
 import { Button } from '@/components/ui/button';
-import { ArrowUpRight } from 'lucide-react';
+import { LuArrowUpRight } from 'react-icons/lu';
 import { getImagePayloadUrl } from '@/lib/image';
 
 type EventsListProps = {
@@ -43,7 +43,7 @@ const EventsList = ({ events }: EventsListProps) => {
                         className='dark w-fit opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100'
                       >
                         View project
-                        <ArrowUpRight className='size-4' />
+                        <LuArrowUpRight className='size-4' />
                       </Button>
                     </div>
                   </div>

@@ -1,6 +1,6 @@
 import SectionID from '@/payload/fields/SectionID';
 import { linkGroup } from '@/payload/fields/linkGroup';
-import { icons } from 'lucide-react';
+import * as LuIcons from 'react-icons/lu';
 import type { Block } from 'payload';
 
 export const StatsBlock: Block = {
@@ -65,7 +65,7 @@ export const StatsBlock: Block = {
           admin: {
             description: 'Optional icon from Lucide (https://lucide.dev/icons/)',
           },
-          options: Object.keys(icons).map((iconKey) => ({
+          options: Object.keys(LuIcons).map((iconKey) => ({
             label: iconKey,
             value: iconKey,
           })),

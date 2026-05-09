@@ -4,7 +4,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { CalendarIcon } from 'lucide-react';
+import { LuCalendar } from 'react-icons/lu';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { useRef } from 'react';
@@ -38,7 +38,7 @@ function HawkStarsDatePicker({ date, onChange, labelText }: HawkStarsDatePickerP
               data-empty={!date}
               className='w-70 justify-start text-left font-normal'
             >
-              <CalendarIcon />
+              <LuCalendar />
               {date ? format(date, 'dd-MM-yyyy') : <span>Pick a date</span>}
             </Button>
           </PopoverTrigger>

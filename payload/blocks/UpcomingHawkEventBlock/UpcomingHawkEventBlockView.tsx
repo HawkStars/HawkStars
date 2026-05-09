@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
+import { LuArrowRight } from 'react-icons/lu';
 
 export type UpcomingEventItem = {
   heading: string;
@@ -73,7 +73,7 @@ export const UpcomingHawkEventBlockView: React.FC<UpcomingHawkEventBlockViewProp
                 className='text-green mt-2 inline-flex items-center gap-2 font-medium transition-colors hover:underline'
               >
                 {linkLabel}
-                <ArrowRight className='h-4 w-4' />
+                <LuArrowRight className='h-4 w-4' />
               </a>
             </div>
           </div>

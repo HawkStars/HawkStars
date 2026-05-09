@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Clock, Calendar } from 'lucide-react';
+import { LuClock, LuCalendar } from 'react-icons/lu';
 import type { CampaignCountdownBlock as CampaignCountdownBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -87,7 +87,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
           {/* Header */}
           <div className='mb-8 text-center'>
             <div className='bg-bege-light mb-4 inline-flex rounded-full p-3'>
-              <Clock className='text-green h-6 w-6' />
+              <LuClock className='text-green h-6 w-6' />
             </div>
             <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
             {description && <p className='mx-auto max-w-2xl text-lg opacity-90'>{description}</p>}
@@ -97,7 +97,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
           {isComplete ? (
             <div className='mb-8 text-center'>
               <div className='bg-bege-dark inline-flex items-center gap-2 rounded-lg px-6 py-4 text-2xl font-bold text-black'>
-                <Calendar className='h-8 w-8' />
+                <LuCalendar className='h-8 w-8' />
                 {completedMessage}
               </div>
             </div>

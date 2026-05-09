@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { LuChevronDown } from 'react-icons/lu';
 import type { FAQBlock as FAQBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 
@@ -25,7 +25,7 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId
                 className='flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-gray-50'
               >
                 <span className='pr-8 text-lg font-semibold'>{item.question}</span>
-                <ChevronDown
+                <LuChevronDown
                   className={cn(
                     'h-5 w-5 shrink-0 transition-transform',
                     openIndex === index && 'rotate-180'

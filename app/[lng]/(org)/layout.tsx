@@ -45,7 +45,7 @@ export default async function RootLayout(props: {
         <OrganizationJsonLd lng={lng || 'pt'} />
       </head>
       <body>
-        <Suspense>
+        <Suspense fallback={<></>}>
           <LayoutContent lng={lng}>{children}</LayoutContent>
         </Suspense>
       </body>
@@ -84,7 +84,7 @@ async function LayoutContent({
     >
       <MobileNavbar />
       <Navbar />
-      <main className='bg-body min-h-screen'>{children}</main>
+      <main className='bg-body relative min-h-screen'>{children}</main>
       <Footer />
     </AppProvider>
   );

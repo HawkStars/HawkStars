@@ -70,6 +70,17 @@ const NewsDetails: Tab = {
       description:
         'The main image for the news article displayed on listing pages and article page',
     }),
+    {
+      name: 'project',
+      label: 'Related Project',
+      type: 'relationship',
+      relationTo: 'hawk_projects',
+      required: false,
+      admin: {
+        description:
+          'Optionally link this news article to a project. The article will appear in the project page under "Related News".',
+      },
+    },
   ],
 };
 

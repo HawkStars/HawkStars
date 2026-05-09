@@ -12,7 +12,7 @@ import { revalidateMainPage } from './hooks/revalidateMainPage';
 import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 import { MainPageBlocks } from '@/payload/blocks';
 import { getServerSideURL } from '@/payload/utilities/getURL';
-import { PayloadImageField } from '@/payload/fields/ImageType';
+import BannerFields from './fields/BannerFields';
 
 export const MainPage: GlobalConfig = {
   slug: 'main-page',
@@ -56,43 +56,7 @@ export const MainPage: GlobalConfig = {
                 ],
               }),
             },
-            {
-              name: 'Banner',
-              type: 'group',
-              admin: {
-                description: 'Optional banner displayed at the top of the page.',
-              },
-              fields: [
-                {
-                  name: 'bannerColor',
-                  type: 'text',
-                  admin: {
-                    position: 'sidebar',
-                    description: 'Hex color code for the banner background (e.g. #ff0000)',
-                  },
-                  required: false,
-                  validate: (value: string | undefined | null) => {
-                    if (value && !/^#([0-9A-F]{3}){1,2}$/i.test(value)) {
-                      return 'Must be a valid hex color code';
-                    }
-                    return true;
-                  },
-                },
-                {
-                  name: 'bannerText',
-                  type: 'text',
-                  admin: { position: 'sidebar', description: 'Text to display in the banner' },
-                  required: false,
-                },
-                PayloadImageField({
-                  name: 'bannerImage',
-                  hideGutter: true,
-                  description:
-                    'Optional image for the banner. Will be used as a background on desktop and inline on mobile.',
-                  required: false,
-                }),
-              ],
-            },
+            BannerFields,
           ],
           label: 'Content',
         },

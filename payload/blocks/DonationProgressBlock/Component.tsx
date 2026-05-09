@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Target, Users, Heart } from 'lucide-react';
+import { LuTarget, LuUsers, LuHeart } from 'react-icons/lu';
 import type { DonationProgressBlock as DonationProgressBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -84,7 +84,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
             {/* Header */}
             <div className='text-center'>
               <div className='bg-bege-light mb-4 inline-flex rounded-full p-3'>
-                <Target className='text-green h-6 w-6' />
+                <LuTarget className='text-green h-6 w-6' />
               </div>
               <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
               {description && (
@@ -144,7 +144,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
             <div className='flex flex-col items-center gap-4 sm:flex-row sm:justify-between'>
               {donorCount && (
                 <div className='flex items-center gap-2 text-lg'>
-                  <Users className='h-5 w-5' />
+                  <LuUsers className='h-5 w-5' />
                   <span>
                     <strong>{donorCount.toLocaleString()}</strong> donors
                   </span>
@@ -169,7 +169,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
                       target={newTab ? '_blank' : '_self'}
                       rel={newTab ? 'noopener noreferrer' : undefined}
                     >
-                      <Heart className='mr-2 h-5 w-5' />
+                      <LuHeart className='mr-2 h-5 w-5' />
                       {label}
                     </a>
                   </Button>

@@ -31,7 +31,8 @@ export const plugins: Plugin[] = [
       media: {
         adapter: cloudinaryAdapter,
         disableLocalStorage: true, // Prevent Payload from saving files to disk
-        generateFileURL: ({ filename }) => cloudinary.url(`media/${filename}`, { secure: true }),
+        generateFileURL: ({ filename }) =>
+          cloudinary.url(`media/${filename}`, { secure: true, analytics: false }),
       },
       documents: {
         adapter: googleDriveAdapter,

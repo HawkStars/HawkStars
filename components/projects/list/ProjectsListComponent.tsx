@@ -1,5 +1,5 @@
 import { HawkProject, Media } from '@/payload-types';
-import { ArrowUpRight, CalendarDays } from 'lucide-react';
+import { LuArrowUpRight, LuCalendarDays } from 'react-icons/lu';
 import { getImagePayloadUrl } from '@/lib/image';
 import { Button } from '@/components/ui/button';
 import { transformUrl, urls } from '@/utils/paths';
@@ -50,7 +50,7 @@ const ProjectCard = ({ project, index, lng, viewProjectLabel }: ProjectCardProps
           <p className='text-sm font-medium uppercase'>{project.details?.text}</p>
           {project.startDate && (
             <div className='flex items-center gap-1.5 text-sm font-medium'>
-              <CalendarDays className='size-4' />
+              <LuCalendarDays className='size-4' />
               <span>{format(new Date(project.startDate), 'dd MMM yyyy')}</span>
             </div>
           )}
@@ -66,7 +66,7 @@ const ProjectCard = ({ project, index, lng, viewProjectLabel }: ProjectCardProps
                   className='dark w-fit opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100'
                 >
                   {viewProjectLabel}
-                  <ArrowUpRight className='size-4' />
+                  <LuArrowUpRight className='size-4' />
                 </Button>
               </div>
             </div>
@@ -99,7 +99,7 @@ const ProjectsListComponent = ({ projects, lng, translations }: ProjectsListProp
         </div>
         <Button asChild size='lg' className='shrink-0'>
           <Link href={transformUrl(lng, urls.agenda)}>
-            <CalendarDays className='size-4' />
+            <LuCalendarDays className='size-4' />
             {viewAgenda}
           </Link>
         </Button>

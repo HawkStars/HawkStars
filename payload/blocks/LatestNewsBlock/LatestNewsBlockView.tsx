@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Calendar, ArrowRight } from 'lucide-react';
+import { LuCalendar, LuArrowRight } from 'react-icons/lu';
 
 export type LatestNewsItem = {
   heading: string;
@@ -69,7 +69,7 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
                 )}
                 {item.date && (
                   <div className='flex items-center gap-1.5 text-sm text-gray-500'>
-                    <Calendar className='h-4 w-4' />
+                    <LuCalendar className='h-4 w-4' />
                     {formatDate(item.date)}
                   </div>
                 )}
@@ -86,7 +86,7 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
                 className='text-green mt-2 inline-flex items-center gap-2 font-medium transition-colors hover:underline'
               >
                 {linkLabel}
-                <ArrowRight className='h-4 w-4' />
+                <LuArrowRight className='h-4 w-4' />
               </a>
             </div>
           </div>

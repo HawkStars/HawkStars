@@ -5,5 +5,9 @@
   "noPastProjects": "No past projects yet.",
   "viewAgenda": "View Agenda",
   "viewAgendaDescription": "Check our full calendar for all scheduled events and activities.",
-  "viewProject": "View project"
+  "viewProject": "View project",
+  "relatedNews": "Related News",
+  "filterByProject": "Filter by project",
+  "allProjects": "All Projects",
+  "noRelatedNews": "No news articles for this project yet."
 }

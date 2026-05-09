@@ -1,4 +1,4 @@
-import { Expand, Globe, MoveRight, Rocket, Wrench } from 'lucide-react';
+import { LuExpand, LuGlobe, LuMoveRight, LuRocket, LuWrench } from 'react-icons/lu';
 import Image from 'next/image';
 import type { HeroBlock } from '@/payload-types';
 
@@ -8,10 +8,10 @@ import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 const iconMap = {
-  globe: Globe,
-  rocket: Rocket,
-  expand: Expand,
-  wrench: Wrench,
+  globe: LuGlobe,
+  rocket: LuRocket,
+  expand: LuExpand,
+  wrench: LuWrench,
 };
 
 const HeroBlock: React.FC<HeroBlock> = (data) => {
@@ -51,7 +51,7 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
               {ctaLink && (
                 <a href={linkInfo.url}>
                   {linkInfo.label}
-                  <MoveRight className='ml-2' strokeWidth={1} />
+                  <LuMoveRight className='ml-2' />
                 </a>
               )}
             </Button>
@@ -60,7 +60,7 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
         {features && features.length > 0 && (
           <div className='bg-input mt-16 grid gap-px overflow-hidden rounded-lg border md:grid-cols-2 lg:grid-cols-4'>
             {features.map((feature, index) => {
-              const IconComponent = iconMap[feature.icon as keyof typeof iconMap] || Globe;
+              const IconComponent = iconMap[feature.icon as keyof typeof iconMap] || LuGlobe;
               return (
                 <div key={index} className='bg-background flex flex-col gap-3 p-5 md:gap-6'>
                   <IconComponent className='size-6 shrink-0' />

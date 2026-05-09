@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { LuChevronLeft, LuChevronRight, LuQuote } from 'react-icons/lu';
 import type { ProjectTestimonialBlock as ProjectTestimonialBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
@@ -146,14 +146,14 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
               className='absolute top-1/2 left-2 z-20 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow-md transition-colors hover:bg-white'
               aria-label='Previous image'
             >
-              <ChevronLeft className='h-4 w-4' />
+              <LuChevronLeft className='h-4 w-4' />
             </button>
             <button
               onClick={nextImage}
               className='absolute top-1/2 right-2 z-20 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow-md transition-colors hover:bg-white'
               aria-label='Next image'
             >
-              <ChevronRight className='h-4 w-4' />
+              <LuChevronRight className='h-4 w-4' />
             </button>
 
             {/* Dots */}
@@ -179,7 +179,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
   const testimonialContent = (
     <div className='flex flex-col justify-center'>
       {/* Quote Icon */}
-      <Quote className='text-green mb-4 h-10 w-10' />
+      <LuQuote className='text-green mb-4 h-10 w-10' />
 
       {/* Testimonial Text */}
       <blockquote

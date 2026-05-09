@@ -37,14 +37,10 @@ export default async function Home(props: HomeProps) {
       </div>
     );
   } else {
-    const { bannerText, bannerColor, bannerImage } = pageInformation.Banner || {};
+    const banner = pageInformation.bannerFields || {};
     return (
       <>
-        <MainPageBanner
-          bannerText={bannerText}
-          bannerColor={bannerColor}
-          bannerImage={bannerImage}
-        />
+        {banner && <MainPageBanner {...banner} />}
         <RichTextWrapper data={pageInformation.layout} />
       </>
     );

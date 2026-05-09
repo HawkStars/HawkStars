@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ExternalLink } from 'lucide-react';
+import { LuExternalLink } from 'react-icons/lu';
 
 import { cn } from '@/lib/utils';
 import {
@@ -104,7 +104,7 @@ function WidgetHeader() {
         className='text-muted-foreground hover:text-foreground transition-colors'
         aria-label='Open Instagram profile'
       >
-        <ExternalLink className='size-4' />
+        <LuExternalLink className='size-4' />
       </Link>
     </div>
   );

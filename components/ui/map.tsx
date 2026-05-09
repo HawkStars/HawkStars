@@ -46,20 +46,20 @@ import type {
 import 'leaflet-draw/dist/leaflet.draw.css';
 import 'leaflet/dist/leaflet.css';
 import {
-  CircleIcon,
-  LayersIcon,
-  LoaderCircleIcon,
-  MapPinIcon,
-  MinusIcon,
-  NavigationIcon,
-  PenLineIcon,
-  PentagonIcon,
-  PlusIcon,
-  SquareIcon,
-  Trash2Icon,
-  Undo2Icon,
-  WaypointsIcon,
-} from 'lucide-react';
+  LuCircle,
+  LuLayers,
+  LuLoaderCircle,
+  LuMapPin,
+  LuMinus,
+  LuNavigation,
+  LuPenLine,
+  LuPentagon,
+  LuPlus,
+  LuSquare,
+  LuTrash2,
+  LuUndo2,
+  LuWaypoints,
+} from 'react-icons/lu';
 import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import {
@@ -390,7 +390,7 @@ function MapLayersControl({
           className={cn('absolute top-1 right-1 z-1000 border', className)}
           {...props}
         >
-          <LayersIcon />
+          <LuLayers />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='z-1000'>
@@ -428,7 +428,7 @@ function MapLayersControl({
 }
 
 function MapMarker({
-  icon = <MapPinIcon className='size-6' />,
+  icon = <LuMapPin className='size-6' />,
   iconAnchor = [12, 12],
   bgPos,
   popupAnchor,
@@ -588,7 +588,7 @@ function MapZoomControl({ className, ...props }: React.ComponentProps<'div'>) {
         disabled={zoomLevel >= map.getMaxZoom()}
         onClick={() => map.zoomIn()}
       >
-        <PlusIcon />
+        <LuPlus />
       </Button>
       <Button
         type='button'
@@ -600,7 +600,7 @@ function MapZoomControl({ className, ...props }: React.ComponentProps<'div'>) {
         disabled={zoomLevel <= map.getMinZoom()}
         onClick={() => map.zoomOut()}
       >
-        <MinusIcon />
+        <LuMinus />
       </Button>
     </ButtonGroup>
   );
@@ -676,7 +676,7 @@ function MapLocateControl({
         className={cn('absolute right-1 bottom-1 z-1000 border', className)}
         {...props}
       >
-        {isLocating ? <LoaderCircleIcon className='animate-spin' /> : <NavigationIcon />}
+        {isLocating ? <LuLoaderCircle className='animate-spin' /> : <LuNavigation />}
       </Button>
       {position && <MapMarker position={position} icon={<MapLocatePulseIcon />} />}
     </>
@@ -824,13 +824,13 @@ function MapDrawMarker({ ...props }: DrawOptions.MarkerOptions) {
           icon: L.divIcon({
             className: '', // For fixing the moving bug when going in and out the edit mode
             iconAnchor: [12, 12],
-            html: renderToString(<MapPinIcon className='size-6' />),
+            html: renderToString(<LuMapPin className='size-6' />),
           }),
           ...props,
         })
       }
     >
-      <MapPinIcon />
+      <LuMapPin />
     </MapDrawShapeButton>
   );
 }
@@ -867,7 +867,7 @@ function MapDrawPolyline({
         })
       }
     >
-      <WaypointsIcon />
+      <LuWaypoints />
     </MapDrawShapeButton>
   );
 }
@@ -892,7 +892,7 @@ function MapDrawCircle({
         })
       }
     >
-      <CircleIcon />
+      <LuCircle />
     </MapDrawShapeButton>
   );
 }
@@ -917,7 +917,7 @@ function MapDrawRectangle({
         })
       }
     >
-      <SquareIcon />
+      <LuSquare />
     </MapDrawShapeButton>
   );
 }
@@ -952,7 +952,7 @@ function MapDrawPolygon({
         })
       }
     >
-      <PentagonIcon />
+      <LuPentagon />
     </MapDrawShapeButton>
   );
 }
@@ -1064,7 +1064,7 @@ function MapDrawEdit({
         })
       }
     >
-      <PenLineIcon />
+      <LuPenLine />
     </MapDrawActionButton>
   );
 }
@@ -1081,7 +1081,7 @@ function MapDrawDelete() {
       controlRef={drawContext.deleteControlRef}
       createDrawTool={(L, map, featureGroup) => new L.EditToolbar.Delete(map, { featureGroup })}
     >
-      <Trash2Icon />
+      <LuTrash2 />
     </MapDrawActionButton>
   );
 }
@@ -1117,7 +1117,7 @@ function MapDrawUndo({ className, ...props }: React.ComponentProps<'button'>) {
       className={cn('border', className)}
       {...props}
     >
-      <Undo2Icon />
+      <LuUndo2 />
     </Button>
   );
 }
@@ -1129,7 +1129,7 @@ function useMapDrawHandleIcon() {
   return L.divIcon({
     iconAnchor: [8, 8],
     html: renderToString(
-      <CircleIcon className='fill-primary stroke-primary size-4 transition-transform hover:scale-110' />
+      <LuCircle className='fill-primary stroke-primary size-4 transition-transform hover:scale-110' />
     ),
   });
 }

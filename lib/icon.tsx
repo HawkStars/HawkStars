@@ -1,13 +1,15 @@
-import * as LucideIcons from 'lucide-react';
+import * as LuIcons from 'react-icons/lu';
+import { IconType } from 'react-icons';
 
 const getIcon = (iconName?: string | null) => {
   if (!iconName) return null;
-  const Icon = (LucideIcons as unknown as Record<string, React.ComponentType>)[
-    iconName
-  ] as LucideIcons.LucideIcon;
+
+  // Support both "Lu"-prefixed names and legacy unprefixed names (e.g. "ArrowRight" → "LuArrowRight")
+  const prefixed = iconName.startsWith('Lu') ? iconName : `Lu${iconName}`;
+  const Icon = (LuIcons as unknown as Record<string, IconType>)[prefixed];
 
   if (!Icon) {
-    console.warn(`Icon "${iconName}" not found in lucide-react`);
+    console.warn(`Icon "${iconName}" (tried "${prefixed}") not found in react-icons/lu`);
     return null;
   }
 

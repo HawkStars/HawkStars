@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { LinkField, NavbarDropdown } from '@/payload-types';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { ChevronDownIcon } from 'lucide-react';
+import { LuChevronDown } from 'react-icons/lu';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie, useSetMobileNavbarOpen } from '@/utils/contexts/AppProvider';
 
@@ -29,7 +29,7 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
         <h6 className={cn('font-medium text-black', { 'my-auto flex gap-2': isMultiColumn })}>
           {isMultiColumn ? data.dropdown?.dropdownTitle : data.link?.label}
           {isMultiColumn && (
-            <ChevronDownIcon
+            <LuChevronDown
               className={cn('transition-transform duration-300', {
                 'rotate-180': showOptions,
               })}

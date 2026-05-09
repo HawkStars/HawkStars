@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import { Calendar, ChevronLeft, ChevronRight, CalendarDays } from 'lucide-react';
+import { LuCalendar, LuChevronLeft, LuChevronRight, LuCalendarDays } from 'react-icons/lu';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
@@ -214,7 +214,7 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
           {/* Month navigation */}
           <div className='mb-6 flex items-center justify-between'>
             <Button variant='ghost' size='icon' onClick={prevMonth}>
-              <ChevronLeft className='h-5 w-5' />
+              <LuChevronLeft className='h-5 w-5' />
             </Button>
             <div className='flex items-center gap-3'>
               <h2 className='text-xl font-semibold capitalize'>
@@ -225,7 +225,7 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
               </Button>
             </div>
             <Button variant='ghost' size='icon' onClick={nextMonth}>
-              <ChevronRight className='h-5 w-5' />
+              <LuChevronRight className='h-5 w-5' />
             </Button>
           </div>
 
@@ -303,7 +303,7 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
 
                   {/* Small calendar-days icon hint for range events */}
                   {hasRange && !isSelected && (
-                    <CalendarDays className='absolute right-0.5 bottom-0.5 h-2.5 w-2.5 text-zinc-300' />
+                    <LuCalendarDays className='absolute right-0.5 bottom-0.5 h-2.5 w-2.5 text-zinc-300' />
                   )}
                 </button>
               );
@@ -332,7 +332,7 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
         <div className='w-full lg:w-96'>
           <div className='sticky top-4 rounded-xl border bg-white p-4 shadow-sm md:p-6'>
             <div className='mb-4 flex items-center gap-2'>
-              <Calendar className='text-green h-5 w-5' />
+              <LuCalendar className='text-green h-5 w-5' />
               <h3 className='text-lg font-semibold'>
                 {selectedDate
                   ? new Date(selectedDate + 'T12:00:00').toLocaleDateString(
@@ -390,7 +390,7 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
                           )}
                           {event.isDateRange && (
                             <span className='flex items-center gap-1 rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium text-zinc-600'>
-                              <CalendarDays className='h-2.5 w-2.5' />
+                              <LuCalendarDays className='h-2.5 w-2.5' />
                               {translations.multiDay}
                             </span>
                           )}
@@ -406,7 +406,7 @@ export default function AgendaCalendar({ events, translations, lng }: AgendaCale
 
                         {/* Date range / single date */}
                         <div className='mt-2 flex items-center gap-1 text-xs text-gray-500'>
-                          <Calendar className='h-3 w-3 shrink-0' />
+                          <LuCalendar className='h-3 w-3 shrink-0' />
                           <span>{dateLabel}</span>
                         </div>
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ArrowRight, Calendar } from 'lucide-react';
+import { LuArrowRight, LuCalendar } from 'react-icons/lu';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -126,7 +126,7 @@ function ListItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
           {event.badge && <BadgeChip badge={event.badge} />}
           {/* Mobile date */}
           <span className='flex items-center gap-1 text-xs text-zinc-500 sm:hidden dark:text-zinc-400'>
-            <Calendar className='h-3 w-3' />
+            <LuCalendar className='h-3 w-3' />
             {dateStr}
           </span>
         </div>
@@ -148,7 +148,7 @@ function ListItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
           className='mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-green-600 transition-colors hover:text-green-700 hover:underline dark:text-green-400 dark:hover:text-green-300'
         >
           {linkLabel}
-          <ArrowRight className='h-3.5 w-3.5' />
+          <LuArrowRight className='h-3.5 w-3.5' />
         </a>
       </div>
 
@@ -176,7 +176,7 @@ function CompactItem({ event }: { event: AgendaEventItem; linkLabel: string }) {
       href={event.href}
       className='group flex items-center gap-4 rounded-lg border border-zinc-100 px-4 py-3 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/50'
     >
-      <Calendar className='h-4 w-4 shrink-0 text-zinc-400' />
+      <LuCalendar className='h-4 w-4 shrink-0 text-zinc-400' />
       <span className='w-36 shrink-0 font-mono text-sm text-zinc-500 dark:text-zinc-400'>
         {dateStr}
       </span>
@@ -184,7 +184,7 @@ function CompactItem({ event }: { event: AgendaEventItem; linkLabel: string }) {
         {event.heading}
       </span>
       {event.badge && <BadgeChip badge={event.badge} />}
-      <ArrowRight className='h-4 w-4 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5' />
+      <LuArrowRight className='h-4 w-4 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5' />
     </a>
   );
 }
@@ -206,7 +206,7 @@ function CardItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
           />
         ) : (
           <div className='flex h-full w-full items-center justify-center'>
-            <Calendar className='h-12 w-12 text-zinc-300 dark:text-zinc-600' />
+            <LuCalendar className='h-12 w-12 text-zinc-300 dark:text-zinc-600' />
           </div>
         )}
         {event.badge && (
@@ -219,7 +219,7 @@ function CardItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
       {/* Content */}
       <div className='flex flex-1 flex-col gap-2 p-4'>
         <div className='flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400'>
-          <Calendar className='h-3.5 w-3.5' />
+          <LuCalendar className='h-3.5 w-3.5' />
           <span>{dateStr}</span>
         </div>
 
@@ -240,7 +240,7 @@ function CardItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
           className='mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-medium text-green-600 transition-colors hover:text-green-700 hover:underline dark:text-green-400 dark:hover:text-green-300'
         >
           {linkLabel}
-          <ArrowRight className='h-3.5 w-3.5' />
+          <LuArrowRight className='h-3.5 w-3.5' />
         </a>
       </div>
     </div>
@@ -284,7 +284,7 @@ export function AgendaBlockView({
         {/* Empty state */}
         {!loading && events.length === 0 && (
           <div className='flex flex-col items-center gap-3 rounded-xl bg-zinc-50 py-16 text-center dark:bg-zinc-800/50'>
-            <Calendar className='h-10 w-10 text-zinc-300 dark:text-zinc-600' />
+            <LuCalendar className='h-10 w-10 text-zinc-300 dark:text-zinc-600' />
             <p className='text-zinc-500 dark:text-zinc-400'>Sem eventos próximos.</p>
           </div>
         )}

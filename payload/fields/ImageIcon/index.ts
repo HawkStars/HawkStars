@@ -1,6 +1,6 @@
 import { Field } from 'payload';
 import { PayloadImageField } from '../ImageType';
-import { icons } from 'lucide-react';
+import * as LuIcons from 'react-icons/lu';
 
 type ImageTypeGroupProps = {
   label?: string;
@@ -56,7 +56,7 @@ export const PayloadIconOrImage = (props?: ImageTypeGroupProps) => {
             Field: '@/payload/fields/ImageIcon/components/Field',
           },
         },
-        options: Object.keys(icons).map((iconKey) => ({
+        options: Object.keys(LuIcons).map((iconKey) => ({
           label: iconKey,
           value: iconKey,
         })),
