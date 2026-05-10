@@ -6343,6 +6343,10 @@ export interface HawkDocument {
    */
   title: string;
   /**
+   * Optional folder path for organization.
+   */
+  folder?: ('general' | 'projects' | 'events' | 'reports') | null;
+  /**
    * Optional description of the document contents or purpose.
    */
   description?: string | null;
@@ -7630,6 +7634,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface DocumentsSelect<T extends boolean = true> {
   title?: T;
+  folder?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -5,16 +5,22 @@ export const Documents: CollectionConfig = {
   typescript: {
     interface: 'HawkDocument',
   },
+  labels: {
+    singular: 'Document',
+    plural: 'Documents',
+  },
   admin: {
     description:
       'Upload and manage documents such as PDFs, spreadsheets, and other files used throughout the website.',
+    group: {
+      name: 'Management',
+    },
     pagination: {
       limits: [10, 25, 50, 100],
       defaultLimit: 10,
     },
-    group: {
-      name: 'Management',
-    },
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'folder', 'createdAt'],
   },
   upload: {
     staticDir: 'documents',
@@ -39,6 +45,17 @@ export const Documents: CollectionConfig = {
       admin: {
         description: 'A descriptive title for the document.',
       },
+    },
+    {
+      name: 'folder',
+      type: 'select',
+      options: [
+        { label: 'General', value: 'general' },
+        { label: 'Projects', value: 'projects' },
+        { label: 'Events', value: 'events' },
+        { label: 'Reports', value: 'reports' },
+      ],
+      admin: { description: 'Optional folder path for organization.' },
     },
     {
       name: 'description',
