@@ -20,6 +20,7 @@ export const urls = {
   partners: '/partners',
   projects: '/projects',
   erasmus: '/erasmus',
+  erasmus_key_action: '/erasmus/key-action',
   transparency: '/transparency',
   team: '/team',
   terms: '/store/terms',
