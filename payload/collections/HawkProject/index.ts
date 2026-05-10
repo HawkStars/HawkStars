@@ -15,6 +15,7 @@ export const HawkProject: CollectionConfig = {
     plural: 'Hawk Projects',
   },
   admin: {
+    useAsTitle: 'slug',
     defaultColumns: ['hero', 'slug', 'startDate'],
     description:
       'Manage HawkStars projects and events. Add project details, images, and descriptions. Each project gets its own public page based on its slug.',

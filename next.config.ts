@@ -16,6 +16,7 @@ const cspHeader = `
     upgrade-insecure-requests;
     frame-src 'self' *.google.com https://www.instagram.com/ https://upload-widget.cloudinary.com https://www.youtube.com;
     connect-src 'self' *.google-analytics.com *.de.sentry.io ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:` : 'http://127.0.0.1:54321'};
+    media-src 'self' https://www.youtube.com;
 `;
 
 const prepCSPHeader =

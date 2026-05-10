@@ -286,9 +286,11 @@ export default function ProjectPage({ project }: ProjectPageProps) {
       {results && (results.text || results.image) && (
         <Section>
           <h2 className='mb-8 text-4xl font-bold'>Resultados</h2>
-          <div className='grid items-start gap-10 md:grid-cols-2'>
+          <div className='grid items-start gap-10 md:grid-cols-3'>
             {results.text && (
-              <p className='text-justify text-base leading-relaxed text-gray-800'>{results.text}</p>
+              <p className='col-span-2 text-justify text-base leading-relaxed text-gray-800'>
+                {results.text}
+              </p>
             )}
             {results.image &&
               (() => {
