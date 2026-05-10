@@ -5,6 +5,7 @@ import { getServerTranslation } from '@/i18n';
 import { getAgendaEventsQuery } from '@/lib/payload/queries/agenda';
 import AgendaCalendar from '@/components/agenda/AgendaCalendar';
 import { getMetadataPageInfo } from '@/utils/metadata';
+import { Metadata } from 'next';
 
 export const revalidate = 600; // invalidate every 10 minutes
 
