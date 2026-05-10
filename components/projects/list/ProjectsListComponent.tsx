@@ -93,7 +93,7 @@ const ProjectsListComponent = ({ projects, lng, translations }: ProjectsListProp
   return (
     <div className='flex flex-col gap-16'>
       {/* Agenda CTA */}
-      <div className='flex flex-col items-start gap-4 rounded-xl border bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between'>
+      <div className='mx-6 flex flex-col items-start gap-4 rounded-xl border bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between lg:mx-12 lg:p-8'>
         <div>
           <p className='text-body_regular text-muted-foreground'>{viewAgendaDescription}</p>
         </div>
@@ -106,7 +106,7 @@ const ProjectsListComponent = ({ projects, lng, translations }: ProjectsListProp
       </div>
 
       {/* Upcoming Projects */}
-      <section>
+      <section className='mx-6 lg:mx-12'>
         <h2 className='text-h2_semibold mb-6'>{upcomingProjects}</h2>
         {upcoming.length === 0 ? (
           <p className='text-muted-foreground text-body_regular'>{noUpcomingProjects}</p>
@@ -126,7 +126,7 @@ const ProjectsListComponent = ({ projects, lng, translations }: ProjectsListProp
       </section>
 
       {/* Past Projects */}
-      <section>
+      <section className='mx-6 lg:mx-12'>
         <h2 className='text-h2_semibold mb-6'>{pastProjects}</h2>
         {past.length === 0 ? (
           <p className='text-muted-foreground text-body_regular'>{noPastProjects}</p>

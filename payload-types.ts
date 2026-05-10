@@ -3454,7 +3454,6 @@ export interface HawkProject {
            */
           label: string;
           url: string;
-          reportBadge?: ImageType;
           id?: string | null;
         }[]
       | null;
@@ -4489,7 +4488,6 @@ export interface HawkProjectsSelect<T extends boolean = true> {
           | {
               label?: T;
               url?: T;
-              reportBadge?: T | ImageTypeSelect<T>;
               id?: T;
             };
       };

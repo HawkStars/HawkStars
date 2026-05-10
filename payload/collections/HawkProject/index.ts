@@ -6,6 +6,7 @@ import { sanitizeBrokenImageRelationship } from '../../hooks/sanitizeBrokenImage
 import { HawkProjectSeoTab } from './HawkProjectSeoTab';
 import { contentStatusField } from '@/payload/fields/contentStatus';
 import HawkProjectPartnersInformation from './HawkProjectPartnersInformation';
+import { getServerSideURL } from '@/payload/utilities/getURL';
 
 export const HawkProject: CollectionConfig = {
   slug: 'hawk_projects',
@@ -20,7 +21,19 @@ export const HawkProject: CollectionConfig = {
     group: {
       name: 'Daily Work',
     },
-    preview: (doc) => `/projects/${doc.slug}`,
+    components: {},
+    preview: (doc, { locale }) => {
+      const baseUrl = getServerSideURL();
+      return `${baseUrl}/${locale}/projects/${doc.slug}`;
+    },
+    livePreview: {
+      url: ({ locale, data }) => {
+        const baseUrl = getServerSideURL();
+        const lang = locale?.code || 'pt';
+
+        return `${baseUrl}/${lang}/preview/projects/${data.slug}`;
+      },
+    },
   },
   defaultPopulate: {
     slug: true,

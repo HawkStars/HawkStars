@@ -2,7 +2,6 @@ import { PayloadImageField } from '@/payload/fields/ImageType';
 import { MultiImageField } from '@/payload/fields/MultiImage';
 import { Tab } from 'payload';
 
-
 /* ================================================================== */
 /*  PROJECT PAGE TAB — Structured fields so every project page        */
 /*  renders with the same layout as the AI4You(th) sample.            */
@@ -249,11 +248,6 @@ const HawkProjectPageTab: Tab = {
               type: 'text',
               required: true,
             },
-            PayloadImageField({
-              name: 'reportBadge',
-              label: 'Report Badge',
-              description: 'Optional badge/logo shown next to the report link (e.g. EU flag)',
-            }),
           ],
         },
       ],
