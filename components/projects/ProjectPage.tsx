@@ -277,13 +277,28 @@ export default function ProjectPage({ project }: ProjectPageProps) {
                 ))}
               </ul>
             )}
+
+            {objectives.objectivesImage &&
+              (() => {
+                const img = getImagePayloadUrl(objectives.objectivesImage);
+                return img?.url ? (
+                  <div className='relative my-4 h-40 w-full'>
+                    <Image
+                      fill
+                      src={img.url}
+                      alt={img.alt || 'Objectives'}
+                      className='rounded-lg object-contain'
+                    />
+                  </div>
+                ) : null;
+              })()}
           </Section>
         )}
 
       {/* ---------------------------------------------------------- */}
       {/*  4. RESULTS SECTION                                        */}
       {/* ---------------------------------------------------------- */}
-      {results && (results.text || results.image) && (
+      {results && (results.text || results.resultsImage) && (
         <Section>
           <h2 className='mb-8 text-4xl font-bold'>Resultados</h2>
           <div className='grid items-start gap-10 md:grid-cols-3'>
@@ -292,9 +307,9 @@ export default function ProjectPage({ project }: ProjectPageProps) {
                 {results.text}
               </p>
             )}
-            {results.image &&
+            {results.resultsImage &&
               (() => {
-                const img = getImagePayloadUrl(results.image);
+                const img = getImagePayloadUrl(results.resultsImage);
                 return img?.url ? (
                   <Image
                     src={img.url}

@@ -1,6 +1,7 @@
 import { PayloadImageField } from '@/payload/fields/ImageType';
 import { MultiImageField } from '@/payload/fields/MultiImage';
 import { Tab } from 'payload';
+import HawkProjectDisseminationFields from './HawkProjectDisseminationFields';
 
 /* ================================================================== */
 /*  PROJECT PAGE TAB — Structured fields so every project page        */
@@ -196,6 +197,11 @@ const HawkProjectPageTab: Tab = {
             },
           ],
         },
+        PayloadImageField({
+          name: 'objectivesImage',
+          label: 'Objectives Image',
+          description: 'Image displayed on the end of the objectives text',
+        }),
       ],
     },
 
@@ -218,7 +224,7 @@ const HawkProjectPageTab: Tab = {
           admin: { rows: 6 },
         },
         PayloadImageField({
-          name: 'image',
+          name: 'resultsImage',
           label: 'Results Image',
           description: 'Image displayed alongside the results text',
         }),
@@ -226,51 +232,7 @@ const HawkProjectPageTab: Tab = {
     },
 
     /* -------------------------------------------------------------- */
-    /*  6. DISSEMINATION SECTION                                      */
-    /* -------------------------------------------------------------- */
-    {
-      type: 'group',
-      name: 'dissemination',
-      label: 'Dissemination',
-      admin: {
-        description: 'Dissemination links per country and official reports.',
-      },
-      fields: [
-        {
-          name: 'reports',
-          label: 'Reports',
-          type: 'array',
-          interfaceName: 'HawkProjectDisseminationReport',
-          admin: {
-            description: 'Official reports (Salto, Project Report, etc.)',
-            initCollapsed: true,
-            components: {
-              RowLabel:
-                '@/payload/collections/HawkProject/components/pageTab/DisseminationReportsRowLabel',
-            },
-          },
-          fields: [
-            {
-              name: 'label',
-              label: 'Report Label',
-              type: 'text',
-              required: true,
-              localized: true,
-              admin: { description: 'e.g. "Relatório Salto", "Project Report"' },
-            },
-            {
-              name: 'url',
-              label: 'Report URL',
-              type: 'text',
-              required: true,
-            },
-          ],
-        },
-      ],
-    },
-
-    /* -------------------------------------------------------------- */
-    /*  7. PHOTO GALLERY                                              */
+    /*  6. PHOTO GALLERY                                              */
     /* -------------------------------------------------------------- */
     MultiImageField({
       name: 'gallery',

@@ -37,9 +37,9 @@ import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c08
 import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { default as default_a6e1008e061ff4a90c7cbda73ca5389a } from '@/payload/collections/HawkProject/components/pageTab/PhasesRowLabel'
 import { default as default_18379fc966ed0a7f5bbebdf531e7b788 } from '@/payload/collections/HawkProject/components/pageTab/ObjectiveItemsRowLabel'
-import { default as default_25f5e91ef369acfad97a52ac94d0330b } from '@/payload/collections/HawkProject/components/pageTab/DisseminationReportsRowLabel'
 import { default as default_9994081f6b5c5eb590289ea6349f4cab } from '@/payload/collections/HawkProject/components/partners/ReportsRowLabel'
 import { default as default_61fb4ab9efdb708fd405dec60b074f5d } from '@/payload/collections/HawkProject/components/partners/PartnersRowLabel'
+import { default as default_25f5e91ef369acfad97a52ac94d0330b } from '@/payload/collections/HawkProject/components/pageTab/DisseminationReportsRowLabel'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { default as default_5fcf80ad7799f85e06683d7dbd0ce58f } from '@/payload/fields/ImageIcon/components/Field'
 import { default as default_b86140c7b9e4a7df31f494d137f580e8 } from '@/payload/fields/Link/components/LinkLabel'
@@ -99,9 +99,9 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@/payload/collections/HawkProject/components/pageTab/PhasesRowLabel#default": default_a6e1008e061ff4a90c7cbda73ca5389a,
   "@/payload/collections/HawkProject/components/pageTab/ObjectiveItemsRowLabel#default": default_18379fc966ed0a7f5bbebdf531e7b788,
-  "@/payload/collections/HawkProject/components/pageTab/DisseminationReportsRowLabel#default": default_25f5e91ef369acfad97a52ac94d0330b,
   "@/payload/collections/HawkProject/components/partners/ReportsRowLabel#default": default_9994081f6b5c5eb590289ea6349f4cab,
   "@/payload/collections/HawkProject/components/partners/PartnersRowLabel#default": default_61fb4ab9efdb708fd405dec60b074f5d,
+  "@/payload/collections/HawkProject/components/pageTab/DisseminationReportsRowLabel#default": default_25f5e91ef369acfad97a52ac94d0330b,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@/payload/fields/ImageIcon/components/Field#default": default_5fcf80ad7799f85e06683d7dbd0ce58f,
   "@/payload/fields/Link/components/LinkLabel#default": default_b86140c7b9e4a7df31f494d137f580e8,

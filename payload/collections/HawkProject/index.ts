@@ -7,6 +7,7 @@ import { HawkProjectSeoTab } from './HawkProjectSeoTab';
 import { contentStatusField } from '@/payload/fields/contentStatus';
 import HawkProjectPartnersInformation from './HawkProjectPartnersInformation';
 import { getServerSideURL } from '@/payload/utilities/getURL';
+import HawkProjectDisseminationFields from './HawkProjectDisseminationFields';
 
 export const HawkProject: CollectionConfig = {
   slug: 'hawk_projects',
@@ -53,7 +54,12 @@ export const HawkProject: CollectionConfig = {
     {
       type: 'tabs',
       label: 'Hawk Project Details',
-      tabs: [HawkProjectPageTab, HawkProjectSeoTab, HawkProjectPartnersInformation],
+      tabs: [
+        HawkProjectPageTab,
+        HawkProjectSeoTab,
+        HawkProjectPartnersInformation,
+        HawkProjectDisseminationFields,
+      ],
     },
     /* -------------------------------------------------------------- */
     /*  ADMIN SECTION                                                 */

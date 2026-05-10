@@ -1943,22 +1943,6 @@ export type HawkProjectObjectiveItem =
     }[]
   | null;
 /**
- * Official reports (Salto, Project Report, etc.)
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HawkProjectDisseminationReport".
- */
-export type HawkProjectDisseminationReport =
-  | {
-      /**
-       * e.g. "Relatório Salto", "Project Report"
-       */
-      label: string;
-      url: string;
-      id?: string | null;
-    }[]
-  | null;
-/**
  * List of partner organizations involved in the project
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1998,6 +1982,22 @@ export type HawkProjectPartnerReport =
        * e.g. "Disseminação via Facebook" — if empty, auto-generated from platform
        */
       label?: string | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * Official reports (Salto, Project Report, etc.)
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkProjectDisseminationReport".
+ */
+export type HawkProjectDisseminationReport =
+  | {
+      /**
+       * e.g. "Relatório Salto", "Project Report"
+       */
+      label: string;
+      url: string;
       id?: string | null;
     }[]
   | null;
@@ -6774,23 +6774,24 @@ export interface HawkProject {
      */
     introduction?: string | null;
     items?: HawkProjectObjectiveItem;
+    objectivesImage?: ImageType;
   };
   /**
    * Project results — text on the left, image on the right.
    */
   results?: {
     text?: string | null;
-    image?: ImageType;
+    resultsImage?: ImageType;
   };
+  gallery?: MultiImageType;
+  seo?: SEO;
+  partnersInformation?: HawkProjectPartnersInformation;
   /**
    * Dissemination links per country and official reports.
    */
   dissemination?: {
     reports?: HawkProjectDisseminationReport;
   };
-  gallery?: MultiImageType;
-  seo?: SEO;
-  partnersInformation?: HawkProjectPartnersInformation;
   /**
    * Unique slug used in the project page URL (e.g. "ai4youth"). Auto-generated from the title if left empty.
    */
@@ -7757,21 +7758,22 @@ export interface HawkProjectsSelect<T extends boolean = true> {
     | {
         introduction?: T;
         items?: T | HawkProjectObjectiveItemSelect<T>;
+        objectivesImage?: T | ImageTypeSelect<T>;
       };
   results?:
     | T
     | {
         text?: T;
-        image?: T | ImageTypeSelect<T>;
+        resultsImage?: T | ImageTypeSelect<T>;
       };
+  gallery?: T | MultiImageTypeSelect<T>;
+  seo?: T | SEOSelect<T>;
+  partnersInformation?: T | HawkProjectPartnersInformationSelect<T>;
   dissemination?:
     | T
     | {
         reports?: T | HawkProjectDisseminationReportSelect<T>;
       };
-  gallery?: T | MultiImageTypeSelect<T>;
-  seo?: T | SEOSelect<T>;
-  partnersInformation?: T | HawkProjectPartnersInformationSelect<T>;
   slug?: T;
   actionType?: T;
   referenceNumber?: T;
@@ -7809,15 +7811,6 @@ export interface HawkProjectPagePhaseSelect<T extends boolean = true> {
  */
 export interface HawkProjectObjectiveItemSelect<T extends boolean = true> {
   text?: T;
-  id?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HawkProjectDisseminationReport_select".
- */
-export interface HawkProjectDisseminationReportSelect<T extends boolean = true> {
-  label?: T;
-  url?: T;
   id?: T;
 }
 /**
@@ -7864,6 +7857,15 @@ export interface HawkProjectPartnerReportSelect<T extends boolean = true> {
   platform?: T;
   url?: T;
   label?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkProjectDisseminationReport_select".
+ */
+export interface HawkProjectDisseminationReportSelect<T extends boolean = true> {
+  label?: T;
+  url?: T;
   id?: T;
 }
 /**
