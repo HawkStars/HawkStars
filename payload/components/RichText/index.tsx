@@ -62,6 +62,7 @@ import { CrowdfundingImageBannerBlockComponent } from '@/payload/blocks/Crowdfun
 import { SectionTitleBlockComponent } from '@/payload/blocks/SectionTitleBlock/Component';
 import { SectionListBlockComponent } from '@/payload/blocks/SectionListBlock/Component';
 import Upload from '../utils/upload';
+import HorizontalLine from '@/components/ui/horizontal-line';
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -128,7 +129,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   list: List,
   listitem: ListItem,
   paragraph: Paragraph,
-  horizontalrule: () => <hr className='bg-dark-bege mx-8 my-8 h-4 lg:mx-20' />,
+  horizontalrule: <HorizontalLine />,
   heading: Heading,
   linebreak: () => <br />,
   unknown: ({ node }) => {

@@ -123,9 +123,13 @@ const HawkProjectPageTab: Tab = {
           name: 'phases',
           label: 'Phases / Key Points',
           type: 'array',
+          interfaceName: 'HawkProjectPagePhase',
           admin: {
             description: 'Bullet points for educational phases or key points',
             initCollapsed: true,
+            components: {
+              RowLabel: '@/payload/collections/HawkProject/components/pageTab/PhasesRowLabel',
+            },
           },
           fields: [
             {
@@ -174,7 +178,14 @@ const HawkProjectPageTab: Tab = {
           name: 'items',
           label: 'Objective Items',
           type: 'array',
-          admin: { initCollapsed: true },
+          interfaceName: 'HawkProjectObjectiveItem',
+          admin: {
+            initCollapsed: true,
+            components: {
+              RowLabel:
+                '@/payload/collections/HawkProject/components/pageTab/ObjectiveItemsRowLabel',
+            },
+          },
           fields: [
             {
               name: 'text',
@@ -229,9 +240,14 @@ const HawkProjectPageTab: Tab = {
           name: 'reports',
           label: 'Reports',
           type: 'array',
+          interfaceName: 'HawkProjectDisseminationReport',
           admin: {
             description: 'Official reports (Salto, Project Report, etc.)',
             initCollapsed: true,
+            components: {
+              RowLabel:
+                '@/payload/collections/HawkProject/components/pageTab/DisseminationReportsRowLabel',
+            },
           },
           fields: [
             {

@@ -18,6 +18,12 @@ export const FAQBlock: Block = {
     {
       name: 'items',
       type: 'array',
+      interfaceName: 'FAQBlockItem',
+      admin: {
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
+      },
       fields: [
         {
           name: 'question',

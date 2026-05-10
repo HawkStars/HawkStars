@@ -311,7 +311,7 @@ const KASection = ({ ka, t }: { ka: KAData; t: TranslationFn }) => (
         <h2 className='mb-3 font-serif text-[clamp(1.8rem,3.5vw,2.8rem)] leading-tight font-semibold text-[#0e0c1a]'>
           {t(ka.titleKey)}
         </h2>
-        <p className='max-w-[600px] text-base leading-relaxed text-[#6a6780]'>{t(ka.taglineKey)}</p>
+        <p className='max-w-150 text-base leading-relaxed text-[#6a6780]'>{t(ka.taglineKey)}</p>
       </div>
     </div>
 

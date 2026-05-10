@@ -53,6 +53,12 @@ export const HeroSlideshowBlock: Block = {
           },
         },
       ],
+      admin: {
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
+      },
+      interfaceName: 'HeroSlideshowBlockSlide',
     },
     {
       name: 'overlayOpacity',

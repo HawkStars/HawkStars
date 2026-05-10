@@ -16,12 +16,18 @@ export const ImageShowcaseBlock: Block = {
     {
       name: 'images',
       type: 'array',
+      interfaceName: 'ImageShowcaseBlockImage',
       label: 'Images',
       required: true,
       minRows: 2,
       labels: {
         singular: 'Image',
         plural: 'Images',
+      },
+      admin: {
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
       },
       fields: [PayloadImageField({ label: 'Image', name: 'image', required: true })],
     },

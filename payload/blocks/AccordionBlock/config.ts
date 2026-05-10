@@ -30,9 +30,15 @@ export const AccordionBlock: Block = {
     {
       name: 'items',
       type: 'array',
+      interfaceName: 'AccordionBlockItem',
       label: 'Accordion Items',
       required: true,
       minRows: 1,
+      admin: {
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
+      },
       fields: [
         {
           name: 'title',

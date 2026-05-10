@@ -34,6 +34,11 @@ export const ResourceDownloadBlock: Block = {
       name: 'resources',
       type: 'array',
       interfaceName: 'ResourceItem',
+      admin: {
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
+      },
       fields: [
         {
           name: 'title',

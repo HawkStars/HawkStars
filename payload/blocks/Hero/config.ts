@@ -37,6 +37,7 @@ export const Hero: Block = {
     {
       name: 'features',
       type: 'array',
+      interfaceName: 'HeroBlockFeature',
       fields: [
         {
           name: 'icon',
@@ -74,6 +75,9 @@ export const Hero: Block = {
       maxRows: 4,
       admin: {
         description: 'Feature cards displayed in grid (up to 4)',
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
       },
     },
     SectionID,

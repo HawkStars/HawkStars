@@ -17,10 +17,16 @@ const MultiRowImage: Block = {
     {
       name: 'rows',
       type: 'array',
+      interfaceName: 'MultiRowImageRow',
       label: 'Image Rows',
       required: true,
       maxRows: 1,
       minRows: 1,
+      admin: {
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
+      },
       fields: [
         {
           name: 'images',
@@ -28,7 +34,12 @@ const MultiRowImage: Block = {
           label: 'Images',
           required: true,
           minRows: 1,
-          interfaceName: 'multiRowContent',
+          interfaceName: 'MultiRowImageContent',
+          admin: {
+            components: {
+              RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+            },
+          },
           fields: [
             PayloadImageField({ label: 'Image', name: 'image' }),
             {

@@ -180,6 +180,7 @@ export const CrowdfundingSettings: GlobalConfig = {
     {
       name: 'updateCardImages',
       type: 'array',
+      interfaceName: 'CrowdfundingUpdateCardImage',
       label: {
         pt: 'Imagens dos Cartões de Atualizações',
         en: 'Update Card Images',
@@ -187,6 +188,9 @@ export const CrowdfundingSettings: GlobalConfig = {
       admin: {
         description:
           'Images for each update card in the Updates section. Add one per card, in order.',
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
       },
       maxRows: 10,
       fields: [
@@ -206,6 +210,7 @@ export const CrowdfundingSettings: GlobalConfig = {
     {
       name: 'supporters',
       type: 'array',
+      interfaceName: 'CrowdfundingSupporter',
       label: {
         pt: 'Apoiantes',
         en: 'Supporters',
@@ -213,6 +218,9 @@ export const CrowdfundingSettings: GlobalConfig = {
       admin: {
         description:
           'People and entities that support the project. Shown in the "Já Contamos com o Apoio de" section.',
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
       },
       fields: [
         {

@@ -33,6 +33,12 @@ const SimpleGallery: Block = {
       label: 'Images',
       required: true,
       fields: [PayloadImageField({ label: 'Image', name: 'image' })],
+      interfaceName: 'SimpleGalleryBlockImage',
+       admin: {
+         components: {
+           RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+         },
+       },
     },
     SectionID,
   ],

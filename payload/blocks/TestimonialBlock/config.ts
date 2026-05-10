@@ -28,8 +28,14 @@ export const TestimonialBlock: Block = {
     {
       name: 'testimonials',
       type: 'array',
+      interfaceName: 'TestimonialBlockItem',
       minRows: 1,
       required: true,
+      admin: {
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
+      },
       fields: [
         {
           name: 'quote',

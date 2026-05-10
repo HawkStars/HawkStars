@@ -27,8 +27,15 @@ export const PricingTableBlock: Block = {
     {
       name: 'tiers',
       type: 'array',
+      interfaceName: 'PricingTableBlockTier',
       minRows: 1,
       maxRows: 4,
+      admin: {
+        description: 'Pricing tiers (up to 4)',
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
+      },
       fields: [
         {
           name: 'name',
@@ -75,6 +82,7 @@ export const PricingTableBlock: Block = {
         {
           name: 'features',
           type: 'array',
+          interfaceName: 'PricingTableBlockTierFeature',
           fields: [
             {
               name: 'feature',
@@ -85,6 +93,9 @@ export const PricingTableBlock: Block = {
           ],
           admin: {
             description: 'List of features included in this tier',
+            components: {
+              RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+            },
           },
         },
         {
@@ -119,9 +130,6 @@ export const PricingTableBlock: Block = {
           },
         },
       ],
-      admin: {
-        description: 'Pricing tiers (up to 4)',
-      },
     },
     SectionID,
   ],

@@ -13,8 +13,14 @@ export const HeroSlideshowBlock: Block = {
     {
       name: 'slides',
       type: 'array',
+      interfaceName: 'HeroSlideshowBlockSlide',
       minRows: 1,
       required: true,
+      admin: {
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
+      },
       labels: {
         singular: 'Slide',
         plural: 'Slides',

@@ -22,6 +22,7 @@ export const Footer: GlobalConfig = {
     {
       name: 'columns',
       label: 'Footer Columns',
+      interfaceName: 'FooterColumnsItem',
       admin: {
         components: {
           RowLabel: {

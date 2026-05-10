@@ -26,6 +26,7 @@ const HawkProjectPartnersInformation: Tab = {
       name: 'partners',
       label: 'Partner Information',
       type: 'array',
+      interfaceName: 'HawkProjectPartnerInformation',
       admin: {
         description: 'List of partner organizations involved in the project',
         initCollapsed: true,
@@ -62,6 +63,7 @@ const HawkProjectPartnersInformation: Tab = {
           name: 'reports',
           label: 'Official Reports',
           type: 'array',
+          interfaceName: 'HawkProjectPartnerReport',
           admin: {
             description: 'Official reports related to this partner (Salto, Project Report, etc.)',
             initCollapsed: true,

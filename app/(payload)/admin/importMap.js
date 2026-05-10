@@ -6,6 +6,7 @@ import { FixedToolbarFeatureClient as FixedToolbarFeatureClient_e70f5e05f09f93e0
 import { TextStateFeatureClient as TextStateFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { BlocksFeatureClient as BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { default as default_1d7832d54154df3998b4e5488dcf373f } from '@/payload/fields/ImageType/components/PayloadImageLabel'
+import { default as default_77db040dc5d61566d592349295ff2dfc } from '@/payload/components/admin/GenericArrayRowLabel'
 import { default as default_22a3a91ed5e3e88046b9af2d5e5e08f0 } from '@/payload/fields/LinkGroupLabel'
 import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
@@ -34,6 +35,9 @@ import { OverviewComponent as OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860
 import { MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
+import { default as default_a6e1008e061ff4a90c7cbda73ca5389a } from '@/payload/collections/HawkProject/components/pageTab/PhasesRowLabel'
+import { default as default_18379fc966ed0a7f5bbebdf531e7b788 } from '@/payload/collections/HawkProject/components/pageTab/ObjectiveItemsRowLabel'
+import { default as default_25f5e91ef369acfad97a52ac94d0330b } from '@/payload/collections/HawkProject/components/pageTab/DisseminationReportsRowLabel'
 import { default as default_9994081f6b5c5eb590289ea6349f4cab } from '@/payload/collections/HawkProject/components/partners/ReportsRowLabel'
 import { default as default_61fb4ab9efdb708fd405dec60b074f5d } from '@/payload/collections/HawkProject/components/partners/PartnersRowLabel'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
@@ -64,6 +68,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#TextStateFeatureClient": TextStateFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#BlocksFeatureClient": BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@/payload/fields/ImageType/components/PayloadImageLabel#default": default_1d7832d54154df3998b4e5488dcf373f,
+  "@/payload/components/admin/GenericArrayRowLabel#default": default_77db040dc5d61566d592349295ff2dfc,
   "@/payload/fields/LinkGroupLabel#default": default_22a3a91ed5e3e88046b9af2d5e5e08f0,
   "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
@@ -92,6 +97,9 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaTitleComponent": MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  "@/payload/collections/HawkProject/components/pageTab/PhasesRowLabel#default": default_a6e1008e061ff4a90c7cbda73ca5389a,
+  "@/payload/collections/HawkProject/components/pageTab/ObjectiveItemsRowLabel#default": default_18379fc966ed0a7f5bbebdf531e7b788,
+  "@/payload/collections/HawkProject/components/pageTab/DisseminationReportsRowLabel#default": default_25f5e91ef369acfad97a52ac94d0330b,
   "@/payload/collections/HawkProject/components/partners/ReportsRowLabel#default": default_9994081f6b5c5eb590289ea6349f4cab,
   "@/payload/collections/HawkProject/components/partners/PartnersRowLabel#default": default_61fb4ab9efdb708fd405dec60b074f5d,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,

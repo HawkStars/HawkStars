@@ -26,6 +26,9 @@ export const SectionListBlock: Block = {
       minRows: 1,
       admin: {
         initCollapsed: true,
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
       },
       fields: [
         {
@@ -43,6 +46,7 @@ export const SectionListBlock: Block = {
           localized: true,
         },
       ],
+      interfaceName: 'SectionListBlockItem',
     },
     SectionID,
   ],

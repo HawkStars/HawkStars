@@ -78,6 +78,7 @@ export const EventsList: GlobalConfig = {
     {
       name: 'stats',
       type: 'array',
+      interfaceName: 'EventsListStatsItem',
       label: { pt: 'Estatísticas de Impacto', en: 'Impact Stats' },
       admin: {
         description: 'Show the events stats',

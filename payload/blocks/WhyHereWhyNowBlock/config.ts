@@ -54,6 +54,7 @@ export const WhyHereWhyNowBlock: Block = {
     {
       name: 'challenges',
       type: 'array',
+      interfaceName: 'WhyHereWhyNowChallenge',
       required: true,
       minRows: 1,
       maxRows: 6,
@@ -81,6 +82,9 @@ export const WhyHereWhyNowBlock: Block = {
       ],
       admin: {
         description: 'List of regional challenges/statistics to display (max 6)',
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
       },
     },
     SectionID,

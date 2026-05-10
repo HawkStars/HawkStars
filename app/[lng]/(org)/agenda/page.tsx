@@ -5,8 +5,6 @@ import { getServerTranslation } from '@/i18n';
 import { getAgendaEventsQuery } from '@/lib/payload/queries/agenda';
 import AgendaCalendar from '@/components/agenda/AgendaCalendar';
 import { getMetadataPageInfo } from '@/utils/metadata';
-import { Metadata } from 'next';
-import DonateTest from '@/components/donate-test';
 
 export const revalidate = 600; // invalidate every 10 minutes
 
@@ -58,8 +56,7 @@ const AgendaPage = async (props: LanguagePageProps) => {
 
   return (
     <HawkStarsSection className='bg-bege-light gap-8 pt-10 pb-8 max-lg:px-0 max-lg:pt-0 xl:px-10!'>
-      <DonateTest />
-      <div className='container py-20 md:py-32'>
+      <div className='container'>
         <AgendaCalendar events={events} translations={translations} lng={lng} />
       </div>
     </HawkStarsSection>

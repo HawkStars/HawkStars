@@ -39,8 +39,14 @@ export const GlobalVillageAboutSectionBlock: Block = {
     {
       name: 'sections',
       type: 'array',
+      interfaceName: 'GlobalVillageAboutSectionItem',
       label: 'Sections',
       minRows: 1,
+      admin: {
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
+      },
       labels: {
         singular: 'Section',
         plural: 'Sections',

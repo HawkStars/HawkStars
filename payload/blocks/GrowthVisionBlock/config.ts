@@ -68,6 +68,7 @@ export const GrowthVisionBlock: Block = {
         {
           name: 'items',
           type: 'array',
+          interfaceName: 'GrowthVisionPhaseItem',
           required: true,
           minRows: 1,
           labels: {
@@ -87,11 +88,18 @@ export const GrowthVisionBlock: Block = {
           ],
           admin: {
             description: 'List of goals/milestones for this phase',
+            components: {
+              RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+            },
           },
         },
       ],
+      interfaceName: 'GrowthVisionPhase',
       admin: {
         description: 'Growth phases with their respective goals',
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
       },
     },
     SectionID,

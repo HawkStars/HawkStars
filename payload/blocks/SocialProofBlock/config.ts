@@ -29,6 +29,12 @@ export const SocialProofBlock: Block = {
     {
       name: 'stats',
       type: 'array',
+      interfaceName: 'SocialProofBlockStat',
+      admin: {
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
+      },
       minRows: 2,
       maxRows: 4,
       fields: [

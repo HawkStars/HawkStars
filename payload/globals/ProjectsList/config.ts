@@ -78,6 +78,7 @@ export const ProjectsList: GlobalConfig = {
     {
       name: 'stats',
       type: 'array',
+      interfaceName: 'ProjectsListStatsItem',
       label: { pt: 'Estatísticas de Impacto', en: 'Impact Stats' },
       admin: {
         description: 'Show the projects stats',

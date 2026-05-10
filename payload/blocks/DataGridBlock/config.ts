@@ -44,8 +44,14 @@ export const DataGridBlock: Block = {
     {
       name: 'rows',
       type: 'array',
+      interfaceName: 'DataGridBlockRow',
       required: true,
       minRows: 1,
+      admin: {
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
+      },
       labels: {
         singular: 'Row',
         plural: 'Rows',

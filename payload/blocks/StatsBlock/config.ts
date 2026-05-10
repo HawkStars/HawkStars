@@ -55,6 +55,7 @@ export const StatsBlock: Block = {
     {
       name: 'stats',
       type: 'array',
+      interfaceName: 'StatsBlockStatItem',
       required: true,
       minRows: 1,
       fields: [
@@ -134,6 +135,9 @@ export const StatsBlock: Block = {
       ],
       admin: {
         description: 'List of stat cards to display',
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
       },
     },
     linkGroup({

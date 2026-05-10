@@ -18,6 +18,12 @@ export const TimelineBlock: Block = {
     {
       name: 'items',
       type: 'array',
+      interfaceName: 'TimelineBlockItem',
+      admin: {
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
+      },
       fields: [
         {
           name: 'year',

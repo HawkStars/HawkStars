@@ -93,8 +93,14 @@ export const ProjectTestimonialBlock: Block = {
         {
           name: 'images',
           type: 'array',
+          interfaceName: 'ProjectTestimonialBlockImage',
           minRows: 1,
           required: true,
+          admin: {
+            components: {
+              RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+            },
+          },
           labels: {
             singular: 'Image',
             plural: 'Images',

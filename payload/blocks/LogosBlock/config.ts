@@ -39,13 +39,19 @@ export const LogosBlock: Block = {
     {
       name: 'logos',
       type: 'array',
+      interfaceName: 'LogosBlockLogo',
       minRows: 1,
       required: true,
       fields: [
         { name: 'name', type: 'text', required: true },
         { name: 'logo', type: 'text', required: true, admin: { description: 'Logo image URL' } },
       ],
-      admin: { description: 'Partner logos' },
+      admin: {
+        description: 'Partner logos',
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
+      },
     },
     SectionID,
   ],
