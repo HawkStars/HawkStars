@@ -503,7 +503,6 @@ export async function seed(payload: Payload): Promise<void> {
         locale: 'en',
         data: {
           title: `${article.title} (EN)`,
-          content: richText(`English version of: ${article.title}`),
         },
       });
     }
