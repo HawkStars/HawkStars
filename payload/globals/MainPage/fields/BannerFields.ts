@@ -15,6 +15,7 @@ const BannerFields: GroupField = {
       type: 'text',
       admin: { position: 'sidebar', description: 'Text to display in the banner' },
       required: false,
+      localized: true,
     },
     {
       name: 'bannerButtonLink',
@@ -33,6 +34,7 @@ const BannerFields: GroupField = {
       type: 'text',
       admin: { description: 'Optional text for the banner button' },
       required: false,
+      localized: true,
     },
 
     PayloadImageField({

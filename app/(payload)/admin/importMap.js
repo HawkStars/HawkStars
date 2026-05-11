@@ -41,6 +41,7 @@ import { default as default_9994081f6b5c5eb590289ea6349f4cab } from '@/payload/c
 import { default as default_61fb4ab9efdb708fd405dec60b074f5d } from '@/payload/collections/HawkProject/components/partners/PartnersRowLabel'
 import { default as default_25f5e91ef369acfad97a52ac94d0330b } from '@/payload/collections/HawkProject/components/pageTab/DisseminationReportsRowLabel'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
+import { default as default_b7beafed13e298f74e3d717c89b4ffba } from '@/payload/collections/News/components/SectionsRowLabel'
 import { default as default_5fcf80ad7799f85e06683d7dbd0ce58f } from '@/payload/fields/ImageIcon/components/Field'
 import { default as default_b86140c7b9e4a7df31f494d137f580e8 } from '@/payload/fields/Link/components/LinkLabel'
 import { default as default_697dbdb7f6f9ef4ce600690b2392d8d4 } from '@/payload/globals/Header/components/HeaderLabel'
@@ -103,6 +104,7 @@ export const importMap = {
   "@/payload/collections/HawkProject/components/partners/PartnersRowLabel#default": default_61fb4ab9efdb708fd405dec60b074f5d,
   "@/payload/collections/HawkProject/components/pageTab/DisseminationReportsRowLabel#default": default_25f5e91ef369acfad97a52ac94d0330b,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  "@/payload/collections/News/components/SectionsRowLabel#default": default_b7beafed13e298f74e3d717c89b4ffba,
   "@/payload/fields/ImageIcon/components/Field#default": default_5fcf80ad7799f85e06683d7dbd0ce58f,
   "@/payload/fields/Link/components/LinkLabel#default": default_b86140c7b9e4a7df31f494d137f580e8,
   "@/payload/globals/Header/components/HeaderLabel#default": default_697dbdb7f6f9ef4ce600690b2392d8d4,

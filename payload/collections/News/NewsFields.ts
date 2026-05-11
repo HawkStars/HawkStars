@@ -1,13 +1,5 @@
-import SimpleGallery from '@/payload/blocks/SimpleGallery/config';
 import { PayloadImageField } from '@/payload/fields/ImageType';
-import {
-  BlocksFeature,
-  FixedToolbarFeature,
-  HeadingFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-  UnorderedListFeature,
-} from '@payloadcms/richtext-lexical';
+import { MultiImageField } from '@/payload/fields/MultiImage';
 import { Tab } from 'payload';
 
 const NewsDetails: Tab = {
@@ -44,32 +36,82 @@ const NewsDetails: Tab = {
         description: 'The type of the news article',
       },
     },
-    {
-      name: 'content',
-      label: 'Content',
-      type: 'richText',
-      required: true,
-      localized: true,
-      editor: lexicalEditor({
-        features: () => [
-          HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4', 'h5', 'h6'] }),
-          FixedToolbarFeature(),
-          InlineToolbarFeature(),
-          UnorderedListFeature(),
-          BlocksFeature({ blocks: [SimpleGallery] }),
-        ],
-      }),
-      admin: {
-        description: 'The main content of the news article',
-      },
-    },
     PayloadImageField({
-      label: 'Imagem Principal',
+      label: 'Cover Image',
       name: 'mainImage',
       required: false,
       description:
-        'The main image for the news article displayed on listing pages and article page',
+        'The main image for the news article displayed on listing pages and article header',
     }),
+
+    /* -------------------------------------------------------------- */
+    /*  DESCRIPTION SECTION                                           */
+    /* -------------------------------------------------------------- */
+    {
+      type: 'group',
+      name: 'details',
+      label: 'Description',
+      admin: {
+        description: 'Main description block of the article.',
+      },
+      fields: [
+        {
+          name: 'text',
+          label: 'Description Text',
+          type: 'textarea',
+          localized: true,
+          admin: {
+            description: 'Main paragraph describing the article',
+            rows: 8,
+          },
+        },
+        {
+          name: 'sections',
+          label: 'Sections',
+          type: 'array',
+          interfaceName: 'NewsSection',
+          admin: {
+            description: 'Additional titled sections for the article body',
+            initCollapsed: true,
+            components: {
+              RowLabel: '@/payload/collections/News/components/SectionsRowLabel',
+            },
+          },
+          fields: [
+            {
+              name: 'title',
+              label: 'Section Title',
+              type: 'text',
+              localized: true,
+              admin: { description: 'e.g. "Background", "What happened", "Next steps"' },
+            },
+            {
+              name: 'text',
+              label: 'Section Text',
+              type: 'textarea',
+              localized: true,
+              admin: {
+                description: 'Body text for this section',
+                rows: 6,
+              },
+            },
+          ],
+        },
+      ],
+    },
+
+    /* -------------------------------------------------------------- */
+    /*  PHOTO GALLERY                                                 */
+    /* -------------------------------------------------------------- */
+    MultiImageField({
+      name: 'gallery',
+      label: 'Photo Gallery',
+      description: 'Photos displayed at the bottom of the article',
+    }),
+
+    /* -------------------------------------------------------------- */
+    /*  RELATED PROJECT                                               */
+    /* -------------------------------------------------------------- */
     {
       name: 'project',
       label: 'Related Project',

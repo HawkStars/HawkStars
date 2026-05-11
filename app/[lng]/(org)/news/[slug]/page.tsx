@@ -5,9 +5,9 @@ import { Language } from '@/i18n/settings';
 import { getSingleNewsSlug } from '@/lib/payload/queries/news';
 import { prepareMetadataInfo, getMetadataPageInfo } from '@/utils/metadata';
 import { HawkStarsSection } from '@/components/layout';
-import RichTextWrapper from '@/payload/components/RichText/RichTextWrapper';
 import { LanguageProps } from '@/components/types';
 import { getImagePayloadUrl } from '@/lib/image';
+import { Media } from '@/payload-types';
 
 type NewsSlugPageProps = {
   params: Promise<LanguageProps & { slug: string }>;
@@ -38,9 +38,16 @@ const NewsSlugPage = async (props: NewsSlugPageProps) => {
   const article = await getSingleNewsSlug(slug, lng as Language);
   if (!article) notFound();
 
-  const { title, type, content, mainImage, publishedAt } = article;
+  const { title, type, details, gallery, mainImage, publishedAt } = article;
 
   const image = getImagePayloadUrl(mainImage);
+  const { text, sections } = details || {};
+
+  const hasGalleryImages =
+    gallery &&
+    ((gallery.internalImages && gallery.internalImages.length > 0) ||
+      (gallery.externalImages && gallery.externalImages.length > 0));
+
   return (
     <>
       {/* Hero image */}
@@ -76,12 +83,65 @@ const NewsSlugPage = async (props: NewsSlugPageProps) => {
         </div>
       </HawkStarsSection>
 
-      {/* Article body */}
-      <HawkStarsSection className='py-10 lg:py-14'>
-        <div className='max-w-6xl'>
-          <RichTextWrapper data={content} />
-        </div>
-      </HawkStarsSection>
+      {/* Description */}
+      {text && (
+        <HawkStarsSection className='py-10 lg:py-14'>
+          <div className='max-w-3xl'>
+            <p className='text-body_regular leading-relaxed whitespace-pre-line text-gray-700'>
+              {text}
+            </p>
+          </div>
+        </HawkStarsSection>
+      )}
+
+      {/* Sections */}
+      {sections && sections.length > 0 && (
+        <HawkStarsSection className='py-6 lg:py-10'>
+          <div className='flex max-w-3xl flex-col gap-10'>
+            {sections.map((section, i) => (
+              <div key={i} className='flex flex-col gap-3'>
+                {section.title && <h2 className='text-h2_light text-green'>{section.title}</h2>}
+                {section.text && (
+                  <p className='text-body_regular leading-relaxed whitespace-pre-line text-gray-700'>
+                    {section.text}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </HawkStarsSection>
+      )}
+
+      {/* Photo Gallery */}
+      {hasGalleryImages && (
+        <HawkStarsSection className='py-10 lg:py-14'>
+          <div className='grid grid-cols-2 gap-4 md:grid-cols-3'>
+            {gallery.internalImages?.map((item, i) => {
+              const media = item.image as Media;
+              return media?.url ? (
+                <Image
+                  key={`int-${i}`}
+                  src={media.url}
+                  alt={media.alt || title}
+                  width={media.width || 600}
+                  height={media.height || 400}
+                  className='aspect-3/2 w-full rounded-lg object-cover'
+                />
+              ) : null;
+            })}
+            {gallery.externalImages?.map((item, i) => (
+              <Image
+                key={`ext-${i}`}
+                src={item.url}
+                alt={item.alt || title}
+                width={600}
+                height={400}
+                className='aspect-3/2 w-full rounded-lg object-cover'
+              />
+            ))}
+          </div>
+        </HawkStarsSection>
+      )}
     </>
   );
 };

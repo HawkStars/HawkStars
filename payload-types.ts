@@ -2025,6 +2025,25 @@ export type HeroBlockFeature =
     }[]
   | null;
 /**
+ * Additional titled sections for the article body
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsSection".
+ */
+export type NewsSection =
+  | {
+      /**
+       * e.g. "Background", "What happened", "Next steps"
+       */
+      title?: string | null;
+      /**
+       * Body text for this section
+       */
+      text?: string | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DropdownNavLink".
  */
@@ -6832,7 +6851,7 @@ export interface HawkProject {
   createdAt: string;
 }
 /**
- * Photos displayed at the bottom of the project page
+ * Photos displayed at the bottom of the article
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "MultiImageType".
@@ -7278,25 +7297,18 @@ export interface News {
    * The type of the news article
    */
   type: 'blog' | 'news' | 'press_release' | 'announcement' | 'other';
-  /**
-   * The main content of the news article
-   */
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
   mainImage?: ImageType;
+  /**
+   * Main description block of the article.
+   */
+  details?: {
+    /**
+     * Main paragraph describing the article
+     */
+    text?: string | null;
+    sections?: NewsSection;
+  };
+  gallery?: MultiImageType;
   /**
    * Optionally link this news article to a project. The article will appear in the project page under "Related News".
    */
@@ -8795,8 +8807,14 @@ export interface UpcomingHawkEventBlockSelect<T extends boolean = true> {
 export interface NewsSelect<T extends boolean = true> {
   title?: T;
   type?: T;
-  content?: T;
   mainImage?: T | ImageTypeSelect<T>;
+  details?:
+    | T
+    | {
+        text?: T;
+        sections?: T | NewsSectionSelect<T>;
+      };
+  gallery?: T | MultiImageTypeSelect<T>;
   project?: T;
   meta?:
     | T
@@ -8811,6 +8829,15 @@ export interface NewsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsSection_select".
+ */
+export interface NewsSectionSelect<T extends boolean = true> {
+  title?: T;
+  text?: T;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
