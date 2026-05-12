@@ -12,7 +12,7 @@ export const revalidate = 600; // invalidate every 10 minutes
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;
-  const metadataPage = getMetadataPageInfo(lng as Language, 'home');
+  const metadataPage = getMetadataPageInfo(lng as Language, 'agenda');
   return metadataPage;
 }
 
