@@ -29,7 +29,7 @@ export const UpcomingHawkEventBlockView: React.FC<UpcomingHawkEventBlockViewProp
   event,
 }) => {
   return (
-    <section className='py-12 lg:py-20' id={sectionId || ''}>
+    <section className='py-12 lg:py-20' id={sectionId || ''} data-blockId='upcomingHawkEvent'>
       <div className='container mx-auto'>
         {(title || subtitle) && (
           <div className='mb-10 text-center'>

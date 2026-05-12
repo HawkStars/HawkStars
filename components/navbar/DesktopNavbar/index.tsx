@@ -50,16 +50,6 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuK
               </li>
             );
           })}
-          <li>
-            <Button
-              type={'submit'}
-              onClick={() => {
-                router.push(urls.donate);
-              }}
-            >
-              <Suspense>{t('common.donate')}</Suspense>
-            </Button>
-          </li>
         </ul>
         <div className='my-auto'>
           <LanguageSwitcher />

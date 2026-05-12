@@ -98,6 +98,7 @@ export const VideoBlock: React.FC<Props> = (props) => {
         className
       )}
       id={sectionId || ''}
+      data-blockId='videoBlock'
     >
       <div className='w-full'>
         {title && <h3 className='text-h3_semibold mb-4'>{title}</h3>}

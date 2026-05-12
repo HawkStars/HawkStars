@@ -157,6 +157,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
   return (
     <section
       className={cn('py-12 lg:py-20', backgroundColor && backgroundClasses[backgroundColor])}
+      data-blockId='testimonialBlock'
     >
       <div className='mx-auto max-w-7xl px-4'>
         {/* Header */}

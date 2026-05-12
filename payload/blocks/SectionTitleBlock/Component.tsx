@@ -7,7 +7,7 @@ export const SectionTitleBlockComponent: React.FC<SectionTitleBlockProps> = ({
   sectionId,
 }) => {
   return (
-    <div className='mx-auto max-w-7xl px-4 py-6 lg:px-8'>
+    <div className='mx-auto max-w-7xl px-4 py-6 lg:px-8' data-blockId='sectionTitleBlock'>
       <SectionTitle
         title={title}
         sectionId={sectionId ?? ''}

@@ -57,7 +57,7 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
   const oddTiers: string[] = Object.keys(groupByTier).filter((_, index) => index % 2 !== 0);
 
   return (
-    <section className='max-w-7xl py-12 lg:mx-auto lg:py-20' id={sectionId || ''}>
+    <section className='max-w-7xl py-12 lg:mx-auto lg:py-20' id={sectionId || ''} data-blockId='sponsorsBlock'>
       <div className='container mx-auto'>
         {(title || subtitle) && (
           <div className='mb-10 text-center'>

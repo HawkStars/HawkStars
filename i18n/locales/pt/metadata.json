@@ -1,50 +1,4 @@
 {
-  "global_village": {
-    "title": "O Projeto Aldeia Global da ONG Hawk Stars em Pinhel, Portugal",
-    "description": "Descubra o visionário projeto Global Village em Pinhel, Portugal, pela ONG Hawk Stars. Promova inovação e apoie-nos na construção de um futuro próspero",
-    "keywords": [
-      "Pinhel",
-      "Portugal",
-      "Global Village",
-      "Aldeia Global",
-      "Hawk Stars NGO",
-      "Centro Internacional de Treinamento",
-      "International Training Center",
-      "Social Innovation",
-      "E-sports",
-      "Entrepreneurship",
-      "Cultural Development",
-      "Non-profit",
-      "Fundraising.",
-      "Inovação Social",
-      "Esportes",
-      "Empreendedorismo",
-      "Desenvolvimento Cultural",
-      "Sem fins lucrativos",
-      "Angariação de fundos."
-    ]
-  },
-  "about": {
-    "title": "Capacitando a Mudança: ONG Hawk Stars - Visão, Objetivos, Metas Globais",
-    "description": "Explore a visão da ONG Hawk Stars para mudança positiva em Pinhel, Portugal e globalmente. Compromisso com inovação, inclusão e desenvolvimento cultural.",
-    "keywords": [
-      "ONG Hawk Stars",
-      "Visão",
-      "Objetivos",
-      "Metas",
-      "Inovação Social",
-      "Inclusividade",
-      "Desenvolvimento Cultural",
-      "Sustentabilidade Local",
-      "Educação",
-      "Erasmus+",
-      "Empreendedorismo",
-      "Tecnologia",
-      "Cooperação Global",
-      "Pinhel",
-      "Portugal"
-    ]
-  },
   "donate": {
     "title": "Apoie o Projeto Global Village - Doe para a ONG Hawk Stars",
     "description": "Contribua para o Projeto Global Village da ONG Hawk Stars em Pinhel. A doação apoia o Centro Internacional, impulsionando aprendizado, inovação e desenvolvimento.",
@@ -281,6 +235,19 @@
       "Programas Juvenis da UE",
       "ONG Hawk Stars",
       "Financiamento Europeu"
+    ]
+  },
+  "terms": {
+    "title": "Termos e Condições - ONG Hawk Stars",
+    "description": "Leia os termos e condições da ONG Hawk Stars, incluindo políticas de privacidade, uso de dados e responsabilidades legais.",
+    "keywords": [
+      "Termos e Condições",
+      "Política de Privacidade",
+      "Uso de Dados",
+      "Responsabilidades Legais",
+      "ONG Hawk Stars",
+      "Pinhel",
+      "Portugal"
     ]
   }
 }

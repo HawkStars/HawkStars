@@ -44,7 +44,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
   const styles = variantStyles[variant as keyof typeof variantStyles] || variantStyles.default;
 
   return (
-    <section className='py-12 lg:py-20' id={sectionId || ''}>
+    <section className='py-12 lg:py-20' id={sectionId || ''} data-blockId='accordion'>
       <div className='container mx-auto'>
         {(title || description) && (
           <div className='mb-10 text-center'>

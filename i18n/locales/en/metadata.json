@@ -1,42 +1,4 @@
 {
-  "global_village": {
-    "title": "The Global Village Project by Hawk Stars NGO in Pinhel, Portugal",
-    "description": "Discover Hawk Stars NGO's visionary Global Village project in Pinhel, Portugal. Join us in redefining urban landscapes, fostering innovation building a promising future.",
-    "keywords": [
-      "Pinhel",
-      "Portugal",
-      "Global Village",
-      "Hawk Stars NGO",
-      "International Training Center",
-      "Social Innovation",
-      "E-sports",
-      "Entrepreneurship",
-      "Cultural Development",
-      "Non-profit",
-      "Fundraising."
-    ]
-  },
-  "about": {
-    "title": "Empowering Change: Hawk Stars NGO - Vision, Objectives, Global Goals",
-    "description": "Hawk Stars NGO envisions a globally innovative Pinhel, fostering inclusion, entrepreneurship, and global cooperation through strategic goals and Erasmus+ initiatives. ",
-    "keywords": [
-      "Hawk Stars NGO",
-      "Vision",
-      "Objectives",
-      "Goals",
-      "Social Innovation",
-      "Inclusivity",
-      "Cultural Development",
-      "Local Sustainability",
-      "Education",
-      "Erasmus+",
-      "Entrepreneurship",
-      "Technology",
-      "Global Cooperation",
-      "Pinhel",
-      "Portugal."
-    ]
-  },
   "donate": {
     "title": "Support The Global Village Project - Donate to Hawk Stars NGO",
     "description": "Contribute to Hawk Stars NGO's Global Village Project in Pinhel, Portugal. Support the International Training Center, fostering learning, innovation, and cultural development. Join us in shaping a promising future. Click to donate!",
@@ -250,6 +212,19 @@
       "EU Youth Programmes",
       "Hawk Stars NGO",
       "European Funding"
+    ]
+  },
+  "terms": {
+    "title": "Terms of Use - Hawk Stars NGO",
+    "description": "Read the Terms of Use for Hawk Stars NGO's website. Understand your rights and responsibilities when accessing our content and services.",
+    "keywords": [
+      "Hawk Stars NGO",
+      "Terms of Use",
+      "Website Terms",
+      "User Agreement",
+      "Legal Information",
+      "Pinhel",
+      "Portugal"
     ]
   }
 }

@@ -27,16 +27,6 @@ const Footer = () => {
             sizes='100px'
             style={{ objectFit: 'cover' }}
           />
-          <Button
-            type='button'
-            className='w-40'
-            variant='outline'
-            onClick={() => {
-              router.push(urls.donate);
-            }}
-          >
-            {t('common.donate')}
-          </Button>
         </div>
 
         <div className='mt-10 grid grid-cols-6 gap-10 max-lg:grid-cols-3 max-sm:grid-cols-1'>

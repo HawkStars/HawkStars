@@ -50,11 +50,6 @@ const MobileNavbar = () => {
         })}
       </div>
 
-      <div className='flex w-fit flex-col'>
-        <Button type={'button'} variant='default' size='lg' onClick={() => goToUrl(urls.donate)}>
-          {t('common.donate')}
-        </Button>
-      </div>
       <div className='mt-auto mb-5 ml-auto'>
         <Socials />
       </div>

@@ -15,7 +15,7 @@ export const PricingTableBlock: React.FC<PricingTableBlockProps> = ({
   }
 
   return (
-    <section className='py-12 lg:py-20' id={sectionId || ''}>
+    <section className='py-12 lg:py-20' id={sectionId || ''} data-blockId='pricingTable'>
       <div className='container mx-auto'>
         {/* Header */}
         {(title || subtitle) && (

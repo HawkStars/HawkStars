@@ -28,6 +28,7 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
     <section
       className={cn('py-12 lg:py-16', bgClasses[backgroundColor as keyof typeof bgClasses])}
       id={sectionId || ''}
+      data-blockId='socialProof'
     >
       <div className='container mx-auto'>
         <div

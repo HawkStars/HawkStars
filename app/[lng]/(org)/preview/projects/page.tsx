@@ -1,12 +1,11 @@
 import { Metadata } from 'next';
 import { Language } from '@/i18n/settings';
-
 import { connection } from 'next/server';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import { getProjectsListHeaderInfo } from '@/lib/payload/queries/globals/projectsList';
-import { getProjectsSplitByDate } from '@/lib/payload/queries/event';
 import { getServerTranslation } from '@/i18n';
 import { LivePreviewProjectList } from '@/payload/components/LivePreview/globals/LivePreviewProjectList';
+import { getProjectsSplitByDate } from '@/lib/payload/queries/projects';
 
 export async function generateMetadata(): Promise<Metadata> {
   return { robots: 'noindex, nofollow' };

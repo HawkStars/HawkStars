@@ -33,7 +33,7 @@ export const ResourceDownloadBlock: React.FC<ResourceDownloadBlockProps> = ({
   if (!resources || resources.length === 0) return null;
 
   return (
-    <section className='py-12 lg:py-20' id={sectionId || ''}>
+    <section className='py-12 lg:py-20' id={sectionId || ''} data-blockId='resourceDownload'>
       <div className='container mx-auto'>
         {title && (
           <h2

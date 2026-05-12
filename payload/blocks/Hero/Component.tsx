@@ -24,7 +24,7 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
   const linkInfo = getLinkFieldInformation(ctaLink, lng);
 
   return (
-    <section className='py-32' id={sectionId || ''}>
+    <section className='py-32' id={sectionId || ''} data-blockId='hero'>
       <div className='container mx-auto'>
         <div className='text-center'>
           {bgImage && bgImage.url && (

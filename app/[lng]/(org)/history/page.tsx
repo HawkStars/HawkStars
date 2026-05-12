@@ -118,7 +118,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
                 {t('about_hawkstars')}
               </Link>
               <Link
-                href={urls.global_village}
+                href={`${lng}/village`}
                 className='border-green bg-green w-full rounded-xl border fill-white p-2 text-center text-white xl:w-fit'
               >
                 {t('about_globalvillage')}

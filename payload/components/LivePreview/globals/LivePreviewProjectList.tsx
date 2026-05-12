@@ -4,9 +4,9 @@ import React from 'react';
 import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { ProjectsList } from '@/payload-types';
 import { Language } from '@/i18n/settings';
-import { SplitProjectsResult } from '@/lib/payload/queries/event';
 import ProjectsListComponent from '@/components/projects/list/ProjectsListComponent';
 import HeroImpactStatsBlock from '@/components/projects/list/HeroImpactStatsBlock';
+import { SplitProjectsResult } from '@/lib/payload/queries/projects';
 
 type LivePreviewData = {
   projectListInformation: ProjectsList;

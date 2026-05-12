@@ -17,7 +17,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
   const quoteLength = quote.length;
 
   return (
-    <section className='py-12 lg:py-20' id={sectionId || ''}>
+    <section className='py-12 lg:py-20' id={sectionId || ''} data-blockId='quoteHighlight'>
       <div className='container mx-auto'>
         {style === 'centered' && (
           <div className='mx-auto max-w-5xl text-center'>

@@ -16,7 +16,7 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
   const imageInfo = getImagePayloadUrl(image);
 
   return (
-    <section className='py-32' id={sectionId || ''}>
+    <section className='py-32' id={sectionId || ''} data-blockId='cta'>
       <div className='container mx-auto max-lg:px-2'>
         <div className='bg-muted relative flex w-full flex-col justify-between overflow-hidden rounded-4xl border p-8 md:flex-row'>
           <div className='flex h-full max-w-lg flex-col justify-center gap-4'>

@@ -1,5 +1,5 @@
 import { PayloadImageField } from '@/payload/fields/ImageType';
-import { lexicalEditor } from '@payloadcms/richtext-lexical';
+import { MultiImageField } from '@/payload/fields/MultiImage';
 import { Tab } from 'payload';
 
 const HawkEventDetails: Tab = {
@@ -83,13 +83,141 @@ const HawkEventDetails: Tab = {
         { label: 'Other', value: 'other' },
       ],
     },
+    /* -------------------------------------------------------------- */
+    /*  PAGE CONTENT — structured fields replacing rich text          */
+    /* -------------------------------------------------------------- */
     {
-      name: 'page_content',
-      label: 'Page Content',
-      type: 'richText',
-      localized: true,
-      editor: lexicalEditor({}),
+      type: 'group',
+      name: 'details',
+      label: 'Description',
+      admin: {
+        description: 'Main body content shown on the public event page.',
+      },
+      fields: [
+        {
+          name: 'text',
+          label: 'Main Text',
+          type: 'textarea',
+          localized: true,
+          admin: {
+            description: 'Main paragraph describing the event in detail',
+            rows: 8,
+          },
+        },
+        {
+          name: 'sections',
+          label: 'Additional Sections',
+          type: 'array',
+          interfaceName: 'HawkEventSection',
+          admin: {
+            description: 'Titled sections for extra content (e.g. "Activities", "Outcomes")',
+            initCollapsed: true,
+          },
+          fields: [
+            {
+              name: 'title',
+              label: 'Section Title',
+              type: 'text',
+              localized: true,
+            },
+            {
+              name: 'text',
+              label: 'Section Text',
+              type: 'textarea',
+              localized: true,
+              admin: { rows: 6 },
+            },
+          ],
+        },
+      ],
     },
+
+    /* -------------------------------------------------------------- */
+    /*  PROGRAM / SCHEDULE                                            */
+    /* -------------------------------------------------------------- */
+    {
+      name: 'program',
+      label: 'Program / Schedule',
+      type: 'array',
+      interfaceName: 'HawkEventProgramItem',
+      admin: {
+        description: 'Day-by-day or session-by-session schedule of the event',
+        initCollapsed: true,
+      },
+      fields: [
+        {
+          name: 'day',
+          label: 'Day / Time',
+          type: 'text',
+          localized: false,
+          admin: { description: 'e.g. "Day 1", "09:00–10:30"', width: '30%' },
+        },
+        {
+          name: 'title',
+          label: 'Activity Title',
+          type: 'text',
+          localized: true,
+          admin: { width: '70%' },
+        },
+        {
+          name: 'description',
+          label: 'Activity Description',
+          type: 'textarea',
+          localized: true,
+          admin: { rows: 3 },
+        },
+      ],
+    },
+
+    /* -------------------------------------------------------------- */
+    /*  OBJECTIVES                                                    */
+    /* -------------------------------------------------------------- */
+    {
+      type: 'group',
+      name: 'objectives',
+      label: 'Objectives',
+      admin: {
+        description: 'List of goals or learning outcomes for the event.',
+      },
+      fields: [
+        {
+          name: 'introduction',
+          label: 'Introduction',
+          type: 'textarea',
+          localized: true,
+          admin: {
+            description: 'Short introductory paragraph before the objectives list',
+            rows: 4,
+          },
+        },
+        {
+          name: 'items',
+          label: 'Objective Items',
+          type: 'array',
+          interfaceName: 'HawkEventObjectiveItem',
+          admin: { initCollapsed: true },
+          fields: [
+            {
+              name: 'text',
+              label: 'Objective',
+              type: 'textarea',
+              localized: true,
+              required: true,
+            },
+          ],
+        },
+      ],
+    },
+
+    /* -------------------------------------------------------------- */
+    /*  PHOTO GALLERY                                                 */
+    /* -------------------------------------------------------------- */
+    MultiImageField({
+      name: 'gallery',
+      label: 'Photo Gallery',
+      description: 'Photos displayed at the bottom of the event page',
+    }),
+
     PayloadImageField({
       label: 'Image',
       name: 'image',

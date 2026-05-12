@@ -38,7 +38,7 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
   item,
 }) => {
   return (
-    <section className='py-12 lg:py-20' id={sectionId || ''}>
+    <section className='py-12 lg:py-20' id={sectionId || ''} data-blockId='latestNews'>
       <div className='container mx-auto'>
         {(title || subtitle) && (
           <div className='mb-10 text-center'>

@@ -34,7 +34,7 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
   const bg = (background ?? 'bege') as keyof typeof backgroundStyles;
 
   return (
-    <section className={cn('py-12 lg:py-20', backgroundStyles[bg])} id={sectionId || ''}>
+    <section className={cn('py-12 lg:py-20', backgroundStyles[bg])} id={sectionId || ''} data-blockId='growthVisionBlock'>
       <div className='container mx-auto px-4'>
         {/* Header */}
         <div className={cn('mb-12', titleLocationStyles[titleLocation ?? 'center'])}>

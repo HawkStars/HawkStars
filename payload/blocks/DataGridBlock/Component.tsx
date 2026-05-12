@@ -8,7 +8,7 @@ export const DataGridBlock: React.FC<DataGridBlockProps> = ({
   sectionId,
 }) => {
   return (
-    <section className='py-16 md:py-24' id={sectionId || undefined}>
+    <section className='py-16 md:py-24' id={sectionId || undefined} data-blockId='dataGridBlock'>
       <div className='container mx-auto px-4'>
         {title && <h2 className='text-h2_bold mb-8 text-center tracking-tight'>{title}</h2>}
         <div className='overflow-x-auto rounded-lg'>

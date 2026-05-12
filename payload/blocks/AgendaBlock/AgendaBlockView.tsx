@@ -261,7 +261,7 @@ export function AgendaBlockView({
   const label = linkLabel || 'Ver mais';
 
   return (
-    <section id={sectionId ?? undefined} className='w-full py-12'>
+    <section id={sectionId ?? undefined} className='w-full py-12' data-blockId='agenda'>
       <div className='mx-auto max-w-4xl px-4'>
         {/* Header */}
         {(title || subtitle) && (

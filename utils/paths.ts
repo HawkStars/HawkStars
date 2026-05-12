@@ -5,15 +5,11 @@
  **/
 
 export const urls = {
-  donate: '/contribute',
   contribute: '/contribute',
   artwork: '/artwork',
   history: '/history',
   events: '/events',
   gallery: '/art',
-  global_village: '/village',
-  global_village_arquitecture: '/village#arquitecture',
-  global_village_objectives: '/village#objetives',
   home: '/',
   news: '/news',
   agenda: '/agenda',
@@ -64,8 +60,7 @@ export const routes = [
   { url: urls.home, priority: 1 },
   { url: urls.team, priority: 0.5 },
   { url: urls.partners, priority: 0.8 },
-  { url: urls.global_village, priority: 1 },
-  { url: urls.donate, priority: 1 },
+  { url: urls.contribute, priority: 1 },
   { url: urls.transparency, priority: 1 },
   { url: urls.history, priority: 0.5 },
   { url: urls.gallery, priority: 0.8 },

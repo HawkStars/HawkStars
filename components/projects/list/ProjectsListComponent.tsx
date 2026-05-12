@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { transformUrl, urls } from '@/utils/paths';
 import Link from 'next/link';
 import { format } from 'date-fns';
-import { SplitProjectsResult } from '@/lib/payload/queries/event';
+import { SplitProjectsResult } from '@/lib/payload/queries/projects';
 
 type ProjectsListProps = {
   projects: SplitProjectsResult;

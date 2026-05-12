@@ -73,6 +73,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
         heightClasses[height as keyof typeof heightClasses]
       )}
       id={sectionId || ''}
+      data-blockId='heroSlideshowBlock'
     >
       {/* Slides */}
       {slides.map((slide, index: number) => {

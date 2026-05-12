@@ -5,6 +5,7 @@ import { getServerSideURL } from '@/payload/utilities/getURL';
 import { connection } from 'next/server';
 import { LivePreviewProject } from '@/payload/components/LivePreview/LivePreviewProject';
 import { getSingleEventsQuery } from '@/lib/payload/queries/event';
+import { getSingleProjectsQuery } from '@/lib/payload/queries/projects';
 
 type PageProps = {
   params: Promise<LanguageProps & { slug: string }>;
@@ -19,7 +20,7 @@ const SingleProjectPreview = async (props: PageProps) => {
   const params = await props.params;
   const { lng, slug } = params;
   if (!slug) notFound();
-  const project = await getSingleEventsQuery(slug, lng, { preview: true });
+  const project = await getSingleProjectsQuery(slug, lng, { preview: true });
   if (!project) notFound();
 
   return <LivePreviewProject initialData={project} serverURL={getServerSideURL()} />;

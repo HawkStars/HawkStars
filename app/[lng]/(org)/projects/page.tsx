@@ -3,8 +3,8 @@ import ProjectsList from '@/components/projects/list/ProjectsListComponent';
 import { LanguageProps } from '@/components/types';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
-import { getProjectsSplitByDate } from '@/lib/payload/queries/event';
 import { getProjectsListHeaderInfo } from '@/lib/payload/queries/globals/projectsList';
+import { getProjectsSplitByDate } from '@/lib/payload/queries/projects';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 

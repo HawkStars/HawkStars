@@ -27,7 +27,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
   };
 
   return (
-    <section className='py-12 lg:py-16' id={sectionId || ''}>
+    <section className='py-12 lg:py-16' id={sectionId || ''} data-blockId='newsletterSignup'>
       <div className='container mx-auto'>
         <div className={cn('rounded-2xl p-8 lg:p-12')}>
           <div className='mx-auto max-w-2xl text-center'>

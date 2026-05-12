@@ -10,7 +10,7 @@ const DonateLink = () => {
   const { t } = useTranslation(lng, 'training_center');
   return (
     <Link
-      href={transformUrl(lng, urls.donate)}
+      href={transformUrl(lng, urls.contribute)}
       className='border-green bg-green w-fit cursor-pointer rounded-xl border fill-white px-4 py-3 text-center text-white focus:ring-0 focus:outline-hidden'
     >
       {t('click_to_donate')}

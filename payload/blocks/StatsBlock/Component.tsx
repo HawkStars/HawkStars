@@ -59,6 +59,7 @@ export const StatsBlock: React.FC<StatsBlockProps> = ({
         backgroundStyles[background as keyof typeof backgroundStyles]
       )}
       id={sectionId || ''}
+      data-blockId='statsBlock'
     >
       <div className='container mx-auto'>
         {/* Stats Grid */}

@@ -31,7 +31,7 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
   const bg = (background ?? 'bege') as keyof typeof backgroundStyles;
 
   return (
-    <section className={cn('py-12 lg:py-20', backgroundStyles[bg])} id={sectionId || ''}>
+    <section className={cn('py-12 lg:py-20', backgroundStyles[bg])} id={sectionId || ''} data-blockId='whyHereWhyNowBlock'>
       <div className='container mx-auto px-4'>
         {/* Header */}
         <div className='mb-12 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between'>

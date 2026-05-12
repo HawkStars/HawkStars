@@ -85,7 +85,7 @@ const BentoGridBlock: React.FC<BentoGridBlockProps> = ({
   if (!items || items.length === 0) return null;
 
   return (
-    <section className='py-8 md:py-12 lg:py-16' id={sectionId || undefined}>
+    <section className='py-8 md:py-12 lg:py-16' id={sectionId || undefined} data-blockId='bentoGrid'>
       <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
         {(sectionTitle || sectionDescription) && (
           <div className='mx-auto mb-8 max-w-3xl text-center md:mb-10 lg:mb-12'>

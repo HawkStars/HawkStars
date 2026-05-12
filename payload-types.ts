@@ -2025,6 +2025,46 @@ export type HeroBlockFeature =
     }[]
   | null;
 /**
+ * Titled sections for extra content (e.g. "Activities", "Outcomes")
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkEventSection".
+ */
+export type HawkEventSection =
+  | {
+      title?: string | null;
+      text?: string | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * Day-by-day or session-by-session schedule of the event
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkEventProgramItem".
+ */
+export type HawkEventProgramItem =
+  | {
+      /**
+       * e.g. "Day 1", "09:00–10:30"
+       */
+      day?: string | null;
+      title?: string | null;
+      description?: string | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkEventObjectiveItem".
+ */
+export type HawkEventObjectiveItem =
+  | {
+      text: string;
+      id?: string | null;
+    }[]
+  | null;
+/**
  * Additional titled sections for the article body
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -7240,21 +7280,28 @@ export interface HawkEvent {
   endDate?: string | null;
   slug: string;
   type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
-  page_content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  /**
+   * Main body content shown on the public event page.
+   */
+  details?: {
+    /**
+     * Main paragraph describing the event in detail
+     */
+    text?: string | null;
+    sections?: HawkEventSection;
+  };
+  program?: HawkEventProgramItem;
+  /**
+   * List of goals or learning outcomes for the event.
+   */
+  objectives?: {
+    /**
+     * Short introductory paragraph before the objectives list
+     */
+    introduction?: string | null;
+    items?: HawkEventObjectiveItem;
+  };
+  gallery?: MultiImageType;
   image: ImageType;
   /**
    * Only the ID, not the full URL
@@ -7898,11 +7945,51 @@ export interface HawkEventsSelect<T extends boolean = true> {
   endDate?: T;
   slug?: T;
   type_event?: T;
-  page_content?: T;
+  details?:
+    | T
+    | {
+        text?: T;
+        sections?: T | HawkEventSectionSelect<T>;
+      };
+  program?: T | HawkEventProgramItemSelect<T>;
+  objectives?:
+    | T
+    | {
+        introduction?: T;
+        items?: T | HawkEventObjectiveItemSelect<T>;
+      };
+  gallery?: T | MultiImageTypeSelect<T>;
   image?: T | ImageTypeSelect<T>;
   instagram?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkEventSection_select".
+ */
+export interface HawkEventSectionSelect<T extends boolean = true> {
+  title?: T;
+  text?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkEventProgramItem_select".
+ */
+export interface HawkEventProgramItemSelect<T extends boolean = true> {
+  day?: T;
+  title?: T;
+  description?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkEventObjectiveItem_select".
+ */
+export interface HawkEventObjectiveItemSelect<T extends boolean = true> {
+  text?: T;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

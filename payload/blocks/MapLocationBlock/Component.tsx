@@ -13,7 +13,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
   sectionId,
 }) => {
   return (
-    <section className='py-12 lg:py-20' id={sectionId || ''}>
+    <section className='py-12 lg:py-20' id={sectionId || ''} data-blockId='mapLocation'>
       <div className='container mx-auto'>
         {title && <h2 className='mb-8 text-center text-3xl font-bold lg:text-4xl'>{title}</h2>}
 

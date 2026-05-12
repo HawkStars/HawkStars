@@ -5,7 +5,13 @@ import { Metadata } from 'next/types';
 import { Language, fallbackLng, languages } from '@/i18n/settings';
 import { HawkStarsPaths, urls } from './paths';
 import { Media } from '@/payload-types';
-import { BASE_URL, OG_IMAGE_FALLBACK, SITE_NAME, SITE_LOCALE_PT, SITE_LOCALE_EN } from '@/lib/constants';
+import {
+  BASE_URL,
+  OG_IMAGE_FALLBACK,
+  SITE_NAME,
+  SITE_LOCALE_PT,
+  SITE_LOCALE_EN,
+} from '@/lib/constants';
 
 export const defaultMetadata = {
   icons: {
