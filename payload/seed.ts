@@ -372,68 +372,73 @@ export async function seed(payload: Payload): Promise<void> {
   // ── 9. Hawk Projects ──────────────────────────────────────────────────────
   const existingProjects = await payload.count({ collection: 'hawk_projects' });
   if (existingProjects.totalDocs === 0) {
-    const projects = [
+    const projects: HawkProject[] = [
       {
         heading: 'Erasmus+ Youth Exchange 2025',
-        subheading: 'Intercâmbio juvenil em Viana do Castelo',
-        description: 'Um programa de intercâmbio juvenil focado em cidadania ativa e inclusão.',
         slug: 'erasmus-youth-exchange-2025',
-        type_event: 'erasmus' as const,
-        date: '2025-09-15T00:00:00.000Z',
-        image: {
+        status: 'published' as const,
+        startDate: '2025-06-01',
+        coverImage: {
           imageType: 'upload' as const,
-          upload: mediaId(3),
+          image: mediaId(3),
           alt: 'Erasmus Youth Exchange',
         },
-        page_content: richText(
-          'O programa Erasmus+ Youth Exchange 2025 reúne jovens de 6 países europeus.'
-        ),
+        id: 'project-1',
+
+        hero: {
+          participants: 36,
+          fundedAmount: 38064,
+          videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        },
+        updatedAt: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
       },
       {
         heading: 'Festival Cultural HawkStars',
-        subheading: 'O maior evento cultural da região',
-        description: 'Festival anual com música, arte e gastronomia.',
         slug: 'festival-cultural-hawkstars',
-        type_event: 'local_event' as const,
-        date: '2024-07-20T00:00:00.000Z',
-        image: {
+        status: 'published' as const,
+        startDate: '2025-09-01',
+        coverImage: {
           imageType: 'upload' as const,
-          upload: mediaId(3),
+          image: mediaId(3),
           alt: 'Festival Cultural',
         },
-        page_content: richText('O Festival Cultural HawkStars acontece anualmente em setembro.'),
+        hero: {
+          participants: 36,
+          fundedAmount: 38064,
+          videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        },
+        id: 'project-2',
+        updatedAt: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
       },
       {
         heading: 'International Conference on Youth Work',
-        details: {
-          text: 'Building bridges across borders',
-          description: 'Conferência internacional sobre trabalho juvenil.',
-        },
         slug: 'international-conference-youth-work',
-        startDate: '2024-11-10T00:00:00.000Z',
+        status: 'draft' as const,
+        startDate: '2025-11-01',
         coverImage: {
           imageType: 'upload' as const,
-          upload: mediaId(3),
+          image: mediaId(3),
           alt: 'International Conference',
         },
+
+        hero: {
+          participants: 36,
+          fundedAmount: 38064,
+          videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        },
+        id: 'project-3',
+        updatedAt: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
       },
-    ] as unknown as HawkProject[];
+    ];
 
     for (const project of projects) {
-      const doc = await payload.create({
+      await payload.create({
         collection: 'hawk_projects',
         data: project,
         locale: 'pt',
-      });
-
-      await payload.update({
-        collection: 'hawk_projects',
-        id: doc.id,
-        locale: 'en',
-        data: {
-          heading: project.heading,
-          details: project.details,
-        },
       });
     }
 

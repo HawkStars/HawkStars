@@ -66,7 +66,7 @@ async function fetchLatestHawkProject(
   if (eventType && eventType.length > 0) where.type_event = { in: eventType };
 
   const queryString = stringify({ where, limit: 1, sort: '-createdAt' }, { addQueryPrefix: true });
-  const data = await fetch(`/api/hawk_projects?${queryString}`, {
+  const data = await fetch(`/api/news?${queryString}`, {
     method: 'GET',
   });
 

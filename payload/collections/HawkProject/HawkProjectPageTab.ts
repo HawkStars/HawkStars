@@ -91,7 +91,7 @@ const HawkProjectPageTab: Tab = {
                   return true;
                 }
 
-                return 'Missing Link Url';
+                return true;
               },
             },
           ],

@@ -124,7 +124,7 @@ export const HawkProject: CollectionConfig = {
       label: 'Start Date',
       type: 'date',
       admin: { position: 'sidebar', description: 'Start date of the project' },
-      required: true,
+      required: false,
     },
     {
       name: 'endDate',

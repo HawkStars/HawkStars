@@ -64,6 +64,9 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
           GOOGLE_EMAIL_USER: ${{ secrets.GOOGLE_EMAIL_USER }}
+          GOOGLE_NODEMAILER_CLIENT_ID: ${{ secrets.GOOGLE_NODEMAILER_CLIENT_ID }}
+          GOOGLE_NODEMAILER_CLIENT_SECRET: ${{ secrets.GOOGLE_NODEMAILER_CLIENT_SECRET }}
+          GOOGLE_NODEMAILER_REFRESH_TOKEN: ${{ secrets.GOOGLE_NODEMAILER_REFRESH_TOKEN }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}

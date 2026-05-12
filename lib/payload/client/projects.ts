@@ -1,6 +1,6 @@
 import { HawkProject } from '@/payload-types';
 import { stringify } from 'qs-esm';
-import API_CLIENT_PATHS from './paths';
+import API_CLIENT_PATHS from './constants';
 
 const upcomingProject = async (): Promise<HawkProject> => {
   const stringifiedQuery = stringify({ limit: 1 }, { addQueryPrefix: true });

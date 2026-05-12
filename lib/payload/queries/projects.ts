@@ -1,6 +1,7 @@
 import { HawkProject } from '@/payload-types';
 import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
+import { Where } from 'payload';
 
 const PROJECTS_COLLECTION = 'hawk_projects';
 
@@ -9,10 +10,19 @@ export const getSingleProjectsQuery = async (
   locale: Language,
   opts?: { preview: boolean }
 ): Promise<HawkProject> => {
+  const where = {
+    slug: { equals: slug },
+    status: { equals: opts?.preview ? null : 'published' },
+  } as Where;
+
+  if (opts?.preview) {
+    delete where.status;
+  }
+
   const payload = await getPayloadConfig();
   const project = await payload.find({
     collection: PROJECTS_COLLECTION,
-    where: { slug: { equals: slug }, status: { equals: opts?.preview ? null : 'published' } },
+    where,
     locale,
     limit: 1,
     depth: 3,

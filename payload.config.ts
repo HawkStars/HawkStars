@@ -173,9 +173,9 @@ export default buildConfig({
       auth: {
         type: 'OAuth2',
         user: process.env.GOOGLE_EMAIL_USER,
-        clientId: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
+        clientId: process.env.GOOGLE_NODEMAILER_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_NODEMAILER_CLIENT_SECRET,
+        refreshToken: process.env.GOOGLE_NODEMAILER_REFRESH_TOKEN,
         expires: 3599,
       },
     }),

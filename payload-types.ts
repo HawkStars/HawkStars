@@ -6878,7 +6878,7 @@ export interface HawkProject {
   /**
    * Start date of the project
    */
-  startDate: string;
+  startDate?: string | null;
   /**
    * End date of the project. Optional Value if it is just a single day for the project
    */
