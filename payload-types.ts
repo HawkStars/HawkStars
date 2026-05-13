@@ -10833,14 +10833,6 @@ export interface CrowdfundingSetting {
    * Short label shown next to the raised amount to indicate weekly growth (e.g. "+2.3% esta semana").
    */
   weeklyIncrease?: string | null;
-  phases?:
-    | {
-        title: string;
-        description?: string | null;
-        completed: boolean;
-        id?: string | null;
-      }[]
-    | null;
   /**
    * Link for all "Support" / "Donate" buttons across the crowdfunding page (e.g. a payment or contribute page URL).
    */
@@ -10875,6 +10867,23 @@ export interface CrowdfundingSetting {
    * Background image for the final call-to-action section at the bottom of the page.
    */
   ctaImage?: (string | null) | Media;
+  /**
+   * Campaign phases shown in the timeline section. Add one per phase, in order.
+   */
+  phases?:
+    | {
+        /**
+         * E.g. "Fase 1: Campanha de Angariação de Fundos".
+         */
+        title: string;
+        /**
+         * Short description of the phase, shown in the timeline section (e.g. "Março 2024 - Dezembro 2024").
+         */
+        description?: string | null;
+        completed: boolean;
+        id?: string | null;
+      }[]
+    | null;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -11109,14 +11118,6 @@ export interface CrowdfundingSettingsSelect<T extends boolean = true> {
   projectGoal?: T;
   lastUpdateDate?: T;
   weeklyIncrease?: T;
-  phases?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        completed?: T;
-        id?: T;
-      };
   supportUrl?: T;
   businessCtaUrl?: T;
   transparencyDocUrl?: T;
@@ -11127,6 +11128,14 @@ export interface CrowdfundingSettingsSelect<T extends boolean = true> {
   updateCardImages?: T | CrowdfundingUpdateCardImageSelect<T>;
   supporters?: T | CrowdfundingSupporterSelect<T>;
   ctaImage?: T;
+  phases?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        completed?: T;
+        id?: T;
+      };
   _status?: T;
   updatedAt?: T;
   createdAt?: T;

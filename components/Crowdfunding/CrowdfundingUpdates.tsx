@@ -1,10 +1,7 @@
-import React from 'react';
-import { getServerTranslation } from '@/i18n';
-import { Language } from '@/i18n/settings';
-import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
-import { Media } from '@/payload-types';
+import { CrowdfundingSetting, Media } from '@/payload-types';
+import { TFunction } from 'i18next';
 
-type Props = { lng: Language };
+type Props = { t: TFunction<string, string> } & Pick<CrowdfundingSetting, 'updateCardImages'>;
 
 const defaultImages = [
   '/images/projects/3.jpeg',
@@ -20,12 +17,9 @@ const updateCardsMeta = [
   { key: 'event', badgeKey: null, badgeColor: '' },
 ] as const;
 
-const CrowdfundingUpdates = async ({ lng }: Props) => {
-  const { t } = await getServerTranslation(lng, 'crowdfunding');
-  const settings = await getCrowdfundingSettings(lng);
-
+const CrowdfundingUpdates = ({ t, updateCardImages }: Props) => {
   const cardImages = updateCardsMeta.map((_, index) => {
-    const entry = settings?.updateCardImages?.[index];
+    const entry = updateCardImages?.[index];
     if (entry && typeof entry.image === 'object') {
       return (entry.image as Media)?.url || defaultImages[index];
     }

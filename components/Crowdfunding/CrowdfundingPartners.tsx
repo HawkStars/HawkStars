@@ -1,11 +1,8 @@
-import React from 'react';
 import Image from 'next/image';
-import { getServerTranslation } from '@/i18n';
-import { Language } from '@/i18n/settings';
-import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
-import { Media } from '@/payload-types';
+import { CrowdfundingSetting, Media } from '@/payload-types';
+import { TFunction } from 'i18next';
 
-type Props = { lng: Language };
+type Props = { t: TFunction<string, string> } & Pick<CrowdfundingSetting, 'supporters'>;
 
 const tabKeys = ['godparents', 'partners', 'donors', 'community'] as const;
 const tabIcons = ['★', '🤝', '❤', '👥'] as const;
@@ -19,12 +16,7 @@ function getInitials(name: string): string {
     .toUpperCase();
 }
 
-const CrowdfundingPartners = async ({ lng }: Props) => {
-  const { t } = await getServerTranslation(lng, 'crowdfunding');
-  const settings = await getCrowdfundingSettings(lng);
-
-  const supporters = settings?.supporters ?? [];
-
+const CrowdfundingPartners = ({ t, supporters }: Props) => {
   return (
     <section className='w-full bg-[#111111] py-16'>
       <div className='mx-auto max-w-7xl px-4 lg:px-8'>
@@ -55,8 +47,8 @@ const CrowdfundingPartners = async ({ lng }: Props) => {
           </div>
 
           <div className='flex flex-1 flex-wrap justify-center gap-4 lg:justify-start'>
-            {supporters.length > 0 ? (
-              supporters.map((supporter) => {
+            {(supporters ?? []).length > 0 ? (
+              supporters?.map((supporter) => {
                 const logoMedia =
                   typeof supporter.logo === 'object' ? (supporter.logo as Media) : null;
                 const logoUrl = logoMedia?.url ?? null;

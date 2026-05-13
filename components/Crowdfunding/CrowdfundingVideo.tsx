@@ -1,31 +1,29 @@
-import React from 'react';
-import { getServerTranslation } from '@/i18n';
-import { Language } from '@/i18n/settings';
-import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
-import { Media } from '@/payload-types';
+import { CrowdfundingSetting, Media } from '@/payload-types';
 import { ShareButton } from './ShareButton';
 import { VideoEmbed } from './VideoEmbed';
+import { TFunction } from 'i18next';
 
-type Props = { lng: Language };
+type Props = { t: TFunction<string, string> } & Pick<
+  CrowdfundingSetting,
+  'videoUrl' | 'videoThumbnail' | 'supportUrl'
+>;
 
-const CrowdfundingVideo = async ({ lng }: Props) => {
-  const { t } = await getServerTranslation(lng, 'crowdfunding');
-  const settings = await getCrowdfundingSettings(lng);
-
-  const videoThumbnail =
-    typeof settings?.videoThumbnail === 'object' ? (settings.videoThumbnail as Media)?.url : null;
-  const videoThumbnailUrl = videoThumbnail || '/images/projects/2.jpeg';
-  const videoUrl = settings?.videoUrl || null;
+const CrowdfundingVideo = ({ t, videoUrl, videoThumbnail, supportUrl }: Props) => {
+  const videoThumbnailUrl =
+    typeof videoThumbnail === 'object'
+      ? (videoThumbnail as Media)?.url
+      : videoThumbnail || '/images/projects/2.jpeg';
+  const videoUrlFinal = videoUrl || null;
 
   return (
     <section id='video' className='bg-crowdfunding-bg w-full py-16'>
       <div className='mx-auto flex max-w-7xl flex-col gap-10 px-4 lg:flex-row lg:items-center lg:gap-12 lg:px-8'>
         {/* Video player */}
         <div className='flex-1'>
-          {videoUrl ? (
+          {videoUrlFinal ? (
             <VideoEmbed
-              videoUrl={videoUrl}
-              thumbnailUrl={videoThumbnailUrl}
+              videoUrl={videoUrlFinal}
+              thumbnailUrl={videoThumbnailUrl ?? ''}
               overlayLine1={t('video.overlay_line1')}
               overlayLine2={t('video.overlay_line2')}
             />
@@ -87,7 +85,7 @@ const CrowdfundingVideo = async ({ lng }: Props) => {
 
           <div className='flex flex-wrap gap-3 pt-2'>
             <a
-              href={settings?.supportUrl || '#support'}
+              href={supportUrl || '#support'}
               className='flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600'
             >
               <svg className='h-4 w-4' fill='currentColor' viewBox='0 0 20 20'>

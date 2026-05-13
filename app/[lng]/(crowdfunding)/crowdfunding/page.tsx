@@ -10,6 +10,8 @@ import CrowdfundingBusiness from '@/components/Crowdfunding/CrowdfundingBusiness
 import CrowdfundingPartners from '@/components/Crowdfunding/CrowdfundingPartners';
 import CrowdfundingFAQ from '@/components/Crowdfunding/CrowdfundingFAQ';
 import CrowdfundingCTA from '@/components/Crowdfunding/CrowdfundingCTA';
+import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
+import { getServerTranslation } from '@/i18n';
 
 export const revalidate = 600;
 
@@ -23,18 +25,21 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const CrowdfundingPage = async (props: { params: Promise<{ lng: Language }> }) => {
   const { lng } = await props.params;
+  const { t } = await getServerTranslation(lng, 'crowdfunding');
+  const settings = await getCrowdfundingSettings(lng);
+
   return (
     <div className='bg-crowdfunding-bg flex flex-col'>
-      <CrowdfundingHero lng={lng} />
-      <CrowdfundingVideo lng={lng} />
-      <CrowdfundingAbout lng={lng} />
-      <CrowdfundingTransparency lng={lng} />
-      <CrowdfundingRewards lng={lng} />
-      <CrowdfundingUpdates lng={lng} />
-      <CrowdfundingBusiness lng={lng} />
-      <CrowdfundingPartners lng={lng} />
-      <CrowdfundingFAQ lng={lng} />
-      <CrowdfundingCTA lng={lng} />
+      <CrowdfundingHero lng={lng} {...settings} t={t} />
+      <CrowdfundingVideo {...settings} t={t} />
+      <CrowdfundingAbout {...settings} t={t} />
+      <CrowdfundingTransparency lng={lng} {...settings} t={t} />
+      <CrowdfundingRewards {...settings} t={t} />
+      <CrowdfundingUpdates {...settings} t={t} />
+      <CrowdfundingBusiness {...settings} t={t} />
+      <CrowdfundingPartners {...settings} t={t} />
+      <CrowdfundingFAQ {...settings} t={t} />
+      <CrowdfundingCTA {...settings} t={t} />
     </div>
   );
 };

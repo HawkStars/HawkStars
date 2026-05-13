@@ -7,10 +7,7 @@ import { cn } from '@/lib/utils';
 import { globalVillageLogo } from '@/utils/models/images/logos';
 import { useTranslation } from '@/i18n/client';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
-
-type CrowdfundingNavbarProps = {
-  lng: string;
-};
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 const NAV_LINKS = [
   { key: 'about', href: '#about' },
@@ -19,7 +16,8 @@ const NAV_LINKS = [
   { key: 'faq', href: '#faq' },
 ] as const;
 
-const CrowdfundingNavbar = ({ lng }: CrowdfundingNavbarProps) => {
+const CrowdfundingNavbar = () => {
+  const lng = useLanguageCookie();
   const [mobileOpen, setMobileOpen] = useState(false);
   const { t } = useTranslation(lng, 'crowdfunding');
 

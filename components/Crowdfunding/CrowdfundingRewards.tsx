@@ -1,9 +1,8 @@
 import React from 'react';
-import { getServerTranslation } from '@/i18n';
-import { Language } from '@/i18n/settings';
-import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
+import { CrowdfundingSetting } from '@/payload-types';
+import { TFunction } from 'i18next';
 
-type Props = { lng: Language };
+type Props = { t: TFunction<string, string> } & Pick<CrowdfundingSetting, 'supportUrl'>;
 
 const tierIcons = [
   <svg key='simple' className='h-8 w-8' fill='currentColor' viewBox='0 0 20 20'>
@@ -57,10 +56,7 @@ const tierItemKeys = {
 
 const stepKeys = ['step1', 'step2', 'step3'] as const;
 
-const CrowdfundingRewards = async ({ lng }: Props) => {
-  const { t } = await getServerTranslation(lng, 'crowdfunding');
-  const settings = await getCrowdfundingSettings(lng);
-
+const CrowdfundingRewards = ({ t, supportUrl }: Props) => {
   return (
     <section id='rewards' className='bg-crowdfunding-bg w-full py-16'>
       <div className='mx-auto max-w-7xl px-4 lg:px-8'>
@@ -149,7 +145,7 @@ const CrowdfundingRewards = async ({ lng }: Props) => {
             ))}
 
             <a
-              href={settings?.supportUrl || '#support'}
+              href={supportUrl || '#support'}
               className='clear-both ml-auto flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600'
             >
               {t('rewards.cta_all')}

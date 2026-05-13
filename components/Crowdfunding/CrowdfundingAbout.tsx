@@ -1,7 +1,6 @@
-import { getServerTranslation } from '@/i18n';
-import { Language } from '@/i18n/settings';
+import { TFunction } from 'i18next';
 
-type Props = { lng: Language };
+type Props = { t: TFunction<string, string> };
 
 const featureIcons = [
   <svg
@@ -99,11 +98,9 @@ const featureKeys = [
   'reabilitacao',
 ] as const;
 
-const CrowdfundingAbout = async ({ lng }: Props) => {
-  const { t } = await getServerTranslation(lng, 'crowdfunding');
-
+const CrowdfundingAbout = ({ t }: Props) => {
   return (
-    <section id='about' className='w-full bg-[#0d0d0d] py-16'>
+    <section id='about' className='bg-crowdfunding-bg w-full py-16'>
       <div className='mx-auto max-w-7xl px-4 lg:px-8'>
         <div className='mb-12 text-center'>
           <span className='flex items-center justify-center gap-2 text-xs font-semibold tracking-widest text-orange-500 uppercase'>

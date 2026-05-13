@@ -1,18 +1,15 @@
-import { getServerTranslation } from '@/i18n';
-import { Language } from '@/i18n/settings';
-import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
-import { Media } from '@/payload-types';
+import { CrowdfundingSetting, Media } from '@/payload-types';
 import { ShareButton } from './ShareButton';
+import { TFunction } from 'i18next';
 
-type Props = { lng: Language };
+type Props = { t: TFunction<string, string> } & Pick<
+  CrowdfundingSetting,
+  'ctaImage' | 'supportUrl' | 'contactUrl'
+>;
 
-const CrowdfundingCTA = async ({ lng }: Props) => {
-  const { t } = await getServerTranslation(lng, 'crowdfunding');
-  const settings = await getCrowdfundingSettings(lng);
-
-  const ctaImage =
-    typeof settings?.ctaImage === 'object' ? (settings.ctaImage as Media)?.url : null;
-  const ctaImageUrl = ctaImage || '/images/projects/8.jpeg';
+const CrowdfundingCTA = ({ ctaImage, supportUrl, contactUrl, t }: Props) => {
+  const ctaImageUrl =
+    typeof ctaImage === 'object' ? (ctaImage as Media)?.url : ctaImage || '/images/projects/8.jpeg';
 
   return (
     <section id='support' className='bg-crowdfunding-bg relative w-full overflow-hidden'>
@@ -34,7 +31,7 @@ const CrowdfundingCTA = async ({ lng }: Props) => {
 
         <div className='mt-8 flex flex-wrap gap-4'>
           <a
-            href={settings?.supportUrl || '#support'}
+            href={supportUrl || '#support'}
             className='flex items-center gap-2 rounded-full bg-orange-500 px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-orange-600'
           >
             <svg className='h-4 w-4' fill='currentColor' viewBox='0 0 20 20'>
@@ -43,10 +40,10 @@ const CrowdfundingCTA = async ({ lng }: Props) => {
             {t('cta.cta_support')}
           </a>
           <ShareButton label={t('cta.cta_share')} />
-          {settings.contactUrl && (
+          {contactUrl && (
             <a
               target='_blank'
-              href={`mailto:${settings.contactUrl}`}
+              href={`mailto:${contactUrl}`}
               rel='noopener noreferrer'
               className='flex items-center gap-2 rounded-full border border-white/30 px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10'
             >

@@ -1,8 +1,6 @@
-import React from 'react';
-import { getServerTranslation } from '@/i18n';
-import { Language } from '@/i18n/settings';
+import { TFunction } from 'i18next';
 
-type Props = { lng: Language };
+type Props = { t: TFunction<string, string> };
 
 const faqIcons = [
   <svg key='how_to_support' className='h-6 w-6' fill='currentColor' viewBox='0 0 20 20'>
@@ -119,9 +117,7 @@ const faqKeys = [
   'receipt',
 ] as const;
 
-const CrowdfundingFAQ = async ({ lng }: Props) => {
-  const { t } = await getServerTranslation(lng, 'crowdfunding');
-
+const CrowdfundingFAQ = ({ t }: Props) => {
   return (
     <section id='faq' className='bg-crowdfunding-bg relative w-full overflow-hidden py-16'>
       <div

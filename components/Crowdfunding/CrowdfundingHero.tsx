@@ -1,25 +1,26 @@
-import React from 'react';
-import { getServerTranslation } from '@/i18n';
-import { Language } from '@/i18n/settings';
-import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
-import { Media } from '@/payload-types';
+import { CrowdfundingSetting, Media } from '@/payload-types';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { TFunction } from 'i18next';
 
-type Props = { lng: Language };
+type Props = { t: TFunction<string, string> } & Pick<
+  CrowdfundingSetting,
+  'raisedAmount' | 'campaignGoal' | 'projectGoal' | 'heroImage' | 'lastUpdateDate' | 'supportUrl'
+>;
 
-const CrowdfundingHero = async ({ lng }: Props) => {
-  const { t } = await getServerTranslation(lng, 'crowdfunding');
-  const settings = await getCrowdfundingSettings(lng);
+const CrowdfundingHero = ({
+  t,
+  raisedAmount,
+  campaignGoal,
+  projectGoal,
+  heroImage,
+  lastUpdateDate,
+  supportUrl,
+}: Props) => {
+  const lng = useLanguageCookie();
+  const percentage = Math.round(((raisedAmount ?? 0) / (campaignGoal ?? 1)) * 100);
 
-  const raised = settings?.raisedAmount ?? 32450;
-  const campaignGoal = settings?.campaignGoal ?? 100000;
-  const projectGoal = settings?.projectGoal ?? 900000;
-  const percentage = Math.round((raised / campaignGoal) * 100);
-
-  const heroImage =
-    typeof settings?.heroImage === 'object'
-      ? (settings.heroImage as Media)?.url
-      : null;
-  const heroImageUrl = heroImage || '/images/projects/1.jpeg';
+  const heroImageUrl = typeof heroImage === 'object' ? (heroImage as Media)?.url : null;
+  const heroImageFinalUrl = heroImageUrl || '/images/projects/1.jpeg';
 
   const tags = [
     { key: 'location', icon: 'pin' },
@@ -31,7 +32,7 @@ const CrowdfundingHero = async ({ lng }: Props) => {
     <section className='bg-crowdfunding-bg relative w-full overflow-hidden'>
       <div
         className='absolute inset-0 bg-cover bg-center opacity-30'
-        style={{ backgroundImage: `url('${heroImageUrl}')` }}
+        style={{ backgroundImage: `url('${heroImageFinalUrl}')` }}
       />
       <div className='from-crowdfunding-bg via-crowdfunding-bg/80 absolute inset-0 bg-linear-to-r to-transparent' />
 
@@ -53,7 +54,7 @@ const CrowdfundingHero = async ({ lng }: Props) => {
 
           <div className='flex flex-wrap gap-3'>
             <a
-              href={settings?.supportUrl || '#support'}
+              href={supportUrl || '#support'}
               className='flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600'
             >
               <svg className='h-4 w-4' fill='currentColor' viewBox='0 0 20 20'>
@@ -139,7 +140,7 @@ const CrowdfundingHero = async ({ lng }: Props) => {
           </p>
           <div className='flex items-baseline gap-3'>
             <h2 className='text-4xl font-bold text-white'>
-              € {raised.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
+              € {(raisedAmount ?? 0).toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
             </h2>
             <span className='text-lg font-bold text-orange-500'>{percentage}%</span>
             <span className='text-xs text-gray-400'>{t('hero.stats.percentage_label')}</span>
@@ -158,7 +159,7 @@ const CrowdfundingHero = async ({ lng }: Props) => {
                 {t('hero.stats.campaign_goal_label')}
               </p>
               <p className='mt-1 text-lg font-bold text-white'>
-                € {campaignGoal.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
+                € {(campaignGoal ?? 0).toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
               </p>
             </div>
             <div>
@@ -166,7 +167,7 @@ const CrowdfundingHero = async ({ lng }: Props) => {
                 {t('hero.stats.project_goal_label')}
               </p>
               <p className='mt-1 text-lg font-bold text-white'>
-                € {projectGoal.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
+                € {(projectGoal ?? 0).toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
               </p>
             </div>
             <div>
@@ -174,7 +175,7 @@ const CrowdfundingHero = async ({ lng }: Props) => {
                 {t('hero.stats.last_update_label')}
               </p>
               <p className='mt-1 text-sm font-medium text-white'>
-                {settings?.lastUpdateDate || t('hero.stats.last_update_date')}
+                {lastUpdateDate || t('hero.stats.last_update_date')}
               </p>
             </div>
           </div>

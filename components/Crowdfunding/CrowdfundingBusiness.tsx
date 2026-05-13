@@ -1,9 +1,7 @@
-import React from 'react';
-import { getServerTranslation } from '@/i18n';
-import { Language } from '@/i18n/settings';
-import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
+import { CrowdfundingSetting } from '@/payload-types';
+import { TFunction } from 'i18next';
 
-type Props = { lng: Language };
+type Props = { t: TFunction<string, string> } & Pick<CrowdfundingSetting, 'businessCtaUrl'>;
 
 const benefitIcons = [
   <svg
@@ -52,10 +50,7 @@ const benefitIcons = [
 
 const benefitKeys = ['impact', 'reputation', 'transparency'] as const;
 
-const CrowdfundingBusiness = async ({ lng }: Props) => {
-  const { t } = await getServerTranslation(lng, 'crowdfunding');
-  const settings = await getCrowdfundingSettings(lng);
-
+const CrowdfundingBusiness = ({ businessCtaUrl, t }: Props) => {
   return (
     <section className='bg-crowdfunding-bg w-full py-16'>
       <div className='mx-auto max-w-7xl px-4 lg:px-8'>
@@ -74,7 +69,7 @@ const CrowdfundingBusiness = async ({ lng }: Props) => {
                 {t('business.description')}
               </p>
               <a
-                href={settings?.businessCtaUrl || '#support'}
+                href={businessCtaUrl || '#support'}
                 className='mt-6 inline-flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600'
               >
                 {t('business.cta')}
@@ -96,7 +91,7 @@ const CrowdfundingBusiness = async ({ lng }: Props) => {
             </div>
           </div>
 
-          <div className='mt-8 flex items-start gap-3 rounded-xl border border-white/10 bg-[#0d0d0d] px-5 py-3'>
+          <div className='bg-crowdfunding-bg mt-8 flex items-start gap-3 rounded-xl border border-white/10 px-5 py-3'>
             <svg
               className='mt-0.5 h-4 w-4 shrink-0 text-gray-500'
               fill='currentColor'

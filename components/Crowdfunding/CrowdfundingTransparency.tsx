@@ -1,20 +1,32 @@
-import React from 'react';
-import { getServerTranslation } from '@/i18n';
-import { Language } from '@/i18n/settings';
-import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
 import { cn } from '@/lib/utils';
+import { CrowdfundingSetting } from '@/payload-types';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { TFunction } from 'i18next';
 
-type Props = { lng: Language };
+type Props = { t: TFunction<string, string> } & Pick<
+  CrowdfundingSetting,
+  | 'raisedAmount'
+  | 'campaignGoal'
+  | 'projectGoal'
+  | 'weeklyIncrease'
+  | 'lastUpdateDate'
+  | 'phases'
+  | 'transparencyDocUrl'
+>;
 
-const CrowdfundingTransparency = async ({ lng }: Props) => {
-  const { t } = await getServerTranslation(lng, 'crowdfunding');
-  const settings = await getCrowdfundingSettings(lng);
-
-  const raised = settings?.raisedAmount ?? 32450;
-  const campaignGoal = settings?.campaignGoal ?? 100000;
-  const projectGoal = settings?.projectGoal ?? 900000;
-  const phaseKeys = settings?.phases;
-  const percentage = Math.round((raised / campaignGoal) * 100);
+const CrowdfundingTransparency = ({
+  t,
+  raisedAmount,
+  campaignGoal,
+  projectGoal,
+  weeklyIncrease,
+  lastUpdateDate,
+  phases,
+  transparencyDocUrl,
+}: Props) => {
+  const lng = useLanguageCookie();
+  const phaseKeys = phases;
+  const percentage = Math.round((raisedAmount / campaignGoal) * 100);
 
   return (
     <section id='transparency' className='w-full bg-[#111111] py-16'>
@@ -32,9 +44,9 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
             <p className='mt-4 text-sm leading-relaxed text-gray-400'>
               {t('transparency.description')}
             </p>
-            {settings?.transparencyDocUrl ? (
+            {transparencyDocUrl ? (
               <a
-                href={settings.transparencyDocUrl}
+                href={transparencyDocUrl}
                 target='_blank'
                 rel='noopener noreferrer'
                 className='mt-4 inline-block text-sm font-semibold text-orange-500 transition hover:text-orange-400'
@@ -56,7 +68,7 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
                   {t('transparency.raised_label')}
                 </p>
                 <p className='mt-1 text-2xl font-bold text-white'>
-                  € {raised.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
+                  € {(raisedAmount ?? 0).toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
                 </p>
                 <p className='mt-1 flex items-center gap-1 text-xs text-green-500'>
                   <svg className='h-3 w-3' fill='currentColor' viewBox='0 0 20 20'>
@@ -66,7 +78,7 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
                       clipRule='evenodd'
                     />
                   </svg>
-                  {settings?.weeklyIncrease || t('transparency.weekly_increase')}
+                  {weeklyIncrease || t('transparency.weekly_increase')}
                 </p>
               </div>
               <div>
@@ -74,7 +86,7 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
                   {t('transparency.campaign_goal_label')}
                 </p>
                 <p className='mt-1 text-2xl font-bold text-white'>
-                  € {campaignGoal.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
+                  € {(campaignGoal ?? 0).toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
                 </p>
                 <p className='mt-1 text-xs text-gray-500'>
                   {percentage}
@@ -86,7 +98,7 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
                   {t('transparency.project_goal_label')}
                 </p>
                 <p className='mt-1 text-2xl font-bold text-white'>
-                  € {projectGoal.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
+                  € {(projectGoal ?? 0).toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
                 </p>
                 <p className='mt-1 text-xs text-gray-500'>
                   {t('transparency.project_total_label')}
@@ -111,7 +123,7 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
                     />
                   </svg>
                   <p className='text-sm font-medium text-white'>
-                    {settings?.lastUpdateDate || t('transparency.last_update_date')}
+                    {lastUpdateDate || t('transparency.last_update_date')}
                   </p>
                 </div>
               </div>
@@ -129,19 +141,21 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
                 {phaseKeys.map((phase, index) => (
                   <div
                     key={phase.id}
-                    className='bg-crowdfunding-bg flex items-center gap-3 rounded-xl border border-white/10 px-4 py-3'
+                    className='bg-crowdfunding-bg flex flex-col gap-3 rounded-xl border border-white/10 px-4 py-3'
                   >
-                    <div
-                      className={cn(
-                        'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-sm font-bold',
-                        { 'border-orange-500 text-orange-500': !phase.completed },
-                        { 'border-green text-green': phase.completed }
-                      )}
-                    >
-                      {index + 1}
+                    <div className='flex'>
+                      <div
+                        className={cn(
+                          'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-sm font-bold',
+                          { 'border-orange-500 text-orange-500': !phase.completed },
+                          { 'border-green text-green': phase.completed }
+                        )}
+                      >
+                        {index + 1}
+                      </div>
+                      <p className='my-auto ml-2 text-sm font-bold text-white'>{phase.title}</p>
                     </div>
                     <div>
-                      <p className='text-sm font-bold text-white'>{phase.title}</p>
                       <p className='text-xs text-gray-500'>{phase.description}</p>
                     </div>
                   </div>
