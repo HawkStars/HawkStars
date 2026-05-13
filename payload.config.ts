@@ -78,7 +78,6 @@ export default buildConfig({
       },
       beforeDashboard: ['@/payload/components/admin/WelcomeDashboard'],
       afterDashboard: ['@/payload/components/admin/DashboardStats'],
-      beforeNav: ['@/payload/components/admin/NotificationBell'],
     },
     avatar: { Component: '@/payload/components/admin/avatar' },
     livePreview: {

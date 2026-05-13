@@ -1,3 +1,4 @@
+'use server';
 import { Metadata } from 'next';
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
@@ -23,11 +24,7 @@ const Index = async (props: PageProps) => {
   if (!settings) notFound();
 
   return (
-    <LivePreviewCrowdfundingPage
-      initialData={{ settings }}
-      serverURL={getServerSideURL()}
-      lng={lng}
-    />
+    <LivePreviewCrowdfundingPage initialData={settings} serverURL={getServerSideURL()} lng={lng} />
   );
 };
 

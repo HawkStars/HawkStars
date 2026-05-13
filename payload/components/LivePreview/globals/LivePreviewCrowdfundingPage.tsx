@@ -18,12 +18,8 @@ import {
 } from '@/components/Crowdfunding';
 import { useTranslation } from '@/i18n/client';
 
-type LivePreviewData = {
-  settings: CrowdfundingSetting;
-};
-
 type LivePreviewCrowdfundingPageProps = {
-  initialData: LivePreviewData;
+  initialData: CrowdfundingSetting;
   serverURL: string;
   lng: Language;
 };
@@ -33,7 +29,7 @@ export const LivePreviewCrowdfundingPage: React.FC<LivePreviewCrowdfundingPagePr
   serverURL,
   lng,
 }) => {
-  const { data } = useLivePreview<LivePreviewData>({
+  const { data } = useLivePreview<CrowdfundingSetting>({
     initialData,
     serverURL,
     depth: 2,
@@ -42,20 +38,19 @@ export const LivePreviewCrowdfundingPage: React.FC<LivePreviewCrowdfundingPagePr
   const { t } = useTranslation(lng, 'crowdfunding');
 
   if (!data) return null;
-  const { settings } = data;
 
   return (
     <div className='bg-crowdfunding-bg flex flex-col'>
-      <CrowdfundingHero {...settings} t={t} />
-      <CrowdfundingVideo {...settings} t={t} />
-      <CrowdfundingAbout {...settings} t={t} />
-      <CrowdfundingTransparency {...settings} t={t} />
-      <CrowdfundingRewards {...settings} t={t} />
-      <CrowdfundingUpdates {...settings} t={t} />
-      <CrowdfundingBusiness {...settings} t={t} />
-      <CrowdfundingPartners {...settings} t={t} />
-      <CrowdfundingFAQ {...settings} t={t} />
-      <CrowdfundingCTA {...settings} t={t} />
+      <CrowdfundingHero {...data} t={t} />
+      <CrowdfundingVideo {...data} t={t} />
+      <CrowdfundingAbout {...data} t={t} />
+      <CrowdfundingTransparency {...data} t={t} />
+      <CrowdfundingRewards {...data} t={t} />
+      <CrowdfundingUpdates {...data} t={t} />
+      <CrowdfundingBusiness {...data} t={t} />
+      <CrowdfundingPartners {...data} t={t} />
+      <CrowdfundingFAQ {...data} t={t} />
+      <CrowdfundingCTA {...data} t={t} />
     </div>
   );
 };
