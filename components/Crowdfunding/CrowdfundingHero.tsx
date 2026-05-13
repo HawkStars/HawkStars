@@ -1,8 +1,9 @@
+import { Language } from '@/i18n/settings';
 import { CrowdfundingSetting, Media } from '@/payload-types';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { TFunction } from 'i18next';
 
-type Props = { t: TFunction<string, string> } & Pick<
+type Props = { t: TFunction<string, string>; lng: Language } & Pick<
   CrowdfundingSetting,
   'raisedAmount' | 'campaignGoal' | 'projectGoal' | 'heroImage' | 'lastUpdateDate' | 'supportUrl'
 >;
@@ -15,8 +16,8 @@ const CrowdfundingHero = ({
   heroImage,
   lastUpdateDate,
   supportUrl,
+  lng,
 }: Props) => {
-  const lng = useLanguageCookie();
   const percentage = Math.round(((raisedAmount ?? 0) / (campaignGoal ?? 1)) * 100);
 
   const heroImageUrl = typeof heroImage === 'object' ? (heroImage as Media)?.url : null;

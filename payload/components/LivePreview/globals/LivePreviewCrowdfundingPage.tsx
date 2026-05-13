@@ -41,10 +41,10 @@ export const LivePreviewCrowdfundingPage: React.FC<LivePreviewCrowdfundingPagePr
 
   return (
     <div className='bg-crowdfunding-bg flex flex-col'>
-      <CrowdfundingHero {...data} t={t} />
+      <CrowdfundingHero {...data} t={t} lng={lng} />
       <CrowdfundingVideo {...data} t={t} />
       <CrowdfundingAbout {...data} t={t} />
-      <CrowdfundingTransparency {...data} t={t} />
+      <CrowdfundingTransparency {...data} t={t} lng={lng} />
       <CrowdfundingRewards {...data} t={t} />
       <CrowdfundingUpdates {...data} t={t} />
       <CrowdfundingBusiness {...data} t={t} />

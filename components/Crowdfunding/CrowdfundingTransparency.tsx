@@ -1,9 +1,9 @@
+import { Language } from '@/i18n/settings';
 import { cn } from '@/lib/utils';
 import { CrowdfundingSetting } from '@/payload-types';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { TFunction } from 'i18next';
 
-type Props = { t: TFunction<string, string> } & Pick<
+type Props = { t: TFunction<string, string>; lng: Language } & Pick<
   CrowdfundingSetting,
   | 'raisedAmount'
   | 'campaignGoal'
@@ -23,8 +23,8 @@ const CrowdfundingTransparency = ({
   lastUpdateDate,
   phases,
   transparencyDocUrl,
+  lng,
 }: Props) => {
-  const lng = useLanguageCookie();
   const phaseKeys = phases;
   const percentage = Math.round((raisedAmount / campaignGoal) * 100);
 
