@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { globalVillageLogo } from '@/utils/models/images/logos';
 import { useTranslation } from '@/i18n/client';
+import LanguageSwitcher from '../utils/LanguageSwitcher';
 
 type CrowdfundingNavbarProps = {
   lng: string;
@@ -59,11 +60,14 @@ const CrowdfundingNavbar = ({ lng }: CrowdfundingNavbarProps) => {
 
           {/* Support CTA */}
           <a
-            href='#support'
+            href='#rewards'
             className='rounded-full bg-orange-500 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-orange-600'
           >
             {t('nav.support')}
           </a>
+          <div className='my-auto ml-auto'>
+            <LanguageSwitcher />
+          </div>
 
           {/* Mobile burger */}
           <button

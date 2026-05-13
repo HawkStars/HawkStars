@@ -19,6 +19,7 @@ const NewsPreview = async (props: PageProps) => {
   const params = await props.params;
   const { lng, slug } = params;
   if (!slug) notFound();
+
   const newsArticle = await getSingleNewsSlug(slug, lng, { preview: true });
   if (!newsArticle) notFound();
 

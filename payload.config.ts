@@ -165,21 +165,24 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || 'mongodb://localhost:27017/hawkstars',
   }),
-  email: nodemailerAdapter({
-    defaultFromAddress: 'tech@hawkstars.org',
-    defaultFromName: 'HawkStarsNGO - Tech Team',
-    transport: await nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        type: 'OAuth2',
-        user: process.env.GOOGLE_EMAIL_USER,
-        clientId: process.env.GOOGLE_NODEMAILER_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_NODEMAILER_CLIENT_SECRET,
-        refreshToken: process.env.GOOGLE_NODEMAILER_REFRESH_TOKEN,
-        expires: 3599,
-      },
-    }),
-  }),
+  email:
+    process.env.NODE_ENV === 'production'
+      ? nodemailerAdapter({
+          defaultFromAddress: 'tech@hawkstars.org',
+          defaultFromName: 'HawkStarsNGO - Tech Team',
+          transport: await nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              type: 'OAuth2',
+              user: process.env.GOOGLE_EMAIL_USER,
+              clientId: process.env.GOOGLE_NODEMAILER_CLIENT_ID,
+              clientSecret: process.env.GOOGLE_NODEMAILER_CLIENT_SECRET,
+              refreshToken: process.env.GOOGLE_NODEMAILER_REFRESH_TOKEN,
+              expires: 3599,
+            },
+          }),
+        })
+      : undefined,
   sharp,
   plugins: plugins,
   endpoints: [

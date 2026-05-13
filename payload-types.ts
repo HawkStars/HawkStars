@@ -10833,6 +10833,14 @@ export interface CrowdfundingSetting {
    * Short label shown next to the raised amount to indicate weekly growth (e.g. "+2.3% esta semana").
    */
   weeklyIncrease?: string | null;
+  phases?:
+    | {
+        title: string;
+        description?: string | null;
+        completed: boolean;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Link for all "Support" / "Donate" buttons across the crowdfunding page (e.g. a payment or contribute page URL).
    */
@@ -11101,6 +11109,14 @@ export interface CrowdfundingSettingsSelect<T extends boolean = true> {
   projectGoal?: T;
   lastUpdateDate?: T;
   weeklyIncrease?: T;
+  phases?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        completed?: T;
+        id?: T;
+      };
   supportUrl?: T;
   businessCtaUrl?: T;
   transparencyDocUrl?: T;

@@ -43,25 +43,29 @@ const CrowdfundingCTA = async ({ lng }: Props) => {
             {t('cta.cta_support')}
           </a>
           <ShareButton label={t('cta.cta_share')} />
-          <a
-            href={settings?.contactUrl || '#support'}
-            className='flex items-center gap-2 rounded-full border border-white/30 px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10'
-          >
-            <svg
-              className='h-4 w-4'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-              strokeWidth={2}
+          {settings.contactUrl && (
+            <a
+              target='_blank'
+              href={`mailto:${settings.contactUrl}`}
+              rel='noopener noreferrer'
+              className='flex items-center gap-2 rounded-full border border-white/30 px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10'
             >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z'
-              />
-            </svg>
-            {t('cta.cta_team')}
-          </a>
+              <svg
+                className='h-4 w-4'
+                fill='none'
+                stroke='currentColor'
+                viewBox='0 0 24 24'
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z'
+                />
+              </svg>
+              {t('cta.cta_team')}
+            </a>
+          )}
         </div>
       </div>
     </section>

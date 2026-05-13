@@ -10,10 +10,15 @@ export const getSingleNewsSlug = async (
   locale: Language,
   opts?: { preview: boolean }
 ): Promise<News | null> => {
+  const where = { slug: { equals: slug }, status: { equals: 'published' } } as Where;
+  if (opts?.preview) {
+    delete where.status;
+  }
+
   const payload = await getPayloadConfig();
   const news = await payload.find({
     collection: NEWS_COLLECTION,
-    where: { slug: { equals: slug }, status: { equals: 'published' } },
+    where,
     locale,
     limit: 1,
     draft: opts?.preview || false,

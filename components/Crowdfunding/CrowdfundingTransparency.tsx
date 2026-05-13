@@ -2,10 +2,9 @@ import React from 'react';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
 import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
+import { cn } from '@/lib/utils';
 
 type Props = { lng: Language };
-
-const phaseKeys = ['phase1', 'phase2', 'phase3'] as const;
 
 const CrowdfundingTransparency = async ({ lng }: Props) => {
   const { t } = await getServerTranslation(lng, 'crowdfunding');
@@ -14,6 +13,7 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
   const raised = settings?.raisedAmount ?? 32450;
   const campaignGoal = settings?.campaignGoal ?? 100000;
   const projectGoal = settings?.projectGoal ?? 900000;
+  const phaseKeys = settings?.phases;
   const percentage = Math.round((raised / campaignGoal) * 100);
 
   return (
@@ -50,7 +50,7 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
 
           {/* Right stats */}
           <div className='flex-1 rounded-2xl border border-white/10 bg-[#1a1a1a] p-6'>
-            <div className='grid grid-cols-2 gap-6 lg:grid-cols-4'>
+            <div className='grid grid-cols-2 gap-6 lg:grid-cols-3'>
               <div>
                 <p className='text-[10px] font-semibold tracking-wider text-gray-500 uppercase'>
                   {t('transparency.raised_label')}
@@ -124,26 +124,30 @@ const CrowdfundingTransparency = async ({ lng }: Props) => {
               />
             </div>
 
-            <div className='mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3'>
-              {phaseKeys.map((key, index) => (
-                <div
-                  key={key}
-                  className='bg-crowdfunding-bg flex items-center gap-3 rounded-xl border border-white/10 px-4 py-3'
-                >
-                  <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-orange-500 text-sm font-bold text-orange-500'>
-                    {index + 1}
+            {phaseKeys && phaseKeys?.length > 0 && (
+              <div className='mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3'>
+                {phaseKeys.map((phase, index) => (
+                  <div
+                    key={phase.id}
+                    className='bg-crowdfunding-bg flex items-center gap-3 rounded-xl border border-white/10 px-4 py-3'
+                  >
+                    <div
+                      className={cn(
+                        'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-sm font-bold',
+                        { 'border-orange-500 text-orange-500': !phase.completed },
+                        { 'border-green text-green': phase.completed }
+                      )}
+                    >
+                      {index + 1}
+                    </div>
+                    <div>
+                      <p className='text-sm font-bold text-white'>{phase.title}</p>
+                      <p className='text-xs text-gray-500'>{phase.description}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className='text-sm font-bold text-white'>
-                      {t(`transparency.phases.${key}.title`)}
-                    </p>
-                    <p className='text-xs text-gray-500'>
-                      {t(`transparency.phases.${key}.description`)}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

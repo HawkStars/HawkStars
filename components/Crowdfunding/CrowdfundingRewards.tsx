@@ -62,7 +62,7 @@ const CrowdfundingRewards = async ({ lng }: Props) => {
   const settings = await getCrowdfundingSettings(lng);
 
   return (
-    <section id='rewards' className='w-full bg-[#0d0d0d] py-16'>
+    <section id='rewards' className='bg-crowdfunding-bg w-full py-16'>
       <div className='mx-auto max-w-7xl px-4 lg:px-8'>
         <div className='mb-12 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between'>
           <div className='flex-1'>
@@ -123,7 +123,7 @@ const CrowdfundingRewards = async ({ lng }: Props) => {
             {t('rewards.how_to_badge')}
           </span>
 
-          <div className='mt-6 flex flex-col items-center gap-4 lg:flex-row'>
+          <div className='mt-6 flex flex-col flex-wrap items-center gap-4 lg:flex-row'>
             {stepKeys.map((stepKey, index) => (
               <React.Fragment key={stepKey}>
                 <div className='flex items-center gap-3'>
@@ -150,7 +150,7 @@ const CrowdfundingRewards = async ({ lng }: Props) => {
 
             <a
               href={settings?.supportUrl || '#support'}
-              className='ml-auto flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600'
+              className='clear-both ml-auto flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600'
             >
               {t('rewards.cta_all')}
             </a>

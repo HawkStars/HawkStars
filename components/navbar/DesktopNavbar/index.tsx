@@ -1,12 +1,7 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import LanguageSwitcher from '@/components/utils/LanguageSwitcher';
-import { FC, Suspense } from 'react';
-import { useTranslation } from '@/i18n/client';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
-import { urls } from '@/utils/paths';
-import { useRouter } from 'next/navigation';
+import { FC } from 'react';
 import HawkLinkComponent from '@/components/utils/HawkLink';
 import { HeaderNavigationColumns } from '@/payload-types';
 import { LuChevronDown } from 'react-icons/lu';
@@ -19,10 +14,6 @@ type DesktopNavbarProps = {
 };
 
 const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuKeyHovered }) => {
-  const lng = useLanguageCookie();
-  const { t } = useTranslation(lng, 'common');
-  const router = useRouter();
-
   return (
     <div className='my-auto ml-auto hidden lg:block'>
       <div className='ml-auto flex gap-3'>
@@ -38,6 +29,7 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuK
               <li
                 key={column.id}
                 onMouseEnter={() => handleHoverMenu(column.dropdown?.key || '')}
+                onMouseOver={() => handleHoverMenu(column.dropdown?.key || '')}
                 className='my-auto flex cursor-pointer gap-1'
               >
                 {column.dropdown?.dropdownTitle}

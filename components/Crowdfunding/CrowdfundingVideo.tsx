@@ -73,27 +73,6 @@ const CrowdfundingVideo = async ({ lng }: Props) => {
                 <path
                   strokeLinecap='round'
                   strokeLinejoin='round'
-                  d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
-                />
-              </svg>
-              <div>
-                <p className='text-xs font-semibold tracking-wider text-gray-500 uppercase'>
-                  {t('video.duration_label')}
-                </p>
-                <p className='font-bold text-white'>{t('video.duration_value')}</p>
-              </div>
-            </div>
-            <div className='flex items-center gap-3 rounded-xl border border-white/10 bg-[#1a1a1a] px-5 py-3'>
-              <svg
-                className='h-5 w-5 text-orange-500'
-                fill='none'
-                stroke='currentColor'
-                viewBox='0 0 24 24'
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
                   d='M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'
                 />
               </svg>

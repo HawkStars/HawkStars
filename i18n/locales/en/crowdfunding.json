@@ -27,8 +27,6 @@
     "overlay_line2": "To the Future",
     "title": "See why this project needs to happen now",
     "description": "Global Village is not an abstract idea. It is a concrete response to breathe new life into a vacant building in Pinhel and create a space for training, culture, innovation and community.",
-    "duration_label": "Duration",
-    "duration_value": "3:24 MIN",
     "tagline_label": "Short Tagline",
     "tagline_value": "From the interior to the future.",
     "cta_support": "I Want to Support This Project",
@@ -78,21 +76,7 @@
     "project_goal_label": "Global Project Goal",
     "project_total_label": "Total project",
     "last_update_label": "Last Update",
-    "last_update_date": "January 18, 2025",
-    "phases": {
-      "phase1": {
-        "title": "Phase 1",
-        "description": "Studies, licensing and launch"
-      },
-      "phase2": {
-        "title": "Phase 2",
-        "description": "Construction and equipment"
-      },
-      "phase3": {
-        "title": "Phase 3",
-        "description": "Progressive activation of the space"
-      }
-    }
+    "last_update_date": "January 18, 2025"
   },
   "rewards": {
     "badge": "Rewards & Tiers",

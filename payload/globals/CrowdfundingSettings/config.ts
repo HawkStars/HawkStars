@@ -87,6 +87,31 @@ export const CrowdfundingSettings: GlobalConfig = {
       localized: true,
       required: false,
     },
+    {
+      name: 'phases',
+      type: 'array',
+      label: { pt: 'Fases da Campanha', en: 'Campaign Phases' },
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          label: { pt: 'Título da Fase', en: 'Phase Title' },
+          required: true,
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          label: { pt: 'Descrição da Fase', en: 'Phase Description' },
+        },
+        {
+          name: 'completed',
+          type: 'checkbox',
+          label: { pt: 'Fase Completa?', en: 'Phase Completed?' },
+          required: true,
+          defaultValue: false,
+        },
+      ],
+    },
     // ── Button URLs ─────────────────────────────────────────────────
     {
       name: 'supportUrl',
