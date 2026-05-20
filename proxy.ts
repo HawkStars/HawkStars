@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import withHandleInternalization from './utils/middlewares/withHandleInternalization';
 
 export const config = {
-  matcher: ['/((?!api|sitemap|robots|llms|_next/static|_next/image|images|favicon).*)'],
+  matcher: ['/((?!api|sitemap|robots|llms|llms-full|_next/static|_next/image|images|favicon).*)'],
 };
 
 export async function proxy(request: NextRequest) {
