@@ -1,230 +1,208 @@
 {
-  "donate": {
-    "title": "Support The Global Village Project - Donate to Hawk Stars NGO",
-    "description": "Contribute to Hawk Stars NGO's Global Village Project in Pinhel, Portugal. Support the International Training Center, fostering learning, innovation, and cultural development. Join us in shaping a promising future. Click to donate!",
-    "keywords": [
-      "Donation",
-      "Support",
-      "Global Village Project",
-      "Hawk Stars NGO",
-      "Pinhel",
-      "Portugal",
-      "International Training Center",
-      "Social Innovation",
-      "Cultural Development",
-      "Entrepreneurship",
-      "Technology",
-      "Inclusivity."
-    ]
-  },
-  "team": {
-    "title": "Hawk Stars NGO Board, Leadership Team, Fiscal Council and Management",
-    "description": "Meet Hawk Stars NGO's dedicated board and leadership team shaping a transformative future in Pinhel. Their commitment to social innovation and inclusivity drives The Global Village Project. Join us in appreciating their diverse talents propelling our mission.",
-    "keywords": [
-      "Hawk Stars NGO",
-      "Board Members",
-      "Leadership Team",
-      "Global Village Project",
-      "Social Innovation",
-      "Inclusivity",
-      "Cultural Development",
-      "Pinhel",
-      "Portugal",
-      "International Training Center",
-      "Visionaries",
-      "Team Profiles"
-    ]
-  },
-  "partners": {
-    "title": "Collaborative Forces: Partnerships and Erasmus+ with Hawk Stars NGO",
-    "description": "Hawk Stars NGO: Fostering positive change through impactful collaborations and Erasmus+ alliances in social innovation, education, and cultural development. Join us in celebrating the power of collaboration!",
-    "keywords": [
-      "Hawk Stars NGO",
-      "Partnerships",
-      "Erasmus+",
-      "Collaboration",
-      "Social Innovation",
-      "Education",
-      "Cultural Development",
-      "Pinhel",
-      "Portugal",
-      "International Collaboration",
-      "Erasmus+ Alliances",
-      "Shared Vision."
-    ]
-  },
-  "transparency": {
-    "title": "Transparent Impact: Hawk Stars NGO Financial Statements, Contributions",
-    "description": "Hawk Stars NGO: Transparent financial operations, detailed records, and donor appreciation. Your contributions drive positive change in Pinhel and beyond.",
-    "keywords": [
-      "Hawk Stars NGO",
-      "Transparency",
-      "Financial Statements",
-      "Credit and Debit Records",
-      "Donor Contributions",
-      "Accountability",
-      "Openness",
-      "Positive Impact",
-      "Pinhel",
-      "Portugal",
-      "Non-profit Organization."
-    ]
-  },
   "home": {
-    "title": "Hawk Stars NGO - Inspiring Positive Change in Pinhel, Portugal",
-    "description": "Join Hawk Stars NGO in fostering positive change globally. Explore impactful initiatives for an inclusive and brighter future. Support us today!",
+    "title": "Hawk Stars NGO — Cultural & Humanitarian Action in Pinhel, Portugal",
+    "description": "Hawk Stars is a Portuguese NGO driving social innovation, youth mobility, and cultural development through Erasmus+, humanitarian projects, and community building in Pinhel.",
     "keywords": [
       "Hawk Stars NGO",
+      "Pinhel Portugal",
       "Social Innovation",
+      "Youth Mobility",
       "Cultural Development",
-      "Global Village Project",
       "Erasmus+",
-      "Collaboration",
-      "Inclusivity",
-      "Positive Change",
-      "Transparency",
-      "Visionary Board",
-      "Pinhel",
-      "Portugal",
-      "Non-profit Organization."
+      "Global Village Project",
+      "Non-profit Organisation"
     ]
   },
-  "artwork": {
-    "title": "Art Gallery - Social Impact Collection by Hawk Stars NGO",
-    "description": "Explore the Social Impact Art Gallery curated by Hawk Stars NGO. Discover unique artwork pieces that combine artistic expression with social consciousness and cultural development.",
+  "donate": {
+    "title": "Donate — Support Hawk Stars NGO's Mission",
+    "description": "Support Hawk Stars NGO with a donation. Help fund the Global Village Project, the International Training Center, and humanitarian initiatives in Pinhel, Portugal.",
     "keywords": [
-      "Hawk Stars NGO",
-      "Art Gallery",
-      "Social Impact",
-      "Artwork",
-      "Curated Collection",
-      "Cultural Development",
-      "Art Exhibition",
-      "Pinhel",
-      "Portugal"
+      "Donate",
+      "Support NGO",
+      "Global Village Project",
+      "Hawk Stars",
+      "Pinhel Portugal",
+      "International Training Center"
     ]
   },
   "contribute": {
-    "title": "Contribute to Hawk Stars NGO - Make an Impact Today",
-    "description": "Support Hawk Stars NGO through donations, chair sponsorships, and branding opportunities. Help us build the International Training Center in Pinhel, Portugal. Multiple contribution options available including bank transfer and crypto.",
+    "title": "Contribute — Sponsorship, Donations & Branding - Hawk Stars NGO",
+    "description": "Multiple ways to support Hawk Stars NGO: donations, chair sponsorships, branding partnerships, bank transfer, and crypto. Help build the International Training Center in Pinhel.",
     "keywords": [
       "Contribute",
+      "Sponsorship",
       "Donation",
-      "Support",
       "Hawk Stars NGO",
       "Chair Sponsorship",
-      "Branding Opportunities",
-      "International Training Center",
-      "Bank Transfer",
       "Crypto Donation",
-      "Pinhel",
-      "Portugal",
-      "Social Impact"
+      "Pinhel Portugal"
+    ]
+  },
+  "team": {
+    "title": "Our Team — Board, Leadership & Fiscal Council - Hawk Stars NGO",
+    "description": "Meet the people behind Hawk Stars NGO. Board members, leadership team, and fiscal council driving social innovation and cultural development from Pinhel, Portugal.",
+    "keywords": [
+      "Hawk Stars Team",
+      "Board Members",
+      "Leadership",
+      "Fiscal Council",
+      "NGO Team",
+      "Pinhel Portugal"
+    ]
+  },
+  "partners": {
+    "title": "Partners & Collaborations — Erasmus+ Network - Hawk Stars NGO",
+    "description": "Explore Hawk Stars NGO's partner network across Europe. Erasmus+ alliances, local collaborations, and international organisations working together for positive change.",
+    "keywords": [
+      "Partners",
+      "Erasmus+ Partners",
+      "Collaborations",
+      "European Network",
+      "Hawk Stars NGO",
+      "International Cooperation"
+    ]
+  },
+  "transparency": {
+    "title": "Transparency — Financial Reports & Accountability - Hawk Stars NGO",
+    "description": "Full financial transparency from Hawk Stars NGO. View financial statements, donor contributions, and annual reports. Accountability is at the heart of everything we do.",
+    "keywords": [
+      "Transparency",
+      "Financial Reports",
+      "Accountability",
+      "Donor Contributions",
+      "Hawk Stars NGO",
+      "Annual Reports"
     ]
   },
   "history": {
-    "title": "Hawk Stars History - From Euro Hawk to Global Village",
-    "description": "Discover the journey of Hawk Stars NGO, from its origins as Euro Hawk to becoming a leading force in social innovation. Learn about our humanitarian efforts, including aid to Ukraine, and our vision for The Global Village Project.",
+    "title": "Our History — From Euro Hawk to Hawk Stars NGO",
+    "description": "The journey of Hawk Stars NGO: from Euro Hawk origins to humanitarian aid operations, including support for Ukraine, and the vision behind the Global Village Project in Pinhel.",
     "keywords": [
-      "Hawk Stars NGO",
+      "Hawk Stars History",
       "Euro Hawk",
-      "History",
       "Humanitarian Aid",
       "Ukraine Support",
       "Global Village",
-      "Social Innovation",
-      "NGO Evolution",
-      "Pinhel",
-      "Portugal"
+      "Pinhel Portugal"
+    ]
+  },
+  "gallery": {
+    "title": "Art Gallery — Social Impact Collection - Hawk Stars NGO",
+    "description": "Explore curated artwork at the Hawk Stars Art Gallery. Original pieces combining artistic expression with social consciousness and cultural impact.",
+    "keywords": [
+      "Art Gallery",
+      "Social Impact Art",
+      "Curated Collection",
+      "Hawk Stars NGO",
+      "Cultural Development",
+      "Pinhel Portugal"
+    ]
+  },
+  "artwork": {
+    "title": "Artwork Collection — Social Impact Art - Hawk Stars NGO",
+    "description": "Browse the full Hawk Stars artwork collection. Unique pieces by international artists that explore themes of social impact, community, and cultural identity.",
+    "keywords": [
+      "Artwork",
+      "Art Collection",
+      "Social Impact",
+      "International Artists",
+      "Hawk Stars NGO",
+      "Cultural Identity"
     ]
   },
   "news": {
-    "title": "News & Updates - Hawk Stars NGO",
-    "description": "Stay informed with the latest news, blog posts, announcements and press releases from Hawk Stars NGO.",
+    "title": "News & Updates — Hawk Stars NGO",
+    "description": "Latest news, articles, announcements, and press releases from Hawk Stars NGO. Stay informed about our projects, events, and community impact.",
     "keywords": [
-      "Hawk Stars NGO",
-      "News",
+      "Hawk Stars News",
+      "NGO Updates",
       "Blog",
       "Announcements",
       "Press Releases",
-      "Updates",
-      "Pinhel",
-      "Portugal"
+      "Pinhel Portugal"
     ]
   },
   "projects": {
-    "title": "Projects & Events - Hawk Stars NGO",
-    "description": "Explore Hawk Stars NGO's upcoming and past projects and events. From Erasmus+ programmes to local and international events, discover our work.",
+    "title": "Projects — Erasmus+ & Community Initiatives - Hawk Stars NGO",
+    "description": "Discover Hawk Stars NGO's active and past projects. Erasmus+ programmes, youth exchanges, cultural events, and community initiatives in Pinhel and across Europe.",
     "keywords": [
-      "Hawk Stars NGO",
-      "Projects",
-      "Events",
-      "Erasmus+",
+      "Hawk Stars Projects",
+      "Erasmus+ Projects",
+      "Youth Exchange",
+      "Community Initiatives",
+      "European Projects",
+      "Pinhel Portugal"
+    ]
+  },
+  "events": {
+    "title": "Events — Local & International Activities - Hawk Stars NGO",
+    "description": "Browse Hawk Stars NGO events: local community gatherings, international activities, Erasmus+ exchanges, and cultural programmes happening in Pinhel and beyond.",
+    "keywords": [
+      "Hawk Stars Events",
       "Local Events",
-      "International Events",
-      "Pinhel",
-      "Portugal"
+      "International Activities",
+      "Erasmus+ Events",
+      "Pinhel Portugal"
     ]
   },
   "agenda": {
-    "title": "Agenda - Hawk Stars NGO Events Calendar",
-    "description": "Browse the full Hawk Stars NGO events calendar. Stay up to date with all our scheduled projects and activities.",
-    "keywords": ["Hawk Stars NGO", "Agenda", "Calendar", "Events", "Schedule", "Pinhel", "Portugal"]
-  },
-  "events": {
-    "title": "Events - Hawk Stars NGO",
-    "description": "Discover Hawk Stars NGO's upcoming and past events. From local gatherings to international activities, stay up to date with everything happening.",
+    "title": "Agenda — Events Calendar - Hawk Stars NGO",
+    "description": "The full Hawk Stars NGO events calendar. Upcoming projects, activities, deadlines, and community events all in one place.",
     "keywords": [
-      "Hawk Stars NGO",
-      "Events",
-      "Local Events",
-      "International Events",
-      "Activities",
-      "Pinhel",
-      "Portugal"
+      "Hawk Stars Agenda",
+      "Events Calendar",
+      "Schedule",
+      "Upcoming Events",
+      "Pinhel Portugal"
     ]
   },
   "erasmus": {
-    "title": "Erasmus+ Projects - Hawk Stars NGO",
-    "description": "Explore Hawk Stars NGO's Erasmus+ programmes and international mobility projects fostering youth development, cultural exchange and European cooperation.",
+    "title": "Erasmus+ & EU Youth Opportunities — Hawk Stars NGO",
+    "description": "Explore Erasmus+, European Solidarity Corps, and EU-funded youth programmes through Hawk Stars NGO. Study, volunteer, train, and work abroad with European support.",
     "keywords": [
-      "Hawk Stars NGO",
       "Erasmus+",
-      "International Projects",
-      "Mobility",
-      "Youth Exchange",
-      "European Cooperation",
-      "Cultural Exchange",
-      "Pinhel",
-      "Portugal"
+      "EU Youth Programmes",
+      "European Solidarity Corps",
+      "Youth Mobility",
+      "Hawk Stars NGO",
+      "Study Abroad",
+      "Volunteer Europe"
     ]
   },
   "erasmus_key_action": {
-    "title": "Erasmus+ Key Actions — Full Guide - Hawk Stars NGO",
-    "description": "Understand the Erasmus+ Key Actions: KA1 Mobility, KA2 Cooperation, KA3 Policy, Jean Monnet Actions, and Sport. A comprehensive guide to EU-funded programme streams.",
+    "title": "Erasmus+ Key Actions Explained — KA1, KA2, KA3, Jean Monnet & Sport",
+    "description": "A complete guide to Erasmus+ Key Actions: KA1 Learning Mobility, KA2 Cooperation Partnerships, KA3 Policy Support, Jean Monnet Actions, and Sport programmes.",
     "keywords": [
       "Erasmus+ Key Actions",
       "KA1 Mobility",
       "KA2 Cooperation",
       "KA3 Policy",
       "Jean Monnet",
-      "Erasmus Sport",
-      "EU Youth Programmes",
-      "Hawk Stars NGO",
-      "European Funding"
+      "Erasmus+ Sport",
+      "EU Funding Guide"
+    ]
+  },
+  "how_to_help_us": {
+    "title": "How to Help Us — Become a Member or Volunteer - Hawk Stars NGO",
+    "description": "Join the Hawk Stars community as a member or volunteer. Help drive cultural, humanitarian, and European projects in Pinhel, Portugal and across Europe.",
+    "keywords": [
+      "Help Hawk Stars",
+      "Become a Member",
+      "Volunteer NGO",
+      "Join Hawk Stars",
+      "NGO Membership",
+      "Volunteer Portugal",
+      "Erasmus+ Volunteering"
     ]
   },
   "terms": {
-    "title": "Terms of Use - Hawk Stars NGO",
-    "description": "Read the Terms of Use for Hawk Stars NGO's website. Understand your rights and responsibilities when accessing our content and services.",
+    "title": "Terms of Use — Hawk Stars NGO Website",
+    "description": "Terms of Use for the Hawk Stars NGO website. Understand your rights and responsibilities when using our content and services.",
     "keywords": [
-      "Hawk Stars NGO",
       "Terms of Use",
+      "Legal",
       "Website Terms",
-      "User Agreement",
-      "Legal Information",
-      "Pinhel",
-      "Portugal"
+      "Hawk Stars NGO"
     ]
   }
 }

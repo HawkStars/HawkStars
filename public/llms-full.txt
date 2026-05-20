@@ -1,0 +1,98 @@
+# Hawk Stars NGO — Full Context
+
+> Associação HawkStars (Hawk Stars NGO) is a Portuguese non-profit organisation based in Pinhel, Guarda district, Portugal. Founded as a cultural and humanitarian association, it operates across youth mobility, community development, humanitarian aid, and European cooperation.
+
+## Organisation Identity
+
+**Legal name**: Associação HawkStars
+**Common name**: Hawk Stars NGO
+**Type**: Non-profit cultural and humanitarian association (Portuguese law)
+**Location**: Pinhel, Guarda, Portugal
+**Website**: https://hawkstars.org
+**Contact**: geral@hawkstars.org
+**Languages**: Portuguese (primary), English
+
+## Mission and Values
+
+Hawk Stars exists to foster positive social change through cultural development, international cooperation, and youth empowerment. The organisation believes in inclusivity, transparency, cross-cultural exchange, and community-driven action. It operates with full financial transparency and publishes annual reports.
+
+## History
+
+Hawk Stars evolved from an earlier initiative called Euro Hawk. Over the years it grew from a local cultural group into a formally registered NGO with European reach. Key milestones include humanitarian aid operations during the Ukraine crisis (delivering 90 tonnes of material with 5 trucks, 6 drivers, 23 fire corporations, and 18 institutions across 30,342 km), and the launch of the Global Village Project — an ambitious plan to build an International Training Center in Pinhel.
+
+## Core Activity Areas
+
+### 1. Erasmus+ and EU Youth Programmes
+
+Hawk Stars is an active Erasmus+ beneficiary organisation. It participates in and coordinates projects under multiple Key Actions:
+
+**Key Action 1 — Learning Mobility of Individuals**: Youth exchanges (groups of young people aged 13–30 meeting counterparts from other countries for 5–21 days), student exchanges, traineeships abroad, VET mobility, school education staff mobility, and youth worker mobility.
+
+**Key Action 2 — Cooperation among Organisations**: Cooperation partnerships, partnerships for innovation, alliances for innovation, capacity building projects, Erasmus+ accreditation, and virtual cooperation / blended intensive programmes.
+
+**Key Action 3 — Policy Support**: EU Youth Dialogue, open method of coordination, evidence and research, and civil society cooperation.
+
+**Jean Monnet Actions**: Teaching and research on European integration at higher education institutions worldwide.
+
+**Erasmus+ Sport**: Collaborative partnerships, not-for-profit sport events, capacity building in sport, and small collaborative partnerships.
+
+The organisation also facilitates participation in the European Solidarity Corps (volunteering placements for 18–30 year olds, up to 12 months, all expenses covered plus monthly allowance and Youthpass certificate) and promotes DiscoverEU, Europass, EURES, and other EU youth mobility pathways.
+
+### 2. The Global Village Project
+
+The Global Village Project is Hawk Stars' flagship initiative — a vision to create an International Training Center in Pinhel, Portugal. The center aims to serve as a hub for learning, innovation, cultural exchange, and social entrepreneurship, bringing international visitors and programmes to the rural Beira Interior region.
+
+### 3. Humanitarian Action
+
+Hawk Stars has led humanitarian operations including the large-scale Ukraine aid campaign. The organisation mobilised approximately 90 people (organisers, partners, volunteers, and supporters), coordinated with 18 public/private institutions, and delivered aid across borders.
+
+### 4. Art and Culture
+
+The organisation curates a Social Impact Art Gallery featuring work by international artists exploring themes of community, identity, and social change. The gallery includes both internal exhibitions and external collaborations with curators.
+
+## How to Get Involved
+
+**Become a Member**: Members have voting rights, participate in the General Assembly, help decide organisational strategy, access member-only events and training, and can represent Hawk Stars nationally and internationally.
+
+**Become a Volunteer**: Volunteers join local and international project activities, participate in Erasmus+ youth exchanges, can earn a Youthpass certificate, and contribute on flexible terms.
+
+**Donate or Contribute**: Financial support via bank transfer, crypto donation, chair sponsorship (for the Training Center), and branding partnerships. All contributions are tracked transparently.
+
+**Contact**: geral@hawkstars.org
+
+## Website Structure
+
+The website is bilingual (Portuguese and English) and organised into the following main sections:
+
+### Organisation Pages
+- **Home** (/) — Overview of the NGO, latest highlights, and calls to action
+- **Our History** (/history) — From Euro Hawk to Hawk Stars, humanitarian operations, founding story
+- **Our Team** (/team) — Board members, leadership, fiscal council profiles
+- **Partners** (/partners) — European partner network with interactive map
+- **Transparency** (/transparency) — Financial statements, annual reports, donor contributions
+
+### Projects and Events
+- **Projects** (/projects) — Active and past Erasmus+ projects and community initiatives, each with structured detail pages (hero, description, phases, objectives, results, gallery)
+- **Events** (/events) — Local and international events and activities
+- **Agenda** (/agenda) — Calendar view of all scheduled activities
+- **News** (/news) — Articles, blog posts, announcements, and press releases with structured content (description, titled sections, photo gallery)
+
+### Erasmus+ Hub
+- **Erasmus+ Opportunities** (/erasmus) — Overview of EU youth programmes: Erasmus+, European Solidarity Corps, DiscoverEU, Europass, EURES, Marie Skłodowska-Curie, EIT Community
+- **Key Actions Guide** (/erasmus/key-action) — Detailed breakdown of all Erasmus+ Key Actions (KA1, KA2, KA3), Jean Monnet Actions, and Sport, with activity cards, eligibility information, comparison table, and Youthpass details
+
+### Support
+- **How to Help Us** (/how-to-help-us) — Become a member or volunteer, with step-by-step process and direct email contact
+- **Contribute** (/contribute) — Donation options, sponsorship, branding partnerships
+- **Art Gallery** (/art) — Curated social impact art collection with artist/curator profiles
+
+## Technical Details
+
+The website is built with Next.js (App Router), Payload CMS (embedded), MongoDB, TypeScript, and Tailwind CSS. Content is managed through Payload's admin panel with localization support. The site is deployed via GitHub Actions to a self-hosted VPS behind Nginx, managed by PM2.
+
+## Structured Data Notes
+
+- All pages have bilingual metadata (title, description, keywords) in Portuguese and English
+- The sitemap is dynamically generated and includes all static pages plus CMS-driven content (projects, events, artworks, curators, custom pages)
+- News articles use structured fields (description text, titled sections, photo gallery) rather than rich text, enabling consistent rendering
+- Project pages follow a standardised layout: hero with stats, description with phases, objectives, results, partners, dissemination links, and photo gallery

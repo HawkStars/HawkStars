@@ -16,7 +16,7 @@ type Props = {
 function toEmbedUrl(url: string): string | null {
   // YouTube: youtube.com/watch?v=ID, youtu.be/ID, youtube.com/embed/ID
   const ytMatch = url.match(
-    /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+    /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
   );
   if (ytMatch) {
     return `https://www.youtube-nocookie.com/embed/${ytMatch[1]}?autoplay=1&rel=0`;
@@ -75,10 +75,10 @@ export const VideoEmbed = ({ videoUrl, thumbnailUrl, overlayLine1, overlayLine2 
           <div className='absolute inset-0 flex items-center justify-center'>
             <button
               onClick={handlePlay}
-              className='flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition hover:bg-white/30'
+              className='flex h-16 w-16 items-center justify-center rounded-full backdrop-blur-sm transition'
               aria-label='Play video'
             >
-              <svg className='ml-1 h-8 w-8 text-white' fill='currentColor' viewBox='0 0 20 20'>
+              <svg className='ml-1 h-16 w-16 text-white' fill='currentColor' viewBox='0 0 20 20'>
                 <path
                   fillRule='evenodd'
                   d='M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z'

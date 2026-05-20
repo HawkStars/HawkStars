@@ -48,97 +48,143 @@ const NewsSlugPage = async (props: NewsSlugPageProps) => {
     ((gallery.internalImages && gallery.internalImages.length > 0) ||
       (gallery.externalImages && gallery.externalImages.length > 0));
 
+  const formattedDate = publishedAt
+    ? new Date(publishedAt).toLocaleDateString(lng, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    : null;
+
   return (
     <>
-      {/* Hero image */}
-      {image && (
-        <HawkStarsSection className='relative h-105 overflow-hidden p-0 lg:h-140'>
+      {/* ── Hero ── */}
+      {image ? (
+        <HawkStarsSection padding='none' className='relative h-105 overflow-hidden lg:h-140'>
           <Image
-            src={image?.url || ''}
-            alt={image?.alt || title}
+            src={image.url || ''}
+            alt={image.alt || title}
             fill
             className='object-cover'
             priority
           />
-          <div className='absolute inset-0 bg-black/40' />
+          {/* Gradient overlay for readability */}
+          <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent' />
+
+          {/* Title overlay on hero */}
+          <div className='absolute inset-x-0 bottom-0 px-4 pb-10 xl:px-40'>
+            <div className='mx-auto max-w-4xl'>
+              <span className='bg-green mb-4 inline-block rounded-sm px-3 py-1 text-xs font-bold uppercase tracking-widest text-white'>
+                {type.replace('_', ' ')}
+              </span>
+              <h1 className='text-h1_semibold text-white drop-shadow-lg'>{title}</h1>
+              {formattedDate && (
+                <p className='mt-3 text-sm font-light text-white/70'>{formattedDate}</p>
+              )}
+            </div>
+          </div>
+        </HawkStarsSection>
+      ) : (
+        /* Fallback header when no image */
+        <HawkStarsSection className='bg-green px-4 py-16 xl:px-40'>
+          <div className='mx-auto max-w-4xl'>
+            <span className='mb-4 inline-block rounded-sm border border-white/30 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-widest text-white'>
+              {type.replace('_', ' ')}
+            </span>
+            <h1 className='text-h1_semibold text-white'>{title}</h1>
+            {formattedDate && (
+              <p className='mt-3 text-sm font-light text-white/70'>{formattedDate}</p>
+            )}
+          </div>
         </HawkStarsSection>
       )}
 
-      {/* Article header */}
-      <HawkStarsSection className='bg-bege-light py-8 lg:py-12'>
-        <div className='flex max-w-3xl flex-col gap-3'>
-          <span className='text-body_small text-primary tracking-widest uppercase'>
-            {type.replace('_', ' ')}
-          </span>
-          <h1 className='text-h1_semibold'>{title}</h1>
-          {publishedAt && (
-            <p className='text-body_small text-gray-500'>
-              {new Date(publishedAt).toLocaleDateString(lng, {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </p>
-          )}
-        </div>
-      </HawkStarsSection>
-
-      {/* Description */}
+      {/* ── Description ── */}
       {text && (
-        <HawkStarsSection className='py-10 lg:py-14'>
-          <div className='max-w-3xl'>
-            <p className='text-body_regular leading-relaxed whitespace-pre-line text-gray-700'>
+        <HawkStarsSection className='py-12 lg:py-16'>
+          <div className='mx-auto max-w-3xl'>
+            {/* Decorative accent bar */}
+            <div className='bg-green mb-8 h-1 w-16 rounded-full' />
+            <p className='text-body_regular whitespace-pre-line leading-relaxed text-gray-700'>
               {text}
             </p>
           </div>
         </HawkStarsSection>
       )}
 
-      {/* Sections */}
+      {/* ── Sections ── */}
       {sections && sections.length > 0 && (
-        <HawkStarsSection className='py-6 lg:py-10'>
-          <div className='flex max-w-3xl flex-col gap-10'>
+        <HawkStarsSection className='bg-bege-light py-12 lg:py-16'>
+          <div className='mx-auto flex max-w-3xl flex-col gap-12'>
             {sections.map((section, i) => (
-              <div key={i} className='flex flex-col gap-3'>
-                {section.title && <h2 className='text-h2_light text-green'>{section.title}</h2>}
-                {section.text && (
-                  <p className='text-body_regular leading-relaxed whitespace-pre-line text-gray-700'>
-                    {section.text}
-                  </p>
-                )}
+              <div key={i} className='relative flex gap-6'>
+                {/* Section number accent */}
+                <div className='hidden shrink-0 sm:block'>
+                  <span className='text-green/10 select-none font-serif text-6xl font-black leading-none'>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                </div>
+
+                {/* Section content */}
+                <div className='border-green/20 flex flex-col gap-3 border-l-2 pl-6'>
+                  {section.title && (
+                    <h2 className='text-h2_bold text-green'>{section.title}</h2>
+                  )}
+                  {section.text && (
+                    <p className='text-body_regular whitespace-pre-line leading-relaxed text-gray-700'>
+                      {section.text}
+                    </p>
+                  )}
+                </div>
               </div>
             ))}
           </div>
         </HawkStarsSection>
       )}
 
-      {/* Photo Gallery */}
+      {/* ── Photo Gallery ── */}
       {hasGalleryImages && (
-        <HawkStarsSection className='py-10 lg:py-14'>
-          <div className='grid grid-cols-2 gap-4 md:grid-cols-3'>
-            {gallery.internalImages?.map((item, i) => {
-              const media = item.image as Media;
-              return media?.url ? (
-                <Image
-                  key={`int-${i}`}
-                  src={media.url}
-                  alt={media.alt || title}
-                  width={media.width || 600}
-                  height={media.height || 400}
-                  className='aspect-3/2 w-full rounded-lg object-cover'
-                />
-              ) : null;
-            })}
-            {gallery.externalImages?.map((item, i) => (
-              <Image
-                key={`ext-${i}`}
-                src={item.url}
-                alt={item.alt || title}
-                width={600}
-                height={400}
-                className='aspect-3/2 w-full rounded-lg object-cover'
-              />
-            ))}
+        <HawkStarsSection className='py-12 lg:py-16'>
+          <div className='mx-auto max-w-5xl'>
+            <div className='mb-8 flex items-center gap-3'>
+              <div className='bg-green h-1 w-8 rounded-full' />
+              <h2 className='text-h2_light text-green'>Galeria</h2>
+            </div>
+            <div className='grid grid-cols-2 gap-3 md:grid-cols-3'>
+              {gallery.internalImages?.map((item, i) => {
+                const media = item.image as Media;
+                return media?.url ? (
+                  <div
+                    key={`int-${i}`}
+                    className='group relative aspect-3/2 overflow-hidden rounded-lg'
+                  >
+                    <Image
+                      src={media.url}
+                      alt={media.alt || title}
+                      width={media.width || 600}
+                      height={media.height || 400}
+                      className='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
+                    />
+                    <div className='absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/10' />
+                  </div>
+                ) : null;
+              })}
+              {gallery.externalImages?.map((item, i) => (
+                <div
+                  key={`ext-${i}`}
+                  className='group relative aspect-3/2 overflow-hidden rounded-lg'
+                >
+                  <Image
+                    src={item.url}
+                    alt={item.alt || title}
+                    width={600}
+                    height={400}
+                    className='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
+                  />
+                  <div className='absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/10' />
+                </div>
+              ))}
+            </div>
           </div>
         </HawkStarsSection>
       )}

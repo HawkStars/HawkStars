@@ -1,54 +1,44 @@
-# Hawk Stars NGO — Associação HawkStars
+# Hawk Stars NGO
 
-> Hawk Stars is a Portuguese non-profit (NGO) based in Pinhel, Portugal, dedicated to education, social innovation, cultural development, and international cooperation. Our flagship initiative is The Global Village Project.
+> Associação HawkStars is a Portuguese non-profit organisation (NGO) based in Pinhel, Portugal, focused on cultural development, humanitarian action, youth mobility, and European cooperation through Erasmus+ and other EU-funded programmes.
 
-## About
+## Quick Facts
 
-Hawk Stars NGO (Associação HawkStars) was founded to foster positive change in Pinhel and beyond. We operate across education, entrepreneurship, technology, cultural development, and youth empowerment through Erasmus+ programmes and local community projects.
-
-- Website: https://hawkstars.org
+- Founded: Evolved from Euro Hawk into Hawk Stars NGO
+- Location: Pinhel, Guarda district, Portugal
+- Type: Cultural and humanitarian non-profit association
 - Languages: Portuguese (primary), English
-- Location: Pinhel, Portugal
-- Type: Non-profit / NGO
+- Website: https://hawkstars.org
+- Contact: geral@hawkstars.org
 
-## Key Pages
+## What We Do
 
-- Home: https://hawkstars.org/pt
-- About / History: https://hawkstars.org/pt/history
-- The Global Village Project: https://hawkstars.org/pt/village
-- Projects: https://hawkstars.org/pt/projects
-- Events: https://hawkstars.org/pt/events
-- Erasmus+ Programmes: https://hawkstars.org/pt/erasmus
-- News: https://hawkstars.org/pt/news
-- Team: https://hawkstars.org/pt/team
-- Partners: https://hawkstars.org/pt/partners
-- Contribute / Donate: https://hawkstars.org/pt/contribute
-- Transparency: https://hawkstars.org/pt/transparency
-- Art Gallery: https://hawkstars.org/pt/artwork
-- Agenda: https://hawkstars.org/pt/agenda
+Hawk Stars operates across four main pillars: international youth mobility through Erasmus+ and the European Solidarity Corps; local community development and cultural events in the Pinhel region; humanitarian aid operations (including aid to Ukraine); and the Global Village Project — an ambitious initiative to build an International Training Center in Pinhel.
 
-## The Global Village Project
+## Key Programmes
 
-The Global Village is Hawk Stars' flagship initiative — a visionary project in Pinhel to build an International Training Center that fosters learning, innovation, entrepreneurship, e-sports, and cultural development. It aims to redefine urban landscapes and create a sustainable, inclusive community hub.
+- Erasmus+ Key Action 1: Youth exchanges, student mobility, traineeships, volunteer placements
+- Erasmus+ Key Action 2: Cooperation partnerships with European organisations
+- European Solidarity Corps: Long-term volunteering placements for 18–30 year olds
+- Global Village Project: International Training Center development in Pinhel
 
-## Erasmus+ & International
+## Pages
 
-Hawk Stars actively participates in Erasmus+ programmes, facilitating international youth exchanges, mobility projects, and European cooperation focused on education, inclusion, and cultural exchange.
+- [Home](https://hawkstars.org/en)
+- [Projects](https://hawkstars.org/en/projects)
+- [Erasmus+ Opportunities](https://hawkstars.org/en/erasmus)
+- [Key Actions Guide](https://hawkstars.org/en/erasmus/key-action)
+- [News](https://hawkstars.org/en/news)
+- [Events](https://hawkstars.org/en/events)
+- [How to Help Us](https://hawkstars.org/en/how-to-help-us)
+- [Contribute / Donate](https://hawkstars.org/en/contribute)
+- [Our Team](https://hawkstars.org/en/team)
+- [Partners](https://hawkstars.org/en/partners)
+- [Transparency](https://hawkstars.org/en/transparency)
+- [Our History](https://hawkstars.org/en/history)
+- [Art Gallery](https://hawkstars.org/en/art)
+- [Agenda](https://hawkstars.org/en/agenda)
 
-## How to Contribute
+## Optional
 
-Supporters can donate via bank transfer or cryptocurrency, sponsor chairs for the training center, or explore branding partnership opportunities. Visit https://hawkstars.org/pt/contribute for details.
-
-## Sitemap
-
-- https://hawkstars.org/sitemap.xml
-
-## Technical
-
-- Built with: Next.js, Payload CMS
-- Content: Dynamic pages managed via headless CMS
-- i18n: Portuguese (pt) and English (en)
-
-## Contact
-
-For partnerships, volunteering, or inquiries, visit the website or reach out through social media channels linked on the site.
+- [Full LLM context](https://hawkstars.org/llms-full.txt)

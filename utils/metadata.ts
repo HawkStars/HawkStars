@@ -161,6 +161,9 @@ const transformToMetadataObject = (
     generator: 'Next.js',
     creator: SITE_NAME,
     publisher: SITE_NAME,
+    other: {
+      'llms.txt': `${BASE_URL}/llms.txt`,
+    },
     robots: {
       index: true,
       follow: true,
