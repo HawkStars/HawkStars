@@ -1,4 +1,4 @@
-import { GroupField, Tab, TabsField } from 'payload';
+import { Tab } from 'payload';
 
 const HawkProjectDisseminationFields: Tab = {
   name: 'dissemination',

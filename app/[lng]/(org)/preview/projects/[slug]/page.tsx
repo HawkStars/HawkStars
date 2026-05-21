@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import { connection } from 'next/server';
 import { LivePreviewProject } from '@/payload/components/LivePreview/LivePreviewProject';
-import { getSingleEventsQuery } from '@/lib/payload/queries/event';
 import { getSingleProjectsQuery } from '@/lib/payload/queries/projects';
 
 type PageProps = {

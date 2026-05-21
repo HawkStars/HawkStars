@@ -2,7 +2,7 @@ import { Field } from 'payload';
 import * as LuIcons from 'react-icons/lu';
 
 type PayloadLucideIcon = {
-  condition: (data: Record<string, any>, siblingData: Record<string, any>) => boolean;
+  condition: (data: Record<string, unknown>, siblingData: Record<string, unknown>) => boolean;
 };
 
 const PayloadLucideIcon = (props?: PayloadLucideIcon) => {

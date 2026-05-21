@@ -1,7 +1,6 @@
 import { PayloadImageField } from '@/payload/fields/ImageType';
 import { MultiImageField } from '@/payload/fields/MultiImage';
 import { Tab } from 'payload';
-import HawkProjectDisseminationFields from './HawkProjectDisseminationFields';
 
 /* ================================================================== */
 /*  PROJECT PAGE TAB — Structured fields so every project page        */

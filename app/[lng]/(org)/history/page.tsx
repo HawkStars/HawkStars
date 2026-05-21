@@ -3,7 +3,6 @@ import Link from 'next/link';
 
 import { getServerTranslation } from '@/i18n';
 import { LanguagePageProps } from '../types';
-import { urls } from '@/utils/paths';
 import { historyReferenceUrl } from './config';
 
 // images

@@ -16,12 +16,12 @@ export const CrowdfundingSettings: GlobalConfig = {
   admin: {
     description:
       'Configure the dynamic numbers, dates, images, and videos shown on the Crowdfunding page.',
-    preview: (doc, { locale }) => {
+    preview: (_, { locale }) => {
       const baseUrl = getServerSideURL();
       return `${baseUrl}/${locale}/preview/crowdfunding`;
     },
     livePreview: {
-      url: ({ locale, data }) => {
+      url: ({ locale }) => {
         const baseUrl = getServerSideURL();
 
         return `${baseUrl}/${locale?.code}/preview/crowdfunding`;

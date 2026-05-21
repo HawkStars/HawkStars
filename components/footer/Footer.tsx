@@ -3,18 +3,12 @@
 import Image from 'next/image';
 
 import { hawkLogo } from '@/utils/models/images/logos';
-import { useTranslation } from '@/i18n/client';
 import { useMainAppContext } from '@/utils/contexts/AppProvider';
 import FooterMenu from './FooterMenu';
 import FooterBottom from './FooterBottom';
-import { Button } from '../ui/button';
-import { urls } from '@/utils/paths';
-import { useRouter } from 'next/navigation';
 
 const Footer = () => {
-  const router = useRouter();
   const { lng, footerInfo } = useMainAppContext();
-  const { t } = useTranslation(lng, 'common');
 
   return (
     <footer className='mt-8'>

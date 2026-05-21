@@ -14,28 +14,19 @@ import {
 
 import { hawkLogo } from '@/utils/models/images/logos';
 import Socials from '@/components/utils/Socials';
-import { useTranslation } from '@/i18n/client';
-import { Button } from '@/components/ui/button';
 import MobileMenuItem from './MobileMenuItem';
 
 const MobileNavbar = () => {
   const { mobileNavbarOpen, headerInfo } = useMainAppContext();
   const lng = useLanguageCookie();
-  const { t } = useTranslation(lng, 'common');
   const setMobileMenuOpen = useSetMobileNavbarOpen();
-  const router = useRouter();
-
-  const goToUrl = (url: string) => {
-    router.push(transformUrl(lng, url));
-    setMobileMenuOpen(false);
-  };
 
   if (!mobileNavbarOpen) return null;
 
   return (
     <div className='fixed z-900 flex h-screen w-full flex-col gap-4 bg-white px-4 py-3 lg:hidden'>
       <div className='flex py-1'>
-        <Link href='/'>
+        <Link href={transformUrl(lng, urls.home)} className='flex items-center gap-2'>
           <Image src={hawkLogo} alt='Hawk Stars Logo' priority width={150} className='-mt-1' />
         </Link>
         <div

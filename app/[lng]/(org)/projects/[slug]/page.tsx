@@ -3,9 +3,7 @@ import { notFound } from 'next/navigation';
 import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
-import { getNewsByProjectId } from '@/lib/payload/queries/news';
 import ProjectPage from '@/components/projects/ProjectPage';
-import ProjectNewsSection from '@/components/projects/ProjectNewsSection';
 import { getSingleProjectsQuery } from '@/lib/payload/queries/projects';
 
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {

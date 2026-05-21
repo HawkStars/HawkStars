@@ -1,6 +1,5 @@
 import { Language } from '@/i18n/settings';
 import { CrowdfundingSetting, Media } from '@/payload-types';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { TFunction } from 'i18next';
 
 type Props = { t: TFunction<string, string>; lng: Language } & Pick<
@@ -135,7 +134,7 @@ const CrowdfundingHero = ({
         </div>
 
         {/* Right - Funding stats card */}
-        <div className='w-full rounded-2xl border border-white/10 bg-crowdfunding-surface/90 p-6 backdrop-blur-sm lg:w-105'>
+        <div className='bg-crowdfunding-surface/90 w-full rounded-2xl border border-white/10 p-6 backdrop-blur-sm lg:w-105'>
           <p className='mb-1 text-xs font-semibold tracking-wider text-gray-400 uppercase'>
             {t('hero.stats.raised_label')}
           </p>
