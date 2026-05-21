@@ -16,8 +16,21 @@
   --color-gray-light: #d3d3d3;
   --color-red-dark: #8b0000;
 
+  /* Erasmus sub-site theme */
+  --color-erasmus-blue: #003399;
+  --color-erasmus-gold: #ffcc00;
+  --color-erasmus-dark: #0e0c1a;
+  --color-erasmus-muted: #6a6780;
+  --color-erasmus-ka1: #4dd9bc;
+  --color-erasmus-ka2: #d18ddf;
+  --color-erasmus-ka3: #f08080;
+  --color-erasmus-jm: #7eb8f7;
+  --color-erasmus-sport: #f0b97a;
+
   /* Crowdfunding theme */
   --color-crowdfunding-bg: #0d0d0d;
+  --color-crowdfunding-surface: #1a1a1a;
+  --color-crowdfunding-surface-alt: #111111;
 
   /* Gaming theme */
   --color-gaming-bg: #0a0a0f;

@@ -57,4 +57,14 @@ const applySteps = [
   { titleKey: 'step_go_title', descKey: 'step_go_desc' },
 ] as const;
 
-export { flagshipCards, opportunityCards, applySteps };
+// ── Eligibility ──
+
+const eligibilityItems = [
+  { icon: '🎒', titleKey: 'elig_students_title', descKey: 'elig_students_desc' },
+  { icon: '🛠️', titleKey: 'elig_vet_title', descKey: 'elig_vet_desc' },
+  { icon: '🙋', titleKey: 'elig_neet_title', descKey: 'elig_neet_desc' },
+  { icon: '👩‍🏫', titleKey: 'elig_workers_title', descKey: 'elig_workers_desc' },
+  { icon: '🌍', titleKey: 'elig_partners_title', descKey: 'elig_partners_desc' },
+] as const;
+
+export { flagshipCards, opportunityCards, applySteps, eligibilityItems };

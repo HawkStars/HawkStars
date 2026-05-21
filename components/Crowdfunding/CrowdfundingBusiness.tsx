@@ -54,7 +54,7 @@ const CrowdfundingBusiness = ({ businessCtaUrl, t }: Props) => {
   return (
     <section className='bg-crowdfunding-bg w-full py-16'>
       <div className='mx-auto max-w-7xl px-4 lg:px-8'>
-        <div className='rounded-2xl border border-white/10 bg-[#1a1a1a] p-8 lg:p-12'>
+        <div className='rounded-2xl border border-white/10 bg-crowdfunding-surface p-8 lg:p-12'>
           <div className='flex flex-col gap-10 lg:flex-row lg:items-start'>
             <div className='flex-1'>
               <span className='flex items-center gap-2 text-xs font-semibold tracking-widest text-orange-500 uppercase'>

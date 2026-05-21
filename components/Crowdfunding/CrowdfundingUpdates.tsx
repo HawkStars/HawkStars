@@ -27,7 +27,7 @@ const CrowdfundingUpdates = ({ t, updateCardImages }: Props) => {
   });
 
   return (
-    <section className='w-full bg-[#111111] py-16'>
+    <section className='w-full bg-crowdfunding-surface-alt py-16'>
       <div className='mx-auto max-w-7xl px-4 lg:px-8'>
         <div className='flex flex-col gap-10 lg:flex-row lg:items-start'>
           <div className='flex shrink-0 flex-col gap-4 lg:w-72'>
@@ -54,7 +54,7 @@ const CrowdfundingUpdates = ({ t, updateCardImages }: Props) => {
               return (
                 <div
                   key={key}
-                  className='flex w-56 shrink-0 flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#1a1a1a] transition hover:border-orange-500/30'
+                  className='flex w-56 shrink-0 flex-col overflow-hidden rounded-2xl border border-white/10 bg-crowdfunding-surface transition hover:border-orange-500/30'
                 >
                   <div className='relative h-36 w-full overflow-hidden'>
                     <div

@@ -46,7 +46,7 @@ export const VideoEmbed = ({ videoUrl, thumbnailUrl, overlayLine1, overlayLine2 
   }, [embedUrl, videoUrl]);
 
   return (
-    <div className='relative aspect-video w-full overflow-hidden rounded-2xl bg-[#1a1a1a]'>
+    <div className='relative aspect-video w-full overflow-hidden rounded-2xl bg-crowdfunding-surface'>
       {playing && embedUrl ? (
         <iframe
           src={embedUrl}

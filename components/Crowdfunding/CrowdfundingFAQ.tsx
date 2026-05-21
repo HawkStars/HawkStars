@@ -147,7 +147,7 @@ const CrowdfundingFAQ = ({ t }: Props) => {
           {faqKeys.map((key, index) => (
             <div
               key={key}
-              className='group flex flex-col rounded-2xl border border-white/10 bg-[#1a1a1a] p-5 transition hover:border-orange-500/30'
+              className='group flex flex-col rounded-2xl border border-white/10 bg-crowdfunding-surface p-5 transition hover:border-orange-500/30'
             >
               <div className='mb-3 flex items-center justify-between'>
                 <div className='flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-orange-500'>

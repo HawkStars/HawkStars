@@ -135,7 +135,7 @@ const CrowdfundingHero = ({
         </div>
 
         {/* Right - Funding stats card */}
-        <div className='w-full rounded-2xl border border-white/10 bg-[#1a1a1a]/90 p-6 backdrop-blur-sm lg:w-105'>
+        <div className='w-full rounded-2xl border border-white/10 bg-crowdfunding-surface/90 p-6 backdrop-blur-sm lg:w-105'>
           <p className='mb-1 text-xs font-semibold tracking-wider text-gray-400 uppercase'>
             {t('hero.stats.raised_label')}
           </p>

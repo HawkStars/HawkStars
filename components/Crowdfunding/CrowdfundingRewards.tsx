@@ -80,7 +80,7 @@ const CrowdfundingRewards = ({ t, supportUrl }: Props) => {
           {tierKeys.map((tierKey, index) => (
             <div
               key={tierKey}
-              className='flex flex-col rounded-2xl border border-white/10 bg-[#1a1a1a] p-6 transition hover:border-orange-500/30'
+              className='flex flex-col rounded-2xl border border-white/10 bg-crowdfunding-surface p-6 transition hover:border-orange-500/30'
             >
               <div className='mb-3 text-orange-500'>{tierIcons[index]}</div>
               <h3 className='text-sm font-bold text-white uppercase'>
@@ -113,7 +113,7 @@ const CrowdfundingRewards = ({ t, supportUrl }: Props) => {
           ))}
         </div>
 
-        <div className='mt-12 rounded-2xl border border-white/10 bg-[#1a1a1a] p-6'>
+        <div className='mt-12 rounded-2xl border border-white/10 bg-crowdfunding-surface p-6'>
           <span className='flex items-center gap-2 text-xs font-semibold tracking-widest text-orange-500 uppercase'>
             <span className='inline-block h-2 w-2 rounded-full bg-orange-500' />
             {t('rewards.how_to_badge')}

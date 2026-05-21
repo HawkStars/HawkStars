@@ -29,7 +29,7 @@ const CrowdfundingTransparency = ({
   const percentage = Math.round((raisedAmount / campaignGoal) * 100);
 
   return (
-    <section id='transparency' className='w-full bg-[#111111] py-16'>
+    <section id='transparency' className='w-full bg-crowdfunding-surface-alt py-16'>
       <div className='mx-auto max-w-7xl px-4 lg:px-8'>
         <div className='flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-16'>
           {/* Left text */}
@@ -61,7 +61,7 @@ const CrowdfundingTransparency = ({
           </div>
 
           {/* Right stats */}
-          <div className='flex-1 rounded-2xl border border-white/10 bg-[#1a1a1a] p-6'>
+          <div className='flex-1 rounded-2xl border border-white/10 bg-crowdfunding-surface p-6'>
             <div className='grid grid-cols-2 gap-6 lg:grid-cols-3'>
               <div>
                 <p className='text-[10px] font-semibold tracking-wider text-gray-500 uppercase'>
