@@ -4,8 +4,17 @@ import { TimelineBlock } from './Component';
 const meta: Meta<typeof TimelineBlock> = {
   title: 'Extra/TimelineBlock',
   component: TimelineBlock,
-  parameters: {
-    layout: 'fullscreen',
+  parameters: { layout: 'fullscreen' },
+  argTypes: {
+    orientation: {
+      control: 'radio',
+      options: ['vertical', 'horizontal'],
+      description: 'Direction the timeline flows',
+    },
+    title: { control: 'text' },
+    blockType: { table: { disable: true } },
+    id: { table: { disable: true } },
+    blockName: { table: { disable: true } },
   },
 };
 
@@ -55,8 +64,13 @@ export const Vertical: Story = {
 };
 
 export const Horizontal: Story = {
-  args: {
-    ...Vertical.args,
-    orientation: 'horizontal',
-  },
+  args: { ...Vertical.args, orientation: 'horizontal', id: '2' },
+};
+
+export const NoTitle: Story = {
+  args: { ...Vertical.args, title: undefined, id: '3' },
+};
+
+export const TwoItems: Story = {
+  args: { ...Vertical.args, items: sampleItems.slice(0, 2), id: '4' },
 };

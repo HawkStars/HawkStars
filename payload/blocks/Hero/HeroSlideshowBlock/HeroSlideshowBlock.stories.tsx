@@ -35,16 +35,6 @@ const meta: Meta<typeof HeroSlideshowBlock> = {
         disable: true,
       },
     },
-    slides: {
-      object: {
-        backgroundImage: {
-          title: 'Welcome to Our Mission',
-          subtitle:
-            'Join us in creating lasting positive change in communities around the world through sustainable development.',
-          textAlignment: 'left',
-        },
-      },
-    },
   },
   tags: ['autodocs'],
 };

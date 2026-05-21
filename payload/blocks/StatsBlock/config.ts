@@ -1,7 +1,7 @@
 import SectionID from '@/payload/fields/SectionID';
 import { linkGroup } from '@/payload/fields/linkGroup';
-import * as LuIcons from 'react-icons/lu';
 import type { Block } from 'payload';
+import PayloadLucideIcon from '@/payload/fields/ImageIcon/payload-lucide-icon';
 
 export const StatsBlock: Block = {
   slug: 'statsBlock',
@@ -59,18 +59,7 @@ export const StatsBlock: Block = {
       required: true,
       minRows: 1,
       fields: [
-        {
-          name: 'icon',
-          type: 'select',
-          label: 'Icon (Lucide)',
-          admin: {
-            description: 'Optional icon from Lucide (https://lucide.dev/icons/)',
-          },
-          options: Object.keys(LuIcons).map((iconKey) => ({
-            label: iconKey,
-            value: iconKey,
-          })),
-        },
+        PayloadLucideIcon(),
         {
           name: 'iconAlign',
           type: 'select',

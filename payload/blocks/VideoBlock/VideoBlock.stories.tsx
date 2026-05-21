@@ -7,6 +7,18 @@ const meta: Meta<typeof VideoBlock> = {
   parameters: {
     layout: 'fullscreen',
   },
+  argTypes: {
+    autoplay: { control: 'boolean', description: 'Start playing automatically (requires muted)' },
+    loop: { control: 'boolean', description: 'Loop the video indefinitely' },
+    muted: { control: 'boolean', description: 'Mute audio (required for autoplay to work)' },
+    controls: { control: 'boolean', description: 'Show player controls' },
+    title: { control: 'text' },
+    caption: { control: 'text' },
+    videoUrl: { control: 'text' },
+    blockType: { table: { disable: true } },
+    id: { table: { disable: true } },
+    blockName: { table: { disable: true } },
+  },
 };
 
 export default meta;
@@ -60,7 +72,8 @@ export const DirectVideo: Story = {
 export const AutoplayMuted: Story = {
   args: {
     videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-    title: 'Autoplay Video',
+    title: 'Autoplay + Looping Video',
+    caption: 'Plays and loops automatically (muted, as required by browsers).',
     autoplay: true,
     loop: true,
     muted: true,
@@ -74,6 +87,7 @@ export const AutoplayMuted: Story = {
 export const NoControls: Story = {
   args: {
     videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    title: 'Video Without Controls',
     autoplay: false,
     loop: false,
     muted: true,

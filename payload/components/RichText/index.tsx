@@ -63,6 +63,7 @@ import { SectionTitleBlockComponent } from '@/payload/blocks/SectionTitleBlock/C
 import { SectionListBlockComponent } from '@/payload/blocks/SectionListBlock/Component';
 import Upload from '../utils/upload';
 import HorizontalLine from '@/components/ui/horizontal-line';
+import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -125,6 +126,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     ),
     sectionTitleBlock: ({ node }) => <SectionTitleBlockComponent {...node.fields} />,
     sectionListBlock: ({ node }) => <SectionListBlockComponent {...node.fields} />,
+    stepsBlock: ({ node }) => <StepsBlockComponent {...node.fields} />,
   },
   list: List,
   listitem: ListItem,

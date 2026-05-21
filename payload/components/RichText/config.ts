@@ -42,6 +42,7 @@ import type {
   CrowdfundingImageBannerBlock as CrowdfundingImageBannerBlockProps,
   SectionListBlock as SectionListBlockProps,
   SectionTitleBlock as SectionTitleBlockProps,
+  StepsBlock as StepsBlockProps,
 } from '@/payload-types';
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical';
 
@@ -91,4 +92,5 @@ export type BlockNodeTypes = SerializedBlockNode<
   | CrowdfundingImageBannerBlockProps
   | SectionListBlockProps
   | SectionTitleBlockProps
+  | StepsBlockProps
 >;

@@ -71,6 +71,7 @@ const DefaultBlocks = [
   WhyHereWhyNowBlock,
   GrowthVisionBlock,
   GlobalVillageAboutSectionBlock,
+  StepsConfigBlock,
 
   // Media & Gallery
   ImageComparisonSliderBlock,
@@ -108,6 +109,7 @@ const DefaultBlocks = [
 // ── Main page only ───────────────────────────────────────────
 import { BentoGridBlock } from './BentoGridBlock/config';
 import { InstagramBlock } from './InstagramBlock/config';
+import { StepsConfigBlock } from './StepsBlock/config';
 
 const MainPageBlocks = [...DefaultBlocks, HeroSlideshowBlock, InstagramBlock, BentoGridBlock];
 

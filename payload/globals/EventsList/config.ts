@@ -1,12 +1,12 @@
 import type { GlobalConfig } from 'payload';
 
-import * as LuIcons from 'react-icons/lu';
 import { authenticated } from '@/payload/access/authenticated';
 import SectionID from '@/payload/fields/SectionID';
 import { authenticatedEditor } from '@/payload/access/authenticatedEditor';
 import { PayloadImageField } from '@/payload/fields/ImageType';
 import { linkGroup } from '@/payload/fields/linkGroup';
 import { getServerSideURL } from '@/payload/utilities/getURL';
+import PayloadLucideIcon from '@/payload/fields/ImageIcon/payload-lucide-icon';
 
 export const EventsList: GlobalConfig = {
   slug: 'events-list',
@@ -87,22 +87,7 @@ export const EventsList: GlobalConfig = {
         },
       },
       fields: [
-        {
-          name: 'icon',
-          type: 'select',
-          label: 'Icon (SVG)',
-          admin: {
-            description: 'Full list at https://lucide.dev/icons/',
-            components: {
-              Field: '@/payload/fields/ImageIcon/components/Field',
-            },
-          },
-          options: Object.keys(LuIcons).map((iconKey) => ({
-            label: iconKey,
-            value: iconKey,
-          })),
-          required: false,
-        },
+        PayloadLucideIcon(),
         { name: 'number', type: 'text', label: { pt: 'Número', en: 'Number' }, required: true },
         {
           name: 'label',
