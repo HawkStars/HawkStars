@@ -40,7 +40,12 @@ export default async function RootLayout(props: {
   const { children } = props;
 
   return (
-    <html lang={lng} data-color-mode='light' className={`${inter.variable} ${oswald.variable}`}>
+    <html
+      lang={lng}
+      data-scroll-behavior='smooth'
+      data-color-mode='light'
+      className={`${inter.variable} ${oswald.variable}`}
+    >
       <head>
         <OrganizationJsonLd lng={lng || 'pt'} />
       </head>

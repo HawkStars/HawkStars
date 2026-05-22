@@ -75,9 +75,8 @@ const HawkEventDetails: Tab = {
       name: 'type_event',
       label: 'Type of Event',
       type: 'select',
-      defaultValue: 'erasmus',
+      defaultValue: 'local_event',
       options: [
-        { label: 'Erasmus +', value: 'erasmus' },
         { label: 'Local Event', value: 'local_event' },
         { label: 'International Event', value: 'international_event' },
         { label: 'Other', value: 'other' },

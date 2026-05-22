@@ -30,7 +30,6 @@ export const UpcomingHawkEventBlock: Block = {
       type: 'select',
       hasMany: true,
       options: [
-        { label: 'Erasmus +', value: 'erasmus' },
         { label: 'Local Event', value: 'local_event' },
         { label: 'International Event', value: 'international_event' },
         { label: 'Other', value: 'other' },

@@ -20,10 +20,10 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
     <section className='py-12 lg:py-20' id={sectionId || ''} data-blockId='quoteHighlight'>
       <div className='container mx-auto'>
         {style === 'centered' && (
-          <div className='mx-auto max-w-5xl text-center'>
-            <LuQuote className='mx-auto mb-6 h-12 w-12 text-green-600' />
+          <div className='mx-auto max-w-4xl rounded-2xl bg-bege-light px-8 py-12 text-center lg:px-16'>
+            <LuQuote className='mx-auto mb-6 h-14 w-14 text-green opacity-60' />
             <blockquote
-              className={cn('mb-6 leading-relaxed font-medium italic', {
+              className={cn('mb-8 leading-relaxed font-medium italic text-gray-800', {
                 'text-xl lg:text-3xl': quoteLength < 150,
                 'text-lg lg:text-2xl': quoteLength >= 150 && quoteLength < 300,
                 'text-md lg:text-lg': quoteLength >= 300,
@@ -33,20 +33,20 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
             </blockquote>
             <div className='flex items-center justify-center gap-4'>
               {authorImage && (
-                <div className='relative h-12 w-12 overflow-hidden rounded-full'>
+                <div className='relative h-12 w-12 overflow-hidden rounded-full ring-2 ring-green/20'>
                   <Image src={authorImage.url || ''} alt={author} fill className='object-cover' />
                 </div>
               )}
               <div className='text-left'>
-                <div className='font-semibold'>{author}</div>
-                {authorTitle && <div className='text-sm text-gray-600'>{authorTitle}</div>}
+                <div className='font-semibold text-gray-900'>{author}</div>
+                {authorTitle && <div className='text-sm text-gray-500'>{authorTitle}</div>}
               </div>
             </div>
           </div>
         )}
 
         {style === 'bordered' && (
-          <div className='mx-auto max-w-5xl border-l-4 border-green-600 bg-gray-50 p-8 lg:p-12'>
+          <div className='mx-auto max-w-5xl border-l-4 border-green bg-gray-50 p-8 lg:p-12'>
             <blockquote
               className={cn('mb-4 leading-relaxed font-medium', {
                 'text-xl lg:text-2xl': quoteLength < 150,

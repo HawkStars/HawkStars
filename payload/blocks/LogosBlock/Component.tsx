@@ -12,17 +12,19 @@ export const LogosBlock: React.FC<LogosBlockType> = ({
   sectionId,
 }) => {
   return (
-    <section className='py-32' id={sectionId || ''} data-blockId='logosBlock'>
+    <section className='py-16 lg:py-24' id={sectionId || ''} data-blockId='logosBlock'>
       <div className='container mx-auto'>
         <div className='text-center'>
           {badgeText && <Badge variant='outline'>{badgeText}</Badge>}
           {heading && (
-            <h1 className='mx-auto mt-8 mb-5 max-w-3xl text-4xl font-bold text-balance md:text-6xl'>
+            <h2 className='mx-auto mt-8 mb-5 max-w-3xl text-4xl font-bold text-balance md:text-5xl'>
               {heading}
-            </h1>
+            </h2>
           )}
           {description && (
-            <p className='mx-auto max-w-3xl text-xl font-medium text-balance'>{description}</p>
+            <p className='mx-auto max-w-3xl text-xl font-medium text-balance text-gray-600'>
+              {description}
+            </p>
           )}
           {buttonText && (
             <Button size='lg' className='mt-8'>
@@ -30,18 +32,18 @@ export const LogosBlock: React.FC<LogosBlockType> = ({
             </Button>
           )}
         </div>
-      </div>
-      <div className='mx-auto mt-24 grid max-w-5xl grid-cols-2 place-items-center gap-x-4 gap-y-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-6'>
-        {logos?.map((logo) => (
-          <Image
-            className='grayscale'
-            src={logo.logo}
-            key={logo.name}
-            alt={logo.name}
-            width={144}
-            height={80}
-          />
-        ))}
+        <div className='mx-auto mt-12 grid max-w-5xl grid-cols-2 place-items-center gap-x-6 gap-y-8 lg:mt-16 md:grid-cols-3 lg:grid-cols-4 lg:gap-8'>
+          {logos?.map((logo) => (
+            <Image
+              className='opacity-50 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
+              src={logo.logo}
+              key={logo.name}
+              alt={logo.name}
+              width={144}
+              height={80}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

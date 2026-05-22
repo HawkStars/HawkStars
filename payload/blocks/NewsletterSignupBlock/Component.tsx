@@ -29,36 +29,43 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
   return (
     <section className='py-12 lg:py-16' id={sectionId || ''} data-blockId='newsletterSignup'>
       <div className='container mx-auto'>
-        <div className={cn('rounded-2xl p-8 lg:p-12')}>
+        <div
+          className='rounded-2xl p-8 text-white lg:p-12'
+          style={{ background: 'linear-gradient(135deg, #0a7558 0%, #064f39 100%)' }}
+        >
           <div className='mx-auto max-w-2xl text-center'>
-            <LuMail className='mx-auto mb-4 h-12 w-12' />
+            <div className='mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-white/10'>
+              <LuMail className='h-8 w-8 text-white' />
+            </div>
             <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
-            {description && <p className='mb-8 text-lg opacity-90'>{description}</p>}
+            {description && <p className='mb-8 text-lg opacity-85'>{description}</p>}
 
             {!submitted ? (
-              <form onSubmit={handleSubmit} className='flex flex-col gap-4 sm:flex-row'>
+              <form onSubmit={handleSubmit} className='flex flex-col gap-3 sm:flex-row'>
                 <input
                   type='email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={'Your email address'}
                   required
-                  className={cn(
-                    'flex-1 rounded-lg border px-6 py-3 text-lg focus:ring-2 focus:ring-green-500 focus:outline-none'
-                  )}
+                  className='flex-1 rounded-lg border-0 bg-white/15 px-6 py-3 text-lg text-white placeholder-white/60 backdrop-blur-sm focus:bg-white/20 focus:ring-2 focus:ring-white/40 focus:outline-none'
                 />
-                <Button type='submit' size='lg'>
+                <Button
+                  type='submit'
+                  size='lg'
+                  className='bg-white text-green hover:bg-white/90 font-semibold'
+                >
                   {buttonText}
                 </Button>
               </form>
             ) : (
-              <div className='flex items-center justify-center gap-3 rounded-lg bg-green-100 p-4 text-green-800'>
-                <PiCheckCircleThin className='h-6 w-6' />
-                <span className='text-lg font-semibold'>Thank you for subscribing!</span>
+              <div className='flex items-center justify-center gap-3 rounded-lg bg-white/15 p-4'>
+                <PiCheckCircleThin className='h-6 w-6 text-white' />
+                <span className='text-lg font-semibold text-white'>Thank you for subscribing!</span>
               </div>
             )}
 
-            <p className='mt-4 text-sm opacity-70'>
+            <p className='mt-4 text-sm opacity-60'>
               We respect your privacy. Unsubscribe at any time.
             </p>
           </div>

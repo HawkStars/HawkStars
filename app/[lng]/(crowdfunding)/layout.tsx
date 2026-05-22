@@ -23,7 +23,11 @@ export default async function CrowdfundingLayout(props: {
   const { children } = props;
 
   return (
-    <html lang={lng} className={`${inter.variable} ${oswald.variable}`}>
+    <html
+      lang={lng}
+      className={`${inter.variable} ${oswald.variable}`}
+      data-scroll-behavior='smooth'
+    >
       <body className='bg-crowdfunding-bg'>
         <Suspense fallback={<></>}>
           <LayoutContent lng={lng}>{children}</LayoutContent>

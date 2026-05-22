@@ -14,7 +14,10 @@ export const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
       <div className='container mx-auto px-4'>
         <div className='flex flex-col items-center text-center'>
           {title && <h2 className='text-h2_bold tracking-tight'>{title}</h2>}
-          {description && <p className='text-body_regular mt-4 max-w-4xl'>{description}</p>}
+          {title && (
+            <div className='mt-4 h-1 w-12 rounded-full bg-green' />
+          )}
+          {description && <p className='text-body_regular mt-6 max-w-4xl text-gray-600'>{description}</p>}
         </div>
       </div>
     </section>

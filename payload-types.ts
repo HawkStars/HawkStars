@@ -3006,6 +3006,10 @@ export interface StepsBlock {
    * Select the number of columns per row for the steps layout.
    */
   numberOfColumnsPerRow: '2' | '3' | '4' | '5';
+  /**
+   * Select the color of the dots for the steps.
+   */
+  dotColor: 'blue' | 'red' | 'green' | 'yellow';
   steps: StepsBlockItem;
   /**
    * Unique identifier for the section (used for anchor links)
@@ -3569,7 +3573,7 @@ export interface AgendaBlock {
   /**
    * Filter by event type. Leave empty to show all upcoming events regardless of type.
    */
-  eventType?: ('erasmus' | 'local_event' | 'international_event' | 'other')[] | null;
+  eventType?: ('local_event' | 'international_event' | 'other')[] | null;
   /**
    * Maximum number of upcoming events to display (1–20)
    */
@@ -3719,7 +3723,7 @@ export interface UpcomingHawkEventBlock {
   /**
    * Filter by event type. Leave empty to show the next upcoming event regardless of type.
    */
-  eventType?: ('erasmus' | 'local_event' | 'international_event' | 'other')[] | null;
+  eventType?: ('local_event' | 'international_event' | 'other')[] | null;
   /**
    * Label for the link to the event page
    */
@@ -4224,7 +4228,7 @@ export interface HawkEvent {
    */
   endDate?: string | null;
   slug: string;
-  type_event?: ('erasmus' | 'local_event' | 'international_event' | 'other') | null;
+  type_event?: ('local_event' | 'international_event' | 'other') | null;
   /**
    * Main body content shown on the public event page.
    */
@@ -5356,6 +5360,7 @@ export interface GlobalVillageAboutSectionItemSelect<T extends boolean = true> {
  */
 export interface StepsBlockSelect<T extends boolean = true> {
   numberOfColumnsPerRow?: T;
+  dotColor?: T;
   steps?: T | StepsBlockItemSelect<T>;
   sectionId?: T;
   id?: T;

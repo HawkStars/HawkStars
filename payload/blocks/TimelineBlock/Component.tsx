@@ -22,49 +22,73 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
 
         {orientation === 'vertical' && (
           <div className='relative'>
-            <div className='absolute top-0 bottom-0 left-1/2 w-0.5 -translate-x-1/2 bg-gray-300' />
+            {/* Center line */}
+            <div className='absolute top-0 bottom-0 left-1/2 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-gray-300 to-transparent' />
 
             {items.map((item, index) => (
               <div
                 key={index}
                 className={cn(
-                  'relative mb-12 flex items-center',
+                  'relative mb-16 flex items-start',
                   index % 2 === 0 ? 'justify-start' : 'justify-end'
                 )}
               >
-                <div className={cn('w-5/12', index % 2 === 0 ? 'pr-12 text-right' : 'pl-12')}>
-                  <div className='card-md p-6'>
-                    <div className='text-green mb-2 text-2xl font-bold'>{item.year}</div>
-                    <h3 className='mb-2 text-xl font-semibold'>{item.title}</h3>
-                    <p className='text-gray-700'>{item.description}</p>
-                    {item.image && (
-                      <div className='relative mt-4 h-48 w-full overflow-hidden rounded-lg'>
-                        <Image
-                          src={getImagePayloadUrl(item.image)?.url || ''}
-                          alt={item.title}
-                          fill
-                          className='object-cover'
-                        />
-                      </div>
-                    )}
+                <div className={cn('w-5/12', index % 2 === 0 ? 'pr-14 text-right' : 'pl-14')}>
+                  <div className='card-md overflow-hidden'>
+                    <div className='border-b border-gray-100 bg-bege-light px-6 py-3'>
+                      <h3 className='text-base font-bold text-gray-900'>{item.title}</h3>
+                    </div>
+                    <div className='p-6'>
+                      <p className='text-gray-700 leading-relaxed'>{item.description}</p>
+                      {item.image && (
+                        <div className='relative mt-4 h-48 w-full overflow-hidden rounded-lg'>
+                          <Image
+                            src={getImagePayloadUrl(item.image)?.url || ''}
+                            alt={item.title}
+                            fill
+                            className='object-cover'
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 
-                <div className='bg-green card-md absolute left-1/2 z-10 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full border-4 border-white text-white' />
+                {/* Year badge on the center line */}
+                <div className='absolute left-1/2 z-10 -translate-x-1/2'>
+                  <div className='flex h-14 w-14 items-center justify-center rounded-full bg-green text-white shadow-md ring-4 ring-white'>
+                    <span className='text-[10px] font-extrabold leading-tight tracking-tight'>
+                      {item.year}
+                    </span>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         )}
 
         {orientation === 'horizontal' && (
-          <div className='overflow-x-auto'>
-            <div className='flex min-w-max gap-8 pb-4'>
+          <div className='overflow-x-auto pb-4'>
+            <div className='relative flex min-w-max gap-0'>
+              {/* Horizontal connecting line */}
+              <div className='absolute top-6 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent' />
               {items.map((item, index) => (
-                <div key={index} className='w-80 shrink-0'>
-                  <div className='text-green mb-4 text-center text-2xl font-bold'>{item.year}</div>
-                  <div className='card-md p-6'>
-                    <h3 className='mb-2 text-xl font-semibold'>{item.title}</h3>
-                    <p className='text-gray-700'>{item.description}</p>
+                <div key={index} className='w-72 shrink-0 px-4'>
+                  {/* Year dot */}
+                  <div className='relative mb-8 flex justify-center'>
+                    <div className='flex h-12 w-12 items-center justify-center rounded-full bg-green text-white shadow-md ring-4 ring-white'>
+                      <span className='text-[9px] font-extrabold leading-tight tracking-tight'>
+                        {item.year}
+                      </span>
+                    </div>
+                  </div>
+                  <div className='card-md overflow-hidden'>
+                    <div className='border-b border-gray-100 bg-bege-light px-5 py-3'>
+                      <h3 className='text-sm font-bold text-gray-900'>{item.title}</h3>
+                    </div>
+                    <div className='p-5'>
+                      <p className='text-sm text-gray-700 leading-relaxed'>{item.description}</p>
+                    </div>
                   </div>
                 </div>
               ))}

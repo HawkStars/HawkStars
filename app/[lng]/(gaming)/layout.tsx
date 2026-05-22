@@ -34,7 +34,7 @@ export default async function GamingLayout(props: {
   const { children } = props;
 
   return (
-    <html lang={lng} className={`${inter.variable}`}>
+    <html lang={lng} className={`${inter.variable}`} data-scroll-behavior='smooth'>
       <body className='bg-gaming-bg text-gaming-text font-[Inter,sans-serif] antialiased'>
         {/* Background ambient effects */}
         <div className='pointer-events-none fixed inset-0 z-0'>

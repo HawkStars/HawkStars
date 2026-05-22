@@ -17,33 +17,58 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId
       <div className='container mx-auto'>
         {title && <h2 className='mb-12 text-center text-3xl font-bold lg:text-4xl'>{title}</h2>}
 
-        <div className='mx-auto max-w-3xl space-y-4'>
-          {items.map((item, index) => (
-            <div key={index} className='overflow-hidden rounded-lg border border-gray-200 bg-white'>
-              <button
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className='flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-gray-50'
-              >
-                <span className='pr-8 text-lg font-semibold'>{item.question}</span>
-                <LuChevronDown
-                  className={cn(
-                    'h-5 w-5 shrink-0 transition-transform',
-                    openIndex === index && 'rotate-180'
-                  )}
-                />
-              </button>
+        <div className='mx-auto max-w-3xl space-y-3'>
+          {items.map((item, index) => {
+            const isOpen = openIndex === index;
+            return (
               <div
+                key={index}
                 className={cn(
-                  'grid transition-all duration-300',
-                  openIndex === index ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                  'overflow-hidden rounded-lg border transition-colors duration-200',
+                  isOpen ? 'border-green bg-white shadow-sm' : 'border-gray-200 bg-white'
                 )}
               >
-                <div className='overflow-hidden'>
-                  <p className='px-6 pb-6 text-gray-700'>{item.answer}</p>
+                <button
+                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                  className={cn(
+                    'flex w-full items-center justify-between p-6 text-left transition-colors',
+                    isOpen ? 'hover:bg-green/5' : 'hover:bg-gray-50'
+                  )}
+                >
+                  <span
+                    className={cn(
+                      'pr-8 text-lg font-semibold transition-colors',
+                      isOpen ? 'text-green' : 'text-gray-900'
+                    )}
+                  >
+                    {item.question}
+                  </span>
+                  <div
+                    className={cn(
+                      'flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-all duration-300',
+                      isOpen ? 'bg-green text-white' : 'bg-gray-100 text-gray-500'
+                    )}
+                  >
+                    <LuChevronDown
+                      className={cn('h-4 w-4 transition-transform duration-300', isOpen && 'rotate-180')}
+                    />
+                  </div>
+                </button>
+                <div
+                  className={cn(
+                    'grid transition-all duration-300',
+                    isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                  )}
+                >
+                  <div className='overflow-hidden'>
+                    <p className='border-t border-gray-100 px-6 py-5 text-gray-700 leading-relaxed'>
+                      {item.answer}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

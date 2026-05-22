@@ -23,6 +23,21 @@ export const StepsConfigBlock: Block = {
       },
     },
     {
+      type: 'select',
+      name: 'dotColor',
+      required: true,
+      defaultValue: 'blue',
+      options: [
+        { label: 'Blue', value: 'blue' },
+        { label: 'Red', value: 'red' },
+        { label: 'Green', value: 'green' },
+        { label: 'Yellow', value: 'yellow' },
+      ],
+      admin: {
+        description: 'Select the color of the dots for the steps.',
+      },
+    },
+    {
       type: 'array',
       name: 'steps',
       interfaceName: 'StepsBlockItem',

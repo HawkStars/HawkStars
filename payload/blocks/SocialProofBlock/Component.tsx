@@ -31,23 +31,37 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
       data-blockId='socialProof'
     >
       <div className='container mx-auto'>
-        <div
-          className={cn(
-            'mb-12',
-            textAlign && textAlignClasses[textAlign as keyof typeof textAlignClasses]
-          )}
-        >
-          <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
-          {subtitle && <p className={cn('text-lg lg:text-xl')}>{subtitle}</p>}
-        </div>
-        <div className='grid grid-cols-2 gap-8 md:grid-cols-4'>
+        {(title || subtitle) && (
+          <div
+            className={cn(
+              'mb-12',
+              textAlign && textAlignClasses[textAlign as keyof typeof textAlignClasses]
+            )}
+          >
+            {title && <h2 className='mb-3 text-3xl font-bold lg:text-4xl'>{title}</h2>}
+            {subtitle && <p className={cn('text-lg opacity-80 lg:text-xl')}>{subtitle}</p>}
+          </div>
+        )}
+        <div className='grid grid-cols-2 md:grid-cols-4'>
           {stats.map((stat, index) => (
-            <div key={index} className='text-center'>
-              <div className='mb-2 text-4xl font-bold lg:text-5xl'>{stat.value}</div>
+            <div
+              key={index}
+              className={cn(
+                'flex flex-col items-center justify-center px-6 py-8 text-center',
+                index !== stats.length - 1 && [
+                  'border-b border-r md:border-b-0',
+                  backgroundColor === 'gradient' ? 'border-white/20' : 'border-gray-200',
+                  index % 2 !== 1 ? '' : 'md:border-r-0',
+                ]
+              )}
+            >
+              <div className='mb-2 text-4xl font-extrabold tracking-tight lg:text-5xl'>
+                {stat.value}
+              </div>
               <div
                 className={cn(
-                  'text-sm font-medium tracking-wide uppercase',
-                  backgroundColor === 'gradient' ? 'opacity-90' : 'text-gray-600'
+                  'max-w-[120px] text-xs font-semibold tracking-wider uppercase leading-snug',
+                  backgroundColor === 'gradient' ? 'opacity-75' : 'text-gray-500'
                 )}
               >
                 {stat.label}

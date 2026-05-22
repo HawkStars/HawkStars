@@ -6,6 +6,7 @@ import { getServerTranslation } from '@/i18n';
 import { HawkStarsSection } from '@/components/layout';
 import Link from 'next/link';
 import { applySteps, eligibilityItems, flagshipCards, opportunityCards } from './config';
+import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
 
 export const revalidate = 600; // invalidate every 10 minutes
 
@@ -220,22 +221,17 @@ const HowToApply = ({ t }: SectionProps) => (
         {t('apply_lead')}
       </p>
 
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5'>
-        {applySteps.map((step, i) => (
-          <div
-            key={step.titleKey}
-            className={`relative px-4 py-10 ${i > 0 ? 'border-erasmus-blue/8 border-t lg:border-t-0 lg:border-l' : ''}`}
-          >
-            {/* Step number watermark */}
-            <span className='text-erasmus-blue/[0.07] absolute top-6 right-6 font-serif text-7xl leading-none font-black'>
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <div className='bg-erasmus-blue mb-5 h-2.5 w-2.5 rounded-full' />
-            <h4 className='mb-2 font-serif text-lg font-bold'>{t(step.titleKey)}</h4>
-            <p className='text-erasmus-muted text-sm leading-relaxed'>{t(step.descKey)}</p>
-          </div>
-        ))}
-      </div>
+      <StepsBlockComponent
+        numberOfColumnsPerRow='5'
+        steps={applySteps.map((step) => ({
+          title: t(step.title),
+          description: t(step.description),
+          id: step.id,
+        }))}
+        dotColor='blue'
+        sectionId='apply-steps'
+        blockType='stepsBlock'
+      />
     </div>
   </section>
 );

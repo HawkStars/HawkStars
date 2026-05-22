@@ -1,15 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type {
   HawkEvent,
   UpcomingHawkEventBlock as UpcomingHawkEventBlockProps,
 } from '@/payload-types';
-import type { Where } from 'payload';
 import { getImagePayloadUrl } from '@/lib/image';
 import { UpcomingHawkEventBlockView } from './UpcomingHawkEventBlockView';
-import { stringify } from 'qs-esm';
+import { fetchEvent } from '@/lib/payload/client/event';
 
 const typeLabels: Record<string, string> = {
-  erasmus: 'Erasmus +',
   local_event: 'Local Event',
   international_event: 'International Event',
   other: 'Other',
@@ -24,34 +22,18 @@ export const UpcomingHawkEventBlock: React.FC<UpcomingHawkEventBlockProps> = ({
 }) => {
   const [upcomingEvent, setUpcomingEvent] = useState<HawkEvent | null>(null);
 
-  const getUpcomingEvent = useCallback(async () => {
-    const where: Where = {};
-    if (eventType && eventType.length > 0) where.type_event = { in: eventType };
-
-    const stringifiedQuery = stringify({ where, limit: 1 }, { addQueryPrefix: true });
-
-    try {
-      const response = await fetch(`/api/hawk_events${stringifiedQuery}`, {
-        method: 'GET',
-      });
-
-      if (!response.ok) {
-        console.error('Failed to fetch upcoming event:', response.statusText);
-        setUpcomingEvent(null);
-        return;
-      }
-
-      const data = await response.json();
-      setUpcomingEvent(data?.docs?.[0] || null);
-    } catch (error) {
-      console.error('Error fetching upcoming event:', error);
-      setUpcomingEvent(null);
-    }
-  }, [eventType]);
-
   useEffect(() => {
-    getUpcomingEvent();
-  }, [getUpcomingEvent]);
+    const controller = new AbortController();
+
+    const fetchData = async () => {
+      const response = await fetchEvent({ controller, eventType });
+      setUpcomingEvent(response);
+    };
+
+    fetchData();
+
+    return () => controller.abort();
+  }, [eventType]);
 
   if (!upcomingEvent) return null;
 

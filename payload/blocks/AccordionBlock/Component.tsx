@@ -29,15 +29,15 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
   const variantStyles = {
     default: {
       container: '',
-      item: 'border-b border-gray-200',
+      item: 'border-b border-gray-200 data-[state=open]:border-green',
     },
     bordered: {
-      container: 'rounded-lg border border-gray-200',
-      item: 'border-b border-gray-200 last:border-b-0',
+      container: 'rounded-lg border border-gray-200 overflow-hidden',
+      item: 'border-b border-gray-200 last:border-b-0 data-[state=open]:bg-green/5',
     },
     separated: {
       container: 'space-y-3',
-      item: 'rounded-lg border border-gray-200 bg-white',
+      item: 'rounded-lg border border-gray-200 bg-white shadow-sm data-[state=open]:border-green data-[state=open]:shadow-md',
     },
   };
 
@@ -64,7 +64,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
                   value={`item-${index}`}
                   className={cn(styles.item, variant === 'separated' && 'mx-0')}
                 >
-                  <AccordionTrigger className='px-4 text-left text-base font-semibold hover:no-underline lg:text-lg'>
+                  <AccordionTrigger className='px-4 text-left text-base font-semibold hover:no-underline hover:text-green data-[state=open]:text-green lg:text-lg'>
                     {item.title}
                   </AccordionTrigger>
                   <AccordionContent className='px-4 text-gray-700'>
@@ -86,7 +86,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
                   value={`item-${index}`}
                   className={cn(styles.item, variant === 'separated' && 'mx-0')}
                 >
-                  <AccordionTrigger className='px-4 text-left text-base font-semibold hover:no-underline lg:text-lg'>
+                  <AccordionTrigger className='px-4 text-left text-base font-semibold hover:no-underline hover:text-green data-[state=open]:text-green lg:text-lg'>
                     {item.title}
                   </AccordionTrigger>
                   <AccordionContent className='px-4 text-gray-700'>

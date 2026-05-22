@@ -5,6 +5,9 @@ import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
 import { HawkStarsSection } from '@/components/layout';
 import Link from 'next/link';
+import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
+import { StepsBlockItem } from '@/payload-types';
+import { steps } from './config';
 
 export const revalidate = 600;
 
@@ -48,17 +51,16 @@ const HeroSection = ({ t }: { t: T }) => (
     <div className='pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-white/5' />
 
     <div className='relative mx-auto max-w-4xl text-center'>
-      <p className='mb-6 inline-flex items-center gap-2 rounded-sm border border-white/30 bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-white'>
+      <p className='mb-6 inline-flex items-center gap-2 rounded-sm border border-white/30 bg-white/10 px-4 py-1.5 text-xs font-bold tracking-[0.2em] text-white uppercase'>
         <span className='block h-0.5 w-5 bg-white/60' />
         {t('hero_eyebrow')}
       </p>
 
-      <h1 className='mb-6 text-4xl font-bold leading-tight text-white lg:text-6xl'>
-        {t('hero_title_pre')}{' '}
-        <span className='text-bege-dark'>{t('hero_title_highlight')}</span>
+      <h1 className='mb-6 text-4xl leading-tight font-bold text-white lg:text-6xl'>
+        {t('hero_title_pre')} <span className='text-bege-dark'>{t('hero_title_highlight')}</span>
       </h1>
 
-      <p className='mx-auto mb-10 max-w-xl text-lg font-light leading-relaxed text-white/75'>
+      <p className='mx-auto mb-10 max-w-xl text-lg leading-relaxed font-light text-white/75'>
         {t('hero_description')}
       </p>
 
@@ -94,9 +96,7 @@ const WhyJoinSection = ({ t }: { t: T }) => (
     <div className='mx-auto max-w-5xl'>
       <SectionTag label={t('why_tag')} />
       <h2 className='text-h1_semibold mb-5 text-gray-900'>{t('why_title')}</h2>
-      <p className='mb-14 max-w-xl text-base leading-relaxed text-gray-500'>
-        {t('why_lead')}
-      </p>
+      <p className='mb-14 max-w-xl text-base leading-relaxed text-gray-500'>{t('why_lead')}</p>
 
       <div className='grid grid-cols-1 gap-6 sm:grid-cols-2'>
         {whyReasons.map((reason) => (
@@ -204,34 +204,22 @@ const PathCard = ({
 
 // ── How It Works ──
 
-const steps = [
-  { titleKey: 'step1_title', descKey: 'step1_desc' },
-  { titleKey: 'step2_title', descKey: 'step2_desc' },
-  { titleKey: 'step3_title', descKey: 'step3_desc' },
-] as const;
-
 const HowItWorksSection = ({ t }: { t: T }) => (
   <section className='px-4 py-20 lg:py-28 xl:px-40'>
     <div className='mx-auto max-w-5xl'>
       <SectionTag label={t('how_tag')} />
       <h2 className='text-h1_semibold mb-14 text-gray-900'>{t('how_title')}</h2>
 
-      <div className='grid grid-cols-1 gap-0 md:grid-cols-3'>
-        {steps.map((step, i) => (
-          <div
-            key={step.titleKey}
-            className={`relative px-6 py-10 ${i > 0 ? 'border-t border-gray-200 md:border-t-0 md:border-l' : ''}`}
-          >
-            {/* Step number watermark */}
-            <span className='text-green/[0.07] absolute top-4 right-6 font-serif text-8xl font-black leading-none'>
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <div className='bg-green mb-5 h-3 w-3 rounded-full' />
-            <h4 className='text-body_semibold mb-2'>{t(step.titleKey)}</h4>
-            <p className='text-sm leading-relaxed text-gray-600'>{t(step.descKey)}</p>
-          </div>
-        ))}
-      </div>
+      <StepsBlockComponent
+        numberOfColumnsPerRow={'3'}
+        dotColor={'green'}
+        steps={steps.map((step) => ({
+          ...step,
+          title: t(step.title),
+          description: t(step.description),
+        }))}
+        blockType={'stepsBlock'}
+      />
     </div>
   </section>
 );
@@ -262,7 +250,7 @@ const CTASection = ({ t }: { t: T }) => (
 // ── Shared ──
 
 const SectionTag = ({ label }: { label: string }) => (
-  <p className='text-green mb-3 flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.22em]'>
+  <p className='text-green mb-3 flex items-center gap-2.5 text-xs font-bold tracking-[0.22em] uppercase'>
     <span className='bg-green block h-0.5 w-7' />
     {label}
   </p>

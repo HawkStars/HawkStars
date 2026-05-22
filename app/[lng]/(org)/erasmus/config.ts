@@ -1,3 +1,5 @@
+import { StepsBlockItem } from '@/payload-types';
+
 // ── Flagship Programmes ──
 const flagshipCards = [
   {
@@ -49,13 +51,13 @@ const opportunityCards = [
 
 // ── How to Apply ──
 
-const applySteps = [
-  { titleKey: 'step_eligibility_title', descKey: 'step_eligibility_desc' },
-  { titleKey: 'step_find_title', descKey: 'step_find_desc' },
-  { titleKey: 'step_prepare_title', descKey: 'step_prepare_desc' },
-  { titleKey: 'step_submit_title', descKey: 'step_submit_desc' },
-  { titleKey: 'step_go_title', descKey: 'step_go_desc' },
-] as const;
+const applySteps: StepsBlockItem = [
+  { title: 'step_eligibility_title', description: 'step_eligibility_desc', id: '1-eligibility' },
+  { title: 'step_find_title', description: 'step_find_desc', id: '2-find' },
+  { title: 'step_prepare_title', description: 'step_prepare_desc', id: '3-prepare' },
+  { title: 'step_submit_title', description: 'step_submit_desc', id: '4-submit' },
+  { title: 'step_go_title', description: 'step_go_desc', id: '5-go' },
+];
 
 // ── Eligibility ──
 

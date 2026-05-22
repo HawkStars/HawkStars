@@ -24,19 +24,27 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
     <section className='py-12 lg:py-20' id={sectionId || ''} data-blockId='ctaBanner'>
       <div className='container mx-auto'>
         {variant === 'centered' && (
-          <div className='rounded-2xl p-12 text-center'>
+          <div
+            className='rounded-2xl p-12 text-center text-white'
+            style={{ background: 'linear-gradient(135deg, #0a7558 0%, #064f39 100%)' }}
+          >
             <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
             {description && (
               <p className='mx-auto mb-8 max-w-2xl text-lg opacity-90'>{description}</p>
             )}
             <div className='flex flex-col justify-center gap-4 sm:flex-row'>
               {primaryCTAInfo && (
-                <Button size='lg' variant='default' asChild>
+                <Button size='lg' variant='secondary' asChild>
                   <a href={primaryCTAInfo.url}>{primaryCTAInfo.label}</a>
                 </Button>
               )}
               {secondaryCTAInfo && (
-                <Button size='lg' variant='secondary' asChild>
+                <Button
+                  size='lg'
+                  variant='outline'
+                  className='border-white/40 text-white hover:bg-white/10'
+                  asChild
+                >
                   <a href={secondaryCTAInfo.url}>{secondaryCTAInfo.label}</a>
                 </Button>
               )}
@@ -45,20 +53,28 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
         )}
 
         {variant === 'split' && (
-          <div className='overflow-hidden rounded-2xl bg-linear-to-br'>
-            <div className='flex flex-col gap-8 p-12 text-white lg:flex-row lg:items-center lg:justify-between'>
+          <div
+            className='overflow-hidden rounded-2xl text-white'
+            style={{ background: 'linear-gradient(135deg, #0a7558 0%, #064f39 100%)' }}
+          >
+            <div className='flex flex-col gap-8 p-12 lg:flex-row lg:items-center lg:justify-between'>
               <div className='flex-1'>
                 <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
                 {description && <p className='text-lg opacity-90'>{description}</p>}
               </div>
               <div className='flex flex-col gap-4 sm:flex-row lg:shrink-0'>
                 {primaryCTAInfo && (
-                  <Button size='lg' variant='default' asChild>
+                  <Button size='lg' variant='secondary' asChild>
                     <a href={primaryCTAInfo.url}>{primaryCTAInfo.label}</a>
                   </Button>
                 )}
                 {secondaryCTAInfo && (
-                  <Button size='lg' variant='secondary' asChild>
+                  <Button
+                    size='lg'
+                    variant='outline'
+                    className='border-white/40 text-white hover:bg-white/10'
+                    asChild
+                  >
                     <a href={secondaryCTAInfo.url}>{secondaryCTAInfo.label}</a>
                   </Button>
                 )}
