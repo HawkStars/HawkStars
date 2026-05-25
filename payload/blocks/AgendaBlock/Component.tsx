@@ -1,11 +1,10 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-import { stringify } from 'qs-esm';
-import type { Where } from 'payload';
+import { useEffect, useState } from 'react';
 import type { AgendaBlock as AgendaBlockProps, HawkEvent } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { AgendaBlockView, type AgendaEventItem } from './AgendaBlockView';
+import { fetchAgendaEvents } from '@/lib/payload/client/event';
 
 function toAgendaItem(event: HawkEvent): AgendaEventItem {
   const image = getImagePayloadUrl(event.image);
@@ -35,43 +34,11 @@ export function AgendaBlockComponent({
   const [events, setEvents] = useState<AgendaEventItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchEvents = useCallback(async () => {
-    const today = new Date().toISOString();
-    const limit = maxEvents && maxEvents > 0 ? Math.min(maxEvents, 20) : 5;
-
-    // Base filter: show events that haven't started yet OR multi-day events not yet ended
-    const dateFilter: Where = {
-      or: [{ date: { greater_than_equal: today } }, { endDate: { greater_than_equal: today } }],
-    };
-
-    // Combine with event type filter if specified
-    const where: Where =
-      eventType && eventType.length > 0
-        ? { and: [dateFilter, { type_event: { in: eventType } }] }
-        : dateFilter;
-
-    const query = stringify({ where, limit, sort: 'date' }, { addQueryPrefix: true });
-
-    try {
-      const res = await fetch(`/api/hawk_projects${query}`);
-      if (!res.ok) {
-        console.error('AgendaBlock: failed to fetch events', res.statusText);
-        setEvents([]);
-        return;
-      }
-      const data = await res.json();
-      setEvents((data?.docs ?? []).map(toAgendaItem));
-    } catch (err) {
-      console.error('AgendaBlock: error fetching events', err);
-      setEvents([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [eventType, maxEvents]);
-
   useEffect(() => {
-    fetchEvents();
-  }, [fetchEvents]);
+    fetchAgendaEvents({ eventType, maxEvents })
+      .then((docs) => setEvents(docs.map(toAgendaItem)))
+      .finally(() => setLoading(false));
+  }, [eventType, maxEvents]);
 
   return (
     <AgendaBlockView

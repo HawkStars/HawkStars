@@ -1,9 +1,10 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import { stringify } from 'qs-esm';
+'use client';
+
+import React, { FC, useEffect, useState } from 'react';
 import type { SponsorsBlock as SponsorsBlockProps, Sponsor, Media } from '@/payload-types';
-import type { PaginatedDocs, Where } from 'payload';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { fetchSponsors } from '@/lib/payload/client/sponsors';
 
 export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
   title,
@@ -14,30 +15,9 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
 }) => {
   const [sponsors, setSponsors] = useState<Sponsor[]>([]);
 
-  const getSponsors = useCallback(async () => {
-    const where: Where = {};
-    if (tier && tier.length > 0) where.tier = { in: tier };
-
-    try {
-      const stringifiedQuery = stringify({ where, limit: limit ?? 12 }, { addQueryPrefix: true });
-      const response = await fetch(`/api/sponsors${stringifiedQuery}`, {
-        method: 'GET',
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch sponsors: ${response.statusText}`);
-      }
-
-      const data: PaginatedDocs<Sponsor> = await response.json();
-      setSponsors(data.docs || []);
-    } catch (error) {
-      console.error('Error fetching sponsors:', error);
-    }
-  }, [tier, limit]);
-
   useEffect(() => {
-    getSponsors();
-  }, [getSponsors]);
+    fetchSponsors({ tier, limit }).then(setSponsors);
+  }, [tier, limit]);
 
   if (!sponsors || sponsors.length === 0) return null;
 

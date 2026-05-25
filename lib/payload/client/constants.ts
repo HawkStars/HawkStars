@@ -1,5 +1,5 @@
 const API_CLIENT_PATHS = {
-  events: '/api/events',
+  events: '/api/hawk_events',
   news: '/api/news',
   projects: '/api/hawk_projects',
 };

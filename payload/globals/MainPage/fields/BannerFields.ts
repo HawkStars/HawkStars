@@ -1,6 +1,5 @@
 import { PayloadImageField } from '@/payload/fields/ImageType';
 import { GroupField } from 'payload';
-import { colorPickerField } from '@innovixx/payload-color-picker-field';
 
 const BannerFields: GroupField = {
   name: 'bannerFields',
@@ -23,12 +22,18 @@ const BannerFields: GroupField = {
       admin: { position: 'sidebar', description: 'Optional URL for the banner button' },
       required: false,
     },
-    colorPickerField({
+    {
       name: 'bannerColor',
+      type: 'text',
       label: 'Banner Text Color',
       required: false,
       admin: { description: 'Hex color code for the banner background (e.g. #ff0000)' },
-    }),
+      validate: (value: string | undefined | null) => {
+        if (!value) return true; // Allow empty value
+        const hexColorRegex = /^#([0-9A-Fa-f]{3}){1,2}$/;
+        return hexColorRegex.test(value) || 'Please enter a valid hex color code (e.g. #ff0000)';
+      },
+    },
     {
       name: 'bannerButtonText',
       type: 'text',

@@ -47,7 +47,6 @@ import { default as default_697dbdb7f6f9ef4ce600690b2392d8d4 } from '@/payload/g
 import { default as default_f89cbbda01850af27d943f60ccf826ac } from '@/payload/fields/FooterNavGroup/components/Label'
 import { FooterLabel as FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd } from '@/payload/globals/Footer/components/FooterLabel'
 import { default as default_2b7ccde5d3739b53425ce7b9eb4364f8 } from '@/payload/blocks/BentoGridBlock/admin/RowLabel'
-import { ColorPickerFieldComponent as ColorPickerFieldComponent_95f860801d0381344387ae1d8e2f4d24 } from '@innovixx/payload-color-picker-field/components'
 import { default as default_a124e7a1baf393d361b39feebeca9df4 } from '@/payload/globals/ProjectsList/components/StatsLabel'
 import { default as default_e3e0508c4af1bd54a085ab28d2517f80 } from '@/payload/globals/EventsList/components/StatsLabel'
 import { default as default_f1058c6327a7987eb96b4edb557d08ee } from '@/payload/globals/Settings/components/RefreshTokenButton'
@@ -108,7 +107,6 @@ export const importMap = {
   "@/payload/fields/FooterNavGroup/components/Label#default": default_f89cbbda01850af27d943f60ccf826ac,
   "@/payload/globals/Footer/components/FooterLabel#FooterLabel": FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd,
   "@/payload/blocks/BentoGridBlock/admin/RowLabel#default": default_2b7ccde5d3739b53425ce7b9eb4364f8,
-  "@innovixx/payload-color-picker-field/components#ColorPickerFieldComponent": ColorPickerFieldComponent_95f860801d0381344387ae1d8e2f4d24,
   "@/payload/globals/ProjectsList/components/StatsLabel#default": default_a124e7a1baf393d361b39feebeca9df4,
   "@/payload/globals/EventsList/components/StatsLabel#default": default_e3e0508c4af1bd54a085ab28d2517f80,
   "@/payload/globals/Settings/components/RefreshTokenButton#default": default_f1058c6327a7987eb96b4edb557d08ee,
