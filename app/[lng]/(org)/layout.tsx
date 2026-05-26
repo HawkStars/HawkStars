@@ -33,7 +33,7 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
 
 export default async function RootLayout(props: {
   children: React.ReactNode;
-  params: Promise<{ lng?: string }>;
+  params: Promise<{ lng: string }>;
 }) {
   const params = await props.params;
   const { lng } = params;
@@ -71,13 +71,7 @@ export default async function RootLayout(props: {
   );
 }
 
-async function LayoutContent({
-  children,
-  lng,
-}: {
-  children: React.ReactNode;
-  lng: string | undefined;
-}) {
+async function LayoutContent({ children, lng }: { children: React.ReactNode; lng: string }) {
   const headerInfo = await getHeaderQuery(lng as Language);
   const footerInfo = await getFooterQuery(lng as Language);
 

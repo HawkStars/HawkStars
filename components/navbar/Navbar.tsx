@@ -28,7 +28,7 @@ const Navbar = () => {
   });
 
   return (
-    <nav className='relative'>
+    <nav className='relative' onMouseLeave={() => setHoveredMenu(null)}>
       <div
         className={cn('z-50 px-4 lg:px-14', {
           'bg-erasmus-blue text-white': hasErasmus,

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { getImagePayloadUrl } from '@/lib/image';
 import { MainPageBannerFields } from '@/payload-types';
@@ -20,16 +21,26 @@ const MainPageBanner: FC<MainPageBannerProps> = ({
 
   return (
     <div
-      className='absolute -top-1 z-50 flex w-full justify-center bg-cover bg-center px-20 py-4 text-lg font-semibold'
+      className='absolute -top-1 z-50 flex w-full justify-center overflow-hidden px-20 py-4 text-lg font-semibold'
       style={{
-        backgroundColor: !bannerImage ? (bannerColor ?? undefined) : undefined,
-        backgroundImage: image ? `url(${image.url})` : undefined,
-        color: bannerImage ? 'white' : textColor,
+        backgroundColor: !image ? (bannerColor ?? undefined) : undefined,
+        color: image ? 'white' : textColor,
       }}
     >
-      <p className='my-auto flex-1'>{bannerText}</p>
+      {/* Optimised background image — priority-loaded as it is above the fold */}
+      {image?.url && (
+        <Image
+          src={image.url}
+          alt=''
+          fill
+          className='object-cover'
+          priority
+          aria-hidden='true'
+        />
+      )}
+      <p className='relative z-10 my-auto flex-1'>{bannerText}</p>
       {bannerButtonLink && bannerButtonText && (
-        <Link href={bannerButtonLink} target='_blank' className='ml-4'>
+        <Link href={bannerButtonLink} target='_blank' className='relative z-10 ml-4'>
           <Button>{bannerButtonText}</Button>
         </Link>
       )}

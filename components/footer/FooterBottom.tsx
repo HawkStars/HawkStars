@@ -1,12 +1,17 @@
+'use client';
+
 import Link from 'next/link';
 import Socials from '../utils/Socials';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { urls } from '@/utils/paths';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { useTranslation } from '@/i18n/client';
+import { Language } from '@/i18n/settings';
 
-const FooterBottom = () => {
-  const lng = useLanguageCookie();
+type FooterBottomProps = {
+  lng: Language;
+};
+
+const FooterBottom = ({ lng }: FooterBottomProps) => {
   const { t } = useTranslation(lng, 'common');
 
   return (

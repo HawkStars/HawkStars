@@ -29,7 +29,7 @@ const Footer = () => {
           ))}
         </div>
       </div>
-      <FooterBottom />
+      <FooterBottom lng={lng} />
     </footer>
   );
 };

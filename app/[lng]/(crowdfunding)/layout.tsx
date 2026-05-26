@@ -33,8 +33,11 @@ export default async function CrowdfundingLayout(props: {
           <LayoutContent lng={lng}>{children}</LayoutContent>
         </Suspense>
 
-        <Script async src='https://www.googletagmanager.com/gtag/js?id=G-PEH83S3H3K' />
-        <Script id='google-analytics'>
+        <Script
+          strategy='afterInteractive'
+          src='https://www.googletagmanager.com/gtag/js?id=G-PEH83S3H3K'
+        />
+        <Script id='google-analytics' strategy='afterInteractive'>
           {`window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());

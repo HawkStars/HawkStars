@@ -30,7 +30,7 @@ const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {
     <HawkStarsSection className='py-10 lg:py-14'>
       <div className='flex flex-col gap-6'>
         {docs &&
-          docs.map((article) => {
+          docs.map((article, articleIndex) => {
             const image = getImagePayloadUrl(article.mainImage);
             const articleUrl = transformUrl(lng, `${urls.news}/${article.slug}`);
 
@@ -49,12 +49,14 @@ const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {
                     <h2 className='line-clamp-2 text-lg font-semibold'>{article.title}</h2>
                   </div>
                   {image?.url && (
-                    <div className='relative min-w-32 lg:ml-auto'>
+                    <div className='relative h-24 w-32 shrink-0 self-center lg:h-28 lg:w-40'>
                       <Image
                         src={image.url}
                         alt={image.alt || article.title}
                         fill
-                        className='object-contain'
+                        className='object-cover'
+                        priority={articleIndex === 0}
+                        sizes='(max-width: 1024px) 128px, 160px'
                       />
                     </div>
                   )}

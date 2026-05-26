@@ -45,6 +45,7 @@ const nextConfig = {
   // cacheComponents: true,
   images: {
     minimumCacheTTL: 43200,
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',

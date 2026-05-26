@@ -4,6 +4,7 @@ import { getImagePayloadUrl } from '@/lib/image';
 import { Button } from '@/components/ui/button';
 import { transformUrl, urls } from '@/utils/paths';
 import Link from 'next/link';
+import Image from 'next/image';
 import { format } from 'date-fns';
 import { SplitProjectsResult } from '@/lib/payload/queries/projects';
 
@@ -33,13 +34,22 @@ const ProjectCard = ({ project, index, lng, viewProjectLabel }: ProjectCardProps
   const projectUrl = transformUrl(lng, `${urls.projects}/${project.slug}`);
 
   return (
+    // Fixed height locks the card dimension before the image loads → no CLS.
+    // Priority on the first card (above-fold LCP candidate).
     <Link
       href={projectUrl}
-      className='group relative isolate min-h-72 bg-cover bg-center px-5 py-14 lg:px-12 lg:py-24'
-      style={{
-        backgroundImage: `url(${(image as Media)?.url})`,
-      }}
+      className='group relative isolate h-72 overflow-hidden px-5 py-14 lg:h-96 lg:px-12 lg:py-24'
     >
+      {image?.url && (
+        <Image
+          src={image.url}
+          alt={project.heading ?? image.alt}
+          fill
+          className='object-cover'
+          priority={index === 0}
+          sizes='(max-width: 1024px) 100vw, 90vw'
+        />
+      )}
       <div className='relative z-10 flex flex-col gap-7 text-white/80 transition-colors duration-300 ease-out group-hover:text-white lg:flex-row'>
         <div className='flex gap-1 text-2xl font-bold'>
           <span>/</span>
@@ -73,7 +83,7 @@ const ProjectCard = ({ project, index, lng, viewProjectLabel }: ProjectCardProps
           </div>
         </div>
       </div>
-      <div className='absolute inset-0 z-0 bg-black/80 backdrop-blur-xs transition-all duration-300 ease-out group-hover:bg-black/50 group-hover:backdrop-blur-none' />
+      <div className='absolute inset-0 z-1 bg-black/80 backdrop-blur-xs transition-all duration-300 ease-out group-hover:bg-black/50 group-hover:backdrop-blur-none' />
     </Link>
   );
 };
