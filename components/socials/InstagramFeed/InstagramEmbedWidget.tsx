@@ -1,19 +1,15 @@
 'use client';
 
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, use } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { LuExternalLink } from 'react-icons/lu';
 
 import { cn } from '@/lib/utils';
-import {
-  type InstagramPost,
-  type InstagramEmbedWidgetProps,
-  INSTAGRAM_PROFILE_URL,
-  INSTAGRAM_HANDLE,
-} from './types';
+import { type InstagramEmbedWidgetProps, INSTAGRAM_PROFILE_URL, INSTAGRAM_HANDLE } from './types';
 
 import InstagramIcon from '@/public/images/icons/socials/instagram.svg';
+import getInstagramPosts from '@/lib/instagram';
 
 declare global {
   interface Window {
@@ -137,34 +133,9 @@ export default function InstagramEmbedWidget({
   maxPosts = 3,
   showHeader = true,
 }: InstagramEmbedWidgetProps) {
-  const [posts, setPosts] = useState<InstagramPost[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const { loadScript, reprocess } = useInstagramEmbed();
 
-  const fetchPosts = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const response = await fetch(`/api/instagram?limit=${maxPosts}`);
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch Instagram posts');
-      }
-
-      const data = await response.json();
-      setPosts(data.posts ?? []);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong');
-    } finally {
-      setLoading(false);
-    }
-  }, [maxPosts]);
-
-  useEffect(() => {
-    fetchPosts();
-  }, [fetchPosts]);
+  const posts = use(getInstagramPosts(maxPosts));
 
   useEffect(() => {
     if (posts.length > 0) {
@@ -183,41 +154,11 @@ export default function InstagramEmbedWidget({
     >
       {showHeader && <WidgetHeader />}
 
-      {loading && <EmbedSkeleton />}
-
-      {error && (
-        <div className='flex flex-col items-center justify-center px-4 py-8 text-center'>
-          <p className='text-muted-foreground mb-3 text-sm'>{error}</p>
-          <Link
-            href={INSTAGRAM_PROFILE_URL}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='text-green text-sm font-medium underline-offset-4 hover:underline'
-          >
-            Visit us on Instagram
-          </Link>
-        </div>
-      )}
-
-      {!loading && !error && posts.length > 0 && (
+      {posts.length > 0 && (
         <div className='flex max-h-150 space-y-4 overflow-y-auto p-4'>
           {posts.map((post) => (
             <EmbedPost key={post.id} permalink={post.permalink} />
           ))}
-        </div>
-      )}
-
-      {!loading && !error && posts.length === 0 && (
-        <div className='flex flex-col items-center justify-center px-4 py-8 text-center'>
-          <p className='text-muted-foreground mb-3 text-sm'>No posts to display yet.</p>
-          <Link
-            href={INSTAGRAM_PROFILE_URL}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='text-green text-sm font-medium underline-offset-4 hover:underline'
-          >
-            Visit us on Instagram
-          </Link>
         </div>
       )}
 

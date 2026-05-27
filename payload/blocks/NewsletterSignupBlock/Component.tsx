@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { LuMail } from 'react-icons/lu';
 import { PiCheckCircleThin } from 'react-icons/pi';
 import type { NewsletterSignupBlock as NewsletterSignupBlockProps } from '@/payload-types';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
@@ -53,7 +52,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
                 <Button
                   type='submit'
                   size='lg'
-                  className='bg-white text-green hover:bg-white/90 font-semibold'
+                  className='text-green bg-white font-semibold hover:bg-white/90'
                 >
                   {buttonText}
                 </Button>
