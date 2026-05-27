@@ -1,4 +1,4 @@
-import { HawkProject, Media } from '@/payload-types';
+import { HawkProject } from '@/payload-types';
 import { LuArrowUpRight, LuCalendarDays } from 'react-icons/lu';
 import { getImagePayloadUrl } from '@/lib/image';
 import { Button } from '@/components/ui/button';

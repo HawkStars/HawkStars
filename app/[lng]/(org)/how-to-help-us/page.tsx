@@ -6,7 +6,6 @@ import { getServerTranslation } from '@/i18n';
 import { HawkStarsSection } from '@/components/layout';
 import Link from 'next/link';
 import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
-import { StepsBlockItem } from '@/payload-types';
 import { steps } from './config';
 
 export const revalidate = 600;
