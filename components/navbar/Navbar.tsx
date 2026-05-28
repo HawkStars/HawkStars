@@ -12,6 +12,8 @@ import DropdownMenu from './DesktopDropdown/DropdownMenu';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { usePathname } from 'next/navigation';
 
+let timeoutId: NodeJS.Timeout;
+
 const Navbar = () => {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
   const { headerInfo } = useMainAppContext();
@@ -28,7 +30,13 @@ const Navbar = () => {
   });
 
   return (
-    <nav className='relative' onMouseLeave={() => setHoveredMenu(null)}>
+    <nav
+      className='relative'
+      onMouseLeave={() => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => setHoveredMenu(null), 300);
+      }}
+    >
       <div
         className={cn('z-50 px-4 lg:px-14', {
           'bg-erasmus-blue text-white': hasErasmus,

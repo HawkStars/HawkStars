@@ -2065,7 +2065,7 @@ export type HawkEventSection =
 export type HawkEventProgramItem =
   | {
       /**
-       * e.g. "Day 1", "09:00–10:30"
+       * e.g. "Day 1", "09:00-10:30"
        */
       day?: string | null;
       title?: string | null;
@@ -2422,6 +2422,7 @@ export interface Config {
     curators: Curator;
     hawk_projects: HawkProject;
     hawk_events: HawkEvent;
+    member_projects: MemberProject;
     partners: Partner;
     sponsors: Sponsor;
     pages: Page;
@@ -2444,6 +2445,7 @@ export interface Config {
     curators: CuratorsSelect<false> | CuratorsSelect<true>;
     hawk_projects: HawkProjectsSelect<false> | HawkProjectsSelect<true>;
     hawk_events: HawkEventsSelect<false> | HawkEventsSelect<true>;
+    member_projects: MemberProjectsSelect<false> | MemberProjectsSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
     sponsors: SponsorsSelect<false> | SponsorsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
@@ -4274,6 +4276,7 @@ export interface HawkEvent {
    */
   endDate?: string | null;
   slug: string;
+  status?: ('draft' | 'published' | 'archived') | null;
   type_event?: ('local_event' | 'international_event' | 'other') | null;
   /**
    * Main body content shown on the public event page.
@@ -4299,9 +4302,56 @@ export interface HawkEvent {
   gallery?: MultiImageType;
   image: ImageType;
   /**
-   * Only the ID, not the full URL
+   * The full URL of the Instagram post
    */
   instagram?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Projects submitted by members for the "Corner of the Members" showcase. Verify the submitter is a paid-up, trusted member before checking "Confirmed". Only confirmed projects appear on the public showcase.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "member_projects".
+ */
+export interface MemberProject {
+  id: string;
+  /**
+   * Check this only after confirming the submitter is a trusted member who has paid their membership. The project appears on the public showcase only when this is checked.
+   */
+  is_confirmed?: boolean | null;
+  title: string;
+  description: string;
+  /**
+   * The language the project information is written in.
+   */
+  language: 'pt' | 'en' | 'es' | 'fr' | 'de' | 'it' | 'other';
+  /**
+   * Link to an image representing the project.
+   */
+  image_url?: string | null;
+  /**
+   * Link to a video (e.g. YouTube or Vimeo).
+   */
+  video_url?: string | null;
+  /**
+   * Dates of things that are going to happen, each with a link where others can follow for more information.
+   */
+  dates?:
+    | {
+        label: string;
+        date: string;
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Contact details of the member who submitted this project (admin only).
+   */
+  submitter: {
+    submitter_name: string;
+    submitter_email: string;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -4575,6 +4625,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'hawk_events';
         value: string | HawkEvent;
+      } | null)
+    | ({
+        relationTo: 'member_projects';
+        value: string | MemberProject;
       } | null)
     | ({
         relationTo: 'partners';
@@ -4939,6 +4993,7 @@ export interface HawkEventsSelect<T extends boolean = true> {
   date?: T;
   endDate?: T;
   slug?: T;
+  status?: T;
   type_event?: T;
   details?:
     | T
@@ -4985,6 +5040,34 @@ export interface HawkEventProgramItemSelect<T extends boolean = true> {
 export interface HawkEventObjectiveItemSelect<T extends boolean = true> {
   text?: T;
   id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "member_projects_select".
+ */
+export interface MemberProjectsSelect<T extends boolean = true> {
+  is_confirmed?: T;
+  title?: T;
+  description?: T;
+  language?: T;
+  image_url?: T;
+  video_url?: T;
+  dates?:
+    | T
+    | {
+        label?: T;
+        date?: T;
+        link?: T;
+        id?: T;
+      };
+  submitter?:
+    | T
+    | {
+        submitter_name?: T;
+        submitter_email?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

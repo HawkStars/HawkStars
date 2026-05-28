@@ -1,0 +1,57 @@
+{
+  "hero": {
+    "title": "Corner of the Members",
+    "subtitle": "Projects shared by our members",
+    "description": "A space for paid-up members of Associação HawkStars to showcase their own projects so the community can discover and follow them.",
+    "submitCta": "Share your project"
+  },
+  "showcase": {
+    "empty": "No member projects have been published yet. Be the first to share yours!",
+    "languageLabel": "Language",
+    "datesTitle": "Upcoming dates",
+    "moreInfo": "More info",
+    "watchVideo": "Watch video"
+  },
+  "languages": {
+    "pt": "Portuguese",
+    "en": "English",
+    "es": "Spanish",
+    "fr": "French",
+    "de": "German",
+    "it": "Italian",
+    "other": "Other"
+  },
+  "form": {
+    "title": "Share your project",
+    "intro": "Submit your project below. Our team will confirm your membership before it appears on the showcase.",
+    "title_label": "Project title",
+    "title_placeholder": "Give your project a name",
+    "description_label": "Description",
+    "description_placeholder": "Describe what your project is about",
+    "language_label": "Content language",
+    "language_hint": "The language your project information is written in",
+    "image_label": "Image URL",
+    "image_hint": "Link to an image representing your project",
+    "video_label": "Video URL",
+    "video_hint": "Optional — link to a YouTube or Vimeo video",
+    "media_required": "Please provide at least an image URL or a video URL.",
+    "dates_label": "Dates / Happenings",
+    "dates_hint": "Add dates of things that will happen, each with a link for more information",
+    "date_what_label": "What is happening",
+    "date_when_label": "Date",
+    "date_link_label": "More info link",
+    "add_date": "Add a date",
+    "remove": "Remove",
+    "name_label": "Your name",
+    "email_label": "Your email",
+    "email_hint": "We use this only to confirm your membership",
+    "submit": "Submit project",
+    "submitting": "Submitting...",
+    "success_title": "Thank you!",
+    "success_message": "Your project has been submitted. Our team will review it and, once your membership is confirmed, it will appear on the showcase.",
+    "error_message": "Something went wrong. Please check your entries and try again.",
+    "required": "This field is required",
+    "invalid_url": "Please enter a valid URL",
+    "invalid_email": "Please enter a valid email"
+  }
+}

@@ -69,6 +69,20 @@ const HawkEventDetails: Tab = {
       hooks: {
         beforeChange: [({ data }) => data?.heading?.replace(/\s+/g, '-').toLowerCase()],
       },
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'status',
+      label: 'Status',
+      type: 'select',
+      options: [
+        { label: 'Draft', value: 'draft' },
+        { label: 'Published', value: 'published' },
+        { label: 'Archived', value: 'archived' },
+      ],
+      admin: { position: 'sidebar' },
     },
 
     {
@@ -149,7 +163,7 @@ const HawkEventDetails: Tab = {
           label: 'Day / Time',
           type: 'text',
           localized: false,
-          admin: { description: 'e.g. "Day 1", "09:00–10:30"', width: '30%' },
+          admin: { description: 'e.g. "Day 1", "09:00-10:30"', width: '30%' },
         },
         {
           name: 'title',
@@ -226,9 +240,9 @@ const HawkEventDetails: Tab = {
     }),
     {
       name: 'instagram',
-      label: 'Instagram ID',
+      label: 'Instagram Post URL',
       type: 'text',
-      admin: { description: 'Only the ID, not the full URL', components: {} },
+      admin: { description: 'The full URL of the Instagram post' },
     },
   ],
 };

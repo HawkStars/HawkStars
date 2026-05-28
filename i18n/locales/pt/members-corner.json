@@ -1,0 +1,57 @@
+{
+  "hero": {
+    "title": "Cantinho dos Membros",
+    "subtitle": "Projetos partilhados pelos nossos membros",
+    "description": "Um espaço para os membros com quota em dia da Associação HawkStars mostrarem os seus próprios projetos, para que a comunidade os possa descobrir e acompanhar.",
+    "submitCta": "Partilhar o teu projeto"
+  },
+  "showcase": {
+    "empty": "Ainda não foram publicados projetos de membros. Sê o primeiro a partilhar o teu!",
+    "languageLabel": "Idioma",
+    "datesTitle": "Próximas datas",
+    "moreInfo": "Mais informação",
+    "watchVideo": "Ver vídeo"
+  },
+  "languages": {
+    "pt": "Português",
+    "en": "Inglês",
+    "es": "Espanhol",
+    "fr": "Francês",
+    "de": "Alemão",
+    "it": "Italiano",
+    "other": "Outro"
+  },
+  "form": {
+    "title": "Partilhar o teu projeto",
+    "intro": "Submete o teu projeto abaixo. A nossa equipa confirmará a tua inscrição antes de o projeto aparecer na vitrine.",
+    "title_label": "Título do projeto",
+    "title_placeholder": "Dá um nome ao teu projeto",
+    "description_label": "Descrição",
+    "description_placeholder": "Descreve do que se trata o teu projeto",
+    "language_label": "Idioma do conteúdo",
+    "language_hint": "O idioma em que a informação do projeto está escrita",
+    "image_label": "URL da imagem",
+    "image_hint": "Ligação para uma imagem que represente o teu projeto",
+    "video_label": "URL do vídeo",
+    "video_hint": "Opcional — ligação para um vídeo do YouTube ou Vimeo",
+    "media_required": "Indica pelo menos um URL de imagem ou de vídeo.",
+    "dates_label": "Datas / Acontecimentos",
+    "dates_hint": "Adiciona datas de coisas que vão acontecer, cada uma com uma ligação para mais informação",
+    "date_what_label": "O que vai acontecer",
+    "date_when_label": "Data",
+    "date_link_label": "Ligação para mais informação",
+    "add_date": "Adicionar uma data",
+    "remove": "Remover",
+    "name_label": "O teu nome",
+    "email_label": "O teu email",
+    "email_hint": "Usamos isto apenas para confirmar a tua inscrição",
+    "submit": "Submeter projeto",
+    "submitting": "A submeter...",
+    "success_title": "Obrigado!",
+    "success_message": "O teu projeto foi submetido. A nossa equipa irá analisá-lo e, assim que a tua inscrição for confirmada, aparecerá na vitrine.",
+    "error_message": "Ocorreu um erro. Verifica os dados e tenta novamente.",
+    "required": "Este campo é obrigatório",
+    "invalid_url": "Introduz um URL válido",
+    "invalid_email": "Introduz um email válido"
+  }
+}

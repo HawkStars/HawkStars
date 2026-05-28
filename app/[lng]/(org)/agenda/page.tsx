@@ -2,7 +2,6 @@ import { HawkStarsSection } from '@/components/layout';
 import { LanguagePageProps } from '../types';
 import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
-import { getAgendaEventsQuery } from '@/lib/payload/queries/agenda';
 import AgendaCalendar from '@/components/agenda/AgendaCalendar';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
@@ -20,8 +19,6 @@ const AgendaPage = async (props: LanguagePageProps) => {
   const params = await props.params;
   const { lng } = params;
   const { t } = await getServerTranslation(lng, 'agenda');
-
-  const events = await getAgendaEventsQuery(lng as Language);
 
   const translations = {
     title: t('title'),
@@ -58,7 +55,7 @@ const AgendaPage = async (props: LanguagePageProps) => {
   return (
     <HawkStarsSection className='bg-bege-light gap-8 pt-10 pb-8 max-lg:px-0 max-lg:pt-0 xl:px-10!'>
       <div className='container'>
-        <AgendaCalendar events={events} translations={translations} lng={lng} />
+        <AgendaCalendar translations={translations} lng={lng} />
       </div>
     </HawkStarsSection>
   );

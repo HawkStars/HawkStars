@@ -1,17 +1,18 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { use, useCallback, useMemo, useState } from 'react';
 import { LuCalendar, LuChevronLeft, LuChevronRight, LuCalendarDays } from 'react-icons/lu';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { getImagePayloadUrl } from '@/lib/image';
 import type { HawkEvent } from '@/payload-types';
+import { Language } from '@/i18n/settings';
+import { getAgendaEventsQuery } from '@/lib/payload/queries/agenda';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 type AgendaCalendarProps = {
-  events: HawkEvent[];
   translations: {
     title: string;
     subtitle: string;
@@ -122,11 +123,17 @@ function formatDateRange(
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function AgendaCalendar({ events, translations, lng }: AgendaCalendarProps) {
+export default function AgendaCalendar({ translations, lng }: AgendaCalendarProps) {
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+
+  const fetchEvents = useCallback(async () => {
+    return await getAgendaEventsQuery(lng as Language, currentMonth, currentYear);
+  }, [currentMonth, currentYear]);
+
+  const events = use(fetchEvents());
 
   /**
    * Maps YYYY-MM-DD → events that fall on that day.

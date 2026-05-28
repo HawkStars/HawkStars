@@ -48,6 +48,7 @@ import { WebsiteSettings } from './payload/globals/Settings/config';
 import { CrowdfundingSettings } from './payload/globals/CrowdfundingSettings/config';
 import { jobs } from './payload/jobs';
 import { HawkEvent } from './payload/collections/HawkEvent';
+import { MemberProject } from './payload/collections/MemberProject';
 import { EventsList } from './payload/globals/EventsList/config';
 
 const filename = fileURLToPath(import.meta.url);
@@ -126,6 +127,7 @@ export default buildConfig({
     Curator,
     HawkProject,
     HawkEvent,
+    MemberProject,
     Partner,
     Sponsor,
     Pages,
