@@ -57,7 +57,6 @@ const ProjectCard = ({ project, index, lng, viewProjectLabel }: ProjectCardProps
         </div>
         <div className='flex flex-1 flex-col gap-2.5'>
           <h3 className='text-2xl font-bold lg:text-4xl'>{project.heading}</h3>
-          <p className='text-sm font-medium uppercase'>{project.details?.text}</p>
           {project.startDate && (
             <div className='flex items-center gap-1.5 text-sm font-medium'>
               <LuCalendarDays className='size-4' />
@@ -67,7 +66,6 @@ const ProjectCard = ({ project, index, lng, viewProjectLabel }: ProjectCardProps
         </div>
         <div className='flex-1'>
           <div className='flex flex-col'>
-            <p>{project.details?.text}</p>
             <div className='mt-2.5 h-0 overflow-hidden transition-all duration-300 ease-out group-hover:h-10'>
               <div>
                 <Button

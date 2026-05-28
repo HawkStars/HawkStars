@@ -120,9 +120,7 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
             {((image && image.url) || video) && (
               <div>
                 <div className={cn('relative h-full min-h-75 overflow-hidden rounded-2xl')}>
-                  {!image && video && (
-                    <VideoBlock videoUrl={video} blockType={'videoBlock'} autoplay />
-                  )}
+                  {!image && video && <VideoBlock videoUrl={video} blockType={'videoBlock'} />}
                   {image && (
                     <Image
                       src={image.url}

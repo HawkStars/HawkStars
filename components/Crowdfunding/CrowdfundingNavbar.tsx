@@ -63,7 +63,7 @@ const CrowdfundingNavbar = () => {
           >
             {t('nav.support')}
           </a>
-          <div className='my-auto ml-auto'>
+          <div className='my-auto ml-auto max-lg:hidden'>
             <LanguageSwitcher />
           </div>
 

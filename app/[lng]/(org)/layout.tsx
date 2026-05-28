@@ -9,7 +9,6 @@ import { Metadata } from 'next';
 import Script from 'next/script';
 import { Suspense } from 'react';
 import { getMetadataPageInfo } from '@/utils/metadata';
-import Footer from '@/components/footer/Footer';
 import AppProvider from '@/utils/contexts/AppProvider';
 import { LanguagePageProps } from './types';
 import { Language, fallbackLng, languages } from '@/i18n/settings';
@@ -18,6 +17,7 @@ import MobileNavbar from '@/components/navbar/MobileNavbar';
 import { OrganizationJsonLd } from '@/components/seo/JsonLd';
 import { GA_MEASUREMENT_ID } from '@/lib/constants';
 import Navbar from '@/components/navbar/Navbar';
+import FooterWrapper from '@/components/footer/FooterWrapper';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -84,7 +84,7 @@ async function LayoutContent({ children, lng }: { children: React.ReactNode; lng
       <MobileNavbar />
       <Navbar />
       <main className='bg-body relative min-h-screen'>{children}</main>
-      <Footer />
+      <FooterWrapper />
     </AppProvider>
   );
 }

@@ -138,8 +138,8 @@ const CrowdfundingHero = ({
           <p className='mb-1 text-xs font-semibold tracking-wider text-gray-400 uppercase'>
             {t('hero.stats.raised_label')}
           </p>
-          <div className='flex items-baseline gap-3'>
-            <h2 className='text-4xl font-bold text-white'>
+          <div className='flex items-baseline gap-3 max-lg:flex-wrap'>
+            <h2 className='text-4xl font-bold text-white max-lg:w-full'>
               € {(raisedAmount ?? 0).toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
             </h2>
             <span className='text-lg font-bold text-orange-500'>{percentage}%</span>
@@ -153,7 +153,7 @@ const CrowdfundingHero = ({
             />
           </div>
 
-          <div className='mt-6 grid grid-cols-3 gap-4 border-t border-white/10 pt-4'>
+          <div className='mt-6 grid grid-cols-3 gap-4 border-t border-white/10 pt-4 max-lg:grid-cols-2 max-md:grid-cols-1'>
             <div>
               <p className='text-[10px] font-semibold tracking-wider text-gray-500 uppercase'>
                 {t('hero.stats.campaign_goal_label')}

@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev --webpack",
+    "dev": "next dev",
     "dev:inspect": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "typecheck": "NODE_OPTIONS='--max-old-space-size=4096' tsc --noEmit",

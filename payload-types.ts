@@ -2173,18 +2173,6 @@ export type EventsListStatsItem = {
   id?: string | null;
 }[];
 /**
- * Images for each update card in the Updates section. Add one per card, in order.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CrowdfundingUpdateCardImage".
- */
-export type CrowdfundingUpdateCardImage =
-  | {
-      image: string | Media;
-      id?: string | null;
-    }[]
-  | null;
-/**
  * People and entities that support the project. Shown in the "Já Contamos com o Apoio de" section.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2202,6 +2190,64 @@ export type CrowdfundingSupporter =
        * Optional logo or photo. If empty, the name initials will be shown.
        */
       logo?: (string | null) | Media;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * Reward tiers displayed as cards in the Rewards section. Add one per tier, in order.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CrowdfundingRewardTier".
+ */
+export type CrowdfundingRewardTier =
+  | {
+      /**
+       * E.g. "Apoios Simples", "Reconhecimento no Espaço".
+       */
+      title: string;
+      /**
+       * Short tagline below the title (e.g. "Pequenos gestos, grande impacto.").
+       */
+      subtitle?: string | null;
+      icon?: ('heart' | 'building' | 'location' | 'trophy') | null;
+      items?: CrowdfundingRewardItem;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * Reward items within this tier.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CrowdfundingRewardItem".
+ */
+export type CrowdfundingRewardItem =
+  | {
+      /**
+       * E.g. "Agradecimento digital", "T-shirt de doador".
+       */
+      label: string;
+      /**
+       * E.g. "Desde 10€", "250€ / 350€". Leave empty if not applicable.
+       */
+      price?: string | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * Campaign update cards shown in the Updates section. Each card links to an Instagram post.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CrowdfundingUpdateCard".
+ */
+export type CrowdfundingUpdateCard =
+  | {
+      image: string | Media;
+      title: string;
+      date: string;
+      /**
+       * Link to the Instagram post for this update (e.g. "https://www.instagram.com/p/...").
+       */
+      instagramUrl?: string | null;
       id?: string | null;
     }[]
   | null;
@@ -6285,12 +6331,13 @@ export interface CrowdfundingSetting {
    * YouTube or Vimeo URL for the documentary video (e.g. "https://www.youtube.com/watch?v=...").
    */
   videoUrl?: string | null;
-  updateCardImages?: CrowdfundingUpdateCardImage;
   supporters?: CrowdfundingSupporter;
   /**
    * Background image for the final call-to-action section at the bottom of the page.
    */
   ctaImage?: (string | null) | Media;
+  rewardTiers?: CrowdfundingRewardTier;
+  updateCards?: CrowdfundingUpdateCard;
   /**
    * Campaign phases shown in the timeline section. Add one per phase, in order.
    */
@@ -6549,9 +6596,10 @@ export interface CrowdfundingSettingsSelect<T extends boolean = true> {
   heroImage?: T;
   videoThumbnail?: T;
   videoUrl?: T;
-  updateCardImages?: T | CrowdfundingUpdateCardImageSelect<T>;
   supporters?: T | CrowdfundingSupporterSelect<T>;
   ctaImage?: T;
+  rewardTiers?: T | CrowdfundingRewardTierSelect<T>;
+  updateCards?: T | CrowdfundingUpdateCardSelect<T>;
   phases?:
     | T
     | {
@@ -6567,14 +6615,6 @@ export interface CrowdfundingSettingsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CrowdfundingUpdateCardImage_select".
- */
-export interface CrowdfundingUpdateCardImageSelect<T extends boolean = true> {
-  image?: T;
-  id?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CrowdfundingSupporter_select".
  */
 export interface CrowdfundingSupporterSelect<T extends boolean = true> {
@@ -6582,6 +6622,37 @@ export interface CrowdfundingSupporterSelect<T extends boolean = true> {
   subname?: T;
   type?: T;
   logo?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CrowdfundingRewardTier_select".
+ */
+export interface CrowdfundingRewardTierSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  icon?: T;
+  items?: T | CrowdfundingRewardItemSelect<T>;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CrowdfundingRewardItem_select".
+ */
+export interface CrowdfundingRewardItemSelect<T extends boolean = true> {
+  label?: T;
+  price?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CrowdfundingUpdateCard_select".
+ */
+export interface CrowdfundingUpdateCardSelect<T extends boolean = true> {
+  image?: T;
+  title?: T;
+  date?: T;
+  instagramUrl?: T;
   id?: T;
 }
 /**

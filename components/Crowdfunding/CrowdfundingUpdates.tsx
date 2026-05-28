@@ -1,30 +1,19 @@
 import { CrowdfundingSetting, Media } from '@/payload-types';
 import { TFunction } from 'i18next';
 
-type Props = { t: TFunction<string, string> } & Pick<CrowdfundingSetting, 'updateCardImages'>;
+type Props = { t: TFunction<string, string> } & Pick<CrowdfundingSetting, 'updateCards'>;
 
-const defaultImages = [
-  '/images/projects/3.jpeg',
-  '/images/projects/4.jpeg',
-  '/images/projects/5.jpeg',
-  '/images/projects/6.jpeg',
-];
+const defaultImage = '/images/projects/3.jpeg';
 
-const updateCardsMeta = [
-  { key: 'first24h', badgeKey: 'badge_highlight', badgeColor: 'bg-orange-500' },
-  { key: 'unlock100k', badgeKey: null, badgeColor: '' },
-  { key: 'new_reward', badgeKey: 'badge_new', badgeColor: 'bg-green-600' },
-  { key: 'event', badgeKey: null, badgeColor: '' },
-] as const;
+const formatDate = (isoDate: string): string => {
+  const date = new Date(isoDate);
+  return date
+    .toLocaleDateString('pt-PT', { day: '2-digit', month: 'short', year: 'numeric' })
+    .toUpperCase();
+};
 
-const CrowdfundingUpdates = ({ t, updateCardImages }: Props) => {
-  const cardImages = updateCardsMeta.map((_, index) => {
-    const entry = updateCardImages?.[index];
-    if (entry && typeof entry.image === 'object') {
-      return (entry.image as Media)?.url || defaultImages[index];
-    }
-    return defaultImages[index];
-  });
+const CrowdfundingUpdates = ({ t, updateCards }: Props) => {
+  if (!updateCards || updateCards.length === 0) return null;
 
   return (
     <section className='w-full bg-crowdfunding-surface-alt py-16'>
@@ -46,39 +35,36 @@ const CrowdfundingUpdates = ({ t, updateCardImages }: Props) => {
           </div>
 
           <div className='flex flex-1 gap-4 overflow-x-auto pb-4'>
-            {updateCardsMeta.map(({ key, badgeKey, badgeColor }, index) => {
-              const image = cardImages[index];
-              const description = t(`updates.cards.${key}.description` as Parameters<typeof t>[0], {
-                defaultValue: '',
-              });
+            {updateCards.map((card) => {
+              const imageUrl =
+                card.image && typeof card.image === 'object'
+                  ? (card.image as Media)?.url || defaultImage
+                  : defaultImage;
+
+              const CardWrapper = card.instagramUrl ? 'a' : 'div';
+              const linkProps = card.instagramUrl
+                ? { href: card.instagramUrl, target: '_blank' as const, rel: 'noopener noreferrer' }
+                : {};
+
               return (
-                <div
-                  key={key}
+                <CardWrapper
+                  key={card.id}
+                  {...linkProps}
                   className='flex w-56 shrink-0 flex-col overflow-hidden rounded-2xl border border-white/10 bg-crowdfunding-surface transition hover:border-orange-500/30'
                 >
                   <div className='relative h-36 w-full overflow-hidden'>
                     <div
                       className='h-full w-full bg-cover bg-center'
-                      style={{ backgroundImage: `url('${image}')` }}
+                      style={{ backgroundImage: `url('${imageUrl}')` }}
                     />
-                    {badgeKey && (
-                      <span
-                        className={`absolute top-2 left-2 rounded px-2 py-0.5 text-[10px] font-bold text-white uppercase ${badgeColor}`}
-                      >
-                        {t(`updates.${badgeKey}`)}
-                      </span>
-                    )}
                   </div>
                   <div className='flex flex-1 flex-col p-4'>
-                    <h3 className='text-sm font-bold text-white'>
-                      {t(`updates.cards.${key}.title` as Parameters<typeof t>[0])}
-                    </h3>
-                    {description && <p className='mt-1 text-xs text-gray-500'>{description}</p>}
+                    <h3 className='text-sm font-bold text-white'>{card.title}</h3>
                     <p className='mt-auto pt-3 text-[10px] font-semibold tracking-wider text-gray-600 uppercase'>
-                      {t(`updates.cards.${key}.date` as Parameters<typeof t>[0])}
+                      {formatDate(card.date)}
                     </p>
                   </div>
-                </div>
+                </CardWrapper>
               );
             })}
 

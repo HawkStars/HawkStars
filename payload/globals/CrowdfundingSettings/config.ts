@@ -6,6 +6,8 @@ import { getServerSideURL } from '@/payload/utilities/getURL';
 import CrowdfundingSettingsPhasesTab from './tabs/phases';
 import CrowdfundingSettingsGeneralTab from './tabs/general';
 import CrowdfundingSettingsFundsTab from './tabs/funds';
+import CrowdfundingSettingsUpdatesTab from './tabs/updates';
+import CrowdfundingSettingsRewardsTab from './tabs/rewards';
 
 export const CrowdfundingSettings: GlobalConfig = {
   slug: 'crowdfunding-settings',
@@ -38,6 +40,8 @@ export const CrowdfundingSettings: GlobalConfig = {
       tabs: [
         CrowdfundingSettingsFundsTab,
         CrowdfundingSettingsGeneralTab,
+        CrowdfundingSettingsRewardsTab,
+        CrowdfundingSettingsUpdatesTab,
         CrowdfundingSettingsPhasesTab,
       ],
     },

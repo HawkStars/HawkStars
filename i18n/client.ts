@@ -9,6 +9,14 @@ import { getOptions, languages } from './settings';
 
 const runsOnServerSide = typeof window === 'undefined';
 
+// Read the language from the server-rendered <html lang> attribute to avoid
+// hydration mismatches. LanguageDetector's `navigator` order would otherwise
+// pick the browser locale before useEffect can sync the language.
+const getInitialLng = (): string | undefined => {
+  if (runsOnServerSide) return undefined;
+  return document.documentElement.lang || undefined;
+};
+
 i18next
   .use(initReactI18next)
   .use(LanguageDetector)
@@ -19,7 +27,7 @@ i18next
   )
   .init({
     ...getOptions(),
-    lng: undefined, // let detect the language on client side
+    lng: getInitialLng(),
     detection: {
       order: ['path', 'htmlTag', 'cookie', 'navigator'],
     },

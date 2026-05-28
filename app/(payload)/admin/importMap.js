@@ -28,6 +28,7 @@ import { BlockquoteFeatureClient as BlockquoteFeatureClient_e70f5e05f09f93e00b99
 import { UploadFeatureClient as UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { HorizontalRuleFeatureClient as HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { default as default_5fcf80ad7799f85e06683d7dbd0ce58f } from '@/payload/fields/ImageIcon/components/Field'
 import { SocialLinkRowLabel as SocialLinkRowLabel_0e87c54efb8c46e191c53393194f32db } from '@/payload/fields/Link/SocialLink/components/SocialLinkRowLabel'
 import { default as default_0a9616af2082f80ec778e6175bbe9f27 } from '@/payload/components/admin/BoardMemberListView'
 import { default as default_db1be60011a020b87f4310c749582476 } from '@/components/payload/ContributionSelect'
@@ -47,6 +48,7 @@ import { default as default_697dbdb7f6f9ef4ce600690b2392d8d4 } from '@/payload/g
 import { default as default_f89cbbda01850af27d943f60ccf826ac } from '@/payload/fields/FooterNavGroup/components/Label'
 import { FooterLabel as FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd } from '@/payload/globals/Footer/components/FooterLabel'
 import { default as default_2b7ccde5d3739b53425ce7b9eb4364f8 } from '@/payload/blocks/BentoGridBlock/admin/RowLabel'
+import { default as default_d6f551909a59571b6b09d9dbd166a4ef } from '@/payload/globals/MainPage/fields/components/BannerColorAfterInputField'
 import { default as default_a124e7a1baf393d361b39feebeca9df4 } from '@/payload/globals/ProjectsList/components/StatsLabel'
 import { default as default_e3e0508c4af1bd54a085ab28d2517f80 } from '@/payload/globals/EventsList/components/StatsLabel'
 import { default as default_f1058c6327a7987eb96b4edb557d08ee } from '@/payload/globals/Settings/components/RefreshTokenButton'
@@ -88,6 +90,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#UploadFeatureClient": UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient": HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@/payload/fields/ImageIcon/components/Field#default": default_5fcf80ad7799f85e06683d7dbd0ce58f,
   "@/payload/fields/Link/SocialLink/components/SocialLinkRowLabel#SocialLinkRowLabel": SocialLinkRowLabel_0e87c54efb8c46e191c53393194f32db,
   "@/payload/components/admin/BoardMemberListView#default": default_0a9616af2082f80ec778e6175bbe9f27,
   "@/components/payload/ContributionSelect#default": default_db1be60011a020b87f4310c749582476,
@@ -107,6 +110,7 @@ export const importMap = {
   "@/payload/fields/FooterNavGroup/components/Label#default": default_f89cbbda01850af27d943f60ccf826ac,
   "@/payload/globals/Footer/components/FooterLabel#FooterLabel": FooterLabel_972b38a56f1bcde0d02ff4f97728e1bd,
   "@/payload/blocks/BentoGridBlock/admin/RowLabel#default": default_2b7ccde5d3739b53425ce7b9eb4364f8,
+  "@/payload/globals/MainPage/fields/components/BannerColorAfterInputField#default": default_d6f551909a59571b6b09d9dbd166a4ef,
   "@/payload/globals/ProjectsList/components/StatsLabel#default": default_a124e7a1baf393d361b39feebeca9df4,
   "@/payload/globals/EventsList/components/StatsLabel#default": default_e3e0508c4af1bd54a085ab28d2517f80,
   "@/payload/globals/Settings/components/RefreshTokenButton#default": default_f1058c6327a7987eb96b4edb557d08ee,

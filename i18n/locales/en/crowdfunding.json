@@ -89,104 +89,6 @@
       "step1": "Choose your support tier",
       "step2": "Make your contribution on the platform or by direct contact",
       "step3": "Receive confirmation and campaign updates"
-    },
-    "tiers": {
-      "simple": {
-        "title": "Simple Support",
-        "subtitle": "Small gestures, big impact.",
-        "items": {
-          "digital_thanks": {
-            "label": "Digital thank-you",
-            "price": "From €10"
-          },
-          "tshirt": {
-            "label": "Donor T-shirt",
-            "price": "From €50"
-          },
-          "basket": {
-            "label": "Product basket",
-            "price": "From €60"
-          },
-          "polaroid": {
-            "label": "Polaroid photo",
-            "price": "From €90"
-          },
-          "windbreaker": {
-            "label": "Windbreaker",
-            "price": "From €130"
-          }
-        }
-      },
-      "recognition": {
-        "title": "Recognition in the Space",
-        "subtitle": "Your name, part of this story.",
-        "items": {
-          "brick_wall": {
-            "label": "Brick Wall",
-            "price": "from €250"
-          },
-          "name_walls": {
-            "label": "Name Walls",
-            "price": "from €500"
-          },
-          "chairs": {
-            "label": "Chair naming",
-            "price": "€250 / €350"
-          }
-        }
-      },
-      "experiences": {
-        "title": "Experiences in Pinhel",
-        "subtitle": "Live the territory. Create memories.",
-        "items": {
-          "guided_tour": {
-            "label": "Guided tour + lunch",
-            "price": ""
-          },
-          "pinhel_crawl": {
-            "label": "Pinhel Crawl",
-            "price": ""
-          },
-          "weekend": {
-            "label": "Weekend at Cidadela",
-            "price": ""
-          },
-          "faia_brava": {
-            "label": "Faia Brava / Rewilding Experiences",
-            "price": ""
-          },
-          "masterclasses": {
-            "label": "Special masterclasses",
-            "price": ""
-          }
-        }
-      },
-      "premium": {
-        "title": "Naming & Premium Support",
-        "subtitle": "For companies, foundations and patrons.",
-        "items": {
-          "meeting_rooms": {
-            "label": "Meeting rooms",
-            "price": "from €11,500"
-          },
-          "training_rooms": {
-            "label": "Training rooms",
-            "price": "from €40,000"
-          },
-          "auditorium": {
-            "label": "Auditorium",
-            "price": "€105,000"
-          },
-          "coworking": {
-            "label": "Coworking / Anti-Café",
-            "price": "€115,000"
-          },
-          "naming_itc": {
-            "label": "ITC general naming",
-            "price": "min. €550,000"
-          }
-        }
-      }
     }
   },
   "updates": {
@@ -194,29 +96,7 @@
     "title_prefix": "Follow the campaign",
     "title_highlight": "in real time.",
     "description": "Goals, behind the scenes, new support and next steps. A living campaign, built with you.",
-    "cta_all": "View All Updates →",
-    "badge_highlight": "Featured",
-    "badge_new": "New",
-    "cards": {
-      "first24h": {
-        "title": "First 24h: what we have already achieved together",
-        "date": "18 JAN 2025"
-      },
-      "unlock100k": {
-        "title": "What the €100,000 will unlock",
-        "date": "15 JAN 2025"
-      },
-      "new_reward": {
-        "title": "New reward available",
-        "description": "Hawk Stars donor T-shirt. A symbol of belonging.",
-        "date": "15 JAN 2025"
-      },
-      "event": {
-        "title": "Launch event in Pinhel",
-        "description": "Join us and see the project live.",
-        "date": "10 JAN 2025"
-      }
-    }
+    "cta_all": "View All Updates →"
   },
   "business": {
     "badge": "Business Support & Possible Patronage Framework",

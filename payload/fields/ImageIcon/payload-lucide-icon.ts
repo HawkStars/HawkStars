@@ -5,7 +5,7 @@ type PayloadLucideIcon = {
   condition: (data: Record<string, unknown>, siblingData: Record<string, unknown>) => boolean;
 };
 
-const PayloadLucideIcon = (props?: PayloadLucideIcon) => {
+const PayloadLucideIcon = (props?: PayloadLucideIcon): Field => {
   return {
     name: 'icon',
     type: 'select',
@@ -15,10 +15,11 @@ const PayloadLucideIcon = (props?: PayloadLucideIcon) => {
     admin: {
       description: 'Optional icon from Lucide (https://lucide.dev/icons/)',
       condition: props?.condition ?? true,
+      components: {
+        Field: '@/payload/fields/ImageIcon/components/Field',
+      },
     },
-    components: {
-      Field: '@/payload/fields/ImageIcon/components/Field',
-    },
+
     options: Object.keys(LuIcons).map((iconKey) => ({
       label: iconKey,
       value: iconKey,

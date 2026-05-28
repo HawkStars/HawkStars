@@ -27,7 +27,12 @@ const BannerFields: GroupField = {
       type: 'text',
       label: 'Banner Text Color',
       required: false,
-      admin: { description: 'Hex color code for the banner background (e.g. #ff0000)' },
+      admin: {
+        description: 'Hex color code for the banner background (e.g. #ff0000)',
+        components: {
+          afterInput: ['@/payload/globals/MainPage/fields/components/BannerColorAfterInputField'],
+        },
+      },
       validate: (value: string | undefined | null) => {
         if (!value) return true; // Allow empty value
         const hexColorRegex = /^#([0-9A-Fa-f]{3}){1,2}$/;

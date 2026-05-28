@@ -97,35 +97,6 @@ const CrowdfundingSettingsGeneralTab: Tab = {
           'YouTube or Vimeo URL for the documentary video (e.g. "https://www.youtube.com/watch?v=...").',
       },
     },
-    {
-      name: 'updateCardImages',
-      type: 'array',
-      interfaceName: 'CrowdfundingUpdateCardImage',
-      label: {
-        pt: 'Imagens dos Cartões de Atualizações',
-        en: 'Update Card Images',
-      },
-      admin: {
-        description:
-          'Images for each update card in the Updates section. Add one per card, in order.',
-        components: {
-          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
-        },
-      },
-      maxRows: 10,
-      fields: [
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-          label: {
-            pt: 'Imagem',
-            en: 'Image',
-          },
-          required: true,
-        },
-      ],
-    },
     // ── Supporters ───────────────────────────────────────────────────
     {
       name: 'supporters',

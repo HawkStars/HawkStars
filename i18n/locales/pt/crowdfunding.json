@@ -68,7 +68,7 @@
     "badge": "Transparência",
     "title": "Cada contributo ajuda a desbloquear a próxima fase",
     "description": "A campanha atual está focada numa primeira meta de 100.000€, pensada para ajudar a desbloquear licenciamento, preparação do imóvel, arranque da primeira fase da obra e fundo de maneio. O projeto global é apresentado com um custo estimado de 900.000€.",
-    "cta_money": "Ver como o dinheiro será aplicado →",
+    "cta_money": "Ver como o dinheiro será aplicado",
     "raised_label": "Angariado Até Agora",
     "weekly_increase": "€ 4.250 esta semana",
     "campaign_goal_label": "Meta da Campanha Atual",
@@ -84,109 +84,11 @@
     "title_highlight": "mais sentido para ti.",
     "description": "Desde apoios simbólicos a experiências únicas e apoios premium. Cada contributo aproxima o Global Village de se tornar realidade.",
     "how_to_badge": "Como Contribuir",
-    "cta_all": "Ver Todas as Modalidades →",
+    "cta_all": "Ver Todas as Modalidades",
     "steps": {
       "step1": "Escolhe a modalidade de apoio",
       "step2": "Faz o contributo na plataforma ou por contacto direto",
       "step3": "Recebe confirmação e acompanhamento da campanha"
-    },
-    "tiers": {
-      "simple": {
-        "title": "Apoios Simples",
-        "subtitle": "Pequenos gestos, grande impacto.",
-        "items": {
-          "digital_thanks": {
-            "label": "Agradecimento digital",
-            "price": "Desde 10€"
-          },
-          "tshirt": {
-            "label": "T-shirt de doador",
-            "price": "Desde 50€"
-          },
-          "basket": {
-            "label": "Cabaz de produtos",
-            "price": "Desde 60€"
-          },
-          "polaroid": {
-            "label": "Foto polaroid",
-            "price": "Desde 90€"
-          },
-          "windbreaker": {
-            "label": "Windbreaker",
-            "price": "Desde 130€"
-          }
-        }
-      },
-      "recognition": {
-        "title": "Reconhecimento no Espaço",
-        "subtitle": "O teu nome, parte desta história.",
-        "items": {
-          "brick_wall": {
-            "label": "Brick Wall",
-            "price": "desde 250€"
-          },
-          "name_walls": {
-            "label": "Name Walls",
-            "price": "desde 500€"
-          },
-          "chairs": {
-            "label": "Naming de cadeiras",
-            "price": "250€ / 350€"
-          }
-        }
-      },
-      "experiences": {
-        "title": "Experiências em Pinhel",
-        "subtitle": "Vive o território. Cria memórias.",
-        "items": {
-          "guided_tour": {
-            "label": "Visita guiada + almoço",
-            "price": ""
-          },
-          "pinhel_crawl": {
-            "label": "Pinhel Crawl",
-            "price": ""
-          },
-          "weekend": {
-            "label": "Fim de semana em Cidadela",
-            "price": ""
-          },
-          "faia_brava": {
-            "label": "Experiências Faia Brava / Rewilding",
-            "price": ""
-          },
-          "masterclasses": {
-            "label": "Masterclasses especiais",
-            "price": ""
-          }
-        }
-      },
-      "premium": {
-        "title": "Naming e Apoio Premium",
-        "subtitle": "Para empresas, fundações e mecenas.",
-        "items": {
-          "meeting_rooms": {
-            "label": "Salas de reunião",
-            "price": "desde 11.500€"
-          },
-          "training_rooms": {
-            "label": "Salas de formação",
-            "price": "desde 40.000€"
-          },
-          "auditorium": {
-            "label": "Auditório",
-            "price": "105.000€"
-          },
-          "coworking": {
-            "label": "Coworking / Anti-Café",
-            "price": "115.000€"
-          },
-          "naming_itc": {
-            "label": "Naming geral do ITC",
-            "price": "min. 550.000€"
-          }
-        }
-      }
     }
   },
   "updates": {
@@ -194,36 +96,14 @@
     "title_prefix": "Acompanha a campanha",
     "title_highlight": "em tempo real.",
     "description": "Metas, bastidores, novos apoios e próximos passos. Uma campanha viva, construída contigo.",
-    "cta_all": "Ver Todas as Atualizações →",
-    "badge_highlight": "Destaque",
-    "badge_new": "Novo",
-    "cards": {
-      "first24h": {
-        "title": "Primeiras 24h: o que já conseguimos juntos",
-        "date": "18 JAN 2025"
-      },
-      "unlock100k": {
-        "title": "O que os 100.000€ desbloqueiam",
-        "date": "15 JAN 2025"
-      },
-      "new_reward": {
-        "title": "Novo reward disponível",
-        "description": "T-shirt de doador Hawk Stars. Um símbolo de pertença.",
-        "date": "15 JAN 2025"
-      },
-      "event": {
-        "title": "Evento de apresentação em Pinhel",
-        "description": "Junta-te a nós e conhece o projeto ao vivo.",
-        "date": "10 JAN 2025"
-      }
-    }
+    "cta_all": "Ver Todas as Atualizações"
   },
   "business": {
     "badge": "Apoio Empresarial e Possível Enquadramento em Mecenato",
     "title_prefix": "Participe num projeto que transforma território e gera",
     "title_highlight": "impacto real.",
     "description": "Associe a sua empresa ou fundação a um projeto de educação, inovação, cultura e juventude, com impacto duradouro em Pinhel.",
-    "cta": "Falar Sobre Apoio Empresarial →",
+    "cta": "Falar Sobre Apoio Empresarial",
     "disclaimer": "Os benefícios fiscais não são garantidos. Donativos sem contrapartidas comerciais podem enquadrar-se no Estatuto dos Benefícios Fiscais. Fale connosco para avaliar a modalidade.",
     "benefits": {
       "impact": {
@@ -321,9 +201,9 @@
     "title_line1": "O futuro do interior",
     "title_highlight": "também se constrói assim.",
     "description": "Cada contributo ajuda a transformar visão em espaço real, comunidade em movimento e território em oportunidade.",
-    "cta_support": "Apoiar Agora →",
-    "cta_share": "Partilhar Campanha →",
-    "cta_team": "Falar com a Equipa →"
+    "cta_support": "Apoiar Agora",
+    "cta_share": "Partilhar Campanha",
+    "cta_team": "Falar com a Equipa"
   },
   "nav": {
     "about": "Sobre",
