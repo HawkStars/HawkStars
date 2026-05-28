@@ -8,6 +8,7 @@ const tabKeys = ['godparents', 'partners', 'donors', 'community'] as const;
 const tabIcons = ['★', '🤝', '❤', '👥'] as const;
 
 function getInitials(name: string): string {
+  if (!name) return '';
   return name
     .split(/\s+/)
     .slice(0, 2)
@@ -18,7 +19,7 @@ function getInitials(name: string): string {
 
 const CrowdfundingPartners = ({ t, supporters }: Props) => {
   return (
-    <section className='w-full bg-crowdfunding-surface-alt py-16'>
+    <section className='bg-crowdfunding-surface-alt w-full py-16'>
       <div className='mx-auto max-w-7xl px-4 lg:px-8'>
         <div className='flex flex-col gap-10 lg:flex-row lg:items-start'>
           <div className='flex shrink-0 flex-col gap-4 lg:w-80'>
@@ -56,7 +57,7 @@ const CrowdfundingPartners = ({ t, supporters }: Props) => {
                 return (
                   <div
                     key={supporter.id}
-                    className='flex h-32 w-44 shrink-0 flex-col items-center justify-center rounded-2xl border border-orange-500/30 bg-crowdfunding-surface p-4 text-center'
+                    className='bg-crowdfunding-surface flex h-32 w-44 shrink-0 flex-col items-center justify-center rounded-2xl border border-orange-500/30 p-4 text-center'
                   >
                     {logoUrl ? (
                       <Image

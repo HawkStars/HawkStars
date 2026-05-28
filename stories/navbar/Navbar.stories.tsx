@@ -36,8 +36,7 @@ const createDropdownLink = (
 });
 
 // Sample dropdown configurations
-const aboutDropdownV1: NavbarDropdown = {
-  version: 'v1',
+const aboutDropdown: NavbarDropdown = {
   dropdownTitle: 'About',
   key: 'about',
   structure: 'single-column',
@@ -67,8 +66,7 @@ const aboutDropdownV1: NavbarDropdown = {
   },
 };
 
-const projectsDropdownV2: NavbarDropdown = {
-  version: 'v2',
+const projectsDropdown: NavbarDropdown = {
   dropdownTitle: 'Projects',
   key: 'projects',
   structure: 'two-columns',
@@ -104,8 +102,7 @@ const projectsDropdownV2: NavbarDropdown = {
   },
 };
 
-const artDropdownV1: NavbarDropdown = {
-  version: 'v1',
+const artDropdown: NavbarDropdown = {
   dropdownTitle: 'Art',
   key: 'art',
   structure: 'two-columns',
@@ -140,7 +137,7 @@ const simpleHeaderInfo: Header = {
     {
       id: 'about-dropdown',
       isMultiColumn: true,
-      dropdown: aboutDropdownV1,
+      dropdown: aboutDropdown,
     },
     {
       id: 'news',
@@ -160,17 +157,17 @@ const fullHeaderInfo: Header = {
     {
       id: 'about-dropdown',
       isMultiColumn: true,
-      dropdown: aboutDropdownV1,
+      dropdown: aboutDropdown,
     },
     {
       id: 'projects-dropdown',
       isMultiColumn: true,
-      dropdown: projectsDropdownV2,
+      dropdown: projectsDropdown,
     },
     {
       id: 'art-dropdown',
       isMultiColumn: true,
-      dropdown: artDropdownV1,
+      dropdown: artDropdown,
     },
     {
       id: 'news',
@@ -287,22 +284,22 @@ export const SingleLinksOnly: Story = {
   ],
 };
 
-export const WithDropdownV1: Story = {
+export const WithDropdowns: Story = {
   decorators: [
     (Story) => (
       <AppProvider
         headerInfo={{
-          id: 'dropdown-v1-header',
+          id: 'dropdowns-header',
           columns: [
             {
               id: 'about-dropdown',
               isMultiColumn: true,
-              dropdown: aboutDropdownV1,
+              dropdown: aboutDropdown,
             },
             {
               id: 'art-dropdown',
               isMultiColumn: true,
-              dropdown: artDropdownV1,
+              dropdown: artDropdown,
             },
           ],
         }}
@@ -316,17 +313,17 @@ export const WithDropdownV1: Story = {
   ],
 };
 
-export const WithDropdownV2: Story = {
+export const WithProjectsDropdown: Story = {
   decorators: [
     (Story) => (
       <AppProvider
         headerInfo={{
-          id: 'dropdown-v2-header',
+          id: 'projects-header',
           columns: [
             {
               id: 'projects-dropdown',
               isMultiColumn: true,
-              dropdown: projectsDropdownV2,
+              dropdown: projectsDropdown,
             },
           ],
         }}
@@ -340,22 +337,22 @@ export const WithDropdownV2: Story = {
   ],
 };
 
-export const MixedDropdownVersions: Story = {
+export const MultipleDropdowns: Story = {
   decorators: [
     (Story) => (
       <AppProvider
         headerInfo={{
-          id: 'mixed-header',
+          id: 'multi-dropdown-header',
           columns: [
             {
               id: 'about-dropdown',
               isMultiColumn: true,
-              dropdown: aboutDropdownV1,
+              dropdown: aboutDropdown,
             },
             {
               id: 'projects-dropdown',
               isMultiColumn: true,
-              dropdown: projectsDropdownV2,
+              dropdown: projectsDropdown,
             },
           ],
         }}

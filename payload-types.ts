@@ -6051,7 +6051,6 @@ export interface Header {
  * via the `definition` "NavbarDropdown".
  */
 export interface NavbarDropdown {
-  version: 'v1' | 'v2';
   /**
    * Title for the dropdown menu
    */
@@ -6403,7 +6402,6 @@ export interface HeaderNavigationColumnsSelect<T extends boolean = true> {
  * via the `definition` "NavbarDropdown_select".
  */
 export interface NavbarDropdownSelect<T extends boolean = true> {
-  version?: T;
   dropdownTitle?: T;
   key?: T;
   structure?: T;

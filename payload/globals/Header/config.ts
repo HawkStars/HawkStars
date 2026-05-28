@@ -62,23 +62,6 @@ export const Header: GlobalConfig = {
           type: 'group',
           fields: [
             {
-              name: 'version',
-              label: 'Version',
-              type: 'select',
-              options: [
-                {
-                  label: 'Version 1',
-                  value: 'v1',
-                },
-                {
-                  label: 'Version 2',
-                  value: 'v2',
-                },
-              ],
-              required: true,
-              defaultValue: 'v1',
-            },
-            {
               name: 'dropdownTitle',
               type: 'text',
               label: 'Dropdown Title',

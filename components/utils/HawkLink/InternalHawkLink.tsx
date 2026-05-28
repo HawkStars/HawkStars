@@ -2,6 +2,35 @@ import Link from 'next/link';
 import { InternalLinkProps } from './config';
 import { cn } from '@/lib/utils';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { HawkEvent, HawkProject, Page } from '@/payload-types';
+
+type UrlType = string | Page | HawkProject | HawkEvent;
+
+export const createInternalLinkHref = (
+  relationTo: string,
+  url: UrlType,
+  section?: string | null
+) => {
+  const lng = useLanguageCookie();
+  let href = '#';
+
+  const transformedUrl = `${typeof url === 'string' ? url : url.slug}${section ? `#${section}` : ''}`;
+
+  switch (relationTo) {
+    case 'pages':
+      href = `/${lng}/${transformedUrl}`;
+      break;
+    case 'hawk_events':
+      href = `/${lng}/events/${transformedUrl}`;
+      break;
+    case 'hawk_projects':
+      href = `/${lng}/projects/${transformedUrl}`;
+      break;
+    default:
+      break;
+  }
+  return href;
+};
 
 const InternalHawkLink = ({
   children,
@@ -11,18 +40,7 @@ const InternalHawkLink = ({
   className,
   section,
 }: InternalLinkProps) => {
-  const lng = useLanguageCookie();
-  let href = '#';
-  if (typeof url === 'string')
-    href =
-      relationTo === 'pages'
-        ? `/${lng}/${url}${section ? `#${section}` : ''}`
-        : `/events/${lng}/${url}${section ? `#${section}` : ''}`;
-  else if ('slug' in url && url.slug)
-    href =
-      relationTo === 'pages'
-        ? `/${lng}/${url.slug}${section ? `#${section}` : ''}`
-        : `/events/${lng}/${url.slug}${section ? `#${section}` : ''}`;
+  const href = createInternalLinkHref(relationTo, url, section);
 
   return (
     <Link
