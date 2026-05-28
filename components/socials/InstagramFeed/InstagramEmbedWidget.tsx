@@ -106,29 +106,6 @@ function WidgetHeader() {
   );
 }
 
-function EmbedSkeleton() {
-  return (
-    <div className='space-y-4 p-4'>
-      {Array.from({ length: 2 }).map((_, i) => (
-        <div
-          key={i}
-          className='animate-pulse space-y-3 rounded-lg border border-neutral-200 p-4 dark:border-neutral-700'
-        >
-          <div className='flex items-center gap-2'>
-            <div className='size-8 rounded-full bg-neutral-200 dark:bg-neutral-700' />
-            <div className='h-3 w-24 rounded bg-neutral-200 dark:bg-neutral-700' />
-          </div>
-          <div className='aspect-square w-full rounded bg-neutral-200 dark:bg-neutral-700' />
-          <div className='space-y-2'>
-            <div className='h-3 w-full rounded bg-neutral-200 dark:bg-neutral-700' />
-            <div className='h-3 w-3/4 rounded bg-neutral-200 dark:bg-neutral-700' />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 export default function InstagramEmbedWidget({
   maxPosts = 3,
   showHeader = true,

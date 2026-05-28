@@ -1,7 +1,7 @@
 'use client';
 import type { SelectFieldLabelClientComponent } from 'payload';
 
-import { SelectField, useField } from '@payloadcms/ui';
+import { useField } from '@payloadcms/ui';
 
 const BannerColorField: SelectFieldLabelClientComponent = (props) => {
   const { path } = props;

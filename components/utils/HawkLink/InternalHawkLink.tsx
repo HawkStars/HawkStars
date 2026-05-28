@@ -7,11 +7,11 @@ import { HawkEvent, HawkProject, Page } from '@/payload-types';
 type UrlType = string | Page | HawkProject | HawkEvent;
 
 export const createInternalLinkHref = (
+  lng: string,
   relationTo: string,
   url: UrlType,
   section?: string | null
 ) => {
-  const lng = useLanguageCookie();
   let href = '#';
 
   const transformedUrl = `${typeof url === 'string' ? url : url.slug}${section ? `#${section}` : ''}`;
@@ -40,7 +40,8 @@ const InternalHawkLink = ({
   className,
   section,
 }: InternalLinkProps) => {
-  const href = createInternalLinkHref(relationTo, url, section);
+  const lng = useLanguageCookie();
+  const href = createInternalLinkHref(lng, relationTo, url, section);
 
   return (
     <Link
