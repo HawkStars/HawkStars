@@ -24,11 +24,7 @@ const EventPage = async (props: EventPageProps) => {
   const project = await getSingleProjectsQuery(slug, lng);
   if (!project) notFound();
 
-  return (
-    <>
-      <ProjectPage project={project} />
-    </>
-  );
+  return <ProjectPage project={project} />;
 };
 
 export default EventPage;

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { use, useCallback, useMemo, useState } from 'react';
+import React, { use, useCallback, useEffect, useMemo, useState } from 'react';
 import { LuCalendar, LuChevronLeft, LuChevronRight, LuCalendarDays } from 'react-icons/lu';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { getImagePayloadUrl } from '@/lib/image';
 import type { HawkEvent } from '@/payload-types';
 import { Language } from '@/i18n/settings';
-import { getAgendaEventsQuery } from '@/lib/payload/queries/agenda';
+import { getEventsByMonthAndYear } from '@/lib/payload/client/event';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -125,15 +125,22 @@ function formatDateRange(
 
 export default function AgendaCalendar({ translations, lng }: AgendaCalendarProps) {
   const today = new Date();
+  const [events, setEvents] = useState<HawkEvent[]>([]);
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   const fetchEvents = useCallback(async () => {
-    return await getAgendaEventsQuery(lng as Language, currentMonth, currentYear);
-  }, [currentMonth, currentYear]);
+    return await getEventsByMonthAndYear(lng as Language, currentMonth, currentYear);
+  }, [currentMonth, currentYear, getEventsByMonthAndYear, lng]);
 
-  const events = use(fetchEvents());
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchEvents();
+      setEvents(data);
+    };
+    fetchData();
+  }, [fetchEvents]);
 
   /**
    * Maps YYYY-MM-DD → events that fall on that day.
@@ -367,7 +374,7 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
                   return (
                     <a
                       key={event.id}
-                      href={`/${lng}/projects/${event.slug}`}
+                      href={`/${lng}/events/${event.slug}`}
                       className='group block overflow-hidden rounded-lg border transition-shadow hover:shadow-md'
                     >
                       {imageInfo?.url && (

@@ -19,7 +19,7 @@ export const getSingleHawkEventQuery = async (
   const payload = await getPayloadConfig();
   const result = await payload.find({
     collection: EVENTS_COLLECTION,
-    where: { slug: { equals: slug }, _status: { equals: 'published' } },
+    where: { slug: { equals: slug }, status: { equals: 'published' } },
     locale,
     limit: 1,
     depth: 2,

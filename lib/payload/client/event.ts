@@ -1,8 +1,9 @@
-import type { AgendaBlock } from '@/payload-types';
+import type { AgendaBlock, HawkEvent } from '@/payload-types';
 import type { Where } from 'payload';
 import { stringify } from 'qs-esm';
 
 import API_CLIENT_PATHS from './constants';
+import { Language } from '@/i18n/settings';
 
 // --- UpcomingHawkEventBlock ---
 
@@ -81,4 +82,46 @@ const fetchAgendaEvents = async ({ eventType, maxEvents }: FetchAgendaEventsOpti
   }
 };
 
-export { fetchEvent, fetchAgendaEvents };
+const getEventsByMonthAndYear = async (
+  locale: Language,
+  month: number,
+  year: number
+): Promise<HawkEvent[]> => {
+  // Current calendar month: from the 1st (00:00) to the last day (23:59:59).
+  const startOfMonth = new Date(year, month, 1, 0, 0, 0, 0);
+  const endOfMonth = new Date(year, month + 1, 0, 23, 59, 59, 999);
+
+  const where: Where = {
+    status: { equals: 'published' },
+    // Include any event that overlaps the current month — either it starts
+    // within the month, or it's a multi-day event still running into it.
+    or: [
+      {
+        date: {
+          greater_than_equal: startOfMonth.toISOString(),
+          less_than_equal: endOfMonth.toISOString(),
+        },
+      },
+      {
+        and: [
+          { date: { less_than: startOfMonth.toISOString() } },
+          { endDate: { greater_than_equal: startOfMonth.toISOString() } },
+        ],
+      },
+    ],
+  };
+
+  const query = stringify({ where, locale, sort: 'date' }, { addQueryPrefix: true });
+
+  const response = await fetch(`${API_CLIENT_PATHS.events}${query}`);
+
+  if (!response.ok) {
+    console.error('AgendaBlock: failed to fetch events', response.statusText);
+    return [];
+  }
+
+  const data = await response.json();
+  return data?.docs ?? [];
+};
+
+export { fetchEvent, fetchAgendaEvents, getEventsByMonthAndYear };
