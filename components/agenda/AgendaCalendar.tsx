@@ -1,6 +1,6 @@
 'use client';
 
-import React, { use, useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { LuCalendar, LuChevronLeft, LuChevronRight, LuCalendarDays } from 'react-icons/lu';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -132,7 +132,7 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
 
   const fetchEvents = useCallback(async () => {
     return await getEventsByMonthAndYear(lng as Language, currentMonth, currentYear);
-  }, [currentMonth, currentYear, getEventsByMonthAndYear, lng]);
+  }, [currentMonth, currentYear, lng]);
 
   useEffect(() => {
     const fetchData = async () => {
