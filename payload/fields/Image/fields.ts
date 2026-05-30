@@ -4,12 +4,12 @@ const ImageTypeField = ({ required = false }: { required: boolean }) =>
   ({
     name: 'imageType',
     type: 'select',
-    label: 'Image Type',
+    label: { en: 'Image Type', pt: 'Tipo de Imagem' },
     required,
     options: [
-      { label: 'External Image', value: 'external' },
-      { label: 'Uploaded Image/Media', value: 'upload' },
-      { label: 'None', value: 'none' },
+      { label: { en: 'External Image', pt: 'Imagem Externa' }, value: 'external' },
+      { label: { en: 'Uploaded Image/Media', pt: 'Imagem/Média Carregada' }, value: 'upload' },
+      { label: { en: 'None', pt: 'Nenhuma' }, value: 'none' },
     ],
     admin: {
       description: 'Select whether to use an external image URL or upload an image/media file.',
@@ -20,7 +20,7 @@ const UploadField: Field = {
   name: 'image',
   type: 'upload',
   relationTo: 'media',
-  label: 'Image',
+  label: { en: 'Image', pt: 'Imagem' },
   admin: {
     description: 'Upload an image or media file.',
     condition: (_, siblingData) => siblingData.imageType === 'upload',
@@ -30,7 +30,7 @@ const UploadField: Field = {
 const ExternalImageField: Field = {
   name: 'externalImage',
   type: 'text',
-  label: 'External Image URL',
+  label: { en: 'External Image URL', pt: 'URL de Imagem Externa' },
   admin: {
     description: 'Provide the URL for the external image.',
     condition: (_, siblingData) => siblingData.imageType === 'external',

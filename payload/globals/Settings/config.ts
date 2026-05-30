@@ -17,12 +17,12 @@ export const WebsiteSettings: GlobalConfig = {
   },
   fields: [
     {
-      label: 'Instagram Feed',
+      label: { en: 'Instagram Feed', pt: 'Feed do Instagram' },
       type: 'group',
       fields: [
         {
           name: 'instagramToken',
-          label: 'Instagram Access Token',
+          label: { en: 'Instagram Access Token', pt: 'Token de Acesso do Instagram' },
           type: 'text',
           admin: {
             description:
@@ -32,7 +32,7 @@ export const WebsiteSettings: GlobalConfig = {
         },
         {
           name: 'instagramUserId',
-          label: 'Instagram User ID',
+          label: { en: 'Instagram User ID', pt: 'ID de Utilizador do Instagram' },
           type: 'text',
           admin: {
             description:
@@ -42,12 +42,12 @@ export const WebsiteSettings: GlobalConfig = {
       ],
     },
     {
-      label: 'Google Drive',
+      label: { en: 'Google Drive', pt: 'Google Drive' },
       type: 'group',
       fields: [
         {
           name: 'googleRefreshToken',
-          label: 'Google Refresh Token',
+          label: { en: 'Google Refresh Token', pt: 'Token de Atualização do Google' },
           type: 'text',
           admin: {
             description:

@@ -1,13 +1,13 @@
 import { Tab } from 'payload';
 
 const CuratorFieldsTab: Tab = {
-  label: 'Curator Details',
+  label: { en: 'Curator Details', pt: 'Detalhes do Curador' },
   description: 'Information about the curator',
   fields: [
     {
       type: 'text',
       name: 'name',
-      label: 'Curator Name',
+      label: { en: 'Curator Name', pt: 'Nome do Curador' },
       required: true,
       hooks: {
         afterChange: [
@@ -24,14 +24,14 @@ const CuratorFieldsTab: Tab = {
       unique: true,
       required: true,
     },
-    { type: 'text', name: 'location', label: 'Location' },
+    { type: 'text', name: 'location', label: { en: 'Location', pt: 'Localização' } },
     {
       type: 'richText',
       name: 'description',
-      label: 'Biographical Note',
+      label: { en: 'Biographical Note', pt: 'Nota Biográfica' },
       localized: true,
     },
-    { type: 'upload', name: 'image', label: 'Image', relationTo: 'media', required: true },
+    { type: 'upload', name: 'image', label: { en: 'Image', pt: 'Imagem' }, relationTo: 'media', required: true },
   ],
 };
 export default CuratorFieldsTab;

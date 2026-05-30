@@ -6,8 +6,8 @@ export const Documents: CollectionConfig = {
     interface: 'HawkDocument',
   },
   labels: {
-    singular: 'Document',
-    plural: 'Documents',
+    singular: { en: 'Document', pt: 'Documento' },
+    plural: { en: 'Documents', pt: 'Documentos' },
   },
   admin: {
     description:
@@ -40,6 +40,7 @@ export const Documents: CollectionConfig = {
   fields: [
     {
       name: 'title',
+      label: { en: 'Title', pt: 'Título' },
       type: 'text',
       required: true,
       admin: {
@@ -48,17 +49,19 @@ export const Documents: CollectionConfig = {
     },
     {
       name: 'folder',
+      label: { en: 'Folder', pt: 'Pasta' },
       type: 'select',
       options: [
-        { label: 'General', value: 'general' },
-        { label: 'Projects', value: 'projects' },
-        { label: 'Events', value: 'events' },
-        { label: 'Reports', value: 'reports' },
+        { label: { en: 'General', pt: 'Geral' }, value: 'general' },
+        { label: { en: 'Projects', pt: 'Projetos' }, value: 'projects' },
+        { label: { en: 'Events', pt: 'Eventos' }, value: 'events' },
+        { label: { en: 'Reports', pt: 'Relatórios' }, value: 'reports' },
       ],
       admin: { description: 'Optional folder path for organization.' },
     },
     {
       name: 'description',
+      label: { en: 'Description', pt: 'Descrição' },
       type: 'textarea',
       required: false,
       admin: {

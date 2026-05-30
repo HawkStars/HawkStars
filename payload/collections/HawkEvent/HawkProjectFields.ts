@@ -3,28 +3,28 @@ import { MultiImageField } from '@/payload/fields/MultiImage';
 import { Tab } from 'payload';
 
 const HawkEventDetails: Tab = {
-  label: 'Details',
+  label: { en: 'Details', pt: 'Detalhes' },
   description: 'Information about the Hawk Event',
   admin: {
     description: 'Configure the details for the Hawk Event here',
   },
   fields: [
-    { name: 'heading', label: 'Title', type: 'text', required: true, localized: true },
-    { name: 'subheading', label: 'Subtitle', type: 'text', localized: true },
+    { name: 'heading', label: { en: 'Title', pt: 'Título' }, type: 'text', required: true, localized: true },
+    { name: 'subheading', label: { en: 'Subtitle', pt: 'Subtítulo' }, type: 'text', localized: true },
     {
-      label: 'General Information',
+      label: { en: 'General Information', pt: 'Informação Geral' },
       type: 'group',
       fields: [
         {
           name: 'description',
-          label: 'Description',
+          label: { en: 'Description', pt: 'Descrição' },
           type: 'textarea',
           localized: true,
           admin: { description: 'Short description shown on the homepage top' },
         },
         {
           name: 'isDateRange',
-          label: 'Multi-day Event',
+          label: { en: 'Multi-day Event', pt: 'Evento de Vários Dias' },
           type: 'checkbox',
           defaultValue: false,
           admin: {
@@ -33,7 +33,7 @@ const HawkEventDetails: Tab = {
         },
         {
           name: 'date',
-          label: 'Event Date / Start Date',
+          label: { en: 'Event Date / Start Date', pt: 'Data do Evento / Data de Início' },
           type: 'date',
           required: true,
           admin: {
@@ -46,7 +46,7 @@ const HawkEventDetails: Tab = {
         },
         {
           name: 'endDate',
-          label: 'End Date',
+          label: { en: 'End Date', pt: 'Data de Fim' },
           type: 'date',
           admin: {
             description: 'Last day of the event (only for multi-day events)',
@@ -75,25 +75,25 @@ const HawkEventDetails: Tab = {
     },
     {
       name: 'status',
-      label: 'Status',
+      label: { en: 'Status', pt: 'Estado' },
       type: 'select',
       options: [
-        { label: 'Draft', value: 'draft' },
-        { label: 'Published', value: 'published' },
-        { label: 'Archived', value: 'archived' },
+        { label: { en: 'Draft', pt: 'Rascunho' }, value: 'draft' },
+        { label: { en: 'Published', pt: 'Publicado' }, value: 'published' },
+        { label: { en: 'Archived', pt: 'Arquivado' }, value: 'archived' },
       ],
       admin: { position: 'sidebar' },
     },
 
     {
       name: 'type_event',
-      label: 'Type of Event',
+      label: { en: 'Type of Event', pt: 'Tipo de Evento' },
       type: 'select',
       defaultValue: 'local_event',
       options: [
-        { label: 'Local Event', value: 'local_event' },
-        { label: 'International Event', value: 'international_event' },
-        { label: 'Other', value: 'other' },
+        { label: { en: 'Local Event', pt: 'Evento Local' }, value: 'local_event' },
+        { label: { en: 'International Event', pt: 'Evento Internacional' }, value: 'international_event' },
+        { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
       ],
     },
     /* -------------------------------------------------------------- */
@@ -102,14 +102,14 @@ const HawkEventDetails: Tab = {
     {
       type: 'group',
       name: 'details',
-      label: 'Description',
+      label: { en: 'Description', pt: 'Descrição' },
       admin: {
         description: 'Main body content shown on the public event page.',
       },
       fields: [
         {
           name: 'text',
-          label: 'Main Text',
+          label: { en: 'Main Text', pt: 'Texto Principal' },
           type: 'textarea',
           localized: true,
           admin: {
@@ -119,7 +119,7 @@ const HawkEventDetails: Tab = {
         },
         {
           name: 'sections',
-          label: 'Additional Sections',
+          label: { en: 'Additional Sections', pt: 'Secções Adicionais' },
           type: 'array',
           interfaceName: 'HawkEventSection',
           admin: {
@@ -129,13 +129,13 @@ const HawkEventDetails: Tab = {
           fields: [
             {
               name: 'title',
-              label: 'Section Title',
+              label: { en: 'Section Title', pt: 'Título da Secção' },
               type: 'text',
               localized: true,
             },
             {
               name: 'text',
-              label: 'Section Text',
+              label: { en: 'Section Text', pt: 'Texto da Secção' },
               type: 'textarea',
               localized: true,
               admin: { rows: 6 },
@@ -150,7 +150,7 @@ const HawkEventDetails: Tab = {
     /* -------------------------------------------------------------- */
     {
       name: 'program',
-      label: 'Program / Schedule',
+      label: { en: 'Program / Schedule', pt: 'Programa / Horário' },
       type: 'array',
       interfaceName: 'HawkEventProgramItem',
       admin: {
@@ -160,21 +160,21 @@ const HawkEventDetails: Tab = {
       fields: [
         {
           name: 'day',
-          label: 'Day / Time',
+          label: { en: 'Day / Time', pt: 'Dia / Hora' },
           type: 'text',
           localized: false,
           admin: { description: 'e.g. "Day 1", "09:00-10:30"', width: '30%' },
         },
         {
           name: 'title',
-          label: 'Activity Title',
+          label: { en: 'Activity Title', pt: 'Título da Atividade' },
           type: 'text',
           localized: true,
           admin: { width: '70%' },
         },
         {
           name: 'description',
-          label: 'Activity Description',
+          label: { en: 'Activity Description', pt: 'Descrição da Atividade' },
           type: 'textarea',
           localized: true,
           admin: { rows: 3 },
@@ -188,14 +188,14 @@ const HawkEventDetails: Tab = {
     {
       type: 'group',
       name: 'objectives',
-      label: 'Objectives',
+      label: { en: 'Objectives', pt: 'Objetivos' },
       admin: {
         description: 'List of goals or learning outcomes for the event.',
       },
       fields: [
         {
           name: 'introduction',
-          label: 'Introduction',
+          label: { en: 'Introduction', pt: 'Introdução' },
           type: 'textarea',
           localized: true,
           admin: {
@@ -205,14 +205,14 @@ const HawkEventDetails: Tab = {
         },
         {
           name: 'items',
-          label: 'Objective Items',
+          label: { en: 'Objective Items', pt: 'Itens de Objetivo' },
           type: 'array',
           interfaceName: 'HawkEventObjectiveItem',
           admin: { initCollapsed: true },
           fields: [
             {
               name: 'text',
-              label: 'Objective',
+              label: { en: 'Objective', pt: 'Objetivo' },
               type: 'textarea',
               localized: true,
               required: true,
@@ -227,12 +227,12 @@ const HawkEventDetails: Tab = {
     /* -------------------------------------------------------------- */
     MultiImageField({
       name: 'gallery',
-      label: 'Photo Gallery',
+      label: 'Galeria de Fotos',
       description: 'Photos displayed at the bottom of the event page',
     }),
 
     PayloadImageField({
-      label: 'Image',
+      label: 'Imagem',
       name: 'image',
       required: true,
       description:
@@ -240,7 +240,7 @@ const HawkEventDetails: Tab = {
     }),
     {
       name: 'instagram',
-      label: 'Instagram Post URL',
+      label: { en: 'Instagram Post URL', pt: 'URL da Publicação do Instagram' },
       type: 'text',
       admin: { description: 'The full URL of the Instagram post' },
     },

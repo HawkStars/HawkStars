@@ -5,6 +5,10 @@ import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 
 export const Users: CollectionConfig = {
   slug: 'users',
+  labels: {
+    singular: { en: 'User', pt: 'Utilizador' },
+    plural: { en: 'Users', pt: 'Utilizadores' },
+  },
   access: {
     admin: authenticated,
     read: authenticated,
@@ -29,12 +33,13 @@ export const Users: CollectionConfig = {
   fields: [
     {
       name: 'name',
+      label: { en: 'Name', pt: 'Nome' },
       type: 'text',
     },
     {
       type: 'checkbox',
       name: 'isAdmin',
-      label: 'Is Admin',
+      label: { en: 'Is Admin', pt: 'É Administrador' },
       defaultValue: false,
       admin: {
         description: 'Admins have full access to all collections, globals, and settings.',
@@ -44,7 +49,7 @@ export const Users: CollectionConfig = {
     {
       type: 'checkbox',
       name: 'isEditor',
-      label: 'Is Editor',
+      label: { en: 'Is Editor', pt: 'É Editor' },
       defaultValue: false,
       admin: {
         description: 'Editors have access to manage content but cannot manage users or settings.',

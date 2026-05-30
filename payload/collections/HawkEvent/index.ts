@@ -7,8 +7,8 @@ import HawkProjectFields from './HawkProjectFields';
 export const HawkEvent: CollectionConfig = {
   slug: 'hawk_events',
   labels: {
-    singular: 'Hawk Event',
-    plural: 'Hawk Events',
+    singular: { en: 'Hawk Event', pt: 'Evento Hawk' },
+    plural: { en: 'Hawk Events', pt: 'Eventos Hawk' },
   },
   admin: {
     defaultColumns: ['type_event', 'slug'],

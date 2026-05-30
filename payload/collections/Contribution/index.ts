@@ -8,6 +8,10 @@ const validateContributionAccess = (args: AccessArgs<User>) => authenticated(arg
 
 export const ContributionCollection: CollectionConfig = {
   slug: 'contributions',
+  labels: {
+    singular: { en: 'Contribution', pt: 'Contribuição' },
+    plural: { en: 'Contributions', pt: 'Contribuições' },
+  },
   access: {
     read: () => true,
     create: validateContributionAccess,
@@ -18,27 +22,27 @@ export const ContributionCollection: CollectionConfig = {
     {
       type: 'text',
       name: 'donor',
-      label: 'The name of the donor',
+      label: { en: 'Donor Name', pt: 'Nome do Doador' },
       required: false,
       admin: { description: 'Leave blank for anonymous donations' },
     },
     {
       type: 'checkbox',
       name: 'is_confirmed',
-      label: 'Payment is Confirmed',
+      label: { en: 'Payment is Confirmed', pt: 'Pagamento Confirmado' },
       defaultValue: false,
       admin: { description: 'Check this box once the payment has been verified' },
     },
     {
       type: 'checkbox',
       name: 'is_anonymous',
-      label: 'Donor is anonymous',
+      label: { en: 'Donor is anonymous', pt: 'Doador Anónimo' },
       defaultValue: false,
     },
     {
       type: 'number',
       name: 'value',
-      label: 'Donation Value',
+      label: { en: 'Donation Value', pt: 'Valor da Doação' },
       required: true,
       validate: (value: number | undefined | null) =>
         (value && value > 0) || 'Value must be greater than 0',
@@ -47,14 +51,14 @@ export const ContributionCollection: CollectionConfig = {
     {
       type: 'date',
       name: 'contribution_date',
-      label: 'Contribution Date',
+      label: { en: 'Contribution Date', pt: 'Data da Contribuição' },
       required: true,
       admin: { description: 'The date when the contribution was made' },
     },
     {
       type: 'select',
       name: 'contribution_type',
-      label: 'Contribution Type',
+      label: { en: 'Contribution Type', pt: 'Tipo de Contribuição' },
       required: true,
       options: contributionTypeOptions,
       admin: {
@@ -68,12 +72,12 @@ export const ContributionCollection: CollectionConfig = {
     {
       type: 'json',
       name: 'extra_info',
-      label: 'Extra Information',
+      label: { en: 'Extra Information', pt: 'Informação Extra' },
       admin: { description: 'Any additional information about the contribution' },
     },
     {
       type: 'collapsible',
-      label: 'Payment Details (EasyPay)',
+      label: { en: 'Payment Details (EasyPay)', pt: 'Detalhes de Pagamento (EasyPay)' },
       admin: { initCollapsed: true },
       access: {
         read: () => true,
@@ -84,21 +88,21 @@ export const ContributionCollection: CollectionConfig = {
         {
           type: 'text',
           name: 'transaction_key',
-          label: 'Transaction Key',
+          label: { en: 'Transaction Key', pt: 'Chave de Transação' },
           admin: { description: 'UUID key used to identify this payment in EasyPay' },
         },
         {
           type: 'text',
           name: 'easypay_id',
-          label: 'EasyPay ID',
+          label: { en: 'EasyPay ID', pt: 'ID EasyPay' },
           admin: { description: 'EasyPay authorisation or payment ID' },
         },
         {
           type: 'select',
           name: 'payment_method',
-          label: 'Payment Method',
+          label: { en: 'Payment Method', pt: 'Método de Pagamento' },
           options: [
-            { label: 'Credit Card (CC)', value: 'CC' },
+            { label: 'Cartão de Crédito (CC)', value: 'CC' },
             { label: 'Multibanco (MB)', value: 'MB' },
             { label: 'MB Way (MBW)', value: 'MBW' },
           ],

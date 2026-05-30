@@ -7,8 +7,8 @@ import { authenticatedAdmin } from '../access/authenticatedAdmin';
 export const Partner: CollectionConfig = {
   slug: 'partners',
   labels: {
-    singular: 'Partner',
-    plural: 'Partners',
+    singular: { en: 'Partner', pt: 'Parceiro' },
+    plural: { en: 'Partners', pt: 'Parceiros' },
   },
   admin: {
     useAsTitle: 'name',
@@ -27,18 +27,18 @@ export const Partner: CollectionConfig = {
     update: authenticatedEditor,
   },
   fields: [
-    { type: 'text', name: 'name', label: 'Name of the partner', required: true },
-    { type: 'richText', name: 'description', label: 'Description' },
-    { type: 'upload', name: 'logo', label: 'Logo', relationTo: 'media' },
-    { type: 'text', name: 'country', label: 'Country', required: true },
+    { type: 'text', name: 'name', label: { en: 'Name of the partner', pt: 'Nome do Parceiro' }, required: true },
+    { type: 'richText', name: 'description', label: { en: 'Description', pt: 'Descrição' } },
+    { type: 'upload', name: 'logo', label: { en: 'Logo', pt: 'Logótipo' }, relationTo: 'media' },
+    { type: 'text', name: 'country', label: { en: 'Country', pt: 'País' }, required: true },
     {
       type: 'radio',
       name: 'type',
-      label: 'Partner Type',
+      label: { en: 'Partner Type', pt: 'Tipo de Parceiro' },
       required: true,
       options: [
-        { label: 'National', value: 'national' },
-        { label: 'International', value: 'international' },
+        { label: { en: 'National', pt: 'Nacional' }, value: 'national' },
+        { label: { en: 'International', pt: 'Internacional' }, value: 'international' },
       ],
     },
     { ...SocialLinksField },

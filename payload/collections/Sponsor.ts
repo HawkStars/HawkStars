@@ -6,8 +6,8 @@ import { authenticatedAdmin } from '../access/authenticatedAdmin';
 export const Sponsor: CollectionConfig = {
   slug: 'sponsors',
   labels: {
-    singular: 'Sponsor',
-    plural: 'Sponsors',
+    singular: { en: 'Sponsor', pt: 'Patrocinador' },
+    plural: { en: 'Sponsors', pt: 'Patrocinadores' },
   },
   admin: {
     useAsTitle: 'name',
@@ -29,20 +29,20 @@ export const Sponsor: CollectionConfig = {
     {
       type: 'text',
       name: 'name',
-      label: 'Sponsor Name',
+      label: { en: 'Sponsor Name', pt: 'Nome do Patrocinador' },
       required: true,
     },
     {
       type: 'upload',
       name: 'logo',
-      label: 'Logo',
+      label: { en: 'Logo', pt: 'Logótipo' },
       relationTo: 'media',
       required: true,
     },
     {
       type: 'text',
       name: 'website',
-      label: 'Website URL',
+      label: { en: 'Website URL', pt: 'URL do Website' },
       admin: {
         description: 'External link to the sponsor website',
       },
@@ -50,16 +50,16 @@ export const Sponsor: CollectionConfig = {
     {
       type: 'select',
       name: 'tier',
-      label: 'Sponsor Tier',
+      label: { en: 'Sponsor Tier', pt: 'Nível do Patrocinador' },
       required: true,
       defaultValue: 'bronze',
       options: [
-        { label: 'Exclusive', value: 'exclusive' },
-        { label: 'Diamond', value: 'diamond' },
-        { label: 'Platinum', value: 'platinum' },
-        { label: 'Gold', value: 'gold' },
-        { label: 'Silver', value: 'silver' },
-        { label: 'Bronze', value: 'bronze' },
+        { label: { en: 'Exclusive', pt: 'Exclusivo' }, value: 'exclusive' },
+        { label: { en: 'Diamond', pt: 'Diamante' }, value: 'diamond' },
+        { label: { en: 'Platinum', pt: 'Platina' }, value: 'platinum' },
+        { label: { en: 'Gold', pt: 'Ouro' }, value: 'gold' },
+        { label: { en: 'Silver', pt: 'Prata' }, value: 'silver' },
+        { label: { en: 'Bronze', pt: 'Bronze' }, value: 'bronze' },
       ],
     },
   ],

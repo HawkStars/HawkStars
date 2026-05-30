@@ -3936,7 +3936,7 @@ export interface HawkProjectSeoFields {
   description?: string | null;
 }
 /**
- * Information about the project's partners, including their names, roles, and contributions.
+ * Information about the project’s partners, including their names, roles, and contributions.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HawkProjectPartnersInformation".

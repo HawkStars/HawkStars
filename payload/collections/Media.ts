@@ -3,6 +3,10 @@ import { notifyOnMediaDelete, notifyOnMediaUpload } from '@/payload/hooks/notify
 
 export const Media: CollectionConfig = {
   slug: 'media',
+  labels: {
+    singular: { en: 'Media', pt: 'Média' },
+    plural: { en: 'Media', pt: 'Média' },
+  },
   admin: {
     description:
       'Upload and manage media assets such as images used throughout the website. Use a image compression tool to optimize images before uploading to improve performance. Ideally in webP',
@@ -35,6 +39,7 @@ export const Media: CollectionConfig = {
   fields: [
     {
       name: 'alt',
+      label: { en: 'Alt Text', pt: 'Texto Alternativo' },
       type: 'text',
       required: true,
       admin: {
@@ -43,6 +48,7 @@ export const Media: CollectionConfig = {
     },
     {
       name: 'section',
+      label: { en: 'Section', pt: 'Secção' },
       type: 'text',
       required: false,
       admin: {

@@ -19,8 +19,8 @@ import { notifyOnMemberProject } from '../../hooks/notifyOnMemberProject';
 export const MemberProject: CollectionConfig = {
   slug: 'member_projects',
   labels: {
-    singular: 'Member Project',
-    plural: 'Member Projects',
+    singular: { en: 'Member Project', pt: 'Projeto de Membro' },
+    plural: { en: 'Member Projects', pt: 'Projetos de Membros' },
   },
   admin: {
     defaultColumns: ['title', 'is_confirmed', 'submitter_name', 'createdAt'],
@@ -49,7 +49,7 @@ export const MemberProject: CollectionConfig = {
     /* -------------------------------------------------------------- */
     {
       name: 'is_confirmed',
-      label: 'Confirmed',
+      label: { en: 'Confirmed', pt: 'Confirmado' },
       type: 'checkbox',
       defaultValue: false,
       admin: {
@@ -65,20 +65,20 @@ export const MemberProject: CollectionConfig = {
     /* -------------------------------------------------------------- */
     {
       name: 'title',
-      label: 'Title',
+      label: { en: 'Title', pt: 'Título' },
       type: 'text',
       required: true,
     },
     {
       name: 'description',
-      label: 'Description',
+      label: { en: 'Description', pt: 'Descrição' },
       type: 'textarea',
       required: true,
       admin: { rows: 6 },
     },
     {
       name: 'language',
-      label: 'Content Language',
+      label: { en: 'Content Language', pt: 'Idioma do Conteúdo' },
       type: 'select',
       required: true,
       defaultValue: 'pt',
@@ -86,13 +86,13 @@ export const MemberProject: CollectionConfig = {
         description: 'The language the project information is written in.',
       },
       options: [
-        { label: 'Portuguese', value: 'pt' },
-        { label: 'English', value: 'en' },
-        { label: 'Spanish', value: 'es' },
-        { label: 'French', value: 'fr' },
-        { label: 'German', value: 'de' },
-        { label: 'Italian', value: 'it' },
-        { label: 'Other', value: 'other' },
+        { label: { pt: 'Português', en: 'Portuguese' }, value: 'pt' },
+        { label: { pt: 'Inglês', en: 'English' }, value: 'en' },
+        { label: { pt: 'Espanhol', en: 'Spanish' }, value: 'es' },
+        { label: { pt: 'Francês', en: 'French' }, value: 'fr' },
+        { label: { pt: 'Alemão', en: 'German' }, value: 'de' },
+        { label: { pt: 'Italiano', en: 'Italian' }, value: 'it' },
+        { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
       ],
     },
 
@@ -104,7 +104,7 @@ export const MemberProject: CollectionConfig = {
       fields: [
         {
           name: 'image_url',
-          label: 'Image URL',
+          label: { en: 'Image URL', pt: 'URL da Imagem' },
           type: 'text',
           admin: {
             width: '50%',
@@ -113,7 +113,7 @@ export const MemberProject: CollectionConfig = {
         },
         {
           name: 'video_url',
-          label: 'Video URL',
+          label: { en: 'Video URL', pt: 'URL do Vídeo' },
           type: 'text',
           admin: {
             width: '50%',
@@ -128,7 +128,7 @@ export const MemberProject: CollectionConfig = {
     /* -------------------------------------------------------------- */
     {
       name: 'dates',
-      label: 'Dates / Happenings',
+      label: { en: 'Dates / Happenings', pt: 'Datas / Acontecimentos' },
       type: 'array',
       admin: {
         description:
@@ -142,14 +142,14 @@ export const MemberProject: CollectionConfig = {
           fields: [
             {
               name: 'label',
-              label: 'What is happening',
+              label: { en: 'What is happening', pt: 'O que está a acontecer' },
               type: 'text',
               required: true,
               admin: { width: '40%' },
             },
             {
               name: 'date',
-              label: 'Date',
+              label: { en: 'Date', pt: 'Data' },
               type: 'date',
               required: true,
               admin: {
@@ -162,7 +162,7 @@ export const MemberProject: CollectionConfig = {
             },
             {
               name: 'link',
-              label: 'More info link',
+              label: { en: 'More info link', pt: 'Link para mais informação' },
               type: 'text',
               admin: { width: '30%' },
             },
@@ -177,7 +177,7 @@ export const MemberProject: CollectionConfig = {
     {
       type: 'group',
       name: 'submitter',
-      label: 'Submitter',
+      label: { en: 'Submitter', pt: 'Submetente' },
       admin: {
         description: 'Contact details of the member who submitted this project (admin only).',
       },
@@ -187,14 +187,14 @@ export const MemberProject: CollectionConfig = {
           fields: [
             {
               name: 'submitter_name',
-              label: 'Name',
+              label: { en: 'Name', pt: 'Nome' },
               type: 'text',
               required: true,
               admin: { width: '50%' },
             },
             {
               name: 'submitter_email',
-              label: 'Email',
+              label: { en: 'Email', pt: 'Email' },
               type: 'email',
               required: true,
               admin: { width: '50%' },

@@ -2,11 +2,11 @@ import { ArrayField } from 'payload';
 
 export const SocialLinksField: ArrayField = {
   name: 'links',
-  label: 'Social Media Links',
+  label: { en: 'Social Media Links', pt: 'Links de Redes Sociais' },
   type: 'array',
   labels: {
-    singular: 'Social Link',
-    plural: 'Social Links',
+    singular: { en: 'Social Link', pt: 'Link Social' },
+    plural: { en: 'Social Links', pt: 'Links Sociais' },
   },
   admin: {
     description: 'Social Media Links for this entry',
@@ -21,7 +21,7 @@ export const SocialLinksField: ArrayField = {
   fields: [
     {
       name: 'platform',
-      label: 'Platform',
+      label: { en: 'Platform', pt: 'Plataforma' },
       type: 'select',
       required: true,
       options: [
@@ -56,7 +56,7 @@ export const SocialLinksField: ArrayField = {
     },
     {
       name: 'isVisible',
-      label: 'Visible',
+      label: { en: 'Visible', pt: 'Visível' },
       type: 'checkbox',
       defaultValue: true,
       admin: {

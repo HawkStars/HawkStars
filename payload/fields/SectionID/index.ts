@@ -3,7 +3,7 @@ import { Field } from 'payload';
 const SectionID: Field = {
   name: 'sectionId',
   type: 'text',
-  label: 'Section ID',
+  label: { en: 'Section ID', pt: 'ID da Secção' },
   admin: { description: 'Unique identifier for the section (used for anchor links)' },
   validate: (value: string | undefined | null) => {
     if (!value || value.length === 0) return true;

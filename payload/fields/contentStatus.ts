@@ -11,13 +11,14 @@ import type { Field } from 'payload';
  */
 export const contentStatusField: Field = {
   name: 'status',
+  label: { en: 'Status', pt: 'Estado' },
   type: 'select',
   required: true,
   defaultValue: 'draft',
   options: [
-    { label: 'Draft', value: 'draft' },
-    { label: 'In Review', value: 'in_review' },
-    { label: 'Published', value: 'published' },
+    { label: { en: 'Draft', pt: 'Rascunho' }, value: 'draft' },
+    { label: { en: 'In Review', pt: 'Em Revisão' }, value: 'in_review' },
+    { label: { en: 'Published', pt: 'Publicado' }, value: 'published' },
   ],
   admin: {
     position: 'sidebar',

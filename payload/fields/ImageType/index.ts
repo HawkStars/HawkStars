@@ -36,7 +36,7 @@ export const PayloadImageField = ({
       {
         name: 'alt',
         type: 'text',
-        label: 'Caption / Alt Text',
+        label: { en: 'Caption / Alt Text', pt: 'Legenda / Texto Alternativo' },
         required,
         admin: {
           description: 'Alt text for the image for accessibility and SEO | Caption Image',
@@ -46,7 +46,7 @@ export const PayloadImageField = ({
       {
         name: 'height',
         type: 'number',
-        label: 'Height',
+        label: { en: 'Height', pt: 'Altura' },
         admin: {
           description: 'Height of the image in pixels',
           condition: (data, siblingData) => siblingData.imageType === 'external',

@@ -42,11 +42,11 @@ export const link = (props?: LinkTypeProps) => {
             required: true,
             options: [
               {
-                label: 'Internal link',
+                label: { en: 'Internal link', pt: 'Link interno' },
                 value: 'reference',
               },
               {
-                label: 'Custom URL | External link',
+                label: { en: 'Custom URL | External link', pt: 'URL personalizado | Link externo' },
                 value: 'custom',
               },
             ],
@@ -62,7 +62,7 @@ export const link = (props?: LinkTypeProps) => {
               },
               width: '25%',
             },
-            label: 'Open in new tab',
+            label: { en: 'Open in new tab', pt: 'Abrir em nova aba' },
           },
           {
             name: 'visible',
@@ -88,7 +88,7 @@ export const link = (props?: LinkTypeProps) => {
         description:
           'Select a document to link to from the existing collections present on the Administration Panel.',
       },
-      label: 'Document to link to',
+      label: { en: 'Document to link to', pt: 'Documento a ligar' },
       relationTo: ['pages', 'hawk_projects'],
       required: true,
     },
@@ -99,7 +99,7 @@ export const link = (props?: LinkTypeProps) => {
         condition: (_, siblingData) => siblingData?.type === 'custom',
         description: 'Enter the full URL for the link, including http:// or https://',
       },
-      label: 'Custom URL',
+      label: { en: 'Custom URL', pt: 'URL Personalizado' },
       required: true,
     },
   ];
@@ -122,14 +122,14 @@ export const link = (props?: LinkTypeProps) => {
         admin: {
           width: '50%',
         },
-        label: 'Label',
+        label: { en: 'Label', pt: 'Rótulo' },
         required: false,
         localized: localizedLabel,
       },
       {
         name: 'section',
         type: 'text',
-        label: 'Section ID',
+        label: { en: 'Section ID', pt: 'ID da Secção' },
         admin: {
           width: '50%',
           description:

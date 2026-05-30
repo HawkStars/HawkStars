@@ -14,8 +14,8 @@ export const Curator: CollectionConfig = {
     update: authenticated,
   },
   labels: {
-    singular: 'Curator',
-    plural: 'Curators',
+    singular: { en: 'Curator', pt: 'Curador' },
+    plural: { en: 'Curators', pt: 'Curadores' },
   },
   admin: {
     useAsTitle: 'name',

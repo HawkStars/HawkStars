@@ -17,8 +17,8 @@ import {
 export const News: CollectionConfig = {
   slug: 'news',
   labels: {
-    singular: 'News Article',
-    plural: 'News Articles',
+    singular: { en: 'News Article', pt: 'Notícia' },
+    plural: { en: 'News Articles', pt: 'Notícias' },
   },
   admin: {
     useAsTitle: 'title',
@@ -91,6 +91,7 @@ export const News: CollectionConfig = {
     contentStatusField,
     {
       name: 'slug',
+      label: 'Slug',
       type: 'text',
       required: true,
       unique: true,
@@ -102,6 +103,7 @@ export const News: CollectionConfig = {
     },
     {
       name: 'publishedAt',
+      label: { en: 'Published At', pt: 'Publicado Em' },
       type: 'date',
       admin: {
         position: 'sidebar',

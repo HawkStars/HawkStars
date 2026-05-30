@@ -6,8 +6,8 @@ import { authenticated } from '../access/authenticated';
 export const BoardMember: CollectionConfig = {
   slug: 'board-members',
   labels: {
-    singular: 'Board Member',
-    plural: 'Board Members',
+    singular: { en: 'Board Member', pt: 'Membro da Direção' },
+    plural: { en: 'Board Members', pt: 'Membros da Direção' },
   },
   access: {
     read: () => true,
@@ -47,14 +47,14 @@ export const BoardMember: CollectionConfig = {
   fields: [
     {
       name: 'name',
-      label: 'Name',
+      label: { en: 'Name', pt: 'Nome' },
       type: 'text',
       required: true,
       localized: false,
     },
     {
       name: 'section',
-      label: 'Section',
+      label: { en: 'Section', pt: 'Secção' },
       type: 'radio',
       required: true,
       localized: false,
@@ -71,7 +71,7 @@ export const BoardMember: CollectionConfig = {
     },
     {
       name: 'title',
-      label: 'Position Title',
+      label: { en: 'Position Title', pt: 'Título do Cargo' },
       type: 'select',
       required: true,
       localized: false,
@@ -97,7 +97,7 @@ export const BoardMember: CollectionConfig = {
     },
     {
       name: 'department',
-      label: 'Department',
+      label: { en: 'Department', pt: 'Departamento' },
       type: 'text',
       required: false,
       localized: true,
@@ -107,14 +107,14 @@ export const BoardMember: CollectionConfig = {
     },
     {
       name: 'photo',
-      label: 'Photo',
+      label: { en: 'Photo', pt: 'Fotografia' },
       type: 'upload',
       relationTo: 'media',
     },
     { ...SocialLinksField },
     {
       name: 'position',
-      label: 'Position',
+      label: { en: 'Position', pt: 'Posição' },
       type: 'number',
       admin: {
         description: 'Position to be ordered to be shown on the page',

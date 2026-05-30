@@ -4,27 +4,27 @@ import { Tab } from 'payload';
 /*  Dissemination link platform options                                */
 /* ------------------------------------------------------------------ */
 const disseminationPlatformOptions = [
-  { label: 'Facebook', value: 'facebook' },
-  { label: 'Instagram', value: 'instagram' },
-  { label: 'LinkedIn', value: 'linkedin' },
-  { label: 'YouTube', value: 'youtube' },
-  { label: 'TikTok', value: 'tiktok' },
-  { label: 'Website', value: 'website' },
-  { label: 'Other', value: 'other' },
+  { label: { en: 'Facebook', pt: 'Facebook' }, value: 'facebook' },
+  { label: { en: 'Instagram', pt: 'Instagram' }, value: 'instagram' },
+  { label: { en: 'LinkedIn', pt: 'LinkedIn' }, value: 'linkedin' },
+  { label: { en: 'YouTube', pt: 'YouTube' }, value: 'youtube' },
+  { label: { en: 'TikTok', pt: 'TikTok' }, value: 'tiktok' },
+  { label: { en: 'Website', pt: 'Website' }, value: 'website' },
+  { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
 ];
 
 const HawkProjectPartnersInformation: Tab = {
   name: 'partnersInformation',
-  label: 'Partners',
+  label: { en: 'Partners', pt: 'Parceiros' },
   interfaceName: 'HawkProjectPartnersInformation',
   admin: {
     description:
-      "Information about the project's partners, including their names, roles, and contributions.",
+      'Information about the project’s partners, including their names, roles, and contributions.',
   },
   fields: [
     {
       name: 'partners',
-      label: 'Partner Information',
+      label: { en: 'Partner Information', pt: 'Informação do Parceiro' },
       type: 'array',
       interfaceName: 'HawkProjectPartnerInformation',
       admin: {
@@ -37,7 +37,7 @@ const HawkProjectPartnersInformation: Tab = {
       fields: [
         {
           name: 'partner',
-          label: 'Partners',
+          label: { en: 'Partners', pt: 'Parceiros' },
           type: 'relationship',
           relationTo: 'partners',
           required: true,
@@ -48,11 +48,17 @@ const HawkProjectPartnersInformation: Tab = {
         },
         {
           name: 'role',
-          label: 'Role',
+          label: { en: 'Role', pt: 'Papel' },
           type: 'select',
           options: [
-            { label: 'Hosting organisation', value: 'hosting_org' },
-            { label: 'Sending organisation', value: 'sending_org' },
+            {
+              label: { en: 'Hosting organisation', pt: 'Organização de Acolhimento' },
+              value: 'hosting_org',
+            },
+            {
+              label: { en: 'Sending organisation', pt: 'Organização de Envio' },
+              value: 'sending_org',
+            },
           ],
           admin: {
             description: 'Select the role of the partner organisation in this project',
@@ -61,7 +67,7 @@ const HawkProjectPartnersInformation: Tab = {
         },
         {
           name: 'reports',
-          label: 'Official Reports',
+          label: { en: 'Official Reports', pt: 'Relatórios Oficiais' },
           type: 'array',
           interfaceName: 'HawkProjectPartnerReport',
           admin: {
@@ -74,7 +80,7 @@ const HawkProjectPartnersInformation: Tab = {
           fields: [
             {
               name: 'platform',
-              label: 'Platform',
+              label: { en: 'Platform', pt: 'Plataforma' },
               type: 'select',
               required: true,
               options: disseminationPlatformOptions,
@@ -93,7 +99,7 @@ const HawkProjectPartnersInformation: Tab = {
             },
             {
               name: 'label',
-              label: 'Button Label',
+              label: { en: 'Button Label', pt: 'Rótulo do Botão' },
               type: 'text',
               localized: true,
               admin: {

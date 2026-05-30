@@ -21,7 +21,7 @@ export const Header: GlobalConfig = {
     {
       required: true,
       name: 'columns',
-      label: 'Header Navigation Columns',
+      label: { en: 'Header Navigation Columns', pt: 'Colunas de Navegação do Cabeçalho' },
       interfaceName: 'HeaderNavigationColumns',
       admin: {
         description: 'Configure the navigation columns for the header. topbar menus',
@@ -33,7 +33,7 @@ export const Header: GlobalConfig = {
       fields: [
         {
           name: 'isMultiColumn',
-          label: 'Multi-Column Dropdown',
+          label: { en: 'Multi-Column Dropdown', pt: 'Menu Suspenso Multi-Coluna' },
           type: 'checkbox',
           admin: {
             description:
@@ -50,7 +50,7 @@ export const Header: GlobalConfig = {
         }),
         {
           name: 'dropdown',
-          label: 'Dropdown Content',
+          label: { en: 'Dropdown Content', pt: 'Conteúdo do Menu Suspenso' },
           admin: {
             description: 'Content for the dropdown menu when multiple links are present',
             condition: (_, siblingData) => {
@@ -64,13 +64,14 @@ export const Header: GlobalConfig = {
             {
               name: 'dropdownTitle',
               type: 'text',
-              label: 'Dropdown Title',
+              label: { en: 'Dropdown Title', pt: 'Título do Menu Suspenso' },
               required: true,
               localized: true,
               admin: { description: 'Title for the dropdown menu' },
             },
             {
               name: 'key',
+              label: { en: 'Key', pt: 'Chave' },
               admin: {
                 description: 'Unique key for the navigation group to be used on the dropdown menu',
                 placeholder: 'menu-one',
@@ -89,7 +90,7 @@ export const Header: GlobalConfig = {
               },
             },
             {
-              label: 'Navbar Dropdown Structure',
+              label: { en: 'Navbar Dropdown Structure', pt: 'Estrutura do Menu Suspenso' },
               type: 'group',
               admin: {
                 hideGutter: true,
@@ -97,11 +98,11 @@ export const Header: GlobalConfig = {
               fields: [
                 {
                   name: 'structure',
-                  label: 'Structure',
+                  label: { en: 'Structure', pt: 'Estrutura' },
                   type: 'select',
                   options: [
-                    { label: 'Single Row', value: 'single-column' },
-                    { label: 'Two Rows', value: 'two-columns' },
+                    { label: { en: 'Single Row', pt: 'Linha Única' }, value: 'single-column' },
+                    { label: { en: 'Two Rows', pt: 'Duas Linhas' }, value: 'two-columns' },
                   ],
                   required: true,
                   defaultValue: 'single-column',
@@ -111,7 +112,7 @@ export const Header: GlobalConfig = {
                 },
                 {
                   name: 'links',
-                  label: 'Dropdown Navigation Links',
+                  label: { en: 'Dropdown Navigation Links', pt: 'Links de Navegação do Menu Suspenso' },
                   type: 'group',
                   fields: [dropdownNavLink],
                   required: true,

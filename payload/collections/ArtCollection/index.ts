@@ -13,8 +13,8 @@ export const ArtCollection: CollectionConfig = {
     update: authenticated,
   },
   labels: {
-    singular: 'Artwork',
-    plural: 'Artworks',
+    singular: { en: 'Artwork', pt: 'Obra de Arte' },
+    plural: { en: 'Artworks', pt: 'Obras de Arte' },
   },
   admin: {
     useAsTitle: 'title',

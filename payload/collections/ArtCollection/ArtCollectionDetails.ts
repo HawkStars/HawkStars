@@ -1,12 +1,12 @@
 import { Tab } from 'payload';
 
 const ArtCollectionDetails: Tab = {
-  label: 'Details',
+  label: { en: 'Details', pt: 'Detalhes' },
   description: 'Information about the artwork',
   fields: [
     {
       name: 'title',
-      label: 'Title',
+      label: { en: 'Title', pt: 'Título' },
       type: 'text',
       localized: true,
       required: true,
@@ -26,7 +26,7 @@ const ArtCollectionDetails: Tab = {
     },
     {
       name: 'artist',
-      label: 'Artist',
+      label: { en: 'Artist', pt: 'Artista' },
       type: 'relationship',
       required: true,
       relationTo: 'curators',
@@ -38,14 +38,14 @@ const ArtCollectionDetails: Tab = {
     },
     {
       name: 'synopsis',
-      label: 'Synopsis',
+      label: { en: 'Synopsis', pt: 'Sinopse' },
       type: 'richText',
       required: true,
       localized: true,
     },
     {
       name: 'image',
-      label: 'Image',
+      label: { en: 'Image', pt: 'Imagem' },
       type: 'upload',
       relationTo: 'media',
       required: true,
@@ -53,47 +53,47 @@ const ArtCollectionDetails: Tab = {
     },
     {
       name: 'is_sold',
-      label: 'Vendido?',
+      label: { en: 'Sold?', pt: 'Vendido?' },
       type: 'checkbox',
       localized: false,
     },
     {
       name: 'year',
-      label: 'Year',
+      label: { en: 'Year', pt: 'Ano' },
       type: 'number',
       localized: false,
     },
     {
       name: 'price',
-      label: 'Price',
+      label: { en: 'Price', pt: 'Preço' },
       type: 'text',
       localized: true,
       required: true,
     },
     {
       name: 'settings',
-      label: 'Photo Settings',
+      label: { en: 'Photo Settings', pt: 'Definições da Fotografia' },
       type: 'text',
       localized: true,
       required: false,
     },
     {
       name: 'tiragem',
-      label: 'Tiragem',
+      label: { en: 'Print Run', pt: 'Tiragem' },
       type: 'text',
       localized: true,
       required: false,
     },
     {
       name: 'dimensions',
-      label: 'Dimensions',
+      label: { en: 'Dimensions', pt: 'Dimensões' },
       type: 'text',
       localized: true,
       required: false,
     },
     {
       name: 'extra',
-      label: 'Extra Information',
+      label: { en: 'Extra Information', pt: 'Informação Extra' },
       type: 'richText',
       required: false,
       localized: true,

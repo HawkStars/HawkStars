@@ -3,7 +3,7 @@ import { MultiImageField } from '@/payload/fields/MultiImage';
 import { Tab } from 'payload';
 
 const NewsDetails: Tab = {
-  label: 'Details',
+  label: { en: 'Details', pt: 'Detalhes' },
   description: 'Information about the News article',
   admin: {
     description: 'Configure the details for the News article here',
@@ -11,7 +11,7 @@ const NewsDetails: Tab = {
   fields: [
     {
       name: 'title',
-      label: 'Title',
+      label: { en: 'Title', pt: 'Título' },
       type: 'text',
       required: true,
       localized: true,
@@ -21,23 +21,23 @@ const NewsDetails: Tab = {
     },
     {
       name: 'type',
-      label: 'Type',
+      label: { en: 'Type', pt: 'Tipo' },
       type: 'select',
       defaultValue: 'blog',
       required: true,
       options: [
         { label: 'Blog', value: 'blog' },
-        { label: 'News', value: 'news' },
-        { label: 'Press Release', value: 'press_release' },
-        { label: 'Announcement', value: 'announcement' },
-        { label: 'Other', value: 'other' },
+        { label: { en: 'News', pt: 'Notícia' }, value: 'news' },
+        { label: { en: 'Press Release', pt: 'Comunicado de Imprensa' }, value: 'press_release' },
+        { label: { en: 'Announcement', pt: 'Anúncio' }, value: 'announcement' },
+        { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
       ],
       admin: {
         description: 'The type of the news article',
       },
     },
     PayloadImageField({
-      label: 'Cover Image',
+      label: 'Imagem de Capa',
       name: 'mainImage',
       required: false,
       description:
@@ -50,14 +50,14 @@ const NewsDetails: Tab = {
     {
       type: 'group',
       name: 'details',
-      label: 'Description',
+      label: { en: 'Description', pt: 'Descrição' },
       admin: {
         description: 'Main description block of the article.',
       },
       fields: [
         {
           name: 'text',
-          label: 'Description Text',
+          label: { en: 'Description Text', pt: 'Texto de Descrição' },
           type: 'textarea',
           localized: true,
           admin: {
@@ -67,7 +67,7 @@ const NewsDetails: Tab = {
         },
         {
           name: 'sections',
-          label: 'Sections',
+          label: { en: 'Sections', pt: 'Secções' },
           type: 'array',
           interfaceName: 'NewsSection',
           admin: {
@@ -80,14 +80,14 @@ const NewsDetails: Tab = {
           fields: [
             {
               name: 'title',
-              label: 'Section Title',
+              label: { en: 'Section Title', pt: 'Título da Secção' },
               type: 'text',
               localized: true,
               admin: { description: 'e.g. "Background", "What happened", "Next steps"' },
             },
             {
               name: 'text',
-              label: 'Section Text',
+              label: { en: 'Section Text', pt: 'Texto da Secção' },
               type: 'textarea',
               localized: true,
               admin: {
@@ -105,7 +105,7 @@ const NewsDetails: Tab = {
     /* -------------------------------------------------------------- */
     MultiImageField({
       name: 'gallery',
-      label: 'Photo Gallery',
+      label: 'Galeria de Fotos',
       description: 'Photos displayed at the bottom of the article',
     }),
 
@@ -114,7 +114,7 @@ const NewsDetails: Tab = {
     /* -------------------------------------------------------------- */
     {
       name: 'project',
-      label: 'Related Project',
+      label: { en: 'Related Project', pt: 'Projeto Relacionado' },
       type: 'relationship',
       relationTo: 'hawk_projects',
       required: false,

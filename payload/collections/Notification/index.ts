@@ -5,8 +5,8 @@ import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 export const Notification: CollectionConfig = {
   slug: 'notifications',
   labels: {
-    singular: 'Notification',
-    plural: 'Notifications',
+    singular: { en: 'Notification', pt: 'Notificação' },
+    plural: { en: 'Notifications', pt: 'Notificações' },
   },
   admin: {
     useAsTitle: 'title',
@@ -24,6 +24,7 @@ export const Notification: CollectionConfig = {
   fields: [
     {
       name: 'title',
+      label: { en: 'Title', pt: 'Título' },
       type: 'text',
       required: true,
       admin: {
@@ -32,6 +33,7 @@ export const Notification: CollectionConfig = {
     },
     {
       name: 'message',
+      label: { en: 'Message', pt: 'Mensagem' },
       type: 'textarea',
       required: false,
       admin: {
@@ -40,14 +42,15 @@ export const Notification: CollectionConfig = {
     },
     {
       name: 'situation',
+      label: { en: 'Situation', pt: 'Situação' },
       type: 'select',
       required: true,
       options: [
-        { label: 'Creation', value: 'create' },
-        { label: 'Update', value: 'update' },
-        { label: 'Deletion', value: 'delete' },
-        { label: 'Message', value: 'message' },
-        { label: 'Other', value: 'other' },
+        { label: { en: 'Creation', pt: 'Criação' }, value: 'create' },
+        { label: { en: 'Update', pt: 'Atualização' }, value: 'update' },
+        { label: { en: 'Deletion', pt: 'Eliminação' }, value: 'delete' },
+        { label: { en: 'Message', pt: 'Mensagem' }, value: 'message' },
+        { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
       ],
       defaultValue: 'other',
     },
@@ -55,13 +58,14 @@ export const Notification: CollectionConfig = {
       name: 'read',
       type: 'checkbox',
       defaultValue: false,
-      label: 'Read',
+      label: { en: 'Read', pt: 'Lida' },
       admin: {
         description: 'Whether this notification has been read',
       },
     },
     {
       name: 'link',
+      label: { en: 'Link', pt: 'Link' },
       type: 'text',
       required: false,
       admin: {
@@ -70,6 +74,7 @@ export const Notification: CollectionConfig = {
     },
     {
       name: 'relatedCollection',
+      label: { en: 'Related Collection', pt: 'Coleção Relacionada' },
       type: 'text',
       required: false,
       admin: {
@@ -78,6 +83,7 @@ export const Notification: CollectionConfig = {
     },
     {
       name: 'relatedDocId',
+      label: { en: 'Related Document ID', pt: 'ID do Documento Relacionado' },
       type: 'text',
       required: false,
       admin: {

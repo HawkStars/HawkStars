@@ -17,7 +17,7 @@ export const dropdownNavLink: ArrayField = {
     {
       name: 'featured',
       type: 'checkbox',
-      label: 'Featured Link',
+      label: { en: 'Featured Link', pt: 'Link em Destaque' },
       required: false,
       admin: {
         description: 'Mark this link as featured to highlight it in the dropdown menu.',
@@ -26,7 +26,7 @@ export const dropdownNavLink: ArrayField = {
     {
       name: 'visible',
       type: 'checkbox',
-      label: 'Visible On the Header',
+      label: { en: 'Visible On the Header', pt: 'Visível no Cabeçalho' },
       required: false,
       defaultValue: true,
       admin: {
@@ -36,15 +36,15 @@ export const dropdownNavLink: ArrayField = {
     {
       name: 'imagePosition',
       type: 'select',
-      label: 'Image Position',
+      label: { en: 'Image Position', pt: 'Posição da Imagem' },
       options: [
-        { label: 'Top', value: 'top' },
-        { label: 'Center', value: 'center' },
-        { label: 'Bottom', value: 'bottom' },
+        { label: { en: 'Top', pt: 'Topo' }, value: 'top' },
+        { label: { en: 'Center', pt: 'Centro' }, value: 'center' },
+        { label: { en: 'Bottom', pt: 'Fundo' }, value: 'bottom' },
       ],
       required: false,
     },
-    { name: 'description', type: 'text', localized: true },
+    { name: 'description', label: { en: 'Description', pt: 'Descrição' }, type: 'text', localized: true },
     link({ localizedLabel: true }),
     PayloadIconOrImage(),
   ],

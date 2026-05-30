@@ -27,11 +27,12 @@ export const PayloadIconOrImage = (props?: ImageTypeGroupProps) => {
     fields: [
       {
         name: 'type',
+        label: { en: 'Type', pt: 'Tipo' },
         type: 'select',
         options: [
-          { label: 'Icon', value: 'icon' },
-          { label: 'Image', value: 'image' },
-          { label: 'None', value: 'none' },
+          { label: { en: 'Icon', pt: 'Ícone' }, value: 'icon' },
+          { label: { en: 'Image', pt: 'Imagem' }, value: 'image' },
+          { label: { en: 'None', pt: 'Nenhum' }, value: 'none' },
         ],
         admin: {
           description: 'Select whether to use an icon or an image.',
@@ -39,7 +40,7 @@ export const PayloadIconOrImage = (props?: ImageTypeGroupProps) => {
       },
       {
         ...PayloadImageField({
-          label: 'Image',
+          label: 'Imagem',
           name: 'image',
           required: false,
           condition: (_, siblingData) => siblingData.type === 'image',

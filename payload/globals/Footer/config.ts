@@ -21,7 +21,7 @@ export const Footer: GlobalConfig = {
   fields: [
     {
       name: 'columns',
-      label: 'Footer Columns',
+      label: { en: 'Footer Columns', pt: 'Colunas do Rodapé' },
       interfaceName: 'FooterColumnsItem',
       admin: {
         components: {

@@ -7,12 +7,15 @@ import { Tab } from 'payload';
 /*  renders with the same layout as the AI4You(th) sample.            */
 /* ================================================================== */
 const HawkProjectPageTab: Tab = {
-  label: 'Project Page',
+  label: {
+    en: 'Project Page',
+    pt: 'Página do Projeto',
+  },
   description: 'Structured content for the public project page',
   fields: [
     {
       name: 'heading',
-      label: 'Full Project Name',
+      label: { en: 'Full Project Name', pt: 'Nome Completo do Projeto' },
       type: 'text',
       localized: true,
       admin: {
@@ -22,7 +25,7 @@ const HawkProjectPageTab: Tab = {
 
     PayloadImageField({
       name: 'coverImage',
-      label: 'Cover Image',
+      label: 'Imagem de Capa',
       description: 'Main image shown at the top of the project page',
     }),
 
@@ -32,7 +35,7 @@ const HawkProjectPageTab: Tab = {
     {
       type: 'group',
       name: 'hero',
-      label: 'Hero Section',
+      label: { en: 'Hero Section', pt: 'Secção Hero' },
       admin: {
         description:
           'Top area of the project page: badge, stats, video, metadata, and country flags.',
@@ -41,7 +44,7 @@ const HawkProjectPageTab: Tab = {
         /* Project badge / icon (e.g. "Youth Exchange" logo) */
         PayloadImageField({
           name: 'projectBadge',
-          label: 'Project Badge / Icon',
+          label: 'Distintivo / Ícone do Projeto',
           description: 'Small badge image shown above the title (e.g. Youth Exchange logo)',
           hideGutter: true,
         }),
@@ -52,7 +55,7 @@ const HawkProjectPageTab: Tab = {
           fields: [
             {
               name: 'participants',
-              label: 'Participants',
+              label: { en: 'Participants', pt: 'Participantes' },
               type: 'number',
               admin: {
                 description: 'Number of participants (e.g. 36)',
@@ -61,7 +64,7 @@ const HawkProjectPageTab: Tab = {
             },
             {
               name: 'fundedAmount',
-              label: 'Funded Amount',
+              label: { en: 'Funded Amount', pt: 'Montante Financiado' },
               type: 'number',
               admin: {
                 description: 'Total funded amount (e.g. 38064)',
@@ -71,7 +74,7 @@ const HawkProjectPageTab: Tab = {
             /* Video embed */
             {
               name: 'videoUrl',
-              label: 'Video URL',
+              label: { en: 'Video URL', pt: 'URL do Vídeo' },
               type: 'text',
               admin: {
                 description: 'YouTube or other embed URL shown in the hero section',
@@ -104,14 +107,14 @@ const HawkProjectPageTab: Tab = {
     {
       type: 'group',
       name: 'details',
-      label: 'Description',
+      label: { en: 'Description', pt: 'Descrição' },
       admin: {
         description: 'Main description block shown below the hero section.',
       },
       fields: [
         {
           name: 'text',
-          label: 'Description Text',
+          label: { en: 'Description Text', pt: 'Texto de Descrição' },
           type: 'textarea',
           localized: true,
           admin: {
@@ -121,7 +124,7 @@ const HawkProjectPageTab: Tab = {
         },
         {
           name: 'phases',
-          label: 'Phases / Key Points',
+          label: { en: 'Phases / Key Points', pt: 'Fases / Pontos Chave' },
           type: 'array',
           interfaceName: 'HawkProjectPagePhase',
           admin: {
@@ -134,14 +137,14 @@ const HawkProjectPageTab: Tab = {
           fields: [
             {
               name: 'title',
-              label: 'Phase Title',
+              label: { en: 'Phase Title', pt: 'Título da Fase' },
               type: 'text',
               localized: true,
               admin: { description: 'e.g. "Integração do grupo"' },
             },
             {
               name: 'description',
-              label: 'Phase Description',
+              label: { en: 'Phase Description', pt: 'Descrição da Fase' },
               type: 'textarea',
               localized: true,
               admin: {
@@ -159,14 +162,14 @@ const HawkProjectPageTab: Tab = {
     {
       type: 'group',
       name: 'objectives',
-      label: 'Objectives',
+      label: { en: 'Objectives', pt: 'Objetivos' },
       admin: {
         description: 'Project objectives section with an intro paragraph and bullet items.',
       },
       fields: [
         {
           name: 'introduction',
-          label: 'Introduction',
+          label: { en: 'Introduction', pt: 'Introdução' },
           type: 'textarea',
           localized: true,
           admin: {
@@ -176,7 +179,7 @@ const HawkProjectPageTab: Tab = {
         },
         {
           name: 'items',
-          label: 'Objective Items',
+          label: { en: 'Objective Items', pt: 'Itens de Objetivo' },
           type: 'array',
           interfaceName: 'HawkProjectObjectiveItem',
           admin: {
@@ -189,7 +192,7 @@ const HawkProjectPageTab: Tab = {
           fields: [
             {
               name: 'text',
-              label: 'Objective',
+              label: { en: 'Objective', pt: 'Objetivo' },
               type: 'textarea',
               localized: true,
               required: true,
@@ -198,7 +201,7 @@ const HawkProjectPageTab: Tab = {
         },
         PayloadImageField({
           name: 'objectivesImage',
-          label: 'Objectives Image',
+          label: 'Imagem dos Objetivos',
           description: 'Image displayed on the end of the objectives text',
         }),
       ],
@@ -210,21 +213,21 @@ const HawkProjectPageTab: Tab = {
     {
       type: 'group',
       name: 'results',
-      label: 'Results',
+      label: { en: 'Results', pt: 'Resultados' },
       admin: {
         description: 'Project results — text on the left, image on the right.',
       },
       fields: [
         {
           name: 'text',
-          label: 'Results Text',
+          label: { en: 'Results Text', pt: 'Texto dos Resultados' },
           type: 'textarea',
           localized: true,
           admin: { rows: 6 },
         },
         PayloadImageField({
           name: 'resultsImage',
-          label: 'Results Image',
+          label: 'Imagem dos Resultados',
           description: 'Image displayed alongside the results text',
         }),
       ],
@@ -235,7 +238,7 @@ const HawkProjectPageTab: Tab = {
     /* -------------------------------------------------------------- */
     MultiImageField({
       name: 'gallery',
-      label: 'Photo Gallery',
+      label: 'Galeria de Fotos',
       description: 'Photos displayed at the bottom of the project page',
     }),
   ],

@@ -12,8 +12,14 @@ import HawkProjectDisseminationFields from './HawkProjectDisseminationFields';
 export const HawkProject: CollectionConfig = {
   slug: 'hawk_projects',
   labels: {
-    singular: 'Hawk Project',
-    plural: 'Hawk Projects',
+    singular: {
+      en: 'Hawk Project',
+      pt: 'Projeto Erasmus da Hawk',
+    },
+    plural: {
+      en: 'Hawk Projects',
+      pt: 'Projetos Erasmus da Hawk',
+    },
   },
   admin: {
     useAsTitle: 'slug',
@@ -84,7 +90,7 @@ export const HawkProject: CollectionConfig = {
     },
     {
       name: 'actionType',
-      label: 'Action Type',
+      label: { en: 'Action Type', pt: 'Tipo de Ação' },
       type: 'text',
       admin: {
         description: 'e.g. KA152-YOU - Mobility of young people',
@@ -93,7 +99,7 @@ export const HawkProject: CollectionConfig = {
     },
     {
       name: 'referenceNumber',
-      label: 'Reference Number',
+      label: { en: 'Reference Number', pt: 'Número de Referência' },
       type: 'text',
       admin: {
         description: 'e.g. 2024-1-PT02-KA152-YOU-000232143',
@@ -102,7 +108,7 @@ export const HawkProject: CollectionConfig = {
     },
     {
       name: 'beneficiary',
-      label: 'Beneficiary',
+      label: { en: 'Beneficiary', pt: 'Beneficiário' },
       type: 'text',
       admin: {
         description: 'e.g. Hawk Stars (Portugal)',
@@ -111,7 +117,7 @@ export const HawkProject: CollectionConfig = {
     },
     {
       name: 'location',
-      label: 'Location',
+      label: { en: 'Location', pt: 'Localização' },
       type: 'text',
       localized: true,
       admin: {
@@ -121,14 +127,14 @@ export const HawkProject: CollectionConfig = {
     },
     {
       name: 'startDate',
-      label: 'Start Date',
+      label: { en: 'Start Date', pt: 'Data de Início' },
       type: 'date',
       admin: { position: 'sidebar', description: 'Start date of the project' },
       required: false,
     },
     {
       name: 'endDate',
-      label: 'End Date',
+      label: { en: 'End Date', pt: 'Data de Fim' },
       type: 'date',
       admin: {
         position: 'sidebar',

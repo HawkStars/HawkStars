@@ -12,6 +12,8 @@ import sharp from 'sharp';
 
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
+import { en } from '@payloadcms/translations/languages/en';
+import { pt } from '@payloadcms/translations/languages/pt';
 import nodemailer from 'nodemailer';
 
 import assert from 'assert';
@@ -30,8 +32,8 @@ import {
   getNotificationsHandler,
   markNotificationsReadHandler,
 } from './payload/endpoints/notifications';
-import { Notification } from './payload/collections/Notification';
 
+import { Notification } from './payload/collections/Notification';
 import { Footer } from './payload/globals/Footer/config';
 import { Header } from './payload/globals/Header/config';
 import { Pages } from './payload/collections/Pages';
@@ -68,6 +70,13 @@ assert(
 );
 
 export default buildConfig({
+  i18n: {
+    supportedLanguages: {
+      en,
+      pt,
+    },
+    fallbackLanguage: 'pt',
+  },
   admin: {
     user: Users.slug,
     importMap: {

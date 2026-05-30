@@ -34,7 +34,7 @@ export const MultiImageField = ({
       {
         name: 'internalImages',
         type: 'array',
-        label: 'Internal Images',
+        label: { en: 'Internal Images', pt: 'Imagens Internas' },
         required: false,
         admin: {
           description: 'Images uploaded to the Media library.',
@@ -45,7 +45,7 @@ export const MultiImageField = ({
             name: 'image',
             type: 'upload',
             relationTo: 'media',
-            label: 'Media',
+            label: { en: 'Media', pt: 'Média' },
             required: true,
           },
         ],
@@ -53,7 +53,7 @@ export const MultiImageField = ({
       {
         name: 'externalImages',
         type: 'array',
-        label: 'External Images',
+        label: { en: 'External Images', pt: 'Imagens Externas' },
         required: false,
         admin: {
           description: 'Images hosted externally — provide a URL and alt text.',
@@ -63,7 +63,7 @@ export const MultiImageField = ({
           {
             name: 'url',
             type: 'text',
-            label: 'Image URL',
+            label: { en: 'Image URL', pt: 'URL da Imagem' },
             required: true,
             admin: {
               description: 'Full URL of the external image (https://…)',
@@ -72,7 +72,7 @@ export const MultiImageField = ({
           {
             name: 'alt',
             type: 'text',
-            label: 'Alt Text',
+            label: { en: 'Alt Text', pt: 'Texto Alternativo' },
             required: true,
             admin: {
               description: 'Accessible description of the image.',

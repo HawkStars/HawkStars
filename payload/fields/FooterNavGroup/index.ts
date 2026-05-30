@@ -13,10 +13,10 @@ export const FooterNavGroup: GroupField = {
     },
   },
   fields: [
-    { name: 'title', type: 'text', label: 'Title', required: false, localized: true },
+    { name: 'title', type: 'text', label: { en: 'Title', pt: 'Título' }, required: false, localized: true },
     {
       name: 'data',
-      label: 'Links',
+      label: { en: 'Links', pt: 'Links' },
       type: 'array',
       fields: [link({ visible: true })],
       maxRows: 6,

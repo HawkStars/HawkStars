@@ -2,14 +2,14 @@ import { Tab } from 'payload';
 
 const HawkProjectDisseminationFields: Tab = {
   name: 'dissemination',
-  label: 'Dissemination',
+  label: { en: 'Dissemination', pt: 'Disseminação' },
   admin: {
     description: 'Dissemination links per country and official reports.',
   },
   fields: [
     {
       name: 'reports',
-      label: 'Reports',
+      label: { en: 'Reports', pt: 'Relatórios' },
       type: 'array',
       interfaceName: 'HawkProjectDisseminationReport',
       admin: {
@@ -23,7 +23,7 @@ const HawkProjectDisseminationFields: Tab = {
       fields: [
         {
           name: 'label',
-          label: 'Report Label',
+          label: { en: 'Report Label', pt: 'Rótulo do Relatório' },
           type: 'text',
           required: true,
           localized: true,
@@ -31,7 +31,7 @@ const HawkProjectDisseminationFields: Tab = {
         },
         {
           name: 'url',
-          label: 'Report URL',
+          label: { en: 'Report URL', pt: 'URL do Relatório' },
           type: 'text',
           required: true,
         },

@@ -17,6 +17,10 @@ import { DefaultBlocks } from '@/payload/blocks';
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
+  labels: {
+    singular: { en: 'Page', pt: 'Página' },
+    plural: { en: 'Pages', pt: 'Páginas' },
+  },
   orderable: true,
   defaultSort: 'title',
 
@@ -42,6 +46,7 @@ export const Pages: CollectionConfig<'pages'> = {
   fields: [
     {
       name: 'title',
+      label: { en: 'Title', pt: 'Título' },
       type: 'text',
       admin: {
         description: 'The title of the page displayed in the admin panel',
@@ -56,10 +61,11 @@ export const Pages: CollectionConfig<'pages'> = {
           fields: [
             {
               name: 'contentType',
+              label: { en: 'Content Type', pt: 'Tipo de Conteúdo' },
               type: 'radio',
               options: [
-                { label: 'Rich Text Layout', value: 'richText' },
-                { label: 'Blocks Only', value: 'blocks' },
+                { label: { en: 'Rich Text Layout', pt: 'Layout com Texto Rico' }, value: 'richText' },
+                { label: { en: 'Blocks Only', pt: 'Apenas Blocos' }, value: 'blocks' },
               ],
               defaultValue: 'richText',
               admin: {
@@ -76,7 +82,7 @@ export const Pages: CollectionConfig<'pages'> = {
               type: 'richText',
               required: false,
               localized: true,
-              label: 'Page Layout w/ Rich Text',
+              label: { en: 'Page Layout w/ Rich Text', pt: 'Layout da Página com Texto Rico' },
             },
             {
               name: 'blocks',
@@ -87,14 +93,14 @@ export const Pages: CollectionConfig<'pages'> = {
                 condition: (data) => data.contentType === 'blocks',
               },
               required: false,
-              label: 'Page Blocks Only',
+              label: { en: 'Page Blocks Only', pt: 'Apenas Blocos da Página' },
               labels: {
-                singular: 'Page Block',
-                plural: 'Page Blocks',
+                singular: { en: 'Page Block', pt: 'Bloco de Página' },
+                plural: { en: 'Page Blocks', pt: 'Blocos de Página' },
               },
             },
           ],
-          label: 'Content',
+          label: { en: 'Content', pt: 'Conteúdo' },
           admin: {
             description: 'Manage the main content of the page',
           },
@@ -146,6 +152,7 @@ export const Pages: CollectionConfig<'pages'> = {
     contentStatusField,
     {
       name: 'publishedAt',
+      label: { en: 'Published At', pt: 'Publicado Em' },
       type: 'date',
       admin: {
         position: 'sidebar',
@@ -154,6 +161,7 @@ export const Pages: CollectionConfig<'pages'> = {
     },
     {
       name: 'slug',
+      label: 'Slug',
       type: 'text',
       required: true,
       unique: true,
