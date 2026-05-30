@@ -24,8 +24,10 @@ export const News: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'type', 'slug', 'status', 'updatedAt'],
-    description:
-      'Write and publish news articles for the HawkStars website. Articles follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.',
+    description: {
+      en: 'Write and publish news articles for the HawkStars website. Articles follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.',
+      pt: 'Escreva e publique artigos de notícias para o website HawkStars. Os artigos seguem um fluxo: Rascunho → Em Revisão → Publicado. Os editores submetem para revisão; os administradores aprovam e publicam.',
+    },
     group: {
       ...GROUP_LABELS.daily,
     },
@@ -68,7 +70,10 @@ export const News: CollectionConfig = {
               hasGenerateFn: true,
               overrides: {
                 admin: {
-                  description: 'Recommended size: 1200x630 pixels',
+                  description: {
+                    en: 'Recommended size: 1200x630 pixels',
+                    pt: 'Tamanho recomendado: 1200x630 pixels',
+                  },
                 },
               },
             }),
@@ -98,8 +103,10 @@ export const News: CollectionConfig = {
       unique: true,
       admin: {
         position: 'sidebar',
-        description:
-          'The URL slug for the news article, e.g. "my-article" for www.hawkstars.com/news/my-article',
+        description: {
+          en: 'The URL slug for the news article, e.g. "my-article" for www.hawkstars.com/news/my-article',
+          pt: 'O slug de URL para o artigo, ex: "meu-artigo" para www.hawkstars.com/news/meu-artigo',
+        },
       },
     },
     {
@@ -108,7 +115,10 @@ export const News: CollectionConfig = {
       type: 'date',
       admin: {
         position: 'sidebar',
-        description: 'Automatically set when status changes to Published',
+        description: {
+          en: 'Automatically set when status changes to Published',
+          pt: 'Definido automaticamente quando o estado muda para Publicado',
+        },
       },
     },
   ],

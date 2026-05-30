@@ -15,7 +15,7 @@ export const ProjectTestimonialBlock: Block = {
       localized: true,
       label: { en: 'Title', pt: 'Título' },
       admin: {
-        description: 'Optional section title',
+        description: { en: 'Optional section title', pt: 'Título opcional da secção' },
       },
     },
     {
@@ -24,7 +24,7 @@ export const ProjectTestimonialBlock: Block = {
       localized: true,
       label: { en: 'Subtitle', pt: 'Subtítulo' },
       admin: {
-        description: 'Optional section subtitle',
+        description: { en: 'Optional section subtitle', pt: 'Subtítulo opcional da secção' },
       },
     },
     {
@@ -36,7 +36,10 @@ export const ProjectTestimonialBlock: Block = {
           label: 'Profile Image',
           name: 'profileImage',
           required: true,
-          description: 'Profile image of the person giving the testimonial',
+          description: {
+            en: 'Profile image of the person giving the testimonial',
+            pt: 'Imagem de perfil da pessoa que dá o testemunho',
+          },
         }),
         {
           name: 'name',
@@ -44,7 +47,7 @@ export const ProjectTestimonialBlock: Block = {
           required: true,
           label: { en: 'Name', pt: 'Nome' },
           admin: {
-            description: 'Author full name',
+            description: { en: 'Author full name', pt: 'Nome completo do autor' },
           },
         },
         {
@@ -53,7 +56,7 @@ export const ProjectTestimonialBlock: Block = {
           localized: true,
           label: { en: 'Role', pt: 'Função' },
           admin: {
-            description: 'Author role or position',
+            description: { en: 'Author role or position', pt: 'Função ou cargo do autor' },
           },
         },
         {
@@ -61,7 +64,7 @@ export const ProjectTestimonialBlock: Block = {
           type: 'text',
           label: { en: 'Organization', pt: 'Organização' },
           admin: {
-            description: 'Company or organization',
+            description: { en: 'Company or organization', pt: 'Empresa ou organização' },
           },
         },
       ],
@@ -73,7 +76,10 @@ export const ProjectTestimonialBlock: Block = {
       localized: true,
       label: { en: 'Testimonial', pt: 'Testemunho' },
       admin: {
-        description: 'The testimonial quote or review text',
+        description: {
+          en: 'The testimonial quote or review text',
+          pt: 'O texto da citação ou avaliação do testemunho',
+        },
       },
     },
     {
@@ -81,7 +87,10 @@ export const ProjectTestimonialBlock: Block = {
       type: 'group',
       label: { en: 'Project Media', pt: 'Média do Projeto' },
       admin: {
-        description: 'Images showing the project group or related visuals',
+        description: {
+          en: 'Images showing the project group or related visuals',
+          pt: 'Imagens mostrando o grupo do projeto ou visuais relacionados',
+        },
       },
       fields: [
         {
@@ -94,7 +103,10 @@ export const ProjectTestimonialBlock: Block = {
           ],
           defaultValue: 'single',
           admin: {
-            description: 'How to display project images',
+            description: {
+              en: 'How to display project images',
+              pt: 'Como exibir as imagens do projeto',
+            },
           },
         },
         {
@@ -128,7 +140,10 @@ export const ProjectTestimonialBlock: Block = {
           defaultValue: true,
           label: { en: 'Autoplay', pt: 'Reprodução Automática' },
           admin: {
-            description: 'Automatically cycle through images (slideshow mode only)',
+            description: {
+              en: 'Automatically cycle through images (slideshow mode only)',
+              pt: 'Ciclar automaticamente pelas imagens (apenas no modo slideshow)',
+            },
             condition: (_, siblingData) => siblingData?.displayMode === 'slideshow',
           },
         },
@@ -140,7 +155,10 @@ export const ProjectTestimonialBlock: Block = {
           defaultValue: 4000,
           label: { en: 'Autoplay Interval', pt: 'Intervalo de Reprodução' },
           admin: {
-            description: 'Time between slides in milliseconds',
+            description: {
+              en: 'Time between slides in milliseconds',
+              pt: 'Tempo entre diapositivos em milissegundos',
+            },
             condition: (_, siblingData) =>
               siblingData?.displayMode === 'slideshow' && siblingData?.autoplay === true,
           },
@@ -157,7 +175,10 @@ export const ProjectTestimonialBlock: Block = {
       ],
       defaultValue: 'imageRight',
       admin: {
-        description: 'Position of the project images relative to the testimonial',
+        description: {
+          en: 'Position of the project images relative to the testimonial',
+          pt: 'Posição das imagens do projeto em relação ao testemunho',
+        },
       },
     },
     {
@@ -172,7 +193,7 @@ export const ProjectTestimonialBlock: Block = {
       ],
       defaultValue: 'none',
       admin: {
-        description: 'Background color for the section',
+        description: { en: 'Background color for the section', pt: 'Cor de fundo da secção' },
       },
     },
     SectionID,

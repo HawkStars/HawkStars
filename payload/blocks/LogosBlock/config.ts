@@ -14,7 +14,12 @@ export const LogosBlock: Block = {
       required: false,
       localized: true,
       label: { en: 'Badge Text', pt: 'Texto do Distintivo' },
-      admin: { description: 'Text for the badge (e.g. Referral Partners)' },
+      admin: {
+        description: {
+          en: 'Text for the badge (e.g. Referral Partners)',
+          pt: 'Texto para o distintivo (ex: Parceiros de Referência)',
+        },
+      },
     },
     {
       name: 'heading',
@@ -22,7 +27,7 @@ export const LogosBlock: Block = {
       required: true,
       localized: true,
       label: { en: 'Heading', pt: 'Título' },
-      admin: { description: 'Main heading' },
+      admin: { description: { en: 'Main heading', pt: 'Título principal' } },
     },
     {
       name: 'description',
@@ -30,7 +35,7 @@ export const LogosBlock: Block = {
       required: false,
       localized: true,
       label: { en: 'Description', pt: 'Descrição' },
-      admin: { description: 'Description text' },
+      admin: { description: { en: 'Description text', pt: 'Texto de descrição' } },
     },
     {
       name: 'buttonText',
@@ -38,7 +43,12 @@ export const LogosBlock: Block = {
       required: false,
       localized: true,
       label: { en: 'Button Text', pt: 'Texto do Botão' },
-      admin: { description: 'Button text (e.g. Become a partner)' },
+      admin: {
+        description: {
+          en: 'Button text (e.g. Become a partner)',
+          pt: 'Texto do botão (ex: Torne-se parceiro)',
+        },
+      },
     },
     {
       name: 'logos',
@@ -49,10 +59,16 @@ export const LogosBlock: Block = {
       label: { en: 'Logos', pt: 'Logótipos' },
       fields: [
         { name: 'name', type: 'text', required: true, label: { en: 'Name', pt: 'Nome' } },
-        { name: 'logo', type: 'text', required: true, label: { en: 'Logo URL', pt: 'URL do Logótipo' }, admin: { description: 'Logo image URL' } },
+        {
+          name: 'logo',
+          type: 'text',
+          required: true,
+          label: { en: 'Logo URL', pt: 'URL do Logótipo' },
+          admin: { description: { en: 'Logo image URL', pt: 'URL do logótipo' } },
+        },
       ],
       admin: {
-        description: 'Partner logos',
+        description: { en: 'Partner logos', pt: 'Logótipos dos parceiros' },
         components: {
           RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
         },

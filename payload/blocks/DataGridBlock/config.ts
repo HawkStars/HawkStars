@@ -19,7 +19,7 @@ export const DataGridBlock: Block = {
       required: true,
       localized: true,
       admin: {
-        description: 'Title displayed above the grid',
+        description: { en: 'Title displayed above the grid', pt: 'Título exibido acima da grelha' },
       },
     },
     {
@@ -30,7 +30,7 @@ export const DataGridBlock: Block = {
       localized: true,
       defaultValue: 'Area',
       admin: {
-        description: 'Header for the first column',
+        description: { en: 'Header for the first column', pt: 'Cabeçalho da primeira coluna' },
       },
     },
     {
@@ -41,7 +41,7 @@ export const DataGridBlock: Block = {
       localized: true,
       defaultValue: 'Meta',
       admin: {
-        description: 'Header for the second column',
+        description: { en: 'Header for the second column', pt: 'Cabeçalho da segunda coluna' },
       },
     },
     {
@@ -68,7 +68,7 @@ export const DataGridBlock: Block = {
           required: true,
           localized: true,
           admin: {
-            description: 'Value for the first column',
+            description: { en: 'Value for the first column', pt: 'Valor da primeira coluna' },
           },
         },
         {
@@ -78,7 +78,7 @@ export const DataGridBlock: Block = {
           required: true,
           localized: true,
           admin: {
-            description: 'Value for the second column',
+            description: { en: 'Value for the second column', pt: 'Valor da segunda coluna' },
           },
         },
       ],

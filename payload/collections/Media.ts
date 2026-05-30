@@ -9,8 +9,10 @@ export const Media: CollectionConfig = {
     plural: { en: 'Media', pt: 'Média' },
   },
   admin: {
-    description:
-      'Upload and manage media assets such as images used throughout the website. Use a image compression tool to optimize images before uploading to improve performance. Ideally in webP',
+    description: {
+      en: 'Upload and manage media assets such as images used throughout the website. Use a image compression tool to optimize images before uploading to improve performance. Ideally in webP',
+      pt: 'Carregue e gira recursos de média como imagens usadas no website. Use uma ferramenta de compressão antes de carregar para melhor desempenho. Idealmente em webP.',
+    },
     components: {
       views: {
         list: {
@@ -44,7 +46,10 @@ export const Media: CollectionConfig = {
       type: 'text',
       required: true,
       admin: {
-        description: 'Alternative text for the media item, used for accessibility.',
+        description: {
+          en: 'Alternative text for the media item, used for accessibility.',
+          pt: 'Texto alternativo para o item de média, usado para acessibilidade.',
+        },
       },
     },
     {
@@ -53,8 +58,10 @@ export const Media: CollectionConfig = {
       type: 'text',
       required: false,
       admin: {
-        description:
-          'For organizational purposes, specify the section of the website where this media will be used (e.g., Homepage, About Us, Gallery).',
+        description: {
+          en: 'For organizational purposes, specify the section of the website where this media will be used (e.g., Homepage, About Us, Gallery).',
+          pt: 'Para fins organizacionais, especifique a secção do website onde este média será utilizado (ex: Página Inicial, Sobre Nós, Galeria).',
+        },
       },
     },
   ],

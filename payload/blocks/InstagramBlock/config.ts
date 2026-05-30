@@ -22,7 +22,10 @@ export const InstagramBlock: Block = {
         { label: 'Widget', value: 'widget' },
       ],
       admin: {
-        description: 'Pick the version of the Instagram block to display.',
+        description: {
+          en: 'Pick the version of the Instagram block to display.',
+          pt: 'Escolha a versão do bloco do Instagram a exibir.',
+        },
       },
     },
     SectionID,

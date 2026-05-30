@@ -12,7 +12,10 @@ export const Notification: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'situation', 'read', 'createdAt'],
-    description: 'System notifications for admin activity tracking',
+    description: {
+      en: 'System notifications for admin activity tracking',
+      pt: 'Notificações do sistema para rastreamento de atividade administrativa',
+    },
     group: {
       ...GROUP_LABELS.settings,
     },
@@ -31,7 +34,7 @@ export const Notification: CollectionConfig = {
       type: 'text',
       required: true,
       admin: {
-        description: 'Short summary of what happened',
+        description: { en: 'Short summary of what happened', pt: 'Resumo curto do que aconteceu' },
       },
     },
     {
@@ -40,7 +43,10 @@ export const Notification: CollectionConfig = {
       type: 'textarea',
       required: false,
       admin: {
-        description: 'Detailed notification message',
+        description: {
+          en: 'Detailed notification message',
+          pt: 'Mensagem detalhada da notificação',
+        },
       },
     },
     {
@@ -63,7 +69,10 @@ export const Notification: CollectionConfig = {
       defaultValue: false,
       label: { en: 'Read', pt: 'Lida' },
       admin: {
-        description: 'Whether this notification has been read',
+        description: {
+          en: 'Whether this notification has been read',
+          pt: 'Se esta notificação foi lida',
+        },
       },
     },
     {
@@ -72,7 +81,10 @@ export const Notification: CollectionConfig = {
       type: 'text',
       required: false,
       admin: {
-        description: 'Admin panel link to the related document',
+        description: {
+          en: 'Admin panel link to the related document',
+          pt: 'Link do painel de administração para o documento relacionado',
+        },
       },
     },
     {
@@ -81,7 +93,10 @@ export const Notification: CollectionConfig = {
       type: 'text',
       required: false,
       admin: {
-        description: 'The collection slug this notification refers to',
+        description: {
+          en: 'The collection slug this notification refers to',
+          pt: 'O slug da coleção a que esta notificação se refere',
+        },
       },
     },
     {
@@ -90,7 +105,7 @@ export const Notification: CollectionConfig = {
       type: 'text',
       required: false,
       admin: {
-        description: 'The ID of the related document',
+        description: { en: 'The ID of the related document', pt: 'O ID do documento relacionado' },
       },
     },
   ],

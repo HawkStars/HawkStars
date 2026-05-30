@@ -15,7 +15,10 @@ export const SponsorsBlock: Block = {
       localized: true,
       label: { en: 'Title', pt: 'Título' },
       admin: {
-        description: 'Section heading displayed above the sponsors grid',
+        description: {
+          en: 'Section heading displayed above the sponsors grid',
+          pt: 'Título da secção exibido acima da grelha de patrocinadores',
+        },
       },
     },
     {
@@ -24,7 +27,7 @@ export const SponsorsBlock: Block = {
       localized: true,
       label: { en: 'Subtitle', pt: 'Subtítulo' },
       admin: {
-        description: 'Optional section description',
+        description: { en: 'Optional section description', pt: 'Descrição opcional da secção' },
       },
     },
     {
@@ -38,7 +41,10 @@ export const SponsorsBlock: Block = {
         { label: 'Bronze', value: 'bronze' },
       ],
       admin: {
-        description: 'Filter by sponsor tier. Leave empty to show all sponsors.',
+        description: {
+          en: 'Filter by sponsor tier. Leave empty to show all sponsors.',
+          pt: 'Filtre por nível de patrocinador. Deixe vazio para mostrar todos os patrocinadores.',
+        },
       },
     },
     {
@@ -49,7 +55,10 @@ export const SponsorsBlock: Block = {
       max: 50,
       label: { en: 'Limit', pt: 'Limite' },
       admin: {
-        description: 'Maximum number of sponsors to display',
+        description: {
+          en: 'Maximum number of sponsors to display',
+          pt: 'Número máximo de patrocinadores a exibir',
+        },
       },
     },
     SectionID,

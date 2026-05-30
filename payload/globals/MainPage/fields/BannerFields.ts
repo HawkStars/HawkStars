@@ -7,14 +7,23 @@ const BannerFields: GroupField = {
   type: 'group',
   interfaceName: 'MainPageBannerFields',
   admin: {
-    description: 'Optional banner displayed at the top of the page.',
+    description: {
+      en: 'Optional banner displayed at the top of the page.',
+      pt: 'Banner opcional exibido no topo da página.',
+    },
   },
   fields: [
     {
       name: 'bannerText',
       label: { en: 'Banner Text', pt: 'Texto do Banner' },
       type: 'text',
-      admin: { position: 'sidebar', description: 'Text to display in the banner' },
+      admin: {
+        position: 'sidebar',
+        description: {
+          en: 'Text to display in the banner',
+          pt: 'Texto a exibir no banner',
+        },
+      },
       required: false,
       localized: true,
     },
@@ -22,7 +31,13 @@ const BannerFields: GroupField = {
       name: 'bannerButtonLink',
       label: { en: 'Banner Button Link', pt: 'Link do Botão do Banner' },
       type: 'text',
-      admin: { position: 'sidebar', description: 'Optional URL for the banner button' },
+      admin: {
+        position: 'sidebar',
+        description: {
+          en: 'Optional URL for the banner button',
+          pt: 'URL opcional para o botão do banner',
+        },
+      },
       required: false,
     },
     {
@@ -31,7 +46,10 @@ const BannerFields: GroupField = {
       label: { en: 'Banner Text Color', pt: 'Cor do Texto do Banner' },
       required: false,
       admin: {
-        description: 'Hex color code for the banner background (e.g. #ff0000)',
+        description: {
+          en: 'Hex color code for the banner background (e.g. #ff0000)',
+          pt: 'Código de cor hexadecimal para o fundo do banner (ex: #ff0000)',
+        },
         components: {
           afterInput: ['@/payload/globals/MainPage/fields/components/BannerColorAfterInputField'],
         },
@@ -46,7 +64,12 @@ const BannerFields: GroupField = {
       name: 'bannerButtonText',
       label: { en: 'Banner Button Text', pt: 'Texto do Botão do Banner' },
       type: 'text',
-      admin: { description: 'Optional text for the banner button' },
+      admin: {
+        description: {
+          en: 'Optional text for the banner button',
+          pt: 'Texto opcional para o botão do banner',
+        },
+      },
       required: false,
       localized: true,
     },
@@ -55,8 +78,10 @@ const BannerFields: GroupField = {
       name: 'bannerImage',
       label: 'Imagem do Banner',
       hideGutter: true,
-      description:
-        'Optional image for the banner. Will be used as a background on desktop and inline on mobile.',
+      description: {
+        en: 'Optional image for the banner. Will be used as a background on desktop and inline on mobile.',
+        pt: 'Imagem opcional para o banner. Será usada como fundo no desktop e em linha no móvel.',
+      },
       required: false,
     }),
   ],

@@ -6114,8 +6114,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
- * This is the information about the header. Each column represents a group of navigation links
- *       that will be displayed in the header section of the website side by side or at the mobile. If it has more just 1 link it will not have a dropdown
+ * Configure the header navigation columns. If a column has more than one link it will show a dropdown menu.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header".
@@ -6166,8 +6165,7 @@ export interface ImageIcon {
   icon?: LucideIcon;
 }
 /**
- * This is the information about the footer. Each column represents a group of navigation links
- *       that will be displayed in the footer section of the website side by side or at the mobile.
+ * Configure the footer navigation columns. Each column groups links displayed side by side on desktop or stacked on mobile.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
@@ -6255,7 +6253,7 @@ export interface MainPageBannerFields {
   bannerImage?: ImageType;
 }
 /**
- * Configure the list of news list information.
+ * Configure the news list page header information.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "news-list".
@@ -6333,8 +6331,7 @@ export interface EventsList {
   createdAt?: string | null;
 }
 /**
- * This is the information about the settings. Each column represents a group of navigation links
- *       that will be displayed in the settings section of the website side by side or at the mobile.
+ * Configure website settings including Instagram feed access tokens and Google Drive integration.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "settings".

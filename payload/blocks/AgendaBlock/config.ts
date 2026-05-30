@@ -14,7 +14,10 @@ export const AgendaBlock: Block = {
       label: { en: 'Section Title', pt: 'Título da Secção' },
       localized: true,
       admin: {
-        description: 'Heading displayed above the event list',
+        description: {
+          en: 'Heading displayed above the event list',
+          pt: 'Título exibido acima da lista de eventos',
+        },
       },
     },
     {
@@ -23,7 +26,10 @@ export const AgendaBlock: Block = {
       label: { en: 'Section Subtitle', pt: 'Subtítulo da Secção' },
       localized: true,
       admin: {
-        description: 'Optional description shown below the title',
+        description: {
+          en: 'Optional description shown below the title',
+          pt: 'Descrição opcional exibida abaixo do título',
+        },
       },
     },
     {
@@ -33,12 +39,17 @@ export const AgendaBlock: Block = {
       hasMany: true,
       options: [
         { label: { en: 'Local Event', pt: 'Evento Local' }, value: 'local_event' },
-        { label: { en: 'International Event', pt: 'Evento Internacional' }, value: 'international_event' },
+        {
+          label: { en: 'International Event', pt: 'Evento Internacional' },
+          value: 'international_event',
+        },
         { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
       ],
       admin: {
-        description:
-          'Filter by event type. Leave empty to show all upcoming events regardless of type.',
+        description: {
+          en: 'Filter by event type. Leave empty to show all upcoming events regardless of type.',
+          pt: 'Filtre por tipo de evento. Deixe vazio para mostrar todos os eventos futuros independentemente do tipo.',
+        },
       },
     },
     {
@@ -47,7 +58,10 @@ export const AgendaBlock: Block = {
       label: { en: 'Maximum Events to Show', pt: 'Máximo de Eventos a Mostrar' },
       defaultValue: 5,
       admin: {
-        description: 'Maximum number of upcoming events to display (1–20)',
+        description: {
+          en: 'Maximum number of upcoming events to display (1–20)',
+          pt: 'Número máximo de eventos futuros a exibir (1–20)',
+        },
         step: 1,
       },
       validate: (value: number | null | undefined) => {
@@ -68,7 +82,10 @@ export const AgendaBlock: Block = {
         { label: { en: 'Cards', pt: 'Cartões' }, value: 'cards' },
       ],
       admin: {
-        description: 'Visual style for the event list',
+        description: {
+          en: 'Visual style for the event list',
+          pt: 'Estilo visual para a lista de eventos',
+        },
       },
     },
     {
@@ -78,7 +95,10 @@ export const AgendaBlock: Block = {
       defaultValue: 'Ver mais',
       localized: true,
       admin: {
-        description: 'Text for the "learn more" link on each event card',
+        description: {
+          en: 'Text for the "learn more" link on each event card',
+          pt: 'Texto para o link "saber mais" em cada cartão de evento',
+        },
       },
     },
     SectionID,

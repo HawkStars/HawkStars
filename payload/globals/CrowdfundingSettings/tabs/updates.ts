@@ -16,8 +16,10 @@ const CrowdfundingSettingsUpdatesTab: Tab = {
         en: 'Update Cards',
       },
       admin: {
-        description:
-          'Campaign update cards shown in the Updates section. Each card links to an Instagram post.',
+        description: {
+          en: 'Campaign update cards shown in the Updates section. Each card links to an Instagram post.',
+          pt: 'Cartões de atualização da campanha mostrados na secção de Atualizações. Cada cartão liga a uma publicação do Instagram.',
+        },
         components: {
           RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
         },
@@ -67,8 +69,10 @@ const CrowdfundingSettingsUpdatesTab: Tab = {
             en: 'Instagram URL',
           },
           admin: {
-            description:
-              'Link to the Instagram post for this update (e.g. "https://www.instagram.com/p/...").',
+            description: {
+              en: 'Link to the Instagram post for this update (e.g. "https://www.instagram.com/p/...").',
+              pt: 'Link para a publicação do Instagram desta atualização (ex: "https://www.instagram.com/p/...").',
+            },
           },
         },
       ],

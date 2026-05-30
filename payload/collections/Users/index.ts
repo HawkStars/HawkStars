@@ -20,8 +20,10 @@ export const Users: CollectionConfig = {
   admin: {
     defaultColumns: ['name', 'email', 'isAdmin', 'isEditor', 'updatedAt'],
     useAsTitle: 'name',
-    description:
-      'Manage admin panel users and their roles. Admins have full access; Editors can manage content but not users or settings. Only admins can create new users.',
+    description: {
+      en: 'Manage admin panel users and their roles. Admins have full access; Editors can manage content but not users or settings. Only admins can create new users.',
+      pt: 'Gira os utilizadores do painel de administração e as suas funções. Os administradores têm acesso total; os editores podem gerir conteúdo mas não utilizadores ou definições. Apenas os administradores podem criar novos utilizadores.',
+    },
     group: {
       ...GROUP_LABELS.management,
     },
@@ -43,7 +45,10 @@ export const Users: CollectionConfig = {
       label: { en: 'Is Admin', pt: 'É Administrador' },
       defaultValue: false,
       admin: {
-        description: 'Admins have full access to all collections, globals, and settings.',
+        description: {
+          en: 'Admins have full access to all collections, globals, and settings.',
+          pt: 'Os administradores têm acesso total a todas as coleções, globais e definições.',
+        },
         condition: (data, { isAdmin }) => isAdmin === true,
       },
     },
@@ -53,7 +58,10 @@ export const Users: CollectionConfig = {
       label: { en: 'Is Editor', pt: 'É Editor' },
       defaultValue: false,
       admin: {
-        description: 'Editors have access to manage content but cannot manage users or settings.',
+        description: {
+          en: 'Editors have access to manage content but cannot manage users or settings.',
+          pt: 'Os editores podem gerir conteúdo mas não podem gerir utilizadores ou definições.',
+        },
         condition: (data, { isAdmin }) => isAdmin === true,
       },
     },

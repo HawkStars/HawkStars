@@ -19,13 +19,13 @@ export const ImageComparisonSliderBlock: Block = {
       label: 'Before Image',
       name: 'beforeImage',
       required: true,
-      description: 'Image shown on the left side',
+      description: { en: 'Image shown on the left side', pt: 'Imagem mostrada no lado esquerdo' },
     }),
     PayloadImageField({
       label: 'After Image',
       name: 'afterImage',
       required: true,
-      description: 'Image shown on the right side',
+      description: { en: 'Image shown on the right side', pt: 'Imagem mostrada no lado direito' },
     }),
     {
       name: 'beforeLabel',
@@ -34,7 +34,7 @@ export const ImageComparisonSliderBlock: Block = {
       defaultValue: 'Before',
       localized: true,
       admin: {
-        description: 'Label for the before image',
+        description: { en: 'Label for the before image', pt: 'Rótulo para a imagem "antes"' },
       },
       required: false,
     },
@@ -45,7 +45,7 @@ export const ImageComparisonSliderBlock: Block = {
       defaultValue: 'After',
       localized: true,
       admin: {
-        description: 'Label for the after image',
+        description: { en: 'Label for the after image', pt: 'Rótulo para a imagem "depois"' },
       },
       required: false,
     },

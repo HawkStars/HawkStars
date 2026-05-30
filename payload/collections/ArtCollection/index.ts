@@ -20,8 +20,10 @@ export const ArtCollection: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'artist', 'year', 'is_sold'],
-    description:
-      'Manage the art collection catalogue. Add new artworks with details like artist, year, medium, and sale status. These appear in the public gallery on the website.',
+    description: {
+      en: 'Manage the art collection catalogue. Add new artworks with details like artist, year, medium, and sale status. These appear in the public gallery on the website.',
+      pt: 'Gira o catálogo da coleção de arte. Adicione novas obras com detalhes como artista, ano, técnica e estado de venda. Estas aparecem na galeria pública do website.',
+    },
     group: {
       ...GROUP_LABELS.artGallery,
     },

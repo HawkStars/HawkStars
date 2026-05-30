@@ -27,8 +27,10 @@ export const BoardMember: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'title', 'section', 'position'],
-    description:
-      'Manage board member profiles across all sections (Assembleia Geral, Conselho Fiscal, Direção, and more). Add photos, titles, and social links. The position number controls display order on the website.',
+    description: {
+      en: 'Manage board member profiles across all sections (Assembleia Geral, Conselho Fiscal, Direção, and more). Add photos, titles, and social links. The position number controls display order on the website.',
+      pt: 'Gira os perfis dos membros da direção em todas as secções (Assembleia Geral, Conselho Fiscal, Direção, e mais). Adicione fotos, títulos e links sociais. O número de posição controla a ordem de exibição no website.',
+    },
     listSearchableFields: ['name', 'title', 'section'],
     pagination: {
       defaultLimit: 50,
@@ -60,7 +62,7 @@ export const BoardMember: CollectionConfig = {
       required: true,
       localized: false,
       admin: {
-        description: 'Section out of the three that is to add the member',
+        description: { en: 'Section out of the three that is to add the member', pt: 'Secção das três onde adicionar o membro' },
       },
       options: [
         { label: 'Assembleia Geral', value: 'geral' },
@@ -103,7 +105,7 @@ export const BoardMember: CollectionConfig = {
       required: false,
       localized: true,
       admin: {
-        description: 'Only for board members in a department',
+        description: { en: 'Only for board members in a department', pt: 'Apenas para membros da direção num departamento' },
       },
     },
     {
@@ -118,7 +120,7 @@ export const BoardMember: CollectionConfig = {
       label: { en: 'Position', pt: 'Posição' },
       type: 'number',
       admin: {
-        description: 'Position to be ordered to be shown on the page',
+        description: { en: 'Position to be ordered to be shown on the page', pt: 'Posição para ordenação na página' },
         step: 1,
       },
       required: true,

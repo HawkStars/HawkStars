@@ -22,8 +22,10 @@ export const contentStatusField: Field = {
   ],
   admin: {
     position: 'sidebar',
-    description:
-      'Draft → In Review → Published. Editors submit for review; Admins approve and publish.',
+    description: {
+      en: 'Draft → In Review → Published. Editors submit for review; Admins approve and publish.',
+      pt: 'Rascunho → Em Revisão → Publicado. Os editores submetem para revisão; os administradores aprovam e publicam.',
+    },
   },
 };
 

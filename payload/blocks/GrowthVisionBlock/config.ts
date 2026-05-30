@@ -17,7 +17,7 @@ export const GrowthVisionBlock: Block = {
       localized: true,
       defaultValue: 'Uma visão em crescimento',
       admin: {
-        description: 'Main heading for the section',
+        description: { en: 'Main heading for the section', pt: 'Título principal da secção' },
       },
     },
     {
@@ -43,7 +43,7 @@ export const GrowthVisionBlock: Block = {
         { label: { en: 'Green', pt: 'Verde' }, value: 'green' },
       ],
       admin: {
-        description: 'Background color for the section',
+        description: { en: 'Background color for the section', pt: 'Cor de fundo da secção' },
       },
     },
     {
@@ -62,7 +62,10 @@ export const GrowthVisionBlock: Block = {
           label: 'Phase Icon Image',
           name: 'icon',
           required: true,
-          description: 'Illustration or icon representing this growth phase',
+          description: {
+            en: 'Illustration or icon representing this growth phase',
+            pt: 'Ilustração ou ícone representando esta fase de crescimento',
+          },
         }),
         {
           name: 'phaseName',
@@ -71,7 +74,10 @@ export const GrowthVisionBlock: Block = {
           required: true,
           localized: true,
           admin: {
-            description: 'Phase name (e.g., "Curto prazo (até 2026)")',
+            description: {
+              en: 'Phase name (e.g., "Curto prazo (até 2026)")',
+              pt: 'Nome da fase (ex: "Curto prazo (até 2026)")',
+            },
           },
         },
         {
@@ -93,12 +99,18 @@ export const GrowthVisionBlock: Block = {
               required: true,
               localized: true,
               admin: {
-                description: 'Goal or milestone description',
+                description: {
+                  en: 'Goal or milestone description',
+                  pt: 'Descrição do objetivo ou marco',
+                },
               },
             },
           ],
           admin: {
-            description: 'List of goals/milestones for this phase',
+            description: {
+              en: 'List of goals/milestones for this phase',
+              pt: 'Lista de objetivos/marcos para esta fase',
+            },
             components: {
               RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
             },
@@ -107,7 +119,10 @@ export const GrowthVisionBlock: Block = {
       ],
       interfaceName: 'GrowthVisionPhase',
       admin: {
-        description: 'Growth phases with their respective goals',
+        description: {
+          en: 'Growth phases with their respective goals',
+          pt: 'Fases de crescimento com os respetivos objetivos',
+        },
         components: {
           RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
         },

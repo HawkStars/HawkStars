@@ -51,7 +51,10 @@ export const TimelineBlock: Block = {
           label: 'Image',
           name: 'image',
           required: false,
-          description: 'Image for the timeline item',
+          description: {
+            en: 'Image for the timeline item',
+            pt: 'Imagem para o item da linha do tempo',
+          },
         }),
       ],
     },

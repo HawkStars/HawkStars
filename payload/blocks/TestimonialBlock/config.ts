@@ -15,7 +15,10 @@ export const TestimonialBlock: Block = {
       localized: true,
       label: { en: 'Title', pt: 'Título' },
       admin: {
-        description: 'Optional title for the testimonial section',
+        description: {
+          en: 'Optional title for the testimonial section',
+          pt: 'Título opcional para a secção de testemunhos',
+        },
       },
     },
     {
@@ -24,7 +27,10 @@ export const TestimonialBlock: Block = {
       localized: true,
       label: { en: 'Subtitle', pt: 'Subtítulo' },
       admin: {
-        description: 'Optional subtitle or description',
+        description: {
+          en: 'Optional subtitle or description',
+          pt: 'Subtítulo ou descrição opcional',
+        },
       },
     },
     {
@@ -47,7 +53,10 @@ export const TestimonialBlock: Block = {
           localized: true,
           label: { en: 'Quote', pt: 'Citação' },
           admin: {
-            description: 'The testimonial quote or review',
+            description: {
+              en: 'The testimonial quote or review',
+              pt: 'A citação ou avaliação do testemunho',
+            },
           },
         },
         {
@@ -62,7 +71,7 @@ export const TestimonialBlock: Block = {
               localized: true,
               label: { en: 'Name', pt: 'Nome' },
               admin: {
-                description: 'Author full name',
+                description: { en: 'Author full name', pt: 'Nome completo do autor' },
               },
             },
             {
@@ -71,7 +80,7 @@ export const TestimonialBlock: Block = {
               localized: true,
               label: { en: 'Title', pt: 'Título' },
               admin: {
-                description: 'Job title or role',
+                description: { en: 'Job title or role', pt: 'Cargo ou função' },
               },
             },
             {
@@ -80,14 +89,14 @@ export const TestimonialBlock: Block = {
               localized: true,
               label: { en: 'Company', pt: 'Empresa' },
               admin: {
-                description: 'Company or organization',
+                description: { en: 'Company or organization', pt: 'Empresa ou organização' },
               },
             },
             PayloadImageField({
               label: 'Avatar',
               name: 'avatar',
               required: false,
-              description: 'Author profile photo',
+              description: { en: 'Author profile photo', pt: 'Foto de perfil do autor' },
             }),
           ],
         },
@@ -98,7 +107,10 @@ export const TestimonialBlock: Block = {
           max: 5,
           label: { en: 'Rating', pt: 'Avaliação' },
           admin: {
-            description: 'Star rating (1-5 stars)',
+            description: {
+              en: 'Star rating (1-5 stars)',
+              pt: 'Avaliação por estrelas (1-5 estrelas)',
+            },
           },
         },
         {
@@ -107,7 +119,10 @@ export const TestimonialBlock: Block = {
           defaultValue: false,
           label: { en: 'Featured', pt: 'Destaque' },
           admin: {
-            description: 'Mark as featured testimonial (larger display)',
+            description: {
+              en: 'Mark as featured testimonial (larger display)',
+              pt: 'Marcar como testemunho em destaque (exibição maior)',
+            },
           },
         },
       ],
@@ -140,7 +155,7 @@ export const TestimonialBlock: Block = {
       ],
       defaultValue: 'three-cols',
       admin: {
-        description: 'How to display the testimonials',
+        description: { en: 'How to display the testimonials', pt: 'Como exibir os testemunhos' },
       },
     },
     {
@@ -167,7 +182,7 @@ export const TestimonialBlock: Block = {
       ],
       defaultValue: 'card',
       admin: {
-        description: 'Visual style of testimonials',
+        description: { en: 'Visual style of testimonials', pt: 'Estilo visual dos testemunhos' },
       },
     },
     {
@@ -176,7 +191,7 @@ export const TestimonialBlock: Block = {
       defaultValue: true,
       label: { en: 'Show Ratings', pt: 'Mostrar Avaliações' },
       admin: {
-        description: 'Display star ratings',
+        description: { en: 'Display star ratings', pt: 'Exibir avaliações por estrelas' },
       },
     },
     {

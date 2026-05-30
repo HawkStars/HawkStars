@@ -1,10 +1,10 @@
-import type { Condition, Field, GroupField } from 'payload';
+import type { Condition, Description, Field, GroupField } from 'payload';
 
 type LinkTypeProps = {
   localizedLabel?: boolean;
   labelInformation?: string;
   condition?: Condition;
-  description?: string;
+  description?: Description | string;
   name?: string;
   visible?: boolean;
 };
@@ -35,8 +35,10 @@ export const link = (props?: LinkTypeProps) => {
             admin: {
               layout: 'horizontal',
               width: '50%',
-              description:
-                'Choose whether this link is an internal reference to a document within the site or a custom/external URL.',
+              description: {
+                en: 'Choose whether this link is an internal reference to a document within the site or a custom/external URL.',
+                pt: 'Escolha se este link é uma referência interna a um documento do site ou um URL externo/personalizado.',
+              },
             },
             defaultValue: 'reference',
             required: true,
@@ -85,8 +87,10 @@ export const link = (props?: LinkTypeProps) => {
       type: 'relationship',
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'reference',
-        description:
-          'Select a document to link to from the existing collections present on the Administration Panel.',
+        description: {
+          en: 'Select a document to link to from the existing collections present on the Administration Panel.',
+          pt: 'Selecione um documento para ligar a partir das coleções existentes no Painel de Administração.',
+        },
       },
       label: { en: 'Document to link to', pt: 'Documento a ligar' },
       relationTo: ['pages', 'hawk_projects'],
@@ -97,7 +101,10 @@ export const link = (props?: LinkTypeProps) => {
       type: 'text',
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'custom',
-        description: 'Enter the full URL for the link, including http:// or https://',
+        description: {
+          en: 'Enter the full URL for the link, including http:// or https://',
+          pt: 'Introduza o URL completo do link, incluindo http:// ou https://',
+        },
       },
       label: { en: 'Custom URL', pt: 'URL Personalizado' },
       required: true,
@@ -132,8 +139,10 @@ export const link = (props?: LinkTypeProps) => {
         label: { en: 'Section ID', pt: 'ID da Secção' },
         admin: {
           width: '50%',
-          description:
-            'Optional: Specify a section ID (without the #) to link to a specific section within the page.',
+          description: {
+            en: 'Optional: Specify a section ID (without the #) to link to a specific section within the page.',
+            pt: 'Opcional: Especifique um ID de secção (sem o #) para ligar a uma secção específica da página.',
+          },
         },
         required: false,
         localized: false,

@@ -21,7 +21,10 @@ export const MainPage: GlobalConfig = {
     en: 'Main Page',
   },
   admin: {
-    description: 'Configure the main landing page of the website.',
+    description: {
+      en: 'Configure the main landing page of the website.',
+      pt: 'Configure a página principal do website.',
+    },
     preview: () => `/`,
     livePreview: {
       url: ({ locale }) => {

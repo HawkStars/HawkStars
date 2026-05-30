@@ -13,8 +13,10 @@ export const Partner: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'country', 'type'],
-    description:
-      'Manage national and international partner organizations. Add their logo, country, and social links. Partners are displayed on the public partners page.',
+    description: {
+      en: 'Manage national and international partner organizations. Add their logo, country, and social links. Partners are displayed on the public partners page.',
+      pt: 'Gira as organizações parceiras nacionais e internacionais. Adicione o logótipo, país e links sociais. Os parceiros são exibidos na página pública de parceiros.',
+    },
     group: {
       name: 'Erasmus',
     },
@@ -27,7 +29,12 @@ export const Partner: CollectionConfig = {
     update: authenticatedEditor,
   },
   fields: [
-    { type: 'text', name: 'name', label: { en: 'Name of the partner', pt: 'Nome do Parceiro' }, required: true },
+    {
+      type: 'text',
+      name: 'name',
+      label: { en: 'Name of the partner', pt: 'Nome do Parceiro' },
+      required: true,
+    },
     { type: 'richText', name: 'description', label: { en: 'Description', pt: 'Descrição' } },
     { type: 'upload', name: 'logo', label: { en: 'Logo', pt: 'Logótipo' }, relationTo: 'media' },
     { type: 'text', name: 'country', label: { en: 'Country', pt: 'País' }, required: true },

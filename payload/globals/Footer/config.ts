@@ -15,8 +15,10 @@ export const Footer: GlobalConfig = {
     update: authenticatedEditor,
   },
   admin: {
-    description: `This is the information about the footer. Each column represents a group of navigation links
-      that will be displayed in the footer section of the website side by side or at the mobile.`,
+    description: {
+      en: 'Configure the footer navigation columns. Each column groups links displayed side by side on desktop or stacked on mobile.',
+      pt: 'Configure as colunas de navegação do rodapé. Cada coluna agrupa links exibidos lado a lado no desktop ou empilhados no móvel.',
+    },
   },
   fields: [
     {

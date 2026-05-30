@@ -15,7 +15,10 @@ export const ProjectsList: GlobalConfig = {
     en: 'Projects List',
   },
   admin: {
-    description: 'Configure the list of projects list information.',
+    description: {
+      en: 'Configure the projects list page header information.',
+      pt: 'Configure a informação do cabeçalho da página de listagem de projetos.',
+    },
     livePreview: {
       url: ({ locale }) => {
         const baseUrl = getServerSideURL();
@@ -58,7 +61,12 @@ export const ProjectsList: GlobalConfig = {
         en: 'Projects List Video URL',
       },
       required: false,
-      admin: { description: 'Show the latest project video.' },
+      admin: {
+        description: {
+          en: 'Show the latest project video.',
+          pt: 'Mostrar o vídeo do projeto mais recente.',
+        },
+      },
     },
     {
       name: 'badge',
@@ -66,13 +74,20 @@ export const ProjectsList: GlobalConfig = {
       label: { pt: 'Badge', en: 'Badge' },
       required: false,
       localized: true,
-      admin: { description: 'A small badge displayed next to the title.' },
+      admin: {
+        description: {
+          en: 'A small badge displayed next to the title.',
+          pt: 'Um pequeno distintivo exibido ao lado do título.',
+        },
+      },
     },
     PayloadImageField({
       name: 'heroImage',
       label: 'Hero Image',
-      description:
-        'Image displayed at the top of the projects list page. Tem prioridade ao video caso ambos sejam adicionados.',
+      description: {
+        en: 'Image displayed at the top of the projects list page. Takes priority over the video if both are added.',
+        pt: 'Imagem exibida no topo da página de projetos. Tem prioridade sobre o vídeo se ambos forem adicionados.',
+      },
       required: false,
     }),
     {
@@ -81,7 +96,10 @@ export const ProjectsList: GlobalConfig = {
       interfaceName: 'ProjectsListStatsItem',
       label: { pt: 'Estatísticas de Impacto', en: 'Impact Stats' },
       admin: {
-        description: 'Show the projects stats',
+        description: {
+          en: 'Show the projects stats',
+          pt: 'Mostrar as estatísticas dos projetos',
+        },
         components: {
           RowLabel: '@/payload/globals/ProjectsList/components/StatsLabel',
         },
@@ -104,7 +122,10 @@ export const ProjectsList: GlobalConfig = {
       overrides: {
         maxRows: 2,
         admin: {
-          description: 'Add links to the projects list page as buttons',
+          description: {
+            en: 'Add links to the projects list page as buttons',
+            pt: 'Adicionar links à página de projetos como botões',
+          },
         },
         localized: true,
       },

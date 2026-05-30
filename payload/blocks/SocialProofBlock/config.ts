@@ -15,7 +15,10 @@ export const SocialProofBlock: Block = {
       localized: true,
       label: { en: 'Title', pt: 'Título' },
       admin: {
-        description: 'Main title for the social proof section. Optional.',
+        description: {
+          en: 'Main title for the social proof section. Optional.',
+          pt: 'Título principal para a secção de prova social. Opcional.',
+        },
       },
     },
     {
@@ -25,7 +28,10 @@ export const SocialProofBlock: Block = {
       required: false,
       label: { en: 'Subtitle', pt: 'Subtítulo' },
       admin: {
-        description: 'Optional subtitle or description. Optional.x',
+        description: {
+          en: 'Optional subtitle or description.',
+          pt: 'Subtítulo ou descrição opcional.',
+        },
       },
     },
     {
@@ -48,7 +54,10 @@ export const SocialProofBlock: Block = {
           localized: true,
           label: { en: 'Value', pt: 'Valor' },
           admin: {
-            description: 'Number or stat (e.g., "500+", "95%")',
+            description: {
+              en: 'Number or stat (e.g., "500+", "95%")',
+              pt: 'Número ou estatística (ex: "500+", "95%")',
+            },
           },
         },
         {
@@ -91,7 +100,10 @@ export const SocialProofBlock: Block = {
       ],
       defaultValue: 'center',
       admin: {
-        description: 'Text alignment for the social proof section',
+        description: {
+          en: 'Text alignment for the social proof section',
+          pt: 'Alinhamento do texto para a secção de prova social',
+        },
       },
     },
     SectionID,

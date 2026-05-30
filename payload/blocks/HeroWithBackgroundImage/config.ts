@@ -14,7 +14,10 @@ export const HeroWithBackgroundImage: Block = {
       name: 'backgroundImage',
       label: 'Background Image',
       required: true,
-      description: 'Background image for the hero section',
+      description: {
+        en: 'Background image for the hero section',
+        pt: 'Imagem de fundo para a secção hero',
+      },
     }),
     {
       name: 'title',
@@ -23,7 +26,7 @@ export const HeroWithBackgroundImage: Block = {
       required: true,
       localized: true,
       admin: {
-        description: 'Main heading text',
+        description: { en: 'Main heading text', pt: 'Texto do título principal' },
       },
     },
     {
@@ -32,7 +35,7 @@ export const HeroWithBackgroundImage: Block = {
       label: { en: 'Subtitle', pt: 'Subtítulo' },
       localized: true,
       admin: {
-        description: 'Subtitle or description text',
+        description: { en: 'Subtitle or description text', pt: 'Texto do subtítulo ou descrição' },
       },
     },
     {
@@ -43,7 +46,7 @@ export const HeroWithBackgroundImage: Block = {
       max: 100,
       defaultValue: 50,
       admin: {
-        description: 'Overlay darkness (0-100%)',
+        description: { en: 'Overlay darkness (0-100%)', pt: 'Escuridão da sobreposição (0-100%)' },
       },
     },
     linkGroup({ overrides: { maxRows: 2 } }),
@@ -58,7 +61,7 @@ export const HeroWithBackgroundImage: Block = {
       ],
       defaultValue: 'center',
       admin: {
-        description: 'Text alignment',
+        description: { en: 'Text alignment', pt: 'Alinhamento do texto' },
       },
     },
     SectionID,

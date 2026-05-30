@@ -20,7 +20,10 @@ export const dropdownNavLink: ArrayField = {
       label: { en: 'Featured Link', pt: 'Link em Destaque' },
       required: false,
       admin: {
-        description: 'Mark this link as featured to highlight it in the dropdown menu.',
+        description: {
+          en: 'Mark this link as featured to highlight it in the dropdown menu.',
+          pt: 'Marque este link como destaque para o realçar no menu suspenso.',
+        },
       },
     },
     {
@@ -30,7 +33,10 @@ export const dropdownNavLink: ArrayField = {
       required: false,
       defaultValue: true,
       admin: {
-        description: 'Uncheck this to hide the link from the header dropdown menu.',
+        description: {
+          en: 'Uncheck this to hide the link from the header dropdown menu.',
+          pt: 'Desmarque para ocultar o link do menu suspenso do cabeçalho.',
+        },
       },
     },
     {

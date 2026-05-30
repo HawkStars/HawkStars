@@ -15,7 +15,10 @@ export const AccordionBlock: Block = {
       label: { en: 'Section Title', pt: 'Título da Secção' },
       localized: true,
       admin: {
-        description: 'Optional title displayed above the accordion',
+        description: {
+          en: 'Optional title displayed above the accordion',
+          pt: 'Título opcional exibido acima do acordeão',
+        },
       },
     },
     {
@@ -24,7 +27,10 @@ export const AccordionBlock: Block = {
       label: { en: 'Section Description', pt: 'Descrição da Secção' },
       localized: true,
       admin: {
-        description: 'Optional description displayed below the title',
+        description: {
+          en: 'Optional description displayed below the title',
+          pt: 'Descrição opcional exibida abaixo do título',
+        },
       },
     },
     {
@@ -68,7 +74,10 @@ export const AccordionBlock: Block = {
       label: { en: 'Allow Multiple Open', pt: 'Permitir Vários Abertos' },
       defaultValue: false,
       admin: {
-        description: 'Allow multiple accordion items to be open at the same time',
+        description: {
+          en: 'Allow multiple accordion items to be open at the same time',
+          pt: 'Permitir que vários itens do acordeão estejam abertos ao mesmo tempo',
+        },
       },
     },
     {

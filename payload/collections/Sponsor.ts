@@ -12,8 +12,10 @@ export const Sponsor: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'tier', 'website'],
-    description:
-      'Manage sponsors and their branding. Sponsors are displayed on the website through the Sponsors block.',
+    description: {
+      en: 'Manage sponsors and their branding. Sponsors are displayed on the website through the Sponsors block.',
+      pt: 'Gira os patrocinadores e a sua identidade visual. Os patrocinadores são exibidos no website através do bloco de Patrocinadores.',
+    },
     group: {
       name: 'Organization',
     },
@@ -44,7 +46,7 @@ export const Sponsor: CollectionConfig = {
       name: 'website',
       label: { en: 'Website URL', pt: 'URL do Website' },
       admin: {
-        description: 'External link to the sponsor website',
+        description: { en: 'External link to the sponsor website', pt: 'Link externo para o website do patrocinador' },
       },
     },
     {

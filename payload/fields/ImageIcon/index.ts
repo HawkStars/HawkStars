@@ -35,7 +35,10 @@ export const PayloadIconOrImage = (props?: ImageTypeGroupProps) => {
           { label: { en: 'None', pt: 'Nenhum' }, value: 'none' },
         ],
         admin: {
-          description: 'Select whether to use an icon or an image.',
+          description: {
+            en: 'Select whether to use an icon or an image.',
+            pt: 'Selecione se pretende usar um ícone ou uma imagem.',
+          },
         },
       },
       {

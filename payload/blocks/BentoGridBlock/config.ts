@@ -20,7 +20,10 @@ export const BentoGridBlock: Block = {
       label: { en: 'Section Title', pt: 'Título da Secção' },
       localized: true,
       admin: {
-        description: 'Optional title displayed above the grid',
+        description: {
+          en: 'Optional title displayed above the grid',
+          pt: 'Título opcional exibido acima da grelha',
+        },
       },
     },
     {
@@ -29,7 +32,10 @@ export const BentoGridBlock: Block = {
       label: { en: 'Section Description', pt: 'Descrição da Secção' },
       localized: true,
       admin: {
-        description: 'Optional description displayed below the section title',
+        description: {
+          en: 'Optional description displayed below the section title',
+          pt: 'Descrição opcional exibida abaixo do título da secção',
+        },
       },
     },
     {
@@ -40,7 +46,7 @@ export const BentoGridBlock: Block = {
       minRows: 1,
       interfaceName: 'BentoGridItem',
       admin: {
-        description: 'Add items to the Bento Grid',
+        description: { en: 'Add items to the Bento Grid', pt: 'Adicione itens ao Bento Grid' },
         components: {
           RowLabel: '@/payload/blocks/BentoGridBlock/admin/RowLabel',
         },
@@ -70,7 +76,10 @@ export const BentoGridBlock: Block = {
           label: { en: 'Overlay Opacity', pt: 'Opacidade da Sobreposição' },
           defaultValue: '50',
           admin: {
-            description: 'Darkness of the overlay on the background image',
+            description: {
+              en: 'Darkness of the overlay on the background image',
+              pt: 'Escuridão da sobreposição na imagem de fundo',
+            },
           },
           options: [
             { label: { en: 'None', pt: 'Nenhuma' }, value: '0' },
@@ -87,7 +96,10 @@ export const BentoGridBlock: Block = {
           label: { en: 'Column Size', pt: 'Tamanho da Coluna' },
           required: true,
           admin: {
-            description: 'Select the width of the item based on grid columns (1 to 6)',
+            description: {
+              en: 'Select the width of the item based on grid columns (1 to 6)',
+              pt: 'Selecione a largura do item com base nas colunas da grelha (1 a 6)',
+            },
           },
           options: [
             { label: { en: '1 Column', pt: '1 Coluna' }, value: '1' },
@@ -105,7 +117,10 @@ export const BentoGridBlock: Block = {
           label: { en: 'Row Size', pt: 'Tamanho da Linha' },
           required: true,
           admin: {
-            description: 'Select the height of the item based on grid rows (1 to 6)',
+            description: {
+              en: 'Select the height of the item based on grid rows (1 to 6)',
+              pt: 'Selecione a altura do item com base nas linhas da grelha (1 a 6)',
+            },
           },
           options: [
             { label: { en: '1 Row', pt: '1 Linha' }, value: '1' },
@@ -169,7 +184,10 @@ export const BentoGridBlock: Block = {
       required: true,
       label: { en: 'Number of Columns', pt: 'Número de Colunas' },
       admin: {
-        description: 'Number of columns in the grid. Dividing the screen width in x columns.',
+        description: {
+          en: 'Number of columns in the grid. Dividing the screen width in x columns.',
+          pt: 'Número de colunas na grelha. Divide a largura do ecrã em x colunas.',
+        },
       },
       defaultValue: '6',
     },
@@ -179,7 +197,10 @@ export const BentoGridBlock: Block = {
       label: { en: 'Minimum Row Height (px)', pt: 'Altura Mínima da Linha (px)' },
       defaultValue: 200,
       admin: {
-        description: 'Minimum height for each grid row',
+        description: {
+          en: 'Minimum height for each grid row',
+          pt: 'Altura mínima para cada linha da grelha',
+        },
       },
     },
     SectionID,

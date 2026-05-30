@@ -55,9 +55,10 @@ export const MemberProject: CollectionConfig = {
       defaultValue: false,
       admin: {
         position: 'sidebar',
-        description:
-          'Check this only after confirming the submitter is a trusted member who has paid ' +
-          'their membership. The project appears on the public showcase only when this is checked.',
+        description: {
+          en: 'Check this only after confirming the submitter is a trusted member who has paid their membership. The project appears on the public showcase only when this is checked.',
+          pt: 'Marque apenas após confirmar que o submetente é um membro de confiança que pagou a sua quota. O projeto aparece na montra pública apenas quando esta opção está marcada.',
+        },
       },
     },
 
@@ -84,7 +85,10 @@ export const MemberProject: CollectionConfig = {
       required: true,
       defaultValue: 'pt',
       admin: {
-        description: 'The language the project information is written in.',
+        description: {
+          en: 'The language the project information is written in.',
+          pt: 'O idioma em que a informação do projeto está escrita.',
+        },
       },
       options: [
         { label: { pt: 'Português', en: 'Portuguese' }, value: 'pt' },
@@ -109,7 +113,10 @@ export const MemberProject: CollectionConfig = {
           type: 'text',
           admin: {
             width: '50%',
-            description: 'Link to an image representing the project.',
+            description: {
+              en: 'Link to an image representing the project.',
+              pt: 'Link para uma imagem que representa o projeto.',
+            },
           },
         },
         {
@@ -118,7 +125,10 @@ export const MemberProject: CollectionConfig = {
           type: 'text',
           admin: {
             width: '50%',
-            description: 'Link to a video (e.g. YouTube or Vimeo).',
+            description: {
+              en: 'Link to a video (e.g. YouTube or Vimeo).',
+              pt: 'Link para um vídeo (ex: YouTube ou Vimeo).',
+            },
           },
         },
       ],
@@ -132,9 +142,10 @@ export const MemberProject: CollectionConfig = {
       label: { en: 'Dates / Happenings', pt: 'Datas / Acontecimentos' },
       type: 'array',
       admin: {
-        description:
-          'Dates of things that are going to happen, each with a link where others can follow ' +
-          'for more information.',
+        description: {
+          en: 'Dates of things that are going to happen, each with a link where others can follow for more information.',
+          pt: 'Datas de acontecimentos futuros, cada um com um link para mais informações.',
+        },
         initCollapsed: true,
       },
       fields: [
@@ -180,7 +191,10 @@ export const MemberProject: CollectionConfig = {
       name: 'submitter',
       label: { en: 'Submitter', pt: 'Submetente' },
       admin: {
-        description: 'Contact details of the member who submitted this project (admin only).',
+        description: {
+          en: 'Contact details of the member who submitted this project (admin only).',
+          pt: 'Dados de contacto do membro que submeteu este projeto (apenas para administradores).',
+        },
       },
       fields: [
         {

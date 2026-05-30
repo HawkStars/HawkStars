@@ -16,8 +16,10 @@ const CrowdfundingSettingsRewardsTab: Tab = {
         en: 'Reward Tiers',
       },
       admin: {
-        description:
-          'Reward tiers displayed as cards in the Rewards section. Add one per tier, in order.',
+        description: {
+          en: 'Reward tiers displayed as cards in the Rewards section. Add one per tier, in order.',
+          pt: 'Níveis de recompensa exibidos como cartões na secção de Rewards. Adicione um por nível, por ordem.',
+        },
         components: {
           RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
         },
@@ -34,7 +36,10 @@ const CrowdfundingSettingsRewardsTab: Tab = {
           },
           required: true,
           admin: {
-            description: 'E.g. "Apoios Simples", "Reconhecimento no Espaço".',
+            description: {
+              en: 'E.g. "Apoios Simples", "Reconhecimento no Espaço".',
+              pt: 'Ex: "Apoios Simples", "Reconhecimento no Espaço".',
+            },
           },
         },
         {
@@ -46,7 +51,10 @@ const CrowdfundingSettingsRewardsTab: Tab = {
             en: 'Subtitle',
           },
           admin: {
-            description: 'Short tagline below the title (e.g. "Pequenos gestos, grande impacto.").',
+            description: {
+              en: 'Short tagline below the title (e.g. "Pequenos gestos, grande impacto.").',
+              pt: 'Slogan curto abaixo do título (ex: "Pequenos gestos, grande impacto.").',
+            },
           },
         },
         {
@@ -73,7 +81,10 @@ const CrowdfundingSettingsRewardsTab: Tab = {
             en: 'Items',
           },
           admin: {
-            description: 'Reward items within this tier.',
+            description: {
+              en: 'Reward items within this tier.',
+              pt: 'Itens de recompensa neste nível.',
+            },
             components: {
               RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
             },
@@ -89,7 +100,10 @@ const CrowdfundingSettingsRewardsTab: Tab = {
               },
               required: true,
               admin: {
-                description: 'E.g. "Agradecimento digital", "T-shirt de doador".',
+                description: {
+                  en: 'E.g. "Agradecimento digital", "T-shirt de doador".',
+                  pt: 'Ex: "Agradecimento digital", "T-shirt de doador".',
+                },
               },
             },
             {
@@ -101,7 +115,10 @@ const CrowdfundingSettingsRewardsTab: Tab = {
                 en: 'Price',
               },
               admin: {
-                description: 'E.g. "Desde 10€", "250€ / 350€". Leave empty if not applicable.',
+                description: {
+                  en: 'E.g. "Desde 10€", "250€ / 350€". Leave empty if not applicable.',
+                  pt: 'Ex: "Desde 10€", "250€ / 350€". Deixe vazio se não aplicável.',
+                },
               },
             },
           ],

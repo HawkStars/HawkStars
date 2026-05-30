@@ -2,7 +2,7 @@ import { Tab } from 'payload';
 
 const ArtCollectionDetails: Tab = {
   label: { en: 'Details', pt: 'Detalhes' },
-  description: 'Information about the artwork',
+  description: { en: 'Information about the artwork', pt: 'Informação sobre a obra de arte' },
   fields: [
     {
       name: 'title',

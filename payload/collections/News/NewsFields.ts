@@ -4,9 +4,15 @@ import { Tab } from 'payload';
 
 const NewsDetails: Tab = {
   label: { en: 'Details', pt: 'Detalhes' },
-  description: 'Information about the News article',
+  description: {
+    en: 'Information about the News article',
+    pt: 'Informação sobre o artigo de notícias',
+  },
   admin: {
-    description: 'Configure the details for the News article here',
+    description: {
+      en: 'Configure the details for the News article here',
+      pt: 'Configure aqui os detalhes do artigo de notícias',
+    },
   },
   fields: [
     {
@@ -16,7 +22,7 @@ const NewsDetails: Tab = {
       required: true,
       localized: true,
       admin: {
-        description: 'The title of the news article',
+        description: { en: 'The title of the news article', pt: 'O título do artigo de notícias' },
       },
     },
     {
@@ -33,15 +39,17 @@ const NewsDetails: Tab = {
         { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
       ],
       admin: {
-        description: 'The type of the news article',
+        description: { en: 'The type of the news article', pt: 'O tipo do artigo de notícias' },
       },
     },
     PayloadImageField({
       label: 'Imagem de Capa',
       name: 'mainImage',
       required: false,
-      description:
-        'The main image for the news article displayed on listing pages and article header',
+      description: {
+        en: 'The main image for the news article displayed on listing pages and article header',
+        pt: 'A imagem principal do artigo exibida nas páginas de listagem e no cabeçalho do artigo',
+      },
     }),
 
     /* -------------------------------------------------------------- */
@@ -52,7 +60,10 @@ const NewsDetails: Tab = {
       name: 'details',
       label: { en: 'Description', pt: 'Descrição' },
       admin: {
-        description: 'Main description block of the article.',
+        description: {
+          en: 'Main description block of the article.',
+          pt: 'Bloco de descrição principal do artigo.',
+        },
       },
       fields: [
         {
@@ -61,7 +72,10 @@ const NewsDetails: Tab = {
           type: 'textarea',
           localized: true,
           admin: {
-            description: 'Main paragraph describing the article',
+            description: {
+              en: 'Main paragraph describing the article',
+              pt: 'Parágrafo principal a descrever o artigo',
+            },
             rows: 8,
           },
         },
@@ -71,7 +85,10 @@ const NewsDetails: Tab = {
           type: 'array',
           interfaceName: 'NewsSection',
           admin: {
-            description: 'Additional titled sections for the article body',
+            description: {
+              en: 'Additional titled sections for the article body',
+              pt: 'Secções com título adicionais para o corpo do artigo',
+            },
             initCollapsed: true,
             components: {
               RowLabel: '@/payload/collections/News/components/SectionsRowLabel',
@@ -83,7 +100,12 @@ const NewsDetails: Tab = {
               label: { en: 'Section Title', pt: 'Título da Secção' },
               type: 'text',
               localized: true,
-              admin: { description: 'e.g. "Background", "What happened", "Next steps"' },
+              admin: {
+                description: {
+                  en: 'e.g. "Background", "What happened", "Next steps"',
+                  pt: 'ex: "Contexto", "O que aconteceu", "Próximos passos"',
+                },
+              },
             },
             {
               name: 'text',
@@ -91,7 +113,10 @@ const NewsDetails: Tab = {
               type: 'textarea',
               localized: true,
               admin: {
-                description: 'Body text for this section',
+                description: {
+                  en: 'Body text for this section',
+                  pt: 'Texto do corpo desta secção',
+                },
                 rows: 6,
               },
             },
@@ -106,7 +131,10 @@ const NewsDetails: Tab = {
     MultiImageField({
       name: 'gallery',
       label: 'Galeria de Fotos',
-      description: 'Photos displayed at the bottom of the article',
+      description: {
+        en: 'Photos displayed at the bottom of the article',
+        pt: 'Fotos exibidas no fundo do artigo',
+      },
     }),
 
     /* -------------------------------------------------------------- */
@@ -119,8 +147,10 @@ const NewsDetails: Tab = {
       relationTo: 'hawk_projects',
       required: false,
       admin: {
-        description:
-          'Optionally link this news article to a project. The article will appear in the project page under "Related News".',
+        description: {
+          en: 'Optionally link this news article to a project. The article will appear in the project page under "Related News".',
+          pt: 'Opcionalmente ligue este artigo a um projeto. O artigo aparecerá na página do projeto em "Notícias Relacionadas".',
+        },
       },
     },
   ],

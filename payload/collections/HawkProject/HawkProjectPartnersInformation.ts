@@ -18,8 +18,10 @@ const HawkProjectPartnersInformation: Tab = {
   label: { en: 'Partners', pt: 'Parceiros' },
   interfaceName: 'HawkProjectPartnersInformation',
   admin: {
-    description:
-      'Information about the project’s partners, including their names, roles, and contributions.',
+    description: {
+      en: 'Information about the project’s partners, including their names, roles, and contributions.',
+      pt: 'Informação sobre os parceiros do projeto, incluindo nomes, funções e contribuições.',
+    },
   },
   fields: [
     {
@@ -28,7 +30,10 @@ const HawkProjectPartnersInformation: Tab = {
       type: 'array',
       interfaceName: 'HawkProjectPartnerInformation',
       admin: {
-        description: 'List of partner organizations involved in the project',
+        description: {
+          en: 'List of partner organizations involved in the project',
+          pt: 'Lista de organizações parceiras envolvidas no projeto',
+        },
         initCollapsed: true,
         components: {
           RowLabel: '@/payload/collections/HawkProject/components/partners/PartnersRowLabel',
@@ -42,8 +47,10 @@ const HawkProjectPartnersInformation: Tab = {
           relationTo: 'partners',
           required: true,
           admin: {
-            description:
-              'Select partner organisations for this project. They will be grouped by country automatically.',
+            description: {
+              en: 'Select partner organisations for this project. They will be grouped by country automatically.',
+              pt: 'Selecione as organizações parceiras para este projeto. Serão agrupadas por país automaticamente.',
+            },
           },
         },
         {
@@ -61,7 +68,10 @@ const HawkProjectPartnersInformation: Tab = {
             },
           ],
           admin: {
-            description: 'Select the role of the partner organisation in this project',
+            description: {
+              en: 'Select the role of the partner organisation in this project',
+              pt: 'Selecione o papel da organização parceira neste projeto',
+            },
           },
           defaultValue: 'sending_org',
         },
@@ -71,7 +81,10 @@ const HawkProjectPartnersInformation: Tab = {
           type: 'array',
           interfaceName: 'HawkProjectPartnerReport',
           admin: {
-            description: 'Official reports related to this partner (Salto, Project Report, etc.)',
+            description: {
+              en: 'Official reports related to this partner (Salto, Project Report, etc.)',
+              pt: 'Relatórios oficiais relacionados com este parceiro (Salto, Relatório do Projeto, etc.)',
+            },
             initCollapsed: true,
             components: {
               RowLabel: '@/payload/collections/HawkProject/components/partners/ReportsRowLabel',
@@ -85,7 +98,10 @@ const HawkProjectPartnersInformation: Tab = {
               required: true,
               options: disseminationPlatformOptions,
               admin: {
-                description: 'Select the platform where the partner disseminated project results',
+                description: {
+                  en: 'Select the platform where the partner disseminated project results',
+                  pt: 'Selecione a plataforma onde o parceiro disseminou os resultados do projeto',
+                },
               },
             },
             {
@@ -94,7 +110,10 @@ const HawkProjectPartnersInformation: Tab = {
               type: 'text',
               required: true,
               admin: {
-                description: 'Link to the partner’s report or dissemination page',
+                description: {
+                  en: 'Link to the partner’s report or dissemination page',
+                  pt: 'Link para o relatório ou página de disseminação do parceiro',
+                },
               },
             },
             {
@@ -103,8 +122,10 @@ const HawkProjectPartnersInformation: Tab = {
               type: 'text',
               localized: true,
               admin: {
-                description:
-                  'e.g. "Disseminação via Facebook" — if empty, auto-generated from platform',
+                description: {
+                  en: 'e.g. "Disseminação via Facebook" — if empty, auto-generated from platform',
+                  pt: 'ex: "Disseminação via Facebook" — se vazio, gerado automaticamente a partir da plataforma',
+                },
               },
             },
           ],

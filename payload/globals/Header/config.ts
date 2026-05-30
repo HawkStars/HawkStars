@@ -14,8 +14,10 @@ export const Header: GlobalConfig = {
     read: anyone,
   },
   admin: {
-    description: `This is the information about the header. Each column represents a group of navigation links
-      that will be displayed in the header section of the website side by side or at the mobile. If it has more just 1 link it will not have a dropdown`,
+    description: {
+      en: 'Configure the header navigation columns. If a column has more than one link it will show a dropdown menu.',
+      pt: 'Configure as colunas de navegação do cabeçalho. Se uma coluna tiver mais do que um link, mostrará um menu suspenso.',
+    },
   },
   fields: [
     {
@@ -24,7 +26,10 @@ export const Header: GlobalConfig = {
       label: { en: 'Header Navigation Columns', pt: 'Colunas de Navegação do Cabeçalho' },
       interfaceName: 'HeaderNavigationColumns',
       admin: {
-        description: 'Configure the navigation columns for the header. topbar menus',
+        description: {
+          en: 'Configure the navigation columns for the header. topbar menus',
+          pt: 'Configure as colunas de navegação do cabeçalho. Menus da barra superior.',
+        },
         components: {
           RowLabel: '@/payload/globals/Header/components/HeaderLabel',
         },
@@ -36,8 +41,10 @@ export const Header: GlobalConfig = {
           label: { en: 'Multi-Column Dropdown', pt: 'Menu Suspenso Multi-Coluna' },
           type: 'checkbox',
           admin: {
-            description:
-              'Enable this option if you want the links to be displayed in multiple columns in the dropdown menu.',
+            description: {
+              en: 'Enable this option if you want the links to be displayed in multiple columns in the dropdown menu.',
+              pt: 'Ative esta opção se quiser que os links sejam exibidos em múltiplas colunas no menu suspenso.',
+            },
             position: 'sidebar',
           },
           required: false,
@@ -52,7 +59,10 @@ export const Header: GlobalConfig = {
           name: 'dropdown',
           label: { en: 'Dropdown Content', pt: 'Conteúdo do Menu Suspenso' },
           admin: {
-            description: 'Content for the dropdown menu when multiple links are present',
+            description: {
+              en: 'Content for the dropdown menu when multiple links are present',
+              pt: 'Conteúdo do menu suspenso quando existem múltiplos links',
+            },
             condition: (_, siblingData) => {
               return siblingData.isMultiColumn === true;
             },
@@ -67,13 +77,21 @@ export const Header: GlobalConfig = {
               label: { en: 'Dropdown Title', pt: 'Título do Menu Suspenso' },
               required: true,
               localized: true,
-              admin: { description: 'Title for the dropdown menu' },
+              admin: {
+                description: {
+                  en: 'Title for the dropdown menu',
+                  pt: 'Título do menu suspenso',
+                },
+              },
             },
             {
               name: 'key',
               label: { en: 'Key', pt: 'Chave' },
               admin: {
-                description: 'Unique key for the navigation group to be used on the dropdown menu',
+                description: {
+                  en: 'Unique key for the navigation group to be used on the dropdown menu',
+                  pt: 'Chave única para o grupo de navegação usado no menu suspenso',
+                },
                 placeholder: 'menu-one',
               },
               type: 'text',
@@ -107,17 +125,26 @@ export const Header: GlobalConfig = {
                   required: true,
                   defaultValue: 'single-column',
                   admin: {
-                    description: 'Select the structure for the dropdown menu',
+                    description: {
+                      en: 'Select the structure for the dropdown menu',
+                      pt: 'Selecione a estrutura do menu suspenso',
+                    },
                   },
                 },
                 {
                   name: 'links',
-                  label: { en: 'Dropdown Navigation Links', pt: 'Links de Navegação do Menu Suspenso' },
+                  label: {
+                    en: 'Dropdown Navigation Links',
+                    pt: 'Links de Navegação do Menu Suspenso',
+                  },
                   type: 'group',
                   fields: [dropdownNavLink],
                   required: true,
                   admin: {
-                    description: 'Dropdown Navigation Links for this entry',
+                    description: {
+                      en: 'Dropdown Navigation Links for this entry',
+                      pt: 'Links de navegação do menu suspenso para esta entrada',
+                    },
                     hideGutter: true,
                   },
                 },

@@ -25,8 +25,10 @@ export const HawkProject: CollectionConfig = {
   admin: {
     useAsTitle: 'slug',
     defaultColumns: ['hero', 'slug', 'startDate'],
-    description:
-      'Manage HawkStars projects and events. Add project details, images, and descriptions. Each project gets its own public page based on its slug.',
+    description: {
+      en: 'Manage HawkStars projects and events. Add project details, images, and descriptions. Each project gets its own public page based on its slug.',
+      pt: 'Gira os projetos e eventos da HawkStars. Adicione detalhes, imagens e descrições. Cada projeto tem a sua própria página pública baseada no slug.',
+    },
     group: {
       ...GROUP_LABELS.daily,
     },
@@ -77,8 +79,10 @@ export const HawkProject: CollectionConfig = {
       type: 'text',
       unique: true,
       admin: {
-        description:
-          'Unique slug used in the project page URL (e.g. "ai4youth"). Auto-generated from the title if left empty.',
+        description: {
+          en: 'Unique slug used in the project page URL (e.g. "ai4youth"). Auto-generated from the title if left empty.',
+          pt: 'Slug único usado no URL da página do projeto (ex: "ai4youth"). Gerado automaticamente a partir do título se ficar vazio.',
+        },
         position: 'sidebar',
       },
       hooks: {
@@ -94,7 +98,10 @@ export const HawkProject: CollectionConfig = {
       label: { en: 'Action Type', pt: 'Tipo de Ação' },
       type: 'text',
       admin: {
-        description: 'e.g. KA152-YOU - Mobility of young people',
+        description: {
+          en: 'e.g. KA152-YOU - Mobility of young people',
+          pt: 'ex: KA152-YOU - Mobilidade de jovens',
+        },
         position: 'sidebar',
       },
     },
@@ -103,7 +110,10 @@ export const HawkProject: CollectionConfig = {
       label: { en: 'Reference Number', pt: 'Número de Referência' },
       type: 'text',
       admin: {
-        description: 'e.g. 2024-1-PT02-KA152-YOU-000232143',
+        description: {
+          en: 'e.g. 2024-1-PT02-KA152-YOU-000232143',
+          pt: 'ex: 2024-1-PT02-KA152-YOU-000232143',
+        },
         position: 'sidebar',
       },
     },
@@ -112,7 +122,7 @@ export const HawkProject: CollectionConfig = {
       label: { en: 'Beneficiary', pt: 'Beneficiário' },
       type: 'text',
       admin: {
-        description: 'e.g. Hawk Stars (Portugal)',
+        description: { en: 'e.g. Hawk Stars (Portugal)', pt: 'ex: Hawk Stars (Portugal)' },
         position: 'sidebar',
       },
     },
@@ -122,7 +132,7 @@ export const HawkProject: CollectionConfig = {
       type: 'text',
       localized: true,
       admin: {
-        description: 'e.g. Pinhel, Portugal',
+        description: { en: 'e.g. Pinhel, Portugal', pt: 'ex: Pinhel, Portugal' },
         position: 'sidebar',
       },
     },
@@ -130,7 +140,10 @@ export const HawkProject: CollectionConfig = {
       name: 'startDate',
       label: { en: 'Start Date', pt: 'Data de Início' },
       type: 'date',
-      admin: { position: 'sidebar', description: 'Start date of the project' },
+      admin: {
+        position: 'sidebar',
+        description: { en: 'Start date of the project', pt: 'Data de início do projeto' },
+      },
       required: false,
     },
     {
@@ -139,8 +152,10 @@ export const HawkProject: CollectionConfig = {
       type: 'date',
       admin: {
         position: 'sidebar',
-        description:
-          'End date of the project. Optional Value if it is just a single day for the project',
+        description: {
+          en: 'End date of the project. Optional Value if it is just a single day for the project',
+          pt: 'Data de fim do projeto. Valor opcional se for apenas um único dia.',
+        },
       },
       required: false,
     },

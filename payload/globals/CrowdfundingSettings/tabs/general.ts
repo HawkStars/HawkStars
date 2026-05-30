@@ -16,8 +16,10 @@ const CrowdfundingSettingsGeneralTab: Tab = {
         en: 'Support Button URL',
       },
       admin: {
-        description:
-          'Link for all "Support" / "Donate" buttons across the crowdfunding page (e.g. a payment or contribute page URL).',
+        description: {
+          en: 'Link for all "Support" / "Donate" buttons across the crowdfunding page (e.g. a payment or contribute page URL).',
+          pt: 'Link para todos os botões "Apoiar" / "Doar" na página de crowdfunding (ex: URL de uma página de pagamento ou contribuição).',
+        },
         width: '50%',
       },
     },
@@ -29,8 +31,10 @@ const CrowdfundingSettingsGeneralTab: Tab = {
         en: 'Business CTA URL',
       },
       admin: {
-        description:
-          'Link for the "Become a partner" button in the Business section (e.g. a contact form or partnership page).',
+        description: {
+          en: 'Link for the "Become a partner" button in the Business section (e.g. a contact form or partnership page).',
+          pt: 'Link para o botão "Torne-se parceiro" na secção de Empresas (ex: formulário de contacto ou página de parcerias).',
+        },
         width: '50%',
       },
     },
@@ -42,8 +46,10 @@ const CrowdfundingSettingsGeneralTab: Tab = {
         en: 'Transparency Document URL',
       },
       admin: {
-        description:
-          'Link for the "Where does the money go?" button in the Transparency section (e.g. a public report or document).',
+        description: {
+          en: 'Link for the "Where does the money go?" button in the Transparency section (e.g. a public report or document).',
+          pt: 'Link para o botão "Para onde vai o dinheiro?" na secção de Transparência (ex: relatório público ou documento).',
+        },
         width: '50%',
       },
     },
@@ -55,8 +61,10 @@ const CrowdfundingSettingsGeneralTab: Tab = {
         en: 'Contact URL',
       },
       admin: {
-        description:
-          'Link for the "Contact the team" button in the CTA section (e.g. mailto: link, contact form, or social media page).',
+        description: {
+          en: 'Link for the "Contact the team" button in the CTA section (e.g. mailto: link, contact form, or social media page).',
+          pt: 'Link para o botão "Contactar a equipa" na secção CTA (ex: link mailto:, formulário de contacto ou página de redes sociais).',
+        },
         width: '50%',
       },
     },
@@ -70,7 +78,10 @@ const CrowdfundingSettingsGeneralTab: Tab = {
         en: 'Hero Background Image',
       },
       admin: {
-        description: 'Background image for the hero section at the top of the crowdfunding page.',
+        description: {
+          en: 'Background image for the hero section at the top of the crowdfunding page.',
+          pt: 'Imagem de fundo para a secção hero no topo da página de crowdfunding.',
+        },
       },
     },
     {
@@ -82,7 +93,10 @@ const CrowdfundingSettingsGeneralTab: Tab = {
         en: 'Video Thumbnail',
       },
       admin: {
-        description: 'Thumbnail image shown before the video is played.',
+        description: {
+          en: 'Thumbnail image shown before the video is played.',
+          pt: 'Imagem de miniatura mostrada antes do vídeo ser reproduzido.',
+        },
       },
     },
     {
@@ -93,8 +107,10 @@ const CrowdfundingSettingsGeneralTab: Tab = {
         en: 'Video URL',
       },
       admin: {
-        description:
-          'YouTube or Vimeo URL for the documentary video (e.g. "https://www.youtube.com/watch?v=...").',
+        description: {
+          en: 'YouTube or Vimeo URL for the documentary video (e.g. "https://www.youtube.com/watch?v=...").',
+          pt: 'URL do YouTube ou Vimeo para o vídeo documental (ex: "https://www.youtube.com/watch?v=..."). ',
+        },
       },
     },
     // ── Supporters ───────────────────────────────────────────────────
@@ -107,8 +123,10 @@ const CrowdfundingSettingsGeneralTab: Tab = {
         en: 'Supporters',
       },
       admin: {
-        description:
-          'People and entities that support the project. Shown in the "Já Contamos com o Apoio de" section.',
+        description: {
+          en: 'People and entities that support the project. Shown in the "Já Contamos com o Apoio de" section.',
+          pt: 'Pessoas e entidades que apoiam o projeto. Mostradas na secção "Já Contamos com o Apoio de".',
+        },
         components: {
           RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
         },
@@ -131,7 +149,10 @@ const CrowdfundingSettingsGeneralTab: Tab = {
             en: 'Subtitle',
           },
           admin: {
-            description: 'Role, title, or short description (e.g. "Município de Pinhel").',
+            description: {
+              en: 'Role, title, or short description (e.g. "Município de Pinhel").',
+              pt: 'Função, título ou descrição curta (ex: "Município de Pinhel").',
+            },
           },
         },
         {
@@ -157,7 +178,10 @@ const CrowdfundingSettingsGeneralTab: Tab = {
             en: 'Logo / Photo',
           },
           admin: {
-            description: 'Optional logo or photo. If empty, the name initials will be shown.',
+            description: {
+              en: 'Optional logo or photo. If empty, the name initials will be shown.',
+              pt: 'Logótipo ou foto opcional. Se vazio, serão mostradas as iniciais do nome.',
+            },
           },
         },
       ],
@@ -171,8 +195,10 @@ const CrowdfundingSettingsGeneralTab: Tab = {
         en: 'CTA Background Image',
       },
       admin: {
-        description:
-          'Background image for the final call-to-action section at the bottom of the page.',
+        description: {
+          en: 'Background image for the final call-to-action section at the bottom of the page.',
+          pt: 'Imagem de fundo para a secção de chamada para ação no fundo da página.',
+        },
       },
     },
   ],

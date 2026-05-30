@@ -10,7 +10,10 @@ export const NewsList: GlobalConfig = {
     en: 'News List',
   },
   admin: {
-    description: 'Configure the list of news list information.',
+    description: {
+      en: 'Configure the news list page header information.',
+      pt: 'Configure a informação do cabeçalho da página de listagem de notícias.',
+    },
     livePreview: {
       url: ({ locale }) => {
         const baseUrl = getServerSideURL();
@@ -33,7 +36,10 @@ export const NewsList: GlobalConfig = {
         en: 'News List Title',
       },
       admin: {
-        description: 'This title will be used as the main heading for the news list page.',
+        description: {
+          en: 'This title will be used as the main heading for the news list page.',
+          pt: 'Este título será usado como cabeçalho principal da página de listagem de notícias.',
+        },
       },
       localized: true,
       required: true,
@@ -46,7 +52,10 @@ export const NewsList: GlobalConfig = {
         en: 'News List Subtitle',
       },
       admin: {
-        description: 'This subtitle will be used as the secondary heading for the news list page.',
+        description: {
+          en: 'This subtitle will be used as the secondary heading for the news list page.',
+          pt: 'Este subtítulo será usado como cabeçalho secundário da página de listagem de notícias.',
+        },
       },
       localized: true,
       required: false,

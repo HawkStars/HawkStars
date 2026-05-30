@@ -22,7 +22,7 @@ export const PayloadImageField = ({
     interfaceName: 'ImageType',
     required,
     admin: {
-      description: description || 'Upload an image or provide an external image URL',
+      description: description || { en: 'Upload an image or provide an external image URL', pt: 'Carregue uma imagem ou forneça um URL de imagem externo' },
       components: {
         Label: '@/payload/fields/ImageType/components/PayloadImageLabel',
       },
@@ -39,7 +39,10 @@ export const PayloadImageField = ({
         label: { en: 'Caption / Alt Text', pt: 'Legenda / Texto Alternativo' },
         required,
         admin: {
-          description: 'Alt text for the image for accessibility and SEO | Caption Image',
+          description: {
+            en: 'Alt text for the image for accessibility and SEO | Caption Image',
+            pt: 'Texto alternativo para acessibilidade e SEO | Legenda da Imagem',
+          },
           condition: (_, siblingData) => siblingData.imageType === 'external',
         },
       },
@@ -48,7 +51,7 @@ export const PayloadImageField = ({
         type: 'number',
         label: { en: 'Height', pt: 'Altura' },
         admin: {
-          description: 'Height of the image in pixels',
+          description: { en: 'Height of the image in pixels', pt: 'Altura da imagem em píxeis' },
           condition: (data, siblingData) => siblingData.imageType === 'external',
         },
       },

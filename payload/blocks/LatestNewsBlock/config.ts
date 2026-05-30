@@ -15,7 +15,10 @@ export const LatestNewsBlock: Block = {
       defaultValue: 'Latest News',
       localized: true,
       admin: {
-        description: 'Section heading displayed above the item',
+        description: {
+          en: 'Section heading displayed above the item',
+          pt: 'Título da secção exibido acima do item',
+        },
       },
     },
     {
@@ -24,7 +27,7 @@ export const LatestNewsBlock: Block = {
       label: { en: 'Subtitle', pt: 'Subtítulo' },
       localized: true,
       admin: {
-        description: 'Optional section description',
+        description: { en: 'Optional section description', pt: 'Descrição opcional da secção' },
       },
     },
     {
@@ -38,7 +41,10 @@ export const LatestNewsBlock: Block = {
         { label: { en: 'Hawk Projects', pt: 'Projetos Hawk' }, value: 'hawk_projects' },
       ],
       admin: {
-        description: 'Choose which collection to pull the latest item from.',
+        description: {
+          en: 'Choose which collection to pull the latest item from.',
+          pt: 'Escolha de qual coleção obter o item mais recente.',
+        },
       },
     },
     {
@@ -54,7 +60,10 @@ export const LatestNewsBlock: Block = {
         { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
       ],
       admin: {
-        description: 'Filter by news type. Leave empty to show the latest regardless of type.',
+        description: {
+          en: 'Filter by news type. Leave empty to show the latest regardless of type.',
+          pt: 'Filtre por tipo de notícia. Deixe vazio para mostrar as mais recentes independentemente do tipo.',
+        },
         condition: (_, siblingData) => siblingData?.source === 'news',
       },
     },
@@ -66,11 +75,17 @@ export const LatestNewsBlock: Block = {
       options: [
         { label: 'Erasmus +', value: 'erasmus' },
         { label: { en: 'Local Event', pt: 'Evento Local' }, value: 'local_event' },
-        { label: { en: 'International Event', pt: 'Evento Internacional' }, value: 'international_event' },
+        {
+          label: { en: 'International Event', pt: 'Evento Internacional' },
+          value: 'international_event',
+        },
         { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
       ],
       admin: {
-        description: 'Filter by event type. Leave empty to show the latest regardless of type.',
+        description: {
+          en: 'Filter by event type. Leave empty to show the latest regardless of type.',
+          pt: 'Filtre por tipo de evento. Deixe vazio para mostrar os mais recentes independentemente do tipo.',
+        },
         condition: (_, siblingData) => siblingData?.source === 'hawk_projects',
       },
     },
@@ -81,7 +96,10 @@ export const LatestNewsBlock: Block = {
       defaultValue: 'Read more',
       localized: true,
       admin: {
-        description: 'Label for the link to the full article or event',
+        description: {
+          en: 'Label for the link to the full article or event',
+          pt: 'Rótulo para o link do artigo ou evento completo',
+        },
       },
     },
     SectionID,

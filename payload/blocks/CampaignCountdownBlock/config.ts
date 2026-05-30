@@ -15,7 +15,7 @@ export const CampaignCountdownBlock: Block = {
       required: true,
       localized: true,
       admin: {
-        description: 'Campaign or event title',
+        description: { en: 'Campaign or event title', pt: 'Título da campanha ou evento' },
       },
     },
     {
@@ -23,7 +23,10 @@ export const CampaignCountdownBlock: Block = {
       type: 'textarea',
       localized: true,
       admin: {
-        description: 'Brief description or urgency message',
+        description: {
+          en: 'Brief description or urgency message',
+          pt: 'Descrição breve ou mensagem de urgência',
+        },
       },
     },
     {
@@ -32,7 +35,10 @@ export const CampaignCountdownBlock: Block = {
       label: { en: 'Target Date', pt: 'Data Alvo' },
       required: true,
       admin: {
-        description: 'Target end date for the countdown',
+        description: {
+          en: 'Target end date for the countdown',
+          pt: 'Data alvo de fim para a contagem decrescente',
+        },
         date: {
           pickerAppearance: 'dayAndTime',
         },
@@ -74,7 +80,7 @@ export const CampaignCountdownBlock: Block = {
       ],
       defaultValue: 'light',
       admin: {
-        description: 'Visual theme',
+        description: { en: 'Visual theme', pt: 'Tema visual' },
       },
     },
     {
@@ -84,7 +90,10 @@ export const CampaignCountdownBlock: Block = {
       defaultValue: 'Campaign Ended',
       localized: true,
       admin: {
-        description: 'Message to show when countdown reaches zero',
+        description: {
+          en: 'Message to show when countdown reaches zero',
+          pt: 'Mensagem a mostrar quando a contagem chega a zero',
+        },
       },
     },
     SectionID,

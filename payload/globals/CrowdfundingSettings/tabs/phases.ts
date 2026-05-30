@@ -11,7 +11,10 @@ const CrowdfundingSettingsPhasesTab: Tab = {
       name: 'phases',
       type: 'array',
       admin: {
-        description: 'Campaign phases shown in the timeline section. Add one per phase, in order.',
+        description: {
+          en: 'Campaign phases shown in the timeline section. Add one per phase, in order.',
+          pt: 'Fases da campanha mostradas na secção da linha do tempo. Adicione uma por fase, por ordem.',
+        },
         components: {
           RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
         },
@@ -25,7 +28,10 @@ const CrowdfundingSettingsPhasesTab: Tab = {
           required: true,
           localized: true,
           admin: {
-            description: 'E.g. "Fase 1: Campanha de Angariação de Fundos".',
+            description: {
+              en: 'E.g. "Fase 1: Campanha de Angariação de Fundos".',
+              pt: 'Ex: "Fase 1: Campanha de Angariação de Fundos".',
+            },
           },
         },
         {
@@ -35,8 +41,10 @@ const CrowdfundingSettingsPhasesTab: Tab = {
           required: false,
           localized: true,
           admin: {
-            description:
-              'Short description of the phase, shown in the timeline section (e.g. "Março 2024 - Dezembro 2024").',
+            description: {
+              en: 'Short description of the phase, shown in the timeline section (e.g. "Março 2024 - Dezembro 2024").',
+              pt: 'Descrição curta da fase, mostrada na secção da linha do tempo (ex: "Março 2024 - Dezembro 2024").',
+            },
           },
         },
         {

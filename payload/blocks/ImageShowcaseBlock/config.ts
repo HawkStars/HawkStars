@@ -39,8 +39,10 @@ export const ImageShowcaseBlock: Block = {
       min: 1000,
       max: 30000,
       admin: {
-        description:
-          'Time in milliseconds for each image to transition from grayscale to color (default: 5000ms)',
+        description: {
+          en: 'Time in milliseconds for each image to transition from grayscale to color (default: 5000ms)',
+          pt: 'Tempo em milissegundos para cada imagem transitar de escala de cinzas para cor (padrão: 5000ms)',
+        },
       },
     },
     {
@@ -49,7 +51,10 @@ export const ImageShowcaseBlock: Block = {
       label: { en: 'Autoplay', pt: 'Reprodução Automática' },
       defaultValue: true,
       admin: {
-        description: 'Whether the image showcase should automatically transition between images.',
+        description: {
+          en: 'Whether the image showcase should automatically transition between images.',
+          pt: 'Se a montra de imagens deve transitar automaticamente entre imagens.',
+        },
       },
     },
     {
@@ -62,8 +67,10 @@ export const ImageShowcaseBlock: Block = {
         { label: { en: '2 Columns', pt: '2 Colunas' }, value: '2' },
       ],
       admin: {
-        description:
-          'Number of columns to display in the thumbnail grid (default: 2). Note: For best results, use images with a 1:1 aspect ratio.',
+        description: {
+          en: 'Number of columns to display in the thumbnail grid (default: 2). Note: For best results, use images with a 1:1 aspect ratio.',
+          pt: 'Número de colunas a exibir na grelha de miniaturas (padrão: 2). Nota: Para melhores resultados, use imagens com proporção 1:1.',
+        },
       },
     },
     SectionID,

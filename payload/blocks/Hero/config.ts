@@ -16,7 +16,10 @@ export const Hero: Block = {
       label: { en: 'Badge', pt: 'Distintivo' },
       localized: true,
       admin: {
-        description: 'Badge label above heading (e.g., "PLATFORM")',
+        description: {
+          en: 'Badge label above heading (e.g., "PLATFORM")',
+          pt: 'Rótulo do distintivo acima do título (ex: "PLATAFORMA")',
+        },
       },
     },
     {
@@ -26,7 +29,7 @@ export const Hero: Block = {
       required: true,
       localized: true,
       admin: {
-        description: 'Main heading text',
+        description: { en: 'Main heading text', pt: 'Texto do título principal' },
       },
     },
     link({ name: 'ctaLink', description: 'Call-to-action button information' }),
@@ -34,7 +37,10 @@ export const Hero: Block = {
       name: 'headerImage',
       label: 'Header Image',
       required: false,
-      description: 'Image displayed above the heading',
+      description: {
+        en: 'Image displayed above the heading',
+        pt: 'Imagem exibida acima do título',
+      },
     }),
     {
       name: 'features',
@@ -54,7 +60,10 @@ export const Hero: Block = {
           ],
           required: true,
           admin: {
-            description: 'Icon type for this feature',
+            description: {
+              en: 'Icon type for this feature',
+              pt: 'Tipo de ícone para esta funcionalidade',
+            },
           },
         },
         {
@@ -64,7 +73,7 @@ export const Hero: Block = {
           required: true,
           localized: true,
           admin: {
-            description: 'Feature title',
+            description: { en: 'Feature title', pt: 'Título da funcionalidade' },
           },
         },
         {
@@ -74,13 +83,16 @@ export const Hero: Block = {
           required: true,
           localized: true,
           admin: {
-            description: 'Feature description',
+            description: { en: 'Feature description', pt: 'Descrição da funcionalidade' },
           },
         },
       ],
       maxRows: 4,
       admin: {
-        description: 'Feature cards displayed in grid (up to 4)',
+        description: {
+          en: 'Feature cards displayed in grid (up to 4)',
+          pt: 'Cartões de funcionalidades exibidos em grelha (até 4)',
+        },
         components: {
           RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
         },

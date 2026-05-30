@@ -52,7 +52,10 @@ export const ContentWithImage: Block = {
       ],
       defaultValue: 'right',
       admin: {
-        description: 'Position of the image relative to the content',
+        description: {
+          en: 'Position of the image relative to the content',
+          pt: 'Posição da imagem relativamente ao conteúdo',
+        },
       },
     },
     SectionID,

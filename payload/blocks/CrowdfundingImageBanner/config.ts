@@ -18,13 +18,19 @@ export const CrowdfundingImageBannerBlock: Block = {
       name: 'image',
       label: 'Banner Image',
       required: true,
-      description: 'Full-width banner image displayed across pages.',
+      description: {
+        en: 'Full-width banner image displayed across pages.',
+        pt: 'Imagem de banner a largura total exibida em páginas.',
+      },
     }),
     link({
       localizedLabel: true,
       name: 'url',
       labelInformation: 'Link URL',
-      description: 'URL to navigate to when the banner is clicked.',
+      description: {
+        en: 'URL to navigate to when the banner is clicked.',
+        pt: 'URL para navegar quando o banner é clicado.',
+      },
     }),
     SectionID,
   ],

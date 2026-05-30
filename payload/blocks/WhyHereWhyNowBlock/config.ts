@@ -17,7 +17,7 @@ export const WhyHereWhyNowBlock: Block = {
       defaultValue: 'Porque aqui? Porque agora?',
       label: { en: 'Title', pt: 'Título' },
       admin: {
-        description: 'Main heading for the section',
+        description: { en: 'Main heading for the section', pt: 'Título principal da secção' },
       },
     },
     {
@@ -26,8 +26,10 @@ export const WhyHereWhyNowBlock: Block = {
       localized: true,
       label: { en: 'Subtitle', pt: 'Subtítulo' },
       admin: {
-        description:
-          'Subtitle displayed below the title (e.g., "A região da Beira Interior enfrenta hoje:")',
+        description: {
+          en: 'Subtitle displayed below the title (e.g., "A região da Beira Interior enfrenta hoje:")',
+          pt: 'Subtítulo exibido abaixo do título (ex: "A região da Beira Interior enfrenta hoje:")',
+        },
       },
     },
     {
@@ -36,8 +38,10 @@ export const WhyHereWhyNowBlock: Block = {
       localized: true,
       label: { en: 'Badge', pt: 'Distintivo' },
       admin: {
-        description:
-          'Optional badge/tag text displayed in the top-right corner (e.g., "Think Global, Act Local")',
+        description: {
+          en: 'Optional badge/tag text displayed in the top-right corner (e.g., "Think Global, Act Local")',
+          pt: 'Texto de distintivo/etiqueta opcional no canto superior direito (ex: "Think Global, Act Local")',
+        },
       },
     },
     {
@@ -52,7 +56,7 @@ export const WhyHereWhyNowBlock: Block = {
         { label: { en: 'Green', pt: 'Verde' }, value: 'green' },
       ],
       admin: {
-        description: 'Background color for the section',
+        description: { en: 'Background color for the section', pt: 'Cor de fundo da secção' },
       },
     },
     {
@@ -72,7 +76,10 @@ export const WhyHereWhyNowBlock: Block = {
           label: 'Icon Image',
           name: 'icon',
           required: false,
-          description: 'Illustration or icon representing this challenge',
+          description: {
+            en: 'Illustration or icon representing this challenge',
+            pt: 'Ilustração ou ícone representando este desafio',
+          },
         }),
         {
           name: 'label',
@@ -81,13 +88,18 @@ export const WhyHereWhyNowBlock: Block = {
           localized: true,
           label: { en: 'Label', pt: 'Rótulo' },
           admin: {
-            description:
-              'Description text below the icon (e.g., "Inversão da pirâmide demográfica")',
+            description: {
+              en: 'Description text below the icon (e.g., "Inversão da pirâmide demográfica")',
+              pt: 'Texto de descrição abaixo do ícone (ex: "Inversão da pirâmide demográfica")',
+            },
           },
         },
       ],
       admin: {
-        description: 'List of regional challenges/statistics to display (max 6)',
+        description: {
+          en: 'List of regional challenges/statistics to display (max 6)',
+          pt: 'Lista de desafios/estatísticas regionais a exibir (máx. 6)',
+        },
         components: {
           RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
         },

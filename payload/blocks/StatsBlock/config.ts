@@ -23,7 +23,10 @@ export const StatsBlock: Block = {
         { label: { en: '5 Columns', pt: '5 Colunas' }, value: '5' },
       ],
       admin: {
-        description: 'Number of stat cards per row',
+        description: {
+          en: 'Number of stat cards per row',
+          pt: 'Número de cartões de estatísticas por linha',
+        },
       },
     },
     {
@@ -38,7 +41,7 @@ export const StatsBlock: Block = {
         { label: { en: 'Green (White Text)', pt: 'Verde (Texto Branco)' }, value: 'green' },
       ],
       admin: {
-        description: 'Background color for the section',
+        description: { en: 'Background color for the section', pt: 'Cor de fundo da secção' },
       },
     },
     {
@@ -52,7 +55,10 @@ export const StatsBlock: Block = {
         { label: { en: 'Beige', pt: 'Bege' }, value: 'bege' },
       ],
       admin: {
-        description: 'Border color on card hover',
+        description: {
+          en: 'Border color on card hover',
+          pt: 'Cor da borda ao passar o rato sobre o cartão',
+        },
       },
     },
     {
@@ -75,7 +81,10 @@ export const StatsBlock: Block = {
             { label: { en: 'Right', pt: 'Direita' }, value: 'right' },
           ],
           admin: {
-            description: 'Horizontal alignment of the icon',
+            description: {
+              en: 'Horizontal alignment of the icon',
+              pt: 'Alinhamento horizontal do ícone',
+            },
             condition: (_, siblingData) => !!siblingData?.icon,
           },
         },
@@ -85,7 +94,10 @@ export const StatsBlock: Block = {
           localized: true,
           label: { en: 'Title', pt: 'Título' },
           admin: {
-            description: 'Optional stat title or value (e.g., "500+", "10K Users")',
+            description: {
+              en: 'Optional stat title or value (e.g., "500+", "10K Users")',
+              pt: 'Título ou valor opcional da estatística (ex: "500+", "10K Utilizadores")',
+            },
           },
         },
         {
@@ -99,7 +111,10 @@ export const StatsBlock: Block = {
             { label: { en: 'Right', pt: 'Direita' }, value: 'right' },
           ],
           admin: {
-            description: 'Horizontal alignment of the title',
+            description: {
+              en: 'Horizontal alignment of the title',
+              pt: 'Alinhamento horizontal do título',
+            },
             condition: (_, siblingData) => !!siblingData?.title,
           },
         },
@@ -109,7 +124,10 @@ export const StatsBlock: Block = {
           localized: true,
           label: { en: 'Description', pt: 'Descrição' },
           admin: {
-            description: 'Optional description or label for the stat',
+            description: {
+              en: 'Optional description or label for the stat',
+              pt: 'Descrição ou rótulo opcional para a estatística',
+            },
           },
         },
         {
@@ -123,13 +141,19 @@ export const StatsBlock: Block = {
             { label: { en: 'Right', pt: 'Direita' }, value: 'right' },
           ],
           admin: {
-            description: 'Horizontal alignment of the description',
+            description: {
+              en: 'Horizontal alignment of the description',
+              pt: 'Alinhamento horizontal da descrição',
+            },
             condition: (_, siblingData) => !!siblingData?.description,
           },
         },
       ],
       admin: {
-        description: 'List of stat cards to display',
+        description: {
+          en: 'List of stat cards to display',
+          pt: 'Lista de cartões de estatísticas a exibir',
+        },
         components: {
           RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
         },
@@ -139,7 +163,7 @@ export const StatsBlock: Block = {
       overrides: {
         maxRows: 2,
         admin: {
-          description: 'Optional CTA buttons (max 2)',
+          description: { en: 'Optional CTA buttons (max 2)', pt: 'Botões CTA opcionais (máx. 2)' },
         },
       },
     }),

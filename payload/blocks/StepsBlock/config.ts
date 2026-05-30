@@ -20,7 +20,10 @@ export const StepsConfigBlock: Block = {
         { label: '5', value: '5' },
       ],
       admin: {
-        description: 'Select the number of columns per row for the steps layout.',
+        description: {
+          en: 'Select the number of columns per row for the steps layout.',
+          pt: 'Selecione o número de colunas por linha para o layout de passos.',
+        },
       },
     },
     {
@@ -36,7 +39,10 @@ export const StepsConfigBlock: Block = {
         { label: { en: 'Yellow', pt: 'Amarelo' }, value: 'yellow' },
       ],
       admin: {
-        description: 'Select the color of the dots for the steps.',
+        description: {
+          en: 'Select the color of the dots for the steps.',
+          pt: 'Selecione a cor dos pontos para os passos.',
+        },
       },
     },
     {
@@ -53,7 +59,7 @@ export const StepsConfigBlock: Block = {
           localized: true,
           required: true,
           label: { en: 'Title', pt: 'Título' },
-          admin: { description: 'Title of the step' },
+          admin: { description: { en: 'Title of the step', pt: 'Título do passo' } },
         },
         {
           type: 'text',
@@ -61,7 +67,7 @@ export const StepsConfigBlock: Block = {
           localized: true,
           required: true,
           label: { en: 'Description', pt: 'Descrição' },
-          admin: { description: 'Description of the step' },
+          admin: { description: { en: 'Description of the step', pt: 'Descrição do passo' } },
         },
       ],
     },

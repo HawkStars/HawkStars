@@ -7,7 +7,10 @@ export const FooterNavGroup: GroupField = {
   type: 'group',
   interfaceName: 'FooterNavGroup',
   admin: {
-    description: 'Footer column. If there is only 1 link, it will be displayed without a title.',
+    description: {
+      en: 'Footer column. If there is only 1 link, it will be displayed without a title.',
+      pt: 'Coluna do rodapé. Se tiver apenas 1 link, será exibida sem título.',
+    },
     components: {
       Label: '@/payload/fields/FooterNavGroup/components/Label',
     },

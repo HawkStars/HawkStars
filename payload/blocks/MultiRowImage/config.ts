@@ -48,8 +48,10 @@ const MultiRowImage: Block = {
               label: { en: 'Column Image Size', pt: 'Tamanho da Coluna da Imagem' },
               required: true,
               admin: {
-                description:
-                  'Select the size of the image based on the grid columns. 1 to 6 columns.',
+                description: {
+                  en: 'Select the size of the image based on the grid columns. 1 to 6 columns.',
+                  pt: 'Selecione o tamanho da imagem com base nas colunas da grelha. 1 a 6 colunas.',
+                },
               },
               options: [
                 { label: { en: '1 Column', pt: '1 Coluna' }, value: '1' },
@@ -66,7 +68,10 @@ const MultiRowImage: Block = {
               required: true,
               label: { en: 'Row Image Size', pt: 'Tamanho da Linha da Imagem' },
               admin: {
-                description: 'Select the size of the image based on the grid rows. 1 to 6 rows.',
+                description: {
+                  en: 'Select the size of the image based on the grid rows. 1 to 6 rows.',
+                  pt: 'Selecione o tamanho da imagem com base nas linhas da grelha. 1 a 6 linhas.',
+                },
               },
               options: [
                 { label: { en: '1 Row', pt: '1 Linha' }, value: '1' },
@@ -114,7 +119,10 @@ const MultiRowImage: Block = {
       required: true,
       label: { en: 'Number of Columns', pt: 'Número de Colunas' },
       admin: {
-        description: 'Number of columns in the grid. Dividing the screen width in x columns.',
+        description: {
+          en: 'Number of columns in the grid. Dividing the screen width in x columns.',
+          pt: 'Número de colunas na grelha. Divide a largura do ecrã em x colunas.',
+        },
       },
       defaultValue: '6',
     },

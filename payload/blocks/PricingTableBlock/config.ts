@@ -14,7 +14,7 @@ export const PricingTableBlock: Block = {
       localized: true,
       label: { en: 'Title', pt: 'Título' },
       admin: {
-        description: 'Section title',
+        description: { en: 'Section title', pt: 'Título da secção' },
       },
     },
     {
@@ -23,7 +23,10 @@ export const PricingTableBlock: Block = {
       localized: true,
       label: { en: 'Subtitle', pt: 'Subtítulo' },
       admin: {
-        description: 'Section subtitle or description',
+        description: {
+          en: 'Section subtitle or description',
+          pt: 'Subtítulo ou descrição da secção',
+        },
       },
     },
     {
@@ -34,7 +37,7 @@ export const PricingTableBlock: Block = {
       maxRows: 4,
       label: { en: 'Tiers', pt: 'Níveis' },
       admin: {
-        description: 'Pricing tiers (up to 4)',
+        description: { en: 'Pricing tiers (up to 4)', pt: 'Níveis de preços (até 4)' },
         components: {
           RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
         },
@@ -47,7 +50,10 @@ export const PricingTableBlock: Block = {
           localized: true,
           label: { en: 'Tier Name', pt: 'Nome do Nível' },
           admin: {
-            description: 'Tier name (e.g., "Bronze", "Silver", "Gold")',
+            description: {
+              en: 'Tier name (e.g., "Bronze", "Silver", "Gold")',
+              pt: 'Nome do nível (ex: "Bronze", "Prata", "Ouro")',
+            },
           },
         },
         {
@@ -56,7 +62,7 @@ export const PricingTableBlock: Block = {
           required: true,
           label: { en: 'Price', pt: 'Preço' },
           admin: {
-            description: 'Price amount',
+            description: { en: 'Price amount', pt: 'Valor do preço' },
           },
         },
         {
@@ -65,7 +71,7 @@ export const PricingTableBlock: Block = {
           defaultValue: '€',
           label: { en: 'Currency', pt: 'Moeda' },
           admin: {
-            description: 'Currency symbol',
+            description: { en: 'Currency symbol', pt: 'Símbolo de moeda' },
           },
         },
         {
@@ -75,7 +81,10 @@ export const PricingTableBlock: Block = {
           localized: true,
           label: { en: 'Period', pt: 'Período' },
           admin: {
-            description: 'Billing period (e.g., "/month", "/year", "one-time")',
+            description: {
+              en: 'Billing period (e.g., "/month", "/year", "one-time")',
+              pt: 'Período de faturação (ex: "/mês", "/ano", "único")',
+            },
           },
         },
         {
@@ -84,7 +93,10 @@ export const PricingTableBlock: Block = {
           localized: true,
           label: { en: 'Description', pt: 'Descrição' },
           admin: {
-            description: 'Brief description of this tier',
+            description: {
+              en: 'Brief description of this tier',
+              pt: 'Descrição breve deste nível',
+            },
           },
         },
         {
@@ -102,7 +114,10 @@ export const PricingTableBlock: Block = {
             },
           ],
           admin: {
-            description: 'List of features included in this tier',
+            description: {
+              en: 'List of features included in this tier',
+              pt: 'Lista de funcionalidades incluídas neste nível',
+            },
             components: {
               RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
             },
@@ -115,7 +130,7 @@ export const PricingTableBlock: Block = {
           localized: true,
           label: { en: 'Button Text', pt: 'Texto do Botão' },
           admin: {
-            description: 'CTA button text',
+            description: { en: 'CTA button text', pt: 'Texto do botão CTA' },
           },
         },
         {
@@ -123,7 +138,7 @@ export const PricingTableBlock: Block = {
           type: 'text',
           label: { en: 'Button Link', pt: 'Link do Botão' },
           admin: {
-            description: 'CTA button URL',
+            description: { en: 'CTA button URL', pt: 'URL do botão CTA' },
           },
         },
         {
@@ -132,7 +147,10 @@ export const PricingTableBlock: Block = {
           defaultValue: false,
           label: { en: 'Highlighted', pt: 'Destacado' },
           admin: {
-            description: 'Mark this tier as featured/recommended',
+            description: {
+              en: 'Mark this tier as featured/recommended',
+              pt: 'Marcar este nível como destaque/recomendado',
+            },
           },
         },
         {
@@ -140,7 +158,10 @@ export const PricingTableBlock: Block = {
           type: 'text',
           label: { en: 'Badge', pt: 'Distintivo' },
           admin: {
-            description: 'Optional badge text (e.g., "Most Popular", "Best Value")',
+            description: {
+              en: 'Optional badge text (e.g., "Most Popular", "Best Value")',
+              pt: 'Texto de distintivo opcional (ex: "Mais Popular", "Melhor Valor")',
+            },
           },
         },
       ],

@@ -2,7 +2,7 @@ import { Tab } from 'payload';
 
 const CuratorFieldsTab: Tab = {
   label: { en: 'Curator Details', pt: 'Detalhes do Curador' },
-  description: 'Information about the curator',
+  description: { en: 'Information about the curator', pt: 'Informação sobre o curador' },
   fields: [
     {
       type: 'text',
@@ -31,7 +31,13 @@ const CuratorFieldsTab: Tab = {
       label: { en: 'Biographical Note', pt: 'Nota Biográfica' },
       localized: true,
     },
-    { type: 'upload', name: 'image', label: { en: 'Image', pt: 'Imagem' }, relationTo: 'media', required: true },
+    {
+      type: 'upload',
+      name: 'image',
+      label: { en: 'Image', pt: 'Imagem' },
+      relationTo: 'media',
+      required: true,
+    },
   ],
 };
 export default CuratorFieldsTab;

@@ -4,7 +4,10 @@ const HawkProjectDisseminationFields: Tab = {
   name: 'dissemination',
   label: { en: 'Dissemination', pt: 'Disseminação' },
   admin: {
-    description: 'Dissemination links per country and official reports.',
+    description: {
+      en: 'Dissemination links per country and official reports.',
+      pt: 'Links de disseminação por país e relatórios oficiais.',
+    },
   },
   fields: [
     {
@@ -13,7 +16,10 @@ const HawkProjectDisseminationFields: Tab = {
       type: 'array',
       interfaceName: 'HawkProjectDisseminationReport',
       admin: {
-        description: 'Official reports (Salto, Project Report, etc.)',
+        description: {
+          en: 'Official reports (Salto, Project Report, etc.)',
+          pt: 'Relatórios oficiais (Salto, Relatório do Projeto, etc.)',
+        },
         initCollapsed: true,
         components: {
           RowLabel:
@@ -27,7 +33,12 @@ const HawkProjectDisseminationFields: Tab = {
           type: 'text',
           required: true,
           localized: true,
-          admin: { description: 'e.g. "Relatório Salto", "Project Report"' },
+          admin: {
+            description: {
+              en: 'e.g. "Relatório Salto", "Project Report"',
+              pt: 'ex: "Relatório Salto", "Project Report"',
+            },
+          },
         },
         {
           name: 'url',

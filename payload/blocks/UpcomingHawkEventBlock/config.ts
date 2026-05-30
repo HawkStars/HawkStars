@@ -15,7 +15,10 @@ export const UpcomingHawkEventBlock: Block = {
       localized: true,
       label: { en: 'Title', pt: 'Título' },
       admin: {
-        description: 'Section heading displayed above the event',
+        description: {
+          en: 'Section heading displayed above the event',
+          pt: 'Título da secção exibido acima do evento',
+        },
       },
     },
     {
@@ -24,7 +27,7 @@ export const UpcomingHawkEventBlock: Block = {
       localized: true,
       label: { en: 'Subtitle', pt: 'Subtítulo' },
       admin: {
-        description: 'Optional section description',
+        description: { en: 'Optional section description', pt: 'Descrição opcional da secção' },
       },
     },
     {
@@ -34,12 +37,17 @@ export const UpcomingHawkEventBlock: Block = {
       label: { en: 'Event Type', pt: 'Tipo de Evento' },
       options: [
         { label: { en: 'Local Event', pt: 'Evento Local' }, value: 'local_event' },
-        { label: { en: 'International Event', pt: 'Evento Internacional' }, value: 'international_event' },
+        {
+          label: { en: 'International Event', pt: 'Evento Internacional' },
+          value: 'international_event',
+        },
         { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
       ],
       admin: {
-        description:
-          'Filter by event type. Leave empty to show the next upcoming event regardless of type.',
+        description: {
+          en: 'Filter by event type. Leave empty to show the next upcoming event regardless of type.',
+          pt: 'Filtre por tipo de evento. Deixe vazio para mostrar o próximo evento independentemente do tipo.',
+        },
       },
     },
     {
@@ -49,7 +57,10 @@ export const UpcomingHawkEventBlock: Block = {
       localized: true,
       label: { en: 'Link Label', pt: 'Rótulo do Link' },
       admin: {
-        description: 'Label for the link to the event page',
+        description: {
+          en: 'Label for the link to the event page',
+          pt: 'Rótulo para o link da página do evento',
+        },
       },
     },
     SectionID,

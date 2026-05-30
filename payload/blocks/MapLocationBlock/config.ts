@@ -51,7 +51,7 @@ export const MapLocationBlock: Block = {
       localized: true,
       label: { en: 'Hours', pt: 'Horário' },
       admin: {
-        description: 'Operating hours',
+        description: { en: 'Operating hours', pt: 'Horário de funcionamento' },
       },
     },
     SectionID,

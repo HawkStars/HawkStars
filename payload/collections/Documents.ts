@@ -11,8 +11,10 @@ export const Documents: CollectionConfig = {
     plural: { en: 'Documents', pt: 'Documentos' },
   },
   admin: {
-    description:
-      'Upload and manage documents such as PDFs, spreadsheets, and other files used throughout the website.',
+    description: {
+      en: 'Upload and manage documents such as PDFs, spreadsheets, and other files used throughout the website.',
+      pt: 'Carregue e gira documentos como PDFs, folhas de cálculo e outros ficheiros utilizados no website.',
+    },
     group: {
       ...GROUP_LABELS.management,
     },
@@ -45,7 +47,7 @@ export const Documents: CollectionConfig = {
       type: 'text',
       required: true,
       admin: {
-        description: 'A descriptive title for the document.',
+        description: { en: 'A descriptive title for the document.', pt: 'Um título descritivo para o documento.' },
       },
     },
     {
@@ -58,7 +60,7 @@ export const Documents: CollectionConfig = {
         { label: { en: 'Events', pt: 'Eventos' }, value: 'events' },
         { label: { en: 'Reports', pt: 'Relatórios' }, value: 'reports' },
       ],
-      admin: { description: 'Optional folder path for organization.' },
+      admin: { description: { en: 'Optional folder path for organization.', pt: 'Pasta opcional para organização.' } },
     },
     {
       name: 'description',
@@ -66,7 +68,7 @@ export const Documents: CollectionConfig = {
       type: 'textarea',
       required: false,
       admin: {
-        description: 'Optional description of the document contents or purpose.',
+        description: { en: 'Optional description of the document contents or purpose.', pt: 'Descrição opcional do conteúdo ou propósito do documento.' },
       },
     },
   ],

@@ -15,7 +15,10 @@ export const ResourceDownloadBlock: Block = {
       localized: true,
       label: { en: 'Title', pt: 'Título' },
       admin: {
-        description: 'The title displayed above the list of resources.',
+        description: {
+          en: 'The title displayed above the list of resources.',
+          pt: 'O título exibido acima da lista de recursos.',
+        },
       },
     },
     {
@@ -23,8 +26,10 @@ export const ResourceDownloadBlock: Block = {
       type: 'select',
       label: { en: 'Variation', pt: 'Variação' },
       admin: {
-        description:
-          'Optional - Used to apply different styles to the resource item. Default is "Default".',
+        description: {
+          en: 'Optional - Used to apply different styles to the resource item. Default is "Default".',
+          pt: 'Opcional - Usado para aplicar estilos diferentes ao item de recurso. O padrão é "Lista".',
+        },
       },
       defaultValue: 'list',
       options: [
@@ -50,7 +55,10 @@ export const ResourceDownloadBlock: Block = {
           localized: true,
           label: { en: 'Title', pt: 'Título' },
           admin: {
-            description: 'A descriptive title for the resource.',
+            description: {
+              en: 'A descriptive title for the resource.',
+              pt: 'Um título descritivo para o recurso.',
+            },
           },
           maxLength: 30,
         },
@@ -61,7 +69,10 @@ export const ResourceDownloadBlock: Block = {
           required: false,
           label: { en: 'Description', pt: 'Descrição' },
           admin: {
-            description: 'A brief description of the resource.',
+            description: {
+              en: 'A brief description of the resource.',
+              pt: 'Uma descrição breve do recurso.',
+            },
           },
           maxLength: 80,
         },
@@ -85,7 +96,10 @@ export const ResourceDownloadBlock: Block = {
             { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
           ],
           admin: {
-            description: 'Optional - Used to determine the icon displayed for the resource.',
+            description: {
+              en: 'Optional - Used to determine the icon displayed for the resource.',
+              pt: 'Opcional - Usado para determinar o ícone exibido para o recurso.',
+            },
           },
         },
       ],

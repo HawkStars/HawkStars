@@ -15,7 +15,10 @@ const CrowdfundingSettingsFundsTab: Tab = {
         en: 'Raised Amount (€)',
       },
       admin: {
-        description: 'Total amount raised so far, in euros.',
+        description: {
+          en: 'Total amount raised so far, in euros.',
+          pt: 'Valor total angariado até agora, em euros.',
+        },
         width: '33%',
       },
       required: true,
@@ -29,7 +32,10 @@ const CrowdfundingSettingsFundsTab: Tab = {
         en: 'Campaign Goal (€)',
       },
       admin: {
-        description: 'The fundraising target for the campaign phase, in euros.',
+        description: {
+          en: 'The fundraising target for the campaign phase, in euros.',
+          pt: 'A meta de angariação de fundos para a fase da campanha, em euros.',
+        },
         width: '33%',
       },
       required: true,
@@ -43,7 +49,10 @@ const CrowdfundingSettingsFundsTab: Tab = {
         en: 'Total Project Goal (€)',
       },
       admin: {
-        description: 'The full investment target for the project, in euros.',
+        description: {
+          en: 'The full investment target for the project, in euros.',
+          pt: 'A meta total de investimento para o projeto, em euros.',
+        },
         width: '33%',
       },
       required: true,
@@ -57,7 +66,10 @@ const CrowdfundingSettingsFundsTab: Tab = {
         en: 'Last Update Date',
       },
       admin: {
-        description: 'Displayed date of the last statistics update (e.g. "Março 2025").',
+        description: {
+          en: 'Displayed date of the last statistics update (e.g. "Março 2025").',
+          pt: 'Data exibida da última atualização das estatísticas (ex: "Março 2025").',
+        },
       },
       localized: true,
       required: false,
@@ -70,8 +82,10 @@ const CrowdfundingSettingsFundsTab: Tab = {
         en: 'Weekly Increase (text)',
       },
       admin: {
-        description:
-          'Short label shown next to the raised amount to indicate weekly growth (e.g. "+2.3% esta semana").',
+        description: {
+          en: 'Short label shown next to the raised amount to indicate weekly growth (e.g. "+2.3% esta semana").',
+          pt: 'Rótulo curto mostrado ao lado do valor angariado para indicar o crescimento semanal (ex: "+2.3% esta semana").',
+        },
       },
       localized: true,
       required: false,

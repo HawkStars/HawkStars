@@ -38,8 +38,10 @@ export const Pages: CollectionConfig<'pages'> = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'status', 'updatedAt'],
-    description:
-      'Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search optimization. Pages follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.',
+    description: {
+      en: 'Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search optimization. Pages follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.',
+      pt: 'Crie e gira páginas do website. Use o separador Conteúdo para criar layouts com texto rico ou blocos, e o separador SEO para otimização. As páginas seguem um fluxo: Rascunho → Em Revisão → Publicado.',
+    },
     group: {
       ...GROUP_LABELS.daily,
     },
@@ -50,7 +52,10 @@ export const Pages: CollectionConfig<'pages'> = {
       label: { en: 'Title', pt: 'Título' },
       type: 'text',
       admin: {
-        description: 'The title of the page displayed in the admin panel',
+        description: {
+          en: 'The title of the page displayed in the admin panel',
+          pt: 'O título da página exibido no painel de administração',
+        },
       },
       required: true,
       localized: true,
@@ -73,14 +78,19 @@ export const Pages: CollectionConfig<'pages'> = {
               ],
               defaultValue: 'richText',
               admin: {
-                description:
-                  'Choose how to build the page content. "Rich Text Layout" allows mixing text and blocks in a flexible layout, while "Blocks Only" provides a simpler interface for adding blocks without rich text.',
+                description: {
+                  en: 'Choose how to build the page content. "Rich Text Layout" allows mixing text and blocks in a flexible layout, while "Blocks Only" provides a simpler interface for adding blocks without rich text.',
+                  pt: 'Escolha como construir o conteúdo da página. "Layout com Texto Rico" permite misturar texto e blocos, enquanto "Apenas Blocos" oferece uma interface mais simples.',
+                },
               },
             },
             {
               name: 'layout',
               admin: {
-                description: 'Add, remove, and reorder blocks to build the content of the page',
+                description: {
+                  en: 'Add, remove, and reorder blocks to build the content of the page',
+                  pt: 'Adicione, remova e reordene blocos para construir o conteúdo da página',
+                },
                 condition: (data) => data.contentType === 'richText',
               },
               type: 'richText',
@@ -93,7 +103,10 @@ export const Pages: CollectionConfig<'pages'> = {
               type: 'blocks',
               blocks: DefaultBlocks,
               admin: {
-                description: 'In case you want to use blocks separately from the rich text layout',
+                description: {
+                  en: 'In case you want to use blocks separately from the rich text layout',
+                  pt: 'Caso queira usar blocos separadamente do layout de texto rico',
+                },
                 condition: (data) => data.contentType === 'blocks',
               },
               required: false,
@@ -106,7 +119,10 @@ export const Pages: CollectionConfig<'pages'> = {
           ],
           label: { en: 'Content', pt: 'Conteúdo' },
           admin: {
-            description: 'Manage the main content of the page',
+            description: {
+              en: 'Manage the main content of the page',
+              pt: 'Gira o conteúdo principal da página',
+            },
           },
         },
         {
@@ -131,7 +147,10 @@ export const Pages: CollectionConfig<'pages'> = {
               hasGenerateFn: true,
               overrides: {
                 admin: {
-                  description: 'Recommended size: 1200x630 pixels',
+                  description: {
+                    en: 'Recommended size: 1200x630 pixels',
+                    pt: 'Tamanho recomendado: 1200x630 pixels',
+                  },
                 },
               },
             }),
@@ -160,7 +179,10 @@ export const Pages: CollectionConfig<'pages'> = {
       type: 'date',
       admin: {
         position: 'sidebar',
-        description: 'Automatically set when status changes to Published',
+        description: {
+          en: 'Automatically set when status changes to Published',
+          pt: 'Definido automaticamente quando o estado muda para Publicado',
+        },
       },
     },
     {
@@ -171,7 +193,10 @@ export const Pages: CollectionConfig<'pages'> = {
       unique: true,
       admin: {
         position: 'sidebar',
-        description: 'The URL slug for the page, e.g. "about" for www.hawkstars.com/about',
+        description: {
+          en: 'The URL slug for the page, e.g. "about" for www.hawkstars.com/about',
+          pt: 'O slug de URL para a página, ex: "sobre" para www.hawkstars.com/sobre',
+        },
       },
     },
   ],

@@ -14,7 +14,10 @@ export const VideoBlock: Block = {
       required: true,
       label: { en: 'Video URL', pt: 'URL do Vídeo' },
       admin: {
-        description: 'YouTube, Vimeo, or direct video URL (mp4, webm, ogg)',
+        description: {
+          en: 'YouTube, Vimeo, or direct video URL (mp4, webm, ogg)',
+          pt: 'URL do YouTube, Vimeo ou URL direto de vídeo (mp4, webm, ogg)',
+        },
       },
     },
     {
@@ -23,7 +26,7 @@ export const VideoBlock: Block = {
       localized: true,
       label: { en: 'Title', pt: 'Título' },
       admin: {
-        description: 'Optional title for the video',
+        description: { en: 'Optional title for the video', pt: 'Título opcional para o vídeo' },
       },
     },
     {
@@ -32,7 +35,7 @@ export const VideoBlock: Block = {
       localized: true,
       label: { en: 'Caption', pt: 'Legenda' },
       admin: {
-        description: 'Optional caption or description',
+        description: { en: 'Optional caption or description', pt: 'Legenda ou descrição opcional' },
       },
     },
     {
@@ -41,7 +44,10 @@ export const VideoBlock: Block = {
       defaultValue: false,
       label: { en: 'Autoplay', pt: 'Reprodução Automática' },
       admin: {
-        description: 'Auto-play video when visible',
+        description: {
+          en: 'Auto-play video when visible',
+          pt: 'Reproduzir automaticamente o vídeo quando visível',
+        },
       },
     },
     {
@@ -50,7 +56,7 @@ export const VideoBlock: Block = {
       defaultValue: false,
       label: { en: 'Loop', pt: 'Repetir' },
       admin: {
-        description: 'Loop video playback',
+        description: { en: 'Loop video playback', pt: 'Repetir a reprodução do vídeo' },
       },
     },
     {
@@ -59,7 +65,10 @@ export const VideoBlock: Block = {
       defaultValue: true,
       label: { en: 'Muted', pt: 'Sem Som' },
       admin: {
-        description: 'Mute video by default (required for autoplay)',
+        description: {
+          en: 'Mute video by default (required for autoplay)',
+          pt: 'Silenciar o vídeo por omissão (necessário para reprodução automática)',
+        },
       },
     },
     {
@@ -68,7 +77,7 @@ export const VideoBlock: Block = {
       defaultValue: true,
       label: { en: 'Show Controls', pt: 'Mostrar Controlos' },
       admin: {
-        description: 'Show video controls',
+        description: { en: 'Show video controls', pt: 'Mostrar controlos do vídeo' },
       },
     },
     SectionID,

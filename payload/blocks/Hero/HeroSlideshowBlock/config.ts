@@ -34,7 +34,10 @@ export const HeroSlideshowBlock: Block = {
           label: { en: 'Title', pt: 'Título' },
           localized: true,
           admin: {
-            description: 'Main heading text for this slide',
+            description: {
+              en: 'Main heading text for this slide',
+              pt: 'Texto do título principal para este diapositivo',
+            },
           },
         },
         {
@@ -43,7 +46,10 @@ export const HeroSlideshowBlock: Block = {
           label: { en: 'Subtitle', pt: 'Subtítulo' },
           localized: true,
           admin: {
-            description: 'Subtitle or description text for this slide',
+            description: {
+              en: 'Subtitle or description text for this slide',
+              pt: 'Texto do subtítulo ou descrição para este diapositivo',
+            },
           },
         },
         linkGroup({ overrides: { maxRows: 2 } }),
@@ -59,7 +65,10 @@ export const HeroSlideshowBlock: Block = {
           ],
           defaultValue: 'center',
           admin: {
-            description: 'Text alignment for all slides',
+            description: {
+              en: 'Text alignment for all slides',
+              pt: 'Alinhamento do texto para todos os diapositivos',
+            },
           },
         },
       ],
@@ -72,7 +81,10 @@ export const HeroSlideshowBlock: Block = {
       max: 100,
       defaultValue: 40,
       admin: {
-        description: 'Overlay darkness for all slides (0-100%)',
+        description: {
+          en: 'Overlay darkness for all slides (0-100%)',
+          pt: 'Escuridão da sobreposição para todos os diapositivos (0-100%)',
+        },
       },
     },
     {
@@ -81,7 +93,10 @@ export const HeroSlideshowBlock: Block = {
       label: { en: 'Autoplay', pt: 'Reprodução Automática' },
       defaultValue: true,
       admin: {
-        description: 'Automatically cycle through slides',
+        description: {
+          en: 'Automatically cycle through slides',
+          pt: 'Ciclar automaticamente pelos diapositivos',
+        },
       },
     },
     {
@@ -92,7 +107,10 @@ export const HeroSlideshowBlock: Block = {
       max: 15000,
       defaultValue: 5000,
       admin: {
-        description: 'Time between slides in milliseconds (only if autoplay is enabled)',
+        description: {
+          en: 'Time between slides in milliseconds (only if autoplay is enabled)',
+          pt: 'Tempo entre diapositivos em milissegundos (apenas se a reprodução automática estiver ativada)',
+        },
         condition: (_, siblingData) => siblingData?.autoplay === true,
       },
     },
@@ -102,7 +120,7 @@ export const HeroSlideshowBlock: Block = {
       label: { en: 'Show Navigation', pt: 'Mostrar Navegação' },
       defaultValue: true,
       admin: {
-        description: 'Show previous/next arrows',
+        description: { en: 'Show previous/next arrows', pt: 'Mostrar setas de anterior/seguinte' },
       },
     },
     {
@@ -111,7 +129,7 @@ export const HeroSlideshowBlock: Block = {
       label: { en: 'Show Dots', pt: 'Mostrar Pontos' },
       defaultValue: true,
       admin: {
-        description: 'Show navigation dots',
+        description: { en: 'Show navigation dots', pt: 'Mostrar pontos de navegação' },
       },
     },
     {
@@ -126,7 +144,7 @@ export const HeroSlideshowBlock: Block = {
       ],
       defaultValue: 'large',
       admin: {
-        description: 'Height of the hero section',
+        description: { en: 'Height of the hero section', pt: 'Altura da secção hero' },
       },
     },
     SectionID,
