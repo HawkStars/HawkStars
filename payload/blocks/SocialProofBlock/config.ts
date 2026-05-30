@@ -13,6 +13,7 @@ export const SocialProofBlock: Block = {
       type: 'text',
       required: false,
       localized: true,
+      label: { en: 'Title', pt: 'Título' },
       admin: {
         description: 'Main title for the social proof section. Optional.',
       },
@@ -22,6 +23,7 @@ export const SocialProofBlock: Block = {
       type: 'text',
       localized: true,
       required: false,
+      label: { en: 'Subtitle', pt: 'Subtítulo' },
       admin: {
         description: 'Optional subtitle or description. Optional.x',
       },
@@ -30,6 +32,7 @@ export const SocialProofBlock: Block = {
       name: 'stats',
       type: 'array',
       interfaceName: 'SocialProofBlockStat',
+      label: { en: 'Stats', pt: 'Estatísticas' },
       admin: {
         components: {
           RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
@@ -43,6 +46,7 @@ export const SocialProofBlock: Block = {
           type: 'text',
           required: true,
           localized: true,
+          label: { en: 'Value', pt: 'Valor' },
           admin: {
             description: 'Number or stat (e.g., "500+", "95%")',
           },
@@ -52,33 +56,36 @@ export const SocialProofBlock: Block = {
           type: 'text',
           required: true,
           localized: true,
+          label: { en: 'Label', pt: 'Rótulo' },
         },
       ],
     },
     {
       name: 'backgroundColor',
       type: 'select',
+      label: { en: 'Background Color', pt: 'Cor de Fundo' },
       options: [
-        { label: 'White', value: 'white' },
-        { label: 'Gray', value: 'gray' },
-        { label: 'Gradient', value: 'gradient' },
+        { label: { en: 'White', pt: 'Branco' }, value: 'white' },
+        { label: { en: 'Gray', pt: 'Cinzento' }, value: 'gray' },
+        { label: { en: 'Gradient', pt: 'Gradiente' }, value: 'gradient' },
       ],
       defaultValue: 'white',
     },
     {
       name: 'textAlign',
       type: 'select',
+      label: { en: 'Text Alignment', pt: 'Alinhamento do Texto' },
       options: [
         {
-          label: 'Left',
+          label: { en: 'Left', pt: 'Esquerda' },
           value: 'left',
         },
         {
-          label: 'Center',
+          label: { en: 'Center', pt: 'Centro' },
           value: 'center',
         },
         {
-          label: 'Right',
+          label: { en: 'Right', pt: 'Direita' },
           value: 'right',
         },
       ],
@@ -90,7 +97,7 @@ export const SocialProofBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Social Proof Blocks',
-    singular: 'Social Proof Block',
+    plural: { en: 'Social Proof Blocks', pt: 'Blocos de Prova Social' },
+    singular: { en: 'Social Proof Block', pt: 'Bloco de Prova Social' },
   },
 };

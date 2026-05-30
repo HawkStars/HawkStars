@@ -12,12 +12,14 @@ export const FAQBlock: Block = {
     {
       name: 'title',
       type: 'text',
+      label: { en: 'Title', pt: 'Título' },
       defaultValue: 'Frequently Asked Questions',
       localized: true,
     },
     {
       name: 'items',
       type: 'array',
+      label: { en: 'FAQ Items', pt: 'Itens de FAQ' },
       interfaceName: 'FAQBlockItem',
       admin: {
         components: {
@@ -28,12 +30,14 @@ export const FAQBlock: Block = {
         {
           name: 'question',
           type: 'text',
+          label: { en: 'Question', pt: 'Pergunta' },
           required: true,
           localized: true,
         },
         {
           name: 'answer',
           type: 'textarea',
+          label: { en: 'Answer', pt: 'Resposta' },
           required: true,
           localized: true,
         },
@@ -42,7 +46,7 @@ export const FAQBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'FAQ Blocks',
-    singular: 'FAQ Block',
+    plural: { en: 'FAQ Blocks', pt: 'Blocos de FAQ' },
+    singular: { en: 'FAQ Block', pt: 'Bloco de FAQ' },
   },
 };

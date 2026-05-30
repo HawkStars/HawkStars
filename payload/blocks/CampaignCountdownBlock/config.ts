@@ -29,6 +29,7 @@ export const CampaignCountdownBlock: Block = {
     {
       name: 'targetDate',
       type: 'date',
+      label: { en: 'Target Date', pt: 'Data Alvo' },
       required: true,
       admin: {
         description: 'Target end date for the countdown',
@@ -41,30 +42,35 @@ export const CampaignCountdownBlock: Block = {
     {
       name: 'showDays',
       type: 'checkbox',
+      label: { en: 'Show Days', pt: 'Mostrar Dias' },
       defaultValue: true,
     },
     {
       name: 'showHours',
       type: 'checkbox',
+      label: { en: 'Show Hours', pt: 'Mostrar Horas' },
       defaultValue: true,
     },
     {
       name: 'showMinutes',
       type: 'checkbox',
+      label: { en: 'Show Minutes', pt: 'Mostrar Minutos' },
       defaultValue: true,
     },
     {
       name: 'showSeconds',
       type: 'checkbox',
+      label: { en: 'Show Seconds', pt: 'Mostrar Segundos' },
       defaultValue: true,
     },
     {
       name: 'theme',
       type: 'select',
+      label: { en: 'Theme', pt: 'Tema' },
       options: [
-        { label: 'Light', value: 'light' },
-        { label: 'Dark', value: 'dark' },
-        { label: 'Urgent (Red)', value: 'urgent' },
+        { label: { en: 'Light', pt: 'Claro' }, value: 'light' },
+        { label: { en: 'Dark', pt: 'Escuro' }, value: 'dark' },
+        { label: { en: 'Urgent (Red)', pt: 'Urgente (Vermelho)' }, value: 'urgent' },
       ],
       defaultValue: 'light',
       admin: {
@@ -74,6 +80,7 @@ export const CampaignCountdownBlock: Block = {
     {
       name: 'completedMessage',
       type: 'text',
+      label: { en: 'Completed Message', pt: 'Mensagem de Conclusão' },
       defaultValue: 'Campaign Ended',
       localized: true,
       admin: {
@@ -83,7 +90,7 @@ export const CampaignCountdownBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Campaign Countdowns',
-    singular: 'Campaign Countdown',
+    plural: { en: 'Campaign Countdowns', pt: 'Contagens Decrescentes de Campanha' },
+    singular: { en: 'Campaign Countdown', pt: 'Contagem Decrescente de Campanha' },
   },
 };

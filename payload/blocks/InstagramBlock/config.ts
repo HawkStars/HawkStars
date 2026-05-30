@@ -5,8 +5,8 @@ export const InstagramBlock: Block = {
   slug: 'instagram',
   interfaceName: 'InstagramBlock',
   labels: {
-    singular: 'Instagram Block',
-    plural: 'Instagram Blocks',
+    singular: { en: 'Instagram Block', pt: 'Bloco do Instagram' },
+    plural: { en: 'Instagram Blocks', pt: 'Blocos do Instagram' },
   },
   admin: {
     group: 'Media',
@@ -15,7 +15,7 @@ export const InstagramBlock: Block = {
     {
       name: 'version',
       type: 'select',
-      label: 'Version',
+      label: { en: 'Version', pt: 'Versão' },
       defaultValue: 'grid',
       options: [
         { label: 'Grid', value: 'grid' },

@@ -5,8 +5,8 @@ export const SectionTitleBlock: Block = {
   slug: 'sectionTitleBlock',
   interfaceName: 'SectionTitleBlock',
   labels: {
-    singular: 'Section Title',
-    plural: 'Section Titles',
+    singular: { en: 'Section Title', pt: 'Título de Secção' },
+    plural: { en: 'Section Titles', pt: 'Títulos de Secção' },
   },
   admin: {
     group: 'Content',
@@ -15,14 +15,14 @@ export const SectionTitleBlock: Block = {
     {
       name: 'title',
       type: 'text',
-      label: 'Title',
+      label: { en: 'Title', pt: 'Título' },
       required: true,
       localized: true,
     },
     {
       name: 'subtitle',
       type: 'text',
-      label: 'Subtitle',
+      label: { en: 'Subtitle', pt: 'Subtítulo' },
       required: false,
       localized: true,
     },

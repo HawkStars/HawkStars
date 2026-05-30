@@ -8,5 +8,9 @@ export const MediaBlock: Block = {
   admin: {
     group: 'Media',
   },
-  fields: [PayloadImageField({ name: 'media', label: 'Media', required: true }), SectionID],
+  fields: [PayloadImageField({ name: 'media', label: 'Média', required: true }), SectionID],
+  labels: {
+    singular: { en: 'Media Block', pt: 'Bloco de Média' },
+    plural: { en: 'Media Blocks', pt: 'Blocos de Média' },
+  },
 };

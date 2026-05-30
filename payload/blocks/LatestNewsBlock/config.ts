@@ -11,6 +11,7 @@ export const LatestNewsBlock: Block = {
     {
       name: 'title',
       type: 'text',
+      label: { en: 'Title', pt: 'Título' },
       defaultValue: 'Latest News',
       localized: true,
       admin: {
@@ -20,6 +21,7 @@ export const LatestNewsBlock: Block = {
     {
       name: 'subtitle',
       type: 'textarea',
+      label: { en: 'Subtitle', pt: 'Subtítulo' },
       localized: true,
       admin: {
         description: 'Optional section description',
@@ -28,11 +30,12 @@ export const LatestNewsBlock: Block = {
     {
       name: 'source',
       type: 'select',
+      label: { en: 'Source', pt: 'Fonte' },
       defaultValue: 'news',
       required: true,
       options: [
-        { label: 'News', value: 'news' },
-        { label: 'Hawk Projects', value: 'hawk_projects' },
+        { label: { en: 'News', pt: 'Notícias' }, value: 'news' },
+        { label: { en: 'Hawk Projects', pt: 'Projetos Hawk' }, value: 'hawk_projects' },
       ],
       admin: {
         description: 'Choose which collection to pull the latest item from.',
@@ -41,13 +44,14 @@ export const LatestNewsBlock: Block = {
     {
       name: 'newsType',
       type: 'select',
+      label: { en: 'News Type', pt: 'Tipo de Notícia' },
       hasMany: true,
       options: [
         { label: 'Blog', value: 'blog' },
-        { label: 'News', value: 'news' },
-        { label: 'Press Release', value: 'press_release' },
-        { label: 'Announcement', value: 'announcement' },
-        { label: 'Other', value: 'other' },
+        { label: { en: 'News', pt: 'Notícia' }, value: 'news' },
+        { label: { en: 'Press Release', pt: 'Comunicado de Imprensa' }, value: 'press_release' },
+        { label: { en: 'Announcement', pt: 'Anúncio' }, value: 'announcement' },
+        { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
       ],
       admin: {
         description: 'Filter by news type. Leave empty to show the latest regardless of type.',
@@ -57,12 +61,13 @@ export const LatestNewsBlock: Block = {
     {
       name: 'eventType',
       type: 'select',
+      label: { en: 'Event Type', pt: 'Tipo de Evento' },
       hasMany: true,
       options: [
         { label: 'Erasmus +', value: 'erasmus' },
-        { label: 'Local Event', value: 'local_event' },
-        { label: 'International Event', value: 'international_event' },
-        { label: 'Other', value: 'other' },
+        { label: { en: 'Local Event', pt: 'Evento Local' }, value: 'local_event' },
+        { label: { en: 'International Event', pt: 'Evento Internacional' }, value: 'international_event' },
+        { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
       ],
       admin: {
         description: 'Filter by event type. Leave empty to show the latest regardless of type.',
@@ -72,6 +77,7 @@ export const LatestNewsBlock: Block = {
     {
       name: 'linkLabel',
       type: 'text',
+      label: { en: 'Link Label', pt: 'Rótulo do Link' },
       defaultValue: 'Read more',
       localized: true,
       admin: {
@@ -81,7 +87,7 @@ export const LatestNewsBlock: Block = {
     SectionID,
   ],
   labels: {
-    singular: 'Latest News',
-    plural: 'Latest News Blocks',
+    singular: { en: 'Latest News', pt: 'Últimas Notícias' },
+    plural: { en: 'Latest News Blocks', pt: 'Blocos de Últimas Notícias' },
   },
 };

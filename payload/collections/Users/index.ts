@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 
 import { authenticated } from '@/payload/access/authenticated';
 import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
+import { GROUP_LABELS } from '@/payload/constants';
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -22,7 +23,7 @@ export const Users: CollectionConfig = {
     description:
       'Manage admin panel users and their roles. Admins have full access; Editors can manage content but not users or settings. Only admins can create new users.',
     group: {
-      name: 'Management',
+      ...GROUP_LABELS.management,
     },
   },
   auth: {

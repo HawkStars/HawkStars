@@ -15,11 +15,12 @@ export const StatsBlock: Block = {
       type: 'select',
       required: true,
       defaultValue: '3',
+      label: { en: 'Columns', pt: 'Colunas' },
       options: [
-        { label: '2 Columns', value: '2' },
-        { label: '3 Columns', value: '3' },
-        { label: '4 Columns', value: '4' },
-        { label: '5 Columns', value: '5' },
+        { label: { en: '2 Columns', pt: '2 Colunas' }, value: '2' },
+        { label: { en: '3 Columns', pt: '3 Colunas' }, value: '3' },
+        { label: { en: '4 Columns', pt: '4 Colunas' }, value: '4' },
+        { label: { en: '5 Columns', pt: '5 Colunas' }, value: '5' },
       ],
       admin: {
         description: 'Number of stat cards per row',
@@ -30,10 +31,11 @@ export const StatsBlock: Block = {
       type: 'select',
       required: true,
       defaultValue: 'white',
+      label: { en: 'Background', pt: 'Fundo' },
       options: [
-        { label: 'White (Black Text)', value: 'white' },
-        { label: 'Bege (Black Text)', value: 'bege' },
-        { label: 'Green (White Text)', value: 'green' },
+        { label: { en: 'White (Black Text)', pt: 'Branco (Texto Preto)' }, value: 'white' },
+        { label: { en: 'Beige (Black Text)', pt: 'Bege (Texto Preto)' }, value: 'bege' },
+        { label: { en: 'Green (White Text)', pt: 'Verde (Texto Branco)' }, value: 'green' },
       ],
       admin: {
         description: 'Background color for the section',
@@ -44,9 +46,10 @@ export const StatsBlock: Block = {
       type: 'select',
       required: true,
       defaultValue: 'green',
+      label: { en: 'Hover Border Color', pt: 'Cor da Borda ao Passar o Rato' },
       options: [
-        { label: 'Green', value: 'green' },
-        { label: 'Bege', value: 'bege' },
+        { label: { en: 'Green', pt: 'Verde' }, value: 'green' },
+        { label: { en: 'Beige', pt: 'Bege' }, value: 'bege' },
       ],
       admin: {
         description: 'Border color on card hover',
@@ -58,17 +61,18 @@ export const StatsBlock: Block = {
       interfaceName: 'StatsBlockStatItem',
       required: true,
       minRows: 1,
+      label: { en: 'Stats', pt: 'Estatísticas' },
       fields: [
         PayloadLucideIcon(),
         {
           name: 'iconAlign',
           type: 'select',
-          label: 'Icon Alignment',
+          label: { en: 'Icon Alignment', pt: 'Alinhamento do Ícone' },
           defaultValue: 'center',
           options: [
-            { label: 'Left', value: 'left' },
-            { label: 'Center', value: 'center' },
-            { label: 'Right', value: 'right' },
+            { label: { en: 'Left', pt: 'Esquerda' }, value: 'left' },
+            { label: { en: 'Center', pt: 'Centro' }, value: 'center' },
+            { label: { en: 'Right', pt: 'Direita' }, value: 'right' },
           ],
           admin: {
             description: 'Horizontal alignment of the icon',
@@ -79,6 +83,7 @@ export const StatsBlock: Block = {
           name: 'title',
           type: 'text',
           localized: true,
+          label: { en: 'Title', pt: 'Título' },
           admin: {
             description: 'Optional stat title or value (e.g., "500+", "10K Users")',
           },
@@ -86,12 +91,12 @@ export const StatsBlock: Block = {
         {
           name: 'titleAlign',
           type: 'select',
-          label: 'Title Alignment',
+          label: { en: 'Title Alignment', pt: 'Alinhamento do Título' },
           defaultValue: 'center',
           options: [
-            { label: 'Left', value: 'left' },
-            { label: 'Center', value: 'center' },
-            { label: 'Right', value: 'right' },
+            { label: { en: 'Left', pt: 'Esquerda' }, value: 'left' },
+            { label: { en: 'Center', pt: 'Centro' }, value: 'center' },
+            { label: { en: 'Right', pt: 'Direita' }, value: 'right' },
           ],
           admin: {
             description: 'Horizontal alignment of the title',
@@ -102,6 +107,7 @@ export const StatsBlock: Block = {
           name: 'description',
           type: 'textarea',
           localized: true,
+          label: { en: 'Description', pt: 'Descrição' },
           admin: {
             description: 'Optional description or label for the stat',
           },
@@ -109,12 +115,12 @@ export const StatsBlock: Block = {
         {
           name: 'descriptionAlign',
           type: 'select',
-          label: 'Description Alignment',
+          label: { en: 'Description Alignment', pt: 'Alinhamento da Descrição' },
           defaultValue: 'center',
           options: [
-            { label: 'Left', value: 'left' },
-            { label: 'Center', value: 'center' },
-            { label: 'Right', value: 'right' },
+            { label: { en: 'Left', pt: 'Esquerda' }, value: 'left' },
+            { label: { en: 'Center', pt: 'Centro' }, value: 'center' },
+            { label: { en: 'Right', pt: 'Direita' }, value: 'right' },
           ],
           admin: {
             description: 'Horizontal alignment of the description',
@@ -140,7 +146,7 @@ export const StatsBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Stats Blocks',
-    singular: 'Stats Block',
+    plural: { en: 'Stats Blocks', pt: 'Blocos de Estatísticas' },
+    singular: { en: 'Stats Block', pt: 'Bloco de Estatísticas' },
   },
 };

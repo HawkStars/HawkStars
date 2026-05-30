@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { anyone } from '../../access/anyone';
 import { authenticated } from '../../access/authenticated';
 import { notifyOnMemberProject } from '../../hooks/notifyOnMemberProject';
+import { GROUP_LABELS } from '@/payload/constants';
 
 /**
  * MemberProject — "Corner of the Members"
@@ -30,7 +31,7 @@ export const MemberProject: CollectionConfig = {
       'Verify the submitter is a paid-up, trusted member before checking "Confirmed". ' +
       'Only confirmed projects appear on the public showcase.',
     group: {
-      name: 'Daily Work',
+      ...GROUP_LABELS.daily,
     },
   },
   access: {

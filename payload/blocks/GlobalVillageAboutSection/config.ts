@@ -15,8 +15,8 @@ export const GlobalVillageAboutSectionBlock: Block = {
   slug: 'globalVillageAboutSection',
   interfaceName: 'GlobalVillageAboutSectionBlock',
   labels: {
-    singular: 'Global Village About Section',
-    plural: 'Global Village About Sections',
+    singular: { en: 'Global Village About Section', pt: 'Secção Sobre a Aldeia Global' },
+    plural: { en: 'Global Village About Sections', pt: 'Secções Sobre a Aldeia Global' },
   },
   admin: {
     group: 'Global Village',
@@ -25,14 +25,14 @@ export const GlobalVillageAboutSectionBlock: Block = {
     {
       name: 'heading',
       type: 'text',
-      label: 'Heading',
+      label: { en: 'Heading', pt: 'Título' },
       required: true,
       localized: true,
     },
     {
       name: 'description',
       type: 'textarea',
-      label: 'Description',
+      label: { en: 'Description', pt: 'Descrição' },
       required: false,
       localized: true,
     },
@@ -40,7 +40,7 @@ export const GlobalVillageAboutSectionBlock: Block = {
       name: 'sections',
       type: 'array',
       interfaceName: 'GlobalVillageAboutSectionItem',
-      label: 'Sections',
+      label: { en: 'Sections', pt: 'Secções' },
       minRows: 1,
       admin: {
         components: {
@@ -48,20 +48,20 @@ export const GlobalVillageAboutSectionBlock: Block = {
         },
       },
       labels: {
-        singular: 'Section',
-        plural: 'Sections',
+        singular: { en: 'Section', pt: 'Secção' },
+        plural: { en: 'Sections', pt: 'Secções' },
       },
       fields: [
         {
           name: 'title',
           type: 'text',
-          label: 'Section Title',
+          label: { en: 'Section Title', pt: 'Título da Secção' },
           localized: true,
         },
         {
           name: 'content',
           type: 'richText',
-          label: 'Content',
+          label: { en: 'Content', pt: 'Conteúdo' },
           localized: true,
           required: true,
           editor: lexicalEditor({
@@ -79,7 +79,7 @@ export const GlobalVillageAboutSectionBlock: Block = {
     {
       name: 'cta',
       type: 'group',
-      label: 'Call to Action',
+      label: { en: 'Call to Action', pt: 'Chamada para Ação' },
       admin: {
         hideGutter: true,
       },
@@ -87,7 +87,7 @@ export const GlobalVillageAboutSectionBlock: Block = {
         {
           name: 'enable',
           type: 'checkbox',
-          label: 'Enable CTA',
+          label: { en: 'Enable CTA', pt: 'Ativar CTA' },
           defaultValue: false,
         },
         link({

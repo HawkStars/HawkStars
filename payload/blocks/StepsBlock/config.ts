@@ -12,6 +12,7 @@ export const StepsConfigBlock: Block = {
       type: 'select',
       name: 'numberOfColumnsPerRow',
       required: true,
+      label: { en: 'Columns per Row', pt: 'Colunas por Linha' },
       options: [
         { label: '2', value: '2' },
         { label: '3', value: '3' },
@@ -27,11 +28,12 @@ export const StepsConfigBlock: Block = {
       name: 'dotColor',
       required: true,
       defaultValue: 'blue',
+      label: { en: 'Dot Color', pt: 'Cor do Ponto' },
       options: [
-        { label: 'Blue', value: 'blue' },
-        { label: 'Red', value: 'red' },
-        { label: 'Green', value: 'green' },
-        { label: 'Yellow', value: 'yellow' },
+        { label: { en: 'Blue', pt: 'Azul' }, value: 'blue' },
+        { label: { en: 'Red', pt: 'Vermelho' }, value: 'red' },
+        { label: { en: 'Green', pt: 'Verde' }, value: 'green' },
+        { label: { en: 'Yellow', pt: 'Amarelo' }, value: 'yellow' },
       ],
       admin: {
         description: 'Select the color of the dots for the steps.',
@@ -43,12 +45,14 @@ export const StepsConfigBlock: Block = {
       interfaceName: 'StepsBlockItem',
       minRows: 1,
       required: true,
+      label: { en: 'Steps', pt: 'Passos' },
       fields: [
         {
           type: 'text',
           name: 'title',
           localized: true,
           required: true,
+          label: { en: 'Title', pt: 'Título' },
           admin: { description: 'Title of the step' },
         },
         {
@@ -56,6 +60,7 @@ export const StepsConfigBlock: Block = {
           name: 'description',
           localized: true,
           required: true,
+          label: { en: 'Description', pt: 'Descrição' },
           admin: { description: 'Description of the step' },
         },
       ],
@@ -63,7 +68,7 @@ export const StepsConfigBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Steps Blocks',
-    singular: 'Step Block',
+    plural: { en: 'Steps Blocks', pt: 'Blocos de Passos' },
+    singular: { en: 'Step Block', pt: 'Bloco de Passos' },
   },
 };

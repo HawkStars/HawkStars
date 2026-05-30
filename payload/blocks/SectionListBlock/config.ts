@@ -5,8 +5,8 @@ export const SectionListBlock: Block = {
   slug: 'sectionListBlock',
   interfaceName: 'SectionListBlock',
   labels: {
-    singular: 'Section List',
-    plural: 'Section Lists',
+    singular: { en: 'Section List', pt: 'Lista de Secção' },
+    plural: { en: 'Section Lists', pt: 'Listas de Secção' },
   },
   admin: {
     group: 'Content',
@@ -15,13 +15,13 @@ export const SectionListBlock: Block = {
     {
       name: 'ordered',
       type: 'checkbox',
-      label: 'Ordered (numbered) list',
+      label: { en: 'Ordered (numbered) list', pt: 'Lista Ordenada (numerada)' },
       defaultValue: false,
     },
     {
       name: 'items',
       type: 'array',
-      label: 'Items',
+      label: { en: 'Items', pt: 'Itens' },
       required: true,
       minRows: 1,
       admin: {
@@ -34,14 +34,14 @@ export const SectionListBlock: Block = {
         {
           name: 'label',
           type: 'text',
-          label: 'Label',
+          label: { en: 'Label', pt: 'Rótulo' },
           required: true,
           localized: true,
         },
         {
           name: 'description',
           type: 'text',
-          label: 'Description',
+          label: { en: 'Description', pt: 'Descrição' },
           required: false,
           localized: true,
         },

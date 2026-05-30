@@ -6,8 +6,8 @@ export const ImageShowcaseBlock: Block = {
   slug: 'imageShowcase',
   interfaceName: 'ImageShowcaseBlock',
   labels: {
-    singular: 'Image Showcase',
-    plural: 'Image Showcases',
+    singular: { en: 'Image Showcase', pt: 'Montra de Imagem' },
+    plural: { en: 'Image Showcases', pt: 'Montras de Imagem' },
   },
   admin: {
     group: 'Media',
@@ -17,12 +17,12 @@ export const ImageShowcaseBlock: Block = {
       name: 'images',
       type: 'array',
       interfaceName: 'ImageShowcaseBlockImage',
-      label: 'Images',
+      label: { en: 'Images', pt: 'Imagens' },
       required: true,
       minRows: 2,
       labels: {
-        singular: 'Image',
-        plural: 'Images',
+        singular: { en: 'Image', pt: 'Imagem' },
+        plural: { en: 'Images', pt: 'Imagens' },
       },
       admin: {
         components: {
@@ -34,7 +34,7 @@ export const ImageShowcaseBlock: Block = {
     {
       name: 'transitionDuration',
       type: 'number',
-      label: 'Transition Duration (ms)',
+      label: { en: 'Transition Duration (ms)', pt: 'Duração da Transição (ms)' },
       defaultValue: 5000,
       min: 1000,
       max: 30000,
@@ -46,7 +46,7 @@ export const ImageShowcaseBlock: Block = {
     {
       name: 'autoplay',
       type: 'checkbox',
-      label: 'Autoplay',
+      label: { en: 'Autoplay', pt: 'Reprodução Automática' },
       defaultValue: true,
       admin: {
         description: 'Whether the image showcase should automatically transition between images.',
@@ -55,11 +55,11 @@ export const ImageShowcaseBlock: Block = {
     {
       name: 'gridColumns',
       type: 'select',
-      label: 'Grid Columns',
+      label: { en: 'Grid Columns', pt: 'Colunas da Grelha' },
       defaultValue: '2',
       options: [
-        { label: '1 Column', value: '1' },
-        { label: '2 Columns', value: '2' },
+        { label: { en: '1 Column', pt: '1 Coluna' }, value: '1' },
+        { label: { en: '2 Columns', pt: '2 Colunas' }, value: '2' },
       ],
       admin: {
         description:

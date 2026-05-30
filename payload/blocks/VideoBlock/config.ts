@@ -12,6 +12,7 @@ export const VideoBlock: Block = {
       name: 'videoUrl',
       type: 'text',
       required: true,
+      label: { en: 'Video URL', pt: 'URL do Vídeo' },
       admin: {
         description: 'YouTube, Vimeo, or direct video URL (mp4, webm, ogg)',
       },
@@ -20,6 +21,7 @@ export const VideoBlock: Block = {
       name: 'title',
       type: 'text',
       localized: true,
+      label: { en: 'Title', pt: 'Título' },
       admin: {
         description: 'Optional title for the video',
       },
@@ -28,6 +30,7 @@ export const VideoBlock: Block = {
       name: 'caption',
       type: 'textarea',
       localized: true,
+      label: { en: 'Caption', pt: 'Legenda' },
       admin: {
         description: 'Optional caption or description',
       },
@@ -36,6 +39,7 @@ export const VideoBlock: Block = {
       name: 'autoplay',
       type: 'checkbox',
       defaultValue: false,
+      label: { en: 'Autoplay', pt: 'Reprodução Automática' },
       admin: {
         description: 'Auto-play video when visible',
       },
@@ -44,6 +48,7 @@ export const VideoBlock: Block = {
       name: 'loop',
       type: 'checkbox',
       defaultValue: false,
+      label: { en: 'Loop', pt: 'Repetir' },
       admin: {
         description: 'Loop video playback',
       },
@@ -52,6 +57,7 @@ export const VideoBlock: Block = {
       name: 'muted',
       type: 'checkbox',
       defaultValue: true,
+      label: { en: 'Muted', pt: 'Sem Som' },
       admin: {
         description: 'Mute video by default (required for autoplay)',
       },
@@ -60,6 +66,7 @@ export const VideoBlock: Block = {
       name: 'controls',
       type: 'checkbox',
       defaultValue: true,
+      label: { en: 'Show Controls', pt: 'Mostrar Controlos' },
       admin: {
         description: 'Show video controls',
       },
@@ -67,7 +74,7 @@ export const VideoBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Video Blocks',
-    singular: 'Video Block',
+    plural: { en: 'Video Blocks', pt: 'Blocos de Vídeo' },
+    singular: { en: 'Video Block', pt: 'Bloco de Vídeo' },
   },
 };

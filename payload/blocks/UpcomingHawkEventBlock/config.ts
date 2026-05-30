@@ -13,6 +13,7 @@ export const UpcomingHawkEventBlock: Block = {
       type: 'text',
       defaultValue: 'Upcoming Event',
       localized: true,
+      label: { en: 'Title', pt: 'Título' },
       admin: {
         description: 'Section heading displayed above the event',
       },
@@ -21,6 +22,7 @@ export const UpcomingHawkEventBlock: Block = {
       name: 'subtitle',
       type: 'textarea',
       localized: true,
+      label: { en: 'Subtitle', pt: 'Subtítulo' },
       admin: {
         description: 'Optional section description',
       },
@@ -29,10 +31,11 @@ export const UpcomingHawkEventBlock: Block = {
       name: 'eventType',
       type: 'select',
       hasMany: true,
+      label: { en: 'Event Type', pt: 'Tipo de Evento' },
       options: [
-        { label: 'Local Event', value: 'local_event' },
-        { label: 'International Event', value: 'international_event' },
-        { label: 'Other', value: 'other' },
+        { label: { en: 'Local Event', pt: 'Evento Local' }, value: 'local_event' },
+        { label: { en: 'International Event', pt: 'Evento Internacional' }, value: 'international_event' },
+        { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
       ],
       admin: {
         description:
@@ -44,6 +47,7 @@ export const UpcomingHawkEventBlock: Block = {
       type: 'text',
       defaultValue: 'Learn more',
       localized: true,
+      label: { en: 'Link Label', pt: 'Rótulo do Link' },
       admin: {
         description: 'Label for the link to the event page',
       },
@@ -51,7 +55,7 @@ export const UpcomingHawkEventBlock: Block = {
     SectionID,
   ],
   labels: {
-    singular: 'Upcoming Hawk Event',
-    plural: 'Upcoming Hawk Event Blocks',
+    singular: { en: 'Upcoming Hawk Event', pt: 'Próximo Evento Hawk' },
+    plural: { en: 'Upcoming Hawk Event Blocks', pt: 'Blocos de Próximo Evento Hawk' },
   },
 };

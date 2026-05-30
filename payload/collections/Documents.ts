@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload';
+import { GROUP_LABELS } from '../constants';
 
 export const Documents: CollectionConfig = {
   slug: 'documents',
@@ -13,7 +14,7 @@ export const Documents: CollectionConfig = {
     description:
       'Upload and manage documents such as PDFs, spreadsheets, and other files used throughout the website.',
     group: {
-      name: 'Management',
+      ...GROUP_LABELS.management,
     },
     pagination: {
       limits: [10, 25, 50, 100],

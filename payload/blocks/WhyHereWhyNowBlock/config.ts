@@ -15,6 +15,7 @@ export const WhyHereWhyNowBlock: Block = {
       required: true,
       localized: true,
       defaultValue: 'Porque aqui? Porque agora?',
+      label: { en: 'Title', pt: 'Título' },
       admin: {
         description: 'Main heading for the section',
       },
@@ -23,6 +24,7 @@ export const WhyHereWhyNowBlock: Block = {
       name: 'subtitle',
       type: 'text',
       localized: true,
+      label: { en: 'Subtitle', pt: 'Subtítulo' },
       admin: {
         description:
           'Subtitle displayed below the title (e.g., "A região da Beira Interior enfrenta hoje:")',
@@ -32,6 +34,7 @@ export const WhyHereWhyNowBlock: Block = {
       name: 'badge',
       type: 'text',
       localized: true,
+      label: { en: 'Badge', pt: 'Distintivo' },
       admin: {
         description:
           'Optional badge/tag text displayed in the top-right corner (e.g., "Think Global, Act Local")',
@@ -42,10 +45,11 @@ export const WhyHereWhyNowBlock: Block = {
       type: 'select',
       required: true,
       defaultValue: 'bege',
+      label: { en: 'Background', pt: 'Fundo' },
       options: [
-        { label: 'White', value: 'white' },
-        { label: 'Bege', value: 'bege' },
-        { label: 'Green', value: 'green' },
+        { label: { en: 'White', pt: 'Branco' }, value: 'white' },
+        { label: { en: 'Beige', pt: 'Bege' }, value: 'bege' },
+        { label: { en: 'Green', pt: 'Verde' }, value: 'green' },
       ],
       admin: {
         description: 'Background color for the section',
@@ -58,9 +62,10 @@ export const WhyHereWhyNowBlock: Block = {
       required: true,
       minRows: 1,
       maxRows: 6,
+      label: { en: 'Challenges', pt: 'Desafios' },
       labels: {
-        singular: 'Challenge',
-        plural: 'Challenges',
+        singular: { en: 'Challenge', pt: 'Desafio' },
+        plural: { en: 'Challenges', pt: 'Desafios' },
       },
       fields: [
         PayloadImageField({
@@ -74,6 +79,7 @@ export const WhyHereWhyNowBlock: Block = {
           type: 'textarea',
           required: true,
           localized: true,
+          label: { en: 'Label', pt: 'Rótulo' },
           admin: {
             description:
               'Description text below the icon (e.g., "Inversão da pirâmide demográfica")',
@@ -90,7 +96,7 @@ export const WhyHereWhyNowBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Why Here Why Now Blocks',
-    singular: 'Why Here Why Now Block',
+    plural: { en: 'Why Here Why Now Blocks', pt: 'Blocos Porque Aqui Porque Agora' },
+    singular: { en: 'Why Here Why Now Block', pt: 'Bloco Porque Aqui Porque Agora' },
   },
 };

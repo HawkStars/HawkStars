@@ -14,6 +14,7 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
 import { DefaultBlocks } from '@/payload/blocks';
+import { GROUP_LABELS } from '@/payload/constants';
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -40,7 +41,7 @@ export const Pages: CollectionConfig<'pages'> = {
     description:
       'Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search optimization. Pages follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.',
     group: {
-      name: 'Daily Work',
+      ...GROUP_LABELS.daily,
     },
   },
   fields: [
@@ -64,7 +65,10 @@ export const Pages: CollectionConfig<'pages'> = {
               label: { en: 'Content Type', pt: 'Tipo de Conteúdo' },
               type: 'radio',
               options: [
-                { label: { en: 'Rich Text Layout', pt: 'Layout com Texto Rico' }, value: 'richText' },
+                {
+                  label: { en: 'Rich Text Layout', pt: 'Layout com Texto Rico' },
+                  value: 'richText',
+                },
                 { label: { en: 'Blocks Only', pt: 'Apenas Blocos' }, value: 'blocks' },
               ],
               defaultValue: 'richText',

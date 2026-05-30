@@ -13,12 +13,14 @@ export const CTABannerBlock: Block = {
     {
       name: 'title',
       type: 'text',
+      label: { en: 'Title', pt: 'Título' },
       required: true,
       localized: true,
     },
     {
       name: 'description',
       type: 'textarea',
+      label: { en: 'Description', pt: 'Descrição' },
       localized: true,
     },
     linkGroup({
@@ -29,10 +31,11 @@ export const CTABannerBlock: Block = {
     {
       name: 'variant',
       type: 'select',
+      label: { en: 'Variant', pt: 'Variante' },
       options: [
-        { label: 'Centered', value: 'centered' },
-        { label: 'Split', value: 'split' },
-        { label: 'Image Background', value: 'image-bg' },
+        { label: { en: 'Centered', pt: 'Centrado' }, value: 'centered' },
+        { label: { en: 'Split', pt: 'Dividido' }, value: 'split' },
+        { label: { en: 'Image Background', pt: 'Fundo com Imagem' }, value: 'image-bg' },
       ],
       defaultValue: 'centered',
     },
@@ -40,7 +43,7 @@ export const CTABannerBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'CTA Banners',
-    singular: 'CTA Banner',
+    plural: { en: 'CTA Banners', pt: 'Banners CTA' },
+    singular: { en: 'CTA Banner', pt: 'Banner CTA' },
   },
 };

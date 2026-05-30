@@ -4,8 +4,8 @@ import { Block } from 'payload';
 export const DataGridBlock: Block = {
   slug: 'dataGridBlock',
   labels: {
-    singular: 'Data Grid Block',
-    plural: 'Data Grid Blocks',
+    singular: { en: 'Data Grid Block', pt: 'Bloco de Grelha de Dados' },
+    plural: { en: 'Data Grid Blocks', pt: 'Blocos de Grelha de Dados' },
   },
   interfaceName: 'DataGridBlock',
   admin: {
@@ -15,6 +15,7 @@ export const DataGridBlock: Block = {
     {
       name: 'title',
       type: 'text',
+      label: { en: 'Title', pt: 'Título' },
       required: true,
       localized: true,
       admin: {
@@ -24,6 +25,7 @@ export const DataGridBlock: Block = {
     {
       name: 'columnOneHeader',
       type: 'text',
+      label: { en: 'Column 1 Header', pt: 'Cabeçalho da Coluna 1' },
       required: true,
       localized: true,
       defaultValue: 'Area',
@@ -34,6 +36,7 @@ export const DataGridBlock: Block = {
     {
       name: 'columnTwoHeader',
       type: 'text',
+      label: { en: 'Column 2 Header', pt: 'Cabeçalho da Coluna 2' },
       required: true,
       localized: true,
       defaultValue: 'Meta',
@@ -44,6 +47,7 @@ export const DataGridBlock: Block = {
     {
       name: 'rows',
       type: 'array',
+      label: { en: 'Rows', pt: 'Linhas' },
       interfaceName: 'DataGridBlockRow',
       required: true,
       minRows: 1,
@@ -53,13 +57,14 @@ export const DataGridBlock: Block = {
         },
       },
       labels: {
-        singular: 'Row',
-        plural: 'Rows',
+        singular: { en: 'Row', pt: 'Linha' },
+        plural: { en: 'Rows', pt: 'Linhas' },
       },
       fields: [
         {
           name: 'columnOne',
           type: 'text',
+          label: { en: 'Column 1', pt: 'Coluna 1' },
           required: true,
           localized: true,
           admin: {
@@ -69,6 +74,7 @@ export const DataGridBlock: Block = {
         {
           name: 'columnTwo',
           type: 'text',
+          label: { en: 'Column 2', pt: 'Coluna 2' },
           required: true,
           localized: true,
           admin: {

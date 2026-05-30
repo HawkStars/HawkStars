@@ -13,6 +13,7 @@ export const ResourceDownloadBlock: Block = {
       type: 'text',
       defaultValue: 'Download Resources',
       localized: true,
+      label: { en: 'Title', pt: 'Título' },
       admin: {
         description: 'The title displayed above the list of resources.',
       },
@@ -20,20 +21,22 @@ export const ResourceDownloadBlock: Block = {
     {
       name: 'variation',
       type: 'select',
+      label: { en: 'Variation', pt: 'Variação' },
       admin: {
         description:
           'Optional - Used to apply different styles to the resource item. Default is "Default".',
       },
       defaultValue: 'list',
       options: [
-        { label: 'List', value: 'list' },
-        { label: 'Card', value: 'card' },
+        { label: { en: 'List', pt: 'Lista' }, value: 'list' },
+        { label: { en: 'Card', pt: 'Cartão' }, value: 'card' },
       ],
     },
     {
       name: 'resources',
       type: 'array',
       interfaceName: 'ResourceItem',
+      label: { en: 'Resources', pt: 'Recursos' },
       admin: {
         components: {
           RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
@@ -45,6 +48,7 @@ export const ResourceDownloadBlock: Block = {
           type: 'text',
           required: true,
           localized: true,
+          label: { en: 'Title', pt: 'Título' },
           admin: {
             description: 'A descriptive title for the resource.',
           },
@@ -55,6 +59,7 @@ export const ResourceDownloadBlock: Block = {
           type: 'textarea',
           localized: true,
           required: false,
+          label: { en: 'Description', pt: 'Descrição' },
           admin: {
             description: 'A brief description of the resource.',
           },
@@ -65,17 +70,19 @@ export const ResourceDownloadBlock: Block = {
           type: 'upload',
           relationTo: 'documents',
           required: true,
+          label: { en: 'File', pt: 'Ficheiro' },
         },
         {
           name: 'fileType',
           type: 'select',
           required: false,
+          label: { en: 'File Type', pt: 'Tipo de Ficheiro' },
           options: [
             { label: 'PDF', value: 'pdf' },
-            { label: 'Document', value: 'doc' },
-            { label: 'Spreadsheet', value: 'xls' },
-            { label: 'Image', value: 'image' },
-            { label: 'Other', value: 'other' },
+            { label: { en: 'Document', pt: 'Documento' }, value: 'doc' },
+            { label: { en: 'Spreadsheet', pt: 'Folha de Cálculo' }, value: 'xls' },
+            { label: { en: 'Image', pt: 'Imagem' }, value: 'image' },
+            { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
           ],
           admin: {
             description: 'Optional - Used to determine the icon displayed for the resource.',
@@ -86,7 +93,7 @@ export const ResourceDownloadBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'File Download Blocks',
-    singular: 'File Download Block',
+    plural: { en: 'File Download Blocks', pt: 'Blocos de Download de Ficheiro' },
+    singular: { en: 'File Download Block', pt: 'Bloco de Download de Ficheiro' },
   },
 };

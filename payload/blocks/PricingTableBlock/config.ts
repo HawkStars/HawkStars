@@ -12,6 +12,7 @@ export const PricingTableBlock: Block = {
       name: 'title',
       type: 'text',
       localized: true,
+      label: { en: 'Title', pt: 'Título' },
       admin: {
         description: 'Section title',
       },
@@ -20,6 +21,7 @@ export const PricingTableBlock: Block = {
       name: 'subtitle',
       type: 'textarea',
       localized: true,
+      label: { en: 'Subtitle', pt: 'Subtítulo' },
       admin: {
         description: 'Section subtitle or description',
       },
@@ -30,6 +32,7 @@ export const PricingTableBlock: Block = {
       interfaceName: 'PricingTableBlockTier',
       minRows: 1,
       maxRows: 4,
+      label: { en: 'Tiers', pt: 'Níveis' },
       admin: {
         description: 'Pricing tiers (up to 4)',
         components: {
@@ -42,6 +45,7 @@ export const PricingTableBlock: Block = {
           type: 'text',
           required: true,
           localized: true,
+          label: { en: 'Tier Name', pt: 'Nome do Nível' },
           admin: {
             description: 'Tier name (e.g., "Bronze", "Silver", "Gold")',
           },
@@ -50,6 +54,7 @@ export const PricingTableBlock: Block = {
           name: 'price',
           type: 'number',
           required: true,
+          label: { en: 'Price', pt: 'Preço' },
           admin: {
             description: 'Price amount',
           },
@@ -58,6 +63,7 @@ export const PricingTableBlock: Block = {
           name: 'currency',
           type: 'text',
           defaultValue: '€',
+          label: { en: 'Currency', pt: 'Moeda' },
           admin: {
             description: 'Currency symbol',
           },
@@ -67,6 +73,7 @@ export const PricingTableBlock: Block = {
           type: 'text',
           defaultValue: '/month',
           localized: true,
+          label: { en: 'Period', pt: 'Período' },
           admin: {
             description: 'Billing period (e.g., "/month", "/year", "one-time")',
           },
@@ -75,6 +82,7 @@ export const PricingTableBlock: Block = {
           name: 'description',
           type: 'textarea',
           localized: true,
+          label: { en: 'Description', pt: 'Descrição' },
           admin: {
             description: 'Brief description of this tier',
           },
@@ -83,12 +91,14 @@ export const PricingTableBlock: Block = {
           name: 'features',
           type: 'array',
           interfaceName: 'PricingTableBlockTierFeature',
+          label: { en: 'Features', pt: 'Funcionalidades' },
           fields: [
             {
               name: 'feature',
               type: 'text',
               required: true,
               localized: true,
+              label: { en: 'Feature', pt: 'Funcionalidade' },
             },
           ],
           admin: {
@@ -103,6 +113,7 @@ export const PricingTableBlock: Block = {
           type: 'text',
           defaultValue: 'Choose Plan',
           localized: true,
+          label: { en: 'Button Text', pt: 'Texto do Botão' },
           admin: {
             description: 'CTA button text',
           },
@@ -110,6 +121,7 @@ export const PricingTableBlock: Block = {
         {
           name: 'buttonLink',
           type: 'text',
+          label: { en: 'Button Link', pt: 'Link do Botão' },
           admin: {
             description: 'CTA button URL',
           },
@@ -118,6 +130,7 @@ export const PricingTableBlock: Block = {
           name: 'highlighted',
           type: 'checkbox',
           defaultValue: false,
+          label: { en: 'Highlighted', pt: 'Destacado' },
           admin: {
             description: 'Mark this tier as featured/recommended',
           },
@@ -125,6 +138,7 @@ export const PricingTableBlock: Block = {
         {
           name: 'badge',
           type: 'text',
+          label: { en: 'Badge', pt: 'Distintivo' },
           admin: {
             description: 'Optional badge text (e.g., "Most Popular", "Best Value")',
           },
@@ -134,7 +148,7 @@ export const PricingTableBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Pricing Tables',
-    singular: 'Pricing Table',
+    plural: { en: 'Pricing Tables', pt: 'Tabelas de Preços' },
+    singular: { en: 'Pricing Table', pt: 'Tabela de Preços' },
   },
 };

@@ -12,6 +12,7 @@ export const GrowthVisionBlock: Block = {
     {
       name: 'title',
       type: 'text',
+      label: { en: 'Title', pt: 'Título' },
       required: true,
       localized: true,
       defaultValue: 'Uma visão em crescimento',
@@ -22,18 +23,24 @@ export const GrowthVisionBlock: Block = {
     {
       name: 'titleLocation',
       type: 'select',
-      options: ['left', 'center', 'right'],
+      label: { en: 'Title Location', pt: 'Posição do Título' },
+      options: [
+        { label: { en: 'Left', pt: 'Esquerda' }, value: 'left' },
+        { label: { en: 'Center', pt: 'Centro' }, value: 'center' },
+        { label: { en: 'Right', pt: 'Direita' }, value: 'right' },
+      ],
       defaultValue: 'center',
     },
     {
       name: 'background',
       type: 'select',
+      label: { en: 'Background', pt: 'Fundo' },
       required: true,
       defaultValue: 'bege',
       options: [
-        { label: 'White', value: 'white' },
-        { label: 'Bege', value: 'bege' },
-        { label: 'Green', value: 'green' },
+        { label: { en: 'White', pt: 'Branco' }, value: 'white' },
+        { label: { en: 'Beige', pt: 'Bege' }, value: 'bege' },
+        { label: { en: 'Green', pt: 'Verde' }, value: 'green' },
       ],
       admin: {
         description: 'Background color for the section',
@@ -42,12 +49,13 @@ export const GrowthVisionBlock: Block = {
     {
       name: 'phases',
       type: 'array',
+      label: { en: 'Phases', pt: 'Fases' },
       required: true,
       minRows: 1,
       maxRows: 5,
       labels: {
-        singular: 'Phase',
-        plural: 'Phases',
+        singular: { en: 'Phase', pt: 'Fase' },
+        plural: { en: 'Phases', pt: 'Fases' },
       },
       fields: [
         PayloadImageField({
@@ -59,6 +67,7 @@ export const GrowthVisionBlock: Block = {
         {
           name: 'phaseName',
           type: 'text',
+          label: { en: 'Phase Name', pt: 'Nome da Fase' },
           required: true,
           localized: true,
           admin: {
@@ -68,17 +77,19 @@ export const GrowthVisionBlock: Block = {
         {
           name: 'items',
           type: 'array',
+          label: { en: 'Items', pt: 'Itens' },
           interfaceName: 'GrowthVisionPhaseItem',
           required: true,
           minRows: 1,
           labels: {
-            singular: 'Item',
-            plural: 'Items',
+            singular: { en: 'Item', pt: 'Item' },
+            plural: { en: 'Items', pt: 'Itens' },
           },
           fields: [
             {
               name: 'text',
               type: 'text',
+              label: { en: 'Text', pt: 'Texto' },
               required: true,
               localized: true,
               admin: {
@@ -105,7 +116,7 @@ export const GrowthVisionBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Growth Vision Blocks',
-    singular: 'Growth Vision Block',
+    plural: { en: 'Growth Vision Blocks', pt: 'Blocos de Visão de Crescimento' },
+    singular: { en: 'Growth Vision Block', pt: 'Bloco de Visão de Crescimento' },
   },
 };

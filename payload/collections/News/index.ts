@@ -13,6 +13,7 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
+import { GROUP_LABELS } from '@/payload/constants';
 
 export const News: CollectionConfig = {
   slug: 'news',
@@ -26,7 +27,7 @@ export const News: CollectionConfig = {
     description:
       'Write and publish news articles for the HawkStars website. Articles follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.',
     group: {
-      name: 'Daily Work',
+      ...GROUP_LABELS.daily,
     },
   },
   defaultPopulate: {

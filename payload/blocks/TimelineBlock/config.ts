@@ -14,11 +14,13 @@ export const TimelineBlock: Block = {
       type: 'text',
       defaultValue: 'Our Journey',
       localized: true,
+      label: { en: 'Title', pt: 'Título' },
     },
     {
       name: 'items',
       type: 'array',
       interfaceName: 'TimelineBlockItem',
+      label: { en: 'Timeline Items', pt: 'Itens da Linha do Tempo' },
       admin: {
         components: {
           RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
@@ -29,18 +31,21 @@ export const TimelineBlock: Block = {
           name: 'year',
           type: 'text',
           required: true,
+          label: { en: 'Year', pt: 'Ano' },
         },
         {
           name: 'title',
           type: 'text',
           required: true,
           localized: true,
+          label: { en: 'Title', pt: 'Título' },
         },
         {
           name: 'description',
           type: 'textarea',
           required: true,
           localized: true,
+          label: { en: 'Description', pt: 'Descrição' },
         },
         PayloadImageField({
           label: 'Image',
@@ -53,16 +58,17 @@ export const TimelineBlock: Block = {
     {
       name: 'orientation',
       type: 'select',
+      label: { en: 'Orientation', pt: 'Orientação' },
       options: [
-        { label: 'Vertical', value: 'vertical' },
-        { label: 'Horizontal', value: 'horizontal' },
+        { label: { en: 'Vertical', pt: 'Vertical' }, value: 'vertical' },
+        { label: { en: 'Horizontal', pt: 'Horizontal' }, value: 'horizontal' },
       ],
       defaultValue: 'vertical',
     },
     SectionID,
   ],
   labels: {
-    plural: 'Timelines',
-    singular: 'Timeline',
+    plural: { en: 'Timelines', pt: 'Linhas do Tempo' },
+    singular: { en: 'Timeline', pt: 'Linha do Tempo' },
   },
 };

@@ -15,12 +15,14 @@ export const ContentWithImage: Block = {
     {
       name: 'title',
       type: 'text',
+      label: { en: 'Title', pt: 'Título' },
       required: true,
       localized: true,
     },
     {
       name: 'description',
       type: 'richText',
+      label: { en: 'Description', pt: 'Descrição' },
       localized: true,
       editor: lexicalEditor({
         features: ({ rootFeatures }) => [
@@ -37,13 +39,14 @@ export const ContentWithImage: Block = {
     {
       name: 'imagePosition',
       type: 'select',
+      label: { en: 'Image Position', pt: 'Posição da Imagem' },
       options: [
         {
-          label: 'Left',
+          label: { en: 'Left', pt: 'Esquerda' },
           value: 'left',
         },
         {
-          label: 'Right',
+          label: { en: 'Right', pt: 'Direita' },
           value: 'right',
         },
       ],
@@ -55,7 +58,7 @@ export const ContentWithImage: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Content with Image Blocks',
-    singular: 'Content with Image Block',
+    plural: { en: 'Content with Image Blocks', pt: 'Blocos de Conteúdo com Imagem' },
+    singular: { en: 'Content with Image Block', pt: 'Bloco de Conteúdo com Imagem' },
   },
 };

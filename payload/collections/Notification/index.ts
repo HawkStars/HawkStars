@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload';
 import { authenticated } from '@/payload/access/authenticated';
 import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
+import { GROUP_LABELS } from '@/payload/constants';
 
 export const Notification: CollectionConfig = {
   slug: 'notifications',
@@ -12,7 +13,9 @@ export const Notification: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'situation', 'read', 'createdAt'],
     description: 'System notifications for admin activity tracking',
-    group: 'System',
+    group: {
+      ...GROUP_LABELS.settings,
+    },
   },
   access: {
     read: authenticated,

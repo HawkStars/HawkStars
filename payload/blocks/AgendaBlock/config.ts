@@ -11,7 +11,7 @@ export const AgendaBlock: Block = {
     {
       name: 'title',
       type: 'text',
-      label: 'Section Title',
+      label: { en: 'Section Title', pt: 'Título da Secção' },
       localized: true,
       admin: {
         description: 'Heading displayed above the event list',
@@ -20,7 +20,7 @@ export const AgendaBlock: Block = {
     {
       name: 'subtitle',
       type: 'textarea',
-      label: 'Section Subtitle',
+      label: { en: 'Section Subtitle', pt: 'Subtítulo da Secção' },
       localized: true,
       admin: {
         description: 'Optional description shown below the title',
@@ -29,12 +29,12 @@ export const AgendaBlock: Block = {
     {
       name: 'eventType',
       type: 'select',
-      label: 'Event Type',
+      label: { en: 'Event Type', pt: 'Tipo de Evento' },
       hasMany: true,
       options: [
-        { label: 'Local Event', value: 'local_event' },
-        { label: 'International Event', value: 'international_event' },
-        { label: 'Other', value: 'other' },
+        { label: { en: 'Local Event', pt: 'Evento Local' }, value: 'local_event' },
+        { label: { en: 'International Event', pt: 'Evento Internacional' }, value: 'international_event' },
+        { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
       ],
       admin: {
         description:
@@ -44,7 +44,7 @@ export const AgendaBlock: Block = {
     {
       name: 'maxEvents',
       type: 'number',
-      label: 'Maximum Events to Show',
+      label: { en: 'Maximum Events to Show', pt: 'Máximo de Eventos a Mostrar' },
       defaultValue: 5,
       admin: {
         description: 'Maximum number of upcoming events to display (1–20)',
@@ -60,12 +60,12 @@ export const AgendaBlock: Block = {
     {
       name: 'layout',
       type: 'select',
-      label: 'Layout',
+      label: { en: 'Layout', pt: 'Disposição' },
       defaultValue: 'list',
       options: [
-        { label: 'List (default)', value: 'list' },
-        { label: 'Compact', value: 'compact' },
-        { label: 'Cards', value: 'cards' },
+        { label: { en: 'List (default)', pt: 'Lista (padrão)' }, value: 'list' },
+        { label: { en: 'Compact', pt: 'Compacto' }, value: 'compact' },
+        { label: { en: 'Cards', pt: 'Cartões' }, value: 'cards' },
       ],
       admin: {
         description: 'Visual style for the event list',
@@ -74,7 +74,7 @@ export const AgendaBlock: Block = {
     {
       name: 'linkLabel',
       type: 'text',
-      label: 'Link Label',
+      label: { en: 'Link Label', pt: 'Rótulo do Link' },
       defaultValue: 'Ver mais',
       localized: true,
       admin: {
@@ -84,7 +84,7 @@ export const AgendaBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Agenda Blocks',
-    singular: 'Agenda Block',
+    plural: { en: 'Agenda Blocks', pt: 'Blocos de Agenda' },
+    singular: { en: 'Agenda Block', pt: 'Bloco de Agenda' },
   },
 };

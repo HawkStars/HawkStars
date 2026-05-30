@@ -2,6 +2,7 @@ import { CollectionConfig } from 'payload';
 import { authenticated } from '../../access/authenticated';
 import { anyone } from '../../access/anyone';
 import ArtCollectionDetails from './ArtCollectionDetails';
+import { GROUP_LABELS } from '@/payload/constants';
 
 export const ArtCollection: CollectionConfig = {
   slug: 'artworks',
@@ -22,7 +23,7 @@ export const ArtCollection: CollectionConfig = {
     description:
       'Manage the art collection catalogue. Add new artworks with details like artist, year, medium, and sale status. These appear in the public gallery on the website.',
     group: {
-      name: 'Art Gallery',
+      ...GROUP_LABELS.artGallery,
     },
   },
 

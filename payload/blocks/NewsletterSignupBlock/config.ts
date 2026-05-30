@@ -14,22 +14,25 @@ export const NewsletterSignupBlock: Block = {
       defaultValue: 'Stay Updated',
       required: true,
       localized: true,
+      label: { en: 'Title', pt: 'Título' },
     },
     {
       name: 'description',
       type: 'textarea',
       localized: true,
+      label: { en: 'Description', pt: 'Descrição' },
     },
     {
       name: 'buttonText',
       type: 'text',
       defaultValue: 'Subscribe',
       localized: true,
+      label: { en: 'Button Text', pt: 'Texto do Botão' },
     },
     SectionID,
   ],
   labels: {
-    plural: 'Newsletter Signups',
-    singular: 'Newsletter Signup',
+    plural: { en: 'Newsletter Signups', pt: 'Inscrições na Newsletter' },
+    singular: { en: 'Newsletter Signup', pt: 'Inscrição na Newsletter' },
   },
 };

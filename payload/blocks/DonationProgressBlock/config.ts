@@ -12,6 +12,7 @@ export const DonationProgressBlock: Block = {
     {
       name: 'title',
       type: 'text',
+      label: { en: 'Title', pt: 'Título' },
       required: true,
       localized: true,
       admin: {
@@ -21,6 +22,7 @@ export const DonationProgressBlock: Block = {
     {
       name: 'description',
       type: 'textarea',
+      label: { en: 'Description', pt: 'Descrição' },
       localized: true,
       admin: {
         description: 'Brief description of the campaign',
@@ -29,6 +31,7 @@ export const DonationProgressBlock: Block = {
     {
       name: 'goalAmount',
       type: 'number',
+      label: { en: 'Goal Amount', pt: 'Valor Alvo' },
       required: true,
       admin: {
         description: 'Fundraising goal amount',
@@ -37,6 +40,7 @@ export const DonationProgressBlock: Block = {
     {
       name: 'currentAmount',
       type: 'number',
+      label: { en: 'Current Amount', pt: 'Valor Atual' },
       required: true,
       admin: {
         description: 'Current amount raised',
@@ -45,6 +49,7 @@ export const DonationProgressBlock: Block = {
     {
       name: 'currency',
       type: 'text',
+      label: { en: 'Currency', pt: 'Moeda' },
       defaultValue: '€',
       admin: {
         description: 'Currency symbol',
@@ -53,6 +58,7 @@ export const DonationProgressBlock: Block = {
     {
       name: 'donorCount',
       type: 'number',
+      label: { en: 'Donor Count', pt: 'Número de Doadores' },
       admin: {
         description: 'Number of donors (optional)',
       },
@@ -61,6 +67,7 @@ export const DonationProgressBlock: Block = {
     {
       name: 'showPercentage',
       type: 'checkbox',
+      label: { en: 'Show Percentage', pt: 'Mostrar Percentagem' },
       defaultValue: true,
       admin: {
         description: 'Display percentage progress',
@@ -69,6 +76,7 @@ export const DonationProgressBlock: Block = {
     {
       name: 'animateProgress',
       type: 'checkbox',
+      label: { en: 'Animate Progress', pt: 'Animar Progresso' },
       defaultValue: true,
       admin: {
         description: 'Animate progress bar on scroll',
@@ -77,10 +85,11 @@ export const DonationProgressBlock: Block = {
     {
       name: 'theme',
       type: 'select',
+      label: { en: 'Theme', pt: 'Tema' },
       options: [
-        { label: 'Light', value: 'light' },
-        { label: 'Dark', value: 'dark' },
-        { label: 'Gradient', value: 'gradient' },
+        { label: { en: 'Light', pt: 'Claro' }, value: 'light' },
+        { label: { en: 'Dark', pt: 'Escuro' }, value: 'dark' },
+        { label: { en: 'Gradient', pt: 'Gradiente' }, value: 'gradient' },
       ],
       defaultValue: 'light',
       admin: {
@@ -90,7 +99,7 @@ export const DonationProgressBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Donation Progress Blocks',
-    singular: 'Donation Progress Block',
+    plural: { en: 'Donation Progress Blocks', pt: 'Blocos de Progresso de Doação' },
+    singular: { en: 'Donation Progress Block', pt: 'Bloco de Progresso de Doação' },
   },
 };

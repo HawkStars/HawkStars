@@ -12,6 +12,7 @@ export const ImageComparisonSliderBlock: Block = {
     {
       name: 'title',
       type: 'text',
+      label: { en: 'Title', pt: 'Título' },
       localized: true,
     },
     PayloadImageField({
@@ -29,6 +30,7 @@ export const ImageComparisonSliderBlock: Block = {
     {
       name: 'beforeLabel',
       type: 'text',
+      label: { en: 'Before Label', pt: 'Rótulo Antes' },
       defaultValue: 'Before',
       localized: true,
       admin: {
@@ -39,6 +41,7 @@ export const ImageComparisonSliderBlock: Block = {
     {
       name: 'afterLabel',
       type: 'text',
+      label: { en: 'After Label', pt: 'Rótulo Depois' },
       defaultValue: 'After',
       localized: true,
       admin: {
@@ -49,7 +52,7 @@ export const ImageComparisonSliderBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Image Comparison Sliders',
-    singular: 'Image Comparison Slider',
+    plural: { en: 'Image Comparison Sliders', pt: 'Comparadores de Imagem' },
+    singular: { en: 'Image Comparison Slider', pt: 'Comparador de Imagem' },
   },
 };

@@ -8,6 +8,7 @@ import { contentStatusField } from '@/payload/fields/contentStatus';
 import HawkProjectPartnersInformation from './HawkProjectPartnersInformation';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import HawkProjectDisseminationFields from './HawkProjectDisseminationFields';
+import { GROUP_LABELS } from '@/payload/constants';
 
 export const HawkProject: CollectionConfig = {
   slug: 'hawk_projects',
@@ -27,7 +28,7 @@ export const HawkProject: CollectionConfig = {
     description:
       'Manage HawkStars projects and events. Add project details, images, and descriptions. Each project gets its own public page based on its slug.',
     group: {
-      name: 'Daily Work',
+      ...GROUP_LABELS.daily,
     },
     components: {},
     preview: (doc, { locale }) => {

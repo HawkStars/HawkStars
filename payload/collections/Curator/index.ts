@@ -3,6 +3,7 @@ import CuratorFieldsTab from './CuratorFieldsTab';
 import { anyone } from '@/payload/access/anyone';
 import { authenticated } from '@/payload/access/authenticated';
 import { CuratorTab } from './CuratorSeoTab';
+import { GROUP_LABELS } from '@/payload/constants';
 
 export const Curator: CollectionConfig = {
   slug: 'curators',
@@ -23,7 +24,7 @@ export const Curator: CollectionConfig = {
     description:
       'Manage art curators who oversee and contribute to the HawkStars collection. Add their profiles, roles, and SEO information for their public pages.',
     group: {
-      name: 'Art Gallery',
+      ...GROUP_LABELS.artGallery,
     },
   },
   fields: [

@@ -13,6 +13,7 @@ export const Hero: Block = {
     {
       name: 'badge',
       type: 'text',
+      label: { en: 'Badge', pt: 'Distintivo' },
       localized: true,
       admin: {
         description: 'Badge label above heading (e.g., "PLATFORM")',
@@ -21,6 +22,7 @@ export const Hero: Block = {
     {
       name: 'heading',
       type: 'textarea',
+      label: { en: 'Heading', pt: 'Título Principal' },
       required: true,
       localized: true,
       admin: {
@@ -37,16 +39,18 @@ export const Hero: Block = {
     {
       name: 'features',
       type: 'array',
+      label: { en: 'Features', pt: 'Funcionalidades' },
       interfaceName: 'HeroBlockFeature',
       fields: [
         {
           name: 'icon',
           type: 'select',
+          label: { en: 'Icon', pt: 'Ícone' },
           options: [
-            { label: 'Globe', value: 'globe' },
-            { label: 'Rocket', value: 'rocket' },
-            { label: 'Expand', value: 'expand' },
-            { label: 'Wrench', value: 'wrench' },
+            { label: { en: 'Globe', pt: 'Globo' }, value: 'globe' },
+            { label: { en: 'Rocket', pt: 'Foguetão' }, value: 'rocket' },
+            { label: { en: 'Expand', pt: 'Expandir' }, value: 'expand' },
+            { label: { en: 'Wrench', pt: 'Chave Inglesa' }, value: 'wrench' },
           ],
           required: true,
           admin: {
@@ -56,6 +60,7 @@ export const Hero: Block = {
         {
           name: 'title',
           type: 'text',
+          label: { en: 'Title', pt: 'Título' },
           required: true,
           localized: true,
           admin: {
@@ -65,6 +70,7 @@ export const Hero: Block = {
         {
           name: 'description',
           type: 'textarea',
+          label: { en: 'Description', pt: 'Descrição' },
           required: true,
           localized: true,
           admin: {
@@ -83,7 +89,7 @@ export const Hero: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Hero Sections',
-    singular: 'Hero Section',
+    plural: { en: 'Hero Sections', pt: 'Secções Hero' },
+    singular: { en: 'Hero Section', pt: 'Secção Hero' },
   },
 };

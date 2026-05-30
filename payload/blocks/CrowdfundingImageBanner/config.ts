@@ -7,8 +7,8 @@ export const CrowdfundingImageBannerBlock: Block = {
   slug: 'crowdfundingImageBanner',
   interfaceName: 'CrowdfundingImageBannerBlock',
   labels: {
-    singular: 'Crowdfunding Image Banner',
-    plural: 'Crowdfunding Image Banners',
+    singular: { en: 'Crowdfunding Image Banner', pt: 'Banner de Imagem de Crowdfunding' },
+    plural: { en: 'Crowdfunding Image Banners', pt: 'Banners de Imagem de Crowdfunding' },
   },
   admin: {
     group: 'Global Village',

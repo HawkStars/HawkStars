@@ -3,6 +3,7 @@ import { anyone } from '../../access/anyone';
 import { authenticated } from '../../access/authenticated';
 import { sanitizeBrokenImageRelationship } from '../../hooks/sanitizeBrokenImageRelationship';
 import HawkProjectFields from './HawkProjectFields';
+import { GROUP_LABELS } from '@/payload/constants';
 
 export const HawkEvent: CollectionConfig = {
   slug: 'hawk_events',
@@ -16,7 +17,7 @@ export const HawkEvent: CollectionConfig = {
     description:
       'Manage HawkStars projects and events. Add event details, images, and descriptions. Each project gets its own public page based on its slug.',
     group: {
-      name: 'Daily Work',
+      ...GROUP_LABELS.daily,
     },
     preview: (doc) => `/events/${doc.slug}`,
   },

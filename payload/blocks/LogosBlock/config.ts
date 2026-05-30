@@ -13,6 +13,7 @@ export const LogosBlock: Block = {
       type: 'text',
       required: false,
       localized: true,
+      label: { en: 'Badge Text', pt: 'Texto do Distintivo' },
       admin: { description: 'Text for the badge (e.g. Referral Partners)' },
     },
     {
@@ -20,6 +21,7 @@ export const LogosBlock: Block = {
       type: 'text',
       required: true,
       localized: true,
+      label: { en: 'Heading', pt: 'Título' },
       admin: { description: 'Main heading' },
     },
     {
@@ -27,6 +29,7 @@ export const LogosBlock: Block = {
       type: 'textarea',
       required: false,
       localized: true,
+      label: { en: 'Description', pt: 'Descrição' },
       admin: { description: 'Description text' },
     },
     {
@@ -34,6 +37,7 @@ export const LogosBlock: Block = {
       type: 'text',
       required: false,
       localized: true,
+      label: { en: 'Button Text', pt: 'Texto do Botão' },
       admin: { description: 'Button text (e.g. Become a partner)' },
     },
     {
@@ -42,9 +46,10 @@ export const LogosBlock: Block = {
       interfaceName: 'LogosBlockLogo',
       minRows: 1,
       required: true,
+      label: { en: 'Logos', pt: 'Logótipos' },
       fields: [
-        { name: 'name', type: 'text', required: true },
-        { name: 'logo', type: 'text', required: true, admin: { description: 'Logo image URL' } },
+        { name: 'name', type: 'text', required: true, label: { en: 'Name', pt: 'Nome' } },
+        { name: 'logo', type: 'text', required: true, label: { en: 'Logo URL', pt: 'URL do Logótipo' }, admin: { description: 'Logo image URL' } },
       ],
       admin: {
         description: 'Partner logos',
@@ -56,7 +61,7 @@ export const LogosBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Logos Blocks',
-    singular: 'Logos Block',
+    plural: { en: 'Logos Blocks', pt: 'Blocos de Logótipos' },
+    singular: { en: 'Logos Block', pt: 'Bloco de Logótipos' },
   },
 };

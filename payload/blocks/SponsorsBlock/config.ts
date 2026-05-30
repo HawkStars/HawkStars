@@ -13,6 +13,7 @@ export const SponsorsBlock: Block = {
       type: 'text',
       defaultValue: 'Our Sponsors',
       localized: true,
+      label: { en: 'Title', pt: 'Título' },
       admin: {
         description: 'Section heading displayed above the sponsors grid',
       },
@@ -21,6 +22,7 @@ export const SponsorsBlock: Block = {
       name: 'subtitle',
       type: 'textarea',
       localized: true,
+      label: { en: 'Subtitle', pt: 'Subtítulo' },
       admin: {
         description: 'Optional section description',
       },
@@ -29,9 +31,10 @@ export const SponsorsBlock: Block = {
       name: 'tier',
       type: 'select',
       hasMany: true,
+      label: { en: 'Tier', pt: 'Nível' },
       options: [
-        { label: 'Gold', value: 'gold' },
-        { label: 'Silver', value: 'silver' },
+        { label: { en: 'Gold', pt: 'Ouro' }, value: 'gold' },
+        { label: { en: 'Silver', pt: 'Prata' }, value: 'silver' },
         { label: 'Bronze', value: 'bronze' },
       ],
       admin: {
@@ -44,6 +47,7 @@ export const SponsorsBlock: Block = {
       defaultValue: 12,
       min: 1,
       max: 50,
+      label: { en: 'Limit', pt: 'Limite' },
       admin: {
         description: 'Maximum number of sponsors to display',
       },
@@ -51,7 +55,7 @@ export const SponsorsBlock: Block = {
     SectionID,
   ],
   labels: {
-    singular: 'Sponsors Block',
-    plural: 'Sponsors Blocks',
+    singular: { en: 'Sponsors Block', pt: 'Bloco de Patrocinadores' },
+    plural: { en: 'Sponsors Blocks', pt: 'Blocos de Patrocinadores' },
   },
 };

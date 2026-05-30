@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { notifyOnMediaDelete, notifyOnMediaUpload } from '@/payload/hooks/notifyOnMediaUpload';
+import { GROUP_LABELS } from '../constants';
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -22,7 +23,7 @@ export const Media: CollectionConfig = {
       defaultLimit: 2,
     },
     group: {
-      name: 'Management',
+      ...GROUP_LABELS.management,
     },
   },
   upload: {

@@ -5,8 +5,8 @@ export const GlobalVillageBannerBlock: Block = {
   slug: 'globalVillageBanner',
   interfaceName: 'GlobalVillageBannerBlock',
   labels: {
-    singular: 'Global Village Banner',
-    plural: 'Global Village Banners',
+    singular: { en: 'Global Village Banner', pt: 'Banner da Aldeia Global' },
+    plural: { en: 'Global Village Banners', pt: 'Banners da Aldeia Global' },
   },
   admin: {
     group: 'Global Village',
@@ -15,7 +15,7 @@ export const GlobalVillageBannerBlock: Block = {
     {
       name: 'text',
       type: 'textarea',
-      label: 'Banner Text',
+      label: { en: 'Banner Text', pt: 'Texto do Banner' },
       required: true,
       localized: true,
     },

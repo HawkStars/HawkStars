@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { SocialLinksField } from '../fields/Link/SocialLink';
 
 import { authenticated } from '../access/authenticated';
+import { GROUP_LABELS } from '../constants';
 
 export const BoardMember: CollectionConfig = {
   slug: 'board-members',
@@ -41,7 +42,7 @@ export const BoardMember: CollectionConfig = {
       },
     },
     group: {
-      name: 'Management',
+      ...GROUP_LABELS.management,
     },
   },
   fields: [

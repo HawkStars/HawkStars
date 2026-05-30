@@ -13,6 +13,7 @@ export const ProjectTestimonialBlock: Block = {
       name: 'title',
       type: 'text',
       localized: true,
+      label: { en: 'Title', pt: 'Título' },
       admin: {
         description: 'Optional section title',
       },
@@ -21,6 +22,7 @@ export const ProjectTestimonialBlock: Block = {
       name: 'subtitle',
       type: 'text',
       localized: true,
+      label: { en: 'Subtitle', pt: 'Subtítulo' },
       admin: {
         description: 'Optional section subtitle',
       },
@@ -28,7 +30,7 @@ export const ProjectTestimonialBlock: Block = {
     {
       name: 'author',
       type: 'group',
-      label: 'Author',
+      label: { en: 'Author', pt: 'Autor' },
       fields: [
         PayloadImageField({
           label: 'Profile Image',
@@ -40,6 +42,7 @@ export const ProjectTestimonialBlock: Block = {
           name: 'name',
           type: 'text',
           required: true,
+          label: { en: 'Name', pt: 'Nome' },
           admin: {
             description: 'Author full name',
           },
@@ -48,6 +51,7 @@ export const ProjectTestimonialBlock: Block = {
           name: 'role',
           type: 'text',
           localized: true,
+          label: { en: 'Role', pt: 'Função' },
           admin: {
             description: 'Author role or position',
           },
@@ -55,6 +59,7 @@ export const ProjectTestimonialBlock: Block = {
         {
           name: 'organization',
           type: 'text',
+          label: { en: 'Organization', pt: 'Organização' },
           admin: {
             description: 'Company or organization',
           },
@@ -66,6 +71,7 @@ export const ProjectTestimonialBlock: Block = {
       type: 'textarea',
       required: true,
       localized: true,
+      label: { en: 'Testimonial', pt: 'Testemunho' },
       admin: {
         description: 'The testimonial quote or review text',
       },
@@ -73,7 +79,7 @@ export const ProjectTestimonialBlock: Block = {
     {
       name: 'projectMedia',
       type: 'group',
-      label: 'Project Media',
+      label: { en: 'Project Media', pt: 'Média do Projeto' },
       admin: {
         description: 'Images showing the project group or related visuals',
       },
@@ -81,9 +87,10 @@ export const ProjectTestimonialBlock: Block = {
         {
           name: 'displayMode',
           type: 'select',
+          label: { en: 'Display Mode', pt: 'Modo de Exibição' },
           options: [
-            { label: 'Single Image', value: 'single' },
-            { label: 'Slideshow', value: 'slideshow' },
+            { label: { en: 'Single Image', pt: 'Imagem Única' }, value: 'single' },
+            { label: { en: 'Slideshow', pt: 'Apresentação de Diapositivos' }, value: 'slideshow' },
           ],
           defaultValue: 'single',
           admin: {
@@ -96,14 +103,15 @@ export const ProjectTestimonialBlock: Block = {
           interfaceName: 'ProjectTestimonialBlockImage',
           minRows: 1,
           required: true,
+          label: { en: 'Images', pt: 'Imagens' },
           admin: {
             components: {
               RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
             },
           },
           labels: {
-            singular: 'Image',
-            plural: 'Images',
+            singular: { en: 'Image', pt: 'Imagem' },
+            plural: { en: 'Images', pt: 'Imagens' },
           },
           fields: [
             PayloadImageField({
@@ -118,6 +126,7 @@ export const ProjectTestimonialBlock: Block = {
           name: 'autoplay',
           type: 'checkbox',
           defaultValue: true,
+          label: { en: 'Autoplay', pt: 'Reprodução Automática' },
           admin: {
             description: 'Automatically cycle through images (slideshow mode only)',
             condition: (_, siblingData) => siblingData?.displayMode === 'slideshow',
@@ -129,6 +138,7 @@ export const ProjectTestimonialBlock: Block = {
           min: 2000,
           max: 10000,
           defaultValue: 4000,
+          label: { en: 'Autoplay Interval', pt: 'Intervalo de Reprodução' },
           admin: {
             description: 'Time between slides in milliseconds',
             condition: (_, siblingData) =>
@@ -140,9 +150,10 @@ export const ProjectTestimonialBlock: Block = {
     {
       name: 'layout',
       type: 'select',
+      label: { en: 'Layout', pt: 'Disposição' },
       options: [
-        { label: 'Image Left', value: 'imageLeft' },
-        { label: 'Image Right', value: 'imageRight' },
+        { label: { en: 'Image Left', pt: 'Imagem à Esquerda' }, value: 'imageLeft' },
+        { label: { en: 'Image Right', pt: 'Imagem à Direita' }, value: 'imageRight' },
       ],
       defaultValue: 'imageRight',
       admin: {
@@ -152,11 +163,12 @@ export const ProjectTestimonialBlock: Block = {
     {
       name: 'backgroundColor',
       type: 'select',
+      label: { en: 'Background Color', pt: 'Cor de Fundo' },
       options: [
-        { label: 'None (transparent)', value: 'none' },
-        { label: 'Light', value: 'light' },
-        { label: 'Dark', value: 'dark' },
-        { label: 'Brand', value: 'brand' },
+        { label: { en: 'None (transparent)', pt: 'Nenhuma (transparente)' }, value: 'none' },
+        { label: { en: 'Light', pt: 'Claro' }, value: 'light' },
+        { label: { en: 'Dark', pt: 'Escuro' }, value: 'dark' },
+        { label: { en: 'Brand', pt: 'Marca' }, value: 'brand' },
       ],
       defaultValue: 'none',
       admin: {
@@ -166,7 +178,7 @@ export const ProjectTestimonialBlock: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Project Testimonial Blocks',
-    singular: 'Project Testimonial Block',
+    plural: { en: 'Project Testimonial Blocks', pt: 'Blocos de Testemunho de Projeto' },
+    singular: { en: 'Project Testimonial Block', pt: 'Bloco de Testemunho de Projeto' },
   },
 };

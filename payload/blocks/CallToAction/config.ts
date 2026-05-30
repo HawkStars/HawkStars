@@ -14,11 +14,11 @@ export const CallToAction: Block = {
     {
       name: 'title',
       type: 'text',
-      label: 'Title',
+      label: { en: 'Title', pt: 'Título' },
       required: true,
       localized: true,
     },
-    { name: 'subtitle', type: 'text', label: 'Subtitle', localized: true },
+    { name: 'subtitle', type: 'text', label: { en: 'Subtitle', pt: 'Subtítulo' }, localized: true },
     linkGroup({
       overrides: {
         maxRows: 2,
@@ -28,7 +28,7 @@ export const CallToAction: Block = {
     SectionID,
   ],
   labels: {
-    plural: 'Calls to Action',
-    singular: 'Call to Action',
+    plural: { en: 'Calls to Action', pt: 'Chamadas para Ação' },
+    singular: { en: 'Call to Action', pt: 'Chamada para Ação' },
   },
 };

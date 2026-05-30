@@ -6,8 +6,8 @@ const SimpleGallery: Block = {
   slug: 'simpleGallery',
   interfaceName: 'SimpleGallery',
   labels: {
-    singular: 'Simple Gallery',
-    plural: 'Simple Galleries',
+    singular: { en: 'Simple Gallery', pt: 'Galeria Simples' },
+    plural: { en: 'Simple Galleries', pt: 'Galerias Simples' },
   },
   admin: {
     group: 'Media',
@@ -16,21 +16,21 @@ const SimpleGallery: Block = {
     {
       name: 'title',
       type: 'text',
-      label: 'Gallery Title',
+      label: { en: 'Gallery Title', pt: 'Título da Galeria' },
       required: false,
       localized: true,
     },
     {
       name: 'description',
       type: 'textarea',
-      label: 'Gallery Description',
+      label: { en: 'Gallery Description', pt: 'Descrição da Galeria' },
       required: false,
       localized: true,
     },
     {
       name: 'images',
       type: 'array',
-      label: 'Images',
+      label: { en: 'Images', pt: 'Imagens' },
       required: true,
       fields: [PayloadImageField({ label: 'Image', name: 'image' })],
       interfaceName: 'SimpleGalleryBlockImage',
