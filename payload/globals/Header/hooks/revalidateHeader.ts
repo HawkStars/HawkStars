@@ -5,14 +5,6 @@ import { revalidateTag } from 'next/cache';
 export const HEADER_CACHE_TAG = 'hawk-header' as const;
 
 export const revalidateHeader: GlobalAfterChangeHook = ({ doc }) => {
-  try {
-    revalidateTag(HEADER_CACHE_TAG, 'max');
-  } catch (error) {
-    Sentry.captureException(error, {
-      tags: {
-        feature: 'header-cache-revalidation',
-      },
-    });
-  }
+  revalidateTag(HEADER_CACHE_TAG, 'max');
   return doc;
 };

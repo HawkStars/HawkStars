@@ -2,6 +2,8 @@ import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage';
 import { seoPlugin } from '@payloadcms/plugin-seo';
 import { Plugin } from 'payload';
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types';
+import { sentryPlugin } from '@payloadcms/plugin-sentry';
+import * as Sentry from '@sentry/nextjs';
 
 import { Page } from '@/payload-types';
 import { getServerSideURL } from '@/payload/utilities/getURL';
@@ -43,5 +45,20 @@ export const plugins: Plugin[] = [
         generateFileURL: ({ filename }) => generateGoogleDriveURL(filename),
       },
     },
+  }),
+  sentryPlugin({
+    options: {
+      captureErrors: [400, 403, 500],
+      context: ({ defaultContext, req }) => {
+        return {
+          ...defaultContext,
+          tags: {
+            locale: req.locale,
+          },
+        };
+      },
+      debug: process.env.NODE_ENV === 'development',
+    },
+    Sentry,
   }),
 ];
