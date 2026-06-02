@@ -51,5 +51,26 @@ export const PayloadIconOrImage = (props?: ImageTypeGroupProps) => {
       },
       PayloadLucideIcon({ condition: (_, siblingData) => siblingData.type === 'icon' }),
     ],
+    hooks: {
+      afterChange: [
+        ({ value }) => {
+          const type = value?.type;
+
+          if (type === 'none' || !type) {
+            return { type: type ?? null, image: null, icon: null };
+          }
+
+          if (type === 'icon') {
+            return { ...value, image: null };
+          }
+
+          if (type === 'image') {
+            return { ...value, icon: null };
+          }
+
+          return value;
+        },
+      ],
+    },
   } as Field;
 };
