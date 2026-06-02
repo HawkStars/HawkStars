@@ -55,6 +55,7 @@ export default function MediaListView(props: ListViewClientProps) {
   const isBulkUploadEnabled = Boolean(upload) && collectionConfig.upload.bulkUpload;
 
   const { i18n } = useTranslation();
+  const language = i18n?.language || i18n?.fallbackLanguage || 'en';
   const { setStepNav } = useStepNav();
 
   const openBulkUpload = React.useCallback(() => {
@@ -74,7 +75,6 @@ export default function MediaListView(props: ListViewClientProps) {
   }, [setStepNav, labels, i18n]);
 
   const docs = (data?.docs as Media[]) || [];
-  const language = i18n?.language || i18n?.fallbackLanguage || 'en';
 
   return (
     <Fragment>
