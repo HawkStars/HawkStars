@@ -27,8 +27,6 @@ import type { Media } from '@/payload-types';
 import Image from 'next/image';
 
 export default function MediaListView(props: ListViewClientProps) {
-  if (!props) return null;
-
   const {
     collectionSlug,
     columnState,
