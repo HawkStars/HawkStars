@@ -27,6 +27,8 @@ import type { Media } from '@/payload-types';
 import Image from 'next/image';
 
 export default function MediaListView(props: ListViewClientProps) {
+  if (!props) return null;
+
   const {
     collectionSlug,
     columnState,
@@ -66,12 +68,15 @@ export default function MediaListView(props: ListViewClientProps) {
   useEffect(() => {
     setStepNav([
       {
-        label: labels?.plural,
+        label:
+          ((labels?.plural as Record<string, string>)[language] as unknown as string) ||
+          labels.plural,
       },
     ]);
   }, [setStepNav, labels, i18n]);
 
   const docs = (data?.docs as Media[]) || [];
+  const language = i18n?.language || i18n?.fallbackLanguage || 'en';
 
   return (
     <Fragment>
@@ -81,7 +86,10 @@ export default function MediaListView(props: ListViewClientProps) {
             <Gutter className='flex flex-col gap-6'>
               {/* Header */}
               <header className='flex flex-wrap items-center justify-between gap-4'>
-                <h1 className='m-0 text-2xl font-semibold'>{labels?.plural as string}</h1>
+                <h1 className='m-0 text-2xl font-semibold'>
+                  {((labels?.plural as Record<string, string>)[language] as unknown as string) ??
+                    labels.plural}
+                </h1>
                 <div className='flex gap-2'>
                   {isBulkUploadEnabled && hasCreatePermission && (
                     <button
