@@ -1,4 +1,3 @@
-import * as Sentry from '@sentry/nextjs';
 import type { GlobalAfterChangeHook } from 'payload';
 import { revalidateTag } from 'next/cache';
 
