@@ -3524,7 +3524,7 @@ export interface SocialProofBlock {
    */
   title?: string | null;
   /**
-   * Optional subtitle or description. Optional.x
+   * Optional subtitle or description.
    */
   subtitle?: string | null;
   stats?: SocialProofBlockStat;
@@ -6273,7 +6273,7 @@ export interface NewsList {
   createdAt?: string | null;
 }
 /**
- * Configure the list of projects list information.
+ * Configure the projects list page header information.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects-list".

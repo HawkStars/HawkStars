@@ -8,6 +8,7 @@ import { getServerSideURL } from '@/payload/utilities/getURL';
 import { cloudinaryAdapter } from '@/lib/cloudinary/adapter';
 import { googleDriveAdapter, generateGoogleDriveURL } from '@/lib/google-drive/adapter';
 import { v2 as cloudinary } from 'cloudinary';
+import { showLocaleValuesPlugin } from './showLocaleValues';
 
 const generateTitle: GenerateTitle<Page> = ({ doc }) => {
   return doc?.title || 'Payload Website Template';
@@ -20,6 +21,7 @@ const generateURL: GenerateURL<Page> = ({ doc }) => {
 };
 
 export const plugins: Plugin[] = [
+  showLocaleValuesPlugin,
   seoPlugin({
     generateTitle,
     generateURL,
