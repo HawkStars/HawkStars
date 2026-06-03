@@ -3,6 +3,11 @@ import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
 import { Where } from 'payload';
 
+export type SplitProjectsResult = {
+  upcoming: HawkProject[];
+  past: HawkProject[];
+};
+
 const PROJECTS_COLLECTION = 'hawk_projects';
 
 export const getSingleProjectsQuery = async (
@@ -30,11 +35,6 @@ export const getSingleProjectsQuery = async (
   });
   debugger;
   return project.docs[0] ?? null;
-};
-
-export type SplitProjectsResult = {
-  upcoming: HawkProject[];
-  past: HawkProject[];
 };
 
 export const getProjectsSplitByDate = async (locale: Language): Promise<SplitProjectsResult> => {

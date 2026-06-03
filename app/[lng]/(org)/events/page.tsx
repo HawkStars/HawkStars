@@ -1,5 +1,6 @@
 import HeroImpactStatsBlock from '@/components/projects/list/HeroImpactStatsBlock';
-import EventsList from '@/components/events/list/EventsListComponent';
+import SplitListComponent from '@/components/shared/SplitListComponent';
+import EventCard from '@/components/events/list/EventCard';
 import { LanguageProps } from '@/components/types';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
@@ -36,19 +37,25 @@ const EventsPage = async (props: EventsPageProps) => {
   ]);
 
   const translations = {
-    upcomingEvents: t('upcomingEvents'),
-    pastEvents: t('pastEvents'),
-    noUpcomingEvents: t('noUpcomingEvents'),
-    noPastEvents: t('noPastEvents'),
+    upcoming: t('upcomingEvents'),
+    past: t('pastEvents'),
+    noUpcoming: t('noUpcomingEvents'),
+    noPast: t('noPastEvents'),
     viewAgenda: t('viewAgenda'),
     viewAgendaDescription: t('viewAgendaDescription'),
-    viewEvent: t('viewEvent'),
   };
 
   return (
     <>
       <HeroImpactStatsBlock {...eventsListInformation} />
-      <EventsList events={events} lng={lng} translations={translations} />
+      <SplitListComponent
+        items={events}
+        lng={lng}
+        translations={translations}
+        renderCard={(event, idx) => (
+          <EventCard key={event.id} event={event} index={idx} lng={lng} />
+        )}
+      />
     </>
   );
 };

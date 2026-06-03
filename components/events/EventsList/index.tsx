@@ -50,7 +50,6 @@ const EventsList = ({ events }: EventsListProps) => {
                 </div>
               </div>
             </div>
-            <div className='absolute inset-0 z-0 bg-black/80 backdrop-blur-xs transition-all duration-300 ease-out group-hover:bg-black/50 group-hover:backdrop-blur-none' />
           </a>
         ))}
       </div>
