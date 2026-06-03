@@ -19,11 +19,13 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({
   sectionId,
 }) => {
   return (
-    <section className='py-32' id={sectionId || ''} data-blockId='simpleGallery'>
-      <div className='container mx-auto'>
-        <h2 className='mb-4 text-center text-4xl font-semibold'>{title}</h2>
+    <section className='section-loose' id={sectionId || ''} data-blockId='simpleGallery'>
+      <div className='section-container'>
+        <h2 className='mb-4 text-center text-4xl font-semibold tracking-tight text-balance'>
+          {title}
+        </h2>
         {description && (
-          <p className='text-muted-foreground text-center text-sm'>
+          <p className='text-muted-foreground mx-auto max-w-2xl text-center text-sm leading-relaxed'>
             {description.split('\n').map((line, idx) => (
               <React.Fragment key={idx}>
                 {line}

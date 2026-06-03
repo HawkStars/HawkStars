@@ -156,17 +156,17 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
 
   return (
     <section
-      className={cn('py-12 lg:py-20', backgroundColor && backgroundClasses[backgroundColor])}
+      className={cn('section', backgroundColor && backgroundClasses[backgroundColor])}
       data-blockId='testimonialBlock'
     >
-      <div className='mx-auto max-w-7xl px-4'>
+      <div className='section-container'>
         {/* Header */}
         {(title || subtitle) && (
-          <div className='mb-12 text-center'>
+          <div className='section-header text-center'>
             {title && (
               <h2
                 className={cn(
-                  'mb-4 text-3xl font-bold lg:text-4xl',
+                  'mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl',
                   isDark ? 'text-white' : 'text-gray-900'
                 )}
               >
@@ -174,7 +174,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
               </h2>
             )}
             {subtitle && (
-              <p className={cn('text-lg lg:text-xl', isDark ? 'text-gray-300' : 'text-gray-600')}>
+              <p className={cn('text-lg leading-relaxed lg:text-xl', isDark ? 'text-gray-300' : 'text-gray-600')}>
                 {subtitle}
               </p>
             )}

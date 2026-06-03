@@ -37,16 +37,20 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
   const oddTiers: string[] = Object.keys(groupByTier).filter((_, index) => index % 2 !== 0);
 
   return (
-    <section className='max-w-7xl py-12 lg:mx-auto lg:py-20' id={sectionId || ''} data-blockId='sponsorsBlock'>
-      <div className='container mx-auto'>
+    <section className='section mx-auto max-w-7xl' id={sectionId || ''} data-blockId='sponsorsBlock'>
+      <div className='section-container'>
         {(title || subtitle) && (
-          <div className='mb-10 text-center'>
+          <div className='section-header text-center'>
             {title && <h2 className='text-h1_semibold text-green'>{title || 'Sponsors'}</h2>}
-            {subtitle && <p className='mx-auto mt-5 max-w-2xl text-lg text-gray-600'>{subtitle}</p>}
+            {subtitle && (
+              <p className='mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-gray-600'>
+                {subtitle}
+              </p>
+            )}
           </div>
         )}
 
-        <div className='grid grid-cols-2 items-start gap-6'>
+        <div className='grid grid-cols-2 items-start gap-6 lg:gap-8'>
           <div className='flex flex-col gap-4'>
             {oddTiers.map((tier) => (
               <LogosContainer key={tier} tier={tier} sponsors={groupByTier[tier]} />

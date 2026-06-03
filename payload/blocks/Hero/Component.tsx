@@ -24,30 +24,30 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
   const linkInfo = getLinkFieldInformation(ctaLink, lng);
 
   return (
-    <section className='py-32' id={sectionId || ''} data-blockId='hero'>
-      <div className='container mx-auto'>
-        <div className='text-center'>
+    <section className='section-loose' id={sectionId || ''} data-blockId='hero'>
+      <div className='section-container'>
+        <div className='mx-auto flex max-w-3xl flex-col items-center text-center'>
           {bgImage && bgImage.url && (
-            <div className='relative flex min-h-8 justify-center'>
-              <Image
-                src={bgImage.url}
-                alt={bgImage.alt || 'Hero'}
-                height={32}
-                width={32}
-                className='absolute mx-auto mb-5 aspect-square'
-              />
-            </div>
+            <Image
+              src={bgImage.url}
+              alt={bgImage.alt || 'Hero'}
+              height={48}
+              width={48}
+              className='mb-6 aspect-square'
+            />
           )}
           {badge && (
-            <span className='text-muted-foreground mb-3 text-sm tracking-widest md:text-base'>
+            <span className='text-muted-foreground mb-4 block text-sm font-medium tracking-widest uppercase md:text-base'>
               {badge}
             </span>
           )}
           {heading && (
-            <h1 className='mt-4 text-4xl font-semibold text-balance lg:text-6xl'>{heading}</h1>
+            <h1 className='text-4xl font-semibold tracking-tight text-balance lg:text-6xl'>
+              {heading}
+            </h1>
           )}
           {linkInfo && (
-            <Button className='mt-8' size='lg' asChild={!!ctaLink}>
+            <Button className='mt-10' size='lg' asChild={!!ctaLink}>
               {ctaLink && (
                 <a href={linkInfo.url}>
                   {linkInfo.label}
@@ -58,15 +58,18 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
           )}
         </div>
         {features && features.length > 0 && (
-          <div className='bg-input mt-16 grid gap-px overflow-hidden rounded-lg border md:grid-cols-2 lg:grid-cols-4'>
+          <div className='bg-border mt-16 grid gap-px overflow-hidden rounded-xl border md:mt-20 md:grid-cols-2 lg:grid-cols-4'>
             {features.map((feature, index) => {
               const IconComponent = iconMap[feature.icon as keyof typeof iconMap] || LuGlobe;
               return (
-                <div key={index} className='bg-background flex flex-col gap-3 p-5 md:gap-6'>
-                  <IconComponent className='size-6 shrink-0' />
-                  <div>
-                    <h2 className='text-sm font-semibold md:text-base'>{feature.title}</h2>
-                    <p className='text-muted-foreground text-sm md:text-base'>
+                <div
+                  key={index}
+                  className='bg-background flex flex-col gap-4 p-6 transition-colors md:p-8'
+                >
+                  <IconComponent className='text-green size-7 shrink-0' />
+                  <div className='space-y-1.5'>
+                    <h2 className='text-base font-semibold'>{feature.title}</h2>
+                    <p className='text-muted-foreground text-sm leading-relaxed md:text-base'>
                       {feature.description}
                     </p>
                   </div>

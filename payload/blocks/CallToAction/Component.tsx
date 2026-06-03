@@ -16,28 +16,32 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
   const imageInfo = getImagePayloadUrl(image);
 
   return (
-    <section className='py-32' id={sectionId || ''} data-blockId='cta'>
-      <div className='container mx-auto max-lg:px-2'>
-        <div className='bg-muted relative flex w-full flex-col justify-between overflow-hidden rounded-4xl border p-8 md:flex-row'>
-          <div className='flex h-full max-w-lg flex-col justify-center gap-4'>
-            <h1 className='text-4xl font-medium tracking-tighter md:text-6xl'>{title}</h1>
-            <p className='text-muted-foreground/70'>{subtitle}</p>
+    <section className='section-loose' id={sectionId || ''} data-blockId='cta'>
+      <div className='section-container'>
+        <div className='bg-muted relative flex w-full flex-col justify-between gap-8 overflow-hidden rounded-4xl border p-8 md:flex-row md:items-center md:gap-12 md:p-12'>
+          <div className='flex h-full max-w-lg flex-col justify-center'>
+            <h1 className='text-4xl font-medium tracking-tighter text-balance md:text-6xl'>
+              {title}
+            </h1>
+            {subtitle && <p className='text-muted-foreground/70 mt-4 leading-relaxed'>{subtitle}</p>}
 
-            <div className='flex gap-4'>
-              {(links || []).map(({ link }, i) => {
-                return (
-                  <CMSLink
-                    key={i}
-                    size='lg'
-                    {...link}
-                    className='text-foreground hover:bg-background group border-green relative z-10 w-fit rounded-full! border px-10 py-4 tracking-tighter shadow-none!'
-                  />
-                );
-              })}
-            </div>
+            {links && links.length > 0 && (
+              <div className='mt-8 flex flex-wrap gap-4'>
+                {links.map(({ link }, i) => {
+                  return (
+                    <CMSLink
+                      key={i}
+                      size='lg'
+                      {...link}
+                      className='text-foreground hover:bg-background group border-green relative z-10 w-fit rounded-full! border px-10 py-4 tracking-tighter shadow-none!'
+                    />
+                  );
+                })}
+              </div>
+            )}
           </div>
           {imageInfo && (
-            <div className='relative ml-5 size-full h-92 rounded-4xl'>
+            <div className='relative h-72 w-full shrink-0 overflow-hidden rounded-4xl md:h-92 md:w-1/2'>
               <Image src={imageInfo.url} alt={imageInfo.alt || ''} fill className='object-cover' />
             </div>
           )}

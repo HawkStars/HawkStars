@@ -54,21 +54,18 @@ export const StatsBlock: React.FC<StatsBlockProps> = ({
 
   return (
     <section
-      className={cn(
-        'py-12 lg:py-20',
-        backgroundStyles[background as keyof typeof backgroundStyles]
-      )}
+      className={cn('section', backgroundStyles[background as keyof typeof backgroundStyles])}
       id={sectionId || ''}
       data-blockId='statsBlock'
     >
-      <div className='container mx-auto'>
+      <div className='section-container'>
         {/* Stats Grid */}
-        <div className={cn('grid gap-6', columnsClass[columns as keyof typeof columnsClass])}>
+        <div className={cn('grid gap-6 lg:gap-8', columnsClass[columns as keyof typeof columnsClass])}>
           {stats.map((stat, index) => (
             <div
               key={stat.id || index}
               className={cn(
-                'flex w-full flex-col rounded-lg border border-transparent p-6 shadow-sm transition-all duration-200',
+                'flex w-full flex-col rounded-xl border border-transparent p-6 shadow-sm transition-all duration-200 hover:shadow-md lg:p-8',
                 cardBackgroundStyles[background as keyof typeof cardBackgroundStyles],
                 hoverBorderStyles[hoverBorderColor as keyof typeof hoverBorderStyles]
               )}

@@ -16,9 +16,13 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
   }
 
   return (
-    <section className='py-12 lg:py-20' id={sectionId || ''} data-blockId={blockType}>
-      <div className='container mx-auto'>
-        {title && <h2 className='mb-12 text-center text-3xl font-bold lg:text-4xl'>{title}</h2>}
+    <section className='section' id={sectionId || ''} data-blockId={blockType}>
+      <div className='section-container'>
+        {title && (
+          <h2 className='mb-12 text-center text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
+            {title}
+          </h2>
+        )}
 
         {orientation === 'vertical' && (
           <div className='relative'>

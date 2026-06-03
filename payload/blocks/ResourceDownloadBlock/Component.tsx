@@ -33,11 +33,11 @@ export const ResourceDownloadBlock: React.FC<ResourceDownloadBlockProps> = ({
   if (!resources || resources.length === 0) return null;
 
   return (
-    <section className='py-12 lg:py-20' id={sectionId || ''} data-blockId='resourceDownload'>
-      <div className='container mx-auto'>
+    <section className='section' id={sectionId || ''} data-blockId='resourceDownload'>
+      <div className='section-container'>
         {title && (
           <h2
-            className={cn('mb-8 max-w-1/2 text-3xl font-bold text-wrap lg:text-4xl', {
+            className={cn('mb-10 max-w-1/2 text-3xl font-bold tracking-tight text-balance text-wrap lg:mb-12 lg:text-4xl', {
               'text-center': variation === 'card',
               'pb-2 text-left': variation === 'list',
             })}
@@ -49,7 +49,7 @@ export const ResourceDownloadBlock: React.FC<ResourceDownloadBlockProps> = ({
         <div
           className={cn('flex flex-col space-y-2', {
             'flex flex-col': variation === 'list',
-            'grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4': variation === 'card',
+            'grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4': variation === 'card',
           })}
         >
           {resources.map((resource) => {

@@ -42,9 +42,13 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
   if (!before || !after) return null;
 
   return (
-    <section className='py-12 max-lg:px-4 lg:py-20' id={sectionId || ''} data-blockId='imageComparisonSlider'>
-      <div className='container mx-auto'>
-        {title && <h2 className='mb-8 text-center text-3xl font-bold lg:text-4xl'>{title}</h2>}
+    <section className='section' id={sectionId || ''} data-blockId='imageComparisonSlider'>
+      <div className='section-container'>
+        {title && (
+          <h2 className='mb-10 text-center text-3xl font-bold tracking-tight text-balance lg:mb-12 lg:text-4xl'>
+            {title}
+          </h2>
+        )}
 
         <div
           className='relative mx-auto max-w-4xl overflow-hidden rounded-xl select-none'

@@ -26,19 +26,23 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
 
   return (
     <section
-      className={cn('py-12 lg:py-16', bgClasses[backgroundColor as keyof typeof bgClasses])}
+      className={cn('section-tight', bgClasses[backgroundColor as keyof typeof bgClasses])}
       id={sectionId || ''}
       data-blockId='socialProof'
     >
-      <div className='container mx-auto'>
+      <div className='section-container'>
         {(title || subtitle) && (
           <div
             className={cn(
-              'mb-12',
+              'mb-10 md:mb-12',
               textAlign && textAlignClasses[textAlign as keyof typeof textAlignClasses]
             )}
           >
-            {title && <h2 className='mb-3 text-3xl font-bold lg:text-4xl'>{title}</h2>}
+            {title && (
+              <h2 className='mb-3 text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
+                {title}
+              </h2>
+            )}
             {subtitle && <p className={cn('text-lg opacity-80 lg:text-xl')}>{subtitle}</p>}
           </div>
         )}

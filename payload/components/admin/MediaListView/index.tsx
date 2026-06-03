@@ -72,7 +72,7 @@ export default function MediaListView(props: ListViewClientProps) {
           labels.plural,
       },
     ]);
-  }, [setStepNav, labels, i18n]);
+  }, [setStepNav, labels, i18n, language]);
 
   const docs = (data?.docs as Media[]) || [];
 

@@ -95,6 +95,7 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
         {...props}
       >
         {/* Right Image (bottom layer) */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- comparison slider needs raw img for clip-path layering */}
         <img
           src={rightImage}
           alt={altRight}
@@ -109,6 +110,7 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
             clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)`,
           }}
         >
+          {/* eslint-disable-next-line @next/next/no-img-element -- comparison slider needs raw img for clip-path layering */}
           <img
             src={leftImage}
             alt={altLeft}

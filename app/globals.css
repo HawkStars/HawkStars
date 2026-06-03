@@ -148,6 +148,27 @@
     }
   }
 
+  .section {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+
+  .section-tight {
+    @apply py-10 md:py-12 lg:py-16;
+  }
+
+  .section-loose {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+
+  .section-container {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Standard heading-to-body rhythm inside a section header */
+  .section-header {
+    @apply mx-auto mb-10 max-w-3xl md:mb-12 lg:mb-14;
+  }
+
   .font-oswald {
     font-family: 'Oswald', 'sans-serif';
   }

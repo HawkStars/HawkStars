@@ -4,6 +4,7 @@ import React from 'react';
 import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { News, Media } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
+import Image from 'next/image';
 
 type LivePreviewNewsProps = {
   initialData: News;
@@ -34,10 +35,11 @@ export const LivePreviewNews: React.FC<LivePreviewNewsProps> = ({ initialData, s
         <div
           style={{ position: 'relative', width: '100%', maxHeight: '480px', overflow: 'hidden' }}
         >
-          <img
+          <Image
             src={image.url}
             alt={image.alt || data.title || ''}
             style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+            fill
           />
         </div>
       )}
@@ -102,6 +104,7 @@ export const LivePreviewNews: React.FC<LivePreviewNewsProps> = ({ initialData, s
           {gallery.internalImages?.map((item, i) => {
             const media = item.image as Media;
             return media?.url ? (
+              // eslint-disable-next-line @next/next/no-img-element -- admin live-preview with dynamic intrinsic dimensions
               <img
                 key={`int-${i}`}
                 src={media.url}
@@ -116,6 +119,7 @@ export const LivePreviewNews: React.FC<LivePreviewNewsProps> = ({ initialData, s
             ) : null;
           })}
           {gallery.externalImages?.map((item, i) => (
+            // eslint-disable-next-line @next/next/no-img-element -- admin live-preview with dynamic intrinsic dimensions
             <img
               key={`ext-${i}`}
               src={item.url}

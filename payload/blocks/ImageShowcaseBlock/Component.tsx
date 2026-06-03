@@ -68,8 +68,8 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
   const upcomingIndex = nextIndex(activeIndex);
 
   return (
-    <section className='py-16 lg:py-24' id={sectionId || ''} data-blockId='imageShowcase'>
-      <div className='container mx-auto px-4'>
+    <section className='section' id={sectionId || ''} data-blockId='imageShowcase'>
+      <div className='section-container'>
         <div className='grid gap-2 lg:grid-cols-[3fr_1fr] lg:gap-4'>
           {/* Main showcased image */}
           <div ref={mainImageRef} className='relative max-h-120 min-h-180 w-full rounded-xl'>

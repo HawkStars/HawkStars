@@ -61,7 +61,7 @@ const MultiRowImage: React.FC<MultiRowImageBlock> = ({
   if (!rowInfo) return null;
   return (
     <section className='pb-16' id={sectionId || undefined} data-blockId='multiRowImage'>
-      <div className='relative container mx-auto'>
+      <div className='section-container relative'>
         <div
           className={cn(`grid grid-flow-dense lg:${gridColumn[numberColumns]}`)}
           style={{

@@ -16,12 +16,12 @@ export const GlobalVillageAboutSectionBlockComponent: React.FC<
 
   return (
     <section id={sectionId || ''} data-blockId='globalVillageAboutSection'>
-      <div className='mx-3 mb-10 flex max-w-6xl flex-col gap-6 px-0 text-center lg:mx-auto lg:px-8'>
-        {heading && <h2 className='text-h1_semibold'>{heading}</h2>}
-        {description && <p className='text-body_regular'>{description}</p>}
+      <div className='mx-auto mb-12 flex max-w-6xl flex-col gap-6 px-4 pt-16 text-center sm:px-6 md:pt-20 lg:mb-14 lg:px-8 lg:pt-24'>
+        {heading && <h2 className='text-h1_semibold tracking-tight text-balance'>{heading}</h2>}
+        {description && <p className='text-body_regular leading-relaxed'>{description}</p>}
       </div>
 
-      <div className='bg-bege-light py-20'>
+      <div className='bg-bege-light section'>
         <div className='mx-3 flex max-w-6xl flex-col gap-8 lg:mx-auto lg:flex-row'>
           {sections.map((section, index) => {
             const imageData = section.sectionImage

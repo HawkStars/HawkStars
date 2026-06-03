@@ -26,8 +26,8 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
   };
 
   return (
-    <section className='py-12 lg:py-16' id={sectionId || ''} data-blockId='newsletterSignup'>
-      <div className='container mx-auto'>
+    <section className='section-tight' id={sectionId || ''} data-blockId='newsletterSignup'>
+      <div className='section-container'>
         <div
           className='rounded-2xl p-8 text-white lg:p-12'
           style={{ background: 'linear-gradient(135deg, #0a7558 0%, #064f39 100%)' }}

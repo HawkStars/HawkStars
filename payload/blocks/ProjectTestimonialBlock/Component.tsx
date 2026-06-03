@@ -232,20 +232,20 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
   return (
     <section
       className={cn(
-        'py-16 lg:py-24',
+        'section',
         backgroundClasses[backgroundColor as keyof typeof backgroundClasses]
       )}
       id={sectionId || ''}
       data-blockId='projectTestimonialBlock'
     >
-      <div className='container mx-auto px-4'>
+      <div className='section-container'>
         {/* Section Header */}
         {(title || subtitle) && (
-          <div className='mb-12 text-center'>
+          <div className='section-header text-center'>
             {title && (
               <h2
                 className={cn(
-                  'mb-4 text-3xl font-bold lg:text-4xl',
+                  'mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl',
                   textClasses[backgroundColor as keyof typeof textClasses]
                 )}
               >
@@ -255,7 +255,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
             {subtitle && (
               <p
                 className={cn(
-                  'mx-auto max-w-2xl text-lg',
+                  'mx-auto max-w-2xl text-lg leading-relaxed',
                   subtitleClasses[backgroundColor as keyof typeof subtitleClasses]
                 )}
               >

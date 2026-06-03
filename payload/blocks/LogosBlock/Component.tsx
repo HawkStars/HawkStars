@@ -12,12 +12,12 @@ export const LogosBlock: React.FC<LogosBlockType> = ({
   sectionId,
 }) => {
   return (
-    <section className='py-16 lg:py-24' id={sectionId || ''} data-blockId='logosBlock'>
-      <div className='container mx-auto'>
+    <section className='section' id={sectionId || ''} data-blockId='logosBlock'>
+      <div className='section-container'>
         <div className='text-center'>
           {badgeText && <Badge variant='outline'>{badgeText}</Badge>}
           {heading && (
-            <h2 className='mx-auto mt-8 mb-5 max-w-3xl text-4xl font-bold text-balance md:text-5xl'>
+            <h2 className='mx-auto mt-8 mb-5 max-w-3xl text-4xl font-bold tracking-tight text-balance md:text-5xl'>
               {heading}
             </h2>
           )}

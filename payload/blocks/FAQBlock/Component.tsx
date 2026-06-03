@@ -13,18 +13,22 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId
   }
 
   return (
-    <section className='py-12 lg:py-20' id={sectionId || ''} data-blockId='faq'>
-      <div className='container mx-auto'>
-        {title && <h2 className='mb-12 text-center text-3xl font-bold lg:text-4xl'>{title}</h2>}
+    <section className='section' id={sectionId || ''} data-blockId='faq'>
+      <div className='section-container'>
+        {title && (
+          <h2 className='mb-12 text-center text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
+            {title}
+          </h2>
+        )}
 
-        <div className='mx-auto max-w-3xl space-y-3'>
+        <div className='mx-auto max-w-3xl space-y-4'>
           {items.map((item, index) => {
             const isOpen = openIndex === index;
             return (
               <div
                 key={index}
                 className={cn(
-                  'overflow-hidden rounded-lg border transition-colors duration-200',
+                  'overflow-hidden rounded-xl border transition-colors duration-200',
                   isOpen ? 'border-green bg-white shadow-sm' : 'border-gray-200 bg-white'
                 )}
               >

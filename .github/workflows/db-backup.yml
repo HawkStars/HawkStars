@@ -1,0 +1,144 @@
+name: Daily MongoDB Backup to Google Drive
+
+# Dumps the production MongoDB database from the VPS and uploads a compressed
+# archive to Google Drive once per day.
+#
+# How it works:
+#   1. GitHub Actions connects to the VPS over SSH (same credentials as deploy.yml).
+#   2. On the VPS, `mongodump` exports the `hawkstars` database to a gzipped archive.
+#   3. The archive is uploaded to Google Drive using the existing Google OAuth
+#      refresh token (the same Google app already used by the site), so no new
+#      Google credentials are required — only a destination folder ID.
+#   4. Backups older than RETENTION_DAYS are pruned from the Drive folder.
+#
+# Required GitHub secrets (most already exist from deploy.yml):
+#   VPS_HOST, VPS_USERNAME, SSH_PRIVATE_KEY, SSH_PASSPHRASE   (VPS SSH access)
+#   GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN  (Drive upload)
+#   GDRIVE_BACKUP_FOLDER_ID   (NEW — the Google Drive folder to store backups in)
+#
+# IMPORTANT: the Google OAuth client/refresh token must include the
+#   https://www.googleapis.com/auth/drive.file  scope (or a broader Drive scope)
+#   for the upload to succeed. If the existing refresh token was issued only for
+#   Gmail/Nodemailer scopes, generate a new refresh token that includes Drive.
+
+on:
+  schedule:
+    # 03:17 UTC every day (off-peak; avoids the top-of-hour cron congestion).
+    - cron: '17 3 * * *'
+  # Allow manual runs from the Actions tab.
+  workflow_dispatch:
+
+concurrency:
+  group: db-backup
+  cancel-in-progress: false
+
+env:
+  DB_NAME: hawkstars
+  RETENTION_DAYS: '14'
+
+jobs:
+  backup:
+    name: Dump database and upload to Drive
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Dump MongoDB and upload to Google Drive
+        uses: appleboy/ssh-action@master
+        env:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GDRIVE_BACKUP_FOLDER_ID: ${{ secrets.GDRIVE_BACKUP_FOLDER_ID }}
+          DB_NAME: ${{ env.DB_NAME }}
+          RETENTION_DAYS: ${{ env.RETENTION_DAYS }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          port: 22
+          command_timeout: 25m
+          envs: GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,GOOGLE_REFRESH_TOKEN,GDRIVE_BACKUP_FOLDER_ID,DB_NAME,RETENTION_DAYS
+          script: |
+            set -euo pipefail
+
+            # ----- preconditions -------------------------------------------------
+            command -v mongodump >/dev/null 2>&1 || {
+              echo "::error::mongodump not found on the VPS. Install MongoDB Database Tools:";
+              echo "  https://www.mongodb.com/docs/database-tools/installation/installation-linux/";
+              exit 1;
+            }
+            command -v curl >/dev/null 2>&1 || { echo "::error::curl is required"; exit 1; }
+            command -v jq   >/dev/null 2>&1 || { echo "::error::jq is required (sudo apt-get install -y jq)"; exit 1; }
+
+            : "${GOOGLE_CLIENT_ID:?missing}"; : "${GOOGLE_CLIENT_SECRET:?missing}"
+            : "${GOOGLE_REFRESH_TOKEN:?missing}"; : "${GDRIVE_BACKUP_FOLDER_ID:?missing}"
+
+            # ----- dump ----------------------------------------------------------
+            WORKDIR="$(mktemp -d /tmp/hawkstars-backup.XXXXXX)"
+            trap 'rm -rf "$WORKDIR"' EXIT
+            STAMP="$(date -u +%Y-%m-%dT%H-%M-%SZ)"
+            ARCHIVE="$WORKDIR/${DB_NAME}-${STAMP}.gz"
+
+            echo "Dumping database '${DB_NAME}' to ${ARCHIVE} ..."
+            mongodump --uri="mongodb://localhost:27017/${DB_NAME}" \
+              --archive="$ARCHIVE" --gzip
+            SIZE="$(du -h "$ARCHIVE" | cut -f1)"
+            echo "Dump complete (${SIZE})."
+
+            # ----- get a fresh access token -------------------------------------
+            echo "Requesting Google access token ..."
+            ACCESS_TOKEN="$(curl -s -X POST https://oauth2.googleapis.com/token \
+              -d client_id="$GOOGLE_CLIENT_ID" \
+              -d client_secret="$GOOGLE_CLIENT_SECRET" \
+              -d refresh_token="$GOOGLE_REFRESH_TOKEN" \
+              -d grant_type=refresh_token | jq -r '.access_token')"
+            if [ -z "$ACCESS_TOKEN" ] || [ "$ACCESS_TOKEN" = "null" ]; then
+              echo "::error::Failed to obtain Google access token. Check the OAuth secrets and Drive scope."
+              exit 1
+            fi
+
+            # ----- upload (resumable, metadata + content) -----------------------
+            FILENAME="$(basename "$ARCHIVE")"
+            echo "Uploading ${FILENAME} to Google Drive folder ${GDRIVE_BACKUP_FOLDER_ID} ..."
+            META="{\"name\":\"${FILENAME}\",\"parents\":[\"${GDRIVE_BACKUP_FOLDER_ID}\"]}"
+
+            UPLOAD_RESPONSE="$(curl -s -X POST \
+              "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&supportsAllDrives=true" \
+              -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+              -F "metadata=${META};type=application/json;charset=UTF-8" \
+              -F "file=@${ARCHIVE};type=application/gzip")"
+
+            FILE_ID="$(echo "$UPLOAD_RESPONSE" | jq -r '.id')"
+            if [ -z "$FILE_ID" ] || [ "$FILE_ID" = "null" ]; then
+              echo "::error::Upload failed. Response:"
+              echo "$UPLOAD_RESPONSE"
+              exit 1
+            fi
+            echo "Uploaded successfully. Drive file id: ${FILE_ID}"
+
+            # ----- prune old backups --------------------------------------------
+            echo "Pruning backups older than ${RETENTION_DAYS} days ..."
+            CUTOFF="$(date -u -d "-${RETENTION_DAYS} days" +%Y-%m-%dT%H:%M:%SZ)"
+            QUERY="'${GDRIVE_BACKUP_FOLDER_ID}' in parents and name contains '${DB_NAME}-' and createdTime < '${CUTOFF}' and trashed = false"
+            ENCODED_QUERY="$(jq -rn --arg q "$QUERY" '$q|@uri')"
+
+            OLD_IDS="$(curl -s -G "https://www.googleapis.com/drive/v3/files" \
+              -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+              --data-urlencode "q=${QUERY}" \
+              --data-urlencode "fields=files(id,name)" \
+              --data-urlencode "supportsAllDrives=true" \
+              --data-urlencode "includeItemsFromAllDrives=true" | jq -r '.files[]?.id')"
+
+            if [ -n "$OLD_IDS" ]; then
+              for ID in $OLD_IDS; do
+                echo "Deleting old backup ${ID}"
+                curl -s -X DELETE \
+                  "https://www.googleapis.com/drive/v3/files/${ID}?supportsAllDrives=true" \
+                  -H "Authorization: Bearer ${ACCESS_TOKEN}" >/dev/null
+              done
+            else
+              echo "No backups older than ${RETENTION_DAYS} days to prune."
+            fi
+
+            echo "Backup workflow finished."

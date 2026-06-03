@@ -44,13 +44,19 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
   const styles = variantStyles[variant as keyof typeof variantStyles] || variantStyles.default;
 
   return (
-    <section className='py-12 lg:py-20' id={sectionId || ''} data-blockId='accordion'>
-      <div className='container mx-auto'>
+    <section className='section' id={sectionId || ''} data-blockId='accordion'>
+      <div className='section-container'>
         {(title || description) && (
-          <div className='mb-10 text-center'>
-            {title && <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>}
+          <div className='section-header text-center'>
+            {title && (
+              <h2 className='mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
+                {title}
+              </h2>
+            )}
             {description && (
-              <p className='mx-auto max-w-2xl text-lg text-gray-600'>{description}</p>
+              <p className='mx-auto max-w-2xl text-lg leading-relaxed text-gray-600'>
+                {description}
+              </p>
             )}
           </div>
         )}

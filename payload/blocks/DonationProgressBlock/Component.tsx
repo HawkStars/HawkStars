@@ -49,6 +49,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
       }, 100);
       return () => clearTimeout(timer);
     } else if (!animateProgress) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- syncs progress bar to prop when animation is disabled
       setProgress(percentage);
     }
   }, [percentage, animateProgress, inView]);
@@ -72,8 +73,8 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
   };
 
   return (
-    <section ref={sectionRef} className='py-12 lg:py-16' id={sectionId || ''} data-blockId='donationProgress'>
-      <div className='container mx-auto'>
+    <section ref={sectionRef} className='section-tight' id={sectionId || ''} data-blockId='donationProgress'>
+      <div className='section-container'>
         <div
           className={cn(
             'card-lg rounded-2xl p-8 lg:p-12',

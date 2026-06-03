@@ -6,7 +6,6 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import NewsListComponent from '@/components/news/list/NewsListComponent';
 import NewsListHeader from '@/components/news/list/NewsListHeader';
-import NewsProjectFilter from '@/components/news/list/NewsProjectFilter';
 
 type NewsPageProps = {
   params: Promise<LanguageProps>;
@@ -37,13 +36,6 @@ const NewsIndexPage = async (props: NewsPageProps) => {
   return (
     <>
       <NewsListHeader title={newsListHeader?.title || 'News'} subtitle={newsListHeader?.subtitle} />
-      <div className='container mx-auto max-w-6xl px-4 pt-6'>
-        <NewsProjectFilter
-          projects={projects}
-          lng={lng}
-          currentProjectSlug={projectSlug}
-        />
-      </div>
       <NewsListComponent news={news} lng={lng} projectSlug={projectSlug} />
     </>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import Image from 'next/image';
 import { LuArrowRight, LuCalendar } from 'react-icons/lu';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -155,10 +155,12 @@ function ListItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
       {/* Image */}
       {event.image?.url && (
         <div className='relative hidden h-24 w-32 shrink-0 overflow-hidden rounded-lg md:block'>
-          <img
+          <Image
             src={event.image.url}
             alt={event.image.alt || event.heading}
-            className='h-full w-full object-cover'
+            fill
+            sizes='128px'
+            className='object-cover'
           />
         </div>
       )}
@@ -199,10 +201,12 @@ function CardItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
       {/* Image */}
       <div className='relative h-44 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-700'>
         {event.image?.url ? (
-          <img
+          <Image
             src={event.image.url}
             alt={event.image.alt || event.heading}
-            className='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
+            fill
+            sizes='(max-width: 768px) 100vw, 33vw'
+            className='object-cover transition-transform duration-300 group-hover:scale-105'
           />
         ) : (
           <div className='flex h-full w-full items-center justify-center'>

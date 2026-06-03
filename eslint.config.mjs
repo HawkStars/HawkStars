@@ -17,6 +17,8 @@ const eslintConfig = defineConfig([
     'node_modules/**',
     // storybook static files
     'storybook-static/**',
+    // generated MSW worker
+    'public/mockServiceWorker.js',
   ]),
   {
     settings: {

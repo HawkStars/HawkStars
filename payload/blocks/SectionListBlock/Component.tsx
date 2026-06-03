@@ -12,7 +12,7 @@ export const SectionListBlockComponent: React.FC<SectionListBlockProps> = ({
   }));
 
   return (
-    <div className='mx-auto max-w-7xl px-4 py-6 lg:px-8' data-blockId='sectionListBlock'>
+    <div className='section-tight section-container' data-blockId='sectionListBlock'>
       <SectionList
         items={listItems}
         sectionId={sectionId ?? undefined}
