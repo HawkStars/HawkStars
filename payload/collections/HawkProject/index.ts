@@ -159,6 +159,20 @@ export const HawkProject: CollectionConfig = {
       },
       required: false,
     },
+    {
+      name: 'infopack',
+      label: { en: 'Infopack', pt: 'Infopack' },
+      type: 'upload',
+      relationTo: 'documents',
+      required: false,
+      admin: {
+        position: 'sidebar',
+        description: {
+          en: 'Optional infopack document related to the project.',
+          pt: 'Infopack opcional relacionado ao projeto.',
+        },
+      },
+    },
     contentStatusField,
   ],
 };

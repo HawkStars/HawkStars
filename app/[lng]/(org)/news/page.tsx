@@ -27,10 +27,9 @@ const NewsIndexPage = async (props: NewsPageProps) => {
   const page = searchParams.page ? Number(searchParams.page) : 1;
   const projectSlug = typeof searchParams.project === 'string' ? searchParams.project : undefined;
 
-  const [newsListHeader, news, projects] = await Promise.all([
+  const [newsListHeader, news] = await Promise.all([
     getNewsListHeader(lng as Language),
     getNewsQuery(page, lng as Language, projectSlug),
-    getProjectsForNewsFilter(lng as Language),
   ]);
 
   return (

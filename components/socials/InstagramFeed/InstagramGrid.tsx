@@ -1,6 +1,6 @@
 'use client';
 
-import { use } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { LuHeart, LuMessageCircle, LuPlay, LuLayers } from 'react-icons/lu';
@@ -9,7 +9,6 @@ import { cn } from '@/lib/utils';
 import { type InstagramPost, type InstagramGridProps, INSTAGRAM_PROFILE_URL } from './types';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
-import getInstagramPosts from '@/lib/instagram';
 
 function PostOverlay({ post }: { post: InstagramPost }) {
   return (
@@ -41,6 +40,16 @@ function MediaTypeIndicator({ mediaType }: { mediaType: InstagramPost['mediaType
   );
 }
 
+function GridSkeleton({ count, columns }: { count: number; columns: 3 | 4 }) {
+  return (
+    <div className={cn('grid gap-1', columns === 3 ? 'grid-cols-3' : 'grid-cols-4')}>
+      {Array.from({ length: count }).map((_, i) => (
+        <div key={i} className='aspect-square animate-pulse bg-neutral-200 dark:bg-neutral-800' />
+      ))}
+    </div>
+  );
+}
+
 export default function InstagramGrid({
   maxPosts = 9,
   columns = 3,
@@ -49,7 +58,61 @@ export default function InstagramGrid({
   const lng = useLanguageCookie();
   const { i18n } = useTranslation(lng, 'common');
 
-  const posts = use(getInstagramPosts(maxPosts));
+  const [posts, setPosts] = useState<InstagramPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchPosts = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await fetch(`/api/instagram?limit=${maxPosts}`);
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch Instagram posts');
+      }
+
+      const data = await response.json();
+      setPosts(data.posts ?? []);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong');
+    } finally {
+      setLoading(false);
+    }
+  }, [maxPosts]);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
+  if (loading) {
+    return (
+      <div className='mx-auto max-w-6xl'>
+        <GridSkeleton count={maxPosts} columns={columns} />
+      </div>
+    );
+  }
+
+  if (error || posts.length === 0) {
+    return (
+      <div
+        className={cn(
+          'mx-auto flex max-w-6xl flex-col items-center justify-center py-12 text-center'
+        )}
+      >
+        <p className='text-muted-foreground mb-4 text-sm'>{error ?? 'No posts to display yet.'}</p>
+        <Link
+          href={INSTAGRAM_PROFILE_URL}
+          target='_blank'
+          rel='noopener noreferrer'
+          className='text-green text-sm font-medium underline-offset-4 hover:underline'
+        >
+          Visit us on Instagram
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className='mx-auto max-w-6xl'>
