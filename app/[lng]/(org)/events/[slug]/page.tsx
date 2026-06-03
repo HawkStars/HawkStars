@@ -6,6 +6,8 @@ import { Metadata } from 'next';
 import { getSingleHawkEventQuery } from '@/lib/payload/queries/hawkEvent';
 import EventPage from '@/components/events/EventPage';
 
+export const revalidate = 600; // invalidate every 10 minutes
+
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;

@@ -9,6 +9,8 @@ import { LanguageProps } from '@/components/types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { Media } from '@/payload-types';
 
+export const revalidate = 600; // invalidate every 10 minutes
+
 type NewsSlugPageProps = {
   params: Promise<LanguageProps & { slug: string }>;
 };

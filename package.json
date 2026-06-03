@@ -125,12 +125,6 @@
   "pnpm": {
     "ignoredBuiltDependencies": [
       "sharp"
-    ],
-    "onlyBuiltDependencies": [
-      "@sentry/cli",
-      "core-js-pure",
-      "esbuild",
-      "unrs-resolver"
     ]
   },
   "msw": {

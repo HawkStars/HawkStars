@@ -6,6 +6,8 @@ import { Metadata } from 'next';
 import ProjectPage from '@/components/projects/ProjectPage';
 import { getSingleProjectsQuery } from '@/lib/payload/queries/projects';
 
+export const revalidate = 600; // invalidate every 10 minutes
+
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;
