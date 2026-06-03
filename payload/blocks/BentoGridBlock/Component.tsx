@@ -153,7 +153,7 @@ const BentoGridBlock: React.FC<BentoGridBlockProps> = ({
                   </>
                 )}
 
-                {/* Content */}
+                {/* Content (title + description) — moves based on contentPosition */}
                 <div
                   className={cn(
                     'relative z-10 flex h-full w-full flex-col p-4 sm:p-5 md:p-6',
@@ -187,24 +187,23 @@ const BentoGridBlock: React.FC<BentoGridBlockProps> = ({
                         {description}
                       </p>
                     )}
-                    {link?.label && (
-                      <Button
-                        asChild
-                        variant={imgInfo?.url ? 'secondary' : 'default'}
-                        size='sm'
-                        className='mt-1 sm:mt-2'
-                      >
-                        <Link
-                          href={linkInfo?.url || '#'}
-                          target={isExternalLink ? '_blank' : '_self'}
-                          rel={isExternalLink ? 'noopener noreferrer' : undefined}
-                        >
-                          {linkInfo?.label}
-                        </Link>
-                      </Button>
-                    )}
                   </div>
                 </div>
+
+                {/* Button — always pinned to bottom-right corner */}
+                {link?.label && (
+                  <div className='absolute right-4 bottom-4 z-20 sm:right-5 sm:bottom-5 md:right-6 md:bottom-6'>
+                    <Button asChild variant={imgInfo?.url ? 'secondary' : 'default'} size='sm'>
+                      <Link
+                        href={linkInfo?.url || '#'}
+                        target={isExternalLink ? '_blank' : '_self'}
+                        rel={isExternalLink ? 'noopener noreferrer' : undefined}
+                      >
+                        {linkInfo?.label}
+                      </Link>
+                    </Button>
+                  </div>
+                )}
               </div>
             );
           })}
