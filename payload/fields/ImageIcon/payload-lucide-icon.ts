@@ -14,7 +14,7 @@ const PayloadLucideIcon = (props?: PayloadLucideIcon): Field => {
     required: false,
     admin: {
       description: 'Optional icon from Lucide (https://lucide.dev/icons/)',
-      condition: props?.condition ?? true,
+      condition: props?.condition ?? undefined,
       components: {
         Field: '@/payload/fields/ImageIcon/components/Field',
       },
