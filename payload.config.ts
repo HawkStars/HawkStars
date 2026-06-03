@@ -69,6 +69,28 @@ assert(
   'CLOUDINARY_API_SECRET environment variable is not assigned'
 );
 
+// Email is only configured in production (see `email` below). Fail loudly at
+// boot if the Gmail OAuth2 credentials are missing, rather than silently
+// breaking transactional email (e.g. password resets) at send time.
+if (process.env.NODE_ENV === 'production') {
+  assert(
+    process.env.GOOGLE_EMAIL_USER,
+    'GOOGLE_EMAIL_USER environment variable is not assigned'
+  );
+  assert(
+    process.env.GOOGLE_NODEMAILER_CLIENT_ID,
+    'GOOGLE_NODEMAILER_CLIENT_ID environment variable is not assigned'
+  );
+  assert(
+    process.env.GOOGLE_NODEMAILER_CLIENT_SECRET,
+    'GOOGLE_NODEMAILER_CLIENT_SECRET environment variable is not assigned'
+  );
+  assert(
+    process.env.GOOGLE_NODEMAILER_REFRESH_TOKEN,
+    'GOOGLE_NODEMAILER_REFRESH_TOKEN environment variable is not assigned'
+  );
+}
+
 export default buildConfig({
   i18n: {
     supportedLanguages: {
@@ -180,7 +202,7 @@ export default buildConfig({
       ? nodemailerAdapter({
           defaultFromAddress: 'tech@hawkstars.org',
           defaultFromName: 'HawkStarsNGO - Tech Team',
-          transport: await nodemailer.createTransport({
+          transport: nodemailer.createTransport({
             service: 'gmail',
             auth: {
               type: 'OAuth2',

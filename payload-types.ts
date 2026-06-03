@@ -3881,6 +3881,10 @@ export interface HawkProject {
    */
   endDate?: string | null;
   /**
+   * Optional infopack document related to the project.
+   */
+  infopack?: (string | null) | HawkDocument;
+  /**
    * Draft → In Review → Published. Editors submit for review; Admins approve and publish.
    */
   status: 'draft' | 'in_review' | 'published';
@@ -4894,6 +4898,7 @@ export interface HawkProjectsSelect<T extends boolean = true> {
   location?: T;
   startDate?: T;
   endDate?: T;
+  infopack?: T;
   status?: T;
   updatedAt?: T;
   createdAt?: T;
