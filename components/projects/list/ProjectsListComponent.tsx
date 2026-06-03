@@ -1,6 +1,6 @@
 import { HawkProject } from '@/payload-types';
 import { LuArrowUpRight, LuCalendarDays } from 'react-icons/lu';
-import { getImagePayloadUrl } from '@/lib/image';
+import { getCloudinaryBlurURL, getImagePayloadUrl } from '@/lib/image';
 import { Button } from '@/components/ui/button';
 import { transformUrl, urls } from '@/utils/paths';
 import Link from 'next/link';
@@ -48,9 +48,11 @@ const ProjectCard = ({ project, index, lng, viewProjectLabel }: ProjectCardProps
           className='object-cover'
           priority={index === 0}
           sizes='(max-width: 1024px) 100vw, 90vw'
+          placeholder='blur'
+          blurDataURL={getCloudinaryBlurURL(image.url)}
         />
       )}
-      <div className='relative z-10 flex flex-col gap-7 text-white/80 transition-colors duration-300 ease-out group-hover:text-white lg:flex-row'>
+      <div className='relative z-10 flex flex-col gap-7 transition-colors duration-300 ease-out lg:flex-row'>
         <div className='flex gap-1 text-2xl font-bold'>
           <span>/</span>
           <span>{String(index + 1).padStart(2, '0')}</span>
@@ -81,7 +83,6 @@ const ProjectCard = ({ project, index, lng, viewProjectLabel }: ProjectCardProps
           </div>
         </div>
       </div>
-      <div className='absolute inset-0 z-1 bg-black/80 backdrop-blur-xs transition-all duration-300 ease-out group-hover:bg-black/50 group-hover:backdrop-blur-none' />
     </Link>
   );
 };

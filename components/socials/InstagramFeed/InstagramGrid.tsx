@@ -6,7 +6,12 @@ import Link from 'next/link';
 import { LuHeart, LuMessageCircle, LuPlay, LuLayers } from 'react-icons/lu';
 
 import { cn } from '@/lib/utils';
-import { type InstagramPost, type InstagramGridProps, INSTAGRAM_PROFILE_URL } from './types';
+import {
+  type InstagramPost,
+  type InstagramGridProps,
+  INSTAGRAM_PROFILE_URL,
+  INSTAGRAM_BLUR_DATA_URL,
+} from './types';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
@@ -131,6 +136,8 @@ export default function InstagramGrid({
               alt={post.caption?.slice(0, 100) ?? 'Instagram post'}
               fill
               sizes={columns === 3 ? '33vw' : '25vw'}
+              placeholder='blur'
+              blurDataURL={INSTAGRAM_BLUR_DATA_URL}
               className='object-cover transition-transform duration-300 group-hover:scale-105'
             />
             <MediaTypeIndicator mediaType={post.mediaType} />

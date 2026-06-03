@@ -9,7 +9,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { SimpleGallery as SimpleGalleryProps } from '@/payload-types';
-import { getImagePayloadUrl } from '@/lib/image';
+import { getImagePayloadUrl, getCloudinaryBlurURL } from '@/lib/image';
 import Image from 'next/image';
 
 const SimpleGallery: React.FC<SimpleGalleryProps> = ({
@@ -57,6 +57,8 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({
                       alt={image.alt || 'placeholder'}
                       loading='lazy'
                       fill
+                      placeholder='blur'
+                      blurDataURL={getCloudinaryBlurURL(image.url)}
                       className='aspect-[3.8/5] w-full rounded-xl object-cover'
                     />
                   </CarouselItem>

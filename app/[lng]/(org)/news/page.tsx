@@ -1,6 +1,6 @@
 import { LanguageProps } from '@/components/types';
 import { Language } from '@/i18n/settings';
-import { getNewsQuery, getProjectsForNewsFilter } from '@/lib/payload/queries/news';
+import { getNewsQuery } from '@/lib/payload/queries/news';
 import { getNewsListHeader } from '@/lib/payload/queries/globals/newsList';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
