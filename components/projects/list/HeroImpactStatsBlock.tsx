@@ -44,7 +44,7 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
   const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta, lng);
 
   return (
-    <HawkStarsSection className='bg-bege-light gap-8 pt-10 pb-8 max-lg:px-0 max-lg:pt-0 xl:px-10!'>
+    <HawkStarsSection className='bg-bege-light mb-6 gap-8' padding='none' spacing='none'>
       <section
         className='bg-linear-to-br from-green-50 to-blue-50 py-16 lg:py-24'
         id={sectionId || ''}

@@ -89,6 +89,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export default buildConfig({
+  serverURL: getServerSideURL(),
+  cors: [getServerSideURL()],
+  csrf: [getServerSideURL()],
   i18n: {
     supportedLanguages: {
       en,
