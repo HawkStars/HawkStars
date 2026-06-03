@@ -1,8 +1,8 @@
 import canUseDOM from './canUseDOM';
-import { BASE_URL_DEV } from '@/lib/constants';
+import { BASE_URL } from '@/lib/constants';
 
 export const getServerSideURL = () => {
-  return BASE_URL_DEV;
+  return BASE_URL;
 };
 
 export const getClientSideURL = () => {
@@ -14,5 +14,5 @@ export const getClientSideURL = () => {
     return `${protocol}//${domain}${port ? `:${port}` : ''}`;
   }
 
-  return BASE_URL_DEV;
+  return BASE_URL;
 };

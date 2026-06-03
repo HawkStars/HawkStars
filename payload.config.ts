@@ -73,10 +73,7 @@ assert(
 // boot if the Gmail OAuth2 credentials are missing, rather than silently
 // breaking transactional email (e.g. password resets) at send time.
 if (process.env.NODE_ENV === 'production') {
-  assert(
-    process.env.GOOGLE_EMAIL_USER,
-    'GOOGLE_EMAIL_USER environment variable is not assigned'
-  );
+  assert(process.env.GOOGLE_EMAIL_USER, 'GOOGLE_EMAIL_USER environment variable is not assigned');
   assert(
     process.env.GOOGLE_NODEMAILER_CLIENT_ID,
     'GOOGLE_NODEMAILER_CLIENT_ID environment variable is not assigned'

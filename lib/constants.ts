@@ -6,11 +6,7 @@
  */
 
 /** Canonical base URL (no trailing slash). */
-export const BASE_URL =
-  process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://hawkstars.org';
-
-/** Localhost fallback used only by server-side Payload utilities. */
-export const BASE_URL_DEV = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+export const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://hawkstars.org';
 
 /** Default OpenGraph / Twitter share image (1200 × 630 recommended). */
 // TODO: Replace with a dedicated 1200×630 OG image when available
