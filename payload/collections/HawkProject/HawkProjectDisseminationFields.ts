@@ -46,6 +46,17 @@ const HawkProjectDisseminationFields: Tab = {
           type: 'text',
           required: true,
         },
+        {
+          name: 'is_hawk_report',
+          label: { en: 'Hawk Stars Report', pt: 'Relatório Hawk Stars' },
+          type: 'checkbox',
+          admin: {
+            description: {
+              en: 'Check if this is a report created by Hawk Stars (e.g. internal project report)',
+              pt: 'Marque se este é um relatório criado pela Hawk Stars (ex: relatório interno do projeto)',
+            },
+          },
+        },
       ],
     },
   ],

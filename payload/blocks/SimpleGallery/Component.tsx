@@ -19,7 +19,7 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({
   sectionId,
 }) => {
   return (
-    <section className='section-loose' id={sectionId || ''} data-blockId='simpleGallery'>
+    <section className='section-loose' id={sectionId || undefined} data-blockId='simpleGallery'>
       <div className='section-container'>
         <h2 className='mb-4 text-center text-4xl font-semibold tracking-tight text-balance'>
           {title}

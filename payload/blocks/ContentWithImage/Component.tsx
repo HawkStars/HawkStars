@@ -22,7 +22,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
   return (
     <div
       className='section-container section'
-      id={sectionId || ''}
+      id={sectionId || undefined}
       data-blockId='contentWithImage'
     >
       <div className='grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16'>

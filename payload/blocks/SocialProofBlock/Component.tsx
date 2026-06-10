@@ -27,7 +27,7 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
   return (
     <section
       className={cn('section-tight', bgClasses[backgroundColor as keyof typeof bgClasses])}
-      id={sectionId || ''}
+      id={sectionId || undefined}
       data-blockId='socialProof'
     >
       <div className='section-container'>
@@ -53,7 +53,7 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
               className={cn(
                 'flex flex-col items-center justify-center px-6 py-8 text-center',
                 index !== stats.length - 1 && [
-                  'border-b border-r md:border-b-0',
+                  'border-r border-b md:border-b-0',
                   backgroundColor === 'gradient' ? 'border-white/20' : 'border-gray-200',
                   index % 2 !== 1 ? '' : 'md:border-r-0',
                 ]
@@ -64,7 +64,7 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
               </div>
               <div
                 className={cn(
-                  'max-w-[120px] text-xs font-semibold tracking-wider uppercase leading-snug',
+                  'max-w-[120px] text-xs leading-snug font-semibold tracking-wider uppercase',
                   backgroundColor === 'gradient' ? 'opacity-75' : 'text-gray-500'
                 )}
               >

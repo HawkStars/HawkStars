@@ -73,7 +73,12 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
   };
 
   return (
-    <section ref={sectionRef} className='section-tight' id={sectionId || ''} data-blockId='donationProgress'>
+    <section
+      ref={sectionRef}
+      className='section-tight'
+      id={sectionId || undefined}
+      data-blockId='donationProgress'
+    >
       <div className='section-container'>
         <div
           className={cn(

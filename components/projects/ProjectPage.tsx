@@ -377,7 +377,7 @@ export default function ProjectPage({ project }: ProjectPageProps) {
                 target='_blank'
                 className='rounded-full bg-amber-400 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-500'
               >
-                {report.label}
+                {report.is_hawk_report && 'Hawk Stars Report: '} {report.label}
               </Link>
             ))}
           </div>

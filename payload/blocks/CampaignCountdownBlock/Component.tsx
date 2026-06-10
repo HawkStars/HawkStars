@@ -76,7 +76,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
   ].filter((unit) => unit.show);
 
   return (
-    <section className='section-tight' id={sectionId || ''} data-blockId='campaignCountdown'>
+    <section className='section-tight' id={sectionId || undefined} data-blockId='campaignCountdown'>
       <div className='section-container'>
         <div
           className={cn(

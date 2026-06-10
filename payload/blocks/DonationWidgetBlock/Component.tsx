@@ -6,7 +6,7 @@ import DonationWidget from '@/components/contribute/DonationWidget';
 
 export const DonationWidgetBlock: React.FC<DonationWidgetBlockProps> = ({ sectionId }) => {
   return (
-    <section className='section' id={sectionId || ''} data-blockId='donationWidget'>
+    <section className='section' id={sectionId || undefined} data-blockId='donationWidget'>
       <div className='section-container flex justify-center'>
         <DonationWidget />
       </div>

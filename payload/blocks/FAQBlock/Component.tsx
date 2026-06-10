@@ -13,7 +13,7 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId
   }
 
   return (
-    <section className='section' id={sectionId || ''} data-blockId='faq'>
+    <section className='section' id={sectionId || undefined} data-blockId='faq'>
       <div className='section-container'>
         {title && (
           <h2 className='mb-12 text-center text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
@@ -54,7 +54,10 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId
                     )}
                   >
                     <LuChevronDown
-                      className={cn('h-4 w-4 transition-transform duration-300', isOpen && 'rotate-180')}
+                      className={cn(
+                        'h-4 w-4 transition-transform duration-300',
+                        isOpen && 'rotate-180'
+                      )}
                     />
                   </div>
                 </button>
@@ -65,7 +68,7 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId
                   )}
                 >
                   <div className='overflow-hidden'>
-                    <p className='border-t border-gray-100 px-6 py-5 text-gray-700 leading-relaxed'>
+                    <p className='border-t border-gray-100 px-6 py-5 leading-relaxed text-gray-700'>
                       {item.answer}
                     </p>
                   </div>

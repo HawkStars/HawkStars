@@ -55,12 +55,14 @@ export const StatsBlock: React.FC<StatsBlockProps> = ({
   return (
     <section
       className={cn('section', backgroundStyles[background as keyof typeof backgroundStyles])}
-      id={sectionId || ''}
+      id={sectionId || undefined}
       data-blockId='statsBlock'
     >
       <div className='section-container'>
         {/* Stats Grid */}
-        <div className={cn('grid gap-6 lg:gap-8', columnsClass[columns as keyof typeof columnsClass])}>
+        <div
+          className={cn('grid gap-6 lg:gap-8', columnsClass[columns as keyof typeof columnsClass])}
+        >
           {stats.map((stat, index) => (
             <div
               key={stat.id || index}

@@ -34,7 +34,11 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
   const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta, lng);
 
   return (
-    <section className='relative min-h-150 w-full lg:min-h-175' id={sectionId || ''} data-blockId='heroWithBackgroundImage'>
+    <section
+      className='relative min-h-150 w-full lg:min-h-175'
+      id={sectionId || undefined}
+      data-blockId='heroWithBackgroundImage'
+    >
       {/* Background Image */}
       {bgImage && bgImage.url && (
         <div

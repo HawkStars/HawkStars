@@ -47,7 +47,7 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
     <HawkStarsSection className='bg-bege-light mb-6 gap-8' padding='none' spacing='none'>
       <section
         className='bg-linear-to-br from-green-50 to-blue-50 py-16 lg:py-24'
-        id={sectionId || ''}
+        id={sectionId || undefined}
       >
         <div className='container mx-auto px-4'>
           <div className='grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16'>

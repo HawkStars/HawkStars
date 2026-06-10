@@ -11,7 +11,7 @@ export const GlobalVillageBannerBlockComponent: React.FC<GlobalVillageBannerBloc
   sectionId,
 }) => {
   return (
-    <section className={'bg-green'} id={sectionId || ''} data-blockId='globalVillageBanner'>
+    <section className={'bg-green'} id={sectionId || undefined} data-blockId='globalVillageBanner'>
       <div className='relative mx-auto max-w-6xl px-3 py-24 lg:px-40 lg:py-40'>
         <p className='text-white'>{text}</p>
         <Image

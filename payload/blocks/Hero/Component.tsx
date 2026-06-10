@@ -24,7 +24,7 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
   const linkInfo = getLinkFieldInformation(ctaLink, lng);
 
   return (
-    <section className='section-loose' id={sectionId || ''} data-blockId='hero'>
+    <section className='section-loose' id={sectionId || undefined} data-blockId='hero'>
       <div className='section-container'>
         <div className='mx-auto flex max-w-3xl flex-col items-center text-center'>
           {bgImage && bgImage.url && (

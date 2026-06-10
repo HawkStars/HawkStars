@@ -223,7 +223,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({ title, items, se
   if (!items || items.length === 0) return null;
 
   return (
-    <section className='py-12 lg:py-20' id={sectionId || ''} data-blockId='accordion'>
+    <section className='py-12 lg:py-20' id={sectionId || undefined} data-blockId='accordion'>
       <div className='container mx-auto'>
         {/* … */}
       </div>
@@ -233,7 +233,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({ title, items, se
 ```
 
 - Import props type from `@/payload-types` using the block's `interfaceName`.
-- Always render a `<section>` wrapper with `id={sectionId || ''}` and `data-blockId='<slug>'`.
+- Always render a `<section>` wrapper with `id={sectionId || undefined}` and `data-blockId='<slug>'`.
 - Guard against empty arrays/null values before rendering — return `null` if there is nothing to show.
 - Add `'use client'` only when the component genuinely needs it (interactive state, browser APIs).
 

@@ -33,7 +33,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
     },
     bordered: {
       container: 'rounded-lg border border-gray-200 overflow-hidden',
-      item: 'border-b border-gray-200 last:border-b-0 data-[state=open]:bg-green/5',
+      item: 'border-b border-gray-200 last:border-b-0',
     },
     separated: {
       container: 'space-y-3',
@@ -44,7 +44,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
   const styles = variantStyles[variant as keyof typeof variantStyles] || variantStyles.default;
 
   return (
-    <section className='section' id={sectionId || ''} data-blockId='accordion'>
+    <section className='section' id={sectionId || undefined} data-blockId='accordion'>
       <div className='section-container'>
         {(title || description) && (
           <div className='section-header text-center'>
@@ -61,7 +61,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
           </div>
         )}
 
-        <div className='mx-auto max-w-3xl'>
+        <div className='mx-auto'>
           {allowMultiple ? (
             <Accordion type='multiple' defaultValue={defaultOpenItems} className={styles.container}>
               {items.map((item, index) => (
@@ -70,7 +70,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
                   value={`item-${index}`}
                   className={cn(styles.item, variant === 'separated' && 'mx-0')}
                 >
-                  <AccordionTrigger className='px-4 text-left text-base font-semibold hover:no-underline hover:text-green data-[state=open]:text-green lg:text-lg'>
+                  <AccordionTrigger className='hover:text-green data-[state=open]:text-green px-4 text-left text-base font-semibold hover:no-underline lg:text-lg'>
                     {item.title}
                   </AccordionTrigger>
                   <AccordionContent className='px-4 text-gray-700'>
@@ -92,7 +92,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
                   value={`item-${index}`}
                   className={cn(styles.item, variant === 'separated' && 'mx-0')}
                 >
-                  <AccordionTrigger className='px-4 text-left text-base font-semibold hover:no-underline hover:text-green data-[state=open]:text-green lg:text-lg'>
+                  <AccordionTrigger className='hover:text-green data-[state=open]:text-green px-4 text-left text-base font-semibold hover:no-underline lg:text-lg'>
                     {item.title}
                   </AccordionTrigger>
                   <AccordionContent className='px-4 text-gray-700'>

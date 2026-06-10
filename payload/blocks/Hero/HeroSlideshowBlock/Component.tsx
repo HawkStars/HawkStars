@@ -72,7 +72,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
         'relative w-full overflow-hidden',
         heightClasses[height as keyof typeof heightClasses]
       )}
-      id={sectionId || ''}
+      id={sectionId || undefined}
     >
       {/* Slides */}
       {slides.map((slide, index: number) => {

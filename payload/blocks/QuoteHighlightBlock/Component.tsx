@@ -17,13 +17,13 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
   const quoteLength = quote.length;
 
   return (
-    <section className='section' id={sectionId || ''} data-blockId='quoteHighlight'>
+    <section className='section' id={sectionId || undefined} data-blockId='quoteHighlight'>
       <div className='section-container'>
         {style === 'centered' && (
-          <div className='mx-auto max-w-4xl rounded-2xl bg-bege-light px-8 py-12 text-center lg:px-16'>
-            <LuQuote className='mx-auto mb-6 h-14 w-14 text-green opacity-60' />
+          <div className='bg-bege-light mx-auto max-w-4xl rounded-2xl px-8 py-12 text-center lg:px-16'>
+            <LuQuote className='text-green mx-auto mb-6 h-14 w-14 opacity-60' />
             <blockquote
-              className={cn('mb-8 leading-relaxed font-medium italic text-gray-800', {
+              className={cn('mb-8 leading-relaxed font-medium text-gray-800 italic', {
                 'text-xl lg:text-3xl': quoteLength < 150,
                 'text-lg lg:text-2xl': quoteLength >= 150 && quoteLength < 300,
                 'text-md lg:text-lg': quoteLength >= 300,
@@ -33,7 +33,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
             </blockquote>
             <div className='flex items-center justify-center gap-4'>
               {authorImage && (
-                <div className='relative h-12 w-12 overflow-hidden rounded-full ring-2 ring-green/20'>
+                <div className='ring-green/20 relative h-12 w-12 overflow-hidden rounded-full ring-2'>
                   <Image src={authorImage.url || ''} alt={author} fill className='object-cover' />
                 </div>
               )}
@@ -46,7 +46,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
         )}
 
         {style === 'bordered' && (
-          <div className='mx-auto max-w-5xl border-l-4 border-green bg-gray-50 p-8 lg:p-12'>
+          <div className='border-green mx-auto max-w-5xl border-l-4 bg-gray-50 p-8 lg:p-12'>
             <blockquote
               className={cn('mb-4 leading-relaxed font-medium', {
                 'text-xl lg:text-2xl': quoteLength < 150,

@@ -33,14 +33,17 @@ export const ResourceDownloadBlock: React.FC<ResourceDownloadBlockProps> = ({
   if (!resources || resources.length === 0) return null;
 
   return (
-    <section className='section' id={sectionId || ''} data-blockId='resourceDownload'>
+    <section className='section' id={sectionId || undefined} data-blockId='resourceDownload'>
       <div className='section-container'>
         {title && (
           <h2
-            className={cn('mb-10 max-w-1/2 text-3xl font-bold tracking-tight text-balance text-wrap lg:mb-12 lg:text-4xl', {
-              'text-center': variation === 'card',
-              'pb-2 text-left': variation === 'list',
-            })}
+            className={cn(
+              'mb-10 max-w-1/2 text-3xl font-bold tracking-tight text-balance text-wrap lg:mb-12 lg:text-4xl',
+              {
+                'text-center': variation === 'card',
+                'pb-2 text-left': variation === 'list',
+              }
+            )}
           >
             {title}
           </h2>

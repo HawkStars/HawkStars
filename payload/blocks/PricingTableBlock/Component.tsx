@@ -15,13 +15,19 @@ export const PricingTableBlock: React.FC<PricingTableBlockProps> = ({
   }
 
   return (
-    <section className='section' id={sectionId || ''} data-blockId='pricingTable'>
+    <section className='section' id={sectionId || undefined} data-blockId='pricingTable'>
       <div className='section-container'>
         {/* Header */}
         {(title || subtitle) && (
           <div className='section-header text-center'>
-            {title && <h2 className='mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl'>{title}</h2>}
-            {subtitle && <p className='mx-auto max-w-2xl text-lg leading-relaxed text-gray-600'>{subtitle}</p>}
+            {title && (
+              <h2 className='mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
+                {title}
+              </h2>
+            )}
+            {subtitle && (
+              <p className='mx-auto max-w-2xl text-lg leading-relaxed text-gray-600'>{subtitle}</p>
+            )}
           </div>
         )}
 

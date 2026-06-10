@@ -21,7 +21,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
   const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta, lng);
 
   return (
-    <section className='section' id={sectionId || ''} data-blockId='ctaBanner'>
+    <section className='section' id={sectionId || undefined} data-blockId='ctaBanner'>
       <div className='section-container'>
         {variant === 'centered' && (
           <div

@@ -235,7 +235,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
         'section',
         backgroundClasses[backgroundColor as keyof typeof backgroundClasses]
       )}
-      id={sectionId || ''}
+      id={sectionId || undefined}
       data-blockId='projectTestimonialBlock'
     >
       <div className='section-container'>

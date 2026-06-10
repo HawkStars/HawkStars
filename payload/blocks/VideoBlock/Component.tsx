@@ -97,7 +97,7 @@ export const VideoBlock: React.FC<Props> = (props) => {
         },
         className
       )}
-      id={sectionId || ''}
+      id={sectionId || undefined}
       data-blockId='videoBlock'
     >
       <div className='w-full'>

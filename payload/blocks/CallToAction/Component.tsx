@@ -16,14 +16,16 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
   const imageInfo = getImagePayloadUrl(image);
 
   return (
-    <section className='section-loose' id={sectionId || ''} data-blockId='cta'>
+    <section className='section-loose' id={sectionId || undefined} data-blockId='cta'>
       <div className='section-container'>
         <div className='bg-muted relative flex w-full flex-col justify-between gap-8 overflow-hidden rounded-4xl border p-8 md:flex-row md:items-center md:gap-12 md:p-12'>
           <div className='flex h-full max-w-lg flex-col justify-center'>
             <h1 className='text-4xl font-medium tracking-tighter text-balance md:text-6xl'>
               {title}
             </h1>
-            {subtitle && <p className='text-muted-foreground/70 mt-4 leading-relaxed'>{subtitle}</p>}
+            {subtitle && (
+              <p className='text-muted-foreground/70 mt-4 leading-relaxed'>{subtitle}</p>
+            )}
 
             {links && links.length > 0 && (
               <div className='mt-8 flex flex-wrap gap-4'>

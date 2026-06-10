@@ -34,11 +34,15 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
   const bg = (background ?? 'bege') as keyof typeof backgroundStyles;
 
   return (
-    <section className={cn('section', backgroundStyles[bg])} id={sectionId || ''} data-blockId='growthVisionBlock'>
+    <section
+      className={cn('section', backgroundStyles[bg])}
+      id={sectionId || undefined}
+      data-blockId='growthVisionBlock'
+    >
       <div className='section-container'>
         {/* Header */}
         <div className={cn('mb-12 lg:mb-14', titleLocationStyles[titleLocation ?? 'center'])}>
-          {title && <h2 className='text-h1_semibold text-balance tracking-tight'>{title}</h2>}
+          {title && <h2 className='text-h1_semibold tracking-tight text-balance'>{title}</h2>}
         </div>
 
         {/* Phases — zigzag layout */}

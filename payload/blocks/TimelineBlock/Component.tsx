@@ -16,7 +16,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
   }
 
   return (
-    <section className='section' id={sectionId || ''} data-blockId={blockType}>
+    <section className='section' id={sectionId || undefined} data-blockId={blockType}>
       <div className='section-container'>
         {title && (
           <h2 className='mb-12 text-center text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
@@ -39,11 +39,11 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
               >
                 <div className={cn('w-5/12', index % 2 === 0 ? 'pr-14 text-right' : 'pl-14')}>
                   <div className='card-md overflow-hidden'>
-                    <div className='border-b border-gray-100 bg-bege-light px-6 py-3'>
+                    <div className='bg-bege-light border-b border-gray-100 px-6 py-3'>
                       <h3 className='text-base font-bold text-gray-900'>{item.title}</h3>
                     </div>
                     <div className='p-6'>
-                      <p className='text-gray-700 leading-relaxed'>{item.description}</p>
+                      <p className='leading-relaxed text-gray-700'>{item.description}</p>
                       {item.image && (
                         <div className='relative mt-4 h-48 w-full overflow-hidden rounded-lg'>
                           <Image
@@ -60,8 +60,8 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
 
                 {/* Year badge on the center line */}
                 <div className='absolute left-1/2 z-10 -translate-x-1/2'>
-                  <div className='flex h-14 w-14 items-center justify-center rounded-full bg-green text-white shadow-md ring-4 ring-white'>
-                    <span className='text-[10px] font-extrabold leading-tight tracking-tight'>
+                  <div className='bg-green flex h-14 w-14 items-center justify-center rounded-full text-white shadow-md ring-4 ring-white'>
+                    <span className='text-[10px] leading-tight font-extrabold tracking-tight'>
                       {item.year}
                     </span>
                   </div>
@@ -75,23 +75,23 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
           <div className='overflow-x-auto pb-4'>
             <div className='relative flex min-w-max gap-0'>
               {/* Horizontal connecting line */}
-              <div className='absolute top-6 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent' />
+              <div className='absolute top-6 right-0 left-0 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent' />
               {items.map((item, index) => (
                 <div key={index} className='w-72 shrink-0 px-4'>
                   {/* Year dot */}
                   <div className='relative mb-8 flex justify-center'>
-                    <div className='flex h-12 w-12 items-center justify-center rounded-full bg-green text-white shadow-md ring-4 ring-white'>
-                      <span className='text-[9px] font-extrabold leading-tight tracking-tight'>
+                    <div className='bg-green flex h-12 w-12 items-center justify-center rounded-full text-white shadow-md ring-4 ring-white'>
+                      <span className='text-[9px] leading-tight font-extrabold tracking-tight'>
                         {item.year}
                       </span>
                     </div>
                   </div>
                   <div className='card-md overflow-hidden'>
-                    <div className='border-b border-gray-100 bg-bege-light px-5 py-3'>
+                    <div className='bg-bege-light border-b border-gray-100 px-5 py-3'>
                       <h3 className='text-sm font-bold text-gray-900'>{item.title}</h3>
                     </div>
                     <div className='p-5'>
-                      <p className='text-sm text-gray-700 leading-relaxed'>{item.description}</p>
+                      <p className='text-sm leading-relaxed text-gray-700'>{item.description}</p>
                     </div>
                   </div>
                 </div>

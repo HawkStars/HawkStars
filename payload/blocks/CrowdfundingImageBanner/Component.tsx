@@ -19,7 +19,7 @@ export const CrowdfundingImageBannerBlockComponent: React.FC<CrowdfundingImageBa
   if (!imageData) return null;
 
   return (
-    <section id={sectionId || ''} className='w-full' data-blockId='crowdfundingImageBanner'>
+    <section id={sectionId || undefined} className='w-full' data-blockId='crowdfundingImageBanner'>
       <Link href={linkUrl?.url || '#'} target='_blank' rel='noopener noreferrer'>
         <Image
           src={imageData.url}

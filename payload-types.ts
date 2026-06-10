@@ -2017,6 +2017,10 @@ export type HawkProjectDisseminationReport =
        */
       label: string;
       url: string;
+      /**
+       * Check if this is a report created by Hawk Stars (e.g. internal project report)
+       */
+      is_hawk_report?: boolean | null;
       id?: string | null;
     }[]
   | null;
@@ -4984,6 +4988,7 @@ export interface HawkProjectPartnerReportSelect<T extends boolean = true> {
 export interface HawkProjectDisseminationReportSelect<T extends boolean = true> {
   label?: T;
   url?: T;
+  is_hawk_report?: T;
   id?: T;
 }
 /**

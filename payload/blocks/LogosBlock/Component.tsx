@@ -12,7 +12,7 @@ export const LogosBlock: React.FC<LogosBlockType> = ({
   sectionId,
 }) => {
   return (
-    <section className='section' id={sectionId || ''} data-blockId='logosBlock'>
+    <section className='section' id={sectionId || undefined} data-blockId='logosBlock'>
       <div className='section-container'>
         <div className='text-center'>
           {badgeText && <Badge variant='outline'>{badgeText}</Badge>}
@@ -32,7 +32,7 @@ export const LogosBlock: React.FC<LogosBlockType> = ({
             </Button>
           )}
         </div>
-        <div className='mx-auto mt-12 grid max-w-5xl grid-cols-2 place-items-center gap-x-6 gap-y-8 lg:mt-16 md:grid-cols-3 lg:grid-cols-4 lg:gap-8'>
+        <div className='mx-auto mt-12 grid max-w-5xl grid-cols-2 place-items-center gap-x-6 gap-y-8 md:grid-cols-3 lg:mt-16 lg:grid-cols-4 lg:gap-8'>
           {logos?.map((logo) => (
             <Image
               className='opacity-50 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
