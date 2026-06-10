@@ -122,7 +122,6 @@ export default withSentryConfig(payloadConfig, {
   // https://www.npmjs.com/package/@sentry/webpack-plugin#options
 
   org: 'hawkstars',
-
   project: 'website',
 
   // Only print logs for uploading source maps in CI

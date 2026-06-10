@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import GamingNavbar from '@/components/gaming/GamingNavbar';
 import GamingFooter from '@/components/gaming/GamingFooter';
 import { fallbackLng, languages } from '@/i18n/settings';
+import { BASE_URL, OG_IMAGE_FALLBACK, SITE_NAME } from '@/lib/constants';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -12,14 +13,47 @@ const inter = Inter({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: 'Hawkis E-Sports | Hawk Stars NGO Gaming Division',
-  description:
-    'The competitive gaming division of Hawk Stars NGO. Training the next generation of e-sports talent from Pinhel to the world.',
-  icons: {
-    icon: '/favicon.ico',
-  },
-};
+const GAMING_PATH = '/gaming';
+
+export async function generateMetadata(props: {
+  params: Promise<{ lng?: string }>;
+}): Promise<Metadata> {
+  const params = await props.params;
+  const lng = params.lng || fallbackLng;
+  const canonicalUrl = `${BASE_URL}/${lng}${GAMING_PATH}`;
+
+  return {
+    title: 'Hawkis E-Sports | Hawk Stars NGO Gaming Division',
+    description:
+      'The competitive gaming division of Hawk Stars NGO. Training the next generation of e-sports talent from Pinhel to the world.',
+    metadataBase: new URL(BASE_URL),
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        'x-default': `/pt${GAMING_PATH}`,
+        en: `/en${GAMING_PATH}`,
+        pt: `/pt${GAMING_PATH}`,
+      },
+    },
+    openGraph: {
+      type: 'website',
+      title: 'Hawkis E-Sports | Hawk Stars NGO Gaming Division',
+      description:
+        'The competitive gaming division of Hawk Stars NGO. Training the next generation of e-sports talent from Pinhel to the world.',
+      url: canonicalUrl,
+      siteName: SITE_NAME,
+      images: [{ url: OG_IMAGE_FALLBACK, width: 1200, height: 630, alt: 'Hawkis E-Sports' }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Hawkis E-Sports | Hawk Stars NGO Gaming Division',
+      description:
+        'The competitive gaming division of Hawk Stars NGO. Training the next generation of e-sports talent from Pinhel to the world.',
+      images: [OG_IMAGE_FALLBACK],
+    },
+    icons: { icon: '/favicon.ico' },
+  };
+}
 
 export function generateStaticParams() {
   return languages.map((lng) => ({ lng }));

@@ -178,3 +178,55 @@ export function EventJsonLd({
     />
   );
 }
+
+/**
+ * Article JSON-LD for news articles and blog posts.
+ */
+export function ArticleJsonLd({
+  title,
+  description,
+  url,
+  image,
+  publishedAt,
+  modifiedAt,
+  lng,
+}: {
+  title: string;
+  description?: string;
+  url: string;
+  image?: string;
+  publishedAt?: string;
+  modifiedAt?: string;
+  lng: Language;
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    headline: title,
+    ...(description && { description }),
+    url,
+    ...(image && { image }),
+    ...(publishedAt && { datePublished: publishedAt }),
+    ...(modifiedAt && { dateModified: modifiedAt }),
+    inLanguage: lng,
+    isPartOf: { '@id': `${BASE_URL}/#website` },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${BASE_URL}/#organization`,
+      name: SITE_NAME,
+      url: BASE_URL,
+    },
+    author: {
+      '@type': 'Organization',
+      '@id': `${BASE_URL}/#organization`,
+      name: SITE_NAME,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}

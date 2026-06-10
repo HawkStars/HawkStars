@@ -36,10 +36,16 @@ const prepareMetadataInfo = ({
   title,
   description,
   image,
+  lng,
+  urlPath,
 }: {
   title?: string | null;
   description?: string | null;
   image?: string | Media | null;
+  /** URL path segment (e.g. "/news/my-article"). When provided, canonical + hreflang are set. */
+  urlPath?: string;
+  /** Current page language. Required when urlPath is provided. */
+  lng?: Language;
 }): Metadata => {
   const ogImage =
     typeof image === 'string'
@@ -48,9 +54,23 @@ const prepareMetadataInfo = ({
         ? (image as Media).url || OG_IMAGE_FALLBACK
         : OG_IMAGE_FALLBACK;
 
+  const resolvedPath = urlPath ?? undefined;
+  const canonicalUrl = resolvedPath && lng ? `${BASE_URL}/${lng}${resolvedPath}` : undefined;
+
   return {
     title,
     description,
+    ...(canonicalUrl && {
+      metadataBase: new URL(BASE_URL),
+      alternates: {
+        canonical: canonicalUrl,
+        languages: {
+          'x-default': `/pt${resolvedPath}`,
+          en: `/en${resolvedPath}`,
+          pt: `/pt${resolvedPath}`,
+        },
+      },
+    }),
     icons: {
       icon: '/favicon.ico',
       shortcut: '/favicon.ico',
@@ -60,6 +80,7 @@ const prepareMetadataInfo = ({
       title: title || '',
       description: description || '',
       siteName: SITE_NAME,
+      ...(canonicalUrl && { url: canonicalUrl }),
       images: [{ url: ogImage, width: 1200, height: 630, alt: title || SITE_NAME }],
     },
     twitter: {
@@ -131,6 +152,7 @@ const transformToMetadataObject = (
     alternates: {
       canonical: canonicalUrl,
       languages: {
+        'x-default': `/pt${url}`,
         en: `/en${url}`,
         pt: `/pt${url}`,
       },

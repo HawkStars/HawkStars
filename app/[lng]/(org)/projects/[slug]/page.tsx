@@ -1,19 +1,32 @@
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
 import { Language } from '@/i18n/settings';
-import { getMetadataPageInfo } from '@/utils/metadata';
+import { getMetadataPageInfo, prepareMetadataInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import ProjectPage from '@/components/projects/ProjectPage';
 import { getSingleProjectsQuery } from '@/lib/payload/queries/projects';
+import { getImagePayloadUrl } from '@/lib/image';
 
 export const revalidate = 600; // invalidate every 10 minutes
 
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
   const params = await props.params;
-  const { lng } = params;
+  const { lng, slug } = params;
 
-  const metadataPage = getMetadataPageInfo(lng as Language, 'home');
-  return metadataPage;
+  const project = await getSingleProjectsQuery(slug, lng as Language);
+  if (!project) return getMetadataPageInfo(lng as Language, 'projects');
+
+  const image = getImagePayloadUrl(project.coverImage);
+  const seoTitle = project.seo?.seo?.title ?? project.heading;
+  const seoDescription = project.seo?.seo?.description ?? project.details?.text?.substring(0, 160);
+
+  return prepareMetadataInfo({
+    title: seoTitle,
+    description: seoDescription,
+    image: image?.url,
+    urlPath: `/projects/${slug}`,
+    lng: lng as Language,
+  });
 }
 
 type EventPageProps = { params: Promise<LanguageProps & { slug: string }> };

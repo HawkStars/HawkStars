@@ -8,6 +8,8 @@ import { HawkStarsSection } from '@/components/layout';
 import { LanguageProps } from '@/components/types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { Media } from '@/payload-types';
+import { ArticleJsonLd } from '@/components/seo/JsonLd';
+import { BASE_URL } from '@/lib/constants';
 
 export const revalidate = 600; // invalidate every 10 minutes
 
@@ -27,10 +29,16 @@ export async function generateMetadata(props: NewsSlugPageProps): Promise<Metada
       title: article.meta.title ?? article.title,
       description: article.meta.description,
       image: article.meta.image,
+      urlPath: `/news/${slug}`,
+      lng: lng as Language,
     });
   }
 
-  return prepareMetadataInfo({ title: article.title });
+  return prepareMetadataInfo({
+    title: article.title,
+    urlPath: `/news/${slug}`,
+    lng: lng as Language,
+  });
 }
 
 const NewsSlugPage = async (props: NewsSlugPageProps) => {
@@ -60,6 +68,15 @@ const NewsSlugPage = async (props: NewsSlugPageProps) => {
 
   return (
     <>
+      <ArticleJsonLd
+        title={title}
+        description={details?.text?.substring(0, 160) ?? undefined}
+        url={`${BASE_URL}/${lng}/news/${slug}`}
+        image={image?.url || undefined}
+        publishedAt={publishedAt ?? undefined}
+        modifiedAt={article.updatedAt ?? undefined}
+        lng={lng as Language}
+      />
       {/* ── Hero ── */}
       {image ? (
         <HawkStarsSection padding='none' className='relative h-105 overflow-hidden lg:h-140'>
@@ -76,7 +93,7 @@ const NewsSlugPage = async (props: NewsSlugPageProps) => {
           {/* Title overlay on hero */}
           <div className='absolute inset-x-0 bottom-0 px-4 pb-10 xl:px-40'>
             <div className='mx-auto max-w-4xl'>
-              <span className='bg-green mb-4 inline-block rounded-sm px-3 py-1 text-xs font-bold uppercase tracking-widest text-white'>
+              <span className='bg-green mb-4 inline-block rounded-sm px-3 py-1 text-xs font-bold tracking-widest text-white uppercase'>
                 {type.replace('_', ' ')}
               </span>
               <h1 className='text-h1_semibold text-white drop-shadow-lg'>{title}</h1>
@@ -90,7 +107,7 @@ const NewsSlugPage = async (props: NewsSlugPageProps) => {
         /* Fallback header when no image */
         <HawkStarsSection className='bg-green px-4 py-16 xl:px-40'>
           <div className='mx-auto max-w-4xl'>
-            <span className='mb-4 inline-block rounded-sm border border-white/30 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-widest text-white'>
+            <span className='mb-4 inline-block rounded-sm border border-white/30 bg-white/10 px-3 py-1 text-xs font-bold tracking-widest text-white uppercase'>
               {type.replace('_', ' ')}
             </span>
             <h1 className='text-h1_semibold text-white'>{title}</h1>
@@ -107,7 +124,7 @@ const NewsSlugPage = async (props: NewsSlugPageProps) => {
           <div className='mx-auto max-w-3xl'>
             {/* Decorative accent bar */}
             <div className='bg-green mb-8 h-1 w-16 rounded-full' />
-            <p className='text-body_regular whitespace-pre-line leading-relaxed text-gray-700'>
+            <p className='text-body_regular leading-relaxed whitespace-pre-line text-gray-700'>
               {text}
             </p>
           </div>
@@ -122,18 +139,16 @@ const NewsSlugPage = async (props: NewsSlugPageProps) => {
               <div key={i} className='relative flex gap-6'>
                 {/* Section number accent */}
                 <div className='hidden shrink-0 sm:block'>
-                  <span className='text-green/10 select-none font-serif text-6xl font-black leading-none'>
+                  <span className='text-green/10 font-serif text-6xl leading-none font-black select-none'>
                     {String(i + 1).padStart(2, '0')}
                   </span>
                 </div>
 
                 {/* Section content */}
                 <div className='border-green/20 flex flex-col gap-3 border-l-2 pl-6'>
-                  {section.title && (
-                    <h2 className='text-h2_bold text-green'>{section.title}</h2>
-                  )}
+                  {section.title && <h2 className='text-h2_bold text-green'>{section.title}</h2>}
                   {section.text && (
-                    <p className='text-body_regular whitespace-pre-line leading-relaxed text-gray-700'>
+                    <p className='text-body_regular leading-relaxed whitespace-pre-line text-gray-700'>
                       {section.text}
                     </p>
                   )}
