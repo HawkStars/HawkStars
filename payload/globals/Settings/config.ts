@@ -13,8 +13,8 @@ export const WebsiteSettings: GlobalConfig = {
   },
   admin: {
     description: {
-      en: 'Configure website settings including Instagram feed access tokens and Google Drive integration.',
-      pt: 'Configure as definições do website incluindo tokens de acesso ao feed do Instagram e integração com o Google Drive.',
+      en: 'Configure website settings including Instagram feed access tokens.',
+      pt: 'Configure as definições do website incluindo tokens de acesso ao feed do Instagram.',
     },
   },
   fields: [
@@ -42,27 +42,6 @@ export const WebsiteSettings: GlobalConfig = {
             description: {
               en: 'Numeric user ID for the Instagram Graph API. Use the "Fetch from token" button to resolve it automatically once the access token above is saved.',
               pt: 'ID de utilizador numérico para a API do Instagram. Use o botão "Obter do token" para o resolver automaticamente após guardar o token de acesso.',
-            },
-          },
-        },
-      ],
-    },
-    {
-      label: { en: 'Google Drive', pt: 'Google Drive' },
-      type: 'group',
-      fields: [
-        {
-          name: 'googleRefreshToken',
-          label: { en: 'Google Refresh Token', pt: 'Token de Atualização do Google' },
-          type: 'text',
-          admin: {
-            description: {
-              en: 'OAuth2 refresh token for Google API access. Automatically populated via the /api/google/refresh-token callback.',
-              pt: 'Token de atualização OAuth2 para acesso à API do Google. Preenchido automaticamente via o callback /api/google/refresh-token.',
-            },
-            readOnly: true,
-            components: {
-              afterInput: ['@/payload/globals/Settings/components/RefreshTokenButton'],
             },
           },
         },

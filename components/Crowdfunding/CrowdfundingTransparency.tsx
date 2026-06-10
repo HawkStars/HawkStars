@@ -78,7 +78,7 @@ const CrowdfundingTransparency = ({
                       clipRule='evenodd'
                     />
                   </svg>
-                  {weeklyIncrease || t('transparency.weekly_increase')}
+                  {weeklyIncrease || 0}
                 </p>
               </div>
               <div>
