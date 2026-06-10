@@ -1,9 +1,6 @@
-onlyBuiltDependencies:
-  - '@sentry/cli'
-  - esbuild
-  - msw
-  - unrs-resolver
-
-# sharp intentionally excluded (matches package.json "ignoredBuiltDependencies")
-ignoredBuiltDependencies:
-  - sharp
+allowBuilds:
+  '@sentry/cli': true
+  esbuild: true
+  msw: true
+  unrs-resolver: true
+  sharp: false
