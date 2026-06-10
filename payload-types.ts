@@ -2363,7 +2363,6 @@ export type BentoGridItem = {
         | 'center-right'
         | 'bottom-left'
         | 'bottom-center'
-        | 'bottom-right'
       )
     | null;
   id?: string | null;
@@ -6341,7 +6340,7 @@ export interface EventsList {
   createdAt?: string | null;
 }
 /**
- * Configure website settings including Instagram feed access tokens and Google Drive integration.
+ * Configure website settings including Instagram feed access tokens.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "settings".
@@ -6356,10 +6355,6 @@ export interface Setting {
    * Numeric user ID for the Instagram Graph API. Use the "Fetch from token" button to resolve it automatically once the access token above is saved.
    */
   instagramUserId?: string | null;
-  /**
-   * OAuth2 refresh token for Google API access. Automatically populated via the /api/google/refresh-token callback.
-   */
-  googleRefreshToken?: string | null;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -6661,7 +6656,6 @@ export interface EventsListStatsItemSelect<T extends boolean = true> {
 export interface SettingsSelect<T extends boolean = true> {
   instagramToken?: T;
   instagramUserId?: T;
-  googleRefreshToken?: T;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;

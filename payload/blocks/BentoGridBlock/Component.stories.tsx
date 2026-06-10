@@ -73,7 +73,7 @@ const sampleItems: BentoGridItem = [
       alt: 'Support background',
     },
     overlayOpacity: '50',
-    contentPosition: 'bottom-right',
+    contentPosition: 'bottom-center',
     link: {
       type: 'custom',
       url: '/contribute',

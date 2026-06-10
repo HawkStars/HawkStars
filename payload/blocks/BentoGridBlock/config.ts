@@ -146,7 +146,6 @@ export const BentoGridBlock: Block = {
             { label: { en: 'Center Right', pt: 'Centro Direito' }, value: 'center-right' },
             { label: { en: 'Bottom Left', pt: 'Canto Inferior Esquerdo' }, value: 'bottom-left' },
             { label: { en: 'Bottom Center', pt: 'Fundo Centro' }, value: 'bottom-center' },
-            { label: { en: 'Bottom Right', pt: 'Canto Inferior Direito' }, value: 'bottom-right' },
           ],
         },
       ],

@@ -52,7 +52,6 @@ import { default as default_2b7ccde5d3739b53425ce7b9eb4364f8 } from '@/payload/b
 import { default as default_d6f551909a59571b6b09d9dbd166a4ef } from '@/payload/globals/MainPage/fields/components/BannerColorAfterInputField'
 import { default as default_a124e7a1baf393d361b39feebeca9df4 } from '@/payload/globals/ProjectsList/components/StatsLabel'
 import { default as default_e3e0508c4af1bd54a085ab28d2517f80 } from '@/payload/globals/EventsList/components/StatsLabel'
-import { default as default_f1058c6327a7987eb96b4edb557d08ee } from '@/payload/globals/Settings/components/RefreshTokenButton'
 import { default as default_311a5f154e8b373fc453af30d4e74fc0 } from '@/payload/components/admin/avatar'
 import { default as default_91bbc66a9b3ed1dae52e0caef1a54af7 } from '@/payload/components/Logo'
 import { default as default_d49a4ffdd2cc75d82d4c892f1e79350d } from '@/payload/components/admin/DashboardStats'
@@ -116,7 +115,6 @@ export const importMap = {
   "@/payload/globals/MainPage/fields/components/BannerColorAfterInputField#default": default_d6f551909a59571b6b09d9dbd166a4ef,
   "@/payload/globals/ProjectsList/components/StatsLabel#default": default_a124e7a1baf393d361b39feebeca9df4,
   "@/payload/globals/EventsList/components/StatsLabel#default": default_e3e0508c4af1bd54a085ab28d2517f80,
-  "@/payload/globals/Settings/components/RefreshTokenButton#default": default_f1058c6327a7987eb96b4edb557d08ee,
   "@/payload/components/admin/avatar#default": default_311a5f154e8b373fc453af30d4e74fc0,
   "@/payload/components/Logo#default": default_91bbc66a9b3ed1dae52e0caef1a54af7,
   "@/payload/components/admin/DashboardStats#default": default_d49a4ffdd2cc75d82d4c892f1e79350d,
