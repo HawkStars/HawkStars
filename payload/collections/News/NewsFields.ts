@@ -153,6 +153,43 @@ const NewsDetails: Tab = {
         },
       },
     },
+    {
+      name: 'references',
+      label: { en: 'References', pt: 'Referências' },
+      type: 'array',
+      admin: {
+        description: {
+          en: 'Optionally add references to other news articles or external links.',
+          pt: 'Opcionalmente adicione referências a outros artigos de notícias ou links externos.',
+        },
+        initCollapsed: true,
+      },
+      fields: [
+        {
+          name: 'title',
+          label: { en: 'Reference Title', pt: 'Título da Referência' },
+          type: 'text',
+          localized: true,
+          admin: {
+            description: {
+              en: 'Title of the reference link',
+              pt: 'Título do link de referência',
+            },
+          },
+        },
+        {
+          name: 'url',
+          label: { en: 'Reference URL', pt: 'URL da Referência' },
+          type: 'text',
+          admin: {
+            description: {
+              en: 'URL of the reference link (internal or external)',
+              pt: 'URL do link de referência (interno ou externo)',
+            },
+          },
+        },
+      ],
+    },
   ],
 };
 

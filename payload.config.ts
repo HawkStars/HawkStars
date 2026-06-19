@@ -124,14 +124,6 @@ export default buildConfig({
         const baseUrl = getServerSideURL();
         const lang = locale?.code || 'pt';
 
-        if (collectionConfig?.slug === 'news') {
-          return `${baseUrl}/${lang}/preview/news/${data?.slug || ''}`;
-        }
-
-        if (collectionConfig?.slug === 'hawk_projects') {
-          return `${baseUrl}/${lang}/preview/projects/${data?.slug || ''}`;
-        }
-
         if (collectionConfig?.slug === 'hawk_events') {
           return `${baseUrl}/${lang}/preview/events/${data?.slug || ''}`;
         }

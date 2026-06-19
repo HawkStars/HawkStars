@@ -14,6 +14,7 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
 import { GROUP_LABELS } from '@/payload/constants';
+import { getServerSideURL } from '@/payload/utilities/getURL';
 
 export const News: CollectionConfig = {
   slug: 'news',
@@ -30,6 +31,14 @@ export const News: CollectionConfig = {
     },
     group: {
       ...GROUP_LABELS.daily,
+    },
+    livePreview: {
+      url: ({ locale, data }) => {
+        const baseUrl = getServerSideURL();
+        const lang = locale?.code || 'pt';
+
+        return `${baseUrl}/${lang}/preview/news/${data.slug}`;
+      },
     },
   },
   defaultPopulate: {

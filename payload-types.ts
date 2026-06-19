@@ -4412,6 +4412,22 @@ export interface News {
    * Optionally link this news article to a project. The article will appear in the project page under "Related News".
    */
   project?: (string | null) | HawkProject;
+  /**
+   * Optionally add references to other news articles or external links.
+   */
+  references?:
+    | {
+        /**
+         * Title of the reference link
+         */
+        title?: string | null;
+        /**
+         * URL of the reference link (internal or external)
+         */
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   meta?: {
     title?: string | null;
     /**
@@ -6012,6 +6028,13 @@ export interface NewsSelect<T extends boolean = true> {
       };
   gallery?: T | MultiImageTypeSelect<T>;
   project?: T;
+  references?:
+    | T
+    | {
+        title?: T;
+        url?: T;
+        id?: T;
+      };
   meta?:
     | T
     | {
