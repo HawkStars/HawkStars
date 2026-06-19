@@ -10,10 +10,7 @@ import NewsSingleInformation from '@/components/news/single/NewsSingleInformatio
 import NewsSingleGallery from '@/components/news/single/NewsSingleGallery';
 import { Language } from '@/i18n/settings';
 
-type PreviewNewsData = {
-  article: News;
-  lng: Language;
-};
+type PreviewNewsData = News & { lng: Language };
 
 type LivePreviewNewsProps = {
   initialData: PreviewNewsData;
@@ -28,19 +25,20 @@ export const LivePreviewNews: React.FC<LivePreviewNewsProps> = ({ initialData, s
   });
 
   if (!data) return null;
-  const { article, lng } = data;
-  const { details, mainImage, gallery } = article || {};
+  const { details, mainImage, gallery, lng, references } = data;
   const image = getImagePayloadUrl(mainImage);
+
+  debugger;
 
   return (
     <>
       {image ? (
-        <NewsSingleHero {...article} heroImage={image} lng={lng as Language} />
+        <NewsSingleHero {...data} heroImage={image} lng={lng as Language} />
       ) : (
-        <NewsSingleHeroNoImage {...article} lng={lng as Language} />
+        <NewsSingleHeroNoImage {...data} lng={lng as Language} />
       )}
 
-      <NewsSingleInformation details={details} />
+      <NewsSingleInformation details={details} references={references} />
       <NewsSingleGallery gallery={gallery} />
     </>
   );

@@ -23,9 +23,7 @@ const NewsPreview = async (props: PageProps) => {
   const newsArticle = await getSingleNewsSlug(slug, lng, { preview: true });
   if (!newsArticle) notFound();
 
-  return (
-    <LivePreviewNews initialData={{ article: newsArticle, lng }} serverURL={getServerSideURL()} />
-  );
+  return <LivePreviewNews initialData={{ ...newsArticle, lng }} serverURL={getServerSideURL()} />;
 };
 
 export default NewsPreview;
