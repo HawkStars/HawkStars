@@ -1,31 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { format } from 'date-fns';
-import { pt } from 'date-fns/locale';
 import { HawkProject, Media, Partner } from '@/payload-types';
-import { FlagIcons } from '@/lib/flags';
 import { getImagePayloadUrl } from '@/lib/image';
 import { coFoundedEuropeanLogoBlue } from '@/utils/models/images/logos';
-
-/* ================================================================== */
-/*  Helper: render a flag icon by FlagIcons key                       */
-/* ================================================================== */
-function FlagIcon({ country }: { country: string }) {
-  const Icon = FlagIcons[country];
-  if (!Icon) return null;
-  return (
-    <span className='aspect-auto h-auto w-10'>
-      {Icon({ title: country, className: 'w-full h-full rounded-full object-cover' })}
-    </span>
-  );
-}
-
-/* ================================================================== */
-/*  Helper: format number with locale (e.g. 38064 → 38064,00)        */
-/* ================================================================== */
-function formatCurrency(amount: number): string {
-  return amount.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
+import { FlagIcon } from '@/lib/icon';
+import ProjectsSingleHero from './single/ProjectsSingleHero';
+import NewsSingleGallery from '../news/single/NewsSingleGallery';
 
 /* ================================================================== */
 /*  Section wrapper for consistent spacing + alternating backgrounds  */
@@ -46,7 +26,7 @@ interface ProjectPageProps {
 }
 
 export default function ProjectPage({ project }: ProjectPageProps) {
-  const { hero, partnersInformation, details, dissemination } = project;
+  const { partnersInformation, details, dissemination } = project;
   const { partners } = partnersInformation || {};
   const { text, phases } = details || {};
 
@@ -54,161 +34,9 @@ export default function ProjectPage({ project }: ProjectPageProps) {
   const results = project.results;
   const gallery = project.gallery;
 
-  /* Date formatting */
-  const startDate = project.startDate ? new Date(project.startDate) : null;
-  const endDate = project.endDate ? new Date(project.endDate) : null;
-
-  const dateLabel = (() => {
-    if (!startDate) return '';
-    if (endDate)
-      return `${format(startDate, 'd', { locale: pt })} a ${format(endDate, "d 'de' MMMM 'de' yyyy", { locale: pt })}`;
-
-    return format(startDate, "d 'de' MMMM 'de' yyyy", { locale: pt });
-  })();
-
-  /* Hero images */
-  const badgeImage = hero?.projectBadge ? getImagePayloadUrl(hero.projectBadge) : null;
-
   return (
     <main>
-      {/* ---------------------------------------------------------- */}
-      {/*  1. HERO SECTION                                           */}
-      {/* ---------------------------------------------------------- */}
-      <Section className='bg-[#eef5f0] pt-32'>
-        <div className='grid gap-10 md:grid-cols-2'>
-          {/* Left column */}
-          <div className=''>
-            {/* Badge */}
-            {badgeImage?.url && (
-              <div className='mb-4'>
-                <Image
-                  src={badgeImage.url}
-                  alt={badgeImage.alt || 'Project badge'}
-                  width={120}
-                  height={120}
-                  className='object-contain'
-                />
-              </div>
-            )}
-
-            {/* Title */}
-            <h1 className='text-4xl font-bold md:text-5xl'>{project.heading}</h1>
-
-            {/* Stats row */}
-            {(hero?.participants || hero?.fundedAmount) && (
-              <div className='mt-6 flex flex-wrap items-center gap-8' data-project-stats>
-                {hero.participants && (
-                  <div className='flex items-center gap-2'>
-                    <svg
-                      className='h-6 w-6 text-gray-600'
-                      fill='none'
-                      stroke='currentColor'
-                      viewBox='0 0 24 24'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth={2}
-                        d='M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'
-                      />
-                    </svg>
-                    <div>
-                      <span className='text-2xl font-bold'>{hero.participants}</span>
-                      <p className='text-sm text-gray-600'>{'Participantes'}</p>
-                    </div>
-                  </div>
-                )}
-                {hero.fundedAmount && (
-                  <div className='flex items-center gap-2'>
-                    <span className='text-xl'>💰</span>
-                    <div>
-                      <span className='text-2xl font-bold'>
-                        {formatCurrency(hero.fundedAmount)}
-                      </span>
-                      <p className='text-sm text-gray-600'>{'Euros Financiados'}</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Date */}
-            {dateLabel && (
-              <div className='mt-4 flex items-center gap-2'>
-                <svg
-                  className='h-5 w-5 text-gray-600'
-                  fill='none'
-                  stroke='currentColor'
-                  viewBox='0 0 24 24'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2}
-                    d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'
-                  />
-                </svg>
-                <span className='text-lg font-semibold'>{dateLabel}</span>
-              </div>
-            )}
-
-            {/* Country flags */}
-            {partners && partners.length > 0 && (
-              <div className='mt-6 flex flex-wrap gap-3'>
-                {partners.map((c, i) => (
-                  <FlagIcon key={i} country={(c.partner as Partner).country} />
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Right column: video + metadata */}
-          <div className='flex flex-col gap-4'>
-            {/* Video */}
-            {hero?.videoUrl && (
-              <div className='aspect-video w-full overflow-hidden rounded-lg bg-black'>
-                <iframe
-                  src={hero.videoUrl}
-                  className='h-full w-full'
-                  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                  allowFullScreen
-                  title='Project video'
-                />
-              </div>
-            )}
-
-            {/* Metadata */}
-            <div className='space-y-1 text-sm text-gray-700'>
-              {project.heading && (
-                <p>
-                  <span className='font-semibold'>Nome do Projeto:</span> {project.heading}
-                </p>
-              )}
-              {project.actionType && (
-                <p>
-                  <span className='font-semibold'>Tipo de Ação:</span> {project.actionType}
-                </p>
-              )}
-              {project.referenceNumber && (
-                <p>
-                  <span className='font-semibold'>Número de Referência:</span>{' '}
-                  {project.referenceNumber}
-                </p>
-              )}
-              {project.beneficiary && (
-                <p>
-                  <span className='font-semibold'>Beneficiário:</span> {project.beneficiary}
-                </p>
-              )}
-              {project.location && (
-                <p>
-                  <span className='font-semibold'>Localização:</span> {project.location}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      </Section>
+      <ProjectsSingleHero {...project} />
       <Section className='bg-bege-dark'>
         {/* Description below hero grid */}
 
@@ -387,38 +215,7 @@ export default function ProjectPage({ project }: ProjectPageProps) {
       {/* ---------------------------------------------------------- */}
       {/*  6. PHOTO GALLERY                                          */}
       {/* ---------------------------------------------------------- */}
-      {gallery &&
-        ((gallery.internalImages && gallery.internalImages.length > 0) ||
-          (gallery.externalImages && gallery.externalImages.length > 0)) && (
-          <Section>
-            <h2 className='mb-8 text-4xl font-bold'>Galeria de Fotos</h2>
-            <div className='grid grid-cols-2 gap-4 md:grid-cols-3'>
-              {gallery.internalImages?.map((item, i) => {
-                const media = item.image as Media;
-                return media?.url ? (
-                  <Image
-                    key={`int-${i}`}
-                    src={media.url}
-                    alt={media.alt || ''}
-                    width={400}
-                    height={300}
-                    className='h-64 w-full rounded-lg object-cover'
-                  />
-                ) : null;
-              })}
-              {gallery.externalImages?.map((item, i) => (
-                <Image
-                  key={`ext-${i}`}
-                  src={item.url}
-                  alt={item.alt}
-                  width={400}
-                  height={300}
-                  className='h-64 w-full rounded-lg object-cover'
-                />
-              ))}
-            </div>
-          </Section>
-        )}
+      <NewsSingleGallery gallery={gallery} />
     </main>
   );
 }

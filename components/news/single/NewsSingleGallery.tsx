@@ -1,9 +1,9 @@
 import { HawkStarsSection } from '@/components/layout';
-import { Media, News } from '@/payload-types';
+import { Media, MultiImageType, News } from '@/payload-types';
 import Image from 'next/image';
 import { FC } from 'react';
 
-type NewsSingleGalleryProps = Pick<News, 'gallery'>;
+type NewsSingleGalleryProps = { gallery: MultiImageType | undefined };
 
 const NewsSingleGallery: FC<NewsSingleGalleryProps> = ({ gallery }) => {
   const galleryImages = [...(gallery?.internalImages || []), ...(gallery?.externalImages || [])];
@@ -38,16 +38,13 @@ const NewsSingleGallery: FC<NewsSingleGalleryProps> = ({ gallery }) => {
               if (!url) return null;
 
               return (
-                <div
-                  key={`image-${i}`}
-                  className='group relative aspect-3/2 overflow-hidden rounded-lg'
-                >
+                <div key={`image-${i}`} className='group relative overflow-hidden rounded-lg'>
                   <Image
                     src={url}
                     alt={alt || ''}
                     width={width || 600}
                     height={height || 400}
-                    className='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
+                    className='aspect-auto h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
                   />
                   <div className='absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/10' />
                 </div>

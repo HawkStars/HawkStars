@@ -23,11 +23,13 @@ const Footer = () => {
           />
         </div>
 
-        <div className='mt-10 grid grid-cols-6 gap-10 max-lg:grid-cols-3 max-sm:grid-cols-1'>
-          {footerInfo?.columns?.map((column) => (
-            <FooterMenu key={column.id} data={column} />
-          ))}
-        </div>
+        {footerInfo && footerInfo.columns && footerInfo.columns?.length > 0 && (
+          <div className='mt-10 grid grid-cols-6 gap-10 max-lg:grid-cols-3 max-sm:grid-cols-1'>
+            {footerInfo?.columns?.map((column) => (
+              <FooterMenu key={column.id} data={column} />
+            ))}
+          </div>
+        )}
       </div>
       <FooterBottom lng={lng} />
     </footer>

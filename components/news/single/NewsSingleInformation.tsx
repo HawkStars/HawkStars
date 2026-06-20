@@ -9,14 +9,14 @@ const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, refere
   return (
     <>
       {text && (
-        <HawkStarsSection className='py-12 lg:py-16'>
-          <div className='mx-auto max-w-3xl'>
+        <HawkStarsSection padding='none' className='py-6 lg:py-12'>
+          <div className='mx-auto max-w-4xl max-lg:mx-4'>
             <div className='bg-green mb-8 h-1 w-16 rounded-full' />
             <p className='text-body_regular leading-relaxed whitespace-pre-line text-gray-700'>
               {text}
             </p>
           </div>
-          <div className='mt-4'>
+          <div className='mt-4 flex max-w-3xl justify-end'>
             <h6>References</h6>
             {references?.map((ref) => {
               if (!ref.url) return null;

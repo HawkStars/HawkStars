@@ -4,3 +4,4 @@ allowBuilds:
   msw: true
   unrs-resolver: true
   sharp: true
+minimumReleaseAge: 2880

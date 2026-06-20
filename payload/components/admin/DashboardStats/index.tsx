@@ -1,5 +1,6 @@
 'use client';
 
+import { formatCurrency } from '@/lib/utils/currency';
 import React, { useEffect, useState } from 'react';
 
 type Stats = {
@@ -73,9 +74,6 @@ export const DashboardStats: React.FC = () => {
 
     fetchStats();
   }, []);
-
-  const formatCurrency = (value: number) =>
-    `€${value.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
   if (loading) {
     return (
