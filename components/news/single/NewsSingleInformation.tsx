@@ -16,8 +16,8 @@ const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, refere
               {text}
             </p>
           </div>
-          <div className='mt-4 flex max-w-3xl justify-end'>
-            <h6>References</h6>
+          <div className='mx-auto mt-6 max-w-4xl max-lg:mx-4'>
+            <h6 className='text-h6_bold text-green'>References</h6>
             {references?.map((ref) => {
               if (!ref.url) return null;
               return (

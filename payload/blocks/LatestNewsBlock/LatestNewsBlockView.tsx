@@ -53,7 +53,7 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
           </div>
         )}
 
-        <div className='overflow-hidden rounded-xl border border-gray-200 bg-white'>
+        <div className='overflow-hidden rounded-xl'>
           <div className='flex flex-col md:flex-row'>
             {item.image?.url && (
               <div className='relative h-64 w-full shrink-0 md:h-auto md:w-1/3'>
@@ -69,7 +69,7 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
             <div className='flex flex-1 flex-col justify-center p-6 md:p-10'>
               <div className='mb-3 flex flex-wrap items-center gap-3'>
                 {item.badge && (
-                  <span className='bg-bege-light rounded-full px-3 py-1 text-xs font-semibold text-black uppercase'>
+                  <span className='border-b-bege-light px-3 py-1 text-xs font-semibold text-black uppercase'>
                     {item.badge}
                   </span>
                 )}
