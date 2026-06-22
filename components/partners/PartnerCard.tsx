@@ -23,7 +23,12 @@ const PartnerInfo: React.FC<PartnerInfoProps> = ({ name, links }) => {
 
             return (
               <div key={index}>
-                <Link href={link.url} className='underline' target='_blank' rel='noopener noreferrer'>
+                <Link
+                  href={link.url}
+                  className='underline'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
                   {icon && (
                     <Image src={icon} alt={`${link.platform} icon`} width={24} height={24} />
                   )}
@@ -69,7 +74,7 @@ const PartnerCard = (partner: Partner): JSX.Element => {
       )}
 
       <div className='flex gap-2 px-4 lg:flex-col'>
-        <div className='lg:hidden'>
+        <div className='flex w-full justify-around lg:hidden'>
           <PartnerInfo name={name} links={links} />
         </div>
         <div className='flex max-lg:hidden lg:flex-col'>

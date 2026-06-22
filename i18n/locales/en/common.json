@@ -32,5 +32,14 @@
   "see_more": "See More",
   "terms_and_conditions": "Terms & Conditions",
   "download": "Download",
-  "instagram": "Our Instagram"
+  "instagram": "Our Instagram",
+  "label": {
+    "hawk_projects": "Hawk Project",
+    "hawk_events": "Hawk Event",
+    "press_releases": "Press Release",
+    "blog": "Blog Post",
+    "news": "News",
+    "announcement": "Announcement",
+    "other": "Other"
+  }
 }

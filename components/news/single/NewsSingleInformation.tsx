@@ -10,29 +10,30 @@ const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, refere
     <>
       {text && (
         <HawkStarsSection padding='none' className='py-6 lg:py-12'>
-          <div className='mx-auto max-w-4xl max-lg:mx-4'>
-            <div className='bg-green mb-8 h-1 w-16 rounded-full' />
+          <div className='mx-auto max-w-4xl max-lg:flex max-lg:flex-col max-lg:gap-6 max-lg:px-3'>
             <p className='text-body_regular leading-relaxed whitespace-pre-line text-gray-700'>
               {text}
             </p>
           </div>
-          <div className='mx-auto mt-6 max-w-4xl max-lg:mx-4'>
-            <h6 className='text-h6_bold text-green'>References</h6>
-            {references?.map((ref) => {
-              if (!ref.url) return null;
-              return (
-                <a
-                  key={ref.id}
-                  href={ref.url}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='text-green underline'
-                >
-                  {ref.title || ref.url}
-                </a>
-              );
-            })}
-          </div>
+          {references && references.length > 0 && (
+            <div className='mx-auto mt-6 max-w-4xl max-lg:mx-4'>
+              <h6 className='text-h6_bold text-green'>References</h6>
+              {references.map((ref) => {
+                if (!ref.url) return null;
+                return (
+                  <a
+                    key={ref.id}
+                    href={ref.url}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='text-green underline'
+                  >
+                    {ref.title || ref.url}
+                  </a>
+                );
+              })}
+            </div>
+          )}
         </HawkStarsSection>
       )}
 

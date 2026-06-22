@@ -25,7 +25,7 @@ const NewsSingleHero: FC<NewsSingleHeroProps> = ({ title, type, heroImage, publi
 
   return (
     <HawkStarsSection padding='none' className='bg-green' spacing='loose'>
-      <div className='mx-auto flex max-w-5xl gap-1'>
+      <div className='mx-auto flex max-w-5xl gap-1 max-lg:mx-3 max-lg:flex-col'>
         <div className='flex flex-col gap-2'>
           <HawkLabel type={type} />
           <h1 className='text-h1_semibold text-white drop-shadow-lg'>{title}</h1>
