@@ -23,7 +23,7 @@ const ErasmusPage = async (props: LanguagePageProps) => {
   const { t } = await getServerTranslation(lng, 'erasmus');
 
   return (
-    <HawkStarsSection padding='none'>
+    <HawkStarsSection padding='none' className='flex-col'>
       <HeroSection t={t} />
       <FlagshipProgrammes t={t} />
       <MoreOpportunities t={t} />

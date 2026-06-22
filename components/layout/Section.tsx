@@ -24,7 +24,7 @@ const innerSectionProps = variantProps({
       half: tw`w-1/2`,
     },
     padding: {
-      none: tw`px-0 max-lg:px-2`,
+      none: tw`px-0`,
       // Legacy wide-gutter layout used across the org pages.
       default: tw`px-4 xl:mx-auto xl:px-40`,
       // Standard responsive gutter, matches `.section-container`.

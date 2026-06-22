@@ -22,7 +22,7 @@ const Curators = async ({ lng }: LanguageProps) => {
           return (
             <div key={curator.id}>
               <Link href={`/${lng}/curator/${curator.slug}`} className='flex flex-col gap-5'>
-                <div className='md:mx-auto'>
+                <div className='mx-auto'>
                   <Image
                     src={(curator.image as Media)?.url || ''}
                     alt={(curator.image as Media)?.alt || 'Event Image'}

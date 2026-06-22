@@ -25,7 +25,7 @@ const HowToHelpUsPage = async (props: LanguagePageProps) => {
   const { t } = await getServerTranslation(lng, 'how-to-help-us');
 
   return (
-    <HawkStarsSection padding='none'>
+    <HawkStarsSection padding='none' className='flex-col'>
       <HeroSection t={t} />
       <WhyJoinSection t={t} />
       <PathsSection t={t} />

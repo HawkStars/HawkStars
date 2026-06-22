@@ -30,7 +30,7 @@ const PartnersPage = async (props: { params: Promise<{ lng: Language }> }) => {
   const internationalPartners = partners.filter((partner) => partner.type == 'international');
   return (
     <section>
-      <HawkStarsSection>
+      <HawkStarsSection className='flex-col'>
         <h1 className='text-h1_semibold mt-5 text-center'>{t('title')}</h1>
         <p className='my-4 text-center text-lg'>{t('description')}</p>
         {nationalPartners.length > 0 && (

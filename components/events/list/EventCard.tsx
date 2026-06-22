@@ -29,8 +29,8 @@ const EventCard = ({ event, lng }: EventCardProps) => {
   return (
     <Link href={eventUrl} className='group relative flex flex-col gap-5 pb-6 sm:flex-row sm:gap-8'>
       {/* Image */}
-      <div className='relative h-48 w-full shrink-0 overflow-hidden rounded-lg sm:h-52 sm:w-64 lg:w-72'>
-        {image?.url && (
+      {image?.url && (
+        <div className='relative h-48 w-full shrink-0 overflow-hidden rounded-lg sm:h-52 sm:w-64 lg:w-72'>
           <Image
             src={image.url}
             alt={event.heading ?? image.alt ?? ''}
@@ -38,29 +38,29 @@ const EventCard = ({ event, lng }: EventCardProps) => {
             className='object-cover'
             sizes='(max-width: 640px) 100vw, 288px'
           />
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Content */}
       <div className='flex flex-1 flex-col justify-center gap-2'>
-        <h3 className='text-xl font-bold tracking-tight text-foreground lg:text-2xl'>
+        <h3 className='text-foreground text-xl font-bold tracking-tight lg:text-2xl'>
           {event.heading}
         </h3>
 
         {event.subheading && (
-          <p className='text-sm font-medium uppercase tracking-wider text-muted-foreground'>
+          <p className='text-muted-foreground text-sm font-medium tracking-wider uppercase'>
             {event.subheading}
           </p>
         )}
 
         {event.description && (
-          <p className='line-clamp-2 text-sm leading-relaxed text-muted-foreground lg:text-base'>
+          <p className='text-muted-foreground line-clamp-2 text-sm leading-relaxed lg:text-base'>
             {event.description}
           </p>
         )}
 
         {event.date && (
-          <div className='mt-auto flex items-center gap-2 pt-2 text-sm font-medium text-muted-foreground'>
+          <div className='text-muted-foreground mt-auto flex items-center gap-2 pt-2 text-sm font-medium'>
             <LuCalendarDays className='size-4' />
             <span>{formatDateRange(event.date, event.endDate, event.isDateRange)}</span>
           </div>
@@ -68,7 +68,7 @@ const EventCard = ({ event, lng }: EventCardProps) => {
       </div>
 
       {/* Bottom line — grows left to right on hover */}
-      <span className='absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-primary transition-transform duration-500 ease-out group-hover:scale-x-100' />
+      <span className='bg-primary absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100' />
     </Link>
   );
 };

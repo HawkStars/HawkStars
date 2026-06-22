@@ -30,7 +30,7 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
           {isMultiColumn ? data.dropdown?.dropdownTitle : data.link?.label}
           {isMultiColumn && (
             <LuChevronDown
-              className={cn('transition-transform duration-300', {
+              className={cn('my-auto transition-transform duration-300', {
                 'rotate-180': showOptions,
               })}
             />
