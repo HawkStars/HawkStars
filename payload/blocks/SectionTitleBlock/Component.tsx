@@ -1,5 +1,6 @@
 import type { SectionTitleBlock as SectionTitleBlockProps } from '@/payload-types';
 import SectionTitle from '@/components/ui/SectionTitle';
+import { HawkStarsSection } from '@/components/layout';
 
 export const SectionTitleBlockComponent: React.FC<SectionTitleBlockProps> = ({
   title,
@@ -7,12 +8,12 @@ export const SectionTitleBlockComponent: React.FC<SectionTitleBlockProps> = ({
   sectionId,
 }) => {
   return (
-    <div className='section-tight section-container' data-blockId='sectionTitleBlock'>
+    <HawkStarsSection spacing='tight' padding='none' container data-blockId='sectionTitleBlock'>
       <SectionTitle
         title={title}
         sectionId={sectionId ?? ''}
         subtitle={subtitle ?? undefined}
       />
-    </div>
+    </HawkStarsSection>
   );
 };

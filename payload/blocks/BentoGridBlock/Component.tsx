@@ -9,6 +9,7 @@ import Link from 'next/link';
 import React from 'react';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { getLinkFieldInformation } from '@/utils/page';
+import { HawkStarsSection } from '@/components/layout';
 
 const gridColumnLg = {
   2: 'lg:grid-cols-2',
@@ -84,8 +85,9 @@ const BentoGridBlock: React.FC<BentoGridBlockProps> = ({
   if (!items || items.length === 0) return null;
 
   return (
-    <section
-      className='py-8 md:py-12 lg:py-16'
+    <HawkStarsSection
+      spacing='tight'
+      padding='none'
       id={sectionId || undefined}
       data-blockId='bentoGrid'
     >
@@ -212,7 +214,7 @@ const BentoGridBlock: React.FC<BentoGridBlockProps> = ({
           })}
         </div>
       </div>
-    </section>
+    </HawkStarsSection>
   );
 };
 

@@ -215,7 +215,7 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
   for (let day = 1; day <= daysInMonth; day++) calendarDays.push(day);
 
   return (
-    <div className='flex flex-col gap-8'>
+    <div className='mx-4 flex flex-col gap-8 pt-4'>
       {/* Header */}
       <div className='flex flex-col gap-4'>
         <h1 className='text-3xl font-bold uppercase md:text-5xl'>{translations.title}</h1>

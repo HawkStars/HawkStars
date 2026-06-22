@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { HawkStarsSection } from '@/components/layout';
 
 const heightClasses = {
   fullscreen: 'min-h-screen',
@@ -67,7 +68,9 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
   if (!data || !slides || slides.length === 0) return null;
 
   return (
-    <section
+    <HawkStarsSection
+      spacing='none'
+      padding='none'
       className={cn(
         'relative w-full overflow-hidden',
         heightClasses[height as keyof typeof heightClasses]
@@ -187,7 +190,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
           ))}
         </div>
       )}
-    </section>
+    </HawkStarsSection>
   );
 };
 

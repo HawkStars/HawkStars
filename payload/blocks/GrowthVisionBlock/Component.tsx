@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 import type { GrowthVisionBlock as GrowthVisionBlockType } from '@/payload-types';
+import { HawkStarsSection } from '@/components/layout';
 
 const backgroundStyles = {
   white: 'bg-white text-black',
@@ -34,12 +35,14 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
   const bg = (background ?? 'bege') as keyof typeof backgroundStyles;
 
   return (
-    <section
-      className={cn('section', backgroundStyles[bg])}
+    <HawkStarsSection
+      spacing='default'
+      padding='none'
+      container
+      className={cn(backgroundStyles[bg])}
       id={sectionId || undefined}
       data-blockId='growthVisionBlock'
     >
-      <div className='section-container'>
         {/* Header */}
         <div className={cn('mb-12 lg:mb-14', titleLocationStyles[titleLocation ?? 'center'])}>
           {title && <h2 className='text-h1_semibold tracking-tight text-balance'>{title}</h2>}
@@ -103,7 +106,6 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
             );
           })}
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

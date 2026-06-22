@@ -24,10 +24,9 @@ const NewsSingleHero: FC<NewsSingleHeroProps> = ({ title, type, heroImage, publi
   if (!heroImage) return null;
 
   return (
-    <HawkStarsSection padding='none'>
-      {/* Title overlay on hero */}
-      <div className='bg-green flex px-4 pt-10 pb-10 xl:px-40'>
-        <div className='mx-auto max-w-4xl'>
+    <HawkStarsSection padding='none' className='bg-green' spacing='loose'>
+      <div className='mx-auto flex max-w-5xl gap-1'>
+        <div className='flex flex-col gap-2'>
           <HawkLabel type={type} />
           <h1 className='text-h1_semibold text-white drop-shadow-lg'>{title}</h1>
           {formattedDate && (
@@ -35,7 +34,7 @@ const NewsSingleHero: FC<NewsSingleHeroProps> = ({ title, type, heroImage, publi
           )}
         </div>
 
-        <div className='relative mt-5 h-48 w-auto max-w-4xl flex-1 max-lg:mx-4'>
+        <div className='relative mt-5 h-48 w-full max-w-1/3 max-lg:mx-4'>
           <Image
             src={heroImage.url || ''}
             alt={heroImage.alt || ''}

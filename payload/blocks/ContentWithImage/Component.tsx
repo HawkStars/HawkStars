@@ -4,6 +4,7 @@ import RichText from '@/payload/components/RichText';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
+import { HawkStarsSection } from '@/components/layout';
 
 export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
   title,
@@ -20,8 +21,10 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
   const width = imageInfo?.width;
 
   return (
-    <div
-      className='section-container section'
+    <HawkStarsSection
+      spacing='default'
+      padding='none'
+      container
       id={sectionId || undefined}
       data-blockId='contentWithImage'
     >
@@ -56,6 +59,6 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
           {description && <RichText data={description} />}
         </div>
       </div>
-    </div>
+    </HawkStarsSection>
   );
 };

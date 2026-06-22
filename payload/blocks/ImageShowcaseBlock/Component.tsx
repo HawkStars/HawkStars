@@ -5,6 +5,7 @@ import Image from 'next/image';
 import type { ImageShowcaseBlock as ImageShowcaseBlockProps } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { cn } from '@/lib/utils';
+import { HawkStarsSection } from '@/components/layout';
 
 const TICK_INTERVAL = 50;
 
@@ -68,8 +69,7 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
   const upcomingIndex = nextIndex(activeIndex);
 
   return (
-    <section className='section' id={sectionId || undefined} data-blockId='imageShowcase'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='imageShowcase'>
         <div className='grid gap-2 lg:grid-cols-[3fr_1fr] lg:gap-4'>
           {/* Main showcased image */}
           <div ref={mainImageRef} className='relative max-h-120 min-h-180 w-full rounded-xl'>
@@ -136,7 +136,6 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
             })}
           </div>
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

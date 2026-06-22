@@ -8,6 +8,7 @@ import { LuChevronLeft, LuChevronRight, LuQuote } from 'react-icons/lu';
 import type { ProjectTestimonialBlock as ProjectTestimonialBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
+import { HawkStarsSection } from '@/components/layout';
 
 const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) => {
   if (!data) return null;
@@ -230,15 +231,16 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
   );
 
   return (
-    <section
+    <HawkStarsSection
+      spacing='default'
+      padding='none'
+      container
       className={cn(
-        'section',
         backgroundClasses[backgroundColor as keyof typeof backgroundClasses]
       )}
       id={sectionId || undefined}
       data-blockId='projectTestimonialBlock'
     >
-      <div className='section-container'>
         {/* Section Header */}
         {(title || subtitle) && (
           <div className='section-header text-center'>
@@ -280,8 +282,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
             {renderProjectMedia()}
           </div>
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };
 

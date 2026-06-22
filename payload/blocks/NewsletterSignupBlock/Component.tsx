@@ -5,6 +5,7 @@ import { LuMail } from 'react-icons/lu';
 import { PiCheckCircleThin } from 'react-icons/pi';
 import type { NewsletterSignupBlock as NewsletterSignupBlockProps } from '@/payload-types';
 import { Button } from '@/components/ui/button';
+import { HawkStarsSection } from '@/components/layout';
 
 export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
   title,
@@ -26,8 +27,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
   };
 
   return (
-    <section className='section-tight' id={sectionId || undefined} data-blockId='newsletterSignup'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='tight' padding='none' container id={sectionId || undefined} data-blockId='newsletterSignup'>
         <div
           className='rounded-2xl p-8 text-white lg:p-12'
           style={{ background: 'linear-gradient(135deg, #0a7558 0%, #064f39 100%)' }}
@@ -69,7 +69,6 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
             </p>
           </div>
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

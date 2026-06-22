@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { LuArrowRight } from 'react-icons/lu';
+import { HawkStarsSection } from '@/components/layout';
 
 export type UpcomingEventItem = {
   heading: string;
@@ -29,8 +30,7 @@ export const UpcomingHawkEventBlockView: React.FC<UpcomingHawkEventBlockViewProp
   event,
 }) => {
   return (
-    <section className='section' id={sectionId || undefined} data-blockId='upcomingHawkEvent'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='upcomingHawkEvent'>
         {(title || subtitle) && (
           <div className='section-header text-center'>
             {title && (
@@ -84,7 +84,6 @@ export const UpcomingHawkEventBlockView: React.FC<UpcomingHawkEventBlockViewProp
             </div>
           </div>
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

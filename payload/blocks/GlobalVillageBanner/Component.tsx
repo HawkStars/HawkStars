@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 
 import type { GlobalVillageBannerBlock } from '@/payload-types';
+import { HawkStarsSection } from '@/components/layout';
 
 import starPng from '@/public/images/icons/training_center/star.png';
 import gridPng from '@/public/images/icons/training_center/grid.png';
@@ -11,7 +12,7 @@ export const GlobalVillageBannerBlockComponent: React.FC<GlobalVillageBannerBloc
   sectionId,
 }) => {
   return (
-    <section className={'bg-green'} id={sectionId || undefined} data-blockId='globalVillageBanner'>
+    <HawkStarsSection spacing='none' padding='none' className='bg-green' id={sectionId || undefined} data-blockId='globalVillageBanner'>
       <div className='relative mx-auto max-w-6xl px-3 py-24 lg:px-40 lg:py-40'>
         <p className='text-white'>{text}</p>
         <Image
@@ -25,6 +26,6 @@ export const GlobalVillageBannerBlockComponent: React.FC<GlobalVillageBannerBloc
           className='absolute bottom-4 left-4 lg:bottom-10 lg:left-20 xl:left-10'
         />
       </div>
-    </section>
+    </HawkStarsSection>
   );
 };

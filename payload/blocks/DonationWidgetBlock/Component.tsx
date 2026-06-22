@@ -3,13 +3,14 @@
 import React from 'react';
 import type { DonationWidgetBlock as DonationWidgetBlockProps } from '@/payload-types';
 import DonationWidget from '@/components/contribute/DonationWidget';
+import { HawkStarsSection } from '@/components/layout';
 
 export const DonationWidgetBlock: React.FC<DonationWidgetBlockProps> = ({ sectionId }) => {
   return (
-    <section className='section' id={sectionId || undefined} data-blockId='donationWidget'>
-      <div className='section-container flex justify-center'>
-        <DonationWidget />
-      </div>
-    </section>
+    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='donationWidget'>
+        <div className='flex justify-center'>
+          <DonationWidget />
+        </div>
+    </HawkStarsSection>
   );
 };

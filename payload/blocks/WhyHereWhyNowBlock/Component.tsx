@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 import { WhyHereWhyNowBlock as WhyHereWhyNowBlockProps } from '@/payload-types';
+import { HawkStarsSection } from '@/components/layout';
 
 const backgroundStyles = {
   white: 'bg-white text-black',
@@ -31,12 +32,14 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
   const bg = (background ?? 'bege') as keyof typeof backgroundStyles;
 
   return (
-    <section
-      className={cn('section', backgroundStyles[bg])}
+    <HawkStarsSection
+      spacing='default'
+      padding='none'
+      container
+      className={cn(backgroundStyles[bg])}
       id={sectionId || undefined}
       data-blockId='whyHereWhyNowBlock'
     >
-      <div className='section-container'>
         {/* Header */}
         <div className='mb-12 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between lg:mb-14'>
           <div>
@@ -84,7 +87,6 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
             );
           })}
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import type { SocialProofBlock as SocialProofBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
+import { HawkStarsSection } from '@/components/layout';
 
 const textAlignClasses = {
   left: 'text-left',
@@ -25,12 +26,14 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
   };
 
   return (
-    <section
-      className={cn('section-tight', bgClasses[backgroundColor as keyof typeof bgClasses])}
+    <HawkStarsSection
+      spacing='tight'
+      padding='none'
+      container
+      className={cn(bgClasses[backgroundColor as keyof typeof bgClasses])}
       id={sectionId || undefined}
       data-blockId='socialProof'
     >
-      <div className='section-container'>
         {(title || subtitle) && (
           <div
             className={cn(
@@ -73,7 +76,6 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
             </div>
           ))}
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

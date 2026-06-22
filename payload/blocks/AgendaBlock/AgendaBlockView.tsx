@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { LuArrowRight, LuCalendar } from 'react-icons/lu';
+import { HawkStarsSection } from '@/components/layout';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -265,7 +266,7 @@ export function AgendaBlockView({
   const label = linkLabel || 'Ver mais';
 
   return (
-    <section id={sectionId ?? undefined} className='w-full py-12' data-blockId='agenda'>
+    <HawkStarsSection spacing='none' padding='none' className='w-full py-12' id={sectionId ?? undefined} data-blockId='agenda'>
       <div className='mx-auto max-w-4xl px-4'>
         {/* Header */}
         {(title || subtitle) && (
@@ -320,6 +321,6 @@ export function AgendaBlockView({
           </div>
         )}
       </div>
-    </section>
+    </HawkStarsSection>
   );
 }

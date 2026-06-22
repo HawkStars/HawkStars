@@ -9,6 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { HawkStarsSection } from '@/components/layout';
 
 export const AccordionBlock: React.FC<AccordionBlockProps> = ({
   title,
@@ -44,8 +45,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
   const styles = variantStyles[variant as keyof typeof variantStyles] || variantStyles.default;
 
   return (
-    <section className='section' id={sectionId || undefined} data-blockId='accordion'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='accordion'>
         {(title || description) && (
           <div className='section-header text-center'>
             {title && (
@@ -103,7 +103,6 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
             </Accordion>
           )}
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

@@ -5,6 +5,7 @@ import type { CallToActionBlock as CTABlockProps } from '@/payload-types';
 import { CMSLink } from '@/payload/components/Link';
 import Image from 'next/image';
 import { getImagePayloadUrl } from '@/lib/image';
+import { HawkStarsSection } from '@/components/layout';
 
 export const CallToActionBlock: React.FC<CTABlockProps> = ({
   title,
@@ -16,8 +17,7 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
   const imageInfo = getImagePayloadUrl(image);
 
   return (
-    <section className='section-loose' id={sectionId || undefined} data-blockId='cta'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='loose' padding='none' container id={sectionId || undefined} data-blockId='cta'>
         <div className='bg-muted relative flex w-full flex-col justify-between gap-8 overflow-hidden rounded-4xl border p-8 md:flex-row md:items-center md:gap-12 md:p-12'>
           <div className='flex h-full max-w-lg flex-col justify-center'>
             <h1 className='text-4xl font-medium tracking-tighter text-balance md:text-6xl'>
@@ -48,7 +48,6 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
             </div>
           )}
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

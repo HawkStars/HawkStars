@@ -3,6 +3,7 @@ import type { StatsBlock as StatsBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { getIcon } from '@/lib/icon';
 import { CMSLink } from '@/payload/components/Link';
+import { HawkStarsSection } from '@/components/layout';
 
 const columnsClass = {
   '2': 'grid-cols-1 sm:grid-cols-2',
@@ -53,12 +54,14 @@ export const StatsBlock: React.FC<StatsBlockProps> = ({
   }
 
   return (
-    <section
-      className={cn('section', backgroundStyles[background as keyof typeof backgroundStyles])}
+    <HawkStarsSection
+      spacing='default'
+      padding='none'
+      container
+      className={cn(backgroundStyles[background as keyof typeof backgroundStyles])}
       id={sectionId || undefined}
       data-blockId='statsBlock'
     >
-      <div className='section-container'>
         {/* Stats Grid */}
         <div
           className={cn('grid gap-6 lg:gap-8', columnsClass[columns as keyof typeof columnsClass])}
@@ -117,7 +120,6 @@ export const StatsBlock: React.FC<StatsBlockProps> = ({
             ))}
           </div>
         )}
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

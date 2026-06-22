@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import type { ImageComparisonSliderBlock as ImageComparisonSliderBlockProps } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
+import { HawkStarsSection } from '@/components/layout';
 
 export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProps> = ({
   title,
@@ -42,8 +43,7 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
   if (!before || !after) return null;
 
   return (
-    <section className='section' id={sectionId || undefined} data-blockId='imageComparisonSlider'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='imageComparisonSlider'>
         {title && (
           <h2 className='mb-10 text-center text-3xl font-bold tracking-tight text-balance lg:mb-12 lg:text-4xl'>
             {title}
@@ -105,7 +105,6 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
             </div>
           </div>
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

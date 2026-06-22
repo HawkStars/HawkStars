@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { LuStar, LuQuote, LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import type { ImageType, TestimonialBlock as TestimonialBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
+import { HawkStarsSection } from '@/components/layout';
 import { getImagePayloadUrl } from '@/lib/image';
 
 type Testimonial = {
@@ -155,11 +156,13 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
   }
 
   return (
-    <section
-      className={cn('section', backgroundColor && backgroundClasses[backgroundColor])}
+    <HawkStarsSection
+      spacing='default'
+      padding='none'
+      container
+      className={cn(backgroundColor && backgroundClasses[backgroundColor])}
       data-blockId='testimonialBlock'
     >
-      <div className='section-container'>
         {/* Header */}
         {(title || subtitle) && (
           <div className='section-header text-center'>
@@ -259,7 +262,6 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
             ))}
           </div>
         )}
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

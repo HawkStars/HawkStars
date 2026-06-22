@@ -4,6 +4,7 @@ import { LuQuote } from 'react-icons/lu';
 import type { QuoteHighlightBlock as QuoteHighlightBlockProps } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { cn } from '@/lib/utils';
+import { HawkStarsSection } from '@/components/layout';
 
 export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
   quote,
@@ -17,8 +18,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
   const quoteLength = quote.length;
 
   return (
-    <section className='section' id={sectionId || undefined} data-blockId='quoteHighlight'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='quoteHighlight'>
         {style === 'centered' && (
           <div className='bg-bege-light mx-auto max-w-4xl rounded-2xl px-8 py-12 text-center lg:px-16'>
             <LuQuote className='text-green mx-auto mb-6 h-14 w-14 opacity-60' />
@@ -95,7 +95,6 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
             </div>
           </div>
         )}
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

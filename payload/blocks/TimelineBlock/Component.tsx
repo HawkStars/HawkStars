@@ -3,6 +3,7 @@ import Image from 'next/image';
 import type { TimelineBlock as TimelineBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
+import { HawkStarsSection } from '@/components/layout';
 
 export const TimelineBlock: React.FC<TimelineBlockProps> = ({
   title,
@@ -16,8 +17,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
   }
 
   return (
-    <section className='section' id={sectionId || undefined} data-blockId={blockType}>
-      <div className='section-container'>
+    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId={blockType}>
         {title && (
           <h2 className='mb-12 text-center text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
             {title}
@@ -99,7 +99,6 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
             </div>
           </div>
         )}
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

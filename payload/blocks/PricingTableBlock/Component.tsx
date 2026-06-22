@@ -2,6 +2,7 @@ import React from 'react';
 import { LuCheck, LuStar } from 'react-icons/lu';
 import type { PricingTableBlock as PricingTableBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
+import { HawkStarsSection } from '@/components/layout';
 import { Button } from '@/components/ui/button';
 
 export const PricingTableBlock: React.FC<PricingTableBlockProps> = ({
@@ -15,8 +16,7 @@ export const PricingTableBlock: React.FC<PricingTableBlockProps> = ({
   }
 
   return (
-    <section className='section' id={sectionId || undefined} data-blockId='pricingTable'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='pricingTable'>
         {/* Header */}
         {(title || subtitle) && (
           <div className='section-header text-center'>
@@ -102,7 +102,6 @@ export const PricingTableBlock: React.FC<PricingTableBlockProps> = ({
             </div>
           ))}
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

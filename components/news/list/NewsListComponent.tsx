@@ -28,7 +28,7 @@ const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {
 
   return (
     <HawkStarsSection className='py-10 lg:py-14'>
-      <div className='flex flex-col gap-6'>
+      <div className='flex w-full flex-col gap-6'>
         {docs &&
           docs.map((article, articleIndex) => {
             const image = getImagePayloadUrl(article.mainImage);

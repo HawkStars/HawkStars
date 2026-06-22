@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { LuCalendar, LuArrowRight } from 'react-icons/lu';
 import HawkLabel from '@/components/common/hawk-label';
+import { HawkStarsSection } from '@/components/layout';
 
 export type LatestNewsItem = {
   heading: string;
@@ -39,8 +40,7 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
   item,
 }) => {
   return (
-    <section className='section' id={sectionId || undefined} data-blockId='latestNews'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='latestNews'>
         {(title || subtitle) && (
           <div className='section-header text-center'>
             {title && (
@@ -96,7 +96,6 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
             </div>
           </div>
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

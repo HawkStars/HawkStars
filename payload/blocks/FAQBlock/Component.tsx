@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { LuChevronDown } from 'react-icons/lu';
 import type { FAQBlock as FAQBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
+import { HawkStarsSection } from '@/components/layout';
 
 export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -13,8 +14,7 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId
   }
 
   return (
-    <section className='section' id={sectionId || undefined} data-blockId='faq'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='faq'>
         {title && (
           <h2 className='mb-12 text-center text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
             {title}
@@ -77,7 +77,6 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId
             );
           })}
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

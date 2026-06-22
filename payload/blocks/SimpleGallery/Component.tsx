@@ -11,6 +11,7 @@ import {
 import { SimpleGallery as SimpleGalleryProps } from '@/payload-types';
 import { getImagePayloadUrl, getCloudinaryBlurURL } from '@/lib/image';
 import Image from 'next/image';
+import { HawkStarsSection } from '@/components/layout';
 
 const SimpleGallery: React.FC<SimpleGalleryProps> = ({
   title = 'Beautiful Interiors.',
@@ -19,8 +20,7 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({
   sectionId,
 }) => {
   return (
-    <section className='section-loose' id={sectionId || undefined} data-blockId='simpleGallery'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='loose' padding='none' container id={sectionId || undefined} data-blockId='simpleGallery'>
         <h2 className='mb-4 text-center text-4xl font-semibold tracking-tight text-balance'>
           {title}
         </h2>
@@ -69,8 +69,7 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({
             <CarouselNext className='right-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50' />
           </Carousel>
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };
 

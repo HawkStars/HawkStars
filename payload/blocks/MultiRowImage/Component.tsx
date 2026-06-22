@@ -4,6 +4,7 @@ import { getImagePayloadUrl } from '@/lib/image';
 import { cn } from '@/lib/utils';
 import { MultiRowImageBlock } from '@/payload-types';
 import Image from 'next/image';
+import { HawkStarsSection } from '@/components/layout';
 import React from 'react';
 
 const gridColumn = {
@@ -60,9 +61,9 @@ const MultiRowImage: React.FC<MultiRowImageBlock> = ({
   const rowInfo = rows && rows[0];
   if (!rowInfo) return null;
   return (
-    <section className='pb-16' id={sectionId || undefined} data-blockId='multiRowImage'>
-      <div className='section-container relative'>
-        <div
+    <HawkStarsSection spacing='none' padding='none' container className='pb-16' id={sectionId || undefined} data-blockId='multiRowImage'>
+        <div className='relative'>
+          <div
           className={cn(`grid grid-flow-dense lg:${gridColumn[numberColumns]}`)}
           style={{
             rowGap: `${rowGap}px`,
@@ -95,8 +96,8 @@ const MultiRowImage: React.FC<MultiRowImageBlock> = ({
             );
           })}
         </div>
-      </div>
-    </section>
+        </div>
+    </HawkStarsSection>
   );
 };
 

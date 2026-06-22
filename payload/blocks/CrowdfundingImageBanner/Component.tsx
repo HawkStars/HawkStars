@@ -7,6 +7,7 @@ import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { cn } from '@/lib/utils';
+import { HawkStarsSection } from '@/components/layout';
 
 export const CrowdfundingImageBannerBlockComponent: React.FC<CrowdfundingImageBannerBlock> = ({
   image,
@@ -19,7 +20,7 @@ export const CrowdfundingImageBannerBlockComponent: React.FC<CrowdfundingImageBa
   if (!imageData) return null;
 
   return (
-    <section id={sectionId || undefined} className='w-full' data-blockId='crowdfundingImageBanner'>
+    <HawkStarsSection spacing='none' padding='none' className='w-full' id={sectionId || undefined} data-blockId='crowdfundingImageBanner'>
       <Link href={linkUrl?.url || '#'} target='_blank' rel='noopener noreferrer'>
         <Image
           src={imageData.url}
@@ -29,6 +30,6 @@ export const CrowdfundingImageBannerBlockComponent: React.FC<CrowdfundingImageBa
           className={cn('mx-auto h-auto w-full object-contain', {})}
         />
       </Link>
-    </section>
+    </HawkStarsSection>
   );
 };

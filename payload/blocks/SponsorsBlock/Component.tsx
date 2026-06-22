@@ -5,6 +5,7 @@ import type { SponsorsBlock as SponsorsBlockProps, Sponsor, Media } from '@/payl
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { fetchSponsors } from '@/lib/payload/client/sponsors';
+import { HawkStarsSection } from '@/components/layout';
 
 export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
   title,
@@ -37,12 +38,14 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
   const oddTiers: string[] = Object.keys(groupByTier).filter((_, index) => index % 2 !== 0);
 
   return (
-    <section
-      className='section mx-auto max-w-7xl'
+    <HawkStarsSection
+      spacing='default'
+      padding='none'
+      container
+      className='mx-auto max-w-7xl'
       id={sectionId || undefined}
       data-blockId='sponsorsBlock'
     >
-      <div className='section-container'>
         {(title || subtitle) && (
           <div className='section-header text-center'>
             {title && <h2 className='text-h1_semibold text-green'>{title || 'Sponsors'}</h2>}
@@ -66,8 +69,7 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
             ))}
           </div>
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };
 

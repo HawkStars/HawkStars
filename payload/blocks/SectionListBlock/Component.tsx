@@ -1,5 +1,6 @@
 import type { SectionListBlock as SectionListBlockProps } from '@/payload-types';
 import SectionList from '@/components/ui/SectionList';
+import { HawkStarsSection } from '@/components/layout';
 
 export const SectionListBlockComponent: React.FC<SectionListBlockProps> = ({
   items,
@@ -12,12 +13,12 @@ export const SectionListBlockComponent: React.FC<SectionListBlockProps> = ({
   }));
 
   return (
-    <div className='section-tight section-container' data-blockId='sectionListBlock'>
+    <HawkStarsSection spacing='tight' padding='none' container data-blockId='sectionListBlock'>
       <SectionList
         items={listItems}
         sectionId={sectionId ?? undefined}
         ordered={ordered ?? false}
       />
-    </div>
+    </HawkStarsSection>
   );
 };

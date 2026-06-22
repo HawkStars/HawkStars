@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { HawkStarsSection } from '@/components/layout';
 
 interface TimeLeft {
   days: number;
@@ -76,8 +77,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
   ].filter((unit) => unit.show);
 
   return (
-    <section className='section-tight' id={sectionId || undefined} data-blockId='campaignCountdown'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='tight' padding='none' container id={sectionId || undefined} data-blockId='campaignCountdown'>
         <div
           className={cn(
             'card-lg rounded-2xl border p-8 lg:p-12',
@@ -149,7 +149,6 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
             );
           })}
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

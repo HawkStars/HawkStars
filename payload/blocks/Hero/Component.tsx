@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { HawkStarsSection } from '@/components/layout';
 
 const iconMap = {
   globe: LuGlobe,
@@ -24,8 +25,7 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
   const linkInfo = getLinkFieldInformation(ctaLink, lng);
 
   return (
-    <section className='section-loose' id={sectionId || undefined} data-blockId='hero'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='loose' padding='none' container id={sectionId || undefined} data-blockId='hero'>
         <div className='mx-auto flex max-w-3xl flex-col items-center text-center'>
           {bgImage && bgImage.url && (
             <Image
@@ -78,8 +78,7 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
             })}
           </div>
         )}
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };
 

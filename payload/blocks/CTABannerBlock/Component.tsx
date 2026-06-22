@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { HawkStarsSection } from '@/components/layout';
 
 export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
   title,
@@ -21,8 +22,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
   const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta, lng);
 
   return (
-    <section className='section' id={sectionId || undefined} data-blockId='ctaBanner'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='ctaBanner'>
         {variant === 'centered' && (
           <div
             className='rounded-2xl p-12 text-center text-white'
@@ -111,7 +111,6 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
             </div>
           </div>
         )}
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

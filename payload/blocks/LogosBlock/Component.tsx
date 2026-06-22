@@ -2,6 +2,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { LogosBlock as LogosBlockType } from '@/payload-types';
 import Image from 'next/image';
+import { HawkStarsSection } from '@/components/layout';
 
 export const LogosBlock: React.FC<LogosBlockType> = ({
   badgeText,
@@ -12,8 +13,7 @@ export const LogosBlock: React.FC<LogosBlockType> = ({
   sectionId,
 }) => {
   return (
-    <section className='section' id={sectionId || undefined} data-blockId='logosBlock'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='logosBlock'>
         <div className='text-center'>
           {badgeText && <Badge variant='outline'>{badgeText}</Badge>}
           {heading && (
@@ -44,7 +44,6 @@ export const LogosBlock: React.FC<LogosBlockType> = ({
             />
           ))}
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

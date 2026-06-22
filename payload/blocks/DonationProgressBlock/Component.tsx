@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { HawkStarsSection } from '@/components/layout';
 
 export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
   title,
@@ -24,7 +25,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
   const lng = useLanguageCookie();
   const [progress, setProgress] = useState(0);
   const [inView, setInView] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const percentage = Math.min((currentAmount / goalAmount) * 100, 100);
 
@@ -73,13 +74,14 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
   };
 
   return (
-    <section
+    <HawkStarsSection
       ref={sectionRef}
-      className='section-tight'
+      spacing='tight'
+      padding='none'
+      container
       id={sectionId || undefined}
       data-blockId='donationProgress'
     >
-      <div className='section-container'>
         <div
           className={cn(
             'card-lg rounded-2xl p-8 lg:p-12',
@@ -184,7 +186,6 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
             </div>
           </div>
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

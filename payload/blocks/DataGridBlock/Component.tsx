@@ -1,4 +1,5 @@
 import type { DataGridBlock as DataGridBlockProps } from '@/payload-types';
+import { HawkStarsSection } from '@/components/layout';
 
 export const DataGridBlock: React.FC<DataGridBlockProps> = ({
   title,
@@ -8,8 +9,7 @@ export const DataGridBlock: React.FC<DataGridBlockProps> = ({
   sectionId,
 }) => {
   return (
-    <section className='section' id={sectionId || undefined} data-blockId='dataGridBlock'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='dataGridBlock'>
         {title && (
           <h2 className='text-h2_bold mb-10 text-center tracking-tight text-balance md:mb-12'>
             {title}
@@ -35,7 +35,6 @@ export const DataGridBlock: React.FC<DataGridBlockProps> = ({
             </tbody>
           </table>
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };

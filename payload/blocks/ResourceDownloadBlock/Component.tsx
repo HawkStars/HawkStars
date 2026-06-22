@@ -6,6 +6,7 @@ import type {
   HawkDocument,
 } from '@/payload-types';
 import { cn } from '@/lib/utils';
+import { HawkStarsSection } from '@/components/layout';
 import Link from 'next/link';
 import { useTranslation } from '@/i18n/client';
 
@@ -33,8 +34,7 @@ export const ResourceDownloadBlock: React.FC<ResourceDownloadBlockProps> = ({
   if (!resources || resources.length === 0) return null;
 
   return (
-    <section className='section' id={sectionId || undefined} data-blockId='resourceDownload'>
-      <div className='section-container'>
+    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='resourceDownload'>
         {title && (
           <h2
             className={cn(
@@ -78,8 +78,7 @@ export const ResourceDownloadBlock: React.FC<ResourceDownloadBlockProps> = ({
             );
           })}
         </div>
-      </div>
-    </section>
+    </HawkStarsSection>
   );
 };
 

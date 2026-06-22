@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { HawkStarsSection } from '@/components/layout';
 
 const alignmentClasses = {
   left: 'text-left items-start',
@@ -34,7 +35,7 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
   const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta, lng);
 
   return (
-    <section className='relative min-h-150 w-full lg:min-h-175' id={sectionId || undefined}>
+    <HawkStarsSection spacing='none' padding='none' className='relative min-h-150 w-full lg:min-h-175' id={sectionId || undefined}>
       {/* Background Image */}
       {bgImage && bgImage.url && (
         <div
@@ -81,7 +82,7 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
           )}
         </div>
       </div>
-    </section>
+    </HawkStarsSection>
   );
 };
 
