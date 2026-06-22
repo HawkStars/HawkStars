@@ -31,5 +31,14 @@
   "no": "Não",
   "see_more": "Ver Mais",
   "terms_and_conditions": "Termos e Condições",
-  "instagram": "Nós no Instagram"
+  "instagram": "Nós no Instagram",
+  "label": {
+    "hawk_projects": "Projeto Hawk",
+    "hawk_events": "Evento Hawk",
+    "press_releases": "Comunicado de Imprensa",
+    "blog": "Postagem no Blog",
+    "news": "Notícia",
+    "announcement": "Anúncio",
+    "other": "Outro"
+  }
 }

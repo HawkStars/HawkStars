@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { LuCalendar, LuArrowRight } from 'react-icons/lu';
+import HawkLabel from '@/components/common/hawk-label';
 
 export type LatestNewsItem = {
   heading: string;
@@ -68,17 +69,15 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
 
             <div className='flex flex-1 flex-col justify-center p-6 md:p-10'>
               <div className='mb-3 flex flex-wrap items-center gap-3'>
-                {item.badge && (
-                  <span className='border-b-bege-light px-3 py-1 text-xs font-semibold text-black uppercase'>
-                    {item.badge}
-                  </span>
-                )}
-                {item.date && (
-                  <div className='flex items-center gap-1.5 text-sm text-gray-500'>
-                    <LuCalendar className='h-4 w-4' />
-                    {formatDate(item.date)}
-                  </div>
-                )}
+                <>
+                  {item.badge && <HawkLabel type={item.badge} />}
+                  {item.date && (
+                    <div className='flex items-center gap-1.5 text-sm text-gray-500'>
+                      <LuCalendar className='h-4 w-4' />
+                      {formatDate(item.date)}
+                    </div>
+                  )}
+                </>
               </div>
 
               <h3 className='mb-3 text-2xl font-semibold lg:text-3xl'>{item.heading}</h3>

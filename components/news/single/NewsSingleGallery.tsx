@@ -1,12 +1,14 @@
 import { HawkStarsSection } from '@/components/layout';
-import { Media, MultiImageType, News } from '@/payload-types';
-import Image from 'next/image';
+import HawkImage from '@/components/ui/hawk-image';
+import { Media, MultiImageType } from '@/payload-types';
 import { FC } from 'react';
 
 type NewsSingleGalleryProps = { gallery: MultiImageType | undefined };
 
 const NewsSingleGallery: FC<NewsSingleGalleryProps> = ({ gallery }) => {
   const galleryImages = [...(gallery?.internalImages || []), ...(gallery?.externalImages || [])];
+
+  if (galleryImages.length === 0) return null;
 
   return (
     <>
@@ -39,12 +41,14 @@ const NewsSingleGallery: FC<NewsSingleGalleryProps> = ({ gallery }) => {
 
               return (
                 <div key={`image-${i}`} className='group relative overflow-hidden rounded-lg'>
-                  <Image
+                  <HawkImage
                     src={url}
                     alt={alt || ''}
                     width={width || 600}
                     height={height || 400}
                     className='aspect-auto h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
+                    sizes='(max-width: 768px) 100vw, 33vw'
+                    quality={85}
                   />
                   <div className='absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/10' />
                 </div>
