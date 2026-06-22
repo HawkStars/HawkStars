@@ -28,8 +28,17 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuK
             return (
               <li
                 key={column.id}
+                role='button'
+                tabIndex={0}
+                aria-expanded={menuKeyHovered === column.dropdown?.key}
+                aria-haspopup='true'
                 onMouseEnter={() => handleHoverMenu(column.dropdown?.key || '')}
-                onMouseOver={() => handleHoverMenu(column.dropdown?.key || '')}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleHoverMenu(column.dropdown?.key || '');
+                  }
+                }}
                 className='my-auto flex cursor-pointer gap-1'
               >
                 {column.dropdown?.dropdownTitle}
@@ -38,6 +47,7 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuK
                     'rotate-180': menuKeyHovered === column.dropdown?.key,
                   })}
                   size={20}
+                  aria-hidden='true'
                 />
               </li>
             );

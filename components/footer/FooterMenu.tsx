@@ -12,9 +12,9 @@ const FooterMenu = ({ data }: FooterMenuProps) => {
 
   return (
     <div className='flex flex-col gap-2'>
-      <div className='text-terciary-100 ml-0 text-left lg:text-left'>
-        <span className='mb-1 text-base font-black lg:mb-3'>{column.title}</span>
-      </div>
+      <h3 className='text-terciary-100 mb-1 ml-0 text-left text-base font-black lg:mb-3 lg:text-left'>
+        {column.title}
+      </h3>
       {column.data && column.data.length > 0 ? (
         <ul className='flex flex-col gap-2'>
           {column.data.map((item) => {

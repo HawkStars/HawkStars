@@ -23,7 +23,7 @@ const PartnerInfo: React.FC<PartnerInfoProps> = ({ name, links }) => {
 
             return (
               <div key={index}>
-                <Link href={link.url} className='underline' target='_blank'>
+                <Link href={link.url} className='underline' target='_blank' rel='noopener noreferrer'>
                   {icon && (
                     <Image src={icon} alt={`${link.platform} icon`} width={24} height={24} />
                   )}

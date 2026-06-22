@@ -51,26 +51,29 @@ const Navbar = () => {
           />
 
           {/* NAVBAR MOBILE */}
-          <div
-            className='my-auto ml-auto flex cursor-pointer lg:hidden'
-            onClick={() => setMobileMenuOpen(true)}
-          >
+          <div className='my-auto ml-auto flex items-center lg:hidden'>
             <div className='my-auto ml-auto'>
               <LanguageSwitcher />
             </div>
-            <Image src={HamburgerIcon} alt='Menu' width={32} height={32} />
+            <button
+              type='button'
+              aria-label='Open menu'
+              className='cursor-pointer'
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <Image src={HamburgerIcon} alt='' width={32} height={32} aria-hidden='true' />
+            </button>
           </div>
         </div>
       </div>
 
       <div
         className={cn(
-          'absolute z-90 mx-auto -mt-1 flex h-fit min-h-20 w-full justify-center gap-5 border-b border-b-gray-200 bg-white py-4 pt-2 shadow-lg',
-          {
-            'hidden opacity-0': !hoveredMenu,
-          }
+          'absolute z-90 mx-auto -mt-1 flex h-fit min-h-20 w-full justify-center gap-5 border-b border-b-gray-200 bg-white py-4 pt-2 shadow-lg transition-[opacity,visibility] duration-300 ease-in',
+          hoveredMenu
+            ? 'visible opacity-100'
+            : 'invisible opacity-0 pointer-events-none'
         )}
-        style={{ transition: 'display .3s ease-in, visibility .3s ease-in' }}
       >
         {selectedMenu && <DropdownMenu dropdownInfo={selectedMenu.dropdown} />}
       </div>

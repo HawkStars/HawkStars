@@ -70,8 +70,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', 'sans serif';
-    width: 100dvw;
+    font-family: 'Inter', sans-serif;
     overflow-x: hidden;
   }
 
@@ -92,29 +91,24 @@
   .text-h1_semibold {
     @apply text-5xl font-semibold;
     line-height: 103%;
-    letter-spacing: 0;
   }
 
   .text-h2_light {
     @apply text-2xl font-light;
     line-height: 113%;
-    letter-spacing: 0;
   }
 
   .text-h2_bold {
     @apply text-2xl font-bold;
     line-height: 113%;
-    letter-spacing: 0;
   }
 
   .text-body_regular {
     @apply text-base font-normal;
-    letter-spacing: 0;
   }
 
   .text-body_semibold {
     @apply text-base font-semibold;
-    letter-spacing: 0;
   }
 
   /** Cards **/
@@ -123,7 +117,7 @@
   }
 
   .card-sm {
-    @apply rounded-lg bg-white shadow-sm;
+    @apply rounded-md bg-white shadow-sm;
   }
 
   .card-md {
@@ -258,30 +252,30 @@
 
   .gaming-glow {
     text-shadow:
-      0 0 20px rgba(0, 240, 255, 0.5),
-      0 0 40px rgba(0, 240, 255, 0.2);
+      0 0 20px color-mix(in srgb, var(--color-gaming-accent) 50%, transparent),
+      0 0 40px color-mix(in srgb, var(--color-gaming-accent) 20%, transparent);
   }
 
   .gaming-glow-purple {
     text-shadow:
-      0 0 20px rgba(123, 47, 247, 0.5),
-      0 0 40px rgba(123, 47, 247, 0.2);
+      0 0 20px color-mix(in srgb, var(--color-gaming-accent-secondary) 50%, transparent),
+      0 0 40px color-mix(in srgb, var(--color-gaming-accent-secondary) 20%, transparent);
   }
 
   .gaming-card {
     @apply border-gaming-border bg-gaming-surface rounded-xl border;
     box-shadow:
-      0 0 0 1px rgba(0, 240, 255, 0.05),
+      0 0 0 1px color-mix(in srgb, var(--color-gaming-accent) 5%, transparent),
       0 4px 24px rgba(0, 0, 0, 0.4);
   }
 
   .gaming-card-hover {
     @apply transition-all duration-300;
     &:hover {
-      border-color: rgba(0, 240, 255, 0.3);
+      border-color: color-mix(in srgb, var(--color-gaming-accent) 30%, transparent);
       box-shadow:
-        0 0 0 1px rgba(0, 240, 255, 0.1),
-        0 4px 32px rgba(0, 240, 255, 0.1),
+        0 0 0 1px color-mix(in srgb, var(--color-gaming-accent) 10%, transparent),
+        0 4px 32px color-mix(in srgb, var(--color-gaming-accent) 10%, transparent),
         0 8px 40px rgba(0, 0, 0, 0.4);
     }
   }
@@ -294,7 +288,7 @@
       inset: 0;
       border-radius: inherit;
       padding: 1px;
-      background: linear-gradient(135deg, #00f0ff, #7b2ff7);
+      background: linear-gradient(135deg, var(--color-gaming-accent), var(--color-gaming-accent-secondary));
       mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);

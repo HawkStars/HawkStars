@@ -31,6 +31,7 @@ const FooterBottom = ({ lng }: FooterBottomProps) => {
           <Link
             href={'https://dribbble.com/Rossellini'}
             target='_blank'
+            rel='noopener noreferrer'
             className='text-sm text-blue-300'
           >
             @Rodrigo Rosselini
@@ -42,6 +43,7 @@ const FooterBottom = ({ lng }: FooterBottomProps) => {
           <Link
             href={'https://www.linkedin.com/in/pcardosolei/'}
             target='_blank'
+            rel='noopener noreferrer'
             className='text-sm text-blue-300'
           >
             @Paulo Cardoso

@@ -176,6 +176,7 @@ export default function ProjectPage({ project }: ProjectPageProps) {
                           key={j}
                           href={url}
                           target='_blank'
+                          rel='noopener noreferrer'
                           className='rounded-full bg-amber-400 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-500'
                         >
                           {label ||
@@ -203,6 +204,7 @@ export default function ProjectPage({ project }: ProjectPageProps) {
                 key={j}
                 href={report.url}
                 target='_blank'
+                rel='noopener noreferrer'
                 className='rounded-full bg-amber-400 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-500'
               >
                 {report.is_hawk_report && 'Hawk Stars Report: '} {report.label}

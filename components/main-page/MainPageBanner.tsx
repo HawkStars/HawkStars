@@ -40,7 +40,7 @@ const MainPageBanner: FC<MainPageBannerProps> = ({
       )}
       <p className='relative z-10 my-auto flex-1'>{bannerText}</p>
       {bannerButtonLink && bannerButtonText && (
-        <Link href={bannerButtonLink} target='_blank' className='relative z-10 ml-4'>
+        <Link href={bannerButtonLink} target='_blank' rel='noopener noreferrer' className='relative z-10 ml-4'>
           <Button>{bannerButtonText}</Button>
         </Link>
       )}

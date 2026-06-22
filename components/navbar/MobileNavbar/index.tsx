@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { urls, transformUrl } from '@/utils/paths';
 
+import { useCallback, useEffect, useRef } from 'react';
 import {
   useLanguageCookie,
   useMainAppContext,
@@ -19,16 +20,61 @@ const MobileNavbar = () => {
   const { mobileNavbarOpen, headerInfo } = useMainAppContext();
   const lng = useLanguageCookie();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
+  const navRef = useRef<HTMLDivElement>(null);
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+        return;
+      }
+      // Focus trap
+      if (e.key === 'Tab' && navRef.current) {
+        const focusable = navRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    },
+    [setMobileMenuOpen]
+  );
+
+  useEffect(() => {
+    if (mobileNavbarOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      // Focus the close button on open
+      const closeBtn = navRef.current?.querySelector<HTMLElement>('button[aria-label="Close menu"]');
+      closeBtn?.focus();
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [mobileNavbarOpen, handleKeyDown]);
 
   if (!mobileNavbarOpen) return null;
 
   return (
-    <div className='fixed z-900 flex h-screen w-full flex-col gap-4 bg-white px-4 py-3 lg:hidden'>
+    <div
+      ref={navRef}
+      role='dialog'
+      aria-modal='true'
+      aria-label='Navigation menu'
+      className='fixed z-900 flex h-screen w-full flex-col gap-4 bg-white px-4 py-3 lg:hidden'
+    >
       <div className='flex py-1'>
         <Link href={transformUrl(lng, urls.home)} className='flex items-center gap-2'>
           <Image src={hawkLogo} alt='Hawk Stars Logo' priority width={150} className='-mt-1' />
         </Link>
-        <div
+        <button
+          type='button'
+          aria-label='Close menu'
           className='cross-x relative my-auto ml-auto block h-5 w-5 cursor-pointer lg:hidden'
           onClick={() => setMobileMenuOpen(false)}
         />

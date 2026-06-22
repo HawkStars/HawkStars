@@ -63,9 +63,9 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
                   </Link>
                 ) : (
                   <a
-                    type='button'
                     className='text-gray-500 transition-colors duration-200 hover:text-gray-600'
                     target={linkInfo.newTab ? '_blank' : '_self'}
+                    rel={linkInfo.newTab ? 'noopener noreferrer' : undefined}
                     href={linkInfo.url}
                     onClick={() => setMobileMenuOpen(false)}
                   >

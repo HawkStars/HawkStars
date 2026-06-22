@@ -97,6 +97,7 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
                       <a
                         href={primaryCTAInfo.url}
                         target={primaryCTAInfo.newTab ? '_blank' : undefined}
+                        rel={primaryCTAInfo.newTab ? 'noopener noreferrer' : undefined}
                       >
                         {primaryCTAInfo.label}
                       </a>
@@ -107,6 +108,7 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
                       <a
                         href={secondaryCTAInfo.url}
                         target={secondaryCTAInfo.newTab ? '_blank' : undefined}
+                        rel={secondaryCTAInfo.newTab ? 'noopener noreferrer' : undefined}
                       >
                         {secondaryCTAInfo.label}
                       </a>

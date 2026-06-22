@@ -48,6 +48,7 @@ const Socials = () => {
         <Link
           key={index}
           target={openInNewTab ? '_blank' : undefined}
+          rel={openInNewTab ? 'noopener noreferrer' : undefined}
           href={href}
           aria-label={label}
         >

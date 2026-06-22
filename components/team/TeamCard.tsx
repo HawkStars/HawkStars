@@ -43,7 +43,7 @@ const TeamCard = ({ member, lng }: TeamCardProps) => {
             if (!icon) return null;
 
             return (
-              <Link key={index} href={link.url} target='_blank'>
+              <Link key={index} href={link.url} target='_blank' rel='noopener noreferrer'>
                 <Image
                   src={icon as string}
                   alt={link.platform}
