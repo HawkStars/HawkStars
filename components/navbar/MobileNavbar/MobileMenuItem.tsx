@@ -22,6 +22,7 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
   const setMobileMenuOpen = useSetMobileNavbarOpen();
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const isMultiColumn = data.isMultiColumn || false;
+  const visibleLinks = data.dropdown?.links?.dropdownNavLink?.filter((item) => item.visible);
 
   return (
     <div className='cursor-pointer px-1'>
@@ -45,7 +46,7 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
         })}
       >
         <ul className='flex flex-col gap-2'>
-          {data.dropdown?.links?.dropdownNavLink?.map((item) => {
+          {visibleLinks?.map((item) => {
             const linkInfo = getLinkFieldInformation(item.link, lng);
             if (!linkInfo) return null;
 
