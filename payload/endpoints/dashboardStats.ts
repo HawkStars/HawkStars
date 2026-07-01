@@ -1,7 +1,12 @@
 import type { PayloadHandler } from 'payload';
 
 export const dashboardStatsHandler: PayloadHandler = async (req) => {
-  const { payload } = req;
+  const { payload, user } = req;
+
+  // Admin dashboard data (collection counts, donation totals) must not be public.
+  if (!user) {
+    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  }
 
   try {
     const [

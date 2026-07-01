@@ -1,6 +1,6 @@
 import type { PayloadHandler } from 'payload';
 
-const CONTRIBUTIONS_TABLE = 'contributions' as const;
+const NOTIFICATIONS_COLLECTION = 'notifications' as const;
 
 /**
  * GET /api/notifications
@@ -25,13 +25,13 @@ export const getNotificationsHandler: PayloadHandler = async (req) => {
 
     const [notifications, unreadCount] = await Promise.all([
       payload.find({
-        collection: CONTRIBUTIONS_TABLE,
+        collection: NOTIFICATIONS_COLLECTION,
         sort: '-createdAt',
         limit,
         where,
       }),
       payload.count({
-        collection: CONTRIBUTIONS_TABLE,
+        collection: NOTIFICATIONS_COLLECTION,
         where: { read: { equals: false } },
       }),
     ]);

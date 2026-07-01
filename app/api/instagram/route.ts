@@ -62,7 +62,12 @@ function normalizePost(item: InstagramMediaItem) {
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
-  const limit = Math.min(Number(searchParams.get('limit') ?? 12), 50);
+  // Clamp to a sane range: `Number('abc')` is NaN and negatives are invalid,
+  // both of which would be forwarded raw to the Graph API.
+  const requestedLimit = Number(searchParams.get('limit') ?? 12);
+  const limit = Number.isFinite(requestedLimit)
+    ? Math.max(1, Math.min(requestedLimit, 50))
+    : 12;
 
   const payload = await getPayloadConfig();
   const settings = await payload.findGlobal({ slug: 'settings' });
@@ -110,7 +115,7 @@ export async function GET(request: NextRequest) {
     }
 
     const data: InstagramApiResponse = await response.json();
-    const posts = data.data.map(normalizePost);
+    const posts = Array.isArray(data?.data) ? data.data.map(normalizePost) : [];
 
     return NextResponse.json(
       { posts },

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { LuHeart, LuMessageCircle, LuPlay, LuLayers } from 'react-icons/lu';
@@ -67,29 +67,30 @@ export default function InstagramGrid({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchPosts = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const response = await fetch(`/api/instagram?limit=${maxPosts}`);
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch Instagram posts');
-      }
-
-      const data = await response.json();
-      setPosts(data.posts ?? []);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong');
-    } finally {
-      setLoading(false);
-    }
-  }, [maxPosts]);
-
   useEffect(() => {
-    fetchPosts();
-  }, [fetchPosts]);
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const response = await fetch(`/api/instagram?limit=${maxPosts}`);
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch Instagram posts');
+        }
+
+        const data = await response.json();
+        if (!cancelled) setPosts(data.posts ?? []);
+      } catch (err) {
+        if (!cancelled) setError(err instanceof Error ? err.message : 'Something went wrong');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [maxPosts]);
 
   if (loading) {
     return (

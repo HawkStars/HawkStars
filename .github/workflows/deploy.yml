@@ -144,8 +144,13 @@ jobs:
             pnpm install --frozen-lockfile
             pnpm build
 
-            # Start the application with PM2
-            pm2 start npm --name "hawkstars" -- start
+            # Start the application with PM2.
+            # Uses ecosystem.config.cjs (runs `next` directly, pins cwd to an
+            # absolute path) instead of `pm2 start npm -- start`, which inherited
+            # the daemon's cwd and crash-looped with ENOENT /root/package.json.
+            pm2 start ecosystem.config.cjs
+            # Persist the process list so a reboot/resurrect keeps the correct cwd.
+            pm2 save
 
       - name: Update deployment Status (success)
         if: success()

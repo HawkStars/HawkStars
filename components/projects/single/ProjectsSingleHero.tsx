@@ -46,9 +46,9 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
 
   return (
     <Section className='bg-[#eef5f0] pt-32'>
-      <div className='grid gap-10 md:grid-cols-2'>
+      <div className='mx-auto grid max-w-6xl gap-10 py-5 md:grid-cols-2'>
         {/* Left column */}
-        <div className=''>
+        <div>
           {/* Badge */}
           {badgeImage?.url && (
             <div className='mb-4'>
