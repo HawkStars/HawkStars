@@ -52,7 +52,9 @@ const MobileNavbar = () => {
     if (mobileNavbarOpen) {
       document.addEventListener('keydown', handleKeyDown);
       // Focus the close button on open
-      const closeBtn = navRef.current?.querySelector<HTMLElement>('button[aria-label="Close menu"]');
+      const closeBtn = navRef.current?.querySelector<HTMLElement>(
+        'button[aria-label="Close menu"]'
+      );
       closeBtn?.focus();
       return () => document.removeEventListener('keydown', handleKeyDown);
     }

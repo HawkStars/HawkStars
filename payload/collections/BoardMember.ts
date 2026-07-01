@@ -62,7 +62,10 @@ export const BoardMember: CollectionConfig = {
       required: true,
       localized: false,
       admin: {
-        description: { en: 'Section out of the three that is to add the member', pt: 'Secção das três onde adicionar o membro' },
+        description: {
+          en: 'Section out of the three that is to add the member',
+          pt: 'Secção das três onde adicionar o membro',
+        },
       },
       options: [
         { label: 'Assembleia Geral', value: 'geral' },
@@ -105,7 +108,10 @@ export const BoardMember: CollectionConfig = {
       required: false,
       localized: true,
       admin: {
-        description: { en: 'Only for board members in a department', pt: 'Apenas para membros da direção num departamento' },
+        description: {
+          en: 'Only for board members in a department',
+          pt: 'Apenas para membros da direção num departamento',
+        },
       },
     },
     {
@@ -120,7 +126,10 @@ export const BoardMember: CollectionConfig = {
       label: { en: 'Position', pt: 'Posição' },
       type: 'number',
       admin: {
-        description: { en: 'Position to be ordered to be shown on the page', pt: 'Posição para ordenação na página' },
+        description: {
+          en: 'Position to be ordered to be shown on the page',
+          pt: 'Posição para ordenação na página',
+        },
         step: 1,
       },
       required: true,

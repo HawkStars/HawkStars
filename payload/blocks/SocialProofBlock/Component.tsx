@@ -34,48 +34,48 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
       id={sectionId || undefined}
       data-blockId='socialProof'
     >
-        {(title || subtitle) && (
+      {(title || subtitle) && (
+        <div
+          className={cn(
+            'mb-10 md:mb-12',
+            textAlign && textAlignClasses[textAlign as keyof typeof textAlignClasses]
+          )}
+        >
+          {title && (
+            <h2 className='mb-3 text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
+              {title}
+            </h2>
+          )}
+          {subtitle && <p className={cn('text-lg opacity-80 lg:text-xl')}>{subtitle}</p>}
+        </div>
+      )}
+      <div className='grid grid-cols-2 md:grid-cols-4'>
+        {stats.map((stat, index) => (
           <div
+            key={index}
             className={cn(
-              'mb-10 md:mb-12',
-              textAlign && textAlignClasses[textAlign as keyof typeof textAlignClasses]
+              'flex flex-col items-center justify-center px-6 py-8 text-center',
+              index !== stats.length - 1 && [
+                'border-r border-b md:border-b-0',
+                backgroundColor === 'gradient' ? 'border-white/20' : 'border-gray-200',
+                index % 2 !== 1 ? '' : 'md:border-r-0',
+              ]
             )}
           >
-            {title && (
-              <h2 className='mb-3 text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
-                {title}
-              </h2>
-            )}
-            {subtitle && <p className={cn('text-lg opacity-80 lg:text-xl')}>{subtitle}</p>}
-          </div>
-        )}
-        <div className='grid grid-cols-2 md:grid-cols-4'>
-          {stats.map((stat, index) => (
+            <div className='mb-2 text-4xl font-extrabold tracking-tight lg:text-5xl'>
+              {stat.value}
+            </div>
             <div
-              key={index}
               className={cn(
-                'flex flex-col items-center justify-center px-6 py-8 text-center',
-                index !== stats.length - 1 && [
-                  'border-r border-b md:border-b-0',
-                  backgroundColor === 'gradient' ? 'border-white/20' : 'border-gray-200',
-                  index % 2 !== 1 ? '' : 'md:border-r-0',
-                ]
+                'max-w-[120px] text-xs leading-snug font-semibold tracking-wider uppercase',
+                backgroundColor === 'gradient' ? 'opacity-75' : 'text-gray-500'
               )}
             >
-              <div className='mb-2 text-4xl font-extrabold tracking-tight lg:text-5xl'>
-                {stat.value}
-              </div>
-              <div
-                className={cn(
-                  'max-w-[120px] text-xs leading-snug font-semibold tracking-wider uppercase',
-                  backgroundColor === 'gradient' ? 'opacity-75' : 'text-gray-500'
-                )}
-              >
-                {stat.label}
-              </div>
+              {stat.label}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
     </HawkStarsSection>
   );
 };

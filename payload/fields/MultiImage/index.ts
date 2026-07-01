@@ -26,7 +26,10 @@ export const MultiImageField = ({
     interfaceName: 'MultiImageType',
     required,
     admin: {
-      description: description || { en: 'Add internal media uploads and/or external image URLs.', pt: 'Adicione uploads de média internos e/ou URLs de imagens externas.' },
+      description: description || {
+        en: 'Add internal media uploads and/or external image URLs.',
+        pt: 'Adicione uploads de média internos e/ou URLs de imagens externas.',
+      },
       hideGutter,
       condition,
     },
@@ -37,7 +40,10 @@ export const MultiImageField = ({
         label: { en: 'Internal Images', pt: 'Imagens Internas' },
         required: false,
         admin: {
-          description: { en: 'Images uploaded to the Media library.', pt: 'Imagens carregadas na biblioteca de Média.' },
+          description: {
+            en: 'Images uploaded to the Media library.',
+            pt: 'Imagens carregadas na biblioteca de Média.',
+          },
           initCollapsed: true,
         },
         fields: [
@@ -56,7 +62,10 @@ export const MultiImageField = ({
         label: { en: 'External Images', pt: 'Imagens Externas' },
         required: false,
         admin: {
-          description: { en: 'Images hosted externally — provide a URL and alt text.', pt: 'Imagens alojadas externamente — forneça um URL e texto alternativo.' },
+          description: {
+            en: 'Images hosted externally — provide a URL and alt text.',
+            pt: 'Imagens alojadas externamente — forneça um URL e texto alternativo.',
+          },
           initCollapsed: true,
         },
         fields: [
@@ -66,7 +75,10 @@ export const MultiImageField = ({
             label: { en: 'Image URL', pt: 'URL da Imagem' },
             required: true,
             admin: {
-              description: { en: 'Full URL of the external image (https://…)', pt: 'URL completo da imagem externa (https://…)' },
+              description: {
+                en: 'Full URL of the external image (https://…)',
+                pt: 'URL completo da imagem externa (https://…)',
+              },
             },
           },
           {
@@ -75,7 +87,10 @@ export const MultiImageField = ({
             label: { en: 'Alt Text', pt: 'Texto Alternativo' },
             required: true,
             admin: {
-              description: { en: 'Accessible description of the image.', pt: 'Descrição acessível da imagem.' },
+              description: {
+                en: 'Accessible description of the image.',
+                pt: 'Descrição acessível da imagem.',
+              },
             },
           },
         ],

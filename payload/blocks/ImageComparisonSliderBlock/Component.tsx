@@ -43,68 +43,74 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
   if (!before || !after) return null;
 
   return (
-    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='imageComparisonSlider'>
-        {title && (
-          <h2 className='mb-10 text-center text-3xl font-bold tracking-tight text-balance lg:mb-12 lg:text-4xl'>
-            {title}
-          </h2>
-        )}
+    <HawkStarsSection
+      spacing='default'
+      padding='none'
+      container
+      id={sectionId || undefined}
+      data-blockId='imageComparisonSlider'
+    >
+      {title && (
+        <h2 className='mb-10 text-center text-3xl font-bold tracking-tight text-balance lg:mb-12 lg:text-4xl'>
+          {title}
+        </h2>
+      )}
 
-        <div
-          className='relative mx-auto max-w-4xl overflow-hidden rounded-xl select-none'
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleMouseUp}
-        >
-          <div className='relative aspect-video w-full'>
-            {/* After Image (Full) */}
-            <Image src={after.url || ''} alt={afterLabel || ''} fill className='object-cover' />
+      <div
+        className='relative mx-auto max-w-4xl overflow-hidden rounded-xl select-none'
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleMouseUp}
+      >
+        <div className='relative aspect-video w-full'>
+          {/* After Image (Full) */}
+          <Image src={after.url || ''} alt={afterLabel || ''} fill className='object-cover' />
 
-            {/* Before Image (Clipped) */}
-            <div
-              className='absolute inset-0 overflow-hidden'
-              style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
-            >
-              <Image src={before.url || ''} alt={beforeLabel || ''} fill className='object-cover' />
-            </div>
+          {/* Before Image (Clipped) */}
+          <div
+            className='absolute inset-0 overflow-hidden'
+            style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+          >
+            <Image src={before.url || ''} alt={beforeLabel || ''} fill className='object-cover' />
+          </div>
 
-            {/* Slider */}
-            <div
-              className='card-lg absolute top-0 bottom-0 w-1 cursor-ew-resize bg-white'
-              style={{ left: `${sliderPosition}%` }}
-              onMouseDown={handleMouseDown}
-              onTouchStart={() => setIsDragging(true)}
-            >
-              <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform'>
-                <div className='card-lg flex h-12 w-12 items-center justify-center rounded-full bg-white'>
-                  <svg
-                    className='h-6 w-6 rotate-90 text-gray-700'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M8 9l4-4 4 4m0 6l-4 4-4-4'
-                    />
-                  </svg>
-                </div>
+          {/* Slider */}
+          <div
+            className='card-lg absolute top-0 bottom-0 w-1 cursor-ew-resize bg-white'
+            style={{ left: `${sliderPosition}%` }}
+            onMouseDown={handleMouseDown}
+            onTouchStart={() => setIsDragging(true)}
+          >
+            <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform'>
+              <div className='card-lg flex h-12 w-12 items-center justify-center rounded-full bg-white'>
+                <svg
+                  className='h-6 w-6 rotate-90 text-gray-700'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M8 9l4-4 4 4m0 6l-4 4-4-4'
+                  />
+                </svg>
               </div>
             </div>
+          </div>
 
-            {/* Labels */}
-            <div className='pointer-events-none absolute top-4 left-4 rounded-lg bg-black/50 px-3 py-1 text-sm font-semibold text-white'>
-              {beforeLabel}
-            </div>
-            <div className='pointer-events-none absolute top-4 right-4 rounded-lg bg-black/50 px-3 py-1 text-sm font-semibold text-white'>
-              {afterLabel}
-            </div>
+          {/* Labels */}
+          <div className='pointer-events-none absolute top-4 left-4 rounded-lg bg-black/50 px-3 py-1 text-sm font-semibold text-white'>
+            {beforeLabel}
+          </div>
+          <div className='pointer-events-none absolute top-4 right-4 rounded-lg bg-black/50 px-3 py-1 text-sm font-semibold text-white'>
+            {afterLabel}
           </div>
         </div>
+      </div>
     </HawkStarsSection>
   );
 };

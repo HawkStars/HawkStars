@@ -34,50 +34,56 @@ export const ResourceDownloadBlock: React.FC<ResourceDownloadBlockProps> = ({
   if (!resources || resources.length === 0) return null;
 
   return (
-    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='resourceDownload'>
-        {title && (
-          <h2
-            className={cn(
-              'mb-10 max-w-1/2 text-3xl font-bold tracking-tight text-balance text-wrap lg:mb-12 lg:text-4xl',
-              {
-                'text-center': variation === 'card',
-                'pb-2 text-left': variation === 'list',
-              }
-            )}
-          >
-            {title}
-          </h2>
-        )}
-
-        <div
-          className={cn('flex flex-col space-y-2', {
-            'flex flex-col': variation === 'list',
-            'grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4': variation === 'card',
-          })}
+    <HawkStarsSection
+      spacing='default'
+      padding='none'
+      container
+      id={sectionId || undefined}
+      data-blockId='resourceDownload'
+    >
+      {title && (
+        <h2
+          className={cn(
+            'mb-10 max-w-1/2 text-3xl font-bold tracking-tight text-balance text-wrap lg:mb-12 lg:text-4xl',
+            {
+              'text-center': variation === 'card',
+              'pb-2 text-left': variation === 'list',
+            }
+          )}
         >
-          {resources.map((resource) => {
-            const Icon = icons[resource.fileType as keyof typeof icons] || LuFile;
-            const file = typeof resource.file === 'string' ? null : (resource.file as HawkDocument);
+          {title}
+        </h2>
+      )}
 
-            return variation === 'card' ? (
-              <ResourceCardVariation
-                key={resource.id}
-                icon={Icon}
-                file={file}
-                title={resource.title}
-                description={resource.description}
-              />
-            ) : (
-              <ResourceListVariation
-                key={resource.id}
-                icon={Icon}
-                file={file}
-                title={resource.title}
-                description={resource.description}
-              />
-            );
-          })}
-        </div>
+      <div
+        className={cn('flex flex-col space-y-2', {
+          'flex flex-col': variation === 'list',
+          'grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4': variation === 'card',
+        })}
+      >
+        {resources.map((resource) => {
+          const Icon = icons[resource.fileType as keyof typeof icons] || LuFile;
+          const file = typeof resource.file === 'string' ? null : (resource.file as HawkDocument);
+
+          return variation === 'card' ? (
+            <ResourceCardVariation
+              key={resource.id}
+              icon={Icon}
+              file={file}
+              title={resource.title}
+              description={resource.description}
+            />
+          ) : (
+            <ResourceListVariation
+              key={resource.id}
+              icon={Icon}
+              file={file}
+              title={resource.title}
+              description={resource.description}
+            />
+          );
+        })}
+      </div>
     </HawkStarsSection>
   );
 };

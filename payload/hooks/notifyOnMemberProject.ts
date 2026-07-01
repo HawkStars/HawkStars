@@ -31,7 +31,11 @@ export const notifyOnMemberProject: CollectionAfterChangeHook = async ({
     }
 
     // Notify when a project gets confirmed and becomes publicly visible.
-    if (operation === 'update' && doc.is_confirmed === true && previousDoc?.is_confirmed === false) {
+    if (
+      operation === 'update' &&
+      doc.is_confirmed === true &&
+      previousDoc?.is_confirmed === false
+    ) {
       await payload.create({
         collection: 'notifications',
         data: {

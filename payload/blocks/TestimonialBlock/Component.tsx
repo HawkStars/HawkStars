@@ -163,105 +163,110 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
       className={cn(backgroundColor && backgroundClasses[backgroundColor])}
       data-blockId='testimonialBlock'
     >
-        {/* Header */}
-        {(title || subtitle) && (
-          <div className='section-header text-center'>
-            {title && (
-              <h2
+      {/* Header */}
+      {(title || subtitle) && (
+        <div className='section-header text-center'>
+          {title && (
+            <h2
+              className={cn(
+                'mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl',
+                isDark ? 'text-white' : 'text-gray-900'
+              )}
+            >
+              {title}
+            </h2>
+          )}
+          {subtitle && (
+            <p
+              className={cn(
+                'text-lg leading-relaxed lg:text-xl',
+                isDark ? 'text-gray-300' : 'text-gray-600'
+              )}
+            >
+              {subtitle}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Testimonials */}
+      {layout === 'carousel' ? (
+        <div className='relative'>
+          <div className='mx-auto max-w-4xl'>
+            <TestimonialCard
+              testimonial={testimonials[currentSlide]}
+              style={style}
+              showRatings={showRatings}
+              isDark={isDark}
+            />
+          </div>
+
+          {testimonials.length > 1 && (
+            <>
+              <button
+                onClick={prevSlide}
                 className={cn(
-                  'mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl',
-                  isDark ? 'text-white' : 'text-gray-900'
+                  'absolute top-1/2 left-0 -translate-y-1/2 transform',
+                  'flex h-10 w-10 items-center justify-center rounded-full',
+                  'card-lg card-hover-lg',
+                  isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
                 )}
               >
-                {title}
-              </h2>
-            )}
-            {subtitle && (
-              <p className={cn('text-lg leading-relaxed lg:text-xl', isDark ? 'text-gray-300' : 'text-gray-600')}>
-                {subtitle}
-              </p>
-            )}
-          </div>
-        )}
+                <LuChevronLeft className='h-5 w-5' />
+              </button>
+              <button
+                onClick={nextSlide}
+                className={cn(
+                  'absolute top-1/2 right-0 -translate-y-1/2 transform',
+                  'flex h-10 w-10 items-center justify-center rounded-full',
+                  'card-lg card-hover-lg',
+                  isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
+                )}
+              >
+                <LuChevronRight className='h-5 w-5' />
+              </button>
 
-        {/* Testimonials */}
-        {layout === 'carousel' ? (
-          <div className='relative'>
-            <div className='mx-auto max-w-4xl'>
-              <TestimonialCard
-                testimonial={testimonials[currentSlide]}
-                style={style}
-                showRatings={showRatings}
-                isDark={isDark}
-              />
-            </div>
-
-            {testimonials.length > 1 && (
-              <>
-                <button
-                  onClick={prevSlide}
-                  className={cn(
-                    'absolute top-1/2 left-0 -translate-y-1/2 transform',
-                    'flex h-10 w-10 items-center justify-center rounded-full',
-                    'card-lg card-hover-lg',
-                    isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
-                  )}
-                >
-                  <LuChevronLeft className='h-5 w-5' />
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className={cn(
-                    'absolute top-1/2 right-0 -translate-y-1/2 transform',
-                    'flex h-10 w-10 items-center justify-center rounded-full',
-                    'card-lg card-hover-lg',
-                    isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
-                  )}
-                >
-                  <LuChevronRight className='h-5 w-5' />
-                </button>
-
-                {/* Dots indicator */}
-                <div className='mt-8 flex justify-center gap-2'>
-                  {testimonials.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentSlide(index)}
-                      className={cn(
-                        'h-2 w-2 rounded-full transition-colors',
-                        index === currentSlide
-                          ? isDark
-                            ? 'bg-white'
-                            : 'bg-gray-900'
-                          : isDark
-                            ? 'bg-gray-600'
-                            : 'bg-gray-400'
-                      )}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-        ) : (
-          <div
-            className={cn(
-              'grid gap-6 lg:gap-8',
-              layout && layoutClasses[layout],
-              layout === 'masonry' && 'auto-rows-auto'
-            )}
-          >
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard
-                key={index}
-                testimonial={testimonial}
-                style={style}
-                showRatings={showRatings}
-                isDark={isDark}
-              />
-            ))}
-          </div>
-        )}
+              {/* Dots indicator */}
+              <div className='mt-8 flex justify-center gap-2'>
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={cn(
+                      'h-2 w-2 rounded-full transition-colors',
+                      index === currentSlide
+                        ? isDark
+                          ? 'bg-white'
+                          : 'bg-gray-900'
+                        : isDark
+                          ? 'bg-gray-600'
+                          : 'bg-gray-400'
+                    )}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      ) : (
+        <div
+          className={cn(
+            'grid gap-6 lg:gap-8',
+            layout && layoutClasses[layout],
+            layout === 'masonry' && 'auto-rows-auto'
+          )}
+        >
+          {testimonials.map((testimonial, index) => (
+            <TestimonialCard
+              key={index}
+              testimonial={testimonial}
+              style={style}
+              showRatings={showRatings}
+              isDark={isDark}
+            />
+          ))}
+        </div>
+      )}
     </HawkStarsSection>
   );
 };

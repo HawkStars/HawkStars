@@ -3,12 +3,7 @@ import { PaginatedDocs } from 'payload';
 import { HawkProject } from '@/payload-types';
 import EventsList from './index';
 
-const makeProject = (
-  id: string,
-  heading: string,
-  text: string,
-  imageUrl: string
-): HawkProject =>
+const makeProject = (id: string, heading: string, text: string, imageUrl: string): HawkProject =>
   ({
     id,
     heading,

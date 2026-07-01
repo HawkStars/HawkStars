@@ -3,9 +3,7 @@ import { OffsetSection } from './OffsetSection';
 
 const DemoContent = ({ dark }: { dark?: boolean }) => (
   <div className='px-4 py-12 text-center xl:px-40'>
-    <h2 className={dark ? 'text-h2_bold text-white' : 'text-h2_bold text-green'}>
-      Offset section
-    </h2>
+    <h2 className={dark ? 'text-h2_bold text-white' : 'text-h2_bold text-green'}>Offset section</h2>
     <p className={dark ? 'mt-2 text-white/80' : 'text-disabled mt-2'}>
       This block uses negative horizontal margins so its background bleeds to the page edges.
     </p>

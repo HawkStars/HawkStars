@@ -22,7 +22,9 @@ function makeRequest(body: unknown): Request {
 }
 
 /** Returns the URL, method, headers and strongly-typed parsed body from the first fetch call. */
-function getFetchCallArgs<T = Record<string, unknown>>(fetchMock: MockInstance): { url: string; method: string; body: T; headers: Record<string, string> } {
+function getFetchCallArgs<T = Record<string, unknown>>(
+  fetchMock: MockInstance
+): { url: string; method: string; body: T; headers: Record<string, string> } {
   const [url, options] = fetchMock.mock.calls[0] as [string, RequestInit];
   return {
     url,
@@ -48,10 +50,14 @@ describe('POST /api/donate', () => {
 
   describe('successful donations', () => {
     it('processes a CC payment and returns EasyPay response', async () => {
-      const easyPayResponse = { id: 'ep-123', status: 'success', method: { url: 'https://pay.easypay.pt/ep-123' } };
-      const fetchMock = vi.spyOn(global, 'fetch').mockResolvedValueOnce(
-        new Response(JSON.stringify(easyPayResponse), { status: 200 })
-      );
+      const easyPayResponse = {
+        id: 'ep-123',
+        status: 'success',
+        method: { url: 'https://pay.easypay.pt/ep-123' },
+      };
+      const fetchMock = vi
+        .spyOn(global, 'fetch')
+        .mockResolvedValueOnce(new Response(JSON.stringify(easyPayResponse), { status: 200 }));
 
       const request = makeRequest({
         value: 10,
@@ -76,9 +82,15 @@ describe('POST /api/donate', () => {
 
     it('processes a MB payment', async () => {
       vi.spyOn(global, 'fetch').mockResolvedValueOnce(
-        new Response(JSON.stringify({ id: 'ep-mb-456', method: { entity: '12345', reference: '000 000 001' } }), {
-          status: 200,
-        })
+        new Response(
+          JSON.stringify({
+            id: 'ep-mb-456',
+            method: { entity: '12345', reference: '000 000 001' },
+          }),
+          {
+            status: 200,
+          }
+        )
       );
 
       const request = makeRequest({
@@ -111,9 +123,9 @@ describe('POST /api/donate', () => {
     });
 
     it('sends the correct request body to EasyPay including customer data', async () => {
-      const fetchMock = vi.spyOn(global, 'fetch').mockResolvedValueOnce(
-        new Response(JSON.stringify({ id: 'ep-check' }), { status: 200 })
-      );
+      const fetchMock = vi
+        .spyOn(global, 'fetch')
+        .mockResolvedValueOnce(new Response(JSON.stringify({ id: 'ep-check' }), { status: 200 }));
 
       const request = makeRequest({
         value: 50,
@@ -145,9 +157,11 @@ describe('POST /api/donate', () => {
     });
 
     it('uses email as customer key', async () => {
-      const fetchMock = vi.spyOn(global, 'fetch').mockResolvedValueOnce(
-        new Response(JSON.stringify({ id: 'ep-key-check' }), { status: 200 })
-      );
+      const fetchMock = vi
+        .spyOn(global, 'fetch')
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify({ id: 'ep-key-check' }), { status: 200 })
+        );
 
       const request = makeRequest({
         value: 15,
@@ -163,9 +177,9 @@ describe('POST /api/donate', () => {
     });
 
     it('generates a default descriptive if no reason is provided', async () => {
-      const fetchMock = vi.spyOn(global, 'fetch').mockResolvedValueOnce(
-        new Response(JSON.stringify({ id: 'ep-desc' }), { status: 200 })
-      );
+      const fetchMock = vi
+        .spyOn(global, 'fetch')
+        .mockResolvedValueOnce(new Response(JSON.stringify({ id: 'ep-desc' }), { status: 200 }));
 
       const request = makeRequest({
         value: 20,

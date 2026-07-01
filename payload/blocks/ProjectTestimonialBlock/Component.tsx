@@ -235,53 +235,49 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
       spacing='default'
       padding='none'
       container
-      className={cn(
-        backgroundClasses[backgroundColor as keyof typeof backgroundClasses]
-      )}
+      className={cn(backgroundClasses[backgroundColor as keyof typeof backgroundClasses])}
       id={sectionId || undefined}
       data-blockId='projectTestimonialBlock'
     >
-        {/* Section Header */}
-        {(title || subtitle) && (
-          <div className='section-header text-center'>
-            {title && (
-              <h2
-                className={cn(
-                  'mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl',
-                  textClasses[backgroundColor as keyof typeof textClasses]
-                )}
-              >
-                {title}
-              </h2>
-            )}
-            {subtitle && (
-              <p
-                className={cn(
-                  'mx-auto max-w-2xl text-lg leading-relaxed',
-                  subtitleClasses[backgroundColor as keyof typeof subtitleClasses]
-                )}
-              >
-                {subtitle}
-              </p>
-            )}
-          </div>
-        )}
-
-        {/* Main Content */}
-        <div
-          className={cn(
-            'grid items-center gap-8 lg:grid-cols-2 lg:gap-16',
-            layout === 'imageLeft' && 'lg:grid-flow-dense'
+      {/* Section Header */}
+      {(title || subtitle) && (
+        <div className='section-header text-center'>
+          {title && (
+            <h2
+              className={cn(
+                'mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl',
+                textClasses[backgroundColor as keyof typeof textClasses]
+              )}
+            >
+              {title}
+            </h2>
           )}
-        >
-          {/* Testimonial */}
-          <div className={cn(layout === 'imageLeft' && 'lg:col-start-2')}>{testimonialContent}</div>
-
-          {/* Project Media */}
-          <div className={cn(layout === 'imageLeft' && 'lg:col-start-1')}>
-            {renderProjectMedia()}
-          </div>
+          {subtitle && (
+            <p
+              className={cn(
+                'mx-auto max-w-2xl text-lg leading-relaxed',
+                subtitleClasses[backgroundColor as keyof typeof subtitleClasses]
+              )}
+            >
+              {subtitle}
+            </p>
+          )}
         </div>
+      )}
+
+      {/* Main Content */}
+      <div
+        className={cn(
+          'grid items-center gap-8 lg:grid-cols-2 lg:gap-16',
+          layout === 'imageLeft' && 'lg:grid-flow-dense'
+        )}
+      >
+        {/* Testimonial */}
+        <div className={cn(layout === 'imageLeft' && 'lg:col-start-2')}>{testimonialContent}</div>
+
+        {/* Project Media */}
+        <div className={cn(layout === 'imageLeft' && 'lg:col-start-1')}>{renderProjectMedia()}</div>
+      </div>
     </HawkStarsSection>
   );
 };

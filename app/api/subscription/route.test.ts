@@ -21,7 +21,9 @@ function makeRequest(body: unknown): Request {
 }
 
 /** Returns the URL, method, headers and strongly-typed parsed body from the first fetch call. */
-function getFetchCallArgs<T = Record<string, unknown>>(fetchMock: MockInstance): { url: string; method: string; body: T; headers: Record<string, string> } {
+function getFetchCallArgs<T = Record<string, unknown>>(
+  fetchMock: MockInstance
+): { url: string; method: string; body: T; headers: Record<string, string> } {
   const [url, options] = fetchMock.mock.calls[0] as [string, RequestInit];
   return {
     url,
@@ -48,9 +50,9 @@ describe('POST /api/subscription', () => {
   describe('successful subscriptions', () => {
     it('creates a subscription and returns EasyPay response', async () => {
       const easyPayResponse = { id: 'sub-123', status: 'active' };
-      const fetchMock = vi.spyOn(global, 'fetch').mockResolvedValueOnce(
-        new Response(JSON.stringify(easyPayResponse), { status: 200 })
-      );
+      const fetchMock = vi
+        .spyOn(global, 'fetch')
+        .mockResolvedValueOnce(new Response(JSON.stringify(easyPayResponse), { status: 200 }));
 
       const request = makeRequest({
         value: 20,
@@ -72,9 +74,9 @@ describe('POST /api/subscription', () => {
     });
 
     it('sends the correct request body to EasyPay', async () => {
-      const fetchMock = vi.spyOn(global, 'fetch').mockResolvedValueOnce(
-        new Response(JSON.stringify({ id: 'sub-check' }), { status: 200 })
-      );
+      const fetchMock = vi
+        .spyOn(global, 'fetch')
+        .mockResolvedValueOnce(new Response(JSON.stringify({ id: 'sub-check' }), { status: 200 }));
 
       const request = makeRequest({
         value: 15,
@@ -107,9 +109,11 @@ describe('POST /api/subscription', () => {
     });
 
     it('uses 1M as the default frequency', async () => {
-      const fetchMock = vi.spyOn(global, 'fetch').mockResolvedValueOnce(
-        new Response(JSON.stringify({ id: 'sub-default-freq' }), { status: 200 })
-      );
+      const fetchMock = vi
+        .spyOn(global, 'fetch')
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify({ id: 'sub-default-freq' }), { status: 200 })
+        );
 
       const request = makeRequest({
         value: 10,
@@ -124,9 +128,11 @@ describe('POST /api/subscription', () => {
     });
 
     it('defaults to unlimited_payments: true', async () => {
-      const fetchMock = vi.spyOn(global, 'fetch').mockResolvedValueOnce(
-        new Response(JSON.stringify({ id: 'sub-unlimited' }), { status: 200 })
-      );
+      const fetchMock = vi
+        .spyOn(global, 'fetch')
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify({ id: 'sub-unlimited' }), { status: 200 })
+        );
 
       const request = makeRequest({
         value: 10,
@@ -141,9 +147,9 @@ describe('POST /api/subscription', () => {
     });
 
     it('includes max_captures when unlimited_payments is false', async () => {
-      const fetchMock = vi.spyOn(global, 'fetch').mockResolvedValueOnce(
-        new Response(JSON.stringify({ id: 'sub-max' }), { status: 200 })
-      );
+      const fetchMock = vi
+        .spyOn(global, 'fetch')
+        .mockResolvedValueOnce(new Response(JSON.stringify({ id: 'sub-max' }), { status: 200 }));
 
       const request = makeRequest({
         value: 10,
@@ -161,9 +167,9 @@ describe('POST /api/subscription', () => {
     });
 
     it('does not include max_captures when unlimited_payments is true', async () => {
-      const fetchMock = vi.spyOn(global, 'fetch').mockResolvedValueOnce(
-        new Response(JSON.stringify({ id: 'sub-no-max' }), { status: 200 })
-      );
+      const fetchMock = vi
+        .spyOn(global, 'fetch')
+        .mockResolvedValueOnce(new Response(JSON.stringify({ id: 'sub-no-max' }), { status: 200 }));
 
       const request = makeRequest({
         value: 10,
@@ -200,9 +206,9 @@ describe('POST /api/subscription', () => {
     });
 
     it('uses provided start_time', async () => {
-      const fetchMock = vi.spyOn(global, 'fetch').mockResolvedValueOnce(
-        new Response(JSON.stringify({ id: 'sub-start' }), { status: 200 })
-      );
+      const fetchMock = vi
+        .spyOn(global, 'fetch')
+        .mockResolvedValueOnce(new Response(JSON.stringify({ id: 'sub-start' }), { status: 200 }));
 
       const customStartTime = '2025-06-01 10:00';
       const request = makeRequest({
@@ -219,9 +225,9 @@ describe('POST /api/subscription', () => {
     });
 
     it('generates a default descriptive when no reason is provided', async () => {
-      const fetchMock = vi.spyOn(global, 'fetch').mockResolvedValueOnce(
-        new Response(JSON.stringify({ id: 'sub-desc' }), { status: 200 })
-      );
+      const fetchMock = vi
+        .spyOn(global, 'fetch')
+        .mockResolvedValueOnce(new Response(JSON.stringify({ id: 'sub-desc' }), { status: 200 }));
 
       const request = makeRequest({
         value: 10,

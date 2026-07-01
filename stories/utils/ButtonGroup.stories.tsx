@@ -2,11 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { LuBold, LuItalic, LuUnderline } from 'react-icons/lu';
 
 import { Button } from '@/components/ui/button';
-import {
-  ButtonGroup,
-  ButtonGroupSeparator,
-  ButtonGroupText,
-} from '@/components/ui/button-group';
+import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from '@/components/ui/button-group';
 import { Input } from '@/components/ui/input';
 
 const meta = {

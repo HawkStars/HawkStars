@@ -28,7 +28,7 @@ const ColorSwatch = ({
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div>
-    <h2 className='mb-4 border-b pb-1 text-base font-semibold tracking-wide uppercase text-gray-500'>
+    <h2 className='mb-4 border-b pb-1 text-base font-semibold tracking-wide text-gray-500 uppercase'>
       {title}
     </h2>
     <div className='grid grid-cols-3 gap-4 sm:grid-cols-4 lg:grid-cols-6'>{children}</div>

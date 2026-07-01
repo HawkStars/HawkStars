@@ -20,12 +20,24 @@ export default meta;
 type Story = StoryObj<typeof LogosBlock>;
 
 const sampleLogos = [
-  { name: 'Creative Labs', logo: 'https://cdn.worldvectorlogo.com/logos/creative-labs-1.svg', id: '1' },
-  { name: 'Dallas Semiconductor', logo: 'https://cdn.worldvectorlogo.com/logos/dallas-semiconductor.svg', id: '2' },
+  {
+    name: 'Creative Labs',
+    logo: 'https://cdn.worldvectorlogo.com/logos/creative-labs-1.svg',
+    id: '1',
+  },
+  {
+    name: 'Dallas Semiconductor',
+    logo: 'https://cdn.worldvectorlogo.com/logos/dallas-semiconductor.svg',
+    id: '2',
+  },
   { name: 'Nexpress', logo: 'https://cdn.worldvectorlogo.com/logos/nexpress.svg', id: '3' },
   { name: 'Lenovo', logo: 'https://cdn.worldvectorlogo.com/logos/lenovo-2.svg', id: '4' },
   { name: 'Motorola', logo: 'https://cdn.worldvectorlogo.com/logos/motorola-2.svg', id: '5' },
-  { name: 'Starbucks', logo: 'https://cdn.worldvectorlogo.com/logos/starbucks-coffee.svg', id: '6' },
+  {
+    name: 'Starbucks',
+    logo: 'https://cdn.worldvectorlogo.com/logos/starbucks-coffee.svg',
+    id: '6',
+  },
 ];
 
 export const Default: Story = {

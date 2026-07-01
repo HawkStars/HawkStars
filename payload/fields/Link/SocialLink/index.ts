@@ -9,7 +9,10 @@ export const SocialLinksField: ArrayField = {
     plural: { en: 'Social Links', pt: 'Links Sociais' },
   },
   admin: {
-    description: { en: 'Social Media Links for this entry', pt: 'Links de redes sociais para esta entrada' },
+    description: {
+      en: 'Social Media Links for this entry',
+      pt: 'Links de redes sociais para esta entrada',
+    },
     isSortable: true,
     components: {
       RowLabel: {
@@ -60,7 +63,10 @@ export const SocialLinksField: ArrayField = {
       type: 'checkbox',
       defaultValue: true,
       admin: {
-        description: { en: 'Toggle visibility of this link', pt: 'Alternar a visibilidade deste link' },
+        description: {
+          en: 'Toggle visibility of this link',
+          pt: 'Alternar a visibilidade deste link',
+        },
       },
     },
   ],

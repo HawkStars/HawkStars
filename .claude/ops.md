@@ -12,15 +12,15 @@
 
 Required (see `.env.example`):
 
-| Variable | Purpose |
-|---|---|
-| `DATABASE_URI` | MongoDB connection string |
-| `PAYLOAD_SECRET` | Payload CMS auth secret |
-| `NEXT_PUBLIC_BASE_URL` | Public site URL |
-| `CLOUDINARY_CLOUD_NAME/API_KEY/API_SECRET` | Media storage |
-| `EASYPAY_API_URL/API_KEY/ACCOUNT_ID` | Payment processing |
-| `GOOGLE_CLIENT_ID/SECRET/REFRESH_TOKEN/EMAIL_USER` | OAuth email + Drive |
-| `SENTRY_AUTH_TOKEN` | Error tracking (production) |
+| Variable                                           | Purpose                     |
+| -------------------------------------------------- | --------------------------- |
+| `DATABASE_URI`                                     | MongoDB connection string   |
+| `PAYLOAD_SECRET`                                   | Payload CMS auth secret     |
+| `NEXT_PUBLIC_BASE_URL`                             | Public site URL             |
+| `CLOUDINARY_CLOUD_NAME/API_KEY/API_SECRET`         | Media storage               |
+| `EASYPAY_API_URL/API_KEY/ACCOUNT_ID`               | Payment processing          |
+| `GOOGLE_CLIENT_ID/SECRET/REFRESH_TOKEN/EMAIL_USER` | OAuth email + Drive         |
+| `SENTRY_AUTH_TOKEN`                                | Error tracking (production) |
 
 ## CI/CD & Deployment
 

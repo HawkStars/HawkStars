@@ -37,6 +37,7 @@ Each block lives in `payload/blocks/BlockName/` with three files:
 3. `BlockName.stories.tsx` — Storybook stories
 
 Steps to add a new block:
+
 1. Create block folder with the 3 files above
 2. Export block from `payload/blocks/index.tsx`
 3. Add to relevant collection's blocks array

@@ -80,7 +80,12 @@ const project = {
   },
   dissemination: {
     reports: [
-      { id: 'd1', label: 'Relatório Final', url: 'https://example.com/report', is_hawk_report: true },
+      {
+        id: 'd1',
+        label: 'Relatório Final',
+        url: 'https://example.com/report',
+        is_hawk_report: true,
+      },
     ],
   },
   gallery: {

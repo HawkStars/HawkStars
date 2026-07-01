@@ -50,7 +50,12 @@ export const dropdownNavLink: ArrayField = {
       ],
       required: false,
     },
-    { name: 'description', label: { en: 'Description', pt: 'Descrição' }, type: 'text', localized: true },
+    {
+      name: 'description',
+      label: { en: 'Description', pt: 'Descrição' },
+      type: 'text',
+      localized: true,
+    },
     link({ localizedLabel: true }),
     PayloadIconOrImage(),
   ],

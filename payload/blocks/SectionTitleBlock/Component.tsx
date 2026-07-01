@@ -9,11 +9,7 @@ export const SectionTitleBlockComponent: React.FC<SectionTitleBlockProps> = ({
 }) => {
   return (
     <HawkStarsSection spacing='tight' padding='none' container data-blockId='sectionTitleBlock'>
-      <SectionTitle
-        title={title}
-        sectionId={sectionId ?? ''}
-        subtitle={subtitle ?? undefined}
-      />
+      <SectionTitle title={title} sectionId={sectionId ?? ''} subtitle={subtitle ?? undefined} />
     </HawkStarsSection>
   );
 };

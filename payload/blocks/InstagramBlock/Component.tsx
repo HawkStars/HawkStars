@@ -8,10 +8,9 @@ const InstagramEmbedWidget = dynamic(
   { ssr: false }
 );
 
-const InstagramGrid = dynamic(
-  () => import('@/components/socials/InstagramFeed/InstagramGrid'),
-  { ssr: false }
-);
+const InstagramGrid = dynamic(() => import('@/components/socials/InstagramFeed/InstagramGrid'), {
+  ssr: false,
+});
 
 export const InstagramBlockComponent: React.FC<InstagramBlock> = ({ version }) => (
   <div data-blockId='instagram'>

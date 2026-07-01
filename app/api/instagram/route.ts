@@ -65,9 +65,7 @@ export async function GET(request: NextRequest) {
   // Clamp to a sane range: `Number('abc')` is NaN and negatives are invalid,
   // both of which would be forwarded raw to the Graph API.
   const requestedLimit = Number(searchParams.get('limit') ?? 12);
-  const limit = Number.isFinite(requestedLimit)
-    ? Math.max(1, Math.min(requestedLimit, 50))
-    : 12;
+  const limit = Number.isFinite(requestedLimit) ? Math.max(1, Math.min(requestedLimit, 50)) : 12;
 
   const payload = await getPayloadConfig();
   const settings = await payload.findGlobal({ slug: 'settings' });

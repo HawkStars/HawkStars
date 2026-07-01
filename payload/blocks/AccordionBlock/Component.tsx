@@ -45,64 +45,68 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
   const styles = variantStyles[variant as keyof typeof variantStyles] || variantStyles.default;
 
   return (
-    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='accordion'>
-        {(title || description) && (
-          <div className='section-header text-center'>
-            {title && (
-              <h2 className='mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
-                {title}
-              </h2>
-            )}
-            {description && (
-              <p className='mx-auto max-w-2xl text-lg leading-relaxed text-gray-600'>
-                {description}
-              </p>
-            )}
-          </div>
-        )}
-
-        <div className='mx-auto'>
-          {allowMultiple ? (
-            <Accordion type='multiple' defaultValue={defaultOpenItems} className={styles.container}>
-              {items.map((item, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`item-${index}`}
-                  className={cn(styles.item, variant === 'separated' && 'mx-0')}
-                >
-                  <AccordionTrigger className='hover:text-green data-[state=open]:text-green px-4 text-left text-base font-semibold hover:no-underline lg:text-lg'>
-                    {item.title}
-                  </AccordionTrigger>
-                  <AccordionContent className='px-4 text-gray-700'>
-                    {item.content && <p className='whitespace-pre-wrap'>{item.content}</p>}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          ) : (
-            <Accordion
-              type='single'
-              defaultValue={defaultOpenItems[0]}
-              collapsible
-              className={styles.container}
-            >
-              {items.map((item, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`item-${index}`}
-                  className={cn(styles.item, variant === 'separated' && 'mx-0')}
-                >
-                  <AccordionTrigger className='hover:text-green data-[state=open]:text-green px-4 text-left text-base font-semibold hover:no-underline lg:text-lg'>
-                    {item.title}
-                  </AccordionTrigger>
-                  <AccordionContent className='px-4 text-gray-700'>
-                    {item.content && <p className='whitespace-pre-wrap'>{item.content}</p>}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+    <HawkStarsSection
+      spacing='default'
+      padding='none'
+      container
+      id={sectionId || undefined}
+      data-blockId='accordion'
+    >
+      {(title || description) && (
+        <div className='section-header text-center'>
+          {title && (
+            <h2 className='mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
+              {title}
+            </h2>
+          )}
+          {description && (
+            <p className='mx-auto max-w-2xl text-lg leading-relaxed text-gray-600'>{description}</p>
           )}
         </div>
+      )}
+
+      <div className='mx-auto'>
+        {allowMultiple ? (
+          <Accordion type='multiple' defaultValue={defaultOpenItems} className={styles.container}>
+            {items.map((item, index) => (
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                className={cn(styles.item, variant === 'separated' && 'mx-0')}
+              >
+                <AccordionTrigger className='hover:text-green data-[state=open]:text-green px-4 text-left text-base font-semibold hover:no-underline lg:text-lg'>
+                  {item.title}
+                </AccordionTrigger>
+                <AccordionContent className='px-4 text-gray-700'>
+                  {item.content && <p className='whitespace-pre-wrap'>{item.content}</p>}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        ) : (
+          <Accordion
+            type='single'
+            defaultValue={defaultOpenItems[0]}
+            collapsible
+            className={styles.container}
+          >
+            {items.map((item, index) => (
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                className={cn(styles.item, variant === 'separated' && 'mx-0')}
+              >
+                <AccordionTrigger className='hover:text-green data-[state=open]:text-green px-4 text-left text-base font-semibold hover:no-underline lg:text-lg'>
+                  {item.title}
+                </AccordionTrigger>
+                <AccordionContent className='px-4 text-gray-700'>
+                  {item.content && <p className='whitespace-pre-wrap'>{item.content}</p>}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        )}
+      </div>
     </HawkStarsSection>
   );
 };

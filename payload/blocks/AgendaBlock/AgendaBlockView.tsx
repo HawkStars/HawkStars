@@ -266,7 +266,13 @@ export function AgendaBlockView({
   const label = linkLabel || 'Ver mais';
 
   return (
-    <HawkStarsSection spacing='none' padding='none' className='w-full py-12' id={sectionId ?? undefined} data-blockId='agenda'>
+    <HawkStarsSection
+      spacing='none'
+      padding='none'
+      className='w-full py-12'
+      id={sectionId ?? undefined}
+      data-blockId='agenda'
+    >
       <div className='mx-auto max-w-4xl px-4'>
         {/* Header */}
         {(title || subtitle) && (

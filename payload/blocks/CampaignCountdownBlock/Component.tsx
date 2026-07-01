@@ -77,78 +77,84 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
   ].filter((unit) => unit.show);
 
   return (
-    <HawkStarsSection spacing='tight' padding='none' container id={sectionId || undefined} data-blockId='campaignCountdown'>
-        <div
-          className={cn(
-            'card-lg rounded-2xl border p-8 lg:p-12',
-            themeClasses[theme as keyof typeof themeClasses]
-          )}
-        >
-          {/* Header */}
-          <div className='mb-8 text-center'>
-            <div className='bg-bege-light mb-4 inline-flex rounded-full p-3'>
-              <LuClock className='text-green h-6 w-6' />
-            </div>
-            <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
-            {description && <p className='mx-auto max-w-2xl text-lg opacity-90'>{description}</p>}
+    <HawkStarsSection
+      spacing='tight'
+      padding='none'
+      container
+      id={sectionId || undefined}
+      data-blockId='campaignCountdown'
+    >
+      <div
+        className={cn(
+          'card-lg rounded-2xl border p-8 lg:p-12',
+          themeClasses[theme as keyof typeof themeClasses]
+        )}
+      >
+        {/* Header */}
+        <div className='mb-8 text-center'>
+          <div className='bg-bege-light mb-4 inline-flex rounded-full p-3'>
+            <LuClock className='text-green h-6 w-6' />
           </div>
-
-          {/* Countdown or Completed Message */}
-          {isComplete ? (
-            <div className='mb-8 text-center'>
-              <div className='bg-bege-dark inline-flex items-center gap-2 rounded-lg px-6 py-4 text-2xl font-bold text-black'>
-                <LuCalendar className='h-8 w-8' />
-                {completedMessage}
-              </div>
-            </div>
-          ) : (
-            <div className='mb-8 grid grid-cols-2 gap-4 md:flex md:justify-center md:gap-6'>
-              {units.map((unit, index) => (
-                <div key={index} className='flex flex-col items-center'>
-                  <div
-                    className={cn(
-                      'mb-2 flex h-20 w-20 items-center justify-center rounded-lg text-4xl font-bold md:h-24 md:w-24 md:text-5xl',
-                      digitBgClasses[theme as keyof typeof digitBgClasses]
-                    )}
-                  >
-                    {String(unit.value).padStart(2, '0')}
-                  </div>
-                  <div className='text-sm font-semibold tracking-wider uppercase opacity-70'>
-                    {unit.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* CTA */}
-          {links?.map((link, index) => {
-            const linkInfo = getLinkFieldInformation(link.link, lng);
-            if (!linkInfo) return null;
-            const { url, label, newTab } = linkInfo;
-
-            return (
-              <div key={index} className='text-center'>
-                <Button
-                  size='lg'
-                  className={cn(
-                    'text-lg',
-                    theme === 'urgent' && 'text-green hover:bg-bege-light bg-white'
-                  )}
-                  asChild
-                >
-                  <a
-                    href={url}
-                    target={newTab ? '_blank' : '_self'}
-                    rel={newTab ? 'noopener noreferrer' : undefined}
-                  >
-                    {label}
-                  </a>
-                </Button>
-              </div>
-            );
-          })}
+          <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
+          {description && <p className='mx-auto max-w-2xl text-lg opacity-90'>{description}</p>}
         </div>
+
+        {/* Countdown or Completed Message */}
+        {isComplete ? (
+          <div className='mb-8 text-center'>
+            <div className='bg-bege-dark inline-flex items-center gap-2 rounded-lg px-6 py-4 text-2xl font-bold text-black'>
+              <LuCalendar className='h-8 w-8' />
+              {completedMessage}
+            </div>
+          </div>
+        ) : (
+          <div className='mb-8 grid grid-cols-2 gap-4 md:flex md:justify-center md:gap-6'>
+            {units.map((unit, index) => (
+              <div key={index} className='flex flex-col items-center'>
+                <div
+                  className={cn(
+                    'mb-2 flex h-20 w-20 items-center justify-center rounded-lg text-4xl font-bold md:h-24 md:w-24 md:text-5xl',
+                    digitBgClasses[theme as keyof typeof digitBgClasses]
+                  )}
+                >
+                  {String(unit.value).padStart(2, '0')}
+                </div>
+                <div className='text-sm font-semibold tracking-wider uppercase opacity-70'>
+                  {unit.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* CTA */}
+        {links?.map((link, index) => {
+          const linkInfo = getLinkFieldInformation(link.link, lng);
+          if (!linkInfo) return null;
+          const { url, label, newTab } = linkInfo;
+
+          return (
+            <div key={index} className='text-center'>
+              <Button
+                size='lg'
+                className={cn(
+                  'text-lg',
+                  theme === 'urgent' && 'text-green hover:bg-bege-light bg-white'
+                )}
+                asChild
+              >
+                <a
+                  href={url}
+                  target={newTab ? '_blank' : '_self'}
+                  rel={newTab ? 'noopener noreferrer' : undefined}
+                >
+                  {label}
+                </a>
+              </Button>
+            </div>
+          );
+        })}
+      </div>
     </HawkStarsSection>
   );
 };

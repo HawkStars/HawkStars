@@ -46,29 +46,29 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
       id={sectionId || undefined}
       data-blockId='sponsorsBlock'
     >
-        {(title || subtitle) && (
-          <div className='section-header text-center'>
-            {title && <h2 className='text-h1_semibold text-green'>{title || 'Sponsors'}</h2>}
-            {subtitle && (
-              <p className='mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-gray-600'>
-                {subtitle}
-              </p>
-            )}
-          </div>
-        )}
-
-        <div className='grid grid-cols-2 items-start gap-6 lg:gap-8'>
-          <div className='flex flex-col gap-4'>
-            {oddTiers.map((tier) => (
-              <LogosContainer key={tier} tier={tier} sponsors={groupByTier[tier]} />
-            ))}
-          </div>
-          <div className='mt-20 flex flex-col gap-4'>
-            {evenTiers.map((tier) => (
-              <LogosContainer key={tier} tier={tier} sponsors={groupByTier[tier]} />
-            ))}
-          </div>
+      {(title || subtitle) && (
+        <div className='section-header text-center'>
+          {title && <h2 className='text-h1_semibold text-green'>{title || 'Sponsors'}</h2>}
+          {subtitle && (
+            <p className='mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-gray-600'>
+              {subtitle}
+            </p>
+          )}
         </div>
+      )}
+
+      <div className='grid grid-cols-2 items-start gap-6 lg:gap-8'>
+        <div className='flex flex-col gap-4'>
+          {oddTiers.map((tier) => (
+            <LogosContainer key={tier} tier={tier} sponsors={groupByTier[tier]} />
+          ))}
+        </div>
+        <div className='mt-20 flex flex-col gap-4'>
+          {evenTiers.map((tier) => (
+            <LogosContainer key={tier} tier={tier} sponsors={groupByTier[tier]} />
+          ))}
+        </div>
+      </div>
     </HawkStarsSection>
   );
 };

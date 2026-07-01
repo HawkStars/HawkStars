@@ -22,7 +22,10 @@ export const PayloadImageField = ({
     interfaceName: 'ImageType',
     required,
     admin: {
-      description: description || { en: 'Upload an image or provide an external image URL', pt: 'Carregue uma imagem ou forneça um URL de imagem externo' },
+      description: description || {
+        en: 'Upload an image or provide an external image URL',
+        pt: 'Carregue uma imagem ou forneça um URL de imagem externo',
+      },
       components: {
         Label: '@/payload/fields/ImageType/components/PayloadImageLabel',
       },

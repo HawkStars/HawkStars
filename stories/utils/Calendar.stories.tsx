@@ -39,13 +39,9 @@ export const RangeSelection: Story = {
 };
 
 export const WithDropdowns: Story = {
-  render: () => (
-    <Calendar mode='single' captionLayout='dropdown' className='rounded-md border' />
-  ),
+  render: () => <Calendar mode='single' captionLayout='dropdown' className='rounded-md border' />,
 };
 
 export const MultipleMonths: Story = {
-  render: () => (
-    <Calendar mode='single' numberOfMonths={2} className='rounded-md border' />
-  ),
+  render: () => <Calendar mode='single' numberOfMonths={2} className='rounded-md border' />,
 };

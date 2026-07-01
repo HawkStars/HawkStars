@@ -7,10 +7,16 @@ import { HawkStarsSection } from '@/components/layout';
 
 export const DonationWidgetBlock: React.FC<DonationWidgetBlockProps> = ({ sectionId }) => {
   return (
-    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='donationWidget'>
-        <div className='flex justify-center'>
-          <DonationWidget />
-        </div>
+    <HawkStarsSection
+      spacing='default'
+      padding='none'
+      container
+      id={sectionId || undefined}
+      data-blockId='donationWidget'
+    >
+      <div className='flex justify-center'>
+        <DonationWidget />
+      </div>
     </HawkStarsSection>
   );
 };

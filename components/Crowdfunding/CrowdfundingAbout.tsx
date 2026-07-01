@@ -119,7 +119,7 @@ const CrowdfundingAbout = ({ t }: Props) => {
           {featureKeys.map((key, index) => (
             <div
               key={key}
-              className='flex flex-col items-center rounded-2xl border border-white/10 bg-crowdfunding-surface p-6 text-center transition hover:border-orange-500/30'
+              className='bg-crowdfunding-surface flex flex-col items-center rounded-2xl border border-white/10 p-6 text-center transition hover:border-orange-500/30'
             >
               <div className='mb-4 text-orange-500'>{featureIcons[index]}</div>
               <h3 className='mb-2 text-sm font-bold text-white uppercase'>

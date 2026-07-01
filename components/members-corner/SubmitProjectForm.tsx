@@ -109,7 +109,10 @@ const SubmitProjectForm = ({ lng }: SubmitProjectFormProps) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='mx-auto flex max-w-2xl flex-col gap-6 px-4 py-12'>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className='mx-auto flex max-w-2xl flex-col gap-6 px-4 py-12'
+    >
       <p className='text-body text-disabled'>{t('form.intro')}</p>
 
       <Controller
@@ -209,7 +212,10 @@ const SubmitProjectForm = ({ lng }: SubmitProjectFormProps) => {
         <p className='-mt-2'>{t('form.dates_hint')}</p>
 
         {fields.map((dateField, index) => (
-          <div key={dateField.id} className='border-bege-dark flex flex-col gap-3 rounded-md border p-4'>
+          <div
+            key={dateField.id}
+            className='border-bege-dark flex flex-col gap-3 rounded-md border p-4'
+          >
             <Controller
               control={control}
               name={`dates.${index}.label`}
@@ -265,7 +271,7 @@ const SubmitProjectForm = ({ lng }: SubmitProjectFormProps) => {
         <button
           type='button'
           onClick={() => append({ label: '', date: '', link: '' })}
-          className='text-green self-start text-body_semibold hover:underline'
+          className='text-green text-body_semibold self-start hover:underline'
         >
           + {t('form.add_date')}
         </button>

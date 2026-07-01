@@ -39,7 +39,11 @@ const fullEvent = {
   },
   program: [
     { day: 'Dia 1', title: 'Abertura', description: 'Cerimónia de abertura e concerto inaugural.' },
-    { day: 'Dia 2', title: 'Workshops', description: 'Oficinas de artesanato e dança tradicional.' },
+    {
+      day: 'Dia 2',
+      title: 'Workshops',
+      description: 'Oficinas de artesanato e dança tradicional.',
+    },
     { day: 'Dia 3', title: 'Gastronomia', description: 'Mostra gastronómica regional.' },
     { day: 'Dia 4', title: 'Encerramento', description: 'Grande concerto de encerramento.' },
   ],

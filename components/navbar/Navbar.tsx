@@ -70,9 +70,7 @@ const Navbar = () => {
       <div
         className={cn(
           'absolute z-90 mx-auto -mt-1 flex h-fit min-h-20 w-full justify-center gap-5 border-b border-b-gray-200 bg-white py-4 pt-2 shadow-lg transition-[opacity,visibility] duration-300 ease-in',
-          hoveredMenu
-            ? 'visible opacity-100'
-            : 'invisible opacity-0 pointer-events-none'
+          hoveredMenu ? 'visible opacity-100' : 'pointer-events-none invisible opacity-0'
         )}
       >
         {selectedMenu && <DropdownMenu dropdownInfo={selectedMenu.dropdown} />}

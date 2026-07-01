@@ -62,64 +62,64 @@ export const StatsBlock: React.FC<StatsBlockProps> = ({
       id={sectionId || undefined}
       data-blockId='statsBlock'
     >
-        {/* Stats Grid */}
-        <div
-          className={cn('grid gap-6 lg:gap-8', columnsClass[columns as keyof typeof columnsClass])}
-        >
-          {stats.map((stat, index) => (
-            <div
-              key={stat.id || index}
-              className={cn(
-                'flex w-full flex-col rounded-xl border border-transparent p-6 shadow-sm transition-all duration-200 hover:shadow-md lg:p-8',
-                cardBackgroundStyles[background as keyof typeof cardBackgroundStyles],
-                hoverBorderStyles[hoverBorderColor as keyof typeof hoverBorderStyles]
-              )}
-            >
-              {stat.icon && (
-                <div
-                  className={cn(
-                    'mb-4',
-                    iconStyles[background as keyof typeof iconStyles],
-                    alignmentStyles[(stat.iconAlign || 'center') as keyof typeof alignmentStyles]
-                  )}
-                >
-                  {getIcon(stat.icon)}
-                </div>
-              )}
-              {stat.title && (
-                <h3
-                  className={cn(
-                    'text-3xl font-bold lg:text-4xl',
-                    alignmentStyles[(stat.titleAlign || 'center') as keyof typeof alignmentStyles]
-                  )}
-                >
-                  {stat.title}
-                </h3>
-              )}
-              {stat.description && (
-                <p
-                  className={cn(
-                    'mt-2 text-sm opacity-80 lg:text-base',
-                    alignmentStyles[
-                      (stat.descriptionAlign || 'center') as keyof typeof alignmentStyles
-                    ]
-                  )}
-                >
-                  {stat.description}
-                </p>
-              )}
-            </div>
+      {/* Stats Grid */}
+      <div
+        className={cn('grid gap-6 lg:gap-8', columnsClass[columns as keyof typeof columnsClass])}
+      >
+        {stats.map((stat, index) => (
+          <div
+            key={stat.id || index}
+            className={cn(
+              'flex w-full flex-col rounded-xl border border-transparent p-6 shadow-sm transition-all duration-200 hover:shadow-md lg:p-8',
+              cardBackgroundStyles[background as keyof typeof cardBackgroundStyles],
+              hoverBorderStyles[hoverBorderColor as keyof typeof hoverBorderStyles]
+            )}
+          >
+            {stat.icon && (
+              <div
+                className={cn(
+                  'mb-4',
+                  iconStyles[background as keyof typeof iconStyles],
+                  alignmentStyles[(stat.iconAlign || 'center') as keyof typeof alignmentStyles]
+                )}
+              >
+                {getIcon(stat.icon)}
+              </div>
+            )}
+            {stat.title && (
+              <h3
+                className={cn(
+                  'text-3xl font-bold lg:text-4xl',
+                  alignmentStyles[(stat.titleAlign || 'center') as keyof typeof alignmentStyles]
+                )}
+              >
+                {stat.title}
+              </h3>
+            )}
+            {stat.description && (
+              <p
+                className={cn(
+                  'mt-2 text-sm opacity-80 lg:text-base',
+                  alignmentStyles[
+                    (stat.descriptionAlign || 'center') as keyof typeof alignmentStyles
+                  ]
+                )}
+              >
+                {stat.description}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* CTA Buttons */}
+      {links && links.length > 0 && (
+        <div className='mt-10 flex flex-wrap justify-center gap-4'>
+          {links.map(({ link }, i) => (
+            <CMSLink key={i} size='lg' {...link} appearance={i === 0 ? 'default' : 'outline'} />
           ))}
         </div>
-
-        {/* CTA Buttons */}
-        {links && links.length > 0 && (
-          <div className='mt-10 flex flex-wrap justify-center gap-4'>
-            {links.map(({ link }, i) => (
-              <CMSLink key={i} size='lg' {...link} appearance={i === 0 ? 'default' : 'outline'} />
-            ))}
-          </div>
-        )}
+      )}
     </HawkStarsSection>
   );
 };

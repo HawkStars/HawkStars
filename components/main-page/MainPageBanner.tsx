@@ -29,18 +29,16 @@ const MainPageBanner: FC<MainPageBannerProps> = ({
     >
       {/* Optimised background image — priority-loaded as it is above the fold */}
       {image?.url && (
-        <Image
-          src={image.url}
-          alt=''
-          fill
-          className='object-cover'
-          priority
-          aria-hidden='true'
-        />
+        <Image src={image.url} alt='' fill className='object-cover' priority aria-hidden='true' />
       )}
       <p className='relative z-10 my-auto flex-1'>{bannerText}</p>
       {bannerButtonLink && bannerButtonText && (
-        <Link href={bannerButtonLink} target='_blank' rel='noopener noreferrer' className='relative z-10 ml-4'>
+        <Link
+          href={bannerButtonLink}
+          target='_blank'
+          rel='noopener noreferrer'
+          className='relative z-10 ml-4'
+        >
           <Button>{bannerButtonText}</Button>
         </Link>
       )}

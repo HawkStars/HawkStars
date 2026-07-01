@@ -28,8 +28,7 @@ export const Default: Story = {
 
 export const ExternalImage: Story = {
   args: {
-    image:
-      'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1920&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1920&h=400&fit=crop',
     alt: 'Campaign banner',
     href: '/contribute',
     sectionId: 'campaign-banner',

@@ -16,7 +16,12 @@ export const GlobalVillageAboutSectionBlockComponent: React.FC<
   }
 
   return (
-    <HawkStarsSection spacing='none' padding='none' id={sectionId || undefined} data-blockId='globalVillageAboutSection'>
+    <HawkStarsSection
+      spacing='none'
+      padding='none'
+      id={sectionId || undefined}
+      data-blockId='globalVillageAboutSection'
+    >
       <div className='mx-auto mb-12 flex max-w-6xl flex-col gap-6 px-4 pt-16 text-center sm:px-6 md:pt-20 lg:mb-14 lg:px-8 lg:pt-24'>
         {heading && <h2 className='text-h1_semibold tracking-tight text-balance'>{heading}</h2>}
         {description && <p className='text-body_regular leading-relaxed'>{description}</p>}

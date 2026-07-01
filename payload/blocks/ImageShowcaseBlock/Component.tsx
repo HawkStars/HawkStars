@@ -69,73 +69,77 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
   const upcomingIndex = nextIndex(activeIndex);
 
   return (
-    <HawkStarsSection spacing='default' padding='none' container id={sectionId || undefined} data-blockId='imageShowcase'>
-        <div className='grid gap-2 lg:grid-cols-[3fr_1fr] lg:gap-4'>
-          {/* Main showcased image */}
-          <div ref={mainImageRef} className='relative max-h-120 min-h-180 w-full rounded-xl'>
-            {activeImage && (
-              <>
-                <Image
-                  src={activeImage.url}
-                  alt={activeImage.alt || ''}
-                  fill
-                  className='rounded-2xl max-lg:object-contain'
-                  priority
-                />
-                <span className='absolute right-2 bottom-2 rounded-2xl bg-white p-2'>
-                  {activeImage.alt}
-                </span>
-              </>
-            )}
-          </div>
-
-          {/* Thumbnail grid */}
-          <div
-            className={cn(
-              'flex gap-2 max-lg:flex-nowrap max-lg:overflow-x-auto lg:grid lg:auto-rows-min lg:gap-3 lg:overflow-y-auto',
-              {
-                'lg:grid-cols-1': gridColumns === '1',
-                'lg:grid-cols-2': gridColumns === '2',
-              }
-            )}
-            style={thumbnailMaxH ? { maxHeight: thumbnailMaxH } : undefined}
-          >
-            {images.map((img, index) => {
-              const image = getImagePayloadUrl(img.image);
-              if (!image) return null;
-
-              const isActive = index === activeIndex;
-              const isUpcoming = autoplay && index === upcomingIndex;
-
-              const hasTransition = isActive || isUpcoming;
-
-              return (
-                <button
-                  key={img.id || index}
-                  type='button'
-                  onClick={() => handleImageClick(index)}
-                  className={cn(
-                    'relative aspect-square w-full min-w-15 overflow-hidden rounded-lg'
-                  )}
-                >
-                  <Image
-                    src={image.url}
-                    alt={image.alt || ''}
-                    fill
-                    className={cn('object-cover', {
-                      'animate-grayscale': hasTransition,
-                      'grayscale-100': !hasTransition,
-                    })}
-                    style={{
-                      animationDirection: isActive ? 'normal' : isUpcoming ? 'reverse' : '',
-                      animationDuration: `${transitionDuration}ms`,
-                    }}
-                  />
-                </button>
-              );
-            })}
-          </div>
+    <HawkStarsSection
+      spacing='default'
+      padding='none'
+      container
+      id={sectionId || undefined}
+      data-blockId='imageShowcase'
+    >
+      <div className='grid gap-2 lg:grid-cols-[3fr_1fr] lg:gap-4'>
+        {/* Main showcased image */}
+        <div ref={mainImageRef} className='relative max-h-120 min-h-180 w-full rounded-xl'>
+          {activeImage && (
+            <>
+              <Image
+                src={activeImage.url}
+                alt={activeImage.alt || ''}
+                fill
+                className='rounded-2xl max-lg:object-contain'
+                priority
+              />
+              <span className='absolute right-2 bottom-2 rounded-2xl bg-white p-2'>
+                {activeImage.alt}
+              </span>
+            </>
+          )}
         </div>
+
+        {/* Thumbnail grid */}
+        <div
+          className={cn(
+            'flex gap-2 max-lg:flex-nowrap max-lg:overflow-x-auto lg:grid lg:auto-rows-min lg:gap-3 lg:overflow-y-auto',
+            {
+              'lg:grid-cols-1': gridColumns === '1',
+              'lg:grid-cols-2': gridColumns === '2',
+            }
+          )}
+          style={thumbnailMaxH ? { maxHeight: thumbnailMaxH } : undefined}
+        >
+          {images.map((img, index) => {
+            const image = getImagePayloadUrl(img.image);
+            if (!image) return null;
+
+            const isActive = index === activeIndex;
+            const isUpcoming = autoplay && index === upcomingIndex;
+
+            const hasTransition = isActive || isUpcoming;
+
+            return (
+              <button
+                key={img.id || index}
+                type='button'
+                onClick={() => handleImageClick(index)}
+                className={cn('relative aspect-square w-full min-w-15 overflow-hidden rounded-lg')}
+              >
+                <Image
+                  src={image.url}
+                  alt={image.alt || ''}
+                  fill
+                  className={cn('object-cover', {
+                    'animate-grayscale': hasTransition,
+                    'grayscale-100': !hasTransition,
+                  })}
+                  style={{
+                    animationDirection: isActive ? 'normal' : isUpcoming ? 'reverse' : '',
+                    animationDuration: `${transitionDuration}ms`,
+                  }}
+                />
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </HawkStarsSection>
   );
 };

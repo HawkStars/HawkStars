@@ -46,7 +46,10 @@ export const Sponsor: CollectionConfig = {
       name: 'website',
       label: { en: 'Website URL', pt: 'URL do Website' },
       admin: {
-        description: { en: 'External link to the sponsor website', pt: 'Link externo para o website do patrocinador' },
+        description: {
+          en: 'External link to the sponsor website',
+          pt: 'Link externo para o website do patrocinador',
+        },
       },
     },
     {

@@ -28,7 +28,7 @@ const CrowdfundingVideo = ({ t, videoUrl, videoThumbnail, supportUrl }: Props) =
               overlayLine2={t('video.overlay_line2')}
             />
           ) : (
-            <div className='relative aspect-video w-full overflow-hidden rounded-2xl bg-crowdfunding-surface'>
+            <div className='bg-crowdfunding-surface relative aspect-video w-full overflow-hidden rounded-2xl'>
               <div
                 className='absolute inset-0 bg-cover bg-center'
                 style={{ backgroundImage: `url('${videoThumbnailUrl}')` }}
@@ -60,7 +60,7 @@ const CrowdfundingVideo = ({ t, videoUrl, videoThumbnail, supportUrl }: Props) =
           <p className='text-base leading-relaxed text-gray-400'>{t('video.description')}</p>
 
           <div className='flex flex-wrap gap-4'>
-            <div className='flex items-center gap-3 rounded-xl border border-white/10 bg-crowdfunding-surface px-5 py-3'>
+            <div className='bg-crowdfunding-surface flex items-center gap-3 rounded-xl border border-white/10 px-5 py-3'>
               <svg
                 className='h-5 w-5 text-orange-500'
                 fill='none'

@@ -1,8 +1,8 @@
 ---
 paths:
-  - "**/*.stories.tsx"
-  - ".storybook/**"
-  - "stories/**"
+  - '**/*.stories.tsx'
+  - '.storybook/**'
+  - 'stories/**'
 ---
 
 # Storybook Guidelines
@@ -25,11 +25,11 @@ pnpm build-storybook    # Static build (used by Chromatic CI)
 
 Stories live in two places depending on the component type:
 
-| Component type | Story location | Example |
-|---|---|---|
-| Payload block | Co-located in the block folder: `payload/blocks/BlockName/BlockName.stories.tsx` | `payload/blocks/FAQBlock/FAQBlock.stories.tsx` |
-| UI / utility / layout component | In the `stories/` folder, mirroring the component hierarchy | `stories/utils/Button.stories.tsx` |
-| Navigation components | `stories/navbar/` or `stories/footer/` | `stories/navbar/Navbar.stories.tsx` |
+| Component type                  | Story location                                                                   | Example                                        |
+| ------------------------------- | -------------------------------------------------------------------------------- | ---------------------------------------------- |
+| Payload block                   | Co-located in the block folder: `payload/blocks/BlockName/BlockName.stories.tsx` | `payload/blocks/FAQBlock/FAQBlock.stories.tsx` |
+| UI / utility / layout component | In the `stories/` folder, mirroring the component hierarchy                      | `stories/utils/Button.stories.tsx`             |
+| Navigation components           | `stories/navbar/` or `stories/footer/`                                           | `stories/navbar/Navbar.stories.tsx`            |
 
 For Payload blocks, the story file is one of the three mandatory files in every block folder (alongside `config.ts` and `Component.tsx`). Some blocks use `Component.stories.tsx` instead of `BlockName.stories.tsx` — both are acceptable, but prefer `BlockName.stories.tsx` for new blocks.
 
@@ -57,7 +57,9 @@ type Story = StoryObj<typeof FAQBlock>;
 export const Default: Story = {
   args: {
     title: 'Frequently Asked Questions',
-    items: [ /* … */ ],
+    items: [
+      /* … */
+    ],
     id: '1',
     blockName: 'FAQBlock',
     blockType: 'faq',
@@ -131,7 +133,7 @@ args: {
 },
 ```
 
-the fields id, blockName and blockType are optional but nice to have in the actual block component. 
+the fields id, blockName and blockType are optional but nice to have in the actual block component.
 On the blocks the other types are required to have all the time. It will help the content team to understand where each of the fields matches visually in the CMS and it will also help us to have a more consistent data structure across all the blocks.
 
 ### Reusing args across stories
@@ -142,7 +144,9 @@ Spread from `Default.args` when creating variations:
 export const WithHeaderImage: Story = {
   args: {
     ...Default.args,
-    headerImage: { /* override */ },
+    headerImage: {
+      /* override */
+    },
   },
 };
 ```
@@ -151,22 +155,22 @@ export const WithHeaderImage: Story = {
 
 Stories are organized into categories via the `title` field in `meta`. Use these established categories:
 
-| Category | Used for | Example titles |
-|---|---|---|
-| `Hero/` | Hero block variants | `Hero/Simple`, `Hero/HeroSlideshow`, `Hero/HeroWithBackgroundImage` |
-| `Section/` | Content section blocks | `Section/Content With Image`, `Section/CampaignCountdownBlock` |
-| `Content/` | Data display blocks | `Content/SectionTitleBlock`, `Content/DataGridBlock` |
-| `Cards/` | Card-based blocks | `Cards/SocialProofBlock` |
-| `Media/` | Image, video, logo blocks | `Media/Image Block`, `Media/VideoBlock`, `Media/Logos` |
-| `Maps/` | Map blocks | `Maps/MapLocationBlock` |
-| `Call To Action/` | CTA blocks | `Call To Action/Globe` |
-| `News & Events/` | News, events, agenda blocks | `News & Events/Latest News`, `News & Events/AgendaBlock` |
-| `Organization/` | Sponsors, team blocks | `Organization/Sponsors` |
-| `Extra/` | Miscellaneous blocks | `Extra/FAQBlock`, `Extra/DonationProgressBlock` |
-| `Blocks/` | Generic blocks | `Blocks/BentoGrid` |
-| `Utils/` | UI primitives and utilities | `Utils/Button`, `Utils/Spinner`, `Utils/Typography`, `Utils/Colors` |
-| `Header/` | Navbar and dropdown components | `Header/Navbar`, `Header/DropdownV1` |
-| `Navigation/` | Footer | `Navigation/Footer` |
+| Category          | Used for                       | Example titles                                                      |
+| ----------------- | ------------------------------ | ------------------------------------------------------------------- |
+| `Hero/`           | Hero block variants            | `Hero/Simple`, `Hero/HeroSlideshow`, `Hero/HeroWithBackgroundImage` |
+| `Section/`        | Content section blocks         | `Section/Content With Image`, `Section/CampaignCountdownBlock`      |
+| `Content/`        | Data display blocks            | `Content/SectionTitleBlock`, `Content/DataGridBlock`                |
+| `Cards/`          | Card-based blocks              | `Cards/SocialProofBlock`                                            |
+| `Media/`          | Image, video, logo blocks      | `Media/Image Block`, `Media/VideoBlock`, `Media/Logos`              |
+| `Maps/`           | Map blocks                     | `Maps/MapLocationBlock`                                             |
+| `Call To Action/` | CTA blocks                     | `Call To Action/Globe`                                              |
+| `News & Events/`  | News, events, agenda blocks    | `News & Events/Latest News`, `News & Events/AgendaBlock`            |
+| `Organization/`   | Sponsors, team blocks          | `Organization/Sponsors`                                             |
+| `Extra/`          | Miscellaneous blocks           | `Extra/FAQBlock`, `Extra/DonationProgressBlock`                     |
+| `Blocks/`         | Generic blocks                 | `Blocks/BentoGrid`                                                  |
+| `Utils/`          | UI primitives and utilities    | `Utils/Button`, `Utils/Spinner`, `Utils/Typography`, `Utils/Colors` |
+| `Header/`         | Navbar and dropdown components | `Header/Navbar`, `Header/DropdownV1`                                |
+| `Navigation/`     | Footer                         | `Navigation/Footer`                                                 |
 
 When adding a new block, pick the most fitting existing category. Only create a new category if nothing fits.
 
@@ -178,10 +182,10 @@ Use these helpers to create mock Payload data in stories:
 import { createPayloadExternalImage, createPayloadLink } from '@/utils/storybook';
 
 // External image mock (for ImageType fields)
-createPayloadExternalImage('external', 'https://images.unsplash.com/photo-…', 'Alt text')
+createPayloadExternalImage('external', 'https://images.unsplash.com/photo-…', 'Alt text');
 
 // Link mock (for LinkField data)
-createPayloadLink('custom', '/get-started', false, 'Get Started')
+createPayloadLink('custom', '/get-started', false, 'Get Started');
 ```
 
 Use these instead of manually constructing Payload data shapes. Add new helpers to `utils/storybook.ts` when a new reusable Payload data shape appears frequently across stories.

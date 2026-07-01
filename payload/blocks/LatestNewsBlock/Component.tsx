@@ -3,7 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import type { LatestNewsBlock as LatestNewsBlockProps } from '@/payload-types';
 import { LatestNewsBlockView } from './LatestNewsBlockView';
-import { fetchLatestNews, fetchLatestHawkEvent, type LatestNewsItem } from '@/lib/payload/client/news';
+import {
+  fetchLatestNews,
+  fetchLatestHawkEvent,
+  type LatestNewsItem,
+} from '@/lib/payload/client/news';
 
 export const LatestNewsBlock: React.FC<LatestNewsBlockProps> = ({
   title,

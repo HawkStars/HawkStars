@@ -47,7 +47,10 @@ export const Documents: CollectionConfig = {
       type: 'text',
       required: true,
       admin: {
-        description: { en: 'A descriptive title for the document.', pt: 'Um título descritivo para o documento.' },
+        description: {
+          en: 'A descriptive title for the document.',
+          pt: 'Um título descritivo para o documento.',
+        },
       },
     },
     {
@@ -60,7 +63,12 @@ export const Documents: CollectionConfig = {
         { label: { en: 'Events', pt: 'Eventos' }, value: 'events' },
         { label: { en: 'Reports', pt: 'Relatórios' }, value: 'reports' },
       ],
-      admin: { description: { en: 'Optional folder path for organization.', pt: 'Pasta opcional para organização.' } },
+      admin: {
+        description: {
+          en: 'Optional folder path for organization.',
+          pt: 'Pasta opcional para organização.',
+        },
+      },
     },
     {
       name: 'description',
@@ -68,7 +76,10 @@ export const Documents: CollectionConfig = {
       type: 'textarea',
       required: false,
       admin: {
-        description: { en: 'Optional description of the document contents or purpose.', pt: 'Descrição opcional do conteúdo ou propósito do documento.' },
+        description: {
+          en: 'Optional description of the document contents or purpose.',
+          pt: 'Descrição opcional do conteúdo ou propósito do documento.',
+        },
       },
     },
   ],

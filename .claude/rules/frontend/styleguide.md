@@ -1,6 +1,6 @@
 ---
 paths:
-  - "components/**"
+  - 'components/**'
 ---
 
 # Frontend Style Guide
@@ -19,9 +19,9 @@ paths:
 
 ## Path Aliases
 
-| Alias | Resolves to |
-|---|---|
-| `@/*` | project root (`./`) |
+| Alias             | Resolves to           |
+| ----------------- | --------------------- |
+| `@/*`             | project root (`./`)   |
 | `@payload-config` | `./payload.config.ts` |
 
 Always use `@/` imports. Never use relative paths that go up more than one directory.
@@ -34,16 +34,16 @@ Brand colors are defined as CSS custom properties in `app/globals.css` under `@t
 
 ### Organization theme
 
-| Token | Hex | Usage |
-|---|---|---|
-| `green` | `#0a7558` | Primary brand color — buttons, accents, borders |
-| `bege-dark` | `#fae7d0` | Warm card backgrounds, dividers |
-| `bege-light` | `#fef9f6` | Page section backgrounds |
-| `white` | `#fff` | Card surfaces |
-| `disabled` | `#5b5b5b` | Disabled text and controls |
-| `gray-light` | `#d3d3d3` | Subtle borders |
-| `red-dark` | `#8b0000` | Error states |
-| `linkedin` | `#0a66c2` | LinkedIn social link |
+| Token        | Hex       | Usage                                           |
+| ------------ | --------- | ----------------------------------------------- |
+| `green`      | `#0a7558` | Primary brand color — buttons, accents, borders |
+| `bege-dark`  | `#fae7d0` | Warm card backgrounds, dividers                 |
+| `bege-light` | `#fef9f6` | Page section backgrounds                        |
+| `white`      | `#fff`    | Card surfaces                                   |
+| `disabled`   | `#5b5b5b` | Disabled text and controls                      |
+| `gray-light` | `#d3d3d3` | Subtle borders                                  |
+| `red-dark`   | `#8b0000` | Error states                                    |
+| `linkedin`   | `#0a66c2` | LinkedIn social link                            |
 
 Add new colors as CSS variables in `globals.css` and then add Tailwind utilities via the `theme.extend.colors` config in `tailwind.config.ts`. Do not use arbitrary hex values in components — always use the defined tokens. Ask before adding them. Never have any colour as -[#hex] in the codebase which exception of the tailwind config or the css variables. This is to ensure that all colors are intentional and consistent across the project.
 
@@ -51,43 +51,43 @@ Add new colors as CSS variables in `globals.css` and then add Tailwind utilities
 
 Only use these inside `app/[lng]/(gaming)/` pages and `components/gaming/` components.
 
-| Token | Usage |
-|---|---|
-| `gaming-bg` | Page background |
-| `gaming-surface` | Card/panel background |
-| `gaming-surface-light` | Elevated card background |
-| `gaming-border` | Card borders |
-| `gaming-accent` | Cyan accent (`#00f0ff`) |
+| Token                     | Usage                     |
+| ------------------------- | ------------------------- |
+| `gaming-bg`               | Page background           |
+| `gaming-surface`          | Card/panel background     |
+| `gaming-surface-light`    | Elevated card background  |
+| `gaming-border`           | Card borders              |
+| `gaming-accent`           | Cyan accent (`#00f0ff`)   |
 | `gaming-accent-secondary` | Purple accent (`#7b2ff7`) |
-| `gaming-text` | Primary text |
-| `gaming-text-muted` | Secondary/muted text |
-| `gaming-danger` | Error / destructive |
-| `gaming-success` | Success states |
+| `gaming-text`             | Primary text              |
+| `gaming-text-muted`       | Secondary/muted text      |
+| `gaming-danger`           | Error / destructive       |
+| `gaming-success`          | Success states            |
 
 ### Erasmus sub-site theme
 
 Only use inside `app/[lng]/(org)/erasmus/` pages and `components/navbar/` (for the Erasmus-conditional navbar background).
 
-| Token | Usage |
-|---|---|
-| `erasmus-blue` | EU blue — backgrounds, text, borders (`#003399`) |
-| `erasmus-gold` | EU gold — accents, badges, CTA text (`#ffcc00`) |
-| `erasmus-dark` | Dark text and section backgrounds (`#0e0c1a`) |
-| `erasmus-muted` | Muted body text (`#6a6780`) |
-| `erasmus-ka1` | KA1 tab accent — teal (`#4dd9bc`) |
-| `erasmus-ka2` | KA2 tab accent — purple (`#d18ddf`) |
-| `erasmus-ka3` | KA3 tab accent — coral (`#f08080`) |
-| `erasmus-jm` | Jean Monnet tab accent — blue (`#7eb8f7`) |
-| `erasmus-sport` | Sport tab accent — amber (`#f0b97a`) |
+| Token           | Usage                                            |
+| --------------- | ------------------------------------------------ |
+| `erasmus-blue`  | EU blue — backgrounds, text, borders (`#003399`) |
+| `erasmus-gold`  | EU gold — accents, badges, CTA text (`#ffcc00`)  |
+| `erasmus-dark`  | Dark text and section backgrounds (`#0e0c1a`)    |
+| `erasmus-muted` | Muted body text (`#6a6780`)                      |
+| `erasmus-ka1`   | KA1 tab accent — teal (`#4dd9bc`)                |
+| `erasmus-ka2`   | KA2 tab accent — purple (`#d18ddf`)              |
+| `erasmus-ka3`   | KA3 tab accent — coral (`#f08080`)               |
+| `erasmus-jm`    | Jean Monnet tab accent — blue (`#7eb8f7`)        |
+| `erasmus-sport` | Sport tab accent — amber (`#f0b97a`)             |
 
 ### Crowdfunding sub-site theme
 
 Only use inside `app/[lng]/(crowdfunding)/` and `components/Crowdfunding/`.
 
-| Token | Usage |
-|---|---|
-| `crowdfunding-bg` | Dark page background (`#0d0d0d`) |
-| `crowdfunding-surface` | Card/panel background (`#1a1a1a`) |
+| Token                      | Usage                                    |
+| -------------------------- | ---------------------------------------- |
+| `crowdfunding-bg`          | Dark page background (`#0d0d0d`)         |
+| `crowdfunding-surface`     | Card/panel background (`#1a1a1a`)        |
 | `crowdfunding-surface-alt` | Alternate section background (`#111111`) |
 
 ---
@@ -104,14 +104,14 @@ Only use inside `app/[lng]/(crowdfunding)/` and `components/Crowdfunding/`.
 
 Defined in `globals.css` `@layer components`. Prefer these over raw Tailwind font utilities for consistent sizing.
 
-| Class | Size / Weight | Line height | Use for |
-|---|---|---|---|
-| `text-h1_semibold` | `text-5xl / font-semibold` | 103% | Page heroes, main headings |
-| `text-h2_light` | `text-2xl / font-light` | 113% | Section subtitles |
-| `text-h2_bold` | `text-2xl / font-bold` | 113% | Section headings |
-| `text-body` | `24px` | `27px` | Lead / large body copy |
-| `text-body_regular` | `text-base / font-normal` | — | Standard paragraph text |
-| `text-body_semibold` | `text-base / font-semibold` | — | Emphasized inline text, labels |
+| Class                | Size / Weight               | Line height | Use for                        |
+| -------------------- | --------------------------- | ----------- | ------------------------------ |
+| `text-h1_semibold`   | `text-5xl / font-semibold`  | 103%        | Page heroes, main headings     |
+| `text-h2_light`      | `text-2xl / font-light`     | 113%        | Section subtitles              |
+| `text-h2_bold`       | `text-2xl / font-bold`      | 113%        | Section headings               |
+| `text-body`          | `24px`                      | `27px`      | Lead / large body copy         |
+| `text-body_regular`  | `text-base / font-normal`   | —           | Standard paragraph text        |
+| `text-body_semibold` | `text-base / font-semibold` | —           | Emphasized inline text, labels |
 
 ```tsx
 <h1 className='text-h1_semibold'>{title}</h1>
@@ -124,13 +124,13 @@ Defined in `globals.css` `@layer components`. Prefer these over raw Tailwind fon
 
 Card utilities are in `globals.css` `@layer components`. Use them for consistent shadow and rounding.
 
-| Class | Rounding | Shadow | Use for |
-|---|---|---|---|
-| `card` / `card-sm` | `rounded-lg` | `shadow-sm` | Default content cards |
-| `card-md` | `rounded-lg` | `shadow-md` | Emphasized cards |
-| `card-lg` | `rounded-xl` | `shadow-lg` | Hero/featured cards |
-| `card-hover` | — | hover: `shadow-md` | Add to any card that should lift on hover |
-| `card-hover-lg` | — | hover: `shadow-lg` | Stronger lift effect |
+| Class              | Rounding     | Shadow             | Use for                                   |
+| ------------------ | ------------ | ------------------ | ----------------------------------------- |
+| `card` / `card-sm` | `rounded-lg` | `shadow-sm`        | Default content cards                     |
+| `card-md`          | `rounded-lg` | `shadow-md`        | Emphasized cards                          |
+| `card-lg`          | `rounded-xl` | `shadow-lg`        | Hero/featured cards                       |
+| `card-hover`       | —            | hover: `shadow-md` | Add to any card that should lift on hover |
+| `card-hover-lg`    | —            | hover: `shadow-lg` | Stronger lift effect                      |
 
 ```tsx
 <div className='card card-hover p-6'>{/* … */}</div>
@@ -147,12 +147,11 @@ The standard page section wrapper. Handles horizontal padding and optional max-w
 ```tsx
 import { HawkStarsSection } from '@/components/layout';
 
-<HawkStarsSection className='bg-bege-light py-10 lg:py-14'>
-  {/* page content */}
-</HawkStarsSection>
+<HawkStarsSection className='bg-bege-light py-10 lg:py-14'>{/* page content */}</HawkStarsSection>;
 ```
 
 Props via `variantProps`:
+
 - `width`: `'full'` | `'half'` (default: full)
 - `padding`: `'none'` | `'default'` (default: `default` → `px-4 xl:px-40 xl:mx-auto`)
 - All native `<div>` props including `className`
@@ -164,12 +163,11 @@ Breaks out of the parent padding to create full-bleed color bands. Use inside a 
 ```tsx
 import { HawkStarsOffSetSection } from '@/components/layout';
 
-<HawkStarsOffSetSection bgColor='bege-dark'>
-  {/* full-bleed content */}
-</HawkStarsOffSetSection>
+<HawkStarsOffSetSection bgColor='bege-dark'>{/* full-bleed content */}</HawkStarsOffSetSection>;
 ```
 
 Props:
+
 - `bgColor`: `'bege-light'` | `'bege-dark'` | `'white'` | `'green'` (default: `'white'`)
 
 ---
@@ -188,6 +186,7 @@ import { Button } from '@/components/ui/button';
 ```
 
 **Variants** (maps to Tailwind classes defined via `cva`):
+
 - `default` — green background, white text. The primary call-to-action.
 - `outline` — green border, green text, transparent background.
 - `destructive` — red background for dangerous actions.
@@ -199,13 +198,13 @@ import { Button } from '@/components/ui/button';
 
 Use `asChild` to render as a link or other element while keeping button styles:
 
-
 ```tsx
-<Button asChild variant='outline'><Link href={url}>Read more</Link></Button>
+<Button asChild variant='outline'>
+  <Link href={url}>Read more</Link>
+</Button>
 ```
 
 use the button component for all interactive elements that look like buttons, even if they aren't semantically `<button>` (e.g. a link that looks like a button). This ensures consistent styling and behavior across the site. For non-button links, use `HawkLink` (see below) or Next.js `<Link>` directly.
-
 
 ### Other UI primitives
 
@@ -228,7 +227,7 @@ import HawkLinkComponent from '@/components/utils/HawkLink';
 
 <HawkLinkComponent link={linkField} className='underline'>
   {/* optional custom children — defaults to link.label */}
-</HawkLinkComponent>
+</HawkLinkComponent>;
 ```
 
 For non-CMS internal navigation, use Next.js `<Link>` directly with `transformUrl()`:
@@ -237,7 +236,7 @@ For non-CMS internal navigation, use Next.js `<Link>` directly with `transformUr
 import Link from 'next/link';
 import { transformUrl, urls } from '@/utils/paths';
 
-<Link href={transformUrl(lng, urls.news)}>News</Link>
+<Link href={transformUrl(lng, urls.news)}>News</Link>;
 ```
 
 Never hardcode locale prefixes (`/pt/`, `/en/`) or route strings. Always use `transformUrl(lng, urls.key)`.
@@ -256,7 +255,7 @@ import Input from '@/components/utils/Input/Input';
   errorMessage={errors.email?.message}
   onChange={handleChange}
   value={value}
-/>
+/>;
 ```
 
 Use React Hook Form + Zod for all form validation. Wire these components to RHF via the `onChange` / `value` props or with a Controller wrapper.
@@ -268,7 +267,9 @@ Loading indicator. Use wherever an async action is pending.
 ```tsx
 import Spinner from '@/components/utils/Spinner/Spinner';
 
-{isLoading && <Spinner />}
+{
+  isLoading && <Spinner />;
+}
 ```
 
 ### `SectionTitle`
@@ -278,7 +279,7 @@ Standardized section heading with an optional subtitle and anchor ID, styled wit
 ```tsx
 import SectionTitle from '@/components/ui/SectionTitle';
 
-<SectionTitle title='Our Projects' sectionId='projects' subtitle='What we have been building' />
+<SectionTitle title='Our Projects' sectionId='projects' subtitle='What we have been building' />;
 ```
 
 ### `SectionList`
@@ -294,7 +295,7 @@ import SectionList from '@/components/ui/SectionList';
     { label: 'Community art', description: 'Local cultural events' },
   ]}
   ordered
-/>
+/>;
 ```
 
 ---
@@ -311,15 +312,17 @@ import { getImagePayloadUrl } from '@/lib/image';
 
 const image = getImagePayloadUrl(article.mainImage);
 
-{image && (
-  <Image
-    src={image.url}
-    alt={image.alt}
-    width={image.width ?? 800}
-    height={image.height ?? 450}
-    className='object-cover'
-  />
-)}
+{
+  image && (
+    <Image
+      src={image.url}
+      alt={image.alt}
+      width={image.width ?? 800}
+      height={image.height ?? 450}
+      className='object-cover'
+    />
+  );
+}
 ```
 
 For external/dynamic URLs that don't go through the Payload `ImageType` helper, use `getMediaUrl()` from `@/payload/utilities/getMediaUrl` to ensure correct base URL prefixing.
@@ -335,7 +338,7 @@ Use `cn()` from `@/lib/utils` (a `clsx` + `tailwind-merge` combination) whenever
 ```tsx
 import { cn } from '@/lib/utils';
 
-<div className={cn('rounded-lg p-4', isActive && 'bg-green text-white', className)} />
+<div className={cn('rounded-lg p-4', isActive && 'bg-green text-white', className)} />;
 ```
 
 ---
@@ -369,6 +372,7 @@ For components with many variants or that need `asChild`, prefer `cva` from `cla
 ## `'use client'` Directive
 
 Only add `'use client'` when the component genuinely requires it:
+
 - Uses React hooks (`useState`, `useEffect`, `useRouter`, `useSearchParams`, etc.)
 - Attaches browser event listeners
 - Uses browser-only APIs

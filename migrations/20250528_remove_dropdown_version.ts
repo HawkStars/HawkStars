@@ -11,7 +11,7 @@ export async function up({ payload, session }: MigrateUpArgs): Promise<void> {
         'columns.$[].dropdown.version': '',
       },
     },
-    { session },
+    { session }
   );
 
   payload.logger.info('Removed dropdown.version from header global documents.');
@@ -26,7 +26,7 @@ export async function up({ payload, session }: MigrateUpArgs): Promise<void> {
         'version.columns.$[].dropdown.version': '',
       },
     },
-    { session },
+    { session }
   );
 
   payload.logger.info('Removed dropdown.version from header global version documents.');
@@ -43,7 +43,7 @@ export async function down({ payload, session }: MigrateDownArgs): Promise<void>
         'columns.$[].dropdown.version': 'v1',
       },
     },
-    { session },
+    { session }
   );
 
   payload.logger.info('Restored dropdown.version to v1 on header global documents.');
@@ -57,7 +57,7 @@ export async function down({ payload, session }: MigrateDownArgs): Promise<void>
         'version.columns.$[].dropdown.version': 'v1',
       },
     },
-    { session },
+    { session }
   );
 
   payload.logger.info('Restored dropdown.version to v1 on header global version documents.');

@@ -57,7 +57,7 @@ export function OrganizationJsonLd({ lng }: { lng: string }) {
 
   return (
     <script
-      type="application/ld+json"
+      type='application/ld+json'
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );
@@ -66,11 +66,7 @@ export function OrganizationJsonLd({ lng }: { lng: string }) {
 /**
  * Breadcrumb JSON-LD — use on inner pages.
  */
-export function BreadcrumbJsonLd({
-  items,
-}: {
-  items: BreadcrumbItem[];
-}) {
+export function BreadcrumbJsonLd({ items }: { items: BreadcrumbItem[] }) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -84,7 +80,7 @@ export function BreadcrumbJsonLd({
 
   return (
     <script
-      type="application/ld+json"
+      type='application/ld+json'
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );
@@ -118,7 +114,7 @@ export function WebPageJsonLd({
 
   return (
     <script
-      type="application/ld+json"
+      type='application/ld+json'
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );
@@ -173,7 +169,7 @@ export function EventJsonLd({
 
   return (
     <script
-      type="application/ld+json"
+      type='application/ld+json'
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );
@@ -225,7 +221,7 @@ export function ArticleJsonLd({
 
   return (
     <script
-      type="application/ld+json"
+      type='application/ld+json'
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );

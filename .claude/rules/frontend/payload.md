@@ -1,6 +1,6 @@
 ---
 paths:
-  - "payload/**"
+  - 'payload/**'
 ---
 
 # Payload CMS Code Guidelines
@@ -55,10 +55,18 @@ export const News: CollectionConfig = {
     group: { name: 'Daily Work' },
   },
   defaultPopulate: { title: true, slug: true },
-  access: { /* see Access Control */ },
-  fields: [ /* … */ ],
-  hooks: { /* … */ },
-  versions: { /* … */ },
+  access: {
+    /* see Access Control */
+  },
+  fields: [
+    /* … */
+  ],
+  hooks: {
+    /* … */
+  },
+  versions: {
+    /* … */
+  },
 };
 ```
 
@@ -161,7 +169,9 @@ export const Header: GlobalConfig = {
   label: { pt: 'Cabeçalho', en: 'Header' },
   access: { read: anyone },
   admin: { description: '…' },
-  fields: [ /* … */ ],
+  fields: [
+    /* … */
+  ],
   hooks: { afterChange: [revalidateHeader] },
 };
 ```
@@ -195,13 +205,13 @@ import SectionID from '@/payload/fields/SectionID';
 
 export const AccordionBlock: Block = {
   slug: 'accordion',
-  interfaceName: 'AccordionBlock',    // must be unique; used for TypeScript type generation
-  imageAltText: 'Accordion Block',    // shown in the block picker UI
-  admin: { group: 'Content' },        // group in block picker: 'Content', 'Media', 'Layout', etc.
+  interfaceName: 'AccordionBlock', // must be unique; used for TypeScript type generation
+  imageAltText: 'Accordion Block', // shown in the block picker UI
+  admin: { group: 'Content' }, // group in block picker: 'Content', 'Media', 'Layout', etc.
   labels: { singular: 'Accordion Block', plural: 'Accordion Blocks' },
   fields: [
     // … content fields …
-    SectionID,                        // always include SectionID as the last field
+    SectionID, // always include SectionID as the last field
   ],
 };
 ```
@@ -245,14 +255,14 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({ title, items, se
 
 Shared fields live in `payload/fields/`. Use them instead of duplicating field definitions inline.
 
-| Field | Import | Purpose |
-|---|---|---|
-| `SectionID` | `@/payload/fields/SectionID` | Anchor link ID for any block or section |
-| `link()` | `@/payload/fields/link` | Internal/external link group field |
-| `linkGroup()` | `@/payload/fields/linkGroup` | Array of link fields |
-| `MultiImageField()` | `@/payload/fields/MultiImage` | Mixed internal (media) + external (URL) images |
-| `contentStatusField` | `@/payload/fields/contentStatus` | Draft/In Review/Published workflow select |
-| `ImageField` | `@/payload/fields/Image/fields` | Localized upload field wrapping the media collection |
+| Field                | Import                           | Purpose                                              |
+| -------------------- | -------------------------------- | ---------------------------------------------------- |
+| `SectionID`          | `@/payload/fields/SectionID`     | Anchor link ID for any block or section              |
+| `link()`             | `@/payload/fields/link`          | Internal/external link group field                   |
+| `linkGroup()`        | `@/payload/fields/linkGroup`     | Array of link fields                                 |
+| `MultiImageField()`  | `@/payload/fields/MultiImage`    | Mixed internal (media) + external (URL) images       |
+| `contentStatusField` | `@/payload/fields/contentStatus` | Draft/In Review/Published workflow select            |
+| `ImageField`         | `@/payload/fields/Image/fields`  | Localized upload field wrapping the media collection |
 
 ### `link()` Field
 
@@ -262,11 +272,11 @@ Use the `link()` factory for any field that captures a navigation or CTA link. I
 import { link } from '@/payload/fields/link';
 
 link({
-  localizedLabel: true,     // whether the label sub-field is localized
+  localizedLabel: true, // whether the label sub-field is localized
   labelInformation: 'CTA Link',
   description: 'The link for the call-to-action button',
   condition: (_, siblingData) => siblingData.showCta === true,
-})
+});
 ```
 
 ### `MultiImageField()` Field
@@ -276,7 +286,7 @@ Use for gallery or image-set fields that may mix Cloudinary-hosted uploads with 
 ```typescript
 import { MultiImageField } from '@/payload/fields/MultiImage';
 
-MultiImageField({ name: 'gallery', label: 'Gallery', required: false })
+MultiImageField({ name: 'gallery', label: 'Gallery', required: false });
 ```
 
 This produces a group with `internalImages` (relation to `media`) and `externalImages` (`url` + `alt` text) sub-arrays.
@@ -320,11 +330,11 @@ admin: {
 
 Access functions live in `payload/access/` and are imported by name. Use the four standard functions; do not write inline access logic in collection configs.
 
-| Function | When to use |
-|---|---|
-| `anyone` | Public reads (all frontend-facing collections, globals) |
-| `authenticated` | All CRUD operations that require a logged-in user |
-| `authenticatedAdmin` | Operations restricted to admins (`user.isAdmin === true`) |
+| Function              | When to use                                                              |
+| --------------------- | ------------------------------------------------------------------------ |
+| `anyone`              | Public reads (all frontend-facing collections, globals)                  |
+| `authenticated`       | All CRUD operations that require a logged-in user                        |
+| `authenticatedAdmin`  | Operations restricted to admins (`user.isAdmin === true`)                |
 | `authenticatedEditor` | Operations for editors **or** admins (`user.isEditor \|\| user.isAdmin`) |
 
 Typical pattern for a public-read collection:
@@ -345,16 +355,16 @@ access: {
 
 Standard hooks live in `payload/hooks/`. Always import them instead of reimplementing the same logic inline.
 
-| Hook | Type | Purpose |
-|---|---|---|
-| `validateStatusTransition` | `beforeChange` | Enforces the draft → in_review → published workflow by role |
-| `populatePublishedAt` | `beforeChange` | Auto-sets `publishedAt` when transitioning to published |
-| `notifyOnStatusChange` | `afterChange` | Creates a `Notification` document on status changes |
-| `sanitizeBrokenImageRelationship` | `afterRead` | Removes stale media relationship IDs from docs |
-| `notifyOnContribution` | `afterChange` | Notification on new contributions |
-| `notifyOnMediaUpload` | `afterChange` | Notification on media uploads |
-| `notifyOnNewsChange` | `afterChange` | Notification on news article changes |
-| `notifyOnPageChange` | `afterChange` | Notification on page changes |
+| Hook                              | Type           | Purpose                                                     |
+| --------------------------------- | -------------- | ----------------------------------------------------------- |
+| `validateStatusTransition`        | `beforeChange` | Enforces the draft → in_review → published workflow by role |
+| `populatePublishedAt`             | `beforeChange` | Auto-sets `publishedAt` when transitioning to published     |
+| `notifyOnStatusChange`            | `afterChange`  | Creates a `Notification` document on status changes         |
+| `sanitizeBrokenImageRelationship` | `afterRead`    | Removes stale media relationship IDs from docs              |
+| `notifyOnContribution`            | `afterChange`  | Notification on new contributions                           |
+| `notifyOnMediaUpload`             | `afterChange`  | Notification on media uploads                               |
+| `notifyOnNewsChange`              | `afterChange`  | Notification on news article changes                        |
+| `notifyOnPageChange`              | `afterChange`  | Notification on page changes                                |
 
 For revalidation of Next.js cached pages, add a collection-specific `afterChange` hook (e.g., `revalidatePage`, `revalidateHeader`, `revalidateFooter`) defined in the collection/global's own `hooks/` subfolder.
 
@@ -382,18 +392,18 @@ Do not add plugins inline in `payload.config.ts`. All plugin configuration belon
 
 ## Naming Conventions
 
-| Concept | Convention | Example |
-|---|---|---|
-| Collection slug | `snake_case` or `kebab-case` | `hawk_projects`, `news` |
-| Global slug | `camelCase` | `header`, `crowdfundingSettings` |
-| Block slug | `kebab-case` | `accordion`, `cta-banner` |
-| Block `interfaceName` | `PascalCase` | `AccordionBlock`, `CTABannerBlock` |
-| Array `interfaceName` | `PascalCase` | `AccordionBlockItem` |
-| Field names | `camelCase` | `publishedAt`, `sectionId` |
-| Access function files | `camelCase.ts` | `authenticated.ts`, `authenticatedAdmin.ts` |
-| Hook files | `camelCaseAction.ts` | `populatePublishedAt.ts`, `validateStatusTransition.ts` |
-| Block folder | `PascalCase` | `AccordionBlock/`, `CTABannerBlock/` |
-| Collection folder | `PascalCase` | `HawkProject/`, `News/` |
+| Concept               | Convention                   | Example                                                 |
+| --------------------- | ---------------------------- | ------------------------------------------------------- |
+| Collection slug       | `snake_case` or `kebab-case` | `hawk_projects`, `news`                                 |
+| Global slug           | `camelCase`                  | `header`, `crowdfundingSettings`                        |
+| Block slug            | `kebab-case`                 | `accordion`, `cta-banner`                               |
+| Block `interfaceName` | `PascalCase`                 | `AccordionBlock`, `CTABannerBlock`                      |
+| Array `interfaceName` | `PascalCase`                 | `AccordionBlockItem`                                    |
+| Field names           | `camelCase`                  | `publishedAt`, `sectionId`                              |
+| Access function files | `camelCase.ts`               | `authenticated.ts`, `authenticatedAdmin.ts`             |
+| Hook files            | `camelCaseAction.ts`         | `populatePublishedAt.ts`, `validateStatusTransition.ts` |
+| Block folder          | `PascalCase`                 | `AccordionBlock/`, `CTABannerBlock/`                    |
+| Collection folder     | `PascalCase`                 | `HawkProject/`, `News/`                                 |
 
 ---
 

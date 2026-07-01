@@ -20,12 +20,7 @@ type SplitListProps<T> = {
   renderCard: (item: T, index: number) => ReactNode;
 };
 
-const SplitListComponent = <T,>({
-  items,
-  lng,
-  translations,
-  renderCard,
-}: SplitListProps<T>) => {
+const SplitListComponent = <T,>({ items, lng, translations, renderCard }: SplitListProps<T>) => {
   const { upcoming, past } = items;
   const {
     upcoming: upcomingLabel,
@@ -55,7 +50,9 @@ const SplitListComponent = <T,>({
         {upcoming.length === 0 ? (
           <p className='text-muted-foreground text-body_regular'>{noUpcoming}</p>
         ) : (
-          <div className='flex flex-col gap-6'>{upcoming.map((item, idx) => renderCard(item, idx))}</div>
+          <div className='flex flex-col gap-6'>
+            {upcoming.map((item, idx) => renderCard(item, idx))}
+          </div>
         )}
       </section>
 
@@ -65,7 +62,9 @@ const SplitListComponent = <T,>({
         {past.length === 0 ? (
           <p className='text-muted-foreground text-body_regular'>{noPast}</p>
         ) : (
-          <div className='flex flex-col gap-6'>{past.map((item, idx) => renderCard(item, idx))}</div>
+          <div className='flex flex-col gap-6'>
+            {past.map((item, idx) => renderCard(item, idx))}
+          </div>
         )}
       </section>
     </div>
