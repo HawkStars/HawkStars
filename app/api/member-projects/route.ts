@@ -1,9 +1,23 @@
 import { getPayloadConfig } from '@/lib/payload/server';
 import * as Sentry from '@sentry/nextjs';
 import * as z from 'zod';
+import { checkRateLimit, getClientIp } from '@/utils/rateLimit';
+
+// z.url() alone accepts schemes like javascript:, data: and vbscript:, which
+// become a stored-XSS vector once these URLs are rendered (img src / iframe /
+// anchor href) after an admin confirms the submission. Restrict to http(s).
+const isHttpUrl = (value: string) => {
+  try {
+    const { protocol } = new URL(value);
+    return protocol === 'http:' || protocol === 'https:';
+  } catch {
+    return false;
+  }
+};
 
 const optionalUrl = z
   .url('Must be a valid URL')
+  .refine(isHttpUrl, 'URL must start with http:// or https://')
   .optional()
   .or(z.literal('').transform(() => undefined));
 
@@ -34,6 +48,17 @@ const submissionSchema = z
   });
 
 export async function POST(request: Request) {
+  const { allowed, retryAfter } = checkRateLimit(`member-projects:${getClientIp(request)}`, {
+    limit: 5,
+    windowMs: 60_000,
+  });
+  if (!allowed) {
+    return Response.json(
+      { error: 'Too many submissions. Please try again shortly.' },
+      { status: 429, headers: { 'Retry-After': String(retryAfter) } }
+    );
+  }
+
   try {
     const body = await request.json().catch(() => null);
     if (!body) {

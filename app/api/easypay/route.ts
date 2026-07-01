@@ -1,4 +1,5 @@
 import { getPayloadConfig } from '@/lib/payload/server';
+import * as Sentry from '@sentry/nextjs';
 import {
   EasyPayGenericNotification,
   EasyPayAuthorisationNotification,
@@ -6,6 +7,37 @@ import {
 } from '@/types/payment/easypay';
 
 const CONTRIBUTION_COLLECTION = 'contributions';
+
+/**
+ * Verify the request actually came from EasyPay.
+ *
+ * EasyPay v2 does not HMAC-sign notification payloads, so the recommended
+ * defense is a shared secret on the notification URL plus (ideally) an
+ * out-of-band status re-check against the EasyPay API. We require a secret
+ * token — configured in EASYPAY_WEBHOOK_SECRET and appended to the webhook URL
+ * registered in the EasyPay dashboard (e.g. .../api/easypay?token=SECRET, or
+ * sent as an `x-webhook-token` header).
+ *
+ * If the secret is not configured we do NOT hard-fail (that would silently
+ * drop every payment confirmation the moment this deploys), but we report it
+ * so the gap is visible until the secret is set on both ends.
+ */
+function isAuthorisedWebhook(request: Request): boolean {
+  const expected = process.env.EASYPAY_WEBHOOK_SECRET;
+
+  if (!expected) {
+    Sentry.captureMessage(
+      'EasyPay webhook received without EASYPAY_WEBHOOK_SECRET configured — endpoint is unauthenticated',
+      { level: 'warning' }
+    );
+    return true;
+  }
+
+  const url = new URL(request.url);
+  const provided = request.headers.get('x-webhook-token') ?? url.searchParams.get('token');
+
+  return provided === expected;
+}
 
 /**
  * EasyPay Webhook Handler
@@ -20,6 +52,11 @@ const CONTRIBUTION_COLLECTION = 'contributions';
  */
 export async function POST(request: Request) {
   try {
+    if (!isAuthorisedWebhook(request)) {
+      console.warn('EasyPay webhook: rejected request with missing/invalid token');
+      return Response.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
 
     if (!body || !body.id) {
@@ -27,7 +64,11 @@ export async function POST(request: Request) {
       return Response.json({ success: false, error: 'Invalid payload' }, { status: 400 });
     }
 
-    console.log('EasyPay webhook received:', JSON.stringify(body));
+    // Log identifiers only — the full payload contains customer PII (name,
+    // email, phone) that must not end up in plaintext logs.
+    console.log(
+      `EasyPay webhook received: id=${body.id}, key=${body.key ?? 'n/a'}, type=${body.type ?? 'n/a'}, status=${body.status ?? 'n/a'}`
+    );
 
     // Determine notification type based on payload structure
     if (isAuthorisationNotification(body)) {
@@ -41,6 +82,9 @@ export async function POST(request: Request) {
     // Always respond with 200 to acknowledge receipt
     return Response.json({ success: true }, { status: 200 });
   } catch (e: unknown) {
+    // Surface the failure — without this, a broken webhook (DB down, malformed
+    // payload) is completely silent while we keep telling EasyPay "success".
+    Sentry.captureException(e);
     console.error('EasyPay webhook error:', e);
     // Still return 200 to prevent EasyPay from retrying endlessly
     return Response.json({ success: true }, { status: 200 });
@@ -114,6 +158,7 @@ async function handleAuthorisationNotification(
       },
     });
   } catch (error) {
+    Sentry.captureException(error);
     console.error('Error creating contribution from authorisation:', error);
   }
 }
@@ -170,6 +215,7 @@ async function updateContributionStatus(
       console.warn(`No contribution found for transaction key: ${transactionKey}`);
     }
   } catch (error) {
+    Sentry.captureException(error);
     console.error('Error updating contribution status:', error);
   }
 }

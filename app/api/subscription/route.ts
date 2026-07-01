@@ -2,8 +2,20 @@ import { SubscriptionPaymentQuery } from '@/types/payment/easypay';
 import { checkEasyPaySetup } from '@/utils/payment/easypay';
 import * as z from 'zod';
 import { v4 as uuidv4 } from 'uuid';
+import { checkRateLimit, getClientIp } from '@/utils/rateLimit';
 
 export async function POST(request: Request) {
+  const { allowed, retryAfter } = checkRateLimit(`subscription:${getClientIp(request)}`, {
+    limit: 10,
+    windowMs: 60_000,
+  });
+  if (!allowed) {
+    return Response.json(
+      { error: 'Too many requests. Please try again shortly.' },
+      { status: 429, headers: { 'Retry-After': String(retryAfter) } }
+    );
+  }
+
   try {
     checkEasyPaySetup();
 
@@ -43,16 +55,16 @@ export async function POST(request: Request) {
 
 function prepareSubscriptionRequestBody(body: Record<string, unknown>): SubscriptionPaymentQuery {
   const schema = z.object({
-    value: z.coerce.number().positive(),
-    email: z.string().email(),
-    name: z.string().min(1),
+    value: z.coerce.number().positive().max(50_000),
+    email: z.email(),
+    name: z.string().min(1).max(120),
     currency: z.enum(['EUR']).default('EUR'),
     frequency: z
       .enum(['1D', '1W', '2W', '1M', '2M', '3M', '4M', '6M', '1Y', '2Y', '3Y'])
       .default('1M'),
-    phone_number: z.string().optional(),
-    phone_indicative: z.string().optional(),
-    reason: z.string().optional(),
+    phone_number: z.string().max(20).optional(),
+    phone_indicative: z.string().max(6).optional(),
+    reason: z.string().max(255).optional(),
     start_time: z.string().optional(),
     capture_now: z.boolean().optional().default(true),
     max_captures: z.number().optional(),

@@ -12,15 +12,17 @@ function Case() {
       return;
     }
 
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       if (api.selectedScrollSnap() + 1 === api.scrollSnapList().length) {
         setCurrent(0);
         api.scrollTo(0);
       } else {
         api.scrollNext();
-        setCurrent(current + 1);
+        setCurrent((prev) => prev + 1);
       }
     }, 1000);
+
+    return () => clearTimeout(timeout);
   }, [api, current]);
 
   return (

@@ -3,10 +3,22 @@ import { checkEasyPaySetup } from '@/utils/payment/easypay';
 import * as z from 'zod';
 import { v4 as uuidv4 } from 'uuid';
 import { getPayloadConfig } from '@/lib/payload/server';
+import { checkRateLimit, getClientIp } from '@/utils/rateLimit';
 
 const CONTRIBUTION_COLLECTION = 'contributions';
 
 export async function POST(request: Request) {
+  const { allowed, retryAfter } = checkRateLimit(`donate:${getClientIp(request)}`, {
+    limit: 10,
+    windowMs: 60_000,
+  });
+  if (!allowed) {
+    return Response.json(
+      { error: 'Too many requests. Please try again shortly.' },
+      { status: 429, headers: { 'Retry-After': String(retryAfter) } }
+    );
+  }
+
   const payload = await getPayloadConfig();
   try {
     checkEasyPaySetup();
@@ -53,7 +65,9 @@ export async function POST(request: Request) {
       },
     });
 
-    return Response.json('OK', { status: 200 });
+    // Return the EasyPay response — the donation widget needs it (e.g. the
+    // Multibanco entity/reference shown on the "done" step).
+    return Response.json(data, { status: 200 });
   } catch (e: unknown) {
     if (e instanceof z.ZodError) {
       return Response.json({ error: 'Invalid request data', details: e.issues }, { status: 400 });
@@ -65,14 +79,15 @@ export async function POST(request: Request) {
 
 function prepareEasyPayRequestBody(body: Record<string, unknown>): SinglePaymentQuery {
   const schema = z.object({
-    value: z.coerce.number().positive(),
+    // Cap the amount so a forged/abusive request can't attempt an absurd charge.
+    value: z.coerce.number().positive().max(50_000),
     paymentType: z.enum(['CC', 'MB', 'MBW']),
     email: z.email(),
-    name: z.string().min(1),
+    name: z.string().min(1).max(120),
     currency: z.enum(['EUR']).default('EUR'),
-    phone_number: z.string().optional(),
-    phone_indicative: z.string().optional(),
-    reason: z.string().optional(),
+    phone_number: z.string().max(20).optional(),
+    phone_indicative: z.string().max(6).optional(),
+    reason: z.string().max(255).optional(),
   });
 
   const parsedBody = schema.parse(body);

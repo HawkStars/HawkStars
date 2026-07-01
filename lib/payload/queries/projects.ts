@@ -33,7 +33,6 @@ export const getSingleProjectsQuery = async (
     depth: 3,
     draft: opts?.preview || false,
   });
-  debugger;
   return project.docs[0] ?? null;
 };
 

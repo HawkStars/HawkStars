@@ -39,12 +39,12 @@ export function useTranslation(lng: string, ns: string, options?: Record<string,
   const { i18n } = ret;
   if (runsOnServerSide && i18n.resolvedLanguage !== lng) {
     i18n.changeLanguage(lng);
-  } else {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (i18n.resolvedLanguage === lng) return;
-      i18n.changeLanguage(lng);
-    }, [lng, i18n]);
   }
+  // Called unconditionally to satisfy the Rules of Hooks — effects never run
+  // on the server, so this is a no-op there and the branch above handles SSR.
+  useEffect(() => {
+    if (runsOnServerSide || i18n.resolvedLanguage === lng) return;
+    i18n.changeLanguage(lng);
+  }, [lng, i18n]);
   return ret;
 }

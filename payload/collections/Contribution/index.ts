@@ -13,7 +13,12 @@ export const ContributionCollection: CollectionConfig = {
     plural: { en: 'Contributions', pt: 'Contribuições' },
   },
   access: {
-    read: () => true,
+    // Contributions hold donor PII (name, and customer data / EasyPay keys in
+    // extra_info). Public reads exposed all of it via /api/contributions.
+    // Server-side rendering (donor wall, totals) uses the Local API
+    // (getPayloadConfig().find), which bypasses access control, so restricting
+    // this to authenticated users does not affect the public site.
+    read: validateContributionAccess,
     create: validateContributionAccess,
     update: validateContributionAccess,
     admin: validateContributionAccess,
@@ -104,7 +109,7 @@ export const ContributionCollection: CollectionConfig = {
       label: { en: 'Payment Details (EasyPay)', pt: 'Detalhes de Pagamento (EasyPay)' },
       admin: { initCollapsed: true },
       access: {
-        read: () => true,
+        read: ({ req: { user } }) => Boolean(user),
         create: () => false,
         update: () => false,
       },

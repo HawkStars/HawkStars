@@ -86,7 +86,6 @@ export const googleDriveAdapter = () => ({
         fields: 'id, name, size, webViewLink',
       });
 
-      console.log(response.data);
       const fileId = response.data.id;
       if (!fileId) throw new Error('Google Drive upload failed: no file ID returned');
 

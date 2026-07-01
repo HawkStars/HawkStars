@@ -28,8 +28,6 @@ export const LivePreviewNews: React.FC<LivePreviewNewsProps> = ({ initialData, s
   const { details, mainImage, gallery, lng, references } = data;
   const image = getImagePayloadUrl(mainImage);
 
-  debugger;
-
   return (
     <>
       {image ? (

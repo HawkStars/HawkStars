@@ -26,7 +26,7 @@ import { ContributionCollection as Contribution } from './payload/collections/Co
 import { Curator } from './payload/collections/Curator';
 import { Partner } from './payload/collections/Partner';
 import { Sponsor } from './payload/collections/Sponsor';
-import totalContributioValueQuery from './lib/payload/endpoints/totalContributioValueQuery';
+import sumContributionsHandler from './payload/endpoints/sumContributions';
 import dashboardStatsHandler from './payload/endpoints/dashboardStats';
 import {
   getNotificationsHandler,
@@ -213,7 +213,7 @@ export default buildConfig({
     {
       path: '/sum-contributions',
       method: 'get',
-      handler: totalContributioValueQuery,
+      handler: sumContributionsHandler,
     },
     {
       path: '/dashboard-stats',

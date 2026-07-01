@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach, MockInstance } from 'vitest';
 import { POST } from './route';
 import { SubscriptionPaymentQuery } from '@/types/payment/easypay';
+import { resetRateLimit } from '@/utils/rateLimit';
 
 vi.mock('uuid', () => ({
   v4: () => 'test-uuid-sub-5678',
@@ -35,6 +36,7 @@ function getFetchCallArgs<T = Record<string, unknown>>(
 
 describe('POST /api/subscription', () => {
   beforeEach(() => {
+    resetRateLimit();
     process.env.EASYPAY_ACCOUNT_ID = ENV_VARS.EASYPAY_ACCOUNT_ID;
     process.env.EASYPAY_API_KEY = ENV_VARS.EASYPAY_API_KEY;
     process.env.EASYPAY_API_URL = ENV_VARS.EASYPAY_API_URL;
@@ -189,6 +191,8 @@ describe('POST /api/subscription', () => {
       const frequencies = ['1D', '1W', '2W', '1M', '2M', '3M', '4M', '6M', '1Y', '2Y', '3Y'];
 
       for (const frequency of frequencies) {
+        // 11 requests in one test would trip the 10/min rate limit
+        resetRateLimit();
         vi.spyOn(global, 'fetch').mockResolvedValueOnce(
           new Response(JSON.stringify({ id: `sub-${frequency}` }), { status: 200 })
         );

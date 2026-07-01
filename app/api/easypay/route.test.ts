@@ -191,13 +191,13 @@ describe('POST /api/easypay (webhook)', () => {
       expect(mockPayloadUpdate).not.toHaveBeenCalled();
     });
 
-    it('finds contribution by transaction key in extra_info', async () => {
+    it('finds contribution by transaction key', async () => {
       const request = makeRequest(transactionPayload);
       await POST(request);
 
       const findCall = mockPayloadFind.mock.calls[0][0];
       expect(findCall.collection).toBe('contributions');
-      expect(findCall.where.extra_info.contains).toBe('txn-key-abc');
+      expect(findCall.where.transaction_key.equals).toBe('txn-key-abc');
       expect(findCall.limit).toBe(1);
     });
 

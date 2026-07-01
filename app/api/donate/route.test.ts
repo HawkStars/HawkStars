@@ -1,6 +1,20 @@
 import { describe, it, expect, vi, beforeEach, afterEach, MockInstance } from 'vitest';
+
+// vi.mock is hoisted to the top of the file - use vi.hoisted for variables referenced inside the factory
+const { mockPayloadCreate } = vi.hoisted(() => ({
+  mockPayloadCreate: vi.fn(),
+}));
+
+// Mock Payload so the route doesn't boot the real CMS (DB, sharp, etc.) in tests
+vi.mock('@/lib/payload/server', () => ({
+  getPayloadConfig: vi.fn().mockResolvedValue({
+    create: mockPayloadCreate,
+  }),
+}));
+
 import { POST } from './route';
 import { SinglePaymentQuery } from '@/types/payment/easypay';
+import { resetRateLimit } from '@/utils/rateLimit';
 
 // Mock uuid so transaction keys are predictable in tests
 vi.mock('uuid', () => ({
@@ -36,6 +50,8 @@ function getFetchCallArgs<T = Record<string, unknown>>(
 
 describe('POST /api/donate', () => {
   beforeEach(() => {
+    resetRateLimit();
+    mockPayloadCreate.mockReset();
     process.env.EASYPAY_ACCOUNT_ID = ENV_VARS.EASYPAY_ACCOUNT_ID;
     process.env.EASYPAY_API_KEY = ENV_VARS.EASYPAY_API_KEY;
     process.env.EASYPAY_API_URL = ENV_VARS.EASYPAY_API_URL;
