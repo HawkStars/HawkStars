@@ -97,19 +97,16 @@ jobs:
             git checkout -- . 2>/dev/null || true
             git reset --hard origin/main
 
-            export PNPM_HOME="$HOME/.local/share/pnpm"
-            export PATH="$PNPM_HOME:$PATH"
+            # Remove the old get.pnpm.io installation — its self-installed
+            # launcher kept breaking (exit 127) and would shadow the
+            # npm-managed pnpm below if left on PATH. Keeps the package store.
+            rm -f "$HOME/.local/share/pnpm/pnpm" "$HOME/.local/share/pnpm/pnpmx"
+            rm -rf "$HOME/.local/share/pnpm/global"
 
-            # Reinstall pnpm only when it's missing or broken. A stale shim can
-            # point at a purged global dir and exit 127 while the installer
-            # still reports "everything is already up to date", so we test the
-            # shim itself and wipe it (but keep the package store) before
-            # reinstalling. Pinned to v11 (CI=true above lets it purge
-            # node_modules non-interactively).
-            if ! pnpm --version >/dev/null 2>&1; then
-              rm -rf "$PNPM_HOME/pnpm" "$PNPM_HOME/pnpmx" "$PNPM_HOME/global" "$PNPM_HOME/.tools"
-              curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=11.5.2 sh -
-            fi
+            # Install/auto-update pnpm via npm (ships with Node). "pnpm@11"
+            # tracks the latest 11.x on every deploy, matching the v11 pin in
+            # the check job. Bump both together for a major upgrade.
+            npm install -g pnpm@11
 
             # Verify pnpm is available
             pnpm --version
