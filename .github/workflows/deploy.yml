@@ -97,11 +97,19 @@ jobs:
             git checkout -- . 2>/dev/null || true
             git reset --hard origin/main
 
-            # Pin pnpm to v11 (CI=true above lets it purge node_modules non-interactively).
-            curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=11.5.2 sh -
-            source ~/.bashrc 2>/dev/null || true
-            source ~/.zshrc 2>/dev/null || true
-            export PATH="$HOME/.local/share/pnpm:$PATH"
+            export PNPM_HOME="$HOME/.local/share/pnpm"
+            export PATH="$PNPM_HOME:$PATH"
+
+            # Reinstall pnpm only when it's missing or broken. A stale shim can
+            # point at a purged global dir and exit 127 while the installer
+            # still reports "everything is already up to date", so we test the
+            # shim itself and wipe it (but keep the package store) before
+            # reinstalling. Pinned to v11 (CI=true above lets it purge
+            # node_modules non-interactively).
+            if ! pnpm --version >/dev/null 2>&1; then
+              rm -rf "$PNPM_HOME/pnpm" "$PNPM_HOME/pnpmx" "$PNPM_HOME/global" "$PNPM_HOME/.tools"
+              curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=11.5.2 sh -
+            fi
 
             # Verify pnpm is available
             pnpm --version
