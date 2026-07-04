@@ -1,4 +1,4 @@
-import { Contribution, HawkProject } from '@/payload-types';
+import { Contribution } from '@/payload-types';
 import path from 'path';
 import type { Payload } from 'payload';
 import { fileURLToPath } from 'url';
@@ -261,6 +261,7 @@ export async function seed(payload: Payload): Promise<void> {
         name: 'Associação Juvenil de Deão',
         country: 'Portugal',
         type: 'national' as const,
+        partnership: 'local_entity' as const,
         logo: mediaId(5),
         links: [{ platform: 'website' as const, url: 'https://example.pt' }],
       },
@@ -268,6 +269,7 @@ export async function seed(payload: Payload): Promise<void> {
         name: 'Youth for Europe',
         country: 'Germany',
         type: 'international' as const,
+        partnership: 'erasmus_partner' as const,
         logo: mediaId(5),
         links: [{ platform: 'website' as const, url: 'https://example.de' }],
       },
@@ -275,6 +277,7 @@ export async function seed(payload: Payload): Promise<void> {
         name: 'Asociación Intercultural',
         country: 'Spain',
         type: 'international' as const,
+        partnership: 'erasmus_partner' as const,
         logo: mediaId(5),
       },
     ];
@@ -372,7 +375,7 @@ export async function seed(payload: Payload): Promise<void> {
   // ── 9. Hawk Projects ──────────────────────────────────────────────────────
   const existingProjects = await payload.count({ collection: 'hawk_projects' });
   if (existingProjects.totalDocs === 0) {
-    const projects: HawkProject[] = [
+    const projects = [
       {
         heading: 'Erasmus+ Youth Exchange 2025',
         slug: 'erasmus-youth-exchange-2025',
@@ -383,15 +386,12 @@ export async function seed(payload: Payload): Promise<void> {
           image: mediaId(3),
           alt: 'Erasmus Youth Exchange',
         },
-        id: 'project-1',
-
         hero: {
           participants: 36,
           fundedAmount: 38064,
           videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
         },
-        updatedAt: new Date().toISOString(),
-        createdAt: new Date().toISOString(),
+        hawkStarsInformation: { type: 'hosting_org' as const },
       },
       {
         heading: 'Festival Cultural HawkStars',
@@ -408,9 +408,7 @@ export async function seed(payload: Payload): Promise<void> {
           fundedAmount: 38064,
           videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
         },
-        id: 'project-2',
-        updatedAt: new Date().toISOString(),
-        createdAt: new Date().toISOString(),
+        hawkStarsInformation: { type: 'hosting_org' as const },
       },
       {
         heading: 'International Conference on Youth Work',
@@ -422,15 +420,12 @@ export async function seed(payload: Payload): Promise<void> {
           image: mediaId(3),
           alt: 'International Conference',
         },
-
         hero: {
           participants: 36,
           fundedAmount: 38064,
           videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
         },
-        id: 'project-3',
-        updatedAt: new Date().toISOString(),
-        createdAt: new Date().toISOString(),
+        hawkStarsInformation: { type: 'sending_org' as const },
       },
     ];
 
