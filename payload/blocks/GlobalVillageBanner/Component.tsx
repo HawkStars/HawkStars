@@ -17,7 +17,7 @@ export const GlobalVillageBannerBlockComponent: React.FC<GlobalVillageBannerBloc
       padding='none'
       className='bg-green'
       id={sectionId || undefined}
-      data-blockId='globalVillageBanner'
+      data-blockid='globalVillageBanner'
     >
       <div className='relative mx-auto max-w-6xl px-3 py-24 lg:px-40 lg:py-40'>
         <p className='text-white'>{text}</p>

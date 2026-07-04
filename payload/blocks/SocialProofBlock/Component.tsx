@@ -32,7 +32,7 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
       container
       className={cn(bgClasses[backgroundColor as keyof typeof bgClasses])}
       id={sectionId || undefined}
-      data-blockId='socialProof'
+      data-blockid='socialProof'
     >
       {(title || subtitle) && (
         <div

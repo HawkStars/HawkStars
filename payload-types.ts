@@ -1976,7 +1976,7 @@ export type HawkProjectPartnerInformation =
       /**
        * Select the role of the partner organisation in this project
        */
-      role?: ('hosting_org' | 'sending_org') | null;
+      role?: ('hosting_org' | 'sending_org' | 'supporting_org') | null;
       reports?: HawkProjectPartnerReport;
       id?: string | null;
     }[]
@@ -2018,9 +2018,23 @@ export type HawkProjectDisseminationReport =
       label: string;
       url: string;
       /**
-       * Check if this is a report created by Hawk Stars (e.g. internal project report)
+       * Select the platform where the partner disseminated project results
        */
-      is_hawk_report?: boolean | null;
+      platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'website' | 'other';
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * Documents related to the HawkStars, such as reports, presentations, or other relevant files.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkStarsProjectDocument".
+ */
+export type HawkStarsProjectDocument =
+  | {
+      label?: string | null;
+      url: string;
+      platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'website' | 'other';
       id?: string | null;
     }[]
   | null;
@@ -2456,9 +2470,7 @@ export interface Config {
     notifications: NotificationsSelect<false> | NotificationsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents':
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -3852,11 +3864,12 @@ export interface HawkProject {
   seo?: SEO;
   partnersInformation?: HawkProjectPartnersInformation;
   /**
-   * Dissemination links per country and official reports.
+   * Dissemination links per other partners and official reports.
    */
-  dissemination?: {
+  otherDisseminationFields?: {
     reports?: HawkProjectDisseminationReport;
   };
+  hawkStarsInformation: HawkStarsProjectInformation;
   /**
    * Unique slug used in the project page URL (e.g. "ai4youth"). Auto-generated from the title if left empty.
    */
@@ -3980,6 +3993,7 @@ export interface Partner {
   logo?: (string | null) | Media;
   country: string;
   type: 'national' | 'international';
+  partnership: 'local_entity' | 'government_entity' | 'erasmus_partner' | 'other';
   /**
    * Social Media Links for this entry
    */
@@ -4006,6 +4020,16 @@ export interface Partner {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * Information about the project’s HawkStars, including their names, roles, and contributions.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkStarsProjectInformation".
+ */
+export interface HawkStarsProjectInformation {
+  type: 'hosting_org' | 'sending_org';
+  documents?: HawkStarsProjectDocument;
 }
 /**
  * Manage admin panel users and their roles. Admins have full access; Editors can manage content but not users or settings. Only admins can create new users.
@@ -4592,9 +4616,7 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  taskSlug?:
-    | ('inline' | 'refreshInstagramToken' | 'cleanReadNotifications' | 'schedulePublish')
-    | null;
+  taskSlug?: ('inline' | 'refreshInstagramToken' | 'cleanReadNotifications' | 'schedulePublish') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -4909,11 +4931,12 @@ export interface HawkProjectsSelect<T extends boolean = true> {
   gallery?: T | MultiImageTypeSelect<T>;
   seo?: T | SEOSelect<T>;
   partnersInformation?: T | HawkProjectPartnersInformationSelect<T>;
-  dissemination?:
+  otherDisseminationFields?:
     | T
     | {
         reports?: T | HawkProjectDisseminationReportSelect<T>;
       };
+  hawkStarsInformation?: T | HawkStarsProjectInformationSelect<T>;
   slug?: T;
   actionType?: T;
   referenceNumber?: T;
@@ -5007,7 +5030,25 @@ export interface HawkProjectPartnerReportSelect<T extends boolean = true> {
 export interface HawkProjectDisseminationReportSelect<T extends boolean = true> {
   label?: T;
   url?: T;
-  is_hawk_report?: T;
+  platform?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkStarsProjectInformation_select".
+ */
+export interface HawkStarsProjectInformationSelect<T extends boolean = true> {
+  type?: T;
+  documents?: T | HawkStarsProjectDocumentSelect<T>;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkStarsProjectDocument_select".
+ */
+export interface HawkStarsProjectDocumentSelect<T extends boolean = true> {
+  label?: T;
+  url?: T;
+  platform?: T;
   id?: T;
 }
 /**
@@ -5108,6 +5149,7 @@ export interface PartnersSelect<T extends boolean = true> {
   logo?: T;
   country?: T;
   type?: T;
+  partnership?: T;
   links?:
     | T
     | {
@@ -6939,6 +6981,7 @@ export interface SeoFieldsSelect<T extends boolean = true> {
 export interface Auth {
   [k: string]: unknown;
 }
+
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

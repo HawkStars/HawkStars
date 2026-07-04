@@ -82,7 +82,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='campaignCountdown'
+      data-blockid='campaignCountdown'
     >
       <div
         className={cn(

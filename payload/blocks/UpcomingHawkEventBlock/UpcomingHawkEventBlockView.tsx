@@ -35,7 +35,7 @@ export const UpcomingHawkEventBlockView: React.FC<UpcomingHawkEventBlockViewProp
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='upcomingHawkEvent'
+      data-blockid='upcomingHawkEvent'
     >
       {(title || subtitle) && (
         <div className='section-header text-center'>

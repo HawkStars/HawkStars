@@ -14,7 +14,7 @@ export const DataGridBlock: React.FC<DataGridBlockProps> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='dataGridBlock'
+      data-blockid='dataGridBlock'
     >
       {title && (
         <h2 className='text-h2_bold mb-10 text-center tracking-tight text-balance md:mb-12'>

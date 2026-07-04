@@ -12,7 +12,7 @@ export const DonationWidgetBlock: React.FC<DonationWidgetBlockProps> = ({ sectio
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='donationWidget'
+      data-blockid='donationWidget'
     >
       <div className='flex justify-center'>
         <DonationWidget />

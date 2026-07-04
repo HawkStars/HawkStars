@@ -22,7 +22,7 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='cta'
+      data-blockid='cta'
     >
       <div className='bg-muted relative flex w-full flex-col justify-between gap-8 overflow-hidden rounded-4xl border p-8 md:flex-row md:items-center md:gap-12 md:p-12'>
         <div className='flex h-full max-w-lg flex-col justify-center'>

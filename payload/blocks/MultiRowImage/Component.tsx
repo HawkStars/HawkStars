@@ -67,7 +67,7 @@ const MultiRowImage: React.FC<MultiRowImageBlock> = ({
       container
       className='pb-16'
       id={sectionId || undefined}
-      data-blockId='multiRowImage'
+      data-blockid='multiRowImage'
     >
       <div className='relative'>
         <div

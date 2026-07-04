@@ -21,7 +21,7 @@ export const PricingTableBlock: React.FC<PricingTableBlockProps> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='pricingTable'
+      data-blockid='pricingTable'
     >
       {/* Header */}
       {(title || subtitle) && (

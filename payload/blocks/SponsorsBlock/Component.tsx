@@ -44,7 +44,7 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
       container
       className='mx-auto max-w-7xl'
       id={sectionId || undefined}
-      data-blockId='sponsorsBlock'
+      data-blockid='sponsorsBlock'
     >
       {(title || subtitle) && (
         <div className='section-header text-center'>

@@ -271,7 +271,7 @@ export function AgendaBlockView({
       padding='none'
       className='w-full py-12'
       id={sectionId ?? undefined}
-      data-blockId='agenda'
+      data-blockid='agenda'
     >
       <div className='mx-auto max-w-4xl px-4'>
         {/* Header */}

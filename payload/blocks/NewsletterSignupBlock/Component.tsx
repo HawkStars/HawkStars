@@ -32,7 +32,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='newsletterSignup'
+      data-blockid='newsletterSignup'
     >
       <div
         className='rounded-2xl p-8 text-white lg:p-12'

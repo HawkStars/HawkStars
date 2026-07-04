@@ -161,7 +161,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
       padding='none'
       container
       className={cn(backgroundColor && backgroundClasses[backgroundColor])}
-      data-blockId='testimonialBlock'
+      data-blockid='testimonialBlock'
     >
       {/* Header */}
       {(title || subtitle) && (

@@ -18,7 +18,7 @@ export const LogosBlock: React.FC<LogosBlockType> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='logosBlock'
+      data-blockid='logosBlock'
     >
       <div className='text-center'>
         {badgeText && <Badge variant='outline'>{badgeText}</Badge>}

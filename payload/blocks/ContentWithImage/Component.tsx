@@ -26,7 +26,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='contentWithImage'
+      data-blockid='contentWithImage'
     >
       <div className='grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16'>
         {/* Image Section */}

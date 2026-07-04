@@ -25,7 +25,7 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='simpleGallery'
+      data-blockid='simpleGallery'
     >
       <h2 className='mb-4 text-center text-4xl font-semibold tracking-tight text-balance'>
         {title}

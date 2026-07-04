@@ -74,7 +74,7 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='imageShowcase'
+      data-blockid='imageShowcase'
     >
       <div className='grid gap-2 lg:grid-cols-[3fr_1fr] lg:gap-4'>
         {/* Main showcased image */}

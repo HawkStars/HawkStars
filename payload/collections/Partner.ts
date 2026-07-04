@@ -48,6 +48,22 @@ export const Partner: CollectionConfig = {
         { label: { en: 'International', pt: 'Internacional' }, value: 'international' },
       ],
     },
+    {
+      type: 'radio',
+      name: 'partnership',
+      label: { en: 'Partnership Type', pt: 'Tipo de Parceria' },
+      required: true,
+      defaultValue: 'local_entity',
+      options: [
+        { label: { en: 'Local Entity', pt: 'Entidade Local' }, value: 'local_entity' },
+        {
+          label: { en: 'Government Entity', pt: 'Entidade Governamental' },
+          value: 'government_entity',
+        },
+        { label: { en: 'Erasmus + Partner', pt: 'Parceiro Erasmus +' }, value: 'erasmus_partner' },
+        { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
+      ],
+    },
     { ...SocialLinksField },
   ],
 };

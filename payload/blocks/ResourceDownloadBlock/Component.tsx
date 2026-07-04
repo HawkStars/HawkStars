@@ -39,7 +39,7 @@ export const ResourceDownloadBlock: React.FC<ResourceDownloadBlockProps> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='resourceDownload'
+      data-blockid='resourceDownload'
     >
       {title && (
         <h2

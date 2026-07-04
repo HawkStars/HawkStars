@@ -13,7 +13,7 @@ const InstagramGrid = dynamic(() => import('@/components/socials/InstagramFeed/I
 });
 
 export const InstagramBlockComponent: React.FC<InstagramBlock> = ({ version }) => (
-  <div data-blockId='instagram'>
+  <div data-blockid='instagram'>
     {version === 'grid' ? <InstagramGrid /> : <InstagramEmbedWidget />}
   </div>
 );

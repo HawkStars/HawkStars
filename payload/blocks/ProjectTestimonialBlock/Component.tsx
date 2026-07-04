@@ -237,7 +237,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
       container
       className={cn(backgroundClasses[backgroundColor as keyof typeof backgroundClasses])}
       id={sectionId || undefined}
-      data-blockId='projectTestimonialBlock'
+      data-blockid='projectTestimonialBlock'
     >
       {/* Section Header */}
       {(title || subtitle) && (

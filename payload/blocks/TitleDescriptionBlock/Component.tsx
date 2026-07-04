@@ -12,7 +12,7 @@ export const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='titleDescriptionBlock'
+      data-blockid='titleDescriptionBlock'
     >
       <div className='flex flex-col items-center text-center'>
         {title && <h2 className='text-h2_bold tracking-tight text-balance'>{title}</h2>}

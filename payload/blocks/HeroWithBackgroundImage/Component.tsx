@@ -40,7 +40,7 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
       padding='none'
       className='relative min-h-150 w-full lg:min-h-175'
       id={sectionId || undefined}
-      data-blockId='heroWithBackgroundImage'
+      data-blockid='heroWithBackgroundImage'
     >
       {/* Background Image */}
       {bgImage && bgImage.url && (

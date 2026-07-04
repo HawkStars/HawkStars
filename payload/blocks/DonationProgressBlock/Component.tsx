@@ -80,7 +80,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='donationProgress'
+      data-blockid='donationProgress'
     >
       <div
         className={cn(

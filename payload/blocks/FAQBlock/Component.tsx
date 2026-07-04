@@ -19,7 +19,7 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='faq'
+      data-blockid='faq'
     >
       {title && (
         <h2 className='mb-12 text-center text-3xl font-bold tracking-tight text-balance lg:text-4xl'>

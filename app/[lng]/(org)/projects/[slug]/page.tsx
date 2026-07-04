@@ -9,7 +9,7 @@ import { getImagePayloadUrl } from '@/lib/image';
 
 export const revalidate = 600; // invalidate every 10 minutes
 
-export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
+export async function generateMetadata(props: ProjectPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng, slug } = params;
 
@@ -29,9 +29,9 @@ export async function generateMetadata(props: EventPageProps): Promise<Metadata>
   });
 }
 
-type EventPageProps = { params: Promise<LanguageProps & { slug: string }> };
+type ProjectPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
-const EventPage = async (props: EventPageProps) => {
+const ProjectServerPage = async (props: ProjectPageProps) => {
   const params = await props.params;
   const { slug, lng } = params;
   if (!slug) return notFound();
@@ -42,4 +42,4 @@ const EventPage = async (props: EventPageProps) => {
   return <ProjectPage project={project} />;
 };
 
-export default EventPage;
+export default ProjectServerPage;

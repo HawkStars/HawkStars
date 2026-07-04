@@ -39,13 +39,14 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
   sectionId,
   item,
 }) => {
+  debugger;
   return (
     <HawkStarsSection
       spacing='default'
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='latestNews'
+      data-blockid='latestNews'
     >
       {(title || subtitle) && (
         <div className='section-header text-center'>

@@ -1,12 +1,13 @@
 import { Tab } from 'payload';
+import { PLATFORM_OPTIONS } from './config';
 
 const HawkProjectDisseminationFields: Tab = {
-  name: 'dissemination',
-  label: { en: 'Dissemination', pt: 'Disseminação' },
+  name: 'otherDisseminationFields',
+  label: { en: 'Other Documents', pt: 'Outros Documentos' },
   admin: {
     description: {
-      en: 'Dissemination links per country and official reports.',
-      pt: 'Links de disseminação por país e relatórios oficiais.',
+      en: 'Dissemination links per other partners and official reports.',
+      pt: 'Links de disseminação por outros parceiros e relatórios oficiais.',
     },
   },
   fields: [
@@ -22,8 +23,7 @@ const HawkProjectDisseminationFields: Tab = {
         },
         initCollapsed: true,
         components: {
-          RowLabel:
-            '@/payload/collections/HawkProject/components/pageTab/DisseminationReportsRowLabel',
+          RowLabel: '@/payload/collections/HawkProject/components/partners/ReportsRowLabel',
         },
       },
       fields: [
@@ -47,13 +47,15 @@ const HawkProjectDisseminationFields: Tab = {
           required: true,
         },
         {
-          name: 'is_hawk_report',
-          label: { en: 'Hawk Stars Report', pt: 'Relatório Hawk Stars' },
-          type: 'checkbox',
+          name: 'platform',
+          label: { en: 'Platform', pt: 'Plataforma' },
+          type: 'select',
+          required: true,
+          options: PLATFORM_OPTIONS,
           admin: {
             description: {
-              en: 'Check if this is a report created by Hawk Stars (e.g. internal project report)',
-              pt: 'Marque se este é um relatório criado pela Hawk Stars (ex: relatório interno do projeto)',
+              en: 'Select the platform where the partner disseminated project results',
+              pt: 'Selecione a plataforma onde o parceiro disseminou os resultados do projeto',
             },
           },
         },

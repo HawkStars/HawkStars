@@ -27,7 +27,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='ctaBanner'
+      data-blockid='ctaBanner'
     >
       {variant === 'centered' && (
         <div

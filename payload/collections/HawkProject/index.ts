@@ -9,6 +9,7 @@ import HawkProjectPartnersInformation from './HawkProjectPartnersInformation';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import HawkProjectDisseminationFields from './HawkProjectDisseminationFields';
 import { GROUP_LABELS } from '@/payload/constants';
+import HawkStarsProjectInformation from './HawkStarsProjectInformation';
 
 export const HawkProject: CollectionConfig = {
   slug: 'hawk_projects',
@@ -68,6 +69,7 @@ export const HawkProject: CollectionConfig = {
         HawkProjectSeoTab,
         HawkProjectPartnersInformation,
         HawkProjectDisseminationFields,
+        HawkStarsProjectInformation,
       ],
     },
     /* -------------------------------------------------------------- */

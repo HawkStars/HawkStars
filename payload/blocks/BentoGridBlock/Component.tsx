@@ -89,7 +89,7 @@ const BentoGridBlock: React.FC<BentoGridBlockProps> = ({
       spacing='tight'
       padding='none'
       id={sectionId || undefined}
-      data-blockId='bentoGrid'
+      data-blockid='bentoGrid'
     >
       <div className='mx-auto px-4 sm:px-6 lg:px-8'>
         {(sectionTitle || sectionDescription) && (

@@ -1,17 +1,5 @@
 import { Tab } from 'payload';
-
-/* ------------------------------------------------------------------ */
-/*  Dissemination link platform options                                */
-/* ------------------------------------------------------------------ */
-const disseminationPlatformOptions = [
-  { label: { en: 'Facebook', pt: 'Facebook' }, value: 'facebook' },
-  { label: { en: 'Instagram', pt: 'Instagram' }, value: 'instagram' },
-  { label: { en: 'LinkedIn', pt: 'LinkedIn' }, value: 'linkedin' },
-  { label: { en: 'YouTube', pt: 'YouTube' }, value: 'youtube' },
-  { label: { en: 'TikTok', pt: 'TikTok' }, value: 'tiktok' },
-  { label: { en: 'Website', pt: 'Website' }, value: 'website' },
-  { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
-];
+import { PLATFORM_OPTIONS } from './config';
 
 const HawkProjectPartnersInformation: Tab = {
   name: 'partnersInformation',
@@ -45,6 +33,9 @@ const HawkProjectPartnersInformation: Tab = {
           label: { en: 'Partners', pt: 'Parceiros' },
           type: 'relationship',
           relationTo: 'partners',
+          filterOptions: {
+            partnership: { equals: 'erasmus_partner' },
+          },
           required: true,
           admin: {
             description: {
@@ -65,6 +56,10 @@ const HawkProjectPartnersInformation: Tab = {
             {
               label: { en: 'Sending organisation', pt: 'Organização de Envio' },
               value: 'sending_org',
+            },
+            {
+              label: { en: 'Supporting organisation', pt: 'Organização de Apoio' },
+              value: 'supporting_org',
             },
           ],
           admin: {
@@ -96,7 +91,7 @@ const HawkProjectPartnersInformation: Tab = {
               label: { en: 'Platform', pt: 'Plataforma' },
               type: 'select',
               required: true,
-              options: disseminationPlatformOptions,
+              options: PLATFORM_OPTIONS,
               admin: {
                 description: {
                   en: 'Select the platform where the partner disseminated project results',

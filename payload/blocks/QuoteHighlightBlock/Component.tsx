@@ -23,7 +23,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='quoteHighlight'
+      data-blockid='quoteHighlight'
     >
       {style === 'centered' && (
         <div className='bg-bege-light mx-auto max-w-4xl rounded-2xl px-8 py-12 text-center lg:px-16'>

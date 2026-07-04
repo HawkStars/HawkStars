@@ -14,7 +14,7 @@ export const MediaBlock: React.FC<MediaBlockProps> = (props) => {
     <div
       className='relative mx-auto h-screen w-full'
       id={sectionId || undefined}
-      data-blockId='mediaBlock'
+      data-blockid='mediaBlock'
     >
       <Image
         src={image.url}

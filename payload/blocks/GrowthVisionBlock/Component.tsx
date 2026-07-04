@@ -41,7 +41,7 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
       container
       className={cn(backgroundStyles[bg])}
       id={sectionId || undefined}
-      data-blockId='growthVisionBlock'
+      data-blockid='growthVisionBlock'
     >
       {/* Header */}
       <div className={cn('mb-12 lg:mb-14', titleLocationStyles[titleLocation ?? 'center'])}>

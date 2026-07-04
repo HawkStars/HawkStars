@@ -50,7 +50,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='accordion'
+      data-blockid='accordion'
     >
       {(title || description) && (
         <div className='section-header text-center'>

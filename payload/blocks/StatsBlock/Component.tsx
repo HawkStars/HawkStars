@@ -60,7 +60,7 @@ export const StatsBlock: React.FC<StatsBlockProps> = ({
       container
       className={cn(backgroundStyles[background as keyof typeof backgroundStyles])}
       id={sectionId || undefined}
-      data-blockId='statsBlock'
+      data-blockid='statsBlock'
     >
       {/* Stats Grid */}
       <div

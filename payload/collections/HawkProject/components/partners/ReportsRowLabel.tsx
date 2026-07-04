@@ -3,12 +3,12 @@
 import { useRowLabel } from '@payloadcms/ui';
 
 const ReportsRowLabel = () => {
-  const { data } = useRowLabel<{
+  const { data, rowNumber } = useRowLabel<{
     platform: string;
     label: string;
   }>();
 
-  const rowLabel = `${data?.platform || ''} ${data?.label || 'Unnamed Report'}`;
+  const rowLabel = `${data?.platform || ' - '} ${data?.label || `Report ${rowNumber ?? 0 + 1}`}`;
 
   return <div style={{ textTransform: 'capitalize' }}>{rowLabel}</div>;
 };

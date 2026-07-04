@@ -48,7 +48,7 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='imageComparisonSlider'
+      data-blockid='imageComparisonSlider'
     >
       {title && (
         <h2 className='mb-10 text-center text-3xl font-bold tracking-tight text-balance lg:mb-12 lg:text-4xl'>

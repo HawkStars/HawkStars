@@ -30,7 +30,7 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId='hero'
+      data-blockid='hero'
     >
       <div className='mx-auto flex max-w-3xl flex-col items-center text-center'>
         {bgImage && bgImage.url && (

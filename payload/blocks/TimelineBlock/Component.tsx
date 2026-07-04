@@ -22,7 +22,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
       padding='none'
       container
       id={sectionId || undefined}
-      data-blockId={blockType}
+      data-blockid={blockType}
     >
       {title && (
         <h2 className='mb-12 text-center text-3xl font-bold tracking-tight text-balance lg:text-4xl'>

@@ -26,7 +26,7 @@ interface ProjectPageProps {
 }
 
 export default function ProjectPage({ project }: ProjectPageProps) {
-  const { partnersInformation, details, dissemination } = project;
+  const { partnersInformation, details, otherDisseminationFields } = project;
   const { partners } = partnersInformation || {};
   const { text, phases } = details || {};
 
@@ -199,7 +199,7 @@ export default function ProjectPage({ project }: ProjectPageProps) {
               />
             </div>
 
-            {dissemination?.reports?.map((report, j) => (
+            {otherDisseminationFields?.reports?.map((report, j) => (
               <Link
                 key={j}
                 href={report.url}
@@ -207,7 +207,7 @@ export default function ProjectPage({ project }: ProjectPageProps) {
                 rel='noopener noreferrer'
                 className='rounded-full bg-amber-400 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-500'
               >
-                {report.is_hawk_report && 'Hawk Stars Report: '} {report.label}
+                {report.label}
               </Link>
             ))}
           </div>
