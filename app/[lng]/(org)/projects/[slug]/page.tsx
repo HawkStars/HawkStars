@@ -3,9 +3,14 @@ import { notFound } from 'next/navigation';
 import { Language } from '@/i18n/settings';
 import { getMetadataPageInfo, prepareMetadataInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
-import ProjectPage from '@/components/projects/ProjectPage';
 import { getSingleProjectsQuery } from '@/lib/payload/queries/projects';
 import { getImagePayloadUrl } from '@/lib/image';
+import NewsSingleGallery from '@/components/news/single/NewsSingleGallery';
+import ProjectsSingleHero from '@/components/projects/single/ProjectsSingleHero';
+import SingleProjectObjectives from '@/components/projects/single/SingleProjectObjectives';
+import SingleProjectPartners from '@/components/projects/single/SingleProjectPartners';
+import SingleProjectPhases from '@/components/projects/single/SingleProjectPhases';
+import SingleProjectReports from '@/components/projects/single/SingleProjectReports';
 
 export const revalidate = 600; // invalidate every 10 minutes
 
@@ -39,7 +44,16 @@ const ProjectServerPage = async (props: ProjectPageProps) => {
   const project = await getSingleProjectsQuery(slug, lng);
   if (!project) notFound();
 
-  return <ProjectPage project={project} />;
+  return (
+    <main>
+      <ProjectsSingleHero {...project} />
+      <SingleProjectPhases details={project.details} />
+      <SingleProjectPartners partnersInformation={project.partnersInformation} />
+      <SingleProjectObjectives objectives={project.objectives} />
+      <SingleProjectReports {...project} />
+      <NewsSingleGallery gallery={project.gallery} />
+    </main>
+  );
 };
 
 export default ProjectServerPage;
