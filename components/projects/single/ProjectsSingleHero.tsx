@@ -93,7 +93,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
                 <div className='flex items-center gap-2'>
                   <span className='text-xl'>💰</span>
                   <div>
-                    <span className='text-2xl font-bold'>{formatCurrency(hero.fundedAmount)}</span>
+                    <span className='text-2xl font-bold'>{`${formatCurrency(hero.fundedAmount)}€`}</span>
                     <p className='text-sm text-gray-600'>{'Euros Financiados'}</p>
                   </div>
                 </div>
@@ -124,6 +124,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
           {/* Country flags */}
           {partners && partners.length > 0 && (
             <div className='mt-6 flex flex-wrap gap-3'>
+              <FlagIcon country='PT' />
               {partners.map((c, i) => (
                 <FlagIcon key={i} country={(c.partner as Partner).country} />
               ))}
