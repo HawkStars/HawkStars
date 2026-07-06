@@ -3,8 +3,8 @@ const ProjectSection: React.FC<{ children: React.ReactNode; className?: string }
   className = '',
 }) => {
   return (
-    <section className={`py-4 ${className}`}>
-      <div className='container mx-auto max-w-6xl px-4'>{children}</div>
+    <section className={`container max-w-6xl p-4 lg:mx-auto lg:py-8 ${className}`}>
+      {children}
     </section>
   );
 };

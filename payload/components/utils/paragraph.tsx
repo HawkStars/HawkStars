@@ -18,7 +18,7 @@ const Paragraph: JSXConverter<SerializedParagraphNode> = ({
   if (children.length === 0) return <br />;
 
   const margin = [`max-lg:mx-${(indent + 1) * 1}`];
-  return <p className={cn('text-body mx-auto my-1 max-w-6xl', { margin })}>{children}</p>;
+  return <p className={cn('text-body mx-auto my-1 max-w-6xl', margin)}>{children}</p>;
 };
 
 export default Paragraph;
