@@ -119,7 +119,7 @@ const dropdownsOnlyColumns: HeaderNavigationColumns = [
 ];
 
 const meta = {
-  title: 'Header/DesktopNavbar',
+  title: 'Layout/Header/Desktop Navbar',
   component: DesktopNavbar,
   parameters: {
     layout: 'fullscreen',

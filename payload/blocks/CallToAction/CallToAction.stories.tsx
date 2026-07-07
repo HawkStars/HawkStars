@@ -3,7 +3,7 @@ import { CallToActionBlock } from './Component';
 import { createPayloadExternalImage } from '@/utils/storybook';
 
 const meta: Meta<typeof CallToActionBlock> = {
-  title: 'Call To Action/Globe',
+  title: 'Blocks/Call To Action/Globe',
   component: CallToActionBlock,
   parameters: {
     layout: 'fullscreen',

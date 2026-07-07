@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { LogosBlock } from './Component';
 
 const meta: Meta<typeof LogosBlock> = {
-  title: 'Media/Logos',
+  title: 'Blocks/Media/Logos',
   component: LogosBlock,
   parameters: { layout: 'fullscreen' },
   argTypes: {

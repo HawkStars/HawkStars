@@ -3,7 +3,7 @@ import AppProvider from '@/utils/contexts/AppProvider';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 const meta = {
-  title: 'Navigation/FooterBottom',
+  title: 'Layout/Footer/Footer Bottom',
   component: FooterBottom,
   parameters: {
     layout: 'fullscreen',

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { LatestNewsBlockView } from './LatestNewsBlockView';
 
 const meta: Meta<typeof LatestNewsBlockView> = {
-  title: 'News & Events/Latest News',
+  title: 'Blocks/News & Events/Latest News',
   component: LatestNewsBlockView,
   parameters: {
     layout: 'fullscreen',

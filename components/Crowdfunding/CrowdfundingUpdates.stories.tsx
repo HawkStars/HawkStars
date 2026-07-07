@@ -34,7 +34,7 @@ const UpdatesWithT = (props: Omit<React.ComponentProps<typeof CrowdfundingUpdate
 };
 
 const meta = {
-  title: 'Crowdfunding/CrowdfundingUpdates',
+  title: 'Crowdfunding/Sections/Updates',
   component: UpdatesWithT,
   parameters: {
     layout: 'fullscreen',

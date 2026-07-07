@@ -3,7 +3,7 @@ import { ProjectTestimonialBlock } from './Component';
 import { ImageType } from '@/payload-types';
 
 const meta: Meta<typeof ProjectTestimonialBlock> = {
-  title: 'Testimonials/Project Testimonial',
+  title: 'Blocks/Cards/Project Testimonial',
   component: ProjectTestimonialBlock,
   parameters: {
     layout: 'fullscreen',

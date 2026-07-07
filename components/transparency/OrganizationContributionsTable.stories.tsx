@@ -65,7 +65,7 @@ const buildData = (docs: Contribution[]): PaginatedDocs<Contribution> =>
   }) as unknown as PaginatedDocs<Contribution>;
 
 const meta = {
-  title: 'Transparency/OrganizationContributionsTable',
+  title: 'Pages/Transparency/Organization Contributions Table',
   component: OrganizationContributionsTable,
   parameters: {
     layout: 'fullscreen',

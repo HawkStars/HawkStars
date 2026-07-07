@@ -9,7 +9,7 @@ const BusinessWithT = (props: Omit<React.ComponentProps<typeof CrowdfundingBusin
 };
 
 const meta = {
-  title: 'Crowdfunding/CrowdfundingBusiness',
+  title: 'Crowdfunding/Sections/Business',
   component: BusinessWithT,
   parameters: {
     layout: 'fullscreen',

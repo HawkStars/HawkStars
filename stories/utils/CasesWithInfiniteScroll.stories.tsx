@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Case } from '@/components/ui/cases-with-infinite-scroll';
 
 const meta = {
-  title: 'UI/CasesWithInfiniteScroll',
+  title: 'Design System/Cases With Infinite Scroll',
   component: Case,
   parameters: {
     layout: 'fullscreen',

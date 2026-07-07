@@ -29,7 +29,7 @@ const sampleImages: SimpleGalleryProps['images'] = [
 ];
 
 const Gallery = {
-  title: 'Media/Simple Gallery',
+  title: 'Blocks/Media/Simple Gallery',
   component: SimpleGallery,
 };
 

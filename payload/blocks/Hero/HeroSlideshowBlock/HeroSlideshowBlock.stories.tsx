@@ -3,7 +3,7 @@ import { HeroSlideshowBlock } from './Component';
 import { createPayloadLink } from '@/utils/storybook';
 
 const meta: Meta<typeof HeroSlideshowBlock> = {
-  title: 'Hero/Slideshow',
+  title: 'Blocks/Hero/Slideshow',
   component: HeroSlideshowBlock,
   parameters: {
     layout: 'fullscreen',

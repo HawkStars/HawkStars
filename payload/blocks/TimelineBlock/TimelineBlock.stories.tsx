@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { TimelineBlock } from './Component';
 
 const meta: Meta<typeof TimelineBlock> = {
-  title: 'Extra/TimelineBlock',
+  title: 'Blocks/News & Events/Timeline',
   component: TimelineBlock,
   parameters: { layout: 'fullscreen' },
   argTypes: {

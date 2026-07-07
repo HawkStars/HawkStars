@@ -4,7 +4,7 @@ import { LuCheck } from 'react-icons/lu';
 import { Badge } from '@/components/ui/badge';
 
 const meta = {
-  title: 'UI/Badge',
+  title: 'Design System/Badge',
   component: Badge,
   parameters: {
     layout: 'centered',

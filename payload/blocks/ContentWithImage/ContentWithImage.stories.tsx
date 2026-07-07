@@ -4,7 +4,7 @@ import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import { createPayloadExternalImage } from '@/utils/storybook';
 
 const meta: Meta<typeof ContentWithImageBlock> = {
-  title: 'Section/Content With Image',
+  title: 'Blocks/Content/Content With Image',
   component: ContentWithImageBlock,
   parameters: {
     layout: 'fullscreen',

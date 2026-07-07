@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { NewsletterSignupBlock } from './Component';
 
 const meta: Meta<typeof NewsletterSignupBlock> = {
-  title: 'Extra/NewsletterSignupBlock',
+  title: 'Blocks/Info/Newsletter Signup',
   component: NewsletterSignupBlock,
   parameters: {
     layout: 'fullscreen',

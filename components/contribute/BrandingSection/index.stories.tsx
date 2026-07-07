@@ -3,7 +3,7 @@ import { globalVillageLogo } from '@/utils/models/images/logos';
 import BrandingSection from './index';
 
 const meta = {
-  title: 'Contribute/BrandingSection',
+  title: 'Donation/Branding Section',
   component: BrandingSection,
   parameters: {
     layout: 'padded',

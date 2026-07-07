@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 const meta = {
-  title: 'UI/Card',
+  title: 'Design System/Card',
   component: Card,
   parameters: {
     layout: 'centered',

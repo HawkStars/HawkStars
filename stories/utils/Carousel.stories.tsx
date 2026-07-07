@@ -10,7 +10,7 @@ import {
 import { Card, CardContent } from '@/components/ui/card';
 
 const meta = {
-  title: 'UI/Carousel',
+  title: 'Design System/Carousel',
   component: Carousel,
   parameters: {
     layout: 'centered',

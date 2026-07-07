@@ -15,7 +15,7 @@ const donationState: DonationState = {
 };
 
 const meta = {
-  title: 'Contribute/DoneStep',
+  title: 'Donation/Widget/Done Step',
   component: DoneStep,
   parameters: {
     layout: 'centered',

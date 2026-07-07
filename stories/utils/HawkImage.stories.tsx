@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import HawkImage from '@/components/ui/hawk-image';
 
 const meta = {
-  title: 'UI/HawkImage',
+  title: 'Design System/Hawk Image',
   component: HawkImage,
   parameters: {
     layout: 'centered',

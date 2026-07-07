@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { QuoteHighlightBlock } from './Component';
 
 const meta: Meta<typeof QuoteHighlightBlock> = {
-  title: 'Section/QuoteHighlightBlock',
+  title: 'Blocks/Content/Quote Highlight',
   component: QuoteHighlightBlock,
   parameters: {
     layout: 'fullscreen',

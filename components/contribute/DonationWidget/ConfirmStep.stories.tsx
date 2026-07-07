@@ -15,7 +15,7 @@ const donationState: DonationState = {
 };
 
 const meta = {
-  title: 'Contribute/ConfirmStep',
+  title: 'Donation/Widget/Confirm Step',
   component: ConfirmStep,
   parameters: {
     layout: 'centered',

@@ -3,7 +3,7 @@ import { CTABannerBlock } from './Component';
 import { createPayloadLink } from '@/utils/storybook';
 
 const meta: Meta<typeof CTABannerBlock> = {
-  title: 'Call To Action/CTABannerBlock',
+  title: 'Blocks/Call To Action/CTA Banner',
   component: CTABannerBlock,
   parameters: {
     layout: 'fullscreen',

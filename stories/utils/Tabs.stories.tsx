@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const meta = {
-  title: 'UI/Tabs',
+  title: 'Design System/Tabs',
   component: Tabs,
   parameters: {
     layout: 'centered',

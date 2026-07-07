@@ -5,7 +5,7 @@ import type { DateRange } from 'react-day-picker';
 import { Calendar } from '@/components/ui/calendar';
 
 const meta = {
-  title: 'UI/Calendar',
+  title: 'Design System/Calendar',
   component: Calendar,
   parameters: {
     layout: 'centered',

@@ -5,7 +5,7 @@ const LOREM_STATIC_TEXT =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non lectus viverra, aliquet libero eget, bibendum ante. Curabitur diam arcu, consectetur id sollicitudin quis, sollicitudin.';
 
 const meta: Meta<typeof LanguageSwitcher> = {
-  title: 'Utils/Typography',
+  title: 'Design System/Typography',
   parameters: {
     layout: 'centered',
     nextjs: {

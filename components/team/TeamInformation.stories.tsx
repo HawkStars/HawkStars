@@ -50,7 +50,7 @@ const boardMembers: GroupedBoardMembers = {
 };
 
 const meta = {
-  title: 'Team/TeamInformation',
+  title: 'Pages/Team/Team Information',
   component: TeamInformation,
   parameters: {
     layout: 'fullscreen',

@@ -3,7 +3,7 @@ import { StatsBlock } from './Component';
 import { StatsBlock as StatsBlockType } from '@/payload-types';
 
 const meta: Meta<typeof StatsBlock> = {
-  title: 'Blocks/StatsBlock',
+  title: 'Blocks/Info/Stats',
   component: StatsBlock,
   parameters: {
     layout: 'fullscreen',

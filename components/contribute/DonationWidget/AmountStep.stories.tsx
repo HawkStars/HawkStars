@@ -3,7 +3,7 @@ import AppProvider from '@/utils/contexts/AppProvider';
 import AmountStep from './AmountStep';
 
 const meta = {
-  title: 'Contribute/AmountStep',
+  title: 'Donation/Widget/Amount Step',
   component: AmountStep,
   parameters: {
     layout: 'centered',

@@ -50,7 +50,7 @@ const aboutDropdown: NavbarDropdown = {
 };
 
 const meta = {
-  title: 'Header/MobileMenuItem',
+  title: 'Layout/Header/Mobile Menu Item',
   component: MobileMenuItem,
   parameters: {
     layout: 'padded',

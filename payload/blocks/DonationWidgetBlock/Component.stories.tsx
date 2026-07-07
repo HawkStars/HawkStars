@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import DonationWidget from '@/components/contribute/DonationWidget';
 
 const meta: Meta<typeof DonationWidget> = {
-  title: 'Blocks/DonationWidget',
+  title: 'Blocks/Fundraising/Donation Widget',
   component: DonationWidget,
   parameters: {
     layout: 'centered',

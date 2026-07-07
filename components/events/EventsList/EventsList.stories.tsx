@@ -55,7 +55,7 @@ const makePaginated = (docs: HawkProject[]): PaginatedDocs<HawkProject> =>
   }) as unknown as PaginatedDocs<HawkProject>;
 
 const meta = {
-  title: 'Events/EventsList',
+  title: 'Pages/Events/Events List',
   component: EventsList,
   parameters: {
     layout: 'fullscreen',

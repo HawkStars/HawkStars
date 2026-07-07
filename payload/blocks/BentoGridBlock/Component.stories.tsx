@@ -86,7 +86,7 @@ const sampleItems: BentoGridItem = [
 ];
 
 const defaultComponent = {
-  title: 'Blocks/BentoGrid',
+  title: 'Blocks/Cards/Bento Grid',
   component: BentoGridBlock,
 };
 

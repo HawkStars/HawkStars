@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import GamingNavbar from './GamingNavbar';
 
 const meta = {
-  title: 'Gaming/GamingNavbar',
+  title: 'Pages/Gaming/Gaming Navbar',
   component: GamingNavbar,
   parameters: {
     layout: 'fullscreen',

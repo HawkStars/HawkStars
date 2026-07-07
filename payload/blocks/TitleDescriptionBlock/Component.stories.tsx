@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { TitleDescriptionBlock } from './Component';
 
 const meta: Meta<typeof TitleDescriptionBlock> = {
-  title: 'Text/TitleDescriptionBlock',
+  title: 'Blocks/Content/Title & Description',
   component: TitleDescriptionBlock,
   parameters: { layout: 'padded' },
   argTypes: {

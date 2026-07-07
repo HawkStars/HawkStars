@@ -7,7 +7,7 @@ import InstagramGrid from './InstagramGrid';
 // loading state and then the empty/error fallback. This is expected.
 
 const meta = {
-  title: 'Socials/InstagramGrid',
+  title: 'Pages/Socials/Instagram Grid',
   component: InstagramGrid,
   parameters: {
     layout: 'fullscreen',

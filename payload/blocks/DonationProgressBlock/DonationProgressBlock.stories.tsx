@@ -3,7 +3,7 @@ import { DonationProgressBlock } from './Component';
 import { createPayloadLink } from '@/utils/storybook';
 
 const meta: Meta<typeof DonationProgressBlock> = {
-  title: 'Extra/DonationProgressBlock',
+  title: 'Blocks/Fundraising/Donation Progress',
   component: DonationProgressBlock,
   parameters: {
     layout: 'fullscreen',

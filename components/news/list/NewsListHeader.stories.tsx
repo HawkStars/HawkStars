@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import NewsListHeader from './NewsListHeader';
 
 const meta = {
-  title: 'News/NewsListHeader',
+  title: 'Pages/News/List Header',
   component: NewsListHeader,
   parameters: {
     layout: 'fullscreen',

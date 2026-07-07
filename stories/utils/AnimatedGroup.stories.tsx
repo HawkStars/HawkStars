@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { AnimatedGroup } from '@/components/ui/animated-group';
 
 const meta = {
-  title: 'UI/AnimatedGroup',
+  title: 'Design System/Animated Group',
   component: AnimatedGroup,
   parameters: {
     layout: 'centered',

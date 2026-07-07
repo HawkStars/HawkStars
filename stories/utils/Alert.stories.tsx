@@ -4,7 +4,7 @@ import { LuCircleAlert, LuInfo } from 'react-icons/lu';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 const meta = {
-  title: 'UI/Alert',
+  title: 'Design System/Alert',
   component: Alert,
   parameters: {
     layout: 'centered',

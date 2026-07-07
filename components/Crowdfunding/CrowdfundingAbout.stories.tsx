@@ -9,7 +9,7 @@ const AboutWithT = () => {
 };
 
 const meta = {
-  title: 'Crowdfunding/CrowdfundingAbout',
+  title: 'Crowdfunding/Sections/About',
   component: AboutWithT,
   parameters: {
     layout: 'fullscreen',

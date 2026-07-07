@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { GlobalVillageBannerBlockComponent as GlobalVillageBannerBlock } from './Component';
 
 const meta: Meta<typeof GlobalVillageBannerBlock> = {
-  title: 'Banner/GlobalVillageBanner',
+  title: 'Blocks/Info/Global Village Banner',
   component: GlobalVillageBannerBlock,
   parameters: {
     layout: 'fullscreen',

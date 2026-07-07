@@ -19,7 +19,7 @@ const Note = ({ label }: { label: string }) => (
 );
 
 const meta = {
-  title: 'Misc/JsonLd',
+  title: 'Pages/Shared/JSON-LD',
   component: OrganizationJsonLd,
   parameters: {
     layout: 'padded',

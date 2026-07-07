@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { ResourceDownloadBlock } from './Component';
 
 const meta: Meta<typeof ResourceDownloadBlock> = {
-  title: 'Cards/Resource Download Block',
+  title: 'Blocks/Cards/Resource Download',
   component: ResourceDownloadBlock,
   parameters: {
     layout: 'fullscreen',

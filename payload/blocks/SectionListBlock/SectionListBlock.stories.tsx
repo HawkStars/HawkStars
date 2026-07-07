@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { SectionListBlockComponent } from './Component';
 
 const meta: Meta<typeof SectionListBlockComponent> = {
-  title: 'Content/SectionListBlock',
+  title: 'Blocks/Content/Section List',
   component: SectionListBlockComponent,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],

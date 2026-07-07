@@ -3,7 +3,7 @@ import { globalVillageLogo } from '@/utils/models/images/logos';
 import CrowdfundingBanner from './CrowdfundingBanner';
 
 const meta = {
-  title: 'Crowdfunding/CrowdfundingBanner',
+  title: 'Crowdfunding/Sections/Banner',
   component: CrowdfundingBanner,
   parameters: {
     layout: 'fullscreen',

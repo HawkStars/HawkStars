@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/modal';
 
 const meta: Meta = {
-  title: 'Utils/Modal',
+  title: 'Design System/Modal',
   parameters: {
     layout: 'centered',
   },

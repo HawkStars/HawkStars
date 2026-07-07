@@ -16,7 +16,7 @@ const sampleLinks = [
 ] as unknown as LinkGroupItem;
 
 const meta = {
-  title: 'Projects/HeroImpactStatsBlock',
+  title: 'Pages/Projects/Hero Impact Stats',
   component: HeroImpactStatsBlock,
   parameters: {
     layout: 'fullscreen',

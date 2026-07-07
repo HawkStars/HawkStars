@@ -33,7 +33,7 @@ const TransparencyWithT = (
 };
 
 const meta = {
-  title: 'Crowdfunding/CrowdfundingTransparency',
+  title: 'Crowdfunding/Sections/Transparency',
   component: TransparencyWithT,
   parameters: {
     layout: 'fullscreen',

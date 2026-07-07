@@ -19,7 +19,7 @@ const baseEvent = {
 };
 
 const meta = {
-  title: 'Events/EventCard',
+  title: 'Pages/Events/Event Card',
   component: EventCard,
   parameters: {
     layout: 'padded',

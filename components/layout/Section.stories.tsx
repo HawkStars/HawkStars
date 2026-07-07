@@ -11,7 +11,7 @@ const DemoContent = () => (
 );
 
 const meta = {
-  title: 'Misc/Section',
+  title: 'Layout/Structure/Section',
   component: Section,
   parameters: {
     layout: 'fullscreen',

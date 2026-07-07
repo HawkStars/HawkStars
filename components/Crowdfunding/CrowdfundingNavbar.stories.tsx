@@ -5,7 +5,7 @@ import CrowdfundingNavbar from './CrowdfundingNavbar';
 // CrowdfundingNavbar reads the language from AppProvider and resolves its own
 // translations via useTranslation, so no props are required.
 const meta = {
-  title: 'Crowdfunding/CrowdfundingNavbar',
+  title: 'Crowdfunding/Navbar',
   component: CrowdfundingNavbar,
   parameters: {
     layout: 'fullscreen',

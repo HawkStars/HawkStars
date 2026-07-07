@@ -3,7 +3,7 @@ import AppProvider from '@/utils/contexts/AppProvider';
 import ContributionProjectGoal from './ContributionProjectGoal';
 
 const meta = {
-  title: 'Transparency/ContributionProjectGoal',
+  title: 'Pages/Transparency/Contribution Project Goal',
   component: ContributionProjectGoal,
   parameters: {
     layout: 'fullscreen',

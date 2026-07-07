@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { SectionTitleBlockComponent } from './Component';
 
 const meta: Meta<typeof SectionTitleBlockComponent> = {
-  title: 'Content/SectionTitleBlock',
+  title: 'Blocks/Content/Section Title',
   component: SectionTitleBlockComponent,
   parameters: {
     layout: 'fullscreen',

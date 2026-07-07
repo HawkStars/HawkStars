@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { AgendaBlockView } from './AgendaBlockView';
 
 const meta: Meta<typeof AgendaBlockView> = {
-  title: 'News & Events/AgendaBlock',
+  title: 'Blocks/News & Events/Agenda',
   component: AgendaBlockView,
   parameters: {
     layout: 'fullscreen',

@@ -34,7 +34,7 @@ const currentContributions: Contribution[] = [
 ];
 
 const meta = {
-  title: 'Contribute/ChairsSection',
+  title: 'Donation/Chairs Section',
   component: ChairsSections,
   parameters: {
     layout: 'fullscreen',

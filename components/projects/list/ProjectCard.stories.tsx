@@ -20,7 +20,7 @@ const baseProject = {
 } as unknown as HawkProject;
 
 const meta = {
-  title: 'Projects/ProjectCard',
+  title: 'Pages/Projects/Project Card',
   component: ProjectCard,
   parameters: {
     layout: 'padded',

@@ -9,7 +9,7 @@ const VideoWithT = (props: Omit<React.ComponentProps<typeof CrowdfundingVideo>, 
 };
 
 const meta = {
-  title: 'Crowdfunding/CrowdfundingVideo',
+  title: 'Crowdfunding/Media/Video',
   component: VideoWithT,
   parameters: {
     layout: 'fullscreen',

@@ -17,7 +17,7 @@ const existingContribution: Contribution = {
 };
 
 const meta = {
-  title: 'Contribute/FormContributions',
+  title: 'Donation/Form Contributions',
   component: FormContributions,
   parameters: {
     layout: 'padded',

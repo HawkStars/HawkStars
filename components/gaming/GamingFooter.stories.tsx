@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import GamingFooter from './GamingFooter';
 
 const meta = {
-  title: 'Gaming/GamingFooter',
+  title: 'Pages/Gaming/Gaming Footer',
   component: GamingFooter,
   parameters: {
     layout: 'fullscreen',

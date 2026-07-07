@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { HeroBlock } from './Component';
 
 const meta: Meta<typeof HeroBlock> = {
-  title: 'Hero/Simple',
+  title: 'Blocks/Hero/Simple',
   component: HeroBlock,
   parameters: {
     layout: 'fullscreen',

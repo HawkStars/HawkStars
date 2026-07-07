@@ -15,6 +15,7 @@ import {
 } from 'react-icons/fa';
 import { GoLink } from 'react-icons/go';
 import { IconType } from 'react-icons';
+import { FLAG_PORTUGAL } from '@/lib/constants';
 
 const ICONS = {
   tiktok: FaTiktok,
@@ -38,6 +39,19 @@ const SingleProjectReports: FC<SingleProjectReportsProps> = ({
   hawkStarsInformation,
 }) => {
   const { partners } = partnersInformation || {};
+  const { documents } = hawkStarsInformation || {};
+  const { reports } = otherDisseminationFields || {};
+
+  if (
+    (!partners || partners.length === 0) &&
+    (!documents || documents.length === 0) &&
+    (!reports || reports.length === 0)
+  ) {
+    return null;
+  }
+
+  debugger;
+
   return (
     <ProjectSection className='bg-bege-dark'>
       <h2 className='mb-8 text-4xl font-bold'>Disseminação</h2>
@@ -79,7 +93,7 @@ const SingleProjectReports: FC<SingleProjectReportsProps> = ({
         {hawkStarsInformation && (
           <>
             <div className='flex gap-4 max-lg:flex-col'>
-              <FlagIcon country='PT' />
+              <FlagIcon country={FLAG_PORTUGAL} />
               {hawkStarsInformation.documents?.map((doc, j) => {
                 const { url, label, platform } = doc;
                 if (!url) return null;
@@ -108,6 +122,7 @@ const SingleProjectReports: FC<SingleProjectReportsProps> = ({
               src={coFoundedEuropeanLogoBlue}
               alt='Co-founded by the European Union'
               fill
+              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
             />
           </div>
 

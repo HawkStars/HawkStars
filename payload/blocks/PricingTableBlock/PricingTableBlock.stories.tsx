@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { PricingTableBlock } from './Component';
 
 const meta: Meta<typeof PricingTableBlock> = {
-  title: 'Extra/PricingTableBlock',
+  title: 'Blocks/Fundraising/Pricing Table',
   component: PricingTableBlock,
   parameters: {
     layout: 'fullscreen',

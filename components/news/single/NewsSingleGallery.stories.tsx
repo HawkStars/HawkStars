@@ -49,7 +49,7 @@ const galleryWithInternal = {
 } as unknown as MultiImageType;
 
 const meta = {
-  title: 'News/NewsSingleGallery',
+  title: 'Pages/News/Single Gallery',
   component: NewsSingleGallery,
   parameters: {
     layout: 'fullscreen',

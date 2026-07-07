@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { ImageComparisonSlider } from '@/components/ui/image-comparison-slider-horizontal';
 
 const meta = {
-  title: 'UI/ImageComparisonSlider',
+  title: 'Design System/Image Comparison Slider',
   component: ImageComparisonSlider,
   parameters: {
     layout: 'fullscreen',

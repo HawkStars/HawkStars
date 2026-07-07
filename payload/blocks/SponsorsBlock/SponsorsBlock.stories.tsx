@@ -3,7 +3,7 @@ import { SponsorsBlock } from './Component';
 import { http, HttpResponse } from 'msw';
 
 const meta: Meta<typeof SponsorsBlock> = {
-  title: 'Organization/Sponsors',
+  title: 'Blocks/Info/Sponsors',
   component: SponsorsBlock,
   parameters: {
     layout: 'fullscreen',

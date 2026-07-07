@@ -3,7 +3,7 @@ import { CampaignCountdownBlock } from './Component';
 import { createPayloadLink } from '@/utils/storybook';
 
 const meta: Meta<typeof CampaignCountdownBlock> = {
-  title: 'Section/CampaignCountdownBlock',
+  title: 'Blocks/Call To Action/Campaign Countdown',
   component: CampaignCountdownBlock,
   parameters: {
     layout: 'fullscreen',

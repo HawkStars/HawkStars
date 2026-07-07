@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { MapLocationBlock } from './Component';
 
 const meta: Meta<typeof MapLocationBlock> = {
-  title: 'Maps/MapLocationBlock',
+  title: 'Blocks/Info/Map Location',
   component: MapLocationBlock,
   parameters: {
     layout: 'fullscreen',

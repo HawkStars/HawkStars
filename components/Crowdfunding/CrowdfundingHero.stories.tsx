@@ -11,7 +11,7 @@ const HeroWithT = (props: Omit<React.ComponentProps<typeof CrowdfundingHero>, 't
 };
 
 const meta = {
-  title: 'Crowdfunding/CrowdfundingHero',
+  title: 'Crowdfunding/Hero',
   component: HeroWithT,
   parameters: {
     layout: 'fullscreen',

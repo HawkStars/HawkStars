@@ -12,7 +12,7 @@ const partnersInformation = {
 } as unknown as HawkProject['partnersInformation'];
 
 const meta = {
-  title: 'Projects/ProjectsSingleHero',
+  title: 'Pages/Projects/Single Hero',
   component: ProjectsSingleHero,
   parameters: {
     layout: 'fullscreen',

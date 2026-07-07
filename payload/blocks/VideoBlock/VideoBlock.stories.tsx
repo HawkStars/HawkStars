@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { VideoBlock } from './Component';
 
 const meta: Meta<typeof VideoBlock> = {
-  title: 'Media/VideoBlock',
+  title: 'Blocks/Media/Video',
   component: VideoBlock,
   parameters: {
     layout: 'fullscreen',

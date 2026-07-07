@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 const meta = {
-  title: 'Utils/Colors',
+  title: 'Design System/Colors',
   parameters: {
     layout: 'padded',
   },

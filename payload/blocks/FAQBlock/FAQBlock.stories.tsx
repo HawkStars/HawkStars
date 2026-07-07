@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { FAQBlock } from './Component';
 
 const meta: Meta<typeof FAQBlock> = {
-  title: 'Extra/FAQBlock',
+  title: 'Blocks/Info/FAQ',
   component: FAQBlock,
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { ShareButton } from './ShareButton';
 
 const meta = {
-  title: 'Crowdfunding/ShareButton',
+  title: 'Crowdfunding/Media/Share Button',
   component: ShareButton,
   parameters: {
     layout: 'centered',

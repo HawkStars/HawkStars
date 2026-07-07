@@ -80,7 +80,7 @@ const twoColumnsDropdown: NavbarDropdown = {
 };
 
 const meta = {
-  title: 'Header/DropdownMenu',
+  title: 'Layout/Header/Dropdown Menu',
   component: DropdownMenu,
   parameters: {
     layout: 'centered',

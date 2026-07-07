@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import DonationHeader from './DonationHeader';
 
 const meta = {
-  title: 'Contribute/DonationHeader',
+  title: 'Donation/Widget/Donation Header',
   component: DonationHeader,
   parameters: {
     layout: 'padded',

@@ -11,7 +11,7 @@ const DemoContent = ({ dark }: { dark?: boolean }) => (
 );
 
 const meta = {
-  title: 'Misc/OffsetSection',
+  title: 'Layout/Structure/Offset Section',
   component: OffsetSection,
   parameters: {
     layout: 'fullscreen',

@@ -54,7 +54,7 @@ const projects: MemberProjectDoc[] = [
 ];
 
 const meta = {
-  title: 'Misc/MembersShowcase',
+  title: 'Pages/Members/Members Showcase',
   component: MembersShowcase,
   parameters: {
     layout: 'fullscreen',

@@ -3,7 +3,7 @@ import { GrowthVisionBlock } from './Component';
 import type { ImageType } from '@/payload-types';
 
 const meta: Meta<typeof GrowthVisionBlock> = {
-  title: 'Blocks/GrowthVisionBlock',
+  title: 'Blocks/Fundraising/Growth Vision',
   component: GrowthVisionBlock,
   parameters: {
     layout: 'fullscreen',

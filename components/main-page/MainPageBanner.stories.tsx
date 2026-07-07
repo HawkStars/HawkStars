@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import MainPageBanner from './MainPageBanner';
 
 const meta = {
-  title: 'Misc/MainPageBanner',
+  title: 'Pages/Home/Main Page Banner',
   component: MainPageBanner,
   parameters: {
     layout: 'fullscreen',

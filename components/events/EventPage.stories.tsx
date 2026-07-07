@@ -70,7 +70,7 @@ const fullEvent = {
 };
 
 const meta = {
-  title: 'Events/EventPage',
+  title: 'Pages/Events/Event Page',
   component: EventPage,
   parameters: {
     layout: 'fullscreen',

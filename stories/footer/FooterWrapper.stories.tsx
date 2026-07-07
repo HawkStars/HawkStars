@@ -31,7 +31,7 @@ const simpleFooterInfo: FooterType = {
 };
 
 const meta = {
-  title: 'Navigation/FooterWrapper',
+  title: 'Layout/Footer/Footer Wrapper',
   component: FooterWrapper,
   parameters: {
     layout: 'fullscreen',

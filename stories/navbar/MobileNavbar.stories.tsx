@@ -114,7 +114,7 @@ const MobileNavbarOpener = () => {
 };
 
 const meta = {
-  title: 'Header/MobileNavbar',
+  title: 'Layout/Header/Mobile Navbar',
   component: MobileNavbar,
   parameters: {
     layout: 'fullscreen',

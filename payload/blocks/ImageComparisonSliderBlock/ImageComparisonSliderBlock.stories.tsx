@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { ImageComparisonSliderBlock } from './Component';
 
 const meta: Meta<typeof ImageComparisonSliderBlock> = {
-  title: 'Media/Image Comparison Slider Block V2',
+  title: 'Blocks/Media/Image Comparison Slider',
   component: ImageComparisonSliderBlock,
   parameters: {
     layout: 'fullscreen',

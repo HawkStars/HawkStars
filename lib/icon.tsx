@@ -20,7 +20,7 @@ const getIcon = (iconName?: string | null) => {
 /* ================================================================== */
 /*  Helper: render a flag icon by FlagIcons key                       */
 /* ================================================================== */
-export function FlagIcon({ country }: { country: string }) {
+export function FlagIcon({ country }: { country: keyof typeof FlagIcons }) {
   const Icon = FlagIcons[country];
   if (!Icon) return null;
   return (

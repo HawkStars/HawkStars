@@ -4,7 +4,7 @@ import { createPayloadExternalImage, createPayloadLink } from '@/utils/storybook
 import { CrowdfundingImageBannerBlock } from '@/payload-types';
 
 const meta: Meta<typeof CrowdfundingImageBannerBlockComponent> = {
-  title: 'Blocks/CrowdfundingImageBanner',
+  title: 'Blocks/Fundraising/Crowdfunding Image Banner',
   component: CrowdfundingImageBannerBlockComponent,
   parameters: {
     layout: 'fullscreen',

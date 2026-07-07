@@ -47,7 +47,7 @@ const RewardsWithT = (props: Omit<React.ComponentProps<typeof CrowdfundingReward
 };
 
 const meta = {
-  title: 'Crowdfunding/CrowdfundingRewards',
+  title: 'Crowdfunding/Sections/Rewards',
   component: RewardsWithT,
   parameters: {
     layout: 'fullscreen',

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import SectionList from '@/components/ui/SectionList';
 
 const meta = {
-  title: 'UI/SectionList',
+  title: 'Design System/Section List',
   component: SectionList,
   parameters: {
     layout: 'centered',

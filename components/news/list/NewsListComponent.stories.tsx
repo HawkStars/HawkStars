@@ -74,7 +74,7 @@ const makePaginated = (
   }) as unknown as PaginatedDocs<News>;
 
 const meta = {
-  title: 'News/NewsListComponent',
+  title: 'Pages/News/List',
   component: NewsListComponent,
   parameters: {
     layout: 'fullscreen',

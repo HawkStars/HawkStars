@@ -26,7 +26,7 @@ const sampleSteps: StepsBlockItem = [
 ];
 
 const defaultComponent = {
-  title: 'Blocks/Steps',
+  title: 'Blocks/Content/Steps',
   component: StepsBlockComponent,
 };
 

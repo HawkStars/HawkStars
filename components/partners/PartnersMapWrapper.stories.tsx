@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import PartnersMapWrapper from './PartnersMapWrapper';
 
 const meta = {
-  title: 'Partners/PartnersMapWrapper',
+  title: 'Pages/Partners/Partners Map Wrapper',
   component: PartnersMapWrapper,
   parameters: {
     layout: 'fullscreen',

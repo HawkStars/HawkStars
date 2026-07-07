@@ -1,7 +1,7 @@
 import { DataGridBlock } from './Component';
 
 const defaultComponent = {
-  title: 'Content/DataGridBlock',
+  title: 'Blocks/Content/Data Grid',
   component: DataGridBlock,
 };
 

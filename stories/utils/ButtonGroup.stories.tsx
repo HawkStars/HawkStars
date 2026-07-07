@@ -6,7 +6,7 @@ import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from '@/components
 import { Input } from '@/components/ui/input';
 
 const meta = {
-  title: 'UI/ButtonGroup',
+  title: 'Design System/Button Group',
   component: ButtonGroup,
   parameters: {
     layout: 'centered',

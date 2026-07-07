@@ -17,7 +17,7 @@ const PartnersWithT = (props: Omit<React.ComponentProps<typeof CrowdfundingPartn
 };
 
 const meta = {
-  title: 'Crowdfunding/CrowdfundingPartners',
+  title: 'Crowdfunding/Sections/Partners',
   component: PartnersWithT,
   parameters: {
     layout: 'fullscreen',

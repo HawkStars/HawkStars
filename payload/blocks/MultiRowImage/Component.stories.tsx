@@ -49,7 +49,7 @@ const sampleRows: MultiRowImageBlock['rows'] = [
 ];
 
 const defaultComponent = {
-  title: 'Media/MultiRow',
+  title: 'Blocks/Media/Multi Row Image',
   component: MultiRowImage,
 };
 

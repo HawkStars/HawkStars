@@ -3,7 +3,7 @@ import type { ImageIcon, ImageType } from '@/payload-types';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 const meta = {
-  title: 'Header/DropdownV1',
+  title: 'Layout/Header/Dropdown V1',
   component: DesktopDropdownV1,
   parameters: {
     layout: 'centered',

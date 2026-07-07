@@ -3,7 +3,7 @@ import AppProvider from '@/utils/contexts/AppProvider';
 import PaymentStep from './PaymentStep';
 
 const meta = {
-  title: 'Contribute/PaymentStep',
+  title: 'Donation/Widget/Payment Step',
   component: PaymentStep,
   parameters: {
     layout: 'centered',

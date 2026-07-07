@@ -20,3 +20,6 @@ export const SITE_LOCALE_EN = 'en_US';
 
 /** Google Analytics */
 export const GA_MEASUREMENT_ID = 'G-PEH83S3H3K';
+
+/** FLAG */
+export const FLAG_PORTUGAL = 'Portugal';

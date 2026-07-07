@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 const meta = {
-  title: 'UI/Popover',
+  title: 'Design System/Popover',
   component: Popover,
   parameters: {
     layout: 'centered',

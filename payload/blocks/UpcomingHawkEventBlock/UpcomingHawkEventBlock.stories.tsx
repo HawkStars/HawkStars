@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { UpcomingHawkEventBlockView } from './UpcomingHawkEventBlockView';
 
 const meta: Meta<typeof UpcomingHawkEventBlockView> = {
-  title: 'News & Events/Upcoming Hawk Event',
+  title: 'Blocks/News & Events/Upcoming Hawk Event',
   component: UpcomingHawkEventBlockView,
   parameters: {
     layout: 'fullscreen',

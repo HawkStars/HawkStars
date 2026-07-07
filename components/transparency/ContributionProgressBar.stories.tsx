@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import ContributionProgressBar from './ContributionProgressBar';
 
 const meta = {
-  title: 'Transparency/ContributionProgressBar',
+  title: 'Pages/Transparency/Contribution Progress Bar',
   component: ContributionProgressBar,
   parameters: {
     layout: 'fullscreen',

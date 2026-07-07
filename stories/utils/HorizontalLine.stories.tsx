@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import HorizontalLine from '@/components/ui/horizontal-line';
 
 const meta = {
-  title: 'UI/HorizontalLine',
+  title: 'Design System/Horizontal Line',
   component: HorizontalLine,
   parameters: {
     layout: 'fullscreen',

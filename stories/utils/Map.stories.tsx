@@ -17,7 +17,7 @@ import {
 const PINHEL: [number, number] = [40.7727, -7.0608];
 
 const meta = {
-  title: 'UI/Map',
+  title: 'Design System/Map',
   component: Map,
   parameters: {
     layout: 'fullscreen',

@@ -3,7 +3,7 @@ import { WhyHereWhyNowBlock } from './Component';
 import type { ImageType } from '@/payload-types';
 
 const meta: Meta<typeof WhyHereWhyNowBlock> = {
-  title: 'Blocks/WhyHereWhyNowBlock',
+  title: 'Blocks/Content/Why Here Why Now',
   component: WhyHereWhyNowBlock,
   parameters: {
     layout: 'fullscreen',

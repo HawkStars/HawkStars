@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { ImageShowcaseBlock } from './Component';
 
 const meta: Meta<typeof ImageShowcaseBlock> = {
-  title: 'Media/ImageShowcase',
+  title: 'Blocks/Media/Image Showcase',
   component: ImageShowcaseBlock,
   parameters: {
     layout: 'fullscreen',

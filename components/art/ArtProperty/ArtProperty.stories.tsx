@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import ArtPropertyComponent from './index';
 
 const meta = {
-  title: 'Art/ArtProperty',
+  title: 'Pages/Art/Art Property',
   component: ArtPropertyComponent,
   parameters: {
     layout: 'centered',

@@ -55,7 +55,7 @@ const ptTranslations = {
 };
 
 const meta = {
-  title: 'Misc/AgendaCalendar',
+  title: 'Pages/Agenda/Agenda Calendar',
   component: AgendaCalendar,
   parameters: {
     layout: 'fullscreen',

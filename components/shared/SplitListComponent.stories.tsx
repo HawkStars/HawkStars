@@ -27,7 +27,7 @@ const renderCard = (item: DemoItem) => (
 );
 
 const meta = {
-  title: 'Misc/SplitListComponent',
+  title: 'Pages/Shared/Split List',
   component: SplitListComponent<DemoItem>,
   parameters: {
     layout: 'fullscreen',

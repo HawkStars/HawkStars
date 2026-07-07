@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { TestimonialBlock } from './Component';
 
 const meta: Meta<typeof TestimonialBlock> = {
-  title: 'Cards/TestimonialBlock',
+  title: 'Blocks/Cards/Testimonial',
   component: TestimonialBlock,
   parameters: { layout: 'fullscreen' },
   argTypes: {

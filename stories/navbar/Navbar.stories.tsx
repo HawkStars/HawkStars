@@ -233,7 +233,7 @@ const singleLinksHeaderInfo: Header = {
 };
 
 const meta = {
-  title: 'Header/Navbar',
+  title: 'Layout/Header/Navbar',
   component: Navbar,
   parameters: {
     layout: 'fullscreen',

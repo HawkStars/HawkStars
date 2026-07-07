@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import NewsSingleHeroNoImage from './NewsSingleHeroNoImage';
 
 const meta = {
-  title: 'News/NewsSingleHeroNoImage',
+  title: 'Pages/News/Single Hero (No Image)',
   component: NewsSingleHeroNoImage,
   parameters: {
     layout: 'fullscreen',

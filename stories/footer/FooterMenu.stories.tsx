@@ -47,7 +47,7 @@ const emptyColumn: FooterColumn = {
 };
 
 const meta = {
-  title: 'Navigation/FooterMenu',
+  title: 'Layout/Footer/Footer Menu',
   component: FooterMenu,
   parameters: {
     layout: 'padded',

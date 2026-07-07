@@ -9,7 +9,7 @@ const FAQWithT = () => {
 };
 
 const meta = {
-  title: 'Crowdfunding/CrowdfundingFAQ',
+  title: 'Crowdfunding/Sections/FAQ',
   component: FAQWithT,
   parameters: {
     layout: 'fullscreen',

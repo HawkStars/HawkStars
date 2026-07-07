@@ -3,7 +3,7 @@ import { HeroWithBackgroundImageBlock } from './Component';
 import { createPayloadExternalImage, createPayloadLink } from '@/utils/storybook';
 
 const meta: Meta<typeof HeroWithBackgroundImageBlock> = {
-  title: 'Hero/Background Image',
+  title: 'Blocks/Hero/Background Image',
   component: HeroWithBackgroundImageBlock,
   parameters: {
     layout: 'fullscreen',

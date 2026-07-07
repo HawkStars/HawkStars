@@ -23,7 +23,7 @@ const basePartner = {
 } as unknown as Partner;
 
 const meta = {
-  title: 'Partners/PartnerCard',
+  title: 'Pages/Partners/Partner Card',
   component: PartnerCard,
   parameters: {
     layout: 'centered',

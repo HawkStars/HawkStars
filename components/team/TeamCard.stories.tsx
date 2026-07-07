@@ -23,7 +23,7 @@ const baseMember = {
 } as unknown as BoardMember;
 
 const meta = {
-  title: 'Team/TeamCard',
+  title: 'Pages/Team/Team Card',
   component: TeamCard,
   parameters: {
     layout: 'centered',

@@ -7,7 +7,7 @@ import InstagramEmbedWidget from './InstagramEmbedWidget';
 // This is expected.
 
 const meta = {
-  title: 'Socials/InstagramEmbedWidget',
+  title: 'Pages/Socials/Instagram Embed Widget',
   component: InstagramEmbedWidget,
   parameters: {
     layout: 'fullscreen',

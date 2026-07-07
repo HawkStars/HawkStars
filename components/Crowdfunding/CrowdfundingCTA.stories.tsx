@@ -9,7 +9,7 @@ const CTAWithT = (props: Omit<React.ComponentProps<typeof CrowdfundingCTA>, 't'>
 };
 
 const meta = {
-  title: 'Crowdfunding/CrowdfundingCTA',
+  title: 'Crowdfunding/Sections/CTA',
   component: CTAWithT,
   parameters: {
     layout: 'fullscreen',

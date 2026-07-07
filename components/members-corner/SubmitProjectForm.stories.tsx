@@ -7,7 +7,7 @@ import SubmitProjectForm from './SubmitProjectForm';
 // dynamic dates field-array and client-side validation are fully interactive.
 
 const meta = {
-  title: 'Misc/SubmitProjectForm',
+  title: 'Pages/Members/Submit Project Form',
   component: SubmitProjectForm,
   parameters: {
     layout: 'fullscreen',

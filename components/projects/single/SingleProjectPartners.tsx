@@ -13,28 +13,32 @@ const SingleProjectPartners: FC<SingleProjectPartnersProps> = ({ partnersInforma
       {partners && partners.length > 0 && (
         <ProjectSection>
           <h2 className='mb-10 text-4xl font-bold'>Parceiros</h2>
-          <div className='flex gap-2 max-lg:flex-col'>
-            <Image
-              src={hawkLogo}
-              alt='Hawk logo'
-              width={160}
-              height={160}
-              className='items-center object-contain'
-            />
+          <div className='flex flex-wrap justify-between gap-4'>
+            <div className='relative h-32 w-32'>
+              <Image
+                src={hawkLogo}
+                alt='Hawk logo'
+                fill
+                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                className='items-center object-contain'
+              />
+            </div>
             {partners.map((partner) => {
               const { logo, name } = partner.partner as Partner;
               const logoUrl = logo ? (logo as Media).url : null;
               if (!logoUrl) return null;
 
               return (
-                <Image
-                  key={partner.id}
-                  src={logoUrl}
-                  alt={`${name} logo`}
-                  width={160}
-                  height={160}
-                  className='items-center object-contain'
-                />
+                <div className='relative h-32 w-32' key={partner.id}>
+                  <Image
+                    key={partner.id}
+                    src={logoUrl}
+                    alt={`${name} logo`}
+                    fill
+                    sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                    className='items-center object-contain'
+                  />
+                </div>
               );
             })}
           </div>

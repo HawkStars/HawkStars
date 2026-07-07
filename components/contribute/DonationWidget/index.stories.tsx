@@ -5,7 +5,7 @@ import DonationWidget from './index';
 // The full multi-step donation widget. It manages its own state and resolves
 // translations from the `contribute` namespace via AppProvider.
 const meta = {
-  title: 'Contribute/DonationWidget',
+  title: 'Donation/Widget/Donation Widget',
   component: DonationWidget,
   parameters: {
     layout: 'centered',

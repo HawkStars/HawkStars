@@ -19,7 +19,7 @@ const references = [
 ];
 
 const meta = {
-  title: 'News/NewsSingleInformation',
+  title: 'Pages/News/Single Information',
   component: NewsSingleInformation,
   parameters: {
     layout: 'fullscreen',
