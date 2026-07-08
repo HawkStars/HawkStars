@@ -39,19 +39,6 @@ const AppProvider = ({ children, lng, headerInfo, footerInfo }: AppProviderProps
     footerInfo,
   });
 
-  useEffect(() => {
-    setAppProperties((prev) => ({
-      ...prev,
-      lng,
-    }));
-    return () => {
-      setAppProperties((prev) => ({
-        ...prev,
-        lng: fallbackLng,
-      }));
-    };
-  }, [lng]);
-
   return (
     <MainAppContext.Provider value={appProperties}>
       <SetMainAppContext.Provider value={setAppProperties}>{children}</SetMainAppContext.Provider>
