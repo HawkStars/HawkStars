@@ -273,10 +273,10 @@ export function AgendaBlockView({
       id={sectionId ?? undefined}
       data-blockid='agenda'
     >
-      <div className='mx-auto max-w-4xl px-4'>
+      <div className='mx-auto w-full max-w-6xl px-4'>
         {/* Header */}
         {(title || subtitle) && (
-          <div className='mb-8'>
+          <div className='mb-8 text-center'>
             {title && (
               <h2 className='mb-2 text-3xl font-bold text-zinc-900 dark:text-zinc-100'>{title}</h2>
             )}
