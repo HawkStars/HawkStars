@@ -43,10 +43,14 @@ const AppProvider = ({ children, lng, headerInfo, footerInfo }: AppProviderProps
     setAppProperties((prev) => ({
       ...prev,
       lng,
-      headerInfo,
-      footerInfo,
     }));
-  }, [lng, headerInfo, footerInfo]);
+    return () => {
+      setAppProperties((prev) => ({
+        ...prev,
+        lng: fallbackLng,
+      }));
+    };
+  }, [lng]);
 
   return (
     <MainAppContext.Provider value={appProperties}>
