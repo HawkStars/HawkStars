@@ -87,6 +87,7 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
                 fill
                 className='rounded-2xl max-lg:object-contain'
                 priority
+                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
               />
               <span className='absolute right-2 bottom-2 rounded-2xl bg-white p-2'>
                 {activeImage.alt}
@@ -134,6 +135,7 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
                     animationDirection: isActive ? 'normal' : isUpcoming ? 'reverse' : '',
                     animationDuration: `${transitionDuration}ms`,
                   }}
+                  sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                 />
               </button>
             );

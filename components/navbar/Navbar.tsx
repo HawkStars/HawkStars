@@ -10,15 +10,11 @@ import DesktopNavbar from './DesktopNavbar';
 import { cn } from '@/lib/utils';
 import DropdownMenu from './DesktopDropdown/DropdownMenu';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
-import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
-  const { headerInfo } = useMainAppContext();
+  const { headerInfo, navbarVariant } = useMainAppContext();
   const setMobileMenuOpen = useSetMobileNavbarOpen();
-  const pathname = usePathname();
-
-  const hasErasmus = pathname?.includes('/erasmus') ?? false;
 
   if (!headerInfo || !headerInfo.columns || headerInfo.columns.length === 0) return null;
   const { columns } = headerInfo;
@@ -31,8 +27,8 @@ const Navbar = () => {
     <nav className='relative' onMouseLeave={() => setHoveredMenu(null)}>
       <div
         className={cn('z-50 px-4 lg:px-14', {
-          'bg-erasmus-blue text-white': hasErasmus,
-          'bg-bege-dark': !hasErasmus,
+          'bg-erasmus-blue text-white': navbarVariant === 'erasmus',
+          'bg-bege-dark text-black': navbarVariant === 'default',
         })}
       >
         <div className='flex gap-3'>
@@ -69,8 +65,12 @@ const Navbar = () => {
 
       <div
         className={cn(
-          'absolute z-90 mx-auto -mt-1 flex h-fit min-h-20 w-full justify-center gap-5 border-b border-b-gray-200 bg-white py-4 pt-2 shadow-lg transition-[opacity,visibility] duration-300 ease-in',
-          hoveredMenu ? 'visible opacity-100' : 'pointer-events-none invisible opacity-0'
+          'absolute z-90 mx-auto -mt-1 flex h-fit min-h-20 w-full justify-center gap-5 border-b border-b-gray-200 py-4 pt-2 shadow-lg transition-[opacity,visibility] duration-300 ease-in',
+          hoveredMenu ? 'visible opacity-100' : 'pointer-events-none invisible opacity-0',
+          {
+            'bg-erasmus-blue border-b-erasmus-blue text-white': navbarVariant === 'erasmus',
+            'bg-white text-black': navbarVariant === 'default',
+          }
         )}
       >
         {selectedMenu && <DropdownMenu dropdownInfo={selectedMenu.dropdown} />}

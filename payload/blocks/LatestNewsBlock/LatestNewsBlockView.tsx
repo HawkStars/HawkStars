@@ -39,7 +39,6 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
   sectionId,
   item,
 }) => {
-  debugger;
   return (
     <HawkStarsSection
       spacing='default'

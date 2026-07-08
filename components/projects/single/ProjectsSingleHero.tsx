@@ -1,4 +1,5 @@
 import { Section } from '@/components/layout/Section';
+import { FLAG_PORTUGAL } from '@/lib/constants';
 import { FlagIcon } from '@/lib/icon';
 import { getImagePayloadUrl } from '@/lib/image';
 import { formatCurrency } from '@/lib/utils/currency';
@@ -124,7 +125,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
           {/* Country flags */}
           {partners && partners.length > 0 && (
             <div className='mt-6 flex flex-wrap gap-3'>
-              <FlagIcon country='PT' />
+              <FlagIcon country={FLAG_PORTUGAL} />
               {partners.map((c, i) => (
                 <FlagIcon key={i} country={(c.partner as Partner).country} />
               ))}

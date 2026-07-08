@@ -3,6 +3,7 @@ import HawkLinkComponent from '@/components/utils/HawkLink';
 import { DropdownNavLink } from '@/payload-types';
 import { DropdownLinkField, getDropdownImageElement } from './utils';
 import { cn } from '@/lib/utils';
+import { useMainAppContext } from '@/utils/contexts/AppProvider';
 
 interface DesktopDropdownV1Props {
   structure: 'single-column' | 'two-columns';
@@ -10,6 +11,7 @@ interface DesktopDropdownV1Props {
 }
 
 const DesktopDropdownV1: React.FC<DesktopDropdownV1Props> = ({ structure, links }) => {
+  const { navbarVariant } = useMainAppContext();
   if (!links || !links.dropdownNavLink || links.dropdownNavLink.length === 0) return null;
   const linkList = links.dropdownNavLink;
 
@@ -35,7 +37,7 @@ const DesktopDropdownV1: React.FC<DesktopDropdownV1Props> = ({ structure, links 
         })}
       >
         {normalLinks.map((link) => (
-          <NormalLinkItem key={link.id} link={link} />
+          <NormalLinkItem key={link.id} link={link} navbarVariant={navbarVariant} />
         ))}
       </div>
     </div>
@@ -44,9 +46,10 @@ const DesktopDropdownV1: React.FC<DesktopDropdownV1Props> = ({ structure, links 
 
 type LinkProps = {
   link: DropdownLinkField;
+  navbarVariant?: 'default' | 'erasmus';
 };
 
-const FeaturedLinkCard: React.FC<LinkProps> = ({ link }) => {
+const FeaturedLinkCard: React.FC<LinkProps> = ({ link, navbarVariant }) => {
   const imageType = link.imageIcon?.type;
   const ImageElement = getDropdownImageElement(link, 'rounded-lg object-cover', {
     height: 120,
@@ -54,40 +57,48 @@ const FeaturedLinkCard: React.FC<LinkProps> = ({ link }) => {
   });
 
   return (
-    <HawkLinkComponent
-      link={link.link}
-      className={cn(
-        'group relative flex min-h-30 w-56 flex-col justify-end overflow-hidden rounded-xl p-4 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl',
-        { 'bg-linear-to-br from-green-800 to-green-950': imageType !== 'image' }
-      )}
-    >
-      {/* Background image or gradient overlay */}
-      {ImageElement && imageType === 'image' && (
-        <div className='absolute inset-0 duration-300'>{ImageElement}</div>
-      )}
+    <>
+      <HawkLinkComponent
+        link={link.link}
+        className={cn(
+          'group relative flex min-h-30 w-56 flex-col justify-end overflow-hidden rounded-xl p-4 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl',
+          { 'bg-linear-to-br from-green-800 to-green-950': imageType !== 'image' }
+        )}
+      >
+        {/* Background image or gradient overlay */}
+        {ImageElement && imageType === 'image' && (
+          <div className='absolute inset-0 duration-300'>{ImageElement}</div>
+        )}
 
-      {/* Icon overlay */}
-      {ImageElement && imageType === 'icon' && (
-        <div className='absolute top-3 right-3 text-white/60 transition-transform duration-300 group-hover:scale-110 group-hover:text-white/90'>
-          {ImageElement}
-        </div>
-      )}
+        {/* Icon overlay */}
+        {ImageElement && imageType === 'icon' && (
+          <div className='absolute top-3 right-3 text-white/60 transition-transform duration-300 group-hover:scale-110 group-hover:text-white/90'>
+            {ImageElement}
+          </div>
+        )}
 
-      {/* Content */}
-      <div className='relative z-10'>
-        <h4 className='text-lg font-semibold text-white'>{link.link.label}</h4>
+        {/* Hover shine effect */}
+        <div className='absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent transition-transform duration-500 group-hover:translate-x-full' />
+      </HawkLinkComponent>
+
+      <div className='relative z-10 w-fit'>
+        <h4
+          className={cn('text-md font-semibold underline', {
+            'text-black': navbarVariant === 'default',
+            'text-white': navbarVariant === 'erasmus',
+          })}
+        >
+          {link.link.label}
+        </h4>
         {link.description && (
           <p className='mt-1 line-clamp-2 text-sm text-white/80'>{link.description}</p>
         )}
       </div>
-
-      {/* Hover shine effect */}
-      <div className='absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent transition-transform duration-500 group-hover:translate-x-full' />
-    </HawkLinkComponent>
+    </>
   );
 };
 
-const NormalLinkItem: React.FC<LinkProps> = ({ link }) => {
+const NormalLinkItem: React.FC<LinkProps> = ({ link, navbarVariant }) => {
   const imageType = link.imageIcon?.type;
   const ImageElement = getDropdownImageElement(link, 'rounded');
 
@@ -120,11 +131,22 @@ const NormalLinkItem: React.FC<LinkProps> = ({ link }) => {
 
       {/* Text content */}
       <div className='flex flex-col'>
-        <span className='text-sm font-medium text-gray-900 transition-colors group-hover:text-green-800'>
+        <span
+          className={cn(
+            'text-sm font-medium text-gray-900 transition-colors group-hover:text-green-800',
+            { 'text-white group-hover:text-gray-900': navbarVariant === 'erasmus' }
+          )}
+        >
           {link.link.label}
         </span>
         {link.description && (
-          <span className='line-clamp-1 text-xs text-gray-500'>{link.description}</span>
+          <span
+            className={cn('line-clamp-1 text-xs text-gray-500', {
+              'text-erasmus-gold/70 group-hover:text-gray-600': navbarVariant === 'erasmus',
+            })}
+          >
+            {link.description}
+          </span>
         )}
       </div>
     </HawkLinkComponent>

@@ -50,8 +50,6 @@ const SingleProjectReports: FC<SingleProjectReportsProps> = ({
     return null;
   }
 
-  debugger;
-
   return (
     <ProjectSection className='bg-bege-dark'>
       <h2 className='mb-8 text-4xl font-bold'>Disseminação</h2>

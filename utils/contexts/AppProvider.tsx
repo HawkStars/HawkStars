@@ -1,19 +1,22 @@
 'use client';
 
+import { NavbarVariant, DEFAULT_NAVBAR_VARIANT } from '@/components/navbar/NavbarVariant';
 import { fallbackLng, Language } from '@/i18n/settings';
 import { Footer, Header } from '@/payload-types';
-import { createContext, Dispatch, ReactNode, useContext, useState } from 'react';
+import { createContext, Dispatch, ReactNode, useContext, useEffect, useState } from 'react';
 
 type MainAppProperties = {
   mobileNavbarOpen: boolean;
   lng: Language;
   headerInfo?: Header;
   footerInfo?: Footer;
+  navbarVariant: NavbarVariant;
 };
 
 const defaultAppProperties: MainAppProperties = {
   mobileNavbarOpen: false,
   lng: fallbackLng,
+  navbarVariant: DEFAULT_NAVBAR_VARIANT,
 };
 
 const MainAppContext = createContext<MainAppProperties>(defaultAppProperties);
@@ -35,6 +38,15 @@ const AppProvider = ({ children, lng, headerInfo, footerInfo }: AppProviderProps
     headerInfo,
     footerInfo,
   });
+
+  useEffect(() => {
+    setAppProperties((prev) => ({
+      ...prev,
+      lng,
+      headerInfo,
+      footerInfo,
+    }));
+  }, [lng, headerInfo, footerInfo]);
 
   return (
     <MainAppContext.Provider value={appProperties}>
@@ -79,6 +91,16 @@ export const useSetLanguageCookie = () => {
   };
 };
 
+export const useSetNavbarVariant = () => {
+  const setMainProperties = useContext(SetMainAppContext);
+  return (variant: NavbarVariant) => {
+    setMainProperties((mainProperties: MainAppProperties) => ({
+      ...mainProperties,
+      navbarVariant: variant,
+    }));
+  };
+};
+
 /** GETTERS */
 
 export const useLanguageCookie = () => {
@@ -94,6 +116,11 @@ export const useHeaderInfo = () => {
 export const useFooterInfo = () => {
   const mainProperties = useContext(MainAppContext);
   return mainProperties.footerInfo;
+};
+
+export const useNavbarVariant = () => {
+  const mainProperties = useContext(MainAppContext);
+  return mainProperties.navbarVariant;
 };
 
 export default AppProvider;

@@ -7,6 +7,7 @@ import { HawkStarsSection } from '@/components/layout';
 import Link from 'next/link';
 import { applySteps, eligibilityItems, flagshipCards, opportunityCards } from './config';
 import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
+import NavbarVariant from '@/components/navbar/NavbarVariant';
 
 export const revalidate = 600; // invalidate every 10 minutes
 
@@ -24,6 +25,7 @@ const ErasmusPage = async (props: LanguagePageProps) => {
 
   return (
     <HawkStarsSection padding='none' className='flex-col'>
+      <NavbarVariant variant='erasmus' />
       <HeroSection t={t} />
       <FlagshipProgrammes t={t} />
       <MoreOpportunities t={t} />
