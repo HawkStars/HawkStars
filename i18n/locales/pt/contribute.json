@@ -81,11 +81,18 @@
     },
     "details": {
       "description": "Gostaria de adicionar algum detalhe à sua doação?",
+      "name_label": "Nome",
+      "name_placeholder": "O seu nome completo",
+      "email_label": "Email",
+      "email_placeholder": "utilizador@exemplo.com",
+      "phone_label": "Número de telefone",
+      "phone_placeholder": "912 345 678",
       "write_comment": "Escreva-nos um comentário",
       "comment_placeholder": "A sua mensagem (opcional)"
     },
     "payment": {
       "description": "Escolha o seu método de pagamento preferido.",
+      "subscription_note": "As doações mensais são processadas automaticamente todos os meses. Pode cancelar a qualquer momento.",
       "bank_transfer": "Transferência Bancária",
       "crypto_transfer": "Transferência Crypto"
     },
@@ -93,15 +100,24 @@
       "description": "Por favor, reveja os detalhes da sua doação.",
       "amount_label": "Valor",
       "frequency_label": "Frequência",
+      "name_label": "Nome",
+      "email_label": "Email",
+      "payment_method_label": "Método de Pagamento",
       "comment_label": "Comentário",
       "frequency_monthly": "Mensal",
       "frequency_one_time": "Única",
+      "processing": "A processar…",
       "confirm_button": "Confirmar Doação"
     },
     "done": {
       "title": "Obrigado!",
       "description": "A sua doação de €{{amount}}{{frequency}} à HawkStars foi registada. Juntos fazemos a diferença.",
       "per_month": "/mês",
+      "mb_reference_title": "Referência Multibanco",
+      "mb_entity": "Entidade",
+      "mb_reference": "Referência",
+      "mb_value": "Valor",
+      "subscription_note": "A sua doação mensal foi configurada. Pode cancelar a qualquer momento.",
       "make_another": "Fazer outra doação"
     },
     "back": "Voltar",

@@ -31,6 +31,7 @@ const getLocale = async (request: NextRequest): Promise<NextResponse> => {
 
 const withHandleInternalization = async (request: NextRequest): Promise<NextResponse> => {
   const response = NextResponse.next();
+  response.headers.set('x-pathname', request.nextUrl.pathname);
   // Check if there is any supported locale in the pathname
   const { pathname } = request.nextUrl;
   const pathnameHasLocale = languages.some(

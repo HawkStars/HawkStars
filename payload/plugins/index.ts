@@ -3,6 +3,7 @@ import { seoPlugin } from '@payloadcms/plugin-seo';
 import { Plugin } from 'payload';
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types';
 import { sentryPlugin } from '@payloadcms/plugin-sentry';
+import { payloadTotp } from 'payload-totp';
 import * as Sentry from '@sentry/nextjs';
 
 import { Page } from '@/payload-types';
@@ -60,5 +61,17 @@ export const plugins: Plugin[] = [
       debug: process.env.NODE_ENV === 'development',
     },
     Sentry,
+  }),
+
+  /** LAST plugin cause of overrides */
+  payloadTotp({
+    collection: 'users',
+    forceSetup: true,
+    disableAccessWrapper: true,
+    totp: {
+      issuer: 'HawkStars Admin',
+      digits: 6,
+      period: 30,
+    },
   }),
 ];

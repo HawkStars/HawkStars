@@ -4,12 +4,8 @@ import { tw, variantProps } from 'classname-variants/react';
 type SectionProps = React.ComponentProps<'div'> & {
   width?: 'full' | 'half';
   padding?: 'none' | 'default' | 'container';
-  /**
-   * Vertical rhythm, aligned with the `.section*` utilities in globals.css.
-   * Defaults to `none` so existing call sites that set their own `py-*`
-   * classes keep their current spacing.
-   */
   spacing?: 'none' | 'tight' | 'default' | 'loose';
+  column?: 'none' | 'default';
   /**
    * When `true`, children are wrapped in a `<div className="section-container">`
    * so blocks don't need the extra wrapper themselves.
@@ -36,9 +32,13 @@ const innerSectionProps = variantProps({
       default: tw`py-16 md:py-20 lg:py-24`,
       loose: tw`py-20 md:py-28 lg:py-32`,
     },
+    column: {
+      none: tw``,
+      default: tw`flex-col`,
+    },
   },
   base: tw`flex justify-center w-full`,
-  defaultVariants: { width: undefined, padding: 'default', spacing: 'none' },
+  defaultVariants: { width: undefined, padding: 'default', spacing: 'none', column: 'none' },
 });
 
 export const Section = forwardRef<HTMLElement, SectionProps>((props, ref) => {

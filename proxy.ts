@@ -6,7 +6,9 @@ export const config = {
 };
 
 export async function proxy(request: NextRequest) {
-  if (request.nextUrl.pathname.includes('admin')) return NextResponse.next();
+  const response = NextResponse.next();
+  response.headers.set('x-pathname', request.nextUrl.pathname);
+  if (request.nextUrl.pathname.includes('admin')) return response;
 
   return withHandleInternalization(request);
 }
