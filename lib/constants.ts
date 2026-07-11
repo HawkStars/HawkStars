@@ -14,7 +14,6 @@ export const OG_IMAGE_FALLBACK = `${BASE_URL}/images/hero.png`;
 
 /** Organisation identity */
 export const SITE_NAME = 'Hawk Stars NGO';
-export const SITE_NAME_FULL = 'Associação HawkStars';
 export const SITE_LOCALE_PT = 'pt_PT';
 export const SITE_LOCALE_EN = 'en_US';
 

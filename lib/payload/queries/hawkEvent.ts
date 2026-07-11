@@ -14,7 +14,7 @@ type HawkEventDoc = Record<string, any>;
 export const getSingleHawkEventQuery = async (
   slug: string,
   locale: Language,
-  opts?: { preview: boolean }
+  opts: { preview: boolean } = { preview: false }
 ): Promise<HawkEventDoc | null> => {
   const payload = await getPayloadConfig();
   const result = await payload.find({
@@ -28,29 +28,14 @@ export const getSingleHawkEventQuery = async (
   return result.docs[0] ?? null;
 };
 
-export const getHawkEventsQuery = async (
-  page: number,
-  locale: Language
-): Promise<PaginatedDocs<HawkEventDoc>> => {
-  const payload = await getPayloadConfig();
-  const events = await payload.find({
-    collection: EVENTS_COLLECTION,
-    limit: 10,
-    page,
-    sort: '-date',
-    locale,
-  });
-
-  return events;
-};
-
 export type SplitHawkEventsResult = {
   upcoming: HawkEventDoc[];
   past: HawkEventDoc[];
 };
 
 export const getHawkEventsSplitByDate = async (
-  locale: Language
+  locale: Language,
+  opts: { preview: boolean } = { preview: false }
 ): Promise<SplitHawkEventsResult> => {
   const payload = await getPayloadConfig();
   const now = new Date().toISOString();
@@ -58,17 +43,19 @@ export const getHawkEventsSplitByDate = async (
   const [upcomingResult, pastResult] = await Promise.all([
     payload.find({
       collection: EVENTS_COLLECTION,
-      where: { date: { greater_than_equal: now } },
+      where: { date: { greater_than_equal: now }, and: [{ status: { equals: 'published' } }] },
       sort: 'date',
       limit: 100,
       locale,
+      draft: opts.preview || false,
     }),
     payload.find({
       collection: EVENTS_COLLECTION,
-      where: { date: { less_than: now } },
+      where: { date: { less_than: now }, and: [{ status: { equals: 'published' } }] },
       sort: '-date',
       limit: 100,
       locale,
+      draft: opts.preview || false,
     }),
   ]);
 

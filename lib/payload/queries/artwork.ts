@@ -49,12 +49,6 @@ export const getAllArtworkImagesQuery = async (locale: Language) => {
   return artworks;
 };
 
-export const allArtwork = async (locale: Language) => {
-  const payload = await getPayloadConfig();
-  const artworks = await payload.find({ collection: 'artworks', limit: 100, locale });
-  return artworks;
-};
-
 export const allCuratorsQuery = async (locale: Language) => {
   const payload = await getPayloadConfig();
   const curators = await payload.find({ collection: 'curators', limit: 100, locale });

@@ -142,6 +142,6 @@ export const News: CollectionConfig = {
       },
       schedulePublish: true,
     },
-    maxPerDoc: 10,
+    maxPerDoc: 5,
   },
 };

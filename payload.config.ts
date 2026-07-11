@@ -32,6 +32,7 @@ import {
   getNotificationsHandler,
   markNotificationsReadHandler,
 } from './payload/endpoints/notifications';
+import translateHandler from './payload/endpoints/translate';
 
 import { Notification } from './payload/collections/Notification';
 import { Footer } from './payload/globals/Footer/config';
@@ -229,6 +230,11 @@ export default buildConfig({
       path: '/notifications/mark-read',
       method: 'post',
       handler: markNotificationsReadHandler,
+    },
+    {
+      path: '/translate',
+      method: 'post',
+      handler: translateHandler,
     },
   ],
   jobs,

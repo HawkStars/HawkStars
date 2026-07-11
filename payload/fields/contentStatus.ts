@@ -28,12 +28,3 @@ export const contentStatusField: Field = {
     },
   },
 };
-
-/**
- * Status badge colors for admin UI reference.
- */
-export const STATUS_LABELS: Record<string, string> = {
-  draft: 'Draft',
-  in_review: 'In Review',
-  published: 'Published',
-};

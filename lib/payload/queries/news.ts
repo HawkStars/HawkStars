@@ -63,6 +63,7 @@ export const getNewsQuery = async (
 /**
  * Get news articles linked to a specific project (by project ID).
  * Used on project detail pages to show a "Related News" section.
+ * Check where this can be added.
  */
 export const getNewsByProjectId = async (
   projectId: string,
@@ -82,22 +83,4 @@ export const getNewsByProjectId = async (
     depth: 1,
   });
   return result.docs;
-};
-
-/**
- * Get all published projects (id + heading + slug) for use in filter dropdowns.
- */
-export const getProjectsForNewsFilter = async (
-  locale: Language
-): Promise<Pick<HawkProject, 'id' | 'heading' | 'slug'>[]> => {
-  const payload = await getPayloadConfig();
-  const result = await payload.find({
-    collection: 'hawk_projects',
-    where: { status: { equals: 'published' } },
-    locale,
-    limit: 100,
-    sort: '-startDate',
-    depth: 0,
-  });
-  return result.docs.map((p) => ({ id: p.id, heading: p.heading, slug: p.slug }));
 };

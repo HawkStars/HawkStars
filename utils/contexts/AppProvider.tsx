@@ -3,7 +3,7 @@
 import { NavbarVariant, DEFAULT_NAVBAR_VARIANT } from '@/components/navbar/NavbarVariant';
 import { fallbackLng, Language } from '@/i18n/settings';
 import { Footer, Header } from '@/payload-types';
-import { createContext, Dispatch, ReactNode, useContext, useEffect, useState } from 'react';
+import { createContext, Dispatch, ReactNode, useContext, useState } from 'react';
 
 type MainAppProperties = {
   mobileNavbarOpen: boolean;
@@ -52,13 +52,6 @@ export const useMainAppContext = () => {
 
 /** SETTERS */
 
-export const useSetMainProperties = () => {
-  const setMainProperties = useContext(SetMainAppContext);
-  return (value: MainAppProperties) => {
-    setMainProperties(value);
-  };
-};
-
 export const useSetMobileNavbarOpen = () => {
   const setMainProperties = useContext(SetMainAppContext);
   return (value: boolean) => {
@@ -97,21 +90,6 @@ export const useSetNavbarVariant = () => {
 export const useLanguageCookie = () => {
   const mainProperties = useContext(MainAppContext);
   return mainProperties.lng;
-};
-
-export const useHeaderInfo = () => {
-  const mainProperties = useContext(MainAppContext);
-  return mainProperties.headerInfo;
-};
-
-export const useFooterInfo = () => {
-  const mainProperties = useContext(MainAppContext);
-  return mainProperties.footerInfo;
-};
-
-export const useNavbarVariant = () => {
-  const mainProperties = useContext(MainAppContext);
-  return mainProperties.navbarVariant;
 };
 
 export default AppProvider;

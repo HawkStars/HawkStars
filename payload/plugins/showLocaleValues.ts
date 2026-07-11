@@ -1,11 +1,16 @@
 import type { Config, Field, Plugin } from 'payload';
 
 const SHOW_INPUT_PATH = '@/payload/fields/showInput';
+const TRANSLATE_INPUT_PATH = '@/payload/fields/translateInput';
+
+/** Components appended (in order) to the `afterInput` of every localized text field. */
+const AFTER_INPUT_COMPONENTS = [SHOW_INPUT_PATH, TRANSLATE_INPUT_PATH];
 
 /**
- * Payload plugin that automatically adds the ShowInput afterInput component
- * to all localized text/textarea fields across collections and globals.
- * This shows the other locale's value beneath each localized field in the admin.
+ * Payload plugin that automatically adds, to all localized text/textarea fields
+ * across collections and globals:
+ *   - ShowInput: shows the other locale's value beneath each field.
+ *   - TranslateInput: a button that machine-translates the PT value into EN.
  */
 export const showLocaleValuesPlugin: Plugin = (incomingConfig: Config): Config => {
   const config = { ...incomingConfig };
@@ -68,36 +73,26 @@ function injectIntoField(field: Field): Field {
 
     case 'text': {
       if (!field.localized) return field;
-
-      const existing = field.admin?.components?.afterInput ?? [];
-      if (Array.isArray(existing) && existing.includes(SHOW_INPUT_PATH)) return field;
-
+      const afterInput = mergeAfterInput(field.admin?.components?.afterInput);
+      if (!afterInput) return field;
       return {
         ...field,
         admin: {
           ...field.admin,
-          components: {
-            ...field.admin?.components,
-            afterInput: [...(Array.isArray(existing) ? existing : []), SHOW_INPUT_PATH],
-          },
+          components: { ...field.admin?.components, afterInput },
         },
       };
     }
 
     case 'textarea': {
       if (!field.localized) return field;
-
-      const existing = field.admin?.components?.afterInput ?? [];
-      if (Array.isArray(existing) && existing.includes(SHOW_INPUT_PATH)) return field;
-
+      const afterInput = mergeAfterInput(field.admin?.components?.afterInput);
+      if (!afterInput) return field;
       return {
         ...field,
         admin: {
           ...field.admin,
-          components: {
-            ...field.admin?.components,
-            afterInput: [...(Array.isArray(existing) ? existing : []), SHOW_INPUT_PATH],
-          },
+          components: { ...field.admin?.components, afterInput },
         },
       };
     }
@@ -105,4 +100,16 @@ function injectIntoField(field: Field): Field {
     default:
       return field;
   }
+}
+
+/**
+ * Build the merged `afterInput` array, appending any of our helper components
+ * that are not already present. Returns `null` when nothing needs adding so
+ * callers can keep the field untouched (idempotent across plugin re-runs).
+ */
+function mergeAfterInput(existing: unknown): string[] | null {
+  const existingArr = Array.isArray(existing) ? (existing as string[]) : [];
+  const toAdd = AFTER_INPUT_COMPONENTS.filter((component) => !existingArr.includes(component));
+  if (toAdd.length === 0) return null;
+  return [...existingArr, ...toAdd];
 }
