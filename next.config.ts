@@ -15,7 +15,7 @@ const cspHeader = `
     block-all-mixed-content;
     upgrade-insecure-requests;
     frame-src 'self' *.google.com https://www.instagram.com/ https://upload-widget.cloudinary.com https://www.youtube.com https://www.youtube-nocookie.com/;
-    connect-src 'self' *.google-analytics.com *.de.sentry.io ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:` : 'http://127.0.0.1:54321'};
+    connect-src 'self' *.google-analytics.com *.de.sentry.io ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://stats.g.doubleclick.net https://*.gstatic.com data: blob:` : 'http://127.0.0.1:54321'};
     media-src 'self' https://www.youtube.com;
 `;
 

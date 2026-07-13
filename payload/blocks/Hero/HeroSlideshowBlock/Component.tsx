@@ -98,6 +98,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
                 fill
                 className='object-cover'
                 priority
+                fetchPriority={index === 0 ? 'high' : 'auto'}
               />
             )}
 

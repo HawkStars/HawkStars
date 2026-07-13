@@ -1,5 +1,4 @@
 import { getPayloadConfig } from '../server';
-import { PaginatedDocs } from 'payload';
 import { Language } from '@/i18n/settings';
 
 const EVENTS_COLLECTION = 'hawk_events' as const;

@@ -1,6 +1,6 @@
 import { Language } from '@/i18n/settings';
 import { getPayloadConfig } from '../server';
-import { News, HawkProject } from '@/payload-types';
+import { News } from '@/payload-types';
 import { PaginatedDocs, Where } from 'payload';
 
 const NEWS_COLLECTION = 'news';
