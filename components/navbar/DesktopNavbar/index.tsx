@@ -30,6 +30,7 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuK
                 key={column.id}
                 role='button'
                 tabIndex={0}
+                data-testid={column.dropdown?.key}
                 aria-expanded={menuKeyHovered === column.dropdown?.key}
                 aria-haspopup='true'
                 onMouseEnter={() => handleHoverMenu(column.dropdown?.key || '')}

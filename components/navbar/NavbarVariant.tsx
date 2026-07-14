@@ -2,14 +2,11 @@
 
 import { useEffect } from 'react';
 import { useSetNavbarVariant } from '@/utils/contexts/AppProvider';
+import { DEFAULT_NAVBAR_VARIANT, type NavbarVariant } from '@/lib/constants';
 
 type NavbarVariantProps = {
   variant: NavbarVariant;
 };
-
-export type NavbarVariant = 'default' | 'erasmus';
-
-export const DEFAULT_NAVBAR_VARIANT: NavbarVariant = 'default';
 
 /**
  * Declarative marker a page renders to set the navbar colour variant.

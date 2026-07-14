@@ -51,10 +51,7 @@ type LinkProps = {
 
 const FeaturedLinkCard: React.FC<LinkProps> = ({ link, navbarVariant }) => {
   const imageType = link.imageIcon?.type;
-  const ImageElement = getDropdownImageElement(link, 'rounded-lg object-cover', {
-    height: 120,
-    width: 224,
-  });
+  const ImageElement = getDropdownImageElement(link, 'rounded-lg');
 
   return (
     <>
@@ -67,7 +64,9 @@ const FeaturedLinkCard: React.FC<LinkProps> = ({ link, navbarVariant }) => {
       >
         {/* Background image or gradient overlay */}
         {ImageElement && imageType === 'image' && (
-          <div className='absolute inset-0 duration-300'>{ImageElement}</div>
+          <div className='absolute inset-0 duration-300'>
+            <div className='relative h-full w-full'>{ImageElement}</div>
+          </div>
         )}
 
         {/* Icon overlay */}

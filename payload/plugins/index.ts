@@ -66,12 +66,13 @@ export const plugins: Plugin[] = [
   /** LAST plugin cause of overrides */
   payloadTotp({
     collection: 'users',
-    forceSetup: true,
+    forceSetup: process.env.NODE_ENV === 'production',
     disableAccessWrapper: true,
     totp: {
       issuer: 'HawkStars Admin',
       digits: 6,
       period: 30,
     },
+    disabled: process.env.NODE_ENV === 'development',
   }),
 ];

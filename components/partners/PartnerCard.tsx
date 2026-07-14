@@ -66,7 +66,6 @@ const PartnerCard = (partner: Partner): JSX.Element => {
             src={url as string}
             alt={`${name} logo`}
             width={256}
-            height={256}
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
             className='aspect-square rounded-t-2xl object-contain object-center px-6'
           />

@@ -47,6 +47,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
                 'absolute object-cover lg:rounded-2xl':
                   imageInfo.width === undefined && imageInfo.height === undefined,
               })}
+              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
             />
           )}
         </div>

@@ -2,27 +2,23 @@ import Image from 'next/image';
 
 import { getIcon } from '@/lib/icon';
 import { getImagePayloadUrl } from '@/lib/image';
-import { ImageIcon, LinkField } from '@/payload-types';
+import { DropdownNavLink, ImageIcon, LinkField } from '@/payload-types';
 import { cn } from '@/lib/utils';
 
 export type DropdownLinkField = {
   featured?: boolean | null;
+  /**
+   * Uncheck this to hide the link from the header dropdown menu.
+   */
+  visible?: boolean | null;
+  imagePosition?: ('top' | 'center' | 'bottom') | null;
   description?: string | null;
   link: LinkField;
   imageIcon?: ImageIcon;
   id?: string | null;
 };
 
-export type DropdownImageElementOptions = {
-  height?: number;
-  width?: number;
-};
-
-export const getDropdownImageElement = (
-  link: DropdownLinkField,
-  className?: string,
-  opts?: DropdownImageElementOptions
-) => {
+export const getDropdownImageElement = (link: DropdownLinkField, className?: string) => {
   const imageIcon = link.imageIcon;
   if (!imageIcon) return null;
   const isIcon = imageIcon?.type === 'icon';
@@ -38,17 +34,25 @@ export const getDropdownImageElement = (
 
   const imageElement = getImagePayloadUrl(imageInformation);
   if (!imageElement?.url) return null;
-  const { height, width } = opts || {};
+
+  const imagePosition = link.imagePosition || 'top';
 
   return (
     <Image
       src={imageElement.url}
       alt={imageElement.alt}
-      height={height}
-      width={width}
-      fill={!(height || width)}
-      className={cn('object-cover', className)}
+      className={cn(
+        'object-none',
+        {
+          'object-top': imagePosition === 'top',
+          'object-center': imagePosition === 'center',
+          'object-bottom': imagePosition === 'bottom',
+          'object-cover': !imagePosition,
+        },
+        className
+      )}
       sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+      fill
     />
   );
 };

@@ -47,7 +47,9 @@ export const dropdownNavLink: ArrayField = {
         { label: { en: 'Top', pt: 'Topo' }, value: 'top' },
         { label: { en: 'Center', pt: 'Centro' }, value: 'center' },
         { label: { en: 'Bottom', pt: 'Fundo' }, value: 'bottom' },
+        { label: { en: 'None', pt: 'Sem preferência' }, value: '' },
       ],
+      defaultValue: '',
       required: false,
     },
     {

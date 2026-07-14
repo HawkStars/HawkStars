@@ -22,3 +22,7 @@ export const GA_MEASUREMENT_ID = 'G-PEH83S3H3K';
 
 /** FLAG */
 export const FLAG_PORTUGAL = 'Portugal';
+
+/** Navbar Variant */
+export type NavbarVariant = 'default' | 'erasmus';
+export const DEFAULT_NAVBAR_VARIANT: NavbarVariant = 'default';

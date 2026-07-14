@@ -1,6 +1,7 @@
 import { TOTPField as TOTPField_4eaf6cb33cfb75be01716613e3c9a512 } from 'payload-totp/rsc'
 import { default as default_253012d53b276ab9680cd5ce4360cb35 } from '@/payload/components/admin/MediaListView'
 import { default as default_6a7dad889d922760d944dd930f42df41 } from '@/payload/fields/showInput'
+import { default as default_e85e31803574d1cad1b86893214d4234 } from '@/payload/fields/translateInput'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { LexicalDiffComponent as LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
@@ -67,6 +68,7 @@ export const importMap = {
   "payload-totp/rsc#TOTPField": TOTPField_4eaf6cb33cfb75be01716613e3c9a512,
   "@/payload/components/admin/MediaListView#default": default_253012d53b276ab9680cd5ce4360cb35,
   "@/payload/fields/showInput#default": default_6a7dad889d922760d944dd930f42df41,
+  "@/payload/fields/translateInput#default": default_e85e31803574d1cad1b86893214d4234,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#LexicalDiffComponent": LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e,

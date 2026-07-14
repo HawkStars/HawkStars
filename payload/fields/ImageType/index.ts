@@ -62,6 +62,7 @@ export const PayloadImageField = ({
     hooks: {
       afterChange: [
         ({ value }) => {
+          if (!value) return;
           if (value.imageType !== 'none') return;
 
           return {
