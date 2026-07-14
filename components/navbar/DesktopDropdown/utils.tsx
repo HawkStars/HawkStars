@@ -11,7 +11,7 @@ export type DropdownLinkField = {
    * Uncheck this to hide the link from the header dropdown menu.
    */
   visible?: boolean | null;
-  imagePosition?: ('top' | 'center' | 'bottom') | null;
+  imagePosition?: ('top' | 'center' | 'bottom' | '') | null;
   description?: string | null;
   link: LinkField;
   imageIcon?: ImageIcon;
