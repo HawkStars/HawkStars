@@ -5,17 +5,16 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  "cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-green focus-visible:ring-green/40 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-green focus-visible:ring-green/40 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:scale-105",
   {
     variants: {
       variant: {
-        default: 'bg-green text-white hover:bg-green-dark hover:scale-105',
+        default: 'bg-green text-white hover:bg-green-dark ',
         destructive:
           'bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
         outline:
           'border border-green text-green bg-white shadow-xs hover:text-green-dark dark:hover:text-green',
-        secondary:
-          'bg-bege-dark text-green-dark hover:bg-bege-dark/70 dark:bg-green/15 dark:text-bege-dark dark:hover:bg-green/25',
+        secondary: 'bg-bege-dark text-green-dark',
         ghost:
           'hover:bg-green/10 hover:text-green-dark dark:hover:bg-green/20 dark:hover:text-bege-dark',
         link: 'text-green underline-offset-4 hover:underline hover:text-green-dark',
@@ -52,6 +51,7 @@ function Button({
   return (
     <Comp
       data-slot='button'
+      data-variant={variant}
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />

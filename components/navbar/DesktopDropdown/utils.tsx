@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import { getIcon } from '@/lib/icon';
 import { getImagePayloadUrl } from '@/lib/image';
-import { DropdownNavLink, ImageIcon, LinkField } from '@/payload-types';
+import { ImageIcon, LinkField } from '@/payload-types';
 import { cn } from '@/lib/utils';
 
 export type DropdownLinkField = {
