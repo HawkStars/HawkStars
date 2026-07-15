@@ -3,6 +3,7 @@ import { anyone } from '@/payload/access/anyone';
 import { dropdownNavLink } from '@/payload/fields/Link/DropdownNavLink';
 import { link } from '@/payload/fields/link';
 import { revalidateHeader } from './hooks/revalidateHeader';
+import { GROUP_LABELS } from '@/payload/constants';
 
 export const Header: GlobalConfig = {
   slug: 'header',
@@ -14,6 +15,7 @@ export const Header: GlobalConfig = {
     read: anyone,
   },
   admin: {
+    group: GROUP_LABELS.layout,
     description: {
       en: 'Configure the header navigation columns. If a column has more than one link it will show a dropdown menu.',
       pt: 'Configure as colunas de navegação do cabeçalho. Se uma coluna tiver mais do que um link, mostrará um menu suspenso.',

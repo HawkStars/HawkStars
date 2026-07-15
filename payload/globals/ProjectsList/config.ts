@@ -7,14 +7,16 @@ import { PayloadImageField } from '@/payload/fields/ImageType';
 import { linkGroup } from '@/payload/fields/linkGroup';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import PayloadLucideIcon from '@/payload/fields/ImageIcon/payload-lucide-icon';
+import { GROUP_LABELS } from '@/payload/constants';
 
 export const ProjectsList: GlobalConfig = {
   slug: 'projects-list',
   label: {
-    pt: 'Lista de Projetos',
-    en: 'Projects List',
+    pt: 'Página Principal da Lista de Projetos Erasmus',
+    en: 'Projects List Main Page',
   },
   admin: {
+    group: GROUP_LABELS.erasmus,
     description: {
       en: 'Configure the projects list page header information.',
       pt: 'Configure a informação do cabeçalho da página de listagem de projetos.',

@@ -3,6 +3,7 @@ import { FooterNavGroup } from '@/payload/fields/FooterNavGroup';
 import { authenticatedEditor } from '@/payload/access/authenticatedEditor';
 import { revalidateFooter } from './hooks/revalidateFooter';
 import { authenticated } from '@/payload/access/authenticated';
+import { GROUP_LABELS } from '@/payload/constants';
 
 export const Footer: GlobalConfig = {
   slug: 'footer',
@@ -15,6 +16,7 @@ export const Footer: GlobalConfig = {
     update: authenticatedEditor,
   },
   admin: {
+    group: GROUP_LABELS.layout,
     description: {
       en: 'Configure the footer navigation columns. Each column groups links displayed side by side on desktop or stacked on mobile.',
       pt: 'Configure as colunas de navegação do rodapé. Cada coluna agrupa links exibidos lado a lado no desktop ou empilhados no móvel.',

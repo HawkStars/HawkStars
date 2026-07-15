@@ -31,7 +31,7 @@ export const MemberProject: CollectionConfig = {
       'Verify the submitter is a paid-up, trusted member before checking "Confirmed". ' +
       'Only confirmed projects appear on the public showcase.',
     group: {
-      ...GROUP_LABELS.daily,
+      ...GROUP_LABELS.management,
     },
   },
   access: {

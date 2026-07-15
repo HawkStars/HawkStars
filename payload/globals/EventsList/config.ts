@@ -7,14 +7,16 @@ import { PayloadImageField } from '@/payload/fields/ImageType';
 import { linkGroup } from '@/payload/fields/linkGroup';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import PayloadLucideIcon from '@/payload/fields/ImageIcon/payload-lucide-icon';
+import { GROUP_LABELS } from '@/payload/constants';
 
 export const EventsList: GlobalConfig = {
   slug: 'events-list',
   label: {
-    pt: 'Lista de Eventos',
-    en: 'Events List',
+    pt: 'Página Principal de Eventos',
+    en: 'Events List Main Page',
   },
   admin: {
+    group: GROUP_LABELS.events,
     description: {
       en: 'Configure the events list page header information.',
       pt: 'Configure a informação do cabeçalho da página de listagem de eventos.',

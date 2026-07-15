@@ -13,14 +13,16 @@ import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 import { MainPageBlocks } from '@/payload/blocks';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import BannerFields from './fields/BannerFields';
+import { GROUP_LABELS } from '@/payload/constants';
 
 export const MainPage: GlobalConfig = {
   slug: 'main-page',
   label: {
-    pt: 'Página Principal',
+    pt: 'Página Principal da HawkStars',
     en: 'Main Page',
   },
   admin: {
+    group: GROUP_LABELS.pages,
     description: {
       en: 'Configure the main landing page of the website.',
       pt: 'Configure a página principal do website.',

@@ -3,6 +3,7 @@ import { anyone } from '../access/anyone';
 import { SocialLinksField } from '../fields/Link/SocialLink';
 import { authenticatedEditor } from '../access/authenticatedEditor';
 import { authenticatedAdmin } from '../access/authenticatedAdmin';
+import { GROUP_LABELS } from '../constants';
 
 export const Partner: CollectionConfig = {
   slug: 'partners',
@@ -12,13 +13,15 @@ export const Partner: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'country', 'type'],
+    defaultColumns: ['name', 'country', 'type', 'partnership', 'createdAt'],
     description: {
       en: 'Manage national and international partner organizations. Add their logo, country, and social links. Partners are displayed on the public partners page.',
       pt: 'Gira as organizações parceiras nacionais e internacionais. Adicione o logótipo, país e links sociais. Os parceiros são exibidos na página pública de parceiros.',
     },
-    group: {
-      name: 'Erasmus',
+    group: GROUP_LABELS.erasmus,
+    pagination: {
+      defaultLimit: 100,
+      limits: [100, 250, 1000],
     },
   },
   access: {

@@ -30,7 +30,7 @@ export const News: CollectionConfig = {
       pt: 'Escreva e publique artigos de notícias para o website HawkStars. Os artigos seguem um fluxo: Rascunho → Em Revisão → Publicado. Os editores submetem para revisão; os administradores aprovam e publicam.',
     },
     group: {
-      ...GROUP_LABELS.daily,
+      ...GROUP_LABELS.news,
     },
     livePreview: {
       url: ({ locale, data }) => {

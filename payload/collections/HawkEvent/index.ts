@@ -19,7 +19,7 @@ export const HawkEvent: CollectionConfig = {
       pt: 'Gira os projetos e eventos da HawkStars. Adicione detalhes, imagens e descrições. Cada projeto tem a sua própria página pública baseada no slug.',
     },
     group: {
-      ...GROUP_LABELS.daily,
+      ...GROUP_LABELS.events,
     },
     preview: (doc) => `/events/${doc.slug}`,
   },

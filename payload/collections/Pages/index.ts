@@ -43,7 +43,7 @@ export const Pages: CollectionConfig<'pages'> = {
       pt: 'Crie e gira páginas do website. Use o separador Conteúdo para criar layouts com texto rico ou blocos, e o separador SEO para otimização. As páginas seguem um fluxo: Rascunho → Em Revisão → Publicado.',
     },
     group: {
-      ...GROUP_LABELS.daily,
+      ...GROUP_LABELS.pages,
     },
   },
   fields: [

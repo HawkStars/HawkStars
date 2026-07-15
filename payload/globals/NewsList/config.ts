@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload';
 
 import { authenticated } from '@/payload/access/authenticated';
 import { getServerSideURL } from '@/payload/utilities/getURL';
+import { GROUP_LABELS } from '@/payload/constants';
 
 export const NewsList: GlobalConfig = {
   slug: 'news-list',
@@ -10,6 +11,7 @@ export const NewsList: GlobalConfig = {
     en: 'News List',
   },
   admin: {
+    group: GROUP_LABELS.news,
     description: {
       en: 'Configure the news list page header information.',
       pt: 'Configure a informação do cabeçalho da página de listagem de notícias.',

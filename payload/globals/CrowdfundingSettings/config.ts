@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload';
+import { GROUP_LABELS } from '@/payload/constants';
 
 import { anyone } from '@/payload/access/anyone';
 import { authenticated } from '@/payload/access/authenticated';
@@ -8,6 +9,7 @@ import CrowdfundingSettingsGeneralTab from './tabs/general';
 import CrowdfundingSettingsFundsTab from './tabs/funds';
 import CrowdfundingSettingsUpdatesTab from './tabs/updates';
 import CrowdfundingSettingsRewardsTab from './tabs/rewards';
+import { CrowdfundingSettingsSupportersTab } from './tabs/supporters';
 
 export const CrowdfundingSettings: GlobalConfig = {
   slug: 'crowdfunding-settings',
@@ -16,6 +18,14 @@ export const CrowdfundingSettings: GlobalConfig = {
     en: 'Crowdfunding Settings',
   },
   admin: {
+    group: GROUP_LABELS.crowdfunding,
+    components: {
+      elements: {
+        beforeDocumentControls: [
+          '@/payload/globals/CrowdfundingSettings/components/ShowCrowdfundingSettingsInfo',
+        ],
+      },
+    },
     description: {
       en: 'Configure the dynamic numbers, dates, images, and videos shown on the Crowdfunding page.',
       pt: 'Configure os números dinâmicos, datas, imagens e vídeos mostrados na página de Crowdfunding.',
@@ -32,6 +42,7 @@ export const CrowdfundingSettings: GlobalConfig = {
       },
     },
   },
+
   access: {
     read: anyone,
     update: authenticated,
@@ -40,8 +51,9 @@ export const CrowdfundingSettings: GlobalConfig = {
     {
       type: 'tabs',
       tabs: [
-        CrowdfundingSettingsFundsTab,
         CrowdfundingSettingsGeneralTab,
+        CrowdfundingSettingsFundsTab,
+        CrowdfundingSettingsSupportersTab,
         CrowdfundingSettingsRewardsTab,
         CrowdfundingSettingsUpdatesTab,
         CrowdfundingSettingsPhasesTab,

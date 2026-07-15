@@ -6441,26 +6441,6 @@ export interface Setting {
 export interface CrowdfundingSetting {
   id: string;
   /**
-   * Total amount raised so far, in euros.
-   */
-  raisedAmount: number;
-  /**
-   * The fundraising target for the campaign phase, in euros.
-   */
-  campaignGoal: number;
-  /**
-   * The full investment target for the project, in euros.
-   */
-  projectGoal: number;
-  /**
-   * Displayed date of the last statistics update (e.g. "Março 2025").
-   */
-  lastUpdateDate?: string | null;
-  /**
-   * Short label shown next to the raised amount to indicate weekly growth (e.g. "+2.3% esta semana").
-   */
-  weeklyIncrease?: string | null;
-  /**
    * Link for all "Support" / "Donate" buttons across the crowdfunding page (e.g. a payment or contribute page URL).
    */
   supportUrl?: string | null;
@@ -6488,11 +6468,31 @@ export interface CrowdfundingSetting {
    * YouTube or Vimeo URL for the documentary video (e.g. "https://www.youtube.com/watch?v=...").
    */
   videoUrl?: string | null;
-  supporters?: CrowdfundingSupporter;
   /**
    * Background image for the final call-to-action section at the bottom of the page.
    */
   ctaImage?: (string | null) | Media;
+  /**
+   * Total amount raised so far, in euros.
+   */
+  raisedAmount: number;
+  /**
+   * The fundraising target for the campaign phase, in euros.
+   */
+  campaignGoal: number;
+  /**
+   * The full investment target for the project, in euros.
+   */
+  projectGoal: number;
+  /**
+   * Displayed date of the last statistics update (e.g. "Março 2025").
+   */
+  lastUpdateDate?: string | null;
+  /**
+   * Short label shown next to the raised amount to indicate weekly growth (e.g. "+2.3% esta semana").
+   */
+  weeklyIncrease?: string | null;
+  supporters?: CrowdfundingSupporter;
   rewardTiers?: CrowdfundingRewardTier;
   updateCards?: CrowdfundingUpdateCard;
   /**
@@ -6739,11 +6739,6 @@ export interface SettingsSelect<T extends boolean = true> {
  * via the `definition` "crowdfunding-settings_select".
  */
 export interface CrowdfundingSettingsSelect<T extends boolean = true> {
-  raisedAmount?: T;
-  campaignGoal?: T;
-  projectGoal?: T;
-  lastUpdateDate?: T;
-  weeklyIncrease?: T;
   supportUrl?: T;
   businessCtaUrl?: T;
   transparencyDocUrl?: T;
@@ -6751,8 +6746,13 @@ export interface CrowdfundingSettingsSelect<T extends boolean = true> {
   heroImage?: T;
   videoThumbnail?: T;
   videoUrl?: T;
-  supporters?: T | CrowdfundingSupporterSelect<T>;
   ctaImage?: T;
+  raisedAmount?: T;
+  campaignGoal?: T;
+  projectGoal?: T;
+  lastUpdateDate?: T;
+  weeklyIncrease?: T;
+  supporters?: T | CrowdfundingSupporterSelect<T>;
   rewardTiers?: T | CrowdfundingRewardTierSelect<T>;
   updateCards?: T | CrowdfundingUpdateCardSelect<T>;
   phases?:

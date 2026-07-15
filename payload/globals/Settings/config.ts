@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload';
 import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
+import { GROUP_LABELS } from '@/payload/constants';
 
 export const WebsiteSettings: GlobalConfig = {
   slug: 'settings',
@@ -12,6 +13,7 @@ export const WebsiteSettings: GlobalConfig = {
     update: authenticatedAdmin,
   },
   admin: {
+    group: GROUP_LABELS.settings,
     description: {
       en: 'Configure website settings including Instagram feed access tokens.',
       pt: 'Configure as definições do website incluindo tokens de acesso ao feed do Instagram.',
