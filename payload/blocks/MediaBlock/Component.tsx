@@ -11,11 +11,7 @@ export const MediaBlock: React.FC<MediaBlockProps> = (props) => {
   if (!image) return null;
 
   return (
-    <div
-      className='relative mx-auto h-screen w-full'
-      id={sectionId || undefined}
-      data-blockid='mediaBlock'
-    >
+    <div className='relative mx-auto w-full' id={sectionId || undefined} data-blockid='mediaBlock'>
       <Image
         src={image.url}
         alt={media.alt || ''}

@@ -71,7 +71,13 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
               {/* Icon image with optional highlight value overlay */}
               <div className='relative h-32 w-39 rounded-3xl'>
                 {img ? (
-                  <Image src={img.url} alt={img.alt} fill className='object-contain' />
+                  <Image
+                    src={img.url}
+                    alt={img.alt}
+                    fill
+                    className='object-contain'
+                    sizes='(max-width: 768px) 100vw, 33vw'
+                  />
                 ) : (
                   <div className='h-full w-full rounded-full bg-gray-200' />
                 )}

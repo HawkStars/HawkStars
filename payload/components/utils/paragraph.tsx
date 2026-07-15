@@ -22,8 +22,8 @@ const Paragraph: JSXConverter<SerializedParagraphNode> = ({
   const indent = node.indent || 0;
   if (children.length === 0) return <br />;
 
-  const margin = `max-lg:mx-${(indent + 1) * 1}`;
-  const className = cn('text-body mx-auto my-1 max-w-6xl', margin);
+  const margin = `lg:px-${(indent + 1) * 1} px-${(indent + 1) * 2}`;
+  const className = cn('text-body mx-auto my-1', margin);
 
   const hasBlockLevelChild = node.children?.some((child) =>
     BLOCK_LEVEL_CHILD_TYPES.has(child.type)

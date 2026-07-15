@@ -66,7 +66,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
             <ArtPropertyComponent label={t('artwork.tiragem')} value={artwork.tiragem} />
           </div>
           {!artwork.is_sold && (
-            <div className='mt-auto flex flex-col gap-3 max-md:mt-6'>
+            <div className='mt-5 flex flex-col gap-3 max-md:mt-6'>
               <h2 className='text-h2_bold text-disabled my-auto'>{artwork.price}</h2>
               <a href='https://forms.gle/XA4kwkHFJvcmEduCA' target='_blank'>
                 <Button type={'button'}>{t('buy')}</Button>
@@ -81,8 +81,8 @@ const CuratorPage = async (props: CuratorPageProps) => {
           )}
         </div>
       </HawkStarsSection>
-      <section className='font-oswald mx-auto mt-6 flex max-w-7xl flex-col gap-4 px-4 text-justify lg:px-8'>
-        <h6 className='text-h2_bold'>{t('artwork.synopsis')}</h6>
+      <section className='font-oswald mx-auto mt-6 flex flex-col gap-4 px-4 text-justify lg:px-8 xl:px-40'>
+        <h6 className='text-h2_bold max-lg:px-1'>{t('artwork.synopsis')}</h6>
         {artwork?.synopsis && <RichText data={artwork?.synopsis} />}
         {artwork.extra && (
           <div>

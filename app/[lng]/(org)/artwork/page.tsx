@@ -50,7 +50,8 @@ const ArtworkPage = async (props: LanguagePageProps) => {
                       alt={artTitle}
                       width={500}
                       height={500}
-                      className='rounded-md'
+                      className='aspect-auto rounded-md'
+                      sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                     />
                     {item.is_sold && (
                       <div className='bg-red-dark text-oswald text-h2_bold absolute right-2 bottom-2 rounded-xl px-3 py-1 text-white'>

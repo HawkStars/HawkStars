@@ -1,8 +1,8 @@
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
 import { SerializedUploadNode } from '@payloadcms/richtext-lexical';
 import { JSXConverter } from '@payloadcms/richtext-lexical/react';
 import { Media } from '@/payload-types';
+import { ImageMedia } from '../Media/ImageMedia';
 
 const Upload: JSXConverter<SerializedUploadNode> = ({ node }) => {
   const { value } = node;
@@ -10,13 +10,11 @@ const Upload: JSXConverter<SerializedUploadNode> = ({ node }) => {
 
   if (!url) return null;
   return (
-    <Image
+    <ImageMedia
       data-section={section}
-      className={cn('mx-auto my-4 rounded-lg')}
-      src={url}
+      resource={{ url, alt, height, width } as Media}
       alt={alt}
-      height={height || undefined}
-      width={width || 1440}
+      pictureClassName={'flex justify-center my-4 rounded-lg'}
     />
   );
 };

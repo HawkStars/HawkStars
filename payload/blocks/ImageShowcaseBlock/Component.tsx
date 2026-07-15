@@ -131,11 +131,11 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
                     'animate-grayscale': hasTransition,
                     'grayscale-100': !hasTransition,
                   })}
+                  sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                   style={{
                     animationDirection: isActive ? 'normal' : isUpcoming ? 'reverse' : '',
                     animationDuration: `${transitionDuration}ms`,
                   }}
-                  sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                 />
               </button>
             );
