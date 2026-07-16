@@ -4,15 +4,17 @@ import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 type HawkLabelProps = {
   type: string;
-  className?: string;
+  variant?: 'default' | 'green';
 };
 
-const HawkLabel = ({ type, className }: HawkLabelProps) => {
+const HawkLabel = ({ type, variant = 'default' }: HawkLabelProps) => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
   return (
     <span
-      className={`mb-4 inline-block w-fit border-b border-white px-3 py-1 text-xs font-bold tracking-widest text-white uppercase ${className ? className : ''}`}
+      className={`mb-4 inline-block w-fit border-b px-3 py-1 text-xs font-bold tracking-widest uppercase ${
+        variant === 'green' ? 'border-green text-green' : 'border-white text-white'
+      }`}
     >
       {t(`label.${type}`, { defaultValue: type })}
     </span>

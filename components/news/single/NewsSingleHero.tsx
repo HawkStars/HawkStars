@@ -34,13 +34,14 @@ const NewsSingleHero: FC<NewsSingleHeroProps> = ({ title, type, heroImage, publi
           )}
         </div>
 
-        <div className='relative mt-5 h-48 w-full max-w-1/3 max-lg:mx-4'>
+        <div className='relative w-full max-w-1/3 max-lg:mx-4'>
           <Image
-            src={heroImage.url || ''}
-            alt={heroImage.alt || ''}
+            src={heroImage.url}
+            alt={heroImage.alt}
             fill
-            className='absolute mx-auto object-contain'
+            className='absolute mx-auto'
             priority
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
           />
         </div>
       </div>

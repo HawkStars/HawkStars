@@ -19,7 +19,7 @@ function getInitials(name: string): string {
 
 const CrowdfundingPartners = ({ t, supporters }: Props) => {
   return (
-    <section className='bg-crowdfunding-surface-alt w-full py-16'>
+    <section id='supporters' className='bg-crowdfunding-surface-alt w-full py-16'>
       <div className='mx-auto max-w-7xl px-4 lg:px-8'>
         <div className='flex flex-col gap-10 lg:flex-row lg:items-start'>
           <div className='flex shrink-0 flex-col gap-4 lg:w-80'>
