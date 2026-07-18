@@ -1,4 +1,5 @@
 'use client';
+
 import { useTranslation } from '@/i18n/client';
 import { cn } from '@/lib/utils';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';

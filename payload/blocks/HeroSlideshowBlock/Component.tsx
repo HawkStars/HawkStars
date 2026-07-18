@@ -98,7 +98,9 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
                 alt={bgImage.alt || slide.title || `Slide ${index + 1}`}
                 fill
                 className='object-cover'
-                priority
+                priority={index <= 1 ? true : false}
+                fetchPriority={index <= 1 ? 'high' : 'auto'}
+                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw'
               />
             )}
 

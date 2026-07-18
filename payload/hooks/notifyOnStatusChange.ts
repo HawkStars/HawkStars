@@ -88,6 +88,7 @@ export const notifyOnStatusChange: CollectionAfterChangeHook = async ({
         message: notification.message,
         situation: notification.situation,
         read: false,
+        actor: req.user?.id,
         link: `/admin/collections/${collectionSlug}/${doc.id}`,
         relatedCollection: collectionSlug,
         relatedDocId: String(doc.id),

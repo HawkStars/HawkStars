@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload';
 import { authenticated } from '@/payload/access/authenticated';
 import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 import { GROUP_LABELS } from '@/payload/constants';
+import { logLoginActivity } from '@/payload/hooks/logLoginActivity';
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -32,6 +33,9 @@ export const Users: CollectionConfig = {
     tokenExpiration: 60 * 60 * 24 * 30, // 30 days
     maxLoginAttempts: 5,
     lockTime: 60 * 60 * 24, // 24 hours
+  },
+  hooks: {
+    afterLogin: [logLoginActivity],
   },
   fields: [
     {

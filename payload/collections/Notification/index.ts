@@ -6,15 +6,15 @@ import { GROUP_LABELS } from '@/payload/constants';
 export const Notification: CollectionConfig = {
   slug: 'notifications',
   labels: {
-    singular: { en: 'Notification', pt: 'Notificação' },
-    plural: { en: 'Notifications', pt: 'Notificações' },
+    singular: { en: 'Activity Log', pt: 'Registo de Atividade' },
+    plural: { en: 'Activity Log', pt: 'Registo de Atividade' },
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'situation', 'read', 'createdAt'],
+    defaultColumns: ['title', 'situation', 'actor', 'createdAt'],
     description: {
-      en: 'System notifications for admin activity tracking',
-      pt: 'Notificações do sistema para rastreamento de atividade administrativa',
+      en: 'Activity log recording who did what: logins and document changes across the admin.',
+      pt: 'Registo de atividade que regista quem fez o quê: inícios de sessão e alterações de documentos no painel.',
     },
     group: {
       ...GROUP_LABELS.settings,
@@ -55,6 +55,7 @@ export const Notification: CollectionConfig = {
       type: 'select',
       required: true,
       options: [
+        { label: { en: 'Login', pt: 'Início de Sessão' }, value: 'login' },
         { label: { en: 'Creation', pt: 'Criação' }, value: 'create' },
         { label: { en: 'Update', pt: 'Atualização' }, value: 'update' },
         { label: { en: 'Deletion', pt: 'Eliminação' }, value: 'delete' },
@@ -62,6 +63,19 @@ export const Notification: CollectionConfig = {
         { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
       ],
       defaultValue: 'other',
+    },
+    {
+      name: 'actor',
+      label: { en: 'Actor', pt: 'Autor' },
+      type: 'relationship',
+      relationTo: 'users',
+      required: false,
+      admin: {
+        description: {
+          en: 'The user who performed this action (empty for anonymous or system events).',
+          pt: 'O utilizador que realizou esta ação (vazio para eventos anónimos ou do sistema).',
+        },
+      },
     },
     {
       name: 'read',

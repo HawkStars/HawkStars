@@ -14,6 +14,7 @@ export const notifyOnMediaUpload: CollectionAfterChangeHook = async ({ doc, oper
           title: `New media uploaded: "${filename}"`,
           message: `A new media file "${filename}"${section} has been uploaded.`,
           situation: 'create',
+          actor: req.user?.id,
           link: `/admin/collections/media/${doc.id}`,
           relatedCollection: 'media',
           relatedDocId: String(doc.id),
@@ -41,6 +42,7 @@ export const notifyOnMediaDelete: CollectionAfterDeleteHook = async ({ doc, req 
         message: `The media file "${filename}"${section} has been deleted.`,
         relatedCollection: 'media',
         situation: 'delete',
+        actor: req.user?.id,
       },
     });
   } catch (error) {

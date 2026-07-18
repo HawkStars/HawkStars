@@ -151,6 +151,9 @@ jobs:
             pnpm install --frozen-lockfile
             pnpm build
 
+            # Run database migrations (if any) before starting the app. This is a no-op if there are no migrations.
+            pnpm migrate
+
             # Start the application with PM2.
             # Uses ecosystem.config.cjs (runs `next` directly, pins cwd to an
             # absolute path) instead of `pm2 start npm -- start`, which inherited

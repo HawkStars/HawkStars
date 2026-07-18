@@ -4484,7 +4484,7 @@ export interface News {
   _status?: ('draft' | 'published') | null;
 }
 /**
- * System notifications for admin activity tracking
+ * Activity log recording who did what: logins and document changes across the admin.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "notifications".
@@ -4499,7 +4499,11 @@ export interface Notification {
    * Detailed notification message
    */
   message?: string | null;
-  situation: 'create' | 'update' | 'delete' | 'message' | 'other';
+  situation: 'login' | 'create' | 'update' | 'delete' | 'message' | 'other';
+  /**
+   * The user who performed this action (empty for anonymous or system events).
+   */
+  actor?: (string | null) | User;
   /**
    * Whether this notification has been read
    */
@@ -6110,6 +6114,7 @@ export interface NotificationsSelect<T extends boolean = true> {
   title?: T;
   message?: T;
   situation?: T;
+  actor?: T;
   read?: T;
   link?: T;
   relatedCollection?: T;

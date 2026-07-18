@@ -29,6 +29,7 @@ export const getNotificationsHandler: PayloadHandler = async (req) => {
         sort: '-createdAt',
         limit,
         where,
+        depth: 1, // populate the `actor` relationship so the UI can show who acted
       }),
       payload.count({
         collection: NOTIFICATIONS_COLLECTION,
