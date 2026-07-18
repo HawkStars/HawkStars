@@ -2102,25 +2102,6 @@ export type HawkEventObjectiveItem =
     }[]
   | null;
 /**
- * Additional titled sections for the article body
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "NewsSection".
- */
-export type NewsSection =
-  | {
-      /**
-       * e.g. "Background", "What happened", "Next steps"
-       */
-      title?: string | null;
-      /**
-       * Body text for this section
-       */
-      text?: string | null;
-      id?: string | null;
-    }[]
-  | null;
-/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DropdownNavLink".
  */
@@ -4429,17 +4410,35 @@ export interface News {
    * Main description block of the article.
    */
   details?: {
-    /**
-     * Main paragraph describing the article
-     */
-    text?: string | null;
-    sections?: NewsSection;
+    text?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
   };
   gallery?: MultiImageType;
   /**
    * Optionally link this news article to a project. The article will appear in the project page under "Related News".
    */
-  project?: (string | null) | HawkProject;
+  project?:
+    | ({
+        relationTo: 'hawk_projects';
+        value: string | HawkProject;
+      } | null)
+    | ({
+        relationTo: 'hawk_events';
+        value: string | HawkEvent;
+      } | null);
   /**
    * Optionally add references to other news articles or external links.
    */
@@ -4450,7 +4449,11 @@ export interface News {
          */
         title?: string | null;
         /**
-         * URL of the reference link (internal or external)
+         * Type of the reference link (website, social media, etc.)
+         */
+        platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'website' | 'other';
+        /**
+         * URL of the reference link
          */
         url?: string | null;
         id?: string | null;
@@ -6074,7 +6077,6 @@ export interface NewsSelect<T extends boolean = true> {
     | T
     | {
         text?: T;
-        sections?: T | NewsSectionSelect<T>;
       };
   gallery?: T | MultiImageTypeSelect<T>;
   project?: T;
@@ -6082,6 +6084,7 @@ export interface NewsSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
+        platform?: T;
         url?: T;
         id?: T;
       };
@@ -6098,15 +6101,6 @@ export interface NewsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "NewsSection_select".
- */
-export interface NewsSectionSelect<T extends boolean = true> {
-  title?: T;
-  text?: T;
-  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

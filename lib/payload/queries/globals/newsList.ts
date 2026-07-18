@@ -1,14 +1,7 @@
 import { Language } from '@/i18n/settings';
-import { getPayloadConfig } from '../../server';
+import { findGlobalLocalized } from '../helpers';
 
-const getNewsListHeader = async (lng: Language, preview?: boolean) => {
-  const payload = await getPayloadConfig();
-  return await payload.findGlobal({
-    slug: 'news-list',
-    depth: 1,
-    draft: preview || false,
-    locale: lng,
-  });
-};
+const getNewsListHeader = async (lng: Language, preview?: boolean) =>
+  findGlobalLocalized('news-list', lng, { preview });
 
 export { getNewsListHeader };

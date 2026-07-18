@@ -1,21 +1,12 @@
 import { Language } from '@/i18n/settings';
-import { getPayloadConfig } from '../server';
 import { Page } from '@/payload-types';
+import { findPublishedBySlug } from './helpers';
 
-const PAGES_COLLECTIONS = 'pages';
+const PAGES_COLLECTION = 'pages';
 
 export const getSinglePageSlug = async (
   slug: string,
   locale: Language,
   opts?: { preview: boolean }
-): Promise<Page | null> => {
-  const payload = await getPayloadConfig();
-  const page = await payload.find({
-    collection: PAGES_COLLECTIONS,
-    where: { slug: { equals: slug }, status: { equals: 'published' } },
-    locale,
-    limit: 1,
-    draft: opts?.preview || false,
-  });
-  return page ? page.docs[0] : null;
-};
+): Promise<Page | null> =>
+  findPublishedBySlug(PAGES_COLLECTION, slug, locale, { preview: opts?.preview });

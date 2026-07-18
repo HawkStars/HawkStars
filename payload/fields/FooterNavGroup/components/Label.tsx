@@ -1,14 +1,7 @@
 'use client';
 
-import { useRowLabel } from '@payloadcms/ui';
+import { makeRowLabel } from '@/payload/components/admin/makeRowLabel';
 
-const HeaderLabel = () => {
-  const { data } = useRowLabel<{
-    title: string;
-  }>();
-
-  // Get the platform name or use a fallback
-  return <div style={{ textTransform: 'capitalize' }}>{data?.title || 'Menu'}</div>;
-};
+const HeaderLabel = makeRowLabel({ fallback: 'Menu' });
 
 export default HeaderLabel;

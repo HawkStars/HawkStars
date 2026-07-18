@@ -1,11 +1,12 @@
 import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
+import { findPublishedBySlug } from './helpers';
 
 const EVENTS_COLLECTION = 'hawk_events' as const;
 
 /**
- * NOTE: Run `pnpm payload generate:types` to generate the HawkEvent type.
- * Until then we use a loose type alias so the rest of the scaffold compiles.
+ * The event pages access fields that predate the generated `HawkEvent` type, so
+ * this stays a loose alias to avoid surfacing unrelated type debt here.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type HawkEventDoc = Record<string, any>;
@@ -15,16 +16,11 @@ export const getSingleHawkEventQuery = async (
   locale: Language,
   opts: { preview: boolean } = { preview: false }
 ): Promise<HawkEventDoc | null> => {
-  const payload = await getPayloadConfig();
-  const result = await payload.find({
-    collection: EVENTS_COLLECTION,
-    where: { slug: { equals: slug }, status: { equals: 'published' } },
-    locale,
-    limit: 1,
+  const doc = await findPublishedBySlug(EVENTS_COLLECTION, slug, locale, {
+    preview: opts?.preview,
     depth: 2,
-    draft: opts?.preview || false,
   });
-  return result.docs[0] ?? null;
+  return doc as HawkEventDoc | null;
 };
 
 export type SplitHawkEventsResult = {

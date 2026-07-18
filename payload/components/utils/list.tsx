@@ -58,9 +58,25 @@ const List: JSXConverter<SerializedListNode> = ({ converters, node, nodesToJSX, 
           {children}
         </ul>
       );
+    case 'check':
+      return (
+        <ul
+          className={cn('list-check mx-6 my-1 flex flex-col gap-3 px-4 max-lg:mx-5', {
+            'mx-0!': parent.type === 'listitem',
+          })}
+          data-type={parent.type}
+        >
+          {children}
+        </ul>
+      );
     default:
       return (
-        <ul className={cn('my-1 flex flex-col gap-3 px-8 max-lg:px-3', {})} data-type='test'>
+        <ul
+          className={cn('mx-6 my-1 flex flex-col gap-3 px-4 max-lg:mx-5', {
+            'mx-0!': parent.type === 'listitem',
+          })}
+          data-type={parent.type}
+        >
           {children}
         </ul>
       );

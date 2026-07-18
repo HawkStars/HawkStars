@@ -12,12 +12,17 @@ import { ContentWithImageBlock } from '@/payload/blocks/ContentWithImage/Compone
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
 import { GlobalVillageAboutSectionBlockComponent } from '@/payload/blocks/GlobalVillageAboutSection/Component';
 import { TestimonialBlock } from '@/payload/blocks/TestimonialBlock/Component';
-import { SerializedLinkNode, type DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
+import {
+  SerializedLinkNode,
+  type DefaultTypedEditorState,
+  type SerializedBlockNode,
+} from '@payloadcms/richtext-lexical';
 import {
   JSXConvertersFunction,
   LinkJSXConverter,
   RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react';
+import type { ComponentType } from 'react';
 
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
 
@@ -74,60 +79,77 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   return relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`;
 };
 
+/**
+ * Registry mapping each Lexical block slug to the React component that renders
+ * it. Every block converter shares the exact same shape — spread `node.fields`
+ * into the component — so the converters are generated from this map by
+ * `blockConverter` below instead of being hand-written 40+ times.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const blockComponents: Record<string, ComponentType<any>> = {
+  mediaBlock: MediaBlock,
+  cta: CallToActionBlock,
+  hero: HeroBlock,
+  heroWithBackgroundImage: HeroWithBackgroundImageBlock,
+  heroSlideshowBlock: HeroSlideshowBlock,
+  contentWithImage: ContentWithImageBlock,
+  videoBlock: VideoBlock,
+  testimonialBlock: TestimonialBlock,
+  globalVillageAboutSection: GlobalVillageAboutSectionBlockComponent,
+  multiRowImage: MultiRowImage,
+  titleDescriptionBlock: TitleDescriptionBlock,
+  bentoGrid: BentoGridBlock,
+  statsBlock: StatsBlock,
+  accordion: AccordionBlock,
+  simpleGallery: SimpleGallery,
+  projectTestimonialBlock: ProjectTestimonialBlock,
+  logosBlock: LogosBlock,
+  globalVillageBanner: GlobalVillageBannerBlockComponent,
+  campaignCountdown: CampaignCountdownBlock,
+  ctaBanner: CTABannerBlock,
+  donationProgress: DonationProgressBlock,
+  faq: FAQBlock,
+  imageComparisonSlider: ImageComparisonSliderBlock,
+  mapLocation: MapLocationBlock,
+  newsletterSignup: NewsletterSignupBlock,
+  pricingTable: PricingTableBlock,
+  quoteHighlight: QuoteHighlightBlock,
+  resourceDownload: ResourceDownloadBlock,
+  socialProof: SocialProofBlock,
+  timeline: TimelineBlock,
+  imageShowcase: ImageShowcaseBlock,
+  donationWidget: DonationWidgetBlock,
+  dataGridBlock: DataGridBlock,
+  sponsorsBlock: SponsorsBlock,
+  upcomingHawkEvent: UpcomingHawkEventBlock,
+  latestNews: LatestNewsBlock,
+  growthVisionBlock: GrowthVisionBlock,
+  whyHereWhyNowBlock: WhyHereWhyNowBlock,
+  instagram: InstagramBlockComponent,
+  agenda: AgendaBlockComponent,
+  crowdfundingImageBanner: CrowdfundingImageBannerBlockComponent,
+  sectionTitleBlock: SectionTitleBlockComponent,
+  sectionListBlock: SectionListBlockComponent,
+  stepsBlock: StepsBlockComponent,
+};
+
+// Turn one registry entry into a block converter: render the component with the
+// block's fields as props. These are Lexical converter callbacks, not React
+// components rendered directly, so a display name is unnecessary.
+const blockConverter =
+  (Component: ComponentType<Record<string, unknown>>) =>
+  // eslint-disable-next-line react/display-name
+  ({ node }: { node: SerializedBlockNode }) => <Component {...node.fields} />;
+
+const blockConverters = Object.fromEntries(
+  Object.entries(blockComponents).map(([slug, Component]) => [slug, blockConverter(Component)])
+);
+
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
   inlineBlocks: {},
-  blocks: {
-    mediaBlock: ({ node }) => <MediaBlock {...node.fields} />,
-    cta: ({ node }) => <CallToActionBlock {...node.fields} />,
-    hero: ({ node }) => <HeroBlock {...node.fields} />,
-    heroWithBackgroundImage: ({ node }) => <HeroWithBackgroundImageBlock {...node.fields} />,
-    heroSlideshowBlock: ({ node }) => <HeroSlideshowBlock {...node.fields} />,
-    contentWithImage: ({ node }) => <ContentWithImageBlock {...node.fields} />,
-    videoBlock: ({ node }) => <VideoBlock {...node.fields} />,
-    testimonialBlock: ({ node }) => <TestimonialBlock {...node.fields} />,
-    globalVillageAboutSection: ({ node }) => (
-      <GlobalVillageAboutSectionBlockComponent {...node.fields} />
-    ),
-    multiRowImage: ({ node }) => <MultiRowImage {...node.fields} />,
-    titleDescriptionBlock: ({ node }) => <TitleDescriptionBlock {...node.fields} />,
-    bentoGrid: ({ node }) => <BentoGridBlock {...node.fields} />,
-    statsBlock: ({ node }) => <StatsBlock {...node.fields} />,
-    accordion: ({ node }) => <AccordionBlock {...node.fields} />,
-    simpleGallery: ({ node }) => <SimpleGallery {...node.fields} />,
-    projectTestimonialBlock: ({ node }) => <ProjectTestimonialBlock {...node.fields} />,
-    logosBlock: ({ node }) => <LogosBlock {...node.fields} />,
-    globalVillageBanner: ({ node }) => <GlobalVillageBannerBlockComponent {...node.fields} />,
-    campaignCountdown: ({ node }) => <CampaignCountdownBlock {...node.fields} />,
-    ctaBanner: ({ node }) => <CTABannerBlock {...node.fields} />,
-    donationProgress: ({ node }) => <DonationProgressBlock {...node.fields} />,
-    faq: ({ node }) => <FAQBlock {...node.fields} />,
-    imageComparisonSlider: ({ node }) => <ImageComparisonSliderBlock {...node.fields} />,
-    mapLocation: ({ node }) => <MapLocationBlock {...node.fields} />,
-    newsletterSignup: ({ node }) => <NewsletterSignupBlock {...node.fields} />,
-    pricingTable: ({ node }) => <PricingTableBlock {...node.fields} />,
-    quoteHighlight: ({ node }) => <QuoteHighlightBlock {...node.fields} />,
-    resourceDownload: ({ node }) => <ResourceDownloadBlock {...node.fields} />,
-    socialProof: ({ node }) => <SocialProofBlock {...node.fields} />,
-    timeline: ({ node }) => <TimelineBlock {...node.fields} />,
-    imageShowcase: ({ node }) => <ImageShowcaseBlock {...node.fields} />,
-    donationWidget: ({ node }) => <DonationWidgetBlock {...node.fields} />,
-    dataGridBlock: ({ node }) => <DataGridBlock {...node.fields} />,
-    sponsorsBlock: ({ node }) => <SponsorsBlock {...node.fields} />,
-    upcomingHawkEvent: ({ node }) => <UpcomingHawkEventBlock {...node.fields} />,
-    latestNews: ({ node }) => <LatestNewsBlock {...node.fields} />,
-    growthVisionBlock: ({ node }) => <GrowthVisionBlock {...node.fields} />,
-    whyHereWhyNowBlock: ({ node }) => <WhyHereWhyNowBlock {...node.fields} />,
-    instagram: ({ node }) => <InstagramBlockComponent {...node.fields} />,
-    agenda: ({ node }) => <AgendaBlockComponent {...node.fields} />,
-    crowdfundingImageBanner: ({ node }) => (
-      <CrowdfundingImageBannerBlockComponent {...node.fields} />
-    ),
-    sectionTitleBlock: ({ node }) => <SectionTitleBlockComponent {...node.fields} />,
-    sectionListBlock: ({ node }) => <SectionListBlockComponent {...node.fields} />,
-    stepsBlock: ({ node }) => <StepsBlockComponent {...node.fields} />,
-  },
+  blocks: blockConverters,
   list: List,
   listitem: ListItem,
   paragraph: Paragraph,

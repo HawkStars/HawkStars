@@ -75,8 +75,8 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
           )}
 
           <div className='flex flex-1 flex-col justify-center p-6 md:p-10'>
-            <div className='mb-3 flex flex-wrap items-center gap-3'>
-              {item.badge && <HawkLabel type={item.badge} variant='green' />}
+            <div className='mb-3 flex flex-wrap items-center gap-3 lg:flex-col'>
+              {item.badge && <HawkLabel type={item.badge} variant='green' design='badge' />}
               {item.date && (
                 <div className='flex items-center gap-1.5 text-sm text-gray-500'>
                   <LuCalendar className='h-4 w-4' />

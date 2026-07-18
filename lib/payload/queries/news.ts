@@ -2,6 +2,7 @@ import { Language } from '@/i18n/settings';
 import { getPayloadConfig } from '../server';
 import { News } from '@/payload-types';
 import { PaginatedDocs, Where } from 'payload';
+import { findPublishedBySlug } from './helpers';
 
 const NEWS_COLLECTION = 'news';
 
@@ -9,22 +10,8 @@ export const getSingleNewsSlug = async (
   slug: string,
   locale: Language,
   opts?: { preview: boolean }
-): Promise<News | null> => {
-  const where = { slug: { equals: slug }, status: { equals: 'published' } } as Where;
-  if (opts?.preview) {
-    delete where.status;
-  }
-
-  const payload = await getPayloadConfig();
-  const news = await payload.find({
-    collection: NEWS_COLLECTION,
-    where,
-    locale,
-    limit: 1,
-    draft: opts?.preview || false,
-  });
-  return news ? news.docs[0] : null;
-};
+): Promise<News | null> =>
+  findPublishedBySlug(NEWS_COLLECTION, slug, locale, { preview: opts?.preview });
 
 export const getNewsQuery = async (
   page: number,

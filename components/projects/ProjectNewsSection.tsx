@@ -5,19 +5,12 @@ import Link from 'next/link';
 import { getImagePayloadUrl } from '@/lib/image';
 import { Badge } from '@/components/ui/badge';
 import { transformUrl, urls } from '@/utils/paths';
+import { NewsTypeLabels } from '../news/constants';
 
 type ProjectNewsSectionProps = {
   news: News[];
   lng: string;
   title?: string;
-};
-
-const NewsTypeLabels: Record<News['type'], string> = {
-  blog: 'Blog',
-  news: 'News',
-  press_release: 'Press Release',
-  announcement: 'Announcement',
-  other: 'Other',
 };
 
 const ProjectNewsSection = ({ news, lng, title = 'Related News' }: ProjectNewsSectionProps) => {

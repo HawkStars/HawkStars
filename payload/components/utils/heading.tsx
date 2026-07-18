@@ -33,7 +33,7 @@ const Heading: JSXConverter<SerializedHeadingNode> = ({ converters, node, nodesT
     case 'h6':
       return <h6 className={cn(classHeadings[tag])}>{children}</h6>;
     default:
-      return <></>;
+      return <>{children}</>;
   }
 };
 

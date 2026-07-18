@@ -4,6 +4,7 @@ import { stringify } from 'qs-esm';
 
 import { getImagePayloadUrl } from '@/lib/image';
 import API_CLIENT_PATHS from './constants';
+import { NewsTypeLabels } from '@/components/news/constants';
 
 // --- legacy helper kept for backward compatibility ---
 
@@ -29,14 +30,6 @@ export type LatestNewsItem = {
   description: string | null;
   image: { url: string; alt?: string } | null | undefined;
   href: string;
-};
-
-const newsTypeLabels: Record<string, string> = {
-  blog: 'Blog',
-  news: 'News',
-  press_release: 'Press Release',
-  announcement: 'Announcement',
-  other: 'Other',
 };
 
 const eventTypeLabels: Record<string, string> = {
@@ -79,7 +72,7 @@ const fetchLatestNews = async (
 
     return {
       heading: doc.title,
-      badge: doc.type ? newsTypeLabels[doc.type] || doc.type : null,
+      badge: doc.type ? NewsTypeLabels[doc.type] || doc.type : null,
       date: doc.publishedAt ?? null,
       description: null,
       image: getImagePayloadUrl(doc.mainImage) ?? null,

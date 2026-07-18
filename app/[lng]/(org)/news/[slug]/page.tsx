@@ -56,7 +56,6 @@ const NewsSlugPage = async (props: NewsSlugPageProps) => {
     <>
       <ArticleJsonLd
         title={title}
-        description={details?.text?.substring(0, 160) ?? undefined}
         url={`${BASE_URL}/${lng}/news/${slug}`}
         image={heroImage?.url || undefined}
         publishedAt={publishedAt ?? undefined}

@@ -1,13 +1,7 @@
 'use client';
 
-import { useRowLabel } from '@payloadcms/ui';
+import { makeRowLabel } from '@/payload/components/admin/makeRowLabel';
 
-const PhasesRowLabel = () => {
-  const { data } = useRowLabel<{
-    title?: string;
-  }>();
-
-  return <div style={{ textTransform: 'capitalize' }}>{data?.title || 'Unnamed phase'}</div>;
-};
+const PhasesRowLabel = makeRowLabel({ fallback: 'Unnamed phase' });
 
 export default PhasesRowLabel;

@@ -1,14 +1,7 @@
 import { Language } from '@/i18n/settings';
-import { getPayloadConfig } from '../../server';
+import { findGlobalLocalized } from '../helpers';
 
-const getEventsListHeaderInfo = async (lng: Language) => {
-  const payload = await getPayloadConfig();
-  return await payload.findGlobal({
-    slug: 'events-list',
-    depth: 1,
-    draft: false,
-    locale: lng,
-  });
-};
+const getEventsListHeaderInfo = async (lng: Language) =>
+  findGlobalLocalized('events-list', lng);
 
 export { getEventsListHeaderInfo };

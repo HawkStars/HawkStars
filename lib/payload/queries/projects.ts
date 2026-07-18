@@ -1,7 +1,7 @@
 import { HawkProject } from '@/payload-types';
 import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
-import { Where } from 'payload';
+import { findPublishedBySlug } from './helpers';
 
 export type SplitProjectsResult = {
   upcoming: HawkProject[];
@@ -14,27 +14,8 @@ export const getSingleProjectsQuery = async (
   slug: string,
   locale: Language,
   opts?: { preview: boolean }
-): Promise<HawkProject> => {
-  const where = {
-    slug: { equals: slug },
-    status: { equals: opts?.preview ? null : 'published' },
-  } as Where;
-
-  if (opts?.preview) {
-    delete where.status;
-  }
-
-  const payload = await getPayloadConfig();
-  const project = await payload.find({
-    collection: PROJECTS_COLLECTION,
-    where,
-    locale,
-    limit: 1,
-    depth: 3,
-    draft: opts?.preview || false,
-  });
-  return project.docs[0] ?? null;
-};
+): Promise<HawkProject | null> =>
+  findPublishedBySlug(PROJECTS_COLLECTION, slug, locale, { preview: opts?.preview, depth: 3 });
 
 export const getProjectsSplitByDate = async (locale: Language): Promise<SplitProjectsResult> => {
   const payload = await getPayloadConfig();

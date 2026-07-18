@@ -1,14 +1,11 @@
 'use client';
 
-import { useRowLabel } from '@payloadcms/ui';
+import { makeRowLabel } from '@/payload/components/admin/makeRowLabel';
 
-const ObjectiveItemsRowLabel = () => {
-  const { data } = useRowLabel<{
-    text?: string;
-  }>();
-
-  const rowLabel = data?.text?.trim();
-  return <div>{rowLabel || 'Unnamed objective'}</div>;
-};
+const ObjectiveItemsRowLabel = makeRowLabel({
+  fallback: 'Unnamed objective',
+  getTitle: (data) => data.text,
+  capitalize: false,
+});
 
 export default ObjectiveItemsRowLabel;

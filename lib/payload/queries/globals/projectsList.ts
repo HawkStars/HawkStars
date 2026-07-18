@@ -1,14 +1,7 @@
 import { Language } from '@/i18n/settings';
-import { getPayloadConfig } from '../../server';
+import { findGlobalLocalized } from '../helpers';
 
-const getProjectsListHeaderInfo = async (lng: Language) => {
-  const payload = await getPayloadConfig();
-  return await payload.findGlobal({
-    slug: 'projects-list',
-    depth: 1,
-    draft: false,
-    locale: lng,
-  });
-};
+const getProjectsListHeaderInfo = async (lng: Language) =>
+  findGlobalLocalized('projects-list', lng);
 
 export { getProjectsListHeaderInfo };

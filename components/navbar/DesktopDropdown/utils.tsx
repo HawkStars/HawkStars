@@ -42,7 +42,7 @@ export const getDropdownImageElement = (link: DropdownLinkField, className?: str
       src={imageElement.url}
       alt={imageElement.alt}
       className={cn(
-        'object-none',
+        'object-fill',
         {
           'object-top': imagePosition === 'top',
           'object-center': imagePosition === 'center',

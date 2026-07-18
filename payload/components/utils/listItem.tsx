@@ -19,15 +19,23 @@ const ListItem: JSXConverter<SerializedListItemNode> = ({
   const listType = list.listType;
   const checked = node.checked;
 
+  const isCheckItem = checked !== undefined && listType === 'check';
+
   return (
     <li
       className={cn('', {
         'text-body_regular': indent === 0 && listType === 'number',
       })}
     >
-      {checked !== undefined && listType === 'check' ? (
-        <input type='checkbox' checked={checked} name={node.value.toString()} readOnly />
-      ) : null}{' '}
+      {isCheckItem ? (
+        <input
+          type='checkbox'
+          className='mr-2'
+          checked={checked}
+          name={node.value?.toString()}
+          readOnly
+        />
+      ) : null}
       {children}
     </li>
   );

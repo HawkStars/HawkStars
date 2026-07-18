@@ -15,9 +15,7 @@ const LinkGroupLabel = () => {
   const { data } = useRowLabel<{ link: LinkField }>();
   const { link } = data || {};
 
-  if (!link) {
-    return <LinkGroupLabelComponent rowLabel='Empty Link' />;
-  }
+  if (!link) return <LinkGroupLabelComponent rowLabel='Empty Link' />;
 
   const { label } = link;
   const type = link?.type === 'custom' ? 'Custom URL' : 'Internal URL';

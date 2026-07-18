@@ -16,7 +16,8 @@
     "payload:regenerate": "payload generate:types && payload generate:importmap",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "prepare": "husky"
+    "prepare": "husky",
+    "payload": "payload"
   },
   "dependencies": {
     "@payloadcms/db-mongodb": "^3.85.1",

@@ -1,6 +1,8 @@
 import { PayloadImageField } from '@/payload/fields/ImageType';
 import { MultiImageField } from '@/payload/fields/MultiImage';
+import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 import { Tab } from 'payload';
+import { PLATFORM_OPTIONS } from '../HawkProject/config';
 
 const NewsDetails: Tab = {
   label: { en: 'Details', pt: 'Detalhes' },
@@ -69,58 +71,17 @@ const NewsDetails: Tab = {
         {
           name: 'text',
           label: { en: 'Description Text', pt: 'Texto de Descrição' },
-          type: 'textarea',
+          type: 'richText',
           localized: true,
-          admin: {
-            description: {
-              en: 'Main paragraph describing the article',
-              pt: 'Parágrafo principal a descrever o artigo',
-            },
-            rows: 8,
-          },
-        },
-        {
-          name: 'sections',
-          label: { en: 'Sections', pt: 'Secções' },
-          type: 'array',
-          interfaceName: 'NewsSection',
-          admin: {
-            description: {
-              en: 'Additional titled sections for the article body',
-              pt: 'Secções com título adicionais para o corpo do artigo',
-            },
-            initCollapsed: true,
-            components: {
-              RowLabel: '@/payload/collections/News/components/SectionsRowLabel',
-            },
-          },
-          fields: [
-            {
-              name: 'title',
-              label: { en: 'Section Title', pt: 'Título da Secção' },
-              type: 'text',
-              localized: true,
-              admin: {
-                description: {
-                  en: 'e.g. "Background", "What happened", "Next steps"',
-                  pt: 'ex: "Contexto", "O que aconteceu", "Próximos passos"',
-                },
-              },
-            },
-            {
-              name: 'text',
-              label: { en: 'Section Text', pt: 'Texto da Secção' },
-              type: 'textarea',
-              localized: true,
-              admin: {
-                description: {
-                  en: 'Body text for this section',
-                  pt: 'Texto do corpo desta secção',
-                },
-                rows: 6,
-              },
-            },
-          ],
+          editor: lexicalEditor({
+            features: ({ rootFeatures }) => [
+              ...rootFeatures,
+              BlocksFeature({
+                blocks: [],
+                inlineBlocks: [],
+              }),
+            ],
+          }),
         },
       ],
     },
@@ -142,9 +103,9 @@ const NewsDetails: Tab = {
     /* -------------------------------------------------------------- */
     {
       name: 'project',
-      label: { en: 'Related Project', pt: 'Projeto Relacionado' },
+      label: { en: 'Related Project / Events', pt: 'Projeto ou Evento Relacionado' },
       type: 'relationship',
-      relationTo: 'hawk_projects',
+      relationTo: ['hawk_projects', 'hawk_events'],
       required: false,
       admin: {
         description: {
@@ -155,7 +116,7 @@ const NewsDetails: Tab = {
     },
     {
       name: 'references',
-      label: { en: 'References', pt: 'Referências' },
+      label: { en: 'External References', pt: 'Referências Externas' },
       type: 'array',
       admin: {
         description: {
@@ -169,11 +130,25 @@ const NewsDetails: Tab = {
           name: 'title',
           label: { en: 'Reference Title', pt: 'Título da Referência' },
           type: 'text',
-          localized: true,
+          localized: false,
           admin: {
             description: {
               en: 'Title of the reference link',
               pt: 'Título do link de referência',
+            },
+          },
+        },
+        {
+          name: 'platform',
+          label: { en: 'Reference Type', pt: 'Tipo de Referência' },
+          type: 'select',
+          options: PLATFORM_OPTIONS,
+          defaultValue: 'website',
+          required: true,
+          admin: {
+            description: {
+              en: 'Type of the reference link (website, social media, etc.)',
+              pt: 'Tipo do link de referência (site, mídia social, etc.)',
             },
           },
         },
@@ -183,8 +158,8 @@ const NewsDetails: Tab = {
           type: 'text',
           admin: {
             description: {
-              en: 'URL of the reference link (internal or external)',
-              pt: 'URL do link de referência (interno ou externo)',
+              en: 'URL of the reference link',
+              pt: 'URL do link de referência',
             },
           },
         },

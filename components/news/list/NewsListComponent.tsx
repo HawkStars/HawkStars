@@ -7,19 +7,12 @@ import { getImagePayloadUrl } from '@/lib/image';
 import { Badge } from '@/components/ui/badge';
 import { transformUrl, urls } from '@/utils/paths';
 import { HawkStarsSection } from '@/components/layout';
+import { NewsTypeLabels } from '../constants';
 
 type NewsListProps = {
   news: PaginatedDocs<News>;
   lng: string;
   projectSlug?: string;
-};
-
-const NewsTypeLabels: Record<News['type'], string> = {
-  blog: 'Blog',
-  news: 'News',
-  press_release: 'Press Release',
-  announcement: 'Announcement',
-  other: 'Other',
 };
 
 const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {

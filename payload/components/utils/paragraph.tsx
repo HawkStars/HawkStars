@@ -22,8 +22,18 @@ const Paragraph: JSXConverter<SerializedParagraphNode> = ({
   const indent = node.indent || 0;
   if (children.length === 0) return <br />;
 
-  const margin = `lg:px-${(indent + 1) * 1} px-${(indent + 1) * 2}`;
-  const className = cn('text-body mx-auto my-1', margin);
+  // Static, literal indent classes so Tailwind can detect them at build time.
+  // Dynamic string interpolation (e.g. `px-${n}`) is NOT picked up by the
+  // Tailwind scanner and produces no CSS.
+  const INDENT_CLASSES = [
+    'px-2 lg:px-1',
+    'px-4 lg:px-2',
+    'px-6 lg:px-3',
+    'px-8 lg:px-4',
+    'px-10 lg:px-5',
+  ];
+  const margin = INDENT_CLASSES[Math.min(indent, INDENT_CLASSES.length - 1)];
+  const className = cn('text-body_regular mx-auto my-1', margin);
 
   const hasBlockLevelChild = node.children?.some((child) =>
     BLOCK_LEVEL_CHILD_TYPES.has(child.type)

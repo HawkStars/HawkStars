@@ -17,8 +17,9 @@ export async function up({ payload, session }: MigrateUpArgs): Promise<void> {
   payload.logger.info('Removed dropdown.version from header global documents.');
 
   // Also clean up versioned copies
-  const headerVersionsCollection = payload.db.versions['_globals'].collection;
+  const headerVersionsCollection = payload.db.versions['_globals']?.collection;
 
+  if (!headerVersionsCollection) return;
   await headerVersionsCollection.updateMany(
     { 'version.globalType': 'header' },
     {

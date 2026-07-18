@@ -1,11 +1,8 @@
 'use client';
 
-import { useRowLabel } from '@payloadcms/ui';
+import { makeRowLabel } from '@/payload/components/admin/makeRowLabel';
 
-export const FooterLabel = () => {
-  const { data } = useRowLabel<{ column: { title?: string } }>();
-  const title = data?.column?.title;
-
-  // Get the platform name or use a fallback
-  return <div style={{ textTransform: 'capitalize' }}>{title || 'Menu'}</div>;
-};
+export const FooterLabel = makeRowLabel({
+  fallback: 'Menu',
+  getTitle: (data) => (data.column as { title?: string } | undefined)?.title,
+});
