@@ -46,7 +46,7 @@ const fetchLatestNews = async (
   newsType?: LatestNewsBlock['newsType']
 ): Promise<LatestNewsItem | null> => {
   const where: Where = {
-    status: { equals: 'published' },
+    _status: { equals: 'published' },
   };
 
   if (newsType && newsType.length > 0) {

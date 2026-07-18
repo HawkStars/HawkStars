@@ -379,7 +379,6 @@ export async function seed(payload: Payload): Promise<void> {
       {
         heading: 'Erasmus+ Youth Exchange 2025',
         slug: 'erasmus-youth-exchange-2025',
-        _status: 'published' as const,
         startDate: '2025-06-01',
         coverImage: {
           imageType: 'upload' as const,
@@ -396,7 +395,6 @@ export async function seed(payload: Payload): Promise<void> {
       {
         heading: 'Festival Cultural HawkStars',
         slug: 'festival-cultural-hawkstars',
-        _status: 'published' as const,
         startDate: '2025-09-01',
         coverImage: {
           imageType: 'upload' as const,
@@ -450,7 +448,6 @@ export async function seed(payload: Payload): Promise<void> {
         title: 'HawkStars lança novo programa de voluntariado',
         slug: 'novo-programa-voluntariado',
         type: 'news' as const,
-        _status: 'published' as const,
         publishedAt: '2025-10-01T10:00:00.000Z',
         content: richText(
           'A HawkStars anuncia o lançamento de um novo programa de voluntariado destinado a jovens entre os 18 e 30 anos.'
@@ -465,7 +462,6 @@ export async function seed(payload: Payload): Promise<void> {
         title: 'Resultados do Festival Cultural 2025',
         slug: 'resultados-festival-cultural-2025',
         type: 'blog' as const,
-        _status: 'published' as const,
         publishedAt: '2025-09-20T14:00:00.000Z',
         content: richText(
           'O Festival Cultural 2025 foi um sucesso com mais de 500 participantes de toda a região.'
@@ -519,7 +515,6 @@ export async function seed(payload: Payload): Promise<void> {
       {
         title: 'Sobre Nós',
         slug: 'about',
-        _status: 'published' as const,
         publishedAt: '2025-01-01T00:00:00.000Z',
         layout: richText(
           'A HawkStars é uma associação cultural sem fins lucrativos dedicada ao desenvolvimento cultural e juvenil.'
@@ -528,7 +523,6 @@ export async function seed(payload: Payload): Promise<void> {
       {
         title: 'Contacto',
         slug: 'contact',
-        _status: 'published' as const,
         publishedAt: '2025-01-01T00:00:00.000Z',
         layout: richText(
           'Entre em contacto connosco através do formulário abaixo ou dos nossos canais de comunicação.'

@@ -14,7 +14,6 @@ const makeProject = (id: string, heading: string, text: string, imageUrl: string
       alt: heading,
     },
     details: { text },
-    status: 'published',
     createdAt: '2026-01-01T00:00:00.000Z',
     updatedAt: '2026-01-01T00:00:00.000Z',
   }) as unknown as HawkProject;

@@ -21,10 +21,7 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
   // Backfill native status for hawk_projects that predate drafts.
   await db
     .collection('hawk_projects')
-    .updateMany(
-      { _status: { $exists: false } },
-      { $set: { _status: 'published' } }
-    );
+    .updateMany({ _status: { $exists: false } }, { $set: { _status: 'published' } });
 }
 
 export async function down(_args: MigrateDownArgs): Promise<void> {

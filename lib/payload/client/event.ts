@@ -92,7 +92,7 @@ const getEventsByMonthAndYear = async (
   const endOfMonth = new Date(year, month + 1, 0, 23, 59, 59, 999);
 
   const where: Where = {
-    status: { equals: 'published' },
+    _status: { equals: 'published' },
     // Include any event that overlaps the current month — either it starts
     // within the month, or it's a multi-day event still running into it.
     or: [

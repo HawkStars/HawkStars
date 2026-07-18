@@ -2575,7 +2575,7 @@ export interface LinkField {
   section?: string | null;
 }
 /**
- * Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search optimization. Pages follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.
+ * Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search optimization. Save as Draft while editing and Publish when ready to go live.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
@@ -4285,7 +4285,6 @@ export interface HawkEvent {
    */
   endDate?: string | null;
   slug: string;
-  status?: ('draft' | 'published' | 'archived') | null;
   type_event?: ('local_event' | 'international_event' | 'other') | null;
   /**
    * Main body content shown on the public event page.
@@ -4383,7 +4382,7 @@ export interface Sponsor {
   createdAt: string;
 }
 /**
- * Write and publish news articles for the HawkStars website. Articles follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.
+ * Write and publish news articles for the HawkStars website. Save as Draft while editing and Publish when ready to go live.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "news".
@@ -5063,7 +5062,6 @@ export interface HawkEventsSelect<T extends boolean = true> {
   date?: T;
   endDate?: T;
   slug?: T;
-  status?: T;
   type_event?: T;
   details?:
     | T
@@ -6843,6 +6841,10 @@ export interface TaskSchedulePublish {
     type?: ('publish' | 'unpublish') | null;
     locale?: string | null;
     doc?:
+      | ({
+          relationTo: 'hawk_projects';
+          value: string | HawkProject;
+        } | null)
       | ({
           relationTo: 'pages';
           value: string | Page;

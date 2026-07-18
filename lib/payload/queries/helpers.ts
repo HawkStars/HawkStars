@@ -30,9 +30,6 @@ export const findPublishedBySlug = async <TSlug extends CollectionSlug>(
   opts?: SlugQueryOptions
 ): Promise<DataFromCollectionSlug<TSlug> | null> => {
   const where: Where = { slug: { equals: slug } };
-  if (!opts?.preview) {
-    where.status = { equals: 'published' };
-  }
 
   const payload = await getPayloadConfig();
   const result = await payload.find({
