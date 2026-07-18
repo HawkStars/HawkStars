@@ -2666,11 +2666,7 @@ export interface Page {
     description?: string | null;
   };
   /**
-   * Draft → In Review → Published. Editors submit for review; Admins approve and publish.
-   */
-  status: 'draft' | 'in_review' | 'published';
-  /**
-   * Automatically set when status changes to Published
+   * Automatically set when the page is published
    */
   publishedAt?: string | null;
   /**
@@ -3883,12 +3879,9 @@ export interface HawkProject {
    * Optional infopack document related to the project.
    */
   infopack?: (string | null) | HawkDocument;
-  /**
-   * Draft → In Review → Published. Editors submit for review; Admins approve and publish.
-   */
-  status: 'draft' | 'in_review' | 'published';
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * Photos displayed at the bottom of the article
@@ -4468,15 +4461,11 @@ export interface News {
     description?: string | null;
   };
   /**
-   * Draft → In Review → Published. Editors submit for review; Admins approve and publish.
-   */
-  status: 'draft' | 'in_review' | 'published';
-  /**
    * The URL slug for the news article, e.g. "my-article" for www.hawkstars.com/news/my-article
    */
   slug: string;
   /**
-   * Automatically set when status changes to Published
+   * Automatically set when the article is published
    */
   publishedAt?: string | null;
   updatedAt: string;
@@ -4956,9 +4945,9 @@ export interface HawkProjectsSelect<T extends boolean = true> {
   startDate?: T;
   endDate?: T;
   infopack?: T;
-  status?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5245,7 +5234,6 @@ export interface PagesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
-  status?: T;
   publishedAt?: T;
   slug?: T;
   updatedAt?: T;
@@ -6099,7 +6087,6 @@ export interface NewsSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
-  status?: T;
   slug?: T;
   publishedAt?: T;
   updatedAt?: T;

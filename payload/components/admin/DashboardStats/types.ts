@@ -1,6 +1,5 @@
 export type StatusCounts = {
   draft: number;
-  in_review: number;
   published: number;
 };
 

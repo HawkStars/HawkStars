@@ -2,9 +2,6 @@ import type { CollectionConfig } from 'payload';
 import { authenticated } from '@/payload/access/authenticated';
 import { populatePublishedAt } from '../../hooks/populatePublishedAt';
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage';
-import { notifyOnStatusChange } from '@/payload/hooks/notifyOnStatusChange';
-import { validateStatusTransition } from '@/payload/hooks/validateStatusTransition';
-import { contentStatusField } from '@/payload/fields/contentStatus';
 
 import {
   MetaDescriptionField,
@@ -37,10 +34,10 @@ export const Pages: CollectionConfig<'pages'> = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'slug', 'status', 'updatedAt'],
+    defaultColumns: ['title', 'slug', '_status', 'updatedAt'],
     description: {
-      en: 'Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search optimization. Pages follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.',
-      pt: 'Crie e gira páginas do website. Use o separador Conteúdo para criar layouts com texto rico ou blocos, e o separador SEO para otimização. As páginas seguem um fluxo: Rascunho → Em Revisão → Publicado.',
+      en: 'Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search optimization. Save as Draft while editing and Publish when ready to go live.',
+      pt: 'Crie e gira páginas do website. Use o separador Conteúdo para criar layouts com texto rico ou blocos, e o separador SEO para otimização. Guarde como Rascunho durante a edição e Publique quando estiver pronto.',
     },
     group: {
       ...GROUP_LABELS.pages,
@@ -172,7 +169,6 @@ export const Pages: CollectionConfig<'pages'> = {
         },
       ],
     },
-    contentStatusField,
     {
       name: 'publishedAt',
       label: { en: 'Published At', pt: 'Publicado Em' },
@@ -180,8 +176,8 @@ export const Pages: CollectionConfig<'pages'> = {
       admin: {
         position: 'sidebar',
         description: {
-          en: 'Automatically set when status changes to Published',
-          pt: 'Definido automaticamente quando o estado muda para Publicado',
+          en: 'Automatically set when the page is published',
+          pt: 'Definido automaticamente quando a página é publicada',
         },
       },
     },
@@ -201,8 +197,8 @@ export const Pages: CollectionConfig<'pages'> = {
     },
   ],
   hooks: {
-    afterChange: [revalidatePage, notifyOnStatusChange],
-    beforeChange: [validateStatusTransition, populatePublishedAt],
+    afterChange: [revalidatePage],
+    beforeChange: [populatePublishedAt],
     afterDelete: [revalidateDelete],
   },
   versions: {

@@ -4,7 +4,6 @@ import { authenticated } from '../../access/authenticated';
 import HawkProjectPageTab from './HawkProjectPageTab';
 import { sanitizeBrokenImageRelationship } from '../../hooks/sanitizeBrokenImageRelationship';
 import { HawkProjectSeoTab } from './HawkProjectSeoTab';
-import { contentStatusField } from '@/payload/fields/contentStatus';
 import HawkProjectPartnersInformation from './HawkProjectPartnersInformation';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import HawkProjectDisseminationFields from './HawkProjectDisseminationFields';
@@ -175,6 +174,14 @@ export const HawkProject: CollectionConfig = {
         },
       },
     },
-    contentStatusField,
   ],
+  versions: {
+    drafts: {
+      autosave: {
+        interval: 100,
+      },
+      schedulePublish: true,
+    },
+    maxPerDoc: 5,
+  },
 };
