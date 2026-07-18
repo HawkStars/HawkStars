@@ -85,7 +85,7 @@ export const ActivityLogWidget: React.FC = () => {
       await load();
     };
     prepareLoad();
-  }, []);
+  }, [load]);
 
   const body = () => {
     if (loading) return <WidgetSpinner label='Loading activity…' />;
