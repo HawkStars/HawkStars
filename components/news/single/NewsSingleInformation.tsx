@@ -1,13 +1,19 @@
+'use client';
+
 import { HawkStarsSection } from '@/components/layout';
 import { News } from '@/payload-types';
 import { ImageMedia } from '@/payload/components/Media';
 import RichTextWrapper from '@/payload/components/RichText/RichTextWrapper';
 import { SocialIcon, SocialType } from '@/utils/models/social';
 import { FC } from 'react';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 type NewsSingleInformationProps = Pick<News, 'details' | 'references'>;
 
 const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, references }) => {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
   const { text } = details || {};
   return (
     <>
@@ -18,7 +24,7 @@ const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, refere
           </div>
           {references && references.length > 0 && (
             <div className='my-6 max-w-6xl max-lg:mx-4'>
-              <h6 className='text-h6_bold text-green mb-4'>References</h6>
+              <h6 className='text-h6_bold text-green mb-4'>{t('sections.references')}</h6>
               {references.map((ref) => {
                 const { platform, url, id } = ref || {};
                 if (!url) return null;
@@ -33,7 +39,12 @@ const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, refere
                     className='text-green mt-10 flex gap-3'
                   >
                     {icon && (
-                      <ImageMedia src={icon} alt={`${platform} icon`} width={24} height={24} />
+                      <ImageMedia
+                        src={icon}
+                        alt={t('a11y.platformIcon', { platform })}
+                        width={24}
+                        height={24}
+                      />
                     )}
                     {ref.title || ref.url}
                   </a>

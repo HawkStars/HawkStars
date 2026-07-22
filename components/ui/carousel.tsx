@@ -4,6 +4,8 @@ import { LuArrowLeft, LuArrowRight } from 'react-icons/lu';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -170,6 +172,8 @@ function CarouselPrevious({
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel();
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
 
   return (
     <Button
@@ -188,7 +192,7 @@ function CarouselPrevious({
       {...props}
     >
       <LuArrowLeft />
-      <span className='sr-only'>Previous slide</span>
+      <span className='sr-only'>{t('a11y.prevSlide')}</span>
     </Button>
   );
 }
@@ -200,6 +204,8 @@ function CarouselNext({
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { orientation, scrollNext, canScrollNext } = useCarousel();
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
 
   return (
     <Button
@@ -218,7 +224,7 @@ function CarouselNext({
       {...props}
     >
       <LuArrowRight />
-      <span className='sr-only'>Next slide</span>
+      <span className='sr-only'>{t('a11y.nextSlide')}</span>
     </Button>
   );
 }

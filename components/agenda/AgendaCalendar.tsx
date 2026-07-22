@@ -9,6 +9,7 @@ import { getImagePayloadUrl } from '@/lib/image';
 import type { HawkEvent } from '@/payload-types';
 import { Language } from '@/i18n/settings';
 import { getEventsByMonthAndYear } from '@/lib/payload/client/event';
+import { useTranslation } from '@/i18n/client';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -42,19 +43,10 @@ const categoryDotColors: Record<string, string> = {
   other: 'bg-green-500',
 };
 
-const categoryLabels: Record<string, Record<string, string>> = {
-  en: {
-    erasmus: 'Erasmus',
-    local_event: 'Local Event',
-    international_event: 'International',
-    other: 'Other',
-  },
-  pt: {
-    erasmus: 'Erasmus',
-    local_event: 'Evento Local',
-    international_event: 'Internacional',
-    other: 'Outro',
-  },
+const categoryLabelKeys: Record<string, string> = {
+  local_event: 'categories.local',
+  international_event: 'categories.international',
+  other: 'categories.other',
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -124,6 +116,12 @@ function formatDateRange(
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function AgendaCalendar({ translations, lng }: AgendaCalendarProps) {
+  const { t } = useTranslation(lng, 'agenda');
+  const getCategoryLabel = (type: string): string => {
+    if (type === 'erasmus') return 'Erasmus';
+    const key = categoryLabelKeys[type];
+    return key ? t(key) : type;
+  };
   const today = new Date();
   const [events, setEvents] = useState<HawkEvent[]>([]);
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
@@ -329,9 +327,7 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
             {Object.entries(categoryDotColors).map(([key, dotClass]) => (
               <div key={key} className='flex items-center gap-1.5'>
                 <div className={cn('h-2.5 w-2.5 rounded-full', dotClass)} />
-                <span className='text-xs text-gray-600'>
-                  {categoryLabels[lng]?.[key] || categoryLabels['en'][key]}
-                </span>
+                <span className='text-xs text-gray-600'>{getCategoryLabel(key)}</span>
               </div>
             ))}
             {/* Range indicator legend */}
@@ -397,9 +393,7 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
                                 categoryColors[event.type_event] ?? categoryColors.other
                               )}
                             >
-                              {categoryLabels[lng]?.[event.type_event] ||
-                                categoryLabels['en'][event.type_event] ||
-                                event.type_event}
+                              {getCategoryLabel(event.type_event)}
                             </span>
                           )}
                           {event.isDateRange && (

@@ -1,5 +1,4 @@
-import type { ImageProps, StaticImageData } from 'next/image';
-import type { ElementType, Ref } from 'react';
+import type { ImageProps } from 'next/image';
 
 import type { ImageType, Media as MediaType } from '@/payload-types';
 

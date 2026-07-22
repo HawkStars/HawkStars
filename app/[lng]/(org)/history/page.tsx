@@ -41,7 +41,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
             <div className='flex justify-around gap-4 xl:px-10'>
               <ImageMedia
                 src={euroHawkLogo}
-                alt='euro hawk logo'
+                alt={t('history.alt.euroHawkLogo')}
                 className='max-xl:my-auto max-xl:h-auto max-xl:w-14'
               />
 
@@ -51,7 +51,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
                 <div className='border-l-green my-auto h-0 w-0 border-y-8 border-l-16 border-y-transparent'></div>
               </div>
               <div className='flex aspect-video max-xl:h-14 xl:max-w-62.5'>
-                <ImageMedia src={hawkLogo} alt='hawk stars logo' className='my-auto' />
+                <ImageMedia src={hawkLogo} alt={t('history.alt.hawkStarsLogo')} className='my-auto' />
               </div>
             </div>
             <div className='mt-5 grid grid-cols-1 gap-14 xl:grid-cols-2'>
@@ -61,7 +61,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
                 <p className='text-body_regular mt-2 text-justify'>{t('euro_hawk')}</p>
               </div>
               <div className='mx-auto max-xl:-mx-4 max-xl:flex max-xl:justify-center'>
-                <ImageMedia src={historyHero} alt='foundation of hawkstars' />
+                <ImageMedia src={historyHero} alt={t('history.alt.foundation')} />
               </div>
             </div>
           </div>
@@ -77,7 +77,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
         </div>
 
         <HawkStarsOffSetSection bgColor='green'>
-          <HumanitarianHelpSection />
+          <HumanitarianHelpSection t={t} />
         </HawkStarsOffSetSection>
         <div className='mx-auto pt-4 pb-6 xl:pb-10'>
           <Link
@@ -85,7 +85,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
             target='_blank'
             className='border-green bg-green w-fit rounded-xl border fill-white p-2 text-white'
           >
-            Check the Report here.
+            {t('history.checkReport')}
           </Link>
         </div>
 
@@ -104,7 +104,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
               loading='lazy'
               src={global_village_image}
               className='aspect-[1.2] w-full overflow-hidden object-contain object-center max-sm:max-w-full sm:pr-0 lg:mt-10 lg:pr-0'
-              alt='hero'
+              alt={t('history.alt.hero')}
             />
           </div>
           <div className='bg-bege-light flex flex-col gap-12 p-3 py-14 max-xl:-mx-4 lg:p-10 lg:py-20 xl:-mr-40 xl:pr-40 xl:pl-16'>
@@ -130,43 +130,51 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
   );
 };
 
-const HumanitarianHelpSection = () => {
+type TranslateFn = Awaited<ReturnType<typeof getServerTranslation>>['t'];
+
+const HumanitarianHelpSection = ({ t }: { t: TranslateFn }) => {
   return (
     <section className='bg-green px-4 py-10'>
       <div className='mx-auto grid gap-16 lg:w-5/6 lg:grid-cols-2'>
         <HumanitarianHelpInfoPoints
           number='90'
-          smallTitle='pessoas'
-          description='entre responsáveis pela organização, parceiros, voluntários e amigos que colaboraram até o objetivo final estar cumprido'
+          smallTitle={t('humanitarian.people.label')}
+          description={t('humanitarian.people.description')}
         />
         <HumanitarianHelpInfoPoints
           number='18'
-          smallTitle='instituições'
-          description='públicas e/ou privadas'
+          smallTitle={t('humanitarian.institutions.label')}
+          description={t('humanitarian.institutions.description')}
         />
         <HumanitarianHelpInfoPoints
           number='23'
-          smallTitle='corporações'
-          description='de bombeiros'
+          smallTitle={t('humanitarian.fireBrigades.label')}
+          description={t('humanitarian.fireBrigades.description')}
         />
         <HumanitarianHelpInfoPoints
           number='7'
-          smallTitle='instituições'
-          description='internacionais'
+          smallTitle={t('humanitarian.internationalInstitutions.label')}
+          description={t('humanitarian.internationalInstitutions.description')}
         />
-        <HumanitarianHelpInfoPoints number='5' smallTitle='caminhões' />
-        <HumanitarianHelpInfoPoints number='6' smallTitle='motoristas' />
-        <HumanitarianHelpInfoPoints number='24.500€' description='valor estimado da operação' />
-        <HumanitarianHelpInfoPoints number='30.342km' description='percorridos' />
+        <HumanitarianHelpInfoPoints number='5' smallTitle={t('humanitarian.trucks.label')} />
+        <HumanitarianHelpInfoPoints number='6' smallTitle={t('humanitarian.drivers.label')} />
+        <HumanitarianHelpInfoPoints
+          number='24.500€'
+          description={t('humanitarian.operationValue.description')}
+        />
+        <HumanitarianHelpInfoPoints
+          number='30.342km'
+          description={t('humanitarian.distanceTraveled.description')}
+        />
       </div>
       <div className='mx-auto mt-20 grid gap-8 lg:w-5/6 lg:grid-cols-2'>
         <ContainerHumanitarianHelp
-          title={'90 toneladas'}
-          description={'de material entregues na Ucrânia'}
+          title={t('humanitarian.deliveredTons.title')}
+          description={t('humanitarian.deliveredTons.description')}
         />
         <ContainerHumanitarianHelp
-          title={'Milhares'}
-          description={'de contribuições humanitárias em todo o Distrito'}
+          title={t('humanitarian.contributions.title')}
+          description={t('humanitarian.contributions.description')}
         />
       </div>
     </section>

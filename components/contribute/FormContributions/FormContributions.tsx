@@ -94,7 +94,7 @@ const FormContributions = ({
           validate: (value, formValues) =>
             formValues.is_anonymous
               ? true
-              : (value && value.length > 0 && true) || 'This is required',
+              : (value && value.length > 0 && true) || t('form.required'),
         }}
         render={({ field: { onChange, value } }) => (
           <Input
@@ -137,8 +137,8 @@ const FormContributions = ({
         control={control}
         name='value'
         rules={{
-          required: 'This is required',
-          min: { value: minDefaultValue, message: 'Value is not ok' },
+          required: t('form.required'),
+          min: { value: minDefaultValue, message: t('form.invalid_value') },
         }}
         render={({ field: { onChange, value } }) => {
           return (
@@ -187,7 +187,7 @@ const FormContributions = ({
           return (
             <Select name='type' onValueChange={handleContributionType} defaultValue={value}>
               <SelectTrigger>
-                <SelectValue placeholder='Type' />
+                <SelectValue placeholder={t('form.type_placeholder')} />
               </SelectTrigger>
               <SelectContent>
                 {ContributionTypesLabels.map((type) => (
@@ -211,7 +211,9 @@ const FormContributions = ({
           />
         )}
       />
-      <Button type={'submit'}>{formType == 'update' ? 'Update' : 'Create'}</Button>
+      <Button type={'submit'}>
+        {formType == 'update' ? t('form.update') : t('form.create')}
+      </Button>
     </form>
   );
 };

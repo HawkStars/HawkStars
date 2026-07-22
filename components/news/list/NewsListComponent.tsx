@@ -1,3 +1,5 @@
+'use client';
+
 import { News } from '@/payload-types';
 import { PaginatedDocs } from 'payload';
 import { format } from 'date-fns';
@@ -8,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { transformUrl, urls } from '@/utils/paths';
 import { HawkStarsSection } from '@/components/layout';
 import { NewsTypeLabels } from '../constants';
+import { useTranslation } from '@/i18n/client';
 
 type NewsListProps = {
   news: PaginatedDocs<News>;
@@ -16,6 +19,7 @@ type NewsListProps = {
 };
 
 const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {
+  const { t } = useTranslation(lng, 'common');
   const { docs, totalPages, page, hasPrevPage, hasNextPage } = news || {};
   const projectParam = projectSlug ? `&project=${projectSlug}` : '';
 
@@ -60,24 +64,24 @@ const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {
       </div>
 
       {totalPages > 1 && (
-        <nav className='mt-10 flex items-center justify-center gap-2' aria-label='Pagination'>
+        <nav className='mt-10 flex items-center justify-center gap-2' aria-label={t('pagination.label')}>
           {hasPrevPage && (
             <Link
               href={`${transformUrl(lng, urls.news)}?page=${(page ?? 1) - 1}${projectParam}`}
               className='rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100'
             >
-              ← Previous
+              ← {t('pagination.previous')}
             </Link>
           )}
           <span className='text-muted-foreground text-sm'>
-            Page {page} of {totalPages}
+            {t('pagination.pageOf', { page, total: totalPages })}
           </span>
           {hasNextPage && (
             <Link
               href={`${transformUrl(lng, urls.news)}?page=${(page ?? 1) + 1}${projectParam}`}
               className='rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100'
             >
-              Next →
+              {t('pagination.next')} →
             </Link>
           )}
         </nav>

@@ -2,5 +2,10 @@
   "title": "Nossos Parceiros",
   "description": "Temos orgulho em colaborar com uma ampla gama de parceiros que compartilham nosso compromisso com a excelência e inovação. Explore nossa rede de parceiros nacionais e internacionais abaixo.",
   "national": "Parcerias Nacionais",
-  "international": "Cooperação Internacional"
+  "international": "Cooperação Internacional",
+  "empty": "Nenhum parceiro encontrado.",
+  "a11y": {
+    "platformIcon": "ícone de {{platform}}",
+    "logoAlt": "logótipo de {{name}}"
+  }
 }

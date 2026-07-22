@@ -83,12 +83,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    lng: 'pt',
     event: fullEvent,
   },
 };
 
 export const SingleDayNoGallery: Story = {
   args: {
+    lng: 'pt',
     event: {
       heading: 'Workshop de Robótica para Jovens',
       subheading: 'Introdução à programação',
@@ -106,6 +108,7 @@ export const SingleDayNoGallery: Story = {
 
 export const MinimalEvent: Story = {
   args: {
+    lng: 'pt',
     event: {
       heading: 'Reunião Geral de Associados',
       date: '2026-03-01',
@@ -115,6 +118,7 @@ export const MinimalEvent: Story = {
 
 export const NoImageWithObjectives: Story = {
   args: {
+    lng: 'pt',
     event: {
       heading: 'Campanha de Recolha de Alimentos',
       subheading: 'Solidariedade em ação',

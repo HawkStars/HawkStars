@@ -9,5 +9,35 @@
   "relatedNews": "Notícias Relacionadas",
   "filterByProject": "Filtrar por projeto",
   "allProjects": "Todos os Projetos",
-  "noRelatedNews": "Ainda sem notícias para este projeto."
+  "noRelatedNews": "Ainda sem notícias para este projeto.",
+  "hero": {
+    "participants": "Participantes",
+    "funded": "Euros Financiados"
+  },
+  "details": {
+    "name": "Nome do Projeto:",
+    "actionType": "Tipo de Ação:",
+    "reference": "Número de Referência:",
+    "beneficiary": "Beneficiário:",
+    "location": "Localização:"
+  },
+  "sections": {
+    "partners": "Parceiros",
+    "dissemination": "Disseminação",
+    "results": "Resultados",
+    "objectives": "Objetivos",
+    "relatedNews": "Notícias Relacionadas"
+  },
+  "a11y": {
+    "badgeAlt": "Emblema do projeto",
+    "videoTitle": "Vídeo do projeto",
+    "euFunded": "Cofinanciado pela União Europeia",
+    "resultsAlt": "Resultados",
+    "objectivesAlt": "Objetivos",
+    "impactAlt": "Impacto da organização",
+    "logoAlt": "logótipo de {{name}}"
+  },
+  "dateRange": {
+    "to": "a"
+  }
 }

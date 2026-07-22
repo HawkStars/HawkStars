@@ -6,9 +6,11 @@ import { hawkLogo } from '@/utils/models/images/logos';
 import { useMainAppContext } from '@/utils/contexts/AppProvider';
 import FooterMenu from './FooterMenu';
 import FooterBottom from './FooterBottom';
+import { useTranslation } from '@/i18n/client';
 
 const Footer = () => {
   const { lng, footerInfo } = useMainAppContext();
+  const { t } = useTranslation(lng, 'common');
 
   return (
     <footer className='mt-8'>
@@ -17,7 +19,7 @@ const Footer = () => {
           <ImageMedia
             className='max-w-40 object-cover'
             src={hawkLogo}
-            alt='hawkstars'
+            alt={t('a11y.logoAlt')}
             sizes='100px'
           />
         </div>

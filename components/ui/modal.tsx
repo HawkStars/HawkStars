@@ -5,6 +5,8 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { LuX } from 'react-icons/lu';
 
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 function Modal({ ...props }: React.ComponentProps<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root data-slot='modal' {...props} />;
@@ -44,6 +46,9 @@ function ModalContent({
   showCloseButton = true,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Content> & { showCloseButton?: boolean }) {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
+
   return (
     <ModalPortal>
       <ModalOverlay />
@@ -71,7 +76,7 @@ function ModalContent({
             )}
           >
             <LuX />
-            <span className='sr-only'>Close</span>
+            <span className='sr-only'>{t('a11y.close')}</span>
           </DialogPrimitive.Close>
         )}
       </DialogPrimitive.Content>

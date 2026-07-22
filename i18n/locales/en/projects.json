@@ -9,5 +9,35 @@
   "relatedNews": "Related News",
   "filterByProject": "Filter by project",
   "allProjects": "All Projects",
-  "noRelatedNews": "No news articles for this project yet."
+  "noRelatedNews": "No news articles for this project yet.",
+  "hero": {
+    "participants": "Participants",
+    "funded": "Euros Funded"
+  },
+  "details": {
+    "name": "Project Name:",
+    "actionType": "Action Type:",
+    "reference": "Reference Number:",
+    "beneficiary": "Beneficiary:",
+    "location": "Location:"
+  },
+  "sections": {
+    "partners": "Partners",
+    "dissemination": "Dissemination",
+    "results": "Results",
+    "objectives": "Objectives",
+    "relatedNews": "Related News"
+  },
+  "a11y": {
+    "badgeAlt": "Project badge",
+    "videoTitle": "Project video",
+    "euFunded": "Co-funded by the European Union",
+    "resultsAlt": "Results",
+    "objectivesAlt": "Objectives",
+    "impactAlt": "Organization impact",
+    "logoAlt": "{{name}} logo"
+  },
+  "dateRange": {
+    "to": "to"
+  }
 }

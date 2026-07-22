@@ -28,9 +28,9 @@ const CrowdfundingNavbar = () => {
         <Link
           href={`/${lng}`}
           className='flex items-center'
-          aria-label='Go to the Hawk Stars website'
+          aria-label={t('a11y.homeLink')}
         >
-          <ImageMedia src={globalVillageLogo} alt='Global Village Logo' width={130} priority />
+          <ImageMedia src={globalVillageLogo} alt={t('a11y.logoAlt')} width={130} priority />
         </Link>
 
         {/* Desktop links */}
@@ -71,7 +71,7 @@ const CrowdfundingNavbar = () => {
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className='flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border-none bg-white/10 text-white md:hidden'
-            aria-label='Toggle menu'
+            aria-label={t('a11y.toggleMenu')}
           >
             <svg
               width='20'

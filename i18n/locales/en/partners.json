@@ -2,5 +2,10 @@
   "title": "Our Partners",
   "description": "We are proud to collaborate with a diverse range of partners who share our commitment to excellence and innovation. Explore our network of national and international partners below.",
   "national": "National Partnerships",
-  "international": "International Cooperation"
+  "international": "International Cooperation",
+  "empty": "No partners found.",
+  "a11y": {
+    "platformIcon": "{{platform}} icon",
+    "logoAlt": "{{name}} logo"
+  }
 }

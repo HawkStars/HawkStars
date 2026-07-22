@@ -3,21 +3,23 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/i18n/client';
 
 type GamingNavbarProps = {
   lng: string;
 };
 
 const NAV_LINKS = [
-  { label: 'Home', href: '/gaming' },
-  { label: 'Teams', href: '/gaming/teams' },
-  { label: 'Tournaments', href: '/gaming/tournaments' },
-  { label: 'Academy', href: '/gaming/academy' },
-  { label: 'News', href: '/gaming/news' },
+  { labelKey: 'nav.home', href: '/gaming' },
+  { labelKey: 'nav.teams', href: '/gaming/teams' },
+  { labelKey: 'nav.tournaments', href: '/gaming/tournaments' },
+  { labelKey: 'nav.academy', href: '/gaming/academy' },
+  { labelKey: 'nav.news', href: '/gaming/news' },
 ];
 
 const GamingNavbar = ({ lng }: GamingNavbarProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { t } = useTranslation(lng, 'gaming');
 
   return (
     <nav className='border-gaming-border bg-gaming-bg/90 sticky top-0 z-50 border-b backdrop-blur-xl'>
@@ -46,7 +48,7 @@ const GamingNavbar = ({ lng }: GamingNavbarProps) => {
               href={`/${lng}${link.href}`}
               className='text-gaming-text-muted hover:bg-gaming-surface-light hover:text-gaming-accent rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200'
             >
-              {link.label}
+              {t(link.labelKey)}
             </Link>
           ))}
         </div>
@@ -66,14 +68,14 @@ const GamingNavbar = ({ lng }: GamingNavbarProps) => {
             href={`/${lng}/gaming/academy`}
             className='font-magistral gaming-gradient-border bg-gaming-surface text-gaming-accent hover:bg-gaming-surface-light rounded-lg px-4 py-2 text-sm tracking-wide transition-all duration-300'
           >
-            Join Academy
+            {t('nav.joinAcademy')}
           </Link>
 
           {/* Mobile burger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className='bg-gaming-surface text-gaming-text flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border-none md:hidden'
-            aria-label='Toggle menu'
+            aria-label={t('nav.toggleMenu')}
           >
             <svg
               width='20'
@@ -112,7 +114,7 @@ const GamingNavbar = ({ lng }: GamingNavbarProps) => {
               onClick={() => setMobileOpen(false)}
               className='text-gaming-text-muted hover:bg-gaming-surface-light hover:text-gaming-accent rounded-lg px-4 py-3 text-sm font-medium transition-colors'
             >
-              {link.label}
+              {t(link.labelKey)}
             </Link>
           ))}
           <Link
@@ -120,7 +122,7 @@ const GamingNavbar = ({ lng }: GamingNavbarProps) => {
             onClick={() => setMobileOpen(false)}
             className='text-gaming-text-muted hover:bg-gaming-surface-light hover:text-gaming-text mt-2 rounded-lg px-4 py-3 text-xs transition-colors'
           >
-            &larr; Back to hawkstars.org
+            &larr; {t('nav.backToMain')}
           </Link>
         </div>
       </div>

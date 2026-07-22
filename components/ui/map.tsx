@@ -72,6 +72,8 @@ import {
   type Ref,
 } from 'react';
 import { renderToString } from 'react-dom/server';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import {
   useMap,
   useMapEvents,
@@ -345,6 +347,8 @@ function MapLayersControl({
   tileLayersLabel?: string;
   layerGroupsLabel?: string;
 }) {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
   const layersContext = useMapLayersContext();
   if (!layersContext) {
     throw new Error('MapLayersControl must be used within MapLayers');
@@ -385,8 +389,8 @@ function MapLayersControl({
           type='button'
           variant='secondary'
           size='icon-sm'
-          aria-label='Select layers'
-          title='Select layers'
+          aria-label={t('map.selectLayers')}
+          title={t('map.selectLayers')}
           className={cn('absolute top-1 right-1 z-1000 border', className)}
           {...props}
         >
@@ -562,6 +566,8 @@ function MapTooltip({
 }
 
 function MapZoomControl({ className, ...props }: React.ComponentProps<'div'>) {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
   const map = useMap();
   const [zoomLevel, setZoomLevel] = useState(map.getZoom());
 
@@ -574,7 +580,7 @@ function MapZoomControl({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <ButtonGroup
       orientation='vertical'
-      aria-label='Zoom controls'
+      aria-label={t('map.zoomControls')}
       className={cn('absolute top-1 left-1 z-1000 h-fit', className)}
       {...props}
     >
@@ -582,8 +588,8 @@ function MapZoomControl({ className, ...props }: React.ComponentProps<'div'>) {
         type='button'
         size='icon-sm'
         variant='secondary'
-        aria-label='Zoom in'
-        title='Zoom in'
+        aria-label={t('map.zoomIn')}
+        title={t('map.zoomIn')}
         className='border'
         disabled={zoomLevel >= map.getMaxZoom()}
         onClick={() => map.zoomIn()}
@@ -594,8 +600,8 @@ function MapZoomControl({ className, ...props }: React.ComponentProps<'div'>) {
         type='button'
         size='icon-sm'
         variant='secondary'
-        aria-label='Zoom out'
-        title='Zoom out'
+        aria-label={t('map.zoomOut')}
+        title={t('map.zoomOut')}
         className='border'
         disabled={zoomLevel <= map.getMinZoom()}
         onClick={() => map.zoomOut()}
@@ -626,6 +632,8 @@ function MapLocateControl({
     onLocationFound?: (location: LocationEvent) => void;
     onLocationError?: (error: ErrorEvent) => void;
   }) {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
   const map = useMap();
   const [isLocating, setIsLocating] = useDebounceLoadingState(200);
   const [position, setPosition] = useState<LatLngExpression | null>(null);
@@ -665,13 +673,19 @@ function MapLocateControl({
         variant={position ? 'default' : 'secondary'}
         onClick={position ? stopLocating : startLocating}
         disabled={isLocating}
-        title={isLocating ? 'Locating...' : position ? 'Stop tracking' : 'Track location'}
+        title={
+          isLocating
+            ? t('map.track.locating')
+            : position
+              ? t('map.track.stop')
+              : t('map.track.start')
+        }
         aria-label={
           isLocating
-            ? 'Locating...'
+            ? t('map.track.locating')
             : position
-              ? 'Stop location tracking'
-              : 'Start location tracking'
+              ? t('map.track.stop')
+              : t('map.track.start')
         }
         className={cn('absolute right-1 bottom-1 z-1000 border', className)}
         {...props}
@@ -775,6 +789,8 @@ function MapDrawShapeButton<T extends Draw.Feature>({
   if (!drawContext) {
     throw new Error('MapDrawShapeButton must be used within MapDrawControl');
   }
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
   const { L } = useLeaflet();
   const map = useMap();
   const controlRef = useRef<T | null>(null);
@@ -804,8 +820,8 @@ function MapDrawShapeButton<T extends Draw.Feature>({
     <Button
       type='button'
       size='icon-sm'
-      aria-label={`Draw ${drawMode}`}
-      title={`Draw ${drawMode}`}
+      aria-label={t('map.draw', { mode: drawMode })}
+      title={t('map.draw', { mode: drawMode })}
       className={cn('border', className)}
       variant={isActive ? 'default' : 'secondary'}
       disabled={activeMode === 'edit' || activeMode === 'delete'}
@@ -971,6 +987,8 @@ function MapDrawActionButton<T extends EditToolbar.Edit | EditToolbar.Delete>({
   const drawContext = useMapDrawContext();
   if (!drawContext) throw new Error('MapDrawActionButton must be used within MapDrawControl');
 
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
   const { L } = useLeaflet();
   const map = useMap();
   const { featureGroup, activeMode, setActiveMode } = drawContext;
@@ -1001,8 +1019,8 @@ function MapDrawActionButton<T extends EditToolbar.Edit | EditToolbar.Delete>({
     <Button
       type='button'
       size='icon-sm'
-      aria-label={`${drawAction === 'edit' ? 'Edit' : 'Remove'} shapes`}
-      title={`${drawAction === 'edit' ? 'Edit' : 'Remove'} shapes`}
+      aria-label={t(drawAction === 'edit' ? 'map.editShapes' : 'map.removeShapes')}
+      title={t(drawAction === 'edit' ? 'map.editShapes' : 'map.removeShapes')}
       variant={isActive ? 'default' : 'secondary'}
       disabled={!hasFeatures}
       onClick={handleClick}
@@ -1020,6 +1038,8 @@ function MapDrawEdit({
   },
   ...props
 }: Omit<EditToolbar.EditHandlerOptions, 'featureGroup'>) {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
   const { L } = useLeaflet();
   const mapDrawHandleIcon = useMapDrawHandleIcon();
   const drawContext = useMapDrawContext();
@@ -1044,13 +1064,13 @@ function MapDrawEdit({
       touchResizeIcon: mapDrawHandleIcon,
     });
     L.drawLocal.edit.handlers.edit.tooltip = {
-      text: 'Drag handles or markers to edit.',
+      text: t('map.editHint'),
       subtext: '',
     };
     L.drawLocal.edit.handlers.remove.tooltip = {
-      text: 'Click on a shape to remove.',
+      text: t('map.removeHint'),
     };
-  }, [mapDrawHandleIcon]);
+  }, [mapDrawHandleIcon, t]);
 
   return (
     <MapDrawActionButton
@@ -1090,6 +1110,8 @@ function MapDrawUndo({ className, ...props }: React.ComponentProps<'button'>) {
   const drawContext = useMapDrawContext();
   if (!drawContext) throw new Error('MapDrawUndo must be used within MapDrawControl');
 
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
   const { activeMode, setActiveMode, editControlRef, deleteControlRef } = drawContext;
 
   const isInEditMode = activeMode === 'edit';
@@ -1110,8 +1132,8 @@ function MapDrawUndo({ className, ...props }: React.ComponentProps<'button'>) {
       type='button'
       size='icon-sm'
       variant='secondary'
-      aria-label={`Undo ${activeMode}`}
-      title={`Undo ${activeMode}`}
+      aria-label={t('map.undo', { mode: activeMode })}
+      title={t('map.undo', { mode: activeMode })}
       onClick={handleUndo}
       disabled={!isActive}
       className={cn('border', className)}

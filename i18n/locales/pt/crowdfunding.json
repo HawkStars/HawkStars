@@ -30,7 +30,9 @@
     "tagline_label": "Legenda Curta",
     "tagline_value": "Do interior para o futuro.",
     "cta_support": "Quero Apoiar Este Projeto",
-    "cta_share": "Partilhar Campanha"
+    "cta_share": "Partilhar Campanha",
+    "player_title": "Vídeo",
+    "play": "Reproduzir vídeo"
   },
   "about": {
     "badge": "Sobre o Projeto",
@@ -211,5 +213,13 @@
     "faq": "FAQ",
     "support": "Apoiar",
     "back_to_site": "hawkstars.org"
+  },
+  "a11y": {
+    "homeLink": "Ir para o site da Hawk Stars",
+    "toggleMenu": "Alternar menu",
+    "logoAlt": "Logótipo do Global Village"
+  },
+  "share": {
+    "copied": "Link copiado!"
   }
 }

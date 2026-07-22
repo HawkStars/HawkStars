@@ -10,6 +10,8 @@ import { useState } from 'react';
 import { useRef } from 'react';
 
 import { Calendar } from '@/components/ui/calendar';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 type HawkStarsDatePickerProps = {
   date?: Date | null;
@@ -20,6 +22,8 @@ type HawkStarsDatePickerProps = {
 
 function HawkStarsDatePicker({ date, onChange, labelText }: HawkStarsDatePickerProps) {
   const datePickerRef = useRef(null);
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
   const [startDate, setStartDate] = useState<Date>(date ?? new Date());
 
   const changeDatePickerValue = (value: Date) => {
@@ -39,7 +43,7 @@ function HawkStarsDatePicker({ date, onChange, labelText }: HawkStarsDatePickerP
               className='w-70 justify-start text-left font-normal'
             >
               <LuCalendar />
-              {date ? format(date, 'dd-MM-yyyy') : <span>Pick a date</span>}
+              {date ? format(date, 'dd-MM-yyyy') : <span>{t('datePicker.placeholder')}</span>}
             </Button>
           </PopoverTrigger>
           <PopoverContent>

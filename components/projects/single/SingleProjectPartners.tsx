@@ -1,18 +1,28 @@
+'use client';
+
 import { HawkProject, Media, Partner } from '@/payload-types';
 import { FC } from 'react';
 import { ImageMedia } from '@/payload/components/Media';
 import { ProjectSection } from '../utils/ProjectSection';
 import { hawkLogo } from '@/utils/models/images/logos';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { Language } from '@/i18n/settings';
 
-type SingleProjectPartnersProps = Pick<HawkProject, 'partnersInformation'>;
+type SingleProjectPartnersProps = Pick<HawkProject, 'partnersInformation'> & { lng?: Language };
 
-const SingleProjectPartners: FC<SingleProjectPartnersProps> = ({ partnersInformation }) => {
+const SingleProjectPartners: FC<SingleProjectPartnersProps> = ({
+  partnersInformation,
+  lng: lngProp,
+}) => {
+  const cookieLng = useLanguageCookie();
+  const { t } = useTranslation(lngProp ?? cookieLng, 'projects');
   const { partners } = partnersInformation || {};
   return (
     <>
       {partners && partners.length > 0 && (
         <ProjectSection>
-          <h2 className='mb-10 text-4xl font-bold'>Parceiros</h2>
+          <h2 className='mb-10 text-4xl font-bold'>{t('sections.partners')}</h2>
           <div className='flex flex-wrap justify-between gap-4'>
             <div className='relative h-32 w-32'>
               <ImageMedia
@@ -33,7 +43,7 @@ const SingleProjectPartners: FC<SingleProjectPartnersProps> = ({ partnersInforma
                   <ImageMedia
                     key={partner.id}
                     src={logoUrl}
-                    alt={`${name} logo`}
+                    alt={t('a11y.logoAlt', { name })}
                     fill
                     sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                     className='items-center object-contain'

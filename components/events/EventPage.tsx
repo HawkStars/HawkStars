@@ -3,6 +3,8 @@ import { pt } from 'date-fns/locale';
 
 import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
+import { getServerTranslation } from '@/i18n';
+import { Language } from '@/i18n/settings';
 
 /* ================================================================== */
 /*  Section wrapper for consistent spacing + alternating backgrounds  */
@@ -29,9 +31,12 @@ function Section({
 interface EventPageProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   event: Record<string, any>;
+  lng: Language;
 }
 
-export default function EventPage({ event }: EventPageProps) {
+export default async function EventPage({ event, lng }: EventPageProps) {
+  const { t } = await getServerTranslation(lng, 'events');
+
   /* Date formatting */
   const startDate = event.date ? new Date(event.date) : null;
   const endDate = event.endDate ? new Date(event.endDate) : null;
@@ -39,7 +44,7 @@ export default function EventPage({ event }: EventPageProps) {
   const dateLabel = (() => {
     if (!startDate) return '';
     if (endDate && event.isDateRange) {
-      return `${format(startDate, 'd', { locale: pt })} a ${format(endDate, "d 'de' MMMM 'de' yyyy", { locale: pt })}`;
+      return `${format(startDate, 'd', { locale: pt })} ${t('dateRange.to')} ${format(endDate, "d 'de' MMMM 'de' yyyy", { locale: pt })}`;
     }
     return format(startDate, "d 'de' MMMM 'de' yyyy", { locale: pt });
   })();
@@ -105,7 +110,7 @@ export default function EventPage({ event }: EventPageProps) {
               <div className='relative aspect-video w-full overflow-hidden rounded-lg'>
                 <ImageMedia
                   resource={event.image}
-                  alt={heroImage.alt || event.heading || 'Event image'}
+                  alt={heroImage.alt || event.heading || t('a11y.imageAlt')}
                   className='h-full w-full object-cover'
                   fill
                 />
@@ -150,7 +155,7 @@ export default function EventPage({ event }: EventPageProps) {
       {(event.objectives?.introduction || event.objectives?.items?.length > 0) && (
         <Section alt>
           <div className='mx-auto max-w-4xl'>
-            <h2 className='mb-6 text-3xl font-bold'>Objetivos</h2>
+            <h2 className='mb-6 text-3xl font-bold'>{t('sections.objectives')}</h2>
             {event.objectives.introduction && (
               <p className='mb-6 text-base leading-relaxed text-gray-800'>
                 {event.objectives.introduction}
@@ -173,7 +178,7 @@ export default function EventPage({ event }: EventPageProps) {
       {event.program?.length > 0 && (
         <Section>
           <div className='mx-auto max-w-4xl'>
-            <h2 className='mb-8 text-3xl font-bold'>Programa</h2>
+            <h2 className='mb-8 text-3xl font-bold'>{t('sections.program')}</h2>
             <div className='space-y-6'>
               {event.program.map(
                 (item: { day?: string; title?: string; description?: string }, i: number) => (
@@ -202,7 +207,7 @@ export default function EventPage({ event }: EventPageProps) {
       {/* ---------------------------------------------------------- */}
       {(event.gallery?.internalImages?.length > 0 || event.gallery?.externalImages?.length > 0) && (
         <Section alt>
-          <h2 className='mb-8 text-3xl font-bold'>Galeria</h2>
+          <h2 className='mb-8 text-3xl font-bold'>{t('sections.gallery')}</h2>
           <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4'>
             {event.gallery.internalImages?.map(
               (item: { image?: { url?: string; alt?: string } }, i: number) =>

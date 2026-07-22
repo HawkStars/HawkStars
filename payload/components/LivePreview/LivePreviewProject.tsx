@@ -9,6 +9,7 @@ import SingleProjectObjectives from '@/components/projects/single/SingleProjectO
 import SingleProjectPartners from '@/components/projects/single/SingleProjectPartners';
 import SingleProjectPhases from '@/components/projects/single/SingleProjectPhases';
 import SingleProjectReports from '@/components/projects/single/SingleProjectReports';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 type LivePreviewProjectProps = {
   initialData: HawkProject;
@@ -25,16 +26,18 @@ export const LivePreviewProject: React.FC<LivePreviewProjectProps> = ({
     depth: 2,
   });
 
+  const lng = useLanguageCookie();
+
   if (!data) return null;
   const { partnersInformation, details, objectives, gallery } = data;
 
   return (
     <main>
-      <ProjectsSingleHero {...data} />
+      <ProjectsSingleHero {...data} lng={lng} />
       <SingleProjectPhases details={details} />
-      <SingleProjectPartners partnersInformation={partnersInformation} />
-      <SingleProjectObjectives objectives={objectives} />
-      <SingleProjectReports {...data} />
+      <SingleProjectPartners partnersInformation={partnersInformation} lng={lng} />
+      <SingleProjectObjectives objectives={objectives} lng={lng} />
+      <SingleProjectReports {...data} lng={lng} />
       <NewsSingleGallery gallery={gallery} />
     </main>
   );

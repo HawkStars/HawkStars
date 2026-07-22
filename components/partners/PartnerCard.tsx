@@ -1,14 +1,16 @@
 import Link from 'next/link';
 import { SocialIcon, SocialType } from '../../utils/models/social';
 
-import { type JSX } from 'react';
 import { Media, Partner } from '@/payload-types';
 import { FlagIcons } from '@/lib/flags';
 import { ImageMedia } from '@/payload/components/Media';
+import { getServerTranslation } from '@/i18n';
+import { Language, fallbackLng } from '@/i18n/settings';
 
-type PartnerInfoProps = Pick<Partner, 'name' | 'links'>;
+type PartnerInfoProps = Pick<Partner, 'name' | 'links'> & { lng: Language };
 
-const PartnerInfo: React.FC<PartnerInfoProps> = ({ name, links }) => {
+const PartnerInfo = async ({ name, links, lng }: PartnerInfoProps) => {
+  const { t } = await getServerTranslation(lng, 'partners');
   return (
     <>
       <h3 className='mt-auto text-center'>{name}</h3>
@@ -28,7 +30,12 @@ const PartnerInfo: React.FC<PartnerInfoProps> = ({ name, links }) => {
                   rel='noopener noreferrer'
                 >
                   {icon && (
-                    <ImageMedia src={icon} alt={`${link.platform} icon`} width={24} height={24} />
+                    <ImageMedia
+                      src={icon}
+                      alt={t('a11y.platformIcon', { platform: link.platform })}
+                      width={24}
+                      height={24}
+                    />
                   )}
                 </Link>
               </div>
@@ -40,8 +47,9 @@ const PartnerInfo: React.FC<PartnerInfoProps> = ({ name, links }) => {
   );
 };
 
-const PartnerCard = (partner: Partner): JSX.Element => {
-  const { name, logo, country, links } = partner;
+const PartnerCard = async (partner: Partner & { lng?: Language }) => {
+  const { name, logo, country, links, lng = fallbackLng } = partner;
+  const { t } = await getServerTranslation(lng, 'partners');
 
   const flagIcon = country && FlagIcons[country];
   const url = (logo as Media).url;
@@ -62,7 +70,7 @@ const PartnerCard = (partner: Partner): JSX.Element => {
         <div className='flex justify-center pb-4'>
           <ImageMedia
             src={url as string}
-            alt={`${name} logo`}
+            alt={t('a11y.logoAlt', { name })}
             width={192}
             height={192}
             sizes='95vw'
@@ -73,7 +81,7 @@ const PartnerCard = (partner: Partner): JSX.Element => {
 
       <div className='flex gap-2 px-4 lg:flex-col'>
         <div className='flex w-full justify-around lg:flex-col'>
-          <PartnerInfo name={name} links={links} />
+          <PartnerInfo name={name} links={links} lng={lng} />
         </div>
       </div>
     </div>

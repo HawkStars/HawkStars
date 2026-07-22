@@ -7,6 +7,7 @@ import { ImageMedia } from '@/payload/components/Media';
 import { getMainPageInformation } from '@/lib/payload/main-page';
 import RichTextWrapper from '@/payload/components/RichText/RichTextWrapper';
 import MainPageBanner from '@/components/main-page/MainPageBanner';
+import { getServerTranslation } from '@/i18n';
 
 export const revalidate = 600; // invalidate every 10 minutes
 
@@ -30,10 +31,11 @@ export default async function Home(props: HomeProps) {
   const pageInformation = await getMainPageInformation(lng as Language);
 
   if (!pageInformation || !pageInformation.layout) {
+    const { t } = await getServerTranslation(lng, 'common');
     return (
       <div className='mt-20 flex w-full flex-col items-center justify-center gap-20'>
-        <ImageMedia src={hawkLogo} alt='Hawk Stars Logo' />
-        <h1 className='text-xl'>We are revamping the website. See you soon!</h1>
+        <ImageMedia src={hawkLogo} alt={t('a11y.logoAlt')} />
+        <h1 className='text-xl'>{t('home.revamp')}</h1>
       </div>
     );
   } else {

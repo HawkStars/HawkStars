@@ -24,7 +24,7 @@ const PartnersPage = async (props: { params: Promise<{ lng: Language }> }) => {
   const data = await getPartnersQuery();
   const { docs: partners, totalDocs } = data;
 
-  if (!totalDocs) return <div>No partners found.</div>;
+  if (!totalDocs) return <div>{t('empty')}</div>;
 
   const nationalPartners = partners.filter((partner) => partner.type == 'national');
   const internationalPartners = partners.filter((partner) => partner.type == 'international');
@@ -38,7 +38,7 @@ const PartnersPage = async (props: { params: Promise<{ lng: Language }> }) => {
             <h2 className='text-h2_light mb-5 pb-6 text-center'>{t('national')}</h2>
             <div className='grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-4'>
               {nationalPartners.map((partner, index) => (
-                <PartnerCard {...partner} key={index} name={t(partner.name)} />
+                <PartnerCard {...partner} key={index} name={t(partner.name)} lng={lng} />
               ))}
             </div>
           </div>
@@ -48,7 +48,7 @@ const PartnersPage = async (props: { params: Promise<{ lng: Language }> }) => {
             <h2 className='text-h2_light mb-5 pb-6 text-center'>{t('international')}</h2>
             <div className='grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-4'>
               {internationalPartners.map((partner, index) => (
-                <PartnerCard {...partner} key={index} />
+                <PartnerCard {...partner} key={index} lng={lng} />
               ))}
             </div>
           </div>

@@ -6,6 +6,7 @@ import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { useTranslation } from '@/i18n/client';
 import { getIcon } from '@/lib/icon';
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
 import { cn } from '@/lib/utils';
@@ -25,6 +26,7 @@ type HeroImpactStatsBlockProps = {
 
 const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
   const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'projects');
 
   const {
     badge,
@@ -126,7 +128,7 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
                   {image && (
                     <ImageMedia
                       resource={heroImage}
-                      alt={image.alt || 'Organization impact'}
+                      alt={image.alt || t('a11y.impactAlt')}
                       className='absolute h-full w-full object-cover'
                       fill
                     />

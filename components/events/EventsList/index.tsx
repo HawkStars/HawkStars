@@ -3,12 +3,16 @@ import { PaginatedDocs } from 'payload';
 import { Button } from '@/components/ui/button';
 import { LuArrowUpRight } from 'react-icons/lu';
 import { getImagePayloadUrl } from '@/lib/image';
+import { getServerTranslation } from '@/i18n';
+import { Language } from '@/i18n/settings';
 
 type EventsListProps = {
   events: PaginatedDocs<HawkProject>;
+  lng: Language;
 };
 
-const EventsList = ({ events }: EventsListProps) => {
+const EventsList = async ({ events, lng }: EventsListProps) => {
+  const { t } = await getServerTranslation(lng, 'events');
   const { docs } = events;
 
   return (
@@ -42,7 +46,7 @@ const EventsList = ({ events }: EventsListProps) => {
                         size='lg'
                         className='dark w-fit opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100'
                       >
-                        View project
+                        {t('actions.viewProject')}
                         <LuArrowUpRight className='size-4' />
                       </Button>
                     </div>

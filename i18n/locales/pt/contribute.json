@@ -132,5 +132,32 @@
     "date": "Data Movimento",
     "paid": "Pago"
   },
-  "contact_us": "Envie uma mensagem"
+  "contact_us": "Envie uma mensagem",
+  "branding": {
+    "title": "Marca"
+  },
+  "a11y": {
+    "hero_image": "Imagem principal",
+    "bank_transfer": "Transferência bancária",
+    "crypto_transfer": "Transferência crypto",
+    "shopping_cart": "Carrinho de compras",
+    "training_room": "Sala de formação da Hawk Stars",
+    "user": "Utilizador",
+    "company": "Empresa",
+    "chair_empty": "Cadeira sem doador associado",
+    "chair_taken": "Cadeira com doador associado"
+  },
+  "form": {
+    "required": "Campo obrigatório",
+    "invalid_value": "Valor inválido",
+    "type_placeholder": "Tipo",
+    "update": "Atualizar",
+    "create": "Criar"
+  },
+  "donation": {
+    "payment_failed": "Pagamento falhou",
+    "unexpected_error": "Ocorreu um erro inesperado",
+    "custom_amount": "Valor de doação personalizado",
+    "next_step": "Passo seguinte"
+  }
 }

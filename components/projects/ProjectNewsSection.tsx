@@ -6,6 +6,7 @@ import { ImageMedia } from '@/payload/components/Media';
 import { Badge } from '@/components/ui/badge';
 import { transformUrl, urls } from '@/utils/paths';
 import { NewsTypeLabels } from '../news/constants';
+import { getServerTranslation } from '@/i18n';
 
 type ProjectNewsSectionProps = {
   news: News[];
@@ -13,13 +14,16 @@ type ProjectNewsSectionProps = {
   title?: string;
 };
 
-const ProjectNewsSection = ({ news, lng, title = 'Related News' }: ProjectNewsSectionProps) => {
+const ProjectNewsSection = async ({ news, lng, title }: ProjectNewsSectionProps) => {
   if (!news || news.length === 0) return null;
+
+  const { t } = await getServerTranslation(lng, 'projects');
+  const heading = title ?? t('sections.relatedNews');
 
   return (
     <section className='bg-white py-16'>
       <div className='container mx-auto max-w-6xl px-4'>
-        <h2 className='mb-8 text-4xl font-bold'>{title}</h2>
+        <h2 className='mb-8 text-4xl font-bold'>{heading}</h2>
         <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
           {news.map((article) => {
             const image = getImagePayloadUrl(article.mainImage);

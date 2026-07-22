@@ -5,6 +5,11 @@
   "today": "Today",
   "viewProject": "View project",
   "multiDay": "Multi-day",
+  "categories": {
+    "local": "Local Event",
+    "international": "International",
+    "other": "Other"
+  },
   "months": {
     "january": "January",
     "february": "February",

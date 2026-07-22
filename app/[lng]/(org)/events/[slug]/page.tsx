@@ -47,7 +47,7 @@ const SingleEventPage = async (props: EventPageProps) => {
         url={`${BASE_URL}/${lng}/events/${slug}`}
         image={event.coverImage?.url ?? event.image?.url ?? undefined}
       />
-      <EventPage event={event} />
+      <EventPage event={event} lng={lng} />
     </>
   );
 };

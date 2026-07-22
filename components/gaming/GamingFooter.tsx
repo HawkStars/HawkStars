@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { getServerTranslation } from '@/i18n';
+
 type GamingFooterProps = {
   lng: string;
 };
@@ -11,7 +13,9 @@ const SOCIAL_LINKS = [
   { label: 'X / Twitter', href: '#' },
 ];
 
-const GamingFooter = ({ lng }: GamingFooterProps) => {
+const GamingFooter = async ({ lng }: GamingFooterProps) => {
+  const { t } = await getServerTranslation(lng, 'gaming');
+
   return (
     <footer className='border-gaming-border bg-gaming-bg border-t'>
       <div className='mx-auto max-w-7xl px-4 py-12 lg:px-8'>
@@ -22,34 +26,33 @@ const GamingFooter = ({ lng }: GamingFooterProps) => {
               Hawkis <span className='text-gaming-accent'>E-Sports</span>
             </span>
             <p className='text-gaming-text-muted max-w-xs text-sm leading-relaxed'>
-              The competitive gaming division of Hawk Stars NGO. Training the next generation of
-              e-sports talent from Pinhel to the world.
+              {t('footer.description')}
             </p>
           </div>
 
           {/* Quick links */}
           <div className='flex flex-col gap-3'>
             <h4 className='font-magistral text-gaming-text text-sm tracking-widest uppercase'>
-              Quick Links
+              {t('footer.quickLinks')}
             </h4>
             <div className='flex flex-col gap-2'>
               <Link
                 href={`/${lng}/gaming`}
                 className='text-gaming-text-muted hover:text-gaming-accent text-sm transition-colors'
               >
-                Home
+                {t('footer.home')}
               </Link>
               <Link
                 href={`/${lng}/gaming/teams`}
                 className='text-gaming-text-muted hover:text-gaming-accent text-sm transition-colors'
               >
-                Our Teams
+                {t('footer.ourTeams')}
               </Link>
               <Link
                 href={`/${lng}/gaming/academy`}
                 className='text-gaming-text-muted hover:text-gaming-accent text-sm transition-colors'
               >
-                Gaming Academy
+                {t('footer.gamingAcademy')}
               </Link>
               <Link
                 href={`/${lng}`}
@@ -63,7 +66,7 @@ const GamingFooter = ({ lng }: GamingFooterProps) => {
           {/* Social */}
           <div className='flex flex-col gap-3'>
             <h4 className='font-magistral text-gaming-text text-sm tracking-widest uppercase'>
-              Connect
+              {t('footer.connect')}
             </h4>
             <div className='flex flex-wrap gap-2'>
               {SOCIAL_LINKS.map((link) => (
@@ -82,20 +85,20 @@ const GamingFooter = ({ lng }: GamingFooterProps) => {
         {/* Bottom bar */}
         <div className='border-gaming-border mt-10 flex flex-col items-center justify-between gap-4 border-t pt-6 md:flex-row'>
           <p className='text-gaming-text-muted text-xs'>
-            &copy; {new Date().getFullYear()} Hawkis E-Sports &mdash; A Hawk Stars NGO initiative
+            {t('footer.copyright', { year: new Date().getFullYear() })}
           </p>
           <div className='flex gap-4'>
             <Link
               href={`/${lng}/store/terms`}
               className='text-gaming-text-muted hover:text-gaming-text text-xs transition-colors'
             >
-              Terms
+              {t('footer.terms')}
             </Link>
             <Link
               href={`/${lng}/transparency`}
               className='text-gaming-text-muted hover:text-gaming-text text-xs transition-colors'
             >
-              Transparency
+              {t('footer.transparency')}
             </Link>
           </div>
         </div>

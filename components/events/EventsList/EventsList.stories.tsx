@@ -70,18 +70,21 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    lng: 'pt',
     events: makePaginated(sampleDocs),
   },
 };
 
 export const SingleEvent: Story = {
   args: {
+    lng: 'pt',
     events: makePaginated(sampleDocs.slice(0, 1)),
   },
 };
 
 export const Empty: Story = {
   args: {
+    lng: 'pt',
     events: makePaginated([]),
   },
 };
