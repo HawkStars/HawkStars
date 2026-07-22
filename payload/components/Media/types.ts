@@ -16,6 +16,5 @@ export type MediaResource = ImageType | MediaType | string | number | null;
 export type NextImageProps = Omit<ImageProps, 'src' | 'resource'> &
   Partial<Pick<ImageProps, 'src'>> & {
     pictureClassName?: string;
-    imageClassName?: string;
     resource?: MediaResource;
   };

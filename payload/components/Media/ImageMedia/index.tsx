@@ -28,7 +28,6 @@ export const ImageMedia: React.FC<NextImageProps> = (props) => {
     draggable,
     fill: fillFromProps,
     pictureClassName,
-    imageClassName,
     preload,
     quality,
     resource,
@@ -74,7 +73,7 @@ export const ImageMedia: React.FC<NextImageProps> = (props) => {
   const image = (
     <NextImage
       alt={alt}
-      className={cn(imageClassName, className)}
+      className={cn(className)}
       draggable={draggable}
       fill={useFill}
       width={!useFill ? width : undefined}
