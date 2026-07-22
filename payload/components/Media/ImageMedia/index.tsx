@@ -1,5 +1,4 @@
-import type { StaticImageData, ImageProps } from 'next/image';
-
+import type { StaticImageData } from 'next/image';
 import NextImage from 'next/image';
 import React from 'react';
 
@@ -22,8 +21,7 @@ import { NextImageProps } from '../types';
  */
 
 export const ImageMedia: React.FC<NextImageProps> = (props) => {
-  let {
-    alt,
+  const {
     className,
     draggable,
     fill: fillFromProps,
@@ -33,13 +31,13 @@ export const ImageMedia: React.FC<NextImageProps> = (props) => {
     resource,
     sizes,
     src: srcFromProps,
-    width,
-    height,
     loading: loadingFromProps,
     unoptimized,
     onClick,
     onLoad,
   } = props;
+
+  let { width, height, alt } = props;
 
   let src = srcFromProps;
   const isStringSrc = typeof src === 'string' || src === undefined;

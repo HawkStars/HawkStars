@@ -3,7 +3,6 @@ import { SocialIcon, SocialType } from '../../utils/models/social';
 
 import { type JSX } from 'react';
 import { Media, Partner } from '@/payload-types';
-import RichText from '@/payload/components/RichText';
 import { FlagIcons } from '@/lib/flags';
 import { ImageMedia } from '@/payload/components/Media';
 
@@ -42,7 +41,7 @@ const PartnerInfo: React.FC<PartnerInfoProps> = ({ name, links }) => {
 };
 
 const PartnerCard = (partner: Partner): JSX.Element => {
-  const { name, description, logo, country, links } = partner;
+  const { name, logo, country, links } = partner;
 
   const flagIcon = country && FlagIcons[country];
   const url = (logo as Media).url;
