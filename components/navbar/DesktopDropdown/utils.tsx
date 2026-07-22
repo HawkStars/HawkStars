@@ -1,7 +1,6 @@
-import Image from 'next/image';
-
 import { getIcon } from '@/lib/icon';
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { ImageIcon, LinkField } from '@/payload-types';
 import { cn } from '@/lib/utils';
 
@@ -38,8 +37,8 @@ export const getDropdownImageElement = (link: DropdownLinkField, className?: str
   const imagePosition = link.imagePosition || 'top';
 
   return (
-    <Image
-      src={imageElement.url}
+    <ImageMedia
+      resource={imageInformation}
       alt={imageElement.alt}
       className={cn(
         'object-fill',

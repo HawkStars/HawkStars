@@ -4,7 +4,7 @@ import { getImagePayloadUrl } from '@/lib/image';
 import { cn } from '@/lib/utils';
 import { BentoGridBlock as BentoGridBlockProps } from '@/payload-types';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import Link from 'next/link';
 import React from 'react';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
@@ -142,7 +142,7 @@ const BentoGridBlock: React.FC<BentoGridBlockProps> = ({
                 {/* Background Image */}
                 {imgInfo?.url && (
                   <>
-                    <Image
+                    <ImageMedia
                       className='absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105'
                       src={imgInfo.url}
                       fill

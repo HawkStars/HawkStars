@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 
 import { hawkLogo } from '@/utils/models/images/logos';
 import { useMainAppContext } from '@/utils/contexts/AppProvider';
@@ -14,12 +14,11 @@ const Footer = () => {
     <footer className='mt-8'>
       <div className='flex gap-10 p-5 max-lg:flex-col'>
         <div className='flex flex-col gap-5'>
-          <Image
-            className='max-w-40'
+          <ImageMedia
+            className='max-w-40 object-cover'
             src={hawkLogo}
             alt='hawkstars'
             sizes='100px'
-            style={{ objectFit: 'cover' }}
           />
         </div>
 

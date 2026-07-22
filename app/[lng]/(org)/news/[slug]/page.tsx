@@ -69,7 +69,7 @@ const NewsSlugPage = async (props: NewsSlugPageProps) => {
         <NewsSingleHeroNoImage {...article} lng={lng as Language} />
       )}
 
-      <NewsSingleInformation details={details} />
+      <NewsSingleInformation {...article} />
       <NewsSingleGallery gallery={article.gallery} />
     </>
   );

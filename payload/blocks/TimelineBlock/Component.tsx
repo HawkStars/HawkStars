@@ -1,8 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 import type { TimelineBlock as TimelineBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
-import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
 
 export const TimelineBlock: React.FC<TimelineBlockProps> = ({
@@ -52,8 +51,8 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
                     <p className='leading-relaxed text-gray-700'>{item.description}</p>
                     {item.image && (
                       <div className='relative mt-4 h-48 w-full overflow-hidden rounded-lg'>
-                        <Image
-                          src={getImagePayloadUrl(item.image)?.url || ''}
+                        <ImageMedia
+                          resource={item.image}
                           alt={item.title}
                           fill
                           className='object-cover'

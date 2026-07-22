@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 
 import MailIcon from '@/public/images/icons/common/mail.svg';
 
@@ -52,13 +52,16 @@ const Socials = () => {
           href={href}
           aria-label={label}
         >
-          <Image
+          <ImageMedia
             src={icon}
             alt={label}
             width={24}
             height={24}
-            className={openInNewTab ? 'grayscale hover:grayscale-0' : undefined}
-            style={{ transition: openInNewTab ? 'filter 0.3s ease' : undefined }}
+            className={
+              openInNewTab
+                ? 'grayscale transition-[filter] duration-300 ease-in-out hover:grayscale-0'
+                : undefined
+            }
           />
         </Link>
       ))}

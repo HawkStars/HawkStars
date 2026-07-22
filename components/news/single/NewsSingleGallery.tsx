@@ -1,5 +1,5 @@
 import { HawkStarsSection } from '@/components/layout';
-import HawkImage from '@/components/ui/hawk-image';
+import { ImageMedia } from '@/payload/components/Media';
 import { Media, MultiImageType } from '@/payload-types';
 import { FC } from 'react';
 
@@ -41,7 +41,7 @@ const NewsSingleGallery: FC<NewsSingleGalleryProps> = ({ gallery }) => {
 
               return (
                 <div key={`image-${i}`} className='group relative overflow-hidden rounded-lg'>
-                  <HawkImage
+                  <ImageMedia
                     src={url}
                     alt={alt || ''}
                     width={width || 600}

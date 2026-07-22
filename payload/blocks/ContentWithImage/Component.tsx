@@ -1,7 +1,7 @@
 import React from 'react';
 import type { ContentWithImageBlock as ContentWithImageProps } from '@/payload-types';
 import RichText from '@/payload/components/RichText';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 import { HawkStarsSection } from '@/components/layout';
@@ -37,7 +37,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
           style={{ height: customizedHeight ? `${customizedHeight}px` : undefined }}
         >
           {imageInfo && (
-            <Image
+            <ImageMedia
               src={imageInfo.url}
               alt={imageInfo.alt || ''}
               fill={imageInfo.width === undefined && imageInfo.height === undefined}

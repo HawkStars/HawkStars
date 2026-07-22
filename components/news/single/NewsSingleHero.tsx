@@ -4,7 +4,7 @@ import { Language } from '@/i18n/settings';
 import { getImagePayloadUrl } from '@/lib/image';
 
 import { News } from '@/payload-types';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { FC } from 'react';
 
 type NewsSingleHeroProps = Pick<News, 'title' | 'type' | 'publishedAt'> & {
@@ -34,8 +34,8 @@ const NewsSingleHero: FC<NewsSingleHeroProps> = ({ title, type, heroImage, publi
           )}
         </div>
 
-        <div className='relative w-full max-w-1/3 max-lg:mx-4'>
-          <Image
+        <div className='relative w-full min-w-2xl max-lg:mx-4'>
+          <ImageMedia
             src={heroImage.url}
             alt={heroImage.alt}
             fill

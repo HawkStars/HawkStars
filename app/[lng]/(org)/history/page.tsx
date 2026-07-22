@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import Link from 'next/link';
 
 import { getServerTranslation } from '@/i18n';
@@ -39,7 +39,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
         <OffsetSection bgColor='bege-light'>
           <div className='flex flex-col gap-12 px-4 py-12 xl:px-40'>
             <div className='flex justify-around gap-4 xl:px-10'>
-              <Image
+              <ImageMedia
                 src={euroHawkLogo}
                 alt='euro hawk logo'
                 className='max-xl:my-auto max-xl:h-auto max-xl:w-14'
@@ -51,7 +51,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
                 <div className='border-l-green my-auto h-0 w-0 border-y-8 border-l-16 border-y-transparent'></div>
               </div>
               <div className='flex aspect-video max-xl:h-14 xl:max-w-62.5'>
-                <Image src={hawkLogo} alt='hawk stars logo' className='my-auto' />
+                <ImageMedia src={hawkLogo} alt='hawk stars logo' className='my-auto' />
               </div>
             </div>
             <div className='mt-5 grid grid-cols-1 gap-14 xl:grid-cols-2'>
@@ -61,7 +61,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
                 <p className='text-body_regular mt-2 text-justify'>{t('euro_hawk')}</p>
               </div>
               <div className='mx-auto max-xl:-mx-4 max-xl:flex max-xl:justify-center'>
-                <Image src={historyHero} alt='foundation of hawkstars' />
+                <ImageMedia src={historyHero} alt='foundation of hawkstars' />
               </div>
             </div>
           </div>
@@ -91,7 +91,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
 
         <div className='flex flex-col'>
           <div className='max-xl:-mx-4'>
-            <Image src={humanitarian_1} alt='Humanitarian help' sizes='100vw' />
+            <ImageMedia src={humanitarian_1} alt='Humanitarian help' sizes='100vw' />
           </div>
           <div className='mt-20 mr-auto flex flex-col gap-2 text-left xl:w-1/2'>
             <h4 className='text-h1_semibold text-disabled'>{t('foundation_heading')}</h4>
@@ -100,7 +100,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
         </div>
         <div className='grid grid-cols-1 gap-7 xl:grid-cols-2'>
           <div className='h-full max-xl:-mx-4'>
-            <Image
+            <ImageMedia
               loading='lazy'
               src={global_village_image}
               className='aspect-[1.2] w-full overflow-hidden object-contain object-center max-sm:max-w-full sm:pr-0 lg:mt-10 lg:pr-0'

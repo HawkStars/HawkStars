@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useCallback, use } from 'react';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import Link from 'next/link';
 import { LuExternalLink } from 'react-icons/lu';
 
@@ -79,7 +79,7 @@ function WidgetHeader() {
     <div className='flex items-center gap-3 border-b border-neutral-200 px-4 py-3 dark:border-neutral-700'>
       <div className='flex size-10 items-center justify-center rounded-full bg-linear-to-br from-purple-500 via-pink-500 to-orange-400 p-0.5'>
         <div className='flex size-full items-center justify-center rounded-full bg-white dark:bg-neutral-900'>
-          <Image src={InstagramIcon} alt='Instagram' width={20} height={20} />
+          <ImageMedia src={InstagramIcon} alt='Instagram' width={20} height={20} />
         </div>
       </div>
       <div className='flex-1'>

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { LuCalendar, LuChevronLeft, LuChevronRight, LuCalendarDays } from 'react-icons/lu';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
 import type { HawkEvent } from '@/payload-types';
 import { Language } from '@/i18n/settings';
@@ -379,8 +379,8 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
                     >
                       {imageInfo?.url && (
                         <div className='relative h-32 w-full overflow-hidden'>
-                          <Image
-                            src={imageInfo.url}
+                          <ImageMedia
+                            resource={event.image}
                             alt={imageInfo.alt || event.heading}
                             fill
                             className='object-cover transition-transform group-hover:scale-105'

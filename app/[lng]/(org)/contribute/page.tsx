@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import Link from 'next/link';
 import { getServerTranslation } from '@/i18n';
 
@@ -88,14 +88,14 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
               {t('donate_here')}
             </Link>
           </div>
-          <Image src={heroImage} alt='hero image' />
+          <ImageMedia src={heroImage} alt='hero image' />
         </div>
       </HawkStarsSection>
       <div className='via-bege-dark flex flex-col gap-10 bg-linear-to-tr from-[#E9E9E9] from-35% to-[#E9E9E9] to-65% py-16 lg:gap-20 lg:p-20 lg:py-20'>
         <h2 className='text-h2_light mx-4 text-center'>{t('forms_and_modalities')}</h2>
         <div className='mx-auto flex max-w-6xl flex-col gap-10 max-lg:px-4 md:flex-row'>
           <div className='flex flex-col gap-1 md:flex-1'>
-            <Image src={bankTransferImage} alt='bank transfer' className='w-full rounded-lg' />
+            <ImageMedia src={bankTransferImage} alt='bank transfer' className='w-full rounded-lg' />
             <h4 className='text-body_semibold mt-5'>{t('options.bank_transfer')}</h4>
             <p className='text-body_regular lg:text-justify'>{t('bank_transfer.description')}</p>
             <div className='text-body_regular mt-1 flex flex-col gap-1 font-bold'>
@@ -106,7 +106,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
             </div>
           </div>
           <div className='flex flex-col gap-1 md:flex-1'>
-            <Image src={cryptoTransferImage} alt='crypto transfer' className='w-full rounded-lg' />
+            <ImageMedia src={cryptoTransferImage} alt='crypto transfer' className='w-full rounded-lg' />
             <h4 className='text-body_semibold mt-5'>{t('options.crypto_transfer')}</h4>
             <p className='text-body_regular lg:text-justify'>{t('crypto_transfer.description')}</p>
             <p className='text-body_regular mt-2 font-bold'>
@@ -129,7 +129,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
               target='_blank'
               className='bg-green flex w-fit flex-row gap-3 rounded-xl p-4 text-white'
             >
-              <Image
+              <ImageMedia
                 src={ShoppingCardIcon}
                 alt='Shopping Cart'
                 width={20}
@@ -171,14 +171,14 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           <div className='mt-10 flex flex-col gap-10 lg:mx-auto lg:w-2/3'>
             <div className='mx-auto flex flex-1 flex-col gap-3'>
               <h3 className='text-h2_light text-center'>{t('brand.wall_branding.title')}</h3>
-              <Image src={trainingRoom} alt='hawk stars training room' className='rounded-lg' />
+              <ImageMedia src={trainingRoom} alt='hawk stars training room' className='rounded-lg' />
               <div className='flex flex-row gap-4'>
                 <div className='text-body_semibold text-green flex w-fit flex-row gap-1 rounded-2xl p-2 lg:text-base'>
-                  <Image src={UserIcon} alt='User' width={28} height={28} className='my-auto' />
+                  <ImageMedia src={UserIcon} alt='User' width={28} height={28} className='my-auto' />
                   <p className='self-center'>{t('brand.wall_branding.price_solo')}</p>
                 </div>
                 <div className='text-body_semibold text-green flex w-fit flex-row gap-1 rounded-2xl p-2 lg:text-base'>
-                  <Image
+                  <ImageMedia
                     src={CompanyIcon}
                     alt='Company'
                     width={28}
@@ -197,8 +197,8 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           <ChairsSections
             title={t('brand.chairs.types.gaming_chair')}
             price='300€'
-            icon={<Image src={loungeChairEmpty} alt='gaming/office chair not taken' />}
-            iconFilled={<Image src={loungeChair} alt='gaming/office chair filled' />}
+            icon={<ImageMedia src={loungeChairEmpty} alt='gaming/office chair not taken' />}
+            iconFilled={<ImageMedia src={loungeChair} alt='gaming/office chair filled' />}
             size={60}
             currentContributions={loungeChairs}
           />
@@ -206,13 +206,13 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
             title={t('brand.chairs.types.simulation_chair')}
             price='350€'
             icon={
-              <Image
+              <ImageMedia
                 src={simulatorChairNotTaken}
                 alt='Simulator chair representing chairs that have no donor attached to'
               />
             }
             iconFilled={
-              <Image
+              <ImageMedia
                 src={simulatorChairTaken}
                 alt='Simulator chair representing chairs that have a donor attached to'
               />
@@ -225,14 +225,14 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
             title={t('brand.chairs.types.lounge_chair')}
             price='260€'
             icon={
-              <Image
+              <ImageMedia
                 src={standardLoungeChair}
                 className='h-12 w-12'
                 alt='Simulator chair representing chairs that have a donor attached to'
               />
             }
             iconFilled={
-              <Image
+              <ImageMedia
                 src={standardLoungeChair}
                 className='fill-green h-12 w-12'
                 alt='Simulator chair representing chairs that have a donor attached to'
@@ -245,14 +245,14 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
             title={t('brand.chairs.types.auditorium_chair')}
             price='200€'
             icon={
-              <Image
+              <ImageMedia
                 src={standardChair}
                 className='h-12 w-12'
                 alt='Simulator chair representing chairs that have a donor attached to'
               />
             }
             iconFilled={
-              <Image
+              <ImageMedia
                 src={standardChair}
                 className='fill-green h-12 w-12'
                 alt='Simulator chair representing chairs that have a donor attached to'

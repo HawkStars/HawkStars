@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import { LuArrowRight, LuCalendar } from 'react-icons/lu';
 import { HawkStarsSection } from '@/components/layout';
+import { ImageMedia } from '@/payload/components/Media';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -156,7 +156,7 @@ function ListItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
       {/* Image */}
       {event.image?.url && (
         <div className='relative hidden h-24 w-32 shrink-0 overflow-hidden rounded-lg md:block'>
-          <Image
+          <ImageMedia
             src={event.image.url}
             alt={event.image.alt || event.heading}
             fill
@@ -202,7 +202,7 @@ function CardItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
       {/* Image */}
       <div className='relative h-44 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-700'>
         {event.image?.url ? (
-          <Image
+          <ImageMedia
             src={event.image.url}
             alt={event.image.alt || event.heading}
             fill

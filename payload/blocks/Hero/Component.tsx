@@ -1,9 +1,9 @@
 import { LuExpand, LuGlobe, LuMoveRight, LuRocket, LuWrench } from 'react-icons/lu';
-import Image from 'next/image';
 import type { HeroBlock } from '@/payload-types';
 
 import { Button } from '@/components/ui/button';
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { HawkStarsSection } from '@/components/layout';
@@ -34,7 +34,7 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
     >
       <div className='mx-auto flex max-w-3xl flex-col items-center text-center'>
         {bgImage && bgImage.url && (
-          <Image
+          <ImageMedia
             src={bgImage.url}
             alt={bgImage.alt || 'Hero'}
             height={48}

@@ -1,9 +1,9 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import type { CrowdfundingImageBannerBlock } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { cn } from '@/lib/utils';
@@ -21,7 +21,7 @@ export const CrowdfundingImageBannerBlockComponent: React.FC<CrowdfundingImageBa
   return (
     <section id={sectionId || undefined} data-blockid='crowdfundingImageBanner'>
       <Link href={linkUrl?.url || '#'} target='_blank' rel='noopener noreferrer'>
-        <Image
+        <ImageMedia
           src={imageData.url}
           alt={imageData.alt}
           width={imageData.width || 1920}

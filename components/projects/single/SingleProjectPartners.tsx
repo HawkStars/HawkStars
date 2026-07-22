@@ -1,6 +1,6 @@
 import { HawkProject, Media, Partner } from '@/payload-types';
 import { FC } from 'react';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { ProjectSection } from '../utils/ProjectSection';
 import { hawkLogo } from '@/utils/models/images/logos';
 
@@ -15,7 +15,7 @@ const SingleProjectPartners: FC<SingleProjectPartnersProps> = ({ partnersInforma
           <h2 className='mb-10 text-4xl font-bold'>Parceiros</h2>
           <div className='flex flex-wrap justify-between gap-4'>
             <div className='relative h-32 w-32'>
-              <Image
+              <ImageMedia
                 src={hawkLogo}
                 alt='Hawk logo'
                 fill
@@ -30,7 +30,7 @@ const SingleProjectPartners: FC<SingleProjectPartnersProps> = ({ partnersInforma
 
               return (
                 <div className='relative h-32 w-32' key={partner.id}>
-                  <Image
+                  <ImageMedia
                     key={partner.id}
                     src={logoUrl}
                     alt={`${name} logo`}

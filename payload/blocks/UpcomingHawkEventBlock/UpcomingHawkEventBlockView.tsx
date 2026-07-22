@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { LuArrowRight } from 'react-icons/lu';
 import { HawkStarsSection } from '@/components/layout';
+import { ImageMedia } from '@/payload/components/Media';
 
 export type UpcomingEventItem = {
   heading: string;
@@ -54,7 +54,7 @@ export const UpcomingHawkEventBlockView: React.FC<UpcomingHawkEventBlockViewProp
         <div className='flex flex-col md:flex-row'>
           {event.image?.url && (
             <div className='relative h-64 w-full shrink-0 md:h-auto md:w-1/3'>
-              <Image
+              <ImageMedia
                 src={event.image.url}
                 alt={event.image.alt || event.heading}
                 fill

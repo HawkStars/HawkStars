@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
 
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 
 /* ================================================================== */
 /*  Section wrapper for consistent spacing + alternating backgrounds  */
@@ -103,8 +103,8 @@ export default function EventPage({ event }: EventPageProps) {
           <div className='flex flex-col gap-4'>
             {heroImage?.url && (
               <div className='relative aspect-video w-full overflow-hidden rounded-lg'>
-                <Image
-                  src={heroImage.url}
+                <ImageMedia
+                  resource={event.image}
                   alt={heroImage.alt || event.heading || 'Event image'}
                   className='h-full w-full object-cover'
                   fill
@@ -208,7 +208,7 @@ export default function EventPage({ event }: EventPageProps) {
               (item: { image?: { url?: string; alt?: string } }, i: number) =>
                 item.image?.url ? (
                   <div key={i} className='relative aspect-square overflow-hidden rounded-lg'>
-                    <Image
+                    <ImageMedia
                       src={item.image.url}
                       alt={item.image.alt || ''}
                       fill
@@ -220,7 +220,7 @@ export default function EventPage({ event }: EventPageProps) {
             {event.gallery.externalImages?.map((item: { url?: string; alt?: string }, i: number) =>
               item.url ? (
                 <div key={i} className='relative aspect-square overflow-hidden rounded-lg'>
-                  <Image src={item.url} alt={item.alt || ''} fill className='object-cover' />
+                  <ImageMedia src={item.url} alt={item.alt || ''} fill className='object-cover' />
                 </div>
               ) : null
             )}

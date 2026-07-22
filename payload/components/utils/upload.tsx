@@ -25,12 +25,11 @@ const Upload: JSXConverter<SerializedUploadNode> = ({ node }) => {
     return null;
   }
 
-  const { url, alt, section, height, width } = value as unknown as Media;
+  const { url, alt, height, width } = value as unknown as Media;
   if (!url) return null;
 
   return (
     <ImageMedia
-      data-section={section}
       resource={{ url, alt, height, width } as Media}
       alt={alt}
       pictureClassName={'flex justify-center my-4 rounded-lg'}

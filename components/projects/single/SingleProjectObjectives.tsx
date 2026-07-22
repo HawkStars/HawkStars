@@ -1,6 +1,6 @@
 import { HawkProject } from '@/payload-types';
 import { FC } from 'react';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
 import { ProjectSection } from '../utils/ProjectSection';
 
@@ -33,9 +33,9 @@ const SingleProjectObjectives: FC<SingleProjectObjectivesProps> = ({ objectives 
                 const img = getImagePayloadUrl(objectives.objectivesImage);
                 return img?.url ? (
                   <div className='relative my-4 h-40 w-full'>
-                    <Image
+                    <ImageMedia
                       fill
-                      src={img.url}
+                      resource={objectives.objectivesImage}
                       alt={img.alt || 'Objectives'}
                       className='rounded-lg object-contain'
                     />

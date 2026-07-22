@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 
 import Link from 'next/link';
 import { urls, transformUrl } from '@/utils/paths';
@@ -72,7 +72,7 @@ const MobileNavbar = () => {
     >
       <div className='flex py-1'>
         <Link href={transformUrl(lng, urls.home)} className='flex items-center gap-2'>
-          <Image src={hawkLogo} alt='Hawk Stars Logo' priority width={150} className='-mt-1' />
+          <ImageMedia src={hawkLogo} alt='Hawk Stars Logo' priority width={150} className='-mt-1' />
         </Link>
         <button
           type='button'

@@ -1,8 +1,8 @@
 import { News } from '@/payload-types';
 import { format } from 'date-fns';
-import Image from 'next/image';
 import Link from 'next/link';
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { Badge } from '@/components/ui/badge';
 import { transformUrl, urls } from '@/utils/paths';
 import { NewsTypeLabels } from '../news/constants';
@@ -33,8 +33,8 @@ const ProjectNewsSection = ({ news, lng, title = 'Related News' }: ProjectNewsSe
               >
                 {image?.url && (
                   <div className='relative aspect-video w-full'>
-                    <Image
-                      src={image.url}
+                    <ImageMedia
+                      resource={article.mainImage}
                       alt={image.alt || article.title}
                       fill
                       className='object-cover transition-transform group-hover:scale-105'

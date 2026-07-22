@@ -6,7 +6,7 @@ import { formatCurrency } from '@/lib/utils/currency';
 import { HawkProject, Partner } from '@/payload-types';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { FC } from 'react';
 
 type ProjectsSingleHeroProps = Pick<
@@ -53,8 +53,8 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
           {/* Badge */}
           {badgeImage?.url && (
             <div className='mb-4'>
-              <Image
-                src={badgeImage.url}
+              <ImageMedia
+                resource={projectBadge}
                 alt={badgeImage.alt || 'Project badge'}
                 width={120}
                 height={120}

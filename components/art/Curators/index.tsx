@@ -3,8 +3,8 @@ import { LanguageProps } from '@/components/types';
 import Link from 'next/link';
 import { allCuratorsQuery } from '@/lib/payload/queries/artwork';
 import { Language } from '@/i18n/settings';
-import { Curator, Media } from '@/payload-types';
-import Image from 'next/image';
+import { Curator } from '@/payload-types';
+import { ImageMedia } from '@/payload/components/Media';
 
 const getCurators = async (locale: Language) => {
   const response = await allCuratorsQuery(locale);
@@ -23,10 +23,10 @@ const Curators = async ({ lng }: LanguageProps) => {
             <div key={curator.id}>
               <Link href={`/${lng}/curator/${curator.slug}`} className='flex flex-col gap-5'>
                 <div className='mx-auto'>
-                  <Image
-                    src={(curator.image as Media)?.url || ''}
-                    alt={(curator.image as Media)?.alt || 'Event Image'}
+                  <ImageMedia
+                    resource={curator.image}
                     className='max-lg:w-96 lg:h-100 lg:rounded-md'
+                    alt={curator.name}
                   />
                 </div>
                 <h6 className='text-h2_bold max-lg:pl-4 md:text-center'>{curator.name}</h6>

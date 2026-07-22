@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { LuCalendar, LuArrowRight } from 'react-icons/lu';
 import HawkLabel from '@/components/common/hawk-label';
+import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
 
 export type LatestNewsItem = {
@@ -64,7 +64,7 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
         <div className='flex flex-col md:flex-row'>
           {item.image?.url && (
             <div className='relative h-64 w-full shrink-0 md:h-auto md:w-1/3'>
-              <Image
+              <ImageMedia
                 src={item.image.url}
                 alt={item.image.alt || item.heading}
                 fill

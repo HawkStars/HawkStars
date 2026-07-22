@@ -1,7 +1,7 @@
 import { FlagIcon } from '@/lib/icon';
 import { HawkProject, Partner } from '@/payload-types';
 import Link from 'next/link';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { coFoundedEuropeanLogoBlue } from '@/utils/models/images/logos';
 import { FC } from 'react';
 import { ProjectSection } from '../utils/ProjectSection';
@@ -115,7 +115,7 @@ const SingleProjectReports: FC<SingleProjectReportsProps> = ({
 
         <div className='flex flex-wrap gap-3'>
           <div className='relative aspect-auto h-auto w-40'>
-            <Image
+            <ImageMedia
               className='absolute'
               src={coFoundedEuropeanLogoBlue}
               alt='Co-founded by the European Union'

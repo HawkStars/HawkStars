@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { LuStar, LuQuote, LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import type { ImageType, TestimonialBlock as TestimonialBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { HawkStarsSection } from '@/components/layout';
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 
 type Testimonial = {
   quote: string;
@@ -83,7 +83,7 @@ const TestimonialCard: React.FC<{
       <div className='flex items-center gap-3'>
         {authorImage && (
           <div className='relative h-10 w-10 shrink-0 overflow-hidden rounded-full'>
-            <Image src={authorImage?.url} alt={author.name} fill className='object-cover' />
+            <ImageMedia src={authorImage?.url} alt={author.name} fill className='object-cover' />
           </div>
         )}
         <div>

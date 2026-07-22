@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import HamburgerIcon from '@/public/images/icons/common/hamburger.svg';
 import { useMainAppContext, useSetMobileNavbarOpen } from '../../utils/contexts/AppProvider';
 import { hawkLogo } from '@/utils/models/images/logos';
@@ -35,7 +35,7 @@ const Navbar = () => {
           <div className='my-auto flex justify-center py-3'>
             <Link href='/' className='normal-case' aria-label='Go to the home hawkstars website'>
               <div className='flex gap-1'>
-                <Image src={hawkLogo} alt='Hawk Stars Logo' width={150} priority />
+                <ImageMedia src={hawkLogo} alt='Hawk Stars Logo' width={150} priority />
               </div>
             </Link>
           </div>
@@ -57,7 +57,7 @@ const Navbar = () => {
               className='cursor-pointer'
               onClick={() => setMobileMenuOpen(true)}
             >
-              <Image src={HamburgerIcon} alt='' width={32} height={32} aria-hidden='true' />
+              <ImageMedia src={HamburgerIcon} alt='' width={32} height={32} aria-hidden='true' />
             </button>
           </div>
         </div>

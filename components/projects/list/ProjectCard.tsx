@@ -1,9 +1,9 @@
 import { HawkProject } from '@/payload-types';
 import { LuCalendarDays } from 'react-icons/lu';
-import { getCloudinaryBlurURL, getImagePayloadUrl } from '@/lib/image';
+import { getImagePayloadUrl } from '@/lib/image';
 import { transformUrl, urls } from '@/utils/paths';
 import Link from 'next/link';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { format } from 'date-fns';
 
 type ProjectCardProps = {
@@ -35,15 +35,13 @@ const ProjectCard = ({ project, index, lng }: ProjectCardProps) => {
       {/* Image */}
       {image?.url && (
         <div className='relative h-48 w-full shrink-0 overflow-hidden rounded-lg sm:h-52 sm:w-64 lg:w-72'>
-          <Image
-            src={image.url}
+          <ImageMedia
+            resource={project.coverImage}
             alt={project.heading ?? image.alt ?? ''}
             fill
             className='object-cover'
             sizes='(max-width: 640px) 100vw, 288px'
             priority={index === 0}
-            placeholder='blur'
-            blurDataURL={getCloudinaryBlurURL(image.url)}
           />
         </div>
       )}

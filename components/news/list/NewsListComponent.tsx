@@ -1,9 +1,9 @@
 import { News } from '@/payload-types';
 import { PaginatedDocs } from 'payload';
 import { format } from 'date-fns';
-import Image from 'next/image';
 import Link from 'next/link';
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { Badge } from '@/components/ui/badge';
 import { transformUrl, urls } from '@/utils/paths';
 import { HawkStarsSection } from '@/components/layout';
@@ -43,8 +43,8 @@ const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {
                   </div>
                   {image?.url && (
                     <div className='relative h-24 w-32 shrink-0 self-center lg:h-28 lg:w-40'>
-                      <Image
-                        src={image.url}
+                      <ImageMedia
+                        resource={article.mainImage}
                         alt={image.alt || article.title}
                         fill
                         className='object-cover'

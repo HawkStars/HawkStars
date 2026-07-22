@@ -1,5 +1,6 @@
-import Image, { StaticImageData } from 'next/image';
+import { type StaticImageData } from 'next/image';
 import Link from 'next/link';
+import { ImageMedia } from '@/payload/components/Media';
 
 type CrowdfundingBannerProps = {
   image: string | StaticImageData;
@@ -12,7 +13,7 @@ const CrowdfundingBanner = ({ image, alt, href, sectionId }: CrowdfundingBannerP
   return (
     <section id={sectionId} className='w-full cursor-pointer'>
       <Link href={href} target='_blank' rel='noopener noreferrer'>
-        <Image
+        <ImageMedia
           src={image}
           alt={alt}
           width={1920}

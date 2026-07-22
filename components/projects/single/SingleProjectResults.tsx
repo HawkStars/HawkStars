@@ -1,7 +1,7 @@
 import { Section } from '@/components/layout/Section';
 import { getImagePayloadUrl } from '@/lib/image';
 import { HawkProject } from '@/payload-types';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { FC } from 'react';
 
 type SingleProjectReportsProps = Pick<HawkProject, 'results'>;
@@ -21,8 +21,8 @@ const SingleProjectReports: FC<SingleProjectReportsProps> = ({ results }) => {
               </p>
             )}
             {img && (
-              <Image
-                src={img.url}
+              <ImageMedia
+                resource={results?.resultsImage}
                 alt={img.alt || 'Results'}
                 width={600}
                 height={400}

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { connection } from 'next/server';
 import Link from 'next/link';
 
@@ -19,7 +19,7 @@ export default async function NotFoundPage() {
   return (
     <div className='my-auto flex items-center'>
       <div className='mx-auto flex w-2/3 flex-col justify-center gap-10 align-middle'>
-        <Image src={hawkLogo} alt='HawkLogo' className='mx-auto' />
+        <ImageMedia src={hawkLogo} alt='HawkLogo' className='mx-auto' />
         <h3 className='text-center'>A member of this NGO is dreaming about this page content.</h3>
         <Link
           href={urls.home}

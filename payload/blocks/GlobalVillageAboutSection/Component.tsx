@@ -1,9 +1,9 @@
 import React from 'react';
-import Image from 'next/image';
 
 import type { GlobalVillageAboutSectionBlock as GlobalVillageAboutSectionBlockProps } from '@/payload-types';
 
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
 import RichText from '@/payload/components/RichText';
 import { CMSLink } from '@/payload/components/Link';
@@ -39,7 +39,7 @@ export const GlobalVillageAboutSectionBlockComponent: React.FC<
             return (
               <div className='flex flex-1 flex-col gap-5' key={key}>
                 {imageData?.url && (
-                  <Image
+                  <ImageMedia
                     src={imageData.url}
                     alt={imageData.alt || section.title || 'Section image'}
                     width={imageData.width ?? 800}

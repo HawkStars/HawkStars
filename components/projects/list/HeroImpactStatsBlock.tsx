@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
@@ -124,8 +124,8 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
                 <div className={cn('relative h-full min-h-75 overflow-hidden rounded-2xl')}>
                   {!image && video && <VideoBlock videoUrl={video} blockType={'videoBlock'} />}
                   {image && (
-                    <Image
-                      src={image.url}
+                    <ImageMedia
+                      resource={heroImage}
                       alt={image.alt || 'Organization impact'}
                       className='absolute h-full w-full object-cover'
                       fill

@@ -302,7 +302,11 @@ import SectionList from '@/components/ui/SectionList';
 
 ## Images
 
-Use Next.js `<Image>` for all images. Never use a bare `<img>` tag.
+Use the NextImage component from `next/image` for all images.
+For video we have the NextVideo component.
+Both handle lazy loading, responsive sizing, and optimization automatically. Use the `priority` prop for hero images that should load immediately.
+
+```tsx
 
 For images coming from Payload CMS (via `ImageType` or `Media` relations), use `getImagePayloadUrl()` from `@/lib/image` to extract a normalized `{ url, alt, width, height }` object before passing to `<Image>`:
 

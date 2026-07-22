@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 
 import heroImage from '@/public/images/art_gallery/hero.png';
 
@@ -35,9 +35,8 @@ const GalleryPage = async (props: LanguagePageProps) => {
           </div>
           <div className='lg:w-1/2'>
             <Link href={`/${lng}/artwork`} className='cursor-pointer'>
-              <Image
-                className='ml-auto max-w-full object-cover'
-                style={{ height: '100%' }}
+              <ImageMedia
+                className='ml-auto h-full max-w-full object-cover'
                 src={heroImage}
                 alt=''
               />

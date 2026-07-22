@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { cn } from '@/lib/utils';
 import { globalVillageLogo } from '@/utils/models/images/logos';
 import { useTranslation } from '@/i18n/client';
@@ -30,7 +30,7 @@ const CrowdfundingNavbar = () => {
           className='flex items-center'
           aria-label='Go to the Hawk Stars website'
         >
-          <Image src={globalVillageLogo} alt='Global Village Logo' width={130} priority />
+          <ImageMedia src={globalVillageLogo} alt='Global Village Logo' width={130} priority />
         </Link>
 
         {/* Desktop links */}

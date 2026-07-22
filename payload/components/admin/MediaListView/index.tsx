@@ -24,7 +24,7 @@ import React, { Fragment, useEffect } from 'react';
 
 import { getMediaUrl } from '@/payload/utilities/getMediaUrl';
 import type { Media } from '@/payload-types';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 
 export default function MediaListView(props: ListViewClientProps) {
   const {
@@ -170,7 +170,7 @@ export default function MediaListView(props: ListViewClientProps) {
                     >
                       <div className='relative aspect-4/3 w-full overflow-hidden bg-zinc-200 lg:aspect-3/2 dark:bg-zinc-700'>
                         {imageUrl ? (
-                          <Image
+                          <ImageMedia
                             src={imageUrl}
                             alt={doc.alt || doc.filename || 'Media'}
                             className='h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]'
