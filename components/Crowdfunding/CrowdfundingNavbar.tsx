@@ -25,12 +25,8 @@ const CrowdfundingNavbar = () => {
     <nav className='bg-crowdfunding-bg sticky top-0 z-50 border-b border-white/10'>
       <div className='mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:px-8'>
         {/* Logo */}
-        <Link
-          href={`/${lng}`}
-          className='flex items-center'
-          aria-label={t('a11y.homeLink')}
-        >
-          <ImageMedia src={globalVillageLogo} alt={t('a11y.logoAlt')} width={130} priority />
+        <Link href={`/${lng}`} className='flex items-center' aria-label={t('a11y.homeLink')}>
+          <ImageMedia src={globalVillageLogo} alt={t('a11y.logoAlt')} width={130} preload />
         </Link>
 
         {/* Desktop links */}

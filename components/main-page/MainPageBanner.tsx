@@ -34,7 +34,7 @@ const MainPageBanner: FC<MainPageBannerProps> = ({
           alt=''
           fill
           className='object-cover'
-          priority
+          preload
           aria-hidden='true'
         />
       )}

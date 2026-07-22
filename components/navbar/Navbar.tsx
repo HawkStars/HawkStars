@@ -37,7 +37,7 @@ const Navbar = () => {
           <div className='my-auto flex justify-center py-3'>
             <Link href='/' className='normal-case' aria-label={t('a11y.homeLink')}>
               <div className='flex gap-1'>
-                <ImageMedia src={hawkLogo} alt={t('a11y.logoAlt')} width={150} priority />
+                <ImageMedia src={hawkLogo} alt={t('a11y.logoAlt')} width={150} preload />
               </div>
             </Link>
           </div>

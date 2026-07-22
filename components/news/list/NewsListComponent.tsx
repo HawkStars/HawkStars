@@ -52,7 +52,7 @@ const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {
                         alt={image.alt || article.title}
                         fill
                         className='object-cover'
-                        priority={articleIndex === 0}
+                        preload={articleIndex === 0}
                         sizes='(max-width: 1024px) 128px, 160px'
                       />
                     </div>
@@ -64,7 +64,10 @@ const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {
       </div>
 
       {totalPages > 1 && (
-        <nav className='mt-10 flex items-center justify-center gap-2' aria-label={t('pagination.label')}>
+        <nav
+          className='mt-10 flex items-center justify-center gap-2'
+          aria-label={t('pagination.label')}
+        >
           {hasPrevPage && (
             <Link
               href={`${transformUrl(lng, urls.news)}?page=${(page ?? 1) - 1}${projectParam}`}

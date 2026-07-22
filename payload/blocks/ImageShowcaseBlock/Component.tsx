@@ -86,7 +86,7 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
                 alt={activeImage.alt || ''}
                 fill
                 className='rounded-2xl max-lg:object-contain'
-                priority
+                preload
                 sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
               />
               <span className='absolute right-2 bottom-2 rounded-2xl bg-white p-2'>

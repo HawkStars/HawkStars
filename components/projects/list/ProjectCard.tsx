@@ -41,7 +41,7 @@ const ProjectCard = ({ project, index, lng }: ProjectCardProps) => {
             fill
             className='object-cover'
             sizes='(max-width: 640px) 100vw, 288px'
-            priority={index === 0}
+            preload={index === 0}
           />
         </div>
       )}
