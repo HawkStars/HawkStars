@@ -98,8 +98,9 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
                 alt={bgImage.alt || slide.title || `Slide ${index + 1}`}
                 fill
                 className='object-cover'
-                priority={index <= 1 ? true : false}
-                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw'
+                preload={index <= 1 ? true : false}
+                data-blockid={`heroSlideshowBlock-backgroundImage-${index}`}
+                sizes='100vw'
               />
             )}
 

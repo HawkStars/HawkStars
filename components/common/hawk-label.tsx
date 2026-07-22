@@ -8,9 +8,10 @@ type HawkLabelProps = {
   type: string;
   variant?: 'default' | 'green';
   design?: 'line' | 'badge';
+  className?: string;
 };
 
-const HawkLabel = ({ type, variant = 'default', design = 'line' }: HawkLabelProps) => {
+const HawkLabel = ({ type, variant = 'default', design = 'line', className }: HawkLabelProps) => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
   return (
@@ -18,7 +19,8 @@ const HawkLabel = ({ type, variant = 'default', design = 'line' }: HawkLabelProp
       className={cn(
         `mb-4 inline-block w-fit px-3 py-1 text-xs font-bold tracking-widest uppercase`,
         variant === 'green' ? 'border-green text-green' : 'border-white text-white',
-        design === 'badge' ? 'border' : 'border-b'
+        design === 'badge' ? 'border' : 'border-b',
+        className
       )}
     >
       {t(`label.${type}`, { defaultValue: type })}

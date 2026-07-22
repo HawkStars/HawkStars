@@ -23,7 +23,7 @@ const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, refere
             <RichTextWrapper data={text} />
           </div>
           {references && references.length > 0 && (
-            <div className='my-6 max-w-6xl max-lg:mx-4'>
+            <div className='my-6 max-w-6xl gap-2 max-lg:mx-4'>
               <h6 className='text-h6_bold text-green mb-4'>{t('sections.references')}</h6>
               {references.map((ref) => {
                 const { platform, url, id } = ref || {};
@@ -36,7 +36,7 @@ const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, refere
                     href={url}
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='text-green mt-10 flex gap-3'
+                    className='text-green flex gap-3'
                   >
                     {icon && (
                       <ImageMedia
