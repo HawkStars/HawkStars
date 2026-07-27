@@ -1,8 +1,8 @@
 import React from 'react';
-import Image from 'next/image';
 
 import type { MediaBlock as MediaBlockProps } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 
 export const MediaBlock: React.FC<MediaBlockProps> = (props) => {
   const { media, sectionId } = props;
@@ -12,14 +12,7 @@ export const MediaBlock: React.FC<MediaBlockProps> = (props) => {
 
   return (
     <div className='relative mx-auto w-full' id={sectionId || undefined} data-blockid='mediaBlock'>
-      <Image
-        src={image.url}
-        alt={media.alt || ''}
-        height={image.height || undefined}
-        width={image.width || undefined}
-        fill={image.width === undefined || image.height === undefined}
-        className='object-cover'
-      />
+      <ImageMedia resource={media} alt={media.alt || ''} className='object-cover' />
     </div>
   );
 };

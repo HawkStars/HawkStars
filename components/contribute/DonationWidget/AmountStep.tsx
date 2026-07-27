@@ -89,7 +89,7 @@ const AmountStep = ({ frequency, onFrequencyChange, onHandleDonationValue }: Amo
           value={customAmount ?? ''}
           onChange={handleCustomChange}
           className='w-full rounded-lg border border-[#ddd] py-3.5 pr-3.5 pl-8 text-base text-[#333] transition-colors duration-150 outline-none focus:border-[#c0392b]'
-          aria-label='Custom donation amount'
+          aria-label={t('donation.custom_amount')}
         />
       </div>
 

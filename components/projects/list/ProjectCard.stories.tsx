@@ -14,7 +14,6 @@ const baseProject = {
       'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop',
     alt: 'AI project',
   },
-  status: 'published',
   createdAt: '2024-01-01T00:00:00.000Z',
   updatedAt: '2024-01-01T00:00:00.000Z',
 } as unknown as HawkProject;

@@ -30,7 +30,9 @@
     "tagline_label": "Short Tagline",
     "tagline_value": "From the interior to the future.",
     "cta_support": "I Want to Support This Project",
-    "cta_share": "Share Campaign"
+    "cta_share": "Share Campaign",
+    "player_title": "Video",
+    "play": "Play video"
   },
   "about": {
     "badge": "About the Project",
@@ -211,5 +213,13 @@
     "faq": "FAQ",
     "support": "Support",
     "back_to_site": "hawkstars.org"
+  },
+  "a11y": {
+    "homeLink": "Go to the Hawk Stars website",
+    "toggleMenu": "Toggle menu",
+    "logoAlt": "Global Village logo"
+  },
+  "share": {
+    "copied": "Link copied!"
   }
 }

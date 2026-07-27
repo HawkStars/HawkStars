@@ -1,5 +1,7 @@
 import { cn } from '@/lib/utils';
 import { STEPS } from './types';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 type DonationHeaderProps = {
   title: string;
@@ -9,6 +11,9 @@ type DonationHeaderProps = {
 };
 
 const DonationHeader = ({ title, currentStep, canAdvance, onNextStep }: DonationHeaderProps) => {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'contribute');
+
   return (
     <div className='bg-green flex items-center justify-between px-5 py-4.5'>
       <h2 className='m-0 text-lg font-semibold text-white'>{title}</h2>
@@ -41,7 +46,7 @@ const DonationHeader = ({ title, currentStep, canAdvance, onNextStep }: Donation
           className='ml-1 flex cursor-pointer items-center border-none bg-transparent p-0.5 disabled:cursor-not-allowed disabled:opacity-50'
           onClick={onNextStep}
           disabled={!canAdvance}
-          aria-label='Next step'
+          aria-label={t('donation.next_step')}
         >
           <svg
             width='20'

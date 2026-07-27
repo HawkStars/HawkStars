@@ -2,7 +2,7 @@
 
 import React, { FC, useEffect, useState } from 'react';
 import type { SponsorsBlock as SponsorsBlockProps, Sponsor, Media } from '@/payload-types';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { cn } from '@/lib/utils';
 import { fetchSponsors } from '@/lib/payload/client/sponsors';
 import { HawkStarsSection } from '@/components/layout';
@@ -93,7 +93,7 @@ const LogosContainer: FC<LogosContainerProps> = ({ tier, sponsors }) => {
             >
               {logoUrl ? (
                 <div className='relative mb-3 h-24 w-full'>
-                  <Image src={logoUrl} alt={sponsor.name} fill className='object-contain' />
+                  <ImageMedia src={logoUrl} alt={sponsor.name} fill className='object-contain' />
                 </div>
               ) : (
                 <div className='mb-3 flex h-16 w-full items-center justify-center rounded bg-gray-100'>

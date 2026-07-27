@@ -14,7 +14,6 @@ const makeProject = (id: string, heading: string, text: string, imageUrl: string
       alt: heading,
     },
     details: { text },
-    status: 'published',
     createdAt: '2026-01-01T00:00:00.000Z',
     updatedAt: '2026-01-01T00:00:00.000Z',
   }) as unknown as HawkProject;
@@ -71,18 +70,21 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    lng: 'pt',
     events: makePaginated(sampleDocs),
   },
 };
 
 export const SingleEvent: Story = {
   args: {
+    lng: 'pt',
     events: makePaginated(sampleDocs.slice(0, 1)),
   },
 };
 
 export const Empty: Story = {
   args: {
+    lng: 'pt',
     events: makePaginated([]),
   },
 };

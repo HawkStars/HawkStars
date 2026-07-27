@@ -9,8 +9,8 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { SimpleGallery as SimpleGalleryProps } from '@/payload-types';
-import { getImagePayloadUrl, getCloudinaryBlurURL } from '@/lib/image';
-import Image from 'next/image';
+import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
 
 const SimpleGallery: React.FC<SimpleGalleryProps> = ({
@@ -58,13 +58,11 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({
               if (!image) return null;
               return (
                 <CarouselItem key={index} className='relative min-h-dvh basis-1/2'>
-                  <Image
+                  <ImageMedia
                     src={image.url}
                     alt={image.alt || 'placeholder'}
                     loading='lazy'
                     fill
-                    placeholder='blur'
-                    blurDataURL={getCloudinaryBlurURL(image.url)}
                     className='aspect-[3.8/5] w-full rounded-xl object-cover'
                   />
                 </CarouselItem>

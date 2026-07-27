@@ -20,7 +20,7 @@ export const getNewsQuery = async (
 ): Promise<PaginatedDocs<News>> => {
   const payload = await getPayloadConfig();
 
-  const where: Where = { status: { equals: 'published' } };
+  const where: Where = {};
 
   if (projectSlug) {
     // Resolve project ID from slug, then filter news by that project
@@ -29,6 +29,7 @@ export const getNewsQuery = async (
       where: { slug: { equals: projectSlug } },
       limit: 1,
       depth: 0,
+      draft: false,
     });
     const projectId = project.docs[0]?.id;
     if (projectId) {
@@ -61,9 +62,9 @@ export const getNewsByProjectId = async (
   const result = await payload.find({
     collection: NEWS_COLLECTION,
     where: {
-      status: { equals: 'published' },
       project: { equals: projectId },
     },
+    draft: false,
     locale,
     limit,
     sort: '-publishedAt',

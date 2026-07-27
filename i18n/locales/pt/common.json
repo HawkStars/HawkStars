@@ -21,7 +21,8 @@
         "description": "De ética, integridade e transparência"
       }
     },
-    "global_village": "A HawkStars Aldeia Global é uma iniciativa em curso que permitirá mais eventos na região de Pinhel e arredores."
+    "global_village": "A HawkStars Aldeia Global é uma iniciativa em curso que permitirá mais eventos na região de Pinhel e arredores.",
+    "revamp": "Estamos a renovar o site. Até breve!"
   },
   "common": {
     "donate": "Contribuições",
@@ -31,7 +32,16 @@
   "no": "Não",
   "see_more": "Ver Mais",
   "terms_and_conditions": "Termos e Condições",
-  "instagram": "Nós no Instagram",
+  "instagram": {
+    "title": "Nós no Instagram",
+    "openProfile": "Abrir perfil de Instagram",
+    "follow": "Segue {{handle}} no Instagram",
+    "empty": "Ainda não há publicações para mostrar.",
+    "visit": "Visita-nos no Instagram",
+    "viewMore": "Ver mais no Instagram",
+    "postAlt": "Publicação de Instagram",
+    "errorFetch": "Não foi possível carregar as publicações do Instagram"
+  },
   "label": {
     "hawk_projects": "Projeto Hawk",
     "hawk_events": "Evento Hawk",
@@ -40,5 +50,72 @@
     "news": "Notícia",
     "announcement": "Anúncio",
     "other": "Outro"
+  },
+  "a11y": {
+    "homeLink": "Ir para a página inicial da Hawk Stars",
+    "openMenu": "Abrir menu",
+    "navMenu": "Menu de navegação",
+    "closeMenu": "Fechar menu",
+    "logoAlt": "Logótipo da Hawk Stars",
+    "close": "Fechar",
+    "prevSlide": "Slide anterior",
+    "nextSlide": "Slide seguinte",
+    "imageCompare": "Comparador de imagens",
+    "platformIcon": "ícone de {{platform}}"
+  },
+  "footer": {
+    "designedBy": "Concebido por",
+    "builtBy": "Desenvolvido por"
+  },
+  "socials": {
+    "youtube": "Ver a Hawk Stars NGO no YouTube",
+    "instagram": "Ver a Hawk Stars NGO no Instagram",
+    "facebook": "Ver a Hawk Stars NGO no Facebook",
+    "linkedin": "Ver a Hawk Stars NGO no LinkedIn",
+    "email": "Enviar um email à Hawk Stars NGO"
+  },
+  "errors": {
+    "generic": "Ocorreu um erro"
+  },
+  "datePicker": {
+    "placeholder": "Escolher uma data"
+  },
+  "sections": {
+    "gallery": "Galeria",
+    "references": "Referências"
+  },
+  "pagination": {
+    "label": "Paginação",
+    "previous": "Anterior",
+    "next": "Seguinte",
+    "pageOf": "Página {{page}} de {{total}}"
+  },
+  "actions": {
+    "goBack": "Voltar"
+  },
+  "notFound": {
+    "dreaming": "Um membro desta ONG está a sonhar com o conteúdo desta página.",
+    "title": "Página não encontrada",
+    "description": "A página que procuras não existe ou foi movida. Mas há muito para explorar!",
+    "viewProjects": "Ver Projetos",
+    "upcomingEvents": "Próximos Eventos",
+    "backHome": "Voltar ao Início"
+  },
+  "map": {
+    "selectLayers": "Selecionar camadas",
+    "zoomControls": "Controlos de zoom",
+    "zoomIn": "Aumentar zoom",
+    "zoomOut": "Diminuir zoom",
+    "track": {
+      "start": "Seguir localização",
+      "locating": "A localizar…",
+      "stop": "Parar de seguir"
+    },
+    "draw": "Desenhar {{mode}}",
+    "editShapes": "Editar formas",
+    "removeShapes": "Remover formas",
+    "editHint": "Arraste as pegas ou marcadores para editar.",
+    "removeHint": "Clique numa forma para remover.",
+    "undo": "Desfazer {{mode}}"
   }
 }

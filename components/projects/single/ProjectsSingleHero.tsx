@@ -1,3 +1,5 @@
+'use client';
+
 import { Section } from '@/components/layout/Section';
 import { FLAG_PORTUGAL } from '@/lib/constants';
 import { FlagIcon } from '@/lib/icon';
@@ -6,8 +8,11 @@ import { formatCurrency } from '@/lib/utils/currency';
 import { HawkProject, Partner } from '@/payload-types';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { FC } from 'react';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { Language } from '@/i18n/settings';
 
 type ProjectsSingleHeroProps = Pick<
   HawkProject,
@@ -20,7 +25,7 @@ type ProjectsSingleHeroProps = Pick<
   | 'location'
   | 'startDate'
   | 'endDate'
->;
+> & { lng?: Language };
 
 const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
   hero,
@@ -32,7 +37,10 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
   startDate,
   endDate,
   location,
+  lng: lngProp,
 }) => {
+  const cookieLng = useLanguageCookie();
+  const { t } = useTranslation(lngProp ?? cookieLng, 'projects');
   const { projectBadge } = hero || {};
   const { partners } = partnersInformation || {};
   const badgeImage = projectBadge ? getImagePayloadUrl(projectBadge) : null;
@@ -40,7 +48,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
   const dateLabel = (() => {
     if (!startDate) return '';
     if (endDate)
-      return `${format(startDate, 'd', { locale: pt })} a ${format(endDate, "d 'de' MMMM 'de' yyyy", { locale: pt })}`;
+      return `${format(startDate, 'd', { locale: pt })} ${t('dateRange.to')} ${format(endDate, "d 'de' MMMM 'de' yyyy", { locale: pt })}`;
 
     return format(startDate, "d 'de' MMMM 'de' yyyy", { locale: pt });
   })();
@@ -53,9 +61,9 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
           {/* Badge */}
           {badgeImage?.url && (
             <div className='mb-4'>
-              <Image
-                src={badgeImage.url}
-                alt={badgeImage.alt || 'Project badge'}
+              <ImageMedia
+                resource={projectBadge}
+                alt={badgeImage.alt || t('a11y.badgeAlt')}
                 width={120}
                 height={120}
                 className='object-contain'
@@ -86,7 +94,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
                   </svg>
                   <div>
                     <span className='text-2xl font-bold'>{hero.participants}</span>
-                    <p className='text-sm text-gray-600'>{'Participantes'}</p>
+                    <p className='text-sm text-gray-600'>{t('hero.participants')}</p>
                   </div>
                 </div>
               )}
@@ -95,7 +103,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
                   <span className='text-xl'>💰</span>
                   <div>
                     <span className='text-2xl font-bold'>{`${formatCurrency(hero.fundedAmount)}€`}</span>
-                    <p className='text-sm text-gray-600'>{'Euros Financiados'}</p>
+                    <p className='text-sm text-gray-600'>{t('hero.funded')}</p>
                   </div>
                 </div>
               )}
@@ -143,7 +151,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
                 className='h-full w-full'
                 allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                 allowFullScreen
-                title='Project video'
+                title={t('a11y.videoTitle')}
               />
             </div>
           )}
@@ -152,27 +160,27 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
           <div className='space-y-1 text-sm text-gray-700'>
             {heading && (
               <p>
-                <span className='font-semibold'>Nome do Projeto:</span> {heading}
+                <span className='font-semibold'>{t('details.name')}</span> {heading}
               </p>
             )}
             {actionType && (
               <p>
-                <span className='font-semibold'>Tipo de Ação:</span> {actionType}
+                <span className='font-semibold'>{t('details.actionType')}</span> {actionType}
               </p>
             )}
             {referenceNumber && (
               <p>
-                <span className='font-semibold'>Número de Referência:</span> {referenceNumber}
+                <span className='font-semibold'>{t('details.reference')}</span> {referenceNumber}
               </p>
             )}
             {beneficiary && (
               <p>
-                <span className='font-semibold'>Beneficiário:</span> {beneficiary}
+                <span className='font-semibold'>{t('details.beneficiary')}</span> {beneficiary}
               </p>
             )}
             {location && (
               <p>
-                <span className='font-semibold'>Localização:</span> {location}
+                <span className='font-semibold'>{t('details.location')}</span> {location}
               </p>
             )}
           </div>

@@ -38,7 +38,7 @@ export const getHawkEventsSplitByDate = async (
   const [upcomingResult, pastResult] = await Promise.all([
     payload.find({
       collection: EVENTS_COLLECTION,
-      where: { date: { greater_than_equal: now }, and: [{ status: { equals: 'published' } }] },
+      where: { date: { greater_than_equal: now } },
       sort: 'date',
       limit: 100,
       locale,
@@ -46,7 +46,7 @@ export const getHawkEventsSplitByDate = async (
     }),
     payload.find({
       collection: EVENTS_COLLECTION,
-      where: { date: { less_than: now }, and: [{ status: { equals: 'published' } }] },
+      where: { date: { less_than: now } },
       sort: '-date',
       limit: 100,
       locale,

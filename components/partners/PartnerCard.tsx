@@ -1,23 +1,23 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { SocialIcon, SocialType } from '../../utils/models/social';
 
-import { type JSX } from 'react';
 import { Media, Partner } from '@/payload-types';
-import RichText from '@/payload/components/RichText';
 import { FlagIcons } from '@/lib/flags';
-import HawkImage from '../ui/hawk-image';
+import { ImageMedia } from '@/payload/components/Media';
+import { getServerTranslation } from '@/i18n';
+import { Language, fallbackLng } from '@/i18n/settings';
 
-type PartnerInfoProps = Pick<Partner, 'name' | 'links'>;
+type PartnerInfoProps = Pick<Partner, 'name' | 'links'> & { lng: Language };
 
-const PartnerInfo: React.FC<PartnerInfoProps> = ({ name, links }) => {
+const PartnerInfo = async ({ name, links, lng }: PartnerInfoProps) => {
+  const { t } = await getServerTranslation(lng, 'partners');
   return (
     <>
       <h3 className='mt-auto text-center'>{name}</h3>
 
       {/* Contacts */}
       {links && links.length > 0 && (
-        <div className='flex justify-center gap-2'>
+        <div className='mt-auto flex justify-center gap-2 pt-2'>
           {links.map((link, index) => {
             const icon = link && SocialIcon[link.platform as SocialType];
 
@@ -30,7 +30,12 @@ const PartnerInfo: React.FC<PartnerInfoProps> = ({ name, links }) => {
                   rel='noopener noreferrer'
                 >
                   {icon && (
-                    <Image src={icon} alt={`${link.platform} icon`} width={24} height={24} />
+                    <ImageMedia
+                      src={icon}
+                      alt={t('a11y.platformIcon', { platform: link.platform })}
+                      width={24}
+                      height={24}
+                    />
                   )}
                 </Link>
               </div>
@@ -42,14 +47,15 @@ const PartnerInfo: React.FC<PartnerInfoProps> = ({ name, links }) => {
   );
 };
 
-const PartnerCard = (partner: Partner): JSX.Element => {
-  const { name, description, logo, country, links } = partner;
+const PartnerCard = async (partner: Partner & { lng?: Language }) => {
+  const { name, logo, country, links, lng = fallbackLng } = partner;
+  const { t } = await getServerTranslation(lng, 'partners');
 
   const flagIcon = country && FlagIcons[country];
   const url = (logo as Media).url;
 
   return (
-    <div className='border-bege-dark mb-5 flex flex-col gap-3 border-b-2 pb-5'>
+    <div className='border-bege-dark mb-5 flex flex-col justify-between gap-5 border-b-2 pb-5'>
       {/* Country If exists*/}
       {flagIcon && (
         <div className='flex justify-center px-4 pt-2'>
@@ -62,25 +68,21 @@ const PartnerCard = (partner: Partner): JSX.Element => {
       {/* Image */}
       {url && (
         <div className='flex justify-center pb-4'>
-          <HawkImage
+          <ImageMedia
             src={url as string}
-            alt={`${name} logo`}
-            width={256}
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-            className='aspect-square rounded-t-2xl object-contain object-center px-6'
+            alt={t('a11y.logoAlt', { name })}
+            width={192}
+            height={192}
+            sizes='95vw'
+            className='w-auto rounded-t-2xl object-center px-6'
           />
         </div>
       )}
 
       <div className='flex gap-2 px-4 lg:flex-col'>
-        <div className='flex w-full justify-around lg:hidden'>
-          <PartnerInfo name={name} links={links} />
+        <div className='flex w-full justify-around lg:flex-col'>
+          <PartnerInfo name={name} links={links} lng={lng} />
         </div>
-        <div className='flex max-lg:hidden lg:flex-col'>
-          <PartnerInfo name={name} links={links} />
-        </div>
-
-        {description && <RichText data={description} />}
       </div>
     </div>
   );

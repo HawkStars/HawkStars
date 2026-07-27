@@ -13,5 +13,53 @@
     "fnee": "Links úteis sobre a atividade da Ucrânia promovida através da (FNNE) Federação Nacional dos Estudos Europeus:"
   },
   "about_hawkstars": "Sobre a Hawk Stars",
-  "about_globalvillage": "Sobre the Global Village"
+  "about_globalvillage": "Sobre the Global Village",
+  "humanitarian": {
+    "people": {
+      "label": "pessoas",
+      "description": "entre responsáveis pela organização, parceiros, voluntários e amigos que colaboraram até o objetivo final estar cumprido"
+    },
+    "institutions": {
+      "label": "instituições",
+      "description": "públicas e/ou privadas"
+    },
+    "fireBrigades": {
+      "label": "corporações",
+      "description": "de bombeiros"
+    },
+    "internationalInstitutions": {
+      "label": "instituições",
+      "description": "internacionais"
+    },
+    "trucks": {
+      "label": "caminhões"
+    },
+    "drivers": {
+      "label": "motoristas"
+    },
+    "operationValue": {
+      "description": "valor estimado da operação"
+    },
+    "distanceTraveled": {
+      "description": "percorridos"
+    },
+    "deliveredTons": {
+      "title": "90 toneladas",
+      "description": "de material entregues na Ucrânia"
+    },
+    "contributions": {
+      "title": "Milhares",
+      "description": "de contribuições humanitárias em todo o Distrito"
+    }
+  },
+  "history": {
+    "checkReport": "Consultar o relatório aqui.",
+    "alt": {
+      "euroHawkLogo": "logótipo EuroHawk",
+      "hawkStarsLogo": "logótipo da Hawk Stars",
+      "foundation": "fundação da Hawk Stars",
+      "humanitarian": "ajuda humanitária",
+      "hero": "imagem de destaque"
+    }
+  }
 }

@@ -3,11 +3,11 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import Image from 'next/image';
 import { LuChevronLeft, LuChevronRight, LuQuote } from 'react-icons/lu';
 import type { ProjectTestimonialBlock as ProjectTestimonialBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
 
 const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) => {
@@ -91,7 +91,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
       return (
         <div className='relative aspect-4/3 w-full overflow-hidden rounded-2xl'>
           {mediaImage?.url && (
-            <Image
+            <ImageMedia
               src={mediaImage.url}
               alt={mediaImage.alt || 'Project image'}
               fill
@@ -123,7 +123,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
               )}
             >
               {mediaImage?.url && (
-                <Image
+                <ImageMedia
                   src={mediaImage.url}
                   alt={mediaImage.alt || `Project image ${index + 1}`}
                   fill
@@ -196,7 +196,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
       <div className='flex items-center gap-4'>
         {profileImage?.url && (
           <div className='relative h-14 w-14 shrink-0 overflow-hidden rounded-full'>
-            <Image
+            <ImageMedia
               src={profileImage.url}
               alt={profileImage.alt || author?.name || 'Author'}
               fill

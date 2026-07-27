@@ -2,10 +2,11 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { useTranslation } from '@/i18n/client';
 import { getIcon } from '@/lib/icon';
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
 import { cn } from '@/lib/utils';
@@ -25,6 +26,7 @@ type HeroImpactStatsBlockProps = {
 
 const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
   const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'projects');
 
   const {
     badge,
@@ -124,9 +126,9 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
                 <div className={cn('relative h-full min-h-75 overflow-hidden rounded-2xl')}>
                   {!image && video && <VideoBlock videoUrl={video} blockType={'videoBlock'} />}
                   {image && (
-                    <Image
-                      src={image.url}
-                      alt={image.alt || 'Organization impact'}
+                    <ImageMedia
+                      resource={heroImage}
+                      alt={image.alt || t('a11y.impactAlt')}
                       className='absolute h-full w-full object-cover'
                       fill
                     />

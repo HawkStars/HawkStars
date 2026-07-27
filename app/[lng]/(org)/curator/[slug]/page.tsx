@@ -4,7 +4,7 @@ import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
 import { getSingleCuratorQuery } from '@/lib/payload/queries/artwork';
 import { Language } from '@/i18n/settings';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { Media } from '@/payload-types';
 import RichText from '@/payload/components/RichText';
 import { connection } from 'next/server';
@@ -68,8 +68,8 @@ const CuratorPage = async (props: CuratorPageProps) => {
     <HawkStarsSection className='font-oswald bg-bege-light flex pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
       <div className='max-lg:mx-auto lg:m-5 lg:w-96'>
         {curator.image && (
-          <Image
-            src={(curator.image as Media)?.url || ''}
+          <ImageMedia
+            resource={curator.image}
             alt={curator.name || 'Curator Image'}
             width={384}
             height={512}

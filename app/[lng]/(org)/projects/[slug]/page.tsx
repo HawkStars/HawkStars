@@ -46,11 +46,11 @@ const ProjectServerPage = async (props: ProjectPageProps) => {
 
   return (
     <main>
-      <ProjectsSingleHero {...project} />
+      <ProjectsSingleHero {...project} lng={lng} />
       <SingleProjectPhases details={project.details} />
-      <SingleProjectPartners partnersInformation={project.partnersInformation} />
-      <SingleProjectObjectives objectives={project.objectives} />
-      <SingleProjectReports {...project} />
+      <SingleProjectPartners partnersInformation={project.partnersInformation} lng={lng} />
+      <SingleProjectObjectives objectives={project.objectives} lng={lng} />
+      <SingleProjectReports {...project} lng={lng} />
       <NewsSingleGallery gallery={project.gallery} />
     </main>
   );

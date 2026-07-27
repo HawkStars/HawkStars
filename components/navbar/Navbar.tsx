@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import HamburgerIcon from '@/public/images/icons/common/hamburger.svg';
 import { useMainAppContext, useSetMobileNavbarOpen } from '../../utils/contexts/AppProvider';
 import { hawkLogo } from '@/utils/models/images/logos';
@@ -10,10 +10,12 @@ import DesktopNavbar from './DesktopNavbar';
 import { cn } from '@/lib/utils';
 import DropdownMenu from './DesktopDropdown/DropdownMenu';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
+import { useTranslation } from '@/i18n/client';
 
 const Navbar = () => {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
-  const { headerInfo, navbarVariant } = useMainAppContext();
+  const { lng, headerInfo, navbarVariant } = useMainAppContext();
+  const { t } = useTranslation(lng, 'common');
   const setMobileMenuOpen = useSetMobileNavbarOpen();
 
   if (!headerInfo || !headerInfo.columns || headerInfo.columns.length === 0) return null;
@@ -33,9 +35,9 @@ const Navbar = () => {
       >
         <div className='flex gap-3'>
           <div className='my-auto flex justify-center py-3'>
-            <Link href='/' className='normal-case' aria-label='Go to the home hawkstars website'>
+            <Link href='/' className='normal-case' aria-label={t('a11y.homeLink')}>
               <div className='flex gap-1'>
-                <Image src={hawkLogo} alt='Hawk Stars Logo' width={150} priority />
+                <ImageMedia src={hawkLogo} alt={t('a11y.logoAlt')} width={150} preload />
               </div>
             </Link>
           </div>
@@ -53,11 +55,11 @@ const Navbar = () => {
             </div>
             <button
               type='button'
-              aria-label='Open menu'
+              aria-label={t('a11y.openMenu')}
               className='cursor-pointer'
               onClick={() => setMobileMenuOpen(true)}
             >
-              <Image src={HamburgerIcon} alt='' width={32} height={32} aria-hidden='true' />
+              <ImageMedia src={HamburgerIcon} alt='' width={32} height={32} aria-hidden='true' />
             </button>
           </div>
         </div>

@@ -1,7 +1,7 @@
 {
   "home": {
     "title": "HAWK STARS NGO for Education, Innovation and Social Development",
-    "description": "Intergenerational group aiming in social and human development, by embracing the innovative non-formal education concepts, open to all and designed from the local to the global.",
+    "description": "Intergenerational group aiming in social and human development, by embracing the innovative non-formal education concepts, open to all and designed from the local to the global.",
     "about": "Who are we",
     "objetives_title": "The main objective of Hawk Stars NGO is:",
     "objetives_body": "To promote and develop social, cultural, digital, artistic and youth competencies, as well as to promote lifelong learning, though international projects and non-formal educational activities involving nationals and foreings.",
@@ -21,7 +21,8 @@
         "description": "Ethics, integrity and transparency"
       }
     },
-    "global_village": "HawkStars Global Village is an ongoing iniciative that will allow more events on the region of Pinhel and its surrondings."
+    "global_village": "HawkStars Global Village is an ongoing iniciative that will allow more events on the region of Pinhel and its surrondings.",
+    "revamp": "We are revamping the website. See you soon!"
   },
   "common": {
     "donate": "Donate",
@@ -32,14 +33,90 @@
   "see_more": "See More",
   "terms_and_conditions": "Terms & Conditions",
   "download": "Download",
-  "instagram": "Our Instagram",
+  "instagram": {
+    "title": "Our Instagram",
+    "openProfile": "Open Instagram profile",
+    "follow": "Follow {{handle}} on Instagram",
+    "empty": "No posts to display yet.",
+    "visit": "Visit us on Instagram",
+    "viewMore": "View more on Instagram",
+    "postAlt": "Instagram post",
+    "errorFetch": "Failed to load Instagram posts"
+  },
   "label": {
     "hawk_projects": "Hawk Project",
     "hawk_events": "Hawk Event",
-    "press_releases": "Press Release",
+    "press_release": "Press Release",
     "blog": "Blog Post",
     "news": "News",
     "announcement": "Announcement",
     "other": "Other"
+  },
+  "a11y": {
+    "homeLink": "Go to the Hawk Stars home page",
+    "openMenu": "Open menu",
+    "navMenu": "Navigation menu",
+    "closeMenu": "Close menu",
+    "logoAlt": "Hawk Stars logo",
+    "close": "Close",
+    "prevSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "imageCompare": "Image comparison slider",
+    "platformIcon": "{{platform}} icon"
+  },
+  "footer": {
+    "designedBy": "Designed by",
+    "builtBy": "Built by"
+  },
+  "socials": {
+    "youtube": "Check Hawk Stars NGO on YouTube",
+    "instagram": "Check Hawk Stars NGO on Instagram",
+    "facebook": "Check Hawk Stars NGO on Facebook",
+    "linkedin": "Check Hawk Stars NGO on LinkedIn",
+    "email": "Send an email to Hawk Stars NGO"
+  },
+  "errors": {
+    "generic": "Something went wrong"
+  },
+  "datePicker": {
+    "placeholder": "Pick a date"
+  },
+  "sections": {
+    "gallery": "Gallery",
+    "references": "References"
+  },
+  "pagination": {
+    "label": "Pagination",
+    "previous": "Previous",
+    "next": "Next",
+    "pageOf": "Page {{page}} of {{total}}"
+  },
+  "actions": {
+    "goBack": "Go back"
+  },
+  "notFound": {
+    "dreaming": "A member of this NGO is dreaming up this page's content.",
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved. But there's plenty to explore!",
+    "viewProjects": "View Projects",
+    "upcomingEvents": "Upcoming Events",
+    "backHome": "Back to Home"
+  },
+  "map": {
+    "selectLayers": "Select layers",
+    "zoomControls": "Zoom controls",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "track": {
+      "start": "Track location",
+      "locating": "Locating…",
+      "stop": "Stop tracking"
+    },
+    "draw": "Draw {{mode}}",
+    "editShapes": "Edit shapes",
+    "removeShapes": "Remove shapes",
+    "editHint": "Drag handles or markers to edit.",
+    "removeHint": "Click on a shape to remove.",
+    "undo": "Undo {{mode}}"
   }
 }

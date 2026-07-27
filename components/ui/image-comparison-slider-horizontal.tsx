@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
+import { ImageMedia } from '@/payload/components/Media';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 // Define the props for the component
 interface ImageComparisonSliderProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -24,6 +27,8 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
     },
     _ref
   ) => {
+    const lng = useLanguageCookie();
+    const { t } = useTranslation(lng, 'common');
     // State to manage slider position (0 to 100)
     const [sliderPosition, setSliderPosition] = React.useState(initialPosition);
     // State to track if the user is currently dragging the handle
@@ -95,10 +100,11 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
         {...props}
       >
         {/* Right Image (bottom layer) */}
-        {/* eslint-disable-next-line @next/next/no-img-element -- comparison slider needs raw img for clip-path layering */}
-        <img
+        <ImageMedia
           src={rightImage}
           alt={altRight}
+          fill
+          unoptimized
           className='pointer-events-none absolute inset-0 h-full w-full object-cover'
           draggable={false}
         />
@@ -110,10 +116,11 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
             clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)`,
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element -- comparison slider needs raw img for clip-path layering */}
-          <img
+          <ImageMedia
             src={leftImage}
             alt={altLeft}
+            fill
+            unoptimized
             className='h-full w-full object-cover'
             draggable={false}
           />
@@ -140,7 +147,7 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
             aria-valuemin={0}
             aria-valuemax={100}
             aria-orientation='horizontal'
-            aria-label='Image comparison slider'
+            aria-label={t('a11y.imageCompare')}
           >
             <div className='text-primary flex items-center'>
               <LuChevronLeft className='h-5 w-5 drop-shadow-md' />

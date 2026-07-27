@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 
 import Link from 'next/link';
 import { urls, transformUrl } from '@/utils/paths';
@@ -15,10 +15,12 @@ import {
 import { hawkLogo } from '@/utils/models/images/logos';
 import Socials from '@/components/utils/Socials';
 import MobileMenuItem from './MobileMenuItem';
+import { useTranslation } from '@/i18n/client';
 
 const MobileNavbar = () => {
   const { mobileNavbarOpen, headerInfo } = useMainAppContext();
   const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
   const setMobileMenuOpen = useSetMobileNavbarOpen();
   const navRef = useRef<HTMLDivElement>(null);
 
@@ -52,9 +54,7 @@ const MobileNavbar = () => {
     if (mobileNavbarOpen) {
       document.addEventListener('keydown', handleKeyDown);
       // Focus the close button on open
-      const closeBtn = navRef.current?.querySelector<HTMLElement>(
-        'button[aria-label="Close menu"]'
-      );
+      const closeBtn = navRef.current?.querySelector<HTMLElement>('button[data-close-menu]');
       closeBtn?.focus();
       return () => document.removeEventListener('keydown', handleKeyDown);
     }
@@ -67,16 +67,23 @@ const MobileNavbar = () => {
       ref={navRef}
       role='dialog'
       aria-modal='true'
-      aria-label='Navigation menu'
+      aria-label={t('a11y.navMenu')}
       className='fixed z-900 flex h-screen w-full flex-col gap-4 bg-white px-4 py-3 lg:hidden'
     >
       <div className='flex py-1'>
         <Link href={transformUrl(lng, urls.home)} className='flex items-center gap-2'>
-          <Image src={hawkLogo} alt='Hawk Stars Logo' priority width={150} className='-mt-1' />
+          <ImageMedia
+            src={hawkLogo}
+            alt={t('a11y.logoAlt')}
+            preload
+            width={150}
+            className='-mt-1'
+          />
         </Link>
         <button
           type='button'
-          aria-label='Close menu'
+          data-close-menu
+          aria-label={t('a11y.closeMenu')}
           className='cross-x relative my-auto ml-auto block h-5 w-5 cursor-pointer lg:hidden'
           onClick={() => setMobileMenuOpen(false)}
         />

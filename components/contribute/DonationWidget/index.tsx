@@ -117,14 +117,14 @@ export default function DonationWidget() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Payment failed');
+        throw new Error(data.error || t('donation.payment_failed'));
       }
 
       setPaymentResponse(data);
       setCurrentStep(5);
     } catch (error) {
       console.error('Payment error:', error);
-      setSubmitError(error instanceof Error ? error.message : 'An unexpected error occurred');
+      setSubmitError(error instanceof Error ? error.message : t('donation.unexpected_error'));
     } finally {
       setIsSubmitting(false);
     }

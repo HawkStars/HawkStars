@@ -124,13 +124,17 @@ const NewsDetails: Tab = {
           pt: 'Opcionalmente adicione referências a outros artigos de notícias ou links externos.',
         },
         initCollapsed: true,
+        components: {
+          RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
+        },
       },
       fields: [
         {
           name: 'title',
           label: { en: 'Reference Title', pt: 'Título da Referência' },
           type: 'text',
-          localized: false,
+          localized: true,
+          required: false,
           admin: {
             description: {
               en: 'Title of the reference link',

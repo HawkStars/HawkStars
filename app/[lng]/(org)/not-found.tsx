@@ -6,28 +6,7 @@ import { Button } from '@/components/ui/button';
 import { urls, transformUrl } from '@/utils/paths';
 import type { Language } from '@/i18n/settings';
 import { languages, fallbackLng } from '@/i18n/settings';
-
-const content = {
-  pt: {
-    title: '404',
-    subtitle: 'Página não encontrada',
-    description: 'A página que procuras não existe ou foi movida. Mas há muito para explorar!',
-    projects: 'Ver Projetos',
-    events: 'Próximos Eventos',
-    crowdfunding: 'Crowdfunding',
-    home: 'Voltar ao Início',
-  },
-  en: {
-    title: '404',
-    subtitle: 'Page not found',
-    description:
-      "The page you're looking for doesn't exist or has been moved. But there's plenty to explore!",
-    projects: 'View Projects',
-    events: 'Upcoming Events',
-    crowdfunding: 'Crowdfunding',
-    home: 'Back to Home',
-  },
-} as const;
+import { useTranslation } from '@/i18n/client';
 
 function detectLanguage(pathname: string): Language {
   const segment = pathname.split('/')[1];
@@ -40,7 +19,7 @@ function detectLanguage(pathname: string): Language {
 export default function NotFound() {
   const pathname = usePathname();
   const lng = detectLanguage(pathname);
-  const t = content[lng];
+  const { t } = useTranslation(lng, 'common');
 
   return (
     <main className='bg-bege-light relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center'>
@@ -152,32 +131,32 @@ export default function NotFound() {
       {/* Content */}
       <div className='relative z-10 max-w-lg'>
         <h1 className='text-green text-[8rem] leading-none font-extrabold tracking-tighter opacity-20 sm:text-[10rem]'>
-          {t.title}
+          404
         </h1>
 
-        <h2 className='text-h2_bold text-green -mt-4 sm:-mt-6'>{t.subtitle}</h2>
+        <h2 className='text-h2_bold text-green -mt-4 sm:-mt-6'>{t('notFound.title')}</h2>
 
-        <p className='text-body_regular text-disabled mt-4'>{t.description}</p>
+        <p className='text-body_regular text-disabled mt-4'>{t('notFound.description')}</p>
 
         {/* Action buttons */}
         <div className='mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4'>
           <Button asChild size='lg'>
-            <Link href={transformUrl(lng, urls.projects)}>{t.projects}</Link>
+            <Link href={transformUrl(lng, urls.projects)}>{t('notFound.viewProjects')}</Link>
           </Button>
 
           <Button asChild variant='outline' size='lg'>
-            <Link href={transformUrl(lng, urls.events)}>{t.events}</Link>
+            <Link href={transformUrl(lng, urls.events)}>{t('notFound.upcomingEvents')}</Link>
           </Button>
 
           <Button asChild variant='outline' size='lg'>
-            <Link href={transformUrl(lng, '/crowdfunding')}>{t.crowdfunding}</Link>
+            <Link href={transformUrl(lng, '/crowdfunding')}>Crowdfunding</Link>
           </Button>
         </div>
 
         {/* Home link */}
         <div className='mt-6'>
           <Button asChild variant='link'>
-            <Link href={transformUrl(lng, urls.home)}>&larr; {t.home}</Link>
+            <Link href={transformUrl(lng, urls.home)}>&larr; {t('notFound.backHome')}</Link>
           </Button>
         </div>
       </div>

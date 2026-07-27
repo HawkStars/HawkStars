@@ -49,7 +49,7 @@ const NewsSlugPage = async (props: NewsSlugPageProps) => {
   const article = await getSingleNewsSlug(slug, lng as Language);
   if (!article) notFound();
 
-  const { title, details, mainImage, publishedAt } = article;
+  const { title, mainImage, publishedAt } = article;
   const heroImage = getImagePayloadUrl(mainImage);
 
   return (
@@ -69,7 +69,7 @@ const NewsSlugPage = async (props: NewsSlugPageProps) => {
         <NewsSingleHeroNoImage {...article} lng={lng as Language} />
       )}
 
-      <NewsSingleInformation details={details} />
+      <NewsSingleInformation {...article} />
       <NewsSingleGallery gallery={article.gallery} />
     </>
   );

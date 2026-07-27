@@ -2575,7 +2575,7 @@ export interface LinkField {
   section?: string | null;
 }
 /**
- * Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search optimization. Pages follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.
+ * Create and manage website pages. Use the Content tab to build layouts with rich text or blocks, and the SEO tab for search optimization. Save as Draft while editing and Publish when ready to go live.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
@@ -2666,11 +2666,7 @@ export interface Page {
     description?: string | null;
   };
   /**
-   * Draft → In Review → Published. Editors submit for review; Admins approve and publish.
-   */
-  status: 'draft' | 'in_review' | 'published';
-  /**
-   * Automatically set when status changes to Published
+   * Automatically set when the page is published
    */
   publishedAt?: string | null;
   /**
@@ -3883,12 +3879,9 @@ export interface HawkProject {
    * Optional infopack document related to the project.
    */
   infopack?: (string | null) | HawkDocument;
-  /**
-   * Draft → In Review → Published. Editors submit for review; Admins approve and publish.
-   */
-  status: 'draft' | 'in_review' | 'published';
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * Photos displayed at the bottom of the article
@@ -4292,7 +4285,6 @@ export interface HawkEvent {
    */
   endDate?: string | null;
   slug: string;
-  status?: ('draft' | 'published' | 'archived') | null;
   type_event?: ('local_event' | 'international_event' | 'other') | null;
   /**
    * Main body content shown on the public event page.
@@ -4390,7 +4382,7 @@ export interface Sponsor {
   createdAt: string;
 }
 /**
- * Write and publish news articles for the HawkStars website. Articles follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.
+ * Write and publish news articles for the HawkStars website. Save as Draft while editing and Publish when ready to go live.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "news".
@@ -4468,15 +4460,11 @@ export interface News {
     description?: string | null;
   };
   /**
-   * Draft → In Review → Published. Editors submit for review; Admins approve and publish.
-   */
-  status: 'draft' | 'in_review' | 'published';
-  /**
    * The URL slug for the news article, e.g. "my-article" for www.hawkstars.com/news/my-article
    */
   slug: string;
   /**
-   * Automatically set when status changes to Published
+   * Automatically set when the article is published
    */
   publishedAt?: string | null;
   updatedAt: string;
@@ -4956,9 +4944,9 @@ export interface HawkProjectsSelect<T extends boolean = true> {
   startDate?: T;
   endDate?: T;
   infopack?: T;
-  status?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5074,7 +5062,6 @@ export interface HawkEventsSelect<T extends boolean = true> {
   date?: T;
   endDate?: T;
   slug?: T;
-  status?: T;
   type_event?: T;
   details?:
     | T
@@ -5245,7 +5232,6 @@ export interface PagesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
-  status?: T;
   publishedAt?: T;
   slug?: T;
   updatedAt?: T;
@@ -6099,7 +6085,6 @@ export interface NewsSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
-  status?: T;
   slug?: T;
   publishedAt?: T;
   updatedAt?: T;
@@ -6856,6 +6841,10 @@ export interface TaskSchedulePublish {
     type?: ('publish' | 'unpublish') | null;
     locale?: string | null;
     doc?:
+      | ({
+          relationTo: 'hawk_projects';
+          value: string | HawkProject;
+        } | null)
       | ({
           relationTo: 'pages';
           value: string | Page;

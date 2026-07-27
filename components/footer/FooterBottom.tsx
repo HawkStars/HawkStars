@@ -27,7 +27,7 @@ const FooterBottom = ({ lng }: FooterBottomProps) => {
       </div>
       <div className='flex gap-3 border-t-gray-100 px-2 pt-2 text-wrap max-lg:border-t lg:order-1'>
         <p>
-          Designed by{' '}
+          {t('footer.designedBy')}{' '}
           <Link
             href={'https://dribbble.com/Rossellini'}
             target='_blank'
@@ -39,7 +39,7 @@ const FooterBottom = ({ lng }: FooterBottomProps) => {
           .
         </p>
         <p>
-          Built by{' '}
+          {t('footer.builtBy')}{' '}
           <Link
             href={'https://www.linkedin.com/in/pcardosolei/'}
             target='_blank'

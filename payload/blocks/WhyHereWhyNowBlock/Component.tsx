@@ -1,7 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { WhyHereWhyNowBlock as WhyHereWhyNowBlockProps } from '@/payload-types';
 import { HawkStarsSection } from '@/components/layout';
 
@@ -71,7 +71,7 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
               {/* Icon image with optional highlight value overlay */}
               <div className='relative h-32 w-39 rounded-3xl'>
                 {img ? (
-                  <Image
+                  <ImageMedia
                     src={img.url}
                     alt={img.alt}
                     fill

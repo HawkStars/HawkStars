@@ -1,16 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { LuHeart, LuMessageCircle, LuPlay, LuLayers } from 'react-icons/lu';
 
 import { cn } from '@/lib/utils';
+import { ImageMedia } from '@/payload/components/Media';
 import {
   type InstagramPost,
   type InstagramGridProps,
   INSTAGRAM_PROFILE_URL,
-  INSTAGRAM_BLUR_DATA_URL,
 } from './types';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
@@ -61,7 +60,7 @@ export default function InstagramGrid({
   showOverlay = true,
 }: InstagramGridProps) {
   const lng = useLanguageCookie();
-  const { i18n } = useTranslation(lng, 'common');
+  const { t } = useTranslation(lng, 'common');
 
   const [posts, setPosts] = useState<InstagramPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -75,13 +74,13 @@ export default function InstagramGrid({
         const response = await fetch(`/api/instagram?limit=${maxPosts}`);
 
         if (!response.ok) {
-          throw new Error('Failed to fetch Instagram posts');
+          throw new Error(t('instagram.errorFetch'));
         }
 
         const data = await response.json();
         if (!cancelled) setPosts(data.posts ?? []);
       } catch (err) {
-        if (!cancelled) setError(err instanceof Error ? err.message : 'Something went wrong');
+        if (!cancelled) setError(err instanceof Error ? err.message : t('errors.generic'));
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -90,7 +89,7 @@ export default function InstagramGrid({
     return () => {
       cancelled = true;
     };
-  }, [maxPosts]);
+  }, [maxPosts, t]);
 
   if (loading) {
     return (
@@ -107,14 +106,14 @@ export default function InstagramGrid({
           'mx-auto flex max-w-6xl flex-col items-center justify-center py-12 text-center'
         )}
       >
-        <p className='text-muted-foreground mb-4 text-sm'>{error ?? 'No posts to display yet.'}</p>
+        <p className='text-muted-foreground mb-4 text-sm'>{error ?? t('instagram.empty')}</p>
         <Link
           href={INSTAGRAM_PROFILE_URL}
           target='_blank'
           rel='noopener noreferrer'
           className='text-green text-sm font-medium underline-offset-4 hover:underline'
         >
-          Visit us on Instagram
+          {t('instagram.visit')}
         </Link>
       </div>
     );
@@ -122,7 +121,7 @@ export default function InstagramGrid({
 
   return (
     <div className='mx-auto max-w-6xl'>
-      <h2 className='text-h2_bold mb-8 text-center'>{i18n.t('instagram')}</h2>
+      <h2 className='text-h2_bold mb-8 text-center'>{t('instagram.title')}</h2>
       <div className={cn('grid lg:gap-1', columns === 3 ? 'grid-cols-3' : 'grid-cols-4')}>
         {posts.slice(0, maxPosts).map((post) => (
           <Link
@@ -132,13 +131,11 @@ export default function InstagramGrid({
             rel='noopener noreferrer'
             className='group relative aspect-square overflow-hidden bg-neutral-100 dark:bg-neutral-900'
           >
-            <Image
+            <ImageMedia
               src={post.imageUrl}
-              alt={post.caption?.slice(0, 100) ?? 'Instagram post'}
+              alt={post.caption?.slice(0, 100) ?? t('instagram.postAlt')}
               fill
               sizes={columns === 3 ? '33vw' : '25vw'}
-              placeholder='blur'
-              blurDataURL={INSTAGRAM_BLUR_DATA_URL}
               className='object-cover transition-transform duration-300 group-hover:scale-105'
             />
             <MediaTypeIndicator mediaType={post.mediaType} />
@@ -154,7 +151,7 @@ export default function InstagramGrid({
           rel='noopener noreferrer'
           className='rounded-lg border border-neutral-300 px-6 py-2 text-sm font-medium transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-800'
         >
-          View more on Instagram
+          {t('instagram.viewMore')}
         </Link>
       </div>
     </div>

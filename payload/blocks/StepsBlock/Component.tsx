@@ -16,7 +16,7 @@ const StepsBlockComponent: React.FC<StepsBlock> = ({
     >
       {steps.map((step, i) => (
         <div
-          key={step.id}
+          key={i}
           className={`relative px-4 py-10 ${i > 0 ? 'border-erasmus-blue/8 border-t lg:border-t-0 lg:border-l' : ''}`}
         >
           {/* Step number watermark */}

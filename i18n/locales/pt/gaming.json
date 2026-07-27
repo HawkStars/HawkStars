@@ -1,0 +1,54 @@
+{
+  "hero": {
+    "badge": "Divisão de Gaming da Hawk Stars NGO",
+    "titlePrefix": "A Equipa",
+    "titleSuffix": "de E-Sports",
+    "subtitle": "A competir, a treinar e a construir uma comunidade de jogadores a partir do coração de Portugal. Parte do The Global Village Project da Hawk Stars NGO."
+  },
+  "cta": {
+    "ourGames": "Os Nossos Jogos",
+    "learnMore": "Saber Mais"
+  },
+  "stats": {
+    "activePlayers": "Jogadores Ativos",
+    "gameTitles": "Títulos de Jogos",
+    "founded": "Fundação",
+    "base": "Base"
+  },
+  "games": {
+    "titlePrefix": "Os Nossos",
+    "titleHighlight": "Jogos",
+    "subtitle": "Títulos onde os Hawkis competem e treinam"
+  },
+  "academy": {
+    "titlePrefix": "Academia de",
+    "titleHighlight": "Gaming",
+    "description": "A Academia de Gaming dos Hawkis faz parte do International Training Center da Hawk Stars NGO, em Pinhel. Oferecemos treino estruturado, mentoria e oportunidades competitivas para aspirantes a jogadores de e-sports.",
+    "features": {
+      "coaching": "Treino Estruturado",
+      "scrims": "Scrims de Equipa",
+      "tournaments": "Entrada em Torneios"
+    }
+  },
+  "nav": {
+    "home": "Início",
+    "teams": "Equipas",
+    "tournaments": "Torneios",
+    "academy": "Academia",
+    "news": "Notícias",
+    "joinAcademy": "Juntar-me à Academia",
+    "toggleMenu": "Alternar menu",
+    "backToMain": "Voltar a hawkstars.org"
+  },
+  "footer": {
+    "description": "A divisão competitiva de gaming da Hawk Stars NGO. A formar a próxima geração de talentos de e-sports, de Pinhel para o mundo.",
+    "quickLinks": "Ligações Rápidas",
+    "home": "Início",
+    "ourTeams": "As Nossas Equipas",
+    "gamingAcademy": "Academia de Gaming",
+    "connect": "Segue-nos",
+    "copyright": "© {{year}} Hawkis E-Sports — Uma iniciativa da Hawk Stars NGO",
+    "terms": "Termos",
+    "transparency": "Transparência"
+  }
+}

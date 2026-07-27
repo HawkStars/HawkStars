@@ -1,6 +1,8 @@
 'use client';
 
 import { useCallback, useState } from 'react';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 type Props = {
   videoUrl: string;
@@ -32,6 +34,8 @@ function toEmbedUrl(url: string): string | null {
 }
 
 export const VideoEmbed = ({ videoUrl, thumbnailUrl, overlayLine1, overlayLine2 }: Props) => {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'crowdfunding');
   const [playing, setPlaying] = useState(false);
 
   const embedUrl = toEmbedUrl(videoUrl);
@@ -53,7 +57,7 @@ export const VideoEmbed = ({ videoUrl, thumbnailUrl, overlayLine1, overlayLine2 
           className='absolute inset-0 h-full w-full'
           allow='autoplay; encrypted-media; picture-in-picture'
           allowFullScreen
-          title='Video'
+          title={t('video.player_title')}
         />
       ) : (
         <>
@@ -76,7 +80,7 @@ export const VideoEmbed = ({ videoUrl, thumbnailUrl, overlayLine1, overlayLine2 
             <button
               onClick={handlePlay}
               className='flex h-16 w-16 items-center justify-center rounded-full backdrop-blur-sm transition'
-              aria-label='Play video'
+              aria-label={t('video.play')}
             >
               <svg className='ml-1 h-16 w-16 text-white' fill='currentColor' viewBox='0 0 20 20'>
                 <path

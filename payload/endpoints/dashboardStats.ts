@@ -9,10 +9,12 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
   }
 
   try {
-    // Content-status counts (draft / in_review / published) for the collections
-    // that share the workflow status field.
-    const statusCount = (collection: 'pages' | 'news' | 'hawk_projects', status: string) =>
-      payload.count({ collection, where: { status: { equals: status } } });
+    // Draft / published counts using Payload's native versions/drafts status
+    // (`_status`) for the collections that have drafts enabled.
+    const statusCount = (
+      collection: 'pages' | 'news' | 'hawk_projects',
+      status: 'draft' | 'published'
+    ) => payload.count({ collection, where: { _status: { equals: status } } });
 
     const [
       artCollectionCount,
@@ -26,15 +28,12 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
       usersCount,
       // Pages by status
       pagesDraft,
-      pagesInReview,
       pagesPublished,
       // News by status
       newsDraft,
-      newsInReview,
       newsPublished,
       // Hawk projects by status
       projectsDraft,
-      projectsInReview,
       projectsPublished,
     ] = await Promise.all([
       payload.count({ collection: 'artworks' }),
@@ -47,13 +46,10 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
       payload.count({ collection: 'media' }),
       payload.count({ collection: 'users' }),
       statusCount('pages', 'draft'),
-      statusCount('pages', 'in_review'),
       statusCount('pages', 'published'),
       statusCount('news', 'draft'),
-      statusCount('news', 'in_review'),
       statusCount('news', 'published'),
       statusCount('hawk_projects', 'draft'),
-      statusCount('hawk_projects', 'in_review'),
       statusCount('hawk_projects', 'published'),
     ]);
 
@@ -107,17 +103,14 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
       contentStatus: {
         pages: {
           draft: pagesDraft.totalDocs,
-          in_review: pagesInReview.totalDocs,
           published: pagesPublished.totalDocs,
         },
         news: {
           draft: newsDraft.totalDocs,
-          in_review: newsInReview.totalDocs,
           published: newsPublished.totalDocs,
         },
         hawkProjects: {
           draft: projectsDraft.totalDocs,
-          in_review: projectsInReview.totalDocs,
           published: projectsPublished.totalDocs,
         },
       },

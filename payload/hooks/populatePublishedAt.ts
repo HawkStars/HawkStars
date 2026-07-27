@@ -1,44 +1,24 @@
 import type { CollectionBeforeChangeHook } from 'payload';
 
 /**
- * Populates the `publishedAt` field.
+ * Populates the `publishedAt` field using Payload's native draft/publish status.
  *
- * Status-aware behavior:
- *   - If the collection uses the `status` field and the status is being set to 'published',
- *     set `publishedAt` to the current date (unless already provided).
- *   - If the collection does NOT use a `status` field (legacy behavior),
- *     fall back to setting `publishedAt` on create/update when not already set.
- *
- * This runs AFTER `validateStatusTransition`, which may already set `publishedAt`
- * when transitioning to published. This hook acts as a safety net.
+ * When a document is published (`_status` transitions to 'published'), set
+ * `publishedAt` to the current date unless it was explicitly provided. This
+ * keeps the public-facing publish date in sync with Payload's built-in
+ * versions/drafts workflow.
  */
 export const populatePublishedAt: CollectionBeforeChangeHook = ({
   data,
   operation,
-  req,
   originalDoc,
 }) => {
   if (operation !== 'create' && operation !== 'update') return data;
 
-  const hasStatusField = data?.status !== undefined || originalDoc?.status !== undefined;
+  const newStatus = data?._status;
+  const prevStatus = originalDoc?._status;
 
-  if (hasStatusField) {
-    // Status-aware: only populate when transitioning to 'published'
-    const newStatus = data?.status;
-    const prevStatus = originalDoc?.status;
-
-    if (newStatus === 'published' && prevStatus !== 'published' && !data?.publishedAt) {
-      return {
-        ...data,
-        publishedAt: new Date(),
-      };
-    }
-
-    return data;
-  }
-
-  // Legacy behavior for collections without a status field
-  if (req.data && !req.data.publishedAt) {
+  if (newStatus === 'published' && prevStatus !== 'published' && !data?.publishedAt) {
     return {
       ...data,
       publishedAt: new Date(),

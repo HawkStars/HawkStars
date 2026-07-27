@@ -3,7 +3,7 @@ import React from 'react';
 import type { CallToActionBlock as CTABlockProps } from '@/payload-types';
 
 import { CMSLink } from '@/payload/components/Link';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
 import { HawkStarsSection } from '@/components/layout';
 
@@ -48,7 +48,7 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
         </div>
         {imageInfo && (
           <div className='relative h-72 w-full shrink-0 overflow-hidden rounded-4xl md:h-92 md:w-1/2'>
-            <Image src={imageInfo.url} alt={imageInfo.alt || ''} fill className='object-cover' />
+            <ImageMedia src={imageInfo.url} alt={imageInfo.alt || ''} fill className='object-cover' />
           </div>
         )}
       </div>

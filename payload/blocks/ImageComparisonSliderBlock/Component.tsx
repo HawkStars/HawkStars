@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import type { ImageComparisonSliderBlock as ImageComparisonSliderBlockProps } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
 
 export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProps> = ({
@@ -66,14 +66,14 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
       >
         <div className='relative aspect-video w-full'>
           {/* After Image (Full) */}
-          <Image src={after.url || ''} alt={afterLabel || ''} fill className='object-cover' />
+          <ImageMedia src={after.url || ''} alt={afterLabel || ''} fill className='object-cover' />
 
           {/* Before Image (Clipped) */}
           <div
             className='absolute inset-0 overflow-hidden'
             style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
           >
-            <Image src={before.url || ''} alt={beforeLabel || ''} fill className='object-cover' />
+            <ImageMedia src={before.url || ''} alt={beforeLabel || ''} fill className='object-cover' />
           </div>
 
           {/* Slider */}

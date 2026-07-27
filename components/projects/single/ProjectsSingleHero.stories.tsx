@@ -25,6 +25,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    lng: 'pt',
     heading: 'AI4YOU(th) – AI in Everyday Life',
     actionType: 'KA152-YOU - Mobility of young people',
     referenceNumber: '2024-1-PT02-KA152-YOU-000232143',
@@ -49,6 +50,7 @@ export const Default: Story = {
 
 export const NoVideoNoStats: Story = {
   args: {
+    lng: 'pt',
     heading: 'Culture Bridges',
     actionType: 'KA210-YOU - Small-scale partnerships',
     referenceNumber: '2025-1-PT02-KA210-YOU-000111222',
@@ -65,6 +67,7 @@ export const NoVideoNoStats: Story = {
 
 export const MinimalSingleDay: Story = {
   args: {
+    lng: 'pt',
     heading: 'Encontro de Voluntários',
     startDate: '2026-05-10',
     endDate: null,

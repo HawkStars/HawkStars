@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ImageMedia } from '@/payload/components/Media';
 import { MemberProjectDoc } from '@/lib/payload/queries/memberProject';
 
 type T = (key: string) => string;
@@ -43,12 +44,11 @@ const MemberProjectCard = ({ project, t }: { project: MemberProjectDoc; t: T }) 
     <article className='border-bege-dark flex flex-col overflow-hidden rounded-lg border bg-white shadow-sm transition-shadow hover:shadow-md'>
       <div className='bg-bege-light relative aspect-video w-full overflow-hidden'>
         {project.image_url ? (
-          // Members supply arbitrary external URLs, so next/image remotePatterns
-          // cannot cover them — use a plain img element.
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <ImageMedia
             src={project.image_url}
             alt={project.title}
+            fill
+            unoptimized
             className='absolute inset-0 h-full w-full object-cover'
           />
         ) : project.video_url ? (

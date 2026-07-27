@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { MainPageBannerFields } from '@/payload-types';
 import { FC } from 'react';
 import { colord } from 'colord';
@@ -29,7 +29,14 @@ const MainPageBanner: FC<MainPageBannerProps> = ({
     >
       {/* Optimised background image — priority-loaded as it is above the fold */}
       {image?.url && (
-        <Image src={image.url} alt='' fill className='object-cover' priority aria-hidden='true' />
+        <ImageMedia
+          resource={bannerImage}
+          alt=''
+          fill
+          className='object-cover'
+          preload
+          aria-hidden='true'
+        />
       )}
       <p className='relative z-10 my-auto flex-1'>{bannerText}</p>
       {bannerButtonLink && bannerButtonText && (

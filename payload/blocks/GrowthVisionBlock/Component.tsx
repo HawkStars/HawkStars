@@ -1,7 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import type { GrowthVisionBlock as GrowthVisionBlockType } from '@/payload-types';
 import { HawkStarsSection } from '@/components/layout';
 
@@ -69,7 +69,7 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
                 )}
               >
                 {img ? (
-                  <Image
+                  <ImageMedia
                     src={img.url}
                     alt={img.alt}
                     height={300}

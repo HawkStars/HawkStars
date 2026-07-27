@@ -132,5 +132,32 @@
     "date": "Movement Date",
     "paid": "Paid"
   },
-  "contact_us": "Let's talk"
+  "contact_us": "Let's talk",
+  "branding": {
+    "title": "Branding"
+  },
+  "a11y": {
+    "hero_image": "Hero image",
+    "bank_transfer": "Bank transfer",
+    "crypto_transfer": "Crypto transfer",
+    "shopping_cart": "Shopping cart",
+    "training_room": "Hawk Stars training room",
+    "user": "User",
+    "company": "Company",
+    "chair_empty": "Chair with no donor attached",
+    "chair_taken": "Chair with a donor attached"
+  },
+  "form": {
+    "required": "This field is required",
+    "invalid_value": "Invalid value",
+    "type_placeholder": "Type",
+    "update": "Update",
+    "create": "Create"
+  },
+  "donation": {
+    "payment_failed": "Payment failed",
+    "unexpected_error": "An unexpected error occurred",
+    "custom_amount": "Custom donation amount",
+    "next_step": "Next step"
+  }
 }

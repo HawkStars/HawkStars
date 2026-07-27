@@ -2,7 +2,7 @@ import { LanguagePageProps } from '../types';
 import { transformUrl } from '@/utils/paths';
 import Link from 'next/link';
 import { getServerTranslation } from '@/i18n';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { getAllArtworkImagesQuery } from '@/lib/payload/queries/artwork';
 import { Media } from '@/payload-types';
 import { Language } from '@/i18n/settings';
@@ -45,8 +45,8 @@ const ArtworkPage = async (props: LanguagePageProps) => {
                 <h3 className='text-h2_bold font-oswald text-disabled text-center'>{item.title}</h3>
                 {artworkImage?.url && (
                   <div className={cn('relative my-auto flex h-full align-middle')}>
-                    <Image
-                      src={artworkImage?.url}
+                    <ImageMedia
+                      resource={artworkImage}
                       alt={artTitle}
                       width={500}
                       height={500}

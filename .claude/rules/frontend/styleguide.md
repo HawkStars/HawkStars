@@ -300,34 +300,61 @@ import SectionList from '@/components/ui/SectionList';
 
 ---
 
-## Images
+## Images & Video
 
-Use Next.js `<Image>` for all images. Never use a bare `<img>` tag.
+There are exactly two components for rendering media, both exported from `@/payload/components/Media`. Use them for **all** images and videos — never use `next/image`'s `<Image>`, a bare `<img>`, or a bare `<video>`/`<iframe>` directly.
 
-For images coming from Payload CMS (via `ImageType` or `Media` relations), use `getImagePayloadUrl()` from `@/lib/image` to extract a normalized `{ url, alt, width, height }` object before passing to `<Image>`:
+- **`ImageMedia`** — the single source of truth for images.
+- **`VideoMedia`** — the single source of truth for videos.
+
+You pick the right one explicitly (there is no auto-dispatcher). Both handle lazy loading, responsive sizing, and optimization automatically. Use the `priority` prop on `ImageMedia` for hero images that should load immediately.
+
+### ImageMedia
+
+`ImageMedia` resolves URLs internally (via `getImagePayloadUrl` + `getMediaUrl`), applies a Cloudinary-derived LQIP blur placeholder, and auto-enables `fill` **only** for string/resource URLs whose dimensions are unknown. Static imports keep their intrinsic dimensions (and support width-only aspect scaling). It renders nothing when there is no image, so you don't need your own null guard for that.
+
+Pass a Payload field or document via `resource` — it accepts an `ImageType` block field, a populated `Media` document, a URL string, or an unpopulated numeric relation (renders nothing):
 
 ```tsx
-import Image from 'next/image';
-import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 
-const image = getImagePayloadUrl(article.mainImage);
+// Payload CMS image (ImageType field or Media relation)
+<ImageMedia resource={article.mainImage} className='object-cover' />
 
-{
-  image && (
-    <Image
-      src={image.url}
-      alt={image.alt}
-      width={image.width ?? 800}
-      height={image.height ?? 450}
-      className='object-cover'
-    />
-  );
-}
+// Static import (intrinsic size, or width-only aspect scaling)
+import hero from '@/public/hero.png';
+<ImageMedia src={hero} priority />
+<ImageMedia src={logo} width={150} />
+
+// Fixed dimensions
+<ImageMedia resource={item.image} width={120} height={40} />
 ```
 
-For external/dynamic URLs that don't go through the Payload `ImageType` helper, use `getMediaUrl()` from `@/payload/utilities/getMediaUrl` to ensure correct base URL prefixing.
+Props of note: `resource` / `src`, `alt`, `width`, `height`, `fill`, `priority`, `quality`, `loading`, `sizes`, `className` (applied to the `<img>`), `pictureClassName` (only set this if you actually need a `<picture>` wrapper — otherwise the component renders a bare optimized `<img>`), `draggable`, and `unoptimized`.
 
-Cloudinary images are stored under the `media/` folder and served via Cloudinary's CDN. Remote patterns are configured in `next.config.ts` — do not add new `remotePatterns` without updating that config.
+Use `unoptimized` for arbitrary external/user-supplied URLs that aren't covered by `next.config.ts` `remotePatterns` (e.g. member-submitted image URLs). Do **not** pass `placeholder`/`blurDataURL`/`style` — the component owns the blur, and style should be expressed via `className`.
+
+If you need the raw resolved `{ url, alt, width, height }` for layout math (container heights, aspect ratios), you may still call `getImagePayloadUrl()` from `@/lib/image` for that logic, but render the image through `<ImageMedia resource={...} />`.
+
+### VideoMedia
+
+`VideoMedia` handles Payload media uploads, direct video URLs, and YouTube/Vimeo embeds (auto-detected), plus IntersectionObserver-based autoplay for direct videos.
+
+```tsx
+import { VideoMedia } from '@/payload/components/Media';
+
+<VideoMedia src={videoUrl} controls muted title='Intro' videoClassName='h-full w-full' />
+
+// Decorative background clip
+<VideoMedia resource={media} autoPlay loop muted controls={false} />
+```
+
+Props: `resource` / `src`, `autoPlay`, `loop`, `muted`, `controls`, `poster`, `title` (iframe title for embeds), `videoClassName` / `className`, `onClick`.
+
+### Cloudinary
+
+Cloudinary images are stored under the `media/` folder and served via Cloudinary's CDN. Remote patterns are configured in `next.config.ts` — do not add new `remotePatterns` without updating that config (or pass `unoptimized` for one-off external URLs).
+
 
 ---
 

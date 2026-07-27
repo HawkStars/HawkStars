@@ -2,9 +2,6 @@ import type { CollectionConfig } from 'payload';
 import { authenticated } from '@/payload/access/authenticated';
 import { anyone } from '@/payload/access/anyone';
 import { populatePublishedAt } from '@/payload/hooks/populatePublishedAt';
-import { notifyOnStatusChange } from '@/payload/hooks/notifyOnStatusChange';
-import { validateStatusTransition } from '@/payload/hooks/validateStatusTransition';
-import { contentStatusField } from '@/payload/fields/contentStatus';
 import NewsDetails from './NewsFields';
 import {
   MetaDescriptionField,
@@ -15,6 +12,7 @@ import {
 } from '@payloadcms/plugin-seo/fields';
 import { GROUP_LABELS } from '@/payload/constants';
 import { getServerSideURL } from '@/payload/utilities/getURL';
+import transformSlug from '@/payload/utilities/transformSlug';
 
 export const News: CollectionConfig = {
   slug: 'news',
@@ -24,10 +22,10 @@ export const News: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'type', 'slug', 'status', 'updatedAt'],
+    defaultColumns: ['title', 'type', 'slug', '_status', 'updatedAt'],
     description: {
-      en: 'Write and publish news articles for the HawkStars website. Articles follow a workflow: Draft → In Review → Published. Editors submit for review; Admins approve and publish.',
-      pt: 'Escreva e publique artigos de notícias para o website HawkStars. Os artigos seguem um fluxo: Rascunho → Em Revisão → Publicado. Os editores submetem para revisão; os administradores aprovam e publicam.',
+      en: 'Write and publish news articles for the HawkStars website. Save as Draft while editing and Publish when ready to go live.',
+      pt: 'Escreva e publique artigos de notícias para o website HawkStars. Guarde como Rascunho durante a edição e Publique quando estiver pronto.',
     },
     group: {
       ...GROUP_LABELS.news,
@@ -103,7 +101,6 @@ export const News: CollectionConfig = {
         },
       ],
     },
-    contentStatusField,
     {
       name: 'slug',
       label: 'Slug',
@@ -117,6 +114,17 @@ export const News: CollectionConfig = {
           pt: 'O slug de URL para o artigo, ex: "meu-artigo" para www.hawkstars.com/news/meu-artigo',
         },
       },
+      hooks: {
+        beforeChange: [
+          ({ data }) => {
+            const slug = data?.slug;
+            if (!slug) return '';
+
+            const transformedSlug = transformSlug(data.slug);
+            return transformedSlug;
+          },
+        ],
+      },
     },
     {
       name: 'publishedAt',
@@ -125,15 +133,14 @@ export const News: CollectionConfig = {
       admin: {
         position: 'sidebar',
         description: {
-          en: 'Automatically set when status changes to Published',
-          pt: 'Definido automaticamente quando o estado muda para Publicado',
+          en: 'Automatically set when the article is published',
+          pt: 'Definido automaticamente quando o artigo é publicado',
         },
       },
     },
   ],
   hooks: {
-    afterChange: [notifyOnStatusChange],
-    beforeChange: [validateStatusTransition, populatePublishedAt],
+    beforeChange: [populatePublishedAt],
   },
   versions: {
     drafts: {

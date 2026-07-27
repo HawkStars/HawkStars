@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useCallback, use } from 'react';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import Link from 'next/link';
 import { LuExternalLink } from 'react-icons/lu';
 
@@ -10,6 +10,8 @@ import { type InstagramEmbedWidgetProps, INSTAGRAM_PROFILE_URL, INSTAGRAM_HANDLE
 
 import InstagramIcon from '@/public/images/icons/socials/instagram.svg';
 import getInstagramPosts from '@/lib/instagram';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 declare global {
   interface Window {
@@ -75,11 +77,14 @@ function EmbedPost({ permalink }: { permalink: string }) {
 }
 
 function WidgetHeader() {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
+
   return (
     <div className='flex items-center gap-3 border-b border-neutral-200 px-4 py-3 dark:border-neutral-700'>
       <div className='flex size-10 items-center justify-center rounded-full bg-linear-to-br from-purple-500 via-pink-500 to-orange-400 p-0.5'>
         <div className='flex size-full items-center justify-center rounded-full bg-white dark:bg-neutral-900'>
-          <Image src={InstagramIcon} alt='Instagram' width={20} height={20} />
+          <ImageMedia src={InstagramIcon} alt='Instagram' width={20} height={20} />
         </div>
       </div>
       <div className='flex-1'>
@@ -98,7 +103,7 @@ function WidgetHeader() {
         target='_blank'
         rel='noopener noreferrer'
         className='text-muted-foreground hover:text-foreground transition-colors'
-        aria-label='Open Instagram profile'
+        aria-label={t('instagram.openProfile')}
       >
         <LuExternalLink className='size-4' />
       </Link>
@@ -111,6 +116,8 @@ export default function InstagramEmbedWidget({
   showHeader = true,
 }: InstagramEmbedWidgetProps) {
   const { loadScript, reprocess } = useInstagramEmbed();
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
 
   const posts = use(getInstagramPosts(maxPosts));
 
@@ -146,7 +153,7 @@ export default function InstagramEmbedWidget({
           rel='noopener noreferrer'
           className='text-green text-sm font-medium underline-offset-4 hover:underline'
         >
-          Follow {INSTAGRAM_HANDLE} on Instagram
+          {t('instagram.follow', { handle: INSTAGRAM_HANDLE })}
         </Link>
       </div>
     </div>

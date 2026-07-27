@@ -102,18 +102,6 @@ const HawkEventDetails: Tab = {
       },
     },
     {
-      name: 'status',
-      label: { en: 'Status', pt: 'Estado' },
-      type: 'select',
-      options: [
-        { label: { en: 'Draft', pt: 'Rascunho' }, value: 'draft' },
-        { label: { en: 'Published', pt: 'Publicado' }, value: 'published' },
-        { label: { en: 'Archived', pt: 'Arquivado' }, value: 'archived' },
-      ],
-      admin: { position: 'sidebar' },
-    },
-
-    {
       name: 'type_event',
       label: { en: 'Type of Event', pt: 'Tipo de Evento' },
       type: 'select',

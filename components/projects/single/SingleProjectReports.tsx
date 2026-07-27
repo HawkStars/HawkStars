@@ -1,7 +1,9 @@
+'use client';
+
 import { FlagIcon } from '@/lib/icon';
 import { HawkProject, Partner } from '@/payload-types';
 import Link from 'next/link';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { coFoundedEuropeanLogoBlue } from '@/utils/models/images/logos';
 import { FC } from 'react';
 import { ProjectSection } from '../utils/ProjectSection';
@@ -16,6 +18,9 @@ import {
 import { GoLink } from 'react-icons/go';
 import { IconType } from 'react-icons';
 import { FLAG_PORTUGAL } from '@/lib/constants';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { Language } from '@/i18n/settings';
 
 const ICONS = {
   tiktok: FaTiktok,
@@ -31,13 +36,16 @@ const ICONS = {
 type SingleProjectReportsProps = Pick<
   HawkProject,
   'otherDisseminationFields' | 'partnersInformation' | 'hawkStarsInformation'
->;
+> & { lng?: Language };
 
 const SingleProjectReports: FC<SingleProjectReportsProps> = ({
   otherDisseminationFields,
   partnersInformation,
   hawkStarsInformation,
+  lng: lngProp,
 }) => {
+  const cookieLng = useLanguageCookie();
+  const { t } = useTranslation(lngProp ?? cookieLng, 'projects');
   const { partners } = partnersInformation || {};
   const { documents } = hawkStarsInformation || {};
   const { reports } = otherDisseminationFields || {};
@@ -52,7 +60,7 @@ const SingleProjectReports: FC<SingleProjectReportsProps> = ({
 
   return (
     <ProjectSection className='bg-bege-dark'>
-      <h2 className='mb-8 text-4xl font-bold'>Disseminação</h2>
+      <h2 className='mb-8 text-4xl font-bold'>{t('sections.dissemination')}</h2>
       <div className='flex flex-col gap-3'>
         {partners?.map((p) => {
           const partner = p.partner as Partner;
@@ -115,10 +123,10 @@ const SingleProjectReports: FC<SingleProjectReportsProps> = ({
 
         <div className='flex flex-wrap gap-3'>
           <div className='relative aspect-auto h-auto w-40'>
-            <Image
+            <ImageMedia
               className='absolute'
               src={coFoundedEuropeanLogoBlue}
-              alt='Co-founded by the European Union'
+              alt={t('a11y.euFunded')}
               fill
               sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
             />

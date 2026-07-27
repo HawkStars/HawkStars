@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import Image from 'next/image';
 import type { ImageShowcaseBlock as ImageShowcaseBlockProps } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { cn } from '@/lib/utils';
 import { HawkStarsSection } from '@/components/layout';
 
@@ -81,12 +81,12 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
         <div ref={mainImageRef} className='relative max-h-120 min-h-180 w-full rounded-xl'>
           {activeImage && (
             <>
-              <Image
+              <ImageMedia
                 src={activeImage.url}
                 alt={activeImage.alt || ''}
                 fill
                 className='rounded-2xl max-lg:object-contain'
-                priority
+                preload
                 sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
               />
               <span className='absolute right-2 bottom-2 rounded-2xl bg-white p-2'>
@@ -121,21 +121,21 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
                 key={img.id || index}
                 type='button'
                 onClick={() => handleImageClick(index)}
-                className={cn('relative aspect-square w-full min-w-15 overflow-hidden rounded-lg')}
+                className={cn('relative aspect-square w-full min-w-15 overflow-hidden rounded-lg', {
+                  'animate-grayscale': hasTransition,
+                  'grayscale-100': !hasTransition,
+                })}
+                style={{
+                  animationDirection: isActive ? 'normal' : isUpcoming ? 'reverse' : '',
+                  animationDuration: `${transitionDuration}ms`,
+                }}
               >
-                <Image
+                <ImageMedia
                   src={image.url}
                   alt={image.alt || ''}
                   fill
-                  className={cn('object-cover', {
-                    'animate-grayscale': hasTransition,
-                    'grayscale-100': !hasTransition,
-                  })}
+                  className='object-cover'
                   sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                  style={{
-                    animationDirection: isActive ? 'normal' : isUpcoming ? 'reverse' : '',
-                    animationDuration: `${transitionDuration}ms`,
-                  }}
                 />
               </button>
             );

@@ -3,7 +3,7 @@
 import { getImagePayloadUrl } from '@/lib/image';
 import { cn } from '@/lib/utils';
 import { MultiRowImageBlock } from '@/payload-types';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
 import React from 'react';
 
@@ -93,7 +93,7 @@ const MultiRowImage: React.FC<MultiRowImageBlock> = ({
                 )}
                 key={img.id || imgIdx}
               >
-                <Image
+                <ImageMedia
                   className={cn('absolute rounded-2xl object-cover')}
                   src={imgInfo.url}
                   fill

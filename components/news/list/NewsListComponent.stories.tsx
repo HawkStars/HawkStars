@@ -15,7 +15,6 @@ const makeArticle = (
     title,
     type,
     slug: title.toLowerCase().replace(/\s+/g, '-'),
-    status: 'published',
     publishedAt,
     mainImage: imageUrl
       ? { imageType: 'external', externalImage: imageUrl, alt: title }

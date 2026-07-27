@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { CrowdfundingSetting, Media } from '@/payload-types';
 import { TFunction } from 'i18next';
 
@@ -60,7 +60,7 @@ const CrowdfundingPartners = ({ t, supporters }: Props) => {
                     className='bg-crowdfunding-surface flex h-32 w-44 shrink-0 flex-col items-center justify-center rounded-2xl border border-orange-500/30 p-4 text-center'
                   >
                     {logoUrl ? (
-                      <Image
+                      <ImageMedia
                         src={logoUrl}
                         alt={supporter.name}
                         width={48}

@@ -14,14 +14,8 @@ const STATUS_META: {
     key: 'draft',
     label: 'Draft',
     icon: '📝',
-    classes: 'border-gray-300 bg-gray-50 text-gray-700 dark:border-gray-600 dark:bg-gray-800/50 dark:text-gray-300',
-  },
-  {
-    key: 'in_review',
-    label: 'In Review',
-    icon: '🕵️',
     classes:
-      'border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-600 dark:bg-amber-900/20 dark:text-amber-300',
+      'border-gray-300 bg-gray-50 text-gray-700 dark:border-gray-600 dark:bg-gray-800/50 dark:text-gray-300',
   },
   {
     key: 'published',
@@ -42,7 +36,7 @@ const StatusRow: React.FC<{ label: string; icon: string; counts: StatusCounts }>
       <span aria-hidden>{icon}</span>
       {label}
     </span>
-    <div className='grid grid-cols-3 gap-2'>
+    <div className='grid grid-cols-2 gap-2'>
       {STATUS_META.map((s) => (
         <div
           key={s.key}

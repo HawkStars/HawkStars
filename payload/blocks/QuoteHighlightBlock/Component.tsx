@@ -1,8 +1,8 @@
 import React from 'react';
-import Image from 'next/image';
 import { LuQuote } from 'react-icons/lu';
 import type { QuoteHighlightBlock as QuoteHighlightBlockProps } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { cn } from '@/lib/utils';
 import { HawkStarsSection } from '@/components/layout';
 
@@ -40,7 +40,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
           <div className='flex items-center justify-center gap-4'>
             {authorImage && (
               <div className='ring-green/20 relative h-12 w-12 overflow-hidden rounded-full ring-2'>
-                <Image src={authorImage.url || ''} alt={author} fill className='object-cover' />
+                <ImageMedia src={authorImage.url || ''} alt={author} fill className='object-cover' />
               </div>
             )}
             <div className='text-left'>
@@ -65,7 +65,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
           <div className='flex items-center gap-4'>
             {authorImage && (
               <div className='relative h-14 w-14 overflow-hidden rounded-full'>
-                <Image src={authorImage.url || ''} alt={author} fill className='object-cover' />
+                <ImageMedia src={authorImage.url || ''} alt={author} fill className='object-cover' />
               </div>
             )}
             <div>
@@ -91,7 +91,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
           <div className='flex items-center gap-4'>
             {authorImage && (
               <div className='relative h-14 w-14 overflow-hidden rounded-full border-2 border-white'>
-                <Image src={authorImage.url} alt={author} fill className='object-cover' />
+                <ImageMedia src={authorImage.url} alt={author} fill className='object-cover' />
               </div>
             )}
             <div>

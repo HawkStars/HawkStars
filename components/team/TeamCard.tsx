@@ -1,8 +1,8 @@
 'use client';
-import { BoardMember, Media } from '@/payload-types';
+import { BoardMember } from '@/payload-types';
 import { SocialIcon, SocialType } from '@/utils/models/social';
 import Link from 'next/link';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { LanguageProps } from '../types';
 import { useTranslation } from '@/i18n/client';
 
@@ -18,13 +18,12 @@ const TeamCard = ({ member, lng }: TeamCardProps) => {
     <div className='flex flex-col gap-2 text-center'>
       {/* Avatar */}
       {member.photo && (
-        <Image
+        <ImageMedia
           width={128}
           height={128}
-          src={(member.photo as Media).url as string}
+          resource={member.photo}
           alt={member.name}
-          className='mx-auto h-32 w-32 object-cover'
-          style={{ borderRadius: 999 }}
+          className='mx-auto h-32 w-32 rounded-full object-cover'
         />
       )}
       <div>
@@ -44,7 +43,7 @@ const TeamCard = ({ member, lng }: TeamCardProps) => {
 
             return (
               <Link key={index} href={link.url} target='_blank' rel='noopener noreferrer'>
-                <Image
+                <ImageMedia
                   src={icon as string}
                   alt={link.platform}
                   width={24}

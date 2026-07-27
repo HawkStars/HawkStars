@@ -13,5 +13,53 @@
     "fnee": "Useful links about the activities in Ukraine promoted by the National Federation of European Studies (FNNE)."
   },
   "about_hawkstars": "About HawkStars",
-  "about_globalvillage": "About Global Village"
+  "about_globalvillage": "About Global Village",
+  "humanitarian": {
+    "people": {
+      "label": "people",
+      "description": "including organizers, partners, volunteers and friends who collaborated until the final goal was achieved"
+    },
+    "institutions": {
+      "label": "institutions",
+      "description": "public and/or private"
+    },
+    "fireBrigades": {
+      "label": "fire brigades",
+      "description": ""
+    },
+    "internationalInstitutions": {
+      "label": "institutions",
+      "description": "international"
+    },
+    "trucks": {
+      "label": "trucks"
+    },
+    "drivers": {
+      "label": "drivers"
+    },
+    "operationValue": {
+      "description": "estimated value of the operation"
+    },
+    "distanceTraveled": {
+      "description": "traveled"
+    },
+    "deliveredTons": {
+      "title": "90 tons",
+      "description": "of material delivered to Ukraine"
+    },
+    "contributions": {
+      "title": "Thousands",
+      "description": "of humanitarian contributions throughout the District"
+    }
+  },
+  "history": {
+    "checkReport": "Check the report here.",
+    "alt": {
+      "euroHawkLogo": "EuroHawk logo",
+      "hawkStarsLogo": "Hawk Stars logo",
+      "foundation": "foundation of Hawk Stars",
+      "humanitarian": "humanitarian aid",
+      "hero": "hero image"
+    }
+  }
 }

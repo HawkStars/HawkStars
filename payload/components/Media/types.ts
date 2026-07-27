@@ -1,22 +1,19 @@
-import type { StaticImageData } from 'next/image';
-import type { ElementType, Ref } from 'react';
+import type { ImageProps } from 'next/image';
 
-import type { Media as MediaType } from '@/payload-types';
+import type { ImageType, Media as MediaType } from '@/payload-types';
 
-export interface Props {
-  alt?: string;
-  className?: string;
-  fill?: boolean; // for NextImage only
-  htmlElement?: ElementType | null;
-  pictureClassName?: string;
-  imgClassName?: string;
-  onClick?: () => void;
-  onLoad?: () => void;
-  loading?: 'lazy' | 'eager'; // for NextImage only
-  priority?: boolean; // for NextImage only
-  ref?: Ref<HTMLImageElement | HTMLVideoElement | null>;
-  resource?: MediaType | string | number | null; // for Payload media
-  size?: string; // for NextImage only
-  src?: StaticImageData; // for static media
-  videoClassName?: string;
-}
+/**
+ * A media resource accepted by the `Media` / `ImageMedia` / `VideoMedia`
+ * components. Can be:
+ * - an `ImageType` field (Payload block field with external/upload/none logic)
+ * - a populated `Media` document
+ * - a raw URL string
+ * - a numeric id (unpopulated relation — renders nothing)
+ */
+export type MediaResource = ImageType | MediaType | string | number | null;
+
+export type NextImageProps = Omit<ImageProps, 'src' | 'resource'> &
+  Partial<Pick<ImageProps, 'src'>> & {
+    pictureClassName?: string;
+    resource?: MediaResource;
+  };

@@ -5,5 +5,19 @@
   "noPastEvents": "No past events yet.",
   "viewAgenda": "View Agenda",
   "viewAgendaDescription": "Check our full calendar for all scheduled events and activities.",
-  "viewEvent": "View event"
+  "viewEvent": "View event",
+  "sections": {
+    "objectives": "Objectives",
+    "program": "Programme",
+    "gallery": "Gallery"
+  },
+  "a11y": {
+    "imageAlt": "Event image"
+  },
+  "actions": {
+    "viewProject": "View project"
+  },
+  "dateRange": {
+    "to": "to"
+  }
 }

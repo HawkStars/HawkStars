@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import Image from 'next/image';
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import type { HeroSlideshowBlock as HeroSlideshowBlockProps } from '@/payload-types';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { HawkStarsSection } from '@/components/layout';
@@ -93,14 +93,14 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
           >
             {/* Background Image */}
             {bgImage?.url && (
-              <Image
+              <ImageMedia
                 src={bgImage.url}
                 alt={bgImage.alt || slide.title || `Slide ${index + 1}`}
                 fill
                 className='object-cover'
-                priority={index <= 1 ? true : false}
-                fetchPriority={index <= 1 ? 'high' : 'auto'}
-                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw'
+                preload={index <= 1 ? true : false}
+                data-blockid={`heroSlideshowBlock-backgroundImage-${index}`}
+                sizes='100vw'
               />
             )}
 

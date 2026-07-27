@@ -3,7 +3,7 @@ import { LuCalendarDays } from 'react-icons/lu';
 import { getImagePayloadUrl } from '@/lib/image';
 import { transformUrl, urls } from '@/utils/paths';
 import Link from 'next/link';
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { format } from 'date-fns';
 
 type EventCardProps = {
@@ -31,8 +31,8 @@ const EventCard = ({ event, lng }: EventCardProps) => {
       {/* Image */}
       {image?.url && (
         <div className='relative h-48 w-full shrink-0 overflow-hidden rounded-lg sm:h-52 sm:w-64 lg:w-72'>
-          <Image
-            src={image.url}
+          <ImageMedia
+            resource={event.image}
             alt={event.heading ?? image.alt ?? ''}
             fill
             className='object-cover'

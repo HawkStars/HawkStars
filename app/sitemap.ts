@@ -25,7 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Add dynamic Pages collection routes (custom pages with slugs)
     const pages = await payload.find({
       collection: 'pages',
-      where: { status: { equals: 'published' } },
+      draft: false,
       limit: 1000,
     });
 

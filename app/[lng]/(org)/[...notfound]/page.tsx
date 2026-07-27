@@ -1,10 +1,12 @@
-import Image from 'next/image';
+import { ImageMedia } from '@/payload/components/Media';
 import { connection } from 'next/server';
 import Link from 'next/link';
 
 import { urls } from '@/utils/paths';
 import { hawkLogo } from '@/utils/models/images/logos';
 import { Metadata } from 'next';
+import { Language } from '@/i18n/settings';
+import { getServerTranslation } from '@/i18n';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -14,18 +16,24 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function NotFoundPage() {
+type NotFoundPageProps = {
+  params: Promise<{ lng: Language }>;
+};
+
+export default async function NotFoundPage(props: NotFoundPageProps) {
   await connection();
+  const { lng } = await props.params;
+  const { t } = await getServerTranslation(lng, 'common');
   return (
     <div className='my-auto flex items-center'>
       <div className='mx-auto flex w-2/3 flex-col justify-center gap-10 align-middle'>
-        <Image src={hawkLogo} alt='HawkLogo' className='mx-auto' />
-        <h3 className='text-center'>A member of this NGO is dreaming about this page content.</h3>
+        <ImageMedia src={hawkLogo} alt={t('a11y.logoAlt')} className='mx-auto' />
+        <h3 className='text-center'>{t('notFound.dreaming')}</h3>
         <Link
           href={urls.home}
           className='border-green bg-green mx-auto w-fit rounded-lg border fill-white p-3 text-white'
         >
-          Go Back
+          {t('actions.goBack')}
         </Link>
       </div>
     </div>
