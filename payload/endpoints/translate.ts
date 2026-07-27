@@ -1,4 +1,5 @@
 import type { PayloadHandler } from 'payload';
+import * as Sentry from '@sentry/nextjs';
 
 /**
  * POST /api/translate
@@ -16,11 +17,9 @@ import type { PayloadHandler } from 'payload';
  * http://localhost:5000)
  */
 export const translateHandler: PayloadHandler = async (req) => {
-  const { user, payload } = req;
+  const { user } = req;
 
-  if (!user) {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
   const baseUrl = (process.env.LIBRETRANSLATE_URL || 'http://localhost:5000').replace(/\/+$/, '');
 
@@ -54,7 +53,7 @@ export const translateHandler: PayloadHandler = async (req) => {
 
     if (!res.ok) {
       const detail = await res.text().catch(() => '');
-      payload.logger.error(`LibreTranslate API error ${res.status}: ${detail}`);
+      Sentry.captureException(new Error(`LibreTranslate API error ${res.status}: ${detail}`));
       return Response.json({ error: 'Translation service failed.' }, { status: 502 });
     }
 
@@ -67,7 +66,7 @@ export const translateHandler: PayloadHandler = async (req) => {
 
     return Response.json({ translation });
   } catch (err) {
-    payload.logger.error(`Translate endpoint error: ${(err as Error)?.message}`);
+    Sentry.captureException(err);
     return Response.json({ error: 'Failed to translate.' }, { status: 500 });
   }
 };
