@@ -9,6 +9,7 @@ import { getServerSideURL } from '@/payload/utilities/getURL';
 import HawkProjectDisseminationFields from './HawkProjectDisseminationFields';
 import { GROUP_LABELS } from '@/payload/constants';
 import HawkStarsProjectInformation from './HawkStarsProjectInformation';
+import transformSlug from '@/payload/utilities/transformSlug';
 
 export const HawkProject: CollectionConfig = {
   slug: 'hawk_projects',
@@ -89,7 +90,11 @@ export const HawkProject: CollectionConfig = {
       hooks: {
         beforeChange: [
           ({ data }) => {
-            data?.title?.replace(/\s+/g, '-').toLowerCase();
+            const slug = data?.slug;
+            if (!slug) return '';
+
+            const transformedSlug = transformSlug(data.slug);
+            return transformedSlug;
           },
         ],
       },

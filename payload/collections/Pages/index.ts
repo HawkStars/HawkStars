@@ -12,6 +12,7 @@ import {
 } from '@payloadcms/plugin-seo/fields';
 import { DefaultBlocks } from '@/payload/blocks';
 import { GROUP_LABELS } from '@/payload/constants';
+import transformSlug from '@/payload/utilities/transformSlug';
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -193,6 +194,17 @@ export const Pages: CollectionConfig<'pages'> = {
           en: 'The URL slug for the page, e.g. "about" for www.hawkstars.com/about',
           pt: 'O slug de URL para a página, ex: "sobre" para www.hawkstars.com/sobre',
         },
+      },
+      hooks: {
+        beforeChange: [
+          ({ data }) => {
+            const slug = data?.slug;
+            if (!slug) return '';
+
+            const transformedSlug = transformSlug(data.slug);
+            return transformedSlug;
+          },
+        ],
       },
     },
   ],

@@ -20,18 +20,20 @@ const Curators = async ({ lng }: LanguageProps) => {
       <section className='my-20 flex justify-center gap-4 max-lg:flex-col lg:gap-32' id='curators'>
         {curators.map((curator: Curator) => {
           return (
-            <div key={curator.id}>
-              <Link href={`/${lng}/curator/${curator.slug}`} className='flex flex-col gap-5'>
-                <div className='mx-auto'>
-                  <ImageMedia
-                    resource={curator.image}
-                    className='max-lg:w-96 lg:h-100 lg:rounded-md'
-                    alt={curator.name}
-                  />
-                </div>
-                <h6 className='text-h2_bold max-lg:pl-4 md:text-center'>{curator.name}</h6>
-              </Link>
-            </div>
+            <Link
+              href={`/${lng}/curator/${curator.slug}`}
+              className='flex w-11/12 flex-col gap-5 lg:w-1/2'
+              key={curator.id}
+            >
+              <div className='mx-auto'>
+                <ImageMedia
+                  resource={curator.image}
+                  className='max-lg:w-96 lg:h-100 lg:rounded-md'
+                  alt={curator.name}
+                />
+              </div>
+              <h6 className='text-h2_bold max-lg:pl-4 md:text-center'>{curator.name}</h6>
+            </Link>
           );
         })}
       </section>

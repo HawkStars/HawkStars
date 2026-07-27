@@ -12,6 +12,7 @@ import {
 } from '@payloadcms/plugin-seo/fields';
 import { GROUP_LABELS } from '@/payload/constants';
 import { getServerSideURL } from '@/payload/utilities/getURL';
+import transformSlug from '@/payload/utilities/transformSlug';
 
 export const News: CollectionConfig = {
   slug: 'news',
@@ -112,6 +113,17 @@ export const News: CollectionConfig = {
           en: 'The URL slug for the news article, e.g. "my-article" for www.hawkstars.com/news/my-article',
           pt: 'O slug de URL para o artigo, ex: "meu-artigo" para www.hawkstars.com/news/meu-artigo',
         },
+      },
+      hooks: {
+        beforeChange: [
+          ({ data }) => {
+            const slug = data?.slug;
+            if (!slug) return '';
+
+            const transformedSlug = transformSlug(data.slug);
+            return transformedSlug;
+          },
+        ],
       },
     },
     {

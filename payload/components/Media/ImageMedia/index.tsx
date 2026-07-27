@@ -87,6 +87,7 @@ export const ImageMedia: React.FC<NextImageProps> = (props) => {
       onLoad={onLoad}
       preload={preload}
       fetchPriority={preload ? 'high' : 'auto'}
+      loader={({ src }) => src}
     />
   );
 
