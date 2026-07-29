@@ -6,7 +6,6 @@ import { ImageMedia } from '@/payload/components/Media';
 import { getAllArtworkImagesQuery } from '@/lib/payload/queries/artwork';
 import { Media } from '@/payload-types';
 import { Language } from '@/i18n/settings';
-import { cn } from '@/lib/utils';
 import { Metadata } from 'next';
 import { getMetadataPageInfo } from '@/utils/metadata';
 

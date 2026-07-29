@@ -391,6 +391,7 @@ export async function seed(payload: Payload): Promise<void> {
           videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
         },
         hawkStarsInformation: { type: 'hosting_org' as const },
+        project_type: 'youth_exchange' as const,
       },
       {
         heading: 'Festival Cultural HawkStars',
@@ -407,6 +408,7 @@ export async function seed(payload: Payload): Promise<void> {
           videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
         },
         hawkStarsInformation: { type: 'hosting_org' as const },
+        project_type: 'youth_exchange' as const,
       },
       {
         heading: 'International Conference on Youth Work',
@@ -424,6 +426,7 @@ export async function seed(payload: Payload): Promise<void> {
           videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
         },
         hawkStarsInformation: { type: 'sending_org' as const },
+        project_type: 'youth_exchange' as const,
       },
     ];
 
