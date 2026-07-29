@@ -11,25 +11,25 @@ type TeamCardProps = LanguageProps & {
 };
 
 const TeamCard = ({ member, lng }: TeamCardProps) => {
-  const links = member.links;
   const { t } = useTranslation(lng, 'team');
+  const { name, photo, title, department, links } = member;
 
   return (
     <div className='flex flex-col gap-2 text-center'>
       {/* Avatar */}
-      {member.photo && (
+      {photo && (
         <ImageMedia
           width={128}
           height={128}
-          resource={member.photo}
-          alt={member.name}
+          resource={photo}
+          alt={name}
           className='mx-auto h-32 w-32 rounded-full object-cover'
         />
       )}
       <div>
-        <h3 className='text-foreground mt-2 font-medium'>{member.name}</h3>
-        <p className='text-muted-foreground text-xs capitalize'>{t(`roles.${member.title}`)}</p>
-        {member.department && <p className='text-muted-foreground text-sm'>{member.department}</p>}
+        <h3 className='text-foreground mt-2 font-medium'>{name}</h3>
+        <p className='text-muted-foreground text-xs capitalize'>{t(`roles.${title}`)}</p>
+        {department && <p className='text-muted-foreground text-sm'>{department}</p>}
       </div>
 
       {links && links.length > 0 && (

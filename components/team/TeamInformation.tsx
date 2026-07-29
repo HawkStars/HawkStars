@@ -17,7 +17,7 @@ const TeamInformation = ({ boardMembers, lng }: TeamInformationProps) => {
   const { t } = useTranslation(lng, 'team');
 
   const currentBoardMembers = useMemo(
-    () => boardMembers[currentSection].sort((a, b) => (a.position > b.position ? 1 : -1)),
+    () => [...boardMembers[currentSection]].sort((a, b) => a.position - b.position),
     [boardMembers, currentSection]
   );
 

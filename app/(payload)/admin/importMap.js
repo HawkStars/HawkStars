@@ -43,6 +43,7 @@ import { default as default_a6e1008e061ff4a90c7cbda73ca5389a } from '@/payload/c
 import { default as default_18379fc966ed0a7f5bbebdf531e7b788 } from '@/payload/collections/HawkProject/components/pageTab/ObjectiveItemsRowLabel'
 import { default as default_9994081f6b5c5eb590289ea6349f4cab } from '@/payload/collections/HawkProject/components/partners/ReportsRowLabel'
 import { default as default_61fb4ab9efdb708fd405dec60b074f5d } from '@/payload/collections/HawkProject/components/partners/PartnersRowLabel'
+import { default as default_c11892a11decf1038aff620ae7dc2b2b } from '@/payload/components/admin/DiscoverEuStopRowLabel'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { default as default_b86140c7b9e4a7df31f494d137f580e8 } from '@/payload/fields/Link/components/LinkLabel'
 import { default as default_697dbdb7f6f9ef4ce600690b2392d8d4 } from '@/payload/globals/Header/components/HeaderLabel'
@@ -56,11 +57,13 @@ import { default as default_2513edc366d1d88b15e62b3a6ee5b48e } from '@/payload/g
 import { default as default_311a5f154e8b373fc453af30d4e74fc0 } from '@/payload/components/admin/avatar'
 import { default as default_91bbc66a9b3ed1dae52e0caef1a54af7 } from '@/payload/components/Logo'
 import { default as default_d49a4ffdd2cc75d82d4c892f1e79350d } from '@/payload/components/admin/DashboardStats'
+import { default as default_0e46eff423b485d058c84b4a5a5e46cb } from '@/payload/components/admin/TranslateNavLink'
 import { default as default_86602b1dc72813c56de877a02ce02144 } from '@/payload/components/admin/WelcomeDashboard'
 import { AdminErrorBoundary as AdminErrorBoundary_e5a9e14bdbe97e70ba60697217fe7688 } from '@payloadcms/plugin-sentry/client'
 import { TOTPProvider as TOTPProvider_4eaf6cb33cfb75be01716613e3c9a512 } from 'payload-totp/rsc'
 import { TOTPSetup as TOTPSetup_4eaf6cb33cfb75be01716613e3c9a512 } from 'payload-totp/rsc'
 import { TOTPVerify as TOTPVerify_4eaf6cb33cfb75be01716613e3c9a512 } from 'payload-totp/rsc'
+import { TranslateView as TranslateView_1a545c6c2cfa4d4dff070a497b820a65 } from '@/payload/components/admin/TranslateView'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
@@ -110,6 +113,7 @@ export const importMap = {
   "@/payload/collections/HawkProject/components/pageTab/ObjectiveItemsRowLabel#default": default_18379fc966ed0a7f5bbebdf531e7b788,
   "@/payload/collections/HawkProject/components/partners/ReportsRowLabel#default": default_9994081f6b5c5eb590289ea6349f4cab,
   "@/payload/collections/HawkProject/components/partners/PartnersRowLabel#default": default_61fb4ab9efdb708fd405dec60b074f5d,
+  "@/payload/components/admin/DiscoverEuStopRowLabel#default": default_c11892a11decf1038aff620ae7dc2b2b,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@/payload/fields/Link/components/LinkLabel#default": default_b86140c7b9e4a7df31f494d137f580e8,
   "@/payload/globals/Header/components/HeaderLabel#default": default_697dbdb7f6f9ef4ce600690b2392d8d4,
@@ -123,10 +127,12 @@ export const importMap = {
   "@/payload/components/admin/avatar#default": default_311a5f154e8b373fc453af30d4e74fc0,
   "@/payload/components/Logo#default": default_91bbc66a9b3ed1dae52e0caef1a54af7,
   "@/payload/components/admin/DashboardStats#default": default_d49a4ffdd2cc75d82d4c892f1e79350d,
+  "@/payload/components/admin/TranslateNavLink#default": default_0e46eff423b485d058c84b4a5a5e46cb,
   "@/payload/components/admin/WelcomeDashboard#default": default_86602b1dc72813c56de877a02ce02144,
   "@payloadcms/plugin-sentry/client#AdminErrorBoundary": AdminErrorBoundary_e5a9e14bdbe97e70ba60697217fe7688,
   "payload-totp/rsc#TOTPProvider": TOTPProvider_4eaf6cb33cfb75be01716613e3c9a512,
   "payload-totp/rsc#TOTPSetup": TOTPSetup_4eaf6cb33cfb75be01716613e3c9a512,
   "payload-totp/rsc#TOTPVerify": TOTPVerify_4eaf6cb33cfb75be01716613e3c9a512,
+  "@/payload/components/admin/TranslateView#TranslateView": TranslateView_1a545c6c2cfa4d4dff070a497b820a65,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

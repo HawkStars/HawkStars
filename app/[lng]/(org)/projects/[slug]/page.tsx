@@ -11,6 +11,7 @@ import SingleProjectObjectives from '@/components/projects/single/SingleProjectO
 import SingleProjectPartners from '@/components/projects/single/SingleProjectPartners';
 import SingleProjectPhases from '@/components/projects/single/SingleProjectPhases';
 import SingleProjectReports from '@/components/projects/single/SingleProjectReports';
+import SingleProjectTravelMap from '@/components/projects/single/SingleProjectTravelMap';
 
 export async function generateMetadata(props: ProjectPageProps): Promise<Metadata> {
   const params = await props.params;
@@ -45,6 +46,7 @@ const ProjectServerPage = async (props: ProjectPageProps) => {
   return (
     <main>
       <ProjectsSingleHero {...project} lng={lng} />
+      <SingleProjectTravelMap {...project} lng={lng} />
       <SingleProjectPhases details={project.details} />
       <SingleProjectPartners partnersInformation={project.partnersInformation} lng={lng} />
       <SingleProjectObjectives objectives={project.objectives} lng={lng} />

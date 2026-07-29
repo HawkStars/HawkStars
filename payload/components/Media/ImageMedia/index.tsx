@@ -1,5 +1,3 @@
-'use client';
-
 import type { StaticImageData } from 'next/image';
 import NextImage from 'next/image';
 import React from 'react';
@@ -89,7 +87,7 @@ export const ImageMedia: React.FC<NextImageProps> = (props) => {
       onLoad={onLoad}
       preload={preload}
       fetchPriority={preload ? 'high' : 'auto'}
-      loader={({ src }) => src}
+      // loader={({ src }) => src}
     />
   );
 

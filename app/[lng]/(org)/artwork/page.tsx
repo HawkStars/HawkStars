@@ -42,7 +42,7 @@ const ArtworkPage = async (props: LanguagePageProps) => {
               <div className='flex h-full flex-col gap-5'>
                 <h3 className='text-h2_bold font-oswald text-disabled text-center'>{item.title}</h3>
                 {artworkImage?.url && (
-                  <div className={cn('relative my-auto flex h-full align-middle')}>
+                  <div className='relative my-auto flex h-full align-middle'>
                     <ImageMedia
                       resource={artworkImage}
                       alt={artTitle}

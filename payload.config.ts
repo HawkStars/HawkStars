@@ -111,6 +111,13 @@ export default buildConfig({
       },
       beforeDashboard: ['@/payload/components/admin/WelcomeDashboard'],
       afterDashboard: ['@/payload/components/admin/DashboardStats'],
+      afterNavLinks: ['@/payload/components/admin/TranslateNavLink'],
+      views: {
+        translate: {
+          Component: '@/payload/components/admin/TranslateView#TranslateView',
+          path: '/translate',
+        },
+      },
     },
     avatar: { Component: '@/payload/components/admin/avatar' },
     livePreview: {

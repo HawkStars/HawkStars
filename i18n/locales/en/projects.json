@@ -26,7 +26,8 @@
     "dissemination": "Dissemination",
     "results": "Results",
     "objectives": "Objectives",
-    "relatedNews": "Related News"
+    "relatedNews": "Related News",
+    "travelRoute": "Travel Route"
   },
   "a11y": {
     "badgeAlt": "Project badge",

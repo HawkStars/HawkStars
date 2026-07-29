@@ -2039,6 +2039,28 @@ export type HawkStarsProjectDocument =
     }[]
   | null;
 /**
+ * Cities participants travel to as part of this DiscoverEU project, in travel order. Used to draw the route map on the project page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkProjectDiscoverEuStop".
+ */
+export type HawkProjectDiscoverEuStop =
+  | {
+      /**
+       * e.g. "Berlin, Germany"
+       */
+      city: string;
+      latitude: number;
+      longitude: number;
+      startDate: string;
+      /**
+       * Leave empty for a single-day stop.
+       */
+      endDate?: string | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
  * Feature cards displayed in grid (up to 4)
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3879,6 +3901,11 @@ export interface HawkProject {
    * Optional infopack document related to the project.
    */
   infopack?: (string | null) | HawkDocument;
+  /**
+   * Select the type of project.
+   */
+  project_type: 'youth_exchange' | 'training_course' | 'seminar' | 'partnership' | 'discover_eu' | 'other';
+  discoverEuStops?: HawkProjectDiscoverEuStop;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -4944,6 +4971,8 @@ export interface HawkProjectsSelect<T extends boolean = true> {
   startDate?: T;
   endDate?: T;
   infopack?: T;
+  project_type?: T;
+  discoverEuStops?: T | HawkProjectDiscoverEuStopSelect<T>;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -5048,6 +5077,18 @@ export interface HawkStarsProjectDocumentSelect<T extends boolean = true> {
   label?: T;
   url?: T;
   platform?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkProjectDiscoverEuStop_select".
+ */
+export interface HawkProjectDiscoverEuStopSelect<T extends boolean = true> {
+  city?: T;
+  latitude?: T;
+  longitude?: T;
+  startDate?: T;
+  endDate?: T;
   id?: T;
 }
 /**
