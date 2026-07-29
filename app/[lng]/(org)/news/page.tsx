@@ -7,8 +7,6 @@ import { Metadata } from 'next';
 import NewsListComponent from '@/components/news/list/NewsListComponent';
 import NewsListHeader from '@/components/news/list/NewsListHeader';
 
-export const revalidate = 600; // invalidate every 10 minutes
-
 type NewsPageProps = {
   params: Promise<LanguageProps>;
   searchParams: Promise<{

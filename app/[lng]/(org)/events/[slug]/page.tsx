@@ -8,8 +8,6 @@ import EventPage from '@/components/events/EventPage';
 import { EventJsonLd } from '@/components/seo/JsonLd';
 import { BASE_URL } from '@/lib/constants';
 
-export const revalidate = 600; // invalidate every 10 minutes
-
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng, slug } = params;

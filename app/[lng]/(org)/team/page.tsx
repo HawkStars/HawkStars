@@ -5,8 +5,7 @@ import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
 import { getBoardMembers } from '@/lib/payload/queries/team';
 import TeamInformation from '@/components/team/TeamInformation';
-
-export const revalidate = 6000; // invalidate every 100 minutes
+import { cacheLife } from 'next/cache';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -16,6 +15,9 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
 }
 
 const TeamPage = async (props: LanguagePageProps) => {
+  'use cache';
+  cacheLife('hours');
+
   const params = await props.params;
   const { lng } = params;
   const { t } = await getServerTranslation(lng, 'team');

@@ -36,8 +36,6 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import DonationWidget from '@/components/contribute/DonationWidget';
 import { Button } from '@/components/ui/button';
 
-export const revalidate = 1200; // invalidate every 20 minutes
-
 export async function generateMetadata(props: {
   params: Promise<{ lng: Language }>;
 }): Promise<Metadata> {
@@ -179,11 +177,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           <div className='mt-10 flex flex-col gap-10 lg:mx-auto lg:w-2/3'>
             <div className='mx-auto flex flex-1 flex-col gap-3'>
               <h3 className='text-h2_light text-center'>{t('brand.wall_branding.title')}</h3>
-              <ImageMedia
-                src={trainingRoom}
-                alt={t('a11y.training_room')}
-                className='rounded-lg'
-              />
+              <ImageMedia src={trainingRoom} alt={t('a11y.training_room')} className='rounded-lg' />
               <div className='flex flex-row gap-4'>
                 <div className='text-body_semibold text-green flex w-fit flex-row gap-1 rounded-2xl p-2 lg:text-base'>
                   <ImageMedia
@@ -223,12 +217,8 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
           <ChairsSections
             title={t('brand.chairs.types.simulation_chair')}
             price='350€'
-            icon={
-              <ImageMedia src={simulatorChairNotTaken} alt={t('a11y.chair_empty')} />
-            }
-            iconFilled={
-              <ImageMedia src={simulatorChairTaken} alt={t('a11y.chair_taken')} />
-            }
+            icon={<ImageMedia src={simulatorChairNotTaken} alt={t('a11y.chair_empty')} />}
+            iconFilled={<ImageMedia src={simulatorChairTaken} alt={t('a11y.chair_taken')} />}
             size={2}
             currentContributions={simulationChairs}
           />
@@ -257,11 +247,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
             title={t('brand.chairs.types.auditorium_chair')}
             price='200€'
             icon={
-              <ImageMedia
-                src={standardChair}
-                className='h-12 w-12'
-                alt={t('a11y.chair_empty')}
-              />
+              <ImageMedia src={standardChair} className='h-12 w-12' alt={t('a11y.chair_empty')} />
             }
             iconFilled={
               <ImageMedia

@@ -1,10 +1,12 @@
 import { Language } from '@/i18n/settings';
 import { getPayloadConfig } from './server';
-// import { cacheTag } from 'next/cache';
-// import { MAIN_PAGE_CACHE_TAG } from '@/payload/globals/MainPage/hooks/revalidateMainPage';
+import { cacheLife, cacheTag } from 'next/cache';
+import { MAIN_PAGE_CACHE_TAG } from '@/payload/globals/MainPage/hooks/revalidateMainPage';
 
 const getMainPageInformation = async (lng: Language, opts?: { preview: boolean }) => {
-  // cacheTag(MAIN_PAGE_CACHE_TAG);
+  'use cache';
+  cacheLife({ stale: 600, revalidate: 600, expire: 57000 });
+  cacheTag(MAIN_PAGE_CACHE_TAG);
 
   const payload = await getPayloadConfig();
   return await payload.findGlobal({

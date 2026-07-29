@@ -10,8 +10,6 @@ import RichText from '@/payload/components/RichText';
 import { connection } from 'next/server';
 import { Metadata } from 'next';
 
-export const revalidate = 600; // invalidate every 10 minutes
-
 type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
 export async function generateMetadata(props: CuratorPageProps): Promise<Metadata> {

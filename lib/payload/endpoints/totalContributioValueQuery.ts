@@ -1,5 +1,4 @@
 import { BasePayload } from 'payload';
-
 const totalContributioValueQuery = async ({
   payload,
 }: {

@@ -72,6 +72,7 @@ export default async function RootLayout(props: {
 }
 
 async function LayoutContent({ children, lng }: { children: React.ReactNode; lng: string }) {
+  'use cache';
   const headerInfo = await getHeaderQuery(lng as Language);
   const footerInfo = await getFooterQuery(lng as Language);
 

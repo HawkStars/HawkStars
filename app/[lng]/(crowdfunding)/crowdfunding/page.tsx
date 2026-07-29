@@ -13,8 +13,6 @@ import CrowdfundingCTA from '@/components/Crowdfunding/CrowdfundingCTA';
 import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
 import { getServerTranslation } from '@/i18n';
 
-export const revalidate = 600;
-
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Crowdfunding | Global Village by Hawk Stars',

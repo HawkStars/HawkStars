@@ -7,8 +7,6 @@ import { getServerTranslation } from '@/i18n';
 import { HawkStarsSection } from '@/components/layout';
 import PartnerCard from '../../../../components/partners/PartnerCard';
 
-export const revalidate = 1800; // invalidate every 10 minutes
-
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;

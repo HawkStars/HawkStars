@@ -10,15 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4 # docs https://pnpm.io/continuous-integration#github-actions
+        uses: pnpm/action-setup@v7 # docs https://pnpm.io/continuous-integration#github-actions
         with:
           version: 11
 
       - name: Install Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: pnpm
@@ -39,7 +39,7 @@ jobs:
     needs: check
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
@@ -183,16 +183,16 @@ jobs:
     needs: check
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4 # docs https://pnpm.io/continuous-integration#github-actions
+        uses: pnpm/action-setup@v8 # docs https://pnpm.io/continuous-integration#github-actions
         with:
           version: 11
 

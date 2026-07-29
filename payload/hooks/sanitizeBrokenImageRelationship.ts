@@ -12,19 +12,18 @@ import { CollectionAfterReadHook } from 'payload';
  *   value is a raw string ID (not a populated object), it means the media
  *   document could not be found — so we clear it to prevent rendering failures.
  */
-export const sanitizeBrokenImageRelationship: CollectionAfterReadHook = async ({ doc }) => {
-  if (!doc?.image) return doc;
 
-  const imageGroup = doc.image;
-
-  // Only check upload-type images — external URLs are just strings and won't break
-  if (imageGroup.imageType === 'upload' && imageGroup.image) {
-    // When Payload successfully populates the relationship, `image` becomes an object.
-    // If it's still a string (the raw ID), the referenced media document is missing.
-    if (typeof imageGroup.image === 'string') {
-      imageGroup.image = null;
-    }
+const sanitize = (node: unknown): void => {
+  if (!node || typeof node !== 'object') return;
+  if (Array.isArray(node)) return node.forEach(sanitize);
+  const obj = node as Record<string, unknown>;
+  if (obj.imageType === 'upload' && typeof obj.image === 'string') {
+    obj.image = null;
   }
+  for (const v of Object.values(obj)) sanitize(v);
+};
 
+export const sanitizeBrokenImageRelationship: CollectionAfterReadHook = async ({ doc }) => {
+  sanitize(doc);
   return doc;
 };

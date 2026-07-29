@@ -12,8 +12,6 @@ import SingleProjectPartners from '@/components/projects/single/SingleProjectPar
 import SingleProjectPhases from '@/components/projects/single/SingleProjectPhases';
 import SingleProjectReports from '@/components/projects/single/SingleProjectReports';
 
-export const revalidate = 600; // invalidate every 10 minutes
-
 export async function generateMetadata(props: ProjectPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng, slug } = params;

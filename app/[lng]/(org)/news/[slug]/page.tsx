@@ -12,8 +12,6 @@ import NewsSingleHeroNoImage from '@/components/news/single/NewsSingleHeroNoImag
 import NewsSingleInformation from '@/components/news/single/NewsSingleInformation';
 import NewsSingleGallery from '@/components/news/single/NewsSingleGallery';
 
-export const revalidate = 600; // invalidate every 10 minutes
-
 type NewsSlugPageProps = {
   params: Promise<LanguageProps & { slug: string }>;
 };

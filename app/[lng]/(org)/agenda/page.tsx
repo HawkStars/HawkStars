@@ -6,8 +6,6 @@ import AgendaCalendar from '@/components/agenda/AgendaCalendar';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 
-export const revalidate = 600; // invalidate every 10 minutes
-
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;

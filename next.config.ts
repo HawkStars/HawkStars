@@ -42,7 +42,7 @@ const nextConfig = {
   turbopack: {
     resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'],
   },
-  // cacheComponents: true,
+  cacheComponents: true,
   images: {
     minimumCacheTTL: 43200,
     formats: ['image/avif', 'image/webp'],
@@ -59,9 +59,9 @@ const nextConfig = {
         protocol: 'https',
         hostname: '*.cdninstagram.com',
       },
-      { protocol: 'https', hostname: 'instagram.*' },
+      { protocol: 'https', hostname: '*.instagram.*' },
     ],
-    qualities: [50, 75, 80, 100],
+    qualities: [25, 50, 75, 80, 95],
     deviceSizes: [320, 640, 750, 1080, 1200, 2048],
   },
   experimental: {

@@ -9,8 +9,6 @@ import { applySteps, eligibilityItems, flagshipCards, opportunityCards } from '.
 import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
 import NavbarVariant from '@/components/navbar/NavbarVariant';
 
-export const revalidate = 600; // invalidate every 10 minutes
-
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;

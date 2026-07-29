@@ -1,3 +1,4 @@
+import { cacheLife } from 'next/cache';
 import totalContributioValueQuery from '../endpoints/totalContributioValueQuery';
 import { getPayloadConfig } from '../server';
 
@@ -16,6 +17,7 @@ export const getChairsContributionsQuery = async () => {
 };
 
 export const getContributionsQuery = async () => {
+  'use cache';
   const payload = await getPayloadConfig();
   return await payload.find({
     collection: 'contributions',
@@ -25,6 +27,9 @@ export const getContributionsQuery = async () => {
 };
 
 export const getSumContributions = async (): Promise<number> => {
+  'use cache';
+  cacheLife('hours');
+
   try {
     const payload = await getPayloadConfig();
     const response = await totalContributioValueQuery({ payload });

@@ -2,6 +2,7 @@ import { HawkProject } from '@/payload-types';
 import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
 import { findPublishedBySlug } from './helpers';
+import { cacheLife } from 'next/cache';
 
 export type SplitProjectsResult = {
   upcoming: HawkProject[];
@@ -18,6 +19,9 @@ export const getSingleProjectsQuery = async (
   findPublishedBySlug(PROJECTS_COLLECTION, slug, locale, { preview: opts?.preview, depth: 3 });
 
 export const getProjectsSplitByDate = async (locale: Language): Promise<SplitProjectsResult> => {
+  'use cache';
+  cacheLife('hours');
+
   const payload = await getPayloadConfig();
   const now = new Date().toISOString();
 

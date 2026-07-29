@@ -16,8 +16,6 @@ import { Metadata } from 'next';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Language } from '@/i18n/settings';
 
-export const revalidate = 600; // invalidate every 10 minutes
-
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;
@@ -51,7 +49,11 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
                 <div className='border-l-green my-auto h-0 w-0 border-y-8 border-l-16 border-y-transparent'></div>
               </div>
               <div className='flex aspect-video max-xl:h-14 xl:max-w-62.5'>
-                <ImageMedia src={hawkLogo} alt={t('history.alt.hawkStarsLogo')} className='my-auto' />
+                <ImageMedia
+                  src={hawkLogo}
+                  alt={t('history.alt.hawkStarsLogo')}
+                  className='my-auto'
+                />
               </div>
             </div>
             <div className='mt-5 grid grid-cols-1 gap-14 xl:grid-cols-2'>

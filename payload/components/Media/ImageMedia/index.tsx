@@ -93,9 +93,7 @@ export const ImageMedia: React.FC<NextImageProps> = (props) => {
     />
   );
 
-  if (pictureClassName) {
-    return <picture className={cn(pictureClassName)}>{image}</picture>;
-  }
+  if (pictureClassName) return <picture className={cn(pictureClassName)}>{image}</picture>;
 
   return image;
 };

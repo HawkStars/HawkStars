@@ -9,8 +9,6 @@ import { getConfirmedMemberProjects } from '@/lib/payload/queries/memberProject'
 import { transformUrl, urls } from '@/utils/paths';
 import MembersShowcase from '@/components/members-corner/MembersShowcase';
 
-export const revalidate = 300;
-
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;

@@ -9,8 +9,6 @@ import RichTextWrapper from '@/payload/components/RichText/RichTextWrapper';
 import MainPageBanner from '@/components/main-page/MainPageBanner';
 import { getServerTranslation } from '@/i18n';
 
-export const revalidate = 600; // invalidate every 10 minutes
-
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;

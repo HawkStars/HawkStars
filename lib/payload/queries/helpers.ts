@@ -10,6 +10,7 @@ import type {
 
 import { Language } from '@/i18n/settings';
 import { getPayloadConfig } from '../server';
+import { cacheLife } from 'next/cache';
 
 type SlugQueryOptions = {
   preview?: boolean;
@@ -29,6 +30,9 @@ export const findPublishedBySlug = async <TSlug extends CollectionSlug>(
   locale: Language,
   opts?: SlugQueryOptions
 ): Promise<DataFromCollectionSlug<TSlug> | null> => {
+  'use cache';
+  cacheLife('hours');
+
   const where: Where = { slug: { equals: slug } };
 
   const payload = await getPayloadConfig();
@@ -53,6 +57,7 @@ export const findGlobalLocalized = async <TSlug extends GlobalSlug>(
   locale: Language,
   opts?: { depth?: number; preview?: boolean }
 ): Promise<DataFromGlobalSlug<TSlug>> => {
+  'use cache';
   const payload = await getPayloadConfig();
   return payload.findGlobal({
     slug,

@@ -5,8 +5,6 @@ import { notFound } from 'next/navigation';
 import RichText from '@/payload/components/RichText';
 import { connection } from 'next/server';
 
-export const revalidate = 600; // invalidate every 10 minutes
-
 type PageProps = {
   params: Promise<LanguageProps & { slug: string }>;
 };

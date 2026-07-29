@@ -10,8 +10,6 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import { Language } from '@/i18n/settings';
 import Link from 'next/link';
 
-export const revalidate = 1200; // invalidate every 20 minutes
-
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;

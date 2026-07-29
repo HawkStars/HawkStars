@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { getServerTranslation } from '@/i18n';
 import { fallbackLng } from '@/i18n/settings';
+import { cacheLife } from 'next/cache';
 
 const FEATURED_GAMES = [
   { name: 'Valorant', tag: 'FPS', color: '#ff4655' },
@@ -24,6 +25,8 @@ const ACADEMY_FEATURES = [
 ];
 
 const GamingIndexPage = async (props: { params: Promise<{ lng?: string }> }) => {
+  'use cache';
+  cacheLife('weeks');
   const params = await props.params;
   const lng = params.lng || fallbackLng;
   const { t } = await getServerTranslation(lng, 'gaming');

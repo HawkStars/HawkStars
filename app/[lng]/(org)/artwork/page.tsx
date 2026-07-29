@@ -10,8 +10,6 @@ import { cn } from '@/lib/utils';
 import { Metadata } from 'next';
 import { getMetadataPageInfo } from '@/utils/metadata';
 
-export const revalidate = 1800; // invalidate every 30 minutes
-
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;

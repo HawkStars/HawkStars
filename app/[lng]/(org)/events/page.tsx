@@ -9,8 +9,6 @@ import { getEventsListHeaderInfo } from '@/lib/payload/queries/globals/eventsLis
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 
-export const revalidate = 600; // invalidate every 10 minutes
-
 export async function generateMetadata(props: EventsPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;

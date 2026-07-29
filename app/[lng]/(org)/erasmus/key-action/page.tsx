@@ -8,8 +8,6 @@ import Link from 'next/link';
 import { urls, transformUrl } from '@/utils/paths';
 import { comparisonRows, KAData, kaData, kaTabs, TranslationFn } from './config';
 
-export const revalidate = 600; // invalidate every 10 minutes
-
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;

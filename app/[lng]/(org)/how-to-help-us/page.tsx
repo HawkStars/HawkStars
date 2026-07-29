@@ -8,8 +8,6 @@ import Link from 'next/link';
 import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
 import { steps } from './config';
 
-export const revalidate = 600;
-
 const CONTACT_EMAIL = 'geral@hawkstars.org';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {

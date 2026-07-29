@@ -14,9 +14,8 @@ import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
 import RichText from '@/payload/components/RichText';
 import { connection } from 'next/server';
 
-export const revalidate = 600; // invalidate every 10 minutes
-
 const getCuratorInformation = async (slug: string, locale: Language) => {
+  'use cache';
   const response = await getSingleArtwork(slug, locale);
   return response;
 };
