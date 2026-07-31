@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload';
+import { notifyOnNewsChange } from '@/payload/hooks/notifyOnNewsChange';
 import { authenticated } from '@/payload/access/authenticated';
 import { anyone } from '@/payload/access/anyone';
 import { populatePublishedAt } from '@/payload/hooks/populatePublishedAt';
@@ -141,6 +142,7 @@ export const News: CollectionConfig = {
   ],
   hooks: {
     beforeChange: [populatePublishedAt],
+    afterChange: [notifyOnNewsChange],
   },
   versions: {
     drafts: {

@@ -136,7 +136,7 @@ export const HawkProject: CollectionConfig = {
       name: 'location',
       label: { en: 'Location', pt: 'Localização' },
       type: 'text',
-      localized: true,
+      localized: false,
       admin: {
         description: { en: 'e.g. Pinhel, Portugal', pt: 'ex: Pinhel, Portugal' },
         position: 'sidebar',

@@ -7,6 +7,7 @@ export const notifyOnNewsChange: CollectionAfterChangeHook = async ({
   previousDoc,
 }) => {
   const { payload } = req;
+  debugger;
 
   try {
     const title = doc.title || 'Untitled Article';

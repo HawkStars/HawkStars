@@ -16,6 +16,8 @@ const ImageTypeField = ({ required = false }: { required: boolean }) =>
         en: 'Select whether to use an external image URL or upload an image/media file.',
         pt: 'Selecione se pretende usar um URL de imagem externo ou carregar um ficheiro de imagem/média.',
       },
+      disableListColumn: true,
+      disableListFilter: true,
     },
   }) as Field;
 
@@ -30,6 +32,8 @@ const UploadField: Field = {
       pt: 'Carregue um ficheiro de imagem ou média.',
     },
     condition: (_, siblingData) => siblingData.imageType === 'upload',
+    disableListColumn: true,
+    disableListFilter: true,
   },
 };
 
@@ -43,6 +47,8 @@ const ExternalImageField: Field = {
       pt: 'Forneça o URL da imagem externa.',
     },
     condition: (_, siblingData) => siblingData.imageType === 'external',
+    disableListColumn: true,
+    disableListFilter: true,
   },
 };
 

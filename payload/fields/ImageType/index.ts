@@ -31,6 +31,8 @@ export const PayloadImageField = ({
       },
       hideGutter,
       condition: condition,
+      disableListColumn: true,
+      disableListFilter: true,
     },
     fields: [
       ImageTypeField({ required }),
@@ -47,6 +49,8 @@ export const PayloadImageField = ({
             pt: 'Texto alternativo para acessibilidade e SEO | Legenda da Imagem',
           },
           condition: (_, siblingData) => siblingData.imageType === 'external',
+          disableListColumn: true,
+          disableListFilter: true,
         },
       },
       {
@@ -56,6 +60,8 @@ export const PayloadImageField = ({
         admin: {
           description: { en: 'Height of the image in pixels', pt: 'Altura da imagem em píxeis' },
           condition: (data, siblingData) => siblingData.imageType === 'external',
+          disableListColumn: true,
+          disableListFilter: true,
         },
       },
     ],
