@@ -71,7 +71,10 @@ export function AgendaBlockComponent({
   }, []);
 
   useEffect(() => {
-    fetch();
+    const fetchData = async () => {
+      await fetch();
+    };
+    fetchData();
   }, [fetch]);
 
   return (
