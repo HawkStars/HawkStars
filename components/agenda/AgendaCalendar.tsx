@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
-import type { HawkEvent, HawkProject } from '@/payload-types';
+import type { HawkEvent, HawkProject, ImageType } from '@/payload-types';
 import { Language } from '@/i18n/settings';
 import { getEventsByMonthAndYear } from '@/lib/payload/client-side/queries/event';
 import { useTranslation } from '@/i18n/client';
@@ -34,7 +34,7 @@ type AgendaEventItem = {
   subheading: string | null;
   description: string | null;
   badge: string | null;
-  image: any | null;
+  image: ImageType | null;
   href: string;
   date: string | null;
   endDate: string | null;
