@@ -31,6 +31,7 @@ import { BlockquoteFeatureClient as BlockquoteFeatureClient_e70f5e05f09f93e00b99
 import { UploadFeatureClient as UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { HorizontalRuleFeatureClient as HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { default as default_3b40e7077fe661b4efd2f79d2571abbd } from '@/payload/components/admin/GeocodeField'
 import { default as default_5fcf80ad7799f85e06683d7dbd0ce58f } from '@/payload/fields/ImageIcon/components/Field'
 import { SocialLinkRowLabel as SocialLinkRowLabel_0e87c54efb8c46e191c53393194f32db } from '@/payload/fields/Link/SocialLink/components/SocialLinkRowLabel'
 import { default as default_0a9616af2082f80ec778e6175bbe9f27 } from '@/payload/components/admin/BoardMemberListView'
@@ -43,6 +44,7 @@ import { default as default_a6e1008e061ff4a90c7cbda73ca5389a } from '@/payload/c
 import { default as default_18379fc966ed0a7f5bbebdf531e7b788 } from '@/payload/collections/HawkProject/components/pageTab/ObjectiveItemsRowLabel'
 import { default as default_9994081f6b5c5eb590289ea6349f4cab } from '@/payload/collections/HawkProject/components/partners/ReportsRowLabel'
 import { default as default_61fb4ab9efdb708fd405dec60b074f5d } from '@/payload/collections/HawkProject/components/partners/PartnersRowLabel'
+import { default as default_668c18fb4c1b0effd8396052f84095e6 } from '@/payload/collections/HawkProject/components/DiscoverEU/Itinerary'
 import { default as default_c11892a11decf1038aff620ae7dc2b2b } from '@/payload/components/admin/DiscoverEuStopRowLabel'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { default as default_b86140c7b9e4a7df31f494d137f580e8 } from '@/payload/fields/Link/components/LinkLabel'
@@ -101,6 +103,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#UploadFeatureClient": UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient": HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@/payload/components/admin/GeocodeField#default": default_3b40e7077fe661b4efd2f79d2571abbd,
   "@/payload/fields/ImageIcon/components/Field#default": default_5fcf80ad7799f85e06683d7dbd0ce58f,
   "@/payload/fields/Link/SocialLink/components/SocialLinkRowLabel#SocialLinkRowLabel": SocialLinkRowLabel_0e87c54efb8c46e191c53393194f32db,
   "@/payload/components/admin/BoardMemberListView#default": default_0a9616af2082f80ec778e6175bbe9f27,
@@ -113,6 +116,7 @@ export const importMap = {
   "@/payload/collections/HawkProject/components/pageTab/ObjectiveItemsRowLabel#default": default_18379fc966ed0a7f5bbebdf531e7b788,
   "@/payload/collections/HawkProject/components/partners/ReportsRowLabel#default": default_9994081f6b5c5eb590289ea6349f4cab,
   "@/payload/collections/HawkProject/components/partners/PartnersRowLabel#default": default_61fb4ab9efdb708fd405dec60b074f5d,
+  "@/payload/collections/HawkProject/components/DiscoverEU/Itinerary#default": default_668c18fb4c1b0effd8396052f84095e6,
   "@/payload/components/admin/DiscoverEuStopRowLabel#default": default_c11892a11decf1038aff620ae7dc2b2b,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@/payload/fields/Link/components/LinkLabel#default": default_b86140c7b9e4a7df31f494d137f580e8,

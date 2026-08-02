@@ -6,6 +6,7 @@ import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { HawkStarsSection } from '@/components/layout';
+import { ImageMedia } from '@/payload/components/Media';
 
 const alignmentClasses = {
   left: 'text-left items-start',
@@ -44,11 +45,12 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
     >
       {/* Background Image */}
       {bgImage && bgImage.url && (
-        <div
-          className='absolute inset-0 bg-cover bg-center bg-no-repeat'
-          style={{
-            backgroundImage: `url(${bgImage.url})`,
-          }}
+        <ImageMedia
+          className='absolute inset-0 object-cover'
+          fill
+          src={bgImage.url}
+          alt={bgImage.alt}
+          preload
         />
       )}
 

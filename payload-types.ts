@@ -2039,6 +2039,19 @@ export type HawkStarsProjectDocument =
     }[]
   | null;
 /**
+ * List of stops in the DiscoverEU itinerary, including city names, arrival and departure dates, and optional coordinates.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkProjectDiscoverEuItineraryDates".
+ */
+export type HawkProjectDiscoverEuItineraryDates =
+  | {
+      startDate?: string | null;
+      endDate?: string | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
  * Cities participants travel to as part of this DiscoverEU project, in travel order. Used to draw the route map on the project page.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2050,13 +2063,8 @@ export type HawkProjectDiscoverEuStop =
        * e.g. "Berlin, Germany"
        */
       city: string;
-      latitude: number;
-      longitude: number;
-      startDate: string;
-      /**
-       * Leave empty for a single-day stop.
-       */
-      endDate?: string | null;
+      latitude?: number | null;
+      longitude?: number | null;
       id?: string | null;
     }[]
   | null;
@@ -3870,6 +3878,13 @@ export interface HawkProject {
   };
   hawkStarsInformation: HawkStarsProjectInformation;
   /**
+   * Information about the project’s DiscoverEU fields, including their names, roles, and contributions.
+   */
+  discoverEuFields?: {
+    DiscoverEuItineraryDates?: HawkProjectDiscoverEuItineraryDates;
+    discoverEuStops?: HawkProjectDiscoverEuStop;
+  };
+  /**
    * Unique slug used in the project page URL (e.g. "ai4youth"). Auto-generated from the title if left empty.
    */
   slug?: string | null;
@@ -3905,7 +3920,6 @@ export interface HawkProject {
    * Select the type of project.
    */
   project_type: 'youth_exchange' | 'training_course' | 'seminar' | 'partnership' | 'discover_eu' | 'other';
-  discoverEuStops?: HawkProjectDiscoverEuStop;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -4963,6 +4977,12 @@ export interface HawkProjectsSelect<T extends boolean = true> {
         reports?: T | HawkProjectDisseminationReportSelect<T>;
       };
   hawkStarsInformation?: T | HawkStarsProjectInformationSelect<T>;
+  discoverEuFields?:
+    | T
+    | {
+        DiscoverEuItineraryDates?: T | HawkProjectDiscoverEuItineraryDatesSelect<T>;
+        discoverEuStops?: T | HawkProjectDiscoverEuStopSelect<T>;
+      };
   slug?: T;
   actionType?: T;
   referenceNumber?: T;
@@ -4972,7 +4992,6 @@ export interface HawkProjectsSelect<T extends boolean = true> {
   endDate?: T;
   infopack?: T;
   project_type?: T;
-  discoverEuStops?: T | HawkProjectDiscoverEuStopSelect<T>;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -5081,14 +5100,21 @@ export interface HawkStarsProjectDocumentSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkProjectDiscoverEuItineraryDates_select".
+ */
+export interface HawkProjectDiscoverEuItineraryDatesSelect<T extends boolean = true> {
+  startDate?: T;
+  endDate?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HawkProjectDiscoverEuStop_select".
  */
 export interface HawkProjectDiscoverEuStopSelect<T extends boolean = true> {
   city?: T;
   latitude?: T;
   longitude?: T;
-  startDate?: T;
-  endDate?: T;
   id?: T;
 }
 /**

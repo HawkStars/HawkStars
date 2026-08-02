@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload';
-import { notifyOnMediaDelete, notifyOnMediaUpload } from '@/payload/hooks/notifyOnMediaUpload';
-import { GROUP_LABELS } from '../constants';
+import { notifyMediaDelete, notifyMediaUpload } from './hooks';
+import { GROUP_LABELS } from '../../constants';
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -36,8 +36,8 @@ export const Media: CollectionConfig = {
     displayPreview: true,
   },
   hooks: {
-    afterChange: [notifyOnMediaUpload],
-    afterDelete: [notifyOnMediaDelete],
+    afterChange: [notifyMediaUpload],
+    afterDelete: [notifyMediaDelete],
   },
   fields: [
     {

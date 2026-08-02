@@ -33,6 +33,7 @@ import {
   markNotificationsReadHandler,
 } from './payload/endpoints/notifications';
 import translateHandler from './payload/endpoints/translate';
+import geocodeHandler from './payload/endpoints/geocode';
 
 import { Notification } from './payload/collections/Notification';
 import { Footer } from './payload/globals/Footer/config';
@@ -105,6 +106,7 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    dateFormat: 'dd/MM/yyyy',
     components: {
       graphics: {
         Logo: '@/payload/components/Logo',
@@ -218,6 +220,11 @@ export default buildConfig({
   sharp,
   plugins: plugins,
   endpoints: [
+    {
+      path: '/geocode',
+      method: 'get',
+      handler: geocodeHandler,
+    },
     {
       path: '/sum-contributions',
       method: 'get',

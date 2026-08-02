@@ -1,4 +1,5 @@
 import SectionID from '@/payload/fields/SectionID';
+import { geocodeButton } from '@/payload/fields/GeocodeButton';
 import type { Block } from 'payload';
 
 export const MapLocationBlock: Block = {
@@ -21,6 +22,7 @@ export const MapLocationBlock: Block = {
       localized: true,
       label: { en: 'Address', pt: 'Morada' },
     },
+    geocodeButton({ sourceField: 'address' }),
     {
       name: 'latitude',
       type: 'number',

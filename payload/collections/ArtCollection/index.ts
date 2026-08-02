@@ -3,6 +3,7 @@ import { authenticated } from '../../access/authenticated';
 import { anyone } from '../../access/anyone';
 import ArtCollectionDetails from './ArtCollectionDetails';
 import { GROUP_LABELS } from '@/payload/constants';
+import { notifyArtworkChange, notifyArtworkDelete } from './hooks';
 
 export const ArtCollection: CollectionConfig = {
   slug: 'artworks',
@@ -28,7 +29,6 @@ export const ArtCollection: CollectionConfig = {
       ...GROUP_LABELS.artGallery,
     },
   },
-
   fields: [
     {
       type: 'tabs',
@@ -36,4 +36,8 @@ export const ArtCollection: CollectionConfig = {
       tabs: [ArtCollectionDetails],
     },
   ],
+  hooks: {
+    afterChange: [notifyArtworkChange],
+    afterDelete: [notifyArtworkDelete],
+  },
 };

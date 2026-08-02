@@ -10,29 +10,19 @@ import type {
 
 import { Language } from '@/i18n/settings';
 import { getPayloadConfig } from '../server';
-import { cacheLife } from 'next/cache';
+import { cacheLife, cacheTag } from 'next/cache';
 
 type SlugQueryOptions = {
   preview?: boolean;
   depth?: number;
 };
 
-/**
- * Find a single published document in `collection` matching `slug`.
- *
- * Consolidates the repeated "find one published doc by slug + preview handling"
- * boilerplate that previously lived in news / pages / hawk_events / hawk_projects
- * query files.
- */
-export const findPublishedBySlug = async <TSlug extends CollectionSlug>(
+const findBySlug = async <TSlug extends CollectionSlug>(
   collection: TSlug,
   slug: string,
   locale: Language,
   opts?: SlugQueryOptions
 ): Promise<DataFromCollectionSlug<TSlug> | null> => {
-  'use cache';
-  cacheLife('hours');
-
   const where: Where = { slug: { equals: slug } };
 
   const payload = await getPayloadConfig();
@@ -47,6 +37,28 @@ export const findPublishedBySlug = async <TSlug extends CollectionSlug>(
 
   return result.docs[0] ?? null;
 };
+
+const findPublishedCached = async <TSlug extends CollectionSlug>(
+  collection: TSlug,
+  slug: string,
+  locale: Language,
+  depth?: number
+) => {
+  'use cache';
+  cacheLife('hours');
+  cacheTag(`${collection}:${slug}`, `${collection}`);
+  return findBySlug(collection, slug, locale, { depth, preview: false });
+};
+
+export const findPublishedBySlug = async <TSlug extends CollectionSlug>(
+  collection: TSlug,
+  slug: string,
+  locale: Language,
+  opts?: SlugQueryOptions
+) =>
+  opts?.preview
+    ? findBySlug(collection, slug, locale, opts) // drafts: never cached
+    : findPublishedCached(collection, slug, locale, opts?.depth);
 
 /**
  * Read a localized global with the common depth + preview handling shared by the

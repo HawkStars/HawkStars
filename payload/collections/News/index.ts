@@ -1,8 +1,7 @@
 import type { CollectionConfig } from 'payload';
-import { notifyOnNewsChange } from '@/payload/hooks/notifyOnNewsChange';
+import { notifyNewsChange } from './hooks';
 import { authenticated } from '@/payload/access/authenticated';
 import { anyone } from '@/payload/access/anyone';
-import { populatePublishedAt } from '@/payload/hooks/populatePublishedAt';
 import NewsDetails from './NewsFields';
 import {
   MetaDescriptionField,
@@ -141,8 +140,7 @@ export const News: CollectionConfig = {
     },
   ],
   hooks: {
-    beforeChange: [populatePublishedAt],
-    afterChange: [notifyOnNewsChange],
+    afterChange: [notifyNewsChange],
   },
   versions: {
     drafts: {

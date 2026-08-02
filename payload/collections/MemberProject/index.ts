@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload';
 import { anyone } from '../../access/anyone';
 import { authenticated } from '../../access/authenticated';
-import { notifyOnMemberProject } from '../../hooks/notifyOnMemberProject';
+import { notifyMemberProject } from './hooks';
 import { GROUP_LABELS } from '@/payload/constants';
 
 /**
@@ -42,7 +42,7 @@ export const MemberProject: CollectionConfig = {
     delete: authenticated,
   },
   hooks: {
-    afterChange: [notifyOnMemberProject],
+    afterChange: [notifyMemberProject],
   },
   fields: [
     /* -------------------------------------------------------------- */

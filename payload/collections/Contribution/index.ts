@@ -2,7 +2,7 @@ import { authenticated } from '@/payload/access/authenticated';
 import { AccessArgs, CollectionConfig } from 'payload';
 import { contributionTypeOptions } from './config';
 import { User } from '@/payload-types';
-import { notifyOnContribution } from '@/payload/hooks/notifyOnContribution';
+import { notifyContribution } from './hooks';
 
 const validateContributionAccess = (args: AccessArgs<User>) => authenticated(args);
 
@@ -171,6 +171,6 @@ export const ContributionCollection: CollectionConfig = {
     },
   },
   hooks: {
-    afterChange: [notifyOnContribution],
+    afterChange: [notifyContribution],
   },
 };

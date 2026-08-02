@@ -10,6 +10,8 @@ import HawkProjectDisseminationFields from './HawkProjectDisseminationFields';
 import { GROUP_LABELS } from '@/payload/constants';
 import HawkStarsProjectInformation from './HawkStarsProjectInformation';
 import transformSlug from '@/payload/utilities/transformSlug';
+import { notifyProjectChange, notifyProjectDelete } from './hooks';
+import { HawkProjectDiscoverEuFields } from './HawkProjectDiscoverEuFields';
 
 export const HawkProject: CollectionConfig = {
   slug: 'hawk_projects',
@@ -58,6 +60,8 @@ export const HawkProject: CollectionConfig = {
     update: authenticated,
   },
   hooks: {
+    afterChange: [notifyProjectChange],
+    afterDelete: [notifyProjectDelete],
     afterRead: [sanitizeBrokenImageRelationship],
   },
   fields: [
@@ -70,6 +74,7 @@ export const HawkProject: CollectionConfig = {
         HawkProjectPartnersInformation,
         HawkProjectDisseminationFields,
         HawkStarsProjectInformation,
+        HawkProjectDiscoverEuFields,
       ],
     },
     /* -------------------------------------------------------------- */
@@ -200,85 +205,6 @@ export const HawkProject: CollectionConfig = {
           pt: 'Selecione o tipo de projeto.',
         },
       },
-    },
-    {
-      name: 'discoverEuStops',
-      label: { en: 'DiscoverEU Stops', pt: 'Paragens DiscoverEU' },
-      type: 'array',
-      interfaceName: 'HawkProjectDiscoverEuStop',
-      labels: {
-        singular: { en: 'Stop', pt: 'Paragem' },
-        plural: { en: 'Stops', pt: 'Paragens' },
-      },
-      admin: {
-        description: {
-          en: 'Cities participants travel to as part of this DiscoverEU project, in travel order. Used to draw the route map on the project page.',
-          pt: 'Cidades para onde os participantes viajam neste projeto DiscoverEU, por ordem de viagem. Usado para desenhar o mapa da rota na página do projeto.',
-        },
-        condition: (_, siblingData) => siblingData?.project_type === 'discover_eu',
-        components: {
-          RowLabel: '@/payload/components/admin/DiscoverEuStopRowLabel',
-        },
-        initCollapsed: true,
-      },
-      fields: [
-        {
-          name: 'city',
-          label: { en: 'City', pt: 'Cidade' },
-          type: 'text',
-          required: true,
-          admin: {
-            description: { en: 'e.g. "Berlin, Germany"', pt: 'ex: "Berlim, Alemanha"' },
-          },
-        },
-        {
-          type: 'row',
-          fields: [
-            {
-              name: 'latitude',
-              label: { en: 'Latitude', pt: 'Latitude' },
-              type: 'number',
-              required: true,
-              admin: { width: '25%', step: 0.000001 },
-            },
-            {
-              name: 'longitude',
-              label: { en: 'Longitude', pt: 'Longitude' },
-              type: 'number',
-              required: true,
-              admin: { width: '25%', step: 0.000001 },
-            },
-          ],
-        },
-        {
-          type: 'row',
-          fields: [
-            {
-              name: 'startDate',
-              label: { en: 'Arrival Date', pt: 'Data de Chegada' },
-              type: 'date',
-              required: true,
-              admin: {
-                width: '50%',
-                date: { pickerAppearance: 'dayOnly', displayFormat: 'dd/MM/yyyy' },
-              },
-            },
-            {
-              name: 'endDate',
-              label: { en: 'Departure Date', pt: 'Data de Partida' },
-              type: 'date',
-              admin: {
-                width: '50%',
-                description: {
-                  en: 'Leave empty for a single-day stop.',
-                  pt: 'Deixe vazio para uma paragem de um único dia.',
-                },
-                date: { pickerAppearance: 'dayOnly', displayFormat: 'dd/MM/yyyy' },
-              },
-            },
-          ],
-        },
-      ],
     },
   ],
   versions: {

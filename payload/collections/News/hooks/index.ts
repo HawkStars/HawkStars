@@ -1,0 +1,1 @@
+export { notifyNewsChange } from './notifyNewsChange';

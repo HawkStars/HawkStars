@@ -84,9 +84,6 @@ Collections that go through editorial review use the shared `contentStatusField`
 
 ```typescript
 import { contentStatusField } from '@/payload/fields/contentStatus';
-import { populatePublishedAt } from '@/payload/hooks/populatePublishedAt';
-import { notifyOnStatusChange } from '@/payload/hooks/notifyOnStatusChange';
-import { validateStatusTransition } from '@/payload/hooks/validateStatusTransition';
 
 // In fields array:
 contentStatusField,
@@ -105,8 +102,8 @@ contentStatusField,
 
 // In hooks:
 hooks: {
-  afterChange: [notifyOnStatusChange],
-  beforeChange: [validateStatusTransition, populatePublishedAt],
+  afterChange: [],
+  beforeChange: [populatePublishedAt],
 },
 
 // Versioning is mandatory for workflow collections:
@@ -357,9 +354,6 @@ Standard hooks live in `payload/hooks/`. Always import them instead of reimpleme
 
 | Hook                              | Type           | Purpose                                                     |
 | --------------------------------- | -------------- | ----------------------------------------------------------- |
-| `validateStatusTransition`        | `beforeChange` | Enforces the draft → in_review → published workflow by role |
-| `populatePublishedAt`             | `beforeChange` | Auto-sets `publishedAt` when transitioning to published     |
-| `notifyOnStatusChange`            | `afterChange`  | Creates a `Notification` document on status changes         |
 | `sanitizeBrokenImageRelationship` | `afterRead`    | Removes stale media relationship IDs from docs              |
 | `notifyOnContribution`            | `afterChange`  | Notification on new contributions                           |
 | `notifyOnMediaUpload`             | `afterChange`  | Notification on media uploads                               |
@@ -368,12 +362,12 @@ Standard hooks live in `payload/hooks/`. Always import them instead of reimpleme
 
 For revalidation of Next.js cached pages, add a collection-specific `afterChange` hook (e.g., `revalidatePage`, `revalidateHeader`, `revalidateFooter`) defined in the collection/global's own `hooks/` subfolder.
 
-Hook registration order matters for `beforeChange` — `validateStatusTransition` must run before `populatePublishedAt`:
+Hook registration order matters for `beforeChange` — `populatePublishedAt` must run before any `afterChange` hooks:
 
 ```typescript
 hooks: {
-  beforeChange: [validateStatusTransition, populatePublishedAt],
-  afterChange:  [revalidatePage, notifyOnStatusChange],
+  beforeChange: [],
+  afterChange:  [revalidatePage],
 },
 ```
 
@@ -401,7 +395,7 @@ Do not add plugins inline in `payload.config.ts`. All plugin configuration belon
 | Array `interfaceName` | `PascalCase`                 | `AccordionBlockItem`                                    |
 | Field names           | `camelCase`                  | `publishedAt`, `sectionId`                              |
 | Access function files | `camelCase.ts`               | `authenticated.ts`, `authenticatedAdmin.ts`             |
-| Hook files            | `camelCaseAction.ts`         | `populatePublishedAt.ts`, `validateStatusTransition.ts` |
+| Hook files            | `camelCaseAction.ts`         | `populatePublishedAt.ts`                                |
 | Block folder          | `PascalCase`                 | `AccordionBlock/`, `CTABannerBlock/`                    |
 | Collection folder     | `PascalCase`                 | `HawkProject/`, `News/`                                 |
 

@@ -1,7 +1,5 @@
 import type { CollectionConfig } from 'payload';
-import { authenticated } from '@/payload/access/authenticated';
-import { populatePublishedAt } from '../../hooks/populatePublishedAt';
-import { revalidateDelete, revalidatePage } from './hooks/revalidatePage';
+import { notifyPageChange, revalidateDelete, revalidatePage } from './hooks';
 
 import {
   MetaDescriptionField,
@@ -13,6 +11,7 @@ import {
 import { DefaultBlocks } from '@/payload/blocks';
 import { GROUP_LABELS } from '@/payload/constants';
 import transformSlug from '@/payload/utilities/transformSlug';
+import { authenticated } from '@/payload/access/authenticated';
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -209,8 +208,7 @@ export const Pages: CollectionConfig<'pages'> = {
     },
   ],
   hooks: {
-    afterChange: [revalidatePage],
-    beforeChange: [populatePublishedAt],
+    afterChange: [revalidatePage, notifyPageChange],
     afterDelete: [revalidateDelete],
   },
   versions: {

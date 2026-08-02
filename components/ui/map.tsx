@@ -480,12 +480,7 @@ function MapCircleMarker({ className, ...props }: CircleMarkerProps & { ref?: Re
 }
 
 function MapPolyline({ className, ...props }: PolylineProps & { ref?: Ref<Polyline> }) {
-  return (
-    <LeafletPolyline
-      className={cn('fill-foreground stroke-foreground stroke-2', className)}
-      {...props}
-    />
-  );
+  return <LeafletPolyline className={cn('', className)} {...props} />;
 }
 
 function MapPolygon({ className, ...props }: PolygonProps & { ref?: Ref<Polygon> }) {

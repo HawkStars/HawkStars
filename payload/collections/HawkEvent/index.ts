@@ -4,6 +4,7 @@ import { authenticated } from '../../access/authenticated';
 import { sanitizeBrokenImageRelationship } from '../../hooks/sanitizeBrokenImageRelationship';
 import HawkProjectFields from './HawkProjectFields';
 import { GROUP_LABELS } from '@/payload/constants';
+import { notifyEventChange, notifyEventDelete } from './hooks';
 
 export const HawkEvent: CollectionConfig = {
   slug: 'hawk_events',
@@ -34,6 +35,8 @@ export const HawkEvent: CollectionConfig = {
     update: authenticated,
   },
   hooks: {
+    afterChange: [notifyEventChange],
+    afterDelete: [notifyEventDelete],
     afterRead: [sanitizeBrokenImageRelationship],
   },
   fields: [

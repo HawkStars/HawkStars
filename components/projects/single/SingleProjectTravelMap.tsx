@@ -1,7 +1,7 @@
 'use client';
 
 import { Section } from '@/components/layout/Section';
-import { HawkProject } from '@/payload-types';
+import { HawkProject, HawkProjectDiscoverEuStop } from '@/payload-types';
 import { Language } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
@@ -21,10 +21,15 @@ import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { LuTrainFront } from 'react-icons/lu';
 import { useMap } from 'react-leaflet';
 
-type DiscoverEuStop = NonNullable<HawkProject['discoverEuStops']>[number];
-
-type SingleProjectTravelMapProps = Pick<HawkProject, 'project_type' | 'discoverEuStops'> & {
+type SingleProjectTravelMapProps = Pick<HawkProject, 'project_type' | 'discoverEuFields'> & {
   lng?: Language;
+};
+
+type DiscoverEuStop = {
+  city: string;
+  latitude?: number | null | undefined;
+  longitude?: number | null | undefined;
+  id?: string | null | undefined;
 };
 
 /** Full loop duration for the animated train icon, in milliseconds. */
@@ -113,11 +118,12 @@ function AnimatedTrain({ path }: { path: [number, number][] }) {
  */
 const SingleProjectTravelMap: FC<SingleProjectTravelMapProps> = ({
   project_type: projectType,
-  discoverEuStops: stops,
+  discoverEuFields,
   lng: lngProp,
 }) => {
   const cookieLng = useLanguageCookie();
   const { t } = useTranslation(lngProp ?? cookieLng, 'projects');
+  const { discoverEuStops: stops } = discoverEuFields ?? {};
 
   const validStops = useMemo(
     () =>
@@ -131,21 +137,13 @@ const SingleProjectTravelMap: FC<SingleProjectTravelMapProps> = ({
   );
 
   const path = useMemo<[number, number][]>(
-    () => validStops.map((stop) => [stop.latitude, stop.longitude]),
+    () => validStops.map((stop) => [stop.latitude as number, stop.longitude as number]),
     [validStops]
   );
 
   if (projectType !== 'discover_eu' || validStops.length === 0) return null;
 
   const center = path[0] ?? FALLBACK_CENTER;
-
-  const formatStopDate = (stop: DiscoverEuStop) => {
-    if (!stop.startDate) return '';
-    if (stop.endDate) {
-      return `${format(new Date(stop.startDate), 'd MMM', { locale: pt })} ${t('dateRange.to')} ${format(new Date(stop.endDate), 'd MMM yyyy', { locale: pt })}`;
-    }
-    return format(new Date(stop.startDate), "d 'de' MMMM 'de' yyyy", { locale: pt });
-  };
 
   return (
     <Section className='bg-bege-dark'>
@@ -172,7 +170,7 @@ const SingleProjectTravelMap: FC<SingleProjectTravelMapProps> = ({
             {validStops.map((stop, index) => (
               <MapMarker
                 key={stop.id ?? `${stop.city}-${index}`}
-                position={[stop.latitude, stop.longitude]}
+                position={[stop.latitude as number, stop.longitude as number]}
                 icon={
                   <span className='bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-full text-xs font-bold shadow-md'>
                     {index + 1}
@@ -182,7 +180,6 @@ const SingleProjectTravelMap: FC<SingleProjectTravelMapProps> = ({
                 <MapTooltip permanent side='top'>
                   <div className='text-center'>
                     <p className='font-semibold'>{stop.city}</p>
-                    <p className='text-xs'>{formatStopDate(stop)}</p>
                   </div>
                 </MapTooltip>
               </MapMarker>

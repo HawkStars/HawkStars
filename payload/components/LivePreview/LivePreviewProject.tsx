@@ -32,13 +32,13 @@ export const LivePreviewProject: React.FC<LivePreviewProjectProps> = ({
   const { partnersInformation, details, objectives, gallery } = data;
 
   return (
-    <main>
+    <>
       <ProjectsSingleHero {...data} lng={lng} />
       <SingleProjectPhases details={details} />
       <SingleProjectPartners partnersInformation={partnersInformation} lng={lng} />
       <SingleProjectObjectives objectives={objectives} lng={lng} />
       <SingleProjectReports {...data} lng={lng} />
       <NewsSingleGallery gallery={gallery} />
-    </main>
+    </>
   );
 };
