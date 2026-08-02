@@ -5,7 +5,7 @@ import { FLAG_PORTUGAL } from '@/lib/constants';
 import { FlagIcon } from '@/lib/icon';
 import { getImagePayloadUrl } from '@/lib/image';
 import { formatCurrency } from '@/lib/utils/currency';
-import { HawkProject, Partner } from '@/payload-types';
+import { HawkDocument, HawkProject, Partner } from '@/payload-types';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
 import { ImageMedia } from '@/payload/components/Media';
@@ -13,6 +13,8 @@ import { FC } from 'react';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Language } from '@/i18n/settings';
+import Link from 'next/link';
+import { LuDownload } from 'react-icons/lu';
 
 type ProjectsSingleHeroProps = Pick<
   HawkProject,
@@ -25,6 +27,7 @@ type ProjectsSingleHeroProps = Pick<
   | 'location'
   | 'startDate'
   | 'endDate'
+  | 'infopack'
 > & { lng?: Language };
 
 const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
@@ -37,6 +40,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
   startDate,
   endDate,
   location,
+  infopack,
   lng: lngProp,
 }) => {
   const cookieLng = useLanguageCookie();
@@ -44,6 +48,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
   const { projectBadge } = hero || {};
   const { partners } = partnersInformation || {};
   const badgeImage = projectBadge ? getImagePayloadUrl(projectBadge) : null;
+  const infopackDoc = infopack && typeof infopack !== 'string' ? (infopack as HawkDocument) : null;
 
   const dateLabel = (() => {
     if (!startDate) return '';
@@ -184,6 +189,19 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
               </p>
             )}
           </div>
+
+          {infopackDoc?.url && (
+            <Link
+              href={infopackDoc.url}
+              target='_blank'
+              rel='noopener noreferrer'
+              download
+              className='bg-primary text-primary-foreground hover:bg-primary/90 mt-2 inline-flex w-fit items-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition-colors'
+            >
+              <LuDownload className='h-4 w-4' />
+              {t('details.downloadInfopack')}
+            </Link>
+          )}
         </div>
       </div>
     </Section>

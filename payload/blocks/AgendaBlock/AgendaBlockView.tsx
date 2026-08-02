@@ -302,11 +302,11 @@ export function AgendaBlockView({
 
         {/* List */}
         {!loading && events.length > 0 && layout === 'list' && (
-          <div>
+          <>
             {events.map((ev) => (
               <ListItem key={ev.id} event={ev} linkLabel={label} />
             ))}
-          </div>
+          </>
         )}
 
         {/* Compact */}

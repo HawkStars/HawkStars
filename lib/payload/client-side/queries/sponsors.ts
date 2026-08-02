@@ -1,6 +1,7 @@
 import { stringify } from 'qs-esm';
 import type { PaginatedDocs, Where } from 'payload';
 import type { Sponsor, SponsorsBlock } from '@/payload-types';
+import payloadClientQuery from '../client';
 
 type FetchSponsorsOptions = {
   tier?: SponsorsBlock['tier'];
@@ -13,19 +14,12 @@ const fetchSponsors = async ({ tier, limit }: FetchSponsorsOptions): Promise<Spo
 
   const stringifiedQuery = stringify({ where, limit: limit ?? 12 }, { addQueryPrefix: true });
 
-  try {
-    const response = await fetch(`/api/sponsors${stringifiedQuery}`, { method: 'GET' });
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch sponsors: ${response.statusText}`);
-    }
-
-    const data: PaginatedDocs<Sponsor> = await response.json();
-    return data.docs || [];
-  } catch (error) {
-    console.error('Error fetching sponsors:', error);
-    return [];
-  }
+  return await payloadClientQuery<Sponsor[]>({
+    url: '/api/sponsors',
+    query: stringifiedQuery,
+    method: 'GET',
+    fallback: [],
+  });
 };
 
 export { fetchSponsors };

@@ -6,10 +6,11 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
-import type { HawkEvent } from '@/payload-types';
+import type { HawkEvent, HawkProject } from '@/payload-types';
 import { Language } from '@/i18n/settings';
-import { getEventsByMonthAndYear } from '@/lib/payload/client/event';
+import { getEventsByMonthAndYear } from '@/lib/payload/client-side/queries/event';
 import { useTranslation } from '@/i18n/client';
+import { fetchAgendaProjects } from '@/lib/payload/client-side/queries/projects';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -25,6 +26,22 @@ type AgendaCalendarProps = {
     dayNames: string[];
   };
   lng: string;
+};
+
+type AgendaEventItem = {
+  id: string;
+  heading: string;
+  subheading: string | null;
+  description: string | null;
+  badge: string | null;
+  image: any | null;
+  href: string;
+  date: string | null;
+  endDate: string | null;
+  isDateRange: boolean;
+  type_event?: string | null;
+  slug: string | null;
+  type: 'event' | 'project';
 };
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -85,11 +102,12 @@ function dateKeysInRange(startISO: string, endISO: string): string[] {
 }
 
 function formatDateRange(
-  startISO: string,
+  startISO: string | null | undefined,
   endISO: string | null | undefined,
   locale: string
 ): string {
-  if (!endISO) {
+  if (!startISO && !endISO) return '';
+  if (startISO && !endISO) {
     return new Date(startISO).toLocaleDateString(locale === 'pt' ? 'pt-PT' : 'en-US', {
       weekday: 'long',
       day: 'numeric',
@@ -98,18 +116,19 @@ function formatDateRange(
     });
   }
 
-  const s = new Date(startISO);
-  const e = new Date(endISO);
+  const s = startISO && new Date(startISO);
+  const e = endISO && new Date(endISO);
   const loc = locale === 'pt' ? 'pt-PT' : 'en-US';
 
-  if (s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear()) {
+  if (s && e && s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear()) {
     const startDay = s.toLocaleDateString(loc, { day: 'numeric' });
     const endFull = e.toLocaleDateString(loc, { day: 'numeric', month: 'long', year: 'numeric' });
     return `${startDay}–${endFull}`;
   }
 
-  const startFmt = s.toLocaleDateString(loc, { day: 'numeric', month: 'short' });
-  const endFmt = e.toLocaleDateString(loc, { day: 'numeric', month: 'short', year: 'numeric' });
+  const startFmt = s && s.toLocaleDateString(loc, { day: 'numeric', month: 'short' });
+  const endFmt =
+    e && e.toLocaleDateString(loc, { day: 'numeric', month: 'short', year: 'numeric' });
   return `${startFmt} – ${endFmt}`;
 }
 
@@ -124,6 +143,7 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
   };
   const today = new Date();
   const [events, setEvents] = useState<HawkEvent[]>([]);
+  const [projects, setProjects] = useState<HawkProject[]>([]);
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -134,8 +154,12 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchEvents();
-      setEvents(data);
+      const [fetchedEvents, fetchedProjects] = await Promise.all([
+        fetchEvents(),
+        fetchAgendaProjects({ maxEvents: 20 }),
+      ]);
+      setEvents(fetchedEvents);
+      setProjects(fetchedProjects);
     };
     fetchData();
   }, [fetchEvents]);
@@ -145,7 +169,7 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
    * Multi-day events are added to every day they span.
    */
   const eventsByDate = useMemo(() => {
-    const map: Record<string, HawkEvent[]> = {};
+    const map: Record<string, AgendaEventItem[]> = {};
 
     events.forEach((event) => {
       const keys =
@@ -157,7 +181,51 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
         if (!map[key]) map[key] = [];
         // Avoid duplicates when the same event is registered multiple times
         if (!map[key].find((e) => e.id === event.id)) {
-          map[key].push(event);
+          map[key].push({
+            id: event.id,
+            heading: event.heading ?? '',
+            subheading: event.subheading ?? null,
+            description: event.description ?? null,
+            badge: event.type_event ?? null,
+            image: event.image ?? null,
+            href: `/events/${event.slug}`,
+            date: event.date ?? null,
+            endDate: event.endDate ?? null,
+            isDateRange: Boolean(event.isDateRange),
+            slug: event.slug,
+            type: 'event',
+          });
+        }
+      });
+    });
+
+    projects.forEach((project) => {
+      const keys =
+        project.startDate && project.endDate
+          ? dateKeysInRange(project.startDate, project.endDate)
+          : project.startDate
+            ? [toDateKey(project.startDate)]
+            : [];
+
+      keys.forEach((key) => {
+        if (!map[key]) map[key] = [];
+        // Avoid duplicates when the same project is registered multiple times
+        if (!map[key].find((e) => e.id === project.id)) {
+          map[key].push({
+            id: project.id,
+            heading: project.heading ?? '',
+            subheading: project.project_type ?? null,
+            description: project.details?.text ?? null,
+            badge: 'Project',
+            image: project.coverImage ?? null,
+            href: `/projects/${project.slug}`,
+            date: project.startDate ?? null,
+            endDate: project.endDate ?? null,
+            isDateRange: true,
+            type_event: project.project_type ?? null,
+            slug: project.slug ?? null,
+            type: 'project',
+          });
         }
       });
     });

@@ -3,10 +3,9 @@ import type { Where } from 'payload';
 import { stringify } from 'qs-esm';
 
 import { getImagePayloadUrl } from '@/lib/image';
-import API_CLIENT_PATHS from './constants';
-import { NewsTypeLabels } from '@/components/news/constants';
 
-// --- legacy helper kept for backward compatibility ---
+import { NewsTypeLabels } from '@/components/news/constants';
+import API_CLIENT_PATHS from '../constants';
 
 const getNewsById = async (): Promise<News> => {
   const stringifiedQuery = stringify({ limit: 1 }, { addQueryPrefix: true });

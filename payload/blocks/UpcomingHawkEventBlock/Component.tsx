@@ -7,7 +7,7 @@ import type {
 } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { UpcomingHawkEventBlockView } from './UpcomingHawkEventBlockView';
-import { fetchEvent } from '@/lib/payload/client/event';
+import { fetchEvent } from '@/lib/payload/client-side/queries/event';
 
 const typeLabels: Record<string, string> = {
   local_event: 'Local Event',

@@ -19,7 +19,8 @@
     "actionType": "Tipo de Ação:",
     "reference": "Número de Referência:",
     "beneficiary": "Beneficiário:",
-    "location": "Localização:"
+    "location": "Localização:",
+    "downloadInfopack": "Descarregar Infopack"
   },
   "sections": {
     "partners": "Parceiros",

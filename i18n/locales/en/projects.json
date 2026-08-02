@@ -19,7 +19,8 @@
     "actionType": "Action Type:",
     "reference": "Reference Number:",
     "beneficiary": "Beneficiary:",
-    "location": "Location:"
+    "location": "Location:",
+    "downloadInfopack": "Download Infopack"
   },
   "sections": {
     "partners": "Partners",

@@ -4,7 +4,7 @@ import React, { FC, useEffect, useState } from 'react';
 import type { SponsorsBlock as SponsorsBlockProps, Sponsor, Media } from '@/payload-types';
 import { ImageMedia } from '@/payload/components/Media';
 import { cn } from '@/lib/utils';
-import { fetchSponsors } from '@/lib/payload/client/sponsors';
+import { fetchSponsors } from '@/lib/payload/client-side/queries/sponsors';
 import { HawkStarsSection } from '@/components/layout';
 
 export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({

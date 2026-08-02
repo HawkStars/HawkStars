@@ -1,16 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import type { AgendaBlock as AgendaBlockProps, HawkEvent } from '@/payload-types';
+import { useCallback, useEffect, useState } from 'react';
+import type { AgendaBlock as AgendaBlockProps, HawkEvent, HawkProject } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { AgendaBlockView, type AgendaEventItem } from './AgendaBlockView';
-import { fetchAgendaEvents } from '@/lib/payload/client/event';
+import { fetchAgendaEvents } from '@/lib/payload/client-side/queries/event';
+import { fetchAgendaProjects } from '@/lib/payload/client-side/queries/projects';
 
 function toAgendaItem(event: HawkEvent): AgendaEventItem {
   const image = getImagePayloadUrl(event.image);
   return {
     id: event.id,
-    heading: event.heading,
+    heading: event.heading ?? '',
     subheading: event.subheading ?? null,
     description: event.description ?? null,
     badge: event.type_event ?? null,
@@ -19,6 +20,22 @@ function toAgendaItem(event: HawkEvent): AgendaEventItem {
     date: event.date ?? null,
     endDate: event.endDate ?? null,
     isDateRange: Boolean(event.isDateRange),
+  };
+}
+
+function toProjectToAgendaItem(project: HawkProject): AgendaEventItem {
+  const image = getImagePayloadUrl(project.coverImage);
+  return {
+    id: project.id,
+    heading: project.heading ?? '',
+    subheading: null,
+    description: project.details?.text ?? null,
+    badge: 'Project',
+    image: image ? image : null,
+    href: `/projects/${project.slug}`,
+    date: project.startDate ?? null,
+    endDate: project.endDate ?? null,
+    isDateRange: true,
   };
 }
 
@@ -34,11 +51,28 @@ export function AgendaBlockComponent({
   const [events, setEvents] = useState<AgendaEventItem[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const fetch = useCallback(async () => {
+    setLoading(true);
+    const [projects, events] = await Promise.all([
+      fetchAgendaProjects({ maxEvents }),
+      fetchAgendaEvents({ eventType, maxEvents }),
+    ]);
+
+    const projectsMapped = projects.map(toProjectToAgendaItem);
+    const agendaMapped = events.map(toAgendaItem);
+    const allEvents = [...projectsMapped, ...agendaMapped].sort((a, b) => {
+      const dateA = a.date ? new Date(a.date).getTime() : 0;
+      const dateB = b.date ? new Date(b.date).getTime() : 0;
+      return dateA - dateB;
+    });
+
+    setLoading(false);
+    setEvents(allEvents);
+  }, []);
+
   useEffect(() => {
-    fetchAgendaEvents({ eventType, maxEvents })
-      .then((docs) => setEvents(docs.map(toAgendaItem)))
-      .finally(() => setLoading(false));
-  }, [eventType, maxEvents]);
+    fetch();
+  }, [fetch]);
 
   return (
     <AgendaBlockView

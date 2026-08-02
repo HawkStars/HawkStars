@@ -2,10 +2,9 @@ import type { AgendaBlock, HawkEvent } from '@/payload-types';
 import type { Where } from 'payload';
 import { stringify } from 'qs-esm';
 
-import API_CLIENT_PATHS from './constants';
+import API_CLIENT_PATHS from '../constants';
 import { Language } from '@/i18n/settings';
-
-// --- UpcomingHawkEventBlock ---
+import payloadClientQuery from '../client';
 
 type FetchEventOptions = {
   controller: AbortController;
@@ -16,26 +15,16 @@ const fetchEvent = async ({ controller, eventType }: FetchEventOptions) => {
   const where: Where = {};
   if (eventType && eventType.length > 0) where.type_event = { in: eventType };
 
-  const stringifiedQuery = stringify({ where, limit: 1 }, { addQueryPrefix: true });
+  const query = stringify({ where, limit: 1 }, { addQueryPrefix: true });
 
-  try {
-    const response = await fetch(`${API_CLIENT_PATHS.events}${stringifiedQuery}`, {
-      method: 'GET',
-      signal: controller.signal,
-    });
-
-    if (!response.ok) {
-      console.error('Failed to fetch upcoming event:', response.statusText);
-      return null;
-    }
-
-    const data = await response.json();
-    return data?.docs?.[0] || null;
-  } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') return null;
-    console.error('Error fetching upcoming event:', error);
-    return null;
-  }
+  return await payloadClientQuery<HawkEvent | null>({
+    url: API_CLIENT_PATHS.projects,
+    query,
+    method: 'GET',
+    fallback: null,
+    controller,
+    singleValue: true,
+  });
 };
 
 // --- AgendaBlock ---
@@ -66,20 +55,12 @@ const fetchAgendaEvents = async ({ eventType, maxEvents }: FetchAgendaEventsOpti
 
   const query = stringify({ where, limit, sort: 'date' }, { addQueryPrefix: true });
 
-  try {
-    const response = await fetch(`${API_CLIENT_PATHS.events}${query}`);
-
-    if (!response.ok) {
-      console.error('AgendaBlock: failed to fetch events', response.statusText);
-      return [];
-    }
-
-    const data = await response.json();
-    return data?.docs ?? [];
-  } catch (error) {
-    console.error('AgendaBlock: error fetching events', error);
-    return [];
-  }
+  return await payloadClientQuery<HawkEvent[]>({
+    url: API_CLIENT_PATHS.events,
+    query,
+    method: 'GET',
+    fallback: [],
+  });
 };
 
 const getEventsByMonthAndYear = async (
@@ -92,7 +73,6 @@ const getEventsByMonthAndYear = async (
   const endOfMonth = new Date(year, month + 1, 0, 23, 59, 59, 999);
 
   const where: Where = {
-    _status: { equals: 'published' },
     // Include any event that overlaps the current month — either it starts
     // within the month, or it's a multi-day event still running into it.
     or: [
@@ -113,15 +93,12 @@ const getEventsByMonthAndYear = async (
 
   const query = stringify({ where, locale, sort: 'date' }, { addQueryPrefix: true });
 
-  const response = await fetch(`${API_CLIENT_PATHS.events}${query}`);
-
-  if (!response.ok) {
-    console.error('AgendaBlock: failed to fetch events', response.statusText);
-    return [];
-  }
-
-  const data = await response.json();
-  return data?.docs ?? [];
+  return await payloadClientQuery<HawkEvent[]>({
+    url: API_CLIENT_PATHS.events,
+    query,
+    method: 'GET',
+    fallback: [],
+  });
 };
 
 export { fetchEvent, fetchAgendaEvents, getEventsByMonthAndYear };
