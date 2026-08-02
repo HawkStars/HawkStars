@@ -1,5 +1,5 @@
 import { stringify } from 'qs-esm';
-import type { PaginatedDocs, Where } from 'payload';
+import type { Where } from 'payload';
 import type { Sponsor, SponsorsBlock } from '@/payload-types';
 import payloadClientQuery from '../client';
 

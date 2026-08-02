@@ -1,7 +1,7 @@
 'use client';
 
 import { Section } from '@/components/layout/Section';
-import { HawkProject, HawkProjectDiscoverEuStop } from '@/payload-types';
+import { HawkProject } from '@/payload-types';
 import { Language } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
@@ -14,8 +14,6 @@ import {
   MapZoomControl,
   useLeaflet,
 } from '@/components/ui/map';
-import { format } from 'date-fns';
-import { pt } from 'date-fns/locale';
 import type { LatLngExpression } from 'leaflet';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { LuTrainFront } from 'react-icons/lu';

@@ -1,4 +1,4 @@
-import type { AgendaBlock, HawkEvent, HawkProject } from '@/payload-types';
+import type { AgendaBlock, HawkProject } from '@/payload-types';
 import type { Where } from 'payload';
 import { stringify } from 'qs-esm';
 

@@ -231,7 +231,7 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
     });
 
     return map;
-  }, [events]);
+  }, [events, projects]);
 
   const daysInMonth = getDaysInMonth(currentYear, currentMonth);
   const firstDay = getFirstDayOfMonth(currentYear, currentMonth);

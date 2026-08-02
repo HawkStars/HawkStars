@@ -68,7 +68,7 @@ export function AgendaBlockComponent({
 
     setLoading(false);
     setEvents(allEvents);
-  }, []);
+  }, [eventType, maxEvents]);
 
   useEffect(() => {
     const fetchData = async () => {
