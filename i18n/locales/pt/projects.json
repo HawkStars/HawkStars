@@ -41,5 +41,11 @@
   },
   "dateRange": {
     "to": "a"
+  },
+  "map": {
+    "replay": "Repetir rota",
+    "distance": "{{distance}} km",
+    "distances": "Distâncias",
+    "totalDistance": "Distância total"
   }
 }

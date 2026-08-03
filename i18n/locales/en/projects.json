@@ -41,5 +41,11 @@
   },
   "dateRange": {
     "to": "to"
+  },
+  "map": {
+    "replay": "Replay route",
+    "distance": "{{distance}} km",
+    "distances": "Distances",
+    "totalDistance": "Total distance"
   }
 }

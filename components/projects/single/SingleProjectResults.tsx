@@ -12,9 +12,11 @@ const SingleProjectReports: FC<SingleProjectReportsProps> = async ({ results, ln
   const { t } = await getServerTranslation(lng, 'projects');
   const img = getImagePayloadUrl(results?.resultsImage);
 
+  const hasResults = results && results.text;
+
   return (
     <>
-      {results && (results.text || results.resultsImage) && (
+      {hasResults && (
         <Section>
           <h2 className='mb-8 text-4xl font-bold'>{t('sections.results')}</h2>
           <div className='grid items-start gap-10 md:grid-cols-3'>
