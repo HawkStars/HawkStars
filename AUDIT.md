@@ -152,7 +152,7 @@ Same pattern in `payload/endpoints/dashboardStats.ts:7` and `sumContributions.ts
 
 - **SEC-L1** — `.env.sentry-build-plugin:5` holds a live org-scoped `SENTRY_AUTH_TOKEN` in plaintext on disk. It is gitignored and `git log --all -S"sntrys_"` confirms it was never committed, but it should be rotated and moved to the shell/CI environment only (already `secrets.SENTRY_AUTH_TOKEN` in `deploy.yml:60`).
 - **SEC-L2** — Error detail leaked to unauthenticated callers: `app/api/instagram/route.ts:131` returns `error.message`; `donate/route.ts:73`, `subscription/route.ts:49`, `member-projects/route.ts:99` return the full `e.issues` zod dump.
-- **SEC-L3** — `/api/instagram` is unauthenticated and unrated (`route.ts:63-90`); each hit is a DB read plus a Graph API call. `limit` varies 1-50, so each value is a distinct cache key. Cheap way to burn the Instagram quota.
+- <strike>**SEC-L3** — `/api/instagram` is unauthenticated and unrated (`route.ts:63-90`); each hit is a DB read plus a Graph API call. `limit` varies 1-50, so each value is a distinct cache key. Cheap way to burn the Instagram quota.</strike>
 - **SEC-L4** — `payload/collections/Media.ts:33` uses `mimeTypes: ['image/*']`, which matches `image/svg+xml`. Mitigated by `disableLocalStorage: true` + Cloudinary serving from a separate origin, but `Documents.ts:30-39` already uses an explicit safe list — do the same here.
 
 ### ✅ Verified OK
@@ -248,7 +248,7 @@ Worse: `app/[lng]/(org)/projects/[slug]/page.tsx:14` imports `SingleProjectTrave
 - **PERF-M5** — The agenda page renders nothing server-side: `AgendaCalendar` is `'use client'` and fetches on mount via an uncached REST call. Fetch the current month server-side and pass it as the initial prop.
 - **PERF-M6** — `utils/metadata.ts:26` does `fs.readFileSync` on every `generateMetadata` call (~20 routes), unmemoized. Static-import the two `metadata.json` files.
 - **PERF-M7** — 105 MB of source images in `public/images` (13 files > 4 MB; `training_center/entry_4.jpg` is 5.5 MB). Four are statically imported and emitted into the 20 MB `.next/static/media`. Users don't download the originals, but the VPS decodes a 5 MB JPEG per uncached variant and every deploy ships 20 MB. Pre-resize to ≤2048 px, or move them to Cloudinary. Note the four `unoptimized` usages — verify none points at these.
-- **PERF-M8** — Both `framer-motion` and `motion` (the same library, renamed) are installed. `motion` has zero imports; `framer-motion` has one, in `components/ui/animated-group.tsx`, which is itself only referenced by a story. Confirmed tree-shaken out of the current build — so no shipped cost today, but two ~120 KB duplicate packages in the lockfile and a live footgun.
+- <strike>**PERF-M8** — Both `framer-motion` and `motion` (the same library, renamed) are installed. `motion` has zero imports; `framer-motion` has one, in `components/ui/animated-group.tsx`, which is itself only referenced by a story. Confirmed tree-shaken out of the current build — so no shipped cost today, but two ~120 KB duplicate packages in the lockfile and a live footgun.</strike>
 
 ### 🔵 Low
 

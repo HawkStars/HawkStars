@@ -6,13 +6,10 @@ import { LuHeart, LuMessageCircle, LuPlay, LuLayers } from 'react-icons/lu';
 
 import { cn } from '@/lib/utils';
 import { ImageMedia } from '@/payload/components/Media';
-import {
-  type InstagramPost,
-  type InstagramGridProps,
-  INSTAGRAM_PROFILE_URL,
-} from './types';
+import { type InstagramPost, type InstagramGridProps, INSTAGRAM_PROFILE_URL } from './types';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { cacheLife } from 'next/cache';
 
 function PostOverlay({ post }: { post: InstagramPost }) {
   return (
@@ -70,6 +67,9 @@ export default function InstagramGrid({
     let cancelled = false;
 
     (async () => {
+      'use cache';
+      cacheLife('hours');
+
       try {
         const response = await fetch(`/api/instagram?limit=${maxPosts}`);
 
