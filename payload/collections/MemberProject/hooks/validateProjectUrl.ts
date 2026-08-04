@@ -1,4 +1,4 @@
-import type { CollectionBeforeChangeHook, CollectionBeforeValidateHook } from 'payload';
+import type { CollectionBeforeChangeHook } from 'payload';
 import type { MemberProject } from '@/payload-types';
 import { isHttpUrl } from '@/utils/paths';
 
@@ -9,7 +9,7 @@ export const checkProjectUrl: CollectionBeforeChangeHook<MemberProject> = async 
   if (!video_url) return data;
 
   const isHttpValid = isHttpUrl(video_url);
-  if (!isHttpUrl) {
+  if (!isHttpValid) {
     return { ...data, video_url: undefined };
   }
 

@@ -17,8 +17,6 @@ import MobileNavbar from '@/components/navbar/MobileNavbar';
 import { OrganizationJsonLd } from '@/components/seo/JsonLd';
 import { GA_MEASUREMENT_ID } from '@/lib/constants';
 import Navbar from '@/components/navbar/Navbar';
-import FooterWrapper from '@/components/footer/FooterWrapper';
-import Footer from '@/components/footer/Footer';
 import FooterContainer from '@/components/footer/Footer';
 
 export async function generateStaticParams() {
@@ -80,7 +78,7 @@ async function LayoutContent({ children, lng }: { children: React.ReactNode; lng
 
   return (
     <AppProvider lng={(lng as Language) || fallbackLng}>
-      <MobileNavbar />
+      <MobileNavbar headerInfo={headerInfo} />
       <Navbar headerInfo={headerInfo} lng={lng as Language} />
       <main className='bg-body relative min-h-screen'>{children}</main>
       <FooterContainer footerInfo={footerInfo} lng={lng as Language} />

@@ -2,7 +2,6 @@
 
 import { fallbackLng, Language } from '@/i18n/settings';
 import { NavbarVariant, DEFAULT_NAVBAR_VARIANT } from '@/lib/constants';
-import { Footer, Header } from '@/payload-types';
 import { createContext, Dispatch, ReactNode, useContext, useState } from 'react';
 
 type MainAppProperties = {

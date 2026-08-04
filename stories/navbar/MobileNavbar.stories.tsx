@@ -104,13 +104,13 @@ const fullHeaderInfo: Header = {
 };
 
 // MobileNavbar renders null unless mobileNavbarOpen is true, so open it on mount.
-const MobileNavbarOpener = () => {
+const MobileNavbarOpener = ({ headerInfo }: { headerInfo: Header }) => {
   const setOpen = useSetMobileNavbarOpen();
   useEffect(() => {
     setOpen(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  return <MobileNavbar />;
+  return <MobileNavbar headerInfo={headerInfo} />;
 };
 
 const meta = {
@@ -128,35 +128,39 @@ const meta = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <AppProvider headerInfo={simpleHeaderInfo} lng='en'>
+      <AppProvider lng='en'>
         <Story />
       </AppProvider>
     ),
   ],
-  render: () => <MobileNavbarOpener />,
+  render: () => <MobileNavbarOpener headerInfo={simpleHeaderInfo} />,
 } satisfies Meta<typeof MobileNavbar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
-
 export const FullNavigation: Story = {
   decorators: [
     (Story) => (
-      <AppProvider headerInfo={fullHeaderInfo} lng='en'>
-        <Story />
+      <AppProvider lng='en'>
+        <Story lng='en' />
       </AppProvider>
     ),
   ],
+  args: {
+    headerInfo: fullHeaderInfo,
+  },
 };
 
 export const Portuguese: Story = {
   decorators: [
     (Story) => (
-      <AppProvider headerInfo={fullHeaderInfo} lng='pt'>
+      <AppProvider lng='pt'>
         <Story />
       </AppProvider>
     ),
   ],
+  args: {
+    headerInfo: fullHeaderInfo,
+  },
 };

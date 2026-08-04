@@ -5,7 +5,7 @@ import { ImageMedia } from '@/payload/components/Media';
 import Link from 'next/link';
 import { urls, transformUrl } from '@/utils/paths';
 
-import { useCallback, useEffect, useRef } from 'react';
+import { FC, useCallback, useEffect, useRef } from 'react';
 import {
   useLanguageCookie,
   useMainAppContext,
@@ -16,9 +16,14 @@ import { hawkLogo } from '@/utils/models/images/logos';
 import Socials from '@/components/utils/Socials';
 import MobileMenuItem from './MobileMenuItem';
 import { useTranslation } from '@/i18n/client';
+import { Header } from '@/payload-types';
 
-const MobileNavbar = () => {
-  const { mobileNavbarOpen, headerInfo } = useMainAppContext();
+type MobileNavbarProps = {
+  headerInfo: Header;
+};
+
+const MobileNavbar: FC<MobileNavbarProps> = ({ headerInfo }) => {
+  const { mobileNavbarOpen } = useMainAppContext();
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
   const setMobileMenuOpen = useSetMobileNavbarOpen();

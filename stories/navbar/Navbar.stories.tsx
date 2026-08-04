@@ -245,9 +245,9 @@ const meta = {
   decorators: [
     (Story) => {
       return (
-        <AppProvider headerInfo={simpleHeaderInfo} lng='en'>
+        <AppProvider lng='en'>
           <div className='min-h-100'>
-            <Story />
+            <Story headerInfo={simpleHeaderInfo} />
           </div>
         </AppProvider>
       );
@@ -258,110 +258,119 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
-
 export const FullNavigation: Story = {
   decorators: [
     (Story) => (
-      <AppProvider headerInfo={fullHeaderInfo} lng='en'>
+      <AppProvider lng='en'>
         <div className='min-h-100'>
-          <Story />
+          <Story lng='en' />
         </div>
       </AppProvider>
     ),
   ],
+  args: {
+    headerInfo: fullHeaderInfo,
+    lng: 'en',
+  },
 };
 
 export const SingleLinksOnly: Story = {
   decorators: [
     (Story) => (
-      <AppProvider headerInfo={singleLinksHeaderInfo} lng='en'>
+      <AppProvider lng='en'>
         <div className='min-h-100'>
           <Story />
         </div>
       </AppProvider>
     ),
   ],
+  args: {
+    headerInfo: singleLinksHeaderInfo,
+    lng: 'en',
+  },
 };
 
 export const WithDropdowns: Story = {
   decorators: [
     (Story) => (
-      <AppProvider
-        headerInfo={{
-          id: 'dropdowns-header',
-          columns: [
-            {
-              id: 'about-dropdown',
-              isMultiColumn: true,
-              dropdown: aboutDropdown,
-            },
-            {
-              id: 'art-dropdown',
-              isMultiColumn: true,
-              dropdown: artDropdown,
-            },
-          ],
-        }}
-        lng='en'
-      >
+      <AppProvider lng='en'>
         <div className='min-h-100'>
           <Story />
         </div>
       </AppProvider>
     ),
   ],
+  args: {
+    headerInfo: {
+      id: 'dropdowns-header',
+      columns: [
+        {
+          id: 'about-dropdown',
+          isMultiColumn: true,
+          dropdown: aboutDropdown,
+        },
+        {
+          id: 'art-dropdown',
+          isMultiColumn: true,
+          dropdown: artDropdown,
+        },
+      ],
+    },
+    lng: 'en',
+  },
 };
 
 export const WithProjectsDropdown: Story = {
   decorators: [
     (Story) => (
-      <AppProvider
-        headerInfo={{
-          id: 'projects-header',
-          columns: [
-            {
-              id: 'projects-dropdown',
-              isMultiColumn: true,
-              dropdown: projectsDropdown,
-            },
-          ],
-        }}
-        lng='en'
-      >
+      <AppProvider lng='en'>
         <div className='min-h-100'>
           <Story />
         </div>
       </AppProvider>
     ),
   ],
+  args: {
+    headerInfo: {
+      id: 'projects-header',
+      columns: [
+        {
+          id: 'projects-dropdown',
+          isMultiColumn: true,
+          dropdown: projectsDropdown,
+        },
+      ],
+    },
+    lng: 'en',
+  },
 };
 
 export const MultipleDropdowns: Story = {
   decorators: [
     (Story) => (
-      <AppProvider
-        headerInfo={{
-          id: 'multi-dropdown-header',
-          columns: [
-            {
-              id: 'about-dropdown',
-              isMultiColumn: true,
-              dropdown: aboutDropdown,
-            },
-            {
-              id: 'projects-dropdown',
-              isMultiColumn: true,
-              dropdown: projectsDropdown,
-            },
-          ],
-        }}
-        lng='en'
-      >
+      <AppProvider lng='en'>
         <div className='min-h-100'>
           <Story />
         </div>
       </AppProvider>
     ),
   ],
+  args: {
+    headerInfo: {
+      id: 'multi-dropdown-header',
+      columns: [
+        {
+          id: 'about-dropdown',
+          isMultiColumn: true,
+          dropdown: aboutDropdown,
+        },
+        {
+          id: 'projects-dropdown',
+          isMultiColumn: true,
+          dropdown: projectsDropdown,
+        },
+      ],
+    },
+    lng: 'en',
+  },
 };

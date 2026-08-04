@@ -69,7 +69,7 @@ const meta = {
   decorators: [
     (Story) => {
       return (
-        <AppProvider footerInfo={simpleFooterInfo} lng='en'>
+        <AppProvider lng='en'>
           <div className='bg-bege-light min-h-50'>
             <Story />
           </div>
@@ -77,57 +77,75 @@ const meta = {
       );
     },
   ],
+  args: {
+    footerInfo: simpleFooterInfo,
+    lng: 'en',
+  },
 } satisfies Meta<typeof Footer>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
-
 export const FullFooter: Story = {
   decorators: [
     (Story) => (
-      <AppProvider footerInfo={fullFooterInfo} lng='en'>
+      <AppProvider lng='en'>
         <div className='bg-bege-light min-h-50'>
           <Story />
         </div>
       </AppProvider>
     ),
   ],
+  args: {
+    footerInfo: fullFooterInfo,
+    lng: 'en',
+  },
 };
 
 export const MinimalFooter: Story = {
   decorators: [
     (Story) => (
-      <AppProvider footerInfo={minimalFooterInfo} lng='en'>
+      <AppProvider lng='en'>
         <div className='bg-bege-light min-h-50'>
           <Story />
         </div>
       </AppProvider>
     ),
   ],
+  args: {
+    footerInfo: minimalFooterInfo,
+    lng: 'en',
+  },
 };
 
 export const MultiRowFooter: Story = {
   decorators: [
     (Story) => (
-      <AppProvider footerInfo={{ id: 'multi-row-footer', columns: DUMMY_FOOTER_INFO }} lng='pt'>
+      <AppProvider lng='pt'>
         <div className='bg-bege-light min-h-50'>
           <Story />
         </div>
       </AppProvider>
     ),
   ],
+  args: {
+    footerInfo: { id: 'multi-row-footer', columns: DUMMY_FOOTER_INFO },
+    lng: 'pt',
+  },
 };
 
 export const EmptyFooter: Story = {
   decorators: [
     (Story) => (
-      <AppProvider footerInfo={emptyFooterInfo} lng='en'>
+      <AppProvider lng='en'>
         <div className='bg-bege-light min-h-50'>
           <Story />
         </div>
       </AppProvider>
     ),
   ],
+  args: {
+    footerInfo: emptyFooterInfo,
+    lng: 'en',
+  },
 };
