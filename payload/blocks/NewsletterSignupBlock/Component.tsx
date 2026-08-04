@@ -47,9 +47,11 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
 
           {!submitted ? (
             <form onSubmit={handleSubmit} className='flex flex-col gap-3 sm:flex-row'>
+              <label htmlFor='email'>Email</label>
               <input
                 type='email'
                 value={email}
+                aria-label='email'
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={'Your email address'}
                 required

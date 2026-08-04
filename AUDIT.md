@@ -311,7 +311,7 @@ Highest-value untested surface, ranked:
 
 **Fix:** add `pnpm test` and `pnpm format` to the `check` job; add a `coverage` block with thresholds.
 
-### 🟠 QUA-H4 (High) — Storybook `addon-vitest` is configured but wired to nothing
+### 🟠 <strike>QUA-H4 (High) — Storybook `addon-vitest` is configured but wired to nothing</strike>
 
 `.storybook/main.ts:18` registers `@storybook/addon-vitest` and playwright is installed, but `vitest.config.ts` declares no Storybook project and there is no `.storybook/vitest.setup.ts`. The 136 stories are never executed as tests, and `@storybook/addon-a11y` produces no CI signal. Three devDependencies (~200 MB with browsers) paid for and unused.
 
@@ -319,7 +319,7 @@ Highest-value untested surface, ranked:
 
 ### 🟡 Medium
 
-- **QUA-M1** — `package-lock.json` (666 KB) is **tracked** despite `.gitignore:62` and the pnpm mandate, and it is absorbing all Dependabot security PRs. Commits `279be2a` (brace-expansion), `7a28f26` (qs), `921e22e` (js-yaml) and `904c512` (nodemailer) touched **only the dead lockfile** — four dependency PRs merged with zero effect on what ships. No Dependabot PR has touched `pnpm-lock.yaml` since 2026-05-09. Fix: `git rm --cached package-lock.json`; change `package-ecosystem: 'pnpm'` to `'npm'` in `.github/dependabot.yml`.
+- <strike>**QUA-M1** — `package-lock.json` (666 KB) is **tracked** despite `.gitignore:62` and the pnpm mandate, and it is absorbing all Dependabot security PRs. Commits `279be2a` (brace-expansion), `7a28f26` (qs), `921e22e` (js-yaml) and `904c512` (nodemailer) touched **only the dead lockfile** — four dependency PRs merged with zero effect on what ships. No Dependabot PR has touched `pnpm-lock.yaml` since 2026-05-09. Fix: `git rm --cached package-lock.json`; change `package-ecosystem: 'pnpm'` to `'npm'` in `.github/dependabot.yml`.</strike>
 - **QUA-M2** — No `error.tsx` in any route group. Only `app/global-error.tsx`, `(org)/not-found.tsx`, `(org)/loading.tsx` exist. Any server render error escalates to `global-error.tsx`, replacing the whole shell and losing nav, footer and language context. Also missing: `loading.tsx` in `(crowdfunding)`/`(gaming)`, and a root `app/not-found.tsx`.
 - **QUA-M3** — Prettier is checked nowhere (absent from pre-push and CI) and 7 files have already drifted: `FormContributions.tsx`, `SingleProjectObjectives.tsx`, `InstagramGrid.tsx`, `CallToAction/Component.tsx`, `ImageComparisonSliderBlock/Component.tsx`, `QuoteHighlightBlock/Component.tsx`, `payload/fields/translateInput.tsx`. (`app/`, `lib/`, `utils/` are clean.)
 - **QUA-M4** — 54 `console.*` calls in production paths vs 16 Sentry uses. The dominant pattern is *log, return empty, pretend success* — `lib/payload/queries/artwork.ts:17,41`, `contribution.ts:40`, `lib/payload/client/{event,news,sponsors}.ts` (9 sites) all `console.error` then `return null`/`[]`. A CMS outage renders as empty sections with no alert. Two genuinely empty catches at `components/Crowdfunding/ShareButton.tsx:24,30`. And `app/api/easypay/route.ts:69,110,137,172,213` logs webhook bodies on every callback — a PII surface. Fix with a `reportError(err, context)` helper doing `console.error` + `Sentry.captureException`.
@@ -327,7 +327,7 @@ Highest-value untested surface, ranked:
 - **QUA-M6** — `components/events/EventsList/index.tsx` has four defects in 64 lines: typed `PaginatedDocs<HawkProject>` (Events list rendering Projects), `href={\`/projects/${slug}\`}` with **no `lng` prefix** (the only violation of `patterns.md:9` in the repo), a bare `<a>` instead of `next/link`, and `project.details?.text` rendered twice. Currently dead — delete or fix all four.
 - **QUA-M7** — `EventCard.tsx` and `ProjectCard.tsx` are ~85% copy-paste, including a duplicated `formatDateRange` with gratuitously different signatures. `EventCard` declares an unused `index` prop, silently losing the LCP preload that `ProjectCard:44` gets from its own `index`. Extract a shared `<ListCard>`.
 - **QUA-M8** — Form handling contradicts `patterns.md:58` ("React Hook Form with Zod"). `DonationWidget/index.tsx` — the production donation form — uses **12 raw `useState` hooks** with no RHF, no Zod, no client validation at all. `SubmitProjectForm.tsx:60` uses `useForm` but **no `zodResolver`**, because the schema is defined inline in the route module and never exported. Extract to `lib/schemas/` and share.
-- **QUA-M9** — `graphql@17.0.2` violates Payload's peer range (`{"graphql":"^16.8.1"}`, verified in `node_modules/payload/package.json`), and the GraphQL routes are exposed. v17 has breaking changes; the endpoints likely fail at runtime and nothing tests them. Nothing in the app imports `graphql` directly — either pin to `^16.8.1` or drop the dependency and delete the two routes.
+- <strike>**QUA-M9** — `graphql@17.0.2` violates Payload's peer range (`{"graphql":"^16.8.1"}`, verified in `node_modules/payload/package.json`), and the GraphQL routes are exposed. v17 has breaking changes; the endpoints likely fail at runtime and nothing tests them. Nothing in the app imports `graphql` directly — either pin to `^16.8.1` or drop the dependency and delete the two routes.</strike>
 
 ### 🔵 Low
 
@@ -419,7 +419,7 @@ Every `div/span/li/p` with `onClick` was checked for `role` + `tabIndex` + key h
 
 ### 🔵 Low
 
-- **A11Y-L1** — `NewsletterSignupBlock/Component.tsx:50-57` — placeholder-only email field, no `<label>`, no `aria-label`.
+- <strike>**A11Y-L1** — `NewsletterSignupBlock/Component.tsx:50-57` — placeholder-only email field, no `<label>`, no `aria-label`.</strike>
 
 ### ✅ Verified OK
 
@@ -490,7 +490,7 @@ Entries are also emitted as separate per-language URLs with **no `alternates.lan
 
 ## 6. Internationalization
 
-### 🟠 I18N-H1 (High) — `en/terms.json` is empty; the Terms page serves Portuguese under `lang="en"`
+### 🟠 <strike>I18N-H1 (High) — `en/terms.json` is empty; the Terms page serves Portuguese under `lang="en"`</strike>
 
 `i18n/locales/en/terms.json` is literally `{}`. `pt/terms.json` has 50 keys.
 

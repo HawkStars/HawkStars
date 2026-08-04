@@ -51,7 +51,7 @@ const LanguageSwitcher = ({ isFooter = false }: LanguageSwitcherProps) => {
       })}
     >
       {HawkStarsIcons.map(({ icon: Icon, title, value }, index) => (
-        <div
+        <button
           key={index}
           className={cn('flex h-4 w-6', {
             'my-auto': isFooter,
@@ -59,7 +59,7 @@ const LanguageSwitcher = ({ isFooter = false }: LanguageSwitcherProps) => {
           onClick={() => changeLanguage(value)}
         >
           <Icon title={title} className={cn({ 'grayscale hover:grayscale-50': lng != value })} />
-        </div>
+        </button>
       ))}
     </div>
   );
