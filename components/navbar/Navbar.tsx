@@ -1,20 +1,26 @@
 'use client';
-
 import Link from 'next/link';
 import { ImageMedia } from '@/payload/components/Media';
 import HamburgerIcon from '@/public/images/icons/common/hamburger.svg';
 import { useMainAppContext, useSetMobileNavbarOpen } from '../../utils/contexts/AppProvider';
 import { hawkLogo } from '@/utils/models/images/logos';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import DesktopNavbar from './DesktopNavbar';
 import { cn } from '@/lib/utils';
 import DropdownMenu from './DesktopDropdown/DropdownMenu';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { useTranslation } from '@/i18n/client';
+import { Header } from '@/payload-types';
+import { Language } from '@/i18n/settings';
 
-const Navbar = () => {
+type NavbarProps = {
+  headerInfo: Header;
+  lng: Language;
+};
+
+const Navbar: FC<NavbarProps> = ({ headerInfo, lng }) => {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
-  const { lng, headerInfo, navbarVariant } = useMainAppContext();
+  const { navbarVariant } = useMainAppContext();
   const { t } = useTranslation(lng, 'common');
   const setMobileMenuOpen = useSetMobileNavbarOpen();
 

@@ -67,7 +67,7 @@ hooks: { beforeValidate: [({ data, req, operation }) =>
 
 Better still: set `create: authenticated` on the collection and let `/api/member-projects/route.ts` remain the sole public write path (it already uses `overrideAccess: true` at `:93`).
 
-### 🟠 SEC-H1 (High) — Stored XSS via `javascript:` URLs in member-project links
+### 🟠 <strike>SEC-H1 (High) — Stored XSS via `javascript:` URLs in member-project links</strike>
 
 `components/members-corner/MembersShowcase.tsx:56, 78, 97` render `href={project.video_url}` and `href={d.link}`. Both fields are plain `type: 'text'` with no validation (`payload/collections/MemberProject/index.ts:122-133`, `:176-179`).
 
@@ -75,7 +75,7 @@ The app route guards this correctly (`app/api/member-projects/route.ts:9-22`, `i
 
 **Fix:** move `isHttpUrl` into the field definition as a Payload `validate` function so it applies to every write path — REST, GraphQL, admin, Local API.
 
-### 🟠 SEC-H2 (High) — Public REST read leaks submitter name + email for every submission
+### 🟠 <strike>SEC-H2 (High) — Public REST read leaks submitter name + email for every submission</strike>
 
 `payload/collections/MemberProject/index.ts:39` (`read: anyone`), fields at `:189-220`. The group's "admin only" text is a UI description, not access control.
 

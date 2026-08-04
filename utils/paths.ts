@@ -75,3 +75,15 @@ export const routes = [
   { url: urls.news, priority: 0.6 },
   { url: urls.terms, priority: 0.3 },
 ] as MetadataRoute[];
+
+// z.url() alone accepts schemes like javascript:, data: and vbscript:, which
+// become a stored-XSS vector once these URLs are rendered (img src / iframe /
+// anchor href) after an admin confirms the submission. Restrict to http(s).
+export const isHttpUrl = (value: string) => {
+  try {
+    const { protocol } = new URL(value);
+    return protocol === 'http:' || protocol === 'https:';
+  } catch {
+    return false;
+  }
+};

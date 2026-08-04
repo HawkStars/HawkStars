@@ -30,7 +30,7 @@ function isAuthorisedWebhook(request: Request): boolean {
       'EasyPay webhook received without EASYPAY_WEBHOOK_SECRET configured — endpoint is unauthenticated',
       { level: 'warning' }
     );
-    return true;
+    return false;
   }
 
   const url = new URL(request.url);

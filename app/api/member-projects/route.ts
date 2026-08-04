@@ -2,18 +2,7 @@ import { getPayloadConfig } from '@/lib/payload/server';
 import * as Sentry from '@sentry/nextjs';
 import * as z from 'zod';
 import { checkRateLimit, getClientIp } from '@/utils/rateLimit';
-
-// z.url() alone accepts schemes like javascript:, data: and vbscript:, which
-// become a stored-XSS vector once these URLs are rendered (img src / iframe /
-// anchor href) after an admin confirms the submission. Restrict to http(s).
-const isHttpUrl = (value: string) => {
-  try {
-    const { protocol } = new URL(value);
-    return protocol === 'http:' || protocol === 'https:';
-  } catch {
-    return false;
-  }
-};
+import { isHttpUrl } from '@/utils/paths';
 
 const optionalUrl = z
   .url('Must be a valid URL')

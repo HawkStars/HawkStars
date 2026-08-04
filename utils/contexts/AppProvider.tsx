@@ -8,8 +8,6 @@ import { createContext, Dispatch, ReactNode, useContext, useState } from 'react'
 type MainAppProperties = {
   mobileNavbarOpen: boolean;
   lng: Language;
-  headerInfo?: Header;
-  footerInfo?: Footer;
   navbarVariant: NavbarVariant;
 };
 
@@ -27,16 +25,12 @@ const SetMainAppContext = createContext<Dispatch<React.SetStateAction<MainAppPro
 type AppProviderProps = {
   children: ReactNode;
   lng: Language;
-  headerInfo?: Header;
-  footerInfo?: Footer;
 };
 
-const AppProvider = ({ children, lng, headerInfo, footerInfo }: AppProviderProps) => {
+const AppProvider = ({ children, lng }: AppProviderProps) => {
   const [appProperties, setAppProperties] = useState<MainAppProperties>({
     ...defaultAppProperties,
     lng,
-    headerInfo,
-    footerInfo,
   });
 
   return (

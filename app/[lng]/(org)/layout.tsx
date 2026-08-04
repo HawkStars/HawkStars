@@ -18,6 +18,8 @@ import { OrganizationJsonLd } from '@/components/seo/JsonLd';
 import { GA_MEASUREMENT_ID } from '@/lib/constants';
 import Navbar from '@/components/navbar/Navbar';
 import FooterWrapper from '@/components/footer/FooterWrapper';
+import Footer from '@/components/footer/Footer';
+import FooterContainer from '@/components/footer/Footer';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -77,15 +79,11 @@ async function LayoutContent({ children, lng }: { children: React.ReactNode; lng
   const footerInfo = await getFooterQuery(lng as Language);
 
   return (
-    <AppProvider
-      lng={(lng as Language) || fallbackLng}
-      headerInfo={headerInfo}
-      footerInfo={footerInfo}
-    >
+    <AppProvider lng={(lng as Language) || fallbackLng}>
       <MobileNavbar />
-      <Navbar />
+      <Navbar headerInfo={headerInfo} lng={lng as Language} />
       <main className='bg-body relative min-h-screen'>{children}</main>
-      <FooterWrapper />
+      <FooterContainer footerInfo={footerInfo} lng={lng as Language} />
     </AppProvider>
   );
 }

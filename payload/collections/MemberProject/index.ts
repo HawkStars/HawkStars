@@ -4,6 +4,7 @@ import { authenticated } from '../../access/authenticated';
 import { notifyMemberProject } from './hooks';
 import { GROUP_LABELS } from '@/payload/constants';
 import { checkConfirmedByAdmin } from './hooks/checkConfirmedByAdmin';
+import { checkProjectUrl } from './hooks/validateProjectUrl';
 
 /**
  * MemberProject — "Corner of the Members"
@@ -45,6 +46,7 @@ export const MemberProject: CollectionConfig = {
   hooks: {
     afterChange: [notifyMemberProject],
     beforeValidate: [checkConfirmedByAdmin],
+    beforeChange: [checkProjectUrl],
   },
   fields: [
     /* -------------------------------------------------------------- */
@@ -65,7 +67,7 @@ export const MemberProject: CollectionConfig = {
       access: {
         create: () => false,
         update: ({ req }) => Boolean(req.user?.isAdmin),
-        read: () => true,
+        read: ({ req: { user } }) => Boolean(user),
       },
       hooks: {
         beforeValidate: [
@@ -226,6 +228,9 @@ export const MemberProject: CollectionConfig = {
               type: 'email',
               required: true,
               admin: { width: '50%' },
+              access: {
+                read: ({ req }) => req.user?.isAdmin || false,
+              },
             },
           ],
         },

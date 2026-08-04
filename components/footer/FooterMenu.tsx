@@ -1,5 +1,3 @@
-'use client';
-
 import { FooterColumn } from './config';
 import HawkLink from '../utils/HawkLink';
 

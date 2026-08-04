@@ -1,16 +1,20 @@
-'use client';
-
 import { ImageMedia } from '@/payload/components/Media';
 
 import { hawkLogo } from '@/utils/models/images/logos';
-import { useMainAppContext } from '@/utils/contexts/AppProvider';
 import FooterMenu from './FooterMenu';
 import FooterBottom from './FooterBottom';
-import { useTranslation } from '@/i18n/client';
+import { Footer } from '@/payload-types';
+import { FC } from 'react';
+import { Language } from '@/i18n/settings';
+import { getServerTranslation } from '@/i18n';
 
-const Footer = () => {
-  const { lng, footerInfo } = useMainAppContext();
-  const { t } = useTranslation(lng, 'common');
+type FooterProps = {
+  footerInfo: Footer;
+  lng: Language;
+};
+
+const FooterContainer: FC<FooterProps> = async ({ footerInfo, lng }) => {
+  const { t } = await getServerTranslation(lng, 'common');
 
   return (
     <footer className='mt-8'>
@@ -37,4 +41,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default FooterContainer;
