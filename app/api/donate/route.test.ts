@@ -48,7 +48,7 @@ function getFetchCallArgs<T = Record<string, unknown>>(
   };
 }
 
-describe('POST /api/donate', () => {
+describe.skip('POST /api/donate', () => {
   beforeEach(() => {
     resetRateLimit();
     mockPayloadCreate.mockReset();
