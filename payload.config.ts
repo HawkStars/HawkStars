@@ -198,6 +198,7 @@ export default buildConfig({
   },
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || 'mongodb://localhost:27017/hawkstars',
+    migrationDir: path.resolve(dirname, 'payload/migrations'),
   }),
   email:
     process.env.NODE_ENV === 'production'

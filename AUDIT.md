@@ -34,7 +34,7 @@ Counts by severity: **1 Critical, 12 High, 21 Medium, 17 Low.**
 
 ## 1. Security
 
-### 🔴 SEC-C1 (Critical) — `member_projects` accepts unauthenticated writes, including the moderation flag
+### <strike>🔴 SEC-C1 (Critical) — `member_projects` accepts unauthenticated writes, including the moderation flag</strike>
 
 `payload/collections/MemberProject/index.ts:37-43`
 
@@ -189,7 +189,7 @@ Measured from the production build:
 | Shared root JS on every page (`rootMainFiles`) | **862 KB raw / 259 KB gzip** |
 | `'use client'` files | 60 of 246 |
 
-### 🟠 PERF-H1 (High) — `inlineCss: true` ships the same 170 KB stylesheet twice per document
+### 🟠 <strike>PERF-H1 (High) — `inlineCss: true` ships the same 170 KB stylesheet twice per document</strike>
 
 `next.config.ts:74`. Measured in `.next/server/app/pt.html`: one 170 KB `<style>` block, **zero** `<link rel=stylesheet>`, *and* a 171 KB `self.__next_f.push` flight chunk containing the identical CSS. Same on `pt/team.html` (168 KB + 227 KB) and `pt/transparency.html`, where inline CSS is **89% of the whole document**.
 
@@ -197,7 +197,7 @@ Because there is no stylesheet `<link>`, the CSS is **never browser-cached** —
 
 **Fix:** remove `inlineCss: true`; Next emits a cacheable `<link>` chunk. Separately, 168 KB of Tailwind output is large for this site — audit the hand-written `@layer components` block in `app/globals.css:84-306`.
 
-### 🟠 PERF-H2 (High) — Sentry Session Replay in the root bundle, 100% trace sampling
+### 🟠 <strike>PERF-H2 (High) — Sentry Session Replay in the root bundle, 100% trace sampling</strike>
 
 `instrumentation-client.ts:11` `tracesSampleRate: 1`; `:16` `replaysOnErrorSampleRate: 1.0`; `:23-29` statically imported `replayIntegration`. The rrweb chunk (`.next/static/chunks/3buf985lt91_f.js`) is in `rootMainFiles` and weighs **552 KB raw / 172 KB gzip** — **two-thirds of the entire shared bundle is Sentry**.
 
@@ -276,7 +276,7 @@ Worse: `app/[lng]/(org)/projects/[slug]/page.tsx:14` imports `SingleProjectTrave
 
 ## 3. Code quality & tech debt
 
-### 🟠 QUA-H1 (High) — Migrations have never run: `migrationDir` is unset
+### 🟠 <strike>QUA-H1 (High) — Migrations have never run: `migrationDir` is unset</strike>
 
 `payload.config.ts:197-199` calls `mongooseAdapter({ url })` with **no `migrationDir`**. Payload's `findMigrationDir` checks `<cwd>/src/migrations` → `<cwd>/dist/migrations` → `<cwd>/migrations`, then falls back to `./migrations`. This repo has none of those — migrations live at `payload/migrations/`.
 
@@ -286,7 +286,7 @@ So the 4 registered migrations have never executed in production. `deploy.yml` r
 
 Secondary: `payload/migrations/index.ts` lists `20260718_152949…` **before** `20260718_000000…`. Payload executes in array order — re-sort before enabling.
 
-### 🟠 QUA-H2 (High) — `.eslintrc.json` is dead; the documented 140-char rule is not enforced
+### 🟠 <strike>QUA-H2 (High) — `.eslintrc.json` is dead; the documented 140-char rule is not enforced</strike>
 
 ESLint is v10.8.0 — flat config only. `npx eslint --print-config` on `app/sitemap.ts` returns `max-len: undefined` across 112 rules. `.eslintrc.json:4-13` is inert, as is its `"extends": [..., "prettier"]`.
 

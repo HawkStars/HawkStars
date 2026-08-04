@@ -67,7 +67,7 @@ const nextConfig = {
   experimental: {
     taint: true,
     turbopackFileSystemCacheForDev: true,
-    inlineCss: true,
+    inlineCss: process.env.NODE_ENV !== 'production', // wait to be out of beta before enabling this in production
   },
   serverExternalPackages: [],
   staticPageGenerationTimeout: 120,

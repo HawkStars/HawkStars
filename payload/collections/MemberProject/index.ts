@@ -3,6 +3,7 @@ import { anyone } from '../../access/anyone';
 import { authenticated } from '../../access/authenticated';
 import { notifyMemberProject } from './hooks';
 import { GROUP_LABELS } from '@/payload/constants';
+import { checkConfirmedByAdmin } from './hooks/checkConfirmedByAdmin';
 
 /**
  * MemberProject — "Corner of the Members"
@@ -37,12 +38,13 @@ export const MemberProject: CollectionConfig = {
   access: {
     admin: authenticated,
     read: anyone,
-    create: anyone,
+    create: authenticated,
     update: authenticated,
     delete: authenticated,
   },
   hooks: {
     afterChange: [notifyMemberProject],
+    beforeValidate: [checkConfirmedByAdmin],
   },
   fields: [
     /* -------------------------------------------------------------- */
@@ -59,6 +61,17 @@ export const MemberProject: CollectionConfig = {
           en: 'Check this only after confirming the submitter is a trusted member who has paid their membership. The project appears on the public showcase only when this is checked.',
           pt: 'Marque apenas após confirmar que o submetente é um membro de confiança que pagou a sua quota. O projeto aparece na montra pública apenas quando esta opção está marcada.',
         },
+      },
+      access: {
+        create: () => false,
+        update: ({ req }) => Boolean(req.user?.isAdmin),
+        read: () => true,
+      },
+      hooks: {
+        beforeValidate: [
+          ({ data, req, operation }) =>
+            operation === 'create' && !req.user ? { ...data, is_confirmed: false } : data,
+        ],
       },
     },
 

@@ -40,7 +40,7 @@ const submissionSchema = z
       .optional()
       .default([]),
     submitter_name: z.string().trim().min(1, 'Your name is required').max(120),
-    submitter_email: z.string().trim().email('A valid email is required'),
+    submitter_email: z.email(),
   })
   .refine((data) => Boolean(data.image_url) || Boolean(data.video_url), {
     message: 'Provide at least an image URL or a video URL',

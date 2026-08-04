@@ -80,7 +80,7 @@ export const ImageMedia: React.FC<NextImageProps> = (props) => {
       blurDataURL={urlBlur}
       quality={quality}
       loading={loading}
-      sizes={sizes ?? '100vw'}
+      sizes={sizes ?? '1x 100vw, 2x 50vw'}
       src={src as StaticImageData | string}
       unoptimized={unoptimized}
       onClick={onClick}

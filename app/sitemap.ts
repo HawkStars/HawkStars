@@ -44,6 +44,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const artworks = await payload.find({
       collection: 'artworks',
       limit: 1000,
+      where: {
+        _status: {
+          equals: 'published',
+        },
+      },
     });
 
     for (const artwork of artworks.docs) {
@@ -61,6 +66,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const curators = await payload.find({
       collection: 'curators',
       limit: 1000,
+      where: {
+        _status: {
+          equals: 'published',
+        },
+      },
     });
 
     for (const curator of curators.docs) {
@@ -78,6 +88,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const projects = await payload.find({
       collection: 'hawk_projects',
       limit: 1000,
+      where: {
+        _status: {
+          equals: 'published',
+        },
+      },
     });
 
     for (const project of projects.docs) {
@@ -87,6 +102,50 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           url: `${BASE_URL}/${language}/projects/${project.slug}`,
           priority: 0.7,
           lastModified: project.updatedAt ? new Date(project.updatedAt) : new Date(),
+          changeFrequency: 'weekly',
+        });
+      }
+    }
+
+    const news = await payload.find({
+      collection: 'news',
+      limit: 1000,
+      where: {
+        _status: {
+          equals: 'published',
+        },
+      },
+    });
+
+    for (const newsItem of news.docs) {
+      for (const language of languages) {
+        // News items are accessible via /news/[slug]
+        sitemapRoutes.push({
+          url: `${BASE_URL}/${language}/news/${newsItem.slug}`,
+          priority: 0.6,
+          lastModified: newsItem.updatedAt ? new Date(newsItem.updatedAt) : new Date(),
+          changeFrequency: 'weekly',
+        });
+      }
+    }
+
+    const events = await payload.find({
+      collection: 'hawk_events',
+      limit: 1000,
+      where: {
+        _status: {
+          equals: 'published',
+        },
+      },
+    });
+
+    for (const event of events.docs) {
+      for (const language of languages) {
+        // Events are accessible via /events/[slug]
+        sitemapRoutes.push({
+          url: `${BASE_URL}/${language}/events/${event.slug}`,
+          priority: 0.6,
+          lastModified: event.updatedAt ? new Date(event.updatedAt) : new Date(),
           changeFrequency: 'weekly',
         });
       }
