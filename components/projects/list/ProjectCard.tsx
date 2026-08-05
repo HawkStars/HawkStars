@@ -1,7 +1,7 @@
 import { HawkProject } from '@/payload-types';
 import { LuCalendarDays } from 'react-icons/lu';
 import { getImagePayloadUrl } from '@/lib/image';
-import { transformUrl, urls } from '@/utils/paths';
+import { transformUrl, SITE_GET_URLS } from '@/utils/paths';
 import Link from 'next/link';
 import { ImageMedia } from '@/payload/components/Media';
 import { format } from 'date-fns';
@@ -24,7 +24,7 @@ const formatDateRange = (startDate?: string | null, endDate?: string | null) => 
 
 const ProjectCard = ({ project, index, lng }: ProjectCardProps) => {
   const image = getImagePayloadUrl(project.coverImage);
-  const projectUrl = transformUrl(lng, `${urls.projects}/${project.slug}`);
+  const projectUrl = transformUrl(lng, `${SITE_GET_URLS.projects}/${project.slug}`);
   const dateLabel = formatDateRange(project.startDate, project.endDate);
 
   return (

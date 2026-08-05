@@ -1,9 +1,8 @@
-import * as fs from 'fs';
 import * as Sentry from '@sentry/nextjs';
 import { Metadata } from 'next/types';
 
 import { Language, fallbackLng, languages } from '@/i18n/settings';
-import { HawkStarsPaths, urls } from './paths';
+import { SITE_GET_URLS, HawkStarsPaths } from './paths';
 import { Media } from '@/payload-types';
 import {
   BASE_URL,
@@ -100,9 +99,10 @@ const getMetadataPageInfo = (lng: Language, page: HawkStarsPaths): Metadata => {
     lng = fallbackLng;
   }
   const JSONFile = readMetadataLanguageFile(lng);
+  if (!JSONFile) throw new Error('');
   try {
     const metadataPageInfo = JSONFile[page];
-    const url = urls[page] || urls[defaultPath];
+    const url = SITE_GET_URLS[page] || SITE_GET_URLS[defaultPath];
     return transformToMetadataObject(metadataPageInfo, lng, url);
   } catch (err) {
     console.error(err, lng, page);

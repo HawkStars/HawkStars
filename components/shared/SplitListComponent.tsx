@@ -1,6 +1,6 @@
 import { LuCalendarDays } from 'react-icons/lu';
 import { Button } from '@/components/ui/button';
-import { transformUrl, urls } from '@/utils/paths';
+import { transformUrl, SITE_GET_URLS } from '@/utils/paths';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 
@@ -37,7 +37,7 @@ const SplitListComponent = <T,>({ items, lng, translations, renderCard }: SplitL
       <div className='flex flex-col items-start gap-4 rounded-xl border bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between lg:p-8'>
         <p className='text-body_regular text-muted-foreground'>{viewAgendaDescription}</p>
         <Button asChild size='lg' className='shrink-0'>
-          <Link href={transformUrl(lng, urls.agenda)}>
+          <Link href={transformUrl(lng, SITE_GET_URLS.agenda)}>
             <LuCalendarDays className='size-4' />
             {viewAgenda}
           </Link>

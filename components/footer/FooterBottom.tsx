@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Socials from '../utils/Socials';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
-import { urls } from '@/utils/paths';
+import { SITE_GET_URLS } from '@/utils/paths';
 import { useTranslation } from '@/i18n/client';
 import { Language } from '@/i18n/settings';
 
@@ -17,7 +17,7 @@ const FooterBottom = ({ lng }: FooterBottomProps) => {
   return (
     <div className='mt-10 grid grid-cols-1 pb-3 lg:mt-0 lg:grid-cols-2 lg:border-t lg:px-2 lg:pt-1'>
       <div className='mt-auto mb-2 flex px-2 max-lg:flex-col max-lg:justify-between max-lg:gap-4 lg:order-2 lg:my-auto lg:ml-auto'>
-        <Link href={urls.terms} className='mr-2 -mb-1 text-neutral-400'>
+        <Link href={SITE_GET_URLS.terms} className='mr-2 -mb-1 text-neutral-400'>
           {t('terms_and_conditions')}
         </Link>
         <div data-testid='socials-footer' className='flex gap-1'>

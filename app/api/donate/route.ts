@@ -13,10 +13,7 @@ export async function POST(request: Request) {
     windowMs: 60_000,
   });
   if (!allowed) {
-    return Response.json(
-      { error: 'Too many requests. Please try again shortly.' },
-      { status: 429, headers: { 'Retry-After': String(retryAfter) } }
-    );
+    return Response.json({ status: 429, headers: { 'Retry-After': String(retryAfter) } });
   }
 
   const payload = await getPayloadConfig();

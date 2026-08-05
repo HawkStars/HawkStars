@@ -2,7 +2,7 @@ import { ImageMedia } from '@/payload/components/Media';
 import { connection } from 'next/server';
 import Link from 'next/link';
 
-import { urls } from '@/utils/paths';
+import { SITE_GET_URLS } from '@/utils/paths';
 import { hawkLogo } from '@/utils/models/images/logos';
 import { Metadata } from 'next';
 import { Language } from '@/i18n/settings';
@@ -30,7 +30,7 @@ export default async function NotFoundPage(props: NotFoundPageProps) {
         <ImageMedia src={hawkLogo} alt={t('a11y.logoAlt')} className='mx-auto' />
         <h3 className='text-center'>{t('notFound.dreaming')}</h3>
         <Link
-          href={urls.home}
+          href={SITE_GET_URLS.home}
           className='border-green bg-green mx-auto w-fit rounded-lg border fill-white p-3 text-white'
         >
           {t('actions.goBack')}

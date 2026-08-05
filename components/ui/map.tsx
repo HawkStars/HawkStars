@@ -1,4 +1,3 @@
-/* eslint-disable */
 // TODO: fix the linter
 'use client';
 

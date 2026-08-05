@@ -3,7 +3,7 @@
 import { ImageMedia } from '@/payload/components/Media';
 
 import Link from 'next/link';
-import { urls, transformUrl } from '@/utils/paths';
+import { SITE_GET_URLS, transformUrl } from '@/utils/paths';
 
 import { FC, useCallback, useEffect, useRef } from 'react';
 import {
@@ -76,7 +76,7 @@ const MobileNavbar: FC<MobileNavbarProps> = ({ headerInfo }) => {
       className='fixed z-900 flex h-screen w-full flex-col gap-4 bg-white px-4 py-3 lg:hidden'
     >
       <div className='flex py-1'>
-        <Link href={transformUrl(lng, urls.home)} className='flex items-center gap-2'>
+        <Link href={transformUrl(lng, SITE_GET_URLS.home)} className='flex items-center gap-2'>
           <ImageMedia
             src={hawkLogo}
             alt={t('a11y.logoAlt')}

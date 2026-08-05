@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { getPayloadConfig } from '@/lib/payload/server';
-import * as Sentry from '@sentry/nextjs';
+import { captureSentryMessage } from '@/lib/sentry/logs';
 
 /**
  * Instagram Graph API integration for @hawk.starsngo
@@ -72,9 +72,11 @@ export async function GET(request: NextRequest) {
 
   const { instagramToken, instagramUserId } = settings || {};
   if (!instagramToken || !instagramUserId) {
+    captureSentryMessage(`Instagram API is not configured.`, 'error');
+
     return NextResponse.json(
       {
-        error: 'Instagram API is not configured.',
+        error: '',
       },
       { status: 400 }
     );
@@ -90,26 +92,17 @@ export async function GET(request: NextRequest) {
     } as RequestInit);
 
     if (!response.ok) {
-      Sentry.captureMessage(`Instagram API error: ${response.status} ${response.statusText}`, {
-        level: 'error',
-      });
+      captureSentryMessage(
+        `Instagram API error: ${response.status} ${response.statusText}`,
+        'error'
+      );
 
       // If token expired, return a helpful message
       if (response.status === 190 || response.status === 401) {
-        return NextResponse.json(
-          {
-            error: 'Instagram access token has expired. Please refresh it.',
-          },
-          { status: 401 }
-        );
+        return NextResponse.json({ status: 401 });
       }
 
-      return NextResponse.json(
-        {
-          error: `Instagram API returned an error: ${response.status} ${response.statusText}`,
-        },
-        { status: 400 }
-      );
+      return NextResponse.json({ status: 400 });
     }
 
     const data: InstagramApiResponse = await response.json();

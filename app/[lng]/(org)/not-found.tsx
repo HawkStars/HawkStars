@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { urls, transformUrl } from '@/utils/paths';
+import { SITE_GET_URLS, transformUrl } from '@/utils/paths';
 import type { Language } from '@/i18n/settings';
 import { languages, fallbackLng } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
@@ -141,11 +141,15 @@ export default function NotFound() {
         {/* Action buttons */}
         <div className='mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4'>
           <Button asChild size='lg'>
-            <Link href={transformUrl(lng, urls.projects)}>{t('notFound.viewProjects')}</Link>
+            <Link href={transformUrl(lng, SITE_GET_URLS.projects)}>
+              {t('notFound.viewProjects')}
+            </Link>
           </Button>
 
           <Button asChild variant='outline' size='lg'>
-            <Link href={transformUrl(lng, urls.events)}>{t('notFound.upcomingEvents')}</Link>
+            <Link href={transformUrl(lng, SITE_GET_URLS.events)}>
+              {t('notFound.upcomingEvents')}
+            </Link>
           </Button>
 
           <Button asChild variant='outline' size='lg'>
@@ -156,7 +160,9 @@ export default function NotFound() {
         {/* Home link */}
         <div className='mt-6'>
           <Button asChild variant='link'>
-            <Link href={transformUrl(lng, urls.home)}>&larr; {t('notFound.backHome')}</Link>
+            <Link href={transformUrl(lng, SITE_GET_URLS.home)}>
+              &larr; {t('notFound.backHome')}
+            </Link>
           </Button>
         </div>
       </div>

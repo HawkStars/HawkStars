@@ -16,7 +16,6 @@ vi.mock('@/lib/payload/server', () => ({
 }));
 
 import { POST } from './route';
-import { skip } from 'node:test';
 
 function makeRequest(body: unknown): Request {
   return new Request('http://localhost/api/easypay', {

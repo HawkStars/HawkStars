@@ -4,7 +4,7 @@
  * TODO: change this to the dynamic routes
  **/
 
-export const urls = {
+export const SITE_GET_URLS = {
   contribute: '/contribute',
   artwork: '/artwork',
   history: '/history',
@@ -19,14 +19,18 @@ export const urls = {
   erasmus_key_action: '/erasmus/key-action',
   how_to_help_us: '/how-to-help-us',
   members_corner: '/members-corner',
-  members_corner_submit: '/members-corner/submit',
+
   transparency: '/transparency',
   team: '/team',
   terms: '/store/terms',
 } as const;
 
-export type HawkStarsPaths = keyof typeof urls;
-export type HawkStarsUrl = (typeof urls)[HawkStarsPaths];
+export const allUrls = {
+  ...SITE_GET_URLS,
+  members_corner_submit: '/members-corner/submit',
+};
+
+export type HawkStarsPaths = keyof typeof SITE_GET_URLS;
 
 /**
  *
@@ -57,23 +61,23 @@ type MetadataRoute = {
 };
 
 export const routes = [
-  { url: urls.home, priority: 1 },
-  { url: urls.team, priority: 0.5 },
-  { url: urls.partners, priority: 0.8 },
-  { url: urls.contribute, priority: 1 },
-  { url: urls.transparency, priority: 1 },
-  { url: urls.history, priority: 0.5 },
-  { url: urls.gallery, priority: 0.8 },
-  { url: urls.artwork, priority: 0.7 },
-  { url: urls.projects, priority: 0.7 },
-  { url: urls.events, priority: 0.7 },
-  { url: urls.erasmus, priority: 0.7 },
-  { url: urls.erasmus_key_action, priority: 0.6 },
-  { url: urls.how_to_help_us, priority: 0.8 },
-  { url: urls.members_corner, priority: 0.7 },
-  { url: urls.agenda, priority: 0.7 },
-  { url: urls.news, priority: 0.6 },
-  { url: urls.terms, priority: 0.3 },
+  { url: SITE_GET_URLS.home, priority: 1 },
+  { url: SITE_GET_URLS.team, priority: 0.5 },
+  { url: SITE_GET_URLS.partners, priority: 0.8 },
+  { url: SITE_GET_URLS.contribute, priority: 1 },
+  { url: SITE_GET_URLS.transparency, priority: 1 },
+  { url: SITE_GET_URLS.history, priority: 0.5 },
+  { url: SITE_GET_URLS.gallery, priority: 0.8 },
+  { url: SITE_GET_URLS.artwork, priority: 0.7 },
+  { url: SITE_GET_URLS.projects, priority: 0.7 },
+  { url: SITE_GET_URLS.events, priority: 0.7 },
+  { url: SITE_GET_URLS.erasmus, priority: 0.7 },
+  { url: SITE_GET_URLS.erasmus_key_action, priority: 0.6 },
+  { url: SITE_GET_URLS.how_to_help_us, priority: 0.8 },
+  { url: SITE_GET_URLS.members_corner, priority: 0.7 },
+  { url: SITE_GET_URLS.agenda, priority: 0.7 },
+  { url: SITE_GET_URLS.news, priority: 0.6 },
+  { url: SITE_GET_URLS.terms, priority: 0.3 },
 ] as MetadataRoute[];
 
 // z.url() alone accepts schemes like javascript:, data: and vbscript:, which

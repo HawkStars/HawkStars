@@ -150,7 +150,7 @@ Same pattern in `payload/endpoints/dashboardStats.ts:7` and `sumContributions.ts
 
 ### 🔵 Low
 
-- **SEC-L1** — `.env.sentry-build-plugin:5` holds a live org-scoped `SENTRY_AUTH_TOKEN` in plaintext on disk. It is gitignored and `git log --all -S"sntrys_"` confirms it was never committed, but it should be rotated and moved to the shell/CI environment only (already `secrets.SENTRY_AUTH_TOKEN` in `deploy.yml:60`).
+- <strike>**SEC-L1** — `.env.sentry-build-plugin:5` holds a live org-scoped `SENTRY_AUTH_TOKEN` in plaintext on disk. It is gitignored and `git log --all -S"sntrys_"` confirms it was never committed, but it should be rotated and moved to the shell/CI environment only (already `secrets.SENTRY_AUTH_TOKEN` in `deploy.yml:60`).</strike>
 - **SEC-L2** — Error detail leaked to unauthenticated callers: `app/api/instagram/route.ts:131` returns `error.message`; `donate/route.ts:73`, `subscription/route.ts:49`, `member-projects/route.ts:99` return the full `e.issues` zod dump.
 - <strike>**SEC-L3** — `/api/instagram` is unauthenticated and unrated (`route.ts:63-90`); each hit is a DB read plus a Graph API call. `limit` varies 1-50, so each value is a distinct cache key. Cheap way to burn the Instagram quota.</strike>
 - **SEC-L4** — `payload/collections/Media.ts:33` uses `mimeTypes: ['image/*']`, which matches `image/svg+xml`. Mitigated by `disableLocalStorage: true` + Cloudinary serving from a separate origin, but `Documents.ts:30-39` already uses an explicit safe list — do the same here.
@@ -254,8 +254,8 @@ Worse: `app/[lng]/(org)/projects/[slug]/page.tsx:14` imports `SingleProjectTrave
 
 - **PERF-L1** — Blur placeholders inline as ~780-byte data-URIs; 24 on `pt/team.html` = 18.7 KB of HTML.
 - **PERF-L2** — With PERF-H3 fixed, the `2048` entry in `deviceSizes` is mostly wasted optimizer work; consider `imageSizes` for icon-scale assets.
-- **PERF-L3** — `logging.fetches.fullUrl: true` (`next.config.ts:31-35`) applies in production; noisy PM2 logs.
-- **PERF-L4** — `typescript.ignoreBuildErrors: true` is intentional and CI-compensated, but means type-level perf regressions aren't caught at build time.
+- <strike>**PERF-L3** — `logging.fetches.fullUrl: true` (`next.config.ts:31-35`) applies in production; noisy PM2 logs.</strike>
+- <strike>**PERF-L4** — `typescript.ignoreBuildErrors: true` is intentional and CI-compensated, but means type-level perf regressions aren't caught at build time.</strike>
 - **PERF-L5** — `date-fns` imported in 9 client components purely for `format`. Format on the server or use `Intl.DateTimeFormat`.
 - **PERF-L6** — `components/ui/carousel.tsx` (embla) is statically imported by `payload/blocks/SimpleGallery/Component.tsx:10`. The DatePicker is correctly lazy; the gallery is not.
 

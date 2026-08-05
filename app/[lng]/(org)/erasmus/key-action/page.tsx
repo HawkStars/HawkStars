@@ -5,7 +5,7 @@ import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
 import { HawkStarsSection } from '@/components/layout';
 import Link from 'next/link';
-import { urls, transformUrl } from '@/utils/paths';
+import { SITE_GET_URLS, transformUrl } from '@/utils/paths';
 import { comparisonRows, KAData, kaData, kaTabs, TranslationFn } from './config';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
@@ -43,7 +43,7 @@ export default KeyActionPage;
 const Breadcrumb = ({ t, lng }: { t: TranslationFn; lng: string }) => (
   <nav className='bg-erasmus-blue flex items-center gap-2 px-4 py-3.5 text-[0.78rem] text-white/55 xl:px-40'>
     <Link
-      href={transformUrl(lng, urls.erasmus)}
+      href={transformUrl(lng, SITE_GET_URLS.erasmus)}
       className='hover:text-erasmus-gold text-white/55 transition-colors'
     >
       {t('breadcrumb_erasmus')}
@@ -254,7 +254,7 @@ const YouthpassBanner = ({ t }: { t: TranslationFn }) => (
 const BackLink = ({ t, lng }: { t: TranslationFn; lng: string }) => (
   <div className='flex justify-center py-12'>
     <Link
-      href={transformUrl(lng, urls.erasmus)}
+      href={transformUrl(lng, SITE_GET_URLS.erasmus)}
       className='border-erasmus-blue text-erasmus-blue hover:bg-erasmus-blue inline-flex items-center gap-2 border-2 px-7 py-3 text-sm font-semibold transition-colors hover:text-white'
     >
       ← {t('back_link')}

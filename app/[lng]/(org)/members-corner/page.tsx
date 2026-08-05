@@ -6,7 +6,7 @@ import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
 import { HawkStarsSection } from '@/components/layout';
 import { getConfirmedMemberProjects } from '@/lib/payload/queries/memberProject';
-import { transformUrl, urls } from '@/utils/paths';
+import { transformUrl, allUrls } from '@/utils/paths';
 import MembersShowcase from '@/components/members-corner/MembersShowcase';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
@@ -39,7 +39,7 @@ const MembersCornerPage = async (props: LanguagePageProps) => {
           </h1>
           <p className='mx-auto mb-8 max-w-2xl text-lg text-white/90'>{t('hero.description')}</p>
           <Link
-            href={transformUrl(lng, urls.members_corner_submit)}
+            href={transformUrl(lng, allUrls.members_corner_submit)}
             className='text-green inline-block rounded-md bg-white px-8 py-3 font-semibold transition-colors hover:bg-white/90'
           >
             {t('hero.submitCta')}

@@ -1,7 +1,7 @@
 import { Media } from '@/payload-types';
 import { LuCalendarDays } from 'react-icons/lu';
 import { getImagePayloadUrl } from '@/lib/image';
-import { transformUrl, urls } from '@/utils/paths';
+import { transformUrl, SITE_GET_URLS } from '@/utils/paths';
 import Link from 'next/link';
 import { ImageMedia } from '@/payload/components/Media';
 import { format } from 'date-fns';
@@ -24,7 +24,7 @@ const formatDateRange = (date: string, endDate?: string | null, isDateRange?: bo
 
 const EventCard = ({ event, lng }: EventCardProps) => {
   const image = getImagePayloadUrl(event.image) as Media | null;
-  const eventUrl = transformUrl(lng, `${urls.events}/${event.slug}`);
+  const eventUrl = transformUrl(lng, `${SITE_GET_URLS.events}/${event.slug}`);
 
   return (
     <Link href={eventUrl} className='group relative flex flex-col gap-5 pb-6 sm:flex-row sm:gap-8'>

@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
 import { Badge } from '@/components/ui/badge';
-import { transformUrl, urls } from '@/utils/paths';
+import { transformUrl, SITE_GET_URLS } from '@/utils/paths';
 import { HawkStarsSection } from '@/components/layout';
 import { NewsTypeLabels } from '../constants';
 import { useTranslation } from '@/i18n/client';
@@ -29,7 +29,7 @@ const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {
         {docs &&
           docs.map((article, articleIndex) => {
             const image = getImagePayloadUrl(article.mainImage);
-            const articleUrl = transformUrl(lng, `${urls.news}/${article.slug}`);
+            const articleUrl = transformUrl(lng, `${SITE_GET_URLS.news}/${article.slug}`);
 
             return (
               <article key={article.id} className='border-bege-dark flex border-b-2'>
@@ -70,7 +70,7 @@ const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {
         >
           {hasPrevPage && (
             <Link
-              href={`${transformUrl(lng, urls.news)}?page=${(page ?? 1) - 1}${projectParam}`}
+              href={`${transformUrl(lng, SITE_GET_URLS.news)}?page=${(page ?? 1) - 1}${projectParam}`}
               className='rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100'
             >
               ← {t('pagination.previous')}
@@ -81,7 +81,7 @@ const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {
           </span>
           {hasNextPage && (
             <Link
-              href={`${transformUrl(lng, urls.news)}?page=${(page ?? 1) + 1}${projectParam}`}
+              href={`${transformUrl(lng, SITE_GET_URLS.news)}?page=${(page ?? 1) + 1}${projectParam}`}
               className='rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100'
             >
               {t('pagination.next')} →
