@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import withHandleInternalization from './utils/middlewares/withHandleInternalization';
 import createCSPNonce from './utils/middlewares/createCSPNonce';
 
