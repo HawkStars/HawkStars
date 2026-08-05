@@ -43,6 +43,8 @@ const EventsPage = async (props: EventsPageProps) => {
     viewAgendaDescription: t('viewAgendaDescription'),
   };
 
+  if (!projectListInformation) return null;
+
   return (
     <>
       <HeroImpactStatsBlock {...projectListInformation} />

@@ -35,6 +35,8 @@ export default async function PreviewProjectsList(props: HomeProps) {
     viewAgendaDescription: t('viewAgendaDescription'),
   };
 
+  if (!projectListInformation) return null;
+
   return (
     <LivePreviewProjectList
       initialData={{ projectListInformation, projects, translations }}

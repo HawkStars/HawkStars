@@ -26,6 +26,7 @@ export default async function PreviewNewsList(props: HomeProps) {
     getNewsQuery(page, lng as Language),
   ]);
 
+  if (!newsListHeader) return null;
   return (
     <LivePreviewNewsList
       initialData={{ newsListHeader, news }}
