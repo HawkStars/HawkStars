@@ -26,7 +26,8 @@
   },
   "common": {
     "donate": "Contribuições",
-    "be_member": "Sê um membro"
+    "be_member": "Sê um membro",
+    "download": "Download"
   },
   "yes": "Sim",
   "no": "Não",
@@ -46,6 +47,7 @@
     "hawk_projects": "Projeto Hawk",
     "hawk_events": "Evento Hawk",
     "press_releases": "Comunicado de Imprensa",
+    "press_release": "Comunicado de Imprensa",
     "blog": "Postagem no Blog",
     "news": "Notícia",
     "announcement": "Anúncio",

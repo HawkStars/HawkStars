@@ -26,6 +26,8 @@ const CrowdfundingPage = async (props: { params: Promise<{ lng: Language }> }) =
   const { t } = await getServerTranslation(lng, 'crowdfunding');
   const settings = await getCrowdfundingSettings(lng);
 
+  if (!settings) return null;
+
   return (
     <div className='bg-crowdfunding-bg flex flex-col'>
       <CrowdfundingHero lng={lng} {...settings} t={t} />

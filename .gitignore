@@ -49,6 +49,7 @@ storybook-static
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.env.sentry-build-plugin
 
 
 # builds

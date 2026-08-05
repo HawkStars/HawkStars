@@ -2,31 +2,6 @@ import { withPayload } from '@payloadcms/next/withPayload';
 import { withSentryConfig } from '@sentry/nextjs';
 import type { NextConfig } from 'next';
 
-const cspHeader = `
-    default-src 'self';
-    script-src 'self' blob: https://www.googletagmanager.com https://upload-widget.cloudinary.com https://www.instagram.com/embed.js 'unsafe-inline';
-    style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
-    img-src 'self' blob: data: www.googletagmanager.com https://*.unsplash.com https://*.cdninstagram.com https://*.cloudinary.com https://*.googleapis.com https://*.gstatic.com https://*.basemaps.cartocdn.com *.google.com *.googleusercontent.com;
-    font-src 'self' https://fonts.gstatic.com data:;
-    object-src 'none';
-    base-uri 'self';
-    form-action 'self';
-    frame-ancestors 'self';
-    block-all-mixed-content;
-    upgrade-insecure-requests;
-    frame-src 'self' *.google.com https://www.instagram.com/ https://upload-widget.cloudinary.com https://www.youtube.com https://www.youtube-nocookie.com/;
-    connect-src 'self' *.google-analytics.com *.de.sentry.io ${process.env.NODE_ENV == 'production' ? `https://*.googleapis.com *.google.com https://stats.g.doubleclick.net https://*.gstatic.com data: blob:` : 'http://127.0.0.1:54321'};
-    media-src 'self' https://www.youtube.com;
-`;
-
-const prepCSPHeader =
-  process.env.NODE_ENV == 'production'
-    ? {
-        key: 'Content-Security-Policy',
-        value: cspHeader.replace(/\n/g, ''),
-      }
-    : { key: 'test', value: 'test' };
-
 const nextConfig = {
   logging: {
     fetches: {
@@ -104,7 +79,6 @@ const nextConfig = {
             value: 'max-age=63072000; includeSubDomains; preload',
           },
           { key: 'Permissions-Policy', value: 'camera=(),microphone=()' },
-          prepCSPHeader,
         ],
       },
     ];

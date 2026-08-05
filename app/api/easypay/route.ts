@@ -54,7 +54,7 @@ export async function POST(request: Request) {
   try {
     if (!isAuthorisedWebhook(request)) {
       console.warn('EasyPay webhook: rejected request with missing/invalid token');
-      return Response.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+      return Response.json({ success: false }, { status: 401 });
     }
 
     const body = await request.json();
