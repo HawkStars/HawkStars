@@ -12,6 +12,8 @@ import {
   SITE_LOCALE_PT,
   SITE_LOCALE_EN,
 } from '@/lib/constants';
+import PT_Metadata from '../i18n/locales/pt/metadata.json';
+import EN_Metadata from '../i18n/locales/en/metadata.json';
 
 export const defaultMetadata = {
   icons: {
@@ -23,9 +25,9 @@ export const defaultMetadata = {
 
 const readMetadataLanguageFile = (lng: Language) => {
   try {
-    const file = fs.readFileSync(`./i18n/locales/${lng}/metadata.json`, 'utf-8');
+    const file = lng == 'pt' ? PT_Metadata : EN_Metadata;
 
-    return JSON.parse(file);
+    return file;
   } catch (err) {
     console.error('Error reading metadata file for language:', lng, err);
     return undefined;

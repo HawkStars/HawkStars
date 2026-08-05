@@ -9,7 +9,7 @@ import { ImageMedia } from '@/payload/components/Media';
 import { type InstagramPost, type InstagramGridProps, INSTAGRAM_PROFILE_URL } from './types';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
-import { cacheLife } from 'next/cache';
+import getInstagramPosts from '@/lib/instagram';
 
 function PostOverlay({ post }: { post: InstagramPost }) {
   return (
@@ -67,18 +67,9 @@ export default function InstagramGrid({
     let cancelled = false;
 
     (async () => {
-      'use cache';
-      cacheLife('hours');
-
       try {
-        const response = await fetch(`/api/instagram?limit=${maxPosts}`);
-
-        if (!response.ok) {
-          throw new Error(t('instagram.errorFetch'));
-        }
-
-        const data = await response.json();
-        if (!cancelled) setPosts(data.posts ?? []);
+        const posts = await getInstagramPosts(maxPosts);
+        if (!cancelled) setPosts(posts);
       } catch (err) {
         if (!cancelled) setError(err instanceof Error ? err.message : t('errors.generic'));
       } finally {
