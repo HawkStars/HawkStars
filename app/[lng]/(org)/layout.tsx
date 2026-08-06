@@ -8,6 +8,7 @@ const oswald = Oswald({ variable: '--font-oswald', subsets: ['latin'], display: 
 import { Metadata } from 'next';
 import Script from 'next/script';
 import { Suspense } from 'react';
+import { headers } from 'next/headers';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import AppProvider from '@/utils/contexts/AppProvider';
 import { LanguagePageProps } from './types';
@@ -38,6 +39,7 @@ export default async function RootLayout(props: {
   const params = await props.params;
   const { lng } = params;
   const { children } = props;
+  const nonce = (await headers()).get('x-nonce') || undefined;
 
   return (
     <html
@@ -58,8 +60,9 @@ export default async function RootLayout(props: {
         async
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         strategy='afterInteractive'
+        nonce={nonce}
       />
-      <Script id='google-analytics' strategy='afterInteractive'>
+      <Script id='google-analytics' strategy='afterInteractive' nonce={nonce}>
         {`window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());

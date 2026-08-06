@@ -7,9 +7,11 @@ export const config = {
 };
 
 export async function proxy(request: NextRequest) {
-  const response = createCSPNonce(request);
-  response.headers.set('x-pathname', request.nextUrl.pathname);
-  if (request.nextUrl.pathname.includes('admin')) return response;
+  if (request.nextUrl.pathname.includes('admin')) {
+    const response = createCSPNonce(request);
+    response.headers.set('x-pathname', request.nextUrl.pathname);
+    return response;
+  }
 
   return withHandleInternalization(request);
 }

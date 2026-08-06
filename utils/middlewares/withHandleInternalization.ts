@@ -3,10 +3,13 @@ import acceptLanguage from 'accept-language';
 import { NextRequest, NextResponse } from 'next/server';
 import createCSPNonce from './createCSPNonce';
 
-// Get the preferred locale, similar to the above or using a library
-const getLocale = async (request: NextRequest): Promise<NextResponse> => {
-  const response = createCSPNonce(request);
-
+// Get the preferred locale, similar to the above or using a library.
+// Reuses the CSP/nonce response already built by withHandleInternalization
+// instead of generating a second, throwaway nonce.
+const getLocale = async (
+  request: NextRequest,
+  response: NextResponse
+): Promise<NextResponse> => {
   let lng = request.nextUrl.pathname.split('/')[0] || null;
   if (!lng && request.cookies.has(i18CookieName))
     lng = acceptLanguage.get(request.cookies.get(i18CookieName)?.value);
@@ -44,7 +47,7 @@ const withHandleInternalization = async (request: NextRequest): Promise<NextResp
 
   if (pathnameHasLocale) return response;
   // Redirect if there is no locale
-  return getLocale(request);
+  return getLocale(request, response);
 };
 
 export default withHandleInternalization;
