@@ -75,7 +75,7 @@ const TranslateInput: TextFieldClientComponent = (props) => {
   return (
     <div style={{ marginTop: '0.4rem' }}>
       <button
-        type="button"
+        type='button'
         onClick={handleTranslate}
         disabled={disabled}
         title={
@@ -97,7 +97,9 @@ const TranslateInput: TextFieldClientComponent = (props) => {
         {status === 'loading' ? 'A traduzir…' : '↳ Traduzir do PT'}
       </button>
       {status === 'error' && (
-        <span style={{ marginLeft: '0.5rem', fontSize: '0.75rem', color: 'var(--theme-error, #c00)' }}>
+        <span
+          style={{ marginLeft: '0.5rem', fontSize: '0.75rem', color: 'var(--theme-error, #c00)' }}
+        >
           Falha na tradução. Tenta novamente.
         </span>
       )}

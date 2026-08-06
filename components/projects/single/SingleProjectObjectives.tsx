@@ -11,7 +11,10 @@ import { Language } from '@/i18n/settings';
 
 type SingleProjectObjectivesProps = Pick<HawkProject, 'objectives'> & { lng?: Language };
 
-const SingleProjectObjectives: FC<SingleProjectObjectivesProps> = ({ objectives, lng: lngProp }) => {
+const SingleProjectObjectives: FC<SingleProjectObjectivesProps> = ({
+  objectives,
+  lng: lngProp,
+}) => {
   const cookieLng = useLanguageCookie();
   const { t } = useTranslation(lngProp ?? cookieLng, 'projects');
   return (

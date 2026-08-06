@@ -57,9 +57,7 @@ type Story = StoryObj<typeof FAQBlock>;
 export const Default: Story = {
   args: {
     title: 'Frequently Asked Questions',
-    items: [
-      /* … */
-    ],
+    items: [/* … */],
     id: '1',
     blockName: 'FAQBlock',
     blockType: 'faq',
@@ -144,9 +142,7 @@ Spread from `Default.args` when creating variations:
 export const WithHeaderImage: Story = {
   args: {
     ...Default.args,
-    headerImage: {
-      /* override */
-    },
+    headerImage: {/* override */},
   },
 };
 ```

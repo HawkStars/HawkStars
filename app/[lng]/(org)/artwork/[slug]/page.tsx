@@ -53,9 +53,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
           )}
         </div>
         <div className='font-oswald flex flex-col px-5 pt-5 lg:w-5/12'>
-          <p className='text-h1_semibold text-disabled mb-2'>
-            {(artwork.artist as Curator).name}
-          </p>
+          <p className='text-h1_semibold text-disabled mb-2'>{(artwork.artist as Curator).name}</p>
           <h1 className='text-h1_semibold text-disabled mb-10'>{artwork.title}</h1>
 
           <div className='my-5 grid grid-cols-2 gap-x-12 gap-y-8'>

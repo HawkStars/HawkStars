@@ -5,10 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 // Get the preferred locale, similar to the above or using a library.
 // Receives the response built by withHandleInternalization so cookies and
 // headers are set on a single response object.
-const getLocale = async (
-  request: NextRequest,
-  response: NextResponse
-): Promise<NextResponse> => {
+const getLocale = async (request: NextRequest, response: NextResponse): Promise<NextResponse> => {
   let lng = request.nextUrl.pathname.split('/')[0] || null;
   if (!lng && request.cookies.has(i18CookieName))
     lng = acceptLanguage.get(request.cookies.get(i18CookieName)?.value);

@@ -73,7 +73,12 @@ export const ImageComparisonSliderBlock: React.FC<ImageComparisonSliderBlockProp
             className='absolute inset-0 overflow-hidden'
             style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
           >
-            <ImageMedia src={before.url || ''} alt={beforeLabel || ''} fill className='object-cover' />
+            <ImageMedia
+              src={before.url || ''}
+              alt={beforeLabel || ''}
+              fill
+              className='object-cover'
+            />
           </div>
 
           {/* Slider */}

@@ -55,18 +55,10 @@ export const News: CollectionConfig = {
     group: { name: 'Daily Work' },
   },
   defaultPopulate: { title: true, slug: true },
-  access: {
-    /* see Access Control */
-  },
-  fields: [
-    /* … */
-  ],
-  hooks: {
-    /* … */
-  },
-  versions: {
-    /* … */
-  },
+  access: {/* see Access Control */},
+  fields: [/* … */],
+  hooks: {/* … */},
+  versions: {/* … */},
 };
 ```
 
@@ -166,9 +158,7 @@ export const Header: GlobalConfig = {
   label: { pt: 'Cabeçalho', en: 'Header' },
   access: { read: anyone },
   admin: { description: '…' },
-  fields: [
-    /* … */
-  ],
+  fields: [/* … */],
   hooks: { afterChange: [revalidateHeader] },
 };
 ```
@@ -352,13 +342,13 @@ access: {
 
 Standard hooks live in `payload/hooks/`. Always import them instead of reimplementing the same logic inline.
 
-| Hook                              | Type           | Purpose                                                     |
-| --------------------------------- | -------------- | ----------------------------------------------------------- |
-| `sanitizeBrokenImageRelationship` | `afterRead`    | Removes stale media relationship IDs from docs              |
-| `notifyOnContribution`            | `afterChange`  | Notification on new contributions                           |
-| `notifyOnMediaUpload`             | `afterChange`  | Notification on media uploads                               |
-| `notifyOnNewsChange`              | `afterChange`  | Notification on news article changes                        |
-| `notifyOnPageChange`              | `afterChange`  | Notification on page changes                                |
+| Hook                              | Type          | Purpose                                        |
+| --------------------------------- | ------------- | ---------------------------------------------- |
+| `sanitizeBrokenImageRelationship` | `afterRead`   | Removes stale media relationship IDs from docs |
+| `notifyOnContribution`            | `afterChange` | Notification on new contributions              |
+| `notifyOnMediaUpload`             | `afterChange` | Notification on media uploads                  |
+| `notifyOnNewsChange`              | `afterChange` | Notification on news article changes           |
+| `notifyOnPageChange`              | `afterChange` | Notification on page changes                   |
 
 For revalidation of Next.js cached pages, add a collection-specific `afterChange` hook (e.g., `revalidatePage`, `revalidateHeader`, `revalidateFooter`) defined in the collection/global's own `hooks/` subfolder.
 
@@ -386,18 +376,18 @@ Do not add plugins inline in `payload.config.ts`. All plugin configuration belon
 
 ## Naming Conventions
 
-| Concept               | Convention                   | Example                                                 |
-| --------------------- | ---------------------------- | ------------------------------------------------------- |
-| Collection slug       | `snake_case` or `kebab-case` | `hawk_projects`, `news`                                 |
-| Global slug           | `camelCase`                  | `header`, `crowdfundingSettings`                        |
-| Block slug            | `kebab-case`                 | `accordion`, `cta-banner`                               |
-| Block `interfaceName` | `PascalCase`                 | `AccordionBlock`, `CTABannerBlock`                      |
-| Array `interfaceName` | `PascalCase`                 | `AccordionBlockItem`                                    |
-| Field names           | `camelCase`                  | `publishedAt`, `sectionId`                              |
-| Access function files | `camelCase.ts`               | `authenticated.ts`, `authenticatedAdmin.ts`             |
-| Hook files            | `camelCaseAction.ts`         | `populatePublishedAt.ts`                                |
-| Block folder          | `PascalCase`                 | `AccordionBlock/`, `CTABannerBlock/`                    |
-| Collection folder     | `PascalCase`                 | `HawkProject/`, `News/`                                 |
+| Concept               | Convention                   | Example                                     |
+| --------------------- | ---------------------------- | ------------------------------------------- |
+| Collection slug       | `snake_case` or `kebab-case` | `hawk_projects`, `news`                     |
+| Global slug           | `camelCase`                  | `header`, `crowdfundingSettings`            |
+| Block slug            | `kebab-case`                 | `accordion`, `cta-banner`                   |
+| Block `interfaceName` | `PascalCase`                 | `AccordionBlock`, `CTABannerBlock`          |
+| Array `interfaceName` | `PascalCase`                 | `AccordionBlockItem`                        |
+| Field names           | `camelCase`                  | `publishedAt`, `sectionId`                  |
+| Access function files | `camelCase.ts`               | `authenticated.ts`, `authenticatedAdmin.ts` |
+| Hook files            | `camelCaseAction.ts`         | `populatePublishedAt.ts`                    |
+| Block folder          | `PascalCase`                 | `AccordionBlock/`, `CTABannerBlock/`        |
+| Collection folder     | `PascalCase`                 | `HawkProject/`, `News/`                     |
 
 ---
 

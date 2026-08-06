@@ -20,15 +20,15 @@ Counts by severity: **1 Critical, 12 High, 21 Medium, 17 Low.**
 
 ### Fix in this order
 
-| # | Item | Effort | Why first |
-|---|---|---|---|
-| 1 | SEC-C1 / SEC-H1 / SEC-H2 — lock down `MemberProject` | ~1 h | Unauthenticated defacement + PII leak, one file |
-| 2 | QUA-H1 — set `migrationDir` | 15 min | Schema drift is accumulating silently |
-| 3 | PERF-H1 / H3 / H2 — `inlineCss`, `sizes`, Sentry replay | ~2 h | Three config changes, largest measurable win |
-| 4 | A11Y-H1 / H2 — `Input`/`TextArea` labels + focus ring | ~1 h | One file fixes both live forms |
-| 5 | PERF-H4 — `revalidatePath` is passing a slug, not a path | 30 min | CMS edits never invalidate; editors think the site is broken |
-| 6 | SEO-H1..H5 — canonical/hreflang/sitemap correctness | ~3 h | Currently telling Google `/pt/team` is the homepage |
-| 7 | QUA-H3 — add `pnpm test` + `pnpm format` to CI | 15 min | Stops all of the above from regressing |
+| #   | Item                                                     | Effort | Why first                                                    |
+| --- | -------------------------------------------------------- | ------ | ------------------------------------------------------------ |
+| 1   | SEC-C1 / SEC-H1 / SEC-H2 — lock down `MemberProject`     | ~1 h   | Unauthenticated defacement + PII leak, one file              |
+| 2   | QUA-H1 — set `migrationDir`                              | 15 min | Schema drift is accumulating silently                        |
+| 3   | PERF-H1 / H3 / H2 — `inlineCss`, `sizes`, Sentry replay  | ~2 h   | Three config changes, largest measurable win                 |
+| 4   | A11Y-H1 / H2 — `Input`/`TextArea` labels + focus ring    | ~1 h   | One file fixes both live forms                               |
+| 5   | PERF-H4 — `revalidatePath` is passing a slug, not a path | 30 min | CMS edits never invalidate; editors think the site is broken |
+| 6   | SEO-H1..H5 — canonical/hreflang/sitemap correctness      | ~3 h   | Currently telling Google `/pt/team` is the homepage          |
+| 7   | QUA-H3 — add `pnpm test` + `pnpm format` to CI           | 15 min | Stops all of the above from regressing                       |
 
 ---
 
@@ -84,7 +84,7 @@ These three live only in files you were sent this session, because `.github/work
 _**A11Y-H1 through M7 were all fixed on 2026-08-06** (`tsc` + `eslint` clean; see the struck-through detail entries below). Two follow-ups are left over:_
 
 - [ ] **A11Y-M3 (follow-up)** — The three hero blocks now take a CMS `headingLevel` field that defaults to `h1`. Existing content is unchanged, but **any page that stacks two heroes still needs the second one set to H2 in the admin UI** — code can't detect this, since blocks render through a Lexical converter with no sibling context.
-- [ ] **A11Y-M5 (follow-up)** — The three *computed* contrast failures are fixed. The broader sweep of ~35 remaining `text-white/50|60` and `opacity-50|60` usages is still open; each needs checking against its own backdrop.
+- [ ] **A11Y-M5 (follow-up)** — The three _computed_ contrast failures are fixed. The broader sweep of ~35 remaining `text-white/50|60` and `opacity-50|60` usages is still open; each needs checking against its own backdrop.
 - [ ] **Run `pnpm test` locally** — the suite could not be run from this session (the repo's native `rolldown` binding is built for macOS and the remote shell is Linux). `tsc` and `eslint` both pass.
 
 ### SEO — untouched section
@@ -189,7 +189,7 @@ Two problems: the secret is interpolated into the script string sent to `applebo
 const expected = process.env.EASYPAY_WEBHOOK_SECRET;
 if (!expected) {
   Sentry.captureMessage('… endpoint is unauthenticated', { level: 'warning' });
-  return true;                       // ← accepts the request
+  return true; // ← accepts the request
 }
 ```
 
@@ -201,7 +201,7 @@ Secondary: the token is accepted as a **query parameter** (`?token=…`, `:37`),
 
 ### 🟡 <strike>SEC-M2 (Medium) — Rate limiter bypassable via client-supplied `X-Forwarded-For`</strike>
 
-`utils/rateLimit.ts:68-72` takes `forwarded.split(',')[0]` — the **first**, attacker-controlled hop. `nginx.conf:33` uses `$proxy_add_x_forwarded_for`, which *appends* the peer address to whatever the client sent, so `X-Forwarded-For: 1.2.3.4` arrives as `1.2.3.4, <real-ip>`.
+`utils/rateLimit.ts:68-72` takes `forwarded.split(',')[0]` — the **first**, attacker-controlled hop. `nginx.conf:33` uses `$proxy_add_x_forwarded_for`, which _appends_ the peer address to whatever the client sent, so `X-Forwarded-For: 1.2.3.4` arrives as `1.2.3.4, <real-ip>`.
 
 Rotating that header defeats the limits on `/api/donate` (10/min), `/api/subscription` (10/min) and `/api/member-projects` (5/min).
 
@@ -217,21 +217,21 @@ Rotating that header defeats the limits on `/api/donate` (10/min), `/api/subscri
 
 #### Why the nonce approach was abandoned
 
-Nonce-based CSP is **architecturally incompatible with this site's rendering strategy**. Next.js can only inject a nonce while a document is server-rendered for a real request; a prerendered/PPR shell is built with no request, so it carries no nonce and the browser then blocks *every* script on the page. Confirmed against the [official CSP guide](https://nextjs.org/docs/app/guides/content-security-policy) — _"you must use dynamic rendering to add nonces"_ and _"Partial Prerendering (PPR) is incompatible with nonce-based CSP"_ — and [vercel/next.js#89754](https://github.com/vercel/next.js/issues/89754), still open with no official workaround.
+Nonce-based CSP is **architecturally incompatible with this site's rendering strategy**. Next.js can only inject a nonce while a document is server-rendered for a real request; a prerendered/PPR shell is built with no request, so it carries no nonce and the browser then blocks _every_ script on the page. Confirmed against the [official CSP guide](https://nextjs.org/docs/app/guides/content-security-policy) — _"you must use dynamic rendering to add nonces"_ and _"Partial Prerendering (PPR) is incompatible with nonce-based CSP"_ — and [vercel/next.js#89754](https://github.com/vercel/next.js/issues/89754), still open with no official workaround.
 
 That left only two options, both bad:
 
 1. Force every route dynamic (a top-level `await headers()` in each root layout, deliberately **not** wrapped in `<Suspense>`). Works, but permanently logs `Runtime data … accessed outside of <Suspense>` ([blocking-route](https://nextjs.org/docs/messages/blocking-route)) and destroys the static shell — no full-page static caching, no CDN edge caching — on a mostly-static content site. Escaping via `cacheComponents: false` is not viable either: 16 files depend on `'use cache'`, plus `cacheLife` and the `revalidateCollection.ts` tag-based revalidation utility. (`export const dynamic = 'force-dynamic'` is also rejected outright by `cacheComponents` — [#84894](https://github.com/vercel/next.js/discussions/84894).)
 2. Wrap `headers()` in `<Suspense>` to silence the log — which lets the shell prerender again and re-breaks the entire site.
 
-**Decision:** drop the nonce. Static generation is worth more here than the marginal CSP hardening, *and* the nonce was never mitigating this site's actual XSS exposure — see below.
+**Decision:** drop the nonce. Static generation is worth more here than the marginal CSP hardening, _and_ the nonce was never mitigating this site's actual XSS exposure — see below.
 
 #### What is live now
 
 A static, nonce-free policy in `next.config.ts` (`headers()`), which is Next's documented ["Without Nonces"](https://nextjs.org/docs/app/guides/content-security-policy) pattern:
 
 - `script-src 'self' 'unsafe-inline' blob: <third-party allowlist>` — `'unsafe-inline'` is unavoidable without a nonce because Next emits inline bootstrap/RSC-payload scripts whose content changes per page and per build, so hashes aren't maintainable.
-- `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com` — required regardless of the nonce decision: a nonce can only attach to a `<style>` *element*, never an inline `style=""` *attribute*, and this codebase sets those in 84+ places (dynamic per-item colours from CMS data that static Tailwind utilities can't express), with React applying more during hydration. Note CSP **ignores `'unsafe-inline'` whenever a nonce or hash is present in the same directive** — this is the trap that made an intermediate `style-src-attr 'unsafe-inline'` attempt fail while the nonce was still on `style-src`.
+- `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com` — required regardless of the nonce decision: a nonce can only attach to a `<style>` _element_, never an inline `style=""` _attribute_, and this codebase sets those in 84+ places (dynamic per-item colours from CMS data that static Tailwind utilities can't express), with React applying more during hydration. Note CSP **ignores `'unsafe-inline'` whenever a nonce or hash is present in the same directive** — this is the trap that made an intermediate `style-src-attr 'unsafe-inline'` attempt fail while the nonce was still on `style-src`.
 - Because `'strict-dynamic'` is gone, third-party origins are no longer inherited transitively from a trusted loader and must each be listed: `googletagmanager.com`, `google-analytics.com`, `*.cloudinary.com`, `upload-widget.cloudinary.com`, `www.instagram.com`, `*.cdninstagram.com`. **If a third-party widget breaks, this allowlist is the first place to look.**
 - CSP generation was removed from the proxy chain entirely. `utils/middlewares/createCSPNonce.ts` is now **orphaned dead code** — nothing imports it. Delete it: `git rm utils/middlewares/createCSPNonce.ts`.
 
@@ -239,7 +239,7 @@ A static, nonce-free policy in `next.config.ts` (`headers()`), which is Next's d
 
 `'unsafe-inline'` is defence-in-depth, not the primary control. The real exposure is the **stored XSS in SEC-C1 / SEC-H1** (`javascript:` URLs persisted via the unguarded Payload REST path, executing same-origin with the admin session cookie). Those are still open and are where the effort should go — a nonce would have been mitigating a symptom while the injection point stayed wide open. Prioritise SEC-C1 and SEC-H1 over reinstating a nonce.
 
-#### If static generation is ever wanted *with* a strict CSP
+#### If static generation is ever wanted _with_ a strict CSP
 
 Next has experimental hash-based CSP via Subresource Integrity (`experimental.sri.algorithm`), which per the official guide keeps static generation and CDN caching while allowing a strict `script-src` with no nonce and no `'unsafe-inline'`. Experimental, and it cannot cover dynamically generated scripts — evaluate off the critical path, never mid-incident.
 
@@ -292,17 +292,17 @@ Same pattern in `payload/endpoints/dashboardStats.ts:7` and `sumContributions.ts
 
 Measured from the production build:
 
-| Metric | Value |
-|---|---|
-| Home page HTML (`.next/server/app/pt.html`) | **437 KB raw / 74 KB gzip** |
-| — of which inline CSS | 170 KB |
-| — of which RSC flight payload | 213 KB |
+| Metric                                         | Value                        |
+| ---------------------------------------------- | ---------------------------- |
+| Home page HTML (`.next/server/app/pt.html`)    | **437 KB raw / 74 KB gzip**  |
+| — of which inline CSS                          | 170 KB                       |
+| — of which RSC flight payload                  | 213 KB                       |
 | Shared root JS on every page (`rootMainFiles`) | **862 KB raw / 259 KB gzip** |
-| `'use client'` files | 60 of 246 |
+| `'use client'` files                           | 60 of 246                    |
 
 ### 🟠 <strike>PERF-H1 (High) — `inlineCss: true` ships the same 170 KB stylesheet twice per document</strike>
 
-`next.config.ts:74`. Measured in `.next/server/app/pt.html`: one 170 KB `<style>` block, **zero** `<link rel=stylesheet>`, *and* a 171 KB `self.__next_f.push` flight chunk containing the identical CSS. Same on `pt/team.html` (168 KB + 227 KB) and `pt/transparency.html`, where inline CSS is **89% of the whole document**.
+`next.config.ts:74`. Measured in `.next/server/app/pt.html`: one 170 KB `<style>` block, **zero** `<link rel=stylesheet>`, _and_ a 171 KB `self.__next_f.push` flight chunk containing the identical CSS. Same on `pt/team.html` (168 KB + 227 KB) and `pt/transparency.html`, where inline CSS is **89% of the whole document**.
 
 Because there is no stylesheet `<link>`, the CSS is **never browser-cached** — every navigation re-downloads it.
 
@@ -337,7 +337,7 @@ Compounding: only `Pages`, `Header`, `Footer` and `MainPage` have revalidate hoo
 `components/footer/FooterWrapper.tsx:5-7` wraps `Footer` in `dynamic(…, { ssr: false })`. `Footer.tsx:1` and `Navbar.tsx:1` are both `'use client'`, reading from `utils/contexts/AppProvider.tsx:34-40`.
 
 - The footer — all site nav links — is **absent from server HTML**: SEO cost plus a guaranteed post-hydration layout shift on every page.
-- `headerInfo` + `footerInfo` (Payload globals at depth 1) are serialized into every page's flight payload *and* re-rendered in JS. The key histogram for `pt.html` is dominated by nav: 64 × `newTab`, 63 × `link`, 59 × `label`, 58 × `columns`.
+- `headerInfo` + `footerInfo` (Payload globals at depth 1) are serialized into every page's flight payload _and_ re-rendered in JS. The key histogram for `pt.html` is dominated by nav: 64 × `newTab`, 63 × `link`, 59 × `label`, 58 × `columns`.
 - 53 files import `@/i18n/client`, putting i18next + react-i18next on the client path for the whole shell.
 
 **Fix:** make `Navbar`/`Footer` server components taking `headerInfo`/`footerInfo` as props from `app/[lng]/(org)/layout.tsx:76-77`; keep only the mobile toggle and dropdown hover state as small client leaves. Remove `ssr: false`.
@@ -439,9 +439,9 @@ Highest-value untested surface, ranked:
 - <strike>**QUA-M1** — `package-lock.json` (666 KB) is **tracked** despite `.gitignore:62` and the pnpm mandate, and it is absorbing all Dependabot security PRs. Commits `279be2a` (brace-expansion), `7a28f26` (qs), `921e22e` (js-yaml) and `904c512` (nodemailer) touched **only the dead lockfile** — four dependency PRs merged with zero effect on what ships. No Dependabot PR has touched `pnpm-lock.yaml` since 2026-05-09. Fix: `git rm --cached package-lock.json`; change `package-ecosystem: 'pnpm'` to `'npm'` in `.github/dependabot.yml`.</strike>
 - <strike>**QUA-M2** — No `error.tsx` in any route group. Only `app/global-error.tsx`, `(org)/not-found.tsx`, `(org)/loading.tsx` exist. Any server render error escalates to `global-error.tsx`, replacing the whole shell and losing nav, footer and language context. Also missing: `loading.tsx` in `(crowdfunding)`/`(gaming)`, and a root `app/not-found.tsx`.</strike>
 - **QUA-M3** — Prettier is checked nowhere (absent from pre-push and CI) and 7 files have already drifted: `FormContributions.tsx`, `SingleProjectObjectives.tsx`, `InstagramGrid.tsx`, `CallToAction/Component.tsx`, `ImageComparisonSliderBlock/Component.tsx`, `QuoteHighlightBlock/Component.tsx`, `payload/fields/translateInput.tsx`. (`app/`, `lib/`, `utils/` are clean.)
-- **QUA-M4** — 54 `console.*` calls in production paths vs 16 Sentry uses. The dominant pattern is *log, return empty, pretend success* — `lib/payload/queries/artwork.ts:17,41`, `contribution.ts:40`, `lib/payload/client/{event,news,sponsors}.ts` (9 sites) all `console.error` then `return null`/`[]`. A CMS outage renders as empty sections with no alert. Two genuinely empty catches at `components/Crowdfunding/ShareButton.tsx:24,30`. And `app/api/easypay/route.ts:69,110,137,172,213` logs webhook bodies on every callback — a PII surface. Fix with a `reportError(err, context)` helper doing `console.error` + `Sentry.captureException`.
+- **QUA-M4** — 54 `console.*` calls in production paths vs 16 Sentry uses. The dominant pattern is _log, return empty, pretend success_ — `lib/payload/queries/artwork.ts:17,41`, `contribution.ts:40`, `lib/payload/client/{event,news,sponsors}.ts` (9 sites) all `console.error` then `return null`/`[]`. A CMS outage renders as empty sections with no alert. Two genuinely empty catches at `components/Crowdfunding/ShareButton.tsx:24,30`. And `app/api/easypay/route.ts:69,110,137,172,213` logs webhook bodies on every callback — a PII surface. Fix with a `reportError(err, context)` helper doing `console.error` + `Sentry.captureException`.
 - **QUA-M5** — Dead components. `components/donate-test/index.tsx` is unreferenced and POSTs a real donation with `email: 'pcardoso.lei@gmail.com'` hardcoded (`:10`) — delete it. Also unreferenced: `FormContributions.tsx` (221 lines), `events/EventsList/index.tsx`, `PartnersMapWrapper.tsx`, `ProjectNewsSection.tsx`, `SingleProjectResults.tsx`, `getNewsById` in `lib/payload/client/news.ts`, and `lib/payload/seed/development.ts` (79 lines, fully commented out — a second dead seed alongside the live `payload/seed.ts`). **12 of 28 `components/ui/` primitives** are referenced only by their own stories, including `input` and `label` — a signal that no production form uses the shadcn field primitives.
-- **QUA-M6** — `components/events/EventsList/index.tsx` has four defects in 64 lines: typed `PaginatedDocs<HawkProject>` (Events list rendering Projects), `href={\`/projects/${slug}\`}` with **no `lng` prefix** (the only violation of `patterns.md:9` in the repo), a bare `<a>` instead of `next/link`, and `project.details?.text` rendered twice. Currently dead — delete or fix all four.
+- **QUA-M6** — `components/events/EventsList/index.tsx` has four defects in 64 lines: typed `PaginatedDocs<HawkProject>` (Events list rendering Projects), `href={\`/projects/${slug}\`}`with **no`lng`prefix** (the only violation of`patterns.md:9`in the repo), a bare`<a>`instead of`next/link`, and `project.details?.text` rendered twice. Currently dead — delete or fix all four.
 - **QUA-M7** — `EventCard.tsx` and `ProjectCard.tsx` are ~85% copy-paste, including a duplicated `formatDateRange` with gratuitously different signatures. `EventCard` declares an unused `index` prop, silently losing the LCP preload that `ProjectCard:44` gets from its own `index`. Extract a shared `<ListCard>`.
 - **QUA-M8** — Form handling contradicts `patterns.md:58` ("React Hook Form with Zod"). `DonationWidget/index.tsx` — the production donation form — uses **12 raw `useState` hooks** with no RHF, no Zod, no client validation at all. `SubmitProjectForm.tsx:60` uses `useForm` but **no `zodResolver`**, because the schema is defined inline in the route module and never exported. Extract to `lib/schemas/` and share.
 - <strike>**QUA-M9** — `graphql@17.0.2` violates Payload's peer range (`{"graphql":"^16.8.1"}`, verified in `node_modules/payload/package.json`), and the GraphQL routes are exposed. v17 has breaking changes; the endpoints likely fail at runtime and nothing tests them. Nothing in the app imports `graphql` directly — either pin to `^16.8.1` or drop the dependency and delete the two routes.</strike>
@@ -455,7 +455,7 @@ Highest-value untested surface, ranked:
 - **QUA-L5** — The `local_event`/`international_event` label mapping is redeclared in 5 places (`lib/payload/client/news.ts:35-40`, `UpcomingHawkEventBlock/Component.tsx:13-14`, `AgendaCalendar.tsx:34-48`, `AgendaBlockView.tsx:38-42`, `components/news/constants.ts`). Only one routes through i18n; the rest ship hardcoded English on a PT-default site.
 - **QUA-L6** — Mixed conventions: 83 PascalCase vs 28 kebab-case component files; 145 default vs 31 named exports; two parallel data-fetching stacks (`lib/payload/queries/*` server, `lib/payload/client/*` browser) with overlapping entities and divergent error semantics — `lib/payload/client/event.ts` even differs internally, with `getEventsByMonthAndYear` (`:116-124`) lacking the try/catch its two siblings have. One 4-level relative import at `partners/page.tsx:8` where everything else uses `@/`.
 - **QUA-L7** — Repo hygiene is otherwise clean. `path/to/venv/` exists on disk (an accidental `python -m venv path/to/venv`) but is **not tracked** — it self-ignores via the venv-generated `.gitignore`. Safe to `rm -rf`. `.DS_Store`, `.next/`, `storybook-static/`, `tsconfig.tsbuildinfo`, `.env` — all present, none tracked. `package-lock.json` (QUA-M1) is the only genuine tracked-junk item. `.env.example` and `.env.variables` are redundant duplicates (the latter has a "paylaod" typo) — consolidate.
-- **QUA-L8** — _(Partially resolved already: your `deploy.yml` now has a `pull_request: types: [opened]` trigger, so `check` does gate PRs. It only fires on the initial open though, not on later pushes to the same PR — consider adding `synchronize` to the `types` list.)_ `deploy.yml:3-6` has **no `pull_request` trigger** — the `check` job gates only `push: [main]`, so lint/typecheck run *as* code deploys, not before it lands. Recent history is direct-to-main with messages like `wip`, `fix`, `improving`. Add a `pull_request` trigger plus branch protection. Note the working tree is currently dirty: 8 modified `payload/` files import from an **untracked** `payload/utilities/collections/createNotification.ts` — committing the hooks without that directory breaks the build.
+- **QUA-L8** — _(Partially resolved already: your `deploy.yml` now has a `pull_request: types: [opened]` trigger, so `check` does gate PRs. It only fires on the initial open though, not on later pushes to the same PR — consider adding `synchronize` to the `types` list.)_ `deploy.yml:3-6` has **no `pull_request` trigger** — the `check` job gates only `push: [main]`, so lint/typecheck run _as_ code deploys, not before it lands. Recent history is direct-to-main with messages like `wip`, `fix`, `improving`. Add a `pull_request` trigger plus branch protection. Note the working tree is currently dirty: 8 modified `payload/` files import from an **untracked** `payload/utilities/collections/createNotification.ts` — committing the hooks without that directory breaks the build.
 
 ### ✅ Verified OK
 
@@ -522,12 +522,12 @@ No `type='button'` on any of them — a latent submit bug if ever nested in a `<
 
 Every `div/span/li/p` with `onClick` was checked for `role` + `tabIndex` + key handler. Four fail all three:
 
-| File:line | Element | Consequence |
-|---|---|---|
-| `components/utils/LanguageSwitcher.tsx:54` | flag `<div onClick>` | **Language cannot be switched by keyboard at all** — navbar and footer |
-| `components/navbar/MobileNavbar/MobileMenuItem.tsx:29` | dropdown toggle | Mobile submenus unreachable; also invisible to the focus trap's `querySelectorAll` at `:35-37` |
-| `components/team/TeamInformation.tsx:33` | section tab | Team page switcher is mouse-only |
-| `components/utils/Accordion/Accordion.tsx:17` | accordion header | Content unreachable; no `aria-expanded`/`aria-controls` |
+| File:line                                              | Element              | Consequence                                                                                    |
+| ------------------------------------------------------ | -------------------- | ---------------------------------------------------------------------------------------------- |
+| `components/utils/LanguageSwitcher.tsx:54`             | flag `<div onClick>` | **Language cannot be switched by keyboard at all** — navbar and footer                         |
+| `components/navbar/MobileNavbar/MobileMenuItem.tsx:29` | dropdown toggle      | Mobile submenus unreachable; also invisible to the focus trap's `querySelectorAll` at `:35-37` |
+| `components/team/TeamInformation.tsx:33`               | section tab          | Team page switcher is mouse-only                                                               |
+| `components/utils/Accordion/Accordion.tsx:17`          | accordion header     | Content unreachable; no `aria-expanded`/`aria-controls`                                        |
 
 **Fix:** `<button type="button">` in all four. For LanguageSwitcher also add `aria-current` and prefer `<Link>` to the localized path over `window.location.assign` (`:44`).
 
@@ -536,24 +536,31 @@ Every `div/span/li/p` with `onClick` was checked for `role` + `tabIndex` + key h
 - <strike>**A11Y-M1** — Nested/duplicate `<main>`: `(org)/layout.tsx:87` wraps children in `<main>`, and four pages render a second one inside it (`projects/[slug]/page.tsx:47`, `erasmus/key-action/page.tsx:27`, `not-found.tsx:25`, `EventPage.tsx:56`). No site-level `<header>`; `Navbar.tsx:29` emits a bare `<nav>` and there are two navs with no distinguishing labels.</strike>
 
   > **Fixed:** the four nested `<main>`s (plus two more the audit missed — `(org)/error.tsx` and `(org)/not-found.tsx`) are now plain wrappers; the layout's single `<main>` carries `id="main-content"`. `Navbar` now renders a `<header>` landmark wrapping a `<nav aria-label>`, and the footer's link columns became a named `<nav>`.
+
 - <strike>**A11Y-M2** — No skip-to-content link anywhere. Keyboard users tab the full multi-column navbar on every page. WCAG 2.4.1.</strike>
 
   > **Fixed:** an `sr-only focus:not-sr-only` skip link is now the first focusable element in `<body>`, targeting `#main-content`. Its label is resolved inside a `'use cache'` component (`SkipToContent`), **not** awaited directly in `RootLayout` — with `cacheComponents` enabled, awaiting `getServerTranslation` at the top of the layout counts as uncached data outside `<Suspense>` and makes every route in the group blocking and unprerenderable ([blocking-route](https://nextjs.org/docs/messages/blocking-route)). Keep it cached.
+
 - <strike>**A11Y-M3** — Heading structure. `transparency/page.tsx` has **no `h1`**; `[...notfound]/page.tsx:31` has only an `h3`; `contribute/page.tsx:76,80` renders two `h1`s (mobile + desktop copies, both in the DOM). Level skips at `artwork/page.tsx:42`, `artwork/[slug]/page.tsx:84` (h2→h6), `erasmus/page.tsx:204,255`, `erasmus/key-action/page.tsx:145`, `contribute/page.tsx:101,104`, `history/page.tsx:99`, `ContributionProjectGoal.tsx:24`, `PartnerCard.tsx:62`. Four CMS blocks hard-code `<h1>` (`Hero`, `HeroWithBackgroundImage`, `HeroSlideshowBlock`, `CallToAction`) — stacking two on one page produces multiple h1s.</strike>
 
   > **Fixed (mostly):** `transparency` gets its `h1` from `ContributionProjectGoal`; the catch-all 404's `h3` → `h1`; `contribute`'s duplicate mobile/desktop `h1`s replaced by one `sr-only` `h1` with both visible copies demoted to `<p>` (neither could be THE h1 alone — each is `display:none` at the other breakpoint); all listed level-skips corrected; non-heading `h6`s (IBAN label, partner flag badge) turned into `<p>`/`<span>`. `CallToAction` demoted `h1` → `h2` (a CTA banner is never a page title). The three hero blocks gained a `headingLevel` select (default `h1`) — **see the follow-up in the task list.**
+
 - <strike>**A11Y-M4** — Focus ring fails non-text contrast. `app/globals.css:63` applies `outline-ring/50`; `--ring: oklch(0.708 0 0)` is **2.59:1** on white, and at 50% alpha effectively ~1.6:1 (WCAG 2.2 SC 1.4.11/2.4.11 require 3:1). `outline-none`/`outline-hidden` appears 19×; the Radix/shadcn ones correctly add `focus-visible:ring-*`, but the DonationWidget ones replace it with a border colour change and `Input`/`TextArea` replace it with nothing. `globals.css` contains **zero** `focus-visible` rules.</strike>
 
   > **Fixed:** `--ring` 0.708 → 0.6 (2.59:1 → ~3.7:1 on white), dark-mode ring → 0.708 (7.6:1), the universal rule's `/50` alpha modifier removed, and an explicit `:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px }` added to `globals.css` — which previously had zero `focus-visible` rules.
+
 - <strike>**A11Y-M5** — Colour contrast failures (computed): `--muted-foreground` on `--muted` = **4.34:1** (fail AA, used in `components/ui/tabs.tsx:23`); `text-[#999]` € prefix on white = 2.85:1 (`AmountStep.tsx:83`); `placeholder-white/60` + `opacity-60` on the green gradient ≈ 3.3:1 (`NewsletterSignupBlock/Component.tsx:56,73`). 35 further `text-white/50|60` and `opacity-50|60` usages warrant a sweep.</strike>
 
-  > **Fixed (the computed failures):** `--muted-foreground` 0.556 → 0.53 (4.34:1 → ~4.8:1 on `--muted`), the `€` prefix `#999` → `#595959` (2.85:1 → 7.0:1), and the newsletter placeholder/small-print `white/60` → `white/90` (3.08:1 → 4.93:1 against the *lighter* gradient stop, which is the worst case). Values verified by computing oklch → sRGB → WCAG contrast rather than by eye. **The ~35-usage sweep is still open — see the task list.**
+  > **Fixed (the computed failures):** `--muted-foreground` 0.556 → 0.53 (4.34:1 → ~4.8:1 on `--muted`), the `€` prefix `#999` → `#595959` (2.85:1 → 7.0:1), and the newsletter placeholder/small-print `white/60` → `white/90` (3.08:1 → 4.93:1 against the _lighter_ gradient stop, which is the worst case). Values verified by computing oklch → sRGB → WCAG contrast rather than by eye. **The ~35-usage sweep is still open — see the task list.**
+
 - <strike>**A11Y-M6** — `components/ui/image-comparison-slider-horizontal.tsx:145-151` sets `role='slider'` with `aria-valuenow/min/max` but has **no `tabIndex`** and no arrow-key handler (only `onMouseDown`/`onTouchStart`). A `role="slider"` that can't be focused is worse than none.</strike>
 
   > **Fixed:** the handle now has `tabIndex={0}`, an `aria-valuetext` percentage, and a full key model — Arrow (±2%), PageUp/PageDown (±10%), Home/End — plus a visible focus ring.
+
 - <strike>**A11Y-M7** — Desktop nav dropdown (`DesktopNavbar/index.tsx:29-44`) has `role='button'`, `tabIndex`, `aria-expanded`, `aria-haspopup` and Enter/Space to open — but **no way to close from the keyboard** (no Escape, no toggle), no `aria-controls`, and focus is never moved into the panel.</strike>
 
   > **Fixed:** the `<li role='button'>` is now a real `<button>` that **toggles** (it could previously only open), declares `aria-controls` pointing at the panel, and closes on Escape (handled both on the trigger and at the nav level). The panel id is a shared exported constant so `aria-controls` can't drift. _Deviation from the suggested fix:_ focus is **not** programmatically moved into the panel — the panel is later in DOM order and `visibility:hidden` while closed, so Tab reaches it naturally once open, and this avoids stealing focus from a hover-opened panel.
+
 - <strike>**A11Y-M8** — Storybook's a11y addon produces no signal: `.storybook/preview.ts` has no `a11y` parameter block, no storybook vitest project exists, and CI runs neither `pnpm test` nor any axe/Chromatic job. Add `parameters: { a11y: { test: 'error' } }` and wire the test runner (see QUA-H4).</strike>
 
 ### 🔵 Low
@@ -592,7 +599,7 @@ A correct `team` entry already exists in `i18n/locales/{pt,en}/metadata.json` an
 
 ### 🟠 SEO-H4 (High) — Any path starting with a locale prefix returns HTTP 200
 
-`utils/middlewares/withHandleInternalization.ts:17` uses the loose test `pathname.startsWith('/' + loc)`, whereas the exported wrapper at `:41` uses the strict `/${locale}/ || === /${locale}`. So `/enterprise` fails the strict check, falls into `getLocale`, passes the *loose* check (it starts with `/en`), is never redirected, and renders `app/[lng]/(org)/page.tsx` with **HTTP 200** and `<html lang="enterprise">` — `layout.tsx:44` interpolates `lng` unvalidated, with no `notFound()` and no `dynamicParams = false`.
+`utils/middlewares/withHandleInternalization.ts:17` uses the loose test `pathname.startsWith('/' + loc)`, whereas the exported wrapper at `:41` uses the strict `/${locale}/ || === /${locale}`. So `/enterprise` fails the strict check, falls into `getLocale`, passes the _loose_ check (it starts with `/en`), is never redirected, and renders `app/[lng]/(org)/page.tsx` with **HTTP 200** and `<html lang="enterprise">` — `layout.tsx:44` interpolates `lng` unvalidated, with no `notFound()` and no `dynamicParams = false`.
 
 Also `:9` — `pathname.split('/')[0]` is always `''` for a leading-slash path, so the intended path-locale detection is dead code (should be `[1]`).
 
@@ -638,7 +645,7 @@ Runtime behaviour was confirmed by executing i18next with the app's own config: 
 ### 🟡 Medium
 
 - <strike>**I18N-M1** — Key drift across the 19 namespace files (both locale dirs have identical file lists): `art.json` — `artwork.artist` missing in **en**; `common.json` — `label.press_releases` missing in **en**, `download` and `label.press_release` missing in **pt** (a half-applied rename); `training_center.json` — `objetives.items[2].points[6]` missing in **pt**; `terms.json` — 50 keys missing in **en**. Totals: 52 missing in EN, 3 in PT. Cross-checking every `t('literal')` against its namespace found **0 references to non-existent keys** — no broken lookups.</strike>
-- **I18N-M2** — 46 hardcoded user-facing strings across 27 files. Worst offenders, all rendering untranslated English to Portuguese visitors: `MapLocationBlock/Component.tsx:50,59,71,83` (`Address`, `Phone`, `Email`, `Hours`); `NewsletterSignupBlock/Component.tsx:13,54,69,73` (`Subscribe`, `Your email address`, `Thank you for subscribing!` — and note this block is a **no-op**: `handleSubmit` at `:19-27` never posts anywhere, it just flips local state); `DonationProgressBlock/Component.tsx:135,142,157` (`Raised`, `Goal`, `donors`); `HeroSlideshowBlock/Component.tsx:166,173` and `ProjectTestimonialBlock/Component.tsx:148,155` (hardcoded `aria-label='Previous/Next slide'` despite `a11y.prevSlide`/`a11y.nextSlide` existing in both locale files); `contribute/page.tsx:156,165` (English `alt` text); `components/ui/cases-with-infinite-scroll.tsx:32` (`Trusted by thousands of businesses worldwide` — leftover template copy on an NGO site). Only 1 of 45 `payload/blocks/*` uses `t()`, which is mostly correct since block *content* is CMS-localized — the fix is scoped to the chrome labels above.
+- **I18N-M2** — 46 hardcoded user-facing strings across 27 files. Worst offenders, all rendering untranslated English to Portuguese visitors: `MapLocationBlock/Component.tsx:50,59,71,83` (`Address`, `Phone`, `Email`, `Hours`); `NewsletterSignupBlock/Component.tsx:13,54,69,73` (`Subscribe`, `Your email address`, `Thank you for subscribing!` — and note this block is a **no-op**: `handleSubmit` at `:19-27` never posts anywhere, it just flips local state); `DonationProgressBlock/Component.tsx:135,142,157` (`Raised`, `Goal`, `donors`); `HeroSlideshowBlock/Component.tsx:166,173` and `ProjectTestimonialBlock/Component.tsx:148,155` (hardcoded `aria-label='Previous/Next slide'` despite `a11y.prevSlide`/`a11y.nextSlide` existing in both locale files); `contribute/page.tsx:156,165` (English `alt` text); `components/ui/cases-with-infinite-scroll.tsx:32` (`Trusted by thousands of businesses worldwide` — leftover template copy on an NGO site). Only 1 of 45 `payload/blocks/*` uses `t()`, which is mostly correct since block _content_ is CMS-localized — the fix is scoped to the chrome labels above.
 - **I18N-M3** — Locale detection fragility in `withHandleInternalization.ts`: the `split('/')[0]` bug (SEO-H4) means path detection never fires, so the order is effectively cookie → `Accept-Language` → `pt`. The loose `startsWith` means `/pt-BR` and similar are never redirected to a supported locale. And `:25-30` — when a `referer` header is present, the cookie is set from the **referer's** locale and the request short-circuits, so an external link into `/en/…` from a `/pt/…` page writes a `pt` cookie.
 
 ### ✅ Verified OK

@@ -25,7 +25,7 @@ export const checkProjectUrl: CollectionBeforeChangeHook<MemberProject> = async 
 
   if (Array.isArray(data.dates)) {
     sanitized.dates = data.dates.map((entry) =>
-      entry?.link && !isHttpUrl(entry.link) ? { ...entry, link: undefined } : entry,
+      entry?.link && !isHttpUrl(entry.link) ? { ...entry, link: undefined } : entry
     );
   }
 

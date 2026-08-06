@@ -40,7 +40,12 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
           <div className='flex items-center justify-center gap-4'>
             {authorImage && (
               <div className='ring-green/20 relative h-12 w-12 overflow-hidden rounded-full ring-2'>
-                <ImageMedia src={authorImage.url || ''} alt={author} fill className='object-cover' />
+                <ImageMedia
+                  src={authorImage.url || ''}
+                  alt={author}
+                  fill
+                  className='object-cover'
+                />
               </div>
             )}
             <div className='text-left'>
@@ -65,7 +70,12 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
           <div className='flex items-center gap-4'>
             {authorImage && (
               <div className='relative h-14 w-14 overflow-hidden rounded-full'>
-                <ImageMedia src={authorImage.url || ''} alt={author} fill className='object-cover' />
+                <ImageMedia
+                  src={authorImage.url || ''}
+                  alt={author}
+                  fill
+                  className='object-cover'
+                />
               </div>
             )}
             <div>

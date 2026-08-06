@@ -211,9 +211,7 @@ const FormContributions = ({
           />
         )}
       />
-      <Button type={'submit'}>
-        {formType == 'update' ? t('form.update') : t('form.create')}
-      </Button>
+      <Button type={'submit'}>{formType == 'update' ? t('form.update') : t('form.create')}</Button>
     </form>
   );
 };

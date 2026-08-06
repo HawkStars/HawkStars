@@ -355,7 +355,6 @@ Props: `resource` / `src`, `autoPlay`, `loop`, `muted`, `controls`, `poster`, `t
 
 Cloudinary images are stored under the `media/` folder and served via Cloudinary's CDN. Remote patterns are configured in `next.config.ts` — do not add new `remotePatterns` without updating that config (or pass `unoptimized` for one-off external URLs).
 
-
 ---
 
 ## `cn()` Utility

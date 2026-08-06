@@ -82,7 +82,9 @@ describe('POST /api/easypay (webhook)', () => {
     });
 
     it('accepts requests with the correct x-webhook-token header', async () => {
-      const response = await POST(makeRequest({ id: 'gen-000', type: 'capture', status: 'pending' }));
+      const response = await POST(
+        makeRequest({ id: 'gen-000', type: 'capture', status: 'pending' })
+      );
 
       expect(response.status).toBe(200);
     });
