@@ -12,7 +12,6 @@ import SingleProjectPartners from '@/components/projects/single/SingleProjectPar
 import SingleProjectPhases from '@/components/projects/single/SingleProjectPhases';
 import SingleProjectReports from '@/components/projects/single/SingleProjectReports';
 import SingleProjectResults from '@/components/projects/single/SingleProjectResults';
-import dynamic from 'next/dynamic';
 import SingleProjectTravelMapWrapper from '@/components/projects/single/SingleProjectTravelMapWrapper';
 
 export async function generateMetadata(props: ProjectPageProps): Promise<Metadata> {
