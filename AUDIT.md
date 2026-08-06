@@ -36,6 +36,12 @@ Counts by severity: **1 Critical, 12 High, 21 Medium, 17 Low.**
 
 _Updated 2026-08-06. Items struck through elsewhere in this doc are done and verified (`eslint`/`tsc` clean) in the live repo. This list is everything still open, grouped by section, in roughly the order it appears below._
 
+### 🔴 Reopened by decision — CSP nonce reverted
+
+- [ ] **SEC-M3** — `script-src 'unsafe-inline'` is back in the production CSP, deliberately. Nonce-based CSP proved incompatible with this site's static generation (two outages); see the SEC-M3 post-mortem below before touching it again.
+- [ ] **Housekeeping** — `git rm utils/middlewares/createCSPNonce.ts` (orphaned dead code after the revert; nothing imports it).
+- [ ] **SEC-C1 / SEC-H1 are now the priority** — with no nonce, the stored-XSS injection point is unmitigated by CSP. Fix these instead of reinstating a nonce.
+
 ### ⚠️ Blocked on you — fix is drafted, just needs pasting in
 
 These three live only in files you were sent this session, because `.github/workflows/*.yml` can't be written back to your machine remotely:
@@ -207,16 +213,41 @@ Rotating that header defeats the limits on `/api/donate` (10/min), `/api/subscri
 
 **Fix:** prefer `X-Real-IP` (nginx sets it from `$remote_addr` at `nginx.conf:32` and it is not appendable), or take the **last** entry of `X-Forwarded-For`.
 
-### 🟡 <strike>SEC-M3 (Medium) — `script-src 'unsafe-inline'` in the production CSP</strike>
+### 🟡 SEC-M3 (Medium) — `script-src 'unsafe-inline'` in the production CSP
 
-`next.config.ts:7`. This removes essentially all XSS mitigation value from the script directive — directly relevant to SEC-H1. Everything else in the policy is correct (`object-src 'none'`, `base-uri 'self'`, `form-action 'self'`, `frame-ancestors 'self'`); this is the one weak link.
+> **Status 2026-08-06: deliberately REOPENED / accepted as a known risk.** The nonce-based fix below was implemented, caused two production outages, and has now been reverted by decision. `script-src 'unsafe-inline'` is back — intentionally. Read the post-mortem before attempting this again.
 
-**Fix:** generate a per-request nonce in `proxy.ts` (`crypto.randomUUID()` → `x-nonce` header → `script-src 'nonce-…' 'strict-dynamic'`). This is the documented App Router pattern and works with GTM and the Cloudinary widget.
+`next.config.ts`. This removes essentially all XSS mitigation value from the script directive — directly relevant to SEC-H1. Everything else in the policy is correct (`object-src 'none'`, `base-uri 'self'`, `form-action 'self'`, `frame-ancestors 'none'`); this is the one weak link.
 
-> **2026-08-06 regression + fix (live now):** the nonce plumbing from this fix went out incomplete and broke the whole public site — `strict-dynamic` + a nonce means *every* script/style needs that nonce or the browser blocks it outright, and nothing was passing it through. Three bugs, now all fixed and verified (`tsc`, `eslint` clean):
-> 1. None of the three route-group root layouts — `app/[lng]/(org)/layout.tsx`, `app/[lng]/(gaming)/layout.tsx`, `app/[lng]/(crowdfunding)/layout.tsx` (each renders its own `<html>`) — called `headers()` to read the `x-nonce` value forwarded by `createCSPNonce`, and their GTM `<Script>` tags had no `nonce` prop. Next's own automatic nonce-injection for framework/hydration scripts only activates once something in the route calls `headers()`, so with no `headers()` call anywhere in the tree, *every* script on the page — Next's own chunks included — rendered without a nonce and got blocked. Fixed by reading the nonce in each root layout and passing it to their `<Script>` tags.
-> 2. `style-src` only allowed `'self'`, the Google Fonts URL, and the nonce — but a nonce can only attach to `<style>` elements, never to inline `style=""` attributes, and this codebase uses those pervasively (84+ call sites, mostly dynamic per-item colors from CMS data that Tailwind's static utility classes can't express at runtime). With no nonce and no `'unsafe-inline'`, every inline `style` attribute was blocked. Fixed by adding a separate `style-src-attr 'unsafe-inline';` directive in `createCSPNonce.ts` — this only loosens inline style *attributes* (low severity: no JS execution) while `<style>` elements and `<link>` stylesheets stay nonce/`'self'`-gated.
-> 3. `proxy.ts` computed a nonce via `createCSPNonce(request)` for every request, then threw that response away for every non-admin route in favor of a second, independent nonce computed inside `withHandleInternalization`. The final response was still internally consistent (its own nonce matched its own CSP header), so this wasn't the cause of the outage, but it was pure waste — a discarded `crypto.randomUUID()` and CSP-string build on every request. `withHandleInternalization.ts`'s `getLocale` had the same redundancy (a third nonce computed on top of the second, for redirect paths). Cleaned up so exactly one nonce is computed and threaded through per request.
+**Original fix (attempted, then reverted):** generate a per-request nonce in `proxy.ts` (`crypto.randomUUID()` → `x-nonce` header → `script-src 'nonce-…' 'strict-dynamic'`).
+
+#### Why the nonce approach was abandoned
+
+Nonce-based CSP is **architecturally incompatible with this site's rendering strategy**. Next.js can only inject a nonce while a document is server-rendered for a real request; a prerendered/PPR shell is built with no request, so it carries no nonce and the browser then blocks *every* script on the page. Confirmed against the [official CSP guide](https://nextjs.org/docs/app/guides/content-security-policy) — _"you must use dynamic rendering to add nonces"_ and _"Partial Prerendering (PPR) is incompatible with nonce-based CSP"_ — and [vercel/next.js#89754](https://github.com/vercel/next.js/issues/89754), still open with no official workaround.
+
+That left only two options, both bad:
+
+1. Force every route dynamic (a top-level `await headers()` in each root layout, deliberately **not** wrapped in `<Suspense>`). Works, but permanently logs `Runtime data … accessed outside of <Suspense>` ([blocking-route](https://nextjs.org/docs/messages/blocking-route)) and destroys the static shell — no full-page static caching, no CDN edge caching — on a mostly-static content site. Escaping via `cacheComponents: false` is not viable either: 16 files depend on `'use cache'`, plus `cacheLife` and the `revalidateCollection.ts` tag-based revalidation utility. (`export const dynamic = 'force-dynamic'` is also rejected outright by `cacheComponents` — [#84894](https://github.com/vercel/next.js/discussions/84894).)
+2. Wrap `headers()` in `<Suspense>` to silence the log — which lets the shell prerender again and re-breaks the entire site.
+
+**Decision:** drop the nonce. Static generation is worth more here than the marginal CSP hardening, *and* the nonce was never mitigating this site's actual XSS exposure — see below.
+
+#### What is live now
+
+A static, nonce-free policy in `next.config.ts` (`headers()`), which is Next's documented ["Without Nonces"](https://nextjs.org/docs/app/guides/content-security-policy) pattern:
+
+- `script-src 'self' 'unsafe-inline' blob: <third-party allowlist>` — `'unsafe-inline'` is unavoidable without a nonce because Next emits inline bootstrap/RSC-payload scripts whose content changes per page and per build, so hashes aren't maintainable.
+- `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com` — required regardless of the nonce decision: a nonce can only attach to a `<style>` *element*, never an inline `style=""` *attribute*, and this codebase sets those in 84+ places (dynamic per-item colours from CMS data that static Tailwind utilities can't express), with React applying more during hydration. Note CSP **ignores `'unsafe-inline'` whenever a nonce or hash is present in the same directive** — this is the trap that made an intermediate `style-src-attr 'unsafe-inline'` attempt fail while the nonce was still on `style-src`.
+- Because `'strict-dynamic'` is gone, third-party origins are no longer inherited transitively from a trusted loader and must each be listed: `googletagmanager.com`, `google-analytics.com`, `*.cloudinary.com`, `upload-widget.cloudinary.com`, `www.instagram.com`, `*.cdninstagram.com`. **If a third-party widget breaks, this allowlist is the first place to look.**
+- CSP generation was removed from the proxy chain entirely. `utils/middlewares/createCSPNonce.ts` is now **orphaned dead code** — nothing imports it. Delete it: `git rm utils/middlewares/createCSPNonce.ts`.
+
+#### Compensating controls (these matter more than the CSP)
+
+`'unsafe-inline'` is defence-in-depth, not the primary control. The real exposure is the **stored XSS in SEC-C1 / SEC-H1** (`javascript:` URLs persisted via the unguarded Payload REST path, executing same-origin with the admin session cookie). Those are still open and are where the effort should go — a nonce would have been mitigating a symptom while the injection point stayed wide open. Prioritise SEC-C1 and SEC-H1 over reinstating a nonce.
+
+#### If static generation is ever wanted *with* a strict CSP
+
+Next has experimental hash-based CSP via Subresource Integrity (`experimental.sri.algorithm`), which per the official guide keeps static generation and CDN caching while allowing a strict `script-src` with no nonce and no `'unsafe-inline'`. Experimental, and it cannot cover dynamically generated scripts — evaluate off the critical path, never mid-incident.
 
 ### 🟡 <strike>SEC-M4 (Medium) — Custom endpoints authorize on "any logged-in user", then bypass collection access</strike>
 

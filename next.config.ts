@@ -2,6 +2,48 @@ import { withPayload } from '@payloadcms/next/withPayload';
 import { withSentryConfig } from '@sentry/nextjs';
 import type { NextConfig } from 'next';
 
+const isDev = process.env.NODE_ENV === 'development';
+const isProd = process.env.NODE_ENV === 'production';
+
+// Static, nonce-free Content-Security-Policy.
+//
+// Why no nonce: Next.js can only inject a per-request nonce while a document is
+// server-rendered for a real request. Prerendered/PPR shells are built with no
+// request, so they carry no nonce and the browser then blocks every script on
+// the page. Nonce-based CSP therefore forces every route to render dynamically
+// (see https://nextjs.org/docs/app/guides/content-security-policy — "you must
+// use dynamic rendering to add nonces" and "Partial Prerendering (PPR) is
+// incompatible with nonce-based CSP"), which this site cannot afford: it relies
+// on `generateStaticParams` and 16 `'use cache'` call sites.
+//
+// A static policy lives in next.config.ts instead of the proxy, which is the
+// documented "Without Nonces" pattern, and lets pages be prerendered and
+// CDN-cached again.
+//
+// Trade-off: `script-src` needs `'unsafe-inline'` (Next.js emits inline
+// bootstrap/RSC-payload scripts whose content changes per page and per build,
+// so hashes are not maintainable). Because `'strict-dynamic'` is also gone,
+// every third-party origin must now be listed explicitly rather than inherited
+// transitively from a trusted loader. See AUDIT.md SEC-M3.
+const cspHeader = `
+  default-src 'self';
+  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} blob: https://www.googletagmanager.com https://www.google-analytics.com https://upload-widget.cloudinary.com https://*.cloudinary.com https://www.instagram.com https://*.cdninstagram.com;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  img-src 'self' blob: data: www.googletagmanager.com https://*.unsplash.com https://*.cdninstagram.com https://*.cloudinary.com https://*.googleapis.com https://*.gstatic.com https://*.basemaps.cartocdn.com *.google.com *.googleusercontent.com;
+  font-src 'self' https://fonts.gstatic.com data:;
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'none';
+  frame-src 'self' *.google.com https://www.instagram.com/ https://upload-widget.cloudinary.com https://www.youtube.com https://www.youtube-nocookie.com/;
+  connect-src 'self' *.google-analytics.com *.de.sentry.io ${isProd ? 'https://*.googleapis.com *.google.com https://stats.g.doubleclick.net https://*.gstatic.com data: blob:' : 'http://127.0.0.1:54321'};
+  media-src 'self' https://www.youtube.com;
+  block-all-mixed-content;
+  upgrade-insecure-requests;
+`;
+
+const contentSecurityPolicy = cspHeader.replace(/\s{2,}/g, ' ').trim();
+
 const nextConfig = {
   logging: {
     fetches: {
@@ -62,6 +104,10 @@ const nextConfig = {
       {
         source: '/(.*)',
         headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: contentSecurityPolicy,
+          },
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff',

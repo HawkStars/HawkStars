@@ -2,12 +2,10 @@ import '@/app/globals.css';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import { Metadata } from 'next';
-import { headers } from 'next/headers';
 import GamingNavbar from '@/components/gaming/GamingNavbar';
 import GamingFooter from '@/components/gaming/GamingFooter';
 import { fallbackLng, languages } from '@/i18n/settings';
 import { BASE_URL, OG_IMAGE_FALLBACK, SITE_NAME } from '@/lib/constants';
-import { Suspense } from 'react';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -68,7 +66,6 @@ export default async function GamingLayout(props: {
   const params = await props.params;
   const lng = params.lng || fallbackLng;
   const { children } = props;
-  const nonce = (await headers()).get('x-nonce') || undefined;
 
   return (
     <html lang={lng} className={`${inter.variable}`} data-scroll-behavior='smooth'>
@@ -107,20 +104,17 @@ export default async function GamingLayout(props: {
           <GamingFooter lng={lng} />
         </div>
 
-        <Suspense fallback={<></>}>
-          <Script
-            strategy='afterInteractive'
-            src='https://www.googletagmanager.com/gtag/js?id=G-PEH83S3H3K'
-            nonce={nonce}
-          />
-          <Script id='google-analytics' strategy='afterInteractive' nonce={nonce}>
-            {`window.dataLayer = window.dataLayer || [];
+        <Script
+          strategy='afterInteractive'
+          src='https://www.googletagmanager.com/gtag/js?id=G-PEH83S3H3K'
+        />
+        <Script id='google-analytics' strategy='afterInteractive'>
+          {`window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-PEH83S3H3K');
           `}
-          </Script>
-        </Suspense>
+        </Script>
       </body>
     </html>
   );

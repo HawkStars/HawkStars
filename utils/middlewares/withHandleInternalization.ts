@@ -1,11 +1,10 @@
 import { fallbackLng, i18CookieName, languages } from '@/i18n/settings';
 import acceptLanguage from 'accept-language';
 import { NextRequest, NextResponse } from 'next/server';
-import createCSPNonce from './createCSPNonce';
 
 // Get the preferred locale, similar to the above or using a library.
-// Reuses the CSP/nonce response already built by withHandleInternalization
-// instead of generating a second, throwaway nonce.
+// Receives the response built by withHandleInternalization so cookies and
+// headers are set on a single response object.
 const getLocale = async (
   request: NextRequest,
   response: NextResponse
@@ -37,7 +36,7 @@ const getLocale = async (
 };
 
 const withHandleInternalization = async (request: NextRequest): Promise<NextResponse> => {
-  const response = createCSPNonce(request);
+  const response = NextResponse.next();
   response.headers.set('x-pathname', request.nextUrl.pathname);
   // Check if there is any supported locale in the pathname
   const { pathname } = request.nextUrl;
