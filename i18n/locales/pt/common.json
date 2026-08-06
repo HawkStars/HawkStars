@@ -26,13 +26,13 @@
   },
   "common": {
     "donate": "Contribuições",
-    "be_member": "Sê um membro",
-    "download": "Download"
+    "be_member": "Sê um membro"
   },
   "yes": "Sim",
   "no": "Não",
   "see_more": "Ver Mais",
   "terms_and_conditions": "Termos e Condições",
+  "download": "Download",
   "instagram": {
     "title": "Nós no Instagram",
     "openProfile": "Abrir perfil de Instagram",
@@ -77,7 +77,8 @@
     "email": "Enviar um email à Hawk Stars NGO"
   },
   "errors": {
-    "generic": "Ocorreu um erro"
+    "generic": "Ocorreu um erro",
+    "pageTitle": "Ocorreu um erro"
   },
   "datePicker": {
     "placeholder": "Escolher uma data"
@@ -93,7 +94,8 @@
     "pageOf": "Página {{page}} de {{total}}"
   },
   "actions": {
-    "goBack": "Voltar"
+    "goBack": "Voltar",
+    "tryAgain": "Tentar novamente"
   },
   "notFound": {
     "dreaming": "Um membro desta ONG está a sonhar com o conteúdo desta página.",

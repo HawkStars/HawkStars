@@ -221,6 +221,9 @@ export const MemberProject: CollectionConfig = {
               type: 'text',
               required: true,
               admin: { width: '50%' },
+              access: {
+                read: ({ req }) => req.user?.isAdmin || false,
+              },
             },
             {
               name: 'submitter_email',

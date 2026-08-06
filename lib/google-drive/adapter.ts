@@ -114,7 +114,7 @@ export const googleDriveAdapter = () => ({
       // filename holds the Google Drive file ID
       await drive.files.delete({ fileId: filename });
     } catch (error) {
-      console.error('Google Drive Delete Error:', error);
+      Sentry.captureException(error);
     }
   },
 

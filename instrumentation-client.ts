@@ -31,15 +31,23 @@ Sentry.init({
   // in development and sample at a lower rate in production
   replaysSessionSampleRate: 0.1,
 
-  // You can remove this option if you're not planning to use the Sentry Session Replay feature:
-  integrations: [
-    Sentry.replayIntegration({
-      // Additional Replay configuration goes in here, for example:
-      maskAllText: false,
-      blockAllMedia: true,
-    }),
-  ],
+  integrations: [],
   enabled: process.env.NODE_ENV != 'development',
 });
+
+if (typeof window !== 'undefined') {
+  Sentry.lazyLoadIntegration('replayIntegration')
+    .then((replayIntegration) => {
+      Sentry.addIntegration(
+        replayIntegration({
+          maskAllText: false,
+          blockAllMedia: true,
+        })
+      );
+    })
+    .catch(() => {
+      // Non-fatal: Replay is a nice-to-have, not core error reporting.
+    });
+}
 
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;

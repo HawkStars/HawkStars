@@ -7,19 +7,6 @@ import { getImagePayloadUrl } from '@/lib/image';
 import { NewsTypeLabels } from '@/components/news/constants';
 import API_CLIENT_PATHS from '../constants';
 
-const getNewsById = async (): Promise<News> => {
-  const stringifiedQuery = stringify({ limit: 1 }, { addQueryPrefix: true });
-  const response = await fetch(`${API_CLIENT_PATHS.news}${stringifiedQuery}`, {
-    method: 'GET',
-  });
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch news');
-  }
-
-  return response.json();
-};
-
 // --- LatestNewsBlock fetch helpers ---
 
 export type LatestNewsItem = {
@@ -60,10 +47,7 @@ const fetchLatestNews = async (
   try {
     const response = await fetch(`${API_CLIENT_PATHS.news}${queryString}`, { method: 'GET' });
 
-    if (!response.ok) {
-      console.error('Failed to fetch latest news:', response.statusText);
-      return null;
-    }
+    if (!response.ok) return null;
 
     const result = await response.json();
     const doc: News = result.docs[0] ?? null;
@@ -78,7 +62,6 @@ const fetchLatestNews = async (
       href: `/news/${doc.slug}`,
     };
   } catch (error) {
-    console.error('Error fetching latest news:', error);
     return null;
   }
 };
@@ -124,4 +107,4 @@ const fetchLatestHawkEvent = async (
   }
 };
 
-export { getNewsById, fetchLatestNews, fetchLatestHawkEvent };
+export { fetchLatestNews, fetchLatestHawkEvent };

@@ -77,7 +77,8 @@
     "email": "Send an email to Hawk Stars NGO"
   },
   "errors": {
-    "generic": "Something went wrong"
+    "generic": "Something went wrong",
+    "pageTitle": "Something went wrong"
   },
   "datePicker": {
     "placeholder": "Pick a date"
@@ -93,7 +94,8 @@
     "pageOf": "Page {{page}} of {{total}}"
   },
   "actions": {
-    "goBack": "Go back"
+    "goBack": "Go back",
+    "tryAgain": "Try again"
   },
   "notFound": {
     "dreaming": "A member of this NGO is dreaming up this page's content.",

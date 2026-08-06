@@ -4,7 +4,7 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
   const { payload, user } = req;
 
   // Admin dashboard data (collection counts, donation totals) must not be public.
-  if (!user) {
+  if (!user || !user.isAdmin) {
     return Response.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -118,7 +118,6 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
 
     return Response.json(stats);
   } catch (error) {
-    console.error('Dashboard stats error:', error);
     return Response.json({ error: 'Failed to fetch statistics' }, { status: 500 });
   }
 };

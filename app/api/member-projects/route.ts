@@ -84,11 +84,10 @@ export async function POST(request: Request) {
 
     return Response.json({ success: true }, { status: 201 });
   } catch (e: unknown) {
-    if (e instanceof z.ZodError) {
-      return Response.json({ error: 'Invalid submission', details: e.issues }, { status: 400 });
-    }
     Sentry.captureException(e);
-    console.error('Member project submission error:', e);
-    return Response.json({ error: 'Internal server error' }, { status: 500 });
+    if (e instanceof z.ZodError) {
+      return Response.json({ status: 400 });
+    }
+    return Response.json({ status: 500 });
   }
 }

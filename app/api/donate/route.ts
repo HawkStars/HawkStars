@@ -4,6 +4,7 @@ import * as z from 'zod';
 import { v4 as uuidv4 } from 'uuid';
 import { getPayloadConfig } from '@/lib/payload/server';
 import { checkRateLimit, getClientIp } from '@/utils/rateLimit';
+import { captureSentryMessage } from '@/lib/sentry/logs';
 
 const CONTRIBUTION_COLLECTION = 'contributions';
 
@@ -21,9 +22,7 @@ export async function POST(request: Request) {
     checkEasyPaySetup();
 
     const body = await request.json();
-    if (!body) {
-      return Response.json({ error: 'Missing request body' }, { status: 400 });
-    }
+    if (!body) return Response.json({ status: 400 });
 
     const requestBody = prepareEasyPayRequestBody(body);
 
@@ -39,8 +38,12 @@ export async function POST(request: Request) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('EasyPay single payment error:', response.status, errorText);
-      return Response.json({ error: 'Error processing payment' }, { status: response.status });
+      captureSentryMessage('EasyPay single payment error:', 'info', {
+        status: response.status,
+        text: errorText,
+      });
+
+      return Response.json({ status: response.status });
     }
 
     const data = await response.json();
@@ -67,9 +70,8 @@ export async function POST(request: Request) {
     return Response.json(data, { status: 200 });
   } catch (e: unknown) {
     if (e instanceof z.ZodError) {
-      return Response.json({ error: 'Invalid request data', details: e.issues }, { status: 400 });
+      return Response.json({ error: 'Invalid request data' }, { status: 400 });
     }
-    console.error('Donate route error:', e);
     return Response.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

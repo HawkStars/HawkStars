@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { getPayloadConfig } from '@/lib/payload/server';
 import { captureSentryMessage } from '@/lib/sentry/logs';
+import { checkRateLimit, getClientIp } from '@/utils/rateLimit';
 
 /**
  * Instagram Graph API integration for @hawk.starsngo
@@ -61,6 +62,20 @@ function normalizePost(item: InstagramMediaItem) {
 }
 
 export async function GET(request: NextRequest) {
+  // Each distinct `limit` value is its own Next.js fetch-cache key, so an
+  // unrated caller could otherwise vary it to force a fresh Graph API call
+  // (and burn the Instagram quota) on every request.
+  const { allowed, retryAfter } = checkRateLimit(`instagram:${getClientIp(request)}`, {
+    limit: 30,
+    windowMs: 60_000,
+  });
+  if (!allowed) {
+    return NextResponse.json(
+      { error: 'Too many requests' },
+      { status: 429, headers: { 'Retry-After': String(retryAfter) } }
+    );
+  }
+
   const { searchParams } = request.nextUrl;
   // Clamp to a sane range: `Number('abc')` is NaN and negatives are invalid,
   // both of which would be forwarded raw to the Graph API.
@@ -117,11 +132,15 @@ export async function GET(request: NextRequest) {
       }
     );
   } catch (error) {
+    captureSentryMessage(
+      `Instagram feed fetch threw: ${error instanceof Error ? error.message : String(error)}`,
+      'error'
+    );
+
     return NextResponse.json(
       {
         error: 'Failed to fetch Instagram feed',
         posts: [],
-        message: error instanceof Error ? error.message : String(error),
       },
       { status: 500 }
     );

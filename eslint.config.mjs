@@ -36,6 +36,17 @@ const eslintConfig = defineConfig([
           varsIgnorePattern: '^_',
         },
       ],
+      'max-len': [
+        'warn',
+        {
+          code: 140,
+          ignoreUrls: true,
+          ignoreStrings: true,
+          ignoreTemplateLiterals: true,
+          ignoreRegExpLiterals: true,
+          ignoreComments: false,
+        },
+      ],
     },
   },
 ]);

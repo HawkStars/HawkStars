@@ -73,8 +73,10 @@ export default async function RootLayout(props: {
 
 async function LayoutContent({ children, lng }: { children: React.ReactNode; lng: string }) {
   'use cache';
-  const headerInfo = await getHeaderQuery(lng as Language);
-  const footerInfo = await getFooterQuery(lng as Language);
+  const [headerInfo, footerInfo] = await Promise.all([
+    getHeaderQuery(lng as Language),
+    getFooterQuery(lng as Language),
+  ]);
 
   return (
     <AppProvider lng={(lng as Language) || fallbackLng}>

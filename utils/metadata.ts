@@ -28,7 +28,6 @@ const readMetadataLanguageFile = (lng: Language) => {
 
     return file;
   } catch (err) {
-    console.error('Error reading metadata file for language:', lng, err);
     return undefined;
   }
 };
@@ -105,7 +104,7 @@ const getMetadataPageInfo = (lng: Language, page: HawkStarsPaths): Metadata => {
     const url = SITE_GET_URLS[page] || SITE_GET_URLS[defaultPath];
     return transformToMetadataObject(metadataPageInfo, lng, url);
   } catch (err) {
-    console.error(err, lng, page);
+    Sentry.captureException(err);
     return {
       title: 'The Global Village Project by Hawk Stars NGO in Pinhel, Portugal',
       description:

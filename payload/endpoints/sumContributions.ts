@@ -10,7 +10,7 @@ import totalContributioValueQuery from '@/lib/payload/endpoints/totalContributio
  * here in the HTTP handler rather than inside the shared query function.
  */
 export const sumContributionsHandler: PayloadHandler = async (req) => {
-  if (!req.user) {
+  if (!req.user || !req.user.isAdmin) {
     return Response.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

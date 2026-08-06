@@ -1,8 +1,10 @@
 import { SubscriptionPaymentQuery } from '@/types/payment/easypay';
 import { checkEasyPaySetup } from '@/utils/payment/easypay';
 import * as z from 'zod';
+import * as Sentry from '@sentry/nextjs';
 import { v4 as uuidv4 } from 'uuid';
 import { checkRateLimit, getClientIp } from '@/utils/rateLimit';
+import { captureSentryMessage } from '@/lib/sentry/logs';
 
 export async function POST(request: Request) {
   const { allowed, retryAfter } = checkRateLimit(`subscription:${getClientIp(request)}`, {
@@ -10,10 +12,7 @@ export async function POST(request: Request) {
     windowMs: 60_000,
   });
   if (!allowed) {
-    return Response.json(
-      { error: 'Too many requests. Please try again shortly.' },
-      { status: 429, headers: { 'Retry-After': String(retryAfter) } }
-    );
+    return Response.json({ status: 429, headers: { 'Retry-After': String(retryAfter) } });
   }
 
   try {
@@ -38,18 +37,21 @@ export async function POST(request: Request) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('EasyPay subscription error:', response.status, errorText);
+      captureSentryMessage('EasyPay single payment error:', 'info', {
+        status: response.status,
+        text: errorText,
+      });
       return Response.json({ error: 'Error creating subscription' }, { status: response.status });
     }
 
     const data = await response.json();
     return Response.json(data, { status: 200 });
   } catch (e: unknown) {
+    Sentry.captureException(e);
     if (e instanceof z.ZodError) {
-      return Response.json({ error: 'Invalid request data', details: e.issues }, { status: 400 });
+      return Response.json({ status: 400 });
     }
-    console.error('Subscription route error:', e);
-    return Response.json({ error: 'Internal server error' }, { status: 500 });
+    return Response.json({ status: 500 });
   }
 }
 

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 // vi.mock is hoisted to the top of the file - use vi.hoisted for variables referenced inside the factory
 const { mockPayloadCreate, mockPayloadFind, mockPayloadUpdate } = vi.hoisted(() => ({
@@ -17,7 +17,19 @@ vi.mock('@/lib/payload/server', () => ({
 
 import { POST } from './route';
 
-function makeRequest(body: unknown): Request {
+const WEBHOOK_SECRET = 'test-shared-secret';
+
+function makeRequest(body: unknown, headers: Record<string, string> = {}): Request {
+  return new Request('http://localhost/api/easypay', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-webhook-token': WEBHOOK_SECRET, ...headers },
+    body: JSON.stringify(body),
+  });
+}
+
+// A request with no valid token — used to assert the endpoint still rejects
+// unauthenticated callers.
+function makeUnauthenticatedRequest(body: unknown): Request {
   return new Request('http://localhost/api/easypay', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -25,10 +37,55 @@ function makeRequest(body: unknown): Request {
   });
 }
 
-describe.skip('POST /api/easypay (webhook)', () => {
-  // TODO fix tests
+describe('POST /api/easypay (webhook)', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    process.env.EASYPAY_WEBHOOK_SECRET = WEBHOOK_SECRET;
+  });
+
+  afterEach(() => {
+    delete process.env.EASYPAY_WEBHOOK_SECRET;
+  });
+
+  describe('authorisation (webhook secret)', () => {
+    it('rejects requests with no token when a secret is configured', async () => {
+      const response = await POST(makeUnauthenticatedRequest({ id: 'x' }));
+      const data = await response.json();
+
+      expect(response.status).toBe(401);
+      expect(data.success).toBe(false);
+    });
+
+    it('rejects requests with a token supplied only via the query string', async () => {
+      const request = new Request(`http://localhost/api/easypay?token=${WEBHOOK_SECRET}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: 'x' }),
+      });
+      const response = await POST(request);
+
+      expect(response.status).toBe(401);
+    });
+
+    it('rejects requests with an incorrect token', async () => {
+      const response = await POST(makeRequest({ id: 'x' }, { 'x-webhook-token': 'wrong' }));
+
+      expect(response.status).toBe(401);
+    });
+
+    it('fails closed (401) when EASYPAY_WEBHOOK_SECRET is not configured at all', async () => {
+      delete process.env.EASYPAY_WEBHOOK_SECRET;
+
+      const response = await POST(makeRequest({ id: 'x' }));
+
+      expect(response.status).toBe(401);
+    });
+
+    it('accepts requests with the correct x-webhook-token header', async () => {
+      const response = await POST(makeRequest({ id: 'gen-000', type: 'capture', status: 'pending' }));
+
+      expect(response.status).toBe(200);
+    });
   });
 
   describe('invalid payload', () => {
@@ -37,16 +94,16 @@ describe.skip('POST /api/easypay (webhook)', () => {
       const response = await POST(request);
       const data = await response.json();
 
-      expect(response.status).toBe(401);
+      expect(response.status).toBe(400);
       expect(data.success).toBe(false);
       expect(data.error).toBe('Invalid payload');
     });
 
-    it('returns 401 for an empty object', async () => {
+    it('returns 400 for an empty object', async () => {
       const request = makeRequest({});
       const response = await POST(request);
 
-      expect(response.status).toBe(401);
+      expect(response.status).toBe(400);
     });
   });
 
@@ -71,7 +128,7 @@ describe.skip('POST /api/easypay (webhook)', () => {
       const response = await POST(request);
       const data = await response.json();
 
-      expect(response.status).toBe(401);
+      expect(response.status).toBe(200);
       expect(data.success).toBe(true);
       expect(mockPayloadCreate).toHaveBeenCalledOnce();
 
@@ -154,7 +211,7 @@ describe.skip('POST /api/easypay (webhook)', () => {
       const request = makeRequest(transactionPayload);
       const response = await POST(request);
 
-      expect(response.status).toBe(401);
+      expect(response.status).toBe(200);
       expect(mockPayloadFind).toHaveBeenCalledOnce();
       expect(mockPayloadUpdate).toHaveBeenCalledOnce();
 
@@ -188,7 +245,7 @@ describe.skip('POST /api/easypay (webhook)', () => {
       const request = makeRequest(transactionPayload);
       const response = await POST(request);
 
-      expect(response.status).toBe(401);
+      expect(response.status).toBe(200);
       expect(mockPayloadUpdate).not.toHaveBeenCalled();
     });
 
@@ -241,7 +298,6 @@ describe.skip('POST /api/easypay (webhook)', () => {
       const request = makeRequest(failedPayload);
       await POST(request);
 
-      console.log(mockPayloadUpdate.mock.calls[0]);
       const updateCall = mockPayloadUpdate.mock.calls[0][0];
       expect(updateCall.data.is_confirmed).toBe(false);
     });
@@ -266,7 +322,7 @@ describe.skip('POST /api/easypay (webhook)', () => {
   });
 
   describe('response format', () => {
-    it('always returns 401 with success: true even on internal errors', async () => {
+    it('always returns 200 with success: true even on internal errors (once authenticated)', async () => {
       // Force Payload to throw an error
       mockPayloadFind.mockRejectedValueOnce(new Error('Unexpected DB failure'));
 
@@ -285,8 +341,8 @@ describe.skip('POST /api/easypay (webhook)', () => {
       const response = await POST(request);
       const data = await response.json();
 
-      expect(response.status).toBe(401);
-      expect(data.success).toBeFalsy();
+      expect(response.status).toBe(200);
+      expect(data.success).toBeTruthy();
     });
   });
 });

@@ -102,7 +102,7 @@ Two problems: the secret is interpolated into the script string sent to `applebo
 
 **Fix:** use an SSH deploy key, or pass the token through `envs:` with an ephemeral credential helper unset at the end of the script.
 
-### 🟡 SEC-M1 (Medium) — EasyPay webhook fails **open** when the shared secret is unset
+### 🟡 <strike>SEC-M1 (Medium) — EasyPay webhook fails **open** when the shared secret is unset</strike>
 
 `app/api/easypay/route.ts:25-40`
 
@@ -134,7 +134,7 @@ Rotating that header defeats the limits on `/api/donate` (10/min), `/api/subscri
 
 **Fix:** generate a per-request nonce in `proxy.ts` (`crypto.randomUUID()` → `x-nonce` header → `script-src 'nonce-…' 'strict-dynamic'`). This is the documented App Router pattern and works with GTM and the Cloudinary widget.
 
-### 🟡 SEC-M4 (Medium) — Custom endpoints authorize on "any logged-in user", then bypass collection access
+### 🟡 <strike>SEC-M4 (Medium) — Custom endpoints authorize on "any logged-in user", then bypass collection access</strike>
 
 `payload/endpoints/notifications.ts:55-95` gates on `if (!user)` and then calls `payload.update(…)`, which defaults to `overrideAccess: true`. `Notification` declares `update: authenticatedAdmin` (`payload/collections/Notification/index.ts:26`), so any Editor can mutate the admin activity log — including `{ all: true }`, clearing unread state on up to 500 entries (`:65-83`).
 
@@ -151,7 +151,7 @@ Same pattern in `payload/endpoints/dashboardStats.ts:7` and `sumContributions.ts
 ### 🔵 Low
 
 - <strike>**SEC-L1** — `.env.sentry-build-plugin:5` holds a live org-scoped `SENTRY_AUTH_TOKEN` in plaintext on disk. It is gitignored and `git log --all -S"sntrys_"` confirms it was never committed, but it should be rotated and moved to the shell/CI environment only (already `secrets.SENTRY_AUTH_TOKEN` in `deploy.yml:60`).</strike>
-- **SEC-L2** — Error detail leaked to unauthenticated callers: `app/api/instagram/route.ts:131` returns `error.message`; `donate/route.ts:73`, `subscription/route.ts:49`, `member-projects/route.ts:99` return the full `e.issues` zod dump.
+- <strike>**SEC-L2** — Error detail leaked to unauthenticated callers: `app/api/instagram/route.ts:131` returns `error.message`; `donate/route.ts:73`, `subscription/route.ts:49`, `member-projects/route.ts:99` return the full `e.issues` zod dump.</strike>
 - <strike>**SEC-L3** — `/api/instagram` is unauthenticated and unrated (`route.ts:63-90`); each hit is a DB read plus a Graph API call. `limit` varies 1-50, so each value is a distinct cache key. Cheap way to burn the Instagram quota.</strike>
 - **SEC-L4** — `payload/collections/Media.ts:33` uses `mimeTypes: ['image/*']`, which matches `image/svg+xml`. Mitigated by `disableLocalStorage: true` + Cloudinary serving from a separate origin, but `Documents.ts:30-39` already uses an explicit safe list — do the same here.
 
@@ -244,7 +244,7 @@ Worse: `app/[lng]/(org)/projects/[slug]/page.tsx:14` imports `SingleProjectTrave
 - **PERF-M1** — Whole Payload documents spread into client components: `projects/[slug]/page.tsx:48-54` passes `{...project}` (fetched at `depth: 3`) to three `'use client'` components. `SingleProjectTravelMap` needs exactly two fields. `_full.segment.rsc` for that route is **208 KB**.
 - **PERF-M2** — Cloudinary images are re-optimized by the self-hosted Next optimizer. The custom loader is commented out (`payload/components/Media/ImageMedia/index.tsx:90`), so every CMS image is pulled to the VPS and re-encoded by sharp per width × format, bypassing the CDN you already pay for. Add a Cloudinary loader (`f_auto,q_auto,w_${width}`) + `images.loader: 'custom'`.
 - **PERF-M3** — Query hygiene. `lib/payload/queries/contribution.ts:7-14` has **no `limit`** (defaults to 10) while the contribute page renders grids of 60/40/110 from it — a correctness bug as much as a perf one. `partner.ts:5-9` and `team.ts:13` use `limit: 1000` at default depth 2 with no `'use cache'` (`pt/team.rsc` = 217 KB). `app/sitemap.ts:26,44,61,78` runs four `limit: 1000` finds **sequentially** at default depth, uncached, on every request. Add `depth: 0|1` + `select` throughout; `Promise.all` the sitemap.
-- **PERF-M4** — Cache primitives applied inconsistently: `lib/payload/queries/helpers.ts:60` has `'use cache'` with no `cacheLife` and no `cacheTag`; `:33-45` caches for `hours` **even when `opts.preview` is true**, making draft preview unusable. `app/[lng]/(org)/layout.tsx:76-77` awaits header then footer sequentially.
+- <strike>**PERF-M4** — Cache primitives applied inconsistently: `lib/payload/queries/helpers.ts:60` has `'use cache'` with no `cacheLife` and no `cacheTag`; `:33-45` caches for `hours` **even when `opts.preview` is true**, making draft preview unusable. `app/[lng]/(org)/layout.tsx:76-77` awaits header then footer sequentially.</strike>
 - **PERF-M5** — The agenda page renders nothing server-side: `AgendaCalendar` is `'use client'` and fetches on mount via an uncached REST call. Fetch the current month server-side and pass it as the initial prop.
 - <strike>**PERF-M6** — `utils/metadata.ts:26` does `fs.readFileSync` on every `generateMetadata` call (~20 routes), unmemoized. Static-import the two `metadata.json` files.</strike>
 - **PERF-M7** — 105 MB of source images in `public/images` (13 files > 4 MB; `training_center/entry_4.jpg` is 5.5 MB). Four are statically imported and emitted into the 20 MB `.next/static/media`. Users don't download the originals, but the VPS decodes a 5 MB JPEG per uncached variant and every deploy ships 20 MB. Pre-resize to ≤2048 px, or move them to Cloudinary. Note the four `unoptimized` usages — verify none points at these.

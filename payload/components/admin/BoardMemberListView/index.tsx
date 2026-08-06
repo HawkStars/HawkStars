@@ -115,7 +115,6 @@ export default function BoardMemberListView(props: ListViewClientProps) {
           setPopulatedDocs(data.docs as BoardMember[]);
         }
       } catch (error) {
-        console.error('Failed to fetch populated board members:', error);
         setPopulatedDocs(data.docs as BoardMember[]);
       } finally {
         setLoading(false);

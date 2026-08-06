@@ -12,7 +12,7 @@ const NOTIFICATIONS_COLLECTION = 'notifications' as const;
 export const getNotificationsHandler: PayloadHandler = async (req) => {
   const { payload, user } = req;
 
-  if (!user) {
+  if (!user || !user.isAdmin) {
     return Response.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -55,7 +55,7 @@ export const getNotificationsHandler: PayloadHandler = async (req) => {
 export const markNotificationsReadHandler: PayloadHandler = async (req) => {
   const { payload, user } = req;
 
-  if (!user) {
+  if (!user || !user.isAdmin) {
     return Response.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
