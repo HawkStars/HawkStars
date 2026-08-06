@@ -5,7 +5,7 @@ import createCSPNonce from './createCSPNonce';
 
 // Get the preferred locale, similar to the above or using a library
 const getLocale = async (request: NextRequest): Promise<NextResponse> => {
-  const response = NextResponse.next();
+  const response = createCSPNonce(request);
 
   let lng = request.nextUrl.pathname.split('/')[0] || null;
   if (!lng && request.cookies.has(i18CookieName))

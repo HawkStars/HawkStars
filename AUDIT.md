@@ -43,6 +43,7 @@ These three live only in files you were sent this session, because `.github/work
 - [ ] **SEC-H3** — `deploy.yml`: `EXIT` trap so the GitHub PAT never persists in the VPS's gitconfig
 - [ ] **SEC-M5** — `deploy.yml` + `db-backup.yml`: pin `chromaui/action` and `appleboy/ssh-action` to commit SHAs
 - [ ] **QUA-H3** — `deploy.yml`: add `pnpm test` + `pnpm format` to the `check` job
+- [ ] **QUA-L2** — `.husky/pre-push`: change `pnpm tsc` → `pnpm typecheck` (the `package.json` half of this fix — `NODE_OPTIONS=--max-old-space-size=4096` on `build`/`typecheck` — is already live)
 
 ### Performance
 
@@ -64,7 +65,7 @@ These three live only in files you were sent this session, because `.github/work
 - [ ] **QUA-M7** — Extract a shared `<ListCard>` from `EventCard.tsx`/`ProjectCard.tsx` (~85% duplicated); fix `EventCard`'s unused `index` prop losing LCP preload
 - [ ] **QUA-M8** — Rebuild `DonationWidget` on React Hook Form + Zod (currently 12 raw `useState`, no validation); add `zodResolver` to `SubmitProjectForm.tsx` and export its inline schema to `lib/schemas/`
 - [ ] **QUA-L1** — Replace `Record<string, any>` in `EventPage.tsx`/`EventCard.tsx`/`hawkEvent.ts` with the generated `HawkEvent` type; narrow the two blanket `/* eslint-disable */` files; `as NextConfig` → `satisfies` in `next.config.ts`
-- [ ] **QUA-L2** — Fix `pnpm tsc` → should invoke the declared `typecheck` script; add `NODE_OPTIONS=--max-old-space-size=4096` wherever `CLAUDE.md`/`ops.md` claim it's already set
+- [ ] **QUA-L2** — _(Partially fixed: `package.json`'s `build`/`typecheck` scripts now set `NODE_OPTIONS=--max-old-space-size=4096`, matching what `.claude/CLAUDE.md`/`ops.md` already claimed. Still needs your manual paste: `.husky/pre-push` is protected and couldn't be written remotely — it should call `pnpm typecheck`, not the raw `pnpm tsc`.)_
 - [ ] **QUA-L3** — Add a `lint-staged` pre-commit hook (format + lint on changed files only), leaving the full build to CI
 - [ ] **QUA-L4** — Remove unused deps (`motion`, `graphql`, `require-in-the-middle` if undocumented, `autoprefixer`, `playwright` + `@vitest/browser-playwright`); consolidate `classname-variants` vs `class-variance-authority` to one
 - [ ] **QUA-L5** — Route the `local_event`/`international_event` label mapping (duplicated in 5 places) through i18n consistently
