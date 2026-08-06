@@ -3,7 +3,7 @@ import type { CollectionConfig } from 'payload';
 import { authenticated } from '@/payload/access/authenticated';
 import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 import { GROUP_LABELS } from '@/payload/constants';
-import { logLoginActivity } from './hooks';
+import { logLoginActivity, rateLimitLogin } from './hooks';
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -33,9 +33,20 @@ export const Users: CollectionConfig = {
     tokenExpiration: 60 * 60 * 24 * 30, // 30 days
     maxLoginAttempts: 5,
     lockTime: 60 * 60 * 24, // 24 hours
+    // httpOnly is always on internally in Payload (not configurable) — these
+    // two were previously left unset, relying on Payload's implicit
+    // NODE_ENV-based defaults instead of asserting them explicitly.
+    cookies: {
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Lax',
+    },
   },
   hooks: {
     afterLogin: [logLoginActivity],
+    // maxLoginAttempts/lockTime above lock a single *account* — this caps
+    // attempts per *IP* regardless of which account is targeted, closing the
+    // one auth-adjacent surface that wasn't already behind utils/rateLimit.ts.
+    beforeLogin: [rateLimitLogin],
   },
   fields: [
     {

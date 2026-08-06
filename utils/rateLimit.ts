@@ -64,9 +64,28 @@ export function resetRateLimit(): void {
  * Best-effort client IP from the proxy headers set by Nginx. Falls back to a
  * shared bucket so a missing header degrades to a global limit rather than
  * silently disabling the limiter.
+ *
+ * Typed against just the `headers` shape (not the full `Request`) so this
+ * also accepts Payload's `PayloadRequest` (a `Partial<Request>` with a real
+ * `headers: Headers`), used by the login rate limiter.
  */
-export function getClientIp(request: Request): string {
+export function getClientIp(request: { headers: Pick<Headers, 'get'> }): string {
+  // Prefer X-Real-IP: nginx.conf sets it from $remote_addr, which a client
+  // cannot override by sending its own header — nginx overwrites it.
+  const realIp = request.headers.get('x-real-ip')?.trim();
+  if (realIp) return realIp;
+
+  // Fall back to X-Forwarded-For's LAST entry, not the first. nginx.conf
+  // uses $proxy_add_x_forwarded_for, which *appends* the real peer address
+  // to whatever the client already sent — so a client sending
+  // `X-Forwarded-For: 1.2.3.4` arrives as `1.2.3.4, <real-ip>`. Taking the
+  // first entry (as before) let anyone rotate that header to defeat the
+  // limiter entirely.
   const forwarded = request.headers.get('x-forwarded-for');
-  if (forwarded) return forwarded.split(',')[0]!.trim();
-  return request.headers.get('x-real-ip')?.trim() || 'unknown';
+  if (forwarded) {
+    const parts = forwarded.split(',');
+    return parts[parts.length - 1]!.trim();
+  }
+
+  return 'unknown';
 }

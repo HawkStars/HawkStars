@@ -4,6 +4,11 @@ import { anyone } from '@/payload/access/anyone';
 import { authenticated } from '@/payload/access/authenticated';
 import { CuratorTab } from './CuratorSeoTab';
 import { GROUP_LABELS } from '@/payload/constants';
+import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
+
+export const CURATOR_CACHE_TAG = 'curators' as const;
+const { afterChange: revalidateCurator, afterDelete: revalidateCuratorDelete } =
+  createRevalidateHooks(CURATOR_CACHE_TAG);
 
 export const Curator: CollectionConfig = {
   slug: 'curators',
@@ -13,6 +18,10 @@ export const Curator: CollectionConfig = {
     create: authenticated,
     delete: authenticated,
     update: authenticated,
+  },
+  hooks: {
+    afterChange: [revalidateCurator],
+    afterDelete: [revalidateCuratorDelete],
   },
   labels: {
     singular: { en: 'Curator', pt: 'Curador' },

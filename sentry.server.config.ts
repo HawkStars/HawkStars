@@ -14,9 +14,12 @@ Sentry.init({
   // Enable logs to be sent to Sentry
   enableLogs: true,
 
-  // Enable sending user PII (Personally Identifiable Information)
+  // Was `true` with no beforeSend scrubbing — that ships visitor IPs, cookies,
+  // and request headers to Sentry's third-party ingest on every event, with
+  // no disclosure anywhere in the site's privacy copy. Off until there's an
+  // actual documented lawful basis for sending that data to a sub-processor.
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/configuration/options/#sendDefaultPii
-  sendDefaultPii: true,
+  sendDefaultPii: false,
 
   // Add this to prevent issues with prerendering
   beforeSend(event) {

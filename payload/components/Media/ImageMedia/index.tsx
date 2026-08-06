@@ -80,7 +80,16 @@ export const ImageMedia: React.FC<NextImageProps> = (props) => {
       blurDataURL={urlBlur}
       quality={quality}
       loading={loading}
-      sizes={sizes ?? '1x 100vw, 2x 50vw'}
+      // No default here. `sizes` is a viewport-width media-condition string
+      // (e.g. `(max-width: 600px) 100vw, 50vw`) — `'1x 100vw, 2x 50vw'` used
+      // `srcset` x-descriptor syntax instead, which is invalid for `sizes`.
+      // An invalid/unparseable `sizes` makes the browser treat the image as
+      // full-viewport-width, so next/image generated the entire `deviceSizes`
+      // srcset (up to 2048px) even for small fixed-size images. Leaving
+      // `sizes` undefined for fixed-width/height images lets next/image emit
+      // the correct 1x/2x srcset on its own; call sites rendering full-bleed
+      // or responsive images (grids, hero) should pass an explicit `sizes`.
+      sizes={sizes}
       src={src as StaticImageData | string}
       unoptimized={unoptimized}
       onClick={onClick}

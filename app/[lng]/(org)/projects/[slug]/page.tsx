@@ -12,7 +12,12 @@ import SingleProjectPartners from '@/components/projects/single/SingleProjectPar
 import SingleProjectPhases from '@/components/projects/single/SingleProjectPhases';
 import SingleProjectReports from '@/components/projects/single/SingleProjectReports';
 import SingleProjectResults from '@/components/projects/single/SingleProjectResults';
-import SingleProjectTravelMap from '@/components/projects/single/SingleProjectTravelMap';
+import dynamic from 'next/dynamic';
+
+const SingleProjectTravelMap = dynamic(
+  () => import('@/components/projects/single/SingleProjectTravelMap'),
+  { ssr: false }
+);
 
 export async function generateMetadata(props: ProjectPageProps): Promise<Metadata> {
   const params = await props.params;

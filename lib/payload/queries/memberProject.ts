@@ -1,5 +1,6 @@
 import { getPayloadConfig } from '../server';
-import { cacheLife } from 'next/cache';
+import { cacheLife, cacheTag } from 'next/cache';
+import { MEMBER_PROJECT_CACHE_TAG } from '@/payload/collections/MemberProject';
 
 const MEMBER_PROJECTS_COLLECTION = 'member_projects' as const;
 
@@ -27,6 +28,7 @@ export type MemberProjectDoc = {
 export const getConfirmedMemberProjects = async (): Promise<MemberProjectDoc[]> => {
   'use cache';
   cacheLife('hours');
+  cacheTag(MEMBER_PROJECT_CACHE_TAG);
   const payload = await getPayloadConfig();
   const result = await payload.find({
     collection: MEMBER_PROJECTS_COLLECTION,

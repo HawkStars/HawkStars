@@ -22,12 +22,58 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const payload = await getPayloadConfig();
 
-    // Add dynamic Pages collection routes (custom pages with slugs)
-    const pages = await payload.find({
-      collection: 'pages',
-      draft: false,
-      limit: 1000,
-    });
+    // These six finds are all independent, and the sitemap only ever reads
+    // `slug`/`updatedAt` off any of them — running them sequentially at the
+    // default depth (2) meant six round-trips (uncached, on every request)
+    // each pulling relationships nothing here uses. `Promise.all` +
+    // `depth: 0` + `select` fixes both.
+    const publishedWhere = { _status: { equals: 'published' as const } };
+    const slugSelect = { slug: true, updatedAt: true } as const;
+
+    const [pages, artworks, curators, projects, news, events] = await Promise.all([
+      payload.find({
+        collection: 'pages',
+        draft: false,
+        limit: 1000,
+        depth: 0,
+        select: slugSelect,
+      }),
+      payload.find({
+        collection: 'artworks',
+        limit: 1000,
+        where: publishedWhere,
+        depth: 0,
+        select: slugSelect,
+      }),
+      payload.find({
+        collection: 'curators',
+        limit: 1000,
+        where: publishedWhere,
+        depth: 0,
+        select: slugSelect,
+      }),
+      payload.find({
+        collection: 'hawk_projects',
+        limit: 1000,
+        where: publishedWhere,
+        depth: 0,
+        select: slugSelect,
+      }),
+      payload.find({
+        collection: 'news',
+        limit: 1000,
+        where: publishedWhere,
+        depth: 0,
+        select: slugSelect,
+      }),
+      payload.find({
+        collection: 'hawk_events',
+        limit: 1000,
+        where: publishedWhere,
+        depth: 0,
+        select: slugSelect,
+      }),
+    ]);
 
     for (const page of pages.docs) {
       for (const language of languages) {
@@ -40,17 +86,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
     }
 
-    // Add Artwork routes
-    const artworks = await payload.find({
-      collection: 'artworks',
-      limit: 1000,
-      where: {
-        _status: {
-          equals: 'published',
-        },
-      },
-    });
-
     for (const artwork of artworks.docs) {
       for (const language of languages) {
         sitemapRoutes.push({
@@ -62,17 +97,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
     }
 
-    // Add Curator routes
-    const curators = await payload.find({
-      collection: 'curators',
-      limit: 1000,
-      where: {
-        _status: {
-          equals: 'published',
-        },
-      },
-    });
-
     for (const curator of curators.docs) {
       for (const language of languages) {
         sitemapRoutes.push({
@@ -83,17 +107,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         });
       }
     }
-
-    // Add HawkProject routes (projects/news)
-    const projects = await payload.find({
-      collection: 'hawk_projects',
-      limit: 1000,
-      where: {
-        _status: {
-          equals: 'published',
-        },
-      },
-    });
 
     for (const project of projects.docs) {
       for (const language of languages) {
@@ -107,16 +120,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
     }
 
-    const news = await payload.find({
-      collection: 'news',
-      limit: 1000,
-      where: {
-        _status: {
-          equals: 'published',
-        },
-      },
-    });
-
     for (const newsItem of news.docs) {
       for (const language of languages) {
         // News items are accessible via /news/[slug]
@@ -128,16 +131,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         });
       }
     }
-
-    const events = await payload.find({
-      collection: 'hawk_events',
-      limit: 1000,
-      where: {
-        _status: {
-          equals: 'published',
-        },
-      },
-    });
 
     for (const event of events.docs) {
       for (const language of languages) {

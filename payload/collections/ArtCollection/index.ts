@@ -4,6 +4,11 @@ import { anyone } from '../../access/anyone';
 import ArtCollectionDetails from './ArtCollectionDetails';
 import { GROUP_LABELS } from '@/payload/constants';
 import { notifyArtworkChange, notifyArtworkDelete } from './hooks';
+import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
+
+export const ART_COLLECTION_CACHE_TAG = 'artworks' as const;
+const { afterChange: revalidateArtwork, afterDelete: revalidateArtworkDelete } =
+  createRevalidateHooks(ART_COLLECTION_CACHE_TAG);
 
 export const ArtCollection: CollectionConfig = {
   slug: 'artworks',
@@ -37,7 +42,7 @@ export const ArtCollection: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [notifyArtworkChange],
-    afterDelete: [notifyArtworkDelete],
+    afterChange: [notifyArtworkChange, revalidateArtwork],
+    afterDelete: [notifyArtworkDelete, revalidateArtworkDelete],
   },
 };

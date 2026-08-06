@@ -4,6 +4,11 @@ import { SocialLinksField } from '../fields/Link/SocialLink';
 import { authenticatedEditor } from '../access/authenticatedEditor';
 import { authenticatedAdmin } from '../access/authenticatedAdmin';
 import { GROUP_LABELS } from '../constants';
+import { createRevalidateHooks } from '../utilities/revalidateCollection';
+
+export const PARTNER_CACHE_TAG = 'partners' as const;
+const { afterChange: revalidatePartner, afterDelete: revalidatePartnerDelete } =
+  createRevalidateHooks(PARTNER_CACHE_TAG);
 
 export const Partner: CollectionConfig = {
   slug: 'partners',
@@ -30,6 +35,10 @@ export const Partner: CollectionConfig = {
     create: authenticatedEditor,
     delete: authenticatedAdmin,
     update: authenticatedEditor,
+  },
+  hooks: {
+    afterChange: [revalidatePartner],
+    afterDelete: [revalidatePartnerDelete],
   },
   fields: [
     {

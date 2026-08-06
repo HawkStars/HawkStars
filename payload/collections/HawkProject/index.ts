@@ -12,6 +12,11 @@ import HawkStarsProjectInformation from './HawkStarsProjectInformation';
 import transformSlug from '@/payload/utilities/transformSlug';
 import { notifyProjectChange, notifyProjectDelete } from './hooks';
 import { HawkProjectDiscoverEuFields } from './HawkProjectDiscoverEuFields';
+import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
+
+export const HAWK_PROJECT_CACHE_TAG = 'hawk_projects' as const;
+const { afterChange: revalidateHawkProject, afterDelete: revalidateHawkProjectDelete } =
+  createRevalidateHooks(HAWK_PROJECT_CACHE_TAG);
 
 export const HawkProject: CollectionConfig = {
   slug: 'hawk_projects',
@@ -60,8 +65,8 @@ export const HawkProject: CollectionConfig = {
     update: authenticated,
   },
   hooks: {
-    afterChange: [notifyProjectChange],
-    afterDelete: [notifyProjectDelete],
+    afterChange: [notifyProjectChange, revalidateHawkProject],
+    afterDelete: [notifyProjectDelete, revalidateHawkProjectDelete],
     afterRead: [sanitizeBrokenImageRelationship],
   },
   fields: [

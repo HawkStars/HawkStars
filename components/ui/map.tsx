@@ -16,8 +16,16 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import type { CheckboxItem } from '@radix-ui/react-dropdown-menu';
-import * as leaflet from 'leaflet';
-import * as leaftletDraw from 'leaflet-draw';
+// Type-only — the runtime module is loaded lazily in `useLeaflet()` below via
+// a real `import()`. These were previously value imports (`import * as`),
+// which pulled the entire leaflet + leaflet-draw runtime (leaflet-draw alone
+// is ~300KB / 84KB gzip, including a `renderToString` reference) into the
+// static import graph of every page that renders a `Map` — nullifying the
+// `dynamic(() => import('react-leaflet'), { ssr: false })` calls just below,
+// since those only defer `react-leaflet`, not `leaflet`/`leaflet-draw`
+// themselves.
+import type * as leaflet from 'leaflet';
+import type * as leaftletDraw from 'leaflet-draw';
 import type {
   Circle,
   CircleMarker,
@@ -1158,11 +1166,15 @@ function useLeaflet() {
   useEffect(() => {
     if (L && LeafletDraw) return;
     if (typeof window !== 'undefined') {
+      // Real dynamic imports now that `leaflet`/`leaftletDraw` above are
+      // type-only — this is what actually defers the runtime module (and
+      // its CSS) out of the static bundle, which the previous value imports
+      // at the top of this file silently defeated.
       if (!L) {
-        setL(leaflet);
+        void import('leaflet').then(setL);
       }
       if (!LeafletDraw) {
-        setLeafletDraw(leaftletDraw);
+        void import('leaflet-draw').then(setLeafletDraw);
       }
     }
   }, [L, LeafletDraw]);

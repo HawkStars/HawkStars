@@ -2,9 +2,14 @@ import { authenticated } from '@/payload/access/authenticated';
 import { AccessArgs, CollectionConfig } from 'payload';
 import { contributionTypeOptions } from './config';
 import { User } from '@/payload-types';
-import { notifyContribution } from './hooks';
+import { notifyContribution, notifyContributionDelete } from './hooks';
+import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
 
 const validateContributionAccess = (args: AccessArgs<User>) => authenticated(args);
+
+export const CONTRIBUTION_CACHE_TAG = 'contributions' as const;
+const { afterChange: revalidateContribution, afterDelete: revalidateContributionDelete } =
+  createRevalidateHooks(CONTRIBUTION_CACHE_TAG);
 
 export const ContributionCollection: CollectionConfig = {
   slug: 'contributions',
@@ -41,6 +46,7 @@ export const ContributionCollection: CollectionConfig = {
       name: 'is_confirmed',
       label: { en: 'Payment is Confirmed', pt: 'Pagamento Confirmado' },
       defaultValue: false,
+      index: true,
       admin: {
         description: {
           en: 'Check this box once the payment has been verified',
@@ -118,6 +124,7 @@ export const ContributionCollection: CollectionConfig = {
           type: 'text',
           name: 'transaction_key',
           label: { en: 'Transaction Key', pt: 'Chave de Transação' },
+          index: true,
           admin: {
             description: {
               en: 'UUID key used to identify this payment in EasyPay',
@@ -171,6 +178,8 @@ export const ContributionCollection: CollectionConfig = {
     },
   },
   hooks: {
-    afterChange: [notifyContribution],
+    afterChange: [notifyContribution, revalidateContribution],
+    afterDelete: [notifyContributionDelete, revalidateContributionDelete],
   },
+  versions: true,
 };

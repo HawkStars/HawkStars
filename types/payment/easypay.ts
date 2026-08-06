@@ -136,7 +136,8 @@ export type EasyPayTransactionNotification = {
  * COMMON TYPES
  */
 
-// SDD = SEPA Direct Debit - Only required for Debit payments, but can be included in the payload for other payment types if needed for future use or specific cases.
+// SDD = SEPA Direct Debit
+// Only required for Debit payments, but can be included in the payload for other payment types if needed for future use or specific cases.
 export type SDDMandateQuery = {
   iban: string;
   key: string;
@@ -152,17 +153,7 @@ export type SDDMandateQuery = {
 export type SinglePaymentMethod = 'CC' | 'MB' | 'MBW';
 export type SubscriptionPaymentMethod = 'CC';
 export type SubscriptionFrequency =
-  | '1D'
-  | '1W'
-  | '2W'
-  | '1M'
-  | '2M'
-  | '3M'
-  | '4M'
-  | '6M'
-  | '1Y'
-  | '2Y'
-  | '3Y';
+  '1D' | '1W' | '2W' | '1M' | '2M' | '3M' | '4M' | '6M' | '1Y' | '2Y' | '3Y';
 
 export type EasyPayCustomerInfo = {
   id?: string;

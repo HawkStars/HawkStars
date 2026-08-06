@@ -5,6 +5,11 @@ import { sanitizeBrokenImageRelationship } from '../../hooks/sanitizeBrokenImage
 import HawkProjectFields from './HawkProjectFields';
 import { GROUP_LABELS } from '@/payload/constants';
 import { notifyEventChange, notifyEventDelete } from './hooks';
+import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
+
+export const HAWK_EVENT_CACHE_TAG = 'hawk_events' as const;
+const { afterChange: revalidateHawkEvent, afterDelete: revalidateHawkEventDelete } =
+  createRevalidateHooks(HAWK_EVENT_CACHE_TAG);
 
 export const HawkEvent: CollectionConfig = {
   slug: 'hawk_events',
@@ -35,8 +40,8 @@ export const HawkEvent: CollectionConfig = {
     update: authenticated,
   },
   hooks: {
-    afterChange: [notifyEventChange],
-    afterDelete: [notifyEventDelete],
+    afterChange: [notifyEventChange, revalidateHawkEvent],
+    afterDelete: [notifyEventDelete, revalidateHawkEventDelete],
     afterRead: [sanitizeBrokenImageRelationship],
   },
   fields: [

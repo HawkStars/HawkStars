@@ -257,4 +257,9 @@ export default buildConfig({
     if (process.env.NODE_ENV === 'production') return;
     await seed(payload);
   },
+  upload: {
+    limits: {
+      fileSize: 50 * 1024 * 1024,
+    },
+  },
 });

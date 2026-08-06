@@ -4,6 +4,7 @@ import * as Sentry from '@sentry/nextjs';
 import './richtext.scss';
 
 import { cn } from '@/lib/utils';
+import dynamic from 'next/dynamic';
 
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
 import { HeroBlock } from '@/payload/blocks/Hero/Component';
@@ -37,7 +38,10 @@ import BentoGridBlock from '@/payload/blocks/BentoGridBlock/Component';
 import Heading from '../utils/heading';
 import { StatsBlock } from '@/payload/blocks/StatsBlock/Component';
 import { AccordionBlock } from '@/payload/blocks/AccordionBlock/Component';
-import SimpleGallery from '@/payload/blocks/SimpleGallery/Component';
+
+const SimpleGallery = dynamic(() => import('@/payload/blocks/SimpleGallery/Component'), {
+  ssr: false,
+});
 import { ProjectTestimonialBlock } from '@/payload/blocks/ProjectTestimonialBlock/Component';
 import { LogosBlock } from '@/payload/blocks/LogosBlock/Component';
 import { GlobalVillageBannerBlockComponent } from '@/payload/blocks/GlobalVillageBanner/Component';

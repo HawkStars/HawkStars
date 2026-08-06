@@ -1,6 +1,7 @@
 import type { News, LatestNewsBlock } from '@/payload-types';
 import type { Where } from 'payload';
 import { stringify } from 'qs-esm';
+import * as Sentry from '@sentry/nextjs';
 
 import { getImagePayloadUrl } from '@/lib/image';
 
@@ -62,6 +63,7 @@ const fetchLatestNews = async (
       href: `/news/${doc.slug}`,
     };
   } catch (error) {
+    Sentry.captureException(error);
     return null;
   }
 };

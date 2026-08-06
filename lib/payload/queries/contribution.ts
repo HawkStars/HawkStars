@@ -1,6 +1,7 @@
-import { cacheLife } from 'next/cache';
+import { cacheLife, cacheTag } from 'next/cache';
 import totalContributioValueQuery from '../endpoints/totalContributioValueQuery';
 import { getPayloadConfig } from '../server';
+import { CONTRIBUTION_CACHE_TAG } from '@/payload/collections/Contribution';
 
 export const getChairsContributionsQuery = async () => {
   const payload = await getPayloadConfig();
@@ -11,6 +12,7 @@ export const getChairsContributionsQuery = async () => {
         in: ['OFFICE_CHAIR', 'AUDITORIUM_CHAIR', 'LOUNGE_CHAIR', 'SIMULATOR_CHAIR'],
       },
     },
+    limit: 0,
   });
   const { docs, hasNextPage, hasPrevPage, totalDocs, totalPages, nextPage } = contributions;
   return { docs, hasNextPage, hasPrevPage, totalDocs, totalPages, nextPage };
@@ -18,6 +20,7 @@ export const getChairsContributionsQuery = async () => {
 
 export const getContributionsQuery = async () => {
   'use cache';
+  cacheTag(CONTRIBUTION_CACHE_TAG);
   const payload = await getPayloadConfig();
   return await payload.find({
     collection: 'contributions',
@@ -29,6 +32,7 @@ export const getContributionsQuery = async () => {
 export const getSumContributions = async (): Promise<number> => {
   'use cache';
   cacheLife('hours');
+  cacheTag(CONTRIBUTION_CACHE_TAG);
 
   try {
     const payload = await getPayloadConfig();

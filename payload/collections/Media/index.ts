@@ -30,10 +30,20 @@ export const Media: CollectionConfig = {
   },
   upload: {
     staticDir: 'media',
-    mimeTypes: ['image/*'],
+    // Was 'image/*', which also matches 'image/svg+xml' — SVGs can embed
+    // <script>/event-handler content and get rendered directly (e.g. in
+    // <img>/CSS contexts, some browsers still execute inline scripts for
+    // certain embed types), so an authenticated editor upload became a
+    // stored-XSS vector. Restricted to an explicit raster-only safe list,
+    // matching the pattern already used in Documents.ts.
+    mimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/avif', 'image/gif'],
     disableLocalStorage: true,
     bulkUpload: true,
     displayPreview: true,
+    // File-size capping isn't a per-collection `upload` option in this
+    // Payload version — it's the root `buildConfig({ upload: { limits } })`
+    // busboy setting (payload.config.ts), which applies to every upload
+    // collection. See the comment there for the 50MB rationale.
   },
   hooks: {
     afterChange: [notifyMediaUpload],

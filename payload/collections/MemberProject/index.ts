@@ -1,10 +1,15 @@
 import type { CollectionConfig } from 'payload';
 import { anyone } from '../../access/anyone';
 import { authenticated } from '../../access/authenticated';
-import { notifyMemberProject } from './hooks';
+import { notifyMemberProject, notifyMemberProjectDelete } from './hooks';
 import { GROUP_LABELS } from '@/payload/constants';
 import { checkConfirmedByAdmin } from './hooks/checkConfirmedByAdmin';
 import { checkProjectUrl } from './hooks/validateProjectUrl';
+import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
+
+export const MEMBER_PROJECT_CACHE_TAG = 'member_projects' as const;
+const { afterChange: revalidateMemberProject, afterDelete: revalidateMemberProjectDelete } =
+  createRevalidateHooks(MEMBER_PROJECT_CACHE_TAG);
 
 /**
  * MemberProject — "Corner of the Members"
@@ -44,10 +49,13 @@ export const MemberProject: CollectionConfig = {
     delete: authenticated,
   },
   hooks: {
-    afterChange: [notifyMemberProject],
+    afterChange: [notifyMemberProject, revalidateMemberProject],
+    afterDelete: [notifyMemberProjectDelete, revalidateMemberProjectDelete],
     beforeValidate: [checkConfirmedByAdmin],
     beforeChange: [checkProjectUrl],
   },
+  // Plain version history, same rationale as Contribution.
+  versions: true,
   fields: [
     /* -------------------------------------------------------------- */
     /*  MODERATION (sidebar) — admins only effectively, via access     */
@@ -57,6 +65,7 @@ export const MemberProject: CollectionConfig = {
       label: { en: 'Confirmed', pt: 'Confirmado' },
       type: 'checkbox',
       defaultValue: false,
+      index: true,
       admin: {
         position: 'sidebar',
         description: {

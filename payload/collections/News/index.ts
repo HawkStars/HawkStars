@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { notifyNewsChange } from './hooks';
 import { authenticated } from '@/payload/access/authenticated';
 import { anyone } from '@/payload/access/anyone';
+import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
 import NewsDetails from './NewsFields';
 import {
   MetaDescriptionField,
@@ -13,6 +14,10 @@ import {
 import { GROUP_LABELS } from '@/payload/constants';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import transformSlug from '@/payload/utilities/transformSlug';
+
+export const NEWS_CACHE_TAG = 'news' as const;
+const { afterChange: revalidateNews, afterDelete: revalidateNewsDelete } =
+  createRevalidateHooks(NEWS_CACHE_TAG);
 
 export const News: CollectionConfig = {
   slug: 'news',
@@ -140,7 +145,8 @@ export const News: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [notifyNewsChange],
+    afterChange: [notifyNewsChange, revalidateNews],
+    afterDelete: [revalidateNewsDelete],
   },
   versions: {
     drafts: {

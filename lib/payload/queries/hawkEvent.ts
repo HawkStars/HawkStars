@@ -1,7 +1,8 @@
 import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
 import { findPublishedBySlug } from './helpers';
-import { cacheLife } from 'next/cache';
+import { cacheLife, cacheTag } from 'next/cache';
+import { HAWK_EVENT_CACHE_TAG } from '@/payload/collections/HawkEvent';
 
 const EVENTS_COLLECTION = 'hawk_events' as const;
 
@@ -35,6 +36,7 @@ export const getHawkEventsSplitByDate = async (
 ): Promise<SplitHawkEventsResult> => {
   'use cache';
   cacheLife('hours');
+  cacheTag(HAWK_EVENT_CACHE_TAG);
 
   const payload = await getPayloadConfig();
   const now = new Date().toISOString();
