@@ -138,7 +138,7 @@ function isGoogleDriveFileId(value: string): boolean {
  */
 export async function generateGoogleDriveURL(fileId: string): Promise<string> {
   if (!fileId || !isGoogleDriveFileId(fileId)) {
-    console.warn(
+    Sentry.captureMessage(
       `[Google Drive] Invalid file ID: "${fileId}". ` +
         'This document may have been uploaded before Google Drive was configured, or the upload failed.'
     );
@@ -148,7 +148,7 @@ export async function generateGoogleDriveURL(fileId: string): Promise<string> {
   try {
     return `https://drive.google.com/uc?id=${fileId}`;
   } catch (error) {
-    console.error('Error generating Google Drive URL:', error);
+    Sentry.captureException(error);
     return '';
   }
 }

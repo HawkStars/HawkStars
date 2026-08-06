@@ -9,11 +9,7 @@ const getIcon = (iconName?: string | null) => {
   const prefixed = iconName.startsWith('Lu') ? iconName : `Lu${iconName}`;
   const Icon = (LuIcons as unknown as Record<string, IconType>)[prefixed];
 
-  if (!Icon) {
-    console.warn(`Icon "${iconName}" (tried "${prefixed}") not found in react-icons/lu`);
-    return null;
-  }
-
+  if (!Icon) return null;
   return <Icon className='size-6' />;
 };
 

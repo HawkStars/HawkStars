@@ -139,7 +139,6 @@ const createNotification = async (
       },
     });
   } catch (error) {
-    console.error(`Failed to create ${collection}/${situation} notification:`, error);
     Sentry.captureException(error, {
       tags: { area: 'notifications', source: collection, situation },
     });

@@ -1,5 +1,6 @@
 'use client';
 
+import * as Sentry from '@sentry/nextjs';
 import { useState, useMemo } from 'react';
 import DonationHeader from './DonationHeader';
 import AmountStep from './AmountStep';
@@ -123,7 +124,7 @@ export default function DonationWidget() {
       setPaymentResponse(data);
       setCurrentStep(5);
     } catch (error) {
-      console.error('Payment error:', error);
+      Sentry.captureException(error);
       setSubmitError(error instanceof Error ? error.message : t('donation.unexpected_error'));
     } finally {
       setIsSubmitting(false);

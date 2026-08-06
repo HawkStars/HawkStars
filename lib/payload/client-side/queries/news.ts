@@ -87,7 +87,9 @@ const fetchLatestHawkEvent = async (
     const response = await fetch(`${API_CLIENT_PATHS.events}${queryString}`, { method: 'GET' });
 
     if (!response.ok) {
-      console.error('Failed to fetch latest hawk event:', response.statusText);
+      Sentry.captureMessage('Failed to fetch latest hawk event:', {
+        extra: { statusText: response.statusText },
+      });
       return null;
     }
 
@@ -104,7 +106,7 @@ const fetchLatestHawkEvent = async (
       href: `/events/${doc.slug}`,
     };
   } catch (error) {
-    console.error('Error fetching latest hawk event:', error);
+    Sentry.captureException(error);
     return null;
   }
 };

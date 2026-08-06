@@ -54,7 +54,6 @@
 //         ],
 //       },
 //     });
-//     console.log('✅ Header seeded successfully');
 
 //     await payload.updateGlobal({
 //       slug: 'footer',
@@ -72,8 +71,6 @@
 //         ],
 //       },
 //     });
-//     console.log('✅ Footer seeded successfully');
 //   } catch (error) {
-//     console.error('❌ Error creating demo page:', error);
 //   }
 // };

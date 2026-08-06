@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs';
 import { Artwork, Curator } from '@/payload-types';
 import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
@@ -14,7 +15,7 @@ export const getSingleArtwork = async (slug: string, locale: Language): Promise<
     const artwork = data.docs.length > 0 ? (data.docs[0] as Artwork) : null;
     return artwork;
   } catch (error) {
-    console.error('Error fetching artwork:', error);
+    Sentry.captureException(error);
     return null;
   }
 };
@@ -38,7 +39,7 @@ export const getSingleCuratorQuery = async (
 
     return curator.docs[0] as Curator;
   } catch (error) {
-    console.error('Error fetching curator:', error);
+    Sentry.captureException(error);
     return undefined;
   }
 };

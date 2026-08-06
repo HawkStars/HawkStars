@@ -89,7 +89,6 @@ export async function POST(request: Request) {
     // Surface the failure — without this, a broken webhook (DB down, malformed
     // payload) is completely silent while we keep telling EasyPay "success".
     Sentry.captureException(e);
-    console.error('EasyPay webhook error:', e);
     // Still return 200 to prevent EasyPay from retrying endlessly
     return Response.json({ success: true }, { status: 200 });
   }
@@ -201,12 +200,10 @@ async function updateContributionStatus(
           is_confirmed: isConfirmed,
         },
       });
-      console.log(`Contribution ${contribution.id} updated: is_confirmed=${isConfirmed}`);
     } else {
-      console.warn(`No contribution found for transaction key: ${transactionKey}`);
+      Sentry.captureMessage(`No contribution found for transaction key: ${transactionKey}`);
     }
   } catch (error) {
     Sentry.captureException(error);
-    console.error('Error updating contribution status:', error);
   }
 }

@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs';
 import { MetadataRoute } from 'next';
 import { languages } from '@/i18n/settings';
 import { routes } from '@/utils/paths';
@@ -144,7 +145,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
     }
   } catch (error) {
-    console.error('Error generating dynamic sitemap entries:', error);
+    Sentry.captureException(error);
   }
 
   return sitemapRoutes;

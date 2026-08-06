@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs';
 import type { HandleUpload, HandleDelete } from '@payloadcms/plugin-cloud-storage/types';
 import type { UploadApiResponse } from 'cloudinary';
 import { v2 as cloudinary } from 'cloudinary';
@@ -41,7 +42,7 @@ export const cloudinaryAdapter = () => ({
       file.mimeType = `${uploadResult.format}`; // Set MIME type based on Cloudinary's format (e.g., image/png)
       file.filesize = uploadResult.bytes; // Set the actual file size in bytes, for admin display and validations
     } catch (err) {
-      console.error('Upload Error', err);
+      Sentry.captureException(err);
     }
   },
 
@@ -52,8 +53,7 @@ export const cloudinaryAdapter = () => ({
       // inside the "media/" folder on Cloudinary (which we used as the upload path)
       await cloudinary.uploader.destroy(`media/${filename.replace(/\.[^/.]+$/, '')}`);
     } catch (error) {
-      // if something error occured we will catch the error and respond the error in console
-      console.error('Cloudinary Delete Error:', error);
+      Sentry.captureException(error);
     }
   },
   staticHandler() {

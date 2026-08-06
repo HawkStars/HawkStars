@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs';
 import { cacheLife, cacheTag } from 'next/cache';
 import totalContributioValueQuery from '../endpoints/totalContributioValueQuery';
 import { getPayloadConfig } from '../server';
@@ -41,7 +42,7 @@ export const getSumContributions = async (): Promise<number> => {
     const data = await response.json();
     return (data.sum as number) || 0;
   } catch (error) {
-    console.error('Error fetching sum of contributions:', error);
+    Sentry.captureException(error);
     return 0;
   }
 };

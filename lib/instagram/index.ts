@@ -16,7 +16,6 @@ const getInstagramPosts = async (maxPosts: number) => {
     const data = await response.json();
     return (data.posts as InstagramPost[]) ?? [];
   } catch (err) {
-    console.log(err);
     Sentry.captureException(err);
     return [];
   }
