@@ -32,6 +32,82 @@ Counts by severity: **1 Critical, 12 High, 21 Medium, 17 Low.**
 
 ---
 
+## Remaining work — task list
+
+_Updated 2026-08-06. Items struck through elsewhere in this doc are done and verified (`eslint`/`tsc` clean) in the live repo. This list is everything still open, grouped by section, in roughly the order it appears below._
+
+### ⚠️ Blocked on you — fix is drafted, just needs pasting in
+
+These three live only in files you were sent this session, because `.github/workflows/*.yml` can't be written back to your machine remotely:
+
+- [ ] **SEC-H3** — `deploy.yml`: `EXIT` trap so the GitHub PAT never persists in the VPS's gitconfig
+- [ ] **SEC-M5** — `deploy.yml` + `db-backup.yml`: pin `chromaui/action` and `appleboy/ssh-action` to commit SHAs
+- [ ] **QUA-H3** — `deploy.yml`: add `pnpm test` + `pnpm format` to the `check` job
+
+### Performance
+
+- [ ] **PERF-H5** — Make `Navbar` a server component (Footer is already fixed); keep only hover/mobile-toggle state as small client leaves
+- [ ] **PERF-M1** — Stop spreading the full `depth: 3` project doc into 3 client components on the project detail page
+- [ ] **PERF-M2** — Add a Cloudinary loader (`f_auto,q_auto,w_${width}` + `images.loader: 'custom'`) so CMS images stop being re-encoded on the VPS
+- [ ] **PERF-M5** — Fetch the agenda's current month server-side instead of client-fetching on mount
+- [ ] **PERF-M7** — Pre-resize the 13 source images over 4MB in `public/images` (or move them to Cloudinary)
+- [ ] **PERF-L1** — Reconsider inline blur-placeholder data-URIs (18.7KB of HTML on `pt/team.html` alone)
+- [ ] **PERF-L2** — Trim `deviceSizes`' `2048` entry now that PERF-H3 is fixed; consider `imageSizes` for icon-scale assets
+- [ ] **PERF-L5** — Replace `date-fns` in the 9 client components that only use it for `format` with server-side formatting or `Intl.DateTimeFormat`
+
+### Code quality & tech debt
+
+- [ ] **QUA-M3** — Run Prettier on the 7 drifted files (`FormContributions.tsx`, `SingleProjectObjectives.tsx`, `InstagramGrid.tsx`, `CallToAction/Component.tsx`, `ImageComparisonSliderBlock/Component.tsx`, `QuoteHighlightBlock/Component.tsx`, `payload/fields/translateInput.tsx`)
+- [ ] **QUA-M4** — Add a `reportError(err, context)` helper (`console.error` + `Sentry.captureException`) and replace the 54 bare `console.*` call sites; stop logging full webhook bodies in `app/api/easypay/route.ts`
+- [ ] **QUA-M5** — Delete dead components: `components/donate-test/index.tsx` (posts a real donation with a hardcoded email — delete first), `FormContributions.tsx`, `events/EventsList/index.tsx`, `ProjectNewsSection.tsx`, `SingleProjectResults.tsx`, `getNewsById`, `lib/payload/seed/development.ts`; audit the 12/28 unused `components/ui/` primitives. (`PartnersMapWrapper.tsx` no longer exists — already moot.)
+- [ ] **QUA-M6** — Fix or delete `components/events/EventsList/index.tsx` (wrong type, missing `lng` prefix, bare `<a>`, duplicated text) — currently dead code either way
+- [ ] **QUA-M7** — Extract a shared `<ListCard>` from `EventCard.tsx`/`ProjectCard.tsx` (~85% duplicated); fix `EventCard`'s unused `index` prop losing LCP preload
+- [ ] **QUA-M8** — Rebuild `DonationWidget` on React Hook Form + Zod (currently 12 raw `useState`, no validation); add `zodResolver` to `SubmitProjectForm.tsx` and export its inline schema to `lib/schemas/`
+- [ ] **QUA-L1** — Replace `Record<string, any>` in `EventPage.tsx`/`EventCard.tsx`/`hawkEvent.ts` with the generated `HawkEvent` type; narrow the two blanket `/* eslint-disable */` files; `as NextConfig` → `satisfies` in `next.config.ts`
+- [ ] **QUA-L2** — Fix `pnpm tsc` → should invoke the declared `typecheck` script; add `NODE_OPTIONS=--max-old-space-size=4096` wherever `CLAUDE.md`/`ops.md` claim it's already set
+- [ ] **QUA-L3** — Add a `lint-staged` pre-commit hook (format + lint on changed files only), leaving the full build to CI
+- [ ] **QUA-L4** — Remove unused deps (`motion`, `graphql`, `require-in-the-middle` if undocumented, `autoprefixer`, `playwright` + `@vitest/browser-playwright`); consolidate `classname-variants` vs `class-variance-authority` to one
+- [ ] **QUA-L5** — Route the `local_event`/`international_event` label mapping (duplicated in 5 places) through i18n consistently
+- [ ] **QUA-L6** — Longer-term: pick one naming/export convention; consider merging the two parallel data-fetching stacks (`lib/payload/queries/*` vs `lib/payload/client/*`); fix the missing try/catch in `getEventsByMonthAndYear`
+- [ ] **QUA-L7** — Delete `path/to/venv/`; consolidate `.env.example`/`.env.variables` (fix the "paylaod" typo either way)
+- [ ] **QUA-L8** — Add `synchronize` to the existing `pull_request` trigger's `types` list so re-pushes to an open PR are re-checked too
+
+### Accessibility — untouched section
+
+- [ ] **A11Y-H1** — `Input`/`TextArea`: remove `aria-labelledby`/`aria-label` (they override the real `<label>`); restore a `focus-visible` ring
+- [ ] **A11Y-H2** — Wire up `aria-invalid` + `aria-describedby` + `role="alert"` for form errors (currently zero `aria-live`/`aria-describedby` in the repo)
+- [ ] **A11Y-H3** — `DonationWidget`: fix 4 orphan `<label>`s, add `role="radiogroup"`/`aria-checked` to the amount/frequency toggles, add `type="button"` everywhere
+- [ ] **A11Y-H4** — Convert 4 interactive `<div>`s to real `<button>`s: `LanguageSwitcher.tsx:54`, `MobileMenuItem.tsx:29`, `TeamInformation.tsx:33`, `Accordion.tsx:17`
+- [ ] **A11Y-M1** — Fix nested `<main>` on 4 pages; give the two `<nav>`s distinguishing labels
+- [ ] **A11Y-M2** — Add a skip-to-content link
+- [ ] **A11Y-M3** — Fix heading structure: missing `h1` on transparency, duplicate `h1`s on contribute, several level-skips, 4 CMS blocks hard-coding `<h1>`
+- [ ] **A11Y-M4** — Fix focus-ring contrast (`--ring` is ~1.6:1 at 50% alpha, needs 3:1); add `focus-visible` rules to `globals.css`
+- [ ] **A11Y-M5** — Fix color-contrast failures: `--muted-foreground`/`--muted` (4.34:1), `€` prefix (2.85:1), newsletter placeholder text (~3.3:1), and sweep the other 35 `text-white/50|60` usages
+- [ ] **A11Y-M6** — Add `tabIndex` + arrow-key handling to the `role="slider"` image-comparison component
+- [ ] **A11Y-M7** — Desktop nav dropdown: add Escape-to-close, `aria-controls`, and move focus into the panel on open
+
+### SEO — untouched section
+
+- [ ] **SEO-H1** — `/team` and `/artwork/[slug]` should not canonicalize to the homepage
+- [ ] **SEO-H2** — Homepage loses canonical/hreflang whenever CMS meta exists — pass `lng`/`urlPath` into `prepareMetadataInfo`
+- [ ] **SEO-H3** — CMS `[slug]` pages need canonical/hreflang/OG/Twitter metadata, not just title+description
+- [ ] **SEO-H4** — Fix the loose `startsWith` vs strict locale check so `/enterprise`-style paths don't 200 with an invalid `lang`; fix `split('/')[0]` → `[1]`
+- [ ] **SEO-H5** — Sitemap: add `news` and `hawk_events`; add `/crowdfunding`/`/gaming` to the static routes list; add `alternates.languages` per entry
+- [ ] **SEO-M1** — Either wire the Payload SEO plugin's `collections`/`uploadsCollection`, or delete it
+- [ ] **SEO-M2** — Add `app/robots.ts` disallowing `/*/preview/` and `/api/`
+- [ ] **SEO-M3** — `[...notfound]/page.tsx` should call `notFound()` instead of rendering a soft-404 page
+- [ ] **SEO-M4** — Trim the 14 titles >60 chars and 20 descriptions >160 chars in `metadata.json`; fix orphan/missing metadata keys
+- [ ] **SEO-M5** — Localize Crowdfunding/Gaming metadata (currently English-only or mixed EN/PT)
+- [ ] **SEO-L1** — Wire up `BreadcrumbJsonLd`/`WebPageJsonLd`; fix the incorrect US `Nonprofit501c3` status; fix the unresolved `{lng}` search action; add `eventStatus`/`eventAttendanceMode`/`offers` to `EventJsonLd`; add JSON-LD to project pages
+- [ ] **SEO-L2** — Collapse the double `www` → `https` redirect hop (handled in both `next.config.ts` and `nginx.conf`)
+
+### Internationalization
+
+- [ ] **I18N-M2** — Translate the 46 hardcoded English strings across 27 files (`MapLocationBlock`, `NewsletterSignupBlock` — which is also a dead no-op form, `DonationProgressBlock`, slide-arrow `aria-label`s, etc.)
+- [ ] **I18N-M3** — Fix locale-detection order (ties to SEO-H4's `split('/')[0]` bug); stop the referer-header cookie short-circuit; handle `/pt-BR`-style variants
+
+---
+
 ## 1. Security
 
 ### <strike>🔴 SEC-C1 (Critical) — `member_projects` accepts unauthenticated writes, including the moderation flag</strike>
@@ -92,6 +168,8 @@ read: ({ req: { user } }) => user ? true : { is_confirmed: { equals: true } },
 
 ### 🟠 SEC-H3 (High) — Deploy writes the GitHub PAT into the VPS's persistent gitconfig
 
+> **Fix drafted, not yet live** — an `EXIT` trap now unsets the `insteadOf` config unconditionally in the updated `deploy.yml`, but that file is protected and couldn't be written back to your machine remotely. You have the updated file from this session; paste it in manually.
+
 `.github/workflows/deploy.yml:90`
 
 ```yaml
@@ -120,7 +198,7 @@ Secondary: the token is accepted as a **query parameter** (`?token=…`, `:37`),
 
 **Fix:** fail closed in production (`if (!expected) return process.env.NODE_ENV !== 'production'`); drop the query-param path; use `crypto.timingSafeEqual`; re-verify status out-of-band against the EasyPay API before setting `is_confirmed`.
 
-### 🟡 SEC-M2 (Medium) — Rate limiter bypassable via client-supplied `X-Forwarded-For`
+### 🟡 <strike>SEC-M2 (Medium) — Rate limiter bypassable via client-supplied `X-Forwarded-For`</strike>
 
 `utils/rateLimit.ts:68-72` takes `forwarded.split(',')[0]` — the **first**, attacker-controlled hop. `nginx.conf:33` uses `$proxy_add_x_forwarded_for`, which *appends* the peer address to whatever the client sent, so `X-Forwarded-For: 1.2.3.4` arrives as `1.2.3.4, <real-ip>`.
 
@@ -144,6 +222,8 @@ Same pattern in `payload/endpoints/dashboardStats.ts:7` and `sumContributions.ts
 
 ### 🟡 SEC-M5 (Medium) — Unpinned third-party GitHub Actions
 
+> **Fix drafted, not yet live** — `chromaui/action` and `appleboy/ssh-action` are pinned in the updated `deploy.yml`/`db-backup.yml` from this session, but both files are protected and couldn't be written back to your machine remotely. Paste them in manually.
+
 `.github/workflows/db-backup.yml:46` (`appleboy/ssh-action@master`) and `deploy.yml:203` (`chromaui/action@latest`). The `ssh-action` step receives `SSH_PRIVATE_KEY`, `SSH_PASSPHRASE` and the Google OAuth refresh token (`:48-58`) — a compromised upstream commit exfiltrates production VPS access and Drive credentials. `deploy.yml:` correctly pins `appleboy/ssh-action@v1`, so this is an inconsistency rather than a policy gap.
 
 **Fix:** pin all third-party actions to a full commit SHA.
@@ -153,7 +233,7 @@ Same pattern in `payload/endpoints/dashboardStats.ts:7` and `sumContributions.ts
 - <strike>**SEC-L1** — `.env.sentry-build-plugin:5` holds a live org-scoped `SENTRY_AUTH_TOKEN` in plaintext on disk. It is gitignored and `git log --all -S"sntrys_"` confirms it was never committed, but it should be rotated and moved to the shell/CI environment only (already `secrets.SENTRY_AUTH_TOKEN` in `deploy.yml:60`).</strike>
 - <strike>**SEC-L2** — Error detail leaked to unauthenticated callers: `app/api/instagram/route.ts:131` returns `error.message`; `donate/route.ts:73`, `subscription/route.ts:49`, `member-projects/route.ts:99` return the full `e.issues` zod dump.</strike>
 - <strike>**SEC-L3** — `/api/instagram` is unauthenticated and unrated (`route.ts:63-90`); each hit is a DB read plus a Graph API call. `limit` varies 1-50, so each value is a distinct cache key. Cheap way to burn the Instagram quota.</strike>
-- **SEC-L4** — `payload/collections/Media.ts:33` uses `mimeTypes: ['image/*']`, which matches `image/svg+xml`. Mitigated by `disableLocalStorage: true` + Cloudinary serving from a separate origin, but `Documents.ts:30-39` already uses an explicit safe list — do the same here.
+- <strike>**SEC-L4** — `payload/collections/Media.ts:33` uses `mimeTypes: ['image/*']`, which matches `image/svg+xml`. Mitigated by `disableLocalStorage: true` + Cloudinary serving from a separate origin, but `Documents.ts:30-39` already uses an explicit safe list — do the same here.</strike>
 
 ### ✅ Verified OK
 
@@ -203,7 +283,7 @@ Because there is no stylesheet `<link>`, the CSS is **never browser-cached** —
 
 **Fix:** `Sentry.lazyLoadIntegration('replayIntegration')`, or drop replay. Set `tracesSampleRate` to ~0.1 in production.
 
-### 🟠 PERF-H3 (High) — `sizes` defaults to `100vw`, so 80 of 103 images get a full 2048px srcset
+### 🟠 <strike>PERF-H3 (High) — `sizes` defaults to `100vw`, so 80 of 103 images get a full 2048px srcset</strike>
 
 `payload/components/Media/ImageMedia/index.tsx:83` — `sizes={sizes ?? '100vw'}`. Across `components/`, `app/`, `payload/`: **103 `<ImageMedia>` usages, 23 pass `sizes`, 80 do not** (worst: `contribute/page.tsx` with 15).
 
@@ -211,7 +291,7 @@ Supplying `sizes` forces a width-descriptor srcset over the whole `deviceSizes` 
 
 **Fix:** drop the `?? '100vw'` default so fixed-width images get a correct 1x/2x srcset, and add real `sizes` to the grid/hero call sites. Cheapest single win on the site.
 
-### 🟠 PERF-H4 (High) — Page revalidation passes a slug where a path is required; 9 collections have no hook
+### 🟠 <strike>PERF-H4 (High) — Page revalidation passes a slug where a path is required; 9 collections have no hook</strike>
 
 `payload/collections/Pages/hooks/revalidatePage.ts:15, 21, 29` — `revalidatePath(doc.slug)`. `doc.slug` is e.g. `history`, but the routes are `/pt/history` and `/en/history`. **Editing a Page never invalidates its route** — no leading slash, no locale segment. Editors wait out the 900 s ISR window and conclude the CMS is broken.
 
@@ -221,6 +301,8 @@ Compounding: only `Pages`, `Header`, `Footer` and `MainPage` have revalidate hoo
 
 ### 🟠 PERF-H5 (High) — The whole site shell is client-rendered; the footer is `ssr: false`
 
+> **Partially resolved already** — `FooterWrapper.tsx` no longer exists; `Footer.tsx` is now a proper `async` server component taking `footerInfo` as a prop. Only the `Navbar` half of this finding still stands.
+
 `components/footer/FooterWrapper.tsx:5-7` wraps `Footer` in `dynamic(…, { ssr: false })`. `Footer.tsx:1` and `Navbar.tsx:1` are both `'use client'`, reading from `utils/contexts/AppProvider.tsx:34-40`.
 
 - The footer — all site nav links — is **absent from server HTML**: SEO cost plus a guaranteed post-hydration layout shift on every page.
@@ -229,7 +311,9 @@ Compounding: only `Pages`, `Header`, `Footer` and `MainPage` have revalidate hoo
 
 **Fix:** make `Navbar`/`Footer` server components taking `headerInfo`/`footerInfo` as props from `app/[lng]/(org)/layout.tsx:76-77`; keep only the mobile toggle and dropdown hover state as small client leaves. Remove `ssr: false`.
 
-### 🟠 PERF-H6 (High) — `components/ui/map.tsx` statically imports leaflet and `react-dom/server`, nullifying its own dynamic imports
+### 🟠 <strike>PERF-H6 (High) — `components/ui/map.tsx` statically imports leaflet and `react-dom/server`, nullifying its own dynamic imports</strike>
+
+> Fixed via `import type` for leaflet/leaflet-draw + real `import()` in `useLeaflet()`, and wrapping `SingleProjectTravelMap` in `dynamic(..., { ssr: false })`. `renderToString` itself was left alone — `MapMarker`'s `icon` prop is a fully generic `ReactNode` from callers, not a fixed icon, so it can't be swapped for a static SVG string without narrowing that API.
 
 `:19-20` static `leaflet` + `leaflet-draw`, `:46-47` their CSS, `:72` **`import { renderToString } from 'react-dom/server'`**, `:74-88` value imports from `react-leaflet`. Lines 93-118 then `dynamic(() => import('react-leaflet'))` — but it is already in the static graph, so nothing is deferred.
 
@@ -242,8 +326,8 @@ Worse: `app/[lng]/(org)/projects/[slug]/page.tsx:14` imports `SingleProjectTrave
 ### 🟡 Medium
 
 - **PERF-M1** — Whole Payload documents spread into client components: `projects/[slug]/page.tsx:48-54` passes `{...project}` (fetched at `depth: 3`) to three `'use client'` components. `SingleProjectTravelMap` needs exactly two fields. `_full.segment.rsc` for that route is **208 KB**.
-- **PERF-M2** — Cloudinary images are re-optimized by the self-hosted Next optimizer. The custom loader is commented out (`payload/components/Media/ImageMedia/index.tsx:90`), so every CMS image is pulled to the VPS and re-encoded by sharp per width × format, bypassing the CDN you already pay for. Add a Cloudinary loader (`f_auto,q_auto,w_${width}`) + `images.loader: 'custom'`.
-- **PERF-M3** — Query hygiene. `lib/payload/queries/contribution.ts:7-14` has **no `limit`** (defaults to 10) while the contribute page renders grids of 60/40/110 from it — a correctness bug as much as a perf one. `partner.ts:5-9` and `team.ts:13` use `limit: 1000` at default depth 2 with no `'use cache'` (`pt/team.rsc` = 217 KB). `app/sitemap.ts:26,44,61,78` runs four `limit: 1000` finds **sequentially** at default depth, uncached, on every request. Add `depth: 0|1` + `select` throughout; `Promise.all` the sitemap.
+- **PERF-M2** — Cloudinary images are re-optimized by the self-hosted Next optimizer. The custom loader is commented out (`payload/components/Media/ImageMedia/index.tsx:90`), so every CMS image is pulled to the VPS and re-encoded by sharp per width × format, bypassing the CDN you already pay for. Add a Cloudinary loader (`f_auto,q_auto,w_${width}`) + `images.loader: 'custom'`. **Still open** — not yet done, despite an earlier status update in this thread claiming it was.
+- <strike>**PERF-M3** — Query hygiene. `lib/payload/queries/contribution.ts:7-14` has **no `limit`** (defaults to 10) while the contribute page renders grids of 60/40/110 from it — a correctness bug as much as a perf one. `partner.ts:5-9` and `team.ts:13` use `limit: 1000` at default depth 2 with no `'use cache'` (`pt/team.rsc` = 217 KB). `app/sitemap.ts:26,44,61,78` runs four `limit: 1000` finds **sequentially** at default depth, uncached, on every request. Add `depth: 0|1` + `select` throughout; `Promise.all` the sitemap.</strike>
 - <strike>**PERF-M4** — Cache primitives applied inconsistently: `lib/payload/queries/helpers.ts:60` has `'use cache'` with no `cacheLife` and no `cacheTag`; `:33-45` caches for `hours` **even when `opts.preview` is true**, making draft preview unusable. `app/[lng]/(org)/layout.tsx:76-77` awaits header then footer sequentially.</strike>
 - **PERF-M5** — The agenda page renders nothing server-side: `AgendaCalendar` is `'use client'` and fetches on mount via an uncached REST call. Fetch the current month server-side and pass it as the initial prop.
 - <strike>**PERF-M6** — `utils/metadata.ts:26` does `fs.readFileSync` on every `generateMetadata` call (~20 routes), unmemoized. Static-import the two `metadata.json` files.</strike>
@@ -257,7 +341,7 @@ Worse: `app/[lng]/(org)/projects/[slug]/page.tsx:14` imports `SingleProjectTrave
 - <strike>**PERF-L3** — `logging.fetches.fullUrl: true` (`next.config.ts:31-35`) applies in production; noisy PM2 logs.</strike>
 - <strike>**PERF-L4** — `typescript.ignoreBuildErrors: true` is intentional and CI-compensated, but means type-level perf regressions aren't caught at build time.</strike>
 - **PERF-L5** — `date-fns` imported in 9 client components purely for `format`. Format on the server or use `Intl.DateTimeFormat`.
-- **PERF-L6** — `components/ui/carousel.tsx` (embla) is statically imported by `payload/blocks/SimpleGallery/Component.tsx:10`. The DatePicker is correctly lazy; the gallery is not.
+- <strike>**PERF-L6** — `components/ui/carousel.tsx` (embla) is statically imported by `payload/blocks/SimpleGallery/Component.tsx:10`. The DatePicker is correctly lazy; the gallery is not.</strike> (Fixed at the real bottleneck: `payload/components/RichText/index.tsx`, which statically imports every block Component including this one — `SimpleGallery` is now the one block loaded via `dynamic(..., { ssr: false })` there.)
 
 ### ✅ Verified OK
 
@@ -297,6 +381,8 @@ Also `eslint-config-prettier` is installed but **not imported** in `eslint.confi
 **Fix:** delete `.eslintrc.json`; port `max-len` into the flat config (or drop it from `ops.md` and rely on Prettier's `printWidth: 100`); append `eslintConfigPrettier` last.
 
 ### 🟠 QUA-H3 (High) — No test step in CI; 3 test files for a 630-file codebase
+
+> **Fix drafted, not yet live** — `pnpm test` and `pnpm format` are added to the `check` job in the updated `deploy.yml` from this session, but that file is protected and couldn't be written back to your machine remotely. Paste it in manually.
 
 `.github/workflows/deploy.yml:22-35` runs `pnpm lint` and `pnpm tsc` only. **`pnpm test` is never run** — not in CI, not in `.husky/pre-push`. The 972 lines of payment tests can rot silently and still deploy. `vitest.config.ts` has no `coverage` block despite `@vitest/coverage-v8` being installed; coverage has never been measured.
 
@@ -338,7 +424,7 @@ Highest-value untested surface, ranked:
 - **QUA-L5** — The `local_event`/`international_event` label mapping is redeclared in 5 places (`lib/payload/client/news.ts:35-40`, `UpcomingHawkEventBlock/Component.tsx:13-14`, `AgendaCalendar.tsx:34-48`, `AgendaBlockView.tsx:38-42`, `components/news/constants.ts`). Only one routes through i18n; the rest ship hardcoded English on a PT-default site.
 - **QUA-L6** — Mixed conventions: 83 PascalCase vs 28 kebab-case component files; 145 default vs 31 named exports; two parallel data-fetching stacks (`lib/payload/queries/*` server, `lib/payload/client/*` browser) with overlapping entities and divergent error semantics — `lib/payload/client/event.ts` even differs internally, with `getEventsByMonthAndYear` (`:116-124`) lacking the try/catch its two siblings have. One 4-level relative import at `partners/page.tsx:8` where everything else uses `@/`.
 - **QUA-L7** — Repo hygiene is otherwise clean. `path/to/venv/` exists on disk (an accidental `python -m venv path/to/venv`) but is **not tracked** — it self-ignores via the venv-generated `.gitignore`. Safe to `rm -rf`. `.DS_Store`, `.next/`, `storybook-static/`, `tsconfig.tsbuildinfo`, `.env` — all present, none tracked. `package-lock.json` (QUA-M1) is the only genuine tracked-junk item. `.env.example` and `.env.variables` are redundant duplicates (the latter has a "paylaod" typo) — consolidate.
-- **QUA-L8** — `deploy.yml:3-6` has **no `pull_request` trigger** — the `check` job gates only `push: [main]`, so lint/typecheck run *as* code deploys, not before it lands. Recent history is direct-to-main with messages like `wip`, `fix`, `improving`. Add a `pull_request` trigger plus branch protection. Note the working tree is currently dirty: 8 modified `payload/` files import from an **untracked** `payload/utilities/collections/createNotification.ts` — committing the hooks without that directory breaks the build.
+- **QUA-L8** — _(Partially resolved already: your `deploy.yml` now has a `pull_request: types: [opened]` trigger, so `check` does gate PRs. It only fires on the initial open though, not on later pushes to the same PR — consider adding `synchronize` to the `types` list.)_ `deploy.yml:3-6` has **no `pull_request` trigger** — the `check` job gates only `push: [main]`, so lint/typecheck run *as* code deploys, not before it lands. Recent history is direct-to-main with messages like `wip`, `fix`, `improving`. Add a `pull_request` trigger plus branch protection. Note the working tree is currently dirty: 8 modified `payload/` files import from an **untracked** `payload/utilities/collections/createNotification.ts` — committing the hooks without that directory breaks the build.
 
 ### ✅ Verified OK
 
