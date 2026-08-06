@@ -28,6 +28,7 @@ const readMetadataLanguageFile = (lng: Language) => {
 
     return file;
   } catch (err) {
+    Sentry.captureException(err);
     return undefined;
   }
 };

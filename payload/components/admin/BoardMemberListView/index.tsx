@@ -17,6 +17,7 @@ import { useTranslation } from '@payloadcms/ui';
 import { formatAdminURL } from '@payloadcms/ui/shared';
 import Link from 'next/link';
 import { Fragment, useEffect, useMemo, useState } from 'react';
+import * as Sentry from '@sentry/nextjs';
 
 import { getMediaUrl } from '@/payload/utilities/getMediaUrl';
 import type { BoardMember, Media } from '@/payload-types';
@@ -115,6 +116,7 @@ export default function BoardMemberListView(props: ListViewClientProps) {
           setPopulatedDocs(data.docs as BoardMember[]);
         }
       } catch (error) {
+        Sentry.captureException(error);
         setPopulatedDocs(data.docs as BoardMember[]);
       } finally {
         setLoading(false);

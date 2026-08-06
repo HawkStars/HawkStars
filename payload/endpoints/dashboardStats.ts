@@ -1,4 +1,5 @@
 import type { PayloadHandler } from 'payload';
+import * as Sentry from '@sentry/nextjs';
 
 export const dashboardStatsHandler: PayloadHandler = async (req) => {
   const { payload, user } = req;
@@ -118,6 +119,7 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
 
     return Response.json(stats);
   } catch (error) {
+    Sentry.captureException(error);
     return Response.json({ error: 'Failed to fetch statistics' }, { status: 500 });
   }
 };
