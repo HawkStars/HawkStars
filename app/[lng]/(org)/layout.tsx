@@ -36,10 +36,10 @@ export default async function RootLayout(props: {
   children: React.ReactNode;
   params: Promise<{ lng: string }>;
 }) {
+  const nonce = (await headers()).get('x-nonce') || '';
   const params = await props.params;
   const { lng } = params;
   const { children } = props;
-  const nonce = (await headers()).get('x-nonce') || undefined;
 
   return (
     <html
@@ -56,20 +56,22 @@ export default async function RootLayout(props: {
           <LayoutContent lng={lng}>{children}</LayoutContent>
         </Suspense>
       </body>
-      <Script
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-        strategy='afterInteractive'
-        nonce={nonce}
-      />
-      <Script id='google-analytics' strategy='afterInteractive' nonce={nonce}>
-        {`window.dataLayer = window.dataLayer || [];
+      <Suspense fallback={<></>}>
+        <Script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy='afterInteractive'
+          nonce={nonce}
+        />
+        <Script id='google-analytics' strategy='afterInteractive' nonce={nonce}>
+          {`window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
           gtag('config', '${GA_MEASUREMENT_ID}');
         `}
-      </Script>
+        </Script>
+      </Suspense>
     </html>
   );
 }

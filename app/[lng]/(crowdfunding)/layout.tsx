@@ -2,6 +2,7 @@ import '@/app/globals.css';
 import { Inter } from 'next/font/google';
 import { Oswald } from 'next/font/google';
 import Script from 'next/script';
+import { headers } from 'next/headers';
 import { fallbackLng, Language, languages } from '@/i18n/settings';
 import CrowdfundingNavbar from '@/components/Crowdfunding/CrowdfundingNavbar';
 import AppProvider from '@/utils/contexts/AppProvider';
@@ -64,6 +65,7 @@ export default async function CrowdfundingLayout(props: {
   const params = await props.params;
   const lng = params.lng || fallbackLng;
   const { children } = props;
+  const nonce = (await headers()).get('x-nonce') || undefined;
 
   return (
     <html
@@ -76,17 +78,20 @@ export default async function CrowdfundingLayout(props: {
           <LayoutContent lng={lng}>{children}</LayoutContent>
         </Suspense>
 
-        <Script
-          strategy='afterInteractive'
-          src='https://www.googletagmanager.com/gtag/js?id=G-PEH83S3H3K'
-        />
-        <Script id='google-analytics' strategy='afterInteractive'>
-          {`window.dataLayer = window.dataLayer || [];
+        <Suspense fallback={<></>}>
+          <Script
+            strategy='afterInteractive'
+            src='https://www.googletagmanager.com/gtag/js?id=G-PEH83S3H3K'
+            nonce={nonce}
+          />
+          <Script id='google-analytics' strategy='afterInteractive' nonce={nonce}>
+            {`window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-PEH83S3H3K');
           `}
-        </Script>
+          </Script>
+        </Suspense>
       </body>
     </html>
   );
