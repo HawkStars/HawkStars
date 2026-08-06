@@ -43,7 +43,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
             <LuMail className='h-8 w-8 text-white' />
           </div>
           <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
-          {description && <p className='mb-8 text-lg opacity-85'>{description}</p>}
+          {description && <p className='mb-8 text-lg opacity-90'>{description}</p>}
 
           {!submitted ? (
             <form onSubmit={handleSubmit} className='flex flex-col gap-3 sm:flex-row'>
@@ -57,7 +57,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={'Your email address'}
                 required
-                className='flex-1 rounded-lg border-0 bg-white/15 px-6 py-3 text-lg text-white placeholder-white/60 backdrop-blur-sm focus:bg-white/20 focus:ring-2 focus:ring-white/40 focus:outline-none'
+                className='flex-1 rounded-lg border-0 bg-white/15 px-6 py-3 text-lg text-white placeholder-white/90 backdrop-blur-sm focus:bg-white/20 focus:ring-2 focus-visible:ring-white focus-visible:outline-hidden'
               />
               <Button
                 type='submit'
@@ -68,13 +68,16 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
               </Button>
             </form>
           ) : (
-            <div className='flex items-center justify-center gap-3 rounded-lg bg-white/15 p-4'>
+            <div
+              role='status'
+              className='flex items-center justify-center gap-3 rounded-lg bg-white/15 p-4'
+            >
               <PiCheckCircleThin className='h-6 w-6 text-white' />
               <span className='text-lg font-semibold text-white'>Thank you for subscribing!</span>
             </div>
           )}
 
-          <p className='mt-4 text-sm opacity-60'>
+          <p className='mt-4 text-sm opacity-90'>
             We respect your privacy. Unsubscribe at any time.
           </p>
         </div>

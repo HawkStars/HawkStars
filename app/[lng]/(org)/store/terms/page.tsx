@@ -4,6 +4,7 @@ import { LanguagePageProps } from '../../types';
 import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
 import { cn } from '@/lib/utils';
+import { connection } from 'next/server';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -23,6 +24,7 @@ type SubArticle = {
 };
 
 export default async function Page(props: LanguagePageProps) {
+  await connection();
   const params = await props.params;
   const { lng } = params;
   const { t } = await getServerTranslation(lng, 'terms');

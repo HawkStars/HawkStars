@@ -63,7 +63,13 @@
     "prevSlide": "Previous slide",
     "nextSlide": "Next slide",
     "imageCompare": "Image comparison slider",
-    "platformIcon": "{{platform}} icon"
+    "platformIcon": "{{platform}} icon",
+    "skipToContent": "Skip to main content",
+    "mainNav": "Main navigation",
+    "footerNav": "Footer navigation",
+    "switchToLanguage": "Switch to {{language}}",
+    "expandSection": "Expand section",
+    "teamSections": "Team sections"
   },
   "footer": {
     "designedBy": "Designed by",

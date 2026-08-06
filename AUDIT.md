@@ -79,19 +79,13 @@ These three live only in files you were sent this session, because `.github/work
 - [ ] **QUA-L7** — Delete `path/to/venv/`; consolidate `.env.example`/`.env.variables` (fix the "paylaod" typo either way)
 - [ ] **QUA-L8** — Add `synchronize` to the existing `pull_request` trigger's `types` list so re-pushes to an open PR are re-checked too
 
-### Accessibility — untouched section
+### Accessibility
 
-- [ ] **A11Y-H1** — `Input`/`TextArea`: remove `aria-labelledby`/`aria-label` (they override the real `<label>`); restore a `focus-visible` ring
-- [ ] **A11Y-H2** — Wire up `aria-invalid` + `aria-describedby` + `role="alert"` for form errors (currently zero `aria-live`/`aria-describedby` in the repo)
-- [ ] **A11Y-H3** — `DonationWidget`: fix 4 orphan `<label>`s, add `role="radiogroup"`/`aria-checked` to the amount/frequency toggles, add `type="button"` everywhere
-- [ ] **A11Y-H4** — Convert 4 interactive `<div>`s to real `<button>`s: `LanguageSwitcher.tsx:54`, `MobileMenuItem.tsx:29`, `TeamInformation.tsx:33`, `Accordion.tsx:17`
-- [ ] **A11Y-M1** — Fix nested `<main>` on 4 pages; give the two `<nav>`s distinguishing labels
-- [ ] **A11Y-M2** — Add a skip-to-content link
-- [ ] **A11Y-M3** — Fix heading structure: missing `h1` on transparency, duplicate `h1`s on contribute, several level-skips, 4 CMS blocks hard-coding `<h1>`
-- [ ] **A11Y-M4** — Fix focus-ring contrast (`--ring` is ~1.6:1 at 50% alpha, needs 3:1); add `focus-visible` rules to `globals.css`
-- [ ] **A11Y-M5** — Fix color-contrast failures: `--muted-foreground`/`--muted` (4.34:1), `€` prefix (2.85:1), newsletter placeholder text (~3.3:1), and sweep the other 35 `text-white/50|60` usages
-- [ ] **A11Y-M6** — Add `tabIndex` + arrow-key handling to the `role="slider"` image-comparison component
-- [ ] **A11Y-M7** — Desktop nav dropdown: add Escape-to-close, `aria-controls`, and move focus into the panel on open
+_**A11Y-H1 through M7 were all fixed on 2026-08-06** (`tsc` + `eslint` clean; see the struck-through detail entries below). Two follow-ups are left over:_
+
+- [ ] **A11Y-M3 (follow-up)** — The three hero blocks now take a CMS `headingLevel` field that defaults to `h1`. Existing content is unchanged, but **any page that stacks two heroes still needs the second one set to H2 in the admin UI** — code can't detect this, since blocks render through a Lexical converter with no sibling context.
+- [ ] **A11Y-M5 (follow-up)** — The three *computed* contrast failures are fixed. The broader sweep of ~35 remaining `text-white/50|60` and `opacity-50|60` usages is still open; each needs checking against its own backdrop.
+- [ ] **Run `pnpm test` locally** — the suite could not be run from this session (the repo's native `rolldown` binding is built for macOS and the remote shell is Linux). `tsc` and `eslint` both pass.
 
 ### SEO — untouched section
 
@@ -480,7 +474,9 @@ Highest-value untested surface, ranked:
 
 ## 4. Accessibility
 
-### 🟠 A11Y-H1 (High) — Shared `Input`/`TextArea` destroy the accessible name and the focus ring
+### 🟠 <strike>A11Y-H1 (High) — Shared `Input`/`TextArea` destroy the accessible name and the focus ring</strike>
+
+> **Fixed 2026-08-06.** Removed `aria-labelledby`/`aria-label` from both components so the real `<label htmlFor>` provides the name; added a `focus-within`/`focus-visible` ring. Also found and fixed a bug the audit missed: `TextArea` had **no `id` at all**, so its `htmlFor` label pointed at nothing.
 
 `components/utils/Input/Input.tsx:48-65`
 
@@ -498,7 +494,9 @@ This affects **every field of both real forms on the site**. WCAG 1.3.1, 4.1.2, 
 
 **Fix:** delete `aria-labelledby` and `aria-label`; keep `<label htmlFor>`. Replace `focus:outline-hidden`/`focus:ring-0` with `focus-visible:ring-2 focus-visible:ring-green focus-visible:ring-offset-2`.
 
-### 🟠 A11Y-H2 (High) — No error announcement anywhere
+### 🟠 <strike>A11Y-H2 (High) — No error announcement anywhere</strike>
+
+> **Fixed 2026-08-06.** `Input`/`TextArea` now set `aria-invalid` and `aria-describedby` (wired to both the hint and the error text, each with a real `id`), and the error `<small>` carries `role="alert"`. Form-level status regions announce too: `SubmitProjectForm` error → `role="alert"`, success panel → `role="status"`, newsletter success → `role="status"`.
 
 `components/utils/Input/Input.tsx:68` renders the error as a bare `<small>` with no `id`, unreferenced by the input, with no `aria-invalid` and no `role="alert"`.
 
@@ -506,7 +504,9 @@ Repo-wide: **`aria-live` = 0 occurrences**; `aria-invalid` appears only inside T
 
 **Fix:** `aria-invalid={!!errorMessage}` + `aria-describedby={errorId}` on inputs; `role="alert"` on error text and form-level status regions.
 
-### 🟠 A11Y-H3 (High) — Donation widget: orphan labels, unlabelled toggle groups, missing `type="button"`
+### 🟠 <strike>A11Y-H3 (High) — Donation widget: orphan labels, unlabelled toggle groups, missing `type="button"`</strike>
+
+> **Fixed 2026-08-06.** `DetailsStep`: every label now has `htmlFor` against a real `id`, the two phone inputs sit in a `<fieldset><legend>` with individual `aria-label`s, and the required marker is `aria-hidden` with `aria-required` doing the real work. `AmountStep`: both toggle groups are now `role="radiogroup"` with `aria-checked` and a full roving-tabindex + arrow-key model, so selected state is no longer colour-only. `type="button"` added to all six buttons. Two new translation keys per locale (`phone_indicative_label`, `frequency_legend`, `preset_legend`).
 
 `components/contribute/DonationWidget/DetailsStep.tsx:52, 67, 82, 105` — four `<label>` elements with no `htmlFor`, against inputs with no `id` (`:55, 70, 86, 93, 118`). Only `:105` works, via an implicit wrapping label.
 
@@ -516,7 +516,9 @@ No `type='button'` on any of them — a latent submit bug if ever nested in a `<
 
 **Fix:** `id`+`htmlFor` pairs; `role="radiogroup"` + `aria-checked` (or `<fieldset><legend>` with real radios); `type="button"`.
 
-### 🟠 A11Y-H4 (High) — Interactive `<div>`s with no keyboard affordance
+### 🟠 <strike>A11Y-H4 (High) — Interactive `<div>`s with no keyboard affordance</strike>
+
+> **Fixed 2026-08-06.** `LanguageSwitcher` → real `<Link>`s to the localized path with `aria-current` and `hrefLang` (replacing the imperative `window.location.assign`, so the target is visible and open-in-new-tab works). `Accordion` → heading-wrapped `<button aria-expanded aria-controls>` + labelled `role="region"` panel. `TeamInformation` → a proper `role="tablist"` with `aria-selected`, roving tabindex and Arrow/Home/End keys. `MobileMenuItem` → `<button aria-expanded aria-controls>`, which also makes it visible to the mobile focus trap's `querySelectorAll`.
 
 Every `div/span/li/p` with `onClick` was checked for `role` + `tabIndex` + key handler. Four fail all three:
 
@@ -531,13 +533,27 @@ Every `div/span/li/p` with `onClick` was checked for `role` + `tabIndex` + key h
 
 ### 🟡 Medium
 
-- **A11Y-M1** — Nested/duplicate `<main>`: `(org)/layout.tsx:87` wraps children in `<main>`, and four pages render a second one inside it (`projects/[slug]/page.tsx:47`, `erasmus/key-action/page.tsx:27`, `not-found.tsx:25`, `EventPage.tsx:56`). No site-level `<header>`; `Navbar.tsx:29` emits a bare `<nav>` and there are two navs with no distinguishing labels.
-- **A11Y-M2** — No skip-to-content link anywhere. Keyboard users tab the full multi-column navbar on every page. WCAG 2.4.1.
-- **A11Y-M3** — Heading structure. `transparency/page.tsx` has **no `h1`**; `[...notfound]/page.tsx:31` has only an `h3`; `contribute/page.tsx:76,80` renders two `h1`s (mobile + desktop copies, both in the DOM). Level skips at `artwork/page.tsx:42`, `artwork/[slug]/page.tsx:84` (h2→h6), `erasmus/page.tsx:204,255`, `erasmus/key-action/page.tsx:145`, `contribute/page.tsx:101,104`, `history/page.tsx:99`, `ContributionProjectGoal.tsx:24`, `PartnerCard.tsx:62`. Four CMS blocks hard-code `<h1>` (`Hero`, `HeroWithBackgroundImage`, `HeroSlideshowBlock`, `CallToAction`) — stacking two on one page produces multiple h1s.
-- **A11Y-M4** — Focus ring fails non-text contrast. `app/globals.css:63` applies `outline-ring/50`; `--ring: oklch(0.708 0 0)` is **2.59:1** on white, and at 50% alpha effectively ~1.6:1 (WCAG 2.2 SC 1.4.11/2.4.11 require 3:1). `outline-none`/`outline-hidden` appears 19×; the Radix/shadcn ones correctly add `focus-visible:ring-*`, but the DonationWidget ones replace it with a border colour change and `Input`/`TextArea` replace it with nothing. `globals.css` contains **zero** `focus-visible` rules.
-- **A11Y-M5** — Colour contrast failures (computed): `--muted-foreground` on `--muted` = **4.34:1** (fail AA, used in `components/ui/tabs.tsx:23`); `text-[#999]` € prefix on white = 2.85:1 (`AmountStep.tsx:83`); `placeholder-white/60` + `opacity-60` on the green gradient ≈ 3.3:1 (`NewsletterSignupBlock/Component.tsx:56,73`). 35 further `text-white/50|60` and `opacity-50|60` usages warrant a sweep.
-- **A11Y-M6** — `components/ui/image-comparison-slider-horizontal.tsx:145-151` sets `role='slider'` with `aria-valuenow/min/max` but has **no `tabIndex`** and no arrow-key handler (only `onMouseDown`/`onTouchStart`). A `role="slider"` that can't be focused is worse than none.
-- **A11Y-M7** — Desktop nav dropdown (`DesktopNavbar/index.tsx:29-44`) has `role='button'`, `tabIndex`, `aria-expanded`, `aria-haspopup` and Enter/Space to open — but **no way to close from the keyboard** (no Escape, no toggle), no `aria-controls`, and focus is never moved into the panel.
+- <strike>**A11Y-M1** — Nested/duplicate `<main>`: `(org)/layout.tsx:87` wraps children in `<main>`, and four pages render a second one inside it (`projects/[slug]/page.tsx:47`, `erasmus/key-action/page.tsx:27`, `not-found.tsx:25`, `EventPage.tsx:56`). No site-level `<header>`; `Navbar.tsx:29` emits a bare `<nav>` and there are two navs with no distinguishing labels.</strike>
+
+  > **Fixed:** the four nested `<main>`s (plus two more the audit missed — `(org)/error.tsx` and `(org)/not-found.tsx`) are now plain wrappers; the layout's single `<main>` carries `id="main-content"`. `Navbar` now renders a `<header>` landmark wrapping a `<nav aria-label>`, and the footer's link columns became a named `<nav>`.
+- <strike>**A11Y-M2** — No skip-to-content link anywhere. Keyboard users tab the full multi-column navbar on every page. WCAG 2.4.1.</strike>
+
+  > **Fixed:** an `sr-only focus:not-sr-only` skip link is now the first focusable element in `<body>`, targeting `#main-content`. Its label is resolved inside a `'use cache'` component (`SkipToContent`), **not** awaited directly in `RootLayout` — with `cacheComponents` enabled, awaiting `getServerTranslation` at the top of the layout counts as uncached data outside `<Suspense>` and makes every route in the group blocking and unprerenderable ([blocking-route](https://nextjs.org/docs/messages/blocking-route)). Keep it cached.
+- <strike>**A11Y-M3** — Heading structure. `transparency/page.tsx` has **no `h1`**; `[...notfound]/page.tsx:31` has only an `h3`; `contribute/page.tsx:76,80` renders two `h1`s (mobile + desktop copies, both in the DOM). Level skips at `artwork/page.tsx:42`, `artwork/[slug]/page.tsx:84` (h2→h6), `erasmus/page.tsx:204,255`, `erasmus/key-action/page.tsx:145`, `contribute/page.tsx:101,104`, `history/page.tsx:99`, `ContributionProjectGoal.tsx:24`, `PartnerCard.tsx:62`. Four CMS blocks hard-code `<h1>` (`Hero`, `HeroWithBackgroundImage`, `HeroSlideshowBlock`, `CallToAction`) — stacking two on one page produces multiple h1s.</strike>
+
+  > **Fixed (mostly):** `transparency` gets its `h1` from `ContributionProjectGoal`; the catch-all 404's `h3` → `h1`; `contribute`'s duplicate mobile/desktop `h1`s replaced by one `sr-only` `h1` with both visible copies demoted to `<p>` (neither could be THE h1 alone — each is `display:none` at the other breakpoint); all listed level-skips corrected; non-heading `h6`s (IBAN label, partner flag badge) turned into `<p>`/`<span>`. `CallToAction` demoted `h1` → `h2` (a CTA banner is never a page title). The three hero blocks gained a `headingLevel` select (default `h1`) — **see the follow-up in the task list.**
+- <strike>**A11Y-M4** — Focus ring fails non-text contrast. `app/globals.css:63` applies `outline-ring/50`; `--ring: oklch(0.708 0 0)` is **2.59:1** on white, and at 50% alpha effectively ~1.6:1 (WCAG 2.2 SC 1.4.11/2.4.11 require 3:1). `outline-none`/`outline-hidden` appears 19×; the Radix/shadcn ones correctly add `focus-visible:ring-*`, but the DonationWidget ones replace it with a border colour change and `Input`/`TextArea` replace it with nothing. `globals.css` contains **zero** `focus-visible` rules.</strike>
+
+  > **Fixed:** `--ring` 0.708 → 0.6 (2.59:1 → ~3.7:1 on white), dark-mode ring → 0.708 (7.6:1), the universal rule's `/50` alpha modifier removed, and an explicit `:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px }` added to `globals.css` — which previously had zero `focus-visible` rules.
+- <strike>**A11Y-M5** — Colour contrast failures (computed): `--muted-foreground` on `--muted` = **4.34:1** (fail AA, used in `components/ui/tabs.tsx:23`); `text-[#999]` € prefix on white = 2.85:1 (`AmountStep.tsx:83`); `placeholder-white/60` + `opacity-60` on the green gradient ≈ 3.3:1 (`NewsletterSignupBlock/Component.tsx:56,73`). 35 further `text-white/50|60` and `opacity-50|60` usages warrant a sweep.</strike>
+
+  > **Fixed (the computed failures):** `--muted-foreground` 0.556 → 0.53 (4.34:1 → ~4.8:1 on `--muted`), the `€` prefix `#999` → `#595959` (2.85:1 → 7.0:1), and the newsletter placeholder/small-print `white/60` → `white/90` (3.08:1 → 4.93:1 against the *lighter* gradient stop, which is the worst case). Values verified by computing oklch → sRGB → WCAG contrast rather than by eye. **The ~35-usage sweep is still open — see the task list.**
+- <strike>**A11Y-M6** — `components/ui/image-comparison-slider-horizontal.tsx:145-151` sets `role='slider'` with `aria-valuenow/min/max` but has **no `tabIndex`** and no arrow-key handler (only `onMouseDown`/`onTouchStart`). A `role="slider"` that can't be focused is worse than none.</strike>
+
+  > **Fixed:** the handle now has `tabIndex={0}`, an `aria-valuetext` percentage, and a full key model — Arrow (±2%), PageUp/PageDown (±10%), Home/End — plus a visible focus ring.
+- <strike>**A11Y-M7** — Desktop nav dropdown (`DesktopNavbar/index.tsx:29-44`) has `role='button'`, `tabIndex`, `aria-expanded`, `aria-haspopup` and Enter/Space to open — but **no way to close from the keyboard** (no Escape, no toggle), no `aria-controls`, and focus is never moved into the panel.</strike>
+
+  > **Fixed:** the `<li role='button'>` is now a real `<button>` that **toggles** (it could previously only open), declares `aria-controls` pointing at the panel, and closes on Escape (handled both on the trigger and at the nav level). The panel id is a shared exported constant so `aria-controls` can't drift. _Deviation from the suggested fix:_ focus is **not** programmatically moved into the panel — the panel is later in DOM order and `visibility:hidden` while closed, so Tab reaches it naturally once open, and this avoids stealing focus from a hover-opened panel.
 - <strike>**A11Y-M8** — Storybook's a11y addon produces no signal: `.storybook/preview.ts` has no `a11y` parameter block, no storybook vitest project exists, and CI runs neither `pnpm test` nor any axe/Chromatic job. Add `parameters: { a11y: { test: 'error' } }` and wire the test runner (see QUA-H4).</strike>
 
 ### 🔵 Low

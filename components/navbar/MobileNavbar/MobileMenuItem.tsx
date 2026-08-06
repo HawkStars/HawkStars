@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { LinkField, NavbarDropdown } from '@/payload-types';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -23,23 +23,35 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const isMultiColumn = data.isMultiColumn || false;
   const visibleLinks = data.dropdown?.links?.dropdownNavLink?.filter((item) => item.visible);
+  const panelId = `${useId()}-submenu`;
 
   return (
-    <div className='cursor-pointer px-1'>
-      <div className='mb-2 flex gap-3' onClick={() => setShowOptions(!showOptions)}>
-        <h6 className={cn('font-medium text-black', { 'my-auto flex gap-2': isMultiColumn })}>
+    <div className='px-1'>
+      <h6 className={cn('mb-2 font-medium text-black')}>
+        <button
+          type='button'
+          aria-expanded={showOptions}
+          aria-controls={panelId}
+          onClick={() => setShowOptions(!showOptions)}
+          className={cn(
+            'focus-visible:ring-primary-500 flex w-full cursor-pointer gap-2 text-left focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
+            { 'my-auto items-center': isMultiColumn }
+          )}
+        >
           {isMultiColumn ? data.dropdown?.dropdownTitle : data.link?.label}
           {isMultiColumn && (
             <LuChevronDown
-              className={cn('my-auto transition-transform duration-300', {
+              aria-hidden='true'
+              className={cn('my-auto shrink-0 transition-transform duration-300', {
                 'rotate-180': showOptions,
               })}
             />
           )}
-        </h6>
-      </div>
+        </button>
+      </h6>
 
       <div
+        id={panelId}
         className={cn('flex-col gap-1 delay-150 ease-in-out', {
           flex: showOptions,
           hidden: !showOptions,

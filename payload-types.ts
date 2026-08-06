@@ -2557,6 +2557,10 @@ export interface HeroBlock {
    */
   badge?: string | null;
   /**
+   * Leave as H1 unless another hero on this page is already the page title — a page must have exactly one H1 (AUDIT.md A11Y-M3).
+   */
+  headingLevel?: ('h1' | 'h2') | null;
+  /**
    * Main heading text
    */
   heading: string;
@@ -2713,6 +2717,10 @@ export interface Page {
  */
 export interface HeroWithBackgroundImageBlock {
   backgroundImage: ImageType;
+  /**
+   * Leave as H1 unless another hero on this page is already the page title — a page must have exactly one H1 (AUDIT.md A11Y-M3).
+   */
+  headingLevel?: ('h1' | 'h2') | null;
   /**
    * Main heading text
    */
@@ -5311,6 +5319,7 @@ export interface PagesSelect<T extends boolean = true> {
  */
 export interface HeroBlockSelect<T extends boolean = true> {
   badge?: T;
+  headingLevel?: T;
   heading?: T;
   ctaLink?: T | LinkFieldSelect<T>;
   headerImage?: T | ImageTypeSelect<T>;
@@ -5348,6 +5357,7 @@ export interface HeroBlockFeatureSelect<T extends boolean = true> {
  */
 export interface HeroWithBackgroundImageBlockSelect<T extends boolean = true> {
   backgroundImage?: T | ImageTypeSelect<T>;
+  headingLevel?: T;
   title?: T;
   subtitle?: T;
   overlayOpacity?: T;
@@ -6930,6 +6940,10 @@ export interface TaskSchedulePublish {
  * via the `definition` "HeroSlideshowBlock".
  */
 export interface HeroSlideshowBlock {
+  /**
+   * Leave as H1 unless another hero on this page is already the page title — a page must have exactly one H1 (AUDIT.md A11Y-M3).
+   */
+  headingLevel?: ('h1' | 'h2') | null;
   slides: HeroSlideshowBlockSlide;
   /**
    * Overlay darkness for all slides (0-100%)

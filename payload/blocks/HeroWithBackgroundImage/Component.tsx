@@ -15,6 +15,7 @@ const alignmentClasses = {
 };
 
 const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (data) => {
+  const HeadingTag = data.headingLevel === 'h2' ? 'h2' : 'h1';
   const lng = useLanguageCookie();
   if (!data) return null;
 
@@ -69,7 +70,9 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
           )}
         >
           {title && (
-            <h1 className='text-4xl font-bold text-white lg:text-6xl xl:text-7xl'>{title}</h1>
+            <HeadingTag className='text-4xl font-bold text-white lg:text-6xl xl:text-7xl'>
+              {title}
+            </HeadingTag>
           )}
 
           {subtitle && <p className='max-w-2xl text-lg text-white/90 lg:text-xl'>{subtitle}</p>}

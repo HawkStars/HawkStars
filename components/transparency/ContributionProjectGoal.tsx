@@ -18,10 +18,10 @@ const ContributionProjectGoal = ({ sumContributions }: { sumContributions: numbe
 
   return (
     <div className='bg-bege-light flex flex-col gap-4 px-8 py-8 lg:px-40 lg:py-20'>
-      <h2 className='lg:text-h1_semibold text-h2_bold text-green text-center'>
+      <h1 className='lg:text-h1_semibold text-h2_bold text-green text-center'>
         {t('current_goal')}
-      </h2>
-      <h6 className='lg:text-h2_light mt-1 text-center'>{`${t('goal')}: ${PROJECT_GOAL}€`}</h6>
+      </h1>
+      <p className='lg:text-h2_light mt-1 text-center'>{`${t('goal')}: ${PROJECT_GOAL}€`}</p>
       <ContributionProgressBar sumContributions={sumContributions} projectGoal={PROJECT_GOAL} />
     </div>
   );

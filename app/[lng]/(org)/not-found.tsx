@@ -22,7 +22,7 @@ export default function NotFound() {
   const { t } = useTranslation(lng, 'common');
 
   return (
-    <main className='bg-bege-light relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center'>
+    <div className='bg-bege-light relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center'>
       {/* Castle silhouette scene at bottom with hawk flying above */}
       <div aria-hidden='true' className='pointer-events-none absolute inset-0'>
         {/* Hawk soaring */}
@@ -177,6 +177,6 @@ export default function NotFound() {
           100% { transform: translate(-50%, 0) rotate(-3deg); }
         }
       `}</style>
-    </main>
+    </div>
   );
 }

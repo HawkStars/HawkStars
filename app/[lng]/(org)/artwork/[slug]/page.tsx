@@ -53,9 +53,9 @@ const CuratorPage = async (props: CuratorPageProps) => {
           )}
         </div>
         <div className='font-oswald flex flex-col px-5 pt-5 lg:w-5/12'>
-          <h2 className='text-h1_semibold text-disabled mb-2'>
+          <p className='text-h1_semibold text-disabled mb-2'>
             {(artwork.artist as Curator).name}
-          </h2>
+          </p>
           <h1 className='text-h1_semibold text-disabled mb-10'>{artwork.title}</h1>
 
           <div className='my-5 grid grid-cols-2 gap-x-12 gap-y-8'>
@@ -66,7 +66,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
           </div>
           {!artwork.is_sold && (
             <div className='mt-5 flex flex-col gap-3 max-md:mt-6'>
-              <h2 className='text-h2_bold text-disabled my-auto'>{artwork.price}</h2>
+              <p className='text-h2_bold text-disabled my-auto'>{artwork.price}</p>
               <a href='https://forms.gle/XA4kwkHFJvcmEduCA' target='_blank'>
                 <Button type={'button'}>{t('buy')}</Button>
               </a>
@@ -81,7 +81,7 @@ const CuratorPage = async (props: CuratorPageProps) => {
         </div>
       </HawkStarsSection>
       <section className='font-oswald mx-auto mt-6 flex flex-col gap-4 px-4 text-justify lg:px-8 xl:px-40'>
-        <h6 className='text-h2_bold max-lg:px-1'>{t('artwork.synopsis')}</h6>
+        <h2 className='text-h2_bold max-lg:px-1'>{t('artwork.synopsis')}</h2>
         {artwork?.synopsis && <RichText data={artwork?.synopsis} />}
         {artwork.extra && (
           <div>

@@ -46,7 +46,7 @@ const ProjectServerPage = async (props: ProjectPageProps) => {
   if (!project) notFound();
 
   return (
-    <main>
+    <div>
       <ProjectsSingleHero {...project} lng={lng} />
       <SingleProjectTravelMapWrapper {...project} lng={lng} />
       <SingleProjectPhases details={project.details} />
@@ -55,7 +55,7 @@ const ProjectServerPage = async (props: ProjectPageProps) => {
       <SingleProjectResults results={project.results} lng={lng} />
       <SingleProjectReports {...project} lng={lng} />
       <NewsSingleGallery gallery={project.gallery} />
-    </main>
+    </div>
   );
 };
 

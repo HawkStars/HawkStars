@@ -28,7 +28,7 @@ export default async function NotFoundPage(props: NotFoundPageProps) {
     <div className='my-auto flex items-center'>
       <div className='mx-auto flex w-2/3 flex-col justify-center gap-10 align-middle'>
         <ImageMedia src={hawkLogo} alt={t('a11y.logoAlt')} className='mx-auto' />
-        <h3 className='text-center'>{t('notFound.dreaming')}</h3>
+        <h1 className='text-center'>{t('notFound.dreaming')}</h1>
         <Link
           href={SITE_GET_URLS.home}
           className='border-green bg-green mx-auto w-fit rounded-lg border fill-white p-3 text-white'

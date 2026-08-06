@@ -73,11 +73,12 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
 
   return (
     <div className='mt-5 flex flex-col gap-5 lg:mt-10'>
-      <h1 className='text-h2_bold text-green mx-4 text-center lg:hidden'>{t('contribute_hero')}</h1>
+      <h1 className='sr-only'>{t('contribute_hero')}</h1>
+      <p className='text-h2_bold text-green mx-4 text-center lg:hidden'>{t('contribute_hero')}</p>
       <HawkStarsSection padding='none'>
         <div className='relative max-w-full max-2xl:mx-0 max-2xl:p-0'>
           <div className='text-green absolute top-20 left-40 hidden lg:block'>
-            <h1 className='text-h1_semibold w-72'>{t('contribute_hero')}</h1>
+            <p className='text-h1_semibold w-72'>{t('contribute_hero')}</p>
             <Link
               href='#form'
               lang={lng}
@@ -98,12 +99,12 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
               alt={t('a11y.bank_transfer')}
               className='w-full rounded-lg'
             />
-            <h4 className='text-body_semibold mt-5'>{t('options.bank_transfer')}</h4>
+            <h3 className='text-body_semibold mt-5'>{t('options.bank_transfer')}</h3>
             <p className='text-body_regular lg:text-justify'>{t('bank_transfer.description')}</p>
             <div className='text-body_regular mt-1 flex flex-col gap-1 font-bold'>
-              <h6>
+              <p>
                 IBAN: <span className=''>PT50.0036.0053.99100203412.98</span>
-              </h6>
+              </p>
               <p className='text-body_regular font-bold'>MPIOPTPL</p>
             </div>
           </div>
@@ -113,7 +114,7 @@ const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
               alt={t('a11y.crypto_transfer')}
               className='w-full rounded-lg'
             />
-            <h4 className='text-body_semibold mt-5'>{t('options.crypto_transfer')}</h4>
+            <h3 className='text-body_semibold mt-5'>{t('options.crypto_transfer')}</h3>
             <p className='text-body_regular lg:text-justify'>{t('crypto_transfer.description')}</p>
             <p className='text-body_regular mt-2 font-bold'>
               Metamask:{' '}

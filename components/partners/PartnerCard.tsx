@@ -59,9 +59,9 @@ const PartnerCard = async (partner: Partner & { lng?: Language }) => {
       {/* Country If exists*/}
       {flagIcon && (
         <div className='flex justify-center px-4 pt-2'>
-          <h6 className='text-green bg-bege-dark w-fit rounded-xl p-2 shadow-2xs'>
+          <span className='text-green bg-bege-dark w-fit rounded-xl p-2 shadow-2xs'>
             {flagIcon({ title: country, className: 'w-8' })}
-          </h6>
+          </span>
         </div>
       )}
 

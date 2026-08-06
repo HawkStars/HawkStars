@@ -25,6 +25,7 @@ const alignmentClasses = {
 } as const;
 
 const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
+  const HeadingTag = data.headingLevel === 'h2' ? 'h2' : 'h1';
   const lng = useLanguageCookie();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -120,9 +121,9 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
             >
               <div className={cn('flex max-w-4xl flex-col gap-6')}>
                 {slide.title && (
-                  <h1 className='text-4xl font-bold text-white lg:text-6xl xl:text-7xl'>
+                  <HeadingTag className='text-4xl font-bold text-white lg:text-6xl xl:text-7xl'>
                     {slide.title}
-                  </h1>
+                  </HeadingTag>
                 )}
 
                 {slide.subtitle && (

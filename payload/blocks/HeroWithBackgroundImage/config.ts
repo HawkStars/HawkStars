@@ -20,6 +20,22 @@ export const HeroWithBackgroundImage: Block = {
       },
     }),
     {
+      name: 'headingLevel',
+      type: 'select',
+      label: { en: 'Heading level', pt: 'Nível do título' },
+      defaultValue: 'h1',
+      options: [
+        { label: 'H1 (page title)', value: 'h1' },
+        { label: 'H2 (secondary section)', value: 'h2' },
+      ],
+      admin: {
+        description: {
+          en: 'Leave as H1 unless another hero on this page is already the page title — a page must have exactly one H1 (AUDIT.md A11Y-M3).',
+          pt: 'Deixe H1 a menos que outro hero nesta página já seja o título — uma página deve ter exatamente um H1 (AUDIT.md A11Y-M3).',
+        },
+      },
+    },
+    {
       name: 'title',
       type: 'textarea',
       label: { en: 'Title', pt: 'Título' },

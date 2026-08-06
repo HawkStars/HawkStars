@@ -30,6 +30,14 @@ export default function Input({
   inputHintText = '',
   ...props
 }: InputProps) {
+  // A11Y: the accessible name comes from the real <label htmlFor={name}> below.
+  // Do NOT add aria-label/aria-labelledby here — aria-labelledby={name} used to
+  // point at this input's own id, and aria-label={name} overrode the translated
+  // label with the raw field name (e.g. "submitter_email"). See AUDIT.md A11Y-H1.
+  const hintId = inputHintText ? `${name}-hint` : undefined;
+  const errorId = errorMessage ? `${name}-error` : undefined;
+  const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined;
+
   return (
     <div className='flex flex-col gap-2'>
       {labelText && (
@@ -37,12 +45,17 @@ export default function Input({
           {labelText}
         </label>
       )}
-      {inputHintText && <p className='-my-1'>{inputHintText}</p>}
+      {inputHintText && (
+        <p id={hintId} className='-my-1'>
+          {inputHintText}
+        </p>
+      )}
       <div
         className={cn(
-          'border-terciary-500 focus:border-primary-500 flex flex-row gap-1 rounded-md border border-solid px-5 py-2 shadow-xs',
+          'border-terciary-500 focus-within:border-primary-500 focus-within:ring-primary-500 flex flex-row gap-1 rounded-md border border-solid px-5 py-2 shadow-xs focus-within:ring-2 focus-within:ring-offset-2',
           { 'bg-bege-dark-100/80': disabled },
-          { 'bg-white': !disabled && outline }
+          { 'bg-white': !disabled && outline },
+          { 'border-red-700': errorMessage }
         )}
       >
         <input
@@ -51,21 +64,24 @@ export default function Input({
           className={cn(
             'w-full border-0 bg-inherit focus:ring-0 focus:outline-hidden',
             `${customCss}`,
-            { 'border-red-700': errorMessage },
             { 'bg-bege-dark-100/80': disabled },
             { 'text-right': icon }
           )}
           onChange={onChange}
           name={name}
           value={value || ''}
-          aria-labelledby={name}
           disabled={disabled}
-          aria-label={name}
+          aria-invalid={errorMessage ? true : undefined}
+          aria-describedby={describedBy}
           {...props}
         />
         {icon && <span className='my-auto ml-auto'>{icon}</span>}
       </div>
-      {errorMessage && <small className='text-red-700'>{errorMessage}</small>}
+      {errorMessage && (
+        <small id={errorId} role='alert' className='text-red-700'>
+          {errorMessage}
+        </small>
+      )}
     </div>
   );
 }

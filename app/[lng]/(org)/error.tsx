@@ -43,7 +43,7 @@ export default function OrgError({
   }, [error]);
 
   return (
-    <main className='bg-bege-light flex min-h-[60vh] flex-col items-center justify-center px-6 text-center'>
+    <div className='bg-bege-light flex min-h-[60vh] flex-col items-center justify-center px-6 text-center'>
       <div className='max-w-lg'>
         <h1 className='text-green text-h2_bold'>{t('errors.pageTitle')}</h1>
         <p className='text-body_regular text-disabled mt-4'>{t('errors.generic')}</p>
@@ -58,6 +58,6 @@ export default function OrgError({
           </Button>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

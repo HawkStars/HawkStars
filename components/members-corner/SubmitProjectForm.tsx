@@ -101,7 +101,7 @@ const SubmitProjectForm = ({ lng }: SubmitProjectFormProps) => {
 
   if (status === 'success') {
     return (
-      <div className='mx-auto max-w-xl px-4 py-16 text-center'>
+      <div role='status' className='mx-auto max-w-xl px-4 py-16 text-center'>
         <h2 className='text-h2_semibold text-green mb-4'>{t('form.success_title')}</h2>
         <p className='text-body text-disabled'>{t('form.success_message')}</p>
       </div>
@@ -314,7 +314,11 @@ const SubmitProjectForm = ({ lng }: SubmitProjectFormProps) => {
         )}
       />
 
-      {status === 'error' && <p className='text-red-600'>{t('form.error_message')}</p>}
+      {status === 'error' && (
+        <p role='alert' className='text-red-600'>
+          {t('form.error_message')}
+        </p>
+      )}
 
       <Button type='submit' disabled={status === 'loading'}>
         {status === 'loading' ? t('form.submitting') : t('form.submit')}

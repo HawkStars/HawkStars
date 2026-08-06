@@ -75,6 +75,8 @@
       "description": "A sua doação à <strong>HawkStars</strong> é crucial para apoiar a nossa missão de promover arte, cultura e projetos comunitários. Cada contribuição faz a diferença. Obrigado pela sua generosidade.",
       "one_time": "Única",
       "monthly": "Mensal",
+      "frequency_legend": "Frequência do donativo",
+      "preset_legend": "Valor do donativo",
       "custom_amount": "Valor Personalizado",
       "donate": "Doar",
       "per_month": "/ mês"
@@ -86,6 +88,7 @@
       "email_label": "Email",
       "email_placeholder": "utilizador@exemplo.com",
       "phone_label": "Número de telefone",
+      "phone_indicative_label": "Indicativo do país",
       "phone_placeholder": "912 345 678",
       "write_comment": "Escreva-nos um comentário",
       "comment_placeholder": "A sua mensagem (opcional)"

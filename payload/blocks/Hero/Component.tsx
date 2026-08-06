@@ -16,6 +16,7 @@ const iconMap = {
 };
 
 const HeroBlock: React.FC<HeroBlock> = (data) => {
+  const HeadingTag = data.headingLevel === 'h2' ? 'h2' : 'h1';
   const lng = useLanguageCookie();
   if (!data) return null;
   const { badge, heading, ctaLink, headerImage, features = [], sectionId } = data;
@@ -48,9 +49,9 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
           </span>
         )}
         {heading && (
-          <h1 className='text-4xl font-semibold tracking-tight text-balance lg:text-6xl'>
+          <HeadingTag className='text-4xl font-semibold tracking-tight text-balance lg:text-6xl'>
             {heading}
-          </h1>
+          </HeadingTag>
         )}
         {linkInfo && (
           <Button className='mt-10' size='lg' asChild={!!ctaLink}>

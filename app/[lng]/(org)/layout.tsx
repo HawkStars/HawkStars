@@ -9,6 +9,7 @@ import { Metadata } from 'next';
 import Script from 'next/script';
 import { Suspense } from 'react';
 import { getMetadataPageInfo } from '@/utils/metadata';
+import { getServerTranslation } from '@/i18n';
 import AppProvider from '@/utils/contexts/AppProvider';
 import { LanguagePageProps } from './types';
 import { Language, fallbackLng, languages } from '@/i18n/settings';
@@ -50,6 +51,7 @@ export default async function RootLayout(props: {
         <OrganizationJsonLd lng={lng || 'pt'} />
       </head>
       <body>
+        <SkipToContent lng={lng} />
         <Suspense fallback={<></>}>
           <LayoutContent lng={lng}>{children}</LayoutContent>
         </Suspense>
@@ -72,6 +74,28 @@ export default async function RootLayout(props: {
   );
 }
 
+// A11Y-M2 (WCAG 2.4.1): the skip link must be the first focusable element in the
+// document, ahead of the multi-column navbar. It is visually hidden until focused.
+//
+// `'use cache'` is REQUIRED here, not cosmetic: with `cacheComponents` enabled,
+// awaiting `getServerTranslation` directly in RootLayout counts as uncached data
+// accessed outside <Suspense>, which makes every route in this group blocking and
+// unprerenderable (https://nextjs.org/docs/messages/blocking-route). The label
+// depends only on `lng`, so caching it is both correct and free.
+async function SkipToContent({ lng }: { lng: string }) {
+  'use cache';
+  const { t } = await getServerTranslation((lng || fallbackLng) as Language, 'common');
+
+  return (
+    <a
+      href='#main-content'
+      className='focus:ring-primary sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-999 focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-black focus:ring-2'
+    >
+      {t('a11y.skipToContent')}
+    </a>
+  );
+}
+
 async function LayoutContent({ children, lng }: { children: React.ReactNode; lng: string }) {
   'use cache';
   const [headerInfo, footerInfo] = await Promise.all([
@@ -83,7 +107,9 @@ async function LayoutContent({ children, lng }: { children: React.ReactNode; lng
     <AppProvider lng={(lng as Language) || fallbackLng}>
       <MobileNavbar headerInfo={headerInfo} />
       <Navbar headerInfo={headerInfo} lng={lng as Language} />
-      <main className='bg-body relative min-h-screen'>{children}</main>
+      <main id='main-content' className='bg-body relative min-h-screen'>
+        {children}
+      </main>
       <FooterContainer footerInfo={footerInfo} lng={lng as Language} />
     </AppProvider>
   );

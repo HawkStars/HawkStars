@@ -39,7 +39,7 @@ const ArtworkPage = async (props: LanguagePageProps) => {
           return (
             <Link href={transformUrl(lng, `/artwork/${item.slug}`)} key={item.slug || index}>
               <div className='flex h-full flex-col gap-5'>
-                <h3 className='text-h2_bold font-oswald text-disabled text-center'>{item.title}</h3>
+                <h2 className='text-h2_bold font-oswald text-disabled text-center'>{item.title}</h2>
                 {artworkImage?.url && (
                   <div className='relative my-auto flex h-full align-middle'>
                     <ImageMedia

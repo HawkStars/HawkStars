@@ -53,7 +53,7 @@ export default async function EventPage({ event, lng }: EventPageProps) {
   const heroImage = event.image ? getImagePayloadUrl(event.image) : null;
 
   return (
-    <main>
+    <div>
       {/* ---------------------------------------------------------- */}
       {/*  1. HERO SECTION                                           */}
       {/* ---------------------------------------------------------- */}
@@ -232,6 +232,6 @@ export default async function EventPage({ event, lng }: EventPageProps) {
           </div>
         </Section>
       )}
-    </main>
+    </div>
   );
 }

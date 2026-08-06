@@ -55,6 +55,39 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
       setIsDragging(true);
     };
 
+    // A11Y-M6: keyboard operation for the role="slider" handle. Previously the
+    // handle exposed aria-valuenow/min/max but had no tabIndex and no key
+    // handler, so it was announced as a slider yet could not be focused or moved.
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+      const STEP = 2;
+      const BIG_STEP = 10;
+
+      const nextPosition = (() => {
+        switch (event.key) {
+          case 'ArrowLeft':
+          case 'ArrowDown':
+            return sliderPosition - STEP;
+          case 'ArrowRight':
+          case 'ArrowUp':
+            return sliderPosition + STEP;
+          case 'PageDown':
+            return sliderPosition - BIG_STEP;
+          case 'PageUp':
+            return sliderPosition + BIG_STEP;
+          case 'Home':
+            return 0;
+          case 'End':
+            return 100;
+          default:
+            return null;
+        }
+      })();
+
+      if (nextPosition === null) return;
+      event.preventDefault();
+      setSliderPosition(Math.max(0, Math.min(100, nextPosition)));
+    };
+
     // Effect to add and remove global event listeners for dragging
     React.useEffect(() => {
       const handleMouseMove = (e: MouseEvent) => {
@@ -138,14 +171,18 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
           <div
             className={cn(
               'bg-background/50 text-foreground absolute top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full shadow-xl backdrop-blur-md',
+              'focus-visible:ring-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
               'transition-all duration-300 ease-in-out',
               'group-hover:scale-105',
               isDragging && 'shadow-primary/50 scale-105 shadow-2xl'
             )}
             role='slider'
-            aria-valuenow={sliderPosition}
+            tabIndex={0}
+            onKeyDown={handleKeyDown}
+            aria-valuenow={Math.round(sliderPosition)}
             aria-valuemin={0}
             aria-valuemax={100}
+            aria-valuetext={`${Math.round(sliderPosition)}%`}
             aria-orientation='horizontal'
             aria-label={t('a11y.imageCompare')}
           >

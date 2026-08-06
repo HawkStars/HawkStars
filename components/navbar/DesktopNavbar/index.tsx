@@ -7,13 +7,22 @@ import { HeaderNavigationColumns } from '@/payload-types';
 import { LuChevronDown } from 'react-icons/lu';
 import { cn } from '@/lib/utils';
 
+/** Shared so the trigger's aria-controls and the panel's id cannot drift apart. */
+export const NAVBAR_DROPDOWN_PANEL_ID = 'navbar-dropdown-panel';
+
 type DesktopNavbarProps = {
   handleHoverMenu: (menuKey: string) => void;
   columns: HeaderNavigationColumns;
   menuKeyHovered: string | null;
+  panelId?: string;
 };
 
-const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuKeyHovered }) => {
+const DesktopNavbar: FC<DesktopNavbarProps> = ({
+  handleHoverMenu,
+  columns,
+  menuKeyHovered,
+  panelId = NAVBAR_DROPDOWN_PANEL_ID,
+}) => {
   return (
     <div className='my-auto ml-auto hidden lg:block'>
       <div className='ml-auto flex gap-3'>
@@ -25,31 +34,44 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({ handleHoverMenu, columns, menuK
             if (!isMultiColumn && column.link)
               return <HawkLinkComponent key={column.id} link={column.link} className='my-auto' />;
 
+            const dropdownKey = column.dropdown?.key || '';
+            const isOpen = menuKeyHovered === column.dropdown?.key;
+
+            // A11Y-M7: this was a `<li role='button' tabIndex={0}>` that could
+            // only ever OPEN — there was no way to close it from the keyboard,
+            // and it declared no `aria-controls`. It is now a real <button> that
+            // toggles, points at the panel it controls, and closes on Escape.
+            // Tab moves into the panel naturally: the panel is later in DOM order
+            // and is `visibility: hidden` while closed, so its links are only
+            // focusable once it opens. That avoids stealing focus from a
+            // hover-opened panel.
             return (
-              <li
-                key={column.id}
-                role='button'
-                tabIndex={0}
-                data-testid={column.dropdown?.key}
-                aria-expanded={menuKeyHovered === column.dropdown?.key}
-                aria-haspopup='true'
-                onMouseEnter={() => handleHoverMenu(column.dropdown?.key || '')}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleHoverMenu(column.dropdown?.key || '');
-                  }
-                }}
-                className='my-auto flex cursor-pointer gap-1'
-              >
-                {column.dropdown?.dropdownTitle}
-                <LuChevronDown
-                  className={cn('my-auto transition-transform duration-300', {
-                    'rotate-180': menuKeyHovered === column.dropdown?.key,
-                  })}
-                  size={20}
-                  aria-hidden='true'
-                />
+              <li key={column.id} className='my-auto flex'>
+                <button
+                  type='button'
+                  data-testid={column.dropdown?.key}
+                  aria-expanded={isOpen}
+                  aria-haspopup='true'
+                  aria-controls={panelId}
+                  onMouseEnter={() => handleHoverMenu(dropdownKey)}
+                  onClick={() => handleHoverMenu(isOpen ? '' : dropdownKey)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape' && isOpen) {
+                      e.preventDefault();
+                      handleHoverMenu('');
+                    }
+                  }}
+                  className='focus-visible:ring-primary my-auto flex cursor-pointer gap-1 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden'
+                >
+                  {column.dropdown?.dropdownTitle}
+                  <LuChevronDown
+                    className={cn('my-auto transition-transform duration-300', {
+                      'rotate-180': isOpen,
+                    })}
+                    size={20}
+                    aria-hidden='true'
+                  />
+                </button>
               </li>
             );
           })}

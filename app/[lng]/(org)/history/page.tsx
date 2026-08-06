@@ -96,7 +96,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
             <ImageMedia src={humanitarian_1} alt='Humanitarian help' sizes='100vw' />
           </div>
           <div className='mt-20 mr-auto flex flex-col gap-2 text-left xl:w-1/2'>
-            <h4 className='text-h1_semibold text-disabled'>{t('foundation_heading')}</h4>
+            <h2 className='text-h1_semibold text-disabled'>{t('foundation_heading')}</h2>
             <p className='text-body_regular'>{t('foundation')}</p>
           </div>
         </div>

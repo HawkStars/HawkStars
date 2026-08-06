@@ -63,7 +63,13 @@
     "prevSlide": "Slide anterior",
     "nextSlide": "Slide seguinte",
     "imageCompare": "Comparador de imagens",
-    "platformIcon": "ícone de {{platform}}"
+    "platformIcon": "ícone de {{platform}}",
+    "skipToContent": "Saltar para o conteúdo principal",
+    "mainNav": "Navegação principal",
+    "footerNav": "Navegação de rodapé",
+    "switchToLanguage": "Mudar para {{language}}",
+    "expandSection": "Expandir secção",
+    "teamSections": "Secções da equipa"
   },
   "footer": {
     "designedBy": "Concebido por",

@@ -201,7 +201,7 @@ const MoreOpportunities = ({ t }: SectionProps) => (
             className='hover:border-erasmus-gold/40 rounded-sm border border-white/10 bg-white/5 p-7 transition-colors hover:bg-white/10'
           >
             <div className='mb-4 text-3xl'>{card.icon}</div>
-            <h4 className='mb-2 font-serif text-lg font-bold'>{t(card.titleKey)}</h4>
+            <h3 className='mb-2 font-serif text-lg font-bold'>{t(card.titleKey)}</h3>
             <p className='text-sm leading-relaxed text-white/60'>{t(card.descKey)}</p>
           </div>
         ))}
@@ -252,7 +252,7 @@ const Eligibility = ({ t }: SectionProps) => (
           >
             <div className='mt-0.5 shrink-0 text-2xl'>{item.icon}</div>
             <div>
-              <h5 className='mb-1 text-base font-semibold'>{t(item.titleKey)}</h5>
+              <h3 className='mb-1 text-base font-semibold'>{t(item.titleKey)}</h3>
               <p className='text-sm leading-relaxed text-white/50'>{t(item.descKey)}</p>
             </div>
           </div>

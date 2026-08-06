@@ -24,14 +24,14 @@ const KeyActionPage = async (props: LanguagePageProps) => {
     <HawkStarsSection padding='none'>
       <Breadcrumb t={t} lng={lng} />
       <HeroSection t={t} />
-      <main className='mx-auto max-w-275 px-4 xl:px-8'>
+      <div className='mx-auto max-w-275 px-4 xl:px-8'>
         {kaData.map((ka) => (
           <KASection key={ka.id} ka={ka} t={t} />
         ))}
         <ComparisonTable t={t} />
         <YouthpassBanner t={t} />
         <BackLink t={t} lng={lng} />
-      </main>
+      </div>
     </HawkStarsSection>
   );
 };
@@ -142,10 +142,10 @@ const KASection = ({ ka, t }: { ka: KAData; t: TranslationFn }) => (
           className='border-erasmus-dark/10 border border-l-4 bg-white p-7 transition-all hover:-translate-y-0.5 hover:shadow-lg'
           style={{ borderLeftColor: ka.color }}
         >
-          <h4 className='mb-2 flex items-center gap-2.5 text-base font-semibold'>
+          <h3 className='mb-2 flex items-center gap-2.5 text-base font-semibold'>
             <span>{activity.icon}</span>
             {t(activity.titleKey)}
-          </h4>
+          </h3>
           <p className='text-erasmus-muted text-sm leading-relaxed'>{t(activity.descKey)}</p>
         </div>
       ))}
@@ -158,12 +158,12 @@ const KASection = ({ ka, t }: { ka: KAData; t: TranslationFn }) => (
     >
       <div className='text-4xl'>{ka.whoIcon}</div>
       <div>
-        <h5
+        <h3
           className='mb-2.5 text-[0.7rem] font-bold tracking-[0.16em] uppercase'
           style={{ color: ka.color }}
         >
           {t('who_heading')}
-        </h5>
+        </h3>
         <div className='flex flex-wrap gap-2'>
           {ka.whoTagKeys.map((tagKey) => (
             <span
