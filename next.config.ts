@@ -55,6 +55,7 @@ const nextConfig = {
     resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'],
   },
   cacheComponents: true,
+  cacheMaxMemorySize: 50,
   images: {
     minimumCacheTTL: 43200,
     formats: ['image/avif', 'image/webp'],

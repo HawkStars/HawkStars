@@ -155,7 +155,7 @@ const CrowdfundingHero = ({
 
           <div className='mt-6 grid grid-cols-3 gap-4 border-t border-white/10 pt-4 max-lg:grid-cols-2 max-md:grid-cols-1'>
             <div>
-              <p className='text-[10px] font-semibold tracking-wider text-gray-500 uppercase'>
+              <p className='text-[10px] font-semibold tracking-wider text-gray-400 uppercase'>
                 {t('hero.stats.campaign_goal_label')}
               </p>
               <p className='mt-1 text-lg font-bold text-white'>
@@ -163,7 +163,7 @@ const CrowdfundingHero = ({
               </p>
             </div>
             <div>
-              <p className='text-[10px] font-semibold tracking-wider text-gray-500 uppercase'>
+              <p className='text-[10px] font-semibold tracking-wider text-gray-400 uppercase'>
                 {t('hero.stats.project_goal_label')}
               </p>
               <p className='mt-1 text-lg font-bold text-white'>
@@ -171,7 +171,7 @@ const CrowdfundingHero = ({
               </p>
             </div>
             <div>
-              <p className='text-[10px] font-semibold tracking-wider text-gray-500 uppercase'>
+              <p className='text-[10px] font-semibold tracking-wider text-gray-400 uppercase'>
                 {t('hero.stats.last_update_label')}
               </p>
               <p className='mt-1 text-sm font-medium text-white'>

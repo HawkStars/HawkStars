@@ -293,18 +293,24 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
         <div className='flex-1 rounded-xl border bg-white p-4 shadow-sm md:p-6'>
           {/* Month navigation */}
           <div className='mb-6 flex items-center justify-between'>
-            <Button variant='ghost' size='icon' onClick={prevMonth}>
+            <Button variant='ghost' size='icon' onClick={prevMonth} aria-label='Previous Month'>
               <LuChevronLeft className='h-5 w-5' />
             </Button>
             <div className='flex items-center gap-3'>
               <h2 className='text-xl font-semibold capitalize'>
                 {translations.monthNames[currentMonth]} {currentYear}
               </h2>
-              <Button variant='outline' size='sm' onClick={goToToday} className='text-xs'>
+              <Button
+                variant='outline'
+                size='sm'
+                onClick={goToToday}
+                className='text-xs'
+                aria-label='Go to Today'
+              >
                 {translations.today}
               </Button>
             </div>
-            <Button variant='ghost' size='icon' onClick={nextMonth}>
+            <Button variant='ghost' size='icon' onClick={nextMonth} aria-label='Next Month'>
               <LuChevronRight className='h-5 w-5' />
             </Button>
           </div>
@@ -343,12 +349,13 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
                     isSelected && 'bg-green/10',
                     hasEvents && 'cursor-pointer'
                   )}
+                  aria-label={`Date: ${dateKey}`}
                 >
                   <span
                     className={cn(
                       'text-sm font-medium md:text-base',
                       isToday(day) && 'text-green font-bold',
-                      !hasEvents && 'text-gray-400'
+                      !hasEvents && 'text-gray-500'
                     )}
                   >
                     {day}

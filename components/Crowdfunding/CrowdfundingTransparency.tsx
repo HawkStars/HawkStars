@@ -64,7 +64,7 @@ const CrowdfundingTransparency = ({
           <div className='bg-crowdfunding-surface flex-1 rounded-2xl border border-white/10 p-6'>
             <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
               <div>
-                <p className='text-[10px] font-semibold tracking-wider text-gray-500 uppercase'>
+                <p className='text-[10px] font-semibold tracking-wider text-gray-400 uppercase'>
                   {t('transparency.raised_label')}
                 </p>
                 <p className='mt-1 text-2xl font-bold text-white'>
@@ -82,30 +82,30 @@ const CrowdfundingTransparency = ({
                 </p>
               </div>
               <div>
-                <p className='text-[10px] font-semibold tracking-wider text-gray-500 uppercase'>
+                <p className='text-[10px] font-semibold tracking-wider text-gray-400 uppercase'>
                   {t('transparency.campaign_goal_label')}
                 </p>
                 <p className='mt-1 text-2xl font-bold text-white'>
                   € {(campaignGoal ?? 0).toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
                 </p>
-                <p className='mt-1 text-xs text-gray-500'>
+                <p className='mt-1 text-xs text-gray-400'>
                   {percentage}
                   {t('transparency.percentage_label')}
                 </p>
               </div>
               <div>
-                <p className='text-[10px] font-semibold tracking-wider text-gray-500 uppercase'>
+                <p className='text-[10px] font-semibold tracking-wider text-gray-400 uppercase'>
                   {t('transparency.project_goal_label')}
                 </p>
                 <p className='mt-1 text-2xl font-bold text-white'>
                   € {(projectGoal ?? 0).toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
                 </p>
-                <p className='mt-1 text-xs text-gray-500'>
+                <p className='mt-1 text-xs text-gray-400'>
                   {t('transparency.project_total_label')}
                 </p>
               </div>
               <div>
-                <p className='text-[10px] font-semibold tracking-wider text-gray-500 uppercase'>
+                <p className='text-[10px] font-semibold tracking-wider text-gray-400 uppercase'>
                   {t('transparency.last_update_label')}
                 </p>
                 <div className='mt-1 flex items-center gap-2'>
@@ -156,7 +156,7 @@ const CrowdfundingTransparency = ({
                       <p className='my-auto ml-2 text-sm font-bold text-white'>{phase.title}</p>
                     </div>
                     <div>
-                      <p className='text-xs text-gray-500'>{phase.description}</p>
+                      <p className='text-xs text-gray-400'>{phase.description}</p>
                     </div>
                   </div>
                 ))}

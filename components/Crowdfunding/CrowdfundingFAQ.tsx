@@ -153,7 +153,10 @@ const CrowdfundingFAQ = ({ t }: Props) => {
                 <div className='flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-orange-500'>
                   {faqIcons[index]}
                 </div>
-                <button className='flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-gray-500 transition group-hover:border-orange-500/30 group-hover:text-orange-500'>
+                <button
+                  className='flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-gray-500 transition group-hover:border-orange-500/30 group-hover:text-orange-500'
+                  aria-label='faq'
+                >
                   <svg
                     className='h-4 w-4'
                     fill='none'
@@ -168,7 +171,7 @@ const CrowdfundingFAQ = ({ t }: Props) => {
               <h3 className='mb-2 text-sm font-bold text-white'>
                 {t(`faq.items.${key}.question`)}
               </h3>
-              <p className='text-xs leading-relaxed text-gray-500'>
+              <p className='text-xs leading-relaxed text-gray-400'>
                 {t(`faq.items.${key}.answer`)}
               </p>
             </div>
