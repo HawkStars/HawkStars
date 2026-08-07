@@ -20,16 +20,10 @@ import { GA_MEASUREMENT_ID } from '@/lib/constants';
 import Navbar from '@/components/navbar/Navbar';
 import FooterContainer from '@/components/footer/Footer';
 
+export const instant = false;
+
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
-}
-
-export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
-  const params = await props.params;
-  const { lng } = params;
-
-  const metadataPage = getMetadataPageInfo((lng || fallbackLng) as Language, 'home');
-  return metadataPage;
 }
 
 export default async function RootLayout(props: {

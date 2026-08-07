@@ -7,6 +7,8 @@ import { getBoardMembers } from '@/lib/payload/queries/team';
 import TeamInformation from '@/components/team/TeamInformation';
 import { cacheLife } from 'next/cache';
 
+export const instant = false;
+
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;

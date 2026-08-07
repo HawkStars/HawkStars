@@ -28,7 +28,6 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 }
 
 const Index = async (props: PageProps) => {
-  await connection();
   const params = await props.params;
   const { lng, slug } = params;
   if (!slug) notFound();
