@@ -75,6 +75,8 @@ const nextConfig = {
     ],
     qualities: [25, 50, 75, 80, 95],
     deviceSizes: [320, 640, 750, 1080, 1200, 2048],
+    loader: 'custom',
+    loaderFile: './payload/components/Media/ImageMedia/cloudinaryLoader.ts',
   },
   experimental: {
     taint: true,

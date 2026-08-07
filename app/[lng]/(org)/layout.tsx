@@ -5,13 +5,10 @@ import { Oswald } from 'next/font/google';
 const inter = Inter({ variable: '--font-inter', subsets: ['latin'], display: 'swap' });
 const oswald = Oswald({ variable: '--font-oswald', subsets: ['latin'], display: 'swap' });
 
-import { Metadata } from 'next';
 import Script from 'next/script';
 import { Suspense } from 'react';
-import { getMetadataPageInfo } from '@/utils/metadata';
 import { getServerTranslation } from '@/i18n';
 import AppProvider from '@/utils/contexts/AppProvider';
-import { LanguagePageProps } from './types';
 import { Language, fallbackLng, languages } from '@/i18n/settings';
 import { getFooterQuery, getHeaderQuery } from '@/lib/payload/queries/navbar';
 import MobileNavbar from '@/components/navbar/MobileNavbar';

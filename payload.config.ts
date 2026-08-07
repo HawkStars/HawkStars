@@ -62,8 +62,8 @@ assert(process.env.DATABASE_URI, 'DATABASE_URI environment variable is not assig
 assert(process.env.PAYLOAD_SECRET, 'PAYLOAD_SECRET environment variable is not assigned');
 
 assert(
-  process.env.CLOUDINARY_CLOUD_NAME,
-  'CLOUDINARY_CLOUD_NAME environment variable is not assigned'
+  process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  'NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME environment variable is not assigned'
 );
 assert(process.env.CLOUDINARY_API_KEY, 'CLOUDINARY_API_KEY environment variable is not assigned');
 assert(

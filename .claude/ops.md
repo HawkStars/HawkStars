@@ -17,7 +17,7 @@ Required (see `.env.example`):
 | `DATABASE_URI`                                     | MongoDB connection string   |
 | `PAYLOAD_SECRET`                                   | Payload CMS auth secret     |
 | `NEXT_PUBLIC_BASE_URL`                             | Public site URL             |
-| `CLOUDINARY_CLOUD_NAME/API_KEY/API_SECRET`         | Media storage               |
+| `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME/API_KEY/API_SECRET`         | Media storage               |
 | `EASYPAY_API_URL/API_KEY/ACCOUNT_ID`               | Payment processing          |
 | `GOOGLE_CLIENT_ID/SECRET/REFRESH_TOKEN/EMAIL_USER` | OAuth email + Drive         |
 | `SENTRY_AUTH_TOKEN`                                | Error tracking (production) |

@@ -230,7 +230,7 @@ The repository uses GitHub Actions for automated deployment (`.github/workflows/
 - `PAYLOAD_SECRET`: Secret key for Payload CMS authentication
 - `DATABASE_URI`: MongoDB connection string
 - `SENTRY_AUTH_TOKEN`: Sentry authentication token for error tracking
-- `CLOUDINARY_CLOUD_NAME`: Cloudinary cloud name for media storage
+- `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`: Cloudinary cloud name for media storage
 - `CLOUDINARY_API_KEY`: Cloudinary API key
 - `CLOUDINARY_API_SECRET`: Cloudinary API secret
 

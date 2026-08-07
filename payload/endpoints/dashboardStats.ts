@@ -17,10 +17,31 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
       status: 'draft' | 'published'
     ) => payload.count({ collection, where: { _status: { equals: status } } });
 
+    // Contribution totals/breakdown are aggregated in MongoDB instead of
+    // pulling every document into Node. The previous implementation used
+    // `payload.find({ collection: 'contributions', limit: 0, pagination: false })`
+    // to fetch the *entire* collection just to sum `value` in JavaScript — as
+    // the donations table grew, that unfiltered fetch got slow enough to blow
+    // past nginx's 60s proxy_read_timeout, which is what was producing the
+    // 504 on /admin (this handler backs the `afterDashboard` widget that
+    // fetches on every admin landing-page load). See incident 2026-08-07.
+    const Contribution = payload.db.collections['contributions'];
+
+    type ContributionTotals = {
+      confirmedCount: number;
+      confirmedValue: number;
+      totalValue: number;
+    };
+    type ContributionByType = {
+      _id: string | null;
+      count: number;
+      total: number;
+    };
+
     const [
       artCollectionCount,
       boardMembersCount,
-      contributionsData,
+      contributionsCount,
       curatorsCount,
       hawkProjectsCount,
       partnersCount,
@@ -36,10 +57,13 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
       // Hawk projects by status
       projectsDraft,
       projectsPublished,
+      // Contribution totals (single-row aggregate) and breakdown by type
+      contributionTotals,
+      contributionsByType,
     ] = await Promise.all([
       payload.count({ collection: 'artworks' }),
       payload.count({ collection: 'board-members' }),
-      payload.find({ collection: 'contributions', limit: 0, pagination: false }),
+      payload.count({ collection: 'contributions' }),
       payload.count({ collection: 'curators' }),
       payload.count({ collection: 'hawk_projects' }),
       payload.count({ collection: 'partners' }),
@@ -52,41 +76,49 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
       statusCount('news', 'published'),
       statusCount('hawk_projects', 'draft'),
       statusCount('hawk_projects', 'published'),
+      Contribution.aggregate<ContributionTotals>([
+        {
+          $group: {
+            _id: null,
+            totalValue: { $sum: { $ifNull: ['$value', 0] } },
+            confirmedValue: {
+              $sum: {
+                $cond: [{ $eq: ['$is_confirmed', true] }, { $ifNull: ['$value', 0] }, 0],
+              },
+            },
+            confirmedCount: {
+              $sum: { $cond: [{ $eq: ['$is_confirmed', true] }, 1, 0] },
+            },
+          },
+        },
+      ]),
+      Contribution.aggregate<ContributionByType>([
+        {
+          $group: {
+            _id: { $ifNull: ['$contribution_type', 'OTHER'] },
+            count: { $sum: 1 },
+            total: { $sum: { $ifNull: ['$value', 0] } },
+          },
+        },
+      ]),
     ]);
 
-    // Calculate contribution statistics
-    const contributions = contributionsData.docs;
+    const totals: ContributionTotals = contributionTotals[0] ?? {
+      confirmedCount: 0,
+      confirmedValue: 0,
+      totalValue: 0,
+    };
 
-    let totalValue = 0;
-    let confirmedValue = 0;
-    let confirmedCount = 0;
     const byType: Record<string, { count: number; total: number }> = {};
-
-    contributions.forEach((contrib) => {
-      const value = typeof contrib.value === 'number' ? contrib.value : 0;
-      const contributionType = (contrib.contribution_type as string) || 'OTHER';
-      const isConfirmed = contrib.is_confirmed === true;
-
-      // Totals
-      totalValue += value;
-      if (isConfirmed) {
-        confirmedValue += value;
-        confirmedCount++;
-      }
-
-      // By type
-      if (!byType[contributionType]) {
-        byType[contributionType] = { count: 0, total: 0 };
-      }
-      byType[contributionType].count++;
-      byType[contributionType].total += value;
-    });
+    for (const row of contributionsByType) {
+      byType[row._id ?? 'OTHER'] = { count: row.count, total: row.total };
+    }
 
     const stats = {
       collections: {
         artCollection: artCollectionCount.totalDocs,
         boardMembers: boardMembersCount.totalDocs,
-        contributions: contributionsData.totalDocs,
+        contributions: contributionsCount.totalDocs,
         curators: curatorsCount.totalDocs,
         hawkProjects: hawkProjectsCount.totalDocs,
         partners: partnersCount.totalDocs,
@@ -95,10 +127,10 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
         users: usersCount.totalDocs,
       },
       contributions: {
-        totalValue,
-        confirmedValue,
-        totalCount: contributionsData.totalDocs,
-        confirmedCount,
+        totalValue: totals.totalValue,
+        confirmedValue: totals.confirmedValue,
+        totalCount: contributionsCount.totalDocs,
+        confirmedCount: totals.confirmedCount,
         byType,
       },
       contentStatus: {
