@@ -124,7 +124,7 @@ export const VideoMedia: React.FC<VideoMediaProps> = (props) => {
       allow='autoplay; fullscreen; picture-in-picture'
       allowFullScreen
       title={title || 'Video'}
-      aria-controls={controls ? 'true' : 'false'}
+      aria-controls='video-media'
     />
   );
 };

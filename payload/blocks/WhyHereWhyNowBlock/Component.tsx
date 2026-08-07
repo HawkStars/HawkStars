@@ -14,7 +14,7 @@ const backgroundStyles = {
 const badgeStyles = {
   white: 'text-green',
   bege: 'text-green',
-  green: 'text-white/80',
+  green: 'text-white/85',
 } as const;
 
 export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({

@@ -211,6 +211,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
                   'card-lg card-hover-lg',
                   isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
                 )}
+                aria-label='Previous testimonial'
               >
                 <LuChevronLeft className='h-5 w-5' />
               </button>
@@ -222,6 +223,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
                   'card-lg card-hover-lg',
                   isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
                 )}
+                aria-label='Next testimonial'
               >
                 <LuChevronRight className='h-5 w-5' />
               </button>
@@ -230,6 +232,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
               <div className='mt-8 flex justify-center gap-2'>
                 {testimonials.map((_, index) => (
                   <button
+                    aria-label={`Page ${index}`}
                     key={index}
                     onClick={() => setCurrentSlide(index)}
                     className={cn(

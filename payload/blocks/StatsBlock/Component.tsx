@@ -99,7 +99,7 @@ export const StatsBlock: React.FC<StatsBlockProps> = ({
             {stat.description && (
               <p
                 className={cn(
-                  'mt-2 text-sm opacity-80 lg:text-base',
+                  'mt-2 text-sm opacity-85 lg:text-base',
                   alignmentStyles[
                     (stat.descriptionAlign || 'center') as keyof typeof alignmentStyles
                   ]
