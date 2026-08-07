@@ -1,6 +1,5 @@
 import type { PayloadHandler } from 'payload';
 import * as Sentry from '@sentry/nextjs';
-import totalContributioValueQuery from '@/lib/payload/endpoints/totalContributioValueQuery';
 
 export const dashboardStatsHandler: PayloadHandler = async (req) => {
   const { payload, user } = req;
