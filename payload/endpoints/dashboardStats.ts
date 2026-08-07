@@ -1,5 +1,6 @@
 import type { PayloadHandler } from 'payload';
 import * as Sentry from '@sentry/nextjs';
+import totalContributioValueQuery from '@/lib/payload/endpoints/totalContributioValueQuery';
 
 export const dashboardStatsHandler: PayloadHandler = async (req) => {
   const { payload, user } = req;
@@ -16,27 +17,6 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
       collection: 'pages' | 'news' | 'hawk_projects',
       status: 'draft' | 'published'
     ) => payload.count({ collection, where: { _status: { equals: status } } });
-
-    // Contribution totals/breakdown are aggregated in MongoDB instead of
-    // pulling every document into Node. The previous implementation used
-    // `payload.find({ collection: 'contributions', limit: 0, pagination: false })`
-    // to fetch the *entire* collection just to sum `value` in JavaScript — as
-    // the donations table grew, that unfiltered fetch got slow enough to blow
-    // past nginx's 60s proxy_read_timeout, which is what was producing the
-    // 504 on /admin (this handler backs the `afterDashboard` widget that
-    // fetches on every admin landing-page load). See incident 2026-08-07.
-    const Contribution = payload.db.collections['contributions'];
-
-    type ContributionTotals = {
-      confirmedCount: number;
-      confirmedValue: number;
-      totalValue: number;
-    };
-    type ContributionByType = {
-      _id: string | null;
-      count: number;
-      total: number;
-    };
 
     const [
       artCollectionCount,
@@ -57,9 +37,6 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
       // Hawk projects by status
       projectsDraft,
       projectsPublished,
-      // Contribution totals (single-row aggregate) and breakdown by type
-      contributionTotals,
-      contributionsByType,
     ] = await Promise.all([
       payload.count({ collection: 'artworks' }),
       payload.count({ collection: 'board-members' }),
@@ -76,43 +53,7 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
       statusCount('news', 'published'),
       statusCount('hawk_projects', 'draft'),
       statusCount('hawk_projects', 'published'),
-      Contribution.aggregate<ContributionTotals>([
-        {
-          $group: {
-            _id: null,
-            totalValue: { $sum: { $ifNull: ['$value', 0] } },
-            confirmedValue: {
-              $sum: {
-                $cond: [{ $eq: ['$is_confirmed', true] }, { $ifNull: ['$value', 0] }, 0],
-              },
-            },
-            confirmedCount: {
-              $sum: { $cond: [{ $eq: ['$is_confirmed', true] }, 1, 0] },
-            },
-          },
-        },
-      ]),
-      Contribution.aggregate<ContributionByType>([
-        {
-          $group: {
-            _id: { $ifNull: ['$contribution_type', 'OTHER'] },
-            count: { $sum: 1 },
-            total: { $sum: { $ifNull: ['$value', 0] } },
-          },
-        },
-      ]),
     ]);
-
-    const totals: ContributionTotals = contributionTotals[0] ?? {
-      confirmedCount: 0,
-      confirmedValue: 0,
-      totalValue: 0,
-    };
-
-    const byType: Record<string, { count: number; total: number }> = {};
-    for (const row of contributionsByType) {
-      byType[row._id ?? 'OTHER'] = { count: row.count, total: row.total };
-    }
 
     const stats = {
       collections: {
@@ -125,13 +66,6 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
         pages: pagesCount.totalDocs,
         media: mediaCount.totalDocs,
         users: usersCount.totalDocs,
-      },
-      contributions: {
-        totalValue: totals.totalValue,
-        confirmedValue: totals.confirmedValue,
-        totalCount: contributionsCount.totalDocs,
-        confirmedCount: totals.confirmedCount,
-        byType,
       },
       contentStatus: {
         pages: {
