@@ -32,7 +32,6 @@ export async function generateMetadata(props: CuratorPageProps): Promise<Metadat
 type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
 const CuratorPage = async (props: CuratorPageProps) => {
-  await connection();
   const params = await props.params;
   const { lng, slug } = params;
   if (!slug) return notFound();

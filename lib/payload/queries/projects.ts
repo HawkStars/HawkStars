@@ -21,7 +21,7 @@ export const getSingleProjectsQuery = async (
 
 export const getProjectsSplitByDate = async (locale: Language): Promise<SplitProjectsResult> => {
   'use cache';
-  cacheLife('hours');
+  cacheLife('weeks');
   cacheTag(HAWK_PROJECT_CACHE_TAG);
 
   const payload = await getPayloadConfig();

@@ -4,7 +4,7 @@ import { PARTNER_CACHE_TAG } from '@/payload/collections/Partner';
 
 const getPartnersQuery = async () => {
   'use cache';
-  cacheLife('hours');
+  cacheLife('weeks');
   cacheTag(PARTNER_CACHE_TAG);
 
   const payload = await getPayloadConfig();

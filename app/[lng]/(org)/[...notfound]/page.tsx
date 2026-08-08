@@ -21,7 +21,6 @@ type NotFoundPageProps = {
 };
 
 export default async function NotFoundPage(props: NotFoundPageProps) {
-  await connection();
   const { lng } = await props.params;
   const { t } = await getServerTranslation(lng, 'common');
   return (

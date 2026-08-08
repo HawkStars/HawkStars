@@ -5,7 +5,7 @@ import { MAIN_PAGE_CACHE_TAG } from '@/payload/globals/MainPage/hooks/revalidate
 
 const getMainPageInformation = async (lng: Language, opts?: { preview: boolean }) => {
   'use cache';
-  cacheLife({ stale: 600, revalidate: 600, expire: 57000 });
+  cacheLife('hours');
   cacheTag(MAIN_PAGE_CACHE_TAG);
 
   const payload = await getPayloadConfig();

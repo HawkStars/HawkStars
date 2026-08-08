@@ -56,7 +56,6 @@ const getCuratorInformation = async (slug: string, locale: Language) => {
 };
 
 const CuratorPage = async (props: CuratorPageProps) => {
-  await connection();
   const params = await props.params;
   const { lng, slug } = params;
   const curator = await getCuratorInformation(slug, lng);

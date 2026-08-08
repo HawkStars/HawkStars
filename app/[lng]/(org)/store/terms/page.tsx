@@ -24,7 +24,6 @@ type SubArticle = {
 };
 
 export default async function Page(props: LanguagePageProps) {
-  await connection();
   const params = await props.params;
   const { lng } = params;
   const { t } = await getServerTranslation(lng, 'terms');
