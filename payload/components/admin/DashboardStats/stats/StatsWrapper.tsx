@@ -3,7 +3,6 @@ import StatisticsWidget from '../StatisticsWidget';
 import { fetchDashboardStats } from '../queries';
 
 const StatsWrapper = async () => {
-  'use cache';
   const { data, errors } = await fetchDashboardStats();
   return (
     <>

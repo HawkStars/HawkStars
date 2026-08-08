@@ -3,11 +3,10 @@ import * as Sentry from '@sentry/nextjs';
 
 export const dashboardStatsHandler: PayloadHandler = async (req) => {
   const { payload, user } = req;
+  debugger;
 
   // Admin dashboard data (collection counts, donation totals) must not be public.
-  if (!user || !user.isAdmin) {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!user || !user.isAdmin) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
   try {
     // Draft / published counts using Payload's native versions/drafts status
@@ -85,7 +84,7 @@ export const dashboardStatsHandler: PayloadHandler = async (req) => {
     return Response.json(stats);
   } catch (error) {
     Sentry.captureException(error);
-    return Response.json({ error: 'Failed to fetch statistics' }, { status: 500 });
+    return Response.json({ error: `Failed to fetch statistics. ${error}` }, { status: 500 });
   }
 };
 

@@ -6,6 +6,7 @@ import GamingNavbar from '@/components/gaming/GamingNavbar';
 import GamingFooter from '@/components/gaming/GamingFooter';
 import { fallbackLng, languages } from '@/i18n/settings';
 import { BASE_URL, OG_IMAGE_FALLBACK, SITE_NAME } from '@/lib/constants';
+import { Suspense } from 'react';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -101,7 +102,9 @@ export default async function GamingLayout(props: {
         <div className='relative z-10 flex min-h-screen flex-col'>
           <GamingNavbar lng={lng} />
           <main className='flex-1'>{children}</main>
-          <GamingFooter lng={lng} />
+          <Suspense fallback={<></>}>
+            <GamingFooter lng={lng} />
+          </Suspense>
         </div>
 
         <Script

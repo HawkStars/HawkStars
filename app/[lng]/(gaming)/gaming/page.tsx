@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { getServerTranslation } from '@/i18n';
 import { fallbackLng } from '@/i18n/settings';
+import { Suspense } from 'react';
 
 const FEATURED_GAMES = [
   { name: 'Valorant', tag: 'FPS', color: '#ff4655' },
