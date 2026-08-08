@@ -2,7 +2,6 @@ import Link from 'next/link';
 
 import { getServerTranslation } from '@/i18n';
 import { fallbackLng } from '@/i18n/settings';
-import { cacheLife } from 'next/cache';
 
 const FEATURED_GAMES = [
   { name: 'Valorant', tag: 'FPS', color: '#ff4655' },
@@ -23,6 +22,8 @@ const ACADEMY_FEATURES = [
   'academy.features.scrims',
   'academy.features.tournaments',
 ];
+
+export const instant = false;
 
 const GamingIndexPage = async (props: { params: Promise<{ lng?: string }> }) => {
   const params = await props.params;
