@@ -7,7 +7,6 @@ import { Language } from '@/i18n/settings';
 import { ImageMedia } from '@/payload/components/Media';
 import { Media } from '@/payload-types';
 import RichText from '@/payload/components/RichText';
-import { connection } from 'next/server';
 import { Metadata } from 'next';
 
 type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };

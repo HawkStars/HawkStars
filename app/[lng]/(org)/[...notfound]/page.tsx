@@ -1,5 +1,4 @@
 import { ImageMedia } from '@/payload/components/Media';
-import { connection } from 'next/server';
 import Link from 'next/link';
 
 import { SITE_GET_URLS } from '@/utils/paths';

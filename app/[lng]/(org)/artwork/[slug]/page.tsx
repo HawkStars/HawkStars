@@ -12,7 +12,6 @@ import { getSingleArtwork } from '@/lib/payload/queries/artwork';
 import { Curator, Media } from '@/payload-types';
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
 import RichText from '@/payload/components/RichText';
-import { connection } from 'next/server';
 
 const getCuratorInformation = async (slug: string, locale: Language) => {
   'use cache';

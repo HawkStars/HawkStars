@@ -5,7 +5,6 @@ import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
 import { getBoardMembers } from '@/lib/payload/queries/team';
 import TeamInformation from '@/components/team/TeamInformation';
-import { cacheLife } from 'next/cache';
 
 export const instant = false;
 
