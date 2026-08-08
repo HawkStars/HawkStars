@@ -6,7 +6,12 @@ import Link from 'next/link';
 import { LuExternalLink } from 'react-icons/lu';
 
 import { cn } from '@/lib/utils';
-import { type InstagramEmbedWidgetProps, INSTAGRAM_PROFILE_URL, INSTAGRAM_HANDLE } from './types';
+import {
+  type InstagramEmbedWidgetProps,
+  type InstagramPost,
+  INSTAGRAM_PROFILE_URL,
+  INSTAGRAM_HANDLE,
+} from './types';
 
 import InstagramIcon from '@/public/images/icons/socials/instagram.svg';
 import getInstagramPosts from '@/lib/instagram';
@@ -21,6 +26,39 @@ declare global {
       };
     };
   }
+}
+
+/**
+ * Stable promise cache for `use()` below.
+ *
+ * `use(getInstagramPosts(maxPosts))` called straight in the render body created
+ * a BRAND NEW promise on every render. `use()` suspends on an unresolved
+ * promise, React re-renders when it settles, that render calls
+ * `getInstagramPosts()` again -> new promise -> suspend again. The component
+ * never converges: it re-fetches `/api/instagram` in a loop (tripping the
+ * 30 req/min limiter in utils/rateLimit.ts), and every iteration leaves behind
+ * another promise plus its resolved payload for the GC to chase.
+ *
+ * React's rule is that a Client Component must not create the promise it
+ * passes to `use()` during render — the promise has to be cached across
+ * renders. Keying it by `maxPosts` here gives `use()` the identical reference
+ * every time, so it resolves once.
+ *
+ * The sibling `InstagramGrid.tsx` avoids this by fetching in `useEffect` +
+ * `useState` instead; this file kept Suspense, so it needs the cache.
+ *
+ * Bounded by the number of distinct `maxPosts` values (effectively one). Held
+ * for the lifetime of the tab, which matches the endpoint's own 300s cache.
+ */
+const postsPromiseCache = new Map<number, Promise<InstagramPost[]>>();
+
+function getCachedInstagramPosts(maxPosts: number): Promise<InstagramPost[]> {
+  let promise = postsPromiseCache.get(maxPosts);
+  if (!promise) {
+    promise = getInstagramPosts(maxPosts);
+    postsPromiseCache.set(maxPosts, promise);
+  }
+  return promise;
 }
 
 function useInstagramEmbed() {
@@ -119,7 +157,7 @@ export default function InstagramEmbedWidget({
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
 
-  const posts = use(getInstagramPosts(maxPosts));
+  const posts = use(getCachedInstagramPosts(maxPosts));
 
   useEffect(() => {
     if (posts.length > 0) {

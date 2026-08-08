@@ -20,7 +20,10 @@ module.exports = {
       max_restarts: 10,
       min_uptime: '20s', // boots dying faster than this count as "unstable"
       restart_delay: 2000,
-      watch: true,
+      watch: false,
+      ignore_watch: ['node_modules', '.next', '.git', 'logs', 'public'],
+      max_memory_restart: '2048M',
+      node_args: '--max-old-space-size=1536',
       log_date_format: 'YYYY-MM-DD HH:mm:ss.SSS',
       env: {
         NODE_ENV: 'production',
