@@ -17,8 +17,6 @@ import { GA_MEASUREMENT_ID } from '@/lib/constants';
 import Navbar from '@/components/navbar/Navbar';
 import FooterContainer from '@/components/footer/Footer';
 
-export const instant = false;
-
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
 }

@@ -17,9 +17,6 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
 }
 
 const TeamPage = async (props: LanguagePageProps) => {
-  'use cache';
-  cacheLife('hours');
-
   const params = await props.params;
   const { lng } = params;
   const { t } = await getServerTranslation(lng, 'team');

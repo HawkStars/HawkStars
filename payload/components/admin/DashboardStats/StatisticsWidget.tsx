@@ -28,7 +28,7 @@ export const StatisticsWidget: React.FC<{
   const body = () => {
     if (loading) return <WidgetSpinner label='Loading statistics…' />;
     if (error) return <p className='text-sm text-red-500'>Error: {error}</p>;
-    if (!stats) return null;
+    if (!stats || !stats.contributions) return null;
 
     const chairStats = Object.entries(stats.contributions.byType).filter(([type]) =>
       CHAIR_TYPES.includes(type)

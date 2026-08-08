@@ -25,7 +25,6 @@ type HomeProps = {
 };
 
 export default async function Home(props: HomeProps) {
-  await connection();
   const params = await props.params;
   const { lng } = params;
   const pageInformation = await getMainPageInformation(lng as Language);
