@@ -16,6 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const Index = async (props: PageProps) => {
+  await connection();
   const params = await props.params;
   const { lng } = params;
 

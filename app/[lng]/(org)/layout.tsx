@@ -86,7 +86,6 @@ async function SkipToContent({ lng }: { lng: string }) {
 }
 
 async function LayoutContent({ children, lng }: { children: React.ReactNode; lng: string }) {
-  'use cache';
   const [headerInfo, footerInfo] = await Promise.all([
     getHeaderQuery(lng as Language),
     getFooterQuery(lng as Language),
