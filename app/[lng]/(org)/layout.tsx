@@ -21,6 +21,8 @@ export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
 }
 
+export const instant = false;
+
 export default async function RootLayout(props: {
   children: React.ReactNode;
   params: Promise<{ lng: string }>;

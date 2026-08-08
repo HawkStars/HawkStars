@@ -3,6 +3,7 @@ import { getSinglePageSlug } from '@/lib/payload/queries/page';
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
 import RichText from '@/payload/components/RichText';
+import { Suspense } from 'react';
 
 type PageProps = {
   params: Promise<LanguageProps & { slug: string }>;
@@ -33,7 +34,12 @@ const Index = async (props: PageProps) => {
   const pageInformation = await getSinglePageSlug(slug, lng);
   if (!pageInformation) notFound();
 
-  if (pageInformation.layout) return <RichText data={pageInformation.layout} />;
+  if (pageInformation.layout)
+    return (
+      <Suspense fallback={<div>Loading ....</div>}>
+        <RichText data={pageInformation.layout} />
+      </Suspense>
+    );
 
   return;
 };

@@ -31,11 +31,6 @@ export async function generateMetadata(props: CuratorPageProps): Promise<Metadat
 
 type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
-// Not `async` — opens the <Suspense> boundary before any data is requested.
-// `'use cache'` above makes the artwork query prerenderable, but `params` is
-// still a dynamic API on this route ([slug] has no generateStaticParams), so
-// awaiting it in the page body would keep the route blocking regardless. The
-// promise is consumed by a child inside the boundary instead.
 const CuratorPage = (props: CuratorPageProps) => (
   <Suspense fallback={<></>}>
     <ArtworkContent params={props.params} />

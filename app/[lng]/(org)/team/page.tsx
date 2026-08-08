@@ -5,6 +5,7 @@ import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
 import { getBoardMembers } from '@/lib/payload/queries/team';
 import TeamInformation from '@/components/team/TeamInformation';
+import { Suspense } from 'react';
 
 export const instant = false;
 
@@ -31,7 +32,9 @@ const TeamPage = async (props: LanguagePageProps) => {
         </p>
       </div>
       <div className='flex flex-col justify-center'>
-        <TeamInformation boardMembers={boardMembers} lng={lng} />
+        <Suspense fallback={<div>Loading....</div>}>
+          <TeamInformation boardMembers={boardMembers} lng={lng} />
+        </Suspense>
       </div>
     </div>
   );

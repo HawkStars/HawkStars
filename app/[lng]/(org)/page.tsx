@@ -8,6 +8,7 @@ import { getMainPageInformation } from '@/lib/payload/main-page';
 import RichTextWrapper from '@/payload/components/RichText/RichTextWrapper';
 import MainPageBanner from '@/components/main-page/MainPageBanner';
 import { getServerTranslation } from '@/i18n';
+import { Suspense } from 'react';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -18,6 +19,8 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
   const metadataPage = getMetadataPageInfo(lng as Language, 'home');
   return metadataPage;
 }
+
+export const instant = false;
 
 type HomeProps = {
   params: Promise<{ lng: Language }>;
@@ -39,10 +42,10 @@ export default async function Home(props: HomeProps) {
   } else {
     const banner = pageInformation.bannerFields || {};
     return (
-      <>
+      <Suspense fallback={<></>}>
         {banner && <MainPageBanner {...banner} />}
         <RichTextWrapper data={pageInformation.layout} />
-      </>
+      </Suspense>
     );
   }
 }

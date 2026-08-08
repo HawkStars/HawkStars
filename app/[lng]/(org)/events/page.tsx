@@ -8,6 +8,7 @@ import { getHawkEventsSplitByDate } from '@/lib/payload/queries/hawkEvent';
 import { getEventsListHeaderInfo } from '@/lib/payload/queries/globals/eventsList';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
 export async function generateMetadata(props: EventsPageProps): Promise<Metadata> {
   const params = await props.params;
@@ -46,7 +47,7 @@ const EventsPage = async (props: EventsPageProps) => {
   if (!eventsListInformation) return null;
 
   return (
-    <>
+    <Suspense fallback={<></>}>
       <HeroImpactStatsBlock {...eventsListInformation} />
       <SplitListComponent
         items={events}
@@ -56,7 +57,7 @@ const EventsPage = async (props: EventsPageProps) => {
           <EventCard key={event.id} event={event} index={idx} lng={lng} />
         )}
       />
-    </>
+    </Suspense>
   );
 };
 

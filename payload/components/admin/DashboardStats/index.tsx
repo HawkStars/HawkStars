@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { ActivityLogWidget } from './ActivityLogWidget';
 import { ContentStatusWidget } from './ContentStatusWidget';
 import { StatisticsWidget } from './StatisticsWidget';
 import type { Stats } from './types';
+import { fetchDashboardStats } from './queries';
 
 /**
  * Dashboard widgets container (registered as `afterDashboard`).
@@ -22,9 +23,7 @@ export const DashboardStats: React.FC = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await fetch('/api/dashboard-stats');
-        if (!response.ok) throw new Error('Failed to fetch stats');
-        const data = await response.json();
+        const data = await fetchDashboardStats();
         setStats(data);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Unknown error');
@@ -40,8 +39,10 @@ export const DashboardStats: React.FC = () => {
     <div className='mt-6 p-6'>
       <div className='grid grid-cols-1 gap-6 xl:grid-cols-3'>
         <div className='flex flex-col gap-6 xl:col-span-2'>
-          <StatisticsWidget stats={stats} loading={loading} error={error} />
-          <ContentStatusWidget stats={stats} loading={loading} error={error} />
+          <Suspense fallback={<></>}>
+            <StatisticsWidget stats={stats} loading={loading} error={error} />
+            <ContentStatusWidget stats={stats} loading={loading} error={error} />
+          </Suspense>
         </div>
         <ActivityLogWidget />
       </div>

@@ -4,7 +4,7 @@ import { PT, GB, FlagComponent } from 'country-flag-icons/react/3x2';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { useLanguageCookie, useSetLanguageCookie } from '@/utils/contexts/AppProvider';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Language } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
 import { cn } from '@/lib/utils';
@@ -37,7 +37,6 @@ type LanguageSwitcherProps = {
 
 const LanguageSwitcher = ({ isFooter = false }: LanguageSwitcherProps) => {
   const lng = useLanguageCookie();
-  const setLng = useSetLanguageCookie();
   const pathname = usePathname();
   const { t } = useTranslation(lng, 'common');
 
@@ -71,7 +70,6 @@ const LanguageSwitcher = ({ isFooter = false }: LanguageSwitcherProps) => {
             lang={value}
             aria-label={t('a11y.switchToLanguage', { language: label })}
             aria-current={isCurrent ? 'true' : undefined}
-            onClick={() => setLng(value)}
             className={cn(
               'focus-visible:ring-primary-500 flex h-4 w-6 rounded-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
               {
