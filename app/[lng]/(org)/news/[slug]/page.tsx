@@ -40,6 +40,8 @@ export async function generateMetadata(props: NewsSlugPageProps): Promise<Metada
   });
 }
 
+export const instant = false;
+
 const NewsSlugPage = async (props: NewsSlugPageProps) => {
   const params = await props.params;
   const { lng, slug } = params;

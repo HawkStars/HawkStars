@@ -19,6 +19,8 @@ type NotFoundPageProps = {
   params: Promise<{ lng: Language }>;
 };
 
+export const instant = false;
+
 export default async function NotFoundPage(props: NotFoundPageProps) {
   const { lng } = await props.params;
   const { t } = await getServerTranslation(lng, 'common');

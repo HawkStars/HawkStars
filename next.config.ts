@@ -27,9 +27,9 @@ const isProd = process.env.NODE_ENV === 'production';
 // transitively from a trusted loader. See AUDIT.md SEC-M3.
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} blob: https://www.googletagmanager.com https://www.google-analytics.com https://upload-widget.cloudinary.com https://*.cloudinary.com https://www.instagram.com https://*.cdninstagram.com;
+  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} blob: https://www.googletagmanager.com https://www.google-analytics.com https://upload-widget.cloudinary.com https://*.cloudinary.com https://www.instagram.com https://*.cdninstagram.com https://browser.sentry-cdn.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  img-src 'self' blob: data: www.googletagmanager.com https://*.unsplash.com https://*.cdninstagram.com https://*.cloudinary.com https://*.googleapis.com https://*.gstatic.com https://*.basemaps.cartocdn.com *.google.com *.googleusercontent.com;
+  img-src 'self' blob: https: data:;
   font-src 'self' https://fonts.gstatic.com data:;
   object-src 'none';
   base-uri 'self';
