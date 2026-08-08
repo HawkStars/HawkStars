@@ -24,7 +24,7 @@ type NotFoundPageProps = {
 // and awaiting it is a dynamic API — hence the <Suspense> shell. The body itself
 // depends only on `lng`, so it is cached: `getServerTranslation` resolves a
 // dynamic `import()` of the locale JSON, which counts as uncached data and is
-// what `export const instant = false` was silencing here.
+// deferred behind the boundary rather than forcing the route to remain blocking.
 export default function NotFoundPage(props: NotFoundPageProps) {
   return (
     <Suspense fallback={<></>}>

@@ -10,8 +10,6 @@ import { importMap } from './admin/importMap.js';
 import './custom.scss';
 import '@/app/styles/payload-admin.css';
 
-export const instant = false;
-
 type Args = {
   children: React.ReactNode;
 };

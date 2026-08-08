@@ -16,19 +16,20 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
   return metadataPage;
 }
 
-export const instant = false;
-
 type HomeProps = {
   params: Promise<{ lng: Language }>;
 };
 
-export default async function Home(props: HomeProps) {
-  const params = await props.params;
-  const { lng } = params;
-
+export default function Home(props: HomeProps) {
   return (
     <Suspense fallback={<></>}>
-      <MainPageWrapper lng={lng} />
+      <HomeContent params={props.params} />
     </Suspense>
   );
+}
+
+async function HomeContent({ params }: { params: Promise<{ lng: Language }> }) {
+  const { lng } = await params;
+
+  return <MainPageWrapper lng={lng} />;
 }
