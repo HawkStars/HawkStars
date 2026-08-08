@@ -11,6 +11,7 @@ import NewsSingleHero from '@/components/news/single/NewsSingleHero';
 import NewsSingleHeroNoImage from '@/components/news/single/NewsSingleHeroNoImage';
 import NewsSingleInformation from '@/components/news/single/NewsSingleInformation';
 import NewsSingleGallery from '@/components/news/single/NewsSingleGallery';
+import { Suspense } from 'react';
 
 type NewsSlugPageProps = {
   params: Promise<LanguageProps & { slug: string }>;
@@ -40,11 +41,18 @@ export async function generateMetadata(props: NewsSlugPageProps): Promise<Metada
   });
 }
 
-export const instant = false;
+// There is no `generateStaticParams` for [slug], so `params` is a dynamic API
+// here and awaiting it in the page body keeps the route blocking however well
+// `getSingleNewsSlug` is cached. The promise is handed to a child that awaits it
+// inside the boundary instead, which is what `instant = false` was papering over.
+const NewsSlugPage = (props: NewsSlugPageProps) => (
+  <Suspense fallback={<></>}>
+    <NewsArticleContent params={props.params} />
+  </Suspense>
+);
 
-const NewsSlugPage = async (props: NewsSlugPageProps) => {
-  const params = await props.params;
-  const { lng, slug } = params;
+const NewsArticleContent = async ({ params }: { params: NewsSlugPageProps['params'] }) => {
+  const { lng, slug } = await params;
 
   const article = await getSingleNewsSlug(slug, lng as Language);
   if (!article) notFound();

@@ -8,6 +8,7 @@ import { HawkStarsSection } from '@/components/layout';
 import { getConfirmedMemberProjects } from '@/lib/payload/queries/memberProject';
 import { transformUrl, allUrls } from '@/utils/paths';
 import MembersShowcase from '@/components/members-corner/MembersShowcase';
+import { Suspense } from 'react';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -15,9 +16,14 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
   return getMetadataPageInfo(lng as Language, 'members_corner');
 }
 
-const MembersCornerPage = async (props: LanguagePageProps) => {
-  const params = await props.params;
-  const { lng } = params;
+const MembersCornerPage = (props: LanguagePageProps) => (
+  <Suspense fallback={<></>}>
+    <MembersCornerContent params={props.params} />
+  </Suspense>
+);
+
+const MembersCornerContent = async ({ params }: { params: LanguagePageProps['params'] }) => {
+  const { lng } = await params;
 
   const [{ t }, projects] = await Promise.all([
     getServerTranslation(lng, 'members-corner'),

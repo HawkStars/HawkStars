@@ -1,11 +1,6 @@
-'use client';
-
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense } from 'react';
 import { ActivityLogWidget } from './ActivityLogWidget';
-import { ContentStatusWidget } from './ContentStatusWidget';
-import { StatisticsWidget } from './StatisticsWidget';
-import type { Stats } from './types';
-import { fetchDashboardStats } from './queries';
+import StatsWrapper from './stats/StatsWrapper';
 
 /**
  * Dashboard widgets container (registered as `afterDashboard`).
@@ -15,33 +10,13 @@ import { fetchDashboardStats } from './queries';
  *   - Content Status   (Pages / News / Projects by draft·review·published)
  *   - Activity Log     (logins + document create/update/delete, with actor)
  */
-export const DashboardStats: React.FC = () => {
-  const [stats, setStats] = useState<Stats | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const data = await fetchDashboardStats();
-        setStats(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchStats();
-  }, []);
-
+export const DashboardStats: React.FC = async () => {
   return (
     <div className='mt-6 p-6'>
       <div className='grid grid-cols-1 gap-6 xl:grid-cols-3'>
         <div className='flex flex-col gap-6 xl:col-span-2'>
           <Suspense fallback={<></>}>
-            <StatisticsWidget stats={stats} loading={loading} error={error} />
-            <ContentStatusWidget stats={stats} loading={loading} error={error} />
+            <StatsWrapper />
           </Suspense>
         </div>
         <ActivityLogWidget />

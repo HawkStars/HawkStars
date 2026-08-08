@@ -13,6 +13,7 @@ import SingleProjectPhases from '@/components/projects/single/SingleProjectPhase
 import SingleProjectReports from '@/components/projects/single/SingleProjectReports';
 import SingleProjectResults from '@/components/projects/single/SingleProjectResults';
 import SingleProjectTravelMapWrapper from '@/components/projects/single/SingleProjectTravelMapWrapper';
+import { Suspense } from 'react';
 
 export async function generateMetadata(props: ProjectPageProps): Promise<Metadata> {
   const params = await props.params;
@@ -36,9 +37,18 @@ export async function generateMetadata(props: ProjectPageProps): Promise<Metadat
 
 type ProjectPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
-const ProjectServerPage = async (props: ProjectPageProps) => {
-  const params = await props.params;
-  const { slug, lng } = params;
+// Same shape as the projects list and the curator route: a non-async shell that
+// opens the boundary, then a child that awaits `params` inside it. `[slug]` has
+// no `generateStaticParams`, so that await is a dynamic API and has to happen
+// under a <Suspense> or the route can never prerender a shell.
+const ProjectServerPage = (props: ProjectPageProps) => (
+  <Suspense fallback={<></>}>
+    <ProjectContent params={props.params} />
+  </Suspense>
+);
+
+const ProjectContent = async ({ params }: { params: ProjectPageProps['params'] }) => {
+  const { slug, lng } = await params;
   if (!slug) return notFound();
 
   const project = await getSingleProjectsQuery(slug, lng);

@@ -23,8 +23,20 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const CrowdfundingPage = async (props: { params: Promise<{ lng: Language }> }) => {
   const { lng } = await props.params;
-  const { t } = await getServerTranslation(lng, 'crowdfunding');
-  const settings = await getCrowdfundingSettings(lng);
+  return <CrowdfundingContent lng={lng} />;
+};
+
+// `getCrowdfundingSettings` is already cached (findGlobalLocalized), but
+// `getServerTranslation` resolves a dynamic `import()` of the locale JSON, which
+// under `cacheComponents` counts as uncached data reached outside a boundary and
+// made the whole route blocking. Both inputs depend only on `lng` — enumerated by
+// the crowdfunding layout's `generateStaticParams` — so the body caches whole.
+async function CrowdfundingContent({ lng }: { lng: Language }) {
+  'use cache';
+  const [{ t }, settings] = await Promise.all([
+    getServerTranslation(lng, 'crowdfunding'),
+    getCrowdfundingSettings(lng),
+  ]);
 
   if (!settings) return null;
 
@@ -42,6 +54,6 @@ const CrowdfundingPage = async (props: { params: Promise<{ lng: Language }> }) =
       <CrowdfundingCTA {...settings} t={t} />
     </div>
   );
-};
+}
 
 export default CrowdfundingPage;

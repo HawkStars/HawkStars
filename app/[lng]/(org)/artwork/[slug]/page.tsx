@@ -13,17 +13,24 @@ import { Curator, Media } from '@/payload-types';
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
 import RichText from '@/payload/components/RichText';
 import { Suspense } from 'react';
+import { cacheLife, cacheTag } from 'next/cache';
+import { ART_COLLECTION_CACHE_TAG } from '@/payload/collections/ArtCollection';
 
-const getCuratorInformation = async (slug: string, locale: Language) => {
+// The `'use cache'` here was untagged, so nothing could invalidate it: editors
+// saving an artwork fired ArtCollection's revalidate hook (ART_COLLECTION_CACHE_TAG)
+// but this entry carried no tag to match, leaving the page stale until the default
+// cache life expired. Tagged the same way the curator route tags its lookup.
+const getArtworkInformation = async (slug: string, locale: Language) => {
   'use cache';
-  const response = await getSingleArtwork(slug, locale);
-  return response;
+  cacheLife('hours');
+  cacheTag(`${ART_COLLECTION_CACHE_TAG}:${slug}`, ART_COLLECTION_CACHE_TAG);
+  return getSingleArtwork(slug, locale);
 };
 
 export async function generateMetadata(props: CuratorPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;
-  // const artwork = await getCuratorInformation(slug, lng);
+  // const artwork = await getArtworkInformation(slug, lng);
 
   const metadataPage = getMetadataPageInfo(lng as Language, 'home');
   return metadataPage;
@@ -41,7 +48,7 @@ const ArtworkContent = async ({ params }: { params: CuratorPageProps['params'] }
   const { lng, slug } = await params;
   if (!slug) return notFound();
 
-  const artwork = await getCuratorInformation(slug, lng);
+  const artwork = await getArtworkInformation(slug, lng);
   const { t } = await getServerTranslation(lng, 'art');
   if (!artwork) notFound();
 

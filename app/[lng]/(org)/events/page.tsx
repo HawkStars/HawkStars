@@ -25,9 +25,19 @@ type EventsPageProps = {
   }>;
 };
 
-const EventsPage = async (props: EventsPageProps) => {
-  const params = await props.params;
-  const { lng } = params;
+// Mirrors app/[lng]/(org)/projects/page.tsx exactly. The <Suspense> used to be
+// returned *after* the awaits below, which defers nothing — every promise it was
+// meant to cover had already resolved by the time React saw the element. The
+// boundary has to be created before the data is requested, so the page component
+// stays non-async and passes `params` down unawaited.
+const EventsPage = (props: EventsPageProps) => (
+  <Suspense fallback={<></>}>
+    <EventsContent params={props.params} />
+  </Suspense>
+);
+
+const EventsContent = async ({ params }: { params: EventsPageProps['params'] }) => {
+  const { lng } = await params;
 
   const [eventsListInformation, events, { t }] = await Promise.all([
     getEventsListHeaderInfo(lng),
@@ -47,7 +57,7 @@ const EventsPage = async (props: EventsPageProps) => {
   if (!eventsListInformation) return null;
 
   return (
-    <Suspense fallback={<></>}>
+    <>
       <HeroImpactStatsBlock {...eventsListInformation} />
       <SplitListComponent
         items={events}
@@ -57,7 +67,7 @@ const EventsPage = async (props: EventsPageProps) => {
           <EventCard key={event.id} event={event} index={idx} lng={lng} />
         )}
       />
-    </Suspense>
+    </>
   );
 };
 

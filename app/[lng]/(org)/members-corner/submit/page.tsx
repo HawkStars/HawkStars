@@ -13,18 +13,26 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
 }
 
 const SubmitMemberProjectPage = async (props: LanguagePageProps) => {
-  const params = await props.params;
-  const { lng } = params;
-  const { t } = await getServerTranslation(lng, 'members-corner');
+  const { lng } = await props.params;
+  return <SubmitMemberProjectContent lng={lng} />;
+};
+
+// `getServerTranslation` resolves a dynamic `import()` of the locale JSON, which
+// under `cacheComponents` counts as uncached data reached outside a boundary and
+// makes the whole route blocking. The form itself is a client component, so the
+// server side of this page is just a cacheable heading keyed on `lng`.
+async function SubmitMemberProjectContent({ lng }: { lng: string }) {
+  'use cache';
+  const { t } = await getServerTranslation(lng as Language, 'members-corner');
 
   return (
     <HawkStarsSection padding='none'>
       <header className='bg-green px-4 py-16 text-center xl:px-40'>
         <h1 className='text-3xl font-bold text-white lg:text-5xl'>{t('form.title')}</h1>
       </header>
-      <SubmitProjectForm lng={lng} />
+      <SubmitProjectForm lng={lng as Language} />
     </HawkStarsSection>
   );
-};
+}
 
 export default SubmitMemberProjectPage;

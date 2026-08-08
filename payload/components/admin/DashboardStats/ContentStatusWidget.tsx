@@ -56,7 +56,7 @@ const StatusRow: React.FC<{ label: string; icon: string; counts: StatusCounts }>
 export const ContentStatusWidget: React.FC<{
   stats: Stats | null;
   loading: boolean;
-  error: string | null;
+  error?: string | null;
 }> = ({ stats, loading, error }) => {
   const body = () => {
     if (loading) return <WidgetSpinner label='Loading content status…' />;

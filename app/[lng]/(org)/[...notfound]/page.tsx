@@ -6,6 +6,7 @@ import { hawkLogo } from '@/utils/models/images/logos';
 import { Metadata } from 'next';
 import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
+import { Suspense } from 'react';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -19,10 +20,26 @@ type NotFoundPageProps = {
   params: Promise<{ lng: Language }>;
 };
 
-export const instant = false;
+// A catch-all segment, so `params` is not enumerable by `generateStaticParams`
+// and awaiting it is a dynamic API — hence the <Suspense> shell. The body itself
+// depends only on `lng`, so it is cached: `getServerTranslation` resolves a
+// dynamic `import()` of the locale JSON, which counts as uncached data and is
+// what `export const instant = false` was silencing here.
+export default function NotFoundPage(props: NotFoundPageProps) {
+  return (
+    <Suspense fallback={<></>}>
+      <NotFoundResolver params={props.params} />
+    </Suspense>
+  );
+}
 
-export default async function NotFoundPage(props: NotFoundPageProps) {
-  const { lng } = await props.params;
+const NotFoundResolver = async ({ params }: { params: NotFoundPageProps['params'] }) => {
+  const { lng } = await params;
+  return <NotFoundContent lng={lng} />;
+};
+
+async function NotFoundContent({ lng }: { lng: Language }) {
+  'use cache';
   const { t } = await getServerTranslation(lng, 'common');
   return (
     <div className='my-auto flex items-center'>

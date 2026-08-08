@@ -7,8 +7,6 @@ import { getBoardMembers } from '@/lib/payload/queries/team';
 import TeamInformation from '@/components/team/TeamInformation';
 import { Suspense } from 'react';
 
-export const instant = false;
-
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;
@@ -16,11 +14,24 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
   return metadataPage;
 }
 
-const TeamPage = async (props: LanguagePageProps) => {
-  const params = await props.params;
-  const { lng } = params;
-  const { t } = await getServerTranslation(lng, 'team');
-  const boardMembers = await getBoardMembers();
+// The inner <Suspense> around <TeamInformation> deferred nothing: `params`,
+// `getServerTranslation` and `getBoardMembers` had all been awaited before that
+// JSX existed, so the boundary only ever wrapped already-resolved data. The
+// boundary has to sit above the awaits, which means the page component itself
+// must not await — hence the non-async shell plus a content child that consumes
+// the `params` promise inside the boundary.
+const TeamPage = (props: LanguagePageProps) => (
+  <Suspense fallback={<></>}>
+    <TeamContent params={props.params} />
+  </Suspense>
+);
+
+const TeamContent = async ({ params }: { params: LanguagePageProps['params'] }) => {
+  const { lng } = await params;
+  const [{ t }, boardMembers] = await Promise.all([
+    getServerTranslation(lng, 'team'),
+    getBoardMembers(),
+  ]);
 
   return (
     <div className='mt-5 flex flex-col gap-20 px-4 max-lg:gap-8 lg:mt-10'>
@@ -32,9 +43,7 @@ const TeamPage = async (props: LanguagePageProps) => {
         </p>
       </div>
       <div className='flex flex-col justify-center'>
-        <Suspense fallback={<div>Loading....</div>}>
-          <TeamInformation boardMembers={boardMembers} lng={lng} />
-        </Suspense>
+        <TeamInformation boardMembers={boardMembers} lng={lng} />
       </div>
     </div>
   );

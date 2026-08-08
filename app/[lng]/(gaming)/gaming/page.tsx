@@ -23,11 +23,18 @@ const ACADEMY_FEATURES = [
   'academy.features.tournaments',
 ];
 
-export const instant = false;
-
 const GamingIndexPage = async (props: { params: Promise<{ lng?: string }> }) => {
   const params = await props.params;
-  const lng = params.lng || fallbackLng;
+  return <GamingContent lng={params.lng || fallbackLng} />;
+};
+
+// `getServerTranslation` resolves a dynamic `import()` of the locale JSON, which
+// under `cacheComponents` counts as uncached data reached outside a boundary and
+// made this route blocking — `export const instant = false` was silencing that
+// warning rather than fixing it. The page is static content keyed only on `lng`
+// (enumerated by the gaming layout's `generateStaticParams`), so it caches.
+async function GamingContent({ lng }: { lng: string }) {
+  'use cache';
   const { t } = await getServerTranslation(lng, 'gaming');
 
   return (
@@ -139,6 +146,6 @@ const GamingIndexPage = async (props: { params: Promise<{ lng?: string }> }) => 
       </section>
     </div>
   );
-};
+}
 
 export default GamingIndexPage;

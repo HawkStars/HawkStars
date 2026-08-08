@@ -24,11 +24,18 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
 }
 
 const HawkHistoryPage = async (props: LanguagePageProps) => {
-  const params = await props.params;
+  const { lng } = await props.params;
+  return <HistoryContent lng={lng} />;
+};
 
-  const { lng } = params;
-
-  const { t } = await getServerTranslation(lng, 'hawkstars');
+// `getServerTranslation` resolves a dynamic `import()` of the locale JSON, which
+// under `cacheComponents` counts as uncached data reached outside a boundary and
+// makes the whole route blocking. This page has no other data and depends only on
+// `lng` (enumerated by the layout's `generateStaticParams`), so caching the body
+// makes it fully static — same reasoning as the layout's SkipToContent.
+async function HistoryContent({ lng }: { lng: string }) {
+  'use cache';
+  const { t } = await getServerTranslation(lng as Language, 'hawkstars');
   const { report } = historyReferenceUrl;
 
   return (
@@ -130,7 +137,7 @@ const HawkHistoryPage = async (props: LanguagePageProps) => {
       </section>
     </HawkStarsSection>
   );
-};
+}
 
 type TranslateFn = Awaited<ReturnType<typeof getServerTranslation>>['t'];
 

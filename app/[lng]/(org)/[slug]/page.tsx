@@ -27,21 +27,24 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   };
 }
 
-const Index = async (props: PageProps) => {
-  const params = await props.params;
-  const { lng, slug } = params;
+// The boundary was inside the async body, wrapping only already-resolved data —
+// it has to sit above the `params` await (a dynamic API here, since `[slug]` has
+// no `generateStaticParams`) to buy anything.
+const Index = (props: PageProps) => (
+  <Suspense fallback={<></>}>
+    <PageContent params={props.params} />
+  </Suspense>
+);
+
+const PageContent = async ({ params }: { params: PageProps['params'] }) => {
+  const { lng, slug } = await params;
   if (!slug) notFound();
   const pageInformation = await getSinglePageSlug(slug, lng);
   if (!pageInformation) notFound();
 
-  if (pageInformation.layout)
-    return (
-      <Suspense fallback={<div>Loading ....</div>}>
-        <RichText data={pageInformation.layout} />
-      </Suspense>
-    );
+  if (!pageInformation.layout) return null;
 
-  return;
+  return <RichText data={pageInformation.layout} />;
 };
 
 export default Index;

@@ -9,6 +9,7 @@ import { Metadata } from 'next';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Language } from '@/i18n/settings';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -18,10 +19,18 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
 }
 
 const GalleryPage = async (props: LanguagePageProps) => {
-  const params = await props.params;
-  const { lng } = params;
+  const { lng } = await props.params;
+  return <GalleryContent lng={lng} />;
+};
 
-  const { t } = await getServerTranslation(lng, 'art');
+// The hero and copy depend only on `lng`, so they are cached here rather than
+// left as an uncached `getServerTranslation` (a dynamic `import()` of the locale
+// JSON, which under `cacheComponents` makes the whole route blocking). <Curators>
+// hits Payload, so it gets its own boundary below and streams independently —
+// otherwise the whole page would wait on that query before showing anything.
+async function GalleryContent({ lng }: { lng: string }) {
+  'use cache';
+  const { t } = await getServerTranslation(lng as Language, 'art');
   return (
     <>
       <section className='bg-bege-light pb-4 lg:pt-14 lg:pb-14'>
@@ -46,9 +55,11 @@ const GalleryPage = async (props: LanguagePageProps) => {
         <p className='text-justify'>{t('description_1')}</p>
         <p className='text-justify'>{t('description_2')}</p>
       </section>
-      <Curators lng={lng} />
+      <Suspense fallback={<></>}>
+        <Curators lng={lng as Language} />
+      </Suspense>
     </>
   );
-};
+}
 
 export default GalleryPage;

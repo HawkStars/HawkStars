@@ -35,6 +35,7 @@ import { Metadata } from 'next';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import DonationWidget from '@/components/contribute/DonationWidget';
 import { Button } from '@/components/ui/button';
+import { Suspense } from 'react';
 
 export async function generateMetadata(props: {
   params: Promise<{ lng: Language }>;
@@ -63,13 +64,22 @@ const getChairsContribute = async () => {
   };
 };
 
-const DonatePage = async (props: { params: Promise<{ lng: Language }> }) => {
-  const params = await props.params;
-  const { lng } = params;
+type DonatePageProps = { params: Promise<{ lng: Language }> };
 
-  const { t } = await getServerTranslation(lng, 'contribute');
-  const { simulationChairs, officeChairs, auditoriumChairs, loungeChairs } =
-    await getChairsContribute();
+// `getChairsContributionsQuery` is now cached (see lib/payload/queries/contribution.ts),
+// but this route also had no <Suspense> above its `params` await, so it stayed
+// blocking regardless. Non-async shell + content child, same as the rest.
+const DonatePage = (props: DonatePageProps) => (
+  <Suspense fallback={<></>}>
+    <DonateContent params={props.params} />
+  </Suspense>
+);
+
+const DonateContent = async ({ params }: { params: DonatePageProps['params'] }) => {
+  const { lng } = await params;
+
+  const [{ t }, { simulationChairs, officeChairs, auditoriumChairs, loungeChairs }] =
+    await Promise.all([getServerTranslation(lng, 'contribute'), getChairsContribute()]);
 
   return (
     <div className='mt-5 flex flex-col gap-5 lg:mt-10'>

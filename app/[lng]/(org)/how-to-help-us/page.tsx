@@ -18,9 +18,16 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
 }
 
 const HowToHelpUsPage = async (props: LanguagePageProps) => {
-  const params = await props.params;
-  const { lng } = params;
-  const { t } = await getServerTranslation(lng, 'how-to-help-us');
+  const { lng } = await props.params;
+  return <HowToHelpUsContent lng={lng} />;
+};
+
+// `getServerTranslation` resolves a dynamic `import()` of the locale JSON, which
+// under `cacheComponents` counts as uncached data reached outside a boundary and
+// makes the whole route blocking. Static content keyed only on `lng`, so cached.
+async function HowToHelpUsContent({ lng }: { lng: string }) {
+  'use cache';
+  const { t } = await getServerTranslation(lng as Language, 'how-to-help-us');
 
   return (
     <HawkStarsSection padding='none' className='flex-col'>
@@ -31,7 +38,7 @@ const HowToHelpUsPage = async (props: LanguagePageProps) => {
       <CTASection t={t} />
     </HawkStarsSection>
   );
-};
+}
 
 export default HowToHelpUsPage;
 

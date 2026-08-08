@@ -23,9 +23,17 @@ type SubArticle = {
 };
 
 export default async function Page(props: LanguagePageProps) {
-  const params = await props.params;
-  const { lng } = params;
-  const { t } = await getServerTranslation(lng, 'terms');
+  const { lng } = await props.params;
+  return <TermsContent lng={lng} />;
+}
+
+// `getServerTranslation` resolves a dynamic `import()` of the locale JSON, which
+// under `cacheComponents` counts as uncached data reached outside a boundary and
+// makes the whole route blocking. The terms are pure translation content keyed
+// only on `lng`, so the body is cached.
+async function TermsContent({ lng }: { lng: string }) {
+  'use cache';
+  const { t } = await getServerTranslation(lng as Language, 'terms');
 
   const preamble = t('preamble', { returnObjects: true }) as {
     title: string;

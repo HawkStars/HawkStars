@@ -7,6 +7,7 @@ import { getSingleHawkEventQuery } from '@/lib/payload/queries/hawkEvent';
 import EventPage from '@/components/events/EventPage';
 import { EventJsonLd } from '@/components/seo/JsonLd';
 import { BASE_URL } from '@/lib/constants';
+import { Suspense } from 'react';
 
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
   const params = await props.params;
@@ -26,9 +27,16 @@ export async function generateMetadata(props: EventPageProps): Promise<Metadata>
 
 type EventPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
-const SingleEventPage = async (props: EventPageProps) => {
-  const params = await props.params;
-  const { slug, lng } = params;
+// Non-async shell so the <Suspense> boundary exists before `params` — a dynamic
+// API on this route, since `[slug]` has no `generateStaticParams` — is awaited.
+const SingleEventPage = (props: EventPageProps) => (
+  <Suspense fallback={<></>}>
+    <EventContent params={props.params} />
+  </Suspense>
+);
+
+const EventContent = async ({ params }: { params: EventPageProps['params'] }) => {
+  const { slug, lng } = await params;
   if (!slug) return notFound();
 
   const event = await getSingleHawkEventQuery(slug, lng);

@@ -23,7 +23,7 @@ const typeLabels: Record<string, string> = {
 export const StatisticsWidget: React.FC<{
   stats: Stats | null;
   loading: boolean;
-  error: string | null;
+  error?: string | null;
 }> = ({ stats, loading, error }) => {
   const body = () => {
     if (loading) return <WidgetSpinner label='Loading statistics…' />;
