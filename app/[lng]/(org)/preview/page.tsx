@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { Language } from '@/i18n/settings';
 
-import { getMainPageInformation } from '@/lib/payload/main-page';
+import { getMainPageInformationPreview } from '@/lib/payload/main-page';
 import { connection } from 'next/server';
 import { LivePreviewPage } from '@/payload/components/LivePreview/LivePreviewPage';
 import { getServerSideURL } from '@/payload/utilities/getURL';
@@ -18,7 +18,7 @@ export default async function Home(props: HomeProps) {
   await connection();
   const params = await props.params;
   const { lng } = params;
-  const pageInformation = await getMainPageInformation(lng as Language, { preview: true });
+  const pageInformation = await getMainPageInformationPreview(lng as Language);
 
   if (pageInformation === null) return null;
   return <LivePreviewPage initialData={pageInformation} serverURL={getServerSideURL()} />;

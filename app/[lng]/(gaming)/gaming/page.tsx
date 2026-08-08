@@ -25,8 +25,6 @@ const ACADEMY_FEATURES = [
 ];
 
 const GamingIndexPage = async (props: { params: Promise<{ lng?: string }> }) => {
-  'use cache';
-  cacheLife('weeks');
   const params = await props.params;
   const lng = params.lng || fallbackLng;
   const { t } = await getServerTranslation(lng, 'gaming');

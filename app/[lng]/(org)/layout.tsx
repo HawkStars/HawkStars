@@ -96,7 +96,16 @@ async function LayoutContent({ children, lng }: { children: React.ReactNode; lng
       <MobileNavbar headerInfo={headerInfo} />
       <Navbar headerInfo={headerInfo} lng={lng as Language} />
       <main id='main-content' className='bg-body relative min-h-screen'>
-        {children}
+        {/* The boundary belongs around `{children}` only, not around the whole
+            tree. A <Suspense> returned by LayoutContent cannot defer
+            LayoutContent's own awaits above — those already resolved before
+            this JSX existed, so wrapping the navbar/footer in it achieves
+            nothing (RootLayout's <Suspense> around <LayoutContent> is what
+            actually defers this component). Wrapping only `{children}` is
+            what buys something real: the chrome streams as soon as the
+            header/footer queries resolve, instead of waiting on whatever
+            slower data the page underneath is fetching. */}
+        <Suspense fallback={<></>}>{children}</Suspense>
       </main>
       <FooterContainer footerInfo={footerInfo} lng={lng as Language} />
     </AppProvider>

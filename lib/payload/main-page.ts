@@ -3,11 +3,7 @@ import { getPayloadConfig } from './server';
 import { cacheLife, cacheTag } from 'next/cache';
 import { MAIN_PAGE_CACHE_TAG } from '@/payload/globals/MainPage/hooks/revalidateMainPage';
 
-const getMainPageInformation = async (lng: Language, opts?: { preview: boolean }) => {
-  'use cache';
-  cacheLife('hours');
-  cacheTag(MAIN_PAGE_CACHE_TAG);
-
+const getMainPageInfo = async (lng: Language, opts?: { preview: boolean }) => {
   const payload = await getPayloadConfig();
   return await payload.findGlobal({
     slug: 'main-page',
@@ -24,4 +20,16 @@ const getMainPageInformation = async (lng: Language, opts?: { preview: boolean }
     },
   });
 };
-export { getMainPageInformation };
+
+const getMainPageInformation = async (lng: Language) => {
+  'use cache';
+  cacheLife('hours');
+  cacheTag(MAIN_PAGE_CACHE_TAG);
+  return await getMainPageInfo(lng);
+};
+
+const getMainPageInformationPreview = async (lng: Language) => {
+  return await getMainPageInfo(lng, { preview: true });
+};
+
+export { getMainPageInformation, getMainPageInformationPreview };

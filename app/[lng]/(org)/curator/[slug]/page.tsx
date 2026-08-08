@@ -8,13 +8,31 @@ import { ImageMedia } from '@/payload/components/Media';
 import { Media } from '@/payload-types';
 import RichText from '@/payload/components/RichText';
 import { Metadata } from 'next';
+import { cacheLife, cacheTag } from 'next/cache';
+import { Suspense } from 'react';
 
 type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
+
+// Unlike app/[lng]/(org)/artwork/[slug]/page.tsx (which wraps its equivalent
+// data fetch in 'use cache'), this route called the raw, uncached
+// `getSingleCuratorQuery` directly — from both generateMetadata and the page
+// body. With `cacheComponents` enabled, an uncached Payload call reached
+// outside `'use cache'`/Suspense makes the route fully dynamic and can bail
+// out of prerendering entirely with "Next.js encountered the unstable value
+// `Date.now()` while prerendering" (Payload/its Mongo driver touch Date.now()
+// internally). Caching it, same as the artwork route, fixes the bailout and
+// lets both callers share one cached lookup instead of querying twice.
+const getCuratorInformation = async (slug: string, locale: Language) => {
+  'use cache';
+  cacheLife('hours');
+  cacheTag(`curators:${slug}`, 'curators');
+  return getSingleCuratorQuery(slug, locale);
+};
 
 export async function generateMetadata(props: CuratorPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng, slug } = params;
-  const curator = await getSingleCuratorQuery(slug, lng);
+  const curator = await getCuratorInformation(slug, lng);
 
   if (!curator) {
     return {
@@ -49,14 +67,21 @@ export async function generateMetadata(props: CuratorPageProps): Promise<Metadat
   };
 }
 
-const getCuratorInformation = async (slug: string, locale: Language) => {
-  const response = await getSingleCuratorQuery(slug, locale);
-  return response;
-};
+// Not `async`, and awaits nothing — it only opens the <Suspense> boundary
+// before any data is requested. `'use cache'` on getCuratorInformation makes
+// the Payload query itself prerenderable, but this route still reaches a
+// dynamic API: `params` (there's no generateStaticParams for [slug], so the
+// slug isn't known at build time). Awaiting that in the page body would keep
+// the route blocking no matter how well the query is cached, so the promise
+// is handed to a child that awaits it *inside* the boundary.
+const CuratorPage = (props: CuratorPageProps) => (
+  <Suspense fallback={<></>}>
+    <CuratorContent params={props.params} />
+  </Suspense>
+);
 
-const CuratorPage = async (props: CuratorPageProps) => {
-  const params = await props.params;
-  const { lng, slug } = params;
+const CuratorContent = async ({ params }: { params: CuratorPageProps['params'] }) => {
+  const { lng, slug } = await params;
   const curator = await getCuratorInformation(slug, lng);
   if (!curator) notFound();
 

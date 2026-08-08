@@ -12,6 +12,7 @@ import { getSingleArtwork } from '@/lib/payload/queries/artwork';
 import { Curator, Media } from '@/payload-types';
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
 import RichText from '@/payload/components/RichText';
+import { Suspense } from 'react';
 
 const getCuratorInformation = async (slug: string, locale: Language) => {
   'use cache';
@@ -30,9 +31,19 @@ export async function generateMetadata(props: CuratorPageProps): Promise<Metadat
 
 type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
-const CuratorPage = async (props: CuratorPageProps) => {
-  const params = await props.params;
-  const { lng, slug } = params;
+// Not `async` — opens the <Suspense> boundary before any data is requested.
+// `'use cache'` above makes the artwork query prerenderable, but `params` is
+// still a dynamic API on this route ([slug] has no generateStaticParams), so
+// awaiting it in the page body would keep the route blocking regardless. The
+// promise is consumed by a child inside the boundary instead.
+const CuratorPage = (props: CuratorPageProps) => (
+  <Suspense fallback={<></>}>
+    <ArtworkContent params={props.params} />
+  </Suspense>
+);
+
+const ArtworkContent = async ({ params }: { params: CuratorPageProps['params'] }) => {
+  const { lng, slug } = await params;
   if (!slug) return notFound();
 
   const artwork = await getCuratorInformation(slug, lng);

@@ -8,6 +8,7 @@ import { getProjectsListHeaderInfo } from '@/lib/payload/queries/globals/project
 import { getProjectsSplitByDate } from '@/lib/payload/queries/projects';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
 export async function generateMetadata(props: EventsPageProps): Promise<Metadata> {
   const params = await props.params;
@@ -24,9 +25,22 @@ type EventsPageProps = {
   }>;
 };
 
-const EventsPage = async (props: EventsPageProps) => {
-  const params = await props.params;
-  const { lng } = params;
+// The page component is deliberately NOT `async` and awaits nothing: it exists
+// only to establish the <Suspense> boundary before any data is requested.
+//
+// A boundary returned *after* awaiting (the previous shape here) defers
+// nothing — by the time React sees the <Suspense> element, every promise it
+// was meant to cover has already resolved, so the route still blocks and
+// still can't be prerendered under `cacheComponents`. The `params` promise is
+// therefore passed down unawaited and consumed inside the boundary.
+const EventsPage = (props: EventsPageProps) => (
+  <Suspense fallback={<></>}>
+    <ProjectsContent params={props.params} />
+  </Suspense>
+);
+
+const ProjectsContent = async ({ params }: { params: EventsPageProps['params'] }) => {
+  const { lng } = await params;
 
   const [projectListInformation, projects, { t }] = await Promise.all([
     getProjectsListHeaderInfo(lng),

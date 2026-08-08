@@ -14,7 +14,6 @@ const SOCIAL_LINKS = [
 ];
 
 const GamingFooter = async ({ lng }: GamingFooterProps) => {
-  'use cache';
   const { t } = await getServerTranslation(lng, 'gaming');
 
   return (

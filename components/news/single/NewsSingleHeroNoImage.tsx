@@ -1,6 +1,6 @@
 import HawkLabel from '@/components/common/hawk-label';
 import { HawkStarsSection } from '@/components/layout';
-import { Language } from '@/i18n/settings';
+import { Language, toIntlLocale } from '@/i18n/settings';
 import { News } from '@/payload-types';
 import { FC } from 'react';
 
@@ -9,8 +9,10 @@ type NewsSingleHeroProps = Pick<News, 'title' | 'type' | 'publishedAt'> & {
 };
 
 const NewsSingleHeroNoImage: FC<NewsSingleHeroProps> = ({ title, type, publishedAt, lng }) => {
+  // Same fix as NewsSingleHero.tsx / OrganizationContributionsTable.tsx —
+  // `lng` must resolve through toIntlLocale before reaching Intl.
   const formattedDate = publishedAt
-    ? new Date(publishedAt).toLocaleDateString(lng, {
+    ? new Date(publishedAt).toLocaleDateString(toIntlLocale(lng), {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
