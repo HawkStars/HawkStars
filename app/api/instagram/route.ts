@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { cacheLife, cacheTag } from 'next/cache';
 import { getPayloadConfig } from '@/lib/payload/server';
 import { captureSentryMessage } from '@/lib/sentry/logs';
 import { checkRateLimit, getClientIp } from '@/utils/rateLimit';
@@ -61,10 +62,57 @@ function normalizePost(item: InstagramMediaItem) {
   };
 }
 
+/** Thrown for Graph API failures so the caller can map them to the right HTTP status. */
+class InstagramApiError extends Error {
+  constructor(
+    public readonly status: number,
+    message: string
+  ) {
+    super(message);
+  }
+}
+
+/**
+ * Cached Graph API call. With `cacheComponents` enabled, `fetch`'s `next.revalidate`
+ * option only takes effect inside a `'use cache'` scope — used bare inside `GET` it
+ * was a no-op, so every request hit Instagram live. This restores the intended
+ * 5-minute cache, keyed on (userId, token, limit).
+ *
+ * A thrown/rejected result is never cached, so a Graph API error or expired token
+ * doesn't get "stuck" for the cache lifetime — the next request tries again fresh.
+ */
+async function fetchInstagramPosts(userId: string, token: string, limit: number) {
+  'use cache';
+  cacheLife({
+    stale: CACHE_DURATION_SECONDS,
+    revalidate: CACHE_DURATION_SECONDS,
+    expire: CACHE_DURATION_SECONDS * 2,
+  });
+  cacheTag('instagram');
+
+  const fields =
+    'id,caption,media_url,media_type,permalink,thumbnail_url,timestamp,like_count,comments_count';
+  const url = `${INSTAGRAM_API_BASE}/${userId}/media?fields=${fields}&limit=${limit}&access_token=${token}`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    const message = `Instagram API error: ${response.status} ${response.statusText}`;
+    // If token expired, surface it as a distinct status so the caller can react.
+    throw new InstagramApiError(
+      response.status === 190 || response.status === 401 ? 401 : 400,
+      message
+    );
+  }
+
+  const data: InstagramApiResponse = await response.json();
+  return Array.isArray(data?.data) ? data.data.map(normalizePost) : [];
+}
+
 export async function GET(request: NextRequest) {
-  // Each distinct `limit` value is its own Next.js fetch-cache key, so an
-  // unrated caller could otherwise vary it to force a fresh Graph API call
-  // (and burn the Instagram quota) on every request.
+  // Each distinct `limit` value is its own cache key (see fetchInstagramPosts), so
+  // an unrated caller could otherwise vary it to force a fresh Graph API call (and
+  // burn the Instagram quota) on every request.
   const { allowed, retryAfter } = checkRateLimit(`instagram:${getClientIp(request)}`, {
     limit: 30,
     windowMs: 60_000,
@@ -98,30 +146,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const fields =
-      'id,caption,media_url,media_type,permalink,thumbnail_url,timestamp,like_count,comments_count';
-    const url = `${INSTAGRAM_API_BASE}/${instagramUserId}/media?fields=${fields}&limit=${limit}&access_token=${instagramToken}`;
-
-    const response = await fetch(url, {
-      next: { revalidate: CACHE_DURATION_SECONDS },
-    } as RequestInit);
-
-    if (!response.ok) {
-      captureSentryMessage(
-        `Instagram API error: ${response.status} ${response.statusText}`,
-        'error'
-      );
-
-      // If token expired, return a helpful message
-      if (response.status === 190 || response.status === 401) {
-        return NextResponse.json({ status: 401 });
-      }
-
-      return NextResponse.json({ status: 400 });
-    }
-
-    const data: InstagramApiResponse = await response.json();
-    const posts = Array.isArray(data?.data) ? data.data.map(normalizePost) : [];
+    const posts = await fetchInstagramPosts(instagramUserId, instagramToken, limit);
 
     return NextResponse.json(
       { posts },
@@ -132,6 +157,11 @@ export async function GET(request: NextRequest) {
       }
     );
   } catch (error) {
+    if (error instanceof InstagramApiError) {
+      captureSentryMessage(error.message, 'error');
+      return NextResponse.json({ status: error.status }, { status: error.status });
+    }
+
     captureSentryMessage(
       `Instagram feed fetch threw: ${error instanceof Error ? error.message : String(error)}`,
       'error'
