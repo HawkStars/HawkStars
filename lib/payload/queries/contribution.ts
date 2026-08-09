@@ -3,6 +3,7 @@ import { cacheLife, cacheTag } from 'next/cache';
 import totalContributioValueQuery from '../endpoints/totalContributioValueQuery';
 import { getPayloadConfig } from '../server';
 import { CONTRIBUTION_CACHE_TAG } from '@/payload/collections/Contribution';
+import { connection } from 'next/server';
 
 // The only contribution query that was left uncached, which is what kept
 // /contribute from prerendering while /transparency (same collection, cached
@@ -27,6 +28,7 @@ export const getChairsContributionsQuery = async () => {
 };
 
 export const getContributionsQuery = async () => {
+  await connection();
   const payload = await getPayloadConfig();
   return await payload.find({
     collection: 'contributions',
@@ -36,6 +38,7 @@ export const getContributionsQuery = async () => {
 };
 
 export const getSumContributions = async (): Promise<number> => {
+  await connection();
   try {
     const payload = await getPayloadConfig();
     const response = await totalContributioValueQuery({ payload });

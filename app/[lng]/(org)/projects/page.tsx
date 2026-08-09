@@ -10,6 +10,8 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 
+export const instant = false;
+
 export async function generateMetadata(props: EventsPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;

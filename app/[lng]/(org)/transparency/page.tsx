@@ -7,6 +7,8 @@ import ContributionProjectGoal from '@/components/transparency/ContributionProje
 import OrganizationContributionsTable from '@/components/transparency/OrganizationContributionsTable';
 import { Suspense } from 'react';
 
+export const instant = false;
+
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;

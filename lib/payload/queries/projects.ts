@@ -4,6 +4,7 @@ import { Language } from '@/i18n/settings';
 import { findPublishedBySlug } from './helpers';
 import { cacheLife, cacheTag } from 'next/cache';
 import { HAWK_PROJECT_CACHE_TAG } from '@/payload/collections/HawkProject';
+import { connection } from 'next/server';
 
 export type SplitProjectsResult = {
   upcoming: HawkProject[];
@@ -20,6 +21,7 @@ export const getSingleProjectsQuery = async (
   findPublishedBySlug(PROJECTS_COLLECTION, slug, locale, { preview: opts?.preview, depth: 3 });
 
 export const getProjectsSplitByDate = async (locale: Language): Promise<SplitProjectsResult> => {
+  await connection();
   const payload = await getPayloadConfig();
   const now = new Date().toISOString();
 

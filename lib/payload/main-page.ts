@@ -2,8 +2,12 @@ import { Language } from '@/i18n/settings';
 import { getPayloadConfig } from './server';
 import { cacheLife, cacheTag } from 'next/cache';
 import { MAIN_PAGE_CACHE_TAG } from '@/payload/globals/MainPage/hooks/revalidateMainPage';
+import { connection } from 'next/server';
+
+export const instant = false;
 
 const getMainPageInfo = async (lng: Language, opts?: { preview: boolean }) => {
+  await connection();
   const payload = await getPayloadConfig();
   return await payload.findGlobal({
     slug: 'main-page',

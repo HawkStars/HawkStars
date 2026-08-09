@@ -1,9 +1,11 @@
+import { connection } from 'next/server';
 import { BasePayload, Where } from 'payload';
 const totalContributioValueQuery = async ({
   payload,
 }: {
   payload: BasePayload;
 }): Promise<Response> => {
+  await connection();
   const where: Where = { is_confirmed: { equals: true } };
 
   const result = await payload.find({
