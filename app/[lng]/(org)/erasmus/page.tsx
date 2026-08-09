@@ -21,15 +21,7 @@ const ErasmusPage = async (props: LanguagePageProps) => {
   return <ErasmusContent lng={lng} />;
 };
 
-// `getServerTranslation` resolves a dynamic `import()` of the locale JSON, which
-// under `cacheComponents` counts as uncached data reached outside a boundary and
-// makes the whole route blocking. Nothing here depends on the request — only on
-// `lng`, which the layout's `generateStaticParams` enumerates — so caching the
-// body makes the page fully static rather than a streaming hole. `t` is only
-// passed to sub-components rendered *inside* this boundary, so it never has to
-// cross a serialization edge.
 async function ErasmusContent({ lng }: { lng: string }) {
-  'use cache';
   const { t } = await getServerTranslation(lng as Language, 'erasmus');
 
   return (

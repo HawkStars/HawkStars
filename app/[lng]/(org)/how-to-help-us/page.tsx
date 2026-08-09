@@ -26,7 +26,6 @@ const HowToHelpUsPage = async (props: LanguagePageProps) => {
 // under `cacheComponents` counts as uncached data reached outside a boundary and
 // makes the whole route blocking. Static content keyed only on `lng`, so cached.
 async function HowToHelpUsContent({ lng }: { lng: string }) {
-  'use cache';
   const { t } = await getServerTranslation(lng as Language, 'how-to-help-us');
 
   return (

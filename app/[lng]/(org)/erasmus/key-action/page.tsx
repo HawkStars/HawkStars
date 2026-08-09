@@ -20,12 +20,7 @@ const KeyActionPage = async (props: LanguagePageProps) => {
   return <KeyActionContent lng={lng} />;
 };
 
-// `getServerTranslation` resolves a dynamic `import()` of the locale JSON, which
-// under `cacheComponents` counts as uncached data reached outside a boundary and
-// makes the whole route blocking. The page is static content keyed only on `lng`
-// (enumerated by the layout's `generateStaticParams`), so the body is cached.
 async function KeyActionContent({ lng }: { lng: string }) {
-  'use cache';
   const { t } = await getServerTranslation(lng as Language, 'erasmus-ka');
 
   return (

@@ -39,7 +39,6 @@ const NotFoundResolver = async ({ params }: { params: NotFoundPageProps['params'
 };
 
 async function NotFoundContent({ lng }: { lng: Language }) {
-  'use cache';
   const { t } = await getServerTranslation(lng, 'common');
   return (
     <div className='my-auto flex items-center'>

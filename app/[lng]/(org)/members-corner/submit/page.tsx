@@ -22,7 +22,6 @@ const SubmitMemberProjectPage = async (props: LanguagePageProps) => {
 // makes the whole route blocking. The form itself is a client component, so the
 // server side of this page is just a cacheable heading keyed on `lng`.
 async function SubmitMemberProjectContent({ lng }: { lng: string }) {
-  'use cache';
   const { t } = await getServerTranslation(lng as Language, 'members-corner');
 
   return (

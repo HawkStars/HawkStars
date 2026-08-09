@@ -20,10 +20,6 @@ export const getSingleProjectsQuery = async (
   findPublishedBySlug(PROJECTS_COLLECTION, slug, locale, { preview: opts?.preview, depth: 3 });
 
 export const getProjectsSplitByDate = async (locale: Language): Promise<SplitProjectsResult> => {
-  'use cache';
-  cacheLife('weeks');
-  cacheTag(HAWK_PROJECT_CACHE_TAG);
-
   const payload = await getPayloadConfig();
   const now = new Date().toISOString();
 

@@ -27,8 +27,6 @@ export const getChairsContributionsQuery = async () => {
 };
 
 export const getContributionsQuery = async () => {
-  'use cache';
-  cacheTag(CONTRIBUTION_CACHE_TAG);
   const payload = await getPayloadConfig();
   return await payload.find({
     collection: 'contributions',
@@ -38,10 +36,6 @@ export const getContributionsQuery = async () => {
 };
 
 export const getSumContributions = async (): Promise<number> => {
-  'use cache';
-  cacheLife('hours');
-  cacheTag(CONTRIBUTION_CACHE_TAG);
-
   try {
     const payload = await getPayloadConfig();
     const response = await totalContributioValueQuery({ payload });

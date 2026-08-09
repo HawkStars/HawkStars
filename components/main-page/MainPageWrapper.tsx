@@ -2,7 +2,7 @@ import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
 import { getMainPageInformation } from '@/lib/payload/main-page';
 import { ImageMedia } from '@/payload/components/Media';
-import { FC } from 'react';
+import { FC, Suspense } from 'react';
 import MainPageBanner from './MainPageBanner';
 import RichTextWrapper from '@/payload/components/RichText/RichTextWrapper';
 import { hawkLogo } from '@/utils/models/images/logos';
@@ -25,10 +25,10 @@ const MainPageWrapper: FC<MainPageWrapperProps> = async ({ lng }) => {
   } else {
     const banner = pageInformation.bannerFields || {};
     return (
-      <>
+      <Suspense fallback={<></>}>
         {banner && <MainPageBanner {...banner} />}
         <RichTextWrapper data={pageInformation.layout} />
-      </>
+      </Suspense>
     );
   }
 };

@@ -40,7 +40,9 @@ export default async function RootLayout(props: {
         <OrganizationJsonLd lng={lng || 'pt'} />
       </head>
       <body>
-        <SkipToContent lng={lng} />
+        <Suspense fallback={<></>}>
+          <SkipToContent lng={lng} />
+        </Suspense>
         <Suspense fallback={<></>}>
           <LayoutContent lng={lng}>{children}</LayoutContent>
         </Suspense>
@@ -63,16 +65,7 @@ export default async function RootLayout(props: {
   );
 }
 
-// A11Y-M2 (WCAG 2.4.1): the skip link must be the first focusable element in the
-// document, ahead of the multi-column navbar. It is visually hidden until focused.
-//
-// `'use cache'` is REQUIRED here, not cosmetic: with `cacheComponents` enabled,
-// awaiting `getServerTranslation` directly in RootLayout counts as uncached data
-// accessed outside <Suspense>, which makes every route in this group blocking and
-// unprerenderable (https://nextjs.org/docs/messages/blocking-route). The label
-// depends only on `lng`, so caching it is both correct and free.
 async function SkipToContent({ lng }: { lng: string }) {
-  'use cache';
   const { t } = await getServerTranslation((lng || fallbackLng) as Language, 'common');
 
   return (
@@ -96,15 +89,6 @@ async function LayoutContent({ children, lng }: { children: React.ReactNode; lng
       <MobileNavbar headerInfo={headerInfo} />
       <Navbar headerInfo={headerInfo} lng={lng as Language} />
       <main id='main-content' className='bg-body relative min-h-screen'>
-        {/* The boundary belongs around `{children}` only, not around the whole
-            tree. A <Suspense> returned by LayoutContent cannot defer
-            LayoutContent's own awaits above — those already resolved before
-            this JSX existed, so wrapping the navbar/footer in it achieves
-            nothing (RootLayout's <Suspense> around <LayoutContent> is what
-            actually defers this component). Wrapping only `{children}` is
-            what buys something real: the chrome streams as soon as the
-            header/footer queries resolve, instead of waiting on whatever
-            slower data the page underneath is fetching. */}
         <Suspense fallback={<></>}>{children}</Suspense>
       </main>
       <FooterContainer footerInfo={footerInfo} lng={lng as Language} />

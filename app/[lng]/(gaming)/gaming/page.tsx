@@ -37,12 +37,7 @@ async function GamingPageContent({ params }: { params: Promise<{ lng?: string }>
   return <GamingContent lng={lng} />;
 }
 
-// `getServerTranslation` resolves a dynamic `import()` of the locale JSON, which
-// under `cacheComponents` counts as uncached data reached outside a boundary and
-// made this route blocking. The page is static content keyed only on `lng`
-// (enumerated by the gaming layout's `generateStaticParams`), so it caches.
 async function GamingContent({ lng }: { lng: string }) {
-  'use cache';
   const { t } = await getServerTranslation(lng, 'gaming');
 
   return (

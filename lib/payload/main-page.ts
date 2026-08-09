@@ -22,9 +22,6 @@ const getMainPageInfo = async (lng: Language, opts?: { preview: boolean }) => {
 };
 
 const getMainPageInformation = async (lng: Language) => {
-  'use cache';
-  cacheLife('hours');
-  cacheTag(MAIN_PAGE_CACHE_TAG);
   return await getMainPageInfo(lng);
 };
 

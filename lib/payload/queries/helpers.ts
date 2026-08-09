@@ -58,9 +58,9 @@ const findPublishedCached = async <TSlug extends CollectionSlug>(
   locale: Language,
   depth?: number
 ) => {
-  'use cache';
-  cacheLife('hours');
-  cacheTag(`${collection}:${slug}`, `${collection}`);
+  // 'use cache';
+  // cacheLife('hours');
+  // cacheTag(`${collection}:${slug}`, `${collection}`);
   return findBySlug(collection, slug, locale, { depth, preview: false });
 };
 
