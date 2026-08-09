@@ -5,7 +5,8 @@ import type { Metadata } from 'next';
 import config from '@payload-config';
 import { RootPage, generatePageMetadata } from '@payloadcms/next/views';
 import { importMap } from '../importMap';
-import { connection } from 'next/server';
+
+export const instant = false;
 
 type Args = {
   params: Promise<{
@@ -19,9 +20,7 @@ type Args = {
 export const generateMetadata = ({ params, searchParams }: Args): Promise<Metadata> =>
   generatePageMetadata({ config, params, searchParams });
 
-const Page = async ({ params, searchParams }: Args) => {
-  await connection();
-  return RootPage({ config, params, searchParams, importMap });
-};
+const Page = async ({ params, searchParams }: Args) =>
+  RootPage({ config, params, searchParams, importMap });
 
 export default Page;
