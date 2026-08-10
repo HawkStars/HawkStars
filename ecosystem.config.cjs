@@ -22,6 +22,7 @@ module.exports = {
       restart_delay: 2000,
       watch: false,
       ignore_watch: ['node_modules', '.next', '.git', 'logs', 'public'],
+      max_memory_restart: '2048M',
       log_date_format: 'YYYY-MM-DD HH:mm:ss.SSS',
       env: {
         NODE_ENV: 'production',
