@@ -177,13 +177,13 @@ function CompactItem({ event }: { event: AgendaEventItem; linkLabel: string }) {
   return (
     <a
       href={event.href}
-      className='group flex items-center gap-4 rounded-lg border border-zinc-100 px-4 py-3 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/50'
+      className='group relative flex items-center gap-4 rounded-lg border border-zinc-100 px-4 py-3 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/50'
     >
       <LuCalendar className='h-4 w-4 shrink-0 text-zinc-400' />
       <span className='w-36 shrink-0 font-mono text-sm text-zinc-500 dark:text-zinc-400'>
         {dateStr}
       </span>
-      <span className='flex-1 font-medium text-zinc-900 group-hover:text-green-600 dark:text-zinc-100 dark:group-hover:text-green-400'>
+      <span className='absolute top-1 left-3 flex-1 font-medium text-zinc-900 group-hover:text-green-600 dark:text-zinc-100 dark:group-hover:text-green-400'>
         {event.heading}
       </span>
       {event.badge && <BadgeChip badge={event.badge} />}
