@@ -2,9 +2,9 @@ import * as Sentry from '@sentry/nextjs';
 import { Artwork, Curator } from '@/payload-types';
 import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
-import { cacheLife, cacheTag } from 'next/cache';
-import { ART_COLLECTION_CACHE_TAG } from '@/payload/collections/ArtCollection';
-import { CURATOR_CACHE_TAG } from '@/payload/collections/Curator';
+// import { cacheLife, cacheTag } from 'next/cache';
+// import { ART_COLLECTION_CACHE_TAG } from '@/payload/collections/ArtCollection';
+// import { CURATOR_CACHE_TAG } from '@/payload/collections/Curator';
 
 export const getSingleArtwork = async (slug: string, locale: Language): Promise<Artwork | null> => {
   try {
@@ -54,9 +54,9 @@ export const getSingleCuratorQuery = async (
 // boundary only keeps that hole from blocking the shell — it does not make the
 // hole cacheable, so these still had to be paid on every request.
 export const getAllArtworkImagesQuery = async (locale: Language) => {
-  'use cache';
-  cacheLife('hours');
-  cacheTag(ART_COLLECTION_CACHE_TAG);
+  // 'use cache';
+  // cacheLife('hours');
+  // cacheTag(ART_COLLECTION_CACHE_TAG);
 
   const payload = await getPayloadConfig();
   const artworks = await payload.find({ collection: 'artworks', limit: 100, locale });
@@ -64,9 +64,9 @@ export const getAllArtworkImagesQuery = async (locale: Language) => {
 };
 
 export const allCuratorsQuery = async (locale: Language) => {
-  'use cache';
-  cacheLife('hours');
-  cacheTag(CURATOR_CACHE_TAG);
+  // 'use cache';
+  // cacheLife('hours');
+  // cacheTag(CURATOR_CACHE_TAG);
 
   const payload = await getPayloadConfig();
   const curators = await payload.find({ collection: 'curators', limit: 100, locale });

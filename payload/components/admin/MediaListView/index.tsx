@@ -65,14 +65,19 @@ export default function MediaListView(props: ListViewClientProps) {
   }, [router, collectionSlug, bulkUploadDrawerSlug, openModal, setCollectionSlug, setOnSuccess]);
 
   useEffect(() => {
+    // Skip when rendered inside a picker drawer ("Choose from existing"): the
+    // drawer doesn't own the page's breadcrumbs, and this component has no way
+    // to restore whatever step nav the host page had once the drawer closes.
+    if (isInDrawer) return;
+
     setStepNav([
       {
         label:
-          ((labels?.plural as Record<string, string>)[language] as unknown as string) ||
+          ((labels?.plural as Record<string, string>)?.[language] as unknown as string) ||
           labels.plural,
       },
     ]);
-  }, [setStepNav, labels, i18n, language]);
+  }, [setStepNav, labels, i18n, language, isInDrawer]);
 
   const docs = (data?.docs as Media[]) || [];
 
@@ -85,7 +90,7 @@ export default function MediaListView(props: ListViewClientProps) {
               {/* Header */}
               <header className='flex flex-wrap items-center justify-between gap-4'>
                 <h1 className='m-0 text-2xl font-semibold'>
-                  {((labels?.plural as Record<string, string>)[language] as unknown as string) ??
+                  {((labels?.plural as Record<string, string>)?.[language] as unknown as string) ??
                     labels.plural}
                 </h1>
                 <div className='flex gap-2'>

@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { cacheLife, cacheTag } from 'next/cache';
+// import { cacheLife, cacheTag } from 'next/cache';
 import { getPayloadConfig } from '@/lib/payload/server';
 import { captureSentryMessage } from '@/lib/sentry/logs';
 import { checkRateLimit, getClientIp } from '@/utils/rateLimit';
@@ -82,13 +82,13 @@ class InstagramApiError extends Error {
  * doesn't get "stuck" for the cache lifetime — the next request tries again fresh.
  */
 async function fetchInstagramPosts(userId: string, token: string, limit: number) {
-  'use cache';
-  cacheLife({
-    stale: CACHE_DURATION_SECONDS,
-    revalidate: CACHE_DURATION_SECONDS,
-    expire: CACHE_DURATION_SECONDS * 2,
-  });
-  cacheTag('instagram');
+  // 'use cache';
+  // cacheLife({
+  //   stale: CACHE_DURATION_SECONDS,
+  //   revalidate: CACHE_DURATION_SECONDS,
+  //   expire: CACHE_DURATION_SECONDS * 2,
+  // });
+  // cacheTag('instagram');
 
   const fields =
     'id,caption,media_url,media_type,permalink,thumbnail_url,timestamp,like_count,comments_count';

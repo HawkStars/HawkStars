@@ -25,7 +25,7 @@ const AgendaPage = async (props: LanguagePageProps) => {
 };
 
 async function AgendaContent({ lng }: { lng: string }) {
-  'use cache';
+  // 'use cache';
   const { t } = await getServerTranslation(lng as Language, 'agenda');
 
   const translations = {

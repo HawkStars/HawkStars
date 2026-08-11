@@ -78,6 +78,28 @@ export function getOtherLocalesDocs(
   id: string | number | undefined,
   currentLocale: string
 ): { loading: boolean; docs: Record<LocaleCode, Record<string, unknown> | null> } {
+  // Guard against ever running on the server. This module holds a
+  // module-level singleton cache and fires real fetch() calls as a side
+  // effect of "reading" it. On the client that's fine (there's one cache per
+  // browser tab), but the admin UI's client components are also rendered
+  // once on the server to produce the initial HTML — and on the server that
+  // module state is a *process-wide* singleton shared across every
+  // request/document/user, not a per-request value. Letting this run there
+  // caused hydration mismatches (server saw a stale/resolved entry from an
+  // earlier request while the client's fresh cache was still loading) and
+  // would also let one document's fetch leak into another request's render.
+  // Callers (ShowInput) already defer invoking this until after mount, so
+  // this is a defense-in-depth backstop, not the primary fix.
+  if (typeof window === 'undefined') {
+    return {
+      loading: true,
+      docs: Object.fromEntries(ALL_LOCALES.map((l) => [l, null])) as Record<
+        LocaleCode,
+        Record<string, unknown> | null
+      >,
+    };
+  }
+
   if (!globalSlug && !id) {
     return {
       loading: false,

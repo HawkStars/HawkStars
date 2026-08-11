@@ -29,7 +29,7 @@ const GalleryPage = async (props: LanguagePageProps) => {
 // hits Payload, so it gets its own boundary below and streams independently —
 // otherwise the whole page would wait on that query before showing anything.
 async function GalleryContent({ lng }: { lng: string }) {
-  'use cache';
+  // 'use cache';
   const { t } = await getServerTranslation(lng as Language, 'art');
   return (
     <>

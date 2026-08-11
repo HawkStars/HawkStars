@@ -65,9 +65,6 @@
     @apply border-border outline-ring;
   }
 
-  /* A11Y-M4 (WCAG 2.2 SC 1.4.11 / 2.4.11): guarantee a visible focus indicator.
-     `--ring` is >= 3:1 against the page background — do not lower it, and do not
-     re-introduce an alpha modifier here (that is what made it ~1.6:1). */
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
@@ -365,13 +362,13 @@
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.53 0 0); /* A11Y-M5: was 0.556 = 4.34:1 on --muted; now ~4.8:1 */
+  --muted-foreground: oklch(0.53 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.6 0 0); /* A11Y-M4: was 0.708 = 2.59:1 on white; now ~3.7:1 */
+  --ring: oklch(0.6 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -407,7 +404,7 @@
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.708 0 0); /* A11Y-M4: 7.6:1 on the dark background */
+  --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);

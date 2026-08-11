@@ -10,7 +10,7 @@ import type {
 
 import { Language } from '@/i18n/settings';
 import { getPayloadConfig } from '../server';
-import { cacheLife, cacheTag } from 'next/cache';
+// import { cacheLife, cacheTag } from 'next/cache';
 
 type SlugQueryOptions = {
   preview?: boolean;
@@ -69,9 +69,9 @@ export const findGlobalCached = async <TSlug extends GlobalSlug>(
   locale: Language,
   depth?: number
 ) => {
-  'use cache';
-  cacheLife('hours');
-  cacheTag(`global:${slug}`);
+  // 'use cache';
+  // cacheLife('hours');
+  // cacheTag(`global:${slug}`);
   return findGlobalBySlug(slug, locale, { depth, preview: false });
 };
 

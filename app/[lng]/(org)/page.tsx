@@ -20,8 +20,6 @@ type HomeProps = {
   params: Promise<{ lng: Language }>;
 };
 
-export const instant = false;
-
 export default async function Home(props: HomeProps) {
   await connection();
   return <HomeContent params={props.params} />;

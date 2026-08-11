@@ -1,13 +1,13 @@
 import { Language } from '@/i18n/settings';
 import { getPayloadConfig } from '../server';
-import { cacheLife, cacheTag } from 'next/cache';
-import { HEADER_CACHE_TAG } from '@/payload/globals/Header/hooks/revalidateHeader';
-import { FOOTER_CACHE_TAG } from '@/payload/globals/Footer/hooks/revalidateFooter';
+// import { cacheLife, cacheTag } from 'next/cache';
+// import { HEADER_CACHE_TAG } from '@/payload/globals/Header/hooks/revalidateHeader';
+// import { FOOTER_CACHE_TAG } from '@/payload/globals/Footer/hooks/revalidateFooter';
 
 const getHeaderQuery = async (lng: Language) => {
-  'use cache';
-  cacheLife('weeks');
-  cacheTag(HEADER_CACHE_TAG);
+  // 'use cache';
+  // cacheLife('weeks');
+  // cacheTag(HEADER_CACHE_TAG);
 
   const payload = await getPayloadConfig();
   return await payload.findGlobal({
@@ -19,9 +19,9 @@ const getHeaderQuery = async (lng: Language) => {
 };
 
 const getFooterQuery = async (lng: Language) => {
-  'use cache';
-  cacheLife('weeks');
-  cacheTag(FOOTER_CACHE_TAG);
+  // 'use cache';
+  // cacheLife('weeks');
+  // cacheTag(FOOTER_CACHE_TAG);
 
   const payload = await getPayloadConfig();
   return await payload.findGlobal({

@@ -1,17 +1,17 @@
 import * as Sentry from '@sentry/nextjs';
-import { cacheLife, cacheTag } from 'next/cache';
+// import { cacheLife, cacheTag } from 'next/cache';
 import totalContributioValueQuery from '../endpoints/totalContributioValueQuery';
 import { getPayloadConfig } from '../server';
-import { CONTRIBUTION_CACHE_TAG } from '@/payload/collections/Contribution';
+// import { CONTRIBUTION_CACHE_TAG } from '@/payload/collections/Contribution';
 import { connection } from 'next/server';
 
 // The only contribution query that was left uncached, which is what kept
 // /contribute from prerendering while /transparency (same collection, cached
 // queries) was fine.
 export const getChairsContributionsQuery = async () => {
-  'use cache';
-  cacheLife('hours');
-  cacheTag(CONTRIBUTION_CACHE_TAG);
+  // 'use cache';
+  // cacheLife('hours');
+  // cacheTag(CONTRIBUTION_CACHE_TAG);
 
   const payload = await getPayloadConfig();
   const contributions = await payload.find({

@@ -186,7 +186,9 @@ function CompactItem({ event }: { event: AgendaEventItem; linkLabel: string }) {
       <span className='flex-1 font-medium text-zinc-900 group-hover:text-green-600 dark:text-zinc-100 dark:group-hover:text-green-400'>
         {event.heading}
       </span>
-      {event.badge && <BadgeChip badge={event.badge} />}
+      <div className='absolute top-2 left-4'>
+        {event.badge && <BadgeChip badge={event.badge} />}
+      </div>
       <LuArrowRight className='h-4 w-4 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5' />
     </a>
   );

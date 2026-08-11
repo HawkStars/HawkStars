@@ -11,8 +11,6 @@ type MainPageWrapperProps = {
   lng: Language;
 };
 
-export const instant = false;
-
 const MainPageWrapper: FC<MainPageWrapperProps> = async ({ lng }) => {
   const pageInformation = await getMainPageInformation(lng as Language);
 

@@ -8,7 +8,7 @@ import { ImageMedia } from '@/payload/components/Media';
 import { Media } from '@/payload-types';
 import RichText from '@/payload/components/RichText';
 import { Metadata } from 'next';
-import { cacheLife, cacheTag } from 'next/cache';
+// import { cacheLife, cacheTag } from 'next/cache';
 import { Suspense } from 'react';
 
 type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
@@ -23,9 +23,9 @@ type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
 // internally). Caching it, same as the artwork route, fixes the bailout and
 // lets both callers share one cached lookup instead of querying twice.
 const getCuratorInformation = async (slug: string, locale: Language) => {
-  'use cache';
-  cacheLife('hours');
-  cacheTag(`curators:${slug}`, 'curators');
+  // 'use cache';
+  // cacheLife('hours');
+  // cacheTag(`curators:${slug}`, 'curators');
   return getSingleCuratorQuery(slug, locale);
 };
 

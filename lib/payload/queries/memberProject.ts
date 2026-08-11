@@ -1,6 +1,6 @@
 import { getPayloadConfig } from '../server';
-import { cacheLife, cacheTag } from 'next/cache';
-import { MEMBER_PROJECT_CACHE_TAG } from '@/payload/collections/MemberProject';
+// import { cacheLife, cacheTag } from 'next/cache';
+// import { MEMBER_PROJECT_CACHE_TAG } from '@/payload/collections/MemberProject';
 
 const MEMBER_PROJECTS_COLLECTION = 'member_projects' as const;
 
@@ -26,9 +26,9 @@ export type MemberProjectDoc = {
  * Submitter contact details are intentionally not exposed here.
  */
 export const getConfirmedMemberProjects = async (): Promise<MemberProjectDoc[]> => {
-  'use cache';
-  cacheLife('hours');
-  cacheTag(MEMBER_PROJECT_CACHE_TAG);
+  // 'use cache';
+  // cacheLife('hours');
+  // cacheTag(MEMBER_PROJECT_CACHE_TAG);
   const payload = await getPayloadConfig();
   const result = await payload.find({
     collection: MEMBER_PROJECTS_COLLECTION,
