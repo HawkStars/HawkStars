@@ -183,7 +183,7 @@ function CompactItem({ event }: { event: AgendaEventItem; linkLabel: string }) {
       <span className='w-36 shrink-0 font-mono text-sm text-zinc-500 dark:text-zinc-400'>
         {dateStr}
       </span>
-      <span className='absolute top-1 left-3 flex-1 font-medium text-zinc-900 group-hover:text-green-600 dark:text-zinc-100 dark:group-hover:text-green-400'>
+      <span className='flex-1 font-medium text-zinc-900 group-hover:text-green-600 dark:text-zinc-100 dark:group-hover:text-green-400'>
         {event.heading}
       </span>
       {event.badge && <BadgeChip badge={event.badge} />}

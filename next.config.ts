@@ -34,7 +34,7 @@ const cspHeader = `
   object-src 'none';
   base-uri 'self';
   form-action 'self';
-  frame-ancestors 'none';
+  frame-ancestors 'self';
   frame-src 'self' *.google.com https://www.instagram.com/ https://upload-widget.cloudinary.com https://www.youtube.com https://www.youtube-nocookie.com/;
   connect-src 'self' *.google-analytics.com *.de.sentry.io https://browser.sentry-cdn.com ${isProd ? 'https://*.googleapis.com *.google.com https://stats.g.doubleclick.net https://*.gstatic.com data: blob:' : 'http://127.0.0.1:54321'};
   media-src 'self' https://www.youtube.com;
