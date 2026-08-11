@@ -26,26 +26,11 @@ const ShowInput: TextFieldClientComponent = (props) => {
   const locale = useLocale();
   const { id, globalSlug, collectionSlug } = useDocumentInfo();
 
-  // Payload's admin app SSRs this client component, then hydrates it in the
-  // browser. getOtherLocalesDocs() has a side effect (it kicks off a fetch()
-  // and reads/writes a module-level cache), so calling it unconditionally
-  // during render means the server and the freshly-hydrating client can
-  // observe different cache states and render different text ("en: empty"
-  // vs "Loading locale values...") for the exact same markup, which React
-  // then flags as a hydration mismatch. Deferring the read until after mount
-  // guarantees the server render and the client's pre-hydration render both
-  // show the same "loading" placeholder; the real values only appear once
-  // we're safely past hydration.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-
   // Force re-render when cache resolves
   const [, setTick] = useState(0);
   useEffect(() => subscribe(() => setTick((t) => t + 1)), []);
 
-  const { loading, docs } = mounted
-    ? getOtherLocalesDocs(globalSlug, collectionSlug, id, locale.code)
-    : { loading: true, docs: {} as Record<LocaleCode, Record<string, unknown> | null> };
+  const { loading, docs } = getOtherLocalesDocs(globalSlug, collectionSlug, id, locale.code);
 
   const getValueForLocale = useCallback(
     (loc: LocaleCode): string | null => {
