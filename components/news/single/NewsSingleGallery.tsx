@@ -6,6 +6,7 @@ import { Media, MultiImageType } from '@/payload-types';
 import { FC } from 'react';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { getImagePayloadUrl } from '@/lib/image';
 
 type NewsSingleGalleryProps = { gallery: MultiImageType | undefined };
 
@@ -26,32 +27,17 @@ const NewsSingleGallery: FC<NewsSingleGalleryProps> = ({ gallery }) => {
           </div>
           <div className='grid grid-cols-2 gap-3 md:grid-cols-3'>
             {galleryImages.map((image, i) => {
-              if (!image) return null;
-              let url: string | undefined;
-              let alt: string | undefined;
-              let width: number | undefined;
-              let height: number | undefined;
+              const galleryImage = getImagePayloadUrl(image);
 
-              if ('media' in image && image.media) {
-                const mediaImage = image.media as Media;
-                url = mediaImage.url || undefined;
-                alt = mediaImage.alt;
-                width = mediaImage.width || 600;
-                height = mediaImage.height || 400;
-              } else if ('url' in image && image.url) {
-                url = image.url;
-                alt = image.alt;
-              }
-
-              if (!url) return null;
+              if (!galleryImage) return null;
 
               return (
                 <div key={`image-${i}`} className='group relative overflow-hidden rounded-lg'>
                   <ImageMedia
-                    src={url}
-                    alt={alt || ''}
-                    width={width || 600}
-                    height={height || 400}
+                    src={galleryImage.url}
+                    alt={galleryImage.alt || ''}
+                    width={galleryImage.width || 600}
+                    height={galleryImage.width || 400}
                     className='aspect-auto h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
                     sizes='(max-width: 768px) 100vw, 33vw'
                     quality={85}
