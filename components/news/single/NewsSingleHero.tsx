@@ -33,7 +33,7 @@ const NewsSingleHero: FC<NewsSingleHeroProps> = ({ title, type, heroImage, publi
       spacing='loose'
     >
       <div className='flex w-full justify-center gap-1 max-lg:mx-3 max-lg:flex-col lg:gap-4 xl:max-w-6xl'>
-        <div className='flex flex-col justify-around gap-2 lg:max-w-1/2'>
+        <div className='flex flex-col justify-around gap-2 lg:max-w-1/2 lg:pl-4'>
           <HawkLabel type={type} className='mb-15' />
           <h1 className='text-h1_semibold text-white'>{title}</h1>
           {formattedDate && (

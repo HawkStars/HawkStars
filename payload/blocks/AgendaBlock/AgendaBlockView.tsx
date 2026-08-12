@@ -175,21 +175,17 @@ function CompactItem({ event }: { event: AgendaEventItem; linkLabel: string }) {
   const dateStr = formatEventDate(event.date, event.endDate, event.isDateRange);
 
   return (
-    <a
-      href={event.href}
-      className='group relative flex items-center gap-4 rounded-lg border border-zinc-100 px-4 py-3 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/50'
-    >
-      <LuCalendar className='h-4 w-4 shrink-0 text-zinc-400' />
-      <span className='w-36 shrink-0 font-mono text-sm text-zinc-500 dark:text-zinc-400'>
-        {dateStr}
-      </span>
-      <span className='flex-1 font-medium text-zinc-900 group-hover:text-green-600 dark:text-zinc-100 dark:group-hover:text-green-400'>
-        {event.heading}
-      </span>
-      <div className='absolute top-2 left-4'>
-        {event.badge && <BadgeChip badge={event.badge} />}
+    <a href={event.href} className='flex flex-col gap-2'>
+      {event.badge && <BadgeChip badge={event.badge} />}
+      <div className='group relative flex items-center gap-4 rounded-lg border border-zinc-100 px-4 py-3 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/50'>
+        <LuCalendar className='h-4 w-4 shrink-0 text-zinc-400' />
+        <span className='flex-1 font-mono text-sm text-zinc-500 dark:text-zinc-400'>{dateStr}</span>
+        <span className='flex-1 font-medium text-zinc-900 group-hover:text-green-600 dark:text-zinc-100 dark:group-hover:text-green-400'>
+          {event.heading}
+        </span>
+
+        <LuArrowRight className='h-4 w-4 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5' />
       </div>
-      <LuArrowRight className='h-4 w-4 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5' />
     </a>
   );
 }

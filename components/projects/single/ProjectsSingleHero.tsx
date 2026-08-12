@@ -28,6 +28,7 @@ type ProjectsSingleHeroProps = Pick<
   | 'startDate'
   | 'endDate'
   | 'infopack'
+  | 'coverImage'
 > & { lng?: Language };
 
 const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
@@ -41,6 +42,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
   endDate,
   location,
   infopack,
+  coverImage,
   lng: lngProp,
 }) => {
   const cookieLng = useLanguageCookie();

@@ -18,7 +18,10 @@ const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, refere
   return (
     <>
       {text && (
-        <HawkStarsSection padding='none' className='max-w-6xl flex-col py-6 lg:mx-auto lg:py-12'>
+        <HawkStarsSection
+          padding='none'
+          className='max-w-6xl flex-col py-6 lg:mx-auto lg:px-2 lg:py-12'
+        >
           <div className='mx-auto max-lg:flex max-lg:flex-col max-lg:gap-6 max-lg:px-3'>
             <RichTextWrapper data={text} />
           </div>
@@ -36,7 +39,7 @@ const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, refere
                     href={url}
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='text-green flex gap-3'
+                    className='text-green mb-1 flex gap-3'
                   >
                     {icon && (
                       <ImageMedia

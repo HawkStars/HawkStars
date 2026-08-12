@@ -37,10 +37,6 @@ export async function generateMetadata(props: ProjectPageProps): Promise<Metadat
 
 type ProjectPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
-// Same shape as the projects list and the curator route: a non-async shell that
-// opens the boundary, then a child that awaits `params` inside it. `[slug]` has
-// no `generateStaticParams`, so that await is a dynamic API and has to happen
-// under a <Suspense> or the route can never prerender a shell.
 const ProjectServerPage = (props: ProjectPageProps) => (
   <Suspense fallback={<></>}>
     <ProjectContent params={props.params} />
