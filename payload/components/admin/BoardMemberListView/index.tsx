@@ -22,6 +22,7 @@ import * as Sentry from '@sentry/nextjs';
 import { getMediaUrl } from '@/payload/utilities/getMediaUrl';
 import type { BoardMember, Media } from '@/payload-types';
 import { ImageMedia } from '@/payload/components/Media';
+import { getTranslation } from '@payloadcms/translations';
 
 const sectionLabels: Record<string, string> = {
   board: 'Direção',
@@ -161,7 +162,9 @@ export default function BoardMemberListView(props: ListViewClientProps) {
             <Gutter className='flex flex-col gap-6'>
               {/* Header */}
               <header className='flex flex-wrap items-center justify-between gap-4'>
-                <h1 className='m-0 text-2xl font-semibold'>{labels?.plural as string}</h1>
+                <h1 className='m-0 text-2xl font-semibold'>
+                  {getTranslation(labels.plural, i18n)}
+                </h1>
                 <div className='flex gap-2'>
                   {hasCreatePermission && newDocumentURL && (
                     <Link

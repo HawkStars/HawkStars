@@ -123,7 +123,7 @@ export const News: CollectionConfig = {
         beforeChange: [
           ({ data }) => {
             const slug = data?.slug;
-            if (!slug) return '';
+            if (!slug) return Math.random().toString(36).slice(2);
 
             const transformedSlug = transformSlug(data.slug);
             return transformedSlug;
@@ -142,6 +142,7 @@ export const News: CollectionConfig = {
           pt: 'Definido automaticamente quando o artigo é publicado',
         },
       },
+      defaultValue: Date.now(),
     },
   ],
   hooks: {

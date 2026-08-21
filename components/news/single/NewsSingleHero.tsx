@@ -2,6 +2,7 @@ import HawkLabel from '@/components/common/hawk-label';
 import { HawkStarsSection } from '@/components/layout';
 import { Language, toIntlLocale } from '@/i18n/settings';
 import { getImagePayloadUrl } from '@/lib/image';
+import { cn } from '@/lib/utils';
 
 import { News } from '@/payload-types';
 import { ImageMedia } from '@/payload/components/Media';
@@ -35,7 +36,13 @@ const NewsSingleHero: FC<NewsSingleHeroProps> = ({ title, type, heroImage, publi
       <div className='flex w-full justify-center gap-1 max-lg:mx-3 max-lg:flex-col lg:gap-4 xl:max-w-6xl'>
         <div className='flex flex-col justify-around gap-2 lg:max-w-1/2 lg:pl-4'>
           <HawkLabel type={type} className='mb-15' />
-          <h1 className='text-h1_semibold text-white'>{title}</h1>
+          <h1
+            className={cn('text-h1_semibold text-white', {
+              'mt-auto': !formattedDate,
+            })}
+          >
+            {title}
+          </h1>
           {formattedDate && (
             <p className='mt-3 mb-auto text-sm font-light text-white/70'>{formattedDate}</p>
           )}

@@ -1,30 +1,14 @@
 import type { HandleUpload, HandleDelete } from '@payloadcms/plugin-cloud-storage/types';
-import { auth, drive, drive_v3 } from '@googleapis/drive';
+import { drive_v3 } from '@googleapis/drive';
 
 import { Readable } from 'stream';
 import * as Sentry from '@sentry/nextjs';
-
-function getAuth() {
-  const oauth2Client = new auth.OAuth2({
-    client_id: process.env.GOOGLE_CLIENT_ID,
-    client_secret: process.env.GOOGLE_CLIENT_SECRET,
-    redirectUri: process.env.GOOGLE_REDIRECT_URI,
-  });
-  oauth2Client.setCredentials({
-    refresh_token: process.env.GOOGLE_REFRESH_TOKEN,
-  });
-  return oauth2Client;
-}
-
-function getDrive() {
-  return drive({ version: 'v3', auth: getAuth() });
-}
+import { getDrive } from './auth';
 
 async function createDriveFolder(
   drive: drive_v3.Drive,
   folderName: string
 ): Promise<string | null> {
-  // The metadata for the new folder.
   const folderMetadata = {
     name: folderName,
     mimeType: 'application/vnd.google-apps.folder',

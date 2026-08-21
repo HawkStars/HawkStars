@@ -89,9 +89,9 @@ const CrowdfundingPartners = ({ t, supporters }: Props) => {
                       </div>
                     )}
                     <p className='text-sm font-bold text-white'>{supporter.name}</p>
-                    {supporter.subname && (
+                    {supporter.value && (
                       <p className='mt-0.5 text-[10px] leading-tight text-gray-500'>
-                        {supporter.subname}
+                        {supporter.value}
                       </p>
                     )}
                   </div>

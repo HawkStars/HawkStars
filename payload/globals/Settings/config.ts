@@ -47,6 +47,17 @@ export const WebsiteSettings: GlobalConfig = {
             },
           },
         },
+        {
+          name: 'crowdfundingFileId',
+          label: { en: 'Drive File Id', pt: 'Ficheiro Drive' },
+          type: 'text',
+          admin: {
+            description: {
+              en: 'File Id that will be used to update the crowdfunding supporters.',
+              pt: 'Ficheiro ID que vai ser usado para dar update aos supporters do crowdfunding',
+            },
+          },
+        },
       ],
     },
   ],

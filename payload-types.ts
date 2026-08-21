@@ -2210,11 +2210,11 @@ export type EventsListStatsItem = {
 export type CrowdfundingSupporter =
   | {
       name: string;
-      /**
-       * Role, title, or short description (e.g. "Município de Pinhel").
-       */
-      subname?: string | null;
       type: 'person' | 'entity';
+      /**
+       * The amount contributed (EUR). Not shown publicly today — currently used for internal tracking, e.g. of contributions imported from the Drive supporters spreadsheet.
+       */
+      value?: number | null;
       /**
        * Optional logo or photo. If empty, the name initials will be shown.
        */
@@ -2481,8 +2481,7 @@ export interface Config {
     notifications: NotificationsSelect<false> | NotificationsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents':
-      PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -2521,6 +2520,7 @@ export interface Config {
     tasks: {
       refreshInstagramToken: TaskRefreshInstagramToken;
       cleanReadNotifications: TaskCleanReadNotifications;
+      importCrowdfundingSupporters: TaskImportCrowdfundingSupporters;
       schedulePublish: TaskSchedulePublish;
       inline: {
         input: unknown;
@@ -3928,8 +3928,7 @@ export interface HawkProject {
   /**
    * Select the type of project.
    */
-  project_type:
-    'youth_exchange' | 'training_course' | 'seminar' | 'partnership' | 'discover_eu' | 'other';
+  project_type: 'youth_exchange' | 'training_course' | 'seminar' | 'partnership' | 'discover_eu' | 'other';
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -4494,8 +4493,7 @@ export interface News {
         /**
          * Type of the reference link (website, social media, etc.)
          */
-        platform:
-          'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'website' | 'other';
+        platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'website' | 'other';
         /**
          * URL of the reference link
          */
@@ -4632,7 +4630,12 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'refreshInstagramToken' | 'cleanReadNotifications' | 'schedulePublish';
+        taskSlug:
+          | 'inline'
+          | 'refreshInstagramToken'
+          | 'cleanReadNotifications'
+          | 'importCrowdfundingSupporters'
+          | 'schedulePublish';
         taskID: string;
         input?:
           | {
@@ -4666,7 +4669,14 @@ export interface PayloadJob {
       }[]
     | null;
   taskSlug?:
-    ('inline' | 'refreshInstagramToken' | 'cleanReadNotifications' | 'schedulePublish') | null;
+    | (
+        | 'inline'
+        | 'refreshInstagramToken'
+        | 'cleanReadNotifications'
+        | 'importCrowdfundingSupporters'
+        | 'schedulePublish'
+      )
+    | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -6493,6 +6503,10 @@ export interface Setting {
    * Numeric user ID for the Instagram Graph API. Use the "Fetch from token" button to resolve it automatically once the access token above is saved.
    */
   instagramUserId?: string | null;
+  /**
+   * File Id that will be used to update the crowdfunding supporters.
+   */
+  crowdfundingFileId?: string | null;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -6794,6 +6808,7 @@ export interface EventsListStatsItemSelect<T extends boolean = true> {
 export interface SettingsSelect<T extends boolean = true> {
   instagramToken?: T;
   instagramUserId?: T;
+  crowdfundingFileId?: T;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -6839,8 +6854,8 @@ export interface CrowdfundingSettingsSelect<T extends boolean = true> {
  */
 export interface CrowdfundingSupporterSelect<T extends boolean = true> {
   name?: T;
-  subname?: T;
   type?: T;
+  value?: T;
   logo?: T;
   id?: T;
 }
@@ -6912,6 +6927,14 @@ export interface TaskCleanReadNotifications {
   output: {
     deletedCount?: number | null;
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskImportCrowdfundingSupporters".
+ */
+export interface TaskImportCrowdfundingSupporters {
+  input?: unknown;
+  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -7058,6 +7081,7 @@ export interface SeoFieldsSelect<T extends boolean = true> {
 export interface Auth {
   [k: string]: unknown;
 }
+
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

@@ -31,20 +31,6 @@ export const CrowdfundingSettingsSupportersTab: Tab = {
           required: true,
         },
         {
-          name: 'subname',
-          type: 'text',
-          label: {
-            pt: 'Subtítulo',
-            en: 'Subtitle',
-          },
-          admin: {
-            description: {
-              en: 'Role, title, or short description (e.g. "Município de Pinhel").',
-              pt: 'Função, título ou descrição curta (ex: "Município de Pinhel").',
-            },
-          },
-        },
-        {
           name: 'type',
           type: 'select',
           label: {
@@ -57,6 +43,20 @@ export const CrowdfundingSettingsSupportersTab: Tab = {
           ],
           defaultValue: 'entity',
           required: true,
+        },
+        {
+          name: 'value',
+          type: 'number',
+          label: {
+            pt: 'Valor',
+            en: 'Value',
+          },
+          admin: {
+            description: {
+              en: 'The amount contributed (EUR). Not shown publicly today — currently used for internal tracking, e.g. of contributions imported from the Drive supporters spreadsheet.',
+              pt: 'O valor contribuído (EUR). Não é mostrado publicamente hoje — usado atualmente para controlo interno, ex: de contribuições importadas da folha de cálculo de apoiantes no Drive.',
+            },
+          },
         },
         {
           name: 'logo',
