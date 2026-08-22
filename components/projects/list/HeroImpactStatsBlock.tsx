@@ -14,7 +14,7 @@ import { ImageType, LinkGroupItem } from '@/payload-types';
 import { HawkStarsSection } from '@/components/layout';
 
 type HeroImpactStatsBlockProps = {
-  title: string;
+  title?: string;
   subtitle?: string | null;
   badge?: string | null;
   heroImage?: ImageType;
