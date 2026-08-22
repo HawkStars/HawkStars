@@ -77,7 +77,7 @@ export async function importNewSupportersFromDrive(
   const buffer = await downloadWorkbookBuffer(fileId);
 
   const workbook = new ExcelJS.Workbook();
-  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await workbook.xlsx.load(buffer as any);
 
   const worksheet = workbook.worksheets[0];
