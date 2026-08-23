@@ -3,7 +3,6 @@ import * as Sentry from '@sentry/nextjs';
 
 export const dashboardStatsHandler: PayloadHandler = async (req) => {
   const { payload, user } = req;
-  debugger;
 
   // Admin dashboard data (collection counts, donation totals) must not be public.
   if (!user || !user.isAdmin) return Response.json({ error: 'Unauthorized' }, { status: 401 });

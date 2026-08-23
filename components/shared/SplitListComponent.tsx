@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { transformUrl, SITE_GET_URLS } from '@/utils/paths';
 import Link from 'next/link';
 import { ReactNode } from 'react';
+import { PaginatedDocs } from 'payload';
 
 type SplitListTranslations = {
   upcoming: string;
@@ -14,14 +15,17 @@ type SplitListTranslations = {
 };
 
 type SplitListProps<T> = {
-  items: { upcoming: T[]; past: T[] };
+  items: { upcoming: T[]; past: T[]; current?: PaginatedDocs<T> };
   lng: string;
   translations: SplitListTranslations;
   renderCard: (item: T, index: number) => ReactNode;
 };
 
 const SplitListComponent = <T,>({ items, lng, translations, renderCard }: SplitListProps<T>) => {
-  const { upcoming, past } = items;
+  const { upcoming, past, current } = items || {};
+  const { docs } = current || {};
+
+  debugger;
   const {
     upcoming: upcomingLabel,
     past: pastLabel,
@@ -43,6 +47,18 @@ const SplitListComponent = <T,>({ items, lng, translations, renderCard }: SplitL
           </Link>
         </Button>
       </div>
+
+      {/* Current Events */}
+      <section>
+        <h2 className='text-h2_semibold mb-6'>{upcomingLabel}</h2>
+        {docs?.length === 0 ? (
+          <p className='text-muted-foreground text-body_regular'>{noUpcoming}</p>
+        ) : (
+          <div className='flex flex-col gap-6'>
+            {docs?.map((item, idx) => renderCard(item, idx))}
+          </div>
+        )}
+      </section>
 
       {/* Upcoming */}
       <section>

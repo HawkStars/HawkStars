@@ -1,36 +1,33 @@
 import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
 import { findPublishedBySlug } from './helpers';
+import { HawkEvent } from '@/payload-types';
+import { PaginatedDocs, Where } from 'payload';
+import { customDateRangeQuery } from '@/lib/utils/date';
 // import { cacheLife, cacheTag } from 'next/cache';
 // import { HAWK_EVENT_CACHE_TAG } from '@/payload/collections/HawkEvent';
 
 const EVENTS_COLLECTION = 'hawk_events' as const;
 
-/**
- * The event pages access fields that predate the generated `HawkEvent` type, so
- * this stays a loose alias to avoid surfacing unrelated type debt here.
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type HawkEventDoc = Record<string, any>;
-
-export const getSingleHawkEventQuery = async (
+const getSingleHawkEventQuery = async (
   slug: string,
   locale: Language,
   opts: { preview: boolean } = { preview: false }
-): Promise<HawkEventDoc | null> => {
+): Promise<HawkEvent | null> => {
   const doc = await findPublishedBySlug(EVENTS_COLLECTION, slug, locale, {
     preview: opts?.preview,
     depth: 2,
   });
-  return doc as HawkEventDoc | null;
+  return doc as HawkEvent | null;
 };
 
-export type SplitHawkEventsResult = {
-  upcoming: HawkEventDoc[];
-  past: HawkEventDoc[];
+type SplitHawkEventsResult = {
+  upcoming: HawkEvent[];
+  past: HawkEvent[];
+  current: PaginatedDocs<HawkEvent>;
 };
 
-export const getHawkEventsSplitByDate = async (
+const getHawkEventsSplitByDate = async (
   locale: Language,
   opts: { preview: boolean } = { preview: false }
 ): Promise<SplitHawkEventsResult> => {
@@ -38,30 +35,110 @@ export const getHawkEventsSplitByDate = async (
   // cacheLife('hours');
   // cacheTag(HAWK_EVENT_CACHE_TAG);
 
-  const payload = await getPayloadConfig();
-  const now = new Date().toISOString();
-
-  const [upcomingResult, pastResult] = await Promise.all([
-    payload.find({
-      collection: EVENTS_COLLECTION,
-      where: { date: { greater_than_equal: now } },
-      sort: 'date',
-      limit: 100,
-      locale,
-      draft: opts.preview || false,
-    }),
-    payload.find({
-      collection: EVENTS_COLLECTION,
-      where: { date: { less_than: now } },
-      sort: '-date',
-      limit: 100,
-      locale,
-      draft: opts.preview || false,
-    }),
+  const [upcomingResult, pastResult, currentEvents] = await Promise.all([
+    getUpcomingEvents(locale, opts),
+    getPastEvents(locale, opts),
+    getCurrentEvents(locale, opts),
   ]);
 
   return {
     upcoming: upcomingResult.docs,
     past: pastResult.docs,
+    current: currentEvents,
   };
+};
+
+const getCurrentEvents = async (
+  locale: Language,
+  opts: { preview: boolean } = { preview: false }
+) => {
+  const payload = await getPayloadConfig();
+  const { startOfDay, endOfDay } = customDateRangeQuery();
+
+  const dayHappening: Where = {
+    and: [
+      { isDateRange: { equals: false } },
+      { date: { greater_than_equal: startOfDay.toISOString() } },
+      { date: { less_than_equal: endOfDay.toISOString() } },
+    ],
+  };
+
+  const inBetweenRangeDates: Where = {
+    and: [
+      { isDateRange: { equals: true } },
+      { date: { greater_than_equal: startOfDay.toISOString() } },
+      { endDate: { less_than_equal: endOfDay.toISOString() } },
+    ],
+  };
+
+  return payload.find({
+    collection: EVENTS_COLLECTION,
+    where: { or: [dayHappening, inBetweenRangeDates] },
+    sort: 'date',
+    limit: 100,
+    locale,
+    draft: opts.preview || false,
+  });
+};
+
+const getUpcomingEvents = async (
+  locale: Language,
+  opts: { preview: boolean } = { preview: false }
+) => {
+  const payload = await getPayloadConfig();
+  const { endOfDay } = customDateRangeQuery();
+
+  const greaterThanToday: Where = {
+    and: [{ isDateRange: { equals: false } }, { date: { greater_than: endOfDay.toISOString() } }],
+  };
+
+  const greaterThanTodayRange: Where = {
+    and: [
+      { isDateRange: { equals: true } },
+      { date: { greater_than: endOfDay.toDateString() } },
+      { endDate: { greater_than: endOfDay.toDateString() } },
+    ],
+  };
+
+  return payload.find({
+    collection: EVENTS_COLLECTION,
+    where: { or: [greaterThanToday, greaterThanTodayRange] },
+    sort: 'date',
+    limit: 100,
+    locale,
+    draft: opts.preview || false,
+  });
+};
+
+const getPastEvents = async (locale: Language, opts: { preview: boolean } = { preview: false }) => {
+  const payload = await getPayloadConfig();
+  const { startOfDay } = customDateRangeQuery();
+
+  const beforeToday: Where = {
+    and: [{ isDateRange: { equals: false } }, { date: { less_than: startOfDay.toISOString() } }],
+  };
+
+  const beforeTodayRange: Where = {
+    and: [
+      { isDateRange: { equals: true } },
+      { date: { less_than: startOfDay.toDateString() } },
+      { endDate: { less_than: startOfDay.toDateString() } },
+    ],
+  };
+
+  return payload.find({
+    collection: EVENTS_COLLECTION,
+    where: { or: [beforeToday, beforeTodayRange] },
+    sort: '-date',
+    limit: 100,
+    locale,
+    draft: opts.preview || false,
+  });
+};
+
+export {
+  getCurrentEvents,
+  getSingleHawkEventQuery,
+  getHawkEventsSplitByDate,
+  type SplitHawkEventsResult,
 };

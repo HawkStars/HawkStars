@@ -102,6 +102,15 @@ export default buildConfig({
     fallbackLanguage: 'pt',
   },
   admin: {
+    timezones: {
+      supportedTimezones: [
+        {
+          label: 'Europe/London',
+          value: 'Europe/London',
+        },
+      ],
+      defaultTimezone: 'Europe/London',
+    },
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
@@ -200,6 +209,7 @@ export default buildConfig({
     url: process.env.DATABASE_URI || 'mongodb://localhost:27017/hawkstars',
     migrationDir: path.resolve(dirname, 'payload/migrations'),
   }),
+
   email:
     process.env.NODE_ENV === 'production'
       ? nodemailerAdapter({
