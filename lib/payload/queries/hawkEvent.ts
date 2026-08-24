@@ -53,7 +53,7 @@ const getCurrentEvents = async (
   opts: { preview: boolean } = { preview: false }
 ) => {
   const payload = await getPayloadConfig();
-  const { startOfDay, endOfDay } = customDateRangeQuery();
+  const { startOfDay, endOfDay, now } = customDateRangeQuery();
 
   const dayHappening: Where = {
     and: [
@@ -66,8 +66,8 @@ const getCurrentEvents = async (
   const inBetweenRangeDates: Where = {
     and: [
       { isDateRange: { equals: true } },
-      { date: { greater_than_equal: startOfDay.toISOString() } },
-      { endDate: { less_than_equal: endOfDay.toISOString() } },
+      { date: { less_than_equal: now } },
+      { endDate: { greater_than_equal: now } },
     ],
   };
 

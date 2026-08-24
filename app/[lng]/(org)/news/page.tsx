@@ -41,18 +41,17 @@ const NewsListContent = async ({
 }) => {
   const [{ lng }, resolvedSearchParams] = await Promise.all([params, searchParams]);
   const page = resolvedSearchParams.page ? Number(resolvedSearchParams.page) : 1;
-  const projectSlug =
-    typeof resolvedSearchParams.project === 'string' ? resolvedSearchParams.project : undefined;
+  const limitNews = resolvedSearchParams.limit ? Number(resolvedSearchParams.limit) : 10;
 
   const [newsListHeader, news] = await Promise.all([
     getNewsListHeader(lng as Language),
-    getNewsQuery(page, lng as Language, projectSlug),
+    getNewsQuery(lng as Language, { page, limit: limitNews }),
   ]);
 
   return (
     <>
       <NewsListHeader title={newsListHeader?.title || 'News'} subtitle={newsListHeader?.subtitle} />
-      <NewsListComponent news={news} lng={lng} projectSlug={projectSlug} />
+      <NewsListComponent news={news} lng={lng} />
     </>
   );
 };

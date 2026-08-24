@@ -15,16 +15,14 @@ import { useTranslation } from '@/i18n/client';
 type NewsListProps = {
   news: PaginatedDocs<News>;
   lng: string;
-  projectSlug?: string;
 };
 
-const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {
+const NewsListComponent = ({ news, lng }: NewsListProps) => {
   const { t } = useTranslation(lng, 'common');
-  const { docs, totalPages, page, hasPrevPage, hasNextPage } = news || {};
-  const projectParam = projectSlug ? `&project=${projectSlug}` : '';
+  const { docs, totalPages, page, hasPrevPage, hasNextPage, limit } = news || {};
 
   return (
-    <HawkStarsSection className='py-10 lg:py-14'>
+    <HawkStarsSection className='flex-col py-10 lg:py-14'>
       <div className='flex w-full flex-col gap-6'>
         {docs &&
           docs.map((article, articleIndex) => {
@@ -65,12 +63,12 @@ const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {
 
       {totalPages > 1 && (
         <nav
-          className='mt-10 flex items-center justify-center gap-2'
+          className='mt-10 flex items-center justify-between gap-2'
           aria-label={t('pagination.label')}
         >
           {hasPrevPage && (
             <Link
-              href={`${transformUrl(lng, SITE_GET_URLS.news)}?page=${(page ?? 1) - 1}${projectParam}`}
+              href={`${transformUrl(lng, SITE_GET_URLS.news, { page: (page ?? 1) - 1, limit: limit })}`}
               className='rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100'
             >
               ← {t('pagination.previous')}
@@ -81,7 +79,7 @@ const NewsListComponent = ({ news, lng, projectSlug }: NewsListProps) => {
           </span>
           {hasNextPage && (
             <Link
-              href={`${transformUrl(lng, SITE_GET_URLS.news)}?page=${(page ?? 1) + 1}${projectParam}`}
+              href={`${transformUrl(lng, SITE_GET_URLS.news, { page: (page ?? 1) + 1, limit: limit })}`}
               className='rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100'
             >
               {t('pagination.next')} →

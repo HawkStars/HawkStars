@@ -25,7 +25,6 @@ const SplitListComponent = <T,>({ items, lng, translations, renderCard }: SplitL
   const { upcoming, past, current } = items || {};
   const { docs } = current || {};
 
-  debugger;
   const {
     upcoming: upcomingLabel,
     past: pastLabel,

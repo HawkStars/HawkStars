@@ -91,7 +91,7 @@ export const ImageMedia: React.FC<NextImageProps> = (props) => {
       // or responsive images (grids, hero) should pass an explicit `sizes`.
       sizes={sizes}
       src={src as StaticImageData | string}
-      unoptimized={unoptimized}
+      unoptimized={unoptimized ?? false}
       onClick={onClick}
       onLoad={onLoad}
       preload={preload}

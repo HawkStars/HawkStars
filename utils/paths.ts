@@ -45,9 +45,21 @@ export type HawkStarsPaths = keyof typeof SITE_GET_URLS;
  *
  */
 
-export const transformUrl = (lng: string, url: string) => {
+export const transformUrl = (
+  lng: string,
+  url: string,
+  searchParams?: { [key: string]: string | number }
+) => {
   if (!lng) return url;
-  return `/${lng}${url}`;
+
+  const link = new URL(`${process.env.NEXT_PUBLIC_APP_URL}/${lng}${url}`);
+  if (!searchParams) return link.pathname;
+
+  for (let [param, value] of Object.entries(searchParams)) {
+    link.searchParams.append(param, String(value));
+  }
+
+  return link.pathname + link.search;
 };
 
 /**
