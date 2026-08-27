@@ -96,8 +96,8 @@ importers:
         specifier: ~1.7.1
         version: 1.7.1
       cloudinary:
-        specifier: ^2.10.0
-        version: 2.10.0
+        specifier: ^2.10.1
+        version: 2.10.1
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -3804,8 +3804,8 @@ packages:
     resolution: {integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==}
     engines: {node: '>=12'}
 
-  cloudinary@2.10.0:
-    resolution: {integrity: sha512-sY09kYg7wprkndAOjZBAYqFZqwL+SxnEGcAvksOvFA+5upnFn949UjkEkHKNSwkBtW/xRDd0p6NgbSXZcxkI3w==}
+  cloudinary@2.10.1:
+    resolution: {integrity: sha512-0aqF/sGwm2dSM/Xse87EI5OpKcuX/hwoPPdUDTdUal6GMPKevtElcI3spcaeuzJJbcLkY3vJaF22q0u50VO5Lw==}
     engines: {node: '>=9'}
 
   clsx@2.1.1:
@@ -10976,7 +10976,7 @@ snapshots:
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
 
-  cloudinary@2.10.0:
+  cloudinary@2.10.1:
     dependencies:
       lodash: 4.18.1
 

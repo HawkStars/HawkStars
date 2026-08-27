@@ -49,7 +49,7 @@
     "accept-language": "^3.0.20",
     "class-variance-authority": "^0.7.1",
     "classname-variants": "~1.7.1",
-    "cloudinary": "^2.10.0",
+    "cloudinary": "^2.10.1",
     "clsx": "^2.1.1",
     "colord": "^2.9.3",
     "country-flag-icons": "^1.6.20",
