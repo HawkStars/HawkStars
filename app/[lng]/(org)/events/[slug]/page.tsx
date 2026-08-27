@@ -8,6 +8,7 @@ import EventPage from '@/components/events/EventPage';
 import { EventJsonLd } from '@/components/seo/JsonLd';
 import { BASE_URL } from '@/lib/constants';
 import { Suspense } from 'react';
+import { getImagePayloadUrl } from '@/lib/image';
 
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
   const params = await props.params;
@@ -16,10 +17,12 @@ export async function generateMetadata(props: EventPageProps): Promise<Metadata>
   const event = await getSingleHawkEventQuery(slug, lng as Language);
   if (!event) return getMetadataPageInfo(lng as Language, 'events');
 
+  const image = getImagePayloadUrl(event.image);
+
   return prepareMetadataInfo({
-    title: event.meta?.title ?? event.title ?? event.name,
-    description: event.meta?.description ?? event.description,
-    image: event.meta?.image ?? event.coverImage ?? event.image,
+    title: event.heading || '',
+    description: event.subheading || event.description,
+    image: image?.url,
     urlPath: `/events/${slug}`,
     lng: lng as Language,
   });
@@ -42,16 +45,18 @@ const EventContent = async ({ params }: { params: EventPageProps['params'] }) =>
   const event = await getSingleHawkEventQuery(slug, lng);
   if (!event) notFound();
 
+  const image = await getImagePayloadUrl(event.image);
+
   return (
     <>
       <EventJsonLd
-        name={event.title ?? event.name ?? slug}
-        description={event.description ?? event.meta?.description}
-        startDate={event.date ?? event.startDate ?? event.createdAt}
+        name={event.heading ?? slug}
+        description={event.description || ''}
+        startDate={event.date ?? event.createdAt}
         endDate={event.endDate ?? undefined}
-        location={event.location ?? event.place ?? undefined}
+        location={undefined}
         url={`${BASE_URL}/${lng}/events/${slug}`}
-        image={event.coverImage?.url ?? event.image?.url ?? undefined}
+        image={image?.url ?? undefined}
       />
       <EventPage event={event} lng={lng} />
     </>

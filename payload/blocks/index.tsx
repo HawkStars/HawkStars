@@ -33,6 +33,7 @@ import { CampaignCountdownBlock } from './CampaignCountdownBlock/config';
 import { DonationProgressBlock } from './DonationProgressBlock/config';
 import { DonationWidgetBlock } from './DonationWidgetBlock/config';
 import { NewsletterSignupBlock } from './NewsletterSignupBlock/config';
+import { OfferCatalogBlock } from './OfferCatalogBlock/config';
 import { PricingTableBlock } from './PricingTableBlock/config';
 import { ResourceDownloadBlock } from './ResourceDownloadBlock/config';
 
@@ -87,6 +88,7 @@ const DefaultBlocks = [
   DonationProgressBlock,
   DonationWidgetBlock,
   NewsletterSignupBlock,
+  OfferCatalogBlock,
   PricingTableBlock,
   ResourceDownloadBlock,
 

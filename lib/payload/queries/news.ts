@@ -19,7 +19,7 @@ export const getSingleNewsSlug = async (
 
 export const getNewsQuery = async (
   locale: Language,
-  opts: PayloadQueryParams
+  opts?: PayloadQueryParams
 ): Promise<PaginatedDocs<News>> => {
   // 'use cache';
   // cacheLife('hours');

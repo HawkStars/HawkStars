@@ -5,9 +5,12 @@ export const DataGridBlock: React.FC<DataGridBlockProps> = ({
   title,
   columnOneHeader,
   columnTwoHeader,
+  columnThreeHeader,
   rows,
   sectionId,
 }) => {
+  const hasThirdColumn = Boolean(columnThreeHeader);
+
   return (
     <HawkStarsSection
       spacing='default'
@@ -27,6 +30,9 @@ export const DataGridBlock: React.FC<DataGridBlockProps> = ({
             <tr className='bg-bege-dark border-bege-light border-b'>
               <th className='px-6 py-4 text-center text-sm font-semibold'>{columnOneHeader}</th>
               <th className='px-6 py-4 text-center text-sm font-semibold'>{columnTwoHeader}</th>
+              {hasThirdColumn && (
+                <th className='px-6 py-4 text-center text-sm font-semibold'>{columnThreeHeader}</th>
+              )}
             </tr>
           </thead>
           <tbody className='text-body'>
@@ -35,7 +41,18 @@ export const DataGridBlock: React.FC<DataGridBlockProps> = ({
                 <td className='border-r-bege-dark border-r px-6 py-4 text-center text-sm'>
                   {row.columnOne}
                 </td>
-                <td className='px-6 py-4 text-center text-sm'>{row.columnTwo}</td>
+                <td
+                  className={
+                    hasThirdColumn
+                      ? 'border-r-bege-dark border-r px-6 py-4 text-center text-sm'
+                      : 'px-6 py-4 text-center text-sm'
+                  }
+                >
+                  {row.columnTwo}
+                </td>
+                {hasThirdColumn && (
+                  <td className='px-6 py-4 text-center text-sm'>{row.columnThree}</td>
+                )}
               </tr>
             ))}
           </tbody>

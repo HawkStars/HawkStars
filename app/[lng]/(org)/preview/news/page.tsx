@@ -23,7 +23,7 @@ export default async function PreviewNewsList(props: HomeProps) {
 
   const [newsListHeader, news] = await Promise.all([
     getNewsListHeader(lng as Language, true),
-    getNewsQuery(page, lng as Language),
+    getNewsQuery(lng as Language, { page }),
   ]);
 
   if (!newsListHeader) return null;

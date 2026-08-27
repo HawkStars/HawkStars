@@ -11,10 +11,12 @@ import { transformUrl, SITE_GET_URLS } from '@/utils/paths';
 import { HawkStarsSection } from '@/components/layout';
 import { NewsTypeLabels } from '../constants';
 import { useTranslation } from '@/i18n/client';
+import LandingPagination from '@/components/utils/Pagination';
+import { Language } from '@/i18n/settings';
 
 type NewsListProps = {
   news: PaginatedDocs<News>;
-  lng: string;
+  lng: Language;
 };
 
 const NewsListComponent = ({ news, lng }: NewsListProps) => {
@@ -62,30 +64,16 @@ const NewsListComponent = ({ news, lng }: NewsListProps) => {
       </div>
 
       {totalPages > 1 && (
-        <nav
-          className='mt-10 flex items-center justify-between gap-2'
-          aria-label={t('pagination.label')}
-        >
-          {hasPrevPage && (
-            <Link
-              href={`${transformUrl(lng, SITE_GET_URLS.news, { page: (page ?? 1) - 1, limit: limit })}`}
-              className='rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100'
-            >
-              ← {t('pagination.previous')}
-            </Link>
-          )}
-          <span className='text-muted-foreground text-sm'>
-            {t('pagination.pageOf', { page, total: totalPages })}
-          </span>
-          {hasNextPage && (
-            <Link
-              href={`${transformUrl(lng, SITE_GET_URLS.news, { page: (page ?? 1) + 1, limit: limit })}`}
-              className='rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100'
-            >
-              {t('pagination.next')} →
-            </Link>
-          )}
-        </nav>
+        <LandingPagination
+          t={t}
+          hasPrevPage={hasPrevPage}
+          hasNextPage={hasNextPage}
+          lng={lng}
+          page={page}
+          totalPages={totalPages}
+          url={SITE_GET_URLS.news}
+          limit={limit}
+        />
       )}
     </HawkStarsSection>
   );

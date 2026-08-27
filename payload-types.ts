@@ -185,6 +185,40 @@ export type SimpleGalleryBlockImage = {
   id?: string | null;
 }[];
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OfferCatalogItem".
+ */
+export type OfferCatalogItem = {
+  /**
+   * e.g. "Sala de Formação 1", "Pacote 2 dias casal"
+   */
+  name: string;
+  /**
+   * Optional extra detail (e.g. size options, what is included)
+   */
+  description?: string | null;
+  /**
+   * Free text so ranges/prefixes work, e.g. "Desde 250 €", "40.000 €"
+   */
+  price: string;
+  /**
+   * Optional badge text (e.g. "Exclusivo", "Mais Popular")
+   */
+  badge?: string | null;
+  id?: string | null;
+}[];
+/**
+ * Categories of offers (e.g. "Naming Walls", "Rewilding Portugal")
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OfferCatalogGroup".
+ */
+export type OfferCatalogGroup = {
+  groupLabel: string;
+  items: OfferCatalogItem;
+  id?: string | null;
+}[];
+/**
  * Pricing tiers (up to 4)
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -349,6 +383,10 @@ export type DataGridBlockRow = {
    * Value for the second column
    */
   columnTwo: string;
+  /**
+   * Optional value for the third column
+   */
+  columnThree?: string | null;
   id?: string | null;
 }[];
 /**
@@ -2379,6 +2417,7 @@ export interface Config {
     donationProgress: DonationProgressBlock;
     donationWidget: DonationWidgetBlock;
     newsletterSignup: NewsletterSignupBlock;
+    offerCatalog: OfferCatalogBlock;
     pricingTable: PricingTableBlock;
     resourceDownload: ResourceDownloadBlock;
     logosBlock: LogosBlock;
@@ -2630,6 +2669,7 @@ export interface Page {
         | DonationProgressBlock
         | DonationWidgetBlock
         | NewsletterSignupBlock
+        | OfferCatalogBlock
         | PricingTableBlock
         | ResourceDownloadBlock
         | LogosBlock
@@ -3330,6 +3370,32 @@ export interface NewsletterSignupBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OfferCatalogBlock".
+ */
+export interface OfferCatalogBlock {
+  /**
+   * Section title
+   */
+  title?: string | null;
+  /**
+   * Optional section subtitle or description
+   */
+  subtitle?: string | null;
+  /**
+   * Background color for the section
+   */
+  background: 'white' | 'bege' | 'green';
+  groups: OfferCatalogGroup;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'offerCatalog';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "PricingTableBlock".
  */
 export interface PricingTableBlock {
@@ -3645,6 +3711,10 @@ export interface DataGridBlock {
    * Header for the second column
    */
   columnTwoHeader: string;
+  /**
+   * Optional header for a third column. Leave empty to render a 2-column grid.
+   */
+  columnThreeHeader?: string | null;
   rows: DataGridBlockRow;
   /**
    * Unique identifier for the section (used for anchor links)
@@ -5253,6 +5323,7 @@ export interface PagesSelect<T extends boolean = true> {
         donationProgress?: T | DonationProgressBlockSelect<T>;
         donationWidget?: T | DonationWidgetBlockSelect<T>;
         newsletterSignup?: T | NewsletterSignupBlockSelect<T>;
+        offerCatalog?: T | OfferCatalogBlockSelect<T>;
         pricingTable?: T | PricingTableBlockSelect<T>;
         resourceDownload?: T | ResourceDownloadBlockSelect<T>;
         logosBlock?: T | LogosBlockSelect<T>;
@@ -5802,6 +5873,39 @@ export interface NewsletterSignupBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OfferCatalogBlock_select".
+ */
+export interface OfferCatalogBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  background?: T;
+  groups?: T | OfferCatalogGroupSelect<T>;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OfferCatalogGroup_select".
+ */
+export interface OfferCatalogGroupSelect<T extends boolean = true> {
+  groupLabel?: T;
+  items?: T | OfferCatalogItemSelect<T>;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OfferCatalogItem_select".
+ */
+export interface OfferCatalogItemSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  price?: T;
+  badge?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "PricingTableBlock_select".
  */
 export interface PricingTableBlockSelect<T extends boolean = true> {
@@ -6014,6 +6118,7 @@ export interface DataGridBlockSelect<T extends boolean = true> {
   title?: T;
   columnOneHeader?: T;
   columnTwoHeader?: T;
+  columnThreeHeader?: T;
   rows?: T | DataGridBlockRowSelect<T>;
   sectionId?: T;
   id?: T;
@@ -6026,6 +6131,7 @@ export interface DataGridBlockSelect<T extends boolean = true> {
 export interface DataGridBlockRowSelect<T extends boolean = true> {
   columnOne?: T;
   columnTwo?: T;
+  columnThree?: T;
   id?: T;
 }
 /**

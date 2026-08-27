@@ -52,6 +52,7 @@ import { FAQBlock } from '@/payload/blocks/FAQBlock/Component';
 import { ImageComparisonSliderBlock } from '@/payload/blocks/ImageComparisonSliderBlock/Component';
 import { MapLocationBlock } from '@/payload/blocks/MapLocationBlock/Component';
 import { NewsletterSignupBlock } from '@/payload/blocks/NewsletterSignupBlock/Component';
+import { OfferCatalogBlock } from '@/payload/blocks/OfferCatalogBlock/Component';
 import { PricingTableBlock } from '@/payload/blocks/PricingTableBlock/Component';
 import { QuoteHighlightBlock } from '@/payload/blocks/QuoteHighlightBlock/Component';
 import { ResourceDownloadBlock } from '@/payload/blocks/ResourceDownloadBlock/Component';
@@ -116,6 +117,7 @@ const blockComponents: Record<string, ComponentType<any>> = {
   imageComparisonSlider: ImageComparisonSliderBlock,
   mapLocation: MapLocationBlock,
   newsletterSignup: NewsletterSignupBlock,
+  offerCatalog: OfferCatalogBlock,
   pricingTable: PricingTableBlock,
   quoteHighlight: QuoteHighlightBlock,
   resourceDownload: ResourceDownloadBlock,

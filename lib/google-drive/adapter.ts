@@ -2,7 +2,7 @@ import type { HandleUpload, HandleDelete } from '@payloadcms/plugin-cloud-storag
 import { drive_v3 } from '@googleapis/drive';
 
 import { Readable } from 'stream';
-import * as Sentry from '@sentry/nextjs';
+import { captureException, captureMessage } from '@/lib/sentry/cli-client';
 import { getDrive } from './auth';
 
 async function createDriveFolder(
@@ -87,7 +87,7 @@ export const googleDriveAdapter = () => ({
       file.filesize = Number(response.data.size) || file.filesize;
       return file;
     } catch (error) {
-      Sentry.captureException(error, {});
+      captureException(error, {});
       throw error; // Re-throw so Payload does not save the document with the original filename
     }
   },
@@ -98,7 +98,7 @@ export const googleDriveAdapter = () => ({
       // filename holds the Google Drive file ID
       await drive.files.delete({ fileId: filename });
     } catch (error) {
-      Sentry.captureException(error);
+      captureException(error);
     }
   },
 
@@ -122,7 +122,7 @@ function isGoogleDriveFileId(value: string): boolean {
  */
 export async function generateGoogleDriveURL(fileId: string): Promise<string> {
   if (!fileId || !isGoogleDriveFileId(fileId)) {
-    Sentry.captureMessage(
+    captureMessage(
       `[Google Drive] Invalid file ID: "${fileId}". ` +
         'This document may have been uploaded before Google Drive was configured, or the upload failed.'
     );
@@ -132,7 +132,7 @@ export async function generateGoogleDriveURL(fileId: string): Promise<string> {
   try {
     return `https://drive.google.com/uc?id=${fileId}`;
   } catch (error) {
-    Sentry.captureException(error);
+    captureException(error);
     return '';
   }
 }

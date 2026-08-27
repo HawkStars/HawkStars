@@ -45,6 +45,19 @@ export const DataGridBlock: Block = {
       },
     },
     {
+      name: 'columnThreeHeader',
+      type: 'text',
+      label: { en: 'Column 3 Header (optional)', pt: 'Cabeçalho da Coluna 3 (opcional)' },
+      required: false,
+      localized: true,
+      admin: {
+        description: {
+          en: 'Optional header for a third column. Leave empty to render a 2-column grid.',
+          pt: 'Cabeçalho opcional para uma terceira coluna. Deixe vazio para uma grelha de 2 colunas.',
+        },
+      },
+    },
+    {
       name: 'rows',
       type: 'array',
       label: { en: 'Rows', pt: 'Linhas' },
@@ -79,6 +92,19 @@ export const DataGridBlock: Block = {
           localized: true,
           admin: {
             description: { en: 'Value for the second column', pt: 'Valor da segunda coluna' },
+          },
+        },
+        {
+          name: 'columnThree',
+          type: 'text',
+          label: { en: 'Column 3 (optional)', pt: 'Coluna 3 (opcional)' },
+          required: false,
+          localized: true,
+          admin: {
+            description: {
+              en: 'Optional value for the third column',
+              pt: 'Valor opcional para a terceira coluna',
+            },
           },
         },
       ],
