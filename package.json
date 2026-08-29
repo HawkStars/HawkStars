@@ -102,7 +102,7 @@
     "@vitest/browser-playwright": "^4.1.11",
     "@vitest/coverage-v8": "^4.1.11",
     "chromatic": "^18.4.0",
-    "eslint": "^10.8.1",
+    "eslint": "^10.9.1",
     "eslint-config-next": "~16.3.1",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
