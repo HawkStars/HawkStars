@@ -24,11 +24,13 @@ const meta = {
   },
   tags: ['autodocs'],
   decorators: [
-    (Story) => (
-      <div className='h-[500px] w-full p-4'>
-        <Story />
-      </div>
-    ),
+    (Story) => {
+      return (
+        <div className='h-125 w-full p-4'>
+          <Story />
+        </div>
+      );
+    },
   ],
 } satisfies Meta<typeof Map>;
 

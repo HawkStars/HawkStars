@@ -89,9 +89,18 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
  * it. Every block converter shares the exact same shape — spread `node.fields`
  * into the component — so the converters are generated from this map by
  * `blockConverter` below instead of being hand-written 40+ times.
+ *
+ * This is a function, not a top-level object, on purpose. Some blocks (e.g.
+ * ContentWithImage, GlobalVillageAboutSection) render RichText themselves, so
+ * this module and those modules form an import cycle. If the registry were
+ * built during module evaluation it would read those bindings while they are
+ * still in the temporal dead zone whenever the cycle is entered from the block
+ * side — the "Cannot access 'X' before initialization" crash seen in
+ * Storybook. Building it lazily defers every binding read to first render,
+ * by which point all modules in the cycle are fully initialized.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const blockComponents: Record<string, ComponentType<any>> = {
+const getBlockComponents = (): Record<string, ComponentType<any>> => ({
   mediaBlock: MediaBlock,
   cta: CallToActionBlock,
   hero: HeroBlock,
@@ -137,7 +146,7 @@ const blockComponents: Record<string, ComponentType<any>> = {
   sectionTitleBlock: SectionTitleBlockComponent,
   sectionListBlock: SectionListBlockComponent,
   stepsBlock: StepsBlockComponent,
-};
+});
 
 // Turn one registry entry into a block converter: render the component with the
 // block's fields as props. These are Lexical converter callbacks, not React
@@ -147,15 +156,25 @@ const blockConverter =
   // eslint-disable-next-line react/display-name
   ({ node }: { node: SerializedBlockNode }) => <Component {...node.fields} />;
 
-const blockConverters = Object.fromEntries(
-  Object.entries(blockComponents).map(([slug, Component]) => [slug, blockConverter(Component)])
-);
+// Built once, on first render, then cached — converter identities must stay
+// stable across renders or React would remount every block on each update.
+let blockConvertersCache: Record<string, ReturnType<typeof blockConverter>> | null = null;
+
+const getBlockConverters = () => {
+  blockConvertersCache ??= Object.fromEntries(
+    Object.entries(getBlockComponents()).map(([slug, Component]) => [
+      slug,
+      blockConverter(Component),
+    ])
+  );
+  return blockConvertersCache;
+};
 
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
   inlineBlocks: {},
-  blocks: blockConverters,
+  blocks: getBlockConverters(),
   list: List,
   listitem: ListItem,
   paragraph: Paragraph,

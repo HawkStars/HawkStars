@@ -9,11 +9,13 @@ const meta = {
   },
   tags: ['autodocs'],
   decorators: [
-    (Story) => (
-      <div className='bg-crowdfunding-bg p-10'>
-        <Story />
-      </div>
-    ),
+    (Story) => {
+      return (
+        <div className='bg-crowdfunding-bg p-10'>
+          <Story />
+        </div>
+      );
+    },
   ],
 } satisfies Meta<typeof ShareButton>;
 

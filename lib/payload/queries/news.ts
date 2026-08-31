@@ -19,7 +19,7 @@ export const getSingleNewsSlug = async (
 
 export const getNewsQuery = async (
   locale: Language,
-  opts?: PayloadQueryParams
+  opts?: PayloadQueryParams & { type?: News['type'] }
 ): Promise<PaginatedDocs<News>> => {
   // 'use cache';
   // cacheLife('hours');
@@ -28,10 +28,10 @@ export const getNewsQuery = async (
   // entry, not just publishing a news article.
   // cacheTag(NEWS_CACHE_TAG, HAWK_PROJECT_CACHE_TAG);
 
-  const { page, limit } = opts || { page: 1, limit: 10 };
+  const { page, limit, type } = opts || { page: 1, limit: 10 };
   const payload = await getPayloadConfig();
 
-  const where: Where = {};
+  const where: Where = type ? { type: { equals: type } } : {};
 
   return await payload.find({
     collection: NEWS_COLLECTION,

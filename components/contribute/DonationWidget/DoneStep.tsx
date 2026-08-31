@@ -65,7 +65,7 @@ const DoneStep = ({ donationState, paymentResponse, onReset }: DoneStepProps) =>
       )}
 
       {donationState.frequency === 'monthly' && (
-        <p className='text-center text-xs text-[#888]'>
+        <p className='text-center text-xs text-gray-700'>
           {t('donation_widget.done.subscription_note')}
         </p>
       )}

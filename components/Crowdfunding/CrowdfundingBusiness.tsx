@@ -70,7 +70,7 @@ const CrowdfundingBusiness = ({ businessCtaUrl, t }: Props) => {
               </p>
               <a
                 href={businessCtaUrl || '#support'}
-                className='mt-6 inline-flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600'
+                className='mt-6 inline-flex items-center gap-2 rounded-full bg-orange-800 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600'
               >
                 {t('business.cta')}
               </a>
@@ -103,7 +103,7 @@ const CrowdfundingBusiness = ({ businessCtaUrl, t }: Props) => {
                 clipRule='evenodd'
               />
             </svg>
-            <p className='text-xs leading-relaxed text-gray-500'>{t('business.disclaimer')}</p>
+            <p className='text-xs leading-relaxed text-gray-400'>{t('business.disclaimer')}</p>
           </div>
         </div>
       </div>

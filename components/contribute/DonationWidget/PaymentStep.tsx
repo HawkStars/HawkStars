@@ -78,7 +78,7 @@ const PaymentStep = ({
       </p>
 
       {isSubscription && (
-        <p className='text-center text-xs text-[#888]'>
+        <p className='text-center text-xs text-gray-700'>
           {t('donation_widget.payment.subscription_note')}
         </p>
       )}

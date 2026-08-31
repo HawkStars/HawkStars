@@ -39,7 +39,7 @@ const CrowdfundingHero = ({
       <div className='relative mx-auto flex max-w-7xl flex-col gap-8 px-4 py-16 lg:flex-row lg:items-center lg:gap-12 lg:px-8 lg:py-24'>
         {/* Left content */}
         <div className='flex flex-1 flex-col gap-6'>
-          <span className='font-oswald w-fit rounded bg-orange-500 px-3 py-1 text-xs font-bold tracking-widest text-white uppercase'>
+          <span className='font-oswald w-fit rounded bg-orange-700 px-3 py-1 text-xs font-bold tracking-widest text-white uppercase'>
             {t('hero.badge')}
           </span>
 
@@ -55,7 +55,7 @@ const CrowdfundingHero = ({
           <div className='flex flex-wrap gap-3'>
             <a
               href={supportUrl || '#support'}
-              className='flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600'
+              className='flex items-center gap-2 rounded-full bg-orange-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600'
             >
               <svg className='h-4 w-4' fill='currentColor' viewBox='0 0 20 20'>
                 <path d='M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z' />

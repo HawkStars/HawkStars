@@ -13,6 +13,8 @@ import { NewsTypeLabels } from '../constants';
 import { useTranslation } from '@/i18n/client';
 import LandingPagination from '@/components/utils/Pagination';
 import { Language } from '@/i18n/settings';
+import { cn } from '@/lib/utils';
+import ListFilters from '@/components/utils/ListFilters';
 
 type NewsListProps = {
   news: PaginatedDocs<News>;
@@ -25,42 +27,47 @@ const NewsListComponent = ({ news, lng }: NewsListProps) => {
 
   return (
     <HawkStarsSection className='flex-col py-10 lg:py-14'>
-      <div className='flex w-full flex-col gap-6'>
-        {docs &&
-          docs.map((article, articleIndex) => {
-            const image = getImagePayloadUrl(article.mainImage);
-            const articleUrl = transformUrl(lng, `${SITE_GET_URLS.news}/${article.slug}`);
+      {/* <ListFilters on /> */}
+      <div className='grid gap-x-1 gap-y-5 lg:grid-cols-3'>
+        {docs?.map((article, articleIndex) => {
+          const image = getImagePayloadUrl(article.mainImage);
+          const articleUrl = transformUrl(lng, `${SITE_GET_URLS.news}/${article.slug}`);
 
-            return (
-              <article key={article.id} className='border-bege-dark flex border-b-2'>
-                <Link href={articleUrl} className='relative flex w-full gap-2'>
-                  <div className='flex flex-1 flex-col gap-3 p-5'>
-                    <div className='flex items-center gap-2'>
-                      <Badge variant='secondary'>{NewsTypeLabels[article.type]}</Badge>
-                      {article.publishedAt && (
-                        <span className='text-muted-foreground text-xs'>
-                          {format(new Date(article.publishedAt), 'MMM d, yyyy')}
-                        </span>
-                      )}
-                    </div>
-                    <h2 className='line-clamp-2 text-lg font-semibold'>{article.title}</h2>
+          return (
+            <article key={article.id}>
+              <Link
+                href={articleUrl}
+                className={cn('group flex h-full flex-col overflow-hidden rounded-xl', {
+                  'bg-bege-light': !image,
+                })}
+              >
+                <div className='relative aspect-4/3 w-full overflow-hidden'>
+                  <ImageMedia
+                    resource={article.mainImage}
+                    alt={image?.alt || article.title}
+                    fill
+                    className='ml-auto object-contain'
+                    preload={articleIndex <= 2}
+                    sizes='(max-width: 1024px) 100vw, 33vw'
+                  />
+                </div>
+                <div className='flex flex-1 flex-col gap-3 p-5'>
+                  <div className='flex items-center gap-2'>
+                    <Badge variant='outline'>{NewsTypeLabels[article.type]}</Badge>
+                    {article.publishedAt && (
+                      <span className='text-muted-foreground text-xs'>
+                        {format(new Date(article.publishedAt), 'MMM d, yyyy')}
+                      </span>
+                    )}
                   </div>
-                  {image?.url && (
-                    <div className='relative h-24 w-32 shrink-0 self-center lg:h-28 lg:w-40'>
-                      <ImageMedia
-                        resource={article.mainImage}
-                        alt={image.alt || article.title}
-                        fill
-                        className='object-cover'
-                        preload={articleIndex === 0}
-                        sizes='(max-width: 1024px) 128px, 160px'
-                      />
-                    </div>
-                  )}
-                </Link>
-              </article>
-            );
-          })}
+                  <h2 className='line-clamp-2 text-lg font-semibold group-hover:underline'>
+                    {article.title}
+                  </h2>
+                </div>
+              </Link>
+            </article>
+          );
+        })}
       </div>
 
       {totalPages > 1 && (

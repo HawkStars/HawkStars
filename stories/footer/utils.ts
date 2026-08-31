@@ -6,6 +6,7 @@ const createFooterLink = (label: string, url: string = '#') => ({
     label,
     url,
     newTab: false,
+    visible: true,
   },
 });
 

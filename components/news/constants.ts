@@ -7,3 +7,5 @@ export const NewsTypeLabels: Record<News['type'], string> = {
   announcement: 'Announcement',
   other: 'Other',
 };
+
+export type NewsType = News['type'];

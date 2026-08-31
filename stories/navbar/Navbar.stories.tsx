@@ -347,13 +347,15 @@ export const WithProjectsDropdown: Story = {
 
 export const MultipleDropdowns: Story = {
   decorators: [
-    (Story) => (
-      <AppProvider lng='en'>
-        <div className='min-h-100'>
-          <Story />
-        </div>
-      </AppProvider>
-    ),
+    (Story) => {
+      return (
+        <AppProvider lng='en'>
+          <div className='min-h-100'>
+            <Story />
+          </div>
+        </AppProvider>
+      );
+    },
   ],
   args: {
     headerInfo: {
