@@ -55,7 +55,7 @@ export const transformUrl = (
   const link = new URL(`${process.env.NEXT_PUBLIC_APP_URL}/${lng}${url}`);
   if (!searchParams) return link.pathname;
 
-  for (let [param, value] of Object.entries(searchParams)) {
+  for (const [param, value] of Object.entries(searchParams)) {
     link.searchParams.append(param, String(value));
   }
 
