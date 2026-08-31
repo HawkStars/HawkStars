@@ -127,8 +127,8 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
                   className={cn(
                     'absolute inset-0 flex items-center justify-center text-sm font-semibold text-gray-900 transition-colors duration-200 ease-in',
                     {
-                      'text-white': theme != 'gradient' && progress > 50,
-                      'text-black': theme != 'gradient' && progress <= 50,
+                      'text-white': (theme != 'gradient' && progress > 50) || theme == 'dark',
+                      'text-black': theme != 'dark' && progress <= 50,
                     }
                   )}
                 >
