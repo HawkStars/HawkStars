@@ -39,7 +39,7 @@ export const getNewsQuery = async (
     locale,
     limit: limit ?? 10,
     page: page ?? 1,
-    sort: '-publishedAt',
+    sort: 'publishedAt',
     depth: 1,
   });
 };

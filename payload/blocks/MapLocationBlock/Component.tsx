@@ -38,6 +38,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
               style={{ border: 0 }}
               src={`https://www.openstreetmap.org/export/embed.html?bbox=${longitude - 0.01},${latitude - 0.01},${longitude + 0.01},${latitude + 0.01}&layer=mapnik&marker=${latitude},${longitude}`}
               allowFullScreen
+              aria-label='map'
             />
           </div>
         </div>

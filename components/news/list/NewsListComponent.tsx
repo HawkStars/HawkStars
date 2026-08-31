@@ -14,7 +14,6 @@ import { useTranslation } from '@/i18n/client';
 import LandingPagination from '@/components/utils/Pagination';
 import { Language } from '@/i18n/settings';
 import { cn } from '@/lib/utils';
-import ListFilters from '@/components/utils/ListFilters';
 
 type NewsListProps = {
   news: PaginatedDocs<News>;
@@ -25,11 +24,15 @@ const NewsListComponent = ({ news, lng }: NewsListProps) => {
   const { t } = useTranslation(lng, 'common');
   const { docs, totalPages, page, hasPrevPage, hasNextPage, limit } = news || {};
 
+  debugger;
+  const docsWithImage = docs.filter((doc) => !!doc.mainImage?.image);
+  const docsWithoutImage = docs.filter((doc) => !doc.mainImage?.image);
+
   return (
     <HawkStarsSection className='flex-col py-10 lg:py-14'>
       {/* <ListFilters on /> */}
       <div className='grid gap-x-1 gap-y-5 lg:grid-cols-3'>
-        {docs?.map((article, articleIndex) => {
+        {docsWithImage?.map((article, articleIndex) => {
           const image = getImagePayloadUrl(article.mainImage);
           const articleUrl = transformUrl(lng, `${SITE_GET_URLS.news}/${article.slug}`);
 
@@ -51,6 +54,33 @@ const NewsListComponent = ({ news, lng }: NewsListProps) => {
                     sizes='(max-width: 1024px) 100vw, 33vw'
                   />
                 </div>
+                <div className='flex flex-1 flex-col gap-3 p-5'>
+                  <div className='flex items-center gap-2'>
+                    <Badge variant='outline'>{NewsTypeLabels[article.type]}</Badge>
+                    {article.publishedAt && (
+                      <span className='text-muted-foreground text-xs'>
+                        {format(new Date(article.publishedAt), 'MMM d, yyyy')}
+                      </span>
+                    )}
+                  </div>
+                  <h2 className='line-clamp-2 text-lg font-semibold group-hover:underline'>
+                    {article.title}
+                  </h2>
+                </div>
+              </Link>
+            </article>
+          );
+        })}
+      </div>
+      <div>
+        {docsWithoutImage?.map((article) => {
+          const articleUrl = transformUrl(lng, `${SITE_GET_URLS.news}/${article.slug}`);
+          return (
+            <article key={article.id}>
+              <Link
+                href={articleUrl}
+                className={cn('group flex h-full flex-col overflow-hidden rounded-xl')}
+              >
                 <div className='flex flex-1 flex-col gap-3 p-5'>
                   <div className='flex items-center gap-2'>
                     <Badge variant='outline'>{NewsTypeLabels[article.type]}</Badge>
