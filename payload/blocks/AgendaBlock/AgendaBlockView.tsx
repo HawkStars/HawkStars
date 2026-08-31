@@ -240,7 +240,7 @@ function CardItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
 
         <a
           href={event.href}
-          className='mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-medium text-green-600 transition-colors hover:text-green-700 hover:underline dark:text-green-400 dark:hover:text-green-300'
+          className='mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-medium text-green-700 transition-colors hover:text-green-800 hover:underline dark:text-green-400 dark:hover:text-green-300'
         >
           {linkLabel}
           <LuArrowRight className='h-3.5 w-3.5' />

@@ -97,7 +97,7 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
                       key={item.id || itemIndex}
                       className={cn('flex list-none items-start justify-center lg:justify-start')}
                     >
-                      <span className='text-sm opacity-80'>{item.text}</span>
+                      <span className='text-sm opacity-90'>{item.text}</span>
                     </li>
                   ))}
                 </ul>

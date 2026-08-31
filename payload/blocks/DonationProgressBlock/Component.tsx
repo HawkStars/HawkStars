@@ -123,7 +123,14 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
                 style={{ width: `${progress}%` }}
               />
               {showPercentage && (
-                <div className='absolute inset-0 flex items-center justify-center text-sm font-semibold text-gray-900'>
+                <div
+                  className={cn(
+                    'absolute inset-0 flex items-center justify-center text-sm font-semibold text-gray-900',
+                    {
+                      'text-white': theme == 'dark',
+                    }
+                  )}
+                >
                   {Math.round(progress)}%
                 </div>
               )}
