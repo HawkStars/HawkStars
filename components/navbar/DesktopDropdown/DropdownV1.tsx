@@ -54,31 +54,29 @@ const FeaturedLinkCard: React.FC<LinkProps> = ({ link, navbarVariant }) => {
   const ImageElement = getDropdownImageElement(link, 'rounded-lg');
 
   return (
-    <>
-      <HawkLinkComponent
-        link={link.link}
-        className={cn(
-          'group relative flex min-h-30 w-56 flex-col justify-end overflow-hidden rounded-xl p-4 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl',
-          { 'bg-linear-to-br from-green-800 to-green-950': imageType !== 'image' }
-        )}
-      >
-        {/* Background image or gradient overlay */}
-        {ImageElement && imageType === 'image' && (
-          <div className='absolute inset-0 duration-300'>
-            <div className='relative h-full w-full'>{ImageElement}</div>
-          </div>
-        )}
+    <HawkLinkComponent
+      link={link.link}
+      className={cn(
+        'group relative flex min-h-30 w-56 flex-col justify-end overflow-hidden rounded-xl p-4 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl',
+        { 'bg-linear-to-br from-green-800 to-green-950': imageType !== 'image' }
+      )}
+    >
+      {/* Background image or gradient overlay */}
+      {ImageElement && imageType === 'image' && (
+        <div className='absolute inset-0 duration-300'>
+          <div className='relative h-full w-full'>{ImageElement}</div>
+        </div>
+      )}
 
-        {/* Icon overlay */}
-        {ImageElement && imageType === 'icon' && (
-          <div className='absolute top-3 right-3 text-white/60 transition-transform duration-300 group-hover:scale-110 group-hover:text-white/90'>
-            {ImageElement}
-          </div>
-        )}
+      {/* Icon overlay */}
+      {ImageElement && imageType === 'icon' && (
+        <div className='absolute top-3 right-3 text-white/60 transition-transform duration-300 group-hover:scale-110 group-hover:text-white/90'>
+          {ImageElement}
+        </div>
+      )}
 
-        {/* Hover shine effect */}
-        <div className='absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent transition-transform duration-500 group-hover:translate-x-full' />
-      </HawkLinkComponent>
+      {/* Hover shine effect */}
+      <div className='absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent transition-transform duration-500 group-hover:translate-x-full' />
 
       <div className='relative z-10 w-fit'>
         <h4
@@ -93,7 +91,7 @@ const FeaturedLinkCard: React.FC<LinkProps> = ({ link, navbarVariant }) => {
           <p className='mt-1 line-clamp-2 text-sm text-white/80'>{link.description}</p>
         )}
       </div>
-    </>
+    </HawkLinkComponent>
   );
 };
 

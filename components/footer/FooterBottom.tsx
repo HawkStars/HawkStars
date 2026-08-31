@@ -17,7 +17,7 @@ const FooterBottom = ({ lng }: FooterBottomProps) => {
   return (
     <div className='mt-10 grid grid-cols-1 pb-3 lg:mt-0 lg:grid-cols-2 lg:border-t lg:px-2 lg:pt-1'>
       <div className='mt-auto mb-2 flex px-2 max-lg:flex-col max-lg:justify-between max-lg:gap-4 lg:order-2 lg:my-auto lg:ml-auto'>
-        <Link href={SITE_GET_URLS.terms} className='mr-2 -mb-1 text-neutral-400'>
+        <Link href={SITE_GET_URLS.terms} className='mr-2 -mb-1 text-neutral-700'>
           {t('terms_and_conditions')}
         </Link>
         <div data-testid='socials-footer' className='flex gap-1'>
@@ -32,7 +32,7 @@ const FooterBottom = ({ lng }: FooterBottomProps) => {
             href={'https://dribbble.com/Rossellini'}
             target='_blank'
             rel='noopener noreferrer'
-            className='text-sm text-blue-300'
+            className='text-sm text-blue-600'
           >
             @Rodrigo Rosselini
           </Link>
@@ -44,7 +44,7 @@ const FooterBottom = ({ lng }: FooterBottomProps) => {
             href={'https://www.linkedin.com/in/pcardosolei/'}
             target='_blank'
             rel='noopener noreferrer'
-            className='text-sm text-blue-300'
+            className='text-sm text-blue-600'
           >
             @Paulo Cardoso
           </Link>

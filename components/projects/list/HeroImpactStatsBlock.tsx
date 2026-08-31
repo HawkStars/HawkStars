@@ -95,7 +95,11 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
               {(primaryCTAInfo || secondaryCTAInfo) && (
                 <div className='flex flex-col gap-4 sm:flex-row'>
                   {primaryCTAInfo && (
-                    <Button size='lg' className='bg-green-600 hover:bg-green-700' asChild>
+                    <Button
+                      size='lg'
+                      className='bg-green-700 text-white hover:bg-green-800'
+                      asChild
+                    >
                       <a
                         href={primaryCTAInfo.url}
                         target={primaryCTAInfo.newTab ? '_blank' : undefined}

@@ -87,7 +87,7 @@ const CrowdfundingRewards = ({ t, supportUrl, rewardTiers }: Props) => {
                   {iconMap[tier.icon || 'heart'] || iconMap.heart}
                 </div>
                 <h3 className='text-sm font-bold text-white uppercase'>{tier.title}</h3>
-                {tier.subtitle && <p className='mb-4 text-xs text-gray-500'>{tier.subtitle}</p>}
+                {tier.subtitle && <p className='mb-4 text-xs text-gray-400'>{tier.subtitle}</p>}
                 {tier.items && tier.items.length > 0 && (
                   <div className='flex flex-col gap-2'>
                     {tier.items.map((item) => (
@@ -146,7 +146,7 @@ const CrowdfundingRewards = ({ t, supportUrl, rewardTiers }: Props) => {
 
             <a
               href={supportUrl || '#support'}
-              className='clear-both ml-auto flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600'
+              className='clear-both ml-auto flex items-center gap-2 rounded-full bg-orange-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-800'
             >
               {t('rewards.cta_all')}
             </a>
