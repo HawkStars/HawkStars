@@ -105,11 +105,11 @@ function ListItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
             <span className='text-sm font-medium text-zinc-500 uppercase dark:text-zinc-400'>
               {new Date(event.date).toLocaleDateString('pt-PT', { month: 'short' })}
             </span>
-            <span className='text-xs text-zinc-400 dark:text-zinc-500'>
+            <span className='dark:text-bege-light text-xs text-gray-700'>
               {new Date(event.date).getFullYear()}
             </span>
             {event.isDateRange && event.endDate && (
-              <span className='mt-1 text-xs text-zinc-400 dark:text-zinc-500'>
+              <span className='mt-1 text-xs text-gray-800 dark:text-white'>
                 →{' '}
                 {new Date(event.endDate).toLocaleDateString('pt-PT', {
                   day: 'numeric',
@@ -146,7 +146,7 @@ function ListItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
 
         <a
           href={event.href}
-          className='mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-green-600 transition-colors hover:text-green-700 hover:underline dark:text-green-400 dark:hover:text-green-300'
+          className='mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-green-700 transition-colors hover:text-green-800 hover:underline dark:text-green-400 dark:hover:text-green-300'
         >
           {linkLabel}
           <LuArrowRight className='h-3.5 w-3.5' />

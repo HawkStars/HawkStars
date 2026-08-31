@@ -24,7 +24,6 @@ const NewsListComponent = ({ news, lng }: NewsListProps) => {
   const { t } = useTranslation(lng, 'common');
   const { docs, totalPages, page, hasPrevPage, hasNextPage, limit } = news || {};
 
-  debugger;
   const docsWithImage = docs.filter((doc) => !!doc.mainImage?.image);
   const docsWithoutImage = docs.filter((doc) => !doc.mainImage?.image);
 

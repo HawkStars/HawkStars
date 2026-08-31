@@ -24,7 +24,7 @@ const NewsSingleHeroNoImage: FC<NewsSingleHeroProps> = ({ title, type, published
       <div className='mx-auto max-w-6xl'>
         <HawkLabel type={type} className='mb-15' design='badge' />
         <h1 className='text-h1_semibold text-white'>{title}</h1>
-        {formattedDate && <p className='mt-3 text-sm font-light text-white/70'>{formattedDate}</p>}
+        {formattedDate && <p className='mt-3 text-sm font-light text-white/95'>{formattedDate}</p>}
       </div>
     </HawkStarsSection>
   );
