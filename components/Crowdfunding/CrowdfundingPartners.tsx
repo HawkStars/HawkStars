@@ -98,7 +98,7 @@ const CrowdfundingPartners = ({ t, supporters }: Props) => {
                 );
               })
             ) : (
-              <p className='text-sm text-gray-500'>{t('partners.no_supporters')}</p>
+              <p className='text-sm text-gray-400'>{t('partners.no_supporters')}</p>
             )}
           </div>
         </div>
