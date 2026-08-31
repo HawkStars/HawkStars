@@ -84,13 +84,13 @@ const CrowdfundingPartners = ({ t, supporters }: Props) => {
                             />
                           </svg>
                         ) : (
-                          <span>{getInitials(supporter.name)}</span>
+                          <span className='text-orange-400'>{getInitials(supporter.name)}</span>
                         )}
                       </div>
                     )}
                     <p className='text-sm font-bold text-white'>{supporter.name}</p>
                     {supporter.value && (
-                      <p className='mt-0.5 text-[10px] leading-tight text-gray-500'>
+                      <p className='mt-0.5 text-xs leading-tight text-gray-400'>
                         {supporter.value}
                       </p>
                     )}

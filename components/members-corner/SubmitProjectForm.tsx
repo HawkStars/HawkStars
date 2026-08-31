@@ -154,10 +154,16 @@ const SubmitProjectForm = ({ lng }: SubmitProjectFormProps) => {
         rules={{ required: t('form.required') }}
         render={({ field: { onChange, value } }) => (
           <div className='flex flex-col gap-2'>
-            <label className='text-body_semibold'>{t('form.language_label')}</label>
+            <label className='text-body_semibold' htmlFor='submit-project-language'>
+              {t('form.language_label')}
+            </label>
             <p className='-my-1'>{t('form.language_hint')}</p>
             <Select value={value} onValueChange={onChange}>
-              <SelectTrigger>
+              {/* The trigger renders role="combobox": per ARIA, that role takes its
+                  accessible name from an explicit label association, not from its
+                  visible text content, so it needs this id <-> htmlFor pairing
+                  even though a sighted user can already see the label above it. */}
+              <SelectTrigger id='submit-project-language'>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

@@ -186,7 +186,7 @@ const FormContributions = ({
 
           return (
             <Select name='type' onValueChange={handleContributionType} defaultValue={value}>
-              <SelectTrigger>
+              <SelectTrigger aria-label={t('form.type_placeholder')}>
                 <SelectValue placeholder={t('form.type_placeholder')} />
               </SelectTrigger>
               <SelectContent>

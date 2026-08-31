@@ -58,7 +58,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
               <LuPhone className='h-6 w-6 shrink-0 text-green-600' />
               <div>
                 <h3 className='mb-1 font-semibold'>Phone</h3>
-                <a href={`tel:${phone}`} className='text-green-600 hover:underline'>
+                <a href={`tel:${phone}`} className='text-green-700 hover:underline'>
                   {phone}
                 </a>
               </div>
@@ -70,7 +70,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
               <LuMail className='h-6 w-6 shrink-0 text-green-600' />
               <div>
                 <h3 className='mb-1 font-semibold'>Email</h3>
-                <a href={`mailto:${email}`} className='text-green-600 hover:underline'>
+                <a href={`mailto:${email}`} className='text-green-700 hover:underline'>
                   {email}
                 </a>
               </div>

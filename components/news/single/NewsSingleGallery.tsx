@@ -2,7 +2,7 @@
 
 import { HawkStarsSection } from '@/components/layout';
 import { ImageMedia } from '@/payload/components/Media';
-import { Media, MultiImageType } from '@/payload-types';
+import { MultiImageType } from '@/payload-types';
 import { FC } from 'react';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';

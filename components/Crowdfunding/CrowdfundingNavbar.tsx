@@ -55,7 +55,7 @@ const CrowdfundingNavbar = () => {
           {/* Support CTA */}
           <a
             href='#rewards'
-            className='rounded-full bg-orange-500 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-orange-600'
+            className='rounded-full bg-orange-700 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-orange-800'
           >
             {t('nav.support')}
           </a>

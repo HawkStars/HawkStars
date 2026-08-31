@@ -69,7 +69,10 @@ const CrowdfundingUpdates = ({ t, updateCards }: Props) => {
             })}
 
             <div className='flex shrink-0 items-center'>
-              <button className='flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white transition hover:bg-white/10'>
+              <button
+                aria-label='support'
+                className='flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white transition hover:bg-white/10'
+              >
                 <svg
                   className='h-5 w-5'
                   fill='none'

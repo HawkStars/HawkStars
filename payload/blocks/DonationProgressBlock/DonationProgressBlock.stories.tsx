@@ -33,7 +33,7 @@ export const Default: Story = {
     goalAmount: 100000,
     currentAmount: 67500,
     currency: '€',
-    donorCount: 234,
+    donorCount: 20004,
     links: [{ link: createPayloadLink('custom', '#donate', true, 'Donate Now') }],
     showPercentage: true,
     animateProgress: true,

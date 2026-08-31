@@ -55,12 +55,14 @@ export const Disabled: Story = {
 export const WithValue: Story = {
   args: {
     defaultValue: 'HawkStars',
+    'aria-label': 'Site name',
   },
 };
 
 export const File: Story = {
   args: {
     type: 'file',
+    'aria-label': 'Upload file',
   },
 };
 

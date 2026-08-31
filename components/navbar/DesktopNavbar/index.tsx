@@ -26,7 +26,7 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({
   return (
     <div className='my-auto ml-auto hidden lg:block'>
       <div className='ml-auto flex gap-3'>
-        <ul className='flex flex-row gap-4 px-1 max-xl:text-sm xl:gap-8'>
+        <div className='flex flex-row gap-4 px-1 max-xl:text-sm xl:gap-8'>
           {columns.map((column) => {
             const isMultiColumn = column.isMultiColumn;
 
@@ -37,16 +37,8 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({
             const dropdownKey = column.dropdown?.key || '';
             const isOpen = menuKeyHovered === column.dropdown?.key;
 
-            // A11Y-M7: this was a `<li role='button' tabIndex={0}>` that could
-            // only ever OPEN — there was no way to close it from the keyboard,
-            // and it declared no `aria-controls`. It is now a real <button> that
-            // toggles, points at the panel it controls, and closes on Escape.
-            // Tab moves into the panel naturally: the panel is later in DOM order
-            // and is `visibility: hidden` while closed, so its links are only
-            // focusable once it opens. That avoids stealing focus from a
-            // hover-opened panel.
             return (
-              <li key={column.id} className='my-auto flex'>
+              <div key={column.id} className='my-auto flex'>
                 <button
                   type='button'
                   data-testid={column.dropdown?.key}
@@ -72,10 +64,10 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({
                     aria-hidden='true'
                   />
                 </button>
-              </li>
+              </div>
             );
           })}
-        </ul>
+        </div>
         <div className='my-auto'>
           <LanguageSwitcher />
         </div>
