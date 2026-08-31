@@ -32,7 +32,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
       {orientation === 'vertical' && (
         <div className='relative'>
           {/* Center line */}
-          <div className='absolute top-0 bottom-0 left-1/2 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-gray-300 to-transparent' />
+          <div className='absolute top-0 bottom-0 left-1/2 w-px -translate-x-1/2 bg-linear-to-b from-transparent via-gray-300 to-transparent' />
 
           {items.map((item, index) => (
             <div
@@ -77,12 +77,15 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
       )}
 
       {orientation === 'horizontal' && (
-        <div className='overflow-x-auto pb-4'>
-          <div className='relative flex min-w-max gap-0'>
+        <div className='pb-4'>
+          <div
+            className='relative flex cursor-pointer overflow-x-scroll scroll-smooth'
+            tabIndex={0}
+          >
             {/* Horizontal connecting line */}
-            <div className='absolute top-6 right-0 left-0 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent' />
+            <div className='absolute top-6 right-0 left-0 h-px bg-linear-to-r from-transparent via-gray-300 to-transparent' />
             {items.map((item, index) => (
-              <div key={index} className='w-72 shrink-0 px-4'>
+              <div key={index} className='w-72 shrink-0 p-4'>
                 {/* Year dot */}
                 <div className='relative mb-8 flex justify-center'>
                   <div className='bg-green flex h-12 w-12 items-center justify-center rounded-full text-white shadow-md ring-4 ring-white'>

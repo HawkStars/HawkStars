@@ -29,7 +29,7 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
           <h2 className='text-4xl font-medium tracking-tighter text-balance md:text-6xl'>
             {title}
           </h2>
-          {subtitle && <p className='text-muted-foreground/70 mt-4 leading-relaxed'>{subtitle}</p>}
+          {subtitle && <p className='text-muted-foreground mt-4 leading-relaxed'>{subtitle}</p>}
 
           {links && links.length > 0 && (
             <div className='mt-8 flex flex-wrap gap-4'>

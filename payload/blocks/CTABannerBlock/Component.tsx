@@ -34,7 +34,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
           className='rounded-2xl p-12 text-center text-white'
           style={{ background: 'linear-gradient(135deg, #0a7558 0%, #064f39 100%)' }}
         >
-          <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
+          <h2 className='mb-4 text-3xl font-extrabold lg:text-4xl'>{title}</h2>
           {description && (
             <p className='mx-auto mb-8 max-w-2xl text-lg opacity-90'>{description}</p>
           )}
@@ -48,7 +48,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
               <Button
                 size='lg'
                 variant='outline'
-                className='border-white/40 text-white hover:bg-white/10'
+                className='border-white/40 text-black! hover:bg-white/10'
                 asChild
               >
                 <a href={secondaryCTAInfo.url}>{secondaryCTAInfo.label}</a>
@@ -78,7 +78,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
                 <Button
                   size='lg'
                   variant='outline'
-                  className='border-white/40 text-white hover:bg-white/10'
+                  className='border-white/40 text-black! hover:bg-white/10'
                   asChild
                 >
                   <a href={secondaryCTAInfo.url}>{secondaryCTAInfo.label}</a>

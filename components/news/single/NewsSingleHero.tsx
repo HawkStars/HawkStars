@@ -44,7 +44,7 @@ const NewsSingleHero: FC<NewsSingleHeroProps> = ({ title, type, heroImage, publi
             {title}
           </h1>
           {formattedDate && (
-            <p className='mt-3 mb-auto text-sm font-light text-white/70'>{formattedDate}</p>
+            <p className='mt-3 mb-auto text-sm font-light text-white/85'>{formattedDate}</p>
           )}
         </div>
 
