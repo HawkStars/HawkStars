@@ -1,19 +1,13 @@
 import { cn } from '@/lib/utils';
 import React from 'react';
 
-export type InputProps = {
-  name: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value?: string | number | null;
-  customCss?: string;
+export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   labelText?: string;
   errorMessage?: string;
-  disabled?: boolean;
-  placeholder?: string;
+  customCss?: string;
   outline?: boolean;
   icon?: React.ReactNode;
   inputHintText?: string;
-  [x: string]: unknown;
 };
 
 export default function Input({

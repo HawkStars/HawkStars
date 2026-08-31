@@ -100,7 +100,7 @@ const FormContributions = ({
           <Input
             labelText={t('contribution_form.donor')}
             name='donor'
-            value={value}
+            value={value as string | undefined}
             onChange={onChange}
             outline={true}
             inputHintText={t('contribution_form.donor_hint')}
@@ -123,9 +123,10 @@ const FormContributions = ({
             <div className='-mt-4'>
               <Checkbox
                 labelText={t('contribution_form.anomymous')}
+                aria-label='is-anonymous'
                 name='donor'
                 checked={value || false}
-                onChange={(checked: boolean) => handleToggleAnonymous(checked)}
+                onChangeHandle={(checked: boolean) => handleToggleAnonymous(checked)}
                 id={name}
               />
             </div>
