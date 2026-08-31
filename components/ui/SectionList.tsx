@@ -34,11 +34,11 @@ const SectionList = ({
           )}
         >
           <span className='text-md font-bold text-black'>
-            {ordered && <span className='mr-1.5 text-gray-700/60'>{index + 1}.</span>}
+            {ordered && <span className='mr-1.5 text-gray-700/80'>{index + 1}.</span>}
             {item.label}
           </span>
           {item.description && (
-            <span className='text-md leading-relaxed text-gray-400'>{item.description}</span>
+            <span className='text-md leading-relaxed text-gray-500'>{item.description}</span>
           )}
         </li>
       ))}
