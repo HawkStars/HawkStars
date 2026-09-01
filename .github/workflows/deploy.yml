@@ -77,6 +77,7 @@ jobs:
           EASYPAY_API_URL: ${{ secrets.EASYPAY_API_URL }}
           EASYPAY_WEBHOOK_SECRET: ${{ secrets.EASYPAY_WEBHOOK_SECRET }}
           PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+          NEXT_PUBLIC_CARTO_BASEMAP_KEY: ${{ secrets.NEXT_PUBLIC_CARTO_BASEMAP_KEY }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
@@ -139,6 +140,7 @@ jobs:
             EASYPAY_API_KEY=${EASYPAY_API_KEY}
             EASYPAY_API_URL=${EASYPAY_API_URL}
             EASYPAY_WEBHOOK_SECRET=${EASYPAY_WEBHOOK_SECRET}
+            NEXT_PUBLIC_CARTO_BASEMAP_KEY=${NEXT_PUBLIC_CARTO_BASEMAP_KEY}
             EOF
 
             # Restrict permissions so only owner can read

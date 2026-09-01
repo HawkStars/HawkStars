@@ -190,8 +190,8 @@ function MapTileLayer({
   }
 
   const context = useContext(MapLayersContext);
-  const DEFAULT_URL = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
-  const DEFAULT_DARK_URL = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png';
+  const DEFAULT_URL = `https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png?key=${process.env.NEXT_PUBLIC_CARTO_BASEMAP_KEY}`;
+  const DEFAULT_DARK_URL = `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png?key=${process.env.NEXT_PUBLIC_CARTO_BASEMAP_KEY}`;
 
   const { resolvedTheme } = useTheme();
   const resolvedUrl =

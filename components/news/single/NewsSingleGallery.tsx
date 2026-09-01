@@ -40,7 +40,7 @@ const NewsSingleGallery: FC<NewsSingleGalleryProps> = ({ gallery }) => {
                     height={galleryImage.width || 400}
                     className='aspect-auto h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
                     sizes='(max-width: 768px) 100vw, 33vw'
-                    quality={85}
+                    quality={80}
                   />
                   <div className='absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/10' />
                 </div>
