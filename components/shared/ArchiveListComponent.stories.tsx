@@ -44,7 +44,7 @@ const renderCard = (item: DemoItem) => (
     key={item.id}
     className='border-bege-dark flex items-center justify-between rounded-lg border bg-white p-6 shadow-sm'
   >
-    <h3 className='text-h3_semibold text-green'>{item.title}</h3>
+    <h2 className='text-h3_semibold text-green'>{item.title}</h2>
     <span className='text-disabled text-sm'>{item.date}</span>
   </div>
 );
