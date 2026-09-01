@@ -2,14 +2,16 @@ import { HawkStarsSection } from '@/components/layout';
 
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
-import { getSingleCuratorQuery } from '@/lib/payload/queries/artwork';
+import { getSingleCuratorQuery, getArtworkByCuratorQuery } from '@/lib/payload/queries/artwork';
 import { Language } from '@/i18n/settings';
 import { ImageMedia } from '@/payload/components/Media';
 import { Media } from '@/payload-types';
 import RichText from '@/payload/components/RichText';
+import { getServerTranslation } from '@/i18n';
 import { Metadata } from 'next';
 // import { cacheLife, cacheTag } from 'next/cache';
 import { Suspense } from 'react';
+import { ArtworkGrid } from '@/components/art/artwork/ArtworkGrid';
 
 type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
@@ -85,24 +87,35 @@ const CuratorContent = async ({ params }: { params: CuratorPageProps['params'] }
   const curator = await getCuratorInformation(slug, lng);
   if (!curator) notFound();
 
+  const { t } = await getServerTranslation(lng, 'art');
+  const { docs: curatorArtwork } = await getArtworkByCuratorQuery(curator.id, lng);
+
   return (
-    <HawkStarsSection className='font-oswald bg-bege-light flex pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
-      <div className='max-lg:mx-auto lg:m-5 lg:w-96'>
-        {curator.image && (
-          <ImageMedia
-            resource={curator.image}
-            alt={curator.name || 'Curator Image'}
-            width={384}
-            height={512}
-            className='rounded-xl'
-          />
-        )}
-      </div>
-      <div className='w-full p-5'>
-        <h1 className='text-h2_bold mb-5'>{curator.name}</h1>
-        {curator.description && <RichText data={curator.description} />}
-      </div>
-    </HawkStarsSection>
+    <>
+      <HawkStarsSection className='font-oswald bg-bege-light flex pt-10 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
+        <div className='max-lg:mx-auto lg:m-5 lg:w-96'>
+          {curator.image && (
+            <ImageMedia
+              resource={curator.image}
+              alt={curator.name || 'Curator Image'}
+              width={384}
+              height={512}
+              className='rounded-xl'
+            />
+          )}
+        </div>
+        <div className='w-full p-5'>
+          <h1 className='text-h2_bold mb-5'>{curator.name}</h1>
+          {curator.description && <RichText data={curator.description} />}
+        </div>
+      </HawkStarsSection>
+      {curatorArtwork.length > 0 && (
+        <section className='font-oswald mx-auto mt-6 max-w-7xl px-4 pb-10 lg:px-8'>
+          <h2 className='text-h2_bold text-center'>{t('artwork.pieces')}</h2>
+          <ArtworkGrid artworks={curatorArtwork} locale={lng} />
+        </section>
+      )}
+    </>
   );
 };
 

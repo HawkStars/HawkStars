@@ -1,6 +1,6 @@
 import { ImageMedia } from '@/payload/components/Media';
 
-import heroImage from '@/public/images/art_gallery/hero.png';
+import heroImage from '~/images/art_gallery/hero.png';
 
 import { LanguagePageProps } from '../types';
 import { getServerTranslation } from '@/i18n';
@@ -8,6 +8,7 @@ import Curators from '@/components/art/Curators';
 import { Metadata } from 'next';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Language } from '@/i18n/settings';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
@@ -39,6 +40,9 @@ async function GalleryContent({ lng }: { lng: string }) {
             <h1 className='lg:text-h1_semibold text-h2_bold'>{t('art_gallery')}</h1>
             <h2 className='lg:text-h1_semibold text-h2_bold mb-4'>{t('social_impact')}</h2>
             <p className='lg:text-h2_light text-body_regular text-justify'>{t('subtitle')}</p>
+            <Link href={`/${lng}/artwork`} className='mt-2 w-fit'>
+              <Button type='button'>{t('view_artwork')}</Button>
+            </Link>
           </div>
           <div className='lg:w-1/2'>
             <Link href={`/${lng}/artwork`} className='cursor-pointer'>
