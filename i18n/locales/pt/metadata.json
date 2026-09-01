@@ -222,5 +222,26 @@
       "Voluntariado",
       "Pinhel Portugal"
     ]
+  },
+  "projects_archive": {
+    "title": "Arquivo de Projetos Anteriores - ONG Hawk Stars",
+    "description": "Consulte o arquivo completo dos projetos concluídos da ONG Hawk Stars. Programas Erasmus+, intercâmbios juvenis e iniciativas comunitárias em Pinhel e pela Europa.",
+    "keywords": [
+      "Arquivo de Projetos Hawk Stars",
+      "Projetos Anteriores",
+      "Projetos Erasmus+",
+      "Iniciativas Comunitárias",
+      "Pinhel Portugal"
+    ]
+  },
+  "events_archive": {
+    "title": "Arquivo de Eventos Anteriores - ONG Hawk Stars",
+    "description": "Consulte o arquivo completo dos eventos anteriores da ONG Hawk Stars: encontros comunitários, atividades internacionais e programas culturais em Pinhel e além.",
+    "keywords": [
+      "Arquivo de Eventos Hawk Stars",
+      "Eventos Anteriores",
+      "Eventos Erasmus+",
+      "Pinhel Portugal"
+    ]
   }
 }

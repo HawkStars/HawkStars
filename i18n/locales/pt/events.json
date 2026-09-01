@@ -1,6 +1,8 @@
 {
   "upcomingEvents": "Eventos Futuros",
   "pastEvents": "Eventos Passados",
+  "viewPastEvents": "Ver Eventos Anteriores",
+  "viewPastEventsDescription": "Consulte o arquivo dos nossos eventos anteriores.",
   "noUpcomingEvents": "Sem eventos futuros de momento.",
   "noPastEvents": "Ainda sem eventos passados.",
   "viewAgenda": "Ver Agenda",

@@ -5,12 +5,12 @@ import { DropdownLinkField, getDropdownImageElement } from './utils';
 import { cn } from '@/lib/utils';
 import { useMainAppContext } from '@/utils/contexts/AppProvider';
 
-interface DesktopDropdownV1Props {
+interface DropdownComponentProps {
   structure: 'single-column' | 'two-columns';
   links?: { dropdownNavLink?: DropdownNavLink | null } | null;
 }
 
-const DesktopDropdownV1: React.FC<DesktopDropdownV1Props> = ({ structure, links }) => {
+const DropdownComponent: React.FC<DropdownComponentProps> = ({ structure, links }) => {
   const { navbarVariant } = useMainAppContext();
   if (!links || !links.dropdownNavLink || links.dropdownNavLink.length === 0) return null;
   const linkList = links.dropdownNavLink;
@@ -150,4 +150,4 @@ const NormalLinkItem: React.FC<LinkProps> = ({ link, navbarVariant }) => {
   );
 };
 
-export default DesktopDropdownV1;
+export default DropdownComponent;

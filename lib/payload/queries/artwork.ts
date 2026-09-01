@@ -72,3 +72,18 @@ export const allCuratorsQuery = async (locale: Language) => {
   const curators = await payload.find({ collection: 'curators', limit: 100, locale });
   return curators;
 };
+
+export const getArtworkByCuratorQuery = async (curatorId: string, locale: Language) => {
+  // 'use cache';
+  // cacheLife('hours');
+  // cacheTag(ART_COLLECTION_CACHE_TAG);
+
+  const payload = await getPayloadConfig();
+  const artworks = await payload.find({
+    collection: 'artworks',
+    locale,
+    where: { artist: { equals: curatorId } },
+    limit: 100,
+  });
+  return artworks;
+};

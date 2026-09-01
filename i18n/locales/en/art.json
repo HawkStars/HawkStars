@@ -5,6 +5,11 @@
   "description_1": "The Social Impact Art Gallery's primary aim is to promote the arts and artists. At the same time as promoting artists, it also aims to make a financial contribution, through the sale of works of art, to the reconstruction of the building that will house the International Training Center as part of the Global Village Project of the NGO Hawk Stars, which will take place in the city of Pinhel, in the district of Guarda, Portugal.",
   "description_2": "Once this goal has been achieved, the Art Gallery will continue to exist as a Crowdfunding platform to finance other possible social impact projects.",
   "curators": "Curators",
+  "view_artwork": "View Artwork",
+  "curator_section": {
+    "title": "Meet the Curator",
+    "cta": "View Curator Profile"
+  },
   "artwork": {
     "title": "Title",
     "tiragem": "Tiragem",

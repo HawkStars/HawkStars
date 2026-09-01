@@ -1,6 +1,8 @@
 {
   "upcomingEvents": "Upcoming Events",
   "pastEvents": "Past Events",
+  "viewPastEvents": "View Past Events",
+  "viewPastEventsDescription": "Browse the archive of our past events.",
   "noUpcomingEvents": "No upcoming events at the moment.",
   "noPastEvents": "No past events yet.",
   "viewAgenda": "View Agenda",

@@ -7,6 +7,7 @@ import { Language } from '@/i18n/settings';
 import { getProjectsListHeaderInfo } from '@/lib/payload/queries/globals/projectsList';
 import { getProjectsSplitByDate } from '@/lib/payload/queries/projects';
 import { getMetadataPageInfo } from '@/utils/metadata';
+import { SITE_GET_URLS } from '@/utils/paths';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 
@@ -20,9 +21,6 @@ export async function generateMetadata(props: EventsPageProps): Promise<Metadata
 
 type EventsPageProps = {
   params: Promise<LanguageProps>;
-  searchParams: Promise<{
-    [key: string]: string | string[] | undefined;
-  }>;
 };
 
 // The page component is deliberately NOT `async` and awaits nothing: it exists
@@ -50,11 +48,11 @@ const ProjectsContent = async ({ params }: { params: EventsPageProps['params'] }
 
   const translations = {
     upcoming: t('upcomingProjects'),
-    past: t('pastProjects'),
     noUpcoming: t('noUpcomingProjects'),
-    noPast: t('noPastProjects'),
     viewAgenda: t('viewAgenda'),
     viewAgendaDescription: t('viewAgendaDescription'),
+    viewArchive: t('viewPastProjects'),
+    viewArchiveDescription: t('viewPastProjectsDescription'),
   };
 
   if (!projectListInformation) return null;
@@ -66,6 +64,7 @@ const ProjectsContent = async ({ params }: { params: EventsPageProps['params'] }
         items={projects}
         lng={lng}
         translations={translations}
+        archiveUrl={SITE_GET_URLS.projects_archive}
         renderCard={(project, idx) => (
           <ProjectCard key={project.id} project={project} index={idx} lng={lng} />
         )}

@@ -7,6 +7,7 @@ import { Language } from '@/i18n/settings';
 import { getHawkEventsSplitByDate } from '@/lib/payload/queries/hawkEvent';
 import { getEventsListHeaderInfo } from '@/lib/payload/queries/globals/eventsList';
 import { getMetadataPageInfo } from '@/utils/metadata';
+import { SITE_GET_URLS } from '@/utils/paths';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 
@@ -20,9 +21,6 @@ export async function generateMetadata(props: EventsPageProps): Promise<Metadata
 
 type EventsPageProps = {
   params: Promise<LanguageProps>;
-  searchParams: Promise<{
-    [key: string]: string | string[] | undefined;
-  }>;
 };
 
 // Mirrors app/[lng]/(org)/projects/page.tsx exactly. The <Suspense> used to be
@@ -47,11 +45,11 @@ const EventsContent = async ({ params }: { params: EventsPageProps['params'] }) 
 
   const translations = {
     upcoming: t('upcomingEvents'),
-    past: t('pastEvents'),
     noUpcoming: t('noUpcomingEvents'),
-    noPast: t('noPastEvents'),
     viewAgenda: t('viewAgenda'),
     viewAgendaDescription: t('viewAgendaDescription'),
+    viewArchive: t('viewPastEvents'),
+    viewArchiveDescription: t('viewPastEventsDescription'),
   };
 
   if (!eventsListInformation) return null;
@@ -63,6 +61,7 @@ const EventsContent = async ({ params }: { params: EventsPageProps['params'] }) 
         items={events}
         lng={lng}
         translations={translations}
+        archiveUrl={SITE_GET_URLS.events_archive}
         renderCard={(event, idx) => (
           <EventCard key={event.id} event={event} index={idx} lng={lng} />
         )}

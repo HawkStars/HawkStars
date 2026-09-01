@@ -1,6 +1,6 @@
 import { ImageMedia } from '@/payload/components/Media';
 
-import heroImage from '~/images/art_gallery/hero.png';
+import heroImage from '@/public/images/art_gallery/hero.png';
 
 import { LanguagePageProps } from '../types';
 import { getServerTranslation } from '@/i18n';

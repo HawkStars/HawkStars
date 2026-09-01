@@ -1,37 +1,47 @@
-import { LuCalendarDays } from 'react-icons/lu';
+import { LuArchive, LuCalendarDays } from 'react-icons/lu';
 import { Button } from '@/components/ui/button';
 import { transformUrl, SITE_GET_URLS } from '@/utils/paths';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import { PaginatedDocs } from 'payload';
+import { Language } from '@/i18n/settings';
 
 type SplitListTranslations = {
   upcoming: string;
-  past: string;
   noUpcoming: string;
-  noPast: string;
   viewAgenda: string;
   viewAgendaDescription: string;
+  viewArchive: string;
+  viewArchiveDescription: string;
 };
 
 type SplitListProps<T> = {
-  items: { upcoming: T[]; past: T[]; current?: PaginatedDocs<T> };
-  lng: string;
+  // Past items no longer live here -- they moved to their own paginated
+  // archive page (see ArchiveListComponent), reached via `archiveUrl` below.
+  items: { upcoming: T[]; current?: PaginatedDocs<T> };
+  lng: Language;
   translations: SplitListTranslations;
   renderCard: (item: T, index: number) => ReactNode;
+  archiveUrl: string;
 };
 
-const SplitListComponent = <T,>({ items, lng, translations, renderCard }: SplitListProps<T>) => {
-  const { upcoming, past, current } = items || {};
+const SplitListComponent = <T,>({
+  items,
+  lng,
+  translations,
+  renderCard,
+  archiveUrl,
+}: SplitListProps<T>) => {
+  const { upcoming, current } = items || {};
   const { docs } = current || {};
 
   const {
     upcoming: upcomingLabel,
-    past: pastLabel,
     noUpcoming,
-    noPast,
     viewAgenda,
     viewAgendaDescription,
+    viewArchive,
+    viewArchiveDescription,
   } = translations;
 
   return (
@@ -48,16 +58,18 @@ const SplitListComponent = <T,>({ items, lng, translations, renderCard }: SplitL
       </div>
 
       {/* Current Events */}
-      <section>
-        <h2 className='text-h2_semibold mb-6'>{upcomingLabel}</h2>
-        {docs?.length === 0 ? (
-          <p className='text-muted-foreground text-body_regular'>{noUpcoming}</p>
-        ) : (
-          <div className='flex flex-col gap-6'>
-            {docs?.map((item, idx) => renderCard(item, idx))}
-          </div>
-        )}
-      </section>
+      {current && (
+        <section>
+          <h2 className='text-h2_semibold mb-6'>{upcomingLabel}</h2>
+          {docs?.length === 0 ? (
+            <p className='text-muted-foreground text-body_regular'>{noUpcoming}</p>
+          ) : (
+            <div className='flex flex-col gap-6'>
+              {docs?.map((item, idx) => renderCard(item, idx))}
+            </div>
+          )}
+        </section>
+      )}
 
       {/* Upcoming */}
       <section>
@@ -71,17 +83,16 @@ const SplitListComponent = <T,>({ items, lng, translations, renderCard }: SplitL
         )}
       </section>
 
-      {/* Past */}
-      <section>
-        <h2 className='text-h2_semibold mb-6'>{pastLabel}</h2>
-        {past.length === 0 ? (
-          <p className='text-muted-foreground text-body_regular'>{noPast}</p>
-        ) : (
-          <div className='flex flex-col gap-6'>
-            {past.map((item, idx) => renderCard(item, idx))}
-          </div>
-        )}
-      </section>
+      {/* Archive CTA -- past items live on their own paginated page now */}
+      <div className='flex flex-col items-start gap-4 rounded-xl border bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between lg:p-8'>
+        <p className='text-body_regular text-muted-foreground'>{viewArchiveDescription}</p>
+        <Button asChild size='lg' variant='outline' className='shrink-0'>
+          <Link href={transformUrl(lng, archiveUrl)}>
+            <LuArchive className='size-4' />
+            {viewArchive}
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 };

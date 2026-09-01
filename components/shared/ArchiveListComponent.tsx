@@ -1,0 +1,59 @@
+import { ReactNode } from 'react';
+import { PaginatedDocs } from 'payload';
+import { TFunction } from 'i18next';
+import { Language } from '@/i18n/settings';
+import LandingPagination from '@/components/utils/Pagination';
+
+type ArchiveListProps<T> = {
+  items: PaginatedDocs<T>;
+  lng: Language;
+  title: string;
+  emptyLabel: string;
+  renderCard: (item: T, index: number) => ReactNode;
+  // The "common" namespace TFunction, for <LandingPagination>'s pagination.*
+  // strings -- see the equivalent note on SplitListComponent for why this is
+  // a plain prop rather than a useTranslation() call inside this component.
+  t: TFunction<string, undefined>;
+  url: string;
+};
+
+const ArchiveListComponent = <T,>({
+  items,
+  lng,
+  title,
+  emptyLabel,
+  renderCard,
+  t,
+  url,
+}: ArchiveListProps<T>) => {
+  const { docs, totalPages, page, hasPrevPage, hasNextPage, limit } = items;
+
+  return (
+    <div className='flex flex-col gap-8 px-6 py-8 lg:px-12 lg:py-12'>
+      <section>
+        <h1 className='text-h2_semibold mb-6'>{title}</h1>
+        {docs.length === 0 ? (
+          <p className='text-muted-foreground text-body_regular'>{emptyLabel}</p>
+        ) : (
+          <div className='flex flex-col gap-6'>
+            {docs.map((item, idx) => renderCard(item, idx))}
+          </div>
+        )}
+        {totalPages > 1 && (
+          <LandingPagination
+            t={t}
+            lng={lng}
+            url={url}
+            hasPrevPage={hasPrevPage}
+            hasNextPage={hasNextPage}
+            page={page}
+            totalPages={totalPages}
+            limit={limit}
+          />
+        )}
+      </section>
+    </div>
+  );
+};
+
+export default ArchiveListComponent;

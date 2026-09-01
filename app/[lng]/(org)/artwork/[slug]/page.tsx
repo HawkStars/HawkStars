@@ -11,7 +11,9 @@ import { Metadata } from 'next';
 import { getSingleArtwork } from '@/lib/payload/queries/artwork';
 import { Curator, Media } from '@/payload-types';
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
+import { ImageMedia } from '@/payload/components/Media';
 import RichText from '@/payload/components/RichText';
+import Link from 'next/link';
 import { Suspense } from 'react';
 // import { cacheLife, cacheTag } from 'next/cache';
 // import { ART_COLLECTION_CACHE_TAG } from '@/payload/collections/ArtCollection';
@@ -98,6 +100,37 @@ const ArtworkContent = async ({ params }: { params: CuratorPageProps['params'] }
           </div>
         )}
       </section>
+      {artwork.artist && typeof artwork.artist !== 'string' && (
+        <section className='bg-bege-light mt-10 py-10'>
+          <div className='font-oswald mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 text-center lg:flex-row lg:items-start lg:px-8 lg:text-left xl:px-40'>
+            {artwork.artist.image && (
+              <div className='w-40 shrink-0 lg:w-48'>
+                <ImageMedia
+                  resource={artwork.artist.image}
+                  alt={artwork.artist.name}
+                  width={192}
+                  height={192}
+                  className='aspect-square rounded-lg object-cover'
+                />
+              </div>
+            )}
+            <div className='flex flex-1 flex-col items-center gap-2 lg:items-start'>
+              <h2 className='text-h2_bold'>{t('curator_section.title')}</h2>
+              <p className='text-h2_light text-body_regular'>{artwork.artist.name}</p>
+              {artwork.artist.description && (
+                <div className='text-justify'>
+                  <RichText data={artwork.artist.description} />
+                </div>
+              )}
+              <Link href={`/${lng}/curator/${artwork.artist.slug}`} className='mt-2'>
+                <Button variant='outline' type='button'>
+                  {t('curator_section.cta')}
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 };

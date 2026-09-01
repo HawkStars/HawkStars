@@ -1,6 +1,8 @@
 {
   "upcomingProjects": "Upcoming Projects",
   "pastProjects": "Past Projects",
+  "viewPastProjects": "View Past Projects",
+  "viewPastProjectsDescription": "Browse the archive of our completed projects.",
   "noUpcomingProjects": "No upcoming projects at the moment.",
   "noPastProjects": "No past projects yet.",
   "viewAgenda": "View Agenda",

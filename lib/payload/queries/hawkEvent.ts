@@ -23,29 +23,29 @@ const getSingleHawkEventQuery = async (
 
 type SplitHawkEventsResult = {
   upcoming: HawkEvent[];
-  past: HawkEvent[];
   current: PaginatedDocs<HawkEvent>;
 };
 
+// The /events page only shows what's happening now and what's upcoming --
+// past events live on their own paginated archive at /events/archive,
+// fetched separately via the exported getPastEvents below instead of being
+// split out of this same call.
 const getHawkEventsSplitByDate = async (
   locale: Language,
-  opts: { preview: boolean } = { preview: false }
+  opts: { preview?: boolean } = {}
 ): Promise<SplitHawkEventsResult> => {
   // 'use cache';
   // cacheLife('hours');
   // cacheTag(HAWK_EVENT_CACHE_TAG);
 
-  const [upcomingResult, pastResult, currentEvents] = await Promise.all([
-    getUpcomingEvents(locale, opts),
-    getPastEvents(locale, opts),
-    getCurrentEvents(locale, opts),
+  const { preview = false } = opts;
+
+  const [upcomingResult, current] = await Promise.all([
+    getUpcomingEvents(locale, { preview }),
+    getCurrentEvents(locale, { preview }),
   ]);
 
-  return {
-    upcoming: upcomingResult.docs,
-    past: pastResult.docs,
-    current: currentEvents,
-  };
+  return { upcoming: upcomingResult.docs, current };
 };
 
 const getCurrentEvents = async (
@@ -83,7 +83,7 @@ const getCurrentEvents = async (
 
 const getUpcomingEvents = async (
   locale: Language,
-  opts: { preview: boolean } = { preview: false }
+  opts: { preview?: boolean; page?: number; limit?: number } = {}
 ) => {
   const payload = await getPayloadConfig();
   const { endOfDay } = customDateRangeQuery();
@@ -104,13 +104,20 @@ const getUpcomingEvents = async (
     collection: EVENTS_COLLECTION,
     where: { or: [greaterThanToday, greaterThanTodayRange] },
     sort: 'date',
-    limit: 100,
+    limit: opts.limit ?? 100,
+    page: opts.page ?? 1,
     locale,
     draft: opts.preview || false,
   });
 };
 
-const getPastEvents = async (locale: Language, opts: { preview: boolean } = { preview: false }) => {
+// Archive: the /events/archive page's paginated list of past events. This is
+// the only remaining caller now that /events itself doesn't paginate past
+// events, hence the smaller default page size (matches getPastProjectsQuery).
+const getPastEvents = async (
+  locale: Language,
+  opts: { preview?: boolean; page?: number; limit?: number } = {}
+) => {
   const payload = await getPayloadConfig();
   const { startOfDay } = customDateRangeQuery();
 
@@ -130,7 +137,8 @@ const getPastEvents = async (locale: Language, opts: { preview: boolean } = { pr
     collection: EVENTS_COLLECTION,
     where: { or: [beforeToday, beforeTodayRange] },
     sort: '-date',
-    limit: 100,
+    limit: opts.limit ?? 10,
+    page: opts.page ?? 1,
     locale,
     draft: opts.preview || false,
   });
@@ -138,6 +146,7 @@ const getPastEvents = async (locale: Language, opts: { preview: boolean } = { pr
 
 export {
   getCurrentEvents,
+  getPastEvents,
   getSingleHawkEventQuery,
   getHawkEventsSplitByDate,
   type SplitHawkEventsResult,

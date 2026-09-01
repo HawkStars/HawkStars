@@ -37,6 +37,10 @@ export const Curator: CollectionConfig = {
     group: {
       ...GROUP_LABELS.artGallery,
     },
+    pagination: {
+      limits: [10, 25, 50, 100],
+      defaultLimit: 25,
+    },
   },
   fields: [
     {

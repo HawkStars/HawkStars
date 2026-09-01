@@ -1,6 +1,8 @@
 {
   "upcomingProjects": "Projetos Futuros",
   "pastProjects": "Projetos Passados",
+  "viewPastProjects": "Ver Projetos Anteriores",
+  "viewPastProjectsDescription": "Consulte o arquivo dos nossos projetos concluídos.",
   "noUpcomingProjects": "Sem projetos futuros de momento.",
   "noPastProjects": "Ainda sem projetos passados.",
   "viewAgenda": "Ver Agenda",

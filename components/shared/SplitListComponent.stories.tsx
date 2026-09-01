@@ -9,11 +9,11 @@ type DemoItem = {
 
 const translations = {
   upcoming: 'Upcoming',
-  past: 'Past',
   noUpcoming: 'No upcoming events yet.',
-  noPast: 'No past events to show.',
   viewAgenda: 'View full agenda',
   viewAgendaDescription: 'Looking for a calendar view? Explore everything on our agenda.',
+  viewArchive: 'View Past Events',
+  viewArchiveDescription: 'Browse the archive of our past events.',
 };
 
 const renderCard = (item: DemoItem) => (
@@ -53,14 +53,11 @@ export const Default: Story = {
     lng: 'en',
     translations,
     renderCard,
+    archiveUrl: '/events/archive',
     items: {
       upcoming: [
         { id: 'u1', title: 'Erasmus Mobility Kick-off', date: '15 Jul 2026' },
         { id: 'u2', title: 'Pinhel Cultural Festival', date: '02 Aug 2026' },
-      ],
-      past: [
-        { id: 'p1', title: 'Spring Volunteer Day', date: '10 Apr 2026' },
-        { id: 'p2', title: 'Youth Workshop Series', date: '21 Feb 2026' },
       ],
     },
   },
@@ -71,21 +68,33 @@ export const NoUpcoming: Story = {
     lng: 'en',
     translations,
     renderCard,
+    archiveUrl: '/events/archive',
     items: {
       upcoming: [],
-      past: [{ id: 'p1', title: 'Spring Volunteer Day', date: '10 Apr 2026' }],
     },
   },
 };
 
-export const Empty: Story = {
+export const WithCurrent: Story = {
   args: {
     lng: 'en',
     translations,
     renderCard,
+    archiveUrl: '/events/archive',
     items: {
-      upcoming: [],
-      past: [],
+      upcoming: [{ id: 'u1', title: 'Pinhel Cultural Festival', date: '02 Aug 2026' }],
+      current: {
+        docs: [{ id: 'c1', title: 'Volunteer Day', date: 'Today' }],
+        totalDocs: 1,
+        limit: 100,
+        totalPages: 1,
+        page: 1,
+        pagingCounter: 1,
+        hasPrevPage: false,
+        hasNextPage: false,
+        prevPage: null,
+        nextPage: null,
+      },
     },
   },
 };

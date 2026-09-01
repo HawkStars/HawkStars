@@ -1,4 +1,4 @@
-import DesktopDropdownV1 from '@/components/navbar/DesktopDropdown/DropdownV1';
+import DesktopDropdownV1 from '@/components/navbar/DesktopDropdown/DropdownComponent';
 import type { ImageIcon, ImageType } from '@/payload-types';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 

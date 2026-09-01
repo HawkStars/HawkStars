@@ -222,5 +222,21 @@
       "Volunteering",
       "Pinhel Portugal"
     ]
+  },
+  "projects_archive": {
+    "title": "Past Projects Archive - Hawk Stars NGO",
+    "description": "Browse the full archive of Hawk Stars NGO's completed projects: Erasmus+ programmes, youth exchanges, and community initiatives in Pinhel and across Europe.",
+    "keywords": [
+      "Hawk Stars Projects Archive",
+      "Past Projects",
+      "Erasmus+ Projects",
+      "Community Initiatives",
+      "Pinhel Portugal"
+    ]
+  },
+  "events_archive": {
+    "title": "Past Events Archive - Hawk Stars NGO",
+    "description": "Browse the full archive of Hawk Stars NGO's past events: community gatherings, international activities, and cultural programmes in Pinhel and beyond.",
+    "keywords": ["Hawk Stars Events Archive", "Past Events", "Erasmus+ Events", "Pinhel Portugal"]
   }
 }

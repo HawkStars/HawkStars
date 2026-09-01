@@ -7,11 +7,11 @@ import { hawkLogo } from '@/utils/models/images/logos';
 import { FC, useState } from 'react';
 import DesktopNavbar, { NAVBAR_DROPDOWN_PANEL_ID } from './DesktopNavbar';
 import { cn } from '@/lib/utils';
-import DropdownMenu from './DesktopDropdown/DropdownMenu';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { useTranslation } from '@/i18n/client';
 import { Header } from '@/payload-types';
 import { Language } from '@/i18n/settings';
+import DropdownComponent from './DesktopDropdown/DropdownComponent';
 
 type NavbarProps = {
   headerInfo: Header;
@@ -89,7 +89,12 @@ const Navbar: FC<NavbarProps> = ({ headerInfo, lng }) => {
             }
           )}
         >
-          {selectedMenu && <DropdownMenu dropdownInfo={selectedMenu.dropdown} />}
+          {selectedMenu && (
+            <DropdownComponent
+              links={selectedMenu.dropdown?.links}
+              structure={selectedMenu.dropdown?.structure as 'single-column' | 'two-columns'}
+            />
+          )}
         </div>
       </nav>
     </header>

@@ -27,12 +27,12 @@ export default async function PreviewProjectsList(props: HomeProps) {
   ]);
 
   const translations = {
-    upcoming: t('upcomingProjects'),
-    past: t('pastProjects'),
-    noUpcoming: t('noUpcomingProjects'),
-    noPast: t('noPastProjects'),
+    upcoming: t('upcomingEvents'),
+    noUpcoming: t('noUpcomingEvents'),
     viewAgenda: t('viewAgenda'),
     viewAgendaDescription: t('viewAgendaDescription'),
+    viewArchive: t('viewPastEvents'),
+    viewArchiveDescription: t('viewPastEventsDescription'),
   };
 
   if (!eventsListInformation) return null;

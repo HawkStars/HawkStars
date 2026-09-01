@@ -5,6 +5,11 @@
   "description_1": "A Galeria de Arte Impacto Social tem como primeiro objetivo a promoção das Artes e dos Artistas. Ao mesmo tempo que promove os artistas, pretende contribuir também financeiramente, através da venda de obras de arte, para a reconstrução do edifício que dará lugar ao Internacional Training Centre inserido no Projeto Global Village da ONG Hawk Stars, que terá lugar na Cidade de Pinhel, no Distrito da Guarda, em Portugal.",
   "description_2": "Após este objetivo cumprido, a Galeria de Arte continuará a existir como plataforma de Crowdfunding para financiar outros possíveis projetos de impacto social.",
   "curators": "Curadoria",
+  "view_artwork": "Ver Obras de Arte",
+  "curator_section": {
+    "title": "Conheça o Curador",
+    "cta": "Ver Perfil do Curador"
+  },
   "artwork": {
     "title": "Título",
     "tiragem": "Tiragem",
