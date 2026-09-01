@@ -1,9 +1,11 @@
 import ArchiveListComponent from '@/components/shared/ArchiveListComponent';
 import ProjectCard from '@/components/projects/list/ProjectCard';
+import { PROJECT_TYPES } from '@/components/projects/constants';
 import { LanguageProps } from '@/components/types';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
-import { getPastProjectsQuery } from '@/lib/payload/queries/projects';
+import { getPastProjectsQuery, getProjectYearsQuery } from '@/lib/payload/queries/projects';
+import { HawkProject } from '@/payload-types';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { SITE_GET_URLS } from '@/utils/paths';
 import { Metadata } from 'next';
@@ -43,12 +45,33 @@ const ProjectsArchiveContent = async ({
   const [{ lng }, resolvedSearchParams] = await Promise.all([params, searchParams]);
   const page = resolvedSearchParams.page ? Number(resolvedSearchParams.page) : 1;
   const limit = resolvedSearchParams.limit ? Number(resolvedSearchParams.limit) : undefined;
+  const type =
+    typeof resolvedSearchParams.type === 'string'
+      ? (resolvedSearchParams.type as HawkProject['project_type'])
+      : undefined;
+  const year = resolvedSearchParams.year ? Number(resolvedSearchParams.year) : undefined;
 
-  const [pastProjects, { t }, { t: commonT }] = await Promise.all([
-    getPastProjectsQuery(lng as Language, { page, limit }),
+  const [pastProjects, years, { t }, { t: commonT }] = await Promise.all([
+    getPastProjectsQuery(lng as Language, { page, limit, type, year }),
+    getProjectYearsQuery(lng as Language),
     getServerTranslation(lng, 'projects'),
     getServerTranslation(lng, 'common'),
   ]);
+
+  const filters = [
+    {
+      param: 'type',
+      allLabel: t('allTypes'),
+      value: type,
+      options: PROJECT_TYPES.map((value) => ({ value, label: t(`types.${value}`) })),
+    },
+    {
+      param: 'year',
+      allLabel: t('allYears'),
+      value: year ? String(year) : undefined,
+      options: years.map((y) => ({ value: String(y), label: String(y) })),
+    },
+  ];
 
   return (
     <ArchiveListComponent
@@ -58,6 +81,7 @@ const ProjectsArchiveContent = async ({
       emptyLabel={t('noPastProjects')}
       t={commonT}
       url={SITE_GET_URLS.projects_archive}
+      filters={filters}
       renderCard={(project, idx) => (
         <ProjectCard key={project.id} project={project} index={idx} lng={lng} />
       )}

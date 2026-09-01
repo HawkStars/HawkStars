@@ -1,11 +1,13 @@
 import HeroImpactStatsBlock from '@/components/projects/list/HeroImpactStatsBlock';
 import SplitListComponent from '@/components/shared/SplitListComponent';
 import ProjectCard from '@/components/projects/list/ProjectCard';
+import { PROJECT_TYPES } from '@/components/projects/constants';
 import { LanguageProps } from '@/components/types';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
 import { getProjectsListHeaderInfo } from '@/lib/payload/queries/globals/projectsList';
-import { getProjectsSplitByDate } from '@/lib/payload/queries/projects';
+import { getProjectsSplitByDate, getProjectYearsQuery } from '@/lib/payload/queries/projects';
+import { HawkProject } from '@/payload-types';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { SITE_GET_URLS } from '@/utils/paths';
 import { Metadata } from 'next';
@@ -21,6 +23,9 @@ export async function generateMetadata(props: EventsPageProps): Promise<Metadata
 
 type EventsPageProps = {
   params: Promise<LanguageProps>;
+  searchParams: Promise<{
+    [key: string]: string | string[] | undefined;
+  }>;
 };
 
 // The page component is deliberately NOT `async` and awaits nothing: it exists
@@ -33,16 +38,28 @@ type EventsPageProps = {
 // therefore passed down unawaited and consumed inside the boundary.
 const EventsPage = (props: EventsPageProps) => (
   <Suspense fallback={<></>}>
-    <ProjectsContent params={props.params} />
+    <ProjectsContent params={props.params} searchParams={props.searchParams} />
   </Suspense>
 );
 
-const ProjectsContent = async ({ params }: { params: EventsPageProps['params'] }) => {
-  const { lng } = await params;
+const ProjectsContent = async ({
+  params,
+  searchParams,
+}: {
+  params: EventsPageProps['params'];
+  searchParams: EventsPageProps['searchParams'];
+}) => {
+  const [{ lng }, resolvedSearchParams] = await Promise.all([params, searchParams]);
+  const type =
+    typeof resolvedSearchParams.type === 'string'
+      ? (resolvedSearchParams.type as HawkProject['project_type'])
+      : undefined;
+  const year = resolvedSearchParams.year ? Number(resolvedSearchParams.year) : undefined;
 
-  const [projectListInformation, projects, { t }] = await Promise.all([
+  const [projectListInformation, projects, years, { t }] = await Promise.all([
     getProjectsListHeaderInfo(lng),
-    getProjectsSplitByDate(lng as Language),
+    getProjectsSplitByDate(lng as Language, { type, year }),
+    getProjectYearsQuery(lng as Language),
     getServerTranslation(lng, 'projects'),
   ]);
 
@@ -55,16 +72,36 @@ const ProjectsContent = async ({ params }: { params: EventsPageProps['params'] }
     viewArchiveDescription: t('viewPastProjectsDescription'),
   };
 
+  const filters = [
+    {
+      param: 'type',
+      allLabel: t('allTypes'),
+      value: type,
+      options: PROJECT_TYPES.map((value) => ({ value, label: t(`types.${value}`) })),
+    },
+    {
+      param: 'year',
+      allLabel: t('allYears'),
+      value: year ? String(year) : undefined,
+      options: years.map((y) => ({ value: String(y), label: String(y) })),
+    },
+  ];
+
   if (!projectListInformation) return null;
 
   return (
     <>
-      <HeroImpactStatsBlock {...projectListInformation} />
+      <HeroImpactStatsBlock
+        {...projectListInformation}
+        viewAgenda={translations.viewAgenda}
+        archiveUrl={SITE_GET_URLS.projects_archive}
+        viewArchive={translations.viewArchive}
+      />
       <SplitListComponent
         items={projects}
         lng={lng}
         translations={translations}
-        archiveUrl={SITE_GET_URLS.projects_archive}
+        filters={filters}
         renderCard={(project, idx) => (
           <ProjectCard key={project.id} project={project} index={idx} lng={lng} />
         )}

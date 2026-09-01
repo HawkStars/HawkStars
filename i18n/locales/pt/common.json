@@ -99,6 +99,8 @@
     "next": "Seguinte",
     "pageOf": "Página {{page}} de {{total}}"
   },
+  "filterByType": "Filtrar por Tipo",
+  "allTypes": "Todos os Tipos",
   "actions": {
     "goBack": "Voltar",
     "tryAgain": "Tentar novamente"

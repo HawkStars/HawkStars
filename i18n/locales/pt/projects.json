@@ -3,6 +3,16 @@
   "pastProjects": "Projetos Passados",
   "viewPastProjects": "Ver Projetos Anteriores",
   "viewPastProjectsDescription": "Consulte o arquivo dos nossos projetos concluídos.",
+  "allTypes": "Todos os Tipos",
+  "allYears": "Todos os Anos",
+  "types": {
+    "youth_exchange": "Intercâmbio de Jovens",
+    "training_course": "Curso de Formação",
+    "seminar": "Seminário",
+    "partnership": "Parceria",
+    "discover_eu": "DiscoverEU",
+    "other": "Outro"
+  },
   "noUpcomingProjects": "Sem projetos futuros de momento.",
   "noPastProjects": "Ainda sem projetos passados.",
   "viewAgenda": "Ver Agenda",

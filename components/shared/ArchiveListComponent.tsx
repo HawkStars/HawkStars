@@ -3,6 +3,7 @@ import { PaginatedDocs } from 'payload';
 import { TFunction } from 'i18next';
 import { Language } from '@/i18n/settings';
 import LandingPagination from '@/components/utils/Pagination';
+import ListFilters, { ListFilterConfig } from '@/components/utils/ListFilters';
 
 type ArchiveListProps<T> = {
   items: PaginatedDocs<T>;
@@ -15,6 +16,7 @@ type ArchiveListProps<T> = {
   // a plain prop rather than a useTranslation() call inside this component.
   t: TFunction<string, undefined>;
   url: string;
+  filters?: ListFilterConfig[];
 };
 
 const ArchiveListComponent = <T,>({
@@ -25,6 +27,7 @@ const ArchiveListComponent = <T,>({
   renderCard,
   t,
   url,
+  filters,
 }: ArchiveListProps<T>) => {
   const { docs, totalPages, page, hasPrevPage, hasNextPage, limit } = items;
 
@@ -32,6 +35,7 @@ const ArchiveListComponent = <T,>({
     <div className='flex flex-col gap-8 px-6 py-8 lg:px-12 lg:py-12'>
       <section>
         <h1 className='text-h2_semibold mb-6'>{title}</h1>
+        {filters && filters.length > 0 && <ListFilters filters={filters} />}
         {docs.length === 0 ? (
           <p className='text-muted-foreground text-body_regular'>{emptyLabel}</p>
         ) : (

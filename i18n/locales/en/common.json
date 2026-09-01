@@ -99,6 +99,8 @@
     "next": "Next",
     "pageOf": "Page {{page}} of {{total}}"
   },
+  "filterByType": "Filter by Type",
+  "allTypes": "All Types",
   "actions": {
     "goBack": "Go back",
     "tryAgain": "Try again"

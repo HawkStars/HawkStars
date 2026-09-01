@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
+import { LuArchive, LuCalendarDays } from 'react-icons/lu';
 import { Button } from '@/components/ui/button';
 import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
@@ -12,6 +14,7 @@ import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
 import { cn } from '@/lib/utils';
 import { ImageType, LinkGroupItem } from '@/payload-types';
 import { HawkStarsSection } from '@/components/layout';
+import { transformUrl, SITE_GET_URLS } from '@/utils/paths';
 
 type HeroImpactStatsBlockProps = {
   title?: string;
@@ -22,6 +25,13 @@ type HeroImpactStatsBlockProps = {
   links?: LinkGroupItem | null;
   sectionId?: string | null;
   video?: string | null;
+  // Agenda / archive utility links -- lifted here from SplitListComponent so
+  // the list body below isn't dominated by two full-width CTA cards. `viewAgenda`
+  // is always the site-wide agenda page; `archiveUrl` + `viewArchive` are
+  // per-section (projects vs events), so both are passed in by the page.
+  viewAgenda?: string;
+  archiveUrl?: string;
+  viewArchive?: string;
 };
 
 const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
@@ -37,6 +47,9 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
     links = [],
     sectionId,
     video,
+    viewAgenda,
+    archiveUrl,
+    viewArchive,
   } = data || {};
 
   const image = getImagePayloadUrl(heroImage);
@@ -55,6 +68,27 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
           <div className='grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16'>
             {/* Left Column - Content */}
             <div className='space-y-8'>
+              {(viewAgenda || (archiveUrl && viewArchive)) && (
+                <div className='flex flex-wrap gap-3'>
+                  {viewAgenda && (
+                    <Button asChild size='sm' variant='outline'>
+                      <Link href={transformUrl(lng, SITE_GET_URLS.agenda)}>
+                        <LuCalendarDays className='size-4' />
+                        {viewAgenda}
+                      </Link>
+                    </Button>
+                  )}
+                  {archiveUrl && viewArchive && (
+                    <Button asChild size='sm' variant='outline'>
+                      <Link href={transformUrl(lng, archiveUrl)}>
+                        <LuArchive className='size-4' />
+                        {viewArchive}
+                      </Link>
+                    </Button>
+                  )}
+                </div>
+              )}
+
               {badge && (
                 <span className='bg-green inline-block rounded-full px-4 py-1.5 text-sm font-semibold text-white'>
                   {badge}

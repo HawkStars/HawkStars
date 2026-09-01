@@ -96,6 +96,4 @@ CI (`.github/workflows/deploy.yml`) triggers on push to `main` and on PR open. T
 
 There's also a separate daily workflow (`.github/workflows/db-backup.yml`, cron `17 3 * * *` UTC) that SSHes into the same VPS, runs `mongodump` on the production `hawkstars` database, and uploads the gzipped archive straight to Google Drive via the Drive REST API (reusing the site's existing Google OAuth refresh token — needs Drive scope, not just Gmail), pruning anything older than 14 days.
 
-There is no Dockerfile anywhere in the repo (only a leftover `.dockerignore`) and no `docker-compose` — this app is not containerized, deploy is directly onto the VPS as above.
-
 Recent commit history pushes fairly directly to `main` rather than a strict PR-per-feature flow, though the CI `check` job does run on PR open too.

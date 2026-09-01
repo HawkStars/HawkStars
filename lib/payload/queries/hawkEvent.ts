@@ -26,23 +26,42 @@ type SplitHawkEventsResult = {
   current: PaginatedDocs<HawkEvent>;
 };
 
+type HawkEventFilterOpts = {
+  type?: HawkEvent['type_event'];
+  year?: number;
+};
+
+// Shared by getCurrentEvents/getUpcomingEvents/getPastEvents: folds an
+// optional type_event/year pick into each date bucket's own `where`, so a
+// filter selected on the page applies consistently across whichever of
+// current/upcoming/past that bucket represents.
+const withEventFilters = (dateWhere: Where, opts: HawkEventFilterOpts): Where => {
+  const extra: Where[] = [];
+  if (opts.type) extra.push({ type_event: { equals: opts.type } });
+  if (opts.year) {
+    extra.push({ date: { greater_than_equal: `${opts.year}-01-01` } });
+    extra.push({ date: { less_than: `${opts.year + 1}-01-01` } });
+  }
+  return extra.length > 0 ? { and: [dateWhere, ...extra] } : dateWhere;
+};
+
 // The /events page only shows what's happening now and what's upcoming --
 // past events live on their own paginated archive at /events/archive,
 // fetched separately via the exported getPastEvents below instead of being
 // split out of this same call.
 const getHawkEventsSplitByDate = async (
   locale: Language,
-  opts: { preview?: boolean } = {}
+  opts: { preview?: boolean } & HawkEventFilterOpts = {}
 ): Promise<SplitHawkEventsResult> => {
   // 'use cache';
   // cacheLife('hours');
   // cacheTag(HAWK_EVENT_CACHE_TAG);
 
-  const { preview = false } = opts;
+  const { preview = false, type, year } = opts;
 
   const [upcomingResult, current] = await Promise.all([
-    getUpcomingEvents(locale, { preview }),
-    getCurrentEvents(locale, { preview }),
+    getUpcomingEvents(locale, { preview, type, year }),
+    getCurrentEvents(locale, { preview, type, year }),
   ]);
 
   return { upcoming: upcomingResult.docs, current };
@@ -50,7 +69,7 @@ const getHawkEventsSplitByDate = async (
 
 const getCurrentEvents = async (
   locale: Language,
-  opts: { preview: boolean } = { preview: false }
+  opts: { preview?: boolean } & HawkEventFilterOpts = {}
 ) => {
   const payload = await getPayloadConfig();
   const { startOfDay, endOfDay, now } = customDateRangeQuery();
@@ -73,7 +92,7 @@ const getCurrentEvents = async (
 
   return payload.find({
     collection: EVENTS_COLLECTION,
-    where: { or: [dayHappening, inBetweenRangeDates] },
+    where: withEventFilters({ or: [dayHappening, inBetweenRangeDates] }, opts),
     sort: 'date',
     limit: 100,
     locale,
@@ -83,7 +102,7 @@ const getCurrentEvents = async (
 
 const getUpcomingEvents = async (
   locale: Language,
-  opts: { preview?: boolean; page?: number; limit?: number } = {}
+  opts: { preview?: boolean; page?: number; limit?: number } & HawkEventFilterOpts = {}
 ) => {
   const payload = await getPayloadConfig();
   const { endOfDay } = customDateRangeQuery();
@@ -102,7 +121,7 @@ const getUpcomingEvents = async (
 
   return payload.find({
     collection: EVENTS_COLLECTION,
-    where: { or: [greaterThanToday, greaterThanTodayRange] },
+    where: withEventFilters({ or: [greaterThanToday, greaterThanTodayRange] }, opts),
     sort: 'date',
     limit: opts.limit ?? 100,
     page: opts.page ?? 1,
@@ -116,7 +135,7 @@ const getUpcomingEvents = async (
 // events, hence the smaller default page size (matches getPastProjectsQuery).
 const getPastEvents = async (
   locale: Language,
-  opts: { preview?: boolean; page?: number; limit?: number } = {}
+  opts: { preview?: boolean; page?: number; limit?: number } & HawkEventFilterOpts = {}
 ) => {
   const payload = await getPayloadConfig();
   const { startOfDay } = customDateRangeQuery();
@@ -135,13 +154,31 @@ const getPastEvents = async (
 
   return payload.find({
     collection: EVENTS_COLLECTION,
-    where: { or: [beforeToday, beforeTodayRange] },
+    where: withEventFilters({ or: [beforeToday, beforeTodayRange] }, opts),
     sort: '-date',
     limit: opts.limit ?? 10,
     page: opts.page ?? 1,
     locale,
     draft: opts.preview || false,
   });
+};
+
+// Distinct years across every event (there's no dedicated "year" field),
+// used to populate the year filter's option list.
+export const getEventYearsQuery = async (locale: Language): Promise<number[]> => {
+  const payload = await getPayloadConfig();
+  const result = await payload.find({
+    collection: EVENTS_COLLECTION,
+    locale,
+    limit: 0,
+    select: { date: true },
+  });
+
+  const years = new Set<number>();
+  for (const doc of result.docs) {
+    if (doc.date) years.add(new Date(doc.date).getFullYear());
+  }
+  return Array.from(years).sort((a, b) => b - a);
 };
 
 export {

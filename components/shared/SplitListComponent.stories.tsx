@@ -53,7 +53,6 @@ export const Default: Story = {
     lng: 'en',
     translations,
     renderCard,
-    archiveUrl: '/events/archive',
     items: {
       upcoming: [
         { id: 'u1', title: 'Erasmus Mobility Kick-off', date: '15 Jul 2026' },
@@ -68,7 +67,6 @@ export const NoUpcoming: Story = {
     lng: 'en',
     translations,
     renderCard,
-    archiveUrl: '/events/archive',
     items: {
       upcoming: [],
     },
@@ -80,7 +78,6 @@ export const WithCurrent: Story = {
     lng: 'en',
     translations,
     renderCard,
-    archiveUrl: '/events/archive',
     items: {
       upcoming: [{ id: 'u1', title: 'Pinhel Cultural Festival', date: '02 Aug 2026' }],
       current: {

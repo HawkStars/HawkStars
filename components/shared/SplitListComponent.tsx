@@ -1,61 +1,43 @@
-import { LuArchive, LuCalendarDays } from 'react-icons/lu';
-import { Button } from '@/components/ui/button';
-import { transformUrl, SITE_GET_URLS } from '@/utils/paths';
-import Link from 'next/link';
 import { ReactNode } from 'react';
 import { PaginatedDocs } from 'payload';
 import { Language } from '@/i18n/settings';
+import ListFilters, { ListFilterConfig } from '@/components/utils/ListFilters';
 
 type SplitListTranslations = {
   upcoming: string;
   noUpcoming: string;
-  viewAgenda: string;
-  viewAgendaDescription: string;
-  viewArchive: string;
-  viewArchiveDescription: string;
 };
 
 type SplitListProps<T> = {
   // Past items no longer live here -- they moved to their own paginated
-  // archive page (see ArchiveListComponent), reached via `archiveUrl` below.
+  // archive page (see ArchiveListComponent). The archive/agenda CTAs that
+  // used to live here moved up into the page's HeroImpactStatsBlock instead,
+  // so this component only needs the upcoming/current lists and their labels.
   items: { upcoming: T[]; current?: PaginatedDocs<T> };
+  // Still accepted (and passed by every call site) even though this component
+  // no longer needs it directly -- kept so callers don't have to special-case
+  // dropping it just for this component.
   lng: Language;
   translations: SplitListTranslations;
   renderCard: (item: T, index: number) => ReactNode;
-  archiveUrl: string;
+  filters?: ListFilterConfig[];
 };
 
 const SplitListComponent = <T,>({
   items,
-  lng,
   translations,
   renderCard,
-  archiveUrl,
+  filters,
 }: SplitListProps<T>) => {
   const { upcoming, current } = items || {};
   const { docs } = current || {};
 
-  const {
-    upcoming: upcomingLabel,
-    noUpcoming,
-    viewAgenda,
-    viewAgendaDescription,
-    viewArchive,
-    viewArchiveDescription,
-  } = translations;
+  const { upcoming: upcomingLabel, noUpcoming } = translations;
 
   return (
     <div className='flex flex-col gap-12 px-6 py-8 lg:gap-16 lg:px-12 lg:py-12'>
-      {/* Agenda CTA */}
-      <div className='flex flex-col items-start gap-4 rounded-xl border bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between lg:p-8'>
-        <p className='text-body_regular text-muted-foreground'>{viewAgendaDescription}</p>
-        <Button asChild size='lg' className='shrink-0'>
-          <Link href={transformUrl(lng, SITE_GET_URLS.agenda)}>
-            <LuCalendarDays className='size-4' />
-            {viewAgenda}
-          </Link>
-        </Button>
-      </div>
+      {/* Type/year filters */}
+      {filters && filters.length > 0 && <ListFilters filters={filters} />}
 
       {/* Current Events */}
       {current && (
@@ -82,17 +64,6 @@ const SplitListComponent = <T,>({
           </div>
         )}
       </section>
-
-      {/* Archive CTA -- past items live on their own paginated page now */}
-      <div className='flex flex-col items-start gap-4 rounded-xl border bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between lg:p-8'>
-        <p className='text-body_regular text-muted-foreground'>{viewArchiveDescription}</p>
-        <Button asChild size='lg' variant='outline' className='shrink-0'>
-          <Link href={transformUrl(lng, archiveUrl)}>
-            <LuArchive className='size-4' />
-            {viewArchive}
-          </Link>
-        </Button>
-      </div>
     </div>
   );
 };

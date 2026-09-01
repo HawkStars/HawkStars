@@ -12,15 +12,17 @@ import { HawkStarsSection } from '@/components/layout';
 import { NewsTypeLabels } from '../constants';
 import { useTranslation } from '@/i18n/client';
 import LandingPagination from '@/components/utils/Pagination';
+import ListFilters, { ListFilterConfig } from '@/components/utils/ListFilters';
 import { Language } from '@/i18n/settings';
 import { cn } from '@/lib/utils';
 
 type NewsListProps = {
   news: PaginatedDocs<News>;
   lng: Language;
+  filters?: ListFilterConfig[];
 };
 
-const NewsListComponent = ({ news, lng }: NewsListProps) => {
+const NewsListComponent = ({ news, lng, filters }: NewsListProps) => {
   const { t } = useTranslation(lng, 'common');
   const { docs, totalPages, page, hasPrevPage, hasNextPage, limit } = news || {};
 
@@ -29,7 +31,7 @@ const NewsListComponent = ({ news, lng }: NewsListProps) => {
 
   return (
     <HawkStarsSection className='flex-col py-10 lg:py-14'>
-      {/* <ListFilters on /> */}
+      {filters && filters.length > 0 && <ListFilters filters={filters} />}
       <div className='grid gap-x-1 gap-y-5 lg:grid-cols-3'>
         {docsWithImage?.map((article, articleIndex) => {
           const image = getImagePayloadUrl(article.mainImage);

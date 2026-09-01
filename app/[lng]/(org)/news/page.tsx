@@ -1,12 +1,19 @@
 import { LanguageProps } from '@/components/types';
+import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
 import { getNewsQuery } from '@/lib/payload/queries/news';
 import { getNewsListHeader } from '@/lib/payload/queries/globals/newsList';
+import { News } from '@/payload-types';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import NewsListComponent from '@/components/news/list/NewsListComponent';
 import NewsListHeader from '@/components/news/list/NewsListHeader';
 import { Suspense } from 'react';
+
+// Mirrors components/news/constants.ts's NewsTypeLabels keys -- kept explicit
+// (rather than Object.keys(NewsTypeLabels)) so the filter's option order is
+// stable and independent of that map's declaration order.
+const NEWS_TYPES: News['type'][] = ['blog', 'news', 'press_release', 'announcement', 'other'];
 
 type NewsPageProps = {
   params: Promise<LanguageProps>;
@@ -42,16 +49,33 @@ const NewsListContent = async ({
   const [{ lng }, resolvedSearchParams] = await Promise.all([params, searchParams]);
   const page = resolvedSearchParams.page ? Number(resolvedSearchParams.page) : 1;
   const limitNews = resolvedSearchParams.limit ? Number(resolvedSearchParams.limit) : 10;
+  const type =
+    typeof resolvedSearchParams.type === 'string'
+      ? (resolvedSearchParams.type as News['type'])
+      : undefined;
 
-  const [newsListHeader, news] = await Promise.all([
+  const [newsListHeader, news, { t }] = await Promise.all([
     getNewsListHeader(lng as Language),
-    getNewsQuery(lng as Language, { page, limit: limitNews }),
+    getNewsQuery(lng as Language, { page, limit: limitNews, type }),
+    // News has no locale file of its own -- the "common" namespace already
+    // carries a label.* map for these exact type values (used elsewhere for
+    // the same enum), plus filterByType/allTypes added alongside it.
+    getServerTranslation(lng, 'common'),
   ]);
+
+  const filters = [
+    {
+      param: 'type',
+      allLabel: t('allTypes'),
+      value: type,
+      options: NEWS_TYPES.map((value) => ({ value, label: t(`label.${value}`) })),
+    },
+  ];
 
   return (
     <>
       <NewsListHeader title={newsListHeader?.title || 'News'} subtitle={newsListHeader?.subtitle} />
-      <NewsListComponent news={news} lng={lng} />
+      <NewsListComponent news={news} lng={lng} filters={filters} />
     </>
   );
 };

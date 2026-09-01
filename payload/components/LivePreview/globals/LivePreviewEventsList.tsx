@@ -45,12 +45,16 @@ export const LivePreviewEventsList: React.FC<LivePreviewEventsListProps> = ({
 
   return (
     <>
-      <HeroImpactStatsBlock {...eventsListInformation} />
+      <HeroImpactStatsBlock
+        {...eventsListInformation}
+        viewAgenda={translations.viewAgenda}
+        archiveUrl={SITE_GET_URLS.events_archive}
+        viewArchive={translations.viewArchive}
+      />
       <SplitListComponent
         items={events}
         lng={lng}
         translations={translations}
-        archiveUrl={SITE_GET_URLS.events_archive}
         renderCard={(event, idx) => (
           <EventCard key={event.id} event={event} index={idx} lng={lng} />
         )}

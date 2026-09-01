@@ -45,12 +45,16 @@ export const LivePreviewProjectList: React.FC<LivePreviewProjectListProps> = ({
 
   return (
     <>
-      <HeroImpactStatsBlock {...projectListInformation} />
+      <HeroImpactStatsBlock
+        {...projectListInformation}
+        viewAgenda={translations.viewAgenda}
+        archiveUrl={SITE_GET_URLS.projects_archive}
+        viewArchive={translations.viewArchive}
+      />
       <SplitListComponent
         items={projects}
         lng={lng}
         translations={translations}
-        archiveUrl={SITE_GET_URLS.projects_archive}
         renderCard={(project, idx) => (
           <ProjectCard key={project.id} project={project} index={idx} lng={lng} />
         )}

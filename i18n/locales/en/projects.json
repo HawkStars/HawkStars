@@ -3,6 +3,16 @@
   "pastProjects": "Past Projects",
   "viewPastProjects": "View Past Projects",
   "viewPastProjectsDescription": "Browse the archive of our completed projects.",
+  "allTypes": "All Types",
+  "allYears": "All Years",
+  "types": {
+    "youth_exchange": "Youth Exchange",
+    "training_course": "Training Course",
+    "seminar": "Seminar",
+    "partnership": "Partnership",
+    "discover_eu": "DiscoverEU",
+    "other": "Other"
+  },
   "noUpcomingProjects": "No upcoming projects at the moment.",
   "noPastProjects": "No past projects yet.",
   "viewAgenda": "View Agenda",
