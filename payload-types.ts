@@ -2473,7 +2473,8 @@ export interface Config {
     notifications: NotificationsSelect<false> | NotificationsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents':
+      PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -3951,7 +3952,8 @@ export interface HawkProject {
   /**
    * Select the type of project.
    */
-  project_type: 'youth_exchange' | 'training_course' | 'seminar' | 'partnership' | 'discover_eu' | 'other';
+  project_type:
+    'youth_exchange' | 'training_course' | 'seminar' | 'partnership' | 'discover_eu' | 'other';
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -4516,7 +4518,8 @@ export interface News {
         /**
          * Type of the reference link (website, social media, etc.)
          */
-        platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'website' | 'other';
+        platform:
+          'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'website' | 'other';
         /**
          * URL of the reference link
          */
@@ -7140,7 +7143,6 @@ export interface SeoFieldsSelect<T extends boolean = true> {
 export interface Auth {
   [k: string]: unknown;
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

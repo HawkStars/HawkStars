@@ -20,6 +20,7 @@ This is one Next.js app, not a set of microservices. Payload's admin panel, Grap
 Route-level middleware is named `proxy.ts` at the repo root, not `middleware.ts` — Next.js 16 renamed the convention from "middleware" to "proxy". It does two things: for any path containing `admin` it just tags the response with an `x-pathname` header and passes through; everything else goes through `withHandleInternalization` (`utils/middlewares/`), which is the locale-detection/routing layer. Its matcher excludes `api`, `sitemap`, `robots`, `llms`/`llms-full`, `_next/static`, `_next/image`, `images`, and `favicon`.
 
 Media storage is not local disk — two different cloud adapters are wired in via `@payloadcms/plugin-cloud-storage` (registered in `payload/plugins/index.ts`):
+
 - The `Media` collection (images) → **Cloudinary**, local disk storage disabled
 - The `Documents` collection (files) → **Google Drive**, local disk storage disabled, and Drive also handles that collection's access control directly (`disablePayloadAccessControl: true`), bypassing Payload's own
 
@@ -31,16 +32,16 @@ Other integrations to know about: **EasyPay** (a Portuguese payment processor �
 
 ## Directory map
 
-| Path | What's there |
-|---|---|
-| `app/` | Next.js App Router. `[lng]/(org)/` is the main public site, `[lng]/(crowdfunding)/` and `[lng]/(gaming)/` are separate sub-sections, `(payload)/` mounts the CMS admin+API, `api/` holds custom REST routes (donations, EasyPay webhook, health check, Instagram feed, member-project submissions). |
-| `payload/` | All server-side CMS config: `collections/`, `globals/`, `access/`, `blocks/` (page-builder blocks), `fields/`, `hooks/`, `endpoints/` (custom API routes), `plugins/`, `jobs/`, `migrations/`, `seed.ts`. |
-| `components/` | Shared React UI, organized by feature (`art`, `events`, `projects`, `team`, `transparency`, `Crowdfunding`, `gaming`, `contribute`, `members-corner`, `news`, `partners`, `agenda`, `curator`, …) plus cross-cutting `layout/`, `navbar/`, `footer/`, `seo/`, `shared/`, and `ui/` (shadcn primitives). |
-| `lib/` | Server/client utilities: `payload/` (query functions — the main way pages read CMS data), `cloudinary/`, `google-drive/`, `instagram/`, `sentry/`, `flags/`. |
-| `i18n/` | i18next setup — `settings.ts` (locale list), `index.ts` (server translation, memoized), `client.ts` (client hook), `locales/{en,pt}/*.json`. |
-| `utils/` | `paths.ts` (route constants + sitemap), `metadata.ts` (SEO), `payment/`, `middlewares/` (incl. `withHandleInternalization`), `models/`, `rateLimit.ts`. |
-| `stories/` | Storybook stories not co-located with their component (footer, navbar, misc utils). Most stories live next to their component as `*.stories.tsx`. |
-| `types/`, `public/` | Shared TS types; static assets. |
+| Path                | What's there                                                                                                                                                                                                                                                                                            |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `app/`              | Next.js App Router. `[lng]/(org)/` is the main public site, `[lng]/(crowdfunding)/` and `[lng]/(gaming)/` are separate sub-sections, `(payload)/` mounts the CMS admin+API, `api/` holds custom REST routes (donations, EasyPay webhook, health check, Instagram feed, member-project submissions).     |
+| `payload/`          | All server-side CMS config: `collections/`, `globals/`, `access/`, `blocks/` (page-builder blocks), `fields/`, `hooks/`, `endpoints/` (custom API routes), `plugins/`, `jobs/`, `migrations/`, `seed.ts`.                                                                                               |
+| `components/`       | Shared React UI, organized by feature (`art`, `events`, `projects`, `team`, `transparency`, `Crowdfunding`, `gaming`, `contribute`, `members-corner`, `news`, `partners`, `agenda`, `curator`, …) plus cross-cutting `layout/`, `navbar/`, `footer/`, `seo/`, `shared/`, and `ui/` (shadcn primitives). |
+| `lib/`              | Server/client utilities: `payload/` (query functions — the main way pages read CMS data), `cloudinary/`, `google-drive/`, `instagram/`, `sentry/`, `flags/`.                                                                                                                                            |
+| `i18n/`             | i18next setup — `settings.ts` (locale list), `index.ts` (server translation, memoized), `client.ts` (client hook), `locales/{en,pt}/*.json`.                                                                                                                                                            |
+| `utils/`            | `paths.ts` (route constants + sitemap), `metadata.ts` (SEO), `payment/`, `middlewares/` (incl. `withHandleInternalization`), `models/`, `rateLimit.ts`.                                                                                                                                                 |
+| `stories/`          | Storybook stories not co-located with their component (footer, navbar, misc utils). Most stories live next to their component as `*.stories.tsx`.                                                                                                                                                       |
+| `types/`, `public/` | Shared TS types; static assets.                                                                                                                                                                                                                                                                         |
 
 Root config worth knowing: `payload.config.ts` (Payload's own config — collections/globals/plugins are registered here, with `assert()` calls that fail the boot loudly if required env vars are missing), `payload-types.ts` (generated — never hand-edit, regenerate with `pnpm payload:regenerate`), `proxy.ts` (locale routing, see above), `next.config.ts` (wraps the config with `withPayload` then `withSentryConfig`; also sets a static, nonce-free CSP — deliberately static rather than nonce-based because this app relies on `generateStaticParams` and `'use cache'`, which are incompatible with per-request nonces; see `AUDIT.md` SEC-M3), `tailwind.config.ts`, `ecosystem.config.cjs` + `nginx.conf` (production process/reverse-proxy config for the VPS deploy).
 
