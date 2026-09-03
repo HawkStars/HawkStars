@@ -34,7 +34,7 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
           aria-controls={panelId}
           onClick={() => setShowOptions(!showOptions)}
           className={cn(
-            'focus-visible:ring-primary-500 flex w-full cursor-pointer gap-2 text-left focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
+            'focus-visible:ring-ring flex w-full cursor-pointer gap-2 text-left focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
             { 'my-auto items-center': isMultiColumn }
           )}
         >

@@ -46,10 +46,10 @@ export default function Input({
       )}
       <div
         className={cn(
-          'border-terciary-500 focus-within:border-primary-500 focus-within:ring-primary-500 flex flex-row gap-1 rounded-md border border-solid px-5 py-2 shadow-xs focus-within:ring-2 focus-within:ring-offset-2',
-          { 'bg-bege-dark-100/80': disabled },
+          'border-b-bege-dark focus-within:ring-ring flex h-10 w-full flex-row items-center gap-1 border-b-2 px-3 py-2 focus-within:ring-2 focus-within:ring-offset-2',
+          { 'cursor-not-allowed opacity-50': disabled },
           { 'bg-white': !disabled && outline },
-          { 'border-red-700': errorMessage }
+          { 'border-b-red-dark': errorMessage }
         )}
       >
         <input
@@ -58,7 +58,6 @@ export default function Input({
           className={cn(
             'w-full border-0 bg-inherit focus:ring-0 focus:outline-hidden',
             `${customCss}`,
-            { 'bg-bege-dark-100/80': disabled },
             { 'text-right': icon }
           )}
           onChange={onChange}
@@ -72,7 +71,7 @@ export default function Input({
         {icon && <span className='my-auto ml-auto'>{icon}</span>}
       </div>
       {errorMessage && (
-        <small id={errorId} role='alert' className='text-red-700'>
+        <small id={errorId} role='alert' className='text-red-dark'>
           {errorMessage}
         </small>
       )}
