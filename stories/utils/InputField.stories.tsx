@@ -76,12 +76,7 @@ export const Disabled: Story = {
 
 export const WithIcon: Story = {
   render: () => (
-    <InteractiveInput
-      name='search'
-      labelText='Search'
-      placeholder='Search…'
-      icon={<LuSearch />}
-    />
+    <InteractiveInput name='search' labelText='Search' placeholder='Search…' icon={<LuSearch />} />
   ),
 };
 
