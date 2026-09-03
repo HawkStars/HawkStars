@@ -71,7 +71,7 @@ const LanguageSwitcher = ({ isFooter = false }: LanguageSwitcherProps) => {
             aria-label={t('a11y.switchToLanguage', { language: label })}
             aria-current={isCurrent ? 'true' : undefined}
             className={cn(
-              'focus-visible:ring-primary-500 flex h-4 w-6 rounded-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
+              'focus-visible:ring-ring flex h-4 w-6 rounded-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
               {
                 'my-auto': isFooter,
               }
