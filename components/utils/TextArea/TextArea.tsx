@@ -46,10 +46,9 @@ export default function TextArea({
         id={name}
         placeholder={placeholder}
         className={cn(
-          'border-terciary-500 focus-visible:border-primary-500 focus-visible:ring-primary-500 block w-full rounded-md border border-solid px-5 py-2 shadow-xs focus:ring-0 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2',
+          'border-b-bege-dark focus-visible:ring-ring block w-full border-b-2 px-3 py-2 focus:ring-0 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
           `${customCss}`,
-          { 'border-red-700': errorMessage },
-          { 'bg-gray-100': disabled }
+          { 'border-b-red-dark': errorMessage }
         )}
         onChange={onChange}
         name={name}
@@ -60,7 +59,7 @@ export default function TextArea({
         {...props}
       ></textarea>
       {errorMessage && (
-        <small id={errorId} role='alert' className='text-red-700'>
+        <small id={errorId} role='alert' className='text-red-dark'>
           {errorMessage}
         </small>
       )}
