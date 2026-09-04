@@ -22,6 +22,8 @@ Required (see `.env.example`):
 | `GOOGLE_CLIENT_ID/SECRET/REFRESH_TOKEN/EMAIL_USER`     | OAuth email + Drive         |
 | `SENTRY_AUTH_TOKEN`                                    | Error tracking (production) |
 
+CI-only secrets (GitHub repository secrets, not `.env`): `DISCORD_WEBHOOK_URL` for deploy notifications.
+
 ## CI/CD & Deployment
 
 **Workflow**: `.github/workflows/deploy.yml`
@@ -29,10 +31,16 @@ Required (see `.env.example`):
 ```
 Push to main → Lint + Type Check → SSH to VPS → git pull →
 pnpm install --frozen-lockfile → rm -rf .next → pnpm build →
-PM2 restart → Update GitHub deployment status
+PM2 restart → Update GitHub deployment status → Notify Discord
 ```
 
 Storybook is built and published to Chromatic in a separate job.
+
+**Discord notifications**: the `notify` job posts an embed to a Discord channel after every
+deploy attempt (`if: always()`), reporting success/failure/cancelled along with the commit,
+branch, author, and a link to the workflow run. It requires the repository secret
+`DISCORD_WEBHOOK_URL` (Discord → Server Settings → Integrations → Webhooks → Copy Webhook URL).
+If the secret is absent the job logs a skip and passes, so forks and secret-less runs are unaffected.
 
 **Important**: Deployment fails if lint or type checks fail. Always run `pnpm lint` and `pnpm typecheck` before pushing to `main`.
 

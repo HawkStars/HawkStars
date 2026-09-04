@@ -67,9 +67,9 @@ const TeamInformation = ({ boardMembers, lng }: TeamInformationProps) => {
               onClick={() => setCurrentSection(section)}
               onKeyDown={handleTabKeyDown}
               className={cn(
-                'focus-visible:ring-primary-500 cursor-pointer transition-[border] duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
+                'focus-visible:ring-ring cursor-pointer transition-[border] duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
                 {
-                  'border-primary border-b-2 font-medium': isSelected,
+                  'border-green border-b-2 font-medium': isSelected,
                   'hover:text-foreground text-muted-foreground hover:border-b-2 hover:border-b-neutral-700':
                     !isSelected,
                 }
