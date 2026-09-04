@@ -56,8 +56,12 @@ const getImagePayloadUrl = (info?: ImageType): ImageProps | undefined => {
   };
 };
 
-const isImageType = (obj: any): obj is ImageType => {
-  return obj && typeof obj === 'object' && 'imageType' in obj;
+const isImageType = (obj: unknown): obj is ImageType => {
+  return (
+    !!obj &&
+    typeof obj === 'object' &&
+    ('imageType' in obj || 'externalImage' in obj || 'image' in obj)
+  );
 };
 
 const createOGImageUrl = (image?: ImageType | Media | string | null): ImageProps | undefined => {
