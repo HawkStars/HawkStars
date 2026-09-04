@@ -73,7 +73,8 @@ export const ActivityLogWidget: React.FC = () => {
       if (!res.ok) throw new Error('Failed to fetch activity');
       const data = await res.json();
 
-      setEntries((data.docs as ActivityEntry[]) ?? []);
+      // GET /api/notifications returns { notifications, unreadCount, totalDocs }
+      setEntries((data.notifications as ActivityEntry[]) ?? []);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unknown error');
     } finally {

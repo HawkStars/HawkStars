@@ -1,5 +1,8 @@
 import type { CollectionConfig } from 'payload';
 import { GROUP_LABELS } from '../constants';
+import { anyone } from '../access/anyone';
+import { authenticatedAdmin } from '../access/authenticatedAdmin';
+import { authenticatedEditor } from '../access/authenticatedEditor';
 
 export const Documents: CollectionConfig = {
   slug: 'documents',
@@ -9,6 +12,17 @@ export const Documents: CollectionConfig = {
   labels: {
     singular: { en: 'Document', pt: 'Documento' },
     plural: { en: 'Documents', pt: 'Documentos' },
+  },
+  // Was previously unset, which defaults every operation to public — these
+  // files are downloaded from public-facing pages (see ResourceDownloadBlock)
+  // so read stays public, but metadata create/update/delete now require an
+  // editor/admin account instead of being open to anyone.
+  access: {
+    admin: authenticatedEditor,
+    read: anyone,
+    create: authenticatedEditor,
+    delete: authenticatedAdmin,
+    update: authenticatedEditor,
   },
   admin: {
     description: {
