@@ -50,7 +50,7 @@ const NewsSingleHero: FC<NewsSingleHeroProps> = ({ title, type, heroImage, publi
 
         <ImageMedia
           src={heroImage.url}
-          alt={heroImage.alt}
+          alt={heroImage.alt ?? ''}
           className='object-cover lg:object-contain'
           preload
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw'

@@ -7,6 +7,7 @@ import { HawkStarsSection } from '@/components/layout';
 import Link from 'next/link';
 import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
 import { steps } from './config';
+import { SectionEyebrow } from '@/components/ui/SectionHeader';
 
 const CONTACT_EMAIL = 'geral@hawkstars.org';
 
@@ -253,8 +254,5 @@ const CTASection = ({ t }: { t: T }) => (
 // ── Shared ──
 
 const SectionTag = ({ label }: { label: string }) => (
-  <p className='text-green mb-3 flex items-center gap-2.5 text-xs font-bold tracking-[0.22em] uppercase'>
-    <span className='bg-green block h-0.5 w-7' />
-    {label}
-  </p>
+  <SectionEyebrow label={label} variant='green' />
 );

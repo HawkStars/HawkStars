@@ -23,7 +23,7 @@ export const CrowdfundingImageBannerBlockComponent: React.FC<CrowdfundingImageBa
       <Link href={linkUrl?.url || '#'} target='_blank' rel='noopener noreferrer'>
         <ImageMedia
           src={imageData.url}
-          alt={imageData.alt}
+          alt={imageData.alt ?? ''}
           width={imageData.width || 1920}
           height={imageData.height || 400}
           className={cn('mx-auto h-auto w-full object-contain', {})}

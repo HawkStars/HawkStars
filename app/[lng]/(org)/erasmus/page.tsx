@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { applySteps, eligibilityItems, flagshipCards, opportunityCards } from './config';
 import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
 import NavbarVariant from '@/components/navbar/NavbarVariant';
+import { SectionEyebrow } from '@/components/ui/SectionHeader';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -288,14 +289,5 @@ const CTABanner = ({ t }: SectionProps) => (
 // ── Shared Components ──
 
 const SectionTag = ({ label, variant = 'blue' }: { label: string; variant?: 'blue' | 'gold' }) => (
-  <p
-    className={`mb-3 flex items-center gap-2.5 text-[0.7rem] font-bold tracking-[0.22em] uppercase ${
-      variant === 'gold' ? 'text-erasmus-gold' : 'text-erasmus-blue'
-    }`}
-  >
-    <span
-      className={`block h-0.5 w-7 ${variant === 'gold' ? 'bg-erasmus-gold' : 'bg-erasmus-blue'}`}
-    />
-    {label}
-  </p>
+  <SectionEyebrow label={label} variant={variant} />
 );

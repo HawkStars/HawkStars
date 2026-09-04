@@ -39,7 +39,7 @@ export const getDropdownImageElement = (link: DropdownLinkField, className?: str
   return (
     <ImageMedia
       resource={imageInformation}
-      alt={imageElement.alt}
+      alt={imageElement.alt ?? ''}
       className={cn(
         'object-fill',
         {
