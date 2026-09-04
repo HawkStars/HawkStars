@@ -35,6 +35,14 @@ const GROUP_LABELS = {
     en: 'HawkStars News',
     pt: 'Notícias da HawkStars',
   },
+  organization: {
+    en: 'Organization',
+    pt: 'Organização',
+  },
+  donations: {
+    en: 'Donations',
+    pt: 'Donativos',
+  },
 };
 
 export { GROUP_LABELS };

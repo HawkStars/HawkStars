@@ -33,6 +33,7 @@ export const Pages: CollectionConfig<'pages'> = {
     slug: true,
   },
   admin: {
+    preview: (doc, { locale }) => (doc?.slug ? `/${locale || 'pt'}/${doc.slug}` : null),
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', '_status', 'updatedAt'],
     description: {

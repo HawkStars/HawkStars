@@ -5,6 +5,7 @@ import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
   title,
@@ -34,7 +35,13 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
           className='rounded-2xl p-12 text-center text-white'
           style={{ background: 'linear-gradient(135deg, #0a7558 0%, #064f39 100%)' }}
         >
-          <h2 className='mb-4 text-3xl font-extrabold lg:text-4xl'>{title}</h2>
+          <SectionHeader
+            title={title}
+            variant='inverse'
+            align='center'
+            className='mb-4'
+            titleClassName='text-3xl font-extrabold lg:text-4xl'
+          />
           {description && (
             <p className='mx-auto mb-8 max-w-2xl text-lg opacity-90'>{description}</p>
           )}
@@ -65,7 +72,13 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
         >
           <div className='flex flex-col gap-8 p-12 lg:flex-row lg:items-center lg:justify-between'>
             <div className='flex-1'>
-              <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
+              <SectionHeader
+                title={title}
+                variant='inverse'
+                align='center'
+                className='mb-4'
+                titleClassName='text-3xl font-bold lg:text-4xl'
+              />
               {description && <p className='text-lg opacity-90'>{description}</p>}
             </div>
             <div className='flex flex-col gap-4 sm:flex-row lg:shrink-0'>
@@ -100,7 +113,13 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
         >
           <div className='absolute inset-0 bg-black/50' />
           <div className='relative z-10 text-center'>
-            <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
+            <SectionHeader
+              title={title}
+              variant='inverse'
+              align='center'
+              className='mb-4'
+              titleClassName='text-3xl font-bold lg:text-4xl'
+            />
             {description && <p className='mx-auto mb-8 max-w-2xl text-lg'>{description}</p>}
             <div className='flex flex-col justify-center gap-4 sm:flex-row'>
               {primaryCTAInfo && (

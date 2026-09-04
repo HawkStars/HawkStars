@@ -103,15 +103,23 @@ export default buildConfig({
   },
   admin: {
     timezones: {
+      // Lisbon first: the organisation is in Pinhel, and editors were picking a
+      // London-labelled zone for Portuguese events. The rest cover the
+      // countries Erasmus+ mobilities are most often scheduled in.
       supportedTimezones: [
-        {
-          label: 'Europe/London',
-          value: 'Europe/London',
-        },
+        { label: 'Lisboa (Portugal)', value: 'Europe/Lisbon' },
+        { label: 'Açores', value: 'Atlantic/Azores' },
+        { label: 'Madrid (Espanha)', value: 'Europe/Madrid' },
+        { label: 'Bruxelas (Bélgica)', value: 'Europe/Brussels' },
+        { label: 'Londres (Reino Unido)', value: 'Europe/London' },
       ],
-      defaultTimezone: 'Europe/London',
+      defaultTimezone: 'Europe/Lisbon',
     },
     user: Users.slug,
+    meta: {
+      titleSuffix: ' · Hawk Stars',
+      icons: [{ rel: 'icon', type: 'image/x-icon', url: '/favicon.ico' }],
+    },
     importMap: {
       baseDir: path.resolve(dirname),
     },

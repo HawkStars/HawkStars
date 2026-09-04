@@ -4,6 +4,7 @@ import { contributionTypeOptions } from './config';
 import { User } from '@/payload-types';
 import { notifyContribution, notifyContributionDelete } from './hooks';
 import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
+import { GROUP_LABELS } from '@/payload/constants';
 
 const validateContributionAccess = (args: AccessArgs<User>) => authenticated(args);
 
@@ -164,6 +165,10 @@ export const ContributionCollection: CollectionConfig = {
   ],
   defaultSort: '-contribution_date',
   admin: {
+    group: {
+      ...GROUP_LABELS.donations,
+    },
+    useAsTitle: 'donor',
     defaultColumns: [
       'donor',
       'value',

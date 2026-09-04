@@ -28,6 +28,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // default depth (2) meant six round-trips (uncached, on every request)
     // each pulling relationships nothing here uses. `Promise.all` +
     // `depth: 0` + `select` fixes both.
+    // Only `pages`, `news` and `hawk_projects` enable `versions.drafts`, so only
+    // those documents carry `_status`. Applying this filter to a collection
+    // without drafts matches nothing — which silently dropped every artwork,
+    // curator and event from the sitemap.
     const publishedWhere = { _status: { equals: 'published' as const } };
     const slugSelect = { slug: true, updatedAt: true } as const;
 
@@ -42,14 +46,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       payload.find({
         collection: 'artworks',
         limit: 1000,
-        where: publishedWhere,
         depth: 0,
         select: slugSelect,
       }),
       payload.find({
         collection: 'curators',
         limit: 1000,
-        where: publishedWhere,
         depth: 0,
         select: slugSelect,
       }),
@@ -70,7 +72,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       payload.find({
         collection: 'hawk_events',
         limit: 1000,
-        where: publishedWhere,
         depth: 0,
         select: slugSelect,
       }),

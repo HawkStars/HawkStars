@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { anyone } from '../access/anyone';
 import { authenticatedEditor } from '../access/authenticatedEditor';
 import { authenticatedAdmin } from '../access/authenticatedAdmin';
+import { GROUP_LABELS } from '../constants';
 
 export const Sponsor: CollectionConfig = {
   slug: 'sponsors',
@@ -17,7 +18,7 @@ export const Sponsor: CollectionConfig = {
       pt: 'Gira os patrocinadores e a sua identidade visual. Os patrocinadores são exibidos no website através do bloco de Patrocinadores.',
     },
     group: {
-      name: 'Organization',
+      ...GROUP_LABELS.organization,
     },
   },
   access: {

@@ -33,9 +33,11 @@ export const Media: CollectionConfig = {
         },
       },
     },
+    useAsTitle: 'filename',
+    defaultColumns: ['filename', 'alt', 'section', 'updatedAt'],
     pagination: {
       limits: [10, 25, 50, 100],
-      defaultLimit: 2,
+      defaultLimit: 25,
     },
     group: {
       ...GROUP_LABELS.management,

@@ -1,5 +1,4 @@
 import { ImageType, Media } from '@/payload-types';
-import assert from 'assert';
 
 /**
  * Shared neutral blur placeholder (1x1 neutral-200 #e5e5e5 PNG). Fallback for
@@ -32,7 +31,7 @@ export const getCloudinaryBlurURL = (url?: string): string => {
 };
 
 export type ImageProps = {
-  url: string;
+  url?: string;
   alt?: string;
   width?: number | null;
   height?: number | null;
@@ -46,10 +45,10 @@ const getImagePayloadUrl = (info?: ImageType): ImageProps | undefined => {
     return { url: info.image ?? undefined, alt: info.alt ?? undefined };
 
   const imageInfo = info.image as Media;
-  assert(imageInfo.url, 'Image has no URL; cannot generate find attribute');
+  if (!imageInfo) return undefined;
 
   return {
-    url: imageInfo?.url,
+    url: imageInfo?.url ?? undefined,
     alt: info.alt ?? imageInfo.alt ?? undefined,
     width: imageInfo.width ?? undefined,
     height: imageInfo.height ?? undefined,

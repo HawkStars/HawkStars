@@ -2848,6 +2848,7 @@ export interface GlobalVillageBannerBlock {
  * via the `definition` "SectionTitleBlock".
  */
 export interface SectionTitleBlock {
+  eyebrow?: string | null;
   title: string;
   subtitle?: string | null;
   /**
@@ -2988,6 +2989,7 @@ export interface TimelineBlock {
  * via the `definition` "TitleDescriptionBlock".
  */
 export interface TitleDescriptionBlock {
+  eyebrow?: string | null;
   title: string;
   description?: string | null;
   /**
@@ -5453,6 +5455,7 @@ export interface GlobalVillageBannerBlockSelect<T extends boolean = true> {
  * via the `definition` "SectionTitleBlock_select".
  */
 export interface SectionTitleBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
   title?: T;
   subtitle?: T;
   sectionId?: T;
@@ -5578,6 +5581,7 @@ export interface TimelineBlockItemSelect<T extends boolean = true> {
  * via the `definition` "TitleDescriptionBlock_select".
  */
 export interface TitleDescriptionBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
   title?: T;
   description?: T;
   sectionId?: T;

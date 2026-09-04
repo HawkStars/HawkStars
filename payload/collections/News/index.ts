@@ -26,6 +26,7 @@ export const News: CollectionConfig = {
     plural: { en: 'News Articles', pt: 'Notícias' },
   },
   admin: {
+    preview: (doc, { locale }) => (doc?.slug ? `/${locale || 'pt'}/news/${doc.slug}` : null),
     useAsTitle: 'title',
     defaultColumns: ['title', 'type', 'slug', '_status', 'updatedAt'],
     description: {

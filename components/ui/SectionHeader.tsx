@@ -9,7 +9,8 @@ import { cn } from '@/lib/utils';
  * uses the Hawk Stars green, the Erasmus pages keep their programme blue and
  * gold, and gaming/crowdfunding use their own accents.
  */
-export type SectionHeaderVariant = 'green' | 'blue' | 'gold' | 'gaming' | 'crowdfunding';
+export type SectionHeaderVariant =
+  'green' | 'blue' | 'gold' | 'gaming' | 'crowdfunding' | 'inverse';
 
 const ACCENT: Record<SectionHeaderVariant, { text: string; rule: string }> = {
   green: { text: 'text-green', rule: 'bg-green' },
@@ -17,6 +18,7 @@ const ACCENT: Record<SectionHeaderVariant, { text: string; rule: string }> = {
   gold: { text: 'text-erasmus-gold', rule: 'bg-erasmus-gold' },
   gaming: { text: 'text-gaming-accent', rule: 'bg-gaming-accent' },
   crowdfunding: { text: 'text-erasmus-gold', rule: 'bg-erasmus-gold' },
+  inverse: { text: 'text-white', rule: 'bg-white' },
 };
 
 const HEADING_CLASS = {
@@ -89,7 +91,13 @@ const SectionHeader = ({
       id={sectionId || undefined}
       className={cn('flex flex-col', centered && 'items-center text-center', className)}
     >
-      {eyebrow && <SectionEyebrow label={eyebrow} variant={variant} />}
+      {eyebrow ? (
+        <SectionEyebrow label={eyebrow} variant={variant} />
+      ) : (
+        // No label to show (most CMS-driven sections have no eyebrow field yet),
+        // so keep the accent rule alone rather than dropping the pattern.
+        <span className={cn('mb-3 block h-0.5 w-7', ACCENT[variant].rule)} />
+      )}
       <Heading className={cn(HEADING_CLASS[as], 'tracking-tight text-balance', titleClassName)}>
         {title}
       </Heading>

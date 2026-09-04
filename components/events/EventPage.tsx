@@ -5,6 +5,7 @@ import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 /* ================================================================== */
 /*  Section wrapper for consistent spacing + alternating backgrounds  */
@@ -62,10 +63,13 @@ export default async function EventPage({ event, lng }: EventPageProps) {
           {/* Left column */}
           <div>
             {/* Title */}
-            <h1 className='text-4xl font-bold md:text-5xl'>{event.heading}</h1>
-
-            {/* Subtitle */}
-            {event.subheading && <p className='mt-2 text-lg text-gray-600'>{event.subheading}</p>}
+            <SectionHeader
+              as='h1'
+              title={event.heading}
+              subtitle={event.subheading ?? undefined}
+              titleClassName='text-4xl font-bold md:text-5xl'
+              subtitleClassName='mt-2 text-lg text-gray-600'
+            />
 
             {/* Date */}
             {dateLabel && (
@@ -135,7 +139,11 @@ export default async function EventPage({ event, lng }: EventPageProps) {
               (section: { title?: string; text?: string }, i: number) => (
                 <div key={i}>
                   {section.title && (
-                    <h2 className='mb-3 text-2xl font-semibold'>{section.title}</h2>
+                    <SectionHeader
+                      title={section.title}
+                      className='mb-3'
+                      titleClassName='text-2xl font-semibold'
+                    />
                   )}
                   {section.text && (
                     <p className='text-justify text-base leading-relaxed text-gray-800'>
@@ -155,7 +163,11 @@ export default async function EventPage({ event, lng }: EventPageProps) {
       {(event.objectives?.introduction || event.objectives?.items?.length > 0) && (
         <Section alt>
           <div className='mx-auto max-w-4xl'>
-            <h2 className='mb-6 text-3xl font-bold'>{t('sections.objectives')}</h2>
+            <SectionHeader
+              title={t('sections.objectives')}
+              className='mb-6'
+              titleClassName='text-3xl font-bold'
+            />
             {event.objectives.introduction && (
               <p className='mb-6 text-base leading-relaxed text-gray-800'>
                 {event.objectives.introduction}
@@ -178,7 +190,11 @@ export default async function EventPage({ event, lng }: EventPageProps) {
       {event.program?.length > 0 && (
         <Section>
           <div className='mx-auto max-w-4xl'>
-            <h2 className='mb-8 text-3xl font-bold'>{t('sections.program')}</h2>
+            <SectionHeader
+              title={t('sections.program')}
+              className='mb-8'
+              titleClassName='text-3xl font-bold'
+            />
             <div className='space-y-6'>
               {event.program.map(
                 (item: { day?: string; title?: string; description?: string }, i: number) => (
@@ -207,7 +223,11 @@ export default async function EventPage({ event, lng }: EventPageProps) {
       {/* ---------------------------------------------------------- */}
       {(event.gallery?.internalImages?.length > 0 || event.gallery?.externalImages?.length > 0) && (
         <Section alt>
-          <h2 className='mb-8 text-3xl font-bold'>{t('sections.gallery')}</h2>
+          <SectionHeader
+            title={t('sections.gallery')}
+            className='mb-8'
+            titleClassName='text-3xl font-bold'
+          />
           <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4'>
             {event.gallery.internalImages?.map(
               (item: { image?: { url?: string; alt?: string } }, i: number) =>
