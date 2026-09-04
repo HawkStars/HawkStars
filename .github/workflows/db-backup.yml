@@ -22,12 +22,13 @@ name: Daily MongoDB Backup to Google Drive
 #   Gmail/Nodemailer scopes, generate a new refresh token that includes Drive.
 
 on:
-  permissions: {}
   schedule:
     # 03:17 UTC every day (off-peak; avoids the top-of-hour cron congestion).
     - cron: '17 3 * * *'
   # Allow manual runs from the Actions tab.
   workflow_dispatch:
+
+permissions: {}
 
 concurrency:
   group: db-backup

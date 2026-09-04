@@ -1,11 +1,15 @@
 name: Auto Deploy in VPS after Push in Production
 
 on:
-  permissions:
-    contents: read
   push:
     branches:
       - main
+    pull_request:
+      types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
 jobs:
   check:
     name: Check code quality
@@ -35,10 +39,11 @@ jobs:
         run: pnpm tsc
   deploy:
     name: Deploy project with Nginx
+    needs: check
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     permissions:
       deployments: write
     runs-on: ubuntu-latest
-    needs: check
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v7
@@ -219,7 +224,7 @@ jobs:
     needs: deploy
     # Run even when the deploy fails or is cancelled, so the channel always
     # reflects the real state of production.
-    if: always()
+    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
