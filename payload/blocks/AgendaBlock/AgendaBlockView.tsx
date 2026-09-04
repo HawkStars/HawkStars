@@ -3,6 +3,7 @@
 import { LuArrowRight, LuCalendar } from 'react-icons/lu';
 import { HawkStarsSection } from '@/components/layout';
 import { ImageMedia } from '@/payload/components/Media';
+import { CustomImageProps } from '@/lib/image';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -12,7 +13,7 @@ export type AgendaEventItem = {
   subheading?: string | null;
   description?: string | null;
   badge: string | null;
-  image: { url: string; alt?: string } | null | undefined;
+  image?: Pick<CustomImageProps, 'url' | 'alt'> | null;
   href: string;
   /** ISO date string — always the start/only date */
   date: string | null;

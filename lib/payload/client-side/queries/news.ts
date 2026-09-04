@@ -3,7 +3,7 @@ import type { Where } from 'payload';
 import { stringify } from 'qs-esm';
 import * as Sentry from '@sentry/nextjs';
 
-import { getImagePayloadUrl } from '@/lib/image';
+import { CustomImageProps, getImagePayloadUrl } from '@/lib/image';
 
 import { NewsTypeLabels } from '@/components/news/constants';
 import API_CLIENT_PATHS from '../constants';
@@ -15,7 +15,7 @@ export type LatestNewsItem = {
   badge: string | null;
   date: string | null;
   description: string | null;
-  image: { url: string; alt?: string } | null | undefined;
+  image: Pick<CustomImageProps, 'url' | 'alt'> | null | undefined;
   href: string;
 };
 

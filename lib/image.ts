@@ -30,14 +30,14 @@ export const getCloudinaryBlurURL = (url?: string): string => {
   return `${before}${transform}/${after}`;
 };
 
-export type ImageProps = {
+export type CustomImageProps = {
   url?: string;
   alt?: string;
   width?: number | null;
   height?: number | null;
 };
 
-const getImagePayloadUrl = (info?: ImageType): ImageProps | undefined => {
+const getImagePayloadUrl = (info?: ImageType): CustomImageProps | undefined => {
   if (!info) return undefined;
   if (info.imageType === 'external' && info.externalImage)
     return { url: info.externalImage, alt: info.alt ?? undefined };
@@ -63,7 +63,9 @@ const isImageType = (obj: unknown): obj is ImageType => {
   );
 };
 
-const createOGImageUrl = (image?: ImageType | Media | string | null): ImageProps | undefined => {
+const createOGImageUrl = (
+  image?: ImageType | Media | string | null
+): CustomImageProps | undefined => {
   if (isImageType(image)) return getImagePayloadUrl(image);
   if (typeof image === 'string') return { url: image, alt: undefined };
 

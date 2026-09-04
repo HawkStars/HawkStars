@@ -4,13 +4,14 @@ import React from 'react';
 import { LuArrowRight } from 'react-icons/lu';
 import { HawkStarsSection } from '@/components/layout';
 import { ImageMedia } from '@/payload/components/Media';
+import { CustomImageProps } from '@/lib/image';
 
 export type UpcomingEventItem = {
   heading: string;
   subheading?: string | null;
   description?: string | null;
   badge: string | null;
-  image: { url: string; alt?: string } | null | undefined;
+  image?: Pick<CustomImageProps, 'url' | 'alt'> | null;
   href: string;
 };
 

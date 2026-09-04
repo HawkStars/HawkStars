@@ -5,13 +5,14 @@ import { LuCalendar, LuArrowRight } from 'react-icons/lu';
 import HawkLabel from '@/components/common/hawk-label';
 import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
+import { CustomImageProps } from '@/lib/image';
 
 export type LatestNewsItem = {
   heading: string;
   badge: string | null;
   date: string | null;
   description: string | null;
-  image: { url: string; alt?: string } | null | undefined;
+  image: Pick<CustomImageProps, 'url' | 'alt'> | null | undefined;
   href: string;
 };
 
