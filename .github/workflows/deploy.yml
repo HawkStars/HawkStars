@@ -1,11 +1,11 @@
 name: Auto Deploy in VPS after Push in Production
 
 on:
+  permissions:
+    contents: read
   push:
     branches:
       - main
-  pull_request:
-    types: [opened]
 jobs:
   check:
     name: Check code quality
