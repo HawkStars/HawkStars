@@ -1,12 +1,25 @@
 import type { CollectionConfig } from 'payload';
 import { notifyMediaDelete, notifyMediaUpload } from './hooks';
 import { GROUP_LABELS } from '../../constants';
+import { anyone } from '../../access/anyone';
+import { authenticatedAdmin } from '../../access/authenticatedAdmin';
+import { authenticatedEditor } from '../../access/authenticatedEditor';
 
 export const Media: CollectionConfig = {
   slug: 'media',
   labels: {
     singular: { en: 'Media', pt: 'Média' },
     plural: { en: 'Media', pt: 'Média' },
+  },
+  // Was previously unset, which defaults every operation to public — media is
+  // rendered on public pages so read stays public, but uploading/editing/
+  // deleting assets now requires an editor/admin account.
+  access: {
+    admin: authenticatedEditor,
+    read: anyone,
+    create: authenticatedEditor,
+    delete: authenticatedAdmin,
+    update: authenticatedEditor,
   },
   admin: {
     description: {
