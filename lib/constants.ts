@@ -8,9 +8,17 @@
 /** Canonical base URL (no trailing slash). */
 export const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://hawkstars.org';
 
-/** Default OpenGraph / Twitter share image (1200 × 630 recommended). */
-// TODO: Replace with a dedicated 1200×630 OG image when available
-export const OG_IMAGE_FALLBACK = `${BASE_URL}/images/hero.png`;
+/**
+ * Default OpenGraph / Twitter share image: the Hawk Stars lockup centred on
+ * the brand beige, rendered at exactly 1200 × 630 and flattened (no alpha, so
+ * platforms that composite on black don't lose the black wing and wordmark).
+ * Used whenever a page or CMS document has no image of its own.
+ */
+export const OG_IMAGE_FALLBACK = `${BASE_URL}/images/og-default.png`;
+
+/** Intrinsic size of OG_IMAGE_FALLBACK — keep in sync with the asset. */
+export const OG_IMAGE_WIDTH = 1200;
+export const OG_IMAGE_HEIGHT = 630;
 
 /** Organisation identity */
 export const SITE_NAME = 'Hawk Stars NGO';

@@ -1,4 +1,5 @@
 import { ImageType, Media } from '@/payload-types';
+import assert from 'assert';
 
 /**
  * Shared neutral blur placeholder (1x1 neutral-200 #e5e5e5 PNG). Fallback for
@@ -30,20 +31,49 @@ export const getCloudinaryBlurURL = (url?: string): string => {
   return `${before}${transform}/${after}`;
 };
 
-const getImagePayloadUrl = (info?: ImageType) => {
+export type ImageProps = {
+  url: string;
+  alt?: string;
+  width?: number | null;
+  height?: number | null;
+};
+
+const getImagePayloadUrl = (info?: ImageType): ImageProps | undefined => {
   if (!info) return undefined;
-  if (info.imageType === 'external') return { url: info.externalImage || '', alt: info.alt || '' };
-  if (typeof info.image === 'string') return { url: info.image, alt: info.alt || '' };
+  if (info.imageType === 'external' && info.externalImage)
+    return { url: info.externalImage, alt: info.alt ?? undefined };
+  if (typeof info.image === 'string')
+    return { url: info.image ?? undefined, alt: info.alt ?? undefined };
 
   const imageInfo = info.image as Media;
-  if (!imageInfo) return undefined;
+  assert(imageInfo.url, 'Image has no URL; cannot generate find attribute');
 
   return {
-    url: imageInfo?.url || '',
-    alt: info.alt || imageInfo.alt || '',
-    width: imageInfo.width,
-    height: imageInfo.height,
+    url: imageInfo?.url,
+    alt: info.alt ?? imageInfo.alt ?? undefined,
+    width: imageInfo.width ?? undefined,
+    height: imageInfo.height ?? undefined,
   };
 };
 
-export { getImagePayloadUrl };
+const isImageType = (obj: any): obj is ImageType => {
+  return obj && typeof obj === 'object' && 'imageType' in obj;
+};
+
+const createOGImageUrl = (image?: ImageType | Media | string | null): ImageProps | undefined => {
+  if (isImageType(image)) return getImagePayloadUrl(image);
+  if (typeof image === 'string') return { url: image, alt: undefined };
+
+  if (image && typeof image === 'object' && 'url' in image && image.url) {
+    return {
+      url: image.url,
+      alt: image.alt ?? undefined,
+      width: image.width ?? undefined,
+      height: image.height ?? undefined,
+    };
+  }
+
+  return undefined;
+};
+
+export { getImagePayloadUrl, createOGImageUrl };

@@ -3,94 +3,44 @@ import { Metadata } from 'next/types';
 
 import { Language, fallbackLng, languages } from '@/i18n/settings';
 import { SITE_GET_URLS, HawkStarsPaths } from './paths';
-import { Media } from '@/payload-types';
 import {
   BASE_URL,
   OG_IMAGE_FALLBACK,
+  OG_IMAGE_WIDTH,
+  OG_IMAGE_HEIGHT,
   SITE_NAME,
   SITE_LOCALE_PT,
   SITE_LOCALE_EN,
 } from '@/lib/constants';
 import PT_Metadata from '../i18n/locales/pt/metadata.json';
 import EN_Metadata from '../i18n/locales/en/metadata.json';
-
-export const defaultMetadata = {
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon/favicon-16x16.png',
-    apple: '/favicon/apple-touch-icon.png',
-  },
-} as Metadata;
+import assert from 'assert';
+import { ImageType, Media } from '@/payload-types';
+import { createOGImageUrl, getImagePayloadUrl } from '@/lib/image';
 
 const readMetadataLanguageFile = (lng: Language) => {
-  try {
-    const file = lng == 'pt' ? PT_Metadata : EN_Metadata;
-
-    return file;
-  } catch (err) {
-    Sentry.captureException(err);
-    return undefined;
-  }
+  const file = lng == 'pt' ? PT_Metadata : EN_Metadata;
+  return file ?? undefined;
 };
 
-const prepareMetadataInfo = ({
-  title,
-  description,
-  image,
-  lng,
-  urlPath,
-}: {
+type MetadataImageType = ImageType | Media | string | null;
+
+type MetadataProps = {
   title?: string | null;
   description?: string | null;
-  image?: string | Media | null;
-  /** URL path segment (e.g. "/news/my-article"). When provided, canonical + hreflang are set. */
-  urlPath?: string;
-  /** Current page language. Required when urlPath is provided. */
+  image?: MetadataImageType;
+  url?: string;
   lng?: Language;
-}): Metadata => {
-  const ogImage =
-    typeof image === 'string'
-      ? image
-      : image && typeof image === 'object' && 'url' in image
-        ? (image as Media).url || OG_IMAGE_FALLBACK
-        : OG_IMAGE_FALLBACK;
+};
 
-  const resolvedPath = urlPath ?? undefined;
-  const canonicalUrl = resolvedPath && lng ? `${BASE_URL}/${lng}${resolvedPath}` : undefined;
-
-  return {
+const prepareMetadataInfo = ({ title, description, image, lng, url }: MetadataProps): Metadata => {
+  return createMetadataObject({
     title,
     description,
-    ...(canonicalUrl && {
-      metadataBase: new URL(BASE_URL),
-      alternates: {
-        canonical: canonicalUrl,
-        languages: {
-          'x-default': `/pt${resolvedPath}`,
-          en: `/en${resolvedPath}`,
-          pt: `/pt${resolvedPath}`,
-        },
-      },
-    }),
-    icons: {
-      icon: '/favicon.ico',
-      shortcut: '/favicon.ico',
-      apple: '/favicon.ico',
-    },
-    openGraph: {
-      title: title || '',
-      description: description || '',
-      siteName: SITE_NAME,
-      ...(canonicalUrl && { url: canonicalUrl }),
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title || SITE_NAME }],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: title || '',
-      description: description || '',
-      images: [ogImage],
-    },
-  };
+    image,
+    lng,
+    url,
+  });
 };
 
 const getMetadataPageInfo = (lng: Language, page: HawkStarsPaths): Metadata => {
@@ -99,27 +49,20 @@ const getMetadataPageInfo = (lng: Language, page: HawkStarsPaths): Metadata => {
     lng = fallbackLng;
   }
   const JSONFile = readMetadataLanguageFile(lng);
-  if (!JSONFile) throw new Error('');
-  try {
-    const metadataPageInfo = JSONFile[page];
-    const url = SITE_GET_URLS[page] || SITE_GET_URLS[defaultPath];
-    return transformToMetadataObject(metadataPageInfo, lng, url);
-  } catch (err) {
-    Sentry.captureException(err);
-    return {
-      title: 'The Global Village Project by Hawk Stars NGO in Pinhel, Portugal',
-      description:
-        "Discover Hawk Stars NGO's visionary Global Village project in Pinhel, Portugal. Join us in redefining urban landscapes, fostering innovation building a promising future.",
-    };
-  }
+  assert(JSONFile, `Metadata JSON file for language "${lng}" is not available.`);
+
+  const metadataPageInfo = JSONFile[page];
+  const url = SITE_GET_URLS[page] || SITE_GET_URLS[defaultPath];
+  return transformToMetadataObject(metadataPageInfo, lng, url);
 };
 
 const transformToMetadataObject = (
-  info: { title: string; description: string; keywords: string[] },
+  info: { title: string; description: string },
   lng: Language,
-  url: string
+  url: string,
+  image?: MetadataImageType
 ): Metadata => {
-  const { title, description, keywords } = info || {};
+  const { title, description } = info || {};
   if (!title || !description) {
     // Defer Sentry logging to avoid crypto.randomUUID() during static prerendering
     // See: https://nextjs.org/docs/messages/next-prerender-crypto
@@ -128,54 +71,82 @@ const transformToMetadataObject = (
     }, 0);
   }
 
-  if (url === '/') url = '';
+  return createMetadataObject({
+    title,
+    description,
+    image,
+    lng,
+    url,
+  });
+};
 
-  const canonicalUrl = `${BASE_URL}/${lng}${url}`;
+const createMetadataObject = (props: MetadataProps): Metadata => {
+  const { title, description, lng, url, image } = props;
+
+  // One normalised path drives canonical, hreflang and og:url, so a
+  // self-referencing hreflang can never disagree with the canonical.
+  const locale = lng ?? fallbackLng;
+  const path = !url || url === '/' ? '' : url.replace(/\/$/, '');
+  const canonicalUrl = `${BASE_URL}/${locale}${path}`;
+
+  const resolved = createOGImageUrl(image);
+  const imageSrc = resolved?.url || OG_IMAGE_FALLBACK;
+  const imageAlt = resolved?.alt || title || SITE_NAME;
+  const width = resolved?.width ?? OG_IMAGE_WIDTH;
+  const height = resolved?.height ?? OG_IMAGE_HEIGHT;
 
   return {
     title,
     description,
-    keywords,
+    metadataBase: new URL(BASE_URL),
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        'x-default': `/pt${path}`,
+        en: `/en${path}`,
+        pt: `/pt${path}`,
+      },
+    },
+
     authors: [
       {
         name: 'Paulo Cardoso',
         url: 'https://www.linkedin.com/in/pcardosolei/',
       },
-    ],
-    appleWebApp: false,
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: [OG_IMAGE_FALLBACK],
-    },
-    referrer: 'no-referrer-when-downgrade',
-    metadataBase: new URL(BASE_URL),
-    alternates: {
-      canonical: canonicalUrl,
-      languages: {
-        'x-default': `/pt${url}`,
-        en: `/en${url}`,
-        pt: `/pt${url}`,
+      {
+        name: 'Rodrigo Rosselini',
+        url: 'https://www.linkedin.com/in/rodrigo-rossellini-correa/',
       },
-    },
+      {
+        name: 'HawkStars Team',
+        url: 'https://hawkstars.org/',
+      },
+    ],
     openGraph: {
       type: 'website',
-      title,
-      description,
+      title: title ?? '',
+      description: description ?? '',
       url: canonicalUrl,
       siteName: SITE_NAME,
-      locale: lng === 'pt' ? SITE_LOCALE_PT : SITE_LOCALE_EN,
-      alternateLocale: lng === 'pt' ? SITE_LOCALE_EN : SITE_LOCALE_PT,
+      locale: locale === 'pt' ? SITE_LOCALE_PT : SITE_LOCALE_EN,
+      alternateLocale: locale === 'pt' ? SITE_LOCALE_EN : SITE_LOCALE_PT,
       images: [
         {
-          url: OG_IMAGE_FALLBACK,
-          width: 1200,
-          height: 630,
-          alt: title || SITE_NAME,
+          url: imageSrc,
+          width,
+          height,
+          alt: imageAlt,
         },
       ],
     },
+    referrer: 'no-referrer-when-downgrade',
+    twitter: {
+      card: 'summary_large_image',
+      title: title ?? '',
+      description: description ?? '',
+      images: [imageSrc],
+    },
+    appleWebApp: false,
     icons: {
       icon: '/favicon.ico',
       shortcut: '/favicon/favicon-16x16.png',
@@ -185,9 +156,6 @@ const transformToMetadataObject = (
     generator: 'Next.js',
     creator: SITE_NAME,
     publisher: SITE_NAME,
-    other: {
-      'llms.txt': `${BASE_URL}/llms.txt`,
-    },
     robots: {
       index: true,
       follow: true,
@@ -199,7 +167,7 @@ const transformToMetadataObject = (
         'max-snippet': -1,
       },
     },
-  } as Metadata;
+  };
 };
 
 export { getMetadataPageInfo, prepareMetadataInfo };

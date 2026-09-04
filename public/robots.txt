@@ -1,9 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /admin/
-
-Sitemap: https://hawkstars.org/sitemap.xml
-
-# LLM context files
-# https://llmstxt.org/
-# See /llms.txt for a summary and /llms-full.txt for full context

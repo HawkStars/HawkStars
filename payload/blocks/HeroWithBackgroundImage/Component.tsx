@@ -50,7 +50,7 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
           className='absolute inset-0 object-cover'
           fill
           src={bgImage.url}
-          alt={bgImage.alt}
+          alt={bgImage.alt ?? ''}
           preload
         />
       )}

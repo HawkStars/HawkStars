@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import { getSinglePageSlug } from '@/lib/payload/queries/page';
+import { prepareMetadataInfo } from '@/utils/metadata';
+import { Language } from '@/i18n/settings';
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
 import RichText from '@/payload/components/RichText';
@@ -16,15 +18,12 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const pageInformation = await getSinglePageSlug(slug, lng);
   if (!pageInformation) return {};
 
-  const { title, description }: Metadata = pageInformation.meta || {
-    title: undefined,
-    description: undefined,
-  };
-
-  return {
-    title: title || pageInformation.title,
-    description: description,
-  };
+  return prepareMetadataInfo({
+    title: pageInformation.meta?.title || pageInformation.title,
+    description: pageInformation.meta?.description,
+    url: `/${slug}`,
+    lng: lng as Language,
+  });
 }
 
 // The boundary was inside the async body, wrapping only already-resolved data —

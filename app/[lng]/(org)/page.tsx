@@ -10,7 +10,13 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
   const params = await props.params;
   const { lng } = params;
   const pageInformation = await getMainPageInformation(lng as Language);
-  if (pageInformation && pageInformation.meta) return prepareMetadataInfo(pageInformation.meta);
+  if (pageInformation && pageInformation.meta)
+    return prepareMetadataInfo({
+      ...pageInformation.meta,
+      image: pageInformation.meta.image,
+      url: '/',
+      lng: lng as Language,
+    });
 
   const metadataPage = getMetadataPageInfo(lng as Language, 'home');
   return metadataPage;

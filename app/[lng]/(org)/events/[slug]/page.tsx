@@ -1,7 +1,7 @@
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
 import { Language } from '@/i18n/settings';
-import { getMetadataPageInfo, prepareMetadataInfo } from '@/utils/metadata';
+import { prepareMetadataInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { getSingleHawkEventQuery } from '@/lib/payload/queries/hawkEvent';
 import EventPage from '@/components/events/EventPage';
@@ -15,15 +15,13 @@ export async function generateMetadata(props: EventPageProps): Promise<Metadata>
   const { lng, slug } = params;
 
   const event = await getSingleHawkEventQuery(slug, lng as Language);
-  if (!event) return getMetadataPageInfo(lng as Language, 'events');
-
-  const image = getImagePayloadUrl(event.image);
+  if (!event) return {};
 
   return prepareMetadataInfo({
     title: event.heading || '',
     description: event.subheading || event.description,
-    image: image?.url,
-    urlPath: `/events/${slug}`,
+    image: event.image,
+    url: `/events/${slug}`,
     lng: lng as Language,
   });
 }

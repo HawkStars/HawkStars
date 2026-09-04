@@ -21,7 +21,6 @@ export const SITE_GET_URLS = {
   erasmus_key_action: '/erasmus/key-action',
   how_to_help_us: '/how-to-help-us',
   members_corner: '/members-corner',
-
   transparency: '/transparency',
   team: '/team',
   terms: '/store/terms',

@@ -6,7 +6,7 @@ import { getServerTranslation } from '@/i18n';
 import { Button } from '@/components/ui/button';
 import ArtPropertyComponent from '@/components/art/ArtProperty';
 import { Language } from '@/i18n/settings';
-import { getMetadataPageInfo } from '@/utils/metadata';
+import { getMetadataPageInfo, prepareMetadataInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { getSingleArtwork } from '@/lib/payload/queries/artwork';
 import { Curator, Media } from '@/payload-types';
@@ -31,11 +31,19 @@ const getArtworkInformation = async (slug: string, locale: Language) => {
 
 export async function generateMetadata(props: CuratorPageProps): Promise<Metadata> {
   const params = await props.params;
-  const { lng } = params;
-  // const artwork = await getArtworkInformation(slug, lng);
+  const { lng, slug } = params;
+  const artwork = await getArtworkInformation(slug, lng);
+  if (!artwork) return getMetadataPageInfo(lng as Language, 'artwork');
 
-  const metadataPage = getMetadataPageInfo(lng as Language, 'home');
-  return metadataPage;
+  const { title: fallbackTitle, description } = getMetadataPageInfo(lng as Language, 'artwork');
+
+  return prepareMetadataInfo({
+    title: artwork.title || (fallbackTitle as string),
+    description: description as string,
+    image: artwork.image,
+    url: `/artwork/${slug}`,
+    lng: lng as Language,
+  });
 }
 
 type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };

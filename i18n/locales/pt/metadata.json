@@ -1,247 +1,86 @@
 {
   "home": {
     "title": "ONG Hawk Stars — Ação Cultural e Humanitária em Pinhel, Portugal",
-    "description": "A Hawk Stars é uma ONG portuguesa que promove inovação social, mobilidade juvenil e desenvolvimento cultural através do Erasmus+, projetos humanitários e desenvolvimento comunitário em Pinhel.",
-    "keywords": [
-      "ONG Hawk Stars",
-      "Pinhel Portugal",
-      "Inovação Social",
-      "Mobilidade Juvenil",
-      "Desenvolvimento Cultural",
-      "Erasmus+",
-      "Projeto Global Village",
-      "Organização Sem Fins Lucrativos"
-    ]
+    "description": "A Hawk Stars é uma ONG portuguesa que promove inovação social, mobilidade juvenil e desenvolvimento cultural através do Erasmus+, projetos humanitários e desenvolvimento comunitário em Pinhel."
   },
   "donate": {
     "title": "Doar — Apoie a Missão da ONG Hawk Stars",
-    "description": "Apoie a ONG Hawk Stars com um donativo. Ajude a financiar o Projeto Global Village, o Centro Internacional de Formação e iniciativas humanitárias em Pinhel, Portugal.",
-    "keywords": [
-      "Doar",
-      "Apoiar ONG",
-      "Projeto Global Village",
-      "Hawk Stars",
-      "Pinhel Portugal",
-      "Centro Internacional de Formação"
-    ]
+    "description": "Apoie a ONG Hawk Stars com um donativo. Ajude a financiar o Projeto Global Village, o Centro Internacional de Formação e iniciativas humanitárias em Pinhel, Portugal."
   },
   "contribute": {
     "title": "Contribuir — Patrocínio, Donativos e Branding - ONG Hawk Stars",
-    "description": "Várias formas de apoiar a ONG Hawk Stars: donativos, apadrinhamento de cadeiras, parcerias de branding, transferência bancária e cripto. Ajude a construir o Centro de Formação em Pinhel.",
-    "keywords": [
-      "Contribuir",
-      "Patrocínio",
-      "Donativo",
-      "ONG Hawk Stars",
-      "Apadrinhamento de Cadeiras",
-      "Donativo Cripto",
-      "Pinhel Portugal"
-    ]
+    "description": "Várias formas de apoiar a ONG Hawk Stars: donativos, apadrinhamento de cadeiras, parcerias de branding, transferência bancária e cripto. Ajude a construir o Centro de Formação em Pinhel."
   },
   "team": {
     "title": "A Nossa Equipa — Direção, Liderança e Conselho Fiscal - ONG Hawk Stars",
-    "description": "Conheça as pessoas por detrás da ONG Hawk Stars. Membros da direção, equipa de liderança e conselho fiscal que impulsionam inovação social e desenvolvimento cultural a partir de Pinhel.",
-    "keywords": [
-      "Equipa Hawk Stars",
-      "Membros da Direção",
-      "Liderança",
-      "Conselho Fiscal",
-      "Equipa ONG",
-      "Pinhel Portugal"
-    ]
+    "description": "Conheça as pessoas por detrás da ONG Hawk Stars. Membros da direção, equipa de liderança e conselho fiscal que impulsionam inovação social e desenvolvimento cultural a partir de Pinhel."
   },
   "partners": {
     "title": "Parceiros e Colaborações — Rede Erasmus+ - ONG Hawk Stars",
-    "description": "Explore a rede de parceiros da ONG Hawk Stars pela Europa. Alianças Erasmus+, colaborações locais e organizações internacionais a trabalhar juntas por mudança positiva.",
-    "keywords": [
-      "Parceiros",
-      "Parceiros Erasmus+",
-      "Colaborações",
-      "Rede Europeia",
-      "ONG Hawk Stars",
-      "Cooperação Internacional"
-    ]
+    "description": "Explore a rede de parceiros da ONG Hawk Stars pela Europa. Alianças Erasmus+, colaborações locais e organizações internacionais a trabalhar juntas por mudança positiva."
   },
   "transparency": {
     "title": "Transparência — Relatórios Financeiros e Responsabilidade - ONG Hawk Stars",
-    "description": "Transparência total da ONG Hawk Stars. Consulte demonstrações financeiras, contribuições de doadores e relatórios anuais. A responsabilidade está no centro de tudo o que fazemos.",
-    "keywords": [
-      "Transparência",
-      "Relatórios Financeiros",
-      "Responsabilidade",
-      "Contribuições de Doadores",
-      "ONG Hawk Stars",
-      "Relatórios Anuais"
-    ]
+    "description": "Transparência total da ONG Hawk Stars. Consulte demonstrações financeiras, contribuições de doadores e relatórios anuais. A responsabilidade está no centro de tudo o que fazemos."
   },
   "history": {
     "title": "A Nossa História — De Euro Hawk a ONG Hawk Stars",
-    "description": "A jornada da ONG Hawk Stars: das origens como Euro Hawk às operações de ajuda humanitária, incluindo apoio à Ucrânia, e a visão por detrás do Projeto Global Village em Pinhel.",
-    "keywords": [
-      "História Hawk Stars",
-      "Euro Hawk",
-      "Ajuda Humanitária",
-      "Apoio Ucrânia",
-      "Global Village",
-      "Pinhel Portugal"
-    ]
+    "description": "A jornada da ONG Hawk Stars: das origens como Euro Hawk às operações de ajuda humanitária, incluindo apoio à Ucrânia, e a visão por detrás do Projeto Global Village em Pinhel."
   },
   "gallery": {
     "title": "Galeria de Arte — Coleção de Impacto Social - ONG Hawk Stars",
-    "description": "Explore obras de arte curadas na Galeria Hawk Stars. Peças originais que combinam expressão artística com consciência social e impacto cultural.",
-    "keywords": [
-      "Galeria de Arte",
-      "Arte de Impacto Social",
-      "Coleção Curada",
-      "ONG Hawk Stars",
-      "Desenvolvimento Cultural",
-      "Pinhel Portugal"
-    ]
+    "description": "Explore obras de arte curadas na Galeria Hawk Stars. Peças originais que combinam expressão artística com consciência social e impacto cultural."
   },
   "artwork": {
     "title": "Coleção de Obras — Arte de Impacto Social - ONG Hawk Stars",
-    "description": "Explore a coleção completa de obras da Hawk Stars. Peças únicas de artistas internacionais que exploram temas de impacto social, comunidade e identidade cultural.",
-    "keywords": [
-      "Obras de Arte",
-      "Coleção de Arte",
-      "Impacto Social",
-      "Artistas Internacionais",
-      "ONG Hawk Stars",
-      "Identidade Cultural"
-    ]
+    "description": "Explore a coleção completa de obras da Hawk Stars. Peças únicas de artistas internacionais que exploram temas de impacto social, comunidade e identidade cultural."
   },
   "news": {
     "title": "Notícias e Novidades — ONG Hawk Stars",
-    "description": "Últimas notícias, artigos, anúncios e comunicados de imprensa da ONG Hawk Stars. Mantenha-se informado sobre os nossos projetos, eventos e impacto comunitário.",
-    "keywords": [
-      "Notícias Hawk Stars",
-      "Novidades ONG",
-      "Blog",
-      "Anúncios",
-      "Comunicados de Imprensa",
-      "Pinhel Portugal"
-    ]
+    "description": "Últimas notícias, artigos, anúncios e comunicados de imprensa da ONG Hawk Stars. Mantenha-se informado sobre os nossos projetos, eventos e impacto comunitário."
   },
   "projects": {
     "title": "Projetos — Erasmus+ e Iniciativas Comunitárias - ONG Hawk Stars",
-    "description": "Descubra os projetos ativos e anteriores da ONG Hawk Stars. Programas Erasmus+, intercâmbios juvenis, eventos culturais e iniciativas comunitárias em Pinhel e pela Europa.",
-    "keywords": [
-      "Projetos Hawk Stars",
-      "Projetos Erasmus+",
-      "Intercâmbio Juvenil",
-      "Iniciativas Comunitárias",
-      "Projetos Europeus",
-      "Pinhel Portugal"
-    ]
+    "description": "Descubra os projetos ativos e anteriores da ONG Hawk Stars. Programas Erasmus+, intercâmbios juvenis, eventos culturais e iniciativas comunitárias em Pinhel e pela Europa."
   },
   "events": {
     "title": "Eventos — Atividades Locais e Internacionais - ONG Hawk Stars",
-    "description": "Consulte os eventos da ONG Hawk Stars: encontros comunitários locais, atividades internacionais, intercâmbios Erasmus+ e programas culturais em Pinhel e além.",
-    "keywords": [
-      "Eventos Hawk Stars",
-      "Eventos Locais",
-      "Atividades Internacionais",
-      "Eventos Erasmus+",
-      "Pinhel Portugal"
-    ]
+    "description": "Consulte os eventos da ONG Hawk Stars: encontros comunitários locais, atividades internacionais, intercâmbios Erasmus+ e programas culturais em Pinhel e além."
   },
   "agenda": {
     "title": "Agenda — Calendário de Eventos - ONG Hawk Stars",
-    "description": "O calendário completo de eventos da ONG Hawk Stars. Próximos projetos, atividades, prazos e eventos comunitários num só lugar.",
-    "keywords": [
-      "Agenda Hawk Stars",
-      "Calendário de Eventos",
-      "Programação",
-      "Próximos Eventos",
-      "Pinhel Portugal"
-    ]
+    "description": "O calendário completo de eventos da ONG Hawk Stars. Próximos projetos, atividades, prazos e eventos comunitários num só lugar."
   },
   "erasmus": {
     "title": "Erasmus+ e Oportunidades Juvenis da UE — ONG Hawk Stars",
-    "description": "Explore o Erasmus+, o Corpo Europeu de Solidariedade e programas juvenis financiados pela UE através da ONG Hawk Stars. Estuda, voluntaria, forma-te e trabalha no estrangeiro.",
-    "keywords": [
-      "Erasmus+",
-      "Programas Juvenis UE",
-      "Corpo Europeu de Solidariedade",
-      "Mobilidade Juvenil",
-      "ONG Hawk Stars",
-      "Estudar no Estrangeiro",
-      "Voluntariado Europa"
-    ]
+    "description": "Explore o Erasmus+, o Corpo Europeu de Solidariedade e programas juvenis financiados pela UE através da ONG Hawk Stars. Estuda, voluntaria, forma-te e trabalha no estrangeiro."
   },
   "erasmus_key_action": {
     "title": "Ações-Chave Erasmus+ Explicadas — AC1, AC2, AC3, Jean Monnet e Desporto",
-    "description": "Um guia completo das Ações-Chave Erasmus+: AC1 Mobilidade de Aprendizagem, AC2 Parcerias de Cooperação, AC3 Apoio a Políticas, Ações Jean Monnet e programas de Desporto.",
-    "keywords": [
-      "Ações-Chave Erasmus+",
-      "AC1 Mobilidade",
-      "AC2 Cooperação",
-      "AC3 Política",
-      "Jean Monnet",
-      "Erasmus+ Desporto",
-      "Guia Financiamento UE"
-    ]
+    "description": "Um guia completo das Ações-Chave Erasmus+: AC1 Mobilidade de Aprendizagem, AC2 Parcerias de Cooperação, AC3 Apoio a Políticas, Ações Jean Monnet e programas de Desporto."
   },
   "how_to_help_us": {
     "title": "Como Ajudar-nos — Torna-te Membro ou Voluntário - ONG Hawk Stars",
-    "description": "Junta-te à comunidade Hawk Stars como membro ou voluntário. Ajuda a impulsionar projetos culturais, humanitários e europeus em Pinhel, Portugal e pela Europa.",
-    "keywords": [
-      "Ajudar Hawk Stars",
-      "Tornar-se Membro",
-      "Voluntariado ONG",
-      "Juntar-se Hawk Stars",
-      "Membro ONG",
-      "Voluntariado Portugal",
-      "Voluntariado Erasmus+"
-    ]
+    "description": "Junta-te à comunidade Hawk Stars como membro ou voluntário. Ajuda a impulsionar projetos culturais, humanitários e europeus em Pinhel, Portugal e pela Europa."
   },
   "members_corner": {
     "title": "Cantinho dos Membros — Projetos dos Membros - Hawk Stars NGO",
-    "description": "Descobre e acompanha projetos partilhados pelos membros da Associação HawkStars. Os membros com quota em dia podem mostrar os seus projetos à comunidade.",
-    "keywords": [
-      "Membros HawkStars",
-      "Projetos dos Membros",
-      "Cantinho dos Membros",
-      "Projetos Comunitários",
-      "Pinhel Portugal"
-    ]
+    "description": "Descobre e acompanha projetos partilhados pelos membros da Associação HawkStars. Os membros com quota em dia podem mostrar os seus projetos à comunidade."
   },
   "terms": {
     "title": "Termos de Utilização — Website ONG Hawk Stars",
-    "description": "Termos de Utilização do website da ONG Hawk Stars. Conheça os seus direitos e responsabilidades ao utilizar os nossos conteúdos e serviços.",
-    "keywords": ["Termos de Utilização", "Legal", "Termos do Website", "ONG Hawk Stars"]
+    "description": "Termos de Utilização do website da ONG Hawk Stars. Conheça os seus direitos e responsabilidades ao utilizar os nossos conteúdos e serviços."
   },
   "contact": {
     "title": "Contacte-nos — ONG Hawk Stars",
-    "description": "Entre em contacto com a ONG Hawk Stars. Se tem questões sobre os nossos projetos, parcerias, voluntariado ou quer colaborar, adorávamos ouvir de si.",
-    "keywords": [
-      "Contacto Hawk Stars",
-      "Entre em Contacto",
-      "Contacto ONG",
-      "Colaboração",
-      "Voluntariado",
-      "Pinhel Portugal"
-    ]
+    "description": "Entre em contacto com a ONG Hawk Stars. Se tem questões sobre os nossos projetos, parcerias, voluntariado ou quer colaborar, adorávamos ouvir de si."
   },
   "projects_archive": {
     "title": "Arquivo de Projetos Anteriores - ONG Hawk Stars",
-    "description": "Consulte o arquivo completo dos projetos concluídos da ONG Hawk Stars. Programas Erasmus+, intercâmbios juvenis e iniciativas comunitárias em Pinhel e pela Europa.",
-    "keywords": [
-      "Arquivo de Projetos Hawk Stars",
-      "Projetos Anteriores",
-      "Projetos Erasmus+",
-      "Iniciativas Comunitárias",
-      "Pinhel Portugal"
-    ]
+    "description": "Consulte o arquivo completo dos projetos concluídos da ONG Hawk Stars. Programas Erasmus+, intercâmbios juvenis e iniciativas comunitárias em Pinhel e pela Europa."
   },
   "events_archive": {
     "title": "Arquivo de Eventos Anteriores - ONG Hawk Stars",
-    "description": "Consulte o arquivo completo dos eventos anteriores da ONG Hawk Stars: encontros comunitários, atividades internacionais e programas culturais em Pinhel e além.",
-    "keywords": [
-      "Arquivo de Eventos Hawk Stars",
-      "Eventos Anteriores",
-      "Eventos Erasmus+",
-      "Pinhel Portugal"
-    ]
+    "description": "Consulte o arquivo completo dos eventos anteriores da ONG Hawk Stars: encontros comunitários, atividades internacionais e programas culturais em Pinhel e além."
   }
 }

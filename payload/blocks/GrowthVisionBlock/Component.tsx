@@ -71,7 +71,7 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
                 {img ? (
                   <ImageMedia
                     src={img.url}
-                    alt={img.alt}
+                    alt={img.alt ?? ''}
                     height={300}
                     width={450}
                     className='aspect-video rounded-2xl object-contain'

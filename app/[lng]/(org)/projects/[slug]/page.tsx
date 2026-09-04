@@ -1,10 +1,9 @@
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
 import { Language } from '@/i18n/settings';
-import { getMetadataPageInfo, prepareMetadataInfo } from '@/utils/metadata';
+import { prepareMetadataInfo } from '@/utils/metadata';
 import { Metadata } from 'next';
 import { getSingleProjectsQuery } from '@/lib/payload/queries/projects';
-import { getImagePayloadUrl } from '@/lib/image';
 import NewsSingleGallery from '@/components/news/single/NewsSingleGallery';
 import ProjectsSingleHero from '@/components/projects/single/ProjectsSingleHero';
 import SingleProjectObjectives from '@/components/projects/single/SingleProjectObjectives';
@@ -20,17 +19,16 @@ export async function generateMetadata(props: ProjectPageProps): Promise<Metadat
   const { lng, slug } = params;
 
   const project = await getSingleProjectsQuery(slug, lng as Language);
-  if (!project) return getMetadataPageInfo(lng as Language, 'projects');
+  if (!project) return {};
 
-  const image = getImagePayloadUrl(project.coverImage);
   const seoTitle = project.seo?.seo?.title ?? project.heading;
   const seoDescription = project.seo?.seo?.description ?? project.details?.text?.substring(0, 160);
 
   return prepareMetadataInfo({
     title: seoTitle,
     description: seoDescription,
-    image: image?.url,
-    urlPath: `/projects/${slug}`,
+    image: project.coverImage,
+    url: `/projects/${slug}`,
     lng: lng as Language,
   });
 }
