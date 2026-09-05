@@ -72,6 +72,7 @@ export const ImageShowcaseBlock: React.FC<ImageShowcaseBlockProps> = ({
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='imageShowcase'

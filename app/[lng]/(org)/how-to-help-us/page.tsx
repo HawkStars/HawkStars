@@ -30,7 +30,7 @@ async function HowToHelpUsContent({ lng }: { lng: string }) {
   const { t } = await getServerTranslation(lng as Language, 'how-to-help-us');
 
   return (
-    <HawkStarsSection padding='none' className='flex-col'>
+    <HawkStarsSection padding='none' cap='none' className='flex-col'>
       <HeroSection t={t} />
       <WhyJoinSection t={t} />
       <PathsSection t={t} />

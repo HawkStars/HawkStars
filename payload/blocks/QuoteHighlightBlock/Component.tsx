@@ -21,6 +21,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='quoteHighlight'

@@ -29,6 +29,7 @@ const HeroBlock: React.FC<HeroBlock> = (data) => {
     <HawkStarsSection
       spacing='loose'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='hero'

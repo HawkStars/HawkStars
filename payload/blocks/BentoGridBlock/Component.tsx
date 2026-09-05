@@ -88,6 +88,7 @@ const BentoGridBlock: React.FC<BentoGridBlockProps> = ({
     <HawkStarsSection
       spacing='tight'
       padding='none'
+      cap='none'
       id={sectionId || undefined}
       data-blockid='bentoGrid'
     >

@@ -31,7 +31,7 @@ const MembersCornerContent = async ({ params }: { params: LanguagePageProps['par
   ]);
 
   return (
-    <HawkStarsSection padding='none'>
+    <HawkStarsSection padding='none' cap='none'>
       <header className='bg-green relative overflow-hidden px-4 py-20 lg:py-28 xl:px-40'>
         <div className='pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full bg-white/5' />
         <div className='pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-white/5' />

@@ -8,13 +8,13 @@ import { Button } from '@/components/ui/button';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { HawkStarsSection } from '@/components/layout';
+import { formatCurrency } from '@/lib/utils/currency';
 
 export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
   title,
   description,
   goalAmount,
   currentAmount,
-  currency = '€',
   donorCount,
   links,
   showPercentage = true,
@@ -78,6 +78,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
       ref={sectionRef}
       spacing='tight'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='donationProgress'
@@ -142,15 +143,13 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
               <div>
                 <div className='text-sm tracking-wide uppercase opacity-70'>Raised</div>
                 <div className='text-2xl font-bold lg:text-3xl'>
-                  {currency}
-                  {currentAmount.toLocaleString()}
+                  {formatCurrency(currentAmount, lng)}
                 </div>
               </div>
               <div className='text-right'>
                 <div className='text-sm tracking-wide uppercase opacity-70'>Goal</div>
                 <div className='text-2xl font-bold lg:text-3xl'>
-                  {currency}
-                  {goalAmount.toLocaleString()}
+                  {formatCurrency(goalAmount, lng)}
                 </div>
               </div>
             </div>
@@ -158,11 +157,11 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
 
           {/* Donor Count & CTA */}
           <div className='flex flex-col items-center gap-4 sm:flex-row sm:justify-between'>
-            {donorCount && (
+            {donorCount && donorCount > 0 && (
               <div className='flex items-center gap-2 text-lg'>
                 <LuUsers className='h-5 w-5' />
                 <span>
-                  <strong>{donorCount.toLocaleString()}</strong> donors
+                  <strong>{donorCount}</strong> donors
                 </span>
               </div>
             )}

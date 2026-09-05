@@ -2,7 +2,7 @@
 
 import { boardSections, OrgSection, sectionLabels } from '@/app/[lng]/(org)/team/config';
 import { useTranslation } from '@/i18n/client';
-import { GroupedBoardMembers } from '@/lib/payload/queries/team';
+import type { GroupedBoardMembers } from '@/lib/payload/queries/team';
 import { useMemo, useState } from 'react';
 import { LanguageProps } from '../types';
 import TeamCard from './TeamCard';

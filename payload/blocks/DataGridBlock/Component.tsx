@@ -15,6 +15,7 @@ export const DataGridBlock: React.FC<DataGridBlockProps> = ({
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='dataGridBlock'

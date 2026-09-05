@@ -20,6 +20,7 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
     <HawkStarsSection
       spacing='loose'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='cta'

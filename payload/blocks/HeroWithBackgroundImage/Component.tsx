@@ -40,6 +40,7 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
     <HawkStarsSection
       spacing='none'
       padding='none'
+      cap='none'
       className='relative min-h-150 w-full lg:min-h-175'
       id={sectionId || undefined}
       data-blockid='heroWithBackgroundImage'

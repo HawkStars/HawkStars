@@ -19,6 +19,7 @@ export const GlobalVillageAboutSectionBlockComponent: React.FC<
     <HawkStarsSection
       spacing='none'
       padding='none'
+      cap='none'
       column='default'
       id={sectionId || undefined}
       data-blockid='globalVillageAboutSection'

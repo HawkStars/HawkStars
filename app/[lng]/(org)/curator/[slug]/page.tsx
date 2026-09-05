@@ -110,7 +110,7 @@ const CuratorContent = async ({ params }: { params: CuratorPageProps['params'] }
         </div>
       </HawkStarsSection>
       {curatorArtwork.length > 0 && (
-        <section className='font-oswald mx-auto mt-6 max-w-7xl px-4 pb-10 lg:px-8'>
+        <section className='font-oswald mx-auto mt-6 max-w-6xl px-4 pb-10 lg:px-8'>
           <h2 className='text-h2_bold text-center'>{t('artwork.pieces')}</h2>
           <ArtworkGrid artworks={curatorArtwork} locale={lng} />
         </section>

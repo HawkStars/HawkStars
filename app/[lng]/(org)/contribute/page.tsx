@@ -85,7 +85,7 @@ const DonateContent = async ({ params }: { params: DonatePageProps['params'] }) 
     <div className='mt-5 flex flex-col gap-5 lg:mt-10'>
       <h1 className='sr-only'>{t('contribute_hero')}</h1>
       <p className='text-h2_bold text-green mx-4 text-center lg:hidden'>{t('contribute_hero')}</p>
-      <HawkStarsSection padding='none'>
+      <HawkStarsSection padding='none' cap='none'>
         <div className='relative max-w-full max-2xl:mx-0 max-2xl:p-0'>
           <div className='text-green absolute top-20 left-40 hidden lg:block'>
             <p className='text-h1_semibold w-72'>{t('contribute_hero')}</p>

@@ -268,6 +268,7 @@ export function AgendaBlockView({
     <HawkStarsSection
       spacing='none'
       padding='none'
+      cap='none'
       className='w-full py-12'
       id={sectionId ?? undefined}
       data-blockid='agenda'

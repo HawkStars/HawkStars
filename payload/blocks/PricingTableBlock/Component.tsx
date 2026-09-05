@@ -19,6 +19,7 @@ export const PricingTableBlock: React.FC<PricingTableBlockProps> = ({
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='pricingTable'

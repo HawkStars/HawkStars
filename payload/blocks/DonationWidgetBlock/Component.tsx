@@ -10,6 +10,7 @@ export const DonationWidgetBlock: React.FC<DonationWidgetBlockProps> = ({ sectio
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='donationWidget'

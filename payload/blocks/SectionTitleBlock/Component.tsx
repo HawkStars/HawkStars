@@ -9,7 +9,13 @@ export const SectionTitleBlockComponent: React.FC<SectionTitleBlockProps> = ({
   sectionId,
 }) => {
   return (
-    <HawkStarsSection spacing='tight' padding='none' container data-blockid='sectionTitleBlock'>
+    <HawkStarsSection
+      spacing='tight'
+      padding='none'
+      cap='none'
+      container
+      data-blockid='sectionTitleBlock'
+    >
       <SectionTitle
         title={title}
         eyebrow={eyebrow ?? undefined}

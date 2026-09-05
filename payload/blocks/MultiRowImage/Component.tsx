@@ -64,6 +64,7 @@ const MultiRowImage: React.FC<MultiRowImageBlock> = ({
     <HawkStarsSection
       spacing='none'
       padding='none'
+      cap='none'
       container
       className='pb-16'
       id={sectionId || undefined}

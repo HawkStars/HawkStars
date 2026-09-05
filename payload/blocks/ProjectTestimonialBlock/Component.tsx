@@ -234,6 +234,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       className={cn(backgroundClasses[backgroundColor as keyof typeof backgroundClasses])}
       id={sectionId || undefined}

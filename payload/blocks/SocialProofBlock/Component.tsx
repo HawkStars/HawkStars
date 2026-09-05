@@ -29,6 +29,7 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
     <HawkStarsSection
       spacing='tight'
       padding='none'
+      cap='none'
       container
       className={cn(bgClasses[backgroundColor as keyof typeof bgClasses])}
       id={sectionId || undefined}

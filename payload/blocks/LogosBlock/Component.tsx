@@ -16,6 +16,7 @@ export const LogosBlock: React.FC<LogosBlockType> = ({
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='logosBlock'

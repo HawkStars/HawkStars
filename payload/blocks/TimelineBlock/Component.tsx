@@ -19,6 +19,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid={blockType}

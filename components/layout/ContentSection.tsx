@@ -22,8 +22,8 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
   className,
   spacing = 'default',
 }) => (
-  <Section padding='container' spacing={spacing} className={className}>
-    <div className='w-full max-w-6xl'>{children}</div>
+  <Section spacing={spacing} className={className}>
+    {children}
   </Section>
 );
 

@@ -72,6 +72,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
     <HawkStarsSection
       spacing='none'
       padding='none'
+      cap='none'
       className={cn(
         'relative w-full overflow-hidden',
         heightClasses[height as keyof typeof heightClasses]

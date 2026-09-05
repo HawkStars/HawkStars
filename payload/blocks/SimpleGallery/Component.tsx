@@ -23,6 +23,7 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({
     <HawkStarsSection
       spacing='loose'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='simpleGallery'

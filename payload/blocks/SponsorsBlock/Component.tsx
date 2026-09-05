@@ -41,6 +41,7 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       className='mx-auto max-w-7xl'
       id={sectionId || undefined}

@@ -6,7 +6,7 @@ import type { EventsList } from '@/payload-types';
 import { Language } from '@/i18n/settings';
 import SplitListComponent from '@/components/shared/SplitListComponent';
 import HeroImpactStatsBlock from '@/components/projects/list/HeroImpactStatsBlock';
-import { SplitHawkEventsResult } from '@/lib/payload/queries/hawkEvent';
+import type { SplitHawkEventsResult } from '@/lib/payload/queries/hawkEvent';
 import EventCard from '@/components/events/list/EventCard';
 import { SITE_GET_URLS } from '@/utils/paths';
 

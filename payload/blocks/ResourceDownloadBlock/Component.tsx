@@ -37,6 +37,7 @@ export const ResourceDownloadBlock: React.FC<ResourceDownloadBlockProps> = ({
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='resourceDownload'

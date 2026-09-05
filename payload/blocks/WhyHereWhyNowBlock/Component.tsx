@@ -35,6 +35,7 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       className={cn(backgroundStyles[bg])}
       id={sectionId || undefined}

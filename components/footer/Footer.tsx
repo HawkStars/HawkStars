@@ -7,6 +7,10 @@ import { Footer } from '@/payload-types';
 import { FC } from 'react';
 import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
+import LanguageSwitcher from '../utils/LanguageSwitcher';
+import Socials from '../utils/Socials';
+import Link from 'next/link';
+import { SITE_GET_URLS } from '@/utils/paths';
 
 type FooterProps = {
   footerInfo: Footer;
@@ -26,6 +30,10 @@ const FooterContainer: FC<FooterProps> = async ({ footerInfo, lng }) => {
             alt={t('a11y.logoAlt')}
             sizes='100px'
           />
+          <div data-testid='socials-footer' className='flex gap-1'>
+            <LanguageSwitcher isFooter />
+            <Socials />
+          </div>
         </div>
 
         {footerInfo && footerInfo.columns && footerInfo.columns?.length > 0 && (

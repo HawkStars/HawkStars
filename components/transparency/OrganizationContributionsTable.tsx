@@ -1,10 +1,10 @@
 import { Contribution } from '@/payload-types';
 import { PaginatedDocs } from 'payload';
-import Link from 'next/link';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { LanguageProps } from '../types';
 import { getServerTranslation } from '@/i18n';
 import { toIntlLocale } from '@/i18n/settings';
+import LandingPagination from '../utils/Pagination';
 
 type OrganizationContributionsTableProps = LanguageProps & {
   data: PaginatedDocs<Contribution>;
@@ -14,18 +14,24 @@ const OrganizationContributionsTable = async ({
   data,
   lng,
 }: OrganizationContributionsTableProps) => {
-  const { t } = await getServerTranslation(lng, 'contribute');
+  // Three namespaces are in play here: `transparency` for this table's own
+  // copy, `contribute` for the shared contribution-form labels, and `common`
+  // for <LandingPagination>, whose `pagination.*` keys live there.
+  const [{ t }, { t: tCommon }] = await Promise.all([
+    getServerTranslation(lng, ['transparency', 'contribute']),
+    getServerTranslation(lng, 'common'),
+  ]);
   // 'pt'/'en' aren't guaranteed valid Intl locale tags on their own for every
   // call site, and an unsupported `lng` must never reach Intl directly (it
   // throws `RangeError: Incorrect locale information provided`) — see
   // i18n/settings.ts.
   const intlLocale = toIntlLocale(lng);
 
-  const { docs: contributions, hasNextPage, hasPrevPage, page } = data;
+  const { docs: contributions, hasNextPage, hasPrevPage, page, totalPages, limit } = data;
 
   return (
     <div className='flex flex-col gap-4 px-8 py-8 lg:px-40 lg:py-20'>
-      <h2 className='text-h2_bold'>{t('Contributions')}</h2>
+      <h2 className='text-h2_bold'>{t('contributions_title')}</h2>
       <div className='-mx-7 overflow-x-auto'>
         <Table>
           <TableHeader>
@@ -44,7 +50,9 @@ const OrganizationContributionsTable = async ({
                 </TableCell>
                 <TableCell className='min-w-40 px-2'>{contribution.contribution_type}</TableCell>
                 <TableCell className='min-w-40 px-2'>
-                  {contribution.is_anonymous ? t('Anonymous') : contribution.donor}
+                  {contribution.is_anonymous
+                    ? t('contribute:contribution_form.anonymous_donor')
+                    : contribution.donor}
                 </TableCell>
                 <TableCell className='min-w-40 px-2'>
                   {contribution.value.toLocaleString(intlLocale, {})}
@@ -54,15 +62,16 @@ const OrganizationContributionsTable = async ({
           </TableBody>
         </Table>
 
-        <div className='mt-4 flex justify-center lg:mt-8'>
-          {/* This is a Server Component (it `await`s translations above), so
-              `window` doesn't exist when it renders — referencing
-              `window.location.pathname` here throws `ReferenceError: window
-              is not defined` on the server. A query-only href resolves
-              against the current path automatically. */}
-          {hasPrevPage && <Link href={`?page=${page ? page - 1 : 1}`}></Link>}
-          {hasNextPage && <Link href={`?page=${page ? page + 1 : 2}`}></Link>}
-        </div>
+        <LandingPagination
+          hasNextPage={hasNextPage}
+          hasPrevPage={hasPrevPage}
+          page={page}
+          t={tCommon}
+          lng={lng}
+          totalPages={totalPages}
+          url={'/transparency'}
+          limit={limit}
+        />
       </div>
     </div>
   );

@@ -48,6 +48,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='accordion'

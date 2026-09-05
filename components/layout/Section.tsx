@@ -11,6 +11,12 @@ type SectionProps = React.ComponentProps<'div'> & {
    * so blocks don't need the extra wrapper themselves.
    */
   container?: boolean;
+  /**
+   * Content column width. `'content'` (the default) caps children at the
+   * site's standard 72rem column so every section shares one left edge;
+   * `'none'` lets a section run full-bleed — backgrounds, maps, hero images.
+   */
+  cap?: 'content' | 'none';
 };
 
 const innerSectionProps = variantProps({
@@ -21,9 +27,11 @@ const innerSectionProps = variantProps({
     },
     padding: {
       none: tw`px-0`,
-      // Legacy wide-gutter layout used across the org pages.
-      default: tw`px-4 xl:mx-auto xl:px-40`,
-      // Standard responsive gutter, matches `.section-container`.
+      // One gutter scale for the whole site. This used to be
+      // `px-4 xl:px-40`, which put sections 160px from the viewport at 1440
+      // while the list and project pages sat at 144px — two grids, sixteen
+      // pixels apart. `container` is kept as an alias for existing call sites.
+      default: tw`mx-auto px-4 sm:px-6 lg:px-8`,
       container: tw`mx-auto px-4 sm:px-6 lg:px-8`,
     },
     spacing: {
@@ -42,11 +50,19 @@ const innerSectionProps = variantProps({
 });
 
 export const Section = forwardRef<HTMLElement, SectionProps>((props, ref) => {
-  const { children, container, ...rest } = props;
+  const { children, container, cap = 'content', ...rest } = props;
+
+  if (container) {
+    return (
+      <section ref={ref} {...innerSectionProps({ ...rest })}>
+        <div className='section-container'>{children}</div>
+      </section>
+    );
+  }
 
   return (
     <section ref={ref} {...innerSectionProps({ ...rest })}>
-      {container ? <div className='section-container'>{children}</div> : children}
+      {cap === 'content' ? <div className='w-full max-w-6xl'>{children}</div> : children}
     </section>
   );
 });

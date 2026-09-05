@@ -30,6 +30,7 @@ const NewsSingleHero: FC<NewsSingleHeroProps> = ({ title, type, heroImage, publi
   return (
     <HawkStarsSection
       padding='none'
+      cap='none'
       className='bg-green lg:min-h-50vh justify-around'
       spacing='loose'
     >

@@ -38,6 +38,7 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       className={cn(backgroundStyles[bg])}
       id={sectionId || undefined}

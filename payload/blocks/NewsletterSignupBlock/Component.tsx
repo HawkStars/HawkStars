@@ -30,6 +30,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
     <HawkStarsSection
       spacing='tight'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='newsletterSignup'

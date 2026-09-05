@@ -43,13 +43,21 @@ const ProjectsArchiveContent = async ({
   searchParams: ProjectsArchivePageProps['searchParams'];
 }) => {
   const [{ lng }, resolvedSearchParams] = await Promise.all([params, searchParams]);
-  const page = resolvedSearchParams.page ? Number(resolvedSearchParams.page) : 1;
-  const limit = resolvedSearchParams.limit ? Number(resolvedSearchParams.limit) : undefined;
   const type =
     typeof resolvedSearchParams.type === 'string'
       ? (resolvedSearchParams.type as HawkProject['project_type'])
       : undefined;
-  const year = resolvedSearchParams.year ? Number(resolvedSearchParams.year) : undefined;
+
+  const page = Number.isFinite(Number(resolvedSearchParams.page))
+    ? Number(resolvedSearchParams.page)
+    : 1;
+  const limit = Number.isFinite(Number(resolvedSearchParams.limit))
+    ? Number(resolvedSearchParams.limit)
+    : undefined;
+
+  const year = Number.isFinite(Number(resolvedSearchParams.year))
+    ? Number(resolvedSearchParams.year)
+    : undefined;
 
   const [pastProjects, years, { t }, { t: commonT }] = await Promise.all([
     getPastProjectsQuery(lng as Language, { page, limit, type, year }),

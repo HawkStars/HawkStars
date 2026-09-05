@@ -15,6 +15,7 @@ export const GlobalVillageBannerBlockComponent: React.FC<GlobalVillageBannerBloc
     <HawkStarsSection
       spacing='none'
       padding='none'
+      cap='none'
       className='bg-green'
       id={sectionId || undefined}
       data-blockid='globalVillageBanner'

@@ -24,6 +24,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='contentWithImage'

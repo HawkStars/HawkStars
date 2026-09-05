@@ -12,6 +12,7 @@ export const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='titleDescriptionBlock'

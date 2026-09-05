@@ -80,6 +80,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps> = ({
     <HawkStarsSection
       spacing='tight'
       padding='none'
+      cap='none'
       container
       id={sectionId || undefined}
       data-blockid='campaignCountdown'

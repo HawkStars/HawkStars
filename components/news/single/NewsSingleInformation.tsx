@@ -20,6 +20,7 @@ const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, refere
       {text && (
         <HawkStarsSection
           padding='none'
+          cap='none'
           className='max-w-6xl flex-col py-6 lg:mx-auto lg:px-2 lg:py-12'
         >
           <div className='mx-auto max-lg:flex max-lg:flex-col max-lg:gap-6 max-lg:px-3'>

@@ -159,6 +159,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
     <HawkStarsSection
       spacing='default'
       padding='none'
+      cap='none'
       container
       className={cn(backgroundColor && backgroundClasses[backgroundColor])}
       data-blockid='testimonialBlock'

@@ -26,7 +26,7 @@ async function ErasmusContent({ lng }: { lng: string }) {
   const { t } = await getServerTranslation(lng as Language, 'erasmus');
 
   return (
-    <HawkStarsSection padding='none' className='flex-col'>
+    <HawkStarsSection padding='none' cap='none' className='flex-col'>
       <NavbarVariant variant='erasmus' />
       <HeroSection t={t} />
       <FlagshipProgrammes t={t} />

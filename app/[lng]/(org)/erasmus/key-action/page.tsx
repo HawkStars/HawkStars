@@ -24,7 +24,7 @@ async function KeyActionContent({ lng }: { lng: string }) {
   const { t } = await getServerTranslation(lng as Language, 'erasmus-ka');
 
   return (
-    <HawkStarsSection padding='none'>
+    <HawkStarsSection padding='none' cap='none'>
       <Breadcrumb t={t} lng={lng} />
       <HeroSection t={t} />
       <div className='mx-auto max-w-275 px-4 xl:px-8'>

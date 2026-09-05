@@ -47,12 +47,17 @@ const NewsListContent = async ({
   searchParams: NewsPageProps['searchParams'];
 }) => {
   const [{ lng }, resolvedSearchParams] = await Promise.all([params, searchParams]);
-  const page = resolvedSearchParams.page ? Number(resolvedSearchParams.page) : 1;
-  const limitNews = resolvedSearchParams.limit ? Number(resolvedSearchParams.limit) : 10;
   const type =
     typeof resolvedSearchParams.type === 'string'
       ? (resolvedSearchParams.type as News['type'])
       : undefined;
+
+  const page = Number.isFinite(Number(resolvedSearchParams.page))
+    ? Number(resolvedSearchParams.page)
+    : 1;
+  const limitNews = Number.isFinite(Number(resolvedSearchParams.limit))
+    ? Number(resolvedSearchParams.limit)
+    : 10;
 
   const [newsListHeader, news, { t }] = await Promise.all([
     getNewsListHeader(lng as Language),
