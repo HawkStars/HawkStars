@@ -1,10 +1,11 @@
-import { Section } from '@/components/layout/Section';
+import { ContentSection } from '@/components/layout';
 import { getImagePayloadUrl } from '@/lib/image';
 import { HawkProject } from '@/payload-types';
 import { ImageMedia } from '@/payload/components/Media';
 import { FC } from 'react';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 type SingleProjectReportsProps = Pick<HawkProject, 'results'> & { lng: Language };
 
@@ -17,13 +18,15 @@ const SingleProjectReports: FC<SingleProjectReportsProps> = async ({ results, ln
   return (
     <>
       {hasResults && (
-        <Section>
-          <h2 className='mb-8 text-4xl font-bold'>{t('sections.results')}</h2>
+        <ContentSection>
+          <SectionHeader
+            title={t('sections.results')}
+            className='mb-8'
+            titleClassName='text-4xl font-bold'
+          />
           <div className='grid items-start gap-10 md:grid-cols-3'>
             {results.text && (
-              <p className='col-span-2 text-justify text-base leading-relaxed text-gray-800'>
-                {results.text}
-              </p>
+              <p className='col-span-2 text-base leading-relaxed text-gray-800'>{results.text}</p>
             )}
             {img && (
               <ImageMedia
@@ -35,7 +38,7 @@ const SingleProjectReports: FC<SingleProjectReportsProps> = async ({ results, ln
               />
             )}
           </div>
-        </Section>
+        </ContentSection>
       )}
     </>
   );

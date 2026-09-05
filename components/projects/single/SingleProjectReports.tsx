@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ImageMedia } from '@/payload/components/Media';
 import { coFoundedEuropeanLogoBlue } from '@/utils/models/images/logos';
 import { FC } from 'react';
-import { ProjectSection } from '../utils/ProjectSection';
+import { ContentSection } from '@/components/layout';
 import {
   FaFacebook,
   FaInstagram,
@@ -21,6 +21,7 @@ import { FLAG_PORTUGAL } from '@/lib/constants';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Language } from '@/i18n/settings';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 const ICONS = {
   tiktok: FaTiktok,
@@ -59,8 +60,12 @@ const SingleProjectReports: FC<SingleProjectReportsProps> = ({
   }
 
   return (
-    <ProjectSection className='bg-bege-dark'>
-      <h2 className='mb-8 text-4xl font-bold'>{t('sections.dissemination')}</h2>
+    <ContentSection className='bg-bege-dark'>
+      <SectionHeader
+        title={t('sections.dissemination')}
+        className='mb-8'
+        titleClassName='text-4xl font-bold'
+      />
       <div className='flex flex-col gap-3'>
         {partners?.map((p) => {
           const partner = p.partner as Partner;
@@ -145,7 +150,7 @@ const SingleProjectReports: FC<SingleProjectReportsProps> = ({
           ))}
         </div>
       </div>
-    </ProjectSection>
+    </ContentSection>
   );
 };
 

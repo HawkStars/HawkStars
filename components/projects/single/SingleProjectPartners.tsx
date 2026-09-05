@@ -3,11 +3,12 @@
 import { HawkProject, Media, Partner } from '@/payload-types';
 import { FC } from 'react';
 import { ImageMedia } from '@/payload/components/Media';
-import { ProjectSection } from '../utils/ProjectSection';
+import { ContentSection } from '@/components/layout';
 import { hawkLogo } from '@/utils/models/images/logos';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Language } from '@/i18n/settings';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 type SingleProjectPartnersProps = Pick<HawkProject, 'partnersInformation'> & { lng?: Language };
 
@@ -21,8 +22,12 @@ const SingleProjectPartners: FC<SingleProjectPartnersProps> = ({
   return (
     <>
       {partners && partners.length > 0 && (
-        <ProjectSection>
-          <h2 className='mb-10 text-4xl font-bold'>{t('sections.partners')}</h2>
+        <ContentSection>
+          <SectionHeader
+            title={t('sections.partners')}
+            className='mb-8'
+            titleClassName='text-4xl font-bold'
+          />
           <div className='flex flex-wrap justify-between gap-4'>
             <div className='relative h-32 w-32'>
               <ImageMedia
@@ -52,7 +57,7 @@ const SingleProjectPartners: FC<SingleProjectPartnersProps> = ({
               );
             })}
           </div>
-        </ProjectSection>
+        </ContentSection>
       )}
     </>
   );

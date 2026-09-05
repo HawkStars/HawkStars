@@ -2324,7 +2324,8 @@ export type CrowdfundingUpdateCard =
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "supportedTimezones".
  */
-export type SupportedTimezones = 'Europe/London';
+export type SupportedTimezones =
+  'Europe/Lisbon' | 'Atlantic/Azores' | 'Europe/Madrid' | 'Europe/Brussels' | 'Europe/London';
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HeroSlideshowBlockSlide".
@@ -2848,6 +2849,9 @@ export interface GlobalVillageBannerBlock {
  * via the `definition` "SectionTitleBlock".
  */
 export interface SectionTitleBlock {
+  /**
+   * Short uppercase label shown above the title, e.g. "Main programmes". Leave empty to show just the accent rule.
+   */
   eyebrow?: string | null;
   title: string;
   subtitle?: string | null;
@@ -2989,6 +2993,9 @@ export interface TimelineBlock {
  * via the `definition` "TitleDescriptionBlock".
  */
 export interface TitleDescriptionBlock {
+  /**
+   * Short uppercase label shown above the title, e.g. "Main programmes". Leave empty to show just the accent rule.
+   */
   eyebrow?: string | null;
   title: string;
   description?: string | null;

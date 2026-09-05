@@ -64,12 +64,12 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
       <div className='overflow-hidden rounded-xl'>
         <div className='flex flex-col md:flex-row'>
           {item.image?.url && (
-            <div className='relative h-64 w-full shrink-0 md:h-auto md:w-1/3'>
+            <div className='relative min-h-96 w-full shrink-0 md:h-auto md:w-1/3'>
               <ImageMedia
                 src={item.image.url}
                 alt={item.image.alt || item.heading}
                 fill
-                className='object-cover'
+                className='object-contain'
               />
             </div>
           )}

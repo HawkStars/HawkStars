@@ -1,12 +1,13 @@
 'use client';
 
-import { HawkStarsSection } from '@/components/layout';
+import { ContentSection } from '@/components/layout';
 import { ImageMedia } from '@/payload/components/Media';
 import { MultiImageType } from '@/payload-types';
 import { FC } from 'react';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { getImagePayloadUrl } from '@/lib/image';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 type NewsSingleGalleryProps = { gallery: MultiImageType | undefined };
 
@@ -19,12 +20,13 @@ const NewsSingleGallery: FC<NewsSingleGalleryProps> = ({ gallery }) => {
 
   return (
     <>
-      <HawkStarsSection className='py-12 lg:py-16'>
-        <div className='mx-auto max-w-5xl'>
-          <div className='mb-8 flex items-center gap-3'>
-            <div className='bg-green h-1 w-8 rounded-full' />
-            <h2 className='text-h2_light text-green'>{t('sections.gallery')}</h2>
-          </div>
+      <ContentSection>
+        <div>
+          <SectionHeader
+            title={t('sections.gallery')}
+            className='mb-8'
+            titleClassName='text-4xl font-bold'
+          />
           <div className='grid grid-cols-2 gap-3 md:grid-cols-3'>
             {galleryImages.map((image, i) => {
               const galleryImage = getImagePayloadUrl(image);
@@ -48,7 +50,7 @@ const NewsSingleGallery: FC<NewsSingleGalleryProps> = ({ gallery }) => {
             })}
           </div>
         </div>
-      </HawkStarsSection>
+      </ContentSection>
     </>
   );
 };

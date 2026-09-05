@@ -1,6 +1,6 @@
 'use client';
 
-import { Section } from '@/components/layout/Section';
+import { ContentSection } from '@/components/layout';
 import { Button } from '@/components/ui/button';
 import { HawkProject } from '@/payload-types';
 import { Language } from '@/i18n/settings';
@@ -19,6 +19,7 @@ import type { LatLngExpression } from 'leaflet';
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LuRotateCw, LuTrainFront } from 'react-icons/lu';
 import { useMap } from 'react-leaflet';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 type SingleProjectTravelMapProps = Pick<HawkProject, 'project_type' | 'discoverEuFields'> & {
   lng?: Language;
@@ -324,9 +325,13 @@ function TravelRoute({
   const center = path[0] ?? FALLBACK_CENTER;
 
   return (
-    <Section className='bg-bege-dark'>
-      <div className='mx-auto w-full max-w-6xl py-8'>
-        <h2 className='mb-4 text-2xl font-bold'>{t('sections.travelRoute')}</h2>
+    <ContentSection className='bg-bege-dark'>
+      <div>
+        <SectionHeader
+          title={t('sections.travelRoute')}
+          className='mb-4'
+          titleClassName='text-4xl font-bold'
+        />
         <div className='flex flex-col gap-4 lg:flex-row'>
           <div className='h-120 w-full overflow-hidden rounded-xl border lg:flex-1'>
             <Map center={center} zoom={5} scrollWheelZoom={false}>
@@ -402,7 +407,7 @@ function TravelRoute({
           )}
         </div>
       </div>
-    </Section>
+    </ContentSection>
   );
 }
 

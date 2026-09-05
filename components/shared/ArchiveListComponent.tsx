@@ -3,6 +3,8 @@ import { PaginatedDocs } from 'payload';
 import { TFunction } from 'i18next';
 import { Language } from '@/i18n/settings';
 import LandingPagination from '@/components/utils/Pagination';
+import { ContentSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import ListFilters, { ListFilterConfig } from '@/components/utils/ListFilters';
 
 type ArchiveListProps<T> = {
@@ -32,9 +34,9 @@ const ArchiveListComponent = <T,>({
   const { docs, totalPages, page, hasPrevPage, hasNextPage, limit } = items;
 
   return (
-    <div className='flex flex-col gap-8 px-6 py-8 lg:px-12 lg:py-12'>
-      <section>
-        <h1 className='text-h2_semibold mb-6'>{title}</h1>
+    <ContentSection>
+      <div className='flex flex-col gap-8'>
+        <SectionHeader as='h1' title={title} titleClassName='text-h2_semibold' />
         {filters && filters.length > 0 && <ListFilters filters={filters} />}
         {docs.length === 0 ? (
           <p className='text-muted-foreground text-body_regular'>{emptyLabel}</p>
@@ -55,8 +57,8 @@ const ArchiveListComponent = <T,>({
             limit={limit}
           />
         )}
-      </section>
-    </div>
+      </div>
+    </ContentSection>
   );
 };
 

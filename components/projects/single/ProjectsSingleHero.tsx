@@ -1,6 +1,6 @@
 'use client';
 
-import { Section } from '@/components/layout/Section';
+import { ContentSection } from '@/components/layout';
 import { FLAG_PORTUGAL } from '@/lib/constants';
 import { FlagIcon } from '@/lib/icon';
 import { getImagePayloadUrl } from '@/lib/image';
@@ -61,8 +61,8 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
   })();
 
   return (
-    <Section className='bg-[#eef5f0] pt-32'>
-      <div className='mx-auto grid max-w-6xl gap-10 py-5 md:grid-cols-2'>
+    <ContentSection className='bg-[#eef5f0] pt-32' spacing='tight'>
+      <div className='grid gap-10 md:grid-cols-2'>
         {/* Left column */}
         <div>
           {/* Badge */}
@@ -206,7 +206,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
           )}
         </div>
       </div>
-    </Section>
+    </ContentSection>
   );
 };
 

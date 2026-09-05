@@ -4,10 +4,11 @@ import { HawkProject } from '@/payload-types';
 import { FC } from 'react';
 import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
-import { ProjectSection } from '../utils/ProjectSection';
+import { ContentSection } from '@/components/layout';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Language } from '@/i18n/settings';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 type SingleProjectObjectivesProps = Pick<HawkProject, 'objectives'> & { lng?: Language };
 
@@ -21,17 +22,21 @@ const SingleProjectObjectives: FC<SingleProjectObjectivesProps> = ({
     <>
       {objectives &&
         (objectives.introduction || (objectives.items && objectives.items.length > 0)) && (
-          <ProjectSection>
-            <h2 className='mb-8 text-4xl font-bold'>{t('sections.objectives')}</h2>
+          <ContentSection>
+            <SectionHeader
+              title={t('sections.objectives')}
+              className='mb-8'
+              titleClassName='text-4xl font-bold'
+            />
             {objectives.introduction && (
-              <p className='mb-6 text-justify text-base leading-relaxed text-gray-800'>
+              <p className='mb-6 text-base leading-relaxed text-gray-800'>
                 {objectives.introduction}
               </p>
             )}
             {objectives.items && objectives.items.length > 0 && (
               <ul className='list-disc space-y-4 pl-6 text-gray-800'>
                 {objectives.items.map((item, i) => (
-                  <li key={i} className='text-justify leading-relaxed'>
+                  <li key={i} className='leading-relaxed'>
                     {item.text}
                   </li>
                 ))}
@@ -52,7 +57,7 @@ const SingleProjectObjectives: FC<SingleProjectObjectivesProps> = ({
                   </div>
                 ) : null;
               })()}
-          </ProjectSection>
+          </ContentSection>
         )}
     </>
   );

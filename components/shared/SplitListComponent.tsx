@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { PaginatedDocs } from 'payload';
 import { Language } from '@/i18n/settings';
 import ListFilters, { ListFilterConfig } from '@/components/utils/ListFilters';
+import { ContentSection } from '@/components/layout';
 
 type SplitListTranslations = {
   upcoming: string;
@@ -35,36 +36,38 @@ const SplitListComponent = <T,>({
   const { upcoming: upcomingLabel, noUpcoming } = translations;
 
   return (
-    <div className='flex flex-col gap-12 px-6 py-8 lg:gap-16 lg:px-12 lg:py-12'>
-      {/* Type/year filters */}
-      {filters && filters.length > 0 && <ListFilters filters={filters} />}
+    <ContentSection>
+      <div className='flex flex-col gap-12 lg:gap-16'>
+        {/* Type/year filters */}
+        {filters && filters.length > 0 && <ListFilters filters={filters} />}
 
-      {/* Current Events */}
-      {current && (
+        {/* Current Events */}
+        {current && (
+          <section>
+            <h2 className='text-h2_semibold mb-6'>{upcomingLabel}</h2>
+            {docs?.length === 0 ? (
+              <p className='text-muted-foreground text-body_regular'>{noUpcoming}</p>
+            ) : (
+              <div className='flex flex-col gap-6'>
+                {docs?.map((item, idx) => renderCard(item, idx))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* Upcoming */}
         <section>
           <h2 className='text-h2_semibold mb-6'>{upcomingLabel}</h2>
-          {docs?.length === 0 ? (
+          {upcoming.length === 0 ? (
             <p className='text-muted-foreground text-body_regular'>{noUpcoming}</p>
           ) : (
             <div className='flex flex-col gap-6'>
-              {docs?.map((item, idx) => renderCard(item, idx))}
+              {upcoming.map((item, idx) => renderCard(item, idx))}
             </div>
           )}
         </section>
-      )}
-
-      {/* Upcoming */}
-      <section>
-        <h2 className='text-h2_semibold mb-6'>{upcomingLabel}</h2>
-        {upcoming.length === 0 ? (
-          <p className='text-muted-foreground text-body_regular'>{noUpcoming}</p>
-        ) : (
-          <div className='flex flex-col gap-6'>
-            {upcoming.map((item, idx) => renderCard(item, idx))}
-          </div>
-        )}
-      </section>
-    </div>
+      </div>
+    </ContentSection>
   );
 };
 

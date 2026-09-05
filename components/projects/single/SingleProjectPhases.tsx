@@ -1,4 +1,4 @@
-import { Section } from '@/components/layout/Section';
+import { ContentSection } from '@/components/layout';
 import { HawkProject } from '@/payload-types';
 import { FC } from 'react';
 
@@ -9,9 +9,9 @@ const SingleProjectPhases: FC<SingleProjectPhasesProps> = ({ details }) => {
   const { text, phases } = details;
 
   return (
-    <Section className='bg-bege-dark'>
-      <div className='max-w-6xl py-8'>
-        {text && <p className='text-justify text-base leading-relaxed text-gray-800'>{text}</p>}
+    <ContentSection className='bg-bege-dark'>
+      <div>
+        {text && <p className='text-base leading-relaxed text-gray-800'>{text}</p>}
         {phases && phases.length > 0 && (
           <ul className='mt-4 list-disc space-y-2 pl-6 text-gray-800'>
             {phases.map((phase, i) => (
@@ -23,7 +23,7 @@ const SingleProjectPhases: FC<SingleProjectPhasesProps> = ({ details }) => {
           </ul>
         )}
       </div>
-    </Section>
+    </ContentSection>
   );
 };
 
