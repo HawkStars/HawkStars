@@ -6,6 +6,9 @@ import { getProjectsListHeaderInfo } from '@/lib/payload/queries/globals/project
 import { getServerTranslation } from '@/i18n';
 import { LivePreviewProjectList } from '@/payload/components/LivePreview/globals/LivePreviewProjectList';
 import { getProjectsSplitByDate } from '@/lib/payload/queries/projects';
+import { headers as getHeaders } from 'next/headers';
+import { getPayloadConfig } from '@/lib/payload/server';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata(): Promise<Metadata> {
   return { robots: 'noindex, nofollow' };
@@ -19,6 +22,11 @@ export default async function PreviewProjectsList(props: HomeProps) {
   await connection();
   const params = await props.params;
   const { lng } = params;
+
+  const headers = await getHeaders();
+  const payload = await getPayloadConfig();
+  const { user } = await payload.auth({ headers });
+  if (!user) return notFound();
 
   const [projectListInformation, projects, { t }] = await Promise.all([
     getProjectsListHeaderInfo(lng),

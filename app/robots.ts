@@ -18,9 +18,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: ['/admin', '/api', '/*/preview/'],
       },
-      {
-        userAgent: 'GPTBot',
-      },
     ],
     sitemap: 'https://hawkstars.org/sitemap.xml',
   };

@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation';
 import { LivePreviewNews } from '@/payload/components/LivePreview/LivePreviewNews';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import { connection } from 'next/server';
+import { headers as getHeaders } from 'next/headers';
+import { getPayloadConfig } from '@/lib/payload/server';
 
 type PageProps = {
   params: Promise<LanguageProps & { slug: string }>;
@@ -19,6 +21,11 @@ const NewsPreview = async (props: PageProps) => {
   const params = await props.params;
   const { lng, slug } = params;
   if (!slug) notFound();
+
+  const headers = await getHeaders();
+  const payload = await getPayloadConfig();
+  const { user } = await payload.auth({ headers });
+  if (!user) return notFound();
 
   const newsArticle = await getSingleNewsSlug(slug, lng, { preview: true });
   if (!newsArticle) notFound();

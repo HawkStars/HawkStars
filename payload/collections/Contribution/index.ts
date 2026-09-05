@@ -1,12 +1,9 @@
-import { authenticated } from '@/payload/access/authenticated';
-import { AccessArgs, CollectionConfig } from 'payload';
+import { CollectionConfig } from 'payload';
 import { contributionTypeOptions } from './config';
-import { User } from '@/payload-types';
 import { notifyContribution, notifyContributionDelete } from './hooks';
 import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
 import { GROUP_LABELS } from '@/payload/constants';
-
-const validateContributionAccess = (args: AccessArgs<User>) => authenticated(args);
+import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 
 export const CONTRIBUTION_CACHE_TAG = 'contributions' as const;
 const { afterChange: revalidateContribution, afterDelete: revalidateContributionDelete } =
@@ -24,10 +21,10 @@ export const ContributionCollection: CollectionConfig = {
     // Server-side rendering (donor wall, totals) uses the Local API
     // (getPayloadConfig().find), which bypasses access control, so restricting
     // this to authenticated users does not affect the public site.
-    read: validateContributionAccess,
-    create: validateContributionAccess,
-    update: validateContributionAccess,
-    admin: validateContributionAccess,
+    read: authenticatedAdmin,
+    create: authenticatedAdmin,
+    update: authenticatedAdmin,
+    admin: authenticatedAdmin,
   },
   fields: [
     {

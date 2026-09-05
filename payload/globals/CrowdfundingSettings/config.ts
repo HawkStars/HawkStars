@@ -10,6 +10,7 @@ import CrowdfundingSettingsFundsTab from './tabs/funds';
 import CrowdfundingSettingsUpdatesTab from './tabs/updates';
 import CrowdfundingSettingsRewardsTab from './tabs/rewards';
 import { CrowdfundingSettingsSupportersTab } from './tabs/supporters';
+import { authenticatedEditor } from '@/payload/access/authenticatedEditor';
 
 export const CrowdfundingSettings: GlobalConfig = {
   slug: 'crowdfunding-settings',
@@ -44,8 +45,8 @@ export const CrowdfundingSettings: GlobalConfig = {
   },
 
   access: {
-    read: anyone,
-    update: authenticated,
+    read: authenticatedEditor,
+    update: authenticatedEditor,
   },
   fields: [
     {

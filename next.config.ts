@@ -70,9 +70,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: '*instagram*',
+        hostname: 'scontent.cdninstagram.com',
       },
-      { protocol: 'https', hostname: '*.instagram.*' },
+      { protocol: 'https', hostname: '*.cdninstagram.com' },
+      { protocol: 'https', hostname: '*.fbcdn.net' },
     ],
     qualities: [75, 80, 90],
     deviceSizes: [320, 640, 1200, 2048],

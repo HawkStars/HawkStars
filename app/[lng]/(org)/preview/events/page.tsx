@@ -6,6 +6,9 @@ import { getServerTranslation } from '@/i18n';
 import { getEventsListHeaderInfo } from '@/lib/payload/queries/globals/eventsList';
 import { getHawkEventsSplitByDate } from '@/lib/payload/queries/hawkEvent';
 import { LivePreviewEventsList } from '@/payload/components/LivePreview/globals/LivePreviewEventsList';
+import { headers as getHeaders } from 'next/headers';
+import { notFound } from 'next/navigation';
+import { getPayloadConfig } from '@/lib/payload/server';
 
 export async function generateMetadata(): Promise<Metadata> {
   return { robots: 'noindex, nofollow' };
@@ -19,6 +22,11 @@ export default async function PreviewProjectsList(props: HomeProps) {
   await connection();
   const params = await props.params;
   const { lng } = params;
+
+  const headers = await getHeaders();
+  const payload = await getPayloadConfig();
+  const { user } = await payload.auth({ headers });
+  if (!user) return notFound();
 
   const [eventsListInformation, events, { t }] = await Promise.all([
     getEventsListHeaderInfo(lng),
