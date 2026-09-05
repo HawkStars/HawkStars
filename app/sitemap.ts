@@ -45,18 +45,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
       payload.find({
         collection: 'artworks',
+        draft: false,
         limit: 1000,
         depth: 0,
         select: slugSelect,
       }),
       payload.find({
         collection: 'curators',
+        draft: false,
         limit: 1000,
         depth: 0,
         select: slugSelect,
       }),
       payload.find({
         collection: 'hawk_projects',
+        draft: false,
         limit: 1000,
         where: publishedWhere,
         depth: 0,
@@ -64,6 +67,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
       payload.find({
         collection: 'news',
+        draft: false,
         limit: 1000,
         where: publishedWhere,
         depth: 0,
@@ -71,6 +75,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
       payload.find({
         collection: 'hawk_events',
+        draft: false,
         limit: 1000,
         depth: 0,
         select: slugSelect,

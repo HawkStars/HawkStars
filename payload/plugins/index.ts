@@ -67,7 +67,6 @@ export const plugins: Plugin[] = [
   payloadTotp({
     collection: 'users',
     forceSetup: process.env.NODE_ENV === 'production',
-    disableAccessWrapper: true,
     totp: {
       issuer: 'HawkStars Admin',
       digits: 6,
