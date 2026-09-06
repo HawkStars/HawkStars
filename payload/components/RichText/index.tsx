@@ -74,14 +74,28 @@ import { SectionListBlockComponent } from '@/payload/blocks/SectionListBlock/Com
 import Upload from '../utils/upload';
 import HorizontalLine from '@/components/ui/horizontal-line';
 import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { createUrlByCollection } from '@/utils/paths';
+import assert from 'assert';
+
+type ValidCategory = 'hawk_projects' | 'hawk_events' | 'news';
+
+const VALID_CATEGORIES = ['hawk_projects', 'hawk_events', 'news'] as const;
+
+function isValidCategory(value: string): value is ValidCategory {
+  return (VALID_CATEGORIES as readonly string[]).includes(value);
+}
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
+  const lng = useLanguageCookie();
   const { value, relationTo } = linkNode.fields.doc!;
   if (typeof value !== 'object') {
     throw new Error('Expected value to be an object');
   }
   const slug = value.slug;
-  return relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`;
+  assert(isValidCategory(relationTo));
+  assert(typeof slug === 'string');
+  return createUrlByCollection(relationTo, lng, slug);
 };
 
 /**

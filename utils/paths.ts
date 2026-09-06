@@ -4,6 +4,8 @@
  * TODO: change this to the dynamic routes
  **/
 
+import { Language } from '@/i18n/settings';
+
 export const SITE_GET_URLS = {
   contribute: '/contribute',
   artwork: '/artwork',
@@ -61,6 +63,22 @@ export const transformUrl = (
   }
 
   return link.pathname + link.search;
+};
+
+const PATHS_TO_WEBSITE = {
+  hawk_events: '/events',
+  news: '/news',
+  hawk_projects: '/projects',
+} as { [x in 'hawk_events' | 'news' | 'hawk_projects' | 'pages']: string };
+
+export const createUrlByCollection = (
+  relation: 'hawk_events' | 'news' | 'hawk_projects' | 'pages',
+  lng: Language,
+  slug: string
+) => {
+  const currentPath = PATHS_TO_WEBSITE[relation];
+
+  return `${lng}${currentPath}${slug ? `/${slug}` : ''}`;
 };
 
 /**

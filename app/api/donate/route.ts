@@ -37,10 +37,10 @@ export async function POST(request: Request) {
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
+      const error = await response.json();
       captureSentryMessage('EasyPay single payment error:', 'info', {
         status: response.status,
-        text: errorText,
+        text: error.message,
       });
 
       return Response.json({ status: response.status });
