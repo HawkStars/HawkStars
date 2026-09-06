@@ -69,16 +69,18 @@ const PATHS_TO_WEBSITE = {
   hawk_events: '/events',
   news: '/news',
   hawk_projects: '/projects',
+  pages: '',
 } as { [x in 'hawk_events' | 'news' | 'hawk_projects' | 'pages']: string };
 
 export const createUrlByCollection = (
   relation: 'hawk_events' | 'news' | 'hawk_projects' | 'pages',
   lng: Language,
-  slug: string
+  slug?: string | null,
+  section?: string | null
 ) => {
   const currentPath = PATHS_TO_WEBSITE[relation];
 
-  return `${lng}${currentPath}${slug ? `/${slug}` : ''}`;
+  return `/${lng}${currentPath}${slug ? `/${slug}` : ''}${section ? `#${section}` : ''}`;
 };
 
 /**

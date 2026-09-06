@@ -23,7 +23,7 @@ import {
   LinkJSXConverter,
   RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react';
-import type { ComponentType } from 'react';
+import { useMemo, type ComponentType } from 'react';
 
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
 
@@ -77,6 +77,7 @@ import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { createUrlByCollection } from '@/utils/paths';
 import assert from 'assert';
+import { Language } from '@/i18n/settings';
 
 type ValidCategory = 'hawk_projects' | 'hawk_events' | 'news';
 
@@ -86,17 +87,18 @@ function isValidCategory(value: string): value is ValidCategory {
   return (VALID_CATEGORIES as readonly string[]).includes(value);
 }
 
-const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
-  const lng = useLanguageCookie();
-  const { value, relationTo } = linkNode.fields.doc!;
-  if (typeof value !== 'object') {
-    throw new Error('Expected value to be an object');
-  }
-  const slug = value.slug;
-  assert(isValidCategory(relationTo));
-  assert(typeof slug === 'string');
-  return createUrlByCollection(relationTo, lng, slug);
-};
+const makeInternalDocToHref =
+  (lng: Language) =>
+  ({ linkNode }: { linkNode: SerializedLinkNode }) => {
+    const { value, relationTo } = linkNode.fields.doc!;
+    if (typeof value !== 'object') {
+      throw new Error('Expected value to be an object');
+    }
+    const slug = value.slug;
+    assert(isValidCategory(relationTo));
+    assert(typeof slug === 'string');
+    return createUrlByCollection(relationTo, lng, slug);
+  };
 
 /**
  * Registry mapping each Lexical block slug to the React component that renders
@@ -184,38 +186,43 @@ const getBlockConverters = () => {
   return blockConvertersCache;
 };
 
-const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
-  ...defaultConverters,
-  ...LinkJSXConverter({ internalDocToHref }),
-  inlineBlocks: {},
-  blocks: getBlockConverters(),
-  list: List,
-  listitem: ListItem,
-  paragraph: Paragraph,
-  horizontalrule: <HorizontalLine />,
-  heading: Heading,
-  linebreak: () => <br />,
-  unknown: ({ node }) => {
-    if (process.env.NODE_ENV === 'production') {
-      Sentry.captureMessage(`Unknown node type: ${node.type}`, {
-        level: 'warning',
-        extra: { node },
-      });
-    }
-    return null;
-  },
-  upload: Upload,
-});
+const jsxConverters =
+  (lng: Language): JSXConvertersFunction<NodeTypes> =>
+  ({ defaultConverters }) => ({
+    ...defaultConverters,
+    ...LinkJSXConverter({ internalDocToHref: makeInternalDocToHref(lng) }),
+    inlineBlocks: {},
+    blocks: getBlockConverters(),
+    list: List,
+    listitem: ListItem,
+    paragraph: Paragraph,
+    horizontalrule: <HorizontalLine />,
+    heading: Heading,
+    linebreak: () => <br />,
+    unknown: ({ node }) => {
+      if (process.env.NODE_ENV === 'production') {
+        Sentry.captureMessage(`Unknown node type: ${node.type}`, {
+          level: 'warning',
+          extra: { node },
+        });
+      }
+      return null;
+    },
+    upload: Upload,
+  });
 
 export type RichTextProps = {
   data: DefaultTypedEditorState;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export default function RichText(props: RichTextProps) {
+  const lng = useLanguageCookie();
+  const converters = useMemo(() => jsxConverters(lng), [lng]);
   const { className, ...rest } = props;
+
   return (
     <ConvertRichText
-      converters={jsxConverters}
+      converters={converters}
       className={cn('payload-richtext', className)}
       {...rest}
     />

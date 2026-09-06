@@ -1,5 +1,6 @@
 import { LinkField } from '@/payload-types';
 import { Language } from '@/i18n/settings';
+import { createUrlByCollection } from './paths';
 
 type LinkInformation = {
   url: string;
@@ -29,16 +30,9 @@ export const getLinkFieldInformation = (
     const { section } = link;
     const { relationTo, value: url } = link.reference;
 
-    if (typeof url === 'string')
-      href =
-        relationTo === 'pages'
-          ? `/${lng}/${url}${section ? `#${section}` : ''}`
-          : `/${lng}/events/${url}${section ? `#${section}` : ''}`;
+    if (typeof url === 'string') href = createUrlByCollection(relationTo, lng, url, section);
     else if ('slug' in url && url.slug)
-      href =
-        relationTo === 'pages'
-          ? `/${lng}/${url.slug}${section ? `#${section}` : ''}`
-          : `/${lng}/events/${url.slug}${section ? `#${section}` : ''}`;
+      href = createUrlByCollection(relationTo, lng, url.slug, section);
 
     return {
       url: href,

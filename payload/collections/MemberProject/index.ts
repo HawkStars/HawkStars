@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload';
-import { anyone } from '../../access/anyone';
+
 import { authenticated } from '../../access/authenticated';
 import { notifyMemberProject, notifyMemberProjectDelete } from './hooks';
 import { GROUP_LABELS } from '@/payload/constants';

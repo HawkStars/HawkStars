@@ -9,7 +9,7 @@ const NOTIFICATIONS_COLLECTION = 'notifications' as const;
  *   - limit (number, default 20): max notifications to return
  *   - unreadOnly (string 'true'/'false', default 'false'): filter to unread only
  */
-export const getNotificationsHandler: PayloadHandler = async (req) => {
+export const getActivityLogHandler: PayloadHandler = async (req) => {
   const { payload, user } = req;
 
   if (!user || !user.isAdmin) {

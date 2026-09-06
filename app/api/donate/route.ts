@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     windowMs: 60_000,
   });
   if (!allowed) {
-    return Response.json({ status: 429, headers: { 'Retry-After': String(retryAfter) } });
+    return Response.json({}, { status: 429, headers: { 'Retry-After': String(retryAfter) } });
   }
 
   const payload = await getPayloadConfig();
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     checkEasyPaySetup();
 
     const body = await request.json();
-    if (!body) return Response.json({ status: 400 });
+    if (!body) return Response.json({}, { status: 400 });
 
     const requestBody = prepareEasyPayRequestBody(body);
 
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
         text: error.message,
       });
 
-      return Response.json({ status: response.status });
+      return Response.json({}, { status: response.status });
     }
 
     const data = await response.json();

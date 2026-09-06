@@ -29,9 +29,9 @@ import { Sponsor } from './payload/collections/Sponsor';
 import sumContributionsHandler from './payload/endpoints/sumContributions';
 import dashboardStatsHandler from './payload/endpoints/dashboardStats';
 import {
-  getNotificationsHandler,
+  getActivityLogHandler,
   markNotificationsReadHandler,
-} from './payload/endpoints/notifications';
+} from './payload/endpoints/getActivityHandler';
 import translateHandler from './payload/endpoints/translate';
 import geocodeHandler from './payload/endpoints/geocode';
 
@@ -255,9 +255,9 @@ export default buildConfig({
       handler: dashboardStatsHandler,
     },
     {
-      path: '/notifications',
+      path: '/activity-log',
       method: 'get',
-      handler: getNotificationsHandler,
+      handler: getActivityLogHandler,
     },
     {
       path: '/notifications/mark-read',

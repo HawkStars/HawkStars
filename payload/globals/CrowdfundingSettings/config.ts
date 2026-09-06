@@ -1,8 +1,6 @@
 import type { GlobalConfig } from 'payload';
 import { GROUP_LABELS } from '@/payload/constants';
 
-import { anyone } from '@/payload/access/anyone';
-import { authenticated } from '@/payload/access/authenticated';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import CrowdfundingSettingsPhasesTab from './tabs/phases';
 import CrowdfundingSettingsGeneralTab from './tabs/general';

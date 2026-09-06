@@ -157,7 +157,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
 
           {/* Donor Count & CTA */}
           <div className='flex flex-col items-center gap-4 sm:flex-row sm:justify-between'>
-            {donorCount && donorCount > 0 && (
+            {Number(donorCount) > 0 && (
               <div className='flex items-center gap-2 text-lg'>
                 <LuUsers className='h-5 w-5' />
                 <span>

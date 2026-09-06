@@ -9,8 +9,6 @@ import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import Socials from '../utils/Socials';
-import Link from 'next/link';
-import { SITE_GET_URLS } from '@/utils/paths';
 
 type FooterProps = {
   footerInfo: Footer;

@@ -16,7 +16,7 @@ import PT_Metadata from '../i18n/locales/pt/metadata.json';
 import EN_Metadata from '../i18n/locales/en/metadata.json';
 import assert from 'assert';
 import { ImageType, Media } from '@/payload-types';
-import { createOGImageUrl, getImagePayloadUrl } from '@/lib/image';
+import { createOGImageUrl } from '@/lib/image';
 
 const readMetadataLanguageFile = (lng: Language) => {
   const file = lng == 'pt' ? PT_Metadata : EN_Metadata;

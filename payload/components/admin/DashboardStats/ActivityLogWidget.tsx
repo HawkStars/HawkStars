@@ -69,7 +69,7 @@ export const ActivityLogWidget: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/notifications?limit=25');
+      const res = await fetch('/api/activity-log?limit=25');
       if (!res.ok) throw new Error('Failed to fetch activity');
       const data = await res.json();
 
