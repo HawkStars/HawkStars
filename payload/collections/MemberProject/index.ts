@@ -43,7 +43,7 @@ export const MemberProject: CollectionConfig = {
   },
   access: {
     admin: authenticated,
-    read: anyone,
+    read: authenticated,
     create: authenticated,
     update: authenticated,
     delete: authenticated,

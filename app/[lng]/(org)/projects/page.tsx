@@ -54,7 +54,9 @@ const ProjectsContent = async ({
     typeof resolvedSearchParams.type === 'string'
       ? (resolvedSearchParams.type as HawkProject['project_type'])
       : undefined;
-  const year = resolvedSearchParams.year ? Number(resolvedSearchParams.year) : undefined;
+
+  const yearParam = Number(resolvedSearchParams.year);
+  const year = Number.isFinite(yearParam) ? yearParam : undefined;
 
   const [projectListInformation, projects, years, { t }] = await Promise.all([
     getProjectsListHeaderInfo(lng),

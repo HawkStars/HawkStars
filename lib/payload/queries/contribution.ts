@@ -17,9 +17,14 @@ export const getChairsContributionsQuery = async () => {
   const contributions = await payload.find({
     collection: 'contributions',
     where: {
-      contribution_type: {
-        in: ['OFFICE_CHAIR', 'AUDITORIUM_CHAIR', 'LOUNGE_CHAIR', 'SIMULATOR_CHAIR'],
-      },
+      and: [
+        { is_confirmed: { equals: true } },
+        {
+          contribution_type: {
+            in: ['OFFICE_CHAIR', 'AUDITORIUM_CHAIR', 'LOUNGE_CHAIR', 'SIMULATOR_CHAIR'],
+          },
+        },
+      ],
     },
     limit: 0,
   });
@@ -34,6 +39,7 @@ export const getContributionsQuery = async () => {
     collection: 'contributions',
     sort: '-contribution_date',
     limit: 100,
+    where: { is_confirmed: { equals: true } },
   });
 };
 

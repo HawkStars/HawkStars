@@ -41,13 +41,18 @@ const EventsArchiveContent = async ({
   searchParams: EventsArchivePageProps['searchParams'];
 }) => {
   const [{ lng }, resolvedSearchParams] = await Promise.all([params, searchParams]);
-  const page = resolvedSearchParams.page ? Number(resolvedSearchParams.page) : 1;
-  const limit = resolvedSearchParams.limit ? Number(resolvedSearchParams.limit) : undefined;
   const type =
     typeof resolvedSearchParams.type === 'string'
       ? (resolvedSearchParams.type as NonNullable<HawkEvent['type_event']>)
       : undefined;
-  const year = resolvedSearchParams.year ? Number(resolvedSearchParams.year) : undefined;
+
+  const pageParam = Number(resolvedSearchParams.page);
+  const limitParam = Number(resolvedSearchParams.limit);
+  const yearParam = Number(resolvedSearchParams.year);
+
+  const page = Number.isFinite(pageParam) ? pageParam : 1;
+  const limit = Number.isFinite(limitParam) ? limitParam : undefined;
+  const year = Number.isFinite(yearParam) ? yearParam : undefined;
 
   const [pastEvents, years, { t }, { t: commonT }] = await Promise.all([
     getPastEvents(lng as Language, { page, limit, type, year }),

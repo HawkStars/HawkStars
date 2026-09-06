@@ -51,7 +51,9 @@ const EventsContent = async ({
     typeof resolvedSearchParams.type === 'string'
       ? (resolvedSearchParams.type as NonNullable<HawkEvent['type_event']>)
       : undefined;
-  const year = resolvedSearchParams.year ? Number(resolvedSearchParams.year) : undefined;
+
+  const yearParam = Number(resolvedSearchParams.year);
+  const year = Number.isFinite(yearParam) ? yearParam : undefined;
 
   const [eventsListInformation, events, years, { t }] = await Promise.all([
     getEventsListHeaderInfo(lng),
