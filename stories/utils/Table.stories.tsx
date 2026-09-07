@@ -32,7 +32,7 @@ const donations = [
 
 export const Default: Story = {
   render: () => (
-    <Table className='w-[640px]'>
+    <Table className='w-160'>
       <TableCaption>A list of recent donations.</TableCaption>
       <TableHeader>
         <TableRow>
@@ -58,7 +58,7 @@ export const Default: Story = {
 
 export const WithFooter: Story = {
   render: () => (
-    <Table className='w-[640px]'>
+    <Table className='w-160'>
       <TableHeader>
         <TableRow>
           <TableHead>Donor</TableHead>
@@ -85,7 +85,7 @@ export const WithFooter: Story = {
 
 export const SelectedRow: Story = {
   render: () => (
-    <Table className='w-[640px]'>
+    <Table className='w-160'>
       <TableHeader>
         <TableRow>
           <TableHead>Donor</TableHead>

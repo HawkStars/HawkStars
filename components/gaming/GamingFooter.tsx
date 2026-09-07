@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 import { getServerTranslation } from '@/i18n';
-import { useEffect, useState } from 'react';
 
 type GamingFooterProps = {
   lng: string;
@@ -14,17 +13,10 @@ const SOCIAL_LINKS = [
   { label: 'X / Twitter', href: '#' },
 ];
 
-const GamingFooter = async ({ lng }: GamingFooterProps) => {
-  const [year, setYear] = useState<number>();
-  const { t } = await getServerTranslation(lng, 'gaming');
+const currentYear = new Date().getFullYear();
 
-  useEffect(() => {
-    const getYear = () => {
-      const currentYear = new Date().getFullYear();
-      setYear(currentYear);
-    };
-    getYear();
-  }, [setYear]);
+const GamingFooter = async ({ lng }: GamingFooterProps) => {
+  const { t } = await getServerTranslation(lng, 'gaming');
 
   return (
     <footer className='border-gaming-border bg-gaming-bg border-t'>
@@ -94,7 +86,9 @@ const GamingFooter = async ({ lng }: GamingFooterProps) => {
 
         {/* Bottom bar */}
         <div className='border-gaming-border mt-10 flex flex-col items-center justify-between gap-4 border-t pt-6 md:flex-row'>
-          <p className='text-gaming-text-muted text-xs'>{t('footer.copyright', { year: year })}</p>
+          <p className='text-gaming-text-muted text-xs'>
+            {t('footer.copyright', { year: currentYear })}
+          </p>
           <div className='flex gap-4'>
             <Link
               href={`/${lng}/store/terms`}
