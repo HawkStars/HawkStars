@@ -19,7 +19,7 @@ const GamingFooter = async ({ lng }: GamingFooterProps) => {
   const { t } = await getServerTranslation(lng, 'gaming');
 
   useEffect(() => {
-    const getYear = async () => {
+    const getYear = () => {
       const currentYear = new Date().getFullYear();
       setYear(currentYear);
     };
