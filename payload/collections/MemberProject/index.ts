@@ -81,7 +81,7 @@ export const MemberProject: CollectionConfig = {
       hooks: {
         beforeValidate: [
           ({ data, req, operation }) =>
-            operation === 'create' && !req.user ? { ...data, is_confirmed: false } : data,
+            operation === 'create' && !req.user?.isAdmin ? { ...data, is_confirmed: false } : data,
         ],
       },
     },

@@ -47,11 +47,7 @@ const InternalHawkLink = ({
     <Link
       href={href}
       target={newTab ? '_blank' : '_self'}
-      className={cn(
-        'text-terciary-300 hover:text-terciary-100',
-        'transition-colors duration-200',
-        className
-      )}
+      className={cn('transition-colors duration-200', className)}
     >
       {children}
     </Link>

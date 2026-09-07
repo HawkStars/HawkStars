@@ -27,10 +27,6 @@ const innerSectionProps = variantProps({
     },
     padding: {
       none: tw`px-0`,
-      // One gutter scale for the whole site. This used to be
-      // `px-4 xl:px-40`, which put sections 160px from the viewport at 1440
-      // while the list and project pages sat at 144px — two grids, sixteen
-      // pixels apart. `container` is kept as an alias for existing call sites.
       default: tw`mx-auto px-4 sm:px-6 lg:px-8`,
       container: tw`mx-auto px-4 sm:px-6 lg:px-8`,
     },

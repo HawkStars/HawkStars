@@ -15,17 +15,17 @@ import { ImageMedia } from '@/payload/components/Media';
 import RichText from '@/payload/components/RichText';
 import Link from 'next/link';
 import { Suspense } from 'react';
-// import { cacheLife, cacheTag } from 'next/cache';
-// import { ART_COLLECTION_CACHE_TAG } from '@/payload/collections/ArtCollection';
+import { cacheLife, cacheTag } from 'next/cache';
+import { ART_COLLECTION_CACHE_TAG } from '@/payload/collections/ArtCollection';
 
 // The `'use cache'` here was untagged, so nothing could invalidate it: editors
 // saving an artwork fired ArtCollection's revalidate hook (ART_COLLECTION_CACHE_TAG)
 // but this entry carried no tag to match, leaving the page stale until the default
 // cache life expired. Tagged the same way the curator route tags its lookup.
 const getArtworkInformation = async (slug: string, locale: Language) => {
-  // 'use cache';
-  // cacheLife('hours');
-  // cacheTag(`${ART_COLLECTION_CACHE_TAG}:${slug}`, ART_COLLECTION_CACHE_TAG);
+  'use cache';
+  cacheLife('hours');
+  cacheTag(`${ART_COLLECTION_CACHE_TAG}:${slug}`, ART_COLLECTION_CACHE_TAG);
   return getSingleArtwork(slug, locale);
 };
 
@@ -64,7 +64,10 @@ const ArtworkContent = async ({ params }: { params: CuratorPageProps['params'] }
 
   return (
     <>
-      <HawkStarsSection className='bg-bege-light flex gap-8 pt-10 pb-8 max-lg:flex-col max-lg:px-0 max-lg:pt-0'>
+      <HawkStarsSection
+        className='bg-bege-light flex gap-8 pt-10 pb-8 max-lg:flex-col max-lg:px-0 max-lg:pt-0'
+        cap='none'
+      >
         <div className='max-lg:mx-auto lg:w-7/12'>
           {artwork.image && (
             <MediaBlock

@@ -4,8 +4,8 @@ import { findPublishedBySlug } from './helpers';
 import { HawkEvent } from '@/payload-types';
 import { PaginatedDocs, Where } from 'payload';
 import { customDateRangeQuery } from '@/lib/utils/date';
-// import { cacheLife, cacheTag } from 'next/cache';
-// import { HAWK_EVENT_CACHE_TAG } from '@/payload/collections/HawkEvent';
+import { cacheLife, cacheTag } from 'next/cache';
+import { HAWK_EVENT_CACHE_TAG } from '@/payload/collections/HawkEvent';
 
 const EVENTS_COLLECTION = 'hawk_events' as const;
 
@@ -53,9 +53,9 @@ const getHawkEventsSplitByDate = async (
   locale: Language,
   opts: { preview?: boolean } & HawkEventFilterOpts = {}
 ): Promise<SplitHawkEventsResult> => {
-  // 'use cache';
-  // cacheLife('hours');
-  // cacheTag(HAWK_EVENT_CACHE_TAG);
+  'use cache';
+  cacheLife('hours');
+  cacheTag(HAWK_EVENT_CACHE_TAG);
 
   const { preview = false, type, year } = opts;
 

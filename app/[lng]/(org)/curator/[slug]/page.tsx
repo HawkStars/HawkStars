@@ -25,7 +25,7 @@ type CuratorPageProps = { params: Promise<LanguageProps & { slug: string }> };
 // internally). Caching it, same as the artwork route, fixes the bailout and
 // lets both callers share one cached lookup instead of querying twice.
 const getCuratorInformation = async (slug: string, locale: Language) => {
-  // 'use cache';
+  'use cache';
   // cacheLife('hours');
   // cacheTag(`curators:${slug}`, 'curators');
   return getSingleCuratorQuery(slug, locale);

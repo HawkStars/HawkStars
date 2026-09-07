@@ -12,7 +12,7 @@ export async function POST(request: Request) {
     windowMs: 60_000,
   });
   if (!allowed) {
-    return Response.json({ status: 429, headers: { 'Retry-After': String(retryAfter) } });
+    return Response.json({}, { status: 429, headers: { 'Retry-After': String(retryAfter) } });
   }
 
   try {
@@ -49,9 +49,9 @@ export async function POST(request: Request) {
   } catch (e: unknown) {
     Sentry.captureException(e);
     if (e instanceof z.ZodError) {
-      return Response.json({ status: 400 });
+      return Response.json({}, { status: 400 });
     }
-    return Response.json({ status: 500 });
+    return Response.json({}, { status: 500 });
   }
 }
 

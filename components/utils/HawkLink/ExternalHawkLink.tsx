@@ -13,7 +13,7 @@ const ExternalHawkLink = ({ href, newTab, children, className, section }: Extern
 
   return (
     <a
-      className={`text-terciary-300 hover:text-terciary-100 p-0 transition-colors duration-200 ${className ?? ''}`}
+      className={`p-0 transition-colors duration-200 ${className ?? ''}`}
       target={newTab ? '_blank' : '_self'}
       rel={newTab ? 'noopener noreferrer' : undefined}
       href={hrefWithSection || href}

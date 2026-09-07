@@ -43,7 +43,7 @@ export async function POST(request: Request) {
         text: error.message,
       });
 
-      return Response.json({}, { status: response.status });
+      return Response.json({ error: 'Error processing payment' }, { status: response.status });
     }
 
     const data = await response.json();
@@ -70,7 +70,10 @@ export async function POST(request: Request) {
     return Response.json(data, { status: 200 });
   } catch (e: unknown) {
     if (e instanceof z.ZodError) {
-      return Response.json({ error: 'Invalid request data' }, { status: 400 });
+      return Response.json(
+        { error: 'Invalid request data', details: 'Request Validation error' },
+        { status: 400 }
+      );
     }
     return Response.json({ error: 'Internal server error' }, { status: 500 });
   }

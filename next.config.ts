@@ -54,7 +54,7 @@ const nextConfig = {
   turbopack: {
     resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'],
   },
-  //cacheComponents: true, # unusable with payload
+  cacheComponents: true,
   cacheMaxMemorySize: 50 * 1024 * 1024,
   images: {
     minimumCacheTTL: 43200,

@@ -4,9 +4,9 @@ import { News } from '@/payload-types';
 import { PaginatedDocs, Where } from 'payload';
 import { findPublishedBySlug } from './helpers';
 import { PayloadQueryParams } from '../types';
-// import { cacheLife, cacheTag } from 'next/cache';
-// import { NEWS_CACHE_TAG } from '@/payload/collections/News';
-// import { HAWK_PROJECT_CACHE_TAG } from '@/payload/collections/HawkProject';
+import { cacheLife, cacheTag } from 'next/cache';
+import { NEWS_CACHE_TAG } from '@/payload/collections/News';
+import { HAWK_PROJECT_CACHE_TAG } from '@/payload/collections/HawkProject';
 
 const NEWS_COLLECTION = 'news';
 
@@ -21,12 +21,12 @@ export const getNewsQuery = async (
   locale: Language,
   opts?: PayloadQueryParams & { type?: News['type'] }
 ): Promise<PaginatedDocs<News>> => {
-  // 'use cache';
-  // cacheLife('hours');
+  'use cache';
+  cacheLife('hours');
   // Tagged for both collections because the `projectSlug` branch below reads
   // `hawk_projects` as well — renaming a project's slug has to invalidate this
   // entry, not just publishing a news article.
-  // cacheTag(NEWS_CACHE_TAG, HAWK_PROJECT_CACHE_TAG);
+  cacheTag(NEWS_CACHE_TAG, HAWK_PROJECT_CACHE_TAG);
 
   const { page, limit, type } = opts || { page: 1, limit: 10 };
   const payload = await getPayloadConfig();
