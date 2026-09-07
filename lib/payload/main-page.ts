@@ -1,7 +1,5 @@
 import { Language } from '@/i18n/settings';
 import { getPayloadConfig } from './server';
-import { cacheLife, cacheTag } from 'next/cache';
-import { MAIN_PAGE_CACHE_TAG } from '@/payload/globals/MainPage/hooks/revalidateMainPage';
 import { connection } from 'next/server';
 
 const getMainPageInfo = async (lng: Language, opts?: { preview: boolean }) => {

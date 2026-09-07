@@ -2,8 +2,6 @@ import { HawkProject } from '@/payload-types';
 import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
 import { findPublishedBySlug } from './helpers';
-import { cacheLife, cacheTag } from 'next/cache';
-import { HAWK_PROJECT_CACHE_TAG } from '@/payload/collections/HawkProject';
 import { connection } from 'next/server';
 import { PaginatedDocs, Where } from 'payload';
 
