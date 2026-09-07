@@ -8,3 +8,4 @@ dist
 
 payload-types.ts
 app/(payload)/admin/importMap.js
+pnpm-lock.yaml
