@@ -25,6 +25,7 @@ import { BoardMember } from './payload/collections/BoardMember';
 import { ContributionCollection as Contribution } from './payload/collections/Contribution';
 import { Curator } from './payload/collections/Curator';
 import { Partner } from './payload/collections/Partner';
+import { NewsletterSubscriber } from './payload/collections/NewsletterSubscriber';
 import { Sponsor } from './payload/collections/Sponsor';
 import sumContributionsHandler from './payload/endpoints/sumContributions';
 import dashboardStatsHandler from './payload/endpoints/dashboardStats';
@@ -179,6 +180,7 @@ export default buildConfig({
     HawkEvent,
     MemberProject,
     Partner,
+    NewsletterSubscriber,
     Sponsor,
     Pages,
     News,

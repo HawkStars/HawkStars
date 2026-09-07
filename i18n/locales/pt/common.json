@@ -43,6 +43,14 @@
     "postAlt": "Publicação de Instagram",
     "errorFetch": "Não foi possível carregar as publicações do Instagram"
   },
+  "newsletter": {
+    "emailLabel": "Email",
+    "placeholder": "O seu endereço de email",
+    "thankYou": "Obrigado por subscrever!",
+    "privacyNotice": "Respeitamos a sua privacidade. Cancele a subscrição quando quiser.",
+    "error": "Algo correu mal. Por favor tente novamente.",
+    "errorInvalidEmail": "Por favor indique um endereço de email válido."
+  },
   "label": {
     "hawk_projects": "Projeto Hawk",
     "hawk_events": "Evento Hawk",

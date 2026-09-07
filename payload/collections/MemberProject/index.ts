@@ -6,6 +6,8 @@ import { GROUP_LABELS } from '@/payload/constants';
 import { checkConfirmedByAdmin } from './hooks/checkConfirmedByAdmin';
 import { checkProjectUrl } from './hooks/validateProjectUrl';
 import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
+import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
+import { authenticatedEditor } from '@/payload/access/authenticatedEditor';
 
 export const MEMBER_PROJECT_CACHE_TAG = 'member_projects' as const;
 const { afterChange: revalidateMemberProject, afterDelete: revalidateMemberProjectDelete } =
@@ -42,11 +44,11 @@ export const MemberProject: CollectionConfig = {
     },
   },
   access: {
-    admin: authenticated,
+    admin: authenticatedEditor,
     read: authenticated,
-    create: authenticated,
-    update: authenticated,
-    delete: authenticated,
+    create: authenticatedEditor,
+    update: authenticatedEditor,
+    delete: authenticatedAdmin,
   },
   hooks: {
     afterChange: [notifyMemberProject, revalidateMemberProject],

@@ -6,6 +6,8 @@ import { PiCheckCircleThin } from 'react-icons/pi';
 import type { NewsletterSignupBlock as NewsletterSignupBlockProps } from '@/payload-types';
 import { Button } from '@/components/ui/button';
 import { HawkStarsSection } from '@/components/layout';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
   title,
@@ -13,17 +15,35 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
   buttonText = 'Subscribe',
   sectionId,
 }) => {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
   const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'submitted' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real implementation, this would submit to the formAction URL
-    setSubmitted(true);
-    setTimeout(() => {
-      setEmail('');
-      setSubmitted(false);
-    }, 3000);
+    setStatus('submitting');
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, locale: lng }),
+      });
+
+      if (!response.ok) {
+        setStatus('error');
+        return;
+      }
+
+      setStatus('submitted');
+      setTimeout(() => {
+        setEmail('');
+        setStatus('idle');
+      }, 3000);
+    } catch {
+      setStatus('error');
+    }
   };
 
   return (
@@ -46,24 +66,28 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
           <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
           {description && <p className='mb-8 text-lg opacity-90'>{description}</p>}
 
-          {!submitted ? (
+          {status !== 'submitted' ? (
             <form onSubmit={handleSubmit} className='flex flex-col gap-3 sm:flex-row'>
               <label htmlFor='newsletter-email' className='sr-only'>
-                Email
+                {t('newsletter.emailLabel')}
               </label>
               <input
                 id='newsletter-email'
                 type='email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder={'Your email address'}
+                placeholder={t('newsletter.placeholder')}
                 required
-                className='flex-1 rounded-lg border-0 bg-white/15 px-6 py-3 text-lg text-white placeholder-white/90 backdrop-blur-sm focus:bg-white/20 focus:ring-2 focus-visible:ring-white focus-visible:outline-hidden'
+                disabled={status === 'submitting'}
+                aria-invalid={status === 'error'}
+                aria-describedby={status === 'error' ? 'newsletter-error' : undefined}
+                className='flex-1 rounded-lg border-0 bg-white/15 px-6 py-3 text-lg text-white placeholder-white/90 backdrop-blur-sm focus:bg-white/20 focus:ring-2 focus-visible:ring-white focus-visible:outline-hidden disabled:opacity-60'
               />
               <Button
                 type='submit'
                 size='lg'
-                className='text-green bg-white font-semibold hover:bg-white/90'
+                disabled={status === 'submitting'}
+                className='text-green bg-white font-semibold hover:bg-white/90 disabled:opacity-60'
               >
                 {buttonText}
               </Button>
@@ -74,13 +98,17 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
               className='flex items-center justify-center gap-3 rounded-lg bg-white/15 p-4'
             >
               <PiCheckCircleThin className='h-6 w-6 text-white' />
-              <span className='text-lg font-semibold text-white'>Thank you for subscribing!</span>
+              <span className='text-lg font-semibold text-white'>{t('newsletter.thankYou')}</span>
             </div>
           )}
 
-          <p className='mt-4 text-sm opacity-90'>
-            We respect your privacy. Unsubscribe at any time.
-          </p>
+          {status === 'error' && (
+            <p id='newsletter-error' role='alert' className='mt-3 text-sm font-medium text-white'>
+              {t('newsletter.error')}
+            </p>
+          )}
+
+          <p className='mt-4 text-sm opacity-90'>{t('newsletter.privacyNotice')}</p>
         </div>
       </div>
     </HawkStarsSection>

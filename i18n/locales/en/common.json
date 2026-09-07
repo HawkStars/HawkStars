@@ -43,6 +43,14 @@
     "postAlt": "Instagram post",
     "errorFetch": "Failed to load Instagram posts"
   },
+  "newsletter": {
+    "emailLabel": "Email",
+    "placeholder": "Your email address",
+    "thankYou": "Thank you for subscribing!",
+    "privacyNotice": "We respect your privacy. Unsubscribe at any time.",
+    "error": "Something went wrong. Please try again.",
+    "errorInvalidEmail": "Please provide a valid email address."
+  },
   "label": {
     "hawk_projects": "Hawk Project",
     "hawk_events": "Hawk Event",

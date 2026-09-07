@@ -2445,6 +2445,7 @@ export interface Config {
     hawk_events: HawkEvent;
     member_projects: MemberProject;
     partners: Partner;
+    newsletter_subscribers: NewsletterSubscriber;
     sponsors: Sponsor;
     pages: Page;
     news: News;
@@ -2468,6 +2469,7 @@ export interface Config {
     hawk_events: HawkEventsSelect<false> | HawkEventsSelect<true>;
     member_projects: MemberProjectsSelect<false> | MemberProjectsSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
+    newsletter_subscribers: NewsletterSubscribersSelect<false> | NewsletterSubscribersSelect<true>;
     sponsors: SponsorsSelect<false> | SponsorsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
@@ -4078,6 +4080,19 @@ export interface Partner {
   createdAt: string;
 }
 /**
+ * Emails collected from the public newsletter signup block.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter_subscribers".
+ */
+export interface NewsletterSubscriber {
+  id: string;
+  email: string;
+  locale?: ('pt' | 'en') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Information about the project’s HawkStars, including their names, roles, and contributions.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4776,6 +4791,10 @@ export interface PayloadLockedDocument {
         value: string | Partner;
       } | null)
     | ({
+        relationTo: 'newsletter_subscribers';
+        value: string | NewsletterSubscriber;
+      } | null)
+    | ({
         relationTo: 'sponsors';
         value: string | Sponsor;
       } | null)
@@ -5277,6 +5296,16 @@ export interface PartnersSelect<T extends boolean = true> {
         isVisible?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter_subscribers_select".
+ */
+export interface NewsletterSubscribersSelect<T extends boolean = true> {
+  email?: T;
+  locale?: T;
   updatedAt?: T;
   createdAt?: T;
 }
