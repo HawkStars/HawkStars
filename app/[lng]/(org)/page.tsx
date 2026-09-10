@@ -13,7 +13,7 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
   if (pageInformation && pageInformation.meta)
     return prepareMetadataInfo({
       ...pageInformation.meta,
-      image: pageInformation.meta.image,
+      image: pageInformation.meta.image?.value,
       url: '/',
       lng: lng as Language,
     });

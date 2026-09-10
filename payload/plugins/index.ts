@@ -30,6 +30,11 @@ export const plugins: Plugin[] = [
     generateURL,
     generateDescription: ({ doc }) => doc?.description || 'A website built with Payload CMS',
     generateImage: ({ doc }) => doc?.image || null,
+    tabbedUI: true,
+    collections: ['artworks', 'hawk_events', 'hawk_projects', 'news', 'pages'],
+    globals: ['events-list', 'projects-list', 'main-page', 'news-list'],
+    uploadsCollection: ['media'],
+    interfaceName: 'meta',
   }),
   cloudStoragePlugin({
     collections: {

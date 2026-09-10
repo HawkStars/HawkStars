@@ -1,13 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import EventPage from './EventPage';
+import { HawkEvent } from '@/payload-types';
 
-const fullEvent = {
+const fullEvent: HawkEvent = {
+  id: 'aa',
+  slug: 'aa',
+  createdAt: new Date().toDateString(),
+  updatedAt: new Date().toDateString(),
   heading: 'Festival Cultural de Pinhel 2026',
   subheading: 'Uma celebração da cultura e da comunidade',
   date: '2026-07-12',
   endDate: '2026-07-15',
   isDateRange: true,
-  type_event: 'cultural_event',
+  type_event: 'local_event',
   description:
     'Junte-se a nós para quatro dias de música, arte e gastronomia tradicional no coração de Pinhel. Um evento aberto a toda a comunidade, com atividades para todas as idades.',
   image: {
@@ -96,7 +101,7 @@ export const SingleDayNoGallery: Story = {
       subheading: 'Introdução à programação',
       date: '2026-05-20',
       isDateRange: false,
-      type_event: 'workshop',
+      type_event: 'local_event',
       description:
         'Um dia inteiro dedicado à introdução à robótica e programação, orientado a jovens dos 12 aos 18 anos.',
       details: {
@@ -110,9 +115,10 @@ export const MinimalEvent: Story = {
   args: {
     lng: 'pt',
     event: {
+      id: 'aa',
       heading: 'Reunião Geral de Associados',
       date: '2026-03-01',
-    },
+    } as Partial<HawkEvent>,
   },
 };
 
@@ -123,7 +129,7 @@ export const NoImageWithObjectives: Story = {
       heading: 'Campanha de Recolha de Alimentos',
       subheading: 'Solidariedade em ação',
       date: '2026-11-10',
-      type_event: 'humanitarian',
+      type_event: 'international_event',
       description: 'Recolha de bens alimentares para famílias carenciadas da região.',
       objectives: {
         introduction: 'Os objetivos desta campanha são:',
@@ -132,6 +138,6 @@ export const NoImageWithObjectives: Story = {
           { text: 'Sensibilizar a comunidade para a solidariedade.' },
         ],
       },
-    },
+    } as Partial<HawkEvent>,
   },
 };

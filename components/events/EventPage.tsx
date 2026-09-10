@@ -6,6 +6,7 @@ import { ImageMedia } from '@/payload/components/Media';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
 import SectionHeader from '@/components/ui/SectionHeader';
+import { HawkEvent } from '@/payload-types';
 
 /* ================================================================== */
 /*  Section wrapper for consistent spacing + alternating backgrounds  */
@@ -30,8 +31,7 @@ function Section({
 /*  MAIN COMPONENT                                                    */
 /* ================================================================== */
 interface EventPageProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  event: Record<string, any>;
+  event: Partial<HawkEvent>;
   lng: Language;
 }
 
@@ -39,8 +39,15 @@ export default async function EventPage({ event, lng }: EventPageProps) {
   const { t } = await getServerTranslation(lng, 'events');
 
   /* Date formatting */
-  const startDate = event.date ? new Date(event.date) : null;
-  const endDate = event.endDate ? new Date(event.endDate) : null;
+  let startDate = null;
+  if (typeof event.date === 'string') {
+    startDate = event.date ? new Date(event.date) : null;
+  }
+
+  let endDate = null;
+  if (typeof event.endDate === 'string') {
+    endDate = event.endDate ? new Date(event.endDate) : null;
+  }
 
   const dateLabel = (() => {
     if (!startDate) return '';
@@ -52,6 +59,8 @@ export default async function EventPage({ event, lng }: EventPageProps) {
 
   /* Hero image */
   const heroImage = event.image ? getImagePayloadUrl(event.image) : null;
+  const externalGalleryImages = event.gallery?.externalImages;
+  const internalGalleryImages = event.gallery?.internalImages;
 
   return (
     <div>
@@ -65,7 +74,7 @@ export default async function EventPage({ event, lng }: EventPageProps) {
             {/* Title */}
             <SectionHeader
               as='h1'
-              title={event.heading}
+              title={event.heading ?? ''}
               subtitle={event.subheading ?? undefined}
               titleClassName='text-4xl font-bold md:text-5xl'
               subtitleClassName='mt-2 text-lg text-gray-600'
@@ -127,16 +136,17 @@ export default async function EventPage({ event, lng }: EventPageProps) {
       {/* ---------------------------------------------------------- */}
       {/*  2. DESCRIPTION SECTION                                   */}
       {/* ---------------------------------------------------------- */}
-      {(event.details?.text || event.details?.sections?.length > 0) && (
-        <Section>
-          <div className='mx-auto max-w-4xl space-y-8'>
-            {event.details.text && (
-              <p className='text-justify text-base leading-relaxed text-gray-800'>
-                {event.details.text}
-              </p>
-            )}
-            {event.details.sections?.map(
-              (section: { title?: string; text?: string }, i: number) => (
+      {event.details &&
+        (event.details?.text ||
+          (event.details.sections && event.details?.sections?.length > 0)) && (
+          <Section>
+            <div className='mx-auto max-w-4xl space-y-8'>
+              {event.details.text && (
+                <p className='text-justify text-base leading-relaxed text-gray-800'>
+                  {event.details.text}
+                </p>
+              )}
+              {event.details.sections?.map((section, i: number) => (
                 <div key={i}>
                   {section.title && (
                     <SectionHeader
@@ -151,43 +161,44 @@ export default async function EventPage({ event, lng }: EventPageProps) {
                     </p>
                   )}
                 </div>
-              )
-            )}
-          </div>
-        </Section>
-      )}
+              ))}
+            </div>
+          </Section>
+        )}
 
       {/* ---------------------------------------------------------- */}
       {/*  3. OBJECTIVES SECTION                                    */}
       {/* ---------------------------------------------------------- */}
-      {(event.objectives?.introduction || event.objectives?.items?.length > 0) && (
-        <Section alt>
-          <div className='mx-auto max-w-4xl'>
-            <SectionHeader
-              title={t('sections.objectives')}
-              className='mb-6'
-              titleClassName='text-3xl font-bold'
-            />
-            {event.objectives.introduction && (
-              <p className='mb-6 text-base leading-relaxed text-gray-800'>
-                {event.objectives.introduction}
-              </p>
-            )}
-            {event.objectives.items?.length > 0 && (
-              <ul className='list-disc space-y-2 pl-6 text-gray-800'>
-                {event.objectives.items.map((item: { text?: string }, i: number) => (
-                  <li key={i}>{item.text}</li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </Section>
-      )}
+      {event.objectives &&
+        (event.objectives?.introduction ||
+          (event.objectives.items && event.objectives?.items?.length > 0)) && (
+          <Section alt>
+            <div className='mx-auto max-w-4xl'>
+              <SectionHeader
+                title={t('sections.objectives')}
+                className='mb-6'
+                titleClassName='text-3xl font-bold'
+              />
+              {event.objectives.introduction && (
+                <p className='mb-6 text-base leading-relaxed text-gray-800'>
+                  {event.objectives.introduction}
+                </p>
+              )}
+              {event.objectives.items && event.objectives.items?.length > 0 && (
+                <ul className='list-disc space-y-2 pl-6 text-gray-800'>
+                  {event.objectives.items.map((item: { text?: string }, i: number) => (
+                    <li key={i}>{item.text}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </Section>
+        )}
 
       {/* ---------------------------------------------------------- */}
       {/*  4. PROGRAM / SCHEDULE SECTION                            */}
       {/* ---------------------------------------------------------- */}
-      {event.program?.length > 0 && (
+      {event.program && event.program?.length > 0 && (
         <Section>
           <div className='mx-auto max-w-4xl'>
             <SectionHeader
@@ -196,23 +207,21 @@ export default async function EventPage({ event, lng }: EventPageProps) {
               titleClassName='text-3xl font-bold'
             />
             <div className='space-y-6'>
-              {event.program.map(
-                (item: { day?: string; title?: string; description?: string }, i: number) => (
-                  <div key={i} className='flex gap-6 border-l-4 border-green-600 pl-6'>
-                    {item.day && (
-                      <span className='mt-0.5 min-w-20 text-sm font-semibold text-gray-500'>
-                        {item.day}
-                      </span>
+              {event.program.map((item, i: number) => (
+                <div key={i} className='flex gap-6 border-l-4 border-green-600 pl-6'>
+                  {item.day && (
+                    <span className='mt-0.5 min-w-20 text-sm font-semibold text-gray-500'>
+                      {item.day}
+                    </span>
+                  )}
+                  <div>
+                    {item.title && <h3 className='text-lg font-semibold'>{item.title}</h3>}
+                    {item.description && (
+                      <p className='mt-1 text-sm text-gray-700'>{item.description}</p>
                     )}
-                    <div>
-                      {item.title && <h3 className='text-lg font-semibold'>{item.title}</h3>}
-                      {item.description && (
-                        <p className='mt-1 text-sm text-gray-700'>{item.description}</p>
-                      )}
-                    </div>
                   </div>
-                )
-              )}
+                </div>
+              ))}
             </div>
           </div>
         </Section>
@@ -221,7 +230,8 @@ export default async function EventPage({ event, lng }: EventPageProps) {
       {/* ---------------------------------------------------------- */}
       {/*  5. PHOTO GALLERY SECTION                                 */}
       {/* ---------------------------------------------------------- */}
-      {(event.gallery?.internalImages?.length > 0 || event.gallery?.externalImages?.length > 0) && (
+      {((internalGalleryImages && internalGalleryImages?.length > 0) ||
+        (externalGalleryImages && externalGalleryImages?.length > 0)) && (
         <Section alt>
           <SectionHeader
             title={t('sections.gallery')}
@@ -229,20 +239,17 @@ export default async function EventPage({ event, lng }: EventPageProps) {
             titleClassName='text-3xl font-bold'
           />
           <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4'>
-            {event.gallery.internalImages?.map(
-              (item: { image?: { url?: string; alt?: string } }, i: number) =>
-                item.image?.url ? (
-                  <div key={i} className='relative aspect-square overflow-hidden rounded-lg'>
-                    <ImageMedia
-                      src={item.image.url}
-                      alt={item.image.alt || ''}
-                      fill
-                      className='object-cover'
-                    />
-                  </div>
-                ) : null
-            )}
-            {event.gallery.externalImages?.map((item: { url?: string; alt?: string }, i: number) =>
+            {internalGalleryImages?.map((item, i: number) => {
+              const image = getImagePayloadUrl(item);
+              if (!image) return null;
+
+              return (
+                <div key={i} className='relative aspect-square overflow-hidden rounded-lg'>
+                  <ImageMedia src={image.url} alt={image.alt || ''} fill className='object-cover' />
+                </div>
+              );
+            })}
+            {externalGalleryImages?.map((item: { url?: string; alt?: string }, i: number) =>
               item.url ? (
                 <div key={i} className='relative aspect-square overflow-hidden rounded-lg'>
                   <ImageMedia src={item.url} alt={item.alt || ''} fill className='object-cover' />

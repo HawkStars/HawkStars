@@ -1,13 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { notifyPageChange, revalidateDelete, revalidatePage } from './hooks';
 
-import {
-  MetaDescriptionField,
-  MetaImageField,
-  MetaTitleField,
-  OverviewField,
-  PreviewField,
-} from '@payloadcms/plugin-seo/fields';
 import { DefaultBlocks } from '@/payload/blocks';
 import { GROUP_LABELS } from '@/payload/constants';
 import transformSlug from '@/payload/utilities/transformSlug';
@@ -122,51 +115,6 @@ export const Pages: CollectionConfig<'pages'> = {
               pt: 'Gira o conteúdo principal da página',
             },
           },
-        },
-        {
-          name: 'meta',
-          label: 'SEO',
-          fields: [
-            OverviewField({
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-              imagePath: 'meta.image',
-            }),
-
-            MetaTitleField({
-              hasGenerateFn: true,
-              overrides: {
-                maxLength: 60,
-              },
-            }),
-
-            MetaImageField({
-              relationTo: 'media',
-              hasGenerateFn: true,
-              overrides: {
-                admin: {
-                  description: {
-                    en: 'Recommended size: 1200x630 pixels',
-                    pt: 'Tamanho recomendado: 1200x630 pixels',
-                  },
-                },
-              },
-            }),
-
-            MetaDescriptionField({
-              hasGenerateFn: true,
-              overrides: {
-                maxLength: 160,
-              },
-            }),
-
-            PreviewField({
-              // if the `generateUrl` function is configured
-              hasGenerateFn: true,
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-            }),
-          ],
         },
       ],
     },

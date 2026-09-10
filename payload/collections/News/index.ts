@@ -4,13 +4,7 @@ import { authenticated } from '@/payload/access/authenticated';
 import { anyone } from '@/payload/access/anyone';
 import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
 import NewsDetails from './NewsFields';
-import {
-  MetaDescriptionField,
-  MetaImageField,
-  MetaTitleField,
-  OverviewField,
-  PreviewField,
-} from '@payloadcms/plugin-seo/fields';
+
 import { GROUP_LABELS } from '@/payload/constants';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import transformSlug from '@/payload/utilities/transformSlug';
@@ -59,53 +53,7 @@ export const News: CollectionConfig = {
   fields: [
     {
       type: 'tabs',
-      tabs: [
-        NewsDetails,
-        {
-          name: 'meta',
-          label: 'SEO',
-          fields: [
-            OverviewField({
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-              imagePath: 'meta.image',
-            }),
-
-            MetaTitleField({
-              hasGenerateFn: true,
-              overrides: {
-                maxLength: 60,
-              },
-            }),
-
-            MetaImageField({
-              relationTo: 'media',
-              hasGenerateFn: true,
-              overrides: {
-                admin: {
-                  description: {
-                    en: 'Recommended size: 1200x630 pixels',
-                    pt: 'Tamanho recomendado: 1200x630 pixels',
-                  },
-                },
-              },
-            }),
-
-            MetaDescriptionField({
-              hasGenerateFn: true,
-              overrides: {
-                maxLength: 160,
-              },
-            }),
-
-            PreviewField({
-              hasGenerateFn: true,
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-            }),
-          ],
-        },
-      ],
+      tabs: [NewsDetails],
     },
     {
       name: 'slug',

@@ -2,7 +2,6 @@ import type { CollectionConfig } from 'payload';
 import CuratorFieldsTab from './CuratorFieldsTab';
 import { anyone } from '@/payload/access/anyone';
 import { authenticated } from '@/payload/access/authenticated';
-import { CuratorTab } from './CuratorSeoTab';
 import { GROUP_LABELS } from '@/payload/constants';
 import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
 
@@ -45,7 +44,7 @@ export const Curator: CollectionConfig = {
   fields: [
     {
       type: 'tabs',
-      tabs: [CuratorFieldsTab, CuratorTab],
+      tabs: [CuratorFieldsTab],
     },
   ],
 };

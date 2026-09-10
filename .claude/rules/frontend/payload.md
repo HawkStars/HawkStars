@@ -107,29 +107,6 @@ versions: {
 
 The status workflow is `draft → in_review → published`. Editors can advance to `in_review`; only admins can publish.
 
-### SEO Tab
-
-All public-facing collections include a `meta` tab using the `@payloadcms/plugin-seo` fields:
-
-```typescript
-import {
-  MetaDescriptionField, MetaImageField, MetaTitleField,
-  OverviewField, PreviewField,
-} from '@payloadcms/plugin-seo/fields';
-
-{
-  name: 'meta',
-  label: 'SEO',
-  fields: [
-    OverviewField({ titlePath: 'meta.title', descriptionPath: 'meta.description', imagePath: 'meta.image' }),
-    MetaTitleField({ hasGenerateFn: true, overrides: { maxLength: 60 } }),
-    MetaImageField({ relationTo: 'media', hasGenerateFn: true, overrides: { admin: { description: 'Recommended size: 1200x630 pixels' } } }),
-    MetaDescriptionField({ hasGenerateFn: true, overrides: { maxLength: 160 } }),
-    PreviewField({ hasGenerateFn: true, titlePath: 'meta.title', descriptionPath: 'meta.description' }),
-  ],
-}
-```
-
 ### Tabs
 
 Use the `tabs` field type to group logically related fields. The first tab is always the main content tab (labelled `'Content'` or descriptively named). SEO is always the last tab, named `meta`.

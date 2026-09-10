@@ -3,7 +3,6 @@ import { anyone } from '../../access/anyone';
 import { authenticated } from '../../access/authenticated';
 import HawkProjectPageTab from './HawkProjectPageTab';
 import { sanitizeBrokenImageRelationship } from '../../hooks/sanitizeBrokenImageRelationship';
-import { HawkProjectSeoTab } from './HawkProjectSeoTab';
 import HawkProjectPartnersInformation from './HawkProjectPartnersInformation';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import HawkProjectDisseminationFields from './HawkProjectDisseminationFields';
@@ -75,7 +74,6 @@ export const HawkProject: CollectionConfig = {
       label: 'Hawk Project Details',
       tabs: [
         HawkProjectPageTab,
-        HawkProjectSeoTab,
         HawkProjectPartnersInformation,
         HawkProjectDisseminationFields,
         HawkStarsProjectInformation,

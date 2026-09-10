@@ -2688,14 +2688,6 @@ export interface Page {
         | UpcomingHawkEventBlock
       )[]
     | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Recommended size: 1200x630 pixels
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
   /**
    * Automatically set when the page is published
    */
@@ -2704,6 +2696,7 @@ export interface Page {
    * The URL slug for the page, e.g. "about" for www.hawkstars.com/about
    */
   slug: string;
+  meta?: Meta;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -3852,6 +3845,21 @@ export interface UpcomingHawkEventBlock {
   blockType: 'upcomingHawkEvent';
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "meta".
+ */
+export interface Meta {
+  title?: string | null;
+  description?: string | null;
+  /**
+   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+   */
+  image?: {
+    relationTo: 'media';
+    value: string | Media;
+  } | null;
+}
+/**
  * Manage HawkStars projects and events. Add project details, images, and descriptions. Each project gets its own public page based on its slug.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3927,6 +3935,7 @@ export interface HawkProject {
     DiscoverEuItineraryDates?: HawkProjectDiscoverEuItineraryDates;
     discoverEuStops?: HawkProjectDiscoverEuStop;
   };
+  meta?: Meta;
   /**
    * Unique slug used in the project page URL (e.g. "ai4youth"). Auto-generated from the title if left empty.
    */
@@ -4080,19 +4089,6 @@ export interface Partner {
   createdAt: string;
 }
 /**
- * Emails collected from the public newsletter signup block.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "newsletter_subscribers".
- */
-export interface NewsletterSubscriber {
-  id: string;
-  email: string;
-  locale?: ('pt' | 'en') | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
  * Information about the project’s HawkStars, including their names, roles, and contributions.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4188,6 +4184,7 @@ export interface Artwork {
     };
     [k: string]: unknown;
   } | null;
+  meta?: Meta;
   updatedAt: string;
   createdAt: string;
 }
@@ -4410,6 +4407,7 @@ export interface HawkEvent {
    * The full URL of the Instagram post
    */
   instagram?: string | null;
+  meta?: Meta;
   updatedAt: string;
   createdAt: string;
 }
@@ -4457,6 +4455,19 @@ export interface MemberProject {
     submitter_name: string;
     submitter_email: string;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Emails collected from the newsletter signup block on the public site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter_subscribers".
+ */
+export interface NewsletterSubscriber {
+  id: string;
+  email: string;
+  locale?: ('pt' | 'en') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4548,14 +4559,7 @@ export interface News {
         id?: string | null;
       }[]
     | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Recommended size: 1200x630 pixels
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
+  meta?: Meta;
   /**
    * The URL slug for the news article, e.g. "my-article" for www.hawkstars.com/news/my-article
    */
@@ -4935,8 +4939,18 @@ export interface ArtworksSelect<T extends boolean = true> {
   tiragem?: T;
   dimensions?: T;
   extra?: T;
+  meta?: T | MetaSelect<T>;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "meta_select".
+ */
+export interface MetaSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  image?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5056,6 +5070,7 @@ export interface HawkProjectsSelect<T extends boolean = true> {
         DiscoverEuItineraryDates?: T | HawkProjectDiscoverEuItineraryDatesSelect<T>;
         discoverEuStops?: T | HawkProjectDiscoverEuStopSelect<T>;
       };
+  meta?: T | MetaSelect<T>;
   slug?: T;
   actionType?: T;
   referenceNumber?: T;
@@ -5219,6 +5234,7 @@ export interface HawkEventsSelect<T extends boolean = true> {
   gallery?: T | MultiImageTypeSelect<T>;
   image?: T | ImageTypeSelect<T>;
   instagram?: T;
+  meta?: T | MetaSelect<T>;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5376,15 +5392,9 @@ export interface PagesSelect<T extends boolean = true> {
         statsBlock?: T | StatsBlockSelect<T>;
         upcomingHawkEvent?: T | UpcomingHawkEventBlockSelect<T>;
       };
-  meta?:
-    | T
-    | {
-        title?: T;
-        image?: T;
-        description?: T;
-      };
   publishedAt?: T;
   slug?: T;
+  meta?: T | MetaSelect<T>;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -6268,13 +6278,7 @@ export interface NewsSelect<T extends boolean = true> {
         url?: T;
         id?: T;
       };
-  meta?:
-    | T
-    | {
-        title?: T;
-        image?: T;
-        description?: T;
-      };
+  meta?: T | MetaSelect<T>;
   slug?: T;
   publishedAt?: T;
   updatedAt?: T;
@@ -6470,14 +6474,7 @@ export interface MainPage {
     [k: string]: unknown;
   };
   bannerFields?: MainPageBannerFields;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
+  meta?: Meta;
   publishedAt?: string | null;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
@@ -6524,6 +6521,7 @@ export interface NewsList {
    * This subtitle will be used as the secondary heading for the news list page.
    */
   subtitle?: string | null;
+  meta?: Meta;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -6553,6 +6551,7 @@ export interface ProjectsList {
    * Unique identifier for the section (used for anchor links)
    */
   sectionId?: string | null;
+  meta?: Meta;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -6582,6 +6581,7 @@ export interface EventsList {
    * Unique identifier for the section (used for anchor links)
    */
   sectionId?: string | null;
+  meta?: Meta;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -6808,13 +6808,7 @@ export interface FooterNavGroupSelect<T extends boolean = true> {
 export interface MainPageSelect<T extends boolean = true> {
   layout?: T;
   bannerFields?: T | MainPageBannerFieldsSelect<T>;
-  meta?:
-    | T
-    | {
-        title?: T;
-        image?: T;
-        description?: T;
-      };
+  meta?: T | MetaSelect<T>;
   publishedAt?: T;
   _status?: T;
   updatedAt?: T;
@@ -6839,6 +6833,7 @@ export interface MainPageBannerFieldsSelect<T extends boolean = true> {
 export interface NewsListSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
+  meta?: T | MetaSelect<T>;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -6857,6 +6852,7 @@ export interface ProjectsListSelect<T extends boolean = true> {
   stats?: T | ProjectsListStatsItemSelect<T>;
   links?: T | LinkGroupItemSelect<T>;
   sectionId?: T;
+  meta?: T | MetaSelect<T>;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -6885,6 +6881,7 @@ export interface EventsListSelect<T extends boolean = true> {
   stats?: T | EventsListStatsItemSelect<T>;
   links?: T | LinkGroupItemSelect<T>;
   sectionId?: T;
+  meta?: T | MetaSelect<T>;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;

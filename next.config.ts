@@ -54,6 +54,7 @@ const nextConfig = {
   turbopack: {
     resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'],
   },
+  reactStrictMode: true,
   cacheComponents: true,
   cacheMaxMemorySize: 50 * 1024 * 1024,
   images: {
@@ -88,21 +89,6 @@ const nextConfig = {
   serverExternalPackages: [],
   staticPageGenerationTimeout: 120,
   productionBrowserSourceMaps: false,
-  async redirects() {
-    return [
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'www.hawkstars.org',
-          },
-        ],
-        destination: 'https://hawkstars.org/:path*',
-        permanent: true,
-      },
-    ];
-  },
   async headers() {
     return [
       {
