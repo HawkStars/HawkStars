@@ -100,6 +100,7 @@ export const Default = () => (
     columnGap={16}
     numberColumns='6'
     minRowHeight={200}
+    lng='pt'
   />
 );
 
@@ -113,11 +114,13 @@ export const WithSectionTitle = () => (
     columnGap={16}
     numberColumns='6'
     minRowHeight={200}
+    lng='pt'
   />
 );
 
 export const ThreeColumnGrid = () => (
   <BentoGridBlock
+    lng='pt'
     blockType='bentoGrid'
     sectionTitle='Our Programs'
     items={[
@@ -191,6 +194,7 @@ export const ThreeColumnGrid = () => (
 
 export const NoBackgroundImages = () => (
   <BentoGridBlock
+    lng='pt'
     blockType='bentoGrid'
     sectionTitle='Quick Links'
     items={[
@@ -268,6 +272,7 @@ export const NoBackgroundImages = () => (
 
 export const MixedLayout = () => (
   <BentoGridBlock
+    lng='pt'
     blockType='bentoGrid'
     sectionTitle='Featured Sections'
     sectionDescription='Explore the highlights of what we offer'

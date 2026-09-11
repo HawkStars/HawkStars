@@ -5,7 +5,7 @@ import { ImageMedia } from '@/payload/components/Media';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 import { HawkStarsSection } from '@/components/layout';
-import { Language } from '@payloadcms/translations';
+import { Language } from '@/i18n/settings';
 
 export const ContentWithImageBlock: React.FC<ContentWithImageProps & { lng: Language }> = ({
   title,
