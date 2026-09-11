@@ -30,7 +30,7 @@ const Index = async (props: PageProps) => {
   const pageInformation = await getSinglePageSlug(slug, lng, { preview: true });
   if (!pageInformation) notFound();
 
-  return <LivePreviewPage initialData={pageInformation} serverURL={getServerSideURL()} />;
+  return <LivePreviewPage initialData={pageInformation} lng={lng} serverURL={getServerSideURL()} />;
 };
 
 export default Index;

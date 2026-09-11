@@ -1,9 +1,8 @@
 import { Language } from '@/i18n/settings';
 import { getPayloadConfig } from './server';
-import { connection } from 'next/server';
 
 const getMainPageInfo = async (lng: Language, opts?: { preview: boolean }) => {
-  await connection();
+  'use cache';
   const payload = await getPayloadConfig();
   return await payload.findGlobal({
     slug: 'main-page',

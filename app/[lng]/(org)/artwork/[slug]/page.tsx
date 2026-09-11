@@ -104,10 +104,10 @@ const ArtworkContent = async ({ params }: { params: CuratorPageProps['params'] }
       </HawkStarsSection>
       <section className='font-oswald mx-auto mt-6 flex flex-col gap-4 px-4 text-justify lg:px-8 xl:px-40'>
         <h2 className='text-h2_bold max-lg:px-1'>{t('artwork.synopsis')}</h2>
-        {artwork?.synopsis && <RichText data={artwork?.synopsis} />}
+        {artwork?.synopsis && <RichText lng={lng} data={artwork?.synopsis} />}
         {artwork.extra && (
           <div>
-            <RichText data={artwork.extra} />
+            <RichText lng={lng} data={artwork.extra} />
           </div>
         )}
       </section>
@@ -130,7 +130,7 @@ const ArtworkContent = async ({ params }: { params: CuratorPageProps['params'] }
               <p className='text-h2_light text-body_regular'>{artwork.artist.name}</p>
               {artwork.artist.description && (
                 <div className='text-justify'>
-                  <RichText data={artwork.artist.description} />
+                  <RichText data={artwork.artist.description} lng={lng} />
                 </div>
               )}
               <Link href={`/${lng}/curator/${artwork.artist.slug}`} className='mt-2'>

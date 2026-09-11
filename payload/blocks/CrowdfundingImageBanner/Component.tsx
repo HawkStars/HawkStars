@@ -5,15 +5,12 @@ import type { CrowdfundingImageBannerBlock } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
 import { getLinkFieldInformation } from '@/utils/page';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { cn } from '@/lib/utils';
+import { Language } from '@/i18n/settings';
 
-export const CrowdfundingImageBannerBlockComponent: React.FC<CrowdfundingImageBannerBlock> = ({
-  image,
-  url,
-  sectionId,
-}) => {
-  const lng = useLanguageCookie();
+export const CrowdfundingImageBannerBlockComponent: React.FC<
+  CrowdfundingImageBannerBlock & { lng: Language }
+> = ({ image, url, sectionId, lng }) => {
   const imageData = getImagePayloadUrl(image);
   const linkUrl = getLinkFieldInformation(url, lng);
   if (!imageData) return null;

@@ -3,19 +3,19 @@ import type { CTABannerBlock as CTABannerBlockProps } from '@/payload-types';
 import { Button } from '@/components/ui/button';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { HawkStarsSection } from '@/components/layout';
 import SectionHeader from '@/components/ui/SectionHeader';
+import { Language } from '@/i18n/settings';
 
-export const CTABannerBlock: React.FC<CTABannerBlockProps> = ({
+export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> = ({
   title,
   description,
   links,
   variant = 'centered',
   backgroundImage,
   sectionId,
+  lng,
 }) => {
-  const lng = useLanguageCookie();
   const bgImage = getImagePayloadUrl(backgroundImage);
   const primaryCta = links && links[0]?.link;
   const secondaryCta = links && links[1]?.link;

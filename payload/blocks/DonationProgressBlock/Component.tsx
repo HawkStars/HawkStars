@@ -6,11 +6,11 @@ import type { DonationProgressBlock as DonationProgressBlockProps } from '@/payl
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { getLinkFieldInformation } from '@/utils/page';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { HawkStarsSection } from '@/components/layout';
 import { formatCurrency } from '@/lib/utils/currency';
+import { Language } from '@/i18n/settings';
 
-export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
+export const DonationProgressBlock: React.FC<DonationProgressBlockProps & { lng: Language }> = ({
   title,
   description,
   goalAmount,
@@ -21,8 +21,8 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps> = ({
   animateProgress = true,
   theme = 'light',
   sectionId,
+  lng,
 }) => {
-  const lng = useLanguageCookie();
   const [progress, setProgress] = useState(0);
   const [inView, setInView] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);

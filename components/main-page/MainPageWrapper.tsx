@@ -4,8 +4,8 @@ import { getMainPageInformation } from '@/lib/payload/main-page';
 import { ImageMedia } from '@/payload/components/Media';
 import { FC, Suspense } from 'react';
 import MainPageBanner from './MainPageBanner';
-import RichTextWrapper from '@/payload/components/RichText/RichTextWrapper';
 import { hawkLogo } from '@/utils/models/images/logos';
+import RichText from '@/payload/components/RichText';
 
 type MainPageWrapperProps = {
   lng: Language;
@@ -27,7 +27,7 @@ const MainPageWrapper: FC<MainPageWrapperProps> = async ({ lng }) => {
     return (
       <Suspense fallback={<></>}>
         {banner && <MainPageBanner {...banner} />}
-        <RichTextWrapper data={pageInformation.layout} />
+        <RichText data={pageInformation.layout} lng={lng} />
       </Suspense>
     );
   }

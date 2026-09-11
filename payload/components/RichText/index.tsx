@@ -1,10 +1,7 @@
-'use client';
-
 import * as Sentry from '@sentry/nextjs';
 import './richtext.scss';
 
 import { cn } from '@/lib/utils';
-import dynamic from 'next/dynamic';
 
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
 import { HeroBlock } from '@/payload/blocks/Hero/Component';
@@ -39,9 +36,6 @@ import Heading from '../utils/heading';
 import { StatsBlock } from '@/payload/blocks/StatsBlock/Component';
 import { AccordionBlock } from '@/payload/blocks/AccordionBlock/Component';
 
-const SimpleGallery = dynamic(() => import('@/payload/blocks/SimpleGallery/Component'), {
-  ssr: false,
-});
 import { ProjectTestimonialBlock } from '@/payload/blocks/ProjectTestimonialBlock/Component';
 import { LogosBlock } from '@/payload/blocks/LogosBlock/Component';
 import { GlobalVillageBannerBlockComponent } from '@/payload/blocks/GlobalVillageBanner/Component';
@@ -74,10 +68,10 @@ import { SectionListBlockComponent } from '@/payload/blocks/SectionListBlock/Com
 import Upload from '../utils/upload';
 import HorizontalLine from '@/components/ui/horizontal-line';
 import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { createUrlByCollection } from '@/utils/paths';
 import assert from 'assert';
 import { Language } from '@/i18n/settings';
+import SimpleGallery from '@/payload/blocks/SimpleGallery/Component';
 
 type ValidCategory = 'hawk_projects' | 'hawk_events' | 'news';
 
@@ -168,7 +162,7 @@ const getBlockComponents = (): Record<string, ComponentType<any>> => ({
 // block's fields as props. These are Lexical converter callbacks, not React
 // components rendered directly, so a display name is unnecessary.
 const blockConverter =
-  (Component: ComponentType<Record<string, unknown>>) =>
+  (Component: ComponentType<Record<string, unknown>>, lng: Language) =>
   // eslint-disable-next-line react/display-name
   ({ node }: { node: SerializedBlockNode }) => <Component {...node.fields} />;
 
@@ -176,11 +170,11 @@ const blockConverter =
 // stable across renders or React would remount every block on each update.
 let blockConvertersCache: Record<string, ReturnType<typeof blockConverter>> | null = null;
 
-const getBlockConverters = () => {
+const getBlockConverters = (lng: Language) => {
   blockConvertersCache ??= Object.fromEntries(
     Object.entries(getBlockComponents()).map(([slug, Component]) => [
       slug,
-      blockConverter(Component),
+      blockConverter(Component, lng),
     ])
   );
   return blockConvertersCache;
@@ -192,7 +186,7 @@ const jsxConverters =
     ...defaultConverters,
     ...LinkJSXConverter({ internalDocToHref: makeInternalDocToHref(lng) }),
     inlineBlocks: {},
-    blocks: getBlockConverters(),
+    blocks: getBlockConverters(lng),
     list: List,
     listitem: ListItem,
     paragraph: Paragraph,
@@ -213,10 +207,11 @@ const jsxConverters =
 
 export type RichTextProps = {
   data: DefaultTypedEditorState;
+  lng: Language;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export default function RichText(props: RichTextProps) {
-  const lng = useLanguageCookie();
+  const lng = props.lng;
   const converters = useMemo(() => jsxConverters(lng), [lng]);
   const { className, ...rest } = props;
 

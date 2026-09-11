@@ -40,7 +40,7 @@ if (typeof window !== 'undefined') {
     .then((replayIntegration) => {
       Sentry.addIntegration(
         replayIntegration({
-          maskAllText: false,
+          maskAllText: true,
           blockAllMedia: true,
         })
       );

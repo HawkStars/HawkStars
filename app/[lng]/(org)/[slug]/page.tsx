@@ -43,7 +43,7 @@ const PageContent = async ({ params }: { params: PageProps['params'] }) => {
 
   if (!pageInformation.layout) return null;
 
-  return <RichText data={pageInformation.layout} />;
+  return <RichText data={pageInformation.layout} lng={lng} />;
 };
 
 export default Index;

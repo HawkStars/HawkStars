@@ -106,7 +106,7 @@ const CuratorContent = async ({ params }: { params: CuratorPageProps['params'] }
         </div>
         <div className='w-full p-5'>
           <h1 className='text-h2_bold mb-5'>{curator.name}</h1>
-          {curator.description && <RichText data={curator.description} />}
+          {curator.description && <RichText data={curator.description} lng={lng} />}
         </div>
       </HawkStarsSection>
       {curatorArtwork.length > 0 && (

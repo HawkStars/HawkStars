@@ -7,6 +7,7 @@ import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { HawkStarsSection } from '@/components/layout';
 import { ImageMedia } from '@/payload/components/Media';
+import { Language } from '@/i18n/settings';
 
 const alignmentClasses = {
   left: 'text-left items-start',
@@ -14,9 +15,10 @@ const alignmentClasses = {
   right: 'text-right items-end',
 };
 
-const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (data) => {
+const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock & { lng: Language }> = (
+  data
+) => {
   const HeadingTag = data.headingLevel === 'h2' ? 'h2' : 'h1';
-  const lng = useLanguageCookie();
   if (!data) return null;
 
   const {
@@ -27,6 +29,7 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock> = (da
     links = [],
     textAlignment = 'center',
     sectionId,
+    lng,
   } = data;
 
   const bgImage = getImagePayloadUrl(backgroundImage);

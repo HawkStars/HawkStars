@@ -8,8 +8,8 @@ import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
 import { getLinkFieldInformation } from '@/utils/page';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { HawkStarsSection } from '@/components/layout';
+import { Language } from '@/i18n/settings';
 
 const heightClasses = {
   fullscreen: 'min-h-screen',
@@ -24,9 +24,9 @@ const alignmentClasses = {
   right: 'text-right items-end',
 } as const;
 
-const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
+const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> = (data) => {
   const HeadingTag = data.headingLevel === 'h2' ? 'h2' : 'h1';
-  const lng = useLanguageCookie();
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -39,6 +39,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps> = (data) => {
     showDots = true,
     height = 'large',
     sectionId,
+    lng,
   } = data || {};
 
   const goToSlide = useCallback(

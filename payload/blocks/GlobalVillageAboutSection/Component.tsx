@@ -7,10 +7,11 @@ import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
 import RichText from '@/payload/components/RichText';
 import { CMSLink } from '@/payload/components/Link';
+import { Language } from '@/i18n/settings';
 
 export const GlobalVillageAboutSectionBlockComponent: React.FC<
-  GlobalVillageAboutSectionBlockProps
-> = ({ heading, description, sections, cta, sectionId }) => {
+  GlobalVillageAboutSectionBlockProps & { lng: Language }
+> = ({ heading, description, sections, cta, sectionId, lng }) => {
   if (!sections || sections.length === 0) {
     return null;
   }
@@ -54,7 +55,7 @@ export const GlobalVillageAboutSectionBlockComponent: React.FC<
                 )}
 
                 {section.content && (
-                  <RichText data={section.content} className='text-body_regular' />
+                  <RichText data={section.content} className='text-body_regular' lng={lng} />
                 )}
               </div>
             );

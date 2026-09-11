@@ -21,8 +21,8 @@ export async function generateMetadata(props: ProjectPageProps): Promise<Metadat
   const project = await getSingleProjectsQuery(slug, lng as Language);
   if (!project) return {};
 
-  const seoTitle = project.seo?.seo?.title ?? project.heading;
-  const seoDescription = project.seo?.seo?.description ?? project.details?.text?.substring(0, 160);
+  const seoTitle = project.meta?.title ?? project.heading;
+  const seoDescription = project.meta?.description ?? project.details?.text?.substring(0, 160);
 
   return prepareMetadataInfo({
     title: seoTitle,

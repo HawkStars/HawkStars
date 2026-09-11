@@ -3,11 +3,11 @@
 import { HawkStarsSection } from '@/components/layout';
 import { News } from '@/payload-types';
 import { ImageMedia } from '@/payload/components/Media';
-import RichTextWrapper from '@/payload/components/RichText/RichTextWrapper';
 import { SocialIcon, SocialType } from '@/utils/models/social';
 import { FC } from 'react';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import RichText from '@/payload/components/RichText';
 
 type NewsSingleInformationProps = Pick<News, 'details' | 'references'>;
 
@@ -24,7 +24,7 @@ const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, refere
           className='max-w-6xl flex-col py-6 lg:mx-auto lg:px-2 lg:py-12'
         >
           <div className='mx-auto max-lg:flex max-lg:flex-col max-lg:gap-6 max-lg:px-3'>
-            <RichTextWrapper data={text} />
+            <RichText data={text} lng={lng} />
           </div>
           {references && references.length > 0 && (
             <div className='my-6 max-w-6xl gap-2 max-lg:mx-4'>

@@ -5,13 +5,15 @@ import { ImageMedia } from '@/payload/components/Media';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 import { HawkStarsSection } from '@/components/layout';
+import { Language } from '@payloadcms/translations';
 
-export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
+export const ContentWithImageBlock: React.FC<ContentWithImageProps & { lng: Language }> = ({
   title,
   description,
   image,
   imagePosition,
   sectionId,
+  lng,
 }) => {
   const isImageLeft = imagePosition === 'left';
   const imageInfo = getImagePayloadUrl(image);
@@ -58,7 +60,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps> = ({
           <h2 className='mb-5 text-3xl font-bold tracking-tight text-balance max-lg:text-center lg:text-4xl'>
             {title}
           </h2>
-          {description && <RichText data={description} />}
+          {description && <RichText data={description} lng={lng} />}
         </div>
       </div>
     </HawkStarsSection>

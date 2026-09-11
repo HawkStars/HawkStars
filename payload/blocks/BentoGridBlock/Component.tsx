@@ -10,6 +10,7 @@ import React from 'react';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { getLinkFieldInformation } from '@/utils/page';
 import { HawkStarsSection } from '@/components/layout';
+import { Language } from '@/i18n/settings';
 
 const gridColumnLg = {
   2: 'lg:grid-cols-2',
@@ -71,7 +72,7 @@ const contentPositionMap = {
   'bottom-center': 'items-end justify-center text-center',
 } as const;
 
-const BentoGridBlock: React.FC<BentoGridBlockProps> = ({
+const BentoGridBlock: React.FC<BentoGridBlockProps & { lng: Language }> = ({
   sectionTitle,
   sectionDescription,
   items,
@@ -80,8 +81,8 @@ const BentoGridBlock: React.FC<BentoGridBlockProps> = ({
   numberColumns,
   minRowHeight = 200,
   sectionId,
+  lng,
 }) => {
-  const lng = useLanguageCookie();
   if (!items || items.length === 0) return null;
 
   return (

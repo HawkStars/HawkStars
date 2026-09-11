@@ -7,15 +7,15 @@ import type { NewsletterSignupBlock as NewsletterSignupBlockProps } from '@/payl
 import { Button } from '@/components/ui/button';
 import { HawkStarsSection } from '@/components/layout';
 import { useTranslation } from '@/i18n/client';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { Language } from '@/i18n/settings';
 
-export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps> = ({
+export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps & { lng: Language }> = ({
   title,
   description,
   buttonText = 'Subscribe',
   sectionId,
+  lng,
 }) => {
-  const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'common');
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'submitted' | 'error'>('idle');

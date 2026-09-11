@@ -3919,7 +3919,6 @@ export interface HawkProject {
     resultsImage?: ImageType;
   };
   gallery?: MultiImageType;
-  seo?: SEO;
   partnersInformation?: HawkProjectPartnersInformation;
   /**
    * Dissemination links per other partners and official reports.
@@ -4008,21 +4007,6 @@ export interface MultiImageType {
         id?: string | null;
       }[]
     | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SEO".
- */
-export interface SEO {
-  seo?: HawkProjectSeoFields;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HawkProjectSeoFields".
- */
-export interface HawkProjectSeoFields {
-  title?: string | null;
-  description?: string | null;
 }
 /**
  * Information about the project’s partners, including their names, roles, and contributions.
@@ -4215,7 +4199,6 @@ export interface Curator {
     [k: string]: unknown;
   } | null;
   image: string | Media;
-  seo?: SEO;
   updatedAt: string;
   createdAt: string;
 }
@@ -5002,24 +4985,8 @@ export interface CuratorsSelect<T extends boolean = true> {
   location?: T;
   description?: T;
   image?: T;
-  seo?: T | SEOSelect<T>;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SEO_select".
- */
-export interface SEOSelect<T extends boolean = true> {
-  seo?: T | HawkProjectSeoFieldsSelect<T>;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HawkProjectSeoFields_select".
- */
-export interface HawkProjectSeoFieldsSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5056,7 +5023,6 @@ export interface HawkProjectsSelect<T extends boolean = true> {
         resultsImage?: T | ImageTypeSelect<T>;
       };
   gallery?: T | MultiImageTypeSelect<T>;
-  seo?: T | SEOSelect<T>;
   partnersInformation?: T | HawkProjectPartnersInformationSelect<T>;
   otherDisseminationFields?:
     | T
@@ -7148,27 +7114,6 @@ export interface BentoGridBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bentoGrid';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SeoFields".
- */
-export interface SeoFields {
-  title?: string | null;
-  /**
-   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-   */
-  image?: (string | null) | Media;
-  description?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SeoFields_select".
- */
-export interface SeoFieldsSelect<T extends boolean = true> {
-  title?: T;
-  image?: T;
-  description?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

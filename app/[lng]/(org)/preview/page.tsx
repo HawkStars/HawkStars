@@ -30,5 +30,5 @@ export default async function Home(props: HomeProps) {
   const pageInformation = await getMainPageInformationPreview(lng as Language);
 
   if (pageInformation === null) return null;
-  return <LivePreviewPage initialData={pageInformation} serverURL={getServerSideURL()} />;
+  return <LivePreviewPage initialData={pageInformation} serverURL={getServerSideURL()} lng={lng} />;
 }

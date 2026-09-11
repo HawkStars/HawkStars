@@ -5,8 +5,8 @@ import { Button } from '@/components/ui/button';
 import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
 import { getLinkFieldInformation } from '@/utils/page';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { HawkStarsSection } from '@/components/layout';
+import { Language } from '@/i18n/settings';
 
 const iconMap = {
   globe: LuGlobe,
@@ -15,11 +15,10 @@ const iconMap = {
   wrench: LuWrench,
 };
 
-const HeroBlock: React.FC<HeroBlock> = (data) => {
+const HeroBlock: React.FC<HeroBlock & { lng: Language }> = (data) => {
   const HeadingTag = data.headingLevel === 'h2' ? 'h2' : 'h1';
-  const lng = useLanguageCookie();
   if (!data) return null;
-  const { badge, heading, ctaLink, headerImage, features = [], sectionId } = data;
+  const { badge, heading, ctaLink, headerImage, features = [], sectionId, lng } = data;
 
   const bgImage = getImagePayloadUrl(headerImage);
 
