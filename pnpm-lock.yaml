@@ -150,8 +150,8 @@ importers:
         specifier: ^3.88.0
         version: 3.88.0(graphql@16.14.2)(supports-color@8.1.1)(typescript@6.0.3)
       payload-totp:
-        specifier: ^3.0.2
-        version: 3.0.2(@payloadcms/next@3.88.0(@types/react@19.2.18)(graphql@16.14.2)(monaco-editor@0.56.0)(next@16.3.4(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.77.4))(payload@3.88.0(graphql@16.14.2)(supports-color@8.1.1)(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)(typescript@6.0.3))(@payloadcms/translations@3.88.0)(@payloadcms/ui@3.88.0(@types/react@19.2.18)(monaco-editor@0.56.0)(next@16.3.4(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.77.4))(payload@3.88.0(graphql@16.14.2)(supports-color@8.1.1)(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)(typescript@6.0.3))(payload@3.88.0(graphql@16.14.2)(supports-color@8.1.1)(typescript@6.0.3))
+        specifier: ^3.0.3
+        version: 3.0.3(@payloadcms/next@3.88.0(@types/react@19.2.18)(graphql@16.14.2)(monaco-editor@0.56.0)(next@16.3.4(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.77.4))(payload@3.88.0(graphql@16.14.2)(supports-color@8.1.1)(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)(typescript@6.0.3))(@payloadcms/translations@3.88.0)(@payloadcms/ui@3.88.0(@types/react@19.2.18)(monaco-editor@0.56.0)(next@16.3.4(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.77.4))(payload@3.88.0(graphql@16.14.2)(supports-color@8.1.1)(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)(typescript@6.0.3))(payload@3.88.0(graphql@16.14.2)(supports-color@8.1.1)(typescript@6.0.3))
       qs-esm:
         specifier: ^8.0.1
         version: 8.0.1
@@ -5812,8 +5812,8 @@ packages:
     resolution: {integrity: sha512-//nshmD55c46FuFw26xV/xFAaB5HF9Xdap7HJBBnrKdAd6/GxDBaNA1870O79+9ueg61cZLSVc+OaFlfmObYVQ==}
     engines: {node: '>= 14.16'}
 
-  payload-totp@3.0.2:
-    resolution: {integrity: sha512-Y+oOZD3dnh6cF64TQiYKu4stF3HoBtukILI7g56zh5bCMW5fxnWlmaZhYt7MXsFdFYuvDJ/cGcL4zwANCiGhVA==}
+  payload-totp@3.0.3:
+    resolution: {integrity: sha512-j+0X/0hwCicSezcnq/uPiH6dFr5lWWWGWnc8JEAjpede5pzheiYxngHENsQV3TQTd0HkFCA2lyO5wOX7NrnPeg==}
     engines: {node: ^18.20.2 || >=20.9.0, pnpm: ^10}
     peerDependencies:
       '@payloadcms/next': ^3.88.0
@@ -13184,7 +13184,7 @@ snapshots:
 
   pathval@2.0.1: {}
 
-  payload-totp@3.0.2(@payloadcms/next@3.88.0(@types/react@19.2.18)(graphql@16.14.2)(monaco-editor@0.56.0)(next@16.3.4(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.77.4))(payload@3.88.0(graphql@16.14.2)(supports-color@8.1.1)(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)(typescript@6.0.3))(@payloadcms/translations@3.88.0)(@payloadcms/ui@3.88.0(@types/react@19.2.18)(monaco-editor@0.56.0)(next@16.3.4(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.77.4))(payload@3.88.0(graphql@16.14.2)(supports-color@8.1.1)(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)(typescript@6.0.3))(payload@3.88.0(graphql@16.14.2)(supports-color@8.1.1)(typescript@6.0.3)):
+  payload-totp@3.0.3(@payloadcms/next@3.88.0(@types/react@19.2.18)(graphql@16.14.2)(monaco-editor@0.56.0)(next@16.3.4(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.77.4))(payload@3.88.0(graphql@16.14.2)(supports-color@8.1.1)(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)(typescript@6.0.3))(@payloadcms/translations@3.88.0)(@payloadcms/ui@3.88.0(@types/react@19.2.18)(monaco-editor@0.56.0)(next@16.3.4(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.77.4))(payload@3.88.0(graphql@16.14.2)(supports-color@8.1.1)(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)(typescript@6.0.3))(payload@3.88.0(graphql@16.14.2)(supports-color@8.1.1)(typescript@6.0.3)):
     dependencies:
       '@payloadcms/next': 3.88.0(@types/react@19.2.18)(graphql@16.14.2)(monaco-editor@0.56.0)(next@16.3.4(@babel/core@7.29.7(supports-color@8.1.1))(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(babel-plugin-macros@3.1.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(sass@1.77.4))(payload@3.88.0(graphql@16.14.2)(supports-color@8.1.1)(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)(typescript@6.0.3)
       '@payloadcms/translations': 3.88.0
