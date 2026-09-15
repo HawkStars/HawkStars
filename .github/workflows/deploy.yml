@@ -22,6 +22,20 @@ jobs:
     name: Check code quality
     runs-on: ubuntu-latest
 
+    # `next build` prerenders routes that read from Payload, so the build needs a
+    # reachable database. An empty throwaway Mongo is enough — nothing asserts on
+    # the data, only that the queries resolve.
+    services:
+      mongodb:
+        image: mongo:8
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.runCommand({ping:1}).ok'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - uses: actions/checkout@v7
 
@@ -53,6 +67,29 @@ jobs:
 
       - name: Build
         run: pnpm build
+        env:
+          # Build-time only, and deliberately NOT real credentials.
+          #
+          # `payload.config.ts` asserts these at module load, so `next build` fails
+          # before it renders anything without them — and because `next build` runs
+          # with NODE_ENV=production, the Gmail OAuth block asserts too.
+          #
+          # Placeholders rather than secrets, for three reasons: this job also runs on
+          # pull requests (where fork PRs get no secrets at all), nothing here needs a
+          # credential that works, and the artifact is discarded — the VPS builds
+          # again from its own .env. Note NEXT_PUBLIC_* values are inlined into the
+          # bundle at build time, so this build is a compile gate, not a
+          # production-equivalent artifact.
+          DATABASE_URI: mongodb://127.0.0.1:27017/hawkstars-ci
+          PAYLOAD_SECRET: ci-build-placeholder-not-a-real-secret
+          NEXT_PUBLIC_APP_URL: http://localhost:3000
+          NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ci-placeholder
+          CLOUDINARY_API_KEY: ci-placeholder
+          CLOUDINARY_API_SECRET: ci-placeholder
+          GOOGLE_EMAIL_USER: ci@example.invalid
+          GOOGLE_NODEMAILER_CLIENT_ID: ci-placeholder
+          GOOGLE_NODEMAILER_CLIENT_SECRET: ci-placeholder
+          GOOGLE_NODEMAILER_REFRESH_TOKEN: ci-placeholder
   deploy:
     name: Deploy project with Nginx
     needs: check
