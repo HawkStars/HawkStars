@@ -1,13 +1,8 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
-import type {
-  HawkEvent,
-  UpcomingHawkEventBlock as UpcomingHawkEventBlockProps,
-} from '@/payload-types';
+import type { UpcomingHawkEventBlock as UpcomingHawkEventBlockProps } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { UpcomingHawkEventBlockView } from './UpcomingHawkEventBlockView';
-import { fetchEvent } from '@/lib/payload/client-side/queries/event';
+import { getUpcomingEventForBlock } from '@/lib/payload/queries/blocks';
+import { Language } from '@/i18n/settings';
 
 const typeLabels: Record<string, string> = {
   local_event: 'Local Event',
@@ -15,27 +10,19 @@ const typeLabels: Record<string, string> = {
   other: 'Other',
 };
 
-export const UpcomingHawkEventBlock: React.FC<UpcomingHawkEventBlockProps> = ({
+// Server component. The client version fetched over REST after hydration — and did it
+// against the *projects* endpoint (`API_CLIENT_PATHS.projects`), so this block was
+// never showing an event at all. It also passed no locale and no date filter despite
+// being the "upcoming" block.
+export const UpcomingHawkEventBlock = async ({
   title,
   subtitle,
   eventType,
   linkLabel = 'Learn more',
   sectionId,
-}) => {
-  const [upcomingEvent, setUpcomingEvent] = useState<HawkEvent | null>(null);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const fetchData = async () => {
-      const response = await fetchEvent({ controller, eventType });
-      setUpcomingEvent(response);
-    };
-
-    fetchData();
-
-    return () => controller.abort();
-  }, [eventType]);
+  lng,
+}: UpcomingHawkEventBlockProps & { lng: Language }) => {
+  const upcomingEvent = await getUpcomingEventForBlock(lng, eventType);
 
   if (!upcomingEvent) return null;
 

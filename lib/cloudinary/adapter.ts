@@ -43,6 +43,10 @@ export const cloudinaryAdapter = () => ({
       file.filesize = uploadResult.bytes; // Set the actual file size in bytes, for admin display and validations
     } catch (err) {
       Sentry.captureException(err);
+      // Re-throw: swallowing this let Payload create the media document as though the
+      // upload had succeeded, leaving a broken asset referenced across public pages
+      // with only a Sentry event to show for it.
+      throw err;
     }
   },
 

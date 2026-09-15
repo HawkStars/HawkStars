@@ -1,4 +1,5 @@
 import type { Condition, Description, Field, GroupField } from 'payload';
+import { isHttpUrl } from '@/utils/paths';
 
 type LinkTypeProps = {
   localizedLabel?: boolean;
@@ -108,6 +109,12 @@ export const link = (props?: LinkTypeProps) => {
       },
       label: { en: 'Custom URL', pt: 'URL Personalizado' },
       required: true,
+      validate: (value: string | string[] | null | undefined) => {
+        if (typeof value !== 'string' || value.length === 0) return true;
+        if (value.startsWith('/')) return true;
+        if (isHttpUrl(value)) return true;
+        return 'Enter a site-relative path (/about) or a full http(s):// URL.';
+      },
     },
   ];
 

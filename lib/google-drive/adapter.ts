@@ -5,6 +5,15 @@ import { Readable } from 'stream';
 import { captureException, captureMessage } from '@/lib/sentry/cli-client';
 import { getDrive } from './auth';
 
+/**
+ * Escape a value for interpolation into a Google Drive query string.
+ *
+ * Drive's query language delimits string literals with single quotes and escapes with
+ * backslashes, so an unescaped apostrophe in a folder name (`Projeto d'Arte`) breaks
+ * the query, and a crafted one changes which files it matches.
+ */
+const escapeDriveQueryValue = (value: string) => value.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
 async function createDriveFolder(
   drive: drive_v3.Drive,
   folderName: string
@@ -27,7 +36,7 @@ async function getOrCreateDriveFolder(
 ): Promise<string | null> {
   try {
     const response = await drive.files.list({
-      q: `name='${folderName}' and mimeType='application/vnd.google-apps.folder' and trashed=false`,
+      q: `name='${escapeDriveQueryValue(folderName)}' and mimeType='application/vnd.google-apps.folder' and trashed=false`,
       fields: 'files(id, name)',
       spaces: 'drive',
     });

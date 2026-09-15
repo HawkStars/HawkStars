@@ -25,17 +25,24 @@ const isProd = process.env.NODE_ENV === 'production';
 // so hashes are not maintainable). Because `'strict-dynamic'` is also gone,
 // every third-party origin must now be listed explicitly rather than inherited
 // transitively from a trusted loader. See AUDIT.md SEC-M3.
+// img-src was `https:` — every host on the web — and frame-src carried a bare
+// `*.google.com` wildcard that nothing embeds. Both are now the hosts actually used:
+// Cloudinary and Unsplash for media, Instagram/fbcdn for the feed, Carto and OSM for
+// map tiles, Drive for document thumbnails, and the analytics pixels.
+//
+// Note frame-src previously had no openstreetmap.org entry at all, so the
+// MapLocationBlock's embed was being blocked outright.
 const cspHeader = `
   default-src 'self';
   script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} blob: https://www.googletagmanager.com https://www.google-analytics.com https://upload-widget.cloudinary.com https://*.cloudinary.com https://www.instagram.com https://*.cdninstagram.com https://browser.sentry-cdn.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  img-src 'self' blob: https: data:;
+  img-src 'self' blob: data: https://res.cloudinary.com https://images.unsplash.com https://*.cdninstagram.com https://*.fbcdn.net https://*.basemaps.cartocdn.com https://*.tile.openstreetmap.org https://drive.google.com https://www.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com;
   font-src 'self' https://fonts.gstatic.com data:;
   object-src 'none';
   base-uri 'self';
   form-action 'self';
   frame-ancestors 'self';
-  frame-src 'self' *.google.com https://www.instagram.com/ https://upload-widget.cloudinary.com https://www.youtube.com https://www.youtube-nocookie.com/;
+  frame-src 'self' https://www.openstreetmap.org https://www.instagram.com/ https://upload-widget.cloudinary.com https://www.youtube.com https://www.youtube-nocookie.com/;
   connect-src 'self' *.google-analytics.com *.de.sentry.io https://browser.sentry-cdn.com ${isProd ? 'https://*.googleapis.com *.google.com https://stats.g.doubleclick.net https://*.gstatic.com data: blob:' : 'http://127.0.0.1:54321'};
   media-src 'self' https://www.youtube.com;
   block-all-mixed-content;

@@ -106,6 +106,24 @@ async function fetchInstagramPosts(userId: string, token: string, limit: number)
   return Array.isArray(data?.data) ? data.data.map(normalizePost) : [];
 }
 
+const getInstagramSettings = async () => {
+  'use cache';
+  cacheLife('hours');
+  cacheTag('global:settings');
+
+  const payload = await getPayloadConfig();
+  const settings = await payload.findGlobal({
+    slug: 'settings',
+    depth: 0,
+    select: { instagramToken: true, instagramUserId: true },
+  });
+
+  return {
+    instagramToken: settings?.instagramToken,
+    instagramUserId: settings?.instagramUserId,
+  };
+};
+
 export async function GET(request: NextRequest) {
   // Each distinct `limit` value is its own cache key (see fetchInstagramPosts), so
   // an unrated caller could otherwise vary it to force a fresh Graph API call (and
@@ -127,10 +145,7 @@ export async function GET(request: NextRequest) {
   const requestedLimit = Number(searchParams.get('limit') ?? 12);
   const limit = Number.isFinite(requestedLimit) ? Math.max(1, Math.min(requestedLimit, 50)) : 12;
 
-  const payload = await getPayloadConfig();
-  const settings = await payload.findGlobal({ slug: 'settings' });
-
-  const { instagramToken, instagramUserId } = settings || {};
+  const { instagramToken, instagramUserId } = await getInstagramSettings();
   if (!instagramToken || !instagramUserId) {
     captureSentryMessage(`Instagram API is not configured.`, 'error');
 

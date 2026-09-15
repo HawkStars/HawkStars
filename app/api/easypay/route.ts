@@ -133,9 +133,28 @@ function toPaymentMethod(method: string): ValidPaymentMethod | undefined {
 async function handleAuthorisationNotification(
   notification: EasyPayAuthorisationNotification
 ): Promise<void> {
-  // Create a contribution record when a payment is authorised
+  // Create a contribution record when a payment is authorised.
   try {
     const payload = await getPayloadConfig();
+
+    // Idempotency: EasyPay retries notifications, and /api/donate has already
+    // inserted a row carrying this same transaction_key for card payments. Creating
+    // unconditionally double-counted the donation — and the public transparency total
+    // sums `value` over confirmed rows, so the published figure over-reported.
+    const existing = await payload.find({
+      collection: CONTRIBUTION_COLLECTION,
+      where: { transaction_key: { equals: notification.key } },
+      limit: 1,
+      depth: 0,
+    });
+
+    if (existing.docs.length > 0) {
+      Sentry.captureMessage(
+        `Authorisation notification replayed for transaction key: ${notification.key}`,
+        { level: 'info' }
+      );
+      return;
+    }
 
     await payload.create({
       collection: CONTRIBUTION_COLLECTION,

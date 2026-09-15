@@ -9,7 +9,7 @@ const NOMINATIM_URL = 'https://nominatim.openstreetmap.org/search';
  * a contact address, and blocks generic ones. See the usage policy:
  * https://operations.osmfoundation.org/policies/nominatim/
  */
-const CONTACT_EMAIL = process.env.GEOCODING_CONTACT_EMAIL || 'tech@hawkstars.org';
+const CONTACT_EMAIL = 'tech@hawkstars.org';
 const USER_AGENT = `HawkStars/1.0 (+https://hawkstars.org; ${CONTACT_EMAIL})`;
 
 /** Policy caps absolute usage at 1 req/sec across the whole application. */

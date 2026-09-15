@@ -3,7 +3,7 @@ import { Language } from '@/i18n/settings';
 import { findPublishedBySlug } from './helpers';
 import { HawkEvent } from '@/payload-types';
 import { PaginatedDocs, Where } from 'payload';
-import { customDateRangeQuery } from '@/lib/utils/date';
+import { customDateRangeQuery, currentTimeBucket } from '@/lib/utils/date';
 import { cacheLife, cacheTag } from 'next/cache';
 import { HAWK_EVENT_CACHE_TAG } from '@/payload/collections/HawkEvent';
 
@@ -52,7 +52,17 @@ const withEventFilters = (dateWhere: Where, opts: HawkEventFilterOpts): Where =>
 const getHawkEventsSplitByDate = async (
   locale: Language,
   opts: { preview?: boolean } & HawkEventFilterOpts = {}
+): Promise<SplitHawkEventsResult> =>
+  getHawkEventsSplitByDateCached(locale, currentTimeBucket(), opts);
+
+const getHawkEventsSplitByDateCached = async (
+  locale: Language,
+  timeBucket: string,
+  opts: { preview?: boolean } & HawkEventFilterOpts = {}
 ): Promise<SplitHawkEventsResult> => {
+  // `timeBucket` is computed by the caller, outside this cached scope, so it becomes
+  // part of the cache key. Reading the clock in here froze "today" into the entry for
+  // the whole cacheLife window, which put a running event in the wrong bucket.
   'use cache';
   cacheLife('hours');
   cacheTag(HAWK_EVENT_CACHE_TAG);
@@ -60,8 +70,8 @@ const getHawkEventsSplitByDate = async (
   const { preview = false, type, year } = opts;
 
   const [upcomingResult, current] = await Promise.all([
-    getUpcomingEvents(locale, { preview, type, year }),
-    getCurrentEvents(locale, { preview, type, year }),
+    getUpcomingEvents(locale, timeBucket, { preview, type, year }),
+    getCurrentEvents(locale, timeBucket, { preview, type, year }),
   ]);
 
   return { upcoming: upcomingResult.docs, current };
@@ -69,10 +79,11 @@ const getHawkEventsSplitByDate = async (
 
 const getCurrentEvents = async (
   locale: Language,
+  timeBucket: string,
   opts: { preview?: boolean } & HawkEventFilterOpts = {}
 ) => {
   const payload = await getPayloadConfig();
-  const { startOfDay, endOfDay, now } = customDateRangeQuery();
+  const { startOfDay, endOfDay, now } = customDateRangeQuery(timeBucket);
 
   const dayHappening: Where = {
     and: [
@@ -102,10 +113,11 @@ const getCurrentEvents = async (
 
 const getUpcomingEvents = async (
   locale: Language,
+  timeBucket: string,
   opts: { preview?: boolean; page?: number; limit?: number } & HawkEventFilterOpts = {}
 ) => {
   const payload = await getPayloadConfig();
-  const { endOfDay } = customDateRangeQuery();
+  const { endOfDay } = customDateRangeQuery(timeBucket);
 
   const greaterThanToday: Where = {
     and: [{ isDateRange: { equals: false } }, { date: { greater_than: endOfDay.toISOString() } }],
@@ -136,9 +148,15 @@ const getUpcomingEvents = async (
 const getPastEvents = async (
   locale: Language,
   opts: { preview?: boolean; page?: number; limit?: number } & HawkEventFilterOpts = {}
+) => getPastEventsAt(locale, currentTimeBucket(), opts);
+
+const getPastEventsAt = async (
+  locale: Language,
+  timeBucket: string,
+  opts: { preview?: boolean; page?: number; limit?: number } & HawkEventFilterOpts = {}
 ) => {
   const payload = await getPayloadConfig();
-  const { startOfDay } = customDateRangeQuery();
+  const { startOfDay } = customDateRangeQuery(timeBucket);
 
   const beforeToday: Where = {
     and: [{ isDateRange: { equals: false } }, { date: { less_than: startOfDay.toISOString() } }],
@@ -166,11 +184,17 @@ const getPastEvents = async (
 // Distinct years across every event (there's no dedicated "year" field),
 // used to populate the year filter's option list.
 export const getEventYearsQuery = async (locale: Language): Promise<number[]> => {
+  'use cache';
+  cacheLife('hours');
+  cacheTag(HAWK_EVENT_CACHE_TAG);
+
   const payload = await getPayloadConfig();
   const result = await payload.find({
     collection: EVENTS_COLLECTION,
     locale,
+    where: { _status: { equals: 'published' } },
     limit: 0,
+    depth: 0,
     select: { date: true },
   });
 

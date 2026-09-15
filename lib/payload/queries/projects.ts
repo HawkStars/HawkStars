@@ -1,9 +1,11 @@
+import { cacheLife, cacheTag } from 'next/cache';
 import { HawkProject } from '@/payload-types';
 import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
+import { currentTimeBucket } from '@/lib/utils/date';
 import { findPublishedBySlug } from './helpers';
-import { connection } from 'next/server';
 import { PaginatedDocs, Where } from 'payload';
+import { HAWK_PROJECT_CACHE_TAG } from '@/payload/collections/HawkProject';
 
 export type SplitProjectsResult = {
   upcoming: HawkProject[];
@@ -22,7 +24,7 @@ export const getSingleProjectsQuery = async (
   locale: Language,
   opts?: { preview: boolean }
 ): Promise<HawkProject | null> =>
-  findPublishedBySlug(PROJECTS_COLLECTION, slug, locale, { preview: opts?.preview, depth: 3 });
+  findPublishedBySlug(PROJECTS_COLLECTION, slug, locale, { preview: opts?.preview, depth: 2 });
 
 // project_type/year filters build on top of the date-bucket condition rather
 // than replacing it, so a type/year pick on /projects still only ever shows
@@ -46,10 +48,21 @@ const buildProjectFilterConditions = (
 export const getProjectsSplitByDate = async (
   locale: Language,
   opts?: ProjectFilterOpts
+): Promise<SplitProjectsResult> => getProjectsSplitByDateAt(locale, currentTimeBucket(), opts);
+
+// `now` arrives as an argument computed outside this cached scope, so it is part of
+// the cache key and rolls over hourly. Previously this called `connection()`, which
+// made every /projects request fully dynamic.
+const getProjectsSplitByDateAt = async (
+  locale: Language,
+  now: string,
+  opts?: ProjectFilterOpts
 ): Promise<SplitProjectsResult> => {
-  await connection();
+  'use cache';
+  cacheLife('hours');
+  cacheTag(HAWK_PROJECT_CACHE_TAG);
+
   const payload = await getPayloadConfig();
-  const now = new Date().toISOString();
 
   const conditions: Where[] = [
     { _status: { equals: 'published' } },
@@ -72,10 +85,18 @@ export const getProjectsSplitByDate = async (
 export const getPastProjectsQuery = async (
   locale: Language,
   opts?: { page?: number; limit?: number } & ProjectFilterOpts
+): Promise<PaginatedDocs<HawkProject>> => getPastProjectsAt(locale, currentTimeBucket(), opts);
+
+const getPastProjectsAt = async (
+  locale: Language,
+  now: string,
+  opts?: { page?: number; limit?: number } & ProjectFilterOpts
 ): Promise<PaginatedDocs<HawkProject>> => {
-  await connection();
+  'use cache';
+  cacheLife('hours');
+  cacheTag(HAWK_PROJECT_CACHE_TAG);
+
   const payload = await getPayloadConfig();
-  const now = new Date().toISOString();
 
   const conditions: Where[] = [
     { _status: { equals: 'published' } },
@@ -97,6 +118,10 @@ export const getPastProjectsQuery = async (
 // used to populate the year filter's option list. A lightweight,
 // fields-only query rather than a hardcoded/guessed range.
 export const getProjectYearsQuery = async (locale: Language): Promise<number[]> => {
+  'use cache';
+  cacheLife('hours');
+  cacheTag(HAWK_PROJECT_CACHE_TAG);
+
   const payload = await getPayloadConfig();
   const result = await payload.find({
     collection: PROJECTS_COLLECTION,

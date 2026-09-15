@@ -1,11 +1,15 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
 import type { LatestNewsBlock as LatestNewsBlockProps } from '@/payload-types';
 import { LatestNewsBlockView, LatestNewsItem } from './LatestNewsBlockView';
-import { fetchLatestHawkEvent, fetchLatestNews } from '@/lib/payload/client-side/queries/news';
+import { getLatestEventForBlock, getLatestNewsForBlock } from '@/lib/payload/queries/blocks';
+import { getImagePayloadUrl } from '@/lib/image';
+import { Language } from '@/i18n/settings';
+import { NewsTypeLabels } from '@/components/news/constants';
 
-export const LatestNewsBlock: React.FC<LatestNewsBlockProps> = ({
+// Server component. The client version fetched after hydration, rendered `null` until
+// it resolved (invisible to crawlers, a layout shift for users), passed no locale, and
+// its `.catch(null)` did nothing — `Promise.catch` ignores a non-callable argument, so
+// a failed request was still an unhandled rejection.
+export const LatestNewsBlock = async ({
   title,
   subtitle,
   source = 'news',
@@ -13,16 +17,36 @@ export const LatestNewsBlock: React.FC<LatestNewsBlockProps> = ({
   eventType,
   linkLabel = 'Read more',
   sectionId,
-}) => {
-  const [item, setItem] = useState<LatestNewsItem | null>(null);
+  lng,
+}: LatestNewsBlockProps & { lng: Language }) => {
+  let item: LatestNewsItem | null = null;
 
-  useEffect(() => {
-    if (source === 'hawk_projects') {
-      fetchLatestHawkEvent(eventType).then(setItem).catch(null);
-    } else {
-      fetchLatestNews(newsType).then(setItem).catch(null);
+  if (source === 'hawk_projects') {
+    const event = await getLatestEventForBlock(lng, eventType);
+    if (event) {
+      const image = getImagePayloadUrl(event.image);
+      item = {
+        heading: event.heading ?? '',
+        badge: event.type_event ?? null,
+        description: event.description ?? null,
+        image: image ?? null,
+        href: `/events/${event.slug}`,
+        date: event.date ?? null,
+      };
     }
-  }, [source, newsType, eventType]);
+  } else {
+    const news = await getLatestNewsForBlock(lng, newsType);
+    if (news) {
+      item = {
+        heading: news.title ?? '',
+        badge: news.type ? (NewsTypeLabels[news.type] ?? news.type) : null,
+        description: null,
+        image: getImagePayloadUrl(news.mainImage) ?? null,
+        href: `/news/${news.slug}`,
+        date: news.publishedAt ?? null,
+      };
+    }
+  }
 
   if (!item) return null;
 

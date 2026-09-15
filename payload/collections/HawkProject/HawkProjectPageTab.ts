@@ -1,6 +1,7 @@
 import { PayloadImageField } from '@/payload/fields/ImageType';
 import { MultiImageField } from '@/payload/fields/MultiImage';
 import { Tab } from 'payload';
+import { isHttpUrl } from '@/utils/paths';
 
 /* ================================================================== */
 /*  PROJECT PAGE TAB — Structured fields so every project page        */
@@ -105,18 +106,37 @@ const HawkProjectPageTab: Tab = {
               },
               required: false,
               validate: (value: string | undefined | null) => {
-                if (value) {
-                  if (value.includes('youtube.com') || value.includes('youtu.be')) {
-                    if (value.includes('embed') || value.includes('watch?v=')) {
-                      return true;
-                    }
-                    return "Please provide a valid YouTube URL (must contain 'embed' or 'watch?v=')";
-                  }
+                if (!value) return true;
 
+                // This value becomes an <iframe src>. The old validator only
+                // constrained it when it already looked like YouTube and returned
+                // true for everything else, so `javascript:` was accepted.
+                if (!isHttpUrl(value)) {
+                  return 'Enter a full http(s):// embed URL.';
+                }
+
+                const { hostname } = new URL(value);
+                const allowed = [
+                  'youtube.com',
+                  'www.youtube.com',
+                  'youtu.be',
+                  'www.youtu.be',
+                  'youtube-nocookie.com',
+                  'www.youtube-nocookie.com',
+                ];
+                if (!allowed.includes(hostname)) {
+                  return 'Only YouTube embed URLs are supported.';
+                }
+
+                if (
+                  value.includes('embed') ||
+                  value.includes('watch?v=') ||
+                  hostname.endsWith('youtu.be')
+                ) {
                   return true;
                 }
 
-                return true;
+                return "Please provide a valid YouTube URL (must contain 'embed' or 'watch?v=')";
               },
             },
           ],

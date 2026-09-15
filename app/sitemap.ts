@@ -4,8 +4,31 @@ import { languages } from '@/i18n/settings';
 import { routes } from '@/utils/paths';
 import { getPayloadConfig } from '@/lib/payload/server';
 import { BASE_URL } from '@/lib/constants';
+import { cacheLife, cacheTag } from 'next/cache';
+import { NEWS_CACHE_TAG } from '@/payload/collections/News';
+import { HAWK_PROJECT_CACHE_TAG } from '@/payload/collections/HawkProject';
+import { HAWK_EVENT_CACHE_TAG } from '@/payload/collections/HawkEvent';
+import { ART_COLLECTION_CACHE_TAG } from '@/payload/collections/ArtCollection';
+import { CURATOR_CACHE_TAG } from '@/payload/collections/Curator';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  return buildSitemap();
+}
+
+// Bots hit /sitemap.xml often and this ran six 1,000-document finds each time. Tagged
+// with every collection it reads, so publishing still updates it immediately.
+async function buildSitemap(): Promise<MetadataRoute.Sitemap> {
+  'use cache';
+  cacheLife('hours');
+  cacheTag(
+    'pages',
+    NEWS_CACHE_TAG,
+    HAWK_PROJECT_CACHE_TAG,
+    HAWK_EVENT_CACHE_TAG,
+    ART_COLLECTION_CACHE_TAG,
+    CURATOR_CACHE_TAG
+  );
+
   const sitemapRoutes = [] as MetadataRoute.Sitemap;
 
   // Add static routes

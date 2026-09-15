@@ -1,3 +1,4 @@
+import { randomBytes } from 'crypto';
 import { Contribution } from '@/payload-types';
 import path from 'path';
 import type { Payload } from 'payload';
@@ -23,12 +24,19 @@ export async function seed(payload: Payload): Promise<void> {
   // ── 1. Users ──────────────────────────────────────────────────────────────
   const existingUsers = await payload.count({ collection: 'users' });
   if (existingUsers.totalDocs === 0) {
+    // Random per-run passwords, printed once. A fixed `changeme123` meant every
+    // non-production environment — staging, a preview deploy, a dev box on a
+    // reachable host — shipped a known-credential admin, with TOTP disabled in
+    // development and no email configured for a reset.
+    const adminPassword = randomBytes(18).toString('base64url');
+    const userPassword = randomBytes(18).toString('base64url');
+
     await payload.create({
       collection: 'users',
       data: {
         name: 'Admin',
         email: 'admin@hawkstars.org',
-        password: 'changeme123',
+        password: adminPassword,
         isAdmin: true,
       },
     });
@@ -36,14 +44,16 @@ export async function seed(payload: Payload): Promise<void> {
     await payload.create({
       collection: 'users',
       data: {
-        name: 'Editor',
-        email: 'editor@hawkstars.org',
-        password: 'changeme123',
+        name: 'User',
+        email: 'user@hawkstars.org',
+        password: userPassword,
         isAdmin: false,
       },
     });
 
-    payload.logger.info('  ✔ Users seeded');
+    payload.logger.info('  ✔ Users seeded — credentials below are shown once:');
+    payload.logger.info(`    admin@hawkstars.org  ${adminPassword}`);
+    payload.logger.info(`    user@hawkstars.org   ${userPassword}`);
   } else {
     payload.logger.info('  ⏭ Users already exist, skipping');
   }

@@ -274,7 +274,11 @@ export default buildConfig({
   ],
   jobs,
   onInit: async (payload) => {
+    // Opt-in rather than "not production": NODE_ENV alone meant a staging box, a
+    // preview deploy or any dev instance on a reachable host seeded itself with
+    // admin accounts. SEED_DEV_DATA has to be set deliberately, and never in prod.
     if (process.env.NODE_ENV === 'production') return;
+    if (process.env.SEED_DEV_DATA !== 'true') return;
     await seed(payload);
   },
   upload: {

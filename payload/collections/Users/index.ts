@@ -43,10 +43,11 @@ export const Users: CollectionConfig = {
   },
   hooks: {
     afterLogin: [logLoginActivity],
-    // maxLoginAttempts/lockTime above lock a single *account* — this caps
-    // attempts per *IP* regardless of which account is targeted, closing the
-    // one auth-adjacent surface that wasn't already behind utils/rateLimit.ts.
-    beforeLogin: [rateLimitLogin],
+    // maxLoginAttempts/lockTime above lock a single *account* — this caps attempts
+    // per *IP* regardless of which account is targeted. It runs as beforeOperation
+    // because beforeLogin fires only after a successful password check, so it never
+    // saw the failed attempts it exists to block.
+    beforeOperation: [rateLimitLogin],
   },
   fields: [
     {

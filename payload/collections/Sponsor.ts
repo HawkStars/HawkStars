@@ -3,9 +3,19 @@ import { anyone } from '../access/anyone';
 import { authenticated } from '../access/authenticated';
 import { authenticatedAdmin } from '../access/authenticatedAdmin';
 import { GROUP_LABELS } from '../constants';
+import { createRevalidateHooks } from '../utilities/revalidateCollection';
+
+export const SPONSOR_CACHE_TAG = 'sponsors' as const;
+
+const { afterChange: revalidateSponsor, afterDelete: revalidateSponsorDelete } =
+  createRevalidateHooks(SPONSOR_CACHE_TAG);
 
 export const Sponsor: CollectionConfig = {
   slug: 'sponsors',
+  hooks: {
+    afterChange: [revalidateSponsor],
+    afterDelete: [revalidateSponsorDelete],
+  },
   labels: {
     singular: { en: 'Sponsor', pt: 'Patrocinador' },
     plural: { en: 'Sponsors', pt: 'Patrocinadores' },

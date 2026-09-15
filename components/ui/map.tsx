@@ -655,7 +655,7 @@ function MapLocateControl({
 
   useEffect(() => {
     return () => stopLocating();
-  }, [stopLocating]);
+  }, []);
 
   return (
     <>

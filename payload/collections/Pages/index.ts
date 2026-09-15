@@ -7,6 +7,12 @@ import transformSlug from '@/payload/utilities/transformSlug';
 import { authenticated } from '@/payload/access/authenticated';
 import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 import { authenticatedOrPublished } from '@/payload/access/authenticatedOrPublished';
+import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
+
+// Pages was the one collection of ten without data-cache invalidation: its cached
+// document entry is keyed by tag, so a revalidatePath-triggered re-render could be
+// rebuilt from the same stale entry.
+const { afterChange: revalidateHookAfterChange } = createRevalidateHooks('pages');
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -160,7 +166,7 @@ export const Pages: CollectionConfig<'pages'> = {
     },
   ],
   hooks: {
-    afterChange: [revalidatePage, notifyPageChange],
+    afterChange: [revalidatePage, notifyPageChange, revalidateHookAfterChange],
     afterDelete: [revalidateDelete],
   },
   versions: {
