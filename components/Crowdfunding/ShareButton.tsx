@@ -18,10 +18,8 @@ export const ShareButton = ({ label }: Props) => {
     const title = document.title;
 
     if (navigator.share) {
-      try {
-        await navigator.share({ title, url });
-        return;
-      } catch {}
+      await navigator.share({ title, url });
+      return;
     }
 
     try {

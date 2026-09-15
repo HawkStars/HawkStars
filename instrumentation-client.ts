@@ -19,7 +19,7 @@ Sentry.init({
     if (name.includes('comment')) return 0.01;
 
     // Otherwise, inherit the sample sampling decision of the incoming trace, or use a fallback sampling rate.
-    return inheritOrSampleWith(0.5);
+    return inheritOrSampleWith(0.05);
   },
 
   // Setting this option to true will print useful information to the console while you're setting up Sentry.
@@ -29,10 +29,10 @@ Sentry.init({
 
   // This sets the sample rate to be 10%. You may want this to be 100% while
   // in development and sample at a lower rate in production
-  replaysSessionSampleRate: 0.1,
+  replaysSessionSampleRate: 0,
 
   integrations: [],
-  enabled: process.env.NODE_ENV != 'development',
+  enabled: process.env.NODE_ENV === 'production',
 });
 
 if (typeof window !== 'undefined') {

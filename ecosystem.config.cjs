@@ -14,8 +14,8 @@ module.exports = {
       cwd: '/root/app',
       script: 'node_modules/next/dist/bin/next',
       args: 'start',
-      instances: 1,
-      exec_mode: 'fork',
+      instances: 2,
+      exec_mode: 'cluster',
       autorestart: true,
       max_restarts: 10,
       min_uptime: '20s', // boots dying faster than this count as "unstable"

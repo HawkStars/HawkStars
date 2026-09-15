@@ -1,5 +1,4 @@
 import type { CollectionConfig } from 'payload';
-import { authenticated } from '@/payload/access/authenticated';
 import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 import { GROUP_LABELS } from '@/payload/constants';
 

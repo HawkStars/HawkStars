@@ -745,7 +745,7 @@ function MapDrawControl({
       map.off(L.Draw.Event.EDITED, handleDrawEditedOrDeleted);
       map.off(L.Draw.Event.DELETED, handleDrawEditedOrDeleted);
     };
-  }, [L, LeafletDraw, map, onLayersChange]);
+  }, [L, LeafletDraw, map, onLayersChange, handleDrawCreated, handleDrawEditedOrDeleted]);
 
   return (
     <MapDrawContext.Provider

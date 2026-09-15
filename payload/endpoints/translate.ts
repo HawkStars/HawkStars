@@ -19,7 +19,8 @@ import * as Sentry from '@sentry/nextjs';
 export const translateHandler: PayloadHandler = async (req) => {
   const { user } = req;
 
-  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!user || !(user.isEditor || user.isAdmin))
+    return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
   const baseUrl = (process.env.LIBRETRANSLATE_URL || 'http://localhost:5000').replace(/\/+$/, '');
 

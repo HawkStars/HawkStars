@@ -14,7 +14,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       sitemapRoutes.push({
         url: `${BASE_URL}/${language}${route.url}`,
         priority: route.priority,
-        lastModified: new Date(),
         changeFrequency: 'monthly',
       });
     }

@@ -25,7 +25,7 @@ Payload is the source of truth for all site content (with minor exceptions in `i
 - **Admin panel**: Accessible at `/admin`.
 - **Localization**: Collections support `pt` and `en` via Payload's localization config.
 - **Type generation**: Auto-generated types in `payload-types.ts`. Regenerate with `pnpm payload:regenerate`.
-- **Access control**: `authenticated` for CRUD, `anyone` for read operations. Additional roles: `authenticatedAdmin`, `authenticatedEditor`.
+- **Access control**: every account belongs to an NGO person and is created by an admin — there is no public sign-up. Three tiers: **Normal** (no flags, read-only in `/admin`), **Editor** (`isEditor`, manages content), **Admin** (`isAdmin`, full control). The four access functions are `anyone`, `authenticated` (**all three tiers, including Normal**), `authenticatedEditor`, `authenticatedAdmin`. Use `authenticatedEditor` as the floor for content writes and `authenticatedAdmin` for deletes and personal data — see @access-control.md before changing any `access` block.
 - **Email**: Gmail via OAuth2 (nodemailer), sender: `tech@hawkstars.org`.
 
 ### Block Development Workflow
