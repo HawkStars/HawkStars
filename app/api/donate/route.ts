@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { getPayloadConfig } from '@/lib/payload/server';
 import { checkRateLimit, getClientIp } from '@/utils/rateLimit';
 import { captureSentryMessage } from '@/lib/sentry/logs';
+import * as Sentry from '@sentry/nextjs';
 
 const CONTRIBUTION_COLLECTION = 'contributions';
 
@@ -69,6 +70,7 @@ export async function POST(request: Request) {
     // Multibanco entity/reference shown on the "done" step).
     return Response.json(data, { status: 200 });
   } catch (e: unknown) {
+    Sentry.captureException(e);
     if (e instanceof z.ZodError) {
       return Response.json(
         { error: 'Invalid request data', details: 'Request Validation error' },

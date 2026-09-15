@@ -42,7 +42,6 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
   endDate,
   location,
   infopack,
-  coverImage,
   lng: lngProp,
 }) => {
   const cookieLng = useLanguageCookie();

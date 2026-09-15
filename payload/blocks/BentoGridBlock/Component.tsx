@@ -1,5 +1,3 @@
-'use client';
-
 import { getImagePayloadUrl } from '@/lib/image';
 import { cn } from '@/lib/utils';
 import { BentoGridBlock as BentoGridBlockProps } from '@/payload-types';
@@ -7,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { ImageMedia } from '@/payload/components/Media';
 import Link from 'next/link';
 import React from 'react';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { getLinkFieldInformation } from '@/utils/page';
 import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';

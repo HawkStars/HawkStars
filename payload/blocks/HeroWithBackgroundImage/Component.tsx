@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { HawkStarsSection } from '@/components/layout';
 import { ImageMedia } from '@/payload/components/Media';
 import { Language } from '@/i18n/settings';

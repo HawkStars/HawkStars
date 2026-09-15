@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import type { AccordionBlock as AccordionBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';

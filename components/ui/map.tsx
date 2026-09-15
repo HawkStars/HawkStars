@@ -1,5 +1,3 @@
-/* eslint-disable */
-// TODO: fix the linter
 'use client';
 
 import { cn } from '@/lib/utils';
@@ -16,16 +14,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import type { CheckboxItem } from '@radix-ui/react-dropdown-menu';
-// Type-only — the runtime module is loaded lazily in `useLeaflet()` below via
-// a real `import()`. These were previously value imports (`import * as`),
-// which pulled the entire leaflet + leaflet-draw runtime (leaflet-draw alone
-// is ~300KB / 84KB gzip, including a `renderToString` reference) into the
-// static import graph of every page that renders a `Map` — nullifying the
-// `dynamic(() => import('react-leaflet'), { ssr: false })` calls just below,
-// since those only defer `react-leaflet`, not `leaflet`/`leaflet-draw`
-// themselves.
-import type * as leaflet from 'leaflet';
-import type * as leaftletDraw from 'leaflet-draw';
 import type {
   Circle,
   CircleMarker,
@@ -210,7 +198,7 @@ function MapTileLayer({
         attribution: resolvedAttribution,
       });
     }
-  }, [context, name, url, attribution]);
+  }, [context, name, url, attribution, resolvedAttribution, resolvedUrl]);
 
   if (context && context.selectedTileLayer !== name) {
     return null;
@@ -1073,7 +1061,7 @@ function MapDrawEdit({
     L.drawLocal.edit.handlers.remove.tooltip = {
       text: t('map.removeHint'),
     };
-  }, [mapDrawHandleIcon, t]);
+  }, [mapDrawHandleIcon, t, L]);
 
   return (
     <MapDrawActionButton

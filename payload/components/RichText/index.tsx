@@ -164,7 +164,7 @@ const getBlockComponents = (): Record<string, ComponentType<any>> => ({
 const blockConverter =
   (Component: ComponentType<Record<string, unknown>>, lng: Language) =>
   // eslint-disable-next-line react/display-name
-  ({ node }: { node: SerializedBlockNode }) => <Component {...node.fields} />;
+  ({ node }: { node: SerializedBlockNode }) => <Component {...node.fields} lng={lng} />;
 
 // Built once, on first render, then cached — converter identities must stay
 // stable across renders or React would remount every block on each update.

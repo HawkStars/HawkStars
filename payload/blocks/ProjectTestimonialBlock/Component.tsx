@@ -1,5 +1,3 @@
-/* eslint-disable */
-// TODO: fix the linter
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -11,8 +9,6 @@ import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
 
 const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) => {
-  if (!data) return null;
-
   const {
     title,
     subtitle,
@@ -189,7 +185,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
           textClasses[backgroundColor as keyof typeof textClasses]
         )}
       >
-        "{testimonial}"
+        {`"${testimonial}"`}
       </blockquote>
 
       {/* Author Info */}
@@ -229,6 +225,8 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
       </div>
     </div>
   );
+
+  if (!data) return null;
 
   return (
     <HawkStarsSection

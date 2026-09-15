@@ -1,5 +1,3 @@
-'use client';
-
 import { getImagePayloadUrl } from '@/lib/image';
 import { cn } from '@/lib/utils';
 import { MultiRowImageBlock } from '@/payload-types';

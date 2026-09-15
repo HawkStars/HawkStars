@@ -6,7 +6,6 @@ import type { CampaignCountdownBlock as CampaignCountdownBlockProps } from '@/pa
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { getLinkFieldInformation } from '@/utils/page';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';
 

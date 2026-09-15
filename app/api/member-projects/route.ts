@@ -86,8 +86,8 @@ export async function POST(request: Request) {
   } catch (e: unknown) {
     Sentry.captureException(e);
     if (e instanceof z.ZodError) {
-      return Response.json({ status: 400 });
+      return Response.json({ issues: e.issues }, { status: 400 });
     }
-    return Response.json({ status: 500 });
+    return Response.json({}, { status: 500 });
   }
 }

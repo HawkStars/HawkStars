@@ -13,6 +13,7 @@ export const getSingleArtwork = async (slug: string, locale: Language): Promise<
       collection: 'artworks',
       locale,
       where: { slug: { equals: slug } },
+      limit: 1,
     });
 
     const artwork = data.docs.length > 0 ? (data.docs[0] as Artwork) : null;
