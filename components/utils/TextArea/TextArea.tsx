@@ -46,7 +46,7 @@ export default function TextArea({
         id={name}
         placeholder={placeholder}
         className={cn(
-          'border-b-bege-dark focus-visible:ring-ring block w-full border-b-2 px-3 py-2 focus:ring-0 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+          'border-b-disabled focus-visible:ring-ring block w-full border-b-2 px-3 py-2 focus:ring-0 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
           `${customCss}`,
           { 'border-b-red-dark': errorMessage }
         )}

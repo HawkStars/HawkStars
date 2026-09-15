@@ -46,7 +46,7 @@ export default function Input({
       )}
       <div
         className={cn(
-          'border-b-bege-dark focus-within:ring-ring flex h-10 w-full flex-row items-center gap-1 border-b-2 px-3 py-2 focus-within:ring-2 focus-within:ring-offset-2',
+          'border-b-disabled focus-within:ring-ring flex h-10 w-full flex-row items-center gap-1 border-b-2 px-3 py-2 focus-within:ring-2 focus-within:ring-offset-2',
           { 'cursor-not-allowed opacity-50': disabled },
           { 'bg-white': !disabled && outline },
           { 'border-b-red-dark': errorMessage }

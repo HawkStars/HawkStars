@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { anyone } from '../../access/anyone';
+import { authenticatedAdmin } from '../../access/authenticatedAdmin';
 import { authenticated } from '../../access/authenticated';
 import { sanitizeBrokenImageRelationship } from '../../hooks/sanitizeBrokenImageRelationship';
 import HawkProjectFields from './HawkProjectFields';
@@ -36,7 +37,7 @@ export const HawkEvent: CollectionConfig = {
     admin: authenticated,
     read: anyone,
     create: authenticated,
-    delete: authenticated,
+    delete: authenticatedAdmin,
     update: authenticated,
   },
   hooks: {

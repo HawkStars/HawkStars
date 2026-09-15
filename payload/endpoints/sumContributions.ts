@@ -4,7 +4,7 @@ import totalContributionValueQuery from '@/lib/payload/endpoints/totalContributi
 /**
  * GET /api/sum-contributions
  *
- * REST wrapper around `totalContributioValueQuery`. The bare query function is
+ * REST wrapper around `totalContributionValueQuery`. The bare query function is
  * also called server-side (Local API) by `getSumContributions` to render the
  * public donation total — that path must stay open, so the auth check lives
  * here in the HTTP handler rather than inside the shared query function.
@@ -14,7 +14,8 @@ export const sumContributionsHandler: PayloadHandler = async (req) => {
     return Response.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  return totalContributionValueQuery({ payload: req.payload });
+  const data = await totalContributionValueQuery({ payload: req.payload });
+  return Response.json(data);
 };
 
 export default sumContributionsHandler;

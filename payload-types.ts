@@ -4092,13 +4092,9 @@ export interface User {
   id: string;
   name?: string | null;
   /**
-   * Admins have full access to all collections, globals, and settings.
+   * Admins have full access: users, settings, donations, and deleting content. Accounts without this can create, edit and publish content but not delete it.
    */
   isAdmin?: boolean | null;
-  /**
-   * Editors have access to manage content but cannot manage users or settings.
-   */
-  isEditor?: boolean | null;
   totpSecret?: string | null;
   hasTotp?: boolean | null;
   updatedAt: string;
@@ -4846,7 +4842,6 @@ export interface PayloadMigration {
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
   isAdmin?: T;
-  isEditor?: T;
   totpSecret?: T;
   hasTotp?: T;
   updatedAt?: T;

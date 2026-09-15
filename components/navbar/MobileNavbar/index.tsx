@@ -22,6 +22,10 @@ type MobileNavbarProps = {
   headerInfo: Header;
 };
 
+// Exported so the trigger in Navbar.tsx can point `aria-controls` at this panel
+// without the two ids drifting apart.
+export const MOBILE_NAVBAR_PANEL_ID = 'mobile-navbar-panel';
+
 const MobileNavbar: FC<MobileNavbarProps> = ({ headerInfo }) => {
   const { mobileNavbarOpen } = useMainAppContext();
   const lng = useLanguageCookie();
@@ -70,6 +74,7 @@ const MobileNavbar: FC<MobileNavbarProps> = ({ headerInfo }) => {
   return (
     <div
       ref={navRef}
+      id={MOBILE_NAVBAR_PANEL_ID}
       role='dialog'
       aria-modal='true'
       aria-label={t('a11y.navMenu')}

@@ -72,6 +72,7 @@ export const Default: Story = {
   args: {
     projects,
     t,
+    lng: 'pt',
   },
 };
 
@@ -79,5 +80,6 @@ export const Empty: Story = {
   args: {
     projects: [],
     t,
+    lng: 'pt',
   },
 };

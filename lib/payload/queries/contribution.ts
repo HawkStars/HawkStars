@@ -3,7 +3,6 @@ import { cacheLife, cacheTag } from 'next/cache';
 import totalContributionValueQuery from '../endpoints/totalContributionValueQuery';
 import { getPayloadConfig } from '../server';
 import { CONTRIBUTION_CACHE_TAG } from '@/payload/collections/Contribution';
-import { connection } from 'next/server';
 
 // The only contribution query that was left uncached, which is what kept
 // /contribute from prerendering while /transparency (same collection, cached
@@ -40,24 +39,29 @@ export const getChairsContributionsQuery = async () => {
 };
 
 export const getContributionsQuery = async () => {
-  await connection();
+  'use cache';
+  cacheLife('hours');
+  cacheTag(CONTRIBUTION_CACHE_TAG);
+
   const payload = await getPayloadConfig();
   return await payload.find({
     collection: 'contributions',
     sort: '-contribution_date',
     limit: 100,
+    depth: 0,
     where: { is_confirmed: { equals: true } },
   });
 };
 
 export const getSumContributions = async (): Promise<number> => {
-  await connection();
+  'use cache';
+  cacheLife('hours');
+  cacheTag(CONTRIBUTION_CACHE_TAG);
+
   try {
     const payload = await getPayloadConfig();
-    const response = await totalContributionValueQuery({ payload });
-    if (!response.ok) return 0;
-    const data = await response.json();
-    return (data.sum as number) || 0;
+    const { sum } = await totalContributionValueQuery({ payload });
+    return sum || 0;
   } catch (error) {
     Sentry.captureException(error);
     return 0;

@@ -293,30 +293,32 @@ admin: {
 ## Access Control
 
 See `.claude/access-control.md` for the full trust model. The short version: every
-account belongs to an NGO person created by an admin, and there are three tiers —
-**Normal** (no role flags, read-only), **Editor** (`isEditor`), **Admin** (`isAdmin`).
+account belongs to an NGO person created by an admin, and there are two tiers —
+**User** (any account: creates, edits and publishes content) and **Admin** (`isAdmin`:
+adds deletes, users, settings and donations). There is no editor tier; an ordinary
+account is the editor.
 
-Access functions live in `payload/access/` and are imported by name. Use the four standard functions; do not write inline access logic in collection configs.
+Access functions live in `payload/access/` and are imported by name; do not write
+inline access logic in collection configs.
 
-| Function              | Grants to                                                                 |
-| --------------------- | ------------------------------------------------------------------------- |
-| `anyone`              | Everyone, including unauthenticated visitors                              |
-| `authenticated`       | **All three tiers, including Normal** — rarely correct for a write         |
-| `authenticatedEditor` | Editors and admins (`user.isEditor \|\| user.isAdmin`)                     |
-| `authenticatedAdmin`  | Admins only (`user.isAdmin === true`)                                     |
+| Function                   | Grants to                                                                         |
+| -------------------------- | --------------------------------------------------------------------------------- |
+| `anyone`                   | Everyone, including unauthenticated visitors                                      |
+| `authenticated`            | Any signed-in account — **both tiers**. The editorial default.                    |
+| `authenticatedAdmin`       | Admins only (`user.isAdmin === true`)                                             |
+| `authenticatedOrPublished` | Signed-in users see all; anonymous callers see only `_status: 'published'`         |
 
-> `authenticated` is the Normal tier. Using it for `create`/`update`/`delete` grants
-> that operation to every account in the organisation, including brand-new ones with
-> no role yet. `authenticatedEditor` is the floor for content writes.
+> Destructive and sensitive operations are admin-only; everything editorial is open to
+> every account. Deletion is permanent here — no soft-delete, no trash, no audit trail.
 
-Default pattern for a public-read content collection — start here and tighten:
+Default pattern for a public-read content collection:
 
 ```typescript
 access: {
-  admin: authenticatedEditor,
+  admin: authenticated,
   read: anyone,
-  create: authenticatedEditor,
-  update: authenticatedEditor,
+  create: authenticated,
+  update: authenticated,
   delete: authenticatedAdmin,
 },
 ```
@@ -325,12 +327,11 @@ Three cases that deviate:
 
 - **Drafts enabled** (`pages`, `news`, `hawk_projects`): a bare `read: anyone` exposes
   unpublished documents, because `draft: false` does not filter on `_status`. Use
-  `read: ({ req: { user } }) => (user ? true : { _status: { equals: 'published' } })`.
-- **Personal data** (`contributions`, `notifications`, `newsletter_subscribers`):
-  `read: authenticatedAdmin`.
+  `read: authenticatedOrPublished`.
+- **Personal data** (`contributions`, `notifications`): `read: authenticatedAdmin`.
 - **Globals**: same rules, and `update` must be declared explicitly — an omitted
-  operation key defaults to `Boolean(user)`, i.e. the Normal tier, not to public and
-  not to admin.
+  operation key defaults to `Boolean(user)`, i.e. any account, not to public and not
+  to admin.
 
 **Never omit an operation key.** Write all four of `create`, `read`, `update`, `delete`
 even when they repeat, so the default never applies silently.

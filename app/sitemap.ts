@@ -39,6 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         collection: 'pages',
         draft: false,
         limit: 1000,
+        where: publishedWhere,
         depth: 0,
         select: slugSelect,
       }),

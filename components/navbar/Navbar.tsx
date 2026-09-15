@@ -12,6 +12,7 @@ import { useTranslation } from '@/i18n/client';
 import { Header } from '@/payload-types';
 import { Language } from '@/i18n/settings';
 import DropdownComponent from './DesktopDropdown/DropdownComponent';
+import { MOBILE_NAVBAR_PANEL_ID } from './MobileNavbar';
 
 type NavbarProps = {
   headerInfo: Header;
@@ -20,7 +21,7 @@ type NavbarProps = {
 
 const Navbar: FC<NavbarProps> = ({ headerInfo, lng }) => {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
-  const { navbarVariant } = useMainAppContext();
+  const { navbarVariant, mobileNavbarOpen } = useMainAppContext();
   const { t } = useTranslation(lng, 'common');
   const setMobileMenuOpen = useSetMobileNavbarOpen();
 
@@ -69,6 +70,8 @@ const Navbar: FC<NavbarProps> = ({ headerInfo, lng }) => {
               <button
                 type='button'
                 aria-label={t('a11y.openMenu')}
+                aria-expanded={mobileNavbarOpen}
+                aria-controls={MOBILE_NAVBAR_PANEL_ID}
                 className='cursor-pointer'
                 onClick={() => setMobileMenuOpen(true)}
               >

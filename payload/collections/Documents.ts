@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { GROUP_LABELS } from '../constants';
 import { anyone } from '../access/anyone';
 import { authenticatedAdmin } from '../access/authenticatedAdmin';
-import { authenticatedEditor } from '../access/authenticatedEditor';
+import { authenticated } from '../access/authenticated';
 
 export const Documents: CollectionConfig = {
   slug: 'documents',
@@ -18,11 +18,11 @@ export const Documents: CollectionConfig = {
   // so read stays public, but metadata create/update/delete now require an
   // editor/admin account instead of being open to anyone.
   access: {
-    admin: authenticatedEditor,
+    admin: authenticated,
     read: anyone,
-    create: authenticatedEditor,
+    create: authenticated,
     delete: authenticatedAdmin,
-    update: authenticatedEditor,
+    update: authenticated,
   },
   admin: {
     description: {

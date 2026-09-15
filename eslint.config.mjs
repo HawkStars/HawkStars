@@ -21,6 +21,8 @@ const eslintConfig = defineConfig([
     'storybook-static/**',
     // generated MSW worker
     'public/mockServiceWorker.js',
+    // staging area for files pending `git rm`
+    '_to_delete/**',
   ]),
   {
     settings: {

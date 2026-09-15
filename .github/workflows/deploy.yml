@@ -10,6 +10,13 @@ on:
 permissions:
   contents: read
 
+# Two pushes to main a minute apart would otherwise give two concurrent SSH sessions
+# doing `git reset --hard`, `pnpm install` and `pm2` against the same directory.
+# Queue them instead of cancelling: a half-finished deploy must never be abandoned.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
 jobs:
   check:
     name: Check code quality
@@ -36,13 +43,16 @@ jobs:
         run: pnpm lint
 
       - name: Check types
-        run: pnpm tsc
+        run: pnpm typecheck
 
       - name: Install Chromium for the Playwright
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Test Pipeline
         run: pnpm test
+
+      - name: Build
+        run: pnpm build
   deploy:
     name: Deploy project with Nginx
     needs: check
@@ -95,7 +105,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: 22
-          envs: NEXT_PUBLIC_APP_URL,PAYLOAD_SECRET,SENTRY_AUTH_TOKEN,NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY,CLOUDINARY_API_SECRET,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,GOOGLE_REFRESH_TOKEN,GOOGLE_REDIRECT_URI,GOOGLE_DRIVE_FOLDER_ID,GOOGLE_EMAIL_USER,GOOGLE_NODEMAILER_CLIENT_ID,GOOGLE_NODEMAILER_CLIENT_SECRET,GOOGLE_NODEMAILER_REFRESH_TOKEN,EASYPAY_ACCOUNT_ID,EASYPAY_API_KEY,EASYPAY_API_URL,EASYPAY_WEBHOOK_SECRET
+          envs: NEXT_PUBLIC_APP_URL,PAYLOAD_SECRET,SENTRY_AUTH_TOKEN,NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY,CLOUDINARY_API_SECRET,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,GOOGLE_REFRESH_TOKEN,GOOGLE_REDIRECT_URI,GOOGLE_DRIVE_FOLDER_ID,GOOGLE_EMAIL_USER,GOOGLE_NODEMAILER_CLIENT_ID,GOOGLE_NODEMAILER_CLIENT_SECRET,GOOGLE_NODEMAILER_REFRESH_TOKEN,EASYPAY_ACCOUNT_ID,EASYPAY_API_KEY,EASYPAY_API_URL,EASYPAY_WEBHOOK_SECRET,PERSONAL_GITHUB_TOKEN,NEXT_PUBLIC_CARTO_BASEMAP_KEY
           script: |
             set -e
 
@@ -157,26 +167,58 @@ jobs:
             # Restrict permissions so only owner can read
             chmod 600 .env
 
-            # # Stop existing PM2 process if running
-            pm2 stop hawkstars 2>/dev/null || true
-            pm2 delete hawkstars 2>/dev/null || true
-
-            # Delete current .next cache to ensure a clean build
-            rm -rf .next
-
+            # Build BEFORE touching the running process. The previous order
+            # (pm2 stop -> pm2 delete -> rm -rf .next -> build) took the site down
+            # first, so any build or migrate failure left `hawkstars` deleted from
+            # PM2 with no .next and no way back except manual SSH.
+            #
             # Install dependencies (CI=true above lets pnpm purge node_modules
             # non-interactively if the store layout changed).
             pnpm install --frozen-lockfile
-            pnpm build
 
-            # Run database migrations (if any) before starting the app. This is a no-op if there are no migrations.
-            pnpm migrate
+            # Build into a staging directory so the live .next keeps serving.
+            rm -rf .next.new
+            if ! NEXT_DIST_DIR=.next.new pnpm build; then
+              echo "::error::build failed — leaving the running deployment untouched"
+              rm -rf .next.new
+              exit 1
+            fi
 
-            # Start the application with PM2.
-            # Uses ecosystem.config.cjs (runs `next` directly, pins cwd to an
-            # absolute path) instead of `pm2 start npm -- start`, which inherited
-            # the daemon's cwd and crash-looped with ENOENT /root/package.json.
-            pm2 start ecosystem.config.cjs
+            # Run database migrations (if any). No-op when there are none.
+            if ! pnpm migrate; then
+              echo "::error::migrate failed — leaving the running deployment untouched"
+              rm -rf .next.new
+              exit 1
+            fi
+
+            # Swap the new build in. Keep the previous one for rollback below.
+            rm -rf .next.prev
+            [ -d .next ] && mv .next .next.prev
+            mv .next.new .next
+
+            # Reload rather than stop/delete: PM2 keeps the process list intact, and
+            # in cluster mode workers are replaced one at a time with no dropped
+            # requests. Falls back to a start when the app isn't running yet.
+            # ecosystem.config.cjs runs `next` directly and pins cwd to an absolute
+            # path — `pm2 start npm -- start` inherited the daemon's cwd and
+            # crash-looped with ENOENT /root/package.json.
+            pm2 reload ecosystem.config.cjs --update-env || pm2 start ecosystem.config.cjs
+
+            # QUA-4: confirm the process is actually serving and can reach the DB
+            # before calling this a success. /api/health exists for exactly this.
+            if ! curl -fsS --retry 12 --retry-delay 5 --retry-connrefused \
+                 --max-time 20 http://127.0.0.1:3000/api/health > /dev/null; then
+              echo "::error::health check failed — rolling back to the previous build"
+              if [ -d .next.prev ]; then
+                rm -rf .next
+                mv .next.prev .next
+                pm2 reload ecosystem.config.cjs --update-env || pm2 start ecosystem.config.cjs
+              fi
+              exit 1
+            fi
+
+            rm -rf .next.prev
+
             # Persist the process list so a reboot/resurrect keeps the correct cwd.
             pm2 save
 

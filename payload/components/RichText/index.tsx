@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import * as Sentry from '@sentry/nextjs';
 import './richtext.scss';
 
@@ -9,7 +10,6 @@ import { HeroWithBackgroundImageBlock } from '@/payload/blocks/HeroWithBackgroun
 import { ContentWithImageBlock } from '@/payload/blocks/ContentWithImage/Component';
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
 import { GlobalVillageAboutSectionBlockComponent } from '@/payload/blocks/GlobalVillageAboutSection/Component';
-import { TestimonialBlock } from '@/payload/blocks/TestimonialBlock/Component';
 import {
   SerializedLinkNode,
   type DefaultTypedEditorState,
@@ -27,7 +27,6 @@ import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
 import List from '../utils/list';
 import ListItem from '../utils/listItem';
 import Paragraph from '../utils/paragraph';
-import { HeroSlideshowBlock } from '@/payload/blocks/HeroSlideshowBlock/Component';
 import MultiRowImage from '@/payload/blocks/MultiRowImage/Component';
 import { TitleDescriptionBlock } from '@/payload/blocks/TitleDescriptionBlock/Component';
 import { NodeTypes } from './config';
@@ -36,32 +35,20 @@ import Heading from '../utils/heading';
 import { StatsBlock } from '@/payload/blocks/StatsBlock/Component';
 import { AccordionBlock } from '@/payload/blocks/AccordionBlock/Component';
 
-import { ProjectTestimonialBlock } from '@/payload/blocks/ProjectTestimonialBlock/Component';
 import { LogosBlock } from '@/payload/blocks/LogosBlock/Component';
 import { GlobalVillageBannerBlockComponent } from '@/payload/blocks/GlobalVillageBanner/Component';
-import { CampaignCountdownBlock } from '@/payload/blocks/CampaignCountdownBlock/Component';
 import { CTABannerBlock } from '@/payload/blocks/CTABannerBlock/Component';
-import { DonationProgressBlock } from '@/payload/blocks/DonationProgressBlock/Component';
-import { FAQBlock } from '@/payload/blocks/FAQBlock/Component';
-import { ImageComparisonSliderBlock } from '@/payload/blocks/ImageComparisonSliderBlock/Component';
 import { MapLocationBlock } from '@/payload/blocks/MapLocationBlock/Component';
-import { NewsletterSignupBlock } from '@/payload/blocks/NewsletterSignupBlock/Component';
 import { OfferCatalogBlock } from '@/payload/blocks/OfferCatalogBlock/Component';
 import { PricingTableBlock } from '@/payload/blocks/PricingTableBlock/Component';
 import { QuoteHighlightBlock } from '@/payload/blocks/QuoteHighlightBlock/Component';
 import { ResourceDownloadBlock } from '@/payload/blocks/ResourceDownloadBlock/Component';
 import { SocialProofBlock } from '@/payload/blocks/SocialProofBlock/Component';
 import { TimelineBlock } from '@/payload/blocks/TimelineBlock/Component';
-import { ImageShowcaseBlock } from '@/payload/blocks/ImageShowcaseBlock/Component';
-import { DonationWidgetBlock } from '@/payload/blocks/DonationWidgetBlock/Component';
 import { DataGridBlock } from '@/payload/blocks/DataGridBlock/Component';
-import { SponsorsBlock } from '@/payload/blocks/SponsorsBlock/Component';
-import { UpcomingHawkEventBlock } from '@/payload/blocks/UpcomingHawkEventBlock/Component';
-import { LatestNewsBlock } from '@/payload/blocks/LatestNewsBlock/Component';
 import { WhyHereWhyNowBlock } from '@/payload/blocks/WhyHereWhyNowBlock/Component';
 import { GrowthVisionBlock } from '@/payload/blocks/GrowthVisionBlock/Component';
 import { InstagramBlockComponent } from '@/payload/blocks/InstagramBlock/Component';
-import { AgendaBlockComponent } from '@/payload/blocks/AgendaBlock/Component';
 import { CrowdfundingImageBannerBlockComponent } from '@/payload/blocks/CrowdfundingImageBanner/Component';
 import { SectionTitleBlockComponent } from '@/payload/blocks/SectionTitleBlock/Component';
 import { SectionListBlockComponent } from '@/payload/blocks/SectionListBlock/Component';
@@ -109,6 +96,58 @@ const makeInternalDocToHref =
  * Storybook. Building it lazily defers every binding read to first render,
  * by which point all modules in the cycle are fully initialized.
  */
+// Client blocks are code-split. RichText backs the homepage and every CMS page, and
+// importing all 45 blocks statically meant a page containing only a Hero and a
+// MediaBlock still shipped the JS for the donation widget, the agenda calendar, embla
+// and every carousel block. `dynamic()` without `ssr: false` keeps them
+// server-rendered — only the client chunk is deferred to when the block is used.
+const AgendaBlockComponent = dynamic(() =>
+  import('@/payload/blocks/AgendaBlock/Component').then((m) => m.AgendaBlockComponent)
+);
+const CampaignCountdownBlock = dynamic(() =>
+  import('@/payload/blocks/CampaignCountdownBlock/Component').then((m) => m.CampaignCountdownBlock)
+);
+const DonationProgressBlock = dynamic(() =>
+  import('@/payload/blocks/DonationProgressBlock/Component').then((m) => m.DonationProgressBlock)
+);
+const DonationWidgetBlock = dynamic(() =>
+  import('@/payload/blocks/DonationWidgetBlock/Component').then((m) => m.DonationWidgetBlock)
+);
+const FAQBlock = dynamic(() =>
+  import('@/payload/blocks/FAQBlock/Component').then((m) => m.FAQBlock)
+);
+const HeroSlideshowBlock = dynamic(() =>
+  import('@/payload/blocks/HeroSlideshowBlock/Component').then((m) => m.HeroSlideshowBlock)
+);
+const ImageComparisonSliderBlock = dynamic(() =>
+  import('@/payload/blocks/ImageComparisonSliderBlock/Component').then(
+    (m) => m.ImageComparisonSliderBlock
+  )
+);
+const ImageShowcaseBlock = dynamic(() =>
+  import('@/payload/blocks/ImageShowcaseBlock/Component').then((m) => m.ImageShowcaseBlock)
+);
+const LatestNewsBlock = dynamic(() =>
+  import('@/payload/blocks/LatestNewsBlock/Component').then((m) => m.LatestNewsBlock)
+);
+const NewsletterSignupBlock = dynamic(() =>
+  import('@/payload/blocks/NewsletterSignupBlock/Component').then((m) => m.NewsletterSignupBlock)
+);
+const ProjectTestimonialBlock = dynamic(() =>
+  import('@/payload/blocks/ProjectTestimonialBlock/Component').then(
+    (m) => m.ProjectTestimonialBlock
+  )
+);
+const SponsorsBlock = dynamic(() =>
+  import('@/payload/blocks/SponsorsBlock/Component').then((m) => m.SponsorsBlock)
+);
+const TestimonialBlock = dynamic(() =>
+  import('@/payload/blocks/TestimonialBlock/Component').then((m) => m.TestimonialBlock)
+);
+const UpcomingHawkEventBlock = dynamic(() =>
+  import('@/payload/blocks/UpcomingHawkEventBlock/Component').then((m) => m.UpcomingHawkEventBlock)
+);
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getBlockComponents = (): Record<string, ComponentType<any>> => ({
   mediaBlock: MediaBlock,
@@ -166,18 +205,27 @@ const blockConverter =
   // eslint-disable-next-line react/display-name
   ({ node }: { node: SerializedBlockNode }) => <Component {...node.fields} lng={lng} />;
 
-// Built once, on first render, then cached — converter identities must stay
-// stable across renders or React would remount every block on each update.
-let blockConvertersCache: Record<string, ReturnType<typeof blockConverter>> | null = null;
+// Built once per locale, then cached — converter identities must stay stable across
+// renders or React would remount every block on each update.
+//
+// Keyed by locale, because `blockConverter` closes over `lng`: a single shared entry
+// was filled by whichever locale rendered a rich-text block first in the process and
+// then reused for the other one, so every block on an /en page received lng='pt' (and
+// built its internal links accordingly) until the next restart.
+const blockConvertersCache = new Map<Language, Record<string, ReturnType<typeof blockConverter>>>();
 
 const getBlockConverters = (lng: Language) => {
-  blockConvertersCache ??= Object.fromEntries(
+  const cached = blockConvertersCache.get(lng);
+  if (cached) return cached;
+
+  const converters = Object.fromEntries(
     Object.entries(getBlockComponents()).map(([slug, Component]) => [
       slug,
       blockConverter(Component, lng),
     ])
   );
-  return blockConvertersCache;
+  blockConvertersCache.set(lng, converters);
+  return converters;
 };
 
 const jsxConverters =

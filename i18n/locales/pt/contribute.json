@@ -91,7 +91,10 @@
       "phone_indicative_label": "Indicativo do país",
       "phone_placeholder": "912 345 678",
       "write_comment": "Escreva-nos um comentário",
-      "comment_placeholder": "A sua mensagem (opcional)"
+      "comment_placeholder": "A sua mensagem (opcional)",
+      "name_required": "Introduza o seu nome.",
+      "email_required": "Introduza o seu endereço de email.",
+      "email_invalid": "Introduza um endereço de email válido, por exemplo nome@exemplo.com."
     },
     "payment": {
       "description": "Escolha o seu método de pagamento preferido.",

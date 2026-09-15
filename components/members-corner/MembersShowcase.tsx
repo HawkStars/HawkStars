@@ -1,23 +1,32 @@
 import Link from 'next/link';
 import { ImageMedia } from '@/payload/components/Media';
 import { MemberProjectDoc } from '@/lib/payload/queries/memberProject';
+import { Language, toIntlLocale } from '@/i18n/settings';
 
 type T = (key: string) => string;
 
 type MembersShowcaseProps = {
   projects: MemberProjectDoc[];
   t: T;
+  lng: Language;
 };
 
-// Format deterministically from the ISO date parts (no timezone/locale
-// dependency) so the server and client render identical output — otherwise
-// toLocaleDateString causes a React hydration mismatch.
-const formatDate = (iso: string) => {
-  // TODO
-  return '';
+// `timeZone: 'UTC'` pins the calendar day, so the server and the browser render
+// identical output and there is no hydration mismatch — while still formatting in
+// the active locale. A hand-rolled DD/MM/YYYY was ambiguous between pt and en.
+const formatDate = (iso: string, lng: Language) => {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return '';
+
+  return new Intl.DateTimeFormat(toIntlLocale(lng), {
+    timeZone: 'UTC',
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  }).format(date);
 };
 
-const MembersShowcase = ({ projects, t }: MembersShowcaseProps) => {
+const MembersShowcase = ({ projects, t, lng }: MembersShowcaseProps) => {
   if (!projects.length) {
     return (
       <div className='mx-auto max-w-2xl px-4 py-20 text-center'>
@@ -29,13 +38,21 @@ const MembersShowcase = ({ projects, t }: MembersShowcaseProps) => {
   return (
     <div className='mx-auto grid max-w-6xl gap-8 px-4 py-16 md:grid-cols-2 lg:grid-cols-3'>
       {projects.map((project) => (
-        <MemberProjectCard key={project.id} project={project} t={t} />
+        <MemberProjectCard key={project.id} project={project} t={t} lng={lng} />
       ))}
     </div>
   );
 };
 
-const MemberProjectCard = ({ project, t }: { project: MemberProjectDoc; t: T }) => {
+const MemberProjectCard = ({
+  project,
+  t,
+  lng,
+}: {
+  project: MemberProjectDoc;
+  t: T;
+  lng: Language;
+}) => {
   const languageLabel = t(`languages.${project.language}`);
 
   return (
@@ -88,7 +105,7 @@ const MemberProjectCard = ({ project, t }: { project: MemberProjectDoc; t: T }) 
             <ul className='flex flex-col gap-2'>
               {project.dates.map((d, i) => (
                 <li key={i} className='flex flex-wrap items-baseline gap-x-2'>
-                  <span className='text-green font-semibold'>{formatDate(d.date)}</span>
+                  <span className='text-green font-semibold'>{formatDate(d.date, lng)}</span>
                   <span>{d.label}</span>
                   {d.link && (
                     <Link

@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 
 import { authenticated } from '../access/authenticated';
 import { GROUP_LABELS } from '../constants';
+import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 
 /**
  * NewsletterSubscriber
@@ -34,7 +35,9 @@ export const NewsletterSubscriber: CollectionConfig = {
     read: authenticated,
     create: authenticated,
     update: authenticated,
-    delete: authenticated,
+    // Deleting the subscriber list is irreversible, so it follows the same rule as
+    // every other destructive operation: admins only.
+    delete: authenticatedAdmin,
   },
   fields: [
     {

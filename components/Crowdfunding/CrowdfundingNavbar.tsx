@@ -9,6 +9,8 @@ import { useTranslation } from '@/i18n/client';
 import LanguageSwitcher from '../utils/LanguageSwitcher';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
+const MOBILE_MENU_ID = 'crowdfunding-mobile-menu';
+
 const NAV_LINKS = [
   { key: 'about', href: '#about' },
   { key: 'rewards', href: '#rewards' },
@@ -68,6 +70,8 @@ const CrowdfundingNavbar = () => {
             onClick={() => setMobileOpen(!mobileOpen)}
             className='flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border-none bg-white/10 text-white md:hidden'
             aria-label={t('a11y.toggleMenu')}
+            aria-expanded={mobileOpen}
+            aria-controls={MOBILE_MENU_ID}
           >
             <svg
               width='20'
@@ -91,8 +95,13 @@ const CrowdfundingNavbar = () => {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu.
+          `max-h-0` + `overflow-hidden` only clips visually — the links stayed in the
+          DOM, the accessibility tree and the tab order, so keyboard users tabbed into
+          an invisible menu. `inert` removes them while keeping the height transition. */}
       <div
+        id={MOBILE_MENU_ID}
+        inert={!mobileOpen}
         className={cn(
           'overflow-hidden border-t border-white/10 transition-all duration-300 md:hidden',
           mobileOpen ? 'max-h-80' : 'max-h-0 border-transparent'

@@ -82,5 +82,13 @@
   "events_archive": {
     "title": "Arquivo de Eventos Anteriores - ONG Hawk Stars",
     "description": "Consulte o arquivo completo dos eventos anteriores da ONG Hawk Stars: encontros comunitários, atividades internacionais e programas culturais em Pinhel e além."
+  },
+  "crowdfunding": {
+    "title": "Crowdfunding — Construir o Centro de Formação Internacional - ONG Hawk Stars",
+    "description": "Apoie a campanha de crowdfunding da Hawk Stars para o Centro de Formação Internacional em Pinhel. Acompanhe o progresso do financiamento, os níveis de recompensa e as novidades do projeto."
+  },
+  "gaming": {
+    "title": "Gaming — Esports e Programas Digitais para Jovens - ONG Hawk Stars",
+    "description": "Iniciativas de gaming e esports da Hawk Stars: torneios, workshops de competências digitais e envolvimento juvenil através dos videojogos em Pinhel, Portugal."
   }
 }

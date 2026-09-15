@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { anyone } from '../access/anyone';
-import { authenticatedEditor } from '../access/authenticatedEditor';
+import { authenticated } from '../access/authenticated';
 import { authenticatedAdmin } from '../access/authenticatedAdmin';
 import { GROUP_LABELS } from '../constants';
 
@@ -22,11 +22,11 @@ export const Sponsor: CollectionConfig = {
     },
   },
   access: {
-    admin: authenticatedEditor,
+    admin: authenticated,
     read: anyone,
-    create: authenticatedEditor,
+    create: authenticated,
     delete: authenticatedAdmin,
-    update: authenticatedEditor,
+    update: authenticated,
   },
   fields: [
     {

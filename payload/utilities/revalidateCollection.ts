@@ -17,7 +17,14 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
  * globals pattern (`revalidateTag(TAG, 'max')`).
  */
 export function createRevalidateHooks(tag: string) {
-  const afterChange: CollectionAfterChangeHook = ({ doc }) => {
+  const afterChange: CollectionAfterChangeHook = ({ doc, previousDoc }) => {
+    // Autosave fires afterChange on every keystroke-batch. Nothing public changes
+    // while a document is a draft that was never published, and revalidateTag(tag)
+    // wipes every cached query sharing this tag site-wide — so skip those.
+    const isDraft = doc?._status === 'draft';
+    const wasPublished = previousDoc?._status === 'published';
+    if (isDraft && !wasPublished) return doc;
+
     revalidateTag(tag, 'max');
     return doc;
   };

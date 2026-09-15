@@ -77,7 +77,11 @@
     "footerNav": "Navegação de rodapé",
     "switchToLanguage": "Mudar para {{language}}",
     "expandSection": "Expandir secção",
-    "teamSections": "Secções da equipa"
+    "teamSections": "Secções da equipa",
+    "goToSlide": "Ir para o slide {{number}}",
+    "pauseSlideshow": "Pausar apresentação",
+    "playSlideshow": "Reproduzir apresentação",
+    "slideshow": "Apresentação"
   },
   "footer": {
     "designedBy": "Concebido por",

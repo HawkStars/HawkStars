@@ -1,5 +1,6 @@
 import { CollectionConfig } from 'payload';
 import { authenticated } from '../../access/authenticated';
+import { authenticatedAdmin } from '../../access/authenticatedAdmin';
 import { anyone } from '../../access/anyone';
 import ArtCollectionDetails from './ArtCollectionDetails';
 import { GROUP_LABELS } from '@/payload/constants';
@@ -16,7 +17,7 @@ export const ArtCollection: CollectionConfig = {
     admin: authenticated,
     read: anyone,
     create: authenticated,
-    delete: authenticated,
+    delete: authenticatedAdmin,
     update: authenticated,
   },
   labels: {

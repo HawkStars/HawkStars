@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { LuChevronDown } from 'react-icons/lu';
 import { getLinkFieldInformation } from '@/utils/page';
 import { useLanguageCookie, useSetMobileNavbarOpen } from '@/utils/contexts/AppProvider';
+import HawkLinkComponent from '@/components/utils/HawkLink';
 
 type MenuItemProps = {
   data: {
@@ -24,6 +25,21 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
   const isMultiColumn = data.isMultiColumn || false;
   const visibleLinks = data.dropdown?.links?.dropdownNavLink?.filter((item) => item.visible);
   const panelId = `${useId()}-submenu`;
+
+  if (!isMultiColumn) {
+    if (!data.link) return null;
+
+    return (
+      <div className='px-1' onClickCapture={() => setMobileMenuOpen(false)}>
+        <h6 className='mb-2 font-medium text-black'>
+          <HawkLinkComponent
+            link={data.link}
+            className='focus-visible:ring-ring block w-full text-left focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden'
+          />
+        </h6>
+      </div>
+    );
+  }
 
   return (
     <div className='px-1'>

@@ -31,7 +31,12 @@ export const getNewsQuery = async (
   const { page, limit, type } = opts || { page: 1, limit: 10 };
   const payload = await getPayloadConfig();
 
-  const where: Where = type ? { type: { equals: type } } : {};
+  // Local API calls bypass access control, so the `_status` filter has to be repeated
+  // here — `draft: false` alone does not exclude documents whose own status is draft.
+  const conditions: Where[] = [{ _status: { equals: 'published' } }];
+  if (type) conditions.push({ type: { equals: type } });
+
+  const where: Where = { and: conditions };
 
   return await payload.find({
     collection: NEWS_COLLECTION,

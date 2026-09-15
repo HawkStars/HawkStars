@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload';
 import CuratorFieldsTab from './CuratorFieldsTab';
 import { anyone } from '@/payload/access/anyone';
+import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 import { authenticated } from '@/payload/access/authenticated';
 import { GROUP_LABELS } from '@/payload/constants';
 import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
@@ -15,7 +16,7 @@ export const Curator: CollectionConfig = {
     admin: authenticated,
     read: anyone,
     create: authenticated,
-    delete: authenticated,
+    delete: authenticatedAdmin,
     update: authenticated,
   },
   hooks: {

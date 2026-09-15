@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
+import React, { useState, useEffect, useCallback, useSyncExternalStore } from 'react';
+import { LuChevronLeft, LuChevronRight, LuPause, LuPlay } from 'react-icons/lu';
+import { useTranslation } from '@/i18n/client';
 import type { HeroSlideshowBlock as HeroSlideshowBlockProps } from '@/payload-types';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -24,11 +25,26 @@ const alignmentClasses = {
   right: 'text-right items-end',
 } as const;
 
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+
+const subscribeReducedMotion = (onStoreChange: () => void) => {
+  const query = window.matchMedia(REDUCED_MOTION_QUERY);
+  query.addEventListener('change', onStoreChange);
+  return () => query.removeEventListener('change', onStoreChange);
+};
+
+const getReducedMotionSnapshot = () => window.matchMedia(REDUCED_MOTION_QUERY).matches;
+const getReducedMotionServerSnapshot = () => false;
+
 const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> = (data) => {
   const HeadingTag = data.headingLevel === 'h2' ? 'h2' : 'h1';
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  // WCAG 2.2.2 (Level A): anything that moves automatically for more than five
+  // seconds needs a mechanism to pause it. Autoplay defaults to on, so this shipped
+  // on by default with only prev/next and dots.
+  const [isPaused, setIsPaused] = useState(false);
 
   const {
     slides = [],
@@ -41,6 +57,8 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
     sectionId,
     lng,
   } = data || {};
+
+  const { t } = useTranslation(lng, 'common');
 
   const goToSlide = useCallback(
     (index: number) => {
@@ -60,12 +78,23 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
     goToSlide((currentSlide - 1 + (slides?.length || 1)) % (slides?.length || 1));
   }, [currentSlide, slides?.length, goToSlide]);
 
+  // Respect the OS-level reduced-motion preference: no automatic movement at all.
+  // Subscribed via useSyncExternalStore rather than an effect, so there is no
+  // setState-during-effect and the server render has a defined snapshot.
+  const prefersReducedMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotionSnapshot,
+    getReducedMotionServerSnapshot
+  );
+
+  const autoplayActive = Boolean(autoplay) && !isPaused && !prefersReducedMotion;
+
   useEffect(() => {
-    if (!autoplay || !slides || slides.length <= 1) return;
+    if (!autoplayActive || !slides || slides.length <= 1) return;
 
     const interval = setInterval(nextSlide, autoplayInterval || 1000);
     return () => clearInterval(interval);
-  }, [autoplay, autoplayInterval, nextSlide, slides]);
+  }, [autoplayActive, autoplayInterval, nextSlide, slides]);
 
   if (!data || !slides || slides.length === 0) return null;
 
@@ -89,6 +118,11 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
         return (
           <div
             key={slide.id || index}
+            // `opacity-0` alone left every off-screen slide in the DOM, the
+            // accessibility tree and the tab order — screen readers read all slides as
+            // one block and Tab walked through invisible CTAs.
+            aria-hidden={index !== currentSlide}
+            inert={index !== currentSlide}
             className={cn(
               'absolute inset-0 transition-opacity duration-500',
               index === currentSlide ? 'z-10 opacity-100' : 'z-0 opacity-0'
@@ -122,11 +156,17 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
               )}
             >
               <div className={cn('flex max-w-4xl flex-col gap-6')}>
-                {slide.title && (
-                  <HeadingTag className='text-4xl font-bold text-white lg:text-6xl xl:text-7xl'>
-                    {slide.title}
-                  </HeadingTag>
-                )}
+                {slide.title &&
+                  (() => {
+                    // One <h1> per page: the tag was computed once and rendered inside
+                    // the slide map, so a four-slide hero emitted four <h1>s.
+                    const SlideHeading = index === 0 ? HeadingTag : 'h2';
+                    return (
+                      <SlideHeading className='text-4xl font-bold text-white lg:text-6xl xl:text-7xl'>
+                        {slide.title}
+                      </SlideHeading>
+                    );
+                  })()}
 
                 {slide.subtitle && (
                   <p className='text-lg text-white/90 lg:text-xl'>{slide.subtitle}</p>
@@ -166,14 +206,14 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
           <button
             onClick={prevSlide}
             className='absolute top-1/2 left-4 z-20 -translate-y-1/2 rounded-full bg-white/20 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/40'
-            aria-label='Previous slide'
+            aria-label={t('a11y.prevSlide')}
           >
             <LuChevronLeft className='h-6 w-6' />
           </button>
           <button
             onClick={nextSlide}
             className='absolute top-1/2 right-4 z-20 -translate-y-1/2 rounded-full bg-white/20 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/40'
-            aria-label='Next slide'
+            aria-label={t('a11y.nextSlide')}
           >
             <LuChevronRight className='h-6 w-6' />
           </button>
@@ -191,10 +231,23 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
                 'h-3 w-3 rounded-full transition-all',
                 index === currentSlide ? 'w-8 bg-white' : 'bg-white/50 hover:bg-white/80'
               )}
-              aria-label={`Go to slide ${index + 1}`}
+              aria-label={t('a11y.goToSlide', { number: index + 1 })}
+              aria-current={index === currentSlide}
             />
           ))}
         </div>
+      )}
+
+      {/* Pause/play — required by WCAG 2.2.2 whenever autoplay is on. */}
+      {autoplay && !prefersReducedMotion && slides.length > 1 && (
+        <button
+          type='button'
+          onClick={() => setIsPaused((paused) => !paused)}
+          className='absolute right-4 bottom-6 z-20 rounded-full bg-white/20 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/40'
+          aria-label={isPaused ? t('a11y.playSlideshow') : t('a11y.pauseSlideshow')}
+        >
+          {isPaused ? <LuPlay className='h-4 w-4' /> : <LuPause className='h-4 w-4' />}
+        </button>
       )}
     </HawkStarsSection>
   );

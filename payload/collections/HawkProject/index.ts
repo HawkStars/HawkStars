@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload';
-import { anyone } from '../../access/anyone';
+import { authenticatedAdmin } from '../../access/authenticatedAdmin';
+import { authenticatedOrPublished } from '../../access/authenticatedOrPublished';
 import { authenticated } from '../../access/authenticated';
 import HawkProjectPageTab from './HawkProjectPageTab';
 import { sanitizeBrokenImageRelationship } from '../../hooks/sanitizeBrokenImageRelationship';
@@ -58,9 +59,9 @@ export const HawkProject: CollectionConfig = {
   },
   access: {
     admin: authenticated,
-    read: anyone,
+    read: authenticatedOrPublished,
     create: authenticated,
-    delete: authenticated,
+    delete: authenticatedAdmin,
     update: authenticated,
   },
   hooks: {
@@ -213,7 +214,9 @@ export const HawkProject: CollectionConfig = {
   versions: {
     drafts: {
       autosave: {
-        interval: 100,
+        // 100ms meant ~10 version writes and ~10 site-wide cache invalidations per
+        // second while an editor typed. 2000 is Payload's own default.
+        interval: 2000,
       },
       schedulePublish: true,
     },

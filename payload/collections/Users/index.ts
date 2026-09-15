@@ -19,11 +19,11 @@ export const Users: CollectionConfig = {
     update: authenticatedAdmin,
   },
   admin: {
-    defaultColumns: ['name', 'email', 'isAdmin', 'isEditor', 'updatedAt'],
+    defaultColumns: ['name', 'email', 'isAdmin', 'updatedAt'],
     useAsTitle: 'name',
     description: {
-      en: 'Manage admin panel users and their roles. Admins have full access; Editors can manage content but not users or settings. Only admins can create new users.',
-      pt: 'Gira os utilizadores do painel de administração e as suas funções. Os administradores têm acesso total; os editores podem gerir conteúdo mas não utilizadores ou definições. Apenas os administradores podem criar novos utilizadores.',
+      en: 'Manage admin panel users. Every account can manage content; admins additionally manage users, settings, donations and deletions. Only admins can create new users.',
+      pt: 'Gira os utilizadores do painel de administração. Todas as contas podem gerir conteúdo; os administradores gerem além disso utilizadores, definições, donativos e eliminações. Apenas os administradores podem criar novos utilizadores.',
     },
     group: {
       ...GROUP_LABELS.management,
@@ -61,23 +61,10 @@ export const Users: CollectionConfig = {
       defaultValue: false,
       admin: {
         description: {
-          en: 'Admins have full access to all collections, globals, and settings.',
-          pt: 'Os administradores têm acesso total a todas as coleções, globais e definições.',
+          en: 'Admins have full access: users, settings, donations, and deleting content. Accounts without this can create, edit and publish content but not delete it.',
+          pt: 'Os administradores têm acesso total: utilizadores, definições, donativos e eliminação de conteúdo. As contas sem esta opção podem criar, editar e publicar conteúdo mas não eliminá-lo.',
         },
-        condition: (data, { isAdmin }) => isAdmin === true,
-      },
-    },
-    {
-      type: 'checkbox',
-      name: 'isEditor',
-      label: { en: 'Is Editor', pt: 'É Editor' },
-      defaultValue: false,
-      admin: {
-        description: {
-          en: 'Editors have access to manage content but cannot manage users or settings.',
-          pt: 'Os editores podem gerir conteúdo mas não podem gerir utilizadores ou definições.',
-        },
-        condition: (data, { isAdmin }) => isAdmin === true,
+        condition: (_data, _siblingData, { user }) => Boolean(user?.isAdmin),
       },
     },
   ],

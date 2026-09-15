@@ -53,7 +53,7 @@ const MembersCornerContent = async ({ params }: { params: LanguagePageProps['par
         </div>
       </header>
 
-      <MembersShowcase projects={projects} t={t} />
+      <MembersShowcase projects={projects} t={t} lng={lng} />
     </HawkStarsSection>
   );
 };

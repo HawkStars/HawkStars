@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload';
 import { anyone } from '../access/anyone';
 import { SocialLinksField } from '../fields/Link/SocialLink';
-import { authenticatedEditor } from '../access/authenticatedEditor';
+import { authenticated } from '../access/authenticated';
 import { authenticatedAdmin } from '../access/authenticatedAdmin';
 import { GROUP_LABELS } from '../constants';
 import { createRevalidateHooks } from '../utilities/revalidateCollection';
@@ -30,11 +30,11 @@ export const Partner: CollectionConfig = {
     },
   },
   access: {
-    admin: authenticatedEditor,
+    admin: authenticated,
     read: anyone,
-    create: authenticatedEditor,
+    create: authenticated,
     delete: authenticatedAdmin,
-    update: authenticatedEditor,
+    update: authenticated,
   },
   hooks: {
     afterChange: [revalidatePartner],

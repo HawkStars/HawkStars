@@ -77,7 +77,11 @@
     "footerNav": "Footer navigation",
     "switchToLanguage": "Switch to {{language}}",
     "expandSection": "Expand section",
-    "teamSections": "Team sections"
+    "teamSections": "Team sections",
+    "goToSlide": "Go to slide {{number}}",
+    "pauseSlideshow": "Pause slideshow",
+    "playSlideshow": "Play slideshow",
+    "slideshow": "Slideshow"
   },
   "footer": {
     "designedBy": "Designed by",

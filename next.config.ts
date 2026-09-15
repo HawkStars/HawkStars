@@ -45,6 +45,10 @@ const cspHeader = `
 const contentSecurityPolicy = cspHeader.replace(/\s{2,}/g, ' ').trim();
 
 const nextConfig = {
+  // The deploy builds into a staging directory (NEXT_DIST_DIR=.next.new) so the
+  // live build keeps serving until the new one is known good, then swaps it in.
+  // `next build` has no --distDir flag, so it has to come through config.
+  distDir: process.env.NEXT_DIST_DIR || '.next',
   logging: {
     fetches: {
       fullUrl: process.env.NODE_ENV === 'development',
@@ -82,6 +86,19 @@ const nextConfig = {
     // loaderFile: './payload/components/Media/ImageMedia/cloudinaryLoader.ts',
   },
   experimental: {
+    // Rewrites named barrel imports (`import { LuX } from 'react-icons/lu'`) into deep
+    // per-icon imports so the whole set isn't pulled into a chunk for a handful of
+    // glyphs. Note this cannot help `lib/icon.tsx`, which uses `import * as` plus a
+    // computed lookup — see PERF-3 in AUDIT-2026-09-14.md.
+    optimizePackageImports: [
+      'react-icons/lu',
+      'react-icons/fa',
+      'react-icons/go',
+      'react-icons/pi',
+      'react-icons/gr',
+      'country-flag-icons/react/3x2',
+      'date-fns',
+    ],
     taint: true,
     turbopackFileSystemCacheForDev: true,
     inlineCss: process.env.NODE_ENV !== 'production', // wait to be out of beta before enabling this in production

@@ -1,7 +1,8 @@
 import type { CollectionConfig } from 'payload';
 import { notifyNewsChange } from './hooks';
 import { authenticated } from '@/payload/access/authenticated';
-import { anyone } from '@/payload/access/anyone';
+import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
+import { authenticatedOrPublished } from '@/payload/access/authenticatedOrPublished';
 import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
 import NewsDetails from './NewsFields';
 
@@ -45,9 +46,9 @@ export const News: CollectionConfig = {
   },
   access: {
     admin: authenticated,
-    read: anyone,
+    read: authenticatedOrPublished,
     create: authenticated,
-    delete: authenticated,
+    delete: authenticatedAdmin,
     update: authenticated,
   },
   fields: [
@@ -101,7 +102,9 @@ export const News: CollectionConfig = {
   versions: {
     drafts: {
       autosave: {
-        interval: 100,
+        // 100ms meant ~10 version writes and ~10 site-wide cache invalidations per
+        // second while an editor typed. 2000 is Payload's own default.
+        interval: 2000,
       },
       schedulePublish: true,
     },

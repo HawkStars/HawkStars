@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
@@ -34,11 +34,41 @@ const DetailsStep = ({
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'contribute');
   const [showComment, setShowComment] = useState(!!comment);
+  const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
 
-  const isValid = name.trim().length > 0 && email.trim().length > 0 && email.includes('@');
+  // Validation used to gate a `disabled` Continue button and nothing else: a user who
+  // mistyped their email got a permanently greyed-out button with no explanation, and
+  // because `disabled` removes the button from the tab order a screen-reader user
+  // never reached it to discover anything was wrong (WCAG 3.3.1, Level A).
+  // The button now stays enabled and submitting surfaces the reason.
+  const validate = () => {
+    const next: { name?: string; email?: string } = {};
+
+    if (name.trim().length === 0) next.name = t('donation_widget.details.name_required');
+
+    if (email.trim().length === 0) next.email = t('donation_widget.details.email_required');
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
+      next.email = t('donation_widget.details.email_invalid');
+
+    return next;
+  };
 
   const handleNext = () => {
-    if (isValid) onNext();
+    const next = validate();
+    setErrors(next);
+
+    if (next.name) {
+      nameRef.current?.focus();
+      return;
+    }
+    if (next.email) {
+      emailRef.current?.focus();
+      return;
+    }
+
+    onNext();
   };
 
   return (
@@ -53,15 +83,26 @@ const DetailsStep = ({
           {t('donation_widget.details.name_label')} <span aria-hidden='true'>*</span>
         </label>
         <input
+          ref={nameRef}
           id='donation-name'
           type='text'
           value={name}
-          onChange={(e) => onNameChange(e.target.value)}
+          onChange={(e) => {
+            onNameChange(e.target.value);
+            if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
+          }}
           placeholder={t('donation_widget.details.name_placeholder')}
-          className='w-full rounded-lg border border-[#ddd] px-3 py-2.5 text-sm text-[#333] outline-hidden focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1'
+          className='border-disabled w-full rounded-lg border px-3 py-2.5 text-sm text-[#333] outline-hidden focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1 aria-[invalid=true]:border-[#c0392b]'
           required
           aria-required='true'
+          aria-invalid={Boolean(errors.name)}
+          aria-describedby={errors.name ? 'donation-name-error' : undefined}
         />
+        {errors.name && (
+          <p id='donation-name-error' role='alert' className='mt-1 text-sm text-[#c0392b]'>
+            {errors.name}
+          </p>
+        )}
       </div>
 
       {/* Email */}
@@ -70,15 +111,26 @@ const DetailsStep = ({
           {t('donation_widget.details.email_label')} <span aria-hidden='true'>*</span>
         </label>
         <input
+          ref={emailRef}
           id='donation-email'
           type='email'
           value={email}
-          onChange={(e) => onEmailChange(e.target.value)}
+          onChange={(e) => {
+            onEmailChange(e.target.value);
+            if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
+          }}
           placeholder={t('donation_widget.details.email_placeholder')}
-          className='w-full rounded-lg border border-[#ddd] px-3 py-2.5 text-sm text-[#333] outline-hidden focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1'
+          className='border-disabled w-full rounded-lg border px-3 py-2.5 text-sm text-[#333] outline-hidden focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1 aria-[invalid=true]:border-[#c0392b]'
           required
           aria-required='true'
+          aria-invalid={Boolean(errors.email)}
+          aria-describedby={errors.email ? 'donation-email-error' : undefined}
         />
+        {errors.email && (
+          <p id='donation-email-error' role='alert' className='mt-1 text-sm text-[#c0392b]'>
+            {errors.email}
+          </p>
+        )}
       </div>
 
       {/* Phone */}
@@ -92,7 +144,7 @@ const DetailsStep = ({
             type='text'
             value={phoneIndicative}
             onChange={(e) => onPhoneIndicativeChange(e.target.value)}
-            className='w-20 rounded-lg border border-[#ddd] px-3 py-2.5 text-center text-sm text-[#333] outline-hidden focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1'
+            className='border-disabled w-20 rounded-lg border px-3 py-2.5 text-center text-sm text-[#333] outline-hidden focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1'
             placeholder='+351'
             aria-label={t('donation_widget.details.phone_indicative_label')}
           />
@@ -102,7 +154,7 @@ const DetailsStep = ({
             value={phoneNumber}
             onChange={(e) => onPhoneNumberChange(e.target.value.replace(/[^0-9]/g, ''))}
             placeholder={t('donation_widget.details.phone_placeholder')}
-            className='flex-1 rounded-lg border border-[#ddd] px-3 py-2.5 text-sm text-[#333] outline-hidden focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1'
+            className='border-disabled flex-1 rounded-lg border px-3 py-2.5 text-sm text-[#333] outline-hidden focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1'
             aria-label={t('donation_widget.details.phone_label')}
           />
         </div>
@@ -135,7 +187,7 @@ const DetailsStep = ({
               placeholder={t('donation_widget.details.comment_placeholder')}
               rows={3}
               style={{ resize: 'vertical' }}
-              className='mt-2.5 w-full rounded-lg border border-[#ddd] px-3 py-2.5 font-[inherit] text-sm outline-hidden focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1'
+              className='border-disabled mt-2.5 w-full rounded-lg border px-3 py-2.5 font-[inherit] text-sm outline-hidden focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1'
             />
           </>
         )}
@@ -146,15 +198,14 @@ const DetailsStep = ({
         <button
           type='button'
           onClick={onBack}
-          className='flex-1 cursor-pointer rounded-lg border border-[#ddd] bg-white py-3 text-sm font-medium text-[#333] transition-colors duration-150 hover:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-2'
+          className='border-disabled flex-1 cursor-pointer rounded-lg border bg-white py-3 text-sm font-medium text-[#333] transition-colors duration-150 hover:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-2'
         >
           {t('donation_widget.back')}
         </button>
         <button
           type='button'
           onClick={handleNext}
-          disabled={!isValid}
-          className='flex-1 cursor-pointer rounded-lg border-none bg-linear-to-br from-[#c0392b] to-[#e74c3c] py-3 text-sm font-semibold text-white transition-opacity duration-200 focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
+          className='flex-1 cursor-pointer rounded-lg border-none bg-linear-to-br from-[#c0392b] to-[#e74c3c] py-3 text-sm font-semibold text-white transition-opacity duration-200 focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-2'
         >
           {t('donation_widget.continue')}
         </button>

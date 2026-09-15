@@ -30,7 +30,6 @@ export async function seed(payload: Payload): Promise<void> {
         email: 'admin@hawkstars.org',
         password: 'changeme123',
         isAdmin: true,
-        isEditor: false,
       },
     });
 
@@ -41,7 +40,6 @@ export async function seed(payload: Payload): Promise<void> {
         email: 'editor@hawkstars.org',
         password: 'changeme123',
         isAdmin: false,
-        isEditor: true,
       },
     });
 

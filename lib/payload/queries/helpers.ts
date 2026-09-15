@@ -23,7 +23,12 @@ const findBySlug = async <TSlug extends CollectionSlug>(
   locale: Language,
   opts?: SlugQueryOptions
 ): Promise<DataFromCollectionSlug<TSlug> | null> => {
-  const where: Where = { slug: { equals: slug } };
+  // `draft: false` below does not filter on `_status` — it only stops Payload merging
+  // the newest draft version over the top. Without this clause an unpublished document
+  // renders at its public URL. The preview routes are auth-gated and opt out.
+  const where: Where = opts?.preview
+    ? { slug: { equals: slug } }
+    : { and: [{ slug: { equals: slug } }, { _status: { equals: 'published' } }] };
 
   const payload = await getPayloadConfig();
   const result = await payload.find({

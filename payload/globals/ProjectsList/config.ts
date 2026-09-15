@@ -2,12 +2,12 @@ import type { GlobalConfig } from 'payload';
 
 import { authenticated } from '@/payload/access/authenticated';
 import SectionID from '@/payload/fields/SectionID';
-import { authenticatedEditor } from '@/payload/access/authenticatedEditor';
 import { PayloadImageField } from '@/payload/fields/ImageType';
 import { linkGroup } from '@/payload/fields/linkGroup';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import PayloadLucideIcon from '@/payload/fields/ImageIcon/payload-lucide-icon';
 import { GROUP_LABELS } from '@/payload/constants';
+import { createRevalidateGlobalHook } from '@/payload/utilities/revalidateGlobal';
 
 export const ProjectsList: GlobalConfig = {
   slug: 'projects-list',
@@ -32,7 +32,7 @@ export const ProjectsList: GlobalConfig = {
   },
   access: {
     read: authenticated,
-    update: authenticatedEditor,
+    update: authenticated,
   },
   fields: [
     {
@@ -141,5 +141,8 @@ export const ProjectsList: GlobalConfig = {
       },
     },
     max: 3,
+  },
+  hooks: {
+    afterChange: [createRevalidateGlobalHook('projects-list')],
   },
 };

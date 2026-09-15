@@ -13,14 +13,13 @@ import * as Sentry from '@sentry/nextjs';
  *   - from: source locale (default 'pt')
  *   - to:   target locale (default 'en')
  *
- * Requires an authenticated admin user. Uses LIBRETRANSLATE_URL (defaults to
- * http://localhost:5000)
+ * Requires any authenticated user — translation is a content-editing tool and every
+ * account manages content. Uses LIBRETRANSLATE_URL (defaults to http://localhost:5000)
  */
 export const translateHandler: PayloadHandler = async (req) => {
   const { user } = req;
 
-  if (!user || !(user.isEditor || user.isAdmin))
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
   const baseUrl = (process.env.LIBRETRANSLATE_URL || 'http://localhost:5000').replace(/\/+$/, '');
 

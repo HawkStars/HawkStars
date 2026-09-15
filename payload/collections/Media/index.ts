@@ -3,7 +3,7 @@ import { notifyMediaDelete, notifyMediaUpload } from './hooks';
 import { GROUP_LABELS } from '../../constants';
 import { anyone } from '../../access/anyone';
 import { authenticatedAdmin } from '../../access/authenticatedAdmin';
-import { authenticatedEditor } from '../../access/authenticatedEditor';
+import { authenticated } from '../../access/authenticated';
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -15,11 +15,11 @@ export const Media: CollectionConfig = {
   // rendered on public pages so read stays public, but uploading/editing/
   // deleting assets now requires an editor/admin account.
   access: {
-    admin: authenticatedEditor,
+    admin: authenticated,
     read: anyone,
-    create: authenticatedEditor,
+    create: authenticated,
     delete: authenticatedAdmin,
-    update: authenticatedEditor,
+    update: authenticated,
   },
   admin: {
     description: {

@@ -82,5 +82,13 @@
   "events_archive": {
     "title": "Past Events Archive - Hawk Stars NGO",
     "description": "Browse the full archive of Hawk Stars NGO's past events: community gatherings, international activities, and cultural programmes in Pinhel and beyond."
+  },
+  "crowdfunding": {
+    "title": "Crowdfunding — Build the International Training Center - Hawk Stars NGO",
+    "description": "Back the Hawk Stars crowdfunding campaign for the International Training Center in Pinhel. Follow the funding progress, reward tiers and project updates."
+  },
+  "gaming": {
+    "title": "Gaming — Esports & Digital Youth Programmes - Hawk Stars NGO",
+    "description": "Hawk Stars gaming and esports initiatives: tournaments, digital skills workshops and youth engagement through gaming in Pinhel, Portugal."
   }
 }

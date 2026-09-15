@@ -60,6 +60,7 @@ import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useRef,
@@ -262,7 +263,16 @@ function MapLayers({
   defaultLayerGroups?: string[];
 }) {
   const [tileLayers, setTileLayers] = useState<MapTileLayerOption[]>([]);
-  const [selectedTileLayer, setSelectedTileLayer] = useState<string>(defaultTileLayer || '');
+  const [explicitTileLayer, setSelectedTileLayer] = useState<string>(defaultTileLayer || '');
+
+  // Child <MapTileLayer>s register themselves after mount, so the initial selection
+  // cannot be known at useState time. Derive it during render rather than writing it
+  // back from an effect, which caused a cascading re-render on every mount.
+  const selectedTileLayer =
+    explicitTileLayer ||
+    (defaultTileLayer && tileLayers.some((layer) => layer.name === defaultTileLayer)
+      ? defaultTileLayer
+      : (tileLayers[0]?.name ?? ''));
   const [layerGroups, setLayerGroups] = useState<MapLayerGroupOption[]>([]);
   const [activeLayerGroups, setActiveLayerGroups] = useState<string[]>(defaultLayerGroups);
 
@@ -296,15 +306,6 @@ function MapLayers({
       );
     }
 
-    // Set initial selected tile layer
-    if (tileLayers.length > 0 && !selectedTileLayer) {
-      const validDefaultValue =
-        defaultTileLayer && tileLayers.some((layer) => layer.name === defaultTileLayer)
-          ? defaultTileLayer
-          : tileLayers[0].name;
-      setSelectedTileLayer(validDefaultValue);
-    }
-
     // Error: Invalid defaultActiveLayerGroups
     if (
       defaultLayerGroups.length > 0 &&
@@ -315,7 +316,7 @@ function MapLayers({
         `Invalid defaultLayerGroups value provided to MapLayers. All names must match a MapLayerGroup's name prop.`
       );
     }
-  }, [tileLayers, defaultTileLayer, selectedTileLayer, layerGroups, defaultLayerGroups]);
+  }, [tileLayers, defaultTileLayer, layerGroups, defaultLayerGroups]);
 
   return (
     <MapLayersContext.Provider
@@ -714,24 +715,29 @@ function MapDrawControl({
 }) {
   const { L, LeafletDraw } = useLeaflet();
   const map = useMap();
-  const featureGroupRef = useRef<L.FeatureGroup | null>(null);
+  // Held as state, not a ref: the context value is read during render, and consumers
+  // key effects off it — a ref's .current is null on first render and never notifies.
+  const [featureGroup, setFeatureGroup] = useState<L.FeatureGroup | null>(null);
   const editControlRef = useRef<EditToolbar.Edit | null>(null);
   const deleteControlRef = useRef<EditToolbar.Delete | null>(null);
   const [activeMode, setActiveMode] = useState<MapDrawMode>(null);
 
-  function handleDrawCreated(event: DrawEvents.Created) {
-    if (!featureGroupRef.current) return;
-    const { layer } = event;
-    featureGroupRef.current.addLayer(layer);
-    onLayersChange?.(featureGroupRef.current);
-    setActiveMode(null);
-  }
+  const handleDrawCreated = useCallback(
+    (event: DrawEvents.Created) => {
+      if (!featureGroup) return;
+      const { layer } = event;
+      featureGroup.addLayer(layer);
+      onLayersChange?.(featureGroup);
+      setActiveMode(null);
+    },
+    [featureGroup, onLayersChange]
+  );
 
-  function handleDrawEditedOrDeleted() {
-    if (!featureGroupRef.current) return;
-    onLayersChange?.(featureGroupRef.current);
+  const handleDrawEditedOrDeleted = useCallback(() => {
+    if (!featureGroup) return;
+    onLayersChange?.(featureGroup);
     setActiveMode(null);
-  }
+  }, [featureGroup, onLayersChange]);
 
   useEffect(() => {
     if (!L || !LeafletDraw) return;
@@ -745,19 +751,19 @@ function MapDrawControl({
       map.off(L.Draw.Event.EDITED, handleDrawEditedOrDeleted);
       map.off(L.Draw.Event.DELETED, handleDrawEditedOrDeleted);
     };
-  }, [L, LeafletDraw, map, onLayersChange, handleDrawCreated, handleDrawEditedOrDeleted]);
+  }, [L, LeafletDraw, map, handleDrawCreated, handleDrawEditedOrDeleted]);
 
   return (
     <MapDrawContext.Provider
       value={{
-        featureGroup: featureGroupRef.current,
+        featureGroup,
         activeMode,
         setActiveMode,
         editControlRef,
         deleteControlRef,
       }}
     >
-      <LeafletFeatureGroup ref={featureGroupRef} />
+      <LeafletFeatureGroup ref={setFeatureGroup} />
       <ButtonGroup
         orientation='vertical'
         className={cn('absolute bottom-1 left-1 z-1000', className)}
@@ -1054,6 +1060,11 @@ function MapDrawEdit({
       touchMoveIcon: mapDrawHandleIcon,
       touchResizeIcon: mapDrawHandleIcon,
     });
+    // L.drawLocal is Leaflet.Draw's module-level i18n table — assigning to it is the
+    // library's documented way to localize the edit toolbar, and there is no
+    // per-instance option for these strings. Safe here because every map in a given
+    // request renders in the same locale.
+    // eslint-disable-next-line react-hooks/immutability
     L.drawLocal.edit.handlers.edit.tooltip = {
       text: t('map.editHint'),
       subtext: '',
@@ -1171,31 +1182,23 @@ function useLeaflet() {
 }
 
 function useDebounceLoadingState(delay = 200) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [showLoading, setShowLoading] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [isLoading, setIsLoadingState] = useState(false);
+  const [delayElapsed, setDelayElapsed] = useState(false);
+
+  // Reset from the setter rather than from an effect: clearing it in the effect body
+  // was a synchronous setState inside an effect, which triggers a cascading render.
+  const setIsLoading = useCallback((next: boolean) => {
+    setIsLoadingState(next);
+    if (!next) setDelayElapsed(false);
+  }, []);
 
   useEffect(() => {
-    if (isLoading) {
-      timeoutRef.current = setTimeout(() => {
-        setShowLoading(true);
-      }, delay);
-    } else {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
-      }
-      setShowLoading(false);
-    }
-
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
+    if (!isLoading) return;
+    const timeout = setTimeout(() => setDelayElapsed(true), delay);
+    return () => clearTimeout(timeout);
   }, [isLoading, delay]);
 
-  return [showLoading, setIsLoading] as const;
+  return [isLoading && delayElapsed, setIsLoading] as const;
 }
 
 export {

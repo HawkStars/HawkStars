@@ -1,6 +1,5 @@
 import type { GlobalConfig } from 'payload';
 import { FooterNavGroup } from '@/payload/fields/FooterNavGroup';
-import { authenticatedEditor } from '@/payload/access/authenticatedEditor';
 import { revalidateFooter } from './hooks/revalidateFooter';
 import { authenticated } from '@/payload/access/authenticated';
 import { GROUP_LABELS } from '@/payload/constants';
@@ -13,7 +12,7 @@ export const Footer: GlobalConfig = {
   },
   access: {
     read: authenticated,
-    update: authenticatedEditor,
+    update: authenticated,
   },
   admin: {
     group: GROUP_LABELS.layout,

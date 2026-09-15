@@ -3,7 +3,7 @@ import type { GlobalConfig } from 'payload';
 import { authenticated } from '@/payload/access/authenticated';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import { GROUP_LABELS } from '@/payload/constants';
-import { authenticatedEditor } from '@/payload/access/authenticatedEditor';
+import { createRevalidateGlobalHook } from '@/payload/utilities/revalidateGlobal';
 
 export const NewsList: GlobalConfig = {
   slug: 'news-list',
@@ -28,7 +28,7 @@ export const NewsList: GlobalConfig = {
   },
   access: {
     read: authenticated,
-    update: authenticatedEditor,
+    update: authenticated,
   },
   fields: [
     {
@@ -72,5 +72,8 @@ export const NewsList: GlobalConfig = {
       },
     },
     max: 3,
+  },
+  hooks: {
+    afterChange: [createRevalidateGlobalHook('news-list')],
   },
 };

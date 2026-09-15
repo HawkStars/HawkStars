@@ -52,6 +52,7 @@ export const getProjectsSplitByDate = async (
   const now = new Date().toISOString();
 
   const conditions: Where[] = [
+    { _status: { equals: 'published' } },
     { startDate: { greater_than_equal: now } },
     ...buildProjectFilterConditions(opts ?? {}, 'startDate'),
   ];
@@ -77,6 +78,7 @@ export const getPastProjectsQuery = async (
   const now = new Date().toISOString();
 
   const conditions: Where[] = [
+    { _status: { equals: 'published' } },
     { endDate: { less_than: now } },
     ...buildProjectFilterConditions(opts ?? {}, 'endDate'),
   ];
@@ -99,9 +101,10 @@ export const getProjectYearsQuery = async (locale: Language): Promise<number[]> 
   const result = await payload.find({
     collection: PROJECTS_COLLECTION,
     locale,
+    where: { _status: { equals: 'published' } },
     limit: 0,
     select: { startDate: true },
-    depth: 2,
+    depth: 0,
   });
 
   const years = new Set<number>();

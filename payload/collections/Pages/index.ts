@@ -5,6 +5,8 @@ import { DefaultBlocks } from '@/payload/blocks';
 import { GROUP_LABELS } from '@/payload/constants';
 import transformSlug from '@/payload/utilities/transformSlug';
 import { authenticated } from '@/payload/access/authenticated';
+import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
+import { authenticatedOrPublished } from '@/payload/access/authenticatedOrPublished';
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -16,9 +18,10 @@ export const Pages: CollectionConfig<'pages'> = {
   defaultSort: 'title',
 
   access: {
+    admin: authenticated,
     create: authenticated,
-    delete: authenticated,
-    read: () => true,
+    delete: authenticatedAdmin,
+    read: authenticatedOrPublished,
     update: authenticated,
   },
   defaultPopulate: {
@@ -163,7 +166,9 @@ export const Pages: CollectionConfig<'pages'> = {
   versions: {
     drafts: {
       autosave: {
-        interval: 100,
+        // 100ms meant ~10 version writes and ~10 site-wide cache invalidations per
+        // second while an editor typed. 2000 is Payload's own default.
+        interval: 2000,
       },
       schedulePublish: true,
     },

@@ -8,7 +8,8 @@ import CrowdfundingSettingsFundsTab from './tabs/funds';
 import CrowdfundingSettingsUpdatesTab from './tabs/updates';
 import CrowdfundingSettingsRewardsTab from './tabs/rewards';
 import { CrowdfundingSettingsSupportersTab } from './tabs/supporters';
-import { authenticatedEditor } from '@/payload/access/authenticatedEditor';
+import { authenticated } from '@/payload/access/authenticated';
+import { createRevalidateGlobalHook } from '@/payload/utilities/revalidateGlobal';
 
 export const CrowdfundingSettings: GlobalConfig = {
   slug: 'crowdfunding-settings',
@@ -43,8 +44,8 @@ export const CrowdfundingSettings: GlobalConfig = {
   },
 
   access: {
-    read: authenticatedEditor,
-    update: authenticatedEditor,
+    read: authenticated,
+    update: authenticated,
   },
   fields: [
     {
@@ -66,5 +67,8 @@ export const CrowdfundingSettings: GlobalConfig = {
       },
     },
     max: 3,
+  },
+  hooks: {
+    afterChange: [createRevalidateGlobalHook('crowdfunding-settings')],
   },
 };
