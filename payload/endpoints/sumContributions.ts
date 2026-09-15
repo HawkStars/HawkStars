@@ -1,5 +1,5 @@
 import type { PayloadHandler } from 'payload';
-import totalContributioValueQuery from '@/lib/payload/endpoints/totalContributioValueQuery';
+import totalContributionValueQuery from '@/lib/payload/endpoints/totalContributionValueQuery';
 
 /**
  * GET /api/sum-contributions
@@ -14,7 +14,7 @@ export const sumContributionsHandler: PayloadHandler = async (req) => {
     return Response.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  return totalContributioValueQuery({ payload: req.payload });
+  return totalContributionValueQuery({ payload: req.payload });
 };
 
 export default sumContributionsHandler;

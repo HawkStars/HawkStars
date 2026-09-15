@@ -5,6 +5,7 @@
  **/
 
 import { Language } from '@/i18n/settings';
+import { BASE_URL } from '@/lib/constants';
 
 export const SITE_GET_URLS = {
   contribute: '/contribute',
@@ -24,6 +25,8 @@ export const SITE_GET_URLS = {
   how_to_help_us: '/how-to-help-us',
   members_corner: '/members-corner',
   transparency: '/transparency',
+  crowdfunding: '/crowdfunding',
+  gaming: '/gaming',
   team: '/team',
   terms: '/store/terms',
 } as const;
@@ -55,7 +58,7 @@ export const transformUrl = (
 ) => {
   if (!lng) return url;
 
-  const link = new URL(`${process.env.NEXT_PUBLIC_APP_URL}/${lng}${url}`);
+  const link = new URL(`${BASE_URL}/${lng}${url}`);
   if (!searchParams) return link.pathname;
 
   for (const [param, value] of Object.entries(searchParams)) {
@@ -95,8 +98,10 @@ type MetadataRoute = {
 
 export const routes = [
   { url: SITE_GET_URLS.home, priority: 1 },
-  { url: SITE_GET_URLS.team, priority: 0.5 },
-  { url: SITE_GET_URLS.partners, priority: 0.8 },
+  { url: SITE_GET_URLS.team, priority: 0.3 },
+  { url: SITE_GET_URLS.crowdfunding, priority: 1 },
+  { url: SITE_GET_URLS.gaming, priority: 0.3 },
+  { url: SITE_GET_URLS.partners, priority: 0.3 },
   { url: SITE_GET_URLS.contribute, priority: 1 },
   { url: SITE_GET_URLS.transparency, priority: 1 },
   { url: SITE_GET_URLS.history, priority: 0.5 },

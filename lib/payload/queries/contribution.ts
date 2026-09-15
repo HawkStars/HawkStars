@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/nextjs';
 import { cacheLife, cacheTag } from 'next/cache';
-import totalContributioValueQuery from '../endpoints/totalContributioValueQuery';
+import totalContributionValueQuery from '../endpoints/totalContributionValueQuery';
 import { getPayloadConfig } from '../server';
 import { CONTRIBUTION_CACHE_TAG } from '@/payload/collections/Contribution';
 import { connection } from 'next/server';
@@ -26,6 +26,13 @@ export const getChairsContributionsQuery = async () => {
         },
       ],
     },
+    select: {
+      id: true,
+      contribution_type: true,
+      is_anonymous: true,
+      donor: true,
+      contribution_date: true,
+    },
     limit: 0,
   });
   const { docs, hasNextPage, hasPrevPage, totalDocs, totalPages, nextPage } = contributions;
@@ -47,7 +54,7 @@ export const getSumContributions = async (): Promise<number> => {
   await connection();
   try {
     const payload = await getPayloadConfig();
-    const response = await totalContributioValueQuery({ payload });
+    const response = await totalContributionValueQuery({ payload });
     if (!response.ok) return 0;
     const data = await response.json();
     return (data.sum as number) || 0;

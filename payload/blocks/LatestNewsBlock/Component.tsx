@@ -18,9 +18,9 @@ export const LatestNewsBlock: React.FC<LatestNewsBlockProps> = ({
 
   useEffect(() => {
     if (source === 'hawk_projects') {
-      fetchLatestHawkEvent(eventType).then(setItem);
+      fetchLatestHawkEvent(eventType).then(setItem).catch(null);
     } else {
-      fetchLatestNews(newsType).then(setItem);
+      fetchLatestNews(newsType).then(setItem).catch(null);
     }
   }, [source, newsType, eventType]);
 

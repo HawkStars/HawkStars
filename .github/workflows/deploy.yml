@@ -38,6 +38,9 @@ jobs:
       - name: Check types
         run: pnpm tsc
 
+      - name: Install Chromium for the Playwright
+        run: pnpm exec playwright install --with-deps chromium
+
       - name: Test Pipeline
         run: pnpm test
   deploy:
@@ -198,7 +201,7 @@ jobs:
     needs: check
     # Run even when the deploy fails or is cancelled, so the channel always
     # reflects the real state of production.
-    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout code
         uses: actions/checkout@v7

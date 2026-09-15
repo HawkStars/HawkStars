@@ -101,6 +101,7 @@ export const getProjectYearsQuery = async (locale: Language): Promise<number[]> 
     locale,
     limit: 0,
     select: { startDate: true },
+    depth: 2,
   });
 
   const years = new Set<number>();

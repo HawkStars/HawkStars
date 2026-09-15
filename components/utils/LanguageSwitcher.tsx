@@ -2,7 +2,7 @@
 
 import { PT, GB, FlagComponent } from 'country-flag-icons/react/3x2';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Language } from '@/i18n/settings';
@@ -37,6 +37,7 @@ type LanguageSwitcherProps = {
 
 const LanguageSwitcher = ({ isFooter = false }: LanguageSwitcherProps) => {
   const lng = useLanguageCookie();
+  const searchParams = useSearchParams();
   const pathname = usePathname();
   const { t } = useTranslation(lng, 'common');
 
@@ -50,7 +51,17 @@ const LanguageSwitcher = ({ isFooter = false }: LanguageSwitcherProps) => {
       .filter((segment) => segment !== '')
       .slice(1);
 
-    return rest.length > 0 ? `/${newLng}/${rest.join('/')}` : `/${newLng}`;
+    let url = rest.length > 0 ? `/${newLng}/${rest.join('/')}` : `/${newLng}`;
+
+    if (searchParams.size > 0) {
+      url += '?';
+      const paramsStr: string[] = [];
+      searchParams.forEach((value, key) => paramsStr.push(`${key}=${value}`));
+
+      url += paramsStr.join('&');
+    }
+
+    return url;
   };
 
   return (

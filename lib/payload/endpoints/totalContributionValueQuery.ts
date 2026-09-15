@@ -1,6 +1,7 @@
 import { connection } from 'next/server';
 import { BasePayload, Where } from 'payload';
-const totalContributioValueQuery = async ({
+
+const totalContributionValueQuery = async ({
   payload,
 }: {
   payload: BasePayload;
@@ -12,6 +13,7 @@ const totalContributioValueQuery = async ({
     collection: 'contributions',
     where,
     limit: 0,
+    depth: 2,
   });
 
   if (result.totalDocs === 0) return new Response(JSON.stringify({ sum: 0 }));
@@ -20,4 +22,4 @@ const totalContributioValueQuery = async ({
   return new Response(JSON.stringify({ sum, totalDocs: result.totalDocs }));
 };
 
-export default totalContributioValueQuery;
+export default totalContributionValueQuery;

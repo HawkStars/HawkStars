@@ -4,6 +4,7 @@ import { SocialLinksField } from '../fields/Link/SocialLink';
 import { authenticated } from '../access/authenticated';
 import { GROUP_LABELS } from '../constants';
 import { createRevalidateHooks } from '../utilities/revalidateCollection';
+import { authenticatedAdmin } from '../access/authenticatedAdmin';
 
 export const BOARD_MEMBER_CACHE_TAG = 'board-members' as const;
 const { afterChange: revalidateBoardMember, afterDelete: revalidateBoardMemberDelete } =
@@ -20,6 +21,7 @@ export const BoardMember: CollectionConfig = {
     create: authenticated,
     update: authenticated,
     admin: authenticated,
+    delete: authenticatedAdmin,
   },
   hooks: {
     afterChange: [revalidateBoardMember],

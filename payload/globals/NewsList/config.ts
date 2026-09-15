@@ -3,6 +3,7 @@ import type { GlobalConfig } from 'payload';
 import { authenticated } from '@/payload/access/authenticated';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import { GROUP_LABELS } from '@/payload/constants';
+import { authenticatedEditor } from '@/payload/access/authenticatedEditor';
 
 export const NewsList: GlobalConfig = {
   slug: 'news-list',
@@ -27,7 +28,7 @@ export const NewsList: GlobalConfig = {
   },
   access: {
     read: authenticated,
-    update: authenticated,
+    update: authenticatedEditor,
   },
   fields: [
     {

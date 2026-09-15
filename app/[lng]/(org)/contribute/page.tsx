@@ -48,7 +48,11 @@ export async function generateMetadata(props: {
 
 const getChairsContribute = async () => {
   const data = await getChairsContributionsQuery();
-  const contributions = data.docs || [];
+  let contributions = data.docs || [];
+
+  contributions = contributions.map((item) => {
+    return { ...item, donor: item.is_anonymous ? '' : item.donor };
+  });
 
   const grouped_contributions = groupBy(contributions, 'contribution_type');
   const simulationChairs = (grouped_contributions['SIMULATOR_CHAIR'] as Contribution[]) || [];

@@ -4,6 +4,7 @@ import { dropdownNavLink } from '@/payload/fields/Link/DropdownNavLink';
 import { link } from '@/payload/fields/link';
 import { revalidateHeader } from './hooks/revalidateHeader';
 import { GROUP_LABELS } from '@/payload/constants';
+import { authenticatedEditor } from '@/payload/access/authenticatedEditor';
 
 export const Header: GlobalConfig = {
   slug: 'header',
@@ -13,6 +14,7 @@ export const Header: GlobalConfig = {
   },
   access: {
     read: anyone,
+    update: authenticatedEditor,
   },
   admin: {
     group: GROUP_LABELS.layout,

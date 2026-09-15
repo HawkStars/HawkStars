@@ -54,8 +54,8 @@ const NewsListContent = async ({
 
   const pageParam = Number(resolvedSearchParams.page);
   const limitParam = Number(resolvedSearchParams.limit);
-  const page = Number.isFinite(pageParam) ? pageParam : 1;
-  const limitNews = Number.isFinite(limitParam) ? limitParam : 10;
+  const page = Number.isInteger(pageParam) ? Math.min(Math.max(pageParam, 1), 9999) : 1;
+  const limitNews = Number.isInteger(limitParam) ? Math.min(Math.max(limitParam, 1), 50) : 10;
 
   const [newsListHeader, news, { t }] = await Promise.all([
     getNewsListHeader(lng as Language),

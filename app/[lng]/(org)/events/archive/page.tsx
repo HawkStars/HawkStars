@@ -50,9 +50,9 @@ const EventsArchiveContent = async ({
   const limitParam = Number(resolvedSearchParams.limit);
   const yearParam = Number(resolvedSearchParams.year);
 
-  const page = Number.isFinite(pageParam) ? pageParam : 1;
-  const limit = Number.isFinite(limitParam) ? limitParam : undefined;
-  const year = Number.isFinite(yearParam) ? yearParam : undefined;
+  const limit = Number.isInteger(limitParam) ? Math.min(Math.max(limitParam, 1), 50) : 10;
+  const page = Number.isInteger(pageParam) ? Math.min(Math.max(pageParam, 1), 9999) : 1;
+  const year = Number.isInteger(yearParam) ? yearParam : undefined;
 
   const [pastEvents, years, { t }, { t: commonT }] = await Promise.all([
     getPastEvents(lng as Language, { page, limit, type, year }),

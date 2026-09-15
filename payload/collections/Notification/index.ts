@@ -21,7 +21,7 @@ export const Notification: CollectionConfig = {
     },
   },
   access: {
-    read: authenticated,
+    read: authenticatedAdmin,
     create: authenticatedAdmin,
     update: authenticatedAdmin,
     delete: authenticatedAdmin,

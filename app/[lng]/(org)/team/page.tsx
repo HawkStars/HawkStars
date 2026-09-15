@@ -30,7 +30,7 @@ const TeamContent = async ({ params }: { params: LanguagePageProps['params'] }) 
   const { lng } = await params;
   const [{ t }, boardMembers] = await Promise.all([
     getServerTranslation(lng, 'team'),
-    getBoardMembers(),
+    getBoardMembers(lng),
   ]);
 
   return (

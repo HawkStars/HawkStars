@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ImageMedia } from '@/payload/components/Media';
 import { MemberProjectDoc } from '@/lib/payload/queries/memberProject';
+import { toIntlLocale } from '@/i18n/settings';
 
 type T = (key: string) => string;
 
@@ -13,10 +14,8 @@ type MembersShowcaseProps = {
 // dependency) so the server and client render identical output — otherwise
 // toLocaleDateString causes a React hydration mismatch.
 const formatDate = (iso: string) => {
-  const datePart = iso.split('T')[0];
-  const [year, month, day] = datePart.split('-');
-  if (!year || !month || !day) return iso;
-  return `${day}/${month}/${year}`;
+  // TODO
+  return '';
 };
 
 const MembersShowcase = ({ projects, t }: MembersShowcaseProps) => {

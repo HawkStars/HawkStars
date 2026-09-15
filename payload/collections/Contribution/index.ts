@@ -25,6 +25,7 @@ export const ContributionCollection: CollectionConfig = {
     create: authenticatedAdmin,
     update: authenticatedAdmin,
     admin: authenticatedAdmin,
+    delete: authenticatedAdmin,
   },
   fields: [
     {

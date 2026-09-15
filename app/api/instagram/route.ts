@@ -99,10 +99,7 @@ async function fetchInstagramPosts(userId: string, token: string, limit: number)
   if (!response.ok) {
     const message = `Instagram API error: ${response.status} ${response.statusText}`;
     // If token expired, surface it as a distinct status so the caller can react.
-    throw new InstagramApiError(
-      response.status === 190 || response.status === 401 ? 401 : 400,
-      message
-    );
+    throw new InstagramApiError(response.status === 401 ? 401 : 400, message);
   }
 
   const data: InstagramApiResponse = await response.json();

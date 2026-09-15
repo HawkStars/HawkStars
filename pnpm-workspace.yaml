@@ -4,4 +4,5 @@ allowBuilds:
   msw: true
   unrs-resolver: true
   sharp: true
+  playwright: true
 minimumReleaseAge: 2880
