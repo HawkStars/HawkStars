@@ -1,7 +1,7 @@
 'use client';
 
 import { News } from '@/payload-types';
-import { PaginatedDocs } from 'payload';
+import type { PaginatedDocs } from 'payload';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import { getImagePayloadUrl } from '@/lib/image';

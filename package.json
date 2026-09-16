@@ -14,13 +14,14 @@
     "format:fix": "prettier --write .",
     "test": "vitest run",
     "payload:regenerate": "payload generate:types && payload generate:importmap",
+    "check:stories": "node scripts/check-storybook-graph.mjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepare": "husky",
     "migrate": "payload migrate"
   },
   "dependencies": {
-    "@googleapis/drive": "^22.0.0",
+    "@googleapis/drive": "^25.0.0",
     "@payloadcms/db-mongodb": "^3.89.0",
     "@payloadcms/email-nodemailer": "^3.89.0",
     "@payloadcms/live-preview-react": "^3.89.0",

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { PaginatedDocs } from 'payload';
+import type { PaginatedDocs } from 'payload';
 import { TFunction } from 'i18next';
 import { Language } from '@/i18n/settings';
 import LandingPagination from '@/components/utils/Pagination';

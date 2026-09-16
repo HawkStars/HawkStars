@@ -1,5 +1,5 @@
 import { HawkProject, Media } from '@/payload-types';
-import { PaginatedDocs } from 'payload';
+import type { PaginatedDocs } from 'payload';
 import { Button } from '@/components/ui/button';
 import { LuArrowUpRight } from 'react-icons/lu';
 import { getImagePayloadUrl } from '@/lib/image';

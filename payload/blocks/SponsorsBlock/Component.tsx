@@ -1,21 +1,24 @@
-import { FC } from 'react';
+'use client';
+
+import React, { FC, useEffect, useState } from 'react';
 import type { SponsorsBlock as SponsorsBlockProps, Sponsor, Media } from '@/payload-types';
 import { ImageMedia } from '@/payload/components/Media';
 import { cn } from '@/lib/utils';
-import { getSponsorsQuery } from '@/lib/payload/queries/sponsors';
+import { fetchSponsors } from '@/lib/payload/client-side/queries/sponsors';
 import { HawkStarsSection } from '@/components/layout';
 
-// Server component: this used to fetch over REST from the browser after hydration,
-// which cost a round trip per visitor, bypassed the cache entirely, and left the
-// section invisible to crawlers.
-export const SponsorsBlock = async ({
+export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
   title,
   subtitle,
   tier,
   limit = 12,
   sectionId,
-}: SponsorsBlockProps) => {
-  const sponsors = await getSponsorsQuery({ tier, limit });
+}) => {
+  const [sponsors, setSponsors] = useState<Sponsor[]>([]);
+
+  useEffect(() => {
+    fetchSponsors({ tier, limit }).then(setSponsors);
+  }, [tier, limit]);
 
   if (!sponsors || sponsors.length === 0) return null;
 

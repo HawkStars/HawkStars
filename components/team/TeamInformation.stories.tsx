@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { BoardMember } from '@/payload-types';
-import { GroupedBoardMembers } from '@/lib/payload/queries/team';
+import type { BoardMember } from '@/payload-types';
+import type { GroupedBoardMembers } from '@/lib/payload/queries/team';
 import AppProvider from '@/utils/contexts/AppProvider';
 import TeamInformation from './TeamInformation';
 

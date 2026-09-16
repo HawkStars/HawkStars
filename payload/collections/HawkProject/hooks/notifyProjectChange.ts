@@ -10,10 +10,6 @@ export const notifyProjectChange: CollectionAfterChangeHook<HawkProject> = async
 }) => {
   const title = doc.heading || doc.slug || String(doc.id);
 
-  // hawk_projects has autosave at a 2s interval, so afterChange fires continuously
-  // while an editor has a project open. Without this guard a 20-minute session wrote
-  // ~600 notification rows — the main driver of that collection's unbounded growth.
-  // Pages and News already carry the same check.
   const published = doc._status === 'published';
   const becamePublished = published && previousDoc?._status !== 'published';
 

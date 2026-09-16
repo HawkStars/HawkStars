@@ -1,5 +1,5 @@
 import { Contribution } from '@/payload-types';
-import { PaginatedDocs } from 'payload';
+import type { PaginatedDocs } from 'payload';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { LanguageProps } from '../types';
 import { getServerTranslation } from '@/i18n';

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { PaginatedDocs } from 'payload';
+import type { PaginatedDocs } from 'payload';
 import { Language } from '@/i18n/settings';
 import ListFilters, { ListFilterConfig } from '@/components/utils/ListFilters';
 import { ContentSection } from '@/components/layout';

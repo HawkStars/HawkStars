@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ImageMedia } from '@/payload/components/Media';
-import { MemberProjectDoc } from '@/lib/payload/queries/memberProject';
+import type { MemberProjectDoc } from '@/lib/payload/queries/memberProject';
 import { Language, toIntlLocale } from '@/i18n/settings';
 
 type T = (key: string) => string;

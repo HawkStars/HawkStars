@@ -59,6 +59,12 @@ jobs:
       - name: Check types
         run: pnpm typecheck
 
+      # Storybook builds every story for the browser. A story that reaches Payload's
+      # server entry point fails the Chromatic build with an opaque Rollup
+      # MISSING_EXPORT from `file-type` that names no story. This names the chain.
+      - name: Check story import graph
+        run: pnpm check:stories
+
       - name: Install Chromium for the Playwright
         run: pnpm exec playwright install --with-deps chromium
 

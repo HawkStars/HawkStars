@@ -1,4 +1,4 @@
-import type { HawkEvent } from '@/payload-types';
+import type { AgendaBlock, HawkEvent } from '@/payload-types';
 import type { Where } from 'payload';
 import { stringify } from 'qs-esm';
 
@@ -6,12 +6,75 @@ import API_CLIENT_PATHS from '../constants';
 import { Language } from '@/i18n/settings';
 import payloadClientQuery from '../client';
 
+type FetchEventOptions = {
+  controller: AbortController;
+  eventType?: ('local_event' | 'international_event' | 'other')[] | null | undefined;
+};
+
+/**
+ * Fetch the single next upcoming hawk event for the UpcomingHawkEventBlock.
+ *
+ * NOTE: this previously queried API_CLIENT_PATHS.projects (/api/hawk_projects),
+ * which holds neither `date` nor `type_event`, so the block rendered whichever
+ * project happened to come back first. It also had no date filter and no sort,
+ * so "upcoming" was never actually enforced.
+ */
+const fetchEvent = async ({ controller, eventType }: FetchEventOptions) => {
+  const now = new Date().toISOString();
+
+  const conditions: Where[] = [{ date: { greater_than_equal: now } }];
+  if (eventType && eventType.length > 0) conditions.push({ type_event: { in: eventType } });
+
+  const query = stringify(
+    { where: { and: conditions }, limit: 1, sort: 'date' },
+    { addQueryPrefix: true }
+  );
+
+  return await payloadClientQuery<HawkEvent | null>({
+    url: API_CLIENT_PATHS.events,
+    query,
+    method: 'GET',
+    fallback: null,
+    controller,
+    singleValue: true,
+  });
+};
+
+// --- AgendaBlock ---
+
+type FetchAgendaEventsOptions = {
+  eventType?: AgendaBlock['eventType'];
+  maxEvents?: AgendaBlock['maxEvents'];
+};
+
 /**
  * Fetch upcoming hawk events for the AgendaBlock.
  *
  * NOTE: previously this fetched from /api/hawk_projects — it now correctly
  * targets /api/hawk_events, which holds the date/type_event fields being filtered.
  */
+const fetchAgendaEvents = async ({ eventType, maxEvents }: FetchAgendaEventsOptions) => {
+  const today = new Date().toISOString();
+  const limit = maxEvents && maxEvents > 0 ? Math.min(maxEvents, 20) : 5;
+
+  const dateFilter: Where = {
+    or: [{ date: { greater_than_equal: today } }, { endDate: { greater_than_equal: today } }],
+  };
+
+  const where: Where =
+    eventType && eventType.length > 0
+      ? { and: [dateFilter, { type_event: { in: eventType } }] }
+      : dateFilter;
+
+  const query = stringify({ where, limit, sort: 'date' }, { addQueryPrefix: true });
+
+  return await payloadClientQuery<HawkEvent[]>({
+    url: API_CLIENT_PATHS.events,
+    query,
+    method: 'GET',
+    fallback: [],
+  });
+};
 
 const getEventsByMonthAndYear = async (
   locale: Language,
@@ -51,4 +114,4 @@ const getEventsByMonthAndYear = async (
   });
 };
 
-export { getEventsByMonthAndYear };
+export { fetchEvent, fetchAgendaEvents, getEventsByMonthAndYear };

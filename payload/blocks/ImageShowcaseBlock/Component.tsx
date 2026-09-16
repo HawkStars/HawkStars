@@ -121,7 +121,7 @@ export const ImageShowcaseBlock = ({
         {/* Main showcased image */}
         {/* `min-h` beats a smaller `max-h` in CSS, so max-h-120 never applied and the
             stage was unconditionally ≥720px — far below the fold on phones. */}
-        <div ref={mainImageRef} className='relative max-h-[45rem] min-h-[20rem] w-full rounded-xl'>
+        <div ref={mainImageRef} className='relative max-h-180 min-h-80 w-full rounded-xl'>
           {activeImage && (
             <>
               <ImageMedia

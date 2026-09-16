@@ -5,19 +5,15 @@ import './richtext.scss';
 import { cn } from '@/lib/utils';
 
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
-import { UpcomingHawkEventBlock } from '@/payload/blocks/UpcomingHawkEventBlock/Component';
-import { SponsorsBlock } from '@/payload/blocks/SponsorsBlock/Component';
-import { LatestNewsBlock } from '@/payload/blocks/LatestNewsBlock/Component';
-import { AgendaBlockComponent } from '@/payload/blocks/AgendaBlock/Component';
 import { HeroBlock } from '@/payload/blocks/Hero/Component';
 import { HeroWithBackgroundImageBlock } from '@/payload/blocks/HeroWithBackgroundImage/Component';
 import { ContentWithImageBlock } from '@/payload/blocks/ContentWithImage/Component';
 import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
 import { GlobalVillageAboutSectionBlockComponent } from '@/payload/blocks/GlobalVillageAboutSection/Component';
-import {
+import type {
   SerializedLinkNode,
-  type DefaultTypedEditorState,
-  type SerializedBlockNode,
+  DefaultTypedEditorState,
+  SerializedBlockNode,
 } from '@payloadcms/richtext-lexical';
 import {
   JSXConvertersFunction,
@@ -105,6 +101,9 @@ const makeInternalDocToHref =
 // MediaBlock still shipped the JS for the donation widget, the agenda calendar, embla
 // and every carousel block. `dynamic()` without `ssr: false` keeps them
 // server-rendered — only the client chunk is deferred to when the block is used.
+const AgendaBlockComponent = dynamic(() =>
+  import('@/payload/blocks/AgendaBlock/Component').then((m) => m.AgendaBlockComponent)
+);
 const CampaignCountdownBlock = dynamic(() =>
   import('@/payload/blocks/CampaignCountdownBlock/Component').then((m) => m.CampaignCountdownBlock)
 );
@@ -128,6 +127,9 @@ const ImageComparisonSliderBlock = dynamic(() =>
 const ImageShowcaseBlock = dynamic(() =>
   import('@/payload/blocks/ImageShowcaseBlock/Component').then((m) => m.ImageShowcaseBlock)
 );
+const LatestNewsBlock = dynamic(() =>
+  import('@/payload/blocks/LatestNewsBlock/Component').then((m) => m.LatestNewsBlock)
+);
 const NewsletterSignupBlock = dynamic(() =>
   import('@/payload/blocks/NewsletterSignupBlock/Component').then((m) => m.NewsletterSignupBlock)
 );
@@ -136,8 +138,14 @@ const ProjectTestimonialBlock = dynamic(() =>
     (m) => m.ProjectTestimonialBlock
   )
 );
+const SponsorsBlock = dynamic(() =>
+  import('@/payload/blocks/SponsorsBlock/Component').then((m) => m.SponsorsBlock)
+);
 const TestimonialBlock = dynamic(() =>
   import('@/payload/blocks/TestimonialBlock/Component').then((m) => m.TestimonialBlock)
+);
+const UpcomingHawkEventBlock = dynamic(() =>
+  import('@/payload/blocks/UpcomingHawkEventBlock/Component').then((m) => m.UpcomingHawkEventBlock)
 );
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,8 +1,11 @@
+'use client';
+
+import { useCallback, useEffect, useState } from 'react';
 import type { AgendaBlock as AgendaBlockProps, HawkEvent, HawkProject } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { AgendaBlockView, type AgendaEventItem } from './AgendaBlockView';
-import { getAgendaForBlock } from '@/lib/payload/queries/blocks';
-import { Language } from '@/i18n/settings';
+import { fetchAgendaEvents } from '@/lib/payload/client-side/queries/event';
+import { fetchAgendaProjects } from '@/lib/payload/client-side/queries/projects';
 
 function toAgendaItem(event: HawkEvent): AgendaEventItem {
   const image = getImagePayloadUrl(event.image);
@@ -36,10 +39,7 @@ function toProjectToAgendaItem(project: HawkProject): AgendaEventItem {
   };
 }
 
-// Server component. The client version issued two parallel REST calls after
-// hydration — the projects one returning up to 20 documents at depth 2, i.e. the whole
-// page-tab, partners and itinerary tree — with no locale and nothing cached.
-export async function AgendaBlockComponent({
+export function AgendaBlockComponent({
   title,
   subtitle,
   eventType,
@@ -47,17 +47,35 @@ export async function AgendaBlockComponent({
   layout,
   linkLabel,
   sectionId,
-  lng,
-}: AgendaBlockProps & { lng: Language }) {
-  const { events, projects } = await getAgendaForBlock(lng, eventType, maxEvents);
+}: AgendaBlockProps) {
+  const [events, setEvents] = useState<AgendaEventItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const allEvents = [...projects.map(toProjectToAgendaItem), ...events.map(toAgendaItem)].sort(
-    (a, b) => {
+  const fetch = useCallback(async () => {
+    setLoading(true);
+    const [projects, events] = await Promise.all([
+      fetchAgendaProjects({ maxEvents }),
+      fetchAgendaEvents({ eventType, maxEvents }),
+    ]);
+
+    const projectsMapped = projects.map(toProjectToAgendaItem);
+    const agendaMapped = events.map(toAgendaItem);
+    const allEvents = [...projectsMapped, ...agendaMapped].sort((a, b) => {
       const dateA = a.date ? new Date(a.date).getTime() : 0;
       const dateB = b.date ? new Date(b.date).getTime() : 0;
       return dateA - dateB;
-    }
-  );
+    });
+
+    setLoading(false);
+    setEvents(allEvents);
+  }, [eventType, maxEvents]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetch();
+    };
+    fetchData();
+  }, [fetch]);
 
   return (
     <AgendaBlockView
@@ -66,8 +84,8 @@ export async function AgendaBlockComponent({
       layout={layout as 'list' | 'compact' | 'cards' | null}
       linkLabel={linkLabel}
       sectionId={sectionId}
-      events={allEvents}
-      loading={false}
+      events={events}
+      loading={loading}
     />
   );
 }

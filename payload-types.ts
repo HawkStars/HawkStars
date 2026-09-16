@@ -3495,6 +3495,9 @@ export interface LogosBlock {
    * Button text (e.g. Become a partner)
    */
   buttonText?: string | null;
+  /**
+   * Where the button goes. A site path (/partners) or a full https:// URL.
+   */
   buttonLink?: string | null;
   logos: LogosBlockLogo;
   /**
@@ -4084,7 +4087,7 @@ export interface HawkStarsProjectInformation {
   documents?: HawkStarsProjectDocument;
 }
 /**
- * Manage admin panel users and their roles. Admins have full access; Editors can manage content but not users or settings. Only admins can create new users.
+ * Manage admin panel users. Every account can manage content; admins additionally manage users, settings, donations and deletions. Only admins can create new users.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
@@ -5985,6 +5988,7 @@ export interface LogosBlockSelect<T extends boolean = true> {
   heading?: T;
   description?: T;
   buttonText?: T;
+  buttonLink?: T;
   logos?: T | LogosBlockLogoSelect<T>;
   sectionId?: T;
   id?: T;
@@ -6568,7 +6572,6 @@ export interface Setting {
    * File Id that will be used to update the crowdfunding supporters.
    */
   crowdfundingFileId?: string | null;
-  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -6867,7 +6870,6 @@ export interface SettingsSelect<T extends boolean = true> {
   instagramToken?: T;
   instagramUserId?: T;
   crowdfundingFileId?: T;
-  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

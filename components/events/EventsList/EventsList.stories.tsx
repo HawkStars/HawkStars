@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { PaginatedDocs } from 'payload';
+import type { PaginatedDocs } from 'payload';
 import { HawkProject } from '@/payload-types';
 import EventsList from './index';
 

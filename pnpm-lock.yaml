@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@googleapis/drive':
-        specifier: ^22.0.0
-        version: 22.0.0(supports-color@8.1.1)
+        specifier: ^25.0.0
+        version: 25.0.0(supports-color@8.1.1)
       '@payloadcms/db-mongodb':
         specifier: ^3.89.0
         version: 3.89.0(payload@3.89.0(graphql@16.14.2)(supports-color@8.1.1)(typescript@6.0.3))(supports-color@8.1.1)
@@ -290,7 +290,7 @@ importers:
         version: 8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4)
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(@vitest/browser-playwright@5.0.0)(@vitest/coverage-v8@5.0.0)(@vitest/ui@5.0.0)(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(@vitest/browser-playwright@5.0.0)(@vitest/coverage-v8@5.0.0)(@vitest/ui@5.0.0)(happy-dom@20.14.5)(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))
 
 packages:
 
@@ -737,9 +737,9 @@ packages:
   '@floating-ui/utils@0.2.12':
     resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
 
-  '@googleapis/drive@22.0.0':
-    resolution: {integrity: sha512-u21JQPR5mGKt8OqjsDndb+l5b44IXCKTum+P1Q1rlWmi2pUNZqcNeq7csx06xlwj+UeZv5/ZhhhAjziVZu86Dg==}
-    engines: {node: '>=12.0.0'}
+  '@googleapis/drive@25.0.0':
+    resolution: {integrity: sha512-tCw1qO18DjC7b6AMTbhRuqUqVA2F9FYA2aQlqQlkDD9eybe/ClRD1XRcIXuNhKDhvCGP9WORC8IrUmSUC1IyVw==}
+    engines: {node: '>=22.0.0'}
 
   '@humanfs/core@0.19.2':
     resolution: {integrity: sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA==}
@@ -4425,9 +4425,13 @@ packages:
     resolution: {integrity: sha512-YGGyuEdVIjqxkxVH1pUTMY/XtmmsApXrCVv5EU25iX6inEPbV+VakJfLealkBtJN69AQmh1eGOdCl9Sm1UP6XQ==}
     engines: {node: '>=18'}
 
-  gcp-metadata@8.1.4:
-    resolution: {integrity: sha512-iJ9KMsiu+xKtNRX0PmGLSaIU3bUBAyzWTyqKemKPzNPsmmsBCQYmlNg+brEbES7IHSXtdVwzBPzx1vz3FAaipw==}
+  gaxios@7.3.1:
+    resolution: {integrity: sha512-kB3rzJV7d9juLZh8/56QTXCwQfxyhdOMdyYk1HdQKFtF8TJTDTZQJtixWIwXdE9Jji91mC41DUNpjleo4L4eAQ==}
     engines: {node: '>=18'}
+
+  gcp-metadata@9.0.3:
+    resolution: {integrity: sha512-2YYnIlHaKBGT2IPg3G2M57hia9Galz15zsEOvw9T3oRf0lSn6KN6VcHQLqby7x8ksYKnjXvp3rp2KJyLCN6zfQ==}
+    engines: {node: '>=22'}
 
   generator-function@2.0.1:
     resolution: {integrity: sha512-SFdFmIJi+ybC0vjlHN0ZGVGHc3lgE0DxPAT0djjVg+kjOnSqclqmj0KQ7ykTOLP6YxoqOvuAODGdcHJn+43q3g==}
@@ -4508,17 +4512,17 @@ packages:
   globrex@0.1.2:
     resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
 
-  google-auth-library@10.5.0:
-    resolution: {integrity: sha512-7ABviyMOlX5hIVD60YOfHw4/CxOfBhyduaYB+wbFWCWoni4N7SLcV46hrVRktuBbZjFC9ONyqamZITN7q3n32w==}
-    engines: {node: '>=18'}
+  google-auth-library@11.0.2:
+    resolution: {integrity: sha512-vzpgPutxrghPsnjrjpzLX2bdv8IOL719Rh0oEjGnQu8YCIbnbMuTTQ5zU9LcKvLdOPgCxBwppbvnhgW90Qna5Q==}
+    engines: {node: '>=22'}
 
-  google-logging-utils@1.1.3:
-    resolution: {integrity: sha512-eAmLkjDjAFCVXg7A1unxHsLf961m6y17QFqXqAXGj/gVkKFrEICfStRfwUlGNfeCEjNRa32JEWOUTlYXPyyKvA==}
-    engines: {node: '>=14'}
+  google-logging-utils@2.0.1:
+    resolution: {integrity: sha512-HMhaQghlOTvbcb3c4T5jmmOMtG3JUF1iOQMezaJXL86CDS+Tm2vHd0IeLFRAx3+ewd+bo9E1HFHoy17X5aJa9A==}
+    engines: {node: '>=22'}
 
-  googleapis-common@8.0.3:
-    resolution: {integrity: sha512-7g1yzQKx0mmNTjiK0H9dJ8eqKqDBveES9vLHeg5neb3BMQy/d1oQefIMhIpOVT8a+f+LOcixMEdRbFIW/cQUJw==}
-    engines: {node: '>=18'}
+  googleapis-common@9.0.4:
+    resolution: {integrity: sha512-fcI5bm1gN+9MNb+gvANRPFsxaJ07h/ZYvKCh6H3RoDJBUTwp5ySaCpCqnmX8gnGJUD/9bKmkacivRJT1g+xXyg==}
+    engines: {node: '>=22'}
 
   gopd@1.2.0:
     resolution: {integrity: sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==}
@@ -4545,10 +4549,6 @@ packages:
   graphql@16.14.2:
     resolution: {integrity: sha512-Chq1s4CY7jmh8gO2qvLIJyfCDIN+EHLFW/9iShnp1z8FjBQMoodWP1kDC36VAMXXIvAjj4ARa7ntfAV2BrjsbA==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
-
-  gtoken@8.0.0:
-    resolution: {integrity: sha512-+CqsMbHPiSTdtSO14O51eMNlrp9N79gmeqmXeouJOhfucAedHw9noVe/n5uJk3tbKE6a+6ZCQg3RPhVhHByAIw==}
-    engines: {node: '>=18'}
 
   happy-dom@20.14.5:
     resolution: {integrity: sha512-x/RzkpWO40bTjIoT30iQtt64FLLmH/iRcUCN2X//bLx7H3ifkdfPXyqsro/OYtqzIAhiLMMA7mmiOR9C3NOKjQ==}
@@ -7679,9 +7679,9 @@ snapshots:
 
   '@floating-ui/utils@0.2.12': {}
 
-  '@googleapis/drive@22.0.0(supports-color@8.1.1)':
+  '@googleapis/drive@25.0.0(supports-color@8.1.1)':
     dependencies:
-      googleapis-common: 8.0.3(supports-color@8.1.1)
+      googleapis-common: 9.0.4(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -9790,7 +9790,7 @@ snapshots:
       storybook: 10.6.0(@types/react@19.2.18)(prettier@3.9.6)(react@19.2.8)
     optionalDependencies:
       '@vitest/browser-playwright': 5.0.0(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(playwright@1.63.0)(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))(vitest@5.0.0)
-      vitest: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(@vitest/browser-playwright@5.0.0)(@vitest/coverage-v8@5.0.0)(@vitest/ui@5.0.0)(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))
+      vitest: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(@vitest/browser-playwright@5.0.0)(@vitest/coverage-v8@5.0.0)(@vitest/ui@5.0.0)(happy-dom@20.14.5)(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))
     transitivePeerDependencies:
       - react
 
@@ -10319,7 +10319,7 @@ snapshots:
       '@vitest/mocker': 5.0.0(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))
       playwright: 1.63.0
       tinyrainbow: 3.1.1
-      vitest: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(@vitest/browser-playwright@5.0.0)(@vitest/coverage-v8@5.0.0)(@vitest/ui@5.0.0)(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))
+      vitest: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(@vitest/browser-playwright@5.0.0)(@vitest/coverage-v8@5.0.0)(@vitest/ui@5.0.0)(happy-dom@20.14.5)(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))
     transitivePeerDependencies:
       - bufferutil
       - msw
@@ -10336,7 +10336,7 @@ snapshots:
       pngjs: 7.0.0
       sirv: 3.0.2
       tinyrainbow: 3.1.1
-      vitest: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(@vitest/browser-playwright@5.0.0)(@vitest/coverage-v8@5.0.0)(@vitest/ui@5.0.0)(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))
+      vitest: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(@vitest/browser-playwright@5.0.0)(@vitest/coverage-v8@5.0.0)(@vitest/ui@5.0.0)(happy-dom@20.14.5)(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))
       ws: 8.21.3
     transitivePeerDependencies:
       - bufferutil
@@ -10354,7 +10354,7 @@ snapshots:
       obug: 2.2.1
       std-env: 4.2.0
       tinyrainbow: 3.1.1
-      vitest: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(@vitest/browser-playwright@5.0.0)(@vitest/coverage-v8@5.0.0)(@vitest/ui@5.0.0)(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))
+      vitest: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(@vitest/browser-playwright@5.0.0)(@vitest/coverage-v8@5.0.0)(@vitest/ui@5.0.0)(happy-dom@20.14.5)(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))
 
   '@vitest/expect@3.2.4':
     dependencies:
@@ -10402,7 +10402,7 @@ snapshots:
       pathe: 2.0.3
       sirv: 3.0.2
       tinyrainbow: 3.1.1
-      vitest: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(@vitest/browser-playwright@5.0.0)(@vitest/coverage-v8@5.0.0)(@vitest/ui@5.0.0)(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))
+      vitest: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(@vitest/browser-playwright@5.0.0)(@vitest/coverage-v8@5.0.0)(@vitest/ui@5.0.0)(happy-dom@20.14.5)(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))
 
   '@vitest/utils@3.2.4':
     dependencies:
@@ -11715,10 +11715,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  gcp-metadata@8.1.4(supports-color@8.1.1):
+  gaxios@7.3.1(supports-color@8.1.1):
+    dependencies:
+      extend: 3.0.2
+      https-proxy-agent: 7.0.6(supports-color@8.1.1)
+      node-fetch: 3.3.2
+    transitivePeerDependencies:
+      - supports-color
+
+  gcp-metadata@9.0.3(supports-color@8.1.1):
     dependencies:
       gaxios: 7.1.3(supports-color@8.1.1)
-      google-logging-utils: 1.1.3
+      google-logging-utils: 2.0.1
       json-bigint: 1.0.0
     transitivePeerDependencies:
       - supports-color
@@ -11825,26 +11833,25 @@ snapshots:
 
   globrex@0.1.2: {}
 
-  google-auth-library@10.5.0(supports-color@8.1.1):
+  google-auth-library@11.0.2(supports-color@8.1.1):
     dependencies:
       base64-js: 1.5.1
       ecdsa-sig-formatter: 1.0.11
-      gaxios: 7.1.3(supports-color@8.1.1)
-      gcp-metadata: 8.1.4(supports-color@8.1.1)
-      google-logging-utils: 1.1.3
-      gtoken: 8.0.0(supports-color@8.1.1)
+      gaxios: 7.3.1(supports-color@8.1.1)
+      gcp-metadata: 9.0.3(supports-color@8.1.1)
+      google-logging-utils: 2.0.1
       jws: 4.0.1
     transitivePeerDependencies:
       - supports-color
 
-  google-logging-utils@1.1.3: {}
+  google-logging-utils@2.0.1: {}
 
-  googleapis-common@8.0.3(supports-color@8.1.1):
+  googleapis-common@9.0.4(supports-color@8.1.1):
     dependencies:
       extend: 3.0.2
-      gaxios: 7.1.3(supports-color@8.1.1)
-      google-auth-library: 10.5.0(supports-color@8.1.1)
-      google-logging-utils: 1.1.3
+      gaxios: 7.3.1(supports-color@8.1.1)
+      google-auth-library: 11.0.2(supports-color@8.1.1)
+      google-logging-utils: 2.0.1
       qs: 6.16.0
       url-template: 2.0.8
     transitivePeerDependencies:
@@ -11868,13 +11875,6 @@ snapshots:
       tslib: 2.8.1
 
   graphql@16.14.2: {}
-
-  gtoken@8.0.0(supports-color@8.1.1):
-    dependencies:
-      gaxios: 7.1.3(supports-color@8.1.1)
-      jws: 4.0.1
-    transitivePeerDependencies:
-      - supports-color
 
   happy-dom@20.14.5:
     dependencies:
@@ -14484,7 +14484,7 @@ snapshots:
       terser: 5.51.2
       tsx: 4.22.4
 
-  vitest@5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(@vitest/browser-playwright@5.0.0)(@vitest/coverage-v8@5.0.0)(@vitest/ui@5.0.0)(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4)):
+  vitest@5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(@vitest/browser-playwright@5.0.0)(@vitest/coverage-v8@5.0.0)(@vitest/ui@5.0.0)(happy-dom@20.14.5)(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4)):
     dependencies:
       '@types/chai': 5.2.3
       '@vitest/mocker': 5.0.0(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))
@@ -14506,6 +14506,7 @@ snapshots:
       '@vitest/browser-playwright': 5.0.0(msw@2.15.0(@types/node@26.4.1)(typescript@6.0.3))(playwright@1.63.0)(vite@8.3.0(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.77.4)(terser@5.51.2)(tsx@4.22.4))(vitest@5.0.0)
       '@vitest/coverage-v8': 5.0.0(vitest@5.0.0)
       '@vitest/ui': 5.0.0(vitest@5.0.0)
+      happy-dom: 20.14.5
     transitivePeerDependencies:
       - msw
 
