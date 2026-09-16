@@ -39,16 +39,30 @@ function isAuthorisedWebhook(request: Request): boolean {
   }
 
   const provided = request.headers.get('x-webhook-token');
-  if (!provided) return false;
+  if (!provided) {
+    captureSentryMessage('EasyPay webhook rejected: no x-webhook-token header', 'warning');
+    return false;
+  }
 
   // Compare as fixed-length buffers to avoid a timing side-channel; a plain
   // `===` short-circuits on the first mismatched byte, and a length mismatch
   // would throw in timingSafeEqual, so pad/hash both sides to a fixed size.
   const expectedBuf = Buffer.from(expected);
   const providedBuf = Buffer.from(provided);
-  if (expectedBuf.length !== providedBuf.length) return false;
+  if (expectedBuf.length !== providedBuf.length) {
+    captureSentryMessage('EasyPay webhook rejected: token length mismatch', 'warning');
+    return false;
+  }
 
-  return timingSafeEqual(expectedBuf, providedBuf);
+  const ok = timingSafeEqual(expectedBuf, providedBuf);
+  if (!ok) {
+    // Every rejection is reported, not just a missing secret. A
+    // present-but-wrong token used to fail silently, which looks identical to
+    // "no donations came in today" — the webhook can be misconfigured for weeks
+    // with nothing to alert on.
+    captureSentryMessage('EasyPay webhook rejected: token mismatch', 'warning');
+  }
+  return ok;
 }
 
 /**
@@ -107,9 +121,30 @@ function isTransactionNotification(
 }
 
 /**
+ * A notification may only confirm a contribution for the amount that was
+ * actually requested. A notification that carries no value at all (the generic
+ * capture shape) is accepted, since there is nothing to disagree with.
+ */
+function amountMatches(
+  contribution: { value?: number | null },
+  notification?: { value?: number; currency?: string }
+): boolean {
+  if (!notification || notification.value === undefined) return true;
+  // Nothing recorded to disagree with (legacy rows). Treating a missing stored
+  // value as 0 would refuse to confirm them forever.
+  if (contribution.value === undefined || contribution.value === null) return true;
+  if (notification.currency !== undefined && notification.currency !== 'EUR') return false;
+
+  // Tolerance of one cent: these are floats on both sides of an HTTP boundary.
+  return Math.abs(contribution.value - notification.value) < 0.01;
+}
+
+/**
  * Handle generic notifications (capture success/failure)
  */
 async function handleGenericNotification(notification: EasyPayGenericNotification): Promise<void> {
+  // The generic shape carries no `value`/`currency`, so there is no amount to
+  // cross-check — only the transaction shape below can be verified.
   if (notification.status === 'success' && notification.type === 'capture') {
     await updateContributionStatus(notification.key, true);
   } else if (notification.status === 'failed') {
@@ -183,9 +218,9 @@ async function handleTransactionNotification(
   notification: EasyPayTransactionNotification
 ): Promise<void> {
   if (notification.status === 'success') {
-    await updateContributionStatus(notification.key, true);
+    await updateContributionStatus(notification.key, true, notification);
   } else if (notification.status === 'failed') {
-    await updateContributionStatus(notification.key, false);
+    await updateContributionStatus(notification.key, false, notification);
   }
 }
 
@@ -194,7 +229,8 @@ async function handleTransactionNotification(
  */
 async function updateContributionStatus(
   transactionKey: string,
-  isConfirmed: boolean
+  isConfirmed: boolean,
+  notification?: { value?: number; currency?: string }
 ): Promise<void> {
   try {
     const payload = await getPayloadConfig();
@@ -212,6 +248,38 @@ async function updateContributionStatus(
 
     if (contributions.docs.length > 0) {
       const contribution = contributions.docs[0];
+
+      // Cross-check before confirming. Authentication here is a single static
+      // shared secret that EasyPay sends on every notification and that CI
+      // writes into .env — so anyone who obtains it could previously mark any
+      // contribution confirmed, and the public transparency total sums `value`
+      // over confirmed rows. Only confirm a payment for the amount we asked for.
+      if (isConfirmed && !amountMatches(contribution, notification)) {
+        Sentry.captureMessage(
+          `EasyPay notification amount mismatch for transaction key: ${transactionKey}`,
+          {
+            level: 'error',
+            extra: {
+              expectedValue: contribution.value,
+              notifiedValue: notification?.value,
+              notifiedCurrency: notification?.currency,
+            },
+          }
+        );
+        return;
+      }
+
+      // Refuse to un-confirm a payment that is already confirmed. `failed`
+      // notifications are replayable, and moving a settled donation back out of
+      // the published total on a replay is the wrong direction to fail in.
+      if (!isConfirmed && contribution.is_confirmed) {
+        Sentry.captureMessage(
+          `Ignored a 'failed' notification for an already-confirmed contribution: ${transactionKey}`,
+          { level: 'warning' }
+        );
+        return;
+      }
+
       await payload.update({
         collection: CONTRIBUTION_COLLECTION,
         id: contribution.id,

@@ -6,16 +6,24 @@ import { Metadata } from 'next';
 import { getSingleHawkEventQuery } from '@/lib/payload/queries/hawkEvent';
 import EventPage from '@/components/events/EventPage';
 import { EventJsonLd } from '@/components/seo/JsonLd';
-import { BASE_URL } from '@/lib/constants';
+import { BASE_URL, SITE_NAME } from '@/lib/constants';
 import { Suspense } from 'react';
 import { getImagePayloadUrl } from '@/lib/image';
+
+// A missing document used to `return {}`, which inherits from the parent layout
+// — and (org)/layout.tsx exports no metadata at all, so a mistyped slug rendered
+// with no <title> (the tab showed the URL), no canonical and no robots rule.
+const notFoundMetadata = (): Metadata => ({
+  title: SITE_NAME,
+  robots: { index: false, follow: false },
+});
 
 export async function generateMetadata(props: EventPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng, slug } = params;
 
   const event = await getSingleHawkEventQuery(slug, lng as Language);
-  if (!event) return {};
+  if (!event) return notFoundMetadata();
 
   return prepareMetadataInfo({
     title: event.heading || '',

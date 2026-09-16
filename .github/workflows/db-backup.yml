@@ -36,7 +36,11 @@ concurrency:
 
 env:
   DB_NAME: hawkstars
-  RETENTION_DAYS: '14'
+  RETENTION_DAYS: '31'
+  # Floor for a plausible dump. A gzipped archive of a populated CMS is far
+  # bigger than this; anything under it is a truncated or empty dump that must
+  # not be uploaded and must not push a real backup out of the retention window.
+  MIN_ARCHIVE_BYTES: '102400'
 
 jobs:
   backup:
@@ -45,7 +49,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Dump MongoDB and upload to Google Drive
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1
         env:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
@@ -53,6 +57,10 @@ jobs:
           GDRIVE_BACKUP_FOLDER_ID: ${{ secrets.GDRIVE_BACKUP_FOLDER_ID }}
           DB_NAME: ${{ env.DB_NAME }}
           RETENTION_DAYS: ${{ env.RETENTION_DAYS }}
+          MIN_ARCHIVE_BYTES: ${{ env.MIN_ARCHIVE_BYTES }}
+          # Set this secret once Mongo authentication is enabled; until then the
+          # dump falls back to the unauthenticated local URI.
+          DATABASE_URI: ${{ secrets.DATABASE_URI }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
@@ -60,7 +68,7 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: 22
           command_timeout: 25m
-          envs: GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,GOOGLE_REFRESH_TOKEN,GDRIVE_BACKUP_FOLDER_ID,DB_NAME,RETENTION_DAYS
+          envs: GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,GOOGLE_REFRESH_TOKEN,GDRIVE_BACKUP_FOLDER_ID,DB_NAME,RETENTION_DAYS,MIN_ARCHIVE_BYTES,DATABASE_URI
           script: |
             set -euo pipefail
 
@@ -83,10 +91,28 @@ jobs:
             ARCHIVE="$WORKDIR/${DB_NAME}-${STAMP}.gz"
 
             echo "Dumping database '${DB_NAME}' to ${ARCHIVE} ..."
-            mongodump --uri="mongodb://localhost:27017/${DB_NAME}" \
+            mongodump --uri="${DATABASE_URI:-mongodb://localhost:27017/${DB_NAME}}" \
               --archive="$ARCHIVE" --gzip
             SIZE="$(du -h "$ARCHIVE" | cut -f1)"
-            echo "Dump complete (${SIZE})."
+            BYTES="$(stat -c%s "$ARCHIVE")"
+            echo "Dump complete (${SIZE}, ${BYTES} bytes)."
+
+            # ----- validate the dump before it counts as a backup ----------------
+            # mongodump exits 0 on an empty or partially-readable database, so
+            # without these two checks a truncated archive was uploaded and
+            # counted as good — while the retention prune below deleted the last
+            # real one behind it.
+            if [ "$BYTES" -lt "$MIN_ARCHIVE_BYTES" ]; then
+              echo "::error::Dump is only ${BYTES} bytes (minimum ${MIN_ARCHIVE_BYTES}). Refusing to upload a probably-truncated backup."
+              exit 1
+            fi
+
+            echo "Verifying the archive can be read back ..."
+            if ! mongorestore --archive="$ARCHIVE" --gzip --dryRun --quiet; then
+              echo "::error::mongorestore --dryRun could not read the archive. Refusing to upload."
+              exit 1
+            fi
+            echo "Archive verified."
 
             # ----- get a fresh access token -------------------------------------
             echo "Requesting Google access token ..."
@@ -100,16 +126,35 @@ jobs:
               exit 1
             fi
 
-            # ----- upload (resumable, metadata + content) -----------------------
+            # ----- upload (resumable) -------------------------------------------
+            # Was uploadType=multipart despite the comment claiming resumable.
+            # Google documents multipart for files of 5 MB or less; the whole
+            # archive was buffered into one request with no resume point, which
+            # works until the database grows and then fails silently.
             FILENAME="$(basename "$ARCHIVE")"
-            echo "Uploading ${FILENAME} to Google Drive folder ${GDRIVE_BACKUP_FOLDER_ID} ..."
-            META="{\"name\":\"${FILENAME}\",\"parents\":[\"${GDRIVE_BACKUP_FOLDER_ID}\"]}"
+            echo "Uploading ${FILENAME} (${SIZE}) to Google Drive folder ${GDRIVE_BACKUP_FOLDER_ID} ..."
+            META="$(jq -n --arg name "$FILENAME" --arg parent "$GDRIVE_BACKUP_FOLDER_ID" \
+              '{name: $name, parents: [$parent]}')"
 
-            UPLOAD_RESPONSE="$(curl -s -X POST \
-              "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&supportsAllDrives=true" \
+            SESSION_URI="$(curl -s -D - -o /dev/null -X POST \
+              "https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable&supportsAllDrives=true" \
               -H "Authorization: Bearer ${ACCESS_TOKEN}" \
-              -F "metadata=${META};type=application/json;charset=UTF-8" \
-              -F "file=@${ARCHIVE};type=application/gzip")"
+              -H "Content-Type: application/json; charset=UTF-8" \
+              -H "X-Upload-Content-Type: application/gzip" \
+              -H "X-Upload-Content-Length: ${BYTES}" \
+              --data "$META" \
+              | tr -d '\r' | awk 'tolower($1) == "location:" { print $2 }')"
+
+            if [ -z "$SESSION_URI" ]; then
+              echo "::error::Could not open a resumable upload session."
+              exit 1
+            fi
+
+            UPLOAD_RESPONSE="$(curl -s --retry 5 --retry-delay 10 --retry-all-errors \
+              -X PUT "$SESSION_URI" \
+              -H "Content-Type: application/gzip" \
+              -H "Content-Length: ${BYTES}" \
+              --upload-file "$ARCHIVE")"
 
             FILE_ID="$(echo "$UPLOAD_RESPONSE" | jq -r '.id')"
             if [ -z "$FILE_ID" ] || [ "$FILE_ID" = "null" ]; then

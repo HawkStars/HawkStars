@@ -25,7 +25,10 @@ type NewsPageProps = {
 export async function generateMetadata(props: NewsPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng } = params;
-  return getMetadataPageInfo(lng as Language, 'news');
+  // `?page=N` used to canonicalise to page 1, so Google treated pages 2..N as
+  // duplicates of the first and dropped them. Filter params stay excluded.
+  const pageNumber = Number((await props.searchParams)?.page) || undefined;
+  return getMetadataPageInfo(lng as Language, 'news', pageNumber);
 }
 
 // This route had no <Suspense> at all while awaiting `searchParams`, which is

@@ -102,9 +102,8 @@ export default function DonationWidget() {
       };
 
       if (isSubscription) {
-        payload.frequency = '1M';
-        payload.capture_now = true;
-        payload.unlimited_payments = true;
+        // Named plan; the route derives frequency and capture settings from it.
+        payload.plan = 'monthly';
       } else {
         payload.paymentType = paymentMethod;
       }

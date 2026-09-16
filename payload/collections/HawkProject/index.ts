@@ -153,6 +153,9 @@ export const HawkProject: CollectionConfig = {
     },
     {
       name: 'startDate',
+      // Filtered and/or sorted on by the public list queries; an unindexed sort
+      // on a growing collection uses Mongo's blocking sort, which hard-errors at 32MB.
+      index: true,
       label: { en: 'Start Date', pt: 'Data de Início' },
       type: 'date',
       admin: {
@@ -163,6 +166,9 @@ export const HawkProject: CollectionConfig = {
     },
     {
       name: 'endDate',
+      // Filtered and/or sorted on by the public list queries; an unindexed sort
+      // on a growing collection uses Mongo's blocking sort, which hard-errors at 32MB.
+      index: true,
       label: { en: 'End Date', pt: 'Data de Fim' },
       type: 'date',
       admin: {
@@ -190,6 +196,9 @@ export const HawkProject: CollectionConfig = {
     },
     {
       name: 'project_type',
+      // Filtered and/or sorted on by the public list queries; an unindexed sort
+      // on a growing collection uses Mongo's blocking sort, which hard-errors at 32MB.
+      index: true,
       label: { en: 'Project Type', pt: 'Tipo de Projeto' },
       type: 'select',
       options: [

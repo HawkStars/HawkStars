@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { LuChevronLeft, LuChevronRight, LuQuote } from 'react-icons/lu';
+import { LuChevronLeft, LuChevronRight, LuPause, LuPlay, LuQuote } from 'react-icons/lu';
 import type { ProjectTestimonialBlock as ProjectTestimonialBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
@@ -9,6 +9,7 @@ import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
+import { usePrefersReducedMotion } from '@/lib/hooks/usePrefersReducedMotion';
 
 const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: Language }> = (
   data
@@ -74,12 +75,21 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
     goToImage((currentImageIndex - 1 + images.length) % images.length);
   }, [currentImageIndex, images.length, goToImage]);
 
+  // WCAG 2.2.2 (Level A): content that moves by itself for more than five
+  // seconds needs a mechanism to pause it. This block autoplayed every 4s with
+  // no control and no reduced-motion check, while both sibling slideshow blocks
+  // had had exactly this treatment applied.
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const [isPlaying, setIsPlaying] = useState(true);
+  const isSlideshow = displayMode === 'slideshow' && images.length > 1;
+  const isAutoplaying = isSlideshow && Boolean(autoplay) && isPlaying && !prefersReducedMotion;
+
   useEffect(() => {
-    if (displayMode !== 'slideshow' || !autoplay || images.length <= 1) return;
+    if (!isAutoplaying) return;
 
     const interval = setInterval(nextImage, autoplayInterval);
     return () => clearInterval(interval);
-  }, [displayMode, autoplay, autoplayInterval, nextImage, images.length]);
+  }, [isAutoplaying, autoplayInterval, nextImage]);
 
   const profileImage = getImagePayloadUrl(author.profileImage);
 
@@ -141,6 +151,17 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
             </div>
           );
         })}
+
+        {isSlideshow && Boolean(autoplay) && !prefersReducedMotion && (
+          <button
+            type='button'
+            onClick={() => setIsPlaying((playing) => !playing)}
+            className='focus-visible:ring-ring absolute top-2 right-2 z-20 rounded-full bg-white/80 p-2 shadow-md transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none'
+            aria-label={isPlaying ? t('a11y.pauseSlideshow') : t('a11y.playSlideshow')}
+          >
+            {isPlaying ? <LuPause className='h-4 w-4' /> : <LuPlay className='h-4 w-4' />}
+          </button>
+        )}
 
         {/* Slideshow Navigation */}
         {images.length > 1 && (

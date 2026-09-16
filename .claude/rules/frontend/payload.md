@@ -100,7 +100,7 @@ hooks: {
 
 // Versioning is mandatory for workflow collections:
 versions: {
-  drafts: { autosave: { interval: 100 }, schedulePublish: true },
+  drafts: { autosave: { interval: 2000 }, schedulePublish: true },
   maxPerDoc: 10,
 },
 ```

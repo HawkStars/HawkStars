@@ -105,6 +105,7 @@ const getCurrentEvents = async (
     collection: EVENTS_COLLECTION,
     where: withEventFilters({ or: [dayHappening, inBetweenRangeDates] }, opts),
     sort: 'date',
+    depth: 1,
     limit: 100,
     locale,
     draft: opts.preview || false,
@@ -126,8 +127,8 @@ const getUpcomingEvents = async (
   const greaterThanTodayRange: Where = {
     and: [
       { isDateRange: { equals: true } },
-      { date: { greater_than: endOfDay.toDateString() } },
-      { endDate: { greater_than: endOfDay.toDateString() } },
+      { date: { greater_than: endOfDay.toISOString() } },
+      { endDate: { greater_than: endOfDay.toISOString() } },
     ],
   };
 
@@ -135,6 +136,7 @@ const getUpcomingEvents = async (
     collection: EVENTS_COLLECTION,
     where: withEventFilters({ or: [greaterThanToday, greaterThanTodayRange] }, opts),
     sort: 'date',
+    depth: 1,
     limit: opts.limit ?? 100,
     page: opts.page ?? 1,
     locale,
@@ -155,6 +157,14 @@ const getPastEventsAt = async (
   timeBucket: string,
   opts: { preview?: boolean; page?: number; limit?: number } & HawkEventFilterOpts = {}
 ) => {
+  // This was the one list query in the app with no `'use cache'` at all, while
+  // its twin `getPastProjectsAt` has all three lines. Under `cacheComponents`
+  // that meant /events/archive hit Mongo on every request AND could not be
+  // reached by the hawk_events tag — uncached and unrevalidatable at once.
+  'use cache';
+  cacheLife('hours');
+  cacheTag(HAWK_EVENT_CACHE_TAG);
+
   const payload = await getPayloadConfig();
   const { startOfDay } = customDateRangeQuery(timeBucket);
 
@@ -165,8 +175,8 @@ const getPastEventsAt = async (
   const beforeTodayRange: Where = {
     and: [
       { isDateRange: { equals: true } },
-      { date: { less_than: startOfDay.toDateString() } },
-      { endDate: { less_than: startOfDay.toDateString() } },
+      { date: { less_than: startOfDay.toISOString() } },
+      { endDate: { less_than: startOfDay.toISOString() } },
     ],
   };
 
@@ -174,6 +184,7 @@ const getPastEventsAt = async (
     collection: EVENTS_COLLECTION,
     where: withEventFilters({ or: [beforeToday, beforeTodayRange] }, opts),
     sort: '-date',
+    depth: 1,
     limit: opts.limit ?? 10,
     page: opts.page ?? 1,
     locale,

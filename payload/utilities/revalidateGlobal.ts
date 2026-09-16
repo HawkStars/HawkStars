@@ -12,9 +12,26 @@ import type { GlobalAfterChangeHook } from 'payload';
  * the `global:*` namespace with nothing invalidating it, so an editor changing
  * the crowdfunding total or a listing header waited out the full hour.
  */
+/**
+ * `revalidateTag` requires Next's request-scoped store. Called from a cron tick
+ * or a CLI script there is no store, and it throws
+ * "Invariant: static generation store missing". Payload runs global afterChange
+ * hooks *before* committing, so that throw aborted the whole write — which is
+ * how the nightly supporters import could fail every run while looking like a
+ * caching problem. Outside a request there is no per-request cache to
+ * invalidate anyway, so swallowing it is correct rather than merely convenient.
+ */
+function revalidateTagIfInRequestScope(tag: string) {
+  try {
+    revalidateTag(tag, 'max');
+  } catch {
+    // no request scope — nothing to invalidate
+  }
+}
+
 export function createRevalidateGlobalHook(slug: string): GlobalAfterChangeHook {
   return ({ doc }) => {
-    revalidateTag(`global:${slug}`, 'max');
+    revalidateTagIfInRequestScope(`global:${slug}`);
     return doc;
   };
 }

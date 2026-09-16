@@ -17,6 +17,10 @@ export const Users: CollectionConfig = {
     create: authenticatedAdmin,
     delete: authenticatedAdmin,
     update: authenticatedAdmin,
+    // Omitting this defaulted it to `Boolean(user)` — the regular content tier —
+    // so a non-admin could clear the lockout on an account being brute-forced
+    // and erase the effect of `maxLoginAttempts` below.
+    unlock: authenticatedAdmin,
   },
   admin: {
     defaultColumns: ['name', 'email', 'isAdmin', 'updatedAt'],
@@ -32,7 +36,13 @@ export const Users: CollectionConfig = {
   auth: {
     tokenExpiration: 60 * 60 * 24 * 30, // 30 days
     maxLoginAttempts: 5,
-    lockTime: 60 * 60 * 24, // 24 hours
+    // Milliseconds, not seconds — Payload computes `new Date(now + lockTime)`
+    // and its own default is 600000 ("10 minutes"). This used to read
+    // `60 * 60 * 24` with a comment claiming 24 hours; that is 86 seconds, which
+    // is *weaker* than the framework default it was meant to tighten.
+    // (`tokenExpiration` above genuinely is in seconds, which is what makes the
+    // mix-up easy to miss.)
+    lockTime: 1000 * 60 * 60 * 24, // 24 hours
     // httpOnly is always on internally in Payload (not configurable) — these
     // two were previously left unset, relying on Payload's implicit
     // NODE_ENV-based defaults instead of asserting them explicitly.

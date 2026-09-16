@@ -174,5 +174,9 @@
       "international_event": "Evento internacional",
       "other": "Outro"
     }
+  },
+  "agenda": {
+    "loading": "A carregar eventos…",
+    "empty": "Sem eventos próximos."
   }
 }

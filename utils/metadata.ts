@@ -31,19 +31,42 @@ type MetadataProps = {
   image?: MetadataImageType;
   url?: string;
   lng?: Language;
+  /**
+   * 1-based page number for a paginated list route.
+   *
+   * Without it every `?page=N` emitted the page-1 canonical, so Google treated
+   * pages 2..N as duplicates and dropped them — news and project items past the
+   * first page were reachable only through the sitemap. Filter params (`?type=`,
+   * `?year=`) are still deliberately excluded: those genuinely are the same
+   * content sliced differently.
+   */
+  page?: number;
 };
 
-const prepareMetadataInfo = ({ title, description, image, lng, url }: MetadataProps): Metadata => {
+const prepareMetadataInfo = ({
+  title,
+  description,
+  image,
+  lng,
+  url,
+  page,
+}: MetadataProps): Metadata => {
   return createMetadataObject({
     title,
     description,
     image,
     lng,
     url,
+    page,
   });
 };
 
-const getMetadataPageInfo = (lng: Language, page: HawkStarsPaths): Metadata => {
+const getMetadataPageInfo = (
+  lng: Language,
+  page: HawkStarsPaths,
+  /** 1-based page number, for paginated list routes. See MetadataProps.page. */
+  pageNumber?: number
+): Metadata => {
   const defaultPath = 'home' as HawkStarsPaths;
   if (!languages.includes(lng)) {
     lng = fallbackLng;
@@ -53,14 +76,15 @@ const getMetadataPageInfo = (lng: Language, page: HawkStarsPaths): Metadata => {
 
   const metadataPageInfo = JSONFile[page];
   const url = SITE_GET_URLS[page] || SITE_GET_URLS[defaultPath];
-  return transformToMetadataObject(metadataPageInfo, lng, url);
+  return transformToMetadataObject(metadataPageInfo, lng, url, undefined, pageNumber);
 };
 
 const transformToMetadataObject = (
   info: { title: string; description: string },
   lng: Language,
   url: string,
-  image?: MetadataImageType
+  image?: MetadataImageType,
+  page?: number
 ): Metadata => {
   const { title, description } = info || {};
   if (!title || !description) {
@@ -77,17 +101,21 @@ const transformToMetadataObject = (
     image,
     lng,
     url,
+    page,
   });
 };
 
 const createMetadataObject = (props: MetadataProps): Metadata => {
-  const { title, description, lng, url, image } = props;
+  const { title, description, lng, url, image, page } = props;
 
   // One normalised path drives canonical, hreflang and og:url, so a
   // self-referencing hreflang can never disagree with the canonical.
   const locale = lng ?? fallbackLng;
   const path = !url || url === '/' ? '' : url.replace(/\/$/, '');
-  const canonicalUrl = `${BASE_URL}/${locale}${path}`;
+  // Page 1 canonicalises to the bare path, as it should — only 2..N carry the
+  // query. hreflang stays on the bare path so the pt/en pair still matches.
+  const pageSuffix = page && page > 1 ? `?page=${page}` : '';
+  const canonicalUrl = `${BASE_URL}/${locale}${path}${pageSuffix}`;
 
   const resolved = createOGImageUrl(image);
   const imageSrc = resolved?.url || OG_IMAGE_FALLBACK;

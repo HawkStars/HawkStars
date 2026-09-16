@@ -5,6 +5,27 @@ import * as Sentry from '@sentry/nextjs';
 import { v4 as uuidv4 } from 'uuid';
 import { checkRateLimit, getClientIp } from '@/utils/rateLimit';
 import { captureSentryMessage } from '@/lib/sentry/logs';
+import { getPayloadConfig } from '@/lib/payload/server';
+
+const CONTRIBUTION_COLLECTION = 'contributions';
+
+/**
+ * Recurrence is chosen here, not by the caller.
+ *
+ * `frequency`, `start_time`, `capture_now`, `max_captures` and
+ * `unlimited_payments` all used to come straight from the request body and were
+ * forwarded verbatim to EasyPay — so a crafted request could put a donor on an
+ * unlimited *daily* charge, or one starting at an arbitrary unvalidated time.
+ * The donation widget only ever offered "monthly", so nothing legitimate needed
+ * that freedom. Add plans here as the UI grows.
+ */
+const SUBSCRIPTION_PLANS = {
+  monthly: { frequency: '1M', unlimited_payments: true, max_captures: undefined },
+  quarterly: { frequency: '3M', unlimited_payments: true, max_captures: undefined },
+  yearly: { frequency: '1Y', unlimited_payments: true, max_captures: undefined },
+} as const;
+
+type SubscriptionPlan = keyof typeof SUBSCRIPTION_PLANS;
 
 export async function POST(request: Request) {
   const { allowed, retryAfter } = checkRateLimit(`subscription:${getClientIp(request)}`, {
@@ -45,6 +66,35 @@ export async function POST(request: Request) {
     }
 
     const data = await response.json();
+
+    // Persist the subscription locally, the way /api/donate does for one-off
+    // payments. Without this a recurring donation existed only in EasyPay's
+    // dashboard until an authorisation notification happened to arrive, so there
+    // was no local record to reconcile against.
+    try {
+      const payload = await getPayloadConfig();
+      await payload.create({
+        collection: CONTRIBUTION_COLLECTION,
+        data: {
+          donor: requestBody.customer?.name,
+          contribution_type: 'BANK',
+          value: requestBody.value,
+          contribution_date: new Date().toISOString(),
+          is_confirmed: false,
+          easypay_id: requestBody.key,
+          transaction_key: requestBody.key,
+          payment_method: 'CC',
+          extra_info: { subscription: true, frequency: requestBody.frequency, ...data },
+        },
+      });
+    } catch (dbError) {
+      // The subscription exists at EasyPay at this point; failing the request
+      // would tell the donor it did not. Record it loudly instead.
+      Sentry.captureException(dbError, {
+        extra: { transactionKey: requestBody.key, stage: 'subscription-contribution-create' },
+      });
+    }
+
     return Response.json(data, { status: 200 });
   } catch (e: unknown) {
     Sentry.captureException(e);
@@ -61,38 +111,36 @@ function prepareSubscriptionRequestBody(body: Record<string, unknown>): Subscrip
     email: z.email(),
     name: z.string().min(1).max(120),
     currency: z.enum(['EUR']).default('EUR'),
-    frequency: z
-      .enum(['1D', '1W', '2W', '1M', '2M', '3M', '4M', '6M', '1Y', '2Y', '3Y'])
-      .default('1M'),
+    // The only recurrence input. Everything else about the schedule is derived
+    // from SUBSCRIPTION_PLANS above — see the comment there.
+    plan: z
+      .enum(Object.keys(SUBSCRIPTION_PLANS) as [SubscriptionPlan, ...SubscriptionPlan[]])
+      .default('monthly'),
     phone_number: z.string().max(20).optional(),
     phone_indicative: z.string().max(6).optional(),
     reason: z.string().max(255).optional(),
-    start_time: z.string().optional(),
-    capture_now: z.boolean().optional().default(true),
-    max_captures: z.number().optional(),
-    unlimited_payments: z.boolean().optional().default(true),
   });
 
   const parsedBody = schema.parse(body);
+  const plan = SUBSCRIPTION_PLANS[parsedBody.plan];
 
   const transactionKey = uuidv4();
   const now = new Date();
-  const startTime = parsedBody.start_time || formatEasyPayDate(new Date(now.getTime() + 60 * 1000));
+  // Always a minute from now. Was caller-supplied and unvalidated.
+  const startTime = formatEasyPayDate(new Date(now.getTime() + 60 * 1000));
 
   return {
     currency: parsedBody.currency,
     key: transactionKey,
     value: parsedBody.value,
-    frequency: parsedBody.frequency,
+    frequency: plan.frequency,
     method: 'CC',
     start_time: startTime,
-    capture_now: parsedBody.capture_now,
+    capture_now: true,
     retries: 3,
     failover: false,
-    unlimited_payments: parsedBody.unlimited_payments,
-    ...(parsedBody.max_captures && !parsedBody.unlimited_payments
-      ? { max_captures: parsedBody.max_captures }
-      : {}),
+    unlimited_payments: plan.unlimited_payments,
+    ...(plan.max_captures ? { max_captures: plan.max_captures } : {}),
     capture: {
       transaction_key: transactionKey,
       descriptive:

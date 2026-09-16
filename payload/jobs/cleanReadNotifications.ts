@@ -28,12 +28,24 @@ export const cleanReadNotificationsTask: TaskConfig<{
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
+    // Hard ceiling regardless of read state. The read+30d rule alone could only
+    // ever reach rows an admin had clicked, and nothing else sets `read: true` —
+    // so on the one collection that grows without bound the sweep deleted
+    // nothing at all unless someone kept the bell clear.
+    const ninetyDaysAgo = new Date();
+    ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
+
     const { docs, errors } = await req.payload.delete({
       collection: 'notifications',
       where: {
-        and: [
-          { read: { equals: true } },
-          { createdAt: { less_than: thirtyDaysAgo.toISOString() } },
+        or: [
+          {
+            and: [
+              { read: { equals: true } },
+              { createdAt: { less_than: thirtyDaysAgo.toISOString() } },
+            ],
+          },
+          { createdAt: { less_than: ninetyDaysAgo.toISOString() } },
         ],
       },
       overrideAccess: true,

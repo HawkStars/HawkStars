@@ -85,6 +85,9 @@ const HawkEventDetails: Tab = {
         },
         {
           name: 'endDate',
+          // Filtered and/or sorted on by the public list queries; an unindexed sort
+          // on a growing collection uses Mongo's blocking sort, which hard-errors at 32MB.
+          index: true,
           label: { en: 'End Date', pt: 'Data de Fim' },
           type: 'date',
           admin: {

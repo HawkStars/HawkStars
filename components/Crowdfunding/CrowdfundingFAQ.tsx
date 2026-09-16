@@ -153,9 +153,12 @@ const CrowdfundingFAQ = ({ t }: Props) => {
                 <div className='flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-orange-500'>
                   {faqIcons[index]}
                 </div>
-                <button
+                {/* Decorative: this had no onClick, href or type, so keyboard and
+                    screen-reader users reached a control announced as "faq,
+                    button" that did nothing. */}
+                <span
+                  aria-hidden='true'
                   className='flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-gray-500 transition group-hover:border-orange-500/30 group-hover:text-orange-500'
-                  aria-label='faq'
                 >
                   <svg
                     className='h-4 w-4'
@@ -166,7 +169,7 @@ const CrowdfundingFAQ = ({ t }: Props) => {
                   >
                     <path strokeLinecap='round' strokeLinejoin='round' d='M9 5l7 7-7 7' />
                   </svg>
-                </button>
+                </span>
               </div>
               <h3 className='mb-2 text-sm font-bold text-white'>
                 {t(`faq.items.${key}.question`)}

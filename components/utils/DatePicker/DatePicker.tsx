@@ -53,6 +53,7 @@ function HawkStarsDatePicker({ date, onChange, labelText }: HawkStarsDatePickerP
               selected={startDate}
               onSelect={changeDatePickerValue}
               captionLayout='dropdown'
+              lng={lng}
               className='w-full rounded-lg border'
             />
           </PopoverContent>

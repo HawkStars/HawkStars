@@ -1,5 +1,17 @@
 {
   "current_goal": "Contribuição Actual do Projecto:",
   "goal": "Objectivo",
-  "contributions_title": "Contribuições"
+  "contributions_title": "Contribuições",
+  "contribution_type": {
+    "BANK": "Transferência bancária",
+    "CRYPTO": "Criptomoeda",
+    "WALL_NAME_SINGULAR": "Individual — nome na parede",
+    "WALL_NAME_COMPANY": "Empresa — nome na parede",
+    "OFFICE_CHAIR": "Cadeira de escritório",
+    "SIMULATOR_CHAIR": "Cadeira de simulador",
+    "LOUNGE_CHAIR": "Cadeira de lounge",
+    "AUDITORIUM_CHAIR": "Cadeira de auditório",
+    "BUILDING_NAMING": "Nome no edifício",
+    "TRAINING_ROOM_NAMING": "Nome da sala de formação"
+  }
 }

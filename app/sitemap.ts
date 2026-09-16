@@ -35,7 +35,10 @@ async function buildSitemap(): Promise<MetadataRoute.Sitemap> {
   for (const route of routes) {
     for (const language of languages) {
       sitemapRoutes.push({
-        url: `${BASE_URL}/${language}${route.url}`,
+        // `route.url` is '/' for the home route, which produced `/pt/` — and
+        // Next's default `trailingSlash: false` 308-redirects that to `/pt`, so
+        // the sitemap advertised a redirect. Strip the trailing slash.
+        url: `${BASE_URL}/${language}${route.url === '/' ? '' : route.url}`,
         priority: route.priority,
         changeFrequency: 'monthly',
       });
@@ -110,7 +113,10 @@ async function buildSitemap(): Promise<MetadataRoute.Sitemap> {
         sitemapRoutes.push({
           url: `${BASE_URL}/${language}/${page.slug}`,
           priority: 0.7,
-          lastModified: page.updatedAt ? new Date(page.updatedAt) : new Date(),
+          // No `new Date()` fallback: it is read inside this function's `'use cache'`
+          // scope, so it freezes into the entry (and can trip Next's prerender
+          // bail-out). An absent lastModified is better than a frozen one.
+          ...(page.updatedAt ? { lastModified: new Date(page.updatedAt) } : {}),
           changeFrequency: 'weekly',
         });
       }
@@ -121,7 +127,7 @@ async function buildSitemap(): Promise<MetadataRoute.Sitemap> {
         sitemapRoutes.push({
           url: `${BASE_URL}/${language}/artwork/${artwork.slug}`,
           priority: 0.6,
-          lastModified: artwork.updatedAt ? new Date(artwork.updatedAt) : new Date(),
+          ...(artwork.updatedAt ? { lastModified: new Date(artwork.updatedAt) } : {}),
           changeFrequency: 'weekly',
         });
       }
@@ -132,7 +138,7 @@ async function buildSitemap(): Promise<MetadataRoute.Sitemap> {
         sitemapRoutes.push({
           url: `${BASE_URL}/${language}/curator/${curator.slug}`,
           priority: 0.6,
-          lastModified: curator.updatedAt ? new Date(curator.updatedAt) : new Date(),
+          ...(curator.updatedAt ? { lastModified: new Date(curator.updatedAt) } : {}),
           changeFrequency: 'monthly',
         });
       }
@@ -144,7 +150,7 @@ async function buildSitemap(): Promise<MetadataRoute.Sitemap> {
         sitemapRoutes.push({
           url: `${BASE_URL}/${language}/projects/${project.slug}`,
           priority: 0.7,
-          lastModified: project.updatedAt ? new Date(project.updatedAt) : new Date(),
+          ...(project.updatedAt ? { lastModified: new Date(project.updatedAt) } : {}),
           changeFrequency: 'weekly',
         });
       }
@@ -156,7 +162,7 @@ async function buildSitemap(): Promise<MetadataRoute.Sitemap> {
         sitemapRoutes.push({
           url: `${BASE_URL}/${language}/news/${newsItem.slug}`,
           priority: 0.6,
-          lastModified: newsItem.updatedAt ? new Date(newsItem.updatedAt) : new Date(),
+          ...(newsItem.updatedAt ? { lastModified: new Date(newsItem.updatedAt) } : {}),
           changeFrequency: 'weekly',
         });
       }
@@ -168,7 +174,7 @@ async function buildSitemap(): Promise<MetadataRoute.Sitemap> {
         sitemapRoutes.push({
           url: `${BASE_URL}/${language}/events/${event.slug}`,
           priority: 0.6,
-          lastModified: event.updatedAt ? new Date(event.updatedAt) : new Date(),
+          ...(event.updatedAt ? { lastModified: new Date(event.updatedAt) } : {}),
           changeFrequency: 'weekly',
         });
       }

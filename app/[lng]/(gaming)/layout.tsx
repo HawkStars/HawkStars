@@ -2,10 +2,10 @@ import '@/app/globals.css';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import { Metadata } from 'next';
+import { getMetadataPageInfo } from '@/utils/metadata';
 import GamingNavbar from '@/components/gaming/GamingNavbar';
 import GamingFooter from '@/components/gaming/GamingFooter';
-import { fallbackLng, languages } from '@/i18n/settings';
-import { BASE_URL, OG_IMAGE_FALLBACK, SITE_NAME } from '@/lib/constants';
+import { fallbackLng, languages, Language } from '@/i18n/settings';
 import { Suspense } from 'react';
 import SkipToContent from '@/components/a11y/SkipToContent';
 
@@ -15,44 +15,18 @@ const inter = Inter({
   display: 'swap',
 });
 
-const GAMING_PATH = '/gaming';
-
 export async function generateMetadata(props: {
   params: Promise<{ lng?: string }>;
 }): Promise<Metadata> {
   const params = await props.params;
-  const lng = params.lng || fallbackLng;
-  const canonicalUrl = `${BASE_URL}/${lng}${GAMING_PATH}`;
+  const lng = (languages.includes(params.lng as Language) ? params.lng : fallbackLng) as Language;
 
+  // Title, description and both social cards used to be English literals here,
+  // so /pt/gaming declared <html lang="pt"> with an English <title>, and the
+  // pt/en hreflang pair advertised two URLs with byte-identical metadata. The
+  // copy lives in i18n/locales/{pt,en}/metadata.json like every other route.
   return {
-    title: 'Hawkis E-Sports | Hawk Stars NGO Gaming Division',
-    description:
-      'The competitive gaming division of Hawk Stars NGO. Training the next generation of e-sports talent from Pinhel to the world.',
-    metadataBase: new URL(BASE_URL),
-    alternates: {
-      canonical: canonicalUrl,
-      languages: {
-        'x-default': `/pt${GAMING_PATH}`,
-        en: `/en${GAMING_PATH}`,
-        pt: `/pt${GAMING_PATH}`,
-      },
-    },
-    openGraph: {
-      type: 'website',
-      title: 'Hawkis E-Sports | Hawk Stars NGO Gaming Division',
-      description:
-        'The competitive gaming division of Hawk Stars NGO. Training the next generation of e-sports talent from Pinhel to the world.',
-      url: canonicalUrl,
-      siteName: SITE_NAME,
-      images: [{ url: OG_IMAGE_FALLBACK, width: 1200, height: 630, alt: 'Hawkis E-Sports' }],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: 'Hawkis E-Sports | Hawk Stars NGO Gaming Division',
-      description:
-        'The competitive gaming division of Hawk Stars NGO. Training the next generation of e-sports talent from Pinhel to the world.',
-      images: [OG_IMAGE_FALLBACK],
-    },
+    ...getMetadataPageInfo(lng, 'gaming'),
     icons: { icon: '/favicon.ico' },
   };
 }

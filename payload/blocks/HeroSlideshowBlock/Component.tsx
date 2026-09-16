@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useSyncExternalStore } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { LuChevronLeft, LuChevronRight, LuPause, LuPlay } from 'react-icons/lu';
 import { useTranslation } from '@/i18n/client';
 import type { HeroSlideshowBlock as HeroSlideshowBlockProps } from '@/payload-types';
@@ -11,6 +11,7 @@ import { ImageMedia } from '@/payload/components/Media';
 import { getLinkFieldInformation } from '@/utils/page';
 import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';
+import { usePrefersReducedMotion } from '@/lib/hooks/usePrefersReducedMotion';
 
 const heightClasses = {
   fullscreen: 'min-h-screen',
@@ -24,17 +25,6 @@ const alignmentClasses = {
   center: 'text-center items-center',
   right: 'text-right items-end',
 } as const;
-
-const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
-
-const subscribeReducedMotion = (onStoreChange: () => void) => {
-  const query = window.matchMedia(REDUCED_MOTION_QUERY);
-  query.addEventListener('change', onStoreChange);
-  return () => query.removeEventListener('change', onStoreChange);
-};
-
-const getReducedMotionSnapshot = () => window.matchMedia(REDUCED_MOTION_QUERY).matches;
-const getReducedMotionServerSnapshot = () => false;
 
 const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> = (data) => {
   const HeadingTag = data.headingLevel === 'h2' ? 'h2' : 'h1';
@@ -81,11 +71,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
   // Respect the OS-level reduced-motion preference: no automatic movement at all.
   // Subscribed via useSyncExternalStore rather than an effect, so there is no
   // setState-during-effect and the server render has a defined snapshot.
-  const prefersReducedMotion = useSyncExternalStore(
-    subscribeReducedMotion,
-    getReducedMotionSnapshot,
-    getReducedMotionServerSnapshot
-  );
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const autoplayActive = Boolean(autoplay) && !isPaused && !prefersReducedMotion;
 

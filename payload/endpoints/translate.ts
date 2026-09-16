@@ -48,6 +48,13 @@ export const translateHandler: PayloadHandler = async (req) => {
         source,
         target,
         format: 'text',
+        // LIBRETRANSLATE_API_KEY was written into the production .env but never
+        // sent, so a LibreTranslate instance that requires a key rejected every
+        // call. Omitted entirely when unset — public instances reject an empty
+        // `api_key` rather than ignoring it.
+        ...(process.env.LIBRETRANSLATE_API_KEY
+          ? { api_key: process.env.LIBRETRANSLATE_API_KEY }
+          : {}),
       }),
     });
 

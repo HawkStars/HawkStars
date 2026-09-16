@@ -9,13 +9,11 @@ type GamingNavbarProps = {
   lng: string;
 };
 
-const NAV_LINKS = [
-  { labelKey: 'nav.home', href: '/gaming' },
-  { labelKey: 'nav.teams', href: '/gaming/teams' },
-  { labelKey: 'nav.tournaments', href: '/gaming/tournaments' },
-  { labelKey: 'nav.academy', href: '/gaming/academy' },
-  { labelKey: 'nav.news', href: '/gaming/news' },
-];
+// Only /gaming exists under app/[lng]/(gaming)/. The teams, tournaments,
+// academy and news entries 404'd — on every gaming page, in both the desktop and
+// mobile navs — and landed on the org-branded 404. Re-add each one with its
+// route, not before.
+const NAV_LINKS = [{ labelKey: 'nav.home', href: '/gaming' }];
 
 const GamingNavbar = ({ lng }: GamingNavbarProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);

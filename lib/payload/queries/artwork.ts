@@ -84,6 +84,7 @@ export const getArtworkByCuratorQuery = async (curatorId: string, locale: Langua
     collection: 'artworks',
     locale,
     where: { artist: { equals: curatorId } },
+    depth: 1,
     limit: 100,
   });
   return artworks;

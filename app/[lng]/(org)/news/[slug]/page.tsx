@@ -6,7 +6,7 @@ import { prepareMetadataInfo } from '@/utils/metadata';
 import { LanguageProps } from '@/components/types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { ArticleJsonLd } from '@/components/seo/JsonLd';
-import { BASE_URL } from '@/lib/constants';
+import { BASE_URL, SITE_NAME } from '@/lib/constants';
 import NewsSingleHero from '@/components/news/single/NewsSingleHero';
 import NewsSingleHeroNoImage from '@/components/news/single/NewsSingleHeroNoImage';
 import NewsSingleInformation from '@/components/news/single/NewsSingleInformation';
@@ -17,12 +17,20 @@ type NewsSlugPageProps = {
   params: Promise<LanguageProps & { slug: string }>;
 };
 
+// A missing document used to `return {}`, which inherits from the parent layout
+// — and (org)/layout.tsx exports no metadata at all, so a mistyped slug rendered
+// with no <title> (the tab showed the URL), no canonical and no robots rule.
+const notFoundMetadata = (): Metadata => ({
+  title: SITE_NAME,
+  robots: { index: false, follow: false },
+});
+
 export async function generateMetadata(props: NewsSlugPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng, slug } = params;
 
   const article = await getSingleNewsSlug(slug, lng as Language);
-  if (!article) return {};
+  if (!article) return notFoundMetadata();
 
   return prepareMetadataInfo({
     title: article.meta?.title ?? article.title,

@@ -45,6 +45,9 @@ export const MainPage: GlobalConfig = {
               name: 'layout',
               type: 'richText',
               required: true,
+              // localized is false because the blocks are all the time localized. we don't use that much
+              // on text.
+              localized: false,
               editor: lexicalEditor({
                 features: ({ rootFeatures }) => [
                   ...rootFeatures,
@@ -75,7 +78,7 @@ export const MainPage: GlobalConfig = {
   versions: {
     drafts: {
       autosave: {
-        interval: 100, // We set this interval for optimal live preview
+        interval: 2000,
       },
     },
     max: 3,

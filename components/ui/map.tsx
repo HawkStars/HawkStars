@@ -654,7 +654,11 @@ function MapLocateControl({
   }
 
   useEffect(() => {
+    // Unmount-only teardown on purpose. Listing `stopLocating` would re-run the
+    // effect whenever its identity changed, cancelling a locate already in
+    // flight — the opposite of what this cleanup is for.
     return () => stopLocating();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -1005,6 +1009,9 @@ function MapDrawActionButton<T extends EditToolbar.Edit | EditToolbar.Delete>({
       control.disable?.();
       controlRef.current = null;
     };
+    // `controlRef` is a ref: its identity is stable and reading `.current` in
+    // cleanup is the point. Adding it to the array would be noise.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [L, map, isActive, featureGroup, createDrawTool]);
 
   function handleClick() {

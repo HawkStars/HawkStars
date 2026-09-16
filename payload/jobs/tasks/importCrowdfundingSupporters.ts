@@ -19,8 +19,8 @@ type ImportSupportersTaskIO = {
  * The spreadsheet is the source of truth for what's already been imported:
  * an "Imported" column is added to it automatically, and rows already
  * flagged there are skipped. New rows appended below existing ones (in the
- * same file, identified by GOOGLE_CROWDFUNDING_SUPPORTERS_FILE_ID) are picked
- * up on the next run.
+ * same file, identified by the `crowdfundingFileId` field on the Settings
+ * global) are picked up on the next run.
  *
  * Imported rows are published immediately (not left as an unpublished
  * draft), and default to type "person" since the source sheet only has a
@@ -36,8 +36,10 @@ export const importCrowdfundingSupportersTask: TaskConfig<ImportSupportersTaskIO
     const fileId = settings.crowdfundingFileId;
 
     if (!fileId) {
+      // This used to name an environment variable that the task does not read,
+      // sending anyone debugging it to the wrong place.
       throw new Error(
-        'GOOGLE_CROWDFUNDING_SUPPORTERS_FILE_ID is not configured. Set it to the Google Drive file ID of the supporters spreadsheet.'
+        'No crowdfunding supporters file configured. Set "crowdfundingFileId" on the Settings global to the Google Drive file ID of the supporters spreadsheet.'
       );
     }
 

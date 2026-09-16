@@ -244,7 +244,7 @@ describe('POST /api/easypay (webhook)', () => {
       method: 'cc',
     };
 
-    const existingContribution = { id: 'contrib-001', extra_info: 'txn-key-abc' };
+    const existingContribution = { id: 'contrib-001', extra_info: 'txn-key-abc', value: 50 };
 
     beforeEach(() => {
       mockPayloadFind.mockResolvedValue({ docs: [existingContribution] });
@@ -302,6 +302,50 @@ describe('POST /api/easypay (webhook)', () => {
       expect(findCall.limit).toBe(1);
     });
 
+    it('refuses to confirm when the notified amount does not match the stored one', async () => {
+      // Authentication here is one static shared secret that EasyPay sends on
+      // every callback, so anyone holding it could otherwise confirm any
+      // contribution — and the public transparency total sums confirmed rows.
+      mockPayloadFind.mockResolvedValueOnce({ docs: [{ ...existingContribution, value: 50 }] });
+
+      const response = await POST(makeRequest({ ...transactionPayload, value: 5000 }));
+
+      expect(response.status).toBe(200);
+      expect(mockPayloadUpdate).not.toHaveBeenCalled();
+    });
+
+    it('refuses to confirm a payment in another currency', async () => {
+      mockPayloadFind.mockResolvedValueOnce({ docs: [existingContribution] });
+
+      const response = await POST(makeRequest({ ...transactionPayload, currency: 'USD' }));
+
+      expect(response.status).toBe(200);
+      expect(mockPayloadUpdate).not.toHaveBeenCalled();
+    });
+
+    it('does not un-confirm an already-confirmed contribution on a replayed failure', async () => {
+      // `failed` notifications are replayable; moving a settled donation back out
+      // of the published total is the wrong direction to fail in.
+      mockPayloadFind.mockResolvedValueOnce({
+        docs: [{ ...existingContribution, is_confirmed: true }],
+      });
+
+      const response = await POST(makeRequest({ ...transactionPayload, status: 'failed' }));
+
+      expect(response.status).toBe(200);
+      expect(mockPayloadUpdate).not.toHaveBeenCalled();
+    });
+
+    it('still confirms when the stored contribution has no recorded value', async () => {
+      mockPayloadFind.mockResolvedValueOnce({
+        docs: [{ id: 'contrib-legacy', extra_info: 'txn-key-abc' }],
+      });
+
+      await POST(makeRequest(transactionPayload));
+
+      expect(mockPayloadUpdate).toHaveBeenCalledOnce();
+    });
+
     it('returns 200 even when Payload update throws an error', async () => {
       mockPayloadUpdate.mockRejectedValueOnce(new Error('DB error'));
 
@@ -322,7 +366,11 @@ describe('POST /api/easypay (webhook)', () => {
       date: '2024-01-01T00:00:00.000Z',
     };
 
-    const existingContribution = { id: 'contrib-gen-001', extra_info: 'txn-key-generic' };
+    const existingContribution = {
+      id: 'contrib-gen-001',
+      extra_info: 'txn-key-generic',
+      value: 50,
+    };
 
     it('updates contribution to is_confirmed: true on capture success', async () => {
       mockPayloadFind.mockResolvedValue({ docs: [existingContribution] });

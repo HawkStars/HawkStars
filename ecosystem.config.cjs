@@ -14,7 +14,14 @@ module.exports = {
       cwd: '/root/app',
       script: 'node_modules/next/dist/bin/next',
       args: 'start',
-      instances: 2,
+      // One instance on purpose. `utils/rateLimit.ts` keeps its counters in a
+      // module-level Map, and `next.config.ts`'s `cacheMaxMemorySize` is a
+      // per-process LRU — neither is shared between cluster workers. With two
+      // workers every rate limit was effectively doubled (including
+      // `rateLimitLogin`, the brute-force guard on /admin) and a `revalidateTag`
+      // served by one worker left the other serving its own stale entry.
+      // Raise this only after both move to a shared store.
+      instances: 1,
       exec_mode: 'cluster',
       autorestart: true,
       max_restarts: 10,
@@ -22,7 +29,14 @@ module.exports = {
       restart_delay: 2000,
       watch: false,
       ignore_watch: ['node_modules', '.next', '.git', 'logs', 'public'],
-      max_memory_restart: '2048M',
+      // Sized for a 4 GB box with Mongo alongside. Above this the kernel OOM
+      // killer tends to arrive before PM2 does, which kills the worker
+      // uncleanly instead of restarting it.
+      max_memory_restart: '1024M',
+      // nginx holds proxied requests for up to 180s (`proxy_read_timeout`), so
+      // PM2's 1.6s default cut in-flight requests on every reload.
+      kill_timeout: 10000,
+      listen_timeout: 10000,
       log_date_format: 'YYYY-MM-DD HH:mm:ss.SSS',
       env: {
         NODE_ENV: 'production',

@@ -32,7 +32,7 @@ const SingleProjectPartners: FC<SingleProjectPartnersProps> = ({
             <div className='relative h-32 w-32'>
               <ImageMedia
                 src={hawkLogo}
-                alt='Hawk logo'
+                alt=''
                 fill
                 sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                 className='items-center object-contain'

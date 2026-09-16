@@ -9,7 +9,7 @@
     "build": "NODE_OPTIONS=--max-old-space-size=4096 next build",
     "typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit",
     "start": "next start",
-    "lint": "eslint .",
+    "lint": "eslint . --max-warnings 0",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "test": "vitest run",

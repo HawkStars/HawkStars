@@ -1,1 +1,9 @@
-pnpm format:fix
+# Format only what is staged, then re-stage it. `pnpm format:fix` (prettier
+# --write .) rewrote the whole working tree *after* git had already snapshotted
+# the index, so the formatted version never made it into the commit — and files
+# deliberately left out of the commit got rewritten too.
+FILES="$(git diff --cached --name-only --diff-filter=ACMR)"
+[ -z "$FILES" ] && exit 0
+
+echo "$FILES" | xargs -r ./node_modules/.bin/prettier --write --ignore-unknown
+echo "$FILES" | xargs -r git add

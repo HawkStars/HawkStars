@@ -65,7 +65,7 @@ const CrowdfundingUpdates = ({ t, updateCards, lng }: Props) => {
                   </div>
                   <div className='flex flex-1 flex-col p-4'>
                     <h3 className='text-sm font-bold text-white'>{card.title}</h3>
-                    <p className='mt-auto pt-3 text-[10px] font-semibold tracking-wider text-gray-600 uppercase'>
+                    <p className='mt-auto pt-3 text-[10px] font-semibold tracking-wider text-gray-400 uppercase'>
                       {formatDate(card.date, lng)}
                     </p>
                   </div>
@@ -74,9 +74,10 @@ const CrowdfundingUpdates = ({ t, updateCards, lng }: Props) => {
             })}
 
             <div className='flex shrink-0 items-center'>
-              <button
-                aria-label='support'
-                className='flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white transition hover:bg-white/10'
+              {/* Decorative, same as the FAQ chevron: no onClick, no href. */}
+              <span
+                aria-hidden='true'
+                className='flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white'
               >
                 <svg
                   className='h-5 w-5'
@@ -87,7 +88,7 @@ const CrowdfundingUpdates = ({ t, updateCards, lng }: Props) => {
                 >
                   <path strokeLinecap='round' strokeLinejoin='round' d='M9 5l7 7-7 7' />
                 </svg>
-              </button>
+              </span>
             </div>
           </div>
         </div>

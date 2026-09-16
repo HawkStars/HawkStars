@@ -81,7 +81,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps & { lng:
                 disabled={status === 'submitting'}
                 aria-invalid={status === 'error'}
                 aria-describedby={status === 'error' ? 'newsletter-error' : undefined}
-                className='flex-1 rounded-lg border-0 bg-white/15 px-6 py-3 text-lg text-white placeholder-white/90 backdrop-blur-sm focus:bg-white/20 focus:ring-2 focus-visible:ring-white focus-visible:outline-hidden disabled:opacity-60'
+                className='flex-1 rounded-lg border-0 bg-black/20 px-6 py-3 text-lg text-white placeholder-white/90 backdrop-blur-sm focus:bg-white/20 focus:ring-2 focus-visible:ring-white focus-visible:outline-hidden disabled:opacity-60'
               />
               <Button
                 type='submit'

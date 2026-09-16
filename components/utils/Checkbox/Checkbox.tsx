@@ -21,9 +21,11 @@ const Checkbox = ({ checked, id, name, labelText, onChangeHandle, ...props }: Ch
         onChange={handleOnChange}
         {...props}
       />
-      <label className='' htmlFor={name}>
-        {labelText}
-      </label>
+      {/* htmlFor must match the input's `id`, not its `name`. It used to be
+          `htmlFor={name}`, and at the donation form's call site `name` was
+          "donor" — the id of the donor *text* input — so clicking this
+          checkbox's label focused a different (and sometimes disabled) field. */}
+      <label htmlFor={id}>{labelText}</label>
     </div>
   );
 };

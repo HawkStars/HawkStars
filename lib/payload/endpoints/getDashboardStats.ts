@@ -52,7 +52,17 @@ export const getDashboardStats = async (payload: BasePayload): Promise<Stats> =>
     statusCount(payload, 'news', 'published'),
     statusCount(payload, 'hawk_projects', 'draft'),
     statusCount(payload, 'hawk_projects', 'published'),
-    payload.find({ collection: 'contributions', limit: 0 }),
+    // Was `limit: 0` with no depth and no select — every contribution, with the
+    // donor relationship populated two levels deep, on every dashboard render,
+    // growing linearly with donations forever. Only three fields are read below.
+    // `totalContributionValueQuery` was already refactored away from exactly
+    // this shape; this one was missed.
+    payload.find({
+      collection: 'contributions',
+      limit: 0,
+      depth: 0,
+      select: { value: true, is_confirmed: true, contribution_type: true },
+    }),
   ]);
 
   const byType: Record<string, { count: number; total: number }> = {};

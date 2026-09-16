@@ -83,6 +83,9 @@ export const News: CollectionConfig = {
     },
     {
       name: 'publishedAt',
+      // Filtered and/or sorted on by the public list queries; an unindexed sort
+      // on a growing collection uses Mongo's blocking sort, which hard-errors at 32MB.
+      index: true,
       label: { en: 'Published At', pt: 'Publicado Em' },
       type: 'date',
       admin: {

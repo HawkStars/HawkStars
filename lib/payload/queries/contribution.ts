@@ -38,7 +38,13 @@ export const getChairsContributionsQuery = async () => {
   return { docs, hasNextPage, hasPrevPage, totalDocs, totalPages, nextPage };
 };
 
-export const getContributionsQuery = async () => {
+// The table renders <LandingPagination>, but this took no page argument and
+// always returned the first 100 — so beyond 100 confirmed contributions the
+// "next" link changed the URL and showed the same rows, and older contributions
+// were unreachable on a public accountability page.
+export const CONTRIBUTIONS_PAGE_LIMIT = 100;
+
+export const getContributionsQuery = async (page = 1) => {
   'use cache';
   cacheLife('hours');
   cacheTag(CONTRIBUTION_CACHE_TAG);
@@ -47,7 +53,8 @@ export const getContributionsQuery = async () => {
   return await payload.find({
     collection: 'contributions',
     sort: '-contribution_date',
-    limit: 100,
+    limit: CONTRIBUTIONS_PAGE_LIMIT,
+    page,
     depth: 0,
     where: { is_confirmed: { equals: true } },
   });

@@ -18,7 +18,7 @@ export function OrganizationJsonLd({ lng }: { lng: string }) {
       name: SITE_NAME,
       alternateName: 'Associação HawkStars',
       url: BASE_URL,
-      logo: `${BASE_URL}/images/logo.webp`,
+      logo: `${BASE_URL}/images/logos/logo.webp`,
       description:
         lng === 'pt'
           ? 'Associação HawkStars - Educação, Inovação e Desenvolvimento em Pinhel, Portugal.'

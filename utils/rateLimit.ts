@@ -1,11 +1,17 @@
 /**
  * Minimal in-memory fixed-window rate limiter.
  *
- * The app runs as a single PM2 fork process behind Nginx, so a module-level
- * Map is shared across all requests and is sufficient to blunt abuse of the
+ * State lives in a module-level Map, so it is PER PROCESS. That is only correct
+ * while PM2 runs a single instance — `ecosystem.config.cjs` pins `instances: 1`
+ * for exactly this reason, and it briefly ran two cluster workers, which silently
+ * doubled every limit here (including `rateLimitLogin`, the brute-force guard on
+ * /admin). **Do not raise `instances` without moving this to a shared store.**
+ *
+ * Counters also reset on every restart, i.e. on every deploy, which is another
+ * reason this is a speed bump rather than a real defence: it blunts abuse of the
  * public payment/submission endpoints (spamming the EasyPay gateway, mass
- * contribution inserts). If the app is ever scaled to multiple instances this
- * should be moved to a shared store (Redis).
+ * contribution inserts) and nothing more. The nginx `mylimit` zone is the
+ * backstop.
  */
 
 interface WindowState {

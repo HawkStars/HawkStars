@@ -3,8 +3,10 @@
 import * as React from 'react';
 import { LuChevronDown, LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import { DayButton, DayPicker, getDefaultClassNames } from 'react-day-picker';
+import { enUS, pt } from 'react-day-picker/locale';
 
 import { cn } from '@/lib/utils';
+import { toIntlLocale, type Language } from '@/i18n/settings';
 import { Button, buttonVariants } from '@/components/ui/button';
 
 function Calendar({
@@ -15,9 +17,12 @@ function Calendar({
   buttonVariant = 'ghost',
   formatters,
   components,
+  lng = 'pt',
   ...props
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>['variant'];
+  /** Site locale. Drives the month dropdown, weekday headers and captions. */
+  lng?: Language;
 }) {
   const defaultClassNames = getDefaultClassNames();
 
@@ -31,8 +36,13 @@ function Calendar({
         className
       )}
       captionLayout={captionLayout}
+      // Without this, react-day-picker falls back to enUS for weekday headers
+      // and captions on a Portuguese-default site.
+      locale={lng === 'pt' ? pt : enUS}
       formatters={{
-        formatMonthDropdown: (date) => date.toLocaleString('default', { month: 'short' }),
+        // Was `toLocaleString('default', …)`, which resolves to the *runtime's*
+        // locale rather than the site's.
+        formatMonthDropdown: (date) => date.toLocaleString(toIntlLocale(lng), { month: 'short' }),
         ...formatters,
       }}
       classNames={{

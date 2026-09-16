@@ -121,10 +121,13 @@ const FormContributions = ({
 
           return (
             <div className='-mt-4'>
+              {/* `name` was 'donor' — the donor text input's field name — and an
+                  aria-label of 'is-anonymous' overrode the translated label for
+                  screen readers. The accessible name now comes from the real
+                  <label htmlFor={id}> that Checkbox renders. */}
               <Checkbox
                 labelText={t('contribution_form.anomymous')}
-                aria-label='is-anonymous'
-                name='donor'
+                name={name}
                 checked={value || false}
                 onChangeHandle={(checked: boolean) => handleToggleAnonymous(checked)}
                 id={name}

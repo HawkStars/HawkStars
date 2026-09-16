@@ -174,5 +174,9 @@
       "international_event": "International event",
       "other": "Other"
     }
+  },
+  "agenda": {
+    "loading": "Loading events…",
+    "empty": "No upcoming events."
   }
 }

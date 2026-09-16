@@ -1,3 +1,4 @@
+import { SITE_NAME } from '@/lib/constants';
 import { Metadata } from 'next';
 import { getSinglePageSlug } from '@/lib/payload/queries/page';
 import { prepareMetadataInfo } from '@/utils/metadata';
@@ -11,12 +12,20 @@ type PageProps = {
   params: Promise<LanguageProps & { slug: string }>;
 };
 
+// A missing document used to `return {}`, which inherits from the parent layout
+// — and (org)/layout.tsx exports no metadata at all, so a mistyped slug rendered
+// with no <title> (the tab showed the URL), no canonical and no robots rule.
+const notFoundMetadata = (): Metadata => ({
+  title: SITE_NAME,
+  robots: { index: false, follow: false },
+});
+
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng, slug } = params;
-  if (!slug) return {};
+  if (!slug) return notFoundMetadata();
   const pageInformation = await getSinglePageSlug(slug, lng);
-  if (!pageInformation) return {};
+  if (!pageInformation) return notFoundMetadata();
 
   return prepareMetadataInfo({
     title: pageInformation.meta?.title || pageInformation.title,

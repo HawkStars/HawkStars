@@ -11,7 +11,7 @@ const getPartnersQuery = async () => {
   return await payload.find({
     collection: 'partners',
     sort: '-createdAt',
-    limit: 1000,
+    limit: 200,
     depth: 1,
   });
 };

@@ -5,6 +5,7 @@ import { LanguageProps } from '../types';
 import { getServerTranslation } from '@/i18n';
 import { toIntlLocale } from '@/i18n/settings';
 import LandingPagination from '../utils/Pagination';
+import { formatCurrency } from '@/lib/utils/currency';
 
 type OrganizationContributionsTableProps = LanguageProps & {
   data: PaginatedDocs<Contribution>;
@@ -48,14 +49,25 @@ const OrganizationContributionsTable = async ({
                 <TableCell className='min-w-40 px-2'>
                   {new Date(contribution.contribution_date).toLocaleDateString(intlLocale)}
                 </TableCell>
-                <TableCell className='min-w-40 px-2'>{contribution.contribution_type}</TableCell>
+                {/* The stored value is an enum key ('OFFICE_CHAIR', 'WALL_NAME_COMPANY').
+                    The human labels existed only in the admin field component, so this
+                    public table rendered the raw keys in both locales. */}
+                <TableCell className='min-w-40 px-2'>
+                  {contribution.contribution_type
+                    ? t(`contribution_type.${contribution.contribution_type}`, {
+                        defaultValue: contribution.contribution_type,
+                      })
+                    : ''}
+                </TableCell>
                 <TableCell className='min-w-40 px-2'>
                   {contribution.is_anonymous
                     ? t('contribute:contribution_form.anonymous_donor')
                     : contribution.donor}
                 </TableCell>
                 <TableCell className='min-w-40 px-2'>
-                  {contribution.value.toLocaleString(intlLocale, {})}
+                  {/* An empty options object meant no currency symbol and no fixed
+                      fraction digits, so €1500.50 rendered as "1500,5". */}
+                  {formatCurrency(contribution.value, lng)}
                 </TableCell>
               </TableRow>
             ))}

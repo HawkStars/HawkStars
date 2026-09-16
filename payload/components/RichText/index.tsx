@@ -42,7 +42,6 @@ import { MapLocationBlock } from '@/payload/blocks/MapLocationBlock/Component';
 import { OfferCatalogBlock } from '@/payload/blocks/OfferCatalogBlock/Component';
 import { PricingTableBlock } from '@/payload/blocks/PricingTableBlock/Component';
 import { QuoteHighlightBlock } from '@/payload/blocks/QuoteHighlightBlock/Component';
-import { ResourceDownloadBlock } from '@/payload/blocks/ResourceDownloadBlock/Component';
 import { SocialProofBlock } from '@/payload/blocks/SocialProofBlock/Component';
 import { TimelineBlock } from '@/payload/blocks/TimelineBlock/Component';
 import { DataGridBlock } from '@/payload/blocks/DataGridBlock/Component';
@@ -103,6 +102,14 @@ const makeInternalDocToHref =
 // server-rendered — only the client chunk is deferred to when the block is used.
 const AgendaBlockComponent = dynamic(() =>
   import('@/payload/blocks/AgendaBlock/Component').then((m) => m.AgendaBlockComponent)
+);
+// ResourceDownloadBlock is an async Server Component. It was a static import,
+// which put it in the client graph of the two 'use client' modules that import
+// RichText (LivePreviewPage, NewsSingleInformation) — and rendering an async
+// component in the client tree throws in React 19, so opening Live Preview on a
+// page containing this block errored instead of previewing.
+const ResourceDownloadBlock = dynamic(() =>
+  import('@/payload/blocks/ResourceDownloadBlock/Component').then((m) => m.ResourceDownloadBlock)
 );
 const CampaignCountdownBlock = dynamic(() =>
   import('@/payload/blocks/CampaignCountdownBlock/Component').then((m) => m.CampaignCountdownBlock)

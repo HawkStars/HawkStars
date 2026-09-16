@@ -1,6 +1,6 @@
 'use client';
 
-import { useSyncExternalStore, useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import type { ImageShowcaseBlock as ImageShowcaseBlockProps } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
@@ -8,20 +8,10 @@ import { cn } from '@/lib/utils';
 import { HawkStarsSection } from '@/components/layout';
 import { useTranslation } from '@/i18n/client';
 import { Language } from '@/i18n/settings';
+import { usePrefersReducedMotion } from '@/lib/hooks/usePrefersReducedMotion';
 import { LuPause, LuPlay } from 'react-icons/lu';
 
 const TICK_INTERVAL = 50;
-
-const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
-
-const subscribeReducedMotion = (onStoreChange: () => void) => {
-  const query = window.matchMedia(REDUCED_MOTION_QUERY);
-  query.addEventListener('change', onStoreChange);
-  return () => query.removeEventListener('change', onStoreChange);
-};
-
-const getReducedMotionSnapshot = () => window.matchMedia(REDUCED_MOTION_QUERY).matches;
-const getReducedMotionServerSnapshot = () => false;
 
 export const ImageShowcaseBlock = ({
   images,
@@ -35,11 +25,7 @@ export const ImageShowcaseBlock = ({
   // `transitionDuration` is `number | null`; the `= 5000` default parameter only
   // catches undefined, so a null produced the invalid inline style `"nullms"`.
   const duration = transitionDuration ?? 5000;
-  const prefersReducedMotion = useSyncExternalStore(
-    subscribeReducedMotion,
-    getReducedMotionSnapshot,
-    getReducedMotionServerSnapshot
-  );
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [autoplayState, setAutoplayState] = useState<boolean>(autoplay ?? true);

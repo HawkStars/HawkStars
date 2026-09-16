@@ -1,3 +1,4 @@
+import { SITE_NAME } from '@/lib/constants';
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
 import { Language } from '@/i18n/settings';
@@ -14,12 +15,20 @@ import SingleProjectResults from '@/components/projects/single/SingleProjectResu
 import SingleProjectTravelMapWrapper from '@/components/projects/single/SingleProjectTravelMapWrapper';
 import { Suspense } from 'react';
 
+// A missing document used to `return {}`, which inherits from the parent layout
+// — and (org)/layout.tsx exports no metadata at all, so a mistyped slug rendered
+// with no <title> (the tab showed the URL), no canonical and no robots rule.
+const notFoundMetadata = (): Metadata => ({
+  title: SITE_NAME,
+  robots: { index: false, follow: false },
+});
+
 export async function generateMetadata(props: ProjectPageProps): Promise<Metadata> {
   const params = await props.params;
   const { lng, slug } = params;
 
   const project = await getSingleProjectsQuery(slug, lng as Language);
-  if (!project) return {};
+  if (!project) return notFoundMetadata();
 
   const seoTitle = project.meta?.title ?? project.heading;
   const seoDescription = project.meta?.description ?? project.details?.text?.substring(0, 160);

@@ -73,6 +73,9 @@ export const ContributionCollection: CollectionConfig = {
     {
       type: 'date',
       name: 'contribution_date',
+      // Filtered and/or sorted on by the public list queries; an unindexed sort
+      // on a growing collection uses Mongo's blocking sort, which hard-errors at 32MB.
+      index: true,
       label: { en: 'Contribution Date', pt: 'Data da Contribuição' },
       required: true,
       admin: {

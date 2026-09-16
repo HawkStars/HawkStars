@@ -63,24 +63,18 @@ export const markNotificationsReadHandler: PayloadHandler = async (req) => {
     const body = await req.json?.();
 
     if (body?.all === true) {
-      const unread = await payload.find({
+      // One bulk update instead of a find + 500 concurrent updates. The old
+      // shape capped at 500 (`pagination: false` does NOT lift `limit` — the
+      // Mongo adapter sets it precisely because it is ignored otherwise) and
+      // reported a count the caller could not tell apart from "all of them",
+      // while firing up to 500 parallel writes at the connection pool.
+      const result = await payload.update({
         collection: 'notifications',
         where: { read: { equals: false } },
-        limit: 500,
-        pagination: false,
+        data: { read: true },
       });
 
-      await Promise.all(
-        unread.docs.map((notification) =>
-          payload.update({
-            collection: 'notifications',
-            id: notification.id,
-            data: { read: true },
-          })
-        )
-      );
-
-      return Response.json({ success: true, marked: unread.docs.length });
+      return Response.json({ success: true, marked: result.docs.length });
     }
 
     if (body?.id) {

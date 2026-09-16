@@ -2,6 +2,7 @@
 
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { useTranslation } from '@/i18n/client';
+import { formatCurrency } from '@/lib/utils/currency';
 import MainHawkStarsLoading from '@/app/[lng]/(org)/loading';
 import dynamic from 'next/dynamic';
 
@@ -21,7 +22,9 @@ const ContributionProjectGoal = ({ sumContributions }: { sumContributions: numbe
       <h1 className='lg:text-h1_semibold text-h2_bold text-green text-center'>
         {t('current_goal')}
       </h1>
-      <p className='lg:text-h2_light mt-1 text-center'>{`${t('goal')}: ${PROJECT_GOAL}€`}</p>
+      {/* Was `${PROJECT_GOAL}€` — no grouping separators and the symbol on the
+          wrong side for pt-PT, next to a ledger that formats amounts properly. */}
+      <p className='lg:text-h2_light mt-1 text-center'>{`${t('goal')}: ${formatCurrency(PROJECT_GOAL, lng)}`}</p>
       <ContributionProgressBar sumContributions={sumContributions} projectGoal={PROJECT_GOAL} />
     </div>
   );

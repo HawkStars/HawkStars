@@ -37,15 +37,15 @@ jobs:
           --health-retries 5
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 ## v7
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6 # docs https://pnpm.io/continuous-integration#github-actions
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 ## v6 # docs https://pnpm.io/continuous-integration#github-actions
         with:
           version: 11
 
       - name: Install Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: 24
           cache: pnpm
@@ -55,6 +55,9 @@ jobs:
 
       - name: Lint code
         run: pnpm lint
+
+      - name: Check formatting
+        run: pnpm format
 
       - name: Check types
         run: pnpm typecheck
@@ -105,12 +108,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 ## v7
         with:
           token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
       - name: Create GitHub deployment
-        uses: chrnorm/deployment-action@v2
+        uses: chrnorm/deployment-action@500aa6a23c81ffa1acf71072aee3cfa2cc2e556a ## v2
         id: deployment
         with:
           token: '${{ github.token }}'
@@ -118,7 +121,7 @@ jobs:
 
       - name: Set up SSH Key and Deploy my App on Server
         # run: |
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 ## v1
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
           NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
@@ -145,6 +148,11 @@ jobs:
           # The admin Translate view calls LIBRETRANSLATE_URL and silently fell back to
           # http://localhost:5000 in production, failing on every use. GEOCODING_CONTACT_EMAIL
           # has a working fallback but the same gap.
+          # Falls back to the unauthenticated local URI so this keeps working
+          # until Mongo auth is turned on. Set the DATABASE_URI secret to
+          # mongodb://<user>:<pass>@localhost:27017/hawkstars?authSource=admin
+          # and the deploy picks it up with no further change.
+          DATABASE_URI: ${{ secrets.DATABASE_URI }}
           LIBRETRANSLATE_URL: ${{ secrets.LIBRETRANSLATE_URL }}
           LIBRETRANSLATE_API_KEY: ${{ secrets.LIBRETRANSLATE_API_KEY }}
           GEOCODING_CONTACT_EMAIL: ${{ secrets.GEOCODING_CONTACT_EMAIL }}
@@ -154,13 +162,19 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: 22
-          envs: NEXT_PUBLIC_APP_URL,PAYLOAD_SECRET,SENTRY_AUTH_TOKEN,NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY,CLOUDINARY_API_SECRET,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,GOOGLE_REFRESH_TOKEN,GOOGLE_REDIRECT_URI,GOOGLE_DRIVE_FOLDER_ID,GOOGLE_EMAIL_USER,GOOGLE_NODEMAILER_CLIENT_ID,GOOGLE_NODEMAILER_CLIENT_SECRET,GOOGLE_NODEMAILER_REFRESH_TOKEN,EASYPAY_ACCOUNT_ID,EASYPAY_API_KEY,EASYPAY_API_URL,EASYPAY_WEBHOOK_SECRET,PERSONAL_GITHUB_TOKEN,NEXT_PUBLIC_CARTO_BASEMAP_KEY,LIBRETRANSLATE_URL,LIBRETRANSLATE_API_KEY,GEOCODING_CONTACT_EMAIL
+          envs: NEXT_PUBLIC_APP_URL,PAYLOAD_SECRET,SENTRY_AUTH_TOKEN,NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY,CLOUDINARY_API_SECRET,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,GOOGLE_REFRESH_TOKEN,GOOGLE_REDIRECT_URI,GOOGLE_DRIVE_FOLDER_ID,GOOGLE_EMAIL_USER,GOOGLE_NODEMAILER_CLIENT_ID,GOOGLE_NODEMAILER_CLIENT_SECRET,GOOGLE_NODEMAILER_REFRESH_TOKEN,EASYPAY_ACCOUNT_ID,EASYPAY_API_KEY,EASYPAY_API_URL,EASYPAY_WEBHOOK_SECRET,PERSONAL_GITHUB_TOKEN,NEXT_PUBLIC_CARTO_BASEMAP_KEY,DATABASE_URI,LIBRETRANSLATE_URL,LIBRETRANSLATE_API_KEY,GEOCODING_CONTACT_EMAIL
           script: |
             set -e
 
             # Non-interactive shell: let pnpm purge node_modules without a TTY prompt
             export CI=true
 
+            # The unset below used to be a plain command at the end of this
+            # block. Under `set -e` any failure in between — a git lock, a
+            # diverged ref, a network blip — skipped it and left the PAT in
+            # cleartext in root's ~/.gitconfig, where later deploys silently
+            # overwrote the same key without ever clearing it.
+            trap 'git config --global --unset-all url."https://${PERSONAL_GITHUB_TOKEN}:@github.com".insteadOf 2>/dev/null || true' EXIT
             git config --global url."https://${PERSONAL_GITHUB_TOKEN}:@github.com".insteadOf "https://github.com"
             cd app/
 
@@ -188,33 +202,37 @@ jobs:
             pnpm --version
 
             # Create .env file dynamically
-            cat > .env << EOF
-            NODE_ENV=production
-            NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
-            PAYLOAD_SECRET=${PAYLOAD_SECRET}
-            DATABASE_URI=mongodb://localhost:27017/hawkstars
-            SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}
-            NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=${NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
-            CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
-            CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
-            GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
-            GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
-            GOOGLE_REFRESH_TOKEN=${GOOGLE_REFRESH_TOKEN}
-            GOOGLE_REDIRECT_URI=${GOOGLE_REDIRECT_URI}
-            GOOGLE_DRIVE_FOLDER_ID=${GOOGLE_DRIVE_FOLDER_ID}
-            GOOGLE_EMAIL_USER=${GOOGLE_EMAIL_USER}
-            GOOGLE_NODEMAILER_CLIENT_ID=${GOOGLE_NODEMAILER_CLIENT_ID}
-            GOOGLE_NODEMAILER_CLIENT_SECRET=${GOOGLE_NODEMAILER_CLIENT_SECRET}
-            GOOGLE_NODEMAILER_REFRESH_TOKEN=${GOOGLE_NODEMAILER_REFRESH_TOKEN}
-            EASYPAY_ACCOUNT_ID=${EASYPAY_ACCOUNT_ID}
-            EASYPAY_API_KEY=${EASYPAY_API_KEY}
-            EASYPAY_API_URL=${EASYPAY_API_URL}
-            EASYPAY_WEBHOOK_SECRET=${EASYPAY_WEBHOOK_SECRET}
-            NEXT_PUBLIC_CARTO_BASEMAP_KEY=${NEXT_PUBLIC_CARTO_BASEMAP_KEY}
-            LIBRETRANSLATE_URL=${LIBRETRANSLATE_URL}
-            LIBRETRANSLATE_API_KEY=${LIBRETRANSLATE_API_KEY}
-            GEOCODING_CONTACT_EMAIL=${GEOCODING_CONTACT_EMAIL}
-            EOF
+            # Written with printf rather than an unquoted heredoc. `<< EOF`
+            # expands ${VAR} — which is what we want — but it ALSO performs
+            # command substitution and backslash processing on the values, so a
+            # secret containing a backtick, $( or a trailing backslash was
+            # silently corrupted (or executed) on its way into .env.
+            : > .env
+            printf '%s=%s\n' NODE_ENV "production" >> .env
+            printf '%s=%s\n' NEXT_PUBLIC_APP_URL "${NEXT_PUBLIC_APP_URL}" >> .env
+            printf '%s=%s\n' PAYLOAD_SECRET "${PAYLOAD_SECRET}" >> .env
+            printf '%s=%s\n' DATABASE_URI "${DATABASE_URI:-mongodb://localhost:27017/hawkstars}" >> .env
+            printf '%s=%s\n' SENTRY_AUTH_TOKEN "${SENTRY_AUTH_TOKEN}" >> .env
+            printf '%s=%s\n' NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME "${NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}" >> .env
+            printf '%s=%s\n' CLOUDINARY_API_KEY "${CLOUDINARY_API_KEY}" >> .env
+            printf '%s=%s\n' CLOUDINARY_API_SECRET "${CLOUDINARY_API_SECRET}" >> .env
+            printf '%s=%s\n' GOOGLE_CLIENT_ID "${GOOGLE_CLIENT_ID}" >> .env
+            printf '%s=%s\n' GOOGLE_CLIENT_SECRET "${GOOGLE_CLIENT_SECRET}" >> .env
+            printf '%s=%s\n' GOOGLE_REFRESH_TOKEN "${GOOGLE_REFRESH_TOKEN}" >> .env
+            printf '%s=%s\n' GOOGLE_REDIRECT_URI "${GOOGLE_REDIRECT_URI}" >> .env
+            printf '%s=%s\n' GOOGLE_DRIVE_FOLDER_ID "${GOOGLE_DRIVE_FOLDER_ID}" >> .env
+            printf '%s=%s\n' GOOGLE_EMAIL_USER "${GOOGLE_EMAIL_USER}" >> .env
+            printf '%s=%s\n' GOOGLE_NODEMAILER_CLIENT_ID "${GOOGLE_NODEMAILER_CLIENT_ID}" >> .env
+            printf '%s=%s\n' GOOGLE_NODEMAILER_CLIENT_SECRET "${GOOGLE_NODEMAILER_CLIENT_SECRET}" >> .env
+            printf '%s=%s\n' GOOGLE_NODEMAILER_REFRESH_TOKEN "${GOOGLE_NODEMAILER_REFRESH_TOKEN}" >> .env
+            printf '%s=%s\n' EASYPAY_ACCOUNT_ID "${EASYPAY_ACCOUNT_ID}" >> .env
+            printf '%s=%s\n' EASYPAY_API_KEY "${EASYPAY_API_KEY}" >> .env
+            printf '%s=%s\n' EASYPAY_API_URL "${EASYPAY_API_URL}" >> .env
+            printf '%s=%s\n' EASYPAY_WEBHOOK_SECRET "${EASYPAY_WEBHOOK_SECRET}" >> .env
+            printf '%s=%s\n' NEXT_PUBLIC_CARTO_BASEMAP_KEY "${NEXT_PUBLIC_CARTO_BASEMAP_KEY}" >> .env
+            printf '%s=%s\n' LIBRETRANSLATE_URL "${LIBRETRANSLATE_URL}" >> .env
+            printf '%s=%s\n' LIBRETRANSLATE_API_KEY "${LIBRETRANSLATE_API_KEY}" >> .env
+            printf '%s=%s\n' GEOCODING_CONTACT_EMAIL "${GEOCODING_CONTACT_EMAIL}" >> .env
 
             # Restrict permissions so only owner can read
             chmod 600 .env
@@ -224,6 +242,12 @@ jobs:
             # first, so any build or migrate failure left `hawkstars` deleted from
             # PM2 with no .next and no way back except manual SSH.
             #
+            # Recorded before anything is installed or migrated so the rollback
+            # below can put the code and the dependency tree back too, not just
+            # the compiled output.
+            PREV_SHA="$(git rev-parse HEAD@{1} 2>/dev/null || git rev-parse HEAD)"
+            echo "previous revision: ${PREV_SHA}"
+
             # Install dependencies (CI=true above lets pnpm purge node_modules
             # non-interactively if the store layout changed).
             pnpm install --frozen-lockfile
@@ -260,11 +284,30 @@ jobs:
             # before calling this a success. /api/health exists for exactly this.
             if ! curl -fsS --retry 12 --retry-delay 5 --retry-connrefused \
                  --max-time 20 http://127.0.0.1:3000/api/health > /dev/null; then
-              echo "::error::health check failed — rolling back to the previous build"
+              echo "::error::health check failed — rolling back"
+
               if [ -d .next.prev ]; then
+                # Put the code and the dependency tree back as well. Restoring
+                # only .next left the previous build running against the new
+                # node_modules — a different broken state, not the last good one.
+                git reset --hard "${PREV_SHA}"
+                pnpm install --frozen-lockfile || true
                 rm -rf .next
                 mv .next.prev .next
                 pm2 reload ecosystem.config.cjs --update-env || pm2 start ecosystem.config.cjs
+
+                # NOTE: migrations are NOT rolled back. `pnpm migrate` has
+                # already run against the live database by this point, so
+                # migrations must stay backward-compatible with the previous
+                # release (expand/contract). A destructive migration cannot be
+                # undone from here.
+                echo "::warning::rolled back code and build; database migrations were NOT reverted"
+              else
+                # No previous build to fall back to (first deploy, or a prior run
+                # already pruned it). Stopping is the honest outcome — leaving the
+                # failing build serving while reporting failure is worse.
+                echo "::error::no .next.prev to roll back to — stopping the app"
+                pm2 stop ecosystem.config.cjs || true
               fi
               exit 1
             fi
@@ -276,7 +319,7 @@ jobs:
 
       - name: Update deployment Status (success)
         if: success()
-        uses: chrnorm/deployment-status@v2
+        uses: chrnorm/deployment-status@6df8d036fd2fee9eb82936733953da1f8382b41e ## v2
         with:
           token: '${{ github.token }}'
           state: 'success'
@@ -284,7 +327,7 @@ jobs:
 
       - name: Update deployment status (failure)
         if: failure()
-        uses: chrnorm/deployment-status@v2
+        uses: chrnorm/deployment-status@6df8d036fd2fee9eb82936733953da1f8382b41e ## v2
         with:
           token: '${{ github.token }}'
           state: 'failure'
@@ -292,22 +335,30 @@ jobs:
   storybook:
     name: Build Storybook
     runs-on: ubuntu-latest
+    # Chromatic posts a commit status; the workflow-level `contents: read` is
+    # not enough for that, and the failure is a silent 403 in the action's log.
+    permissions:
+      contents: read
+      statuses: write
+      pull-requests: write
     needs: check
-    # Run even when the deploy fails or is cancelled, so the channel always
-    # reflects the real state of production.
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # Runs on pull requests as well as on main. `fetch-depth: 0` below exists so
+    # Chromatic can diff against the PR's ancestry — but the job only ran after
+    # merge, so visual regressions were caught once the change was already
+    # deploying.
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 ## v7
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: 24
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6 # docs https://pnpm.io/continuous-integration#github-actions
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 ## v6 # docs https://pnpm.io/continuous-integration#github-actions
         with:
           version: 11
 
@@ -321,6 +372,8 @@ jobs:
           #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ to obtain it
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          # main auto-accepts as the new baseline; PRs surface a review.
+          autoAcceptChanges: main
   notify:
     name: Notify Discord
     runs-on: ubuntu-latest
@@ -330,7 +383,7 @@ jobs:
     if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 ## v7
         with:
           fetch-depth: 1
 

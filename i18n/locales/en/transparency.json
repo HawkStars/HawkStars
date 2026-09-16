@@ -1,5 +1,17 @@
 {
   "current_goal": "Current Project Contribution:",
   "goal": "Goal",
-  "contributions_title": "Contributions"
+  "contributions_title": "Contributions",
+  "contribution_type": {
+    "BANK": "Bank transfer",
+    "CRYPTO": "Cryptocurrency",
+    "WALL_NAME_SINGULAR": "Individual — name on the wall",
+    "WALL_NAME_COMPANY": "Company — name on the wall",
+    "OFFICE_CHAIR": "Office chair",
+    "SIMULATOR_CHAIR": "Simulator chair",
+    "LOUNGE_CHAIR": "Lounge chair",
+    "AUDITORIUM_CHAIR": "Auditorium chair",
+    "BUILDING_NAMING": "Name on the building",
+    "TRAINING_ROOM_NAMING": "Training room name"
+  }
 }

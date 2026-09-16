@@ -15,7 +15,10 @@ export async function generateMetadata(props: ProjectsArchivePageProps): Promise
   const params = await props.params;
   const { lng } = params;
 
-  const metadataPage = getMetadataPageInfo(lng as Language, 'projects_archive');
+  // `?page=N` used to canonicalise to page 1, so Google treated pages 2..N as
+  // duplicates of the first and dropped them. Filter params stay excluded.
+  const pageNumber = Number((await props.searchParams)?.page) || undefined;
+  const metadataPage = getMetadataPageInfo(lng as Language, 'projects_archive', pageNumber);
   return metadataPage;
 }
 

@@ -12,7 +12,8 @@ import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection'
 // Pages was the one collection of ten without data-cache invalidation: its cached
 // document entry is keyed by tag, so a revalidatePath-triggered re-render could be
 // rebuilt from the same stale entry.
-const { afterChange: revalidateHookAfterChange } = createRevalidateHooks('pages');
+const { afterChange: revalidateHookAfterChange, afterDelete: revalidateHookAfterDelete } =
+  createRevalidateHooks('pages');
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -167,7 +168,11 @@ export const Pages: CollectionConfig<'pages'> = {
   ],
   hooks: {
     afterChange: [revalidatePage, notifyPageChange, revalidateHookAfterChange],
-    afterDelete: [revalidateDelete],
+    // `revalidateDelete` only calls revalidatePath, which clears the route shell
+    // — and the shell is then rebuilt from the same stale tagged entry. The tag
+    // half has to run too, or a deleted page keeps serving for the full
+    // cacheLife window and stays in the sitemap.
+    afterDelete: [revalidateDelete, revalidateHookAfterDelete],
   },
   versions: {
     drafts: {

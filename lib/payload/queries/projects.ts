@@ -75,6 +75,7 @@ const getProjectsSplitByDateAt = async (
     where: conditions.length > 1 ? { and: conditions } : conditions[0],
     sort: 'startDate',
     limit: 100,
+    depth: 1,
     locale,
   });
 
@@ -108,6 +109,7 @@ const getPastProjectsAt = async (
     collection: PROJECTS_COLLECTION,
     where: conditions.length > 1 ? { and: conditions } : conditions[0],
     sort: '-endDate',
+    depth: 1,
     limit: opts?.limit ?? DEFAULT_ARCHIVE_PAGE_LIMIT,
     page: opts?.page ?? 1,
     locale,

@@ -71,7 +71,11 @@ const Navbar: FC<NavbarProps> = ({ headerInfo, lng }) => {
                 type='button'
                 aria-label={t('a11y.openMenu')}
                 aria-expanded={mobileNavbarOpen}
-                aria-controls={MOBILE_NAVBAR_PANEL_ID}
+                // Only while the panel exists: MobileNavbar returns null when
+                // closed, so an unconditional aria-controls was a dangling IDREF
+                // and some assistive tech announces nothing for it. aria-expanded
+                // still conveys the state either way.
+                aria-controls={mobileNavbarOpen ? MOBILE_NAVBAR_PANEL_ID : undefined}
                 className='cursor-pointer'
                 onClick={() => setMobileMenuOpen(true)}
               >

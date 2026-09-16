@@ -137,7 +137,7 @@ export const ProjectsList: GlobalConfig = {
   versions: {
     drafts: {
       autosave: {
-        interval: 100, // We set this interval for optimal live preview
+        interval: 2000,
       },
     },
     max: 3,

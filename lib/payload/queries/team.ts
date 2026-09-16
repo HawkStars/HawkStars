@@ -23,7 +23,7 @@ export const getBoardMembers = async (lng: Language): Promise<GroupedBoardMember
   const payload = await getPayloadConfig();
   const data = await payload.find({
     collection: 'board-members',
-    limit: 1000,
+    limit: 200,
     depth: 1,
     locale: lng,
   });

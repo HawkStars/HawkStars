@@ -7,6 +7,12 @@ vi.mock('uuid', () => ({
   v4: () => 'test-uuid-sub-5678',
 }));
 
+const { mockPayloadCreate } = vi.hoisted(() => ({ mockPayloadCreate: vi.fn() }));
+
+vi.mock('@/lib/payload/server', () => ({
+  getPayloadConfig: vi.fn().mockResolvedValue({ create: mockPayloadCreate }),
+}));
+
 const ENV_VARS = {
   EASYPAY_ACCOUNT_ID: 'test-account-id',
   EASYPAY_API_KEY: 'test-api-key',
@@ -37,6 +43,7 @@ function getFetchCallArgs<T = Record<string, unknown>>(
 describe('POST /api/subscription', () => {
   beforeEach(() => {
     resetRateLimit();
+    mockPayloadCreate.mockReset();
     process.env.EASYPAY_ACCOUNT_ID = ENV_VARS.EASYPAY_ACCOUNT_ID;
     process.env.EASYPAY_API_KEY = ENV_VARS.EASYPAY_API_KEY;
     process.env.EASYPAY_API_URL = ENV_VARS.EASYPAY_API_URL;
@@ -84,10 +91,8 @@ describe('POST /api/subscription', () => {
         value: 15,
         email: 'check@example.com',
         name: 'Check Sub',
-        frequency: '1M',
+        plan: 'monthly',
         reason: 'Monthly support',
-        capture_now: true,
-        unlimited_payments: true,
       });
 
       await POST(request);
@@ -110,122 +115,105 @@ describe('POST /api/subscription', () => {
       expect(sentBody.capture.descriptive).toBe('Monthly support');
     });
 
-    it('uses 1M as the default frequency', async () => {
+    it('defaults to the monthly plan', async () => {
       const fetchMock = vi
         .spyOn(global, 'fetch')
         .mockResolvedValueOnce(
           new Response(JSON.stringify({ id: 'sub-default-freq' }), { status: 200 })
         );
 
-      const request = makeRequest({
-        value: 10,
-        email: 'default@example.com',
-        name: 'Default Freq',
-      });
+      await POST(makeRequest({ value: 10, email: 'default@example.com', name: 'Default Freq' }));
 
-      await POST(request);
-
-      const { body: sentBody1 } = getFetchCallArgs<SubscriptionPaymentQuery>(fetchMock);
-      expect(sentBody1.frequency).toBe('1M');
+      const { body } = getFetchCallArgs<SubscriptionPaymentQuery>(fetchMock);
+      expect(body.frequency).toBe('1M');
+      expect(body.unlimited_payments).toBe(true);
+      expect(body.capture_now).toBe(true);
+      expect(body.max_captures).toBeUndefined();
     });
 
-    it('defaults to unlimited_payments: true', async () => {
-      const fetchMock = vi
-        .spyOn(global, 'fetch')
-        .mockResolvedValueOnce(
-          new Response(JSON.stringify({ id: 'sub-unlimited' }), { status: 200 })
-        );
-
-      const request = makeRequest({
-        value: 10,
-        email: 'unlimited@example.com',
-        name: 'Unlimited User',
-      });
-
-      await POST(request);
-
-      const { body: sentBody2 } = getFetchCallArgs<SubscriptionPaymentQuery>(fetchMock);
-      expect(sentBody2.unlimited_payments).toBe(true);
-    });
-
-    it('includes max_captures when unlimited_payments is false', async () => {
-      const fetchMock = vi
-        .spyOn(global, 'fetch')
-        .mockResolvedValueOnce(new Response(JSON.stringify({ id: 'sub-max' }), { status: 200 }));
-
-      const request = makeRequest({
-        value: 10,
-        email: 'maxcap@example.com',
-        name: 'Max Cap User',
-        unlimited_payments: false,
-        max_captures: 12,
-      });
-
-      await POST(request);
-
-      const { body: sentBody3 } = getFetchCallArgs<SubscriptionPaymentQuery>(fetchMock);
-      expect(sentBody3.unlimited_payments).toBe(false);
-      expect(sentBody3.max_captures).toBe(12);
-    });
-
-    it('does not include max_captures when unlimited_payments is true', async () => {
-      const fetchMock = vi
-        .spyOn(global, 'fetch')
-        .mockResolvedValueOnce(new Response(JSON.stringify({ id: 'sub-no-max' }), { status: 200 }));
-
-      const request = makeRequest({
-        value: 10,
-        email: 'nomax@example.com',
-        name: 'No Max User',
-        unlimited_payments: true,
-        max_captures: 12,
-      });
-
-      await POST(request);
-
-      const { body: sentBody4 } = getFetchCallArgs<SubscriptionPaymentQuery>(fetchMock);
-      expect(sentBody4.max_captures).toBeUndefined();
-    });
-
-    it('accepts all valid frequency values', async () => {
-      const frequencies = ['1D', '1W', '2W', '1M', '2M', '3M', '4M', '6M', '1Y', '2Y', '3Y'];
-
-      for (const frequency of frequencies) {
-        // 11 requests in one test would trip the 10/min rate limit
+    it('maps each named plan to its frequency', async () => {
+      for (const [plan, frequency] of [
+        ['monthly', '1M'],
+        ['quarterly', '3M'],
+        ['yearly', '1Y'],
+      ] as const) {
         resetRateLimit();
-        vi.spyOn(global, 'fetch').mockResolvedValueOnce(
-          new Response(JSON.stringify({ id: `sub-${frequency}` }), { status: 200 })
+        const fetchMock = vi
+          .spyOn(global, 'fetch')
+          .mockResolvedValueOnce(
+            new Response(JSON.stringify({ id: `sub-${plan}` }), { status: 200 })
+          );
+
+        const response = await POST(
+          makeRequest({ value: 10, email: 'plan@example.com', name: 'Plan User', plan })
         );
 
-        const request = makeRequest({
-          value: 10,
-          email: 'freq@example.com',
-          name: 'Freq User',
-          frequency,
-        });
-
-        const response = await POST(request);
         expect(response.status).toBe(200);
+        const { body } = getFetchCallArgs<SubscriptionPaymentQuery>(fetchMock);
+        expect(body.frequency).toBe(frequency);
+        fetchMock.mockRestore();
       }
     });
 
-    it('uses provided start_time', async () => {
+    it('ignores caller-supplied recurrence fields', async () => {
+      // These used to be read straight from the body and forwarded to EasyPay,
+      // so a crafted request could create an unlimited *daily* charge starting
+      // at an arbitrary time. They must now have no effect at all.
       const fetchMock = vi
         .spyOn(global, 'fetch')
-        .mockResolvedValueOnce(new Response(JSON.stringify({ id: 'sub-start' }), { status: 200 }));
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify({ id: 'sub-ignored' }), { status: 200 })
+        );
 
-      const customStartTime = '2025-06-01 10:00';
-      const request = makeRequest({
-        value: 10,
-        email: 'start@example.com',
-        name: 'Start User',
-        start_time: customStartTime,
-      });
+      await POST(
+        makeRequest({
+          value: 10,
+          email: 'hostile@example.com',
+          name: 'Hostile',
+          frequency: '1D',
+          start_time: '2020-01-01 00:00',
+          capture_now: false,
+          max_captures: 9999,
+          unlimited_payments: false,
+        })
+      );
 
-      await POST(request);
+      const { body } = getFetchCallArgs<SubscriptionPaymentQuery>(fetchMock);
+      expect(body.frequency).toBe('1M');
+      expect(body.capture_now).toBe(true);
+      expect(body.unlimited_payments).toBe(true);
+      expect(body.max_captures).toBeUndefined();
+      expect(body.start_time).not.toBe('2020-01-01 00:00');
+    });
 
-      const { body: sentBody5 } = getFetchCallArgs<SubscriptionPaymentQuery>(fetchMock);
-      expect(sentBody5.start_time).toBe(customStartTime);
+    it('records the subscription as an unconfirmed contribution', async () => {
+      vi.spyOn(global, 'fetch').mockResolvedValueOnce(
+        new Response(JSON.stringify({ id: 'sub-persist' }), { status: 200 })
+      );
+
+      await POST(makeRequest({ value: 25, email: 'persist@example.com', name: 'Persist User' }));
+
+      expect(mockPayloadCreate).toHaveBeenCalledOnce();
+      const createCall = mockPayloadCreate.mock.calls[0][0];
+      expect(createCall.collection).toBe('contributions');
+      expect(createCall.data.value).toBe(25);
+      expect(createCall.data.is_confirmed).toBe(false);
+      expect(createCall.data.transaction_key).toBe('test-uuid-sub-5678');
+      expect(createCall.data.extra_info.subscription).toBe(true);
+    });
+
+    it('still returns 200 when persisting the contribution fails', async () => {
+      // The subscription already exists at EasyPay; failing the request would
+      // tell the donor otherwise.
+      vi.spyOn(global, 'fetch').mockResolvedValueOnce(
+        new Response(JSON.stringify({ id: 'sub-dberr' }), { status: 200 })
+      );
+      mockPayloadCreate.mockRejectedValueOnce(new Error('DB down'));
+
+      const response = await POST(
+        makeRequest({ value: 10, email: 'dberr@example.com', name: 'DB Err' })
+      );
+      expect(response.status).toBe(200);
     });
 
     it('generates a default descriptive when no reason is provided', async () => {
@@ -254,12 +242,12 @@ describe('POST /api/subscription', () => {
       expect(response.status).toBe(400);
     });
 
-    it('returns 400 when frequency is invalid', async () => {
+    it('returns 400 when the plan is not one we offer', async () => {
       const request = makeRequest({
         value: 10,
         email: 'donor@example.com',
         name: 'John Doe',
-        frequency: 'INVALID',
+        plan: 'daily',
       });
 
       const response = await POST(request);

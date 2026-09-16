@@ -56,7 +56,13 @@ const getLocale = async (request: NextRequest, response: NextResponse): Promise<
     // Avoid producing a trailing slash for the root path (`/`), which would
     // otherwise redirect to `/pt/` and trigger a second (308) redirect to `/pt`.
     const targetPath = request.nextUrl.pathname === '/' ? '' : request.nextUrl.pathname;
-    return NextResponse.redirect(new URL(`/${lng}${targetPath}`, request.url), 301);
+    // 307, not 301: the target is negotiated per request from the i18next cookie
+    // and Accept-Language, so it is not a permanent mapping. A cached 301 pinned
+    // "/" to one locale for that client, and crawlers treated it as permanent
+    // regardless of the requesting locale.
+    const redirect = NextResponse.redirect(new URL(`/${lng}${targetPath}`, request.url), 307);
+    redirect.headers.set('Vary', 'Cookie, Accept-Language');
+    return redirect;
   }
   // Reachable only for `/_next/*` paths that slip past the config matcher —
   // every other pathname that gets this far was redirected above. (This was

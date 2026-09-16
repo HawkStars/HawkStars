@@ -15,6 +15,10 @@ const getHeaderQuery = async (lng: Language) => {
     depth: 2,
     draft: false,
     locale: lng,
+    populate: {
+      pages: { slug: true },
+      hawk_projects: { slug: true },
+    },
   });
 };
 
