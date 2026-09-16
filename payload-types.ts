@@ -4350,6 +4350,10 @@ export interface HawkEvent {
    */
   description?: string | null;
   /**
+   * Venue or place, e.g. "Centro Cultural de Pinhel" or "Kraków, Poland". Required for the event to appear as a Google rich result — schema.org/Event rejects an event with no location, so leaving this empty means no structured data is published for this event at all.
+   */
+  location?: string | null;
+  /**
    * Enable if the event spans more than one day
    */
   isDateRange?: boolean | null;
@@ -5178,6 +5182,7 @@ export interface HawkEventsSelect<T extends boolean = true> {
   heading?: T;
   subheading?: T;
   description?: T;
+  location?: T;
   isDateRange?: T;
   date?: T;
   endDate?: T;

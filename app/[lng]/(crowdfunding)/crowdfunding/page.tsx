@@ -41,7 +41,7 @@ async function CrowdfundingContent({ lng }: { lng: Language }) {
       <CrowdfundingAbout {...settings} t={t} />
       <CrowdfundingTransparency lng={lng} {...settings} t={t} />
       <CrowdfundingRewards {...settings} t={t} />
-      <CrowdfundingUpdates {...settings} t={t} />
+      <CrowdfundingUpdates {...settings} t={t} lng={lng} />
       <CrowdfundingBusiness {...settings} t={t} />
       <CrowdfundingPartners {...settings} t={t} />
       <CrowdfundingFAQ {...settings} t={t} />

@@ -4,15 +4,17 @@ import React, { useEffect, useState } from 'react';
 import type { LatestNewsBlock as LatestNewsBlockProps } from '@/payload-types';
 import { LatestNewsBlockView, LatestNewsItem } from './LatestNewsBlockView';
 import { fetchLatestHawkEvent, fetchLatestNews } from '@/lib/payload/client-side/queries/news';
+import { Language } from '@/i18n/settings';
 
-export const LatestNewsBlock: React.FC<LatestNewsBlockProps> = ({
+export const LatestNewsBlock: React.FC<LatestNewsBlockProps & { lng: Language }> = ({
   title,
   subtitle,
   source = 'news',
   newsType,
   eventType,
-  linkLabel = 'Read more',
+  linkLabel,
   sectionId,
+  lng,
 }) => {
   const [item, setItem] = useState<LatestNewsItem | null>(null);
 
@@ -33,6 +35,7 @@ export const LatestNewsBlock: React.FC<LatestNewsBlockProps> = ({
       linkLabel={linkLabel}
       sectionId={sectionId}
       item={item}
+      lng={lng}
     />
   );
 };

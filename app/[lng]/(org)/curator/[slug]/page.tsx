@@ -97,7 +97,7 @@ const CuratorContent = async ({ params }: { params: CuratorPageProps['params'] }
           {curator.image && (
             <ImageMedia
               resource={curator.image}
-              alt={curator.name || 'Curator Image'}
+              alt={curator.name || ''}
               width={384}
               height={512}
               className='rounded-xl'

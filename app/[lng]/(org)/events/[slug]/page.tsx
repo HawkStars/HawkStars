@@ -52,7 +52,7 @@ const EventContent = async ({ params }: { params: EventPageProps['params'] }) =>
         description={event.description || ''}
         startDate={event.date ?? event.createdAt}
         endDate={event.endDate ?? undefined}
-        location={undefined}
+        location={event.location ?? undefined}
         url={`${BASE_URL}/${lng}/events/${slug}`}
         image={image?.url ?? undefined}
       />

@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { getLinkFieldInformation } from '@/utils/page';
 import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';
+import { useTranslation } from '@/i18n/client';
 
 interface TimeLeft {
   days: number;
@@ -26,10 +27,11 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps & { ln
   showMinutes = true,
   showSeconds = true,
   theme = 'light',
-  completedMessage = 'Campaign Ended',
+  completedMessage,
   sectionId,
   lng,
 }) => {
+  const { t } = useTranslation(lng, 'common');
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [isComplete, setIsComplete] = useState(false);
 
@@ -105,7 +107,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps & { ln
           <div className='mb-8 text-center'>
             <div className='bg-bege-dark inline-flex items-center gap-2 rounded-lg px-6 py-4 text-2xl font-bold text-black'>
               <LuCalendar className='h-8 w-8' />
-              {completedMessage}
+              {completedMessage || t('blocks.campaignEnded')}
             </div>
           </div>
         ) : (

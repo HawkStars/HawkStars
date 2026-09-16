@@ -9,6 +9,7 @@ import { getLinkFieldInformation } from '@/utils/page';
 import { HawkStarsSection } from '@/components/layout';
 import { formatCurrency } from '@/lib/utils/currency';
 import { Language } from '@/i18n/settings';
+import { useTranslation } from '@/i18n/client';
 
 export const DonationProgressBlock: React.FC<DonationProgressBlockProps & { lng: Language }> = ({
   title,
@@ -23,6 +24,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps & { lng:
   sectionId,
   lng,
 }) => {
+  const { t } = useTranslation(lng, 'common');
   const [progress, setProgress] = useState(0);
   const [inView, setInView] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -141,13 +143,15 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps & { lng:
             {/* Stats */}
             <div className='flex flex-wrap justify-between gap-4'>
               <div>
-                <div className='text-sm tracking-wide uppercase opacity-70'>Raised</div>
+                <div className='text-sm tracking-wide uppercase opacity-70'>
+                  {t('blocks.raised')}
+                </div>
                 <div className='text-2xl font-bold lg:text-3xl'>
                   {formatCurrency(currentAmount, lng)}
                 </div>
               </div>
               <div className='text-right'>
-                <div className='text-sm tracking-wide uppercase opacity-70'>Goal</div>
+                <div className='text-sm tracking-wide uppercase opacity-70'>{t('blocks.goal')}</div>
                 <div className='text-2xl font-bold lg:text-3xl'>
                   {formatCurrency(goalAmount, lng)}
                 </div>

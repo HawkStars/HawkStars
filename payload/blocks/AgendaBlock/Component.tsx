@@ -6,6 +6,7 @@ import { getImagePayloadUrl } from '@/lib/image';
 import { AgendaBlockView, type AgendaEventItem } from './AgendaBlockView';
 import { fetchAgendaEvents } from '@/lib/payload/client-side/queries/event';
 import { fetchAgendaProjects } from '@/lib/payload/client-side/queries/projects';
+import { Language } from '@/i18n/settings';
 
 function toAgendaItem(event: HawkEvent): AgendaEventItem {
   const image = getImagePayloadUrl(event.image);
@@ -47,7 +48,8 @@ export function AgendaBlockComponent({
   layout,
   linkLabel,
   sectionId,
-}: AgendaBlockProps) {
+  lng,
+}: AgendaBlockProps & { lng: Language }) {
   const [events, setEvents] = useState<AgendaEventItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -86,6 +88,7 @@ export function AgendaBlockComponent({
       sectionId={sectionId}
       events={events}
       loading={loading}
+      lng={lng}
     />
   );
 }

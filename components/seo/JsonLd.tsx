@@ -34,7 +34,12 @@ export function OrganizationJsonLd({ lng }: { lng: string }) {
         'https://www.instagram.com/hawkstarsngo',
         'https://www.linkedin.com/company/hawkstarsngo',
       ],
-      nonprofitStatus: 'Nonprofit501c3',
+      // No `nonprofitStatus`: the schema.org enumeration is US-centric and the
+      // value here was 'Nonprofit501c3', a claim of US 501(c)(3) charitable status
+      // for a Portuguese association. Publishing a false machine-readable claim
+      // about legal status on a site that solicits donations is a trust problem,
+      // not a schema nit. Re-add only with a NonprofitType matching the actual
+      // Portuguese registration.
     },
     {
       '@context': 'https://schema.org',
@@ -44,14 +49,12 @@ export function OrganizationJsonLd({ lng }: { lng: string }) {
       name: SITE_NAME,
       publisher: { '@id': `${BASE_URL}/#organization` },
       inLanguage: ['pt', 'en'],
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: {
-          '@type': 'EntryPoint',
-          urlTemplate: `${BASE_URL}/{lng}/projects?q={search_term_string}`,
-        },
-        'query-input': 'required name=search_term_string',
-      },
+      // No `potentialAction`: the Sitelinks Searchbox declared here pointed at
+      // `/{lng}/projects?q=`, and no route in the app reads a `q` param — the
+      // projects page filters on type/year only — so it resolved to an unfiltered
+      // project list. `{lng}` was also an undeclared template variable, which
+      // invalidates the EntryPoint on its own. Restore this when a real site
+      // search exists, with every variable declared in `query-input`.
     },
   ];
 
@@ -140,6 +143,15 @@ export function EventJsonLd({
   url: string;
   image?: string;
 }) {
+  // `location` is a required property of schema.org/Event, and Google rejects the
+  // whole Event rather than degrading it. Emitting an Event without one produced
+  // invalid markup on every event page; emitting a *guessed* one (this previously
+  // hardcoded "Pinhel, PT" around whatever name it was given, which is wrong for
+  // every international event) publishes a false claim. So when the CMS field is
+  // empty we render nothing at all — no structured data is strictly better than
+  // invalid or fabricated structured data.
+  if (!location) return null;
+
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Event',
@@ -149,17 +161,10 @@ export function EventJsonLd({
     ...(endDate && { endDate }),
     url,
     ...(image && { image }),
-    location: location
-      ? {
-          '@type': 'Place',
-          name: location,
-          address: {
-            '@type': 'PostalAddress',
-            addressLocality: 'Pinhel',
-            addressCountry: 'PT',
-          },
-        }
-      : undefined,
+    location: {
+      '@type': 'Place',
+      name: location,
+    },
     organizer: {
       '@type': 'Organization',
       name: SITE_NAME,

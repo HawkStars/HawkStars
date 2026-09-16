@@ -10,15 +10,16 @@ import { detectLanguage } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
 
 /**
- * Error boundary for every route under the `(org)` group.
+ * Error boundary for every route under the `(crowdfunding)` group.
  *
- * Without this file, a thrown error inside any page here escalates all the
- * way up to `app/global-error.tsx`, which replaces the *entire* document —
- * losing the Navbar/Footer/AppProvider chrome that `(org)/layout.tsx`
- * renders around every page. This keeps that chrome in place and shows a
- * localized message instead of a blank/broken shell.
+ * Same reasoning as `(org)/error.tsx`: without this file a thrown error here
+ * escalates to `app/global-error.tsx`, which replaces the entire document and
+ * takes the CrowdfundingNavbar and AppProvider with it — leaving an unstyled,
+ * untranslated, un-navigable page on the sub-site that carries the donation
+ * flow. The "back" link returns to the campaign root rather than the org
+ * homepage, since that is where a visitor here was headed.
  */
-export default function OrgError({
+export default function CrowdfundingError({
   error,
   reset,
 }: {
@@ -45,7 +46,9 @@ export default function OrgError({
           </Button>
 
           <Button asChild variant='outline' size='lg'>
-            <Link href={transformUrl(lng, SITE_GET_URLS.home)}>{t('notFound.backHome')}</Link>
+            <Link href={transformUrl(lng, SITE_GET_URLS.crowdfunding)}>
+              {t('notFound.backHome')}
+            </Link>
           </Button>
         </div>
       </div>

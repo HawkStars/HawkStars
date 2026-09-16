@@ -37,7 +37,7 @@ const HeroBlock: React.FC<HeroBlock & { lng: Language }> = (data) => {
         {bgImage && bgImage.url && (
           <ImageMedia
             src={bgImage.url}
-            alt={bgImage.alt || 'Hero'}
+            alt={bgImage.alt || ''}
             height={48}
             width={48}
             className='mb-6 aspect-square'

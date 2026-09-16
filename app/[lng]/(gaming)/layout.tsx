@@ -7,6 +7,7 @@ import GamingFooter from '@/components/gaming/GamingFooter';
 import { fallbackLng, languages } from '@/i18n/settings';
 import { BASE_URL, OG_IMAGE_FALLBACK, SITE_NAME } from '@/lib/constants';
 import { Suspense } from 'react';
+import SkipToContent from '@/components/a11y/SkipToContent';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -100,8 +101,13 @@ export default async function GamingLayout(props: {
 
         {/* Content */}
         <div className='relative z-10 flex min-h-screen flex-col'>
+          <Suspense fallback={<></>}>
+            <SkipToContent lng={lng} />
+          </Suspense>
           <GamingNavbar lng={lng} />
-          <main className='flex-1'>{children}</main>
+          <main id='main-content' className='flex-1'>
+            {children}
+          </main>
           <Suspense fallback={<></>}>
             <GamingFooter lng={lng} />
           </Suspense>

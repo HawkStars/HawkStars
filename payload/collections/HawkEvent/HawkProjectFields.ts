@@ -42,6 +42,18 @@ const HawkEventDetails: Tab = {
           },
         },
         {
+          name: 'location',
+          label: { en: 'Location', pt: 'Local' },
+          type: 'text',
+          localized: true,
+          admin: {
+            description: {
+              en: 'Venue or place, e.g. "Centro Cultural de Pinhel" or "Kraków, Poland". Required for the event to appear as a Google rich result — schema.org/Event rejects an event with no location, so leaving this empty means no structured data is published for this event at all.',
+              pt: 'Espaço ou local, por exemplo "Centro Cultural de Pinhel" ou "Cracóvia, Polónia". Necessário para o evento aparecer como resultado enriquecido no Google — o schema.org/Event rejeita um evento sem local, pelo que deixar isto vazio significa que não são publicados dados estruturados para este evento.',
+            },
+          },
+        },
+        {
           name: 'isDateRange',
           label: { en: 'Multi-day Event', pt: 'Evento de Vários Dias' },
           type: 'checkbox',

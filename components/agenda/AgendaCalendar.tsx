@@ -7,10 +7,18 @@ import { Button } from '@/components/ui/button';
 import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
 import type { HawkEvent, HawkProject, ImageType } from '@/payload-types';
-import { Language } from '@/i18n/settings';
+import { Language, toIntlLocale } from '@/i18n/settings';
 import { getEventsByMonthAndYear } from '@/lib/payload/client-side/queries/event';
 import { useTranslation } from '@/i18n/client';
 import { fetchAgendaProjects } from '@/lib/payload/client-side/queries/projects';
+
+const localizedDay = (isoDay: string, lng: string) =>
+  new Date(isoDay).toLocaleDateString(toIntlLocale(lng), {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -108,7 +116,7 @@ function formatDateRange(
 ): string {
   if (!startISO && !endISO) return '';
   if (startISO && !endISO) {
-    return new Date(startISO).toLocaleDateString(locale === 'pt' ? 'pt-PT' : 'en-US', {
+    return new Date(startISO).toLocaleDateString(toIntlLocale(locale), {
       weekday: 'long',
       day: 'numeric',
       month: 'long',
@@ -118,7 +126,7 @@ function formatDateRange(
 
   const s = startISO && new Date(startISO);
   const e = endISO && new Date(endISO);
-  const loc = locale === 'pt' ? 'pt-PT' : 'en-US';
+  const loc = toIntlLocale(locale);
 
   if (s && e && s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear()) {
     const startDay = s.toLocaleDateString(loc, { day: 'numeric' });
@@ -136,6 +144,8 @@ function formatDateRange(
 
 export default function AgendaCalendar({ translations, lng }: AgendaCalendarProps) {
   const { t } = useTranslation(lng, 'agenda');
+  // The a11y strings live in the shared `common` namespace, not `agenda`.
+  const { t: tCommon } = useTranslation(lng, 'common');
   const getCategoryLabel = (type: string): string => {
     if (type === 'erasmus') return 'Erasmus';
     const key = categoryLabelKeys[type];
@@ -293,7 +303,12 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
         <div className='flex-1 rounded-xl border bg-white p-4 shadow-sm md:p-6'>
           {/* Month navigation */}
           <div className='mb-6 flex items-center justify-between'>
-            <Button variant='ghost' size='icon' onClick={prevMonth} aria-label='Previous Month'>
+            <Button
+              variant='ghost'
+              size='icon'
+              onClick={prevMonth}
+              aria-label={tCommon('a11y.previousMonth')}
+            >
               <LuChevronLeft className='h-5 w-5' />
             </Button>
             <div className='flex items-center gap-3'>
@@ -305,12 +320,17 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
                 size='sm'
                 onClick={goToToday}
                 className='text-xs'
-                aria-label='Go to Today'
+                aria-label={tCommon('a11y.goToToday')}
               >
                 {translations.today}
               </Button>
             </div>
-            <Button variant='ghost' size='icon' onClick={nextMonth} aria-label='Next Month'>
+            <Button
+              variant='ghost'
+              size='icon'
+              onClick={nextMonth}
+              aria-label={tCommon('a11y.nextMonth')}
+            >
               <LuChevronRight className='h-5 w-5' />
             </Button>
           </div>
@@ -349,7 +369,18 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
                     isSelected && 'bg-green/10',
                     hasEvents && 'cursor-pointer'
                   )}
-                  aria-label={`Date: ${dateKey}`}
+                  // A11Y-11: this announced the raw key ("Date: 2026-09-14"), in English,
+                  // and never mentioned that the day has events — the coloured dots were
+                  // the only indicator — or that it was selected.
+                  aria-pressed={isSelected}
+                  aria-label={
+                    hasEvents
+                      ? tCommon('a11y.calendarDay', {
+                          count: dayEvents.length,
+                          date: localizedDay(dateKey, lng),
+                        })
+                      : tCommon('a11y.calendarDayEmpty', { date: localizedDay(dateKey, lng) })
+                  }
                 >
                   <span
                     className={cn(
@@ -420,10 +451,12 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
               <LuCalendar className='text-green h-5 w-5' />
               <h3 className='text-lg font-semibold'>
                 {selectedDate
-                  ? new Date(selectedDate + 'T12:00:00').toLocaleDateString(
-                      lng === 'pt' ? 'pt-PT' : 'en-US',
-                      { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
-                    )
+                  ? new Date(selectedDate + 'T12:00:00').toLocaleDateString(toIntlLocale(lng), {
+                      weekday: 'long',
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric',
+                    })
                   : translations.title}
               </h3>
             </div>

@@ -28,9 +28,11 @@ const updateCards: CrowdfundingSetting['updateCards'] = [
   },
 ] as unknown as CrowdfundingSetting['updateCards'];
 
-const UpdatesWithT = (props: Omit<React.ComponentProps<typeof CrowdfundingUpdates>, 't'>) => {
+const UpdatesWithT = (
+  props: Omit<React.ComponentProps<typeof CrowdfundingUpdates>, 't' | 'lng'>
+) => {
   const { t } = useTranslation('en', 'crowdfunding');
-  return <CrowdfundingUpdates {...props} t={t} />;
+  return <CrowdfundingUpdates {...props} t={t} lng='en' />;
 };
 
 const meta = {

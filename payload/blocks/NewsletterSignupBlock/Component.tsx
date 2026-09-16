@@ -12,7 +12,7 @@ import { Language } from '@/i18n/settings';
 export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps & { lng: Language }> = ({
   title,
   description,
-  buttonText = 'Subscribe',
+  buttonText,
   sectionId,
   lng,
 }) => {
@@ -89,7 +89,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps & { lng:
                 disabled={status === 'submitting'}
                 className='text-green bg-white font-semibold hover:bg-white/90 disabled:opacity-60'
               >
-                {buttonText}
+                {buttonText || t('blocks.subscribe')}
               </Button>
             </form>
           ) : (

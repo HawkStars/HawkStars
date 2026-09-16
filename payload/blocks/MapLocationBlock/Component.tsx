@@ -1,9 +1,13 @@
+'use client';
+
 import React from 'react';
 import { LuMapPin, LuPhone, LuMail, LuClock } from 'react-icons/lu';
 import type { MapLocationBlock as MapLocationBlockProps } from '@/payload-types';
 import { HawkStarsSection } from '@/components/layout';
+import { Language } from '@/i18n/settings';
+import { useTranslation } from '@/i18n/client';
 
-export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
+export const MapLocationBlock: React.FC<MapLocationBlockProps & { lng: Language }> = ({
   title,
   address,
   latitude,
@@ -12,7 +16,10 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
   email,
   hours,
   sectionId,
+  lng,
 }) => {
+  const { t } = useTranslation(lng, 'common');
+
   return (
     <HawkStarsSection
       spacing='default'
@@ -39,7 +46,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
               style={{ border: 0 }}
               src={`https://www.openstreetmap.org/export/embed.html?bbox=${longitude - 0.01},${latitude - 0.01},${longitude + 0.01},${latitude + 0.01}&layer=mapnik&marker=${latitude},${longitude}`}
               allowFullScreen
-              aria-label='map'
+              aria-label={t('a11y.mapRegion')}
             />
           </div>
         </div>
@@ -49,7 +56,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
           <div className='flex gap-4'>
             <LuMapPin className='h-6 w-6 shrink-0 text-green-600' />
             <div>
-              <h3 className='mb-1 font-semibold'>Address</h3>
+              <h3 className='mb-1 font-semibold'>{t('blocks.address')}</h3>
               <p className='whitespace-pre-line text-gray-700'>{address}</p>
             </div>
           </div>
@@ -58,7 +65,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
             <div className='flex gap-4'>
               <LuPhone className='h-6 w-6 shrink-0 text-green-600' />
               <div>
-                <h3 className='mb-1 font-semibold'>Phone</h3>
+                <h3 className='mb-1 font-semibold'>{t('blocks.phone')}</h3>
                 <a href={`tel:${phone}`} className='text-green-700 hover:underline'>
                   {phone}
                 </a>
@@ -70,7 +77,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
             <div className='flex gap-4'>
               <LuMail className='h-6 w-6 shrink-0 text-green-600' />
               <div>
-                <h3 className='mb-1 font-semibold'>Email</h3>
+                <h3 className='mb-1 font-semibold'>{t('blocks.email')}</h3>
                 <a href={`mailto:${email}`} className='text-green-700 hover:underline'>
                   {email}
                 </a>
@@ -82,7 +89,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps> = ({
             <div className='flex gap-4'>
               <LuClock className='h-6 w-6 shrink-0 text-green-600' />
               <div>
-                <h3 className='mb-1 font-semibold'>Hours</h3>
+                <h3 className='mb-1 font-semibold'>{t('blocks.hours')}</h3>
                 <p className='whitespace-pre-line text-gray-700'>{hours}</p>
               </div>
             </div>

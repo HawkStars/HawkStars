@@ -46,7 +46,7 @@ export const LivePreviewCrowdfundingPage: React.FC<LivePreviewCrowdfundingPagePr
       <CrowdfundingAbout {...data} t={t} />
       <CrowdfundingTransparency {...data} t={t} lng={lng} />
       <CrowdfundingRewards {...data} t={t} />
-      <CrowdfundingUpdates {...data} t={t} />
+      <CrowdfundingUpdates {...data} t={t} lng={lng} />
       <CrowdfundingBusiness {...data} t={t} />
       <CrowdfundingPartners {...data} t={t} />
       <CrowdfundingFAQ {...data} t={t} />

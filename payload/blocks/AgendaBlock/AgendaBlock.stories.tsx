@@ -7,6 +7,8 @@ const meta: Meta<typeof AgendaBlockView> = {
   parameters: {
     layout: 'fullscreen',
   },
+  // `lng` drives date formatting and the translated fallback link label.
+  args: { lng: 'en' },
   argTypes: {
     layout: {
       control: 'select',

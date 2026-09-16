@@ -1,4 +1,5 @@
 import { Language } from '@/i18n/settings';
+import { formatCurrency } from '@/lib/utils/currency';
 import { cn } from '@/lib/utils';
 import { CrowdfundingSetting } from '@/payload-types';
 import { TFunction } from 'i18next';
@@ -68,7 +69,7 @@ const CrowdfundingTransparency = ({
                   {t('transparency.raised_label')}
                 </p>
                 <p className='mt-1 text-2xl font-bold text-white'>
-                  € {(raisedAmount ?? 0).toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
+                  {formatCurrency(raisedAmount ?? 0, lng)}
                 </p>
                 <p className='mt-1 flex items-center gap-1 text-xs text-green-500'>
                   <svg className='h-3 w-3' fill='currentColor' viewBox='0 0 20 20'>
@@ -86,7 +87,7 @@ const CrowdfundingTransparency = ({
                   {t('transparency.campaign_goal_label')}
                 </p>
                 <p className='mt-1 text-2xl font-bold text-white'>
-                  € {(campaignGoal ?? 0).toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
+                  {formatCurrency(campaignGoal ?? 0, lng)}
                 </p>
                 <p className='mt-1 text-xs text-gray-400'>
                   {percentage}
@@ -98,7 +99,7 @@ const CrowdfundingTransparency = ({
                   {t('transparency.project_goal_label')}
                 </p>
                 <p className='mt-1 text-2xl font-bold text-white'>
-                  € {(projectGoal ?? 0).toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
+                  {formatCurrency(projectGoal ?? 0, lng)}
                 </p>
                 <p className='mt-1 text-xs text-gray-400'>
                   {t('transparency.project_total_label')}

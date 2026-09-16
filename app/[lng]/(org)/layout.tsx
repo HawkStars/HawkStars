@@ -7,7 +7,7 @@ const oswald = Oswald({ variable: '--font-oswald', subsets: ['latin'], display: 
 
 import Script from 'next/script';
 import { Suspense } from 'react';
-import { getServerTranslation } from '@/i18n';
+import SkipToContent from '@/components/a11y/SkipToContent';
 import AppProvider from '@/utils/contexts/AppProvider';
 import { Language, fallbackLng, languages } from '@/i18n/settings';
 import { getFooterQuery, getHeaderQuery } from '@/lib/payload/queries/navbar';
@@ -62,19 +62,6 @@ export default async function RootLayout(props: {
         </Script>
       </body>
     </html>
-  );
-}
-
-async function SkipToContent({ lng }: { lng: string }) {
-  const { t } = await getServerTranslation((lng || fallbackLng) as Language, 'common');
-
-  return (
-    <a
-      href='#main-content'
-      className='focus:ring-primary sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-999 focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-black focus:ring-2'
-    >
-      {t('a11y.skipToContent')}
-    </a>
   );
 }
 

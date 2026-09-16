@@ -7,8 +7,12 @@ import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
+import { Language } from '@/i18n/settings';
+import { useTranslation } from '@/i18n/client';
 
-const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) => {
+const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: Language }> = (
+  data
+) => {
   const {
     title,
     subtitle,
@@ -18,7 +22,10 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
     layout = 'imageRight',
     backgroundColor = 'none',
     sectionId,
+    lng,
   } = data;
+
+  const { t } = useTranslation(lng, 'common');
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -89,7 +96,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
           {mediaImage?.url && (
             <ImageMedia
               src={mediaImage.url}
-              alt={mediaImage.alt || 'Project image'}
+              alt={mediaImage.alt || ''}
               fill
               className='object-cover'
             />
@@ -121,7 +128,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
               {mediaImage?.url && (
                 <ImageMedia
                   src={mediaImage.url}
-                  alt={mediaImage.alt || `Project image ${index + 1}`}
+                  alt={mediaImage.alt || ''}
                   fill
                   className='object-cover'
                 />
@@ -141,14 +148,14 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
             <button
               onClick={prevImage}
               className='absolute top-1/2 left-2 z-20 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow-md transition-colors hover:bg-white'
-              aria-label='Previous image'
+              aria-label={t('a11y.prevImage')}
             >
               <LuChevronLeft className='h-4 w-4' />
             </button>
             <button
               onClick={nextImage}
               className='absolute top-1/2 right-2 z-20 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow-md transition-colors hover:bg-white'
-              aria-label='Next image'
+              aria-label={t('a11y.nextImage')}
             >
               <LuChevronRight className='h-4 w-4' />
             </button>
@@ -194,7 +201,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps> = (data) =
           <div className='relative h-14 w-14 shrink-0 overflow-hidden rounded-full'>
             <ImageMedia
               src={profileImage.url}
-              alt={profileImage.alt || author?.name || 'Author'}
+              alt={profileImage.alt || author?.name || ''}
               fill
               className='object-cover'
             />

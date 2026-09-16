@@ -7,6 +7,8 @@ const meta: Meta<typeof LatestNewsBlockView> = {
   parameters: {
     layout: 'fullscreen',
   },
+  // `lng` drives date formatting and the translated fallback for `linkLabel`.
+  args: { lng: 'en' },
   tags: ['autodocs'],
 };
 

@@ -145,7 +145,7 @@ const BentoGridBlock: React.FC<BentoGridBlockProps & { lng: Language }> = ({
                       className='absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105'
                       src={imgInfo.url}
                       fill
-                      alt={imgInfo.alt || title || `Bento Grid Item ${idx + 1}`}
+                      alt={imgInfo.alt || title || ''}
                       sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                     />
                     {/* Overlay */}

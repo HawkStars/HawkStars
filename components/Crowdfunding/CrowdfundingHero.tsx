@@ -1,4 +1,5 @@
 import { Language } from '@/i18n/settings';
+import { formatCurrency } from '@/lib/utils/currency';
 import { CrowdfundingSetting, Media } from '@/payload-types';
 import { TFunction } from 'i18next';
 
@@ -140,7 +141,7 @@ const CrowdfundingHero = ({
           </p>
           <div className='flex items-baseline gap-3 max-lg:flex-wrap'>
             <h2 className='text-4xl font-bold text-white max-lg:w-full'>
-              € {(raisedAmount ?? 0).toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
+              {formatCurrency(raisedAmount ?? 0, lng)}
             </h2>
             <span className='text-lg font-bold text-orange-500'>{percentage}%</span>
             <span className='text-xs text-gray-400'>{t('hero.stats.percentage_label')}</span>
@@ -159,7 +160,7 @@ const CrowdfundingHero = ({
                 {t('hero.stats.campaign_goal_label')}
               </p>
               <p className='mt-1 text-lg font-bold text-white'>
-                € {(campaignGoal ?? 0).toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
+                {formatCurrency(campaignGoal ?? 0, lng)}
               </p>
             </div>
             <div>
@@ -167,7 +168,7 @@ const CrowdfundingHero = ({
                 {t('hero.stats.project_goal_label')}
               </p>
               <p className='mt-1 text-lg font-bold text-white'>
-                € {(projectGoal ?? 0).toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-GB')}
+                {formatCurrency(projectGoal ?? 0, lng)}
               </p>
             </div>
             <div>

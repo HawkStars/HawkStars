@@ -4,17 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { SITE_GET_URLS, transformUrl } from '@/utils/paths';
-import type { Language } from '@/i18n/settings';
-import { languages, fallbackLng } from '@/i18n/settings';
+import { detectLanguage } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
-
-function detectLanguage(pathname: string): Language {
-  const segment = pathname.split('/')[1];
-  if (segment && languages.includes(segment as Language)) {
-    return segment as Language;
-  }
-  return fallbackLng;
-}
 
 export default function NotFound() {
   const pathname = usePathname();

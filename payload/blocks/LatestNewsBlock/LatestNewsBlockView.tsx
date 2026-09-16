@@ -6,6 +6,8 @@ import HawkLabel from '@/components/common/hawk-label';
 import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
 import { CustomImageProps } from '@/lib/image';
+import { Language, toIntlLocale } from '@/i18n/settings';
+import { useTranslation } from '@/i18n/client';
 
 export type LatestNewsItem = {
   heading: string;
@@ -22,11 +24,14 @@ export type LatestNewsBlockViewProps = {
   linkLabel?: string | null;
   sectionId?: string | null;
   item: LatestNewsItem;
+  lng: Language;
 };
 
-const formatDate = (dateString: string) => {
+// This was hardcoded to 'en-US', so a Portuguese page showed "September 14, 2026".
+// `toIntlLocale` is the project's guard against passing a route code straight to Intl.
+const formatDate = (dateString: string, lng: Language) => {
   const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString(toIntlLocale(lng), {
     month: 'long',
     day: 'numeric',
     year: 'numeric',
@@ -36,10 +41,13 @@ const formatDate = (dateString: string) => {
 export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
   title,
   subtitle,
-  linkLabel = 'Read more',
+  linkLabel,
   sectionId,
   item,
+  lng,
 }) => {
+  const { t } = useTranslation(lng, 'common');
+
   return (
     <HawkStarsSection
       spacing='default'
@@ -81,7 +89,7 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
               {item.date && (
                 <div className='flex items-center gap-1.5 text-sm text-gray-500'>
                   <LuCalendar className='h-4 w-4' />
-                  {formatDate(item.date)}
+                  {formatDate(item.date, lng)}
                 </div>
               )}
             </div>
@@ -96,7 +104,7 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
               href={item.href}
               className='text-green mt-2 inline-flex items-center gap-2 font-medium transition-colors hover:underline'
             >
-              {linkLabel}
+              {linkLabel || t('blocks.readMore')}
               <LuArrowRight className='h-4 w-4' />
             </a>
           </div>

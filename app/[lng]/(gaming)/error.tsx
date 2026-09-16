@@ -10,15 +10,13 @@ import { detectLanguage } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
 
 /**
- * Error boundary for every route under the `(org)` group.
+ * Error boundary for every route under the `(gaming)` group.
  *
- * Without this file, a thrown error inside any page here escalates all the
- * way up to `app/global-error.tsx`, which replaces the *entire* document —
- * losing the Navbar/Footer/AppProvider chrome that `(org)/layout.tsx`
- * renders around every page. This keeps that chrome in place and shows a
- * localized message instead of a blank/broken shell.
+ * Same reasoning as `(org)/error.tsx`. Styled for this group's dark shell rather
+ * than reusing the light `(org)` palette — this renders inside
+ * `(gaming)/layout.tsx`, on top of its dark background.
  */
-export default function OrgError({
+export default function GamingError({
   error,
   reset,
 }: {
@@ -34,18 +32,23 @@ export default function OrgError({
   }, [error]);
 
   return (
-    <div className='bg-bege-light flex min-h-[60vh] flex-col items-center justify-center px-6 text-center'>
+    <div className='flex min-h-[60vh] flex-col items-center justify-center px-6 text-center'>
       <div className='max-w-lg'>
-        <h1 className='text-green text-h2_bold'>{t('errors.pageTitle')}</h1>
-        <p className='text-body_regular text-disabled mt-4'>{t('errors.generic')}</p>
+        <h1 className='text-h2_bold text-white'>{t('errors.pageTitle')}</h1>
+        <p className='text-body_regular mt-4 text-white/70'>{t('errors.generic')}</p>
 
         <div className='mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4'>
           <Button size='lg' onClick={() => reset()}>
             {t('actions.tryAgain')}
           </Button>
 
-          <Button asChild variant='outline' size='lg'>
-            <Link href={transformUrl(lng, SITE_GET_URLS.home)}>{t('notFound.backHome')}</Link>
+          <Button
+            asChild
+            variant='outline'
+            size='lg'
+            className='border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white'
+          >
+            <Link href={transformUrl(lng, SITE_GET_URLS.gaming)}>{t('notFound.backHome')}</Link>
           </Button>
         </div>
       </div>

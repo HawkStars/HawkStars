@@ -5,6 +5,7 @@ import Script from 'next/script';
 import { fallbackLng, Language, languages } from '@/i18n/settings';
 import CrowdfundingNavbar from '@/components/Crowdfunding/CrowdfundingNavbar';
 import AppProvider from '@/utils/contexts/AppProvider';
+import SkipToContent from '@/components/a11y/SkipToContent';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 import { BASE_URL, OG_IMAGE_FALLBACK, SITE_NAME } from '@/lib/constants';
@@ -95,8 +96,11 @@ export default async function CrowdfundingLayout(props: {
 async function LayoutContent({ children, lng }: { children: React.ReactNode; lng: string }) {
   return (
     <AppProvider lng={(lng as Language) || fallbackLng}>
+      <Suspense fallback={<></>}>
+        <SkipToContent lng={lng} />
+      </Suspense>
       <CrowdfundingNavbar />
-      <main>{children}</main>
+      <main id='main-content'>{children}</main>
     </AppProvider>
   );
 }

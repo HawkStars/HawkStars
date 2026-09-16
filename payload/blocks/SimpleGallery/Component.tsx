@@ -13,12 +13,11 @@ import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
 
-const SimpleGallery: React.FC<SimpleGalleryProps> = ({
-  title = 'Beautiful Interiors.',
-  description = 'Explore our curated collection of stunning interior designs.\nEach space tells a unique story through thoughtful design and attention to detail.',
-  images,
-  sectionId,
-}) => {
+// No defaults for `title`/`description`: they used to fall back to English
+// interior-design placeholder copy ("Beautiful Interiors.", "Explore our curated
+// collection of stunning interior designs."), which shipped verbatim whenever an
+// editor left the fields empty. An empty field now renders nothing.
+const SimpleGallery: React.FC<SimpleGalleryProps> = ({ title, description, images, sectionId }) => {
   return (
     <HawkStarsSection
       spacing='loose'
@@ -28,9 +27,11 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({
       id={sectionId || undefined}
       data-blockid='simpleGallery'
     >
-      <h2 className='mb-4 text-center text-4xl font-semibold tracking-tight text-balance'>
-        {title}
-      </h2>
+      {title && (
+        <h2 className='mb-4 text-center text-4xl font-semibold tracking-tight text-balance'>
+          {title}
+        </h2>
+      )}
       {description && (
         <p className='text-muted-foreground mx-auto max-w-2xl text-center text-sm leading-relaxed'>
           {description.split('\n').map((line, idx) => (
@@ -61,7 +62,7 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({
                 <CarouselItem key={index} className='relative min-h-dvh basis-1/2'>
                   <ImageMedia
                     src={image.url}
-                    alt={image.alt || 'placeholder'}
+                    alt={image.alt || ''}
                     loading='lazy'
                     fill
                     className='aspect-[3.8/5] w-full rounded-xl object-cover'

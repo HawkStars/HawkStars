@@ -85,7 +85,16 @@
     "comparisonSlider": "Before and after comparison slider",
     "beforeLabel": "Before",
     "afterLabel": "After",
-    "starRating": "{{rating}} out of 5 stars"
+    "starRating": "{{rating}} out of 5 stars",
+    "prevImage": "Previous image",
+    "nextImage": "Next image",
+    "mapRegion": "Map showing our location",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "goToToday": "Go to today",
+    "calendarDayEmpty": "{{date}}, no events",
+    "calendarDay_one": "{{date}}, {{count}} event",
+    "calendarDay_other": "{{date}}, {{count}} events"
   },
   "footer": {
     "designedBy": "Designed by",
@@ -148,5 +157,22 @@
     "removeHint": "Click on a shape to remove.",
     "undo": "Undo {{mode}}"
   },
-  "at": "at"
+  "at": "at",
+  "blocks": {
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "hours": "Opening hours",
+    "raised": "Raised",
+    "goal": "Goal",
+    "readMore": "Read more",
+    "learnMore": "Learn more",
+    "subscribe": "Subscribe",
+    "campaignEnded": "Campaign ended",
+    "eventTypes": {
+      "local_event": "Local event",
+      "international_event": "International event",
+      "other": "Other"
+    }
+  }
 }

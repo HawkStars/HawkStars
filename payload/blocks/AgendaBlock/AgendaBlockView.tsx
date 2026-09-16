@@ -4,6 +4,8 @@ import { LuArrowRight, LuCalendar } from 'react-icons/lu';
 import { HawkStarsSection } from '@/components/layout';
 import { ImageMedia } from '@/payload/components/Media';
 import { CustomImageProps } from '@/lib/image';
+import { Language, toIntlLocale } from '@/i18n/settings';
+import { useTranslation } from '@/i18n/client';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -30,6 +32,7 @@ export type AgendaBlockViewProps = {
   sectionId?: string | null;
   events: AgendaEventItem[];
   loading?: boolean;
+  lng: Language;
 };
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -47,19 +50,26 @@ const typeColors: Record<string, { bg: string; text: string }> = {
   other: { bg: 'bg-zinc-100 dark:bg-zinc-700', text: 'text-zinc-600 dark:text-zinc-400' },
 };
 
-function fmtDate(iso: string, opts?: Intl.DateTimeFormatOptions) {
-  return new Date(iso).toLocaleDateString('pt-PT', {
+// These were pinned to 'pt-PT', so an English visitor read "set." and "de" — and
+// this is a page-builder block, so it appears on arbitrary pages in both locales.
+function fmtDate(iso: string, lng: Language, opts?: Intl.DateTimeFormatOptions) {
+  return new Date(iso).toLocaleDateString(toIntlLocale(lng), {
     day: 'numeric',
     month: 'long',
     ...opts,
   });
 }
 
-function formatEventDate(date: string | null, endDate?: string | null, isRange?: boolean): string {
+function formatEventDate(
+  date: string | null,
+  lng: Language,
+  endDate?: string | null,
+  isRange?: boolean
+): string {
   if (!date) return '';
 
   if (!isRange || !endDate) {
-    return fmtDate(date, { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
+    return fmtDate(date, lng, { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
   }
 
   const s = new Date(date);
@@ -67,13 +77,13 @@ function formatEventDate(date: string | null, endDate?: string | null, isRange?:
 
   if (s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear()) {
     // Same month: "3–5 de Maio de 2025"
-    const startDay = s.toLocaleDateString('pt-PT', { day: 'numeric' });
-    const endFull = fmtDate(endDate, { day: 'numeric', month: 'long', year: 'numeric' });
+    const startDay = s.toLocaleDateString(toIntlLocale(lng), { day: 'numeric' });
+    const endFull = fmtDate(endDate, lng, { day: 'numeric', month: 'long', year: 'numeric' });
     return `${startDay}–${endFull}`;
   }
 
   // Cross-month: "30 de Out – 2 de Nov de 2025"
-  return `${fmtDate(date)} – ${fmtDate(endDate, { day: 'numeric', month: 'long', year: 'numeric' })}`;
+  return `${fmtDate(date, lng)} – ${fmtDate(endDate, lng, { day: 'numeric', month: 'long', year: 'numeric' })}`;
 }
 
 // ─── Sub-renderers ────────────────────────────────────────────────────────────
@@ -91,8 +101,16 @@ function BadgeChip({ badge }: { badge: string }) {
 
 // ─── List layout ─────────────────────────────────────────────────────────────
 
-function ListItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: string }) {
-  const dateStr = formatEventDate(event.date, event.endDate, event.isDateRange);
+function ListItem({
+  event,
+  linkLabel,
+  lng,
+}: {
+  event: AgendaEventItem;
+  linkLabel: string;
+  lng: Language;
+}) {
+  const dateStr = formatEventDate(event.date, lng, event.endDate, event.isDateRange);
 
   return (
     <div className='flex gap-5 border-b border-zinc-100 py-6 last:border-0 dark:border-zinc-800'>
@@ -104,7 +122,7 @@ function ListItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
               {new Date(event.date).getDate()}
             </span>
             <span className='text-sm font-medium text-zinc-500 uppercase dark:text-zinc-400'>
-              {new Date(event.date).toLocaleDateString('pt-PT', { month: 'short' })}
+              {new Date(event.date).toLocaleDateString(toIntlLocale(lng), { month: 'short' })}
             </span>
             <span className='dark:text-bege-light text-xs text-gray-700'>
               {new Date(event.date).getFullYear()}
@@ -112,7 +130,7 @@ function ListItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
             {event.isDateRange && event.endDate && (
               <span className='mt-1 text-xs text-gray-800 dark:text-white'>
                 →{' '}
-                {new Date(event.endDate).toLocaleDateString('pt-PT', {
+                {new Date(event.endDate).toLocaleDateString(toIntlLocale(lng), {
                   day: 'numeric',
                   month: 'short',
                 })}
@@ -172,8 +190,8 @@ function ListItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: str
 
 // ─── Compact layout ───────────────────────────────────────────────────────────
 
-function CompactItem({ event }: { event: AgendaEventItem; linkLabel: string }) {
-  const dateStr = formatEventDate(event.date, event.endDate, event.isDateRange);
+function CompactItem({ event, lng }: { event: AgendaEventItem; lng: Language }) {
+  const dateStr = formatEventDate(event.date, lng, event.endDate, event.isDateRange);
 
   return (
     <a href={event.href} className='flex flex-col gap-2'>
@@ -193,8 +211,16 @@ function CompactItem({ event }: { event: AgendaEventItem; linkLabel: string }) {
 
 // ─── Cards layout ─────────────────────────────────────────────────────────────
 
-function CardItem({ event, linkLabel }: { event: AgendaEventItem; linkLabel: string }) {
-  const dateStr = formatEventDate(event.date, event.endDate, event.isDateRange);
+function CardItem({
+  event,
+  linkLabel,
+  lng,
+}: {
+  event: AgendaEventItem;
+  linkLabel: string;
+  lng: Language;
+}) {
+  const dateStr = formatEventDate(event.date, lng, event.endDate, event.isDateRange);
 
   return (
     <div className='group flex flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-800'>
@@ -257,12 +283,15 @@ export function AgendaBlockView({
   title,
   subtitle,
   layout = 'list',
-  linkLabel = 'Ver mais',
+  linkLabel,
   sectionId,
   events,
   loading = false,
+  lng,
 }: AgendaBlockViewProps) {
-  const label = linkLabel || 'Ver mais';
+  const { t } = useTranslation(lng, 'common');
+  // Was hardcoded to the Portuguese 'Ver mais', which shipped verbatim to /en.
+  const label = linkLabel || t('see_more');
 
   return (
     <HawkStarsSection
@@ -304,7 +333,7 @@ export function AgendaBlockView({
         {!loading && events.length > 0 && layout === 'list' && (
           <>
             {events.map((ev) => (
-              <ListItem key={ev.id} event={ev} linkLabel={label} />
+              <ListItem key={ev.id} event={ev} linkLabel={label} lng={lng} />
             ))}
           </>
         )}
@@ -313,7 +342,7 @@ export function AgendaBlockView({
         {!loading && events.length > 0 && layout === 'compact' && (
           <div className='flex flex-col gap-2'>
             {events.map((ev) => (
-              <CompactItem key={ev.id} event={ev} linkLabel={label} />
+              <CompactItem key={ev.id} event={ev} lng={lng} />
             ))}
           </div>
         )}
@@ -322,7 +351,7 @@ export function AgendaBlockView({
         {!loading && events.length > 0 && layout === 'cards' && (
           <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
             {events.map((ev) => (
-              <CardItem key={ev.id} event={ev} linkLabel={label} />
+              <CardItem key={ev.id} event={ev} linkLabel={label} lng={lng} />
             ))}
           </div>
         )}

@@ -7,6 +7,7 @@ const meta: Meta<typeof MapLocationBlock> = {
   parameters: {
     layout: 'fullscreen',
   },
+  args: { lng: 'en' },
 };
 
 export default meta;

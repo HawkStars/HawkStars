@@ -85,7 +85,16 @@
     "comparisonSlider": "Cursor de comparação antes e depois",
     "beforeLabel": "Antes",
     "afterLabel": "Depois",
-    "starRating": "{{rating}} em 5 estrelas"
+    "starRating": "{{rating}} em 5 estrelas",
+    "prevImage": "Imagem anterior",
+    "nextImage": "Imagem seguinte",
+    "mapRegion": "Mapa com a nossa localização",
+    "previousMonth": "Mês anterior",
+    "nextMonth": "Mês seguinte",
+    "goToToday": "Ir para hoje",
+    "calendarDayEmpty": "{{date}}, sem eventos",
+    "calendarDay_one": "{{date}}, {{count}} evento",
+    "calendarDay_other": "{{date}}, {{count}} eventos"
   },
   "footer": {
     "designedBy": "Concebido por",
@@ -148,5 +157,22 @@
     "removeHint": "Clique numa forma para remover.",
     "undo": "Desfazer {{mode}}"
   },
-  "at": "na"
+  "at": "na",
+  "blocks": {
+    "address": "Morada",
+    "phone": "Telefone",
+    "email": "Email",
+    "hours": "Horário",
+    "raised": "Angariado",
+    "goal": "Objetivo",
+    "readMore": "Ler mais",
+    "learnMore": "Saber mais",
+    "subscribe": "Subscrever",
+    "campaignEnded": "Campanha terminada",
+    "eventTypes": {
+      "local_event": "Evento local",
+      "international_event": "Evento internacional",
+      "other": "Outro"
+    }
+  }
 }

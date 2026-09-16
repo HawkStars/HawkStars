@@ -35,4 +35,29 @@ function toIntlLocale(lng?: string | null): string {
   return intlLocales[lng as Language] ?? intlLocales[fallbackLng];
 }
 
-export { fallbackLng, languages, defaultNS, i18CookieName, getOptions, i18nConfig, toIntlLocale };
+/**
+ * Read the locale out of a pathname's first segment.
+ *
+ * `error.tsx` and `not-found.tsx` render outside the `[lng]` params context, so
+ * they cannot receive `lng` as a prop and have to recover it from `usePathname()`.
+ * Kept here rather than copied into each boundary — there are four of them now
+ * (org, crowdfunding and gaming errors, plus the org not-found).
+ */
+function detectLanguage(pathname: string): Language {
+  const segment = pathname.split('/')[1];
+  if (segment && languages.includes(segment as Language)) {
+    return segment as Language;
+  }
+  return fallbackLng;
+}
+
+export {
+  fallbackLng,
+  languages,
+  defaultNS,
+  i18CookieName,
+  getOptions,
+  i18nConfig,
+  toIntlLocale,
+  detectLanguage,
+};
