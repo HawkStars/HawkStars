@@ -41,6 +41,14 @@ describe('POST /api/easypay (webhook)', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     process.env.EASYPAY_WEBHOOK_SECRET = WEBHOOK_SECRET;
+
+    // Every handler now calls `payload.find` before it writes — the transaction
+    // handlers to locate the row to update, and the authorisation handler for its
+    // idempotency check. A bare `vi.fn()` resolves to `undefined`, so reading
+    // `.docs` off it threw inside the handler's own try/catch: the route still
+    // answered 200 and the failure only showed up as "create was never called".
+    // Default to "nothing found"; the suites that need a hit override it below.
+    mockPayloadFind.mockResolvedValue({ docs: [] });
   });
 
   afterEach(() => {
@@ -177,6 +185,39 @@ describe('POST /api/easypay (webhook)', () => {
 
       const createCall = mockPayloadCreate.mock.calls[0][0];
       expect(createCall.data.extra_info).toContain('auth-001');
+    });
+
+    it('looks the transaction key up before creating', async () => {
+      await POST(makeRequest(authorisationPayload));
+
+      expect(mockPayloadFind).toHaveBeenCalledOnce();
+      const findCall = mockPayloadFind.mock.calls[0][0];
+      expect(findCall.collection).toBe('contributions');
+      expect(findCall.where.transaction_key.equals).toBe('txn-key-abc');
+      expect(findCall.limit).toBe(1);
+    });
+
+    it('does not create a second row when EasyPay replays the notification', async () => {
+      // /api/donate already inserted a row carrying this transaction key, and EasyPay
+      // retries notifications. Creating unconditionally double-counted the donation,
+      // and the public transparency total sums `value` over confirmed rows.
+      mockPayloadFind.mockResolvedValueOnce({
+        docs: [{ id: 'contrib-existing', transaction_key: 'txn-key-abc' }],
+      });
+
+      const response = await POST(makeRequest(authorisationPayload));
+
+      expect(response.status).toBe(200);
+      expect(mockPayloadCreate).not.toHaveBeenCalled();
+    });
+
+    it('returns 200 even when the idempotency lookup throws', async () => {
+      mockPayloadFind.mockRejectedValueOnce(new Error('DB error'));
+
+      const response = await POST(makeRequest(authorisationPayload));
+
+      expect(response.status).toBe(200);
+      expect(mockPayloadCreate).not.toHaveBeenCalled();
     });
 
     it('returns 200 even when Payload create throws an error', async () => {
