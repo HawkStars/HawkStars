@@ -55,6 +55,8 @@ const HawkEventDetails: Tab = {
         },
         {
           name: 'date',
+          // Range-filtered and sorted in six queries — the most-queried field in the app.
+          index: true,
           label: { en: 'Event Date / Start Date', pt: 'Data do Evento / Data de Início' },
           type: 'date',
           required: true,

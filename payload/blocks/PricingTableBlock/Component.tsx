@@ -4,13 +4,28 @@ import type { PricingTableBlock as PricingTableBlockProps } from '@/payload-type
 import { cn } from '@/lib/utils';
 import { HawkStarsSection } from '@/components/layout';
 import { Button } from '@/components/ui/button';
+import { isHttpUrl } from '@/utils/paths';
+import { Language } from '@/i18n/settings';
 
-export const PricingTableBlock: React.FC<PricingTableBlockProps> = ({
+/**
+ * `buttonLink` is a free-text field with no validator. Rendering it straight into an
+ * href let an editor (or a compromised account) store `javascript:` and get script
+ * execution for every visitor who clicked the plan button.
+ */
+const resolveCtaHref = (link: string | null | undefined, lng: Language) => {
+  if (!link) return undefined;
+  if (link.startsWith('/')) return `/${lng}${link}`;
+  if (link.startsWith('#')) return link;
+  return isHttpUrl(link) ? link : undefined;
+};
+
+export const PricingTableBlock = ({
   title,
   subtitle,
   tiers = [],
   sectionId,
-}) => {
+  lng,
+}: PricingTableBlockProps & { lng: Language }) => {
   if (!tiers || tiers.length === 0) {
     return null;
   }
@@ -94,14 +109,14 @@ export const PricingTableBlock: React.FC<PricingTableBlockProps> = ({
             )}
 
             {/* CTA Button */}
-            {tier.buttonLink && tier.buttonText && (
+            {resolveCtaHref(tier.buttonLink, lng) && tier.buttonText && (
               <Button
                 size='lg'
                 variant={tier.highlighted ? 'default' : 'outline'}
                 className='w-full'
                 asChild
               >
-                <a href={tier.buttonLink}>{tier.buttonText}</a>
+                <a href={resolveCtaHref(tier.buttonLink, lng)}>{tier.buttonText}</a>
               </Button>
             )}
           </div>

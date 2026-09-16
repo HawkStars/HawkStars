@@ -11,7 +11,6 @@ export const ResourceDownloadBlock: Block = {
     {
       name: 'title',
       type: 'text',
-      defaultValue: 'Download Resources',
       localized: true,
       label: { en: 'Title', pt: 'Título' },
       admin: {

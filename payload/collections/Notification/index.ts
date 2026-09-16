@@ -78,6 +78,9 @@ export const Notification: CollectionConfig = {
     },
     {
       name: 'read',
+      // Queried on every admin dashboard/bell render and by the retention job, on the
+      // only collection that grows without bound.
+      index: true,
       type: 'checkbox',
       defaultValue: false,
       label: { en: 'Read', pt: 'Lida' },

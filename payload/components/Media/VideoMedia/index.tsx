@@ -45,6 +45,29 @@ type VideoMediaProps = React.DetailedHTMLProps<
  * (`muted`, `controls`); pass explicit props for decorative background clips
  * (`autoPlay loop muted controls={false}`).
  */
+/**
+ * Build the embed URL query.
+ *
+ * The previous version concatenated `?autoplay=1` conditionally and then `&muted=1`,
+ * `&loop=1`, `&controls=0` unconditionally — so with the shipped defaults (autoplay
+ * off, muted on) the src became `https://www.youtube.com/embed/<id>&muted=1`, gluing
+ * the parameter onto the video id as a path segment. YouTube answered "Video
+ * unavailable" for every ordinary VideoBlock.
+ */
+const buildEmbedSrc = (
+  embedUrl: string,
+  opts: { autoPlay?: boolean; muted?: boolean; loop?: boolean; controls?: boolean }
+) => {
+  const params = new URLSearchParams();
+  if (opts.autoPlay) params.set('autoplay', '1');
+  if (opts.muted) params.set('muted', '1');
+  if (opts.loop) params.set('loop', '1');
+  if (opts.controls === false) params.set('controls', '0');
+
+  const query = params.toString();
+  return query ? `${embedUrl}?${query}` : embedUrl;
+};
+
 export const VideoMedia: React.FC<VideoMediaProps> = (props) => {
   const {
     onClick,
@@ -119,7 +142,7 @@ export const VideoMedia: React.FC<VideoMediaProps> = (props) => {
 
   return (
     <iframe
-      src={`${embedUrl}${autoPlay ? '?autoplay=1' : ''}${muted ? '&muted=1' : ''}${loop ? '&loop=1' : ''}${!controls ? '&controls=0' : ''}`}
+      src={buildEmbedSrc(embedUrl, { autoPlay, muted, loop, controls })}
       className={classes}
       allow='autoplay; fullscreen; picture-in-picture'
       allowFullScreen

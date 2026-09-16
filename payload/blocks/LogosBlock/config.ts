@@ -1,5 +1,6 @@
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
+import { isHttpUrl } from '@/utils/paths';
 
 export const LogosBlock: Block = {
   slug: 'logosBlock',
@@ -51,6 +52,24 @@ export const LogosBlock: Block = {
       },
     },
     {
+      name: 'buttonLink',
+      type: 'text',
+      required: false,
+      label: { en: 'Button Link', pt: 'Link do Botão' },
+      admin: {
+        condition: (_, siblingData) => Boolean(siblingData?.buttonText),
+        description: {
+          en: 'Where the button goes. A site path (/partners) or a full https:// URL.',
+          pt: 'Destino do botão. Um caminho do site (/partners) ou um URL https:// completo.',
+        },
+      },
+      validate: (value: string | string[] | null | undefined) => {
+        if (typeof value !== 'string' || value.length === 0) return true;
+        if (value.startsWith('/') || isHttpUrl(value)) return true;
+        return 'Enter a site path (/partners) or a full http(s):// URL.';
+      },
+    },
+    {
       name: 'logos',
       type: 'array',
       interfaceName: 'LogosBlockLogo',
@@ -65,6 +84,11 @@ export const LogosBlock: Block = {
           required: true,
           label: { en: 'Logo URL', pt: 'URL do Logótipo' },
           admin: { description: { en: 'Logo image URL', pt: 'URL do logótipo' } },
+          // Rendered with `unoptimized`, so the value reaches the <img src> verbatim.
+          validate: (value: string | string[] | null | undefined) =>
+            typeof value === 'string' && isHttpUrl(value)
+              ? true
+              : 'Enter a full http(s):// image URL.',
         },
       ],
       admin: {

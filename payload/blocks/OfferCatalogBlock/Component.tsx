@@ -55,7 +55,7 @@ export const OfferCatalogBlock: React.FC<OfferCatalogBlockProps> = ({
         {groups.map((group, groupIndex) => (
           <div key={group.id || groupIndex}>
             {group.groupLabel && (
-              <h3 className='text-h4_semibold mb-4 tracking-tight'>{group.groupLabel}</h3>
+              <h3 className='text-h2_bold mb-4 tracking-tight'>{group.groupLabel}</h3>
             )}
             <div
               className={cn(
@@ -85,7 +85,7 @@ export const OfferCatalogBlock: React.FC<OfferCatalogBlockProps> = ({
                       )}
                     </div>
                     {item.description && (
-                      <p className='text-small mt-1 opacity-80'>{item.description}</p>
+                      <p className='text-body_regular mt-1 opacity-90'>{item.description}</p>
                     )}
                   </div>
                   <p className={cn('text-body_semibold shrink-0 sm:text-right', priceStyles[bg])}>

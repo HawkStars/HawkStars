@@ -12,7 +12,7 @@ export const MediaBlock: React.FC<MediaBlockProps> = (props) => {
 
   return (
     <div className='relative mx-auto w-full' id={sectionId || undefined} data-blockid='mediaBlock'>
-      <ImageMedia resource={media} alt={media.alt || ''} className='object-cover' />
+      <ImageMedia resource={media} alt={image.alt ?? ''} className='object-cover' />
     </div>
   );
 };

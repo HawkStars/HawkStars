@@ -13,7 +13,6 @@ export const FAQBlock: Block = {
       name: 'title',
       type: 'text',
       label: { en: 'Title', pt: 'Título' },
-      defaultValue: 'Frequently Asked Questions',
       localized: true,
     },
     {

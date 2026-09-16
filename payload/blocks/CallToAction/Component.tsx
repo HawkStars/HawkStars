@@ -6,14 +6,16 @@ import { CMSLink } from '@/payload/components/Link';
 import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
 import { HawkStarsSection } from '@/components/layout';
+import { Language } from '@/i18n/settings';
 
-export const CallToActionBlock: React.FC<CTABlockProps> = ({
+export const CallToActionBlock = ({
   title,
   subtitle,
   links,
   image,
   sectionId,
-}) => {
+  lng,
+}: CTABlockProps & { lng: Language }) => {
   const imageInfo = getImagePayloadUrl(image);
 
   return (
@@ -37,6 +39,7 @@ export const CallToActionBlock: React.FC<CTABlockProps> = ({
               {links.map(({ link }, i) => {
                 return (
                   <CMSLink
+                    lng={lng}
                     key={i}
                     size='lg'
                     {...link}

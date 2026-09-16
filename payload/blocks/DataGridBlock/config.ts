@@ -28,7 +28,6 @@ export const DataGridBlock: Block = {
       label: { en: 'Column 1 Header', pt: 'Cabeçalho da Coluna 1' },
       required: true,
       localized: true,
-      defaultValue: 'Area',
       admin: {
         description: { en: 'Header for the first column', pt: 'Cabeçalho da primeira coluna' },
       },

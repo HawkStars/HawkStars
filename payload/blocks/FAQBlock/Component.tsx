@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import { LuChevronDown } from 'react-icons/lu';
 import type { FAQBlock as FAQBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
@@ -8,6 +8,7 @@ import { HawkStarsSection } from '@/components/layout';
 
 export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const panelIdPrefix = useId();
 
   if (!items || items.length === 0) {
     return null;
@@ -40,6 +41,10 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId
               )}
             >
               <button
+                type='button'
+                aria-expanded={isOpen}
+                aria-controls={`${panelIdPrefix}-${index}`}
+                id={`${panelIdPrefix}-${index}-trigger`}
                 onClick={() => setOpenIndex(isOpen ? null : index)}
                 className={cn(
                   'flex w-full items-center justify-between p-6 text-left transition-colors',
@@ -68,7 +73,15 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId
                   />
                 </div>
               </button>
+              {/* `grid-rows-[0fr]` + overflow-hidden collapses visually but leaves the
+                  answer in the accessibility tree, so every answer was read aloud
+                  regardless of state. `inert` takes it out without losing the
+                  transition. */}
               <div
+                id={`${panelIdPrefix}-${index}`}
+                role='region'
+                aria-labelledby={`${panelIdPrefix}-${index}-trigger`}
+                inert={!isOpen}
                 className={cn(
                   'grid transition-all duration-300',
                   isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'

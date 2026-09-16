@@ -80,7 +80,7 @@ const FeaturedLinkCard: React.FC<LinkProps> = ({ link, navbarVariant }) => {
 
       <div className='relative z-10 w-fit'>
         <h4
-          className={cn('text-md font-semibold underline', {
+          className={cn('text-base font-semibold underline', {
             'text-black': navbarVariant === 'default',
             'text-white': navbarVariant === 'erasmus',
           })}

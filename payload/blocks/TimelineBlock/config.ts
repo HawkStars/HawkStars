@@ -12,7 +12,6 @@ export const TimelineBlock: Block = {
     {
       name: 'title',
       type: 'text',
-      defaultValue: 'Our Journey',
       localized: true,
       label: { en: 'Title', pt: 'Título' },
     },

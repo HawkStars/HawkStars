@@ -1,6 +1,7 @@
 import type { GlobalConfig } from 'payload';
 import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 import { GROUP_LABELS } from '@/payload/constants';
+import { createRevalidateGlobalHook } from '@/payload/utilities/revalidateGlobal';
 
 export const WebsiteSettings: GlobalConfig = {
   slug: 'settings',
@@ -64,13 +65,10 @@ export const WebsiteSettings: GlobalConfig = {
   lockDocuments: {
     duration: 1000 * 60 * 5, // Lock documents for 5 minutes
   },
-  hooks: {},
+  hooks: {
+    afterChange: [createRevalidateGlobalHook('settings')],
+  },
   versions: {
-    drafts: {
-      autosave: {
-        interval: 100,
-      },
-    },
-    max: 3,
+    drafts: false,
   },
 };

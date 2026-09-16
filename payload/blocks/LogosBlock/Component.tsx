@@ -3,15 +3,18 @@ import { Button } from '@/components/ui/button';
 import type { LogosBlock as LogosBlockType } from '@/payload-types';
 import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
+import { Language } from '@/i18n/settings';
 
-export const LogosBlock: React.FC<LogosBlockType> = ({
+export const LogosBlock = ({
   badgeText,
   heading,
   description,
   buttonText,
+  buttonLink,
   logos,
   sectionId,
-}) => {
+  lng,
+}: LogosBlockType & { lng: Language }) => {
   return (
     <HawkStarsSection
       spacing='default'
@@ -33,9 +36,11 @@ export const LogosBlock: React.FC<LogosBlockType> = ({
             {description}
           </p>
         )}
-        {buttonText && (
-          <Button size='lg' className='mt-8'>
-            {buttonText}
+        {buttonText && buttonLink && (
+          <Button size='lg' className='mt-8' asChild>
+            <a href={buttonLink.startsWith('/') ? `/${lng}${buttonLink}` : buttonLink}>
+              {buttonText}
+            </a>
           </Button>
         )}
       </div>
@@ -44,7 +49,7 @@ export const LogosBlock: React.FC<LogosBlockType> = ({
           <ImageMedia
             className='opacity-50 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
             src={logo.logo}
-            key={logo.name}
+            key={logo.id || logo.name}
             alt={logo.name}
             width={144}
             height={80}

@@ -63,7 +63,9 @@ export const CrowdfundingSettings: GlobalConfig = {
   versions: {
     drafts: {
       autosave: {
-        interval: 100,
+        // 2000 is Payload's default; 100 meant ~10 version writes and ~10 site-wide
+        // cache invalidations per second while an editor typed.
+        interval: 2000,
       },
     },
     max: 3,

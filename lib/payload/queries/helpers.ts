@@ -17,6 +17,16 @@ type SlugQueryOptions = {
   depth?: number;
 };
 
+/**
+ * The only collections with `versions.drafts` enabled, and therefore the only ones
+ * whose documents carry a `_status` field. Keep in sync with the `versions` key on
+ * Pages, News and HawkProject — filtering `_status` anywhere else silently returns
+ * nothing.
+ */
+const DRAFT_COLLECTIONS = new Set<string>(['pages', 'news', 'hawk_projects']);
+
+export const hasDrafts = (collection: string) => DRAFT_COLLECTIONS.has(collection);
+
 const findBySlug = async <TSlug extends CollectionSlug>(
   collection: TSlug,
   slug: string,
@@ -26,9 +36,15 @@ const findBySlug = async <TSlug extends CollectionSlug>(
   // `draft: false` below does not filter on `_status` — it only stops Payload merging
   // the newest draft version over the top. Without this clause an unpublished document
   // renders at its public URL. The preview routes are auth-gated and opt out.
-  const where: Where = opts?.preview
-    ? { slug: { equals: slug } }
-    : { and: [{ slug: { equals: slug } }, { _status: { equals: 'published' } }] };
+  //
+  // Only applied to collections that actually enable `versions.drafts`. On a collection
+  // without them there is no `_status` field, and the clause matches nothing — which is
+  // the bug app/sitemap.ts documents having already dropped every artwork, curator and
+  // event from the sitemap once.
+  const where: Where =
+    opts?.preview || !hasDrafts(collection)
+      ? { slug: { equals: slug } }
+      : { and: [{ slug: { equals: slug } }, { _status: { equals: 'published' } }] };
 
   const payload = await getPayloadConfig();
   const result = await payload.find({

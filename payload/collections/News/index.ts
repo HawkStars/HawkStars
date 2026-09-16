@@ -92,7 +92,10 @@ export const News: CollectionConfig = {
           pt: 'Definido automaticamente quando o artigo é publicado',
         },
       },
-      defaultValue: Date.now(),
+      // A bare `Date.now()` is evaluated once at config-build time, giving every
+      // article the same timestamp and leaving `sort: '-publishedAt'` with nothing to
+      // order by. A function is called per document.
+      defaultValue: () => new Date().toISOString(),
     },
   ],
   hooks: {

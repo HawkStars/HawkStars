@@ -33,7 +33,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
             className={cn('mb-8 leading-relaxed font-medium text-gray-800 italic', {
               'text-xl lg:text-3xl': quoteLength < 150,
               'text-lg lg:text-2xl': quoteLength >= 150 && quoteLength < 300,
-              'text-md lg:text-lg': quoteLength >= 300,
+              'text-base lg:text-lg': quoteLength >= 300,
             })}
           >
             &ldquo;{quote}&rdquo;
@@ -63,7 +63,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
             className={cn('mb-4 leading-relaxed font-medium', {
               'text-xl lg:text-2xl': quoteLength < 150,
               'text-lg lg:text-xl': quoteLength >= 150 && quoteLength < 300,
-              'text-md lg:text-lg': quoteLength >= 300,
+              'text-base lg:text-lg': quoteLength >= 300,
             })}
           >
             &ldquo;{quote}&rdquo;
@@ -94,7 +94,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
             className={cn('mb-6 leading-relaxed font-medium', {
               'text-xl lg:text-3xl': quoteLength < 150,
               'text-lg lg:text-2xl': quoteLength >= 150 && quoteLength < 300,
-              'text-md lg:text-lg': quoteLength >= 300,
+              'text-base lg:text-lg': quoteLength >= 300,
             })}
           >
             &ldquo;{quote}&rdquo;

@@ -124,6 +124,7 @@ export const OfferCatalogBlock: Block = {
             },
             {
               name: 'price',
+              localized: true,
               type: 'text',
               required: true,
               label: { en: 'Price / Value', pt: 'Preço / Valor' },

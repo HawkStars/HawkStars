@@ -3495,6 +3495,7 @@ export interface LogosBlock {
    * Button text (e.g. Become a partner)
    */
   buttonText?: string | null;
+  buttonLink?: string | null;
   logos: LogosBlockLogo;
   /**
    * Unique identifier for the section (used for anchor links)

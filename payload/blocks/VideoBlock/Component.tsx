@@ -39,7 +39,7 @@ export const VideoBlock: React.FC<Props> = (props) => {
       data-blockid='videoBlock'
     >
       <div className='w-full'>
-        {title && <h3 className='text-h3_semibold mb-4'>{title}</h3>}
+        {title && <h2 className='text-h3_semibold mb-4'>{title}</h2>}
 
         <div
           className='border-border relative w-full overflow-hidden rounded-lg border'
@@ -49,8 +49,8 @@ export const VideoBlock: React.FC<Props> = (props) => {
             src={videoUrl}
             autoPlay={autoplay ?? false}
             loop={loop ?? false}
-            muted={muted ?? false}
-            controls={controls ?? false}
+            muted={muted ?? true}
+            controls={controls ?? true}
             title={title ?? undefined}
             videoClassName='absolute top-0 left-0 h-full w-full'
           />

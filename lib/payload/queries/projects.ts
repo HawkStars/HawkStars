@@ -73,7 +73,7 @@ const getProjectsSplitByDateAt = async (
   const upcoming = await payload.find({
     collection: PROJECTS_COLLECTION,
     where: conditions.length > 1 ? { and: conditions } : conditions[0],
-    sort: 'date',
+    sort: 'startDate',
     limit: 100,
     locale,
   });
@@ -107,7 +107,7 @@ const getPastProjectsAt = async (
   return payload.find({
     collection: PROJECTS_COLLECTION,
     where: conditions.length > 1 ? { and: conditions } : conditions[0],
-    sort: '-date',
+    sort: '-endDate',
     limit: opts?.limit ?? DEFAULT_ARCHIVE_PAGE_LIMIT,
     page: opts?.page ?? 1,
     locale,

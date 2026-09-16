@@ -37,7 +37,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
 
           {items.map((item, index) => (
             <div
-              key={index}
+              key={item.id || index}
               className={cn(
                 'relative mb-16 flex items-start',
                 index % 2 === 0 ? 'justify-start' : 'justify-end'
@@ -86,7 +86,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
             {/* Horizontal connecting line */}
             <div className='absolute top-6 right-0 left-0 h-px bg-linear-to-r from-transparent via-gray-300 to-transparent' />
             {items.map((item, index) => (
-              <div key={index} className='w-72 shrink-0 p-4'>
+              <div key={item.id || index} className='w-72 shrink-0 p-4'>
                 {/* Year dot */}
                 <div className='relative mb-8 flex justify-center'>
                   <div className='bg-green flex h-12 w-12 items-center justify-center rounded-full text-white shadow-md ring-4 ring-white'>

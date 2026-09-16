@@ -81,7 +81,11 @@
     "goToSlide": "Go to slide {{number}}",
     "pauseSlideshow": "Pause slideshow",
     "playSlideshow": "Play slideshow",
-    "slideshow": "Slideshow"
+    "slideshow": "Slideshow",
+    "comparisonSlider": "Before and after comparison slider",
+    "beforeLabel": "Before",
+    "afterLabel": "After",
+    "starRating": "{{rating}} out of 5 stars"
   },
   "footer": {
     "designedBy": "Designed by",
@@ -143,5 +147,6 @@
     "editHint": "Drag handles or markers to edit.",
     "removeHint": "Click on a shape to remove.",
     "undo": "Undo {{mode}}"
-  }
+  },
+  "at": "at"
 }

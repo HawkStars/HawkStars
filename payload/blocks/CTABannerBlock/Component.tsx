@@ -11,11 +11,15 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> =
   title,
   description,
   links,
-  variant = 'centered',
+  variant,
   backgroundImage,
   sectionId,
   lng,
 }) => {
+  // `variant = 'centered'` as a default parameter only caught undefined. The field is
+  // `| null`, so any document saved before it existed rendered an empty section with
+  // the title, description and both CTAs silently dropped.
+  const resolvedVariant = variant ?? 'centered';
   const bgImage = getImagePayloadUrl(backgroundImage);
   const primaryCta = links && links[0]?.link;
   const secondaryCta = links && links[1]?.link;
@@ -31,7 +35,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> =
       id={sectionId || undefined}
       data-blockid='ctaBanner'
     >
-      {variant === 'centered' && (
+      {resolvedVariant === 'centered' && (
         <div
           className='rounded-2xl p-12 text-center text-white'
           style={{ background: 'linear-gradient(135deg, #0a7558 0%, #064f39 100%)' }}
@@ -66,7 +70,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> =
         </div>
       )}
 
-      {variant === 'split' && (
+      {resolvedVariant === 'split' && (
         <div
           className='overflow-hidden rounded-2xl text-white'
           style={{ background: 'linear-gradient(135deg, #0a7558 0%, #064f39 100%)' }}
@@ -103,11 +107,11 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> =
         </div>
       )}
 
-      {variant === 'image-bg' && (
+      {resolvedVariant === 'image-bg' && (
         <div
           className='relative overflow-hidden rounded-2xl bg-cover bg-center p-12 text-white'
           style={{
-            backgroundImage: bgImage
+            backgroundImage: bgImage?.url
               ? `url(${bgImage.url})`
               : 'linear-gradient(135deg, #0a7558 0%, #FAE7D0 100%)',
           }}

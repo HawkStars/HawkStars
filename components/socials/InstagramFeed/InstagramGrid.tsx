@@ -10,20 +10,21 @@ import { type InstagramPost, type InstagramGridProps, INSTAGRAM_PROFILE_URL } fr
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import getInstagramPosts from '@/lib/instagram';
+import { Language, toIntlLocale } from '@/i18n/settings';
 
-function PostOverlay({ post }: { post: InstagramPost }) {
+function PostOverlay({ post, lng }: { post: InstagramPost; lng: Language }) {
   return (
     <div className='absolute inset-0 flex items-center justify-center gap-6 bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100'>
       {post.likeCount !== undefined && (
         <span className='flex items-center gap-1.5 text-sm font-semibold text-white'>
           <LuHeart className='size-5 fill-white' />
-          {post.likeCount.toLocaleString()}
+          {post.likeCount.toLocaleString(toIntlLocale(lng))}
         </span>
       )}
       {post.commentsCount !== undefined && (
         <span className='flex items-center gap-1.5 text-sm font-semibold text-white'>
           <LuMessageCircle className='size-5 fill-white' />
-          {post.commentsCount.toLocaleString()}
+          {post.commentsCount.toLocaleString(toIntlLocale(lng))}
         </span>
       )}
     </div>
@@ -130,7 +131,7 @@ export default function InstagramGrid({
               className='object-cover transition-transform duration-300 group-hover:scale-105'
             />
             <MediaTypeIndicator mediaType={post.mediaType} />
-            {showOverlay && <PostOverlay post={post} />}
+            {showOverlay && <PostOverlay post={post} lng={lng} />}
           </Link>
         ))}
       </div>

@@ -14,7 +14,7 @@ const FooterBottom = ({ lng }: FooterBottomProps) => {
 
   return (
     <div className='mt-10 flex justify-center lg:mt-2 lg:border-t lg:py-4'>
-      <span className='text-muted-foreground text-md'>
+      <span className='text-muted-foreground text-base'>
         &copy; {currentYear} {t('footer.allRightsReserved')} | {t('footer.madeWithPurpose')}{' '}
       </span>
     </div>

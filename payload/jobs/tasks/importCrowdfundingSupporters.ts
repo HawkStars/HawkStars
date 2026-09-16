@@ -62,7 +62,7 @@ export const importCrowdfundingSupportersTask: TaskConfig<ImportSupportersTaskIO
           },
         });
 
-        importedCount = rows.length;
+        importedCount += rows.length;
       }
     );
 

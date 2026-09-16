@@ -77,7 +77,6 @@ export const PricingTableBlock: Block = {
         {
           name: 'period',
           type: 'text',
-          defaultValue: '/month',
           localized: true,
           label: { en: 'Period', pt: 'Período' },
           admin: {
@@ -126,7 +125,6 @@ export const PricingTableBlock: Block = {
         {
           name: 'buttonText',
           type: 'text',
-          defaultValue: 'Choose Plan',
           localized: true,
           label: { en: 'Button Text', pt: 'Texto do Botão' },
           admin: {
@@ -155,6 +153,7 @@ export const PricingTableBlock: Block = {
         },
         {
           name: 'badge',
+          localized: true,
           type: 'text',
           label: { en: 'Badge', pt: 'Distintivo' },
           admin: {

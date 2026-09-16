@@ -81,7 +81,11 @@
     "goToSlide": "Ir para o slide {{number}}",
     "pauseSlideshow": "Pausar apresentação",
     "playSlideshow": "Reproduzir apresentação",
-    "slideshow": "Apresentação"
+    "slideshow": "Apresentação",
+    "comparisonSlider": "Cursor de comparação antes e depois",
+    "beforeLabel": "Antes",
+    "afterLabel": "Depois",
+    "starRating": "{{rating}} em 5 estrelas"
   },
   "footer": {
     "designedBy": "Concebido por",
@@ -143,5 +147,6 @@
     "editHint": "Arraste as pegas ou marcadores para editar.",
     "removeHint": "Clique numa forma para remover.",
     "undo": "Desfazer {{mode}}"
-  }
+  },
+  "at": "na"
 }

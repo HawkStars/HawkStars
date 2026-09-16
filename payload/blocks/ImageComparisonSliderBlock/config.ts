@@ -31,7 +31,6 @@ export const ImageComparisonSliderBlock: Block = {
       name: 'beforeLabel',
       type: 'text',
       label: { en: 'Before Label', pt: 'Rótulo Antes' },
-      defaultValue: 'Before',
       localized: true,
       admin: {
         description: { en: 'Label for the before image', pt: 'Rótulo para a imagem "antes"' },
@@ -42,7 +41,6 @@ export const ImageComparisonSliderBlock: Block = {
       name: 'afterLabel',
       type: 'text',
       label: { en: 'After Label', pt: 'Rótulo Depois' },
-      defaultValue: 'After',
       localized: true,
       admin: {
         description: { en: 'Label for the after image', pt: 'Rótulo para a imagem "depois"' },

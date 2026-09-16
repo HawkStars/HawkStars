@@ -22,7 +22,7 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
   const bgClasses = {
     white: 'bg-white',
     gray: 'bg-bege-light',
-    gradient: 'bg-gradient-to-br from-green to-bege-dark text-white',
+    gradient: 'bg-gradient-to-br from-green to-green-dark text-white',
   };
 
   return (

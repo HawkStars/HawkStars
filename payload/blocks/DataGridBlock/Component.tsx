@@ -38,7 +38,7 @@ export const DataGridBlock: React.FC<DataGridBlockProps> = ({
           </thead>
           <tbody className='text-body'>
             {rows?.map((row, index) => (
-              <tr key={index}>
+              <tr key={row.id || index}>
                 <td className='border-r-bege-dark border-r px-6 py-4 text-center text-sm'>
                   {row.columnOne}
                 </td>

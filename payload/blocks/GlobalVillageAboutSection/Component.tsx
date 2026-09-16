@@ -43,7 +43,7 @@ export const GlobalVillageAboutSectionBlockComponent: React.FC<
                 {imageData?.url && (
                   <ImageMedia
                     src={imageData.url}
-                    alt={imageData.alt || section.title || 'Section image'}
+                    alt={imageData.alt || section.title || ''}
                     width={imageData.width ?? 800}
                     height={imageData.height ?? 400}
                     className='w-full rounded-lg object-cover lg:h-52'
@@ -65,6 +65,7 @@ export const GlobalVillageAboutSectionBlockComponent: React.FC<
         {cta?.enable && cta.link?.label && (
           <div className='mt-10 flex justify-center'>
             <CMSLink
+              lng={lng}
               {...cta.link}
               appearance='inline'
               className='border-green bg-green w-fit cursor-pointer rounded-xl border px-4 py-3 text-center text-white focus:ring-0 focus:outline-hidden'

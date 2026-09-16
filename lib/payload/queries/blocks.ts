@@ -42,7 +42,7 @@ const getUpcomingEventAt = async (
   cacheLife('hours');
   cacheTag(HAWK_EVENT_CACHE_TAG);
 
-  const conditions: Where[] = [published, { date: { greater_than_equal: now } }];
+  const conditions: Where[] = [{ date: { greater_than_equal: now } }];
   if (eventType && eventType.length > 0) conditions.push({ type_event: { in: eventType } });
 
   const payload = await getPayloadConfig();
@@ -92,13 +92,13 @@ export const getLatestEventForBlock = async (
   cacheLife('hours');
   cacheTag(HAWK_EVENT_CACHE_TAG);
 
-  const conditions: Where[] = [published];
+  const conditions: Where[] = [];
   if (eventType && eventType.length > 0) conditions.push({ type_event: { in: eventType } });
 
   const payload = await getPayloadConfig();
   const result = await payload.find({
     collection: 'hawk_events',
-    where: { and: conditions },
+    where: conditions.length > 0 ? { and: conditions } : {},
     sort: '-date',
     limit: 1,
     depth: 1,
@@ -127,7 +127,7 @@ const getAgendaAt = async (
   cacheTag(HAWK_EVENT_CACHE_TAG, HAWK_PROJECT_CACHE_TAG);
 
   const limit = maxEvents ?? 20;
-  const eventConditions: Where[] = [published, { date: { greater_than_equal: now } }];
+  const eventConditions: Where[] = [{ date: { greater_than_equal: now } }];
   if (eventType && eventType.length > 0) eventConditions.push({ type_event: { in: eventType } });
 
   const payload = await getPayloadConfig();

@@ -1,6 +1,16 @@
 import { cn } from '@/lib/utils';
 import { StepsBlock } from '@/payload-types';
 
+// Literal class names: Tailwind's scanner cannot see a class built by interpolation,
+// so `lg:grid-cols-${n}` only ever worked because the literal existed in another file.
+const stepsColumnClasses: Record<string, string> = {
+  '1': 'lg:grid-cols-1',
+  '2': 'lg:grid-cols-2',
+  '3': 'lg:grid-cols-3',
+  '4': 'lg:grid-cols-4',
+  '5': 'lg:grid-cols-5',
+};
+
 const StepsBlockComponent: React.FC<StepsBlock> = ({
   numberOfColumnsPerRow,
   steps,
@@ -10,8 +20,11 @@ const StepsBlockComponent: React.FC<StepsBlock> = ({
 }) => {
   return (
     <div
-      className={cn(`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${numberOfColumnsPerRow}`)}
-      data-testid={sectionId}
+      className={cn([
+        'grid grid-cols-1 sm:grid-cols-2',
+        stepsColumnClasses[numberOfColumnsPerRow ?? '3'],
+      ])}
+      id={sectionId || undefined}
       data-block-type={blockType}
     >
       {steps.map((step, i) => {
@@ -39,7 +52,7 @@ const StepsBlockComponent: React.FC<StepsBlock> = ({
                 'bg-yellow-500': dotColor === 'yellow',
               })}
             />
-            <h4 className='mb-2 font-serif text-lg font-bold'>{step.title}</h4>
+            <h3 className='mb-2 font-serif text-lg font-bold'>{step.title}</h3>
             <p className='text-erasmus-muted text-left text-sm leading-relaxed'>
               {step.description}
             </p>

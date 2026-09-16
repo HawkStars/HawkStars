@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { getIcon } from '@/lib/icon';
 import { CMSLink } from '@/payload/components/Link';
 import { HawkStarsSection } from '@/components/layout';
+import { Language } from '@/i18n/settings';
 
 const columnsClass = {
   '2': 'grid-cols-1 sm:grid-cols-2',
@@ -41,14 +42,15 @@ const alignmentStyles = {
   right: 'self-end text-right',
 } as const;
 
-export const StatsBlock: React.FC<StatsBlockProps> = ({
+export const StatsBlock = ({
   columns = '3',
   background = 'white',
   hoverBorderColor = 'green',
   stats = [],
   links,
   sectionId,
-}) => {
+  lng,
+}: StatsBlockProps & { lng: Language }) => {
   if (!stats || stats.length === 0) {
     return null;
   }
@@ -117,7 +119,13 @@ export const StatsBlock: React.FC<StatsBlockProps> = ({
       {links && links.length > 0 && (
         <div className='mt-10 flex flex-wrap justify-center gap-4'>
           {links.map(({ link }, i) => (
-            <CMSLink key={i} size='lg' {...link} appearance={i === 0 ? 'default' : 'outline'} />
+            <CMSLink
+              key={i}
+              lng={lng}
+              size='lg'
+              {...link}
+              appearance={i === 0 ? 'default' : 'outline'}
+            />
           ))}
         </div>
       )}

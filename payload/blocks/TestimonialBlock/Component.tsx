@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { LuStar, LuQuote, LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import type { ImageType, TestimonialBlock as TestimonialBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/i18n/client';
+import { Language } from '@/i18n/settings';
 import { HawkStarsSection } from '@/components/layout';
 import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
@@ -21,18 +23,21 @@ type Testimonial = {
   id?: string | null;
 };
 
-const StarRating: React.FC<{ rating: number; showRating: boolean | null }> = ({
+const StarRating: React.FC<{ rating: number; showRating: boolean | null; ratingLabel: string }> = ({
   rating,
   showRating,
+  ratingLabel,
 }) => {
   if (!showRating) return null;
 
   return (
-    <div className='mb-3 flex items-center gap-1'>
+    // The rating was conveyed entirely through icon colour, so it reached no one
+    // using a screen reader.
+    <div role='img' aria-label={ratingLabel} className='mb-3 flex items-center gap-1'>
       {Array.from({ length: 5 }, (_, i) => (
         <LuStar
           key={i}
-          className={cn('h-4 w-4', i < rating ? 'text-bege-dark fill-current' : 'text-gray-300')}
+          className={cn('h-4 w-4', i < rating ? 'text-green fill-current' : 'text-gray-500')}
         />
       ))}
     </div>
@@ -44,7 +49,9 @@ const TestimonialCard: React.FC<{
   style: string | null;
   showRatings: boolean | null;
   isDark: boolean;
-}> = ({ testimonial, style, showRatings, isDark }) => {
+  lng: Language;
+}> = ({ testimonial, style, showRatings, isDark, lng }) => {
+  const { t } = useTranslation(lng, 'common');
   const { quote, author, rating = 0, featured = false } = testimonial;
 
   const cardClasses = {
@@ -59,7 +66,7 @@ const TestimonialCard: React.FC<{
   return (
     <div
       className={cn(
-        cardClasses[style as keyof typeof cardClasses],
+        cardClasses[(style ?? 'card') as keyof typeof cardClasses],
         featured && 'ring-opacity-50 ring-green ring-2',
         'h-full'
       )}
@@ -68,7 +75,15 @@ const TestimonialCard: React.FC<{
       {style === 'quote' && <LuQuote className='text-green mb-4 h-8 w-8' />}
 
       {/* Rating */}
-      <StarRating rating={rating || 1} showRating={showRatings} />
+      {/* `rating || 1` turned both null and 0 into a one-star score the editor never
+          entered. No rating means render nothing. */}
+      {typeof rating === 'number' && rating > 0 && (
+        <StarRating
+          rating={rating}
+          showRating={showRatings}
+          ratingLabel={t('a11y.starRating', { rating })}
+        />
+      )}
 
       {/* Quote */}
       <blockquote
@@ -93,7 +108,7 @@ const TestimonialCard: React.FC<{
           {(author.title || author.company) && (
             <div className={cn('text-sm', isDark ? 'text-gray-300' : 'text-gray-600')}>
               {author.title}
-              {author.title && author.company && ' at '}
+              {author.title && author.company && ` ${t('at')} `}
               {author.company}
             </div>
           )}
@@ -115,7 +130,7 @@ const TestimonialCard: React.FC<{
   );
 };
 
-export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
+export const TestimonialBlock = ({
   title,
   subtitle,
   testimonials = [],
@@ -123,7 +138,10 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
   style = 'card',
   showRatings = true,
   backgroundColor = 'none',
-}) => {
+  sectionId,
+  lng,
+}: TestimonialBlockProps & { lng: Language }) => {
+  const { t } = useTranslation(lng, 'common');
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const backgroundClasses = {
@@ -162,6 +180,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
       cap='none'
       container
       className={cn(backgroundColor && backgroundClasses[backgroundColor])}
+      id={sectionId || undefined}
       data-blockid='testimonialBlock'
     >
       {/* Header */}
@@ -195,6 +214,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
         <div className='relative'>
           <div className='mx-auto max-w-4xl'>
             <TestimonialCard
+              lng={lng}
               testimonial={testimonials[currentSlide]}
               style={style}
               showRatings={showRatings}
@@ -212,7 +232,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
                   'card-lg card-hover-lg',
                   isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
                 )}
-                aria-label='Previous testimonial'
+                aria-label={t('a11y.prevSlide')}
               >
                 <LuChevronLeft className='h-5 w-5' />
               </button>
@@ -224,7 +244,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
                   'card-lg card-hover-lg',
                   isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
                 )}
-                aria-label='Next testimonial'
+                aria-label={t('a11y.nextSlide')}
               >
                 <LuChevronRight className='h-5 w-5' />
               </button>
@@ -233,7 +253,8 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
               <div className='mt-8 flex justify-center gap-2'>
                 {testimonials.map((_, index) => (
                   <button
-                    aria-label={`Page ${index}`}
+                    aria-label={t('a11y.goToSlide', { number: index + 1 })}
+                    aria-current={index === currentSlide}
                     key={index}
                     onClick={() => setCurrentSlide(index)}
                     className={cn(
@@ -262,6 +283,7 @@ export const TestimonialBlock: React.FC<TestimonialBlockProps> = ({
         >
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
+              lng={lng}
               key={index}
               testimonial={testimonial}
               style={style}

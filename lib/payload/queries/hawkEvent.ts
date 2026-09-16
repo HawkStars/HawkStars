@@ -192,7 +192,6 @@ export const getEventYearsQuery = async (locale: Language): Promise<number[]> =>
   const result = await payload.find({
     collection: EVENTS_COLLECTION,
     locale,
-    where: { _status: { equals: 'published' } },
     limit: 0,
     depth: 0,
     select: { date: true },
