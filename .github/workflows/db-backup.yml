@@ -10,11 +10,17 @@ name: Daily MongoDB Backup to Google Drive
 #      refresh token (the same Google app already used by the site), so no new
 #      Google credentials are required — only a destination folder ID.
 #   4. Backups older than RETENTION_DAYS are pruned from the Drive folder.
+#   5. A Discord message reports the outcome — success OR failure. Without it a
+#      scheduled job that starts failing is silent, and GitHub also disables
+#      scheduled workflows after 60 days of repository inactivity without
+#      telling anyone.
 #
 # Required GitHub secrets (most already exist from deploy.yml):
 #   VPS_HOST, VPS_USERNAME, SSH_PRIVATE_KEY, SSH_PASSPHRASE   (VPS SSH access)
 #   GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN  (Drive upload)
-#   GDRIVE_BACKUP_FOLDER_ID   (NEW — the Google Drive folder to store backups in)
+#   GDRIVE_BACKUP_FOLDER_ID   (the Google Drive folder to store backups in)
+#   DISCORD_WEBHOOK_URL       (same secret deploy.yml uses; the notification is
+#                              skipped, not failed, when it is unset)
 #
 # IMPORTANT: the Google OAuth client/refresh token must include the
 #   https://www.googleapis.com/auth/drive.file  scope (or a broader Drive scope)
@@ -47,8 +53,14 @@ jobs:
     name: Dump database and upload to Drive
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    outputs:
+      # Parsed out of the remote script's stdout by the "Extract summary" step
+      # below, so the Discord message can name the archive rather than just
+      # saying it worked.
+      summary: ${{ steps.summary.outputs.json }}
     steps:
       - name: Dump MongoDB and upload to Google Drive
+        id: dump
         uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1
         env:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
@@ -68,6 +80,8 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: 22
           command_timeout: 25m
+          # Needed for the BACKUP_SUMMARY line below to reach the notify job.
+          capture_stdout: true
           envs: GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,GOOGLE_REFRESH_TOKEN,GDRIVE_BACKUP_FOLDER_ID,DB_NAME,RETENTION_DAYS,MIN_ARCHIVE_BYTES,DATABASE_URI
           script: |
             set -euo pipefail
@@ -177,15 +191,138 @@ jobs:
               --data-urlencode "supportsAllDrives=true" \
               --data-urlencode "includeItemsFromAllDrives=true" | jq -r '.files[]?.id')"
 
+            PRUNED=0
             if [ -n "$OLD_IDS" ]; then
               for ID in $OLD_IDS; do
                 echo "Deleting old backup ${ID}"
                 curl -s -X DELETE \
                   "https://www.googleapis.com/drive/v3/files/${ID}?supportsAllDrives=true" \
                   -H "Authorization: Bearer ${ACCESS_TOKEN}" >/dev/null
+                PRUNED=$((PRUNED + 1))
               done
             else
               echo "No backups older than ${RETENTION_DAYS} days to prune."
             fi
 
             echo "Backup workflow finished."
+
+            # ----- summary for the Discord notification --------------------------
+            # One machine-readable line the runner greps out of the captured
+            # stdout. Printed last so a failure earlier in the script (which exits
+            # non-zero under `set -e`) simply never emits it, and the notification
+            # falls back to status-only.
+            printf 'BACKUP_SUMMARY::%s\n' "$(jq -nc \
+              --arg file "$FILENAME" \
+              --arg size "$SIZE" \
+              --arg drive_id "$FILE_ID" \
+              --argjson pruned "$PRUNED" \
+              '{file: $file, size: $size, drive_id: $drive_id, pruned: $pruned}')"
+
+      - name: Extract summary
+        id: summary
+        # always(): when the dump fails there is no summary line, and the notify
+        # job below still needs to run and say so.
+        if: always()
+        env:
+          REMOTE_STDOUT: ${{ steps.dump.outputs.stdout }}
+        run: |
+          set -euo pipefail
+
+          JSON="$(printf '%s' "${REMOTE_STDOUT:-}" \
+            | grep -o 'BACKUP_SUMMARY::.*' \
+            | tail -n 1 \
+            | sed 's/^BACKUP_SUMMARY:://' || true)"
+
+          # Validate before passing it on: a half-written line must not break the
+          # notification, which is the thing that tells us the backup broke.
+          if [ -z "${JSON}" ] || ! printf '%s' "${JSON}" | jq -e . >/dev/null 2>&1; then
+            echo "No usable BACKUP_SUMMARY line in the remote output."
+            JSON=''
+          fi
+
+          echo "json=${JSON}" >> "$GITHUB_OUTPUT"
+
+  notify:
+    name: Notify Discord
+    runs-on: ubuntu-latest
+    needs: backup
+    # always(): the whole point is to hear about the runs that FAILED. A
+    # scheduled workflow that only notifies on success is indistinguishable from
+    # one that stopped running — and GitHub disables scheduled workflows after 60
+    # days of repository inactivity without telling anyone.
+    if: always()
+    steps:
+      - name: Send backup status to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          BACKUP_STATUS: ${{ needs.backup.result }}
+          BACKUP_SUMMARY: ${{ needs.backup.outputs.summary }}
+          DB_NAME: ${{ env.DB_NAME }}
+          RETENTION_DAYS: ${{ env.RETENTION_DAYS }}
+          TRIGGER: ${{ github.event_name }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${DISCORD_WEBHOOK_URL}" ]; then
+            echo "DISCORD_WEBHOOK_URL is not set — skipping Discord notification."
+            exit 0
+          fi
+
+          case "${BACKUP_STATUS}" in
+            success)   TITLE="✅ Database backup complete"; COLOR=3066993 ;;
+            failure)   TITLE="❌ Database backup FAILED";   COLOR=15158332 ;;
+            cancelled) TITLE="⚪ Database backup cancelled"; COLOR=9807270 ;;
+            *)         TITLE="⚠️ Database backup skipped";  COLOR=16776960 ;;
+          esac
+
+          # The summary is only present on success — the remote script prints it
+          # as its last statement, so any earlier failure (dump too small,
+          # mongorestore --dryRun rejecting the archive, upload refused) exits
+          # before it. Fall back to naming why there is nothing to report.
+          if [ -n "${BACKUP_SUMMARY:-}" ]; then
+            FILE="$(printf '%s' "${BACKUP_SUMMARY}" | jq -r '.file')"
+            SIZE="$(printf '%s' "${BACKUP_SUMMARY}" | jq -r '.size')"
+            DRIVE_ID="$(printf '%s' "${BACKUP_SUMMARY}" | jq -r '.drive_id')"
+            PRUNED="$(printf '%s' "${BACKUP_SUMMARY}" | jq -r '.pruned')"
+            DESCRIPTION="[\`${FILE}\`](https://drive.google.com/file/d/${DRIVE_ID}/view) · **${SIZE}**"
+            PRUNE_TEXT="${PRUNED} removed (older than ${RETENTION_DAYS} days)"
+          else
+            DESCRIPTION="No archive was uploaded. Check the run log for which step stopped it — the dump size floor, the \`mongorestore --dryRun\` verification, or the Drive upload."
+            PRUNE_TEXT="—"
+          fi
+
+          # jq builds the payload so a filename or error text containing quotes
+          # or backslashes cannot produce invalid JSON.
+          jq -n \
+            --arg title "${TITLE}" \
+            --argjson color "${COLOR}" \
+            --arg description "${DESCRIPTION}" \
+            --arg database "${DB_NAME}" \
+            --arg trigger "${TRIGGER}" \
+            --arg prune "${PRUNE_TEXT}" \
+            --arg run_url "${RUN_URL}" \
+            '{
+              username: "HawkStars Backups",
+              embeds: [{
+                title: $title,
+                color: $color,
+                description: $description,
+                fields: [
+                  { name: "Database", value: $database, inline: true },
+                  { name: "Trigger", value: $trigger, inline: true },
+                  { name: "Retention", value: $prune, inline: true },
+                  { name: "Links", value: "[Workflow run](\($run_url))" }
+                ],
+                timestamp: (now | todate)
+              }]
+            }' > payload.json
+
+          # --fail-with-body so a rejected webhook (bad URL, rate limit) fails the
+          # step loudly instead of passing silently — the same reasoning as the
+          # deploy notification.
+          curl --silent --show-error --fail-with-body \
+            -H "Content-Type: application/json" \
+            -X POST \
+            -d @payload.json \
+            "${DISCORD_WEBHOOK_URL}"

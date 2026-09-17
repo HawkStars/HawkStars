@@ -87,8 +87,11 @@ Pushing to `main` runs `.github/workflows/deploy.yml`:
 3. **storybook** — Chromatic, on pull requests and on `main`.
 
 A separate workflow, `.github/workflows/db-backup.yml`, dumps MongoDB to Google
-Drive on a schedule, verifies the archive with `mongorestore --dryRun` before
-uploading, and prunes backups older than 14 days.
+Drive daily at 03:17 UTC, verifies the archive with `mongorestore --dryRun`
+before uploading, prunes backups older than `RETENTION_DAYS` (currently 31), and
+posts the outcome to Discord — **on failure as well as success**, via the same
+`DISCORD_WEBHOOK_URL` secret the deploy uses. A silent scheduled job is
+indistinguishable from one that stopped running.
 
 PM2 runs **one** instance (`ecosystem.config.cjs`). That is deliberate:
 `utils/rateLimit.ts` keeps its counters in a per-process Map, and Next's
