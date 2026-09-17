@@ -54,3 +54,9 @@ pnpm build-storybook        # Static build
 @page-architecture.md
 @ops.md
 @access-control.md
+
+
+## Other Considerations
+
+Unless really necessary for the audits do not consider the situations that involve process.env.development.
+Production environment is what matters the most
