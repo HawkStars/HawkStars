@@ -32,6 +32,30 @@ const config: StorybookConfig = {
         '@': path.resolve(__dirname, '../'),
       };
     }
+
+    // Pre-bundle deps that only appear deep in a story's import graph.
+    //
+    // Vite's dependency optimizer scans entry points up front. A bare import it
+    // has not seen is discovered mid-run, which triggers a re-optimization and
+    // changes the browser hash on every optimized module URL (`?v=...`). In the
+    // dev server that is a page reload; under `vitest --browser` it invalidates
+    // modules that are already in flight, and the run fails en masse with
+    // "Failed to fetch dynamically imported module" plus a second copy of vitest
+    // ("Vitest failed to find the current suite") — in files that have nothing
+    // to do with the dependency that caused it.
+    //
+    // `react-day-picker/locale` is reached only from components/ui/calendar.tsx,
+    // via Calendar.stories.tsx and DatePicker.stories.tsx. Add an entry here
+    // whenever a story graph gains a new bare import from a subpath like this.
+    config.optimizeDeps = {
+      ...config.optimizeDeps,
+      include: [
+        ...(config.optimizeDeps?.include ?? []),
+        'react-day-picker',
+        'react-day-picker/locale',
+      ],
+    };
+
     return config;
   },
   features: {
