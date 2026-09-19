@@ -36,7 +36,7 @@ const cspHeader = `
   default-src 'self';
   script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} blob: https://www.googletagmanager.com https://www.google-analytics.com https://upload-widget.cloudinary.com https://*.cloudinary.com https://www.instagram.com https://*.cdninstagram.com https://browser.sentry-cdn.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  img-src 'self' blob: data: https://res.cloudinary.com https://images.unsplash.com https://*.cdninstagram.com https://*.fbcdn.net https://*.basemaps.cartocdn.com https://*.tile.openstreetmap.org https://drive.google.com https://www.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com;
+  img-src 'self' blob: data: https://res.cloudinary.com https://images.unsplash.com https://*.cdninstagram.com https://*.fbcdn.net https://*.basemaps.cartocdn.com https://*.tile.openstreetmap.org https://drive.google.com https://www.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://www.google.com https://www.google.pt;
   font-src 'self' https://fonts.gstatic.com data:;
   object-src 'none';
   base-uri 'self';
