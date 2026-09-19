@@ -3,7 +3,6 @@ import { seoPlugin } from '@payloadcms/plugin-seo';
 import { Plugin } from 'payload';
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types';
 import { sentryPlugin } from '@payloadcms/plugin-sentry';
-import { payloadTotp } from 'payload-totp';
 import * as Sentry from '@sentry/nextjs';
 
 import { Page } from '@/payload-types';
@@ -12,6 +11,7 @@ import { cloudinaryAdapter } from '@/lib/cloudinary/adapter';
 import { googleDriveAdapter, generateGoogleDriveURL } from '@/lib/google-drive/adapter';
 import { v2 as cloudinary } from 'cloudinary';
 import { showLocaleValuesPlugin } from './showLocaleValues';
+import { totpPlugin } from './totp';
 
 const generateTitle: GenerateTitle<Page> = ({ doc }) => {
   return doc?.title || 'Payload Website Template';
@@ -69,14 +69,5 @@ export const plugins: Plugin[] = [
   }),
 
   /** LAST plugin cause of overrides */
-  payloadTotp({
-    collection: 'users',
-    forceSetup: process.env.NODE_ENV === 'production',
-    totp: {
-      issuer: 'HawkStars Admin',
-      digits: 6,
-      period: 30,
-    },
-    disabled: process.env.NODE_ENV === 'development',
-  }),
+  totpPlugin,
 ];

@@ -4100,7 +4100,6 @@ export interface User {
    */
   isAdmin?: boolean | null;
   totpSecret?: string | null;
-  hasTotp?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -4851,7 +4850,6 @@ export interface UsersSelect<T extends boolean = true> {
   name?: T;
   isAdmin?: T;
   totpSecret?: T;
-  hasTotp?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
