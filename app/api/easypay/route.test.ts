@@ -356,26 +356,51 @@ describe('POST /api/easypay (webhook)', () => {
     });
   });
 
-  describe('artwork orders', () => {
+  describe('artwork orders (gallery EasyPay account, same endpoint)', () => {
+    const galleryNotification = {
+      id: 'notif-art',
+      key: 'art-order-key',
+      type: 'capture',
+      status: 'success',
+      messages: [],
+      date: '2026-09-23T10:00:00Z',
+    };
+
     it('lets the art order re-check the payment for its transaction key', async () => {
       mockHandleArtOrderNotification.mockResolvedValueOnce(true);
 
-      const response = await POST(
-        makeRequest({
-          id: 'notif-art',
-          key: 'art-order-key',
-          type: 'capture',
-          status: 'success',
-          messages: [],
-          date: '2026-09-23T10:00:00Z',
-        })
-      );
+      const response = await POST(makeRequest(galleryNotification));
 
       expect(response.status).toBe(200);
       expect(mockHandleArtOrderNotification).toHaveBeenCalledWith(
         expect.anything(),
         'art-order-key'
       );
+      expect(mockPayloadFind).not.toHaveBeenCalled();
+      expect(mockPayloadUpdate).not.toHaveBeenCalled();
+      expect(mockPayloadCreate).not.toHaveBeenCalled();
+    });
+
+    it('accepts gallery notifications without the shared secret (they are re-verified with EasyPay)', async () => {
+      mockHandleArtOrderNotification.mockResolvedValueOnce(true);
+
+      const response = await POST(makeUnauthenticatedRequest(galleryNotification));
+
+      expect(response.status).toBe(200);
+      expect(mockHandleArtOrderNotification).toHaveBeenCalledWith(
+        expect.anything(),
+        'art-order-key'
+      );
+    });
+
+    it('still rejects donation notifications without the shared secret', async () => {
+      mockHandleArtOrderNotification.mockResolvedValueOnce(false);
+
+      const response = await POST(
+        makeUnauthenticatedRequest({ ...galleryNotification, key: 'donation-key' })
+      );
+
+      expect(response.status).toBe(401);
       expect(mockPayloadFind).not.toHaveBeenCalled();
       expect(mockPayloadUpdate).not.toHaveBeenCalled();
     });

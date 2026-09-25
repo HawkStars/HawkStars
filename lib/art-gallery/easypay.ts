@@ -1,5 +1,4 @@
 import { SinglePaymentMethod, SinglePaymentQuery } from '@/types/payment/easypay';
-import { checkEasyPaySetup } from '@/utils/payment/easypay';
 
 /**
  * Minimal EasyPay API 2.0 client for the gallery's single payments
@@ -48,15 +47,38 @@ export type EasyPaySinglePayment = {
   method?: EasyPayCreatedPayment['method'];
 };
 
-async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
-  checkEasyPaySetup();
+/**
+ * The gallery sells through its own EasyPay payment account
+ * (`EASYPAY_ART_ACCOUNT_ID` / `EASYPAY_ART_API_KEY`), so sales are kept apart
+ * from donations. Until that account exists, it falls back to the donations
+ * account. Both gallery variables must be set together — never a mix of the
+ * two accounts' id and key.
+ */
+export function galleryCredentials() {
+  const apiUrl = process.env.EASYPAY_API_URL;
+  const artAccountId = process.env.EASYPAY_ART_ACCOUNT_ID;
+  const artApiKey = process.env.EASYPAY_ART_API_KEY;
 
-  const response = await fetch(`${process.env.EASYPAY_API_URL}${path}`, {
+  if (!!artAccountId !== !!artApiKey) {
+    throw new Error('Set both EASYPAY_ART_ACCOUNT_ID and EASYPAY_ART_API_KEY (or neither)');
+  }
+  const accountId = artAccountId || process.env.EASYPAY_ACCOUNT_ID;
+  const apiKey = artApiKey || process.env.EASYPAY_API_KEY;
+  if (!apiUrl || !accountId || !apiKey) {
+    throw new Error('EasyPay is not configured (EASYPAY_API_URL / account id / API key)');
+  }
+  return { apiUrl, accountId, apiKey };
+}
+
+async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
+  const { apiUrl, accountId, apiKey } = galleryCredentials();
+
+  const response = await fetch(`${apiUrl}${path}`, {
     ...init,
     headers: {
       'Content-Type': 'application/json',
-      AccountId: process.env.EASYPAY_ACCOUNT_ID!,
-      ApiKey: process.env.EASYPAY_API_KEY!,
+      AccountId: accountId,
+      ApiKey: apiKey,
     },
     signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     cache: 'no-store',

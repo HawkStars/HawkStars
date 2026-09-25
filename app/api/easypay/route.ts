@@ -65,11 +65,25 @@ function isAuthorisedWebhook(request: Request): boolean {
  */
 export async function POST(request: Request) {
   try {
+    const body = await request.json().catch(() => null);
+
+    // 1. Art gallery sale? Donations and gallery sales (two EasyPay accounts)
+    //    notify this same endpoint; the transaction key tells them apart. A
+    //    gallery notification only triggers a re-check of that order straight
+    //    from EasyPay (its content is never trusted), so it doesn't need the
+    //    shared secret — which EasyPay may not be able to send.
+    if (typeof body?.key === 'string') {
+      const payload = await getPayloadConfig();
+      if (await handleArtOrderNotification(payload, body.key)) {
+        return Response.json({ success: true }, { status: 200 });
+      }
+    }
+
+    // 2. Otherwise it's a donation, handled from the notification itself —
+    //    which is why it must carry the shared secret.
     if (!isAuthorisedWebhook(request)) {
       return Response.json({ success: false }, { status: 401 });
     }
-
-    const body = await request.json();
 
     if (!body || !body.id) {
       return Response.json({ success: false, error: 'Invalid payload' }, { status: 400 });
@@ -138,14 +152,6 @@ async function handleAuthorisationNotification(
   try {
     const payload = await getPayloadConfig();
 
-    // Artwork purchases already have their own `art_orders` record (created
-    // before the payment) — only donations need a contribution here.
-    const { totalDocs: isArtOrder } = await payload.count({
-      collection: 'art_orders',
-      where: { transaction_key: { equals: notification.key } },
-    });
-    if (isArtOrder) return;
-
     await payload.create({
       collection: CONTRIBUTION_COLLECTION,
       data: {
@@ -180,7 +186,7 @@ async function handleTransactionNotification(
 }
 
 /**
- * Update the art order or, failing that, the contribution with this transaction key
+ * Update contribution confirmation status by matching the transaction key
  */
 async function updateContributionStatus(
   transactionKey: string,
@@ -188,9 +194,6 @@ async function updateContributionStatus(
 ): Promise<void> {
   try {
     const payload = await getPayloadConfig();
-
-    // Artwork orders re-check the payment with EasyPay themselves.
-    if (await handleArtOrderNotification(payload, transactionKey)) return;
 
     // Find contribution by the transaction key field
     const contributions = await payload.find({
