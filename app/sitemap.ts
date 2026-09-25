@@ -31,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const publishedWhere = { _status: { equals: 'published' as const } };
     const slugSelect = { slug: true, updatedAt: true } as const;
 
-    const [pages, artworks, curators, projects, news, events] = await Promise.all([
+    const [pages, artworks, artists, curators, projects, news, events] = await Promise.all([
       payload.find({
         collection: 'pages',
         draft: false,
@@ -41,6 +41,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
       payload.find({
         collection: 'artworks',
+        limit: 1000,
+        where: publishedWhere,
+        depth: 0,
+        select: slugSelect,
+      }),
+      payload.find({
+        collection: 'artists',
         limit: 1000,
         where: publishedWhere,
         depth: 0,
@@ -94,6 +101,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           priority: 0.6,
           lastModified: artwork.updatedAt ? new Date(artwork.updatedAt) : new Date(),
           changeFrequency: 'weekly',
+        });
+      }
+    }
+
+    for (const artist of artists.docs) {
+      for (const language of languages) {
+        sitemapRoutes.push({
+          url: `${BASE_URL}/${language}/artist/${artist.slug}`,
+          priority: 0.6,
+          lastModified: artist.updatedAt ? new Date(artist.updatedAt) : new Date(),
+          changeFrequency: 'monthly',
         });
       }
     }

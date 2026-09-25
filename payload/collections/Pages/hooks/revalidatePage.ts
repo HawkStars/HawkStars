@@ -1,6 +1,6 @@
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, Payload } from 'payload';
 
-import { revalidatePath } from 'next/cache';
+import { safeRevalidatePath } from '@/payload/utilities/safeRevalidate';
 
 import type { Page } from '@/payload-types';
 import { languages } from '@/i18n/settings';
@@ -15,7 +15,7 @@ const pathsForSlug = (slug: Page['slug']) =>
 const revalidateSlug = (payload: Payload, slug: Page['slug'], reason: string) => {
   for (const path of pathsForSlug(slug)) {
     payload.logger.info(`Revalidating ${reason} at path: ${path}`);
-    revalidatePath(path, 'page');
+    safeRevalidatePath(path, 'page');
   }
 };
 

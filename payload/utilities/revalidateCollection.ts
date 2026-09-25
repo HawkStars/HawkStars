@@ -1,4 +1,4 @@
-import { revalidateTag } from 'next/cache';
+import { safeRevalidateTag } from './safeRevalidate';
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload';
 
 /**
@@ -18,12 +18,12 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
  */
 export function createRevalidateHooks(tag: string) {
   const afterChange: CollectionAfterChangeHook = ({ doc }) => {
-    revalidateTag(tag, 'max');
+    safeRevalidateTag(tag);
     return doc;
   };
 
   const afterDelete: CollectionAfterDeleteHook = ({ doc }) => {
-    revalidateTag(tag, 'max');
+    safeRevalidateTag(tag);
     return doc;
   };
 

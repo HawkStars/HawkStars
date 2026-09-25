@@ -243,5 +243,15 @@
       "Eventos Erasmus+",
       "Pinhel Portugal"
     ]
+  },
+  "artists": {
+    "title": "Artistas — Galeria de Arte Impacto Social - ONG Hawk Stars",
+    "description": "Conheça os artistas da Galeria de Arte Impacto Social da Hawk Stars: biografias e obras disponíveis no catálogo.",
+    "keywords": ["Artistas", "Galeria de Arte", "Impacto Social", "Hawk Stars", "Pinhel"]
+  },
+  "gallery_news": {
+    "title": "Notícias — Galeria de Arte Impacto Social - ONG Hawk Stars",
+    "description": "Ensaios, exposições e atualidade da Galeria de Arte Impacto Social da Hawk Stars.",
+    "keywords": ["Notícias", "Galeria de Arte", "Exposições", "Hawk Stars"]
   }
 }

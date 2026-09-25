@@ -7,6 +7,7 @@ import {
   EasyPayTransactionNotification,
 } from '@/types/payment/easypay';
 import { captureSentryMessage } from '@/lib/sentry/logs';
+import { handleArtOrderNotification } from '@/lib/art-gallery/orders';
 
 const CONTRIBUTION_COLLECTION = 'contributions';
 
@@ -137,6 +138,14 @@ async function handleAuthorisationNotification(
   try {
     const payload = await getPayloadConfig();
 
+    // Artwork purchases already have their own `art_orders` record (created
+    // before the payment) — only donations need a contribution here.
+    const { totalDocs: isArtOrder } = await payload.count({
+      collection: 'art_orders',
+      where: { transaction_key: { equals: notification.key } },
+    });
+    if (isArtOrder) return;
+
     await payload.create({
       collection: CONTRIBUTION_COLLECTION,
       data: {
@@ -171,7 +180,7 @@ async function handleTransactionNotification(
 }
 
 /**
- * Update contribution confirmation status by matching the transaction key
+ * Update the art order or, failing that, the contribution with this transaction key
  */
 async function updateContributionStatus(
   transactionKey: string,
@@ -179,6 +188,9 @@ async function updateContributionStatus(
 ): Promise<void> {
   try {
     const payload = await getPayloadConfig();
+
+    // Artwork orders re-check the payment with EasyPay themselves.
+    if (await handleArtOrderNotification(payload, transactionKey)) return;
 
     // Find contribution by the transaction key field
     const contributions = await payload.find({

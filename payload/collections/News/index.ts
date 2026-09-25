@@ -132,6 +132,33 @@ export const News: CollectionConfig = {
       },
     },
     {
+      name: 'showInArtGallery',
+      label: { en: 'Show in the Art Gallery', pt: 'Mostrar na Galeria de Arte' },
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: {
+          en: 'Also list this article in the Art Gallery news feed (/art/news).',
+          pt: 'Listar também este artigo nas notícias da Galeria de Arte (/art/news).',
+        },
+      },
+    },
+    {
+      name: 'galleryCardNote',
+      label: { en: 'Gallery Card Note', pt: 'Nota do Cartão na Galeria' },
+      type: 'text',
+      localized: true,
+      admin: {
+        position: 'sidebar',
+        condition: (data) => !!data?.showInArtGallery,
+        description: {
+          en: 'Short italic note at the bottom of the card in the gallery feed, e.g. "External audit approved".',
+          pt: 'Nota curta em itálico no fundo do cartão nas notícias da galeria, ex.: "Auditoria externa aprovada".',
+        },
+      },
+    },
+    {
       name: 'publishedAt',
       label: { en: 'Published At', pt: 'Publicado Em' },
       type: 'date',

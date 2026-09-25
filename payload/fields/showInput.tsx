@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
 import { useDocumentInfo, useLocale } from '@payloadcms/ui';
 import { TextFieldClientComponent } from 'payload';
 import {
@@ -20,6 +20,20 @@ function resolveNestedValue(doc: Record<string, unknown>, fieldPath: string): st
   return typeof current === 'string' ? current : null;
 }
 
+const noopSubscribe = () => () => {};
+
+/**
+ * `false` during SSR and the first client render (hydration), `true` after.
+ * The locale cache only exists in the browser and survives admin navigation,
+ * so reading it on the first render could differ from the server HTML.
+ */
+const useHydrated = () =>
+  useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false
+  );
+
 const ShowInput: TextFieldClientComponent = (props) => {
   const { field, path } = props;
   const { localized } = field;
@@ -30,7 +44,11 @@ const ShowInput: TextFieldClientComponent = (props) => {
   const [, setTick] = useState(0);
   useEffect(() => subscribe(() => setTick((t) => t + 1)), []);
 
-  const { loading, docs } = getOtherLocalesDocs(globalSlug, collectionSlug, id, locale.code);
+  const hydrated = useHydrated();
+  // Only fetch in the browser (a relative-URL fetch can't work during SSR).
+  const { loading, docs } = hydrated
+    ? getOtherLocalesDocs(globalSlug, collectionSlug, id, locale.code)
+    : { loading: true, docs: { pt: null, en: null } };
 
   const getValueForLocale = useCallback(
     (loc: LocaleCode): string | null => {

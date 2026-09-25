@@ -43,3 +43,31 @@ export const getNewsQuery = async (
     depth: 1,
   });
 };
+
+// Related content (projects, events) links a news article via `project`;
+// artworks, artists and curators via the gallery's `galleryRelations`.
+export const getRelatedNewsQuery = async (
+  relatedId: string,
+  locale: Language
+): Promise<PaginatedDocs<News>> => {
+  // 'use cache';
+  // cacheLife('hours');
+  // cacheTag(NEWS_CACHE_TAG);
+
+  const payload = await getPayloadConfig();
+
+  return await payload.find({
+    collection: NEWS_COLLECTION,
+    where: {
+      or: [
+        { 'project.value': { equals: relatedId } },
+        { 'galleryRelations.value': { equals: relatedId } },
+      ],
+    },
+    locale,
+    limit: 3,
+    sort: '-publishedAt',
+    depth: 1,
+    draft: false,
+  });
+};

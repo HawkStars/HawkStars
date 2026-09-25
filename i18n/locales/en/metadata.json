@@ -238,5 +238,15 @@
     "title": "Past Events Archive - Hawk Stars NGO",
     "description": "Browse the full archive of Hawk Stars NGO's past events: community gatherings, international activities, and cultural programmes in Pinhel and beyond.",
     "keywords": ["Hawk Stars Events Archive", "Past Events", "Erasmus+ Events", "Pinhel Portugal"]
+  },
+  "artists": {
+    "title": "Artists — Social Impact Art Gallery - Hawk Stars NGO",
+    "description": "Meet the artists of Hawk Stars NGO's Social Impact Art Gallery: biographies and works available in the catalogue.",
+    "keywords": ["Artists", "Art Gallery", "Social Impact", "Hawk Stars", "Pinhel"]
+  },
+  "gallery_news": {
+    "title": "News — Social Impact Art Gallery - Hawk Stars NGO",
+    "description": "Essays, exhibitions and news from Hawk Stars NGO's Social Impact Art Gallery.",
+    "keywords": ["News", "Art Gallery", "Exhibitions", "Hawk Stars"]
   }
 }

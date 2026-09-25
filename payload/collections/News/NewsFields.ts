@@ -28,6 +28,18 @@ const NewsDetails: Tab = {
       },
     },
     {
+      name: 'lead',
+      label: { en: 'Lead', pt: 'Lead / Subtítulo' },
+      type: 'textarea',
+      localized: true,
+      admin: {
+        description: {
+          en: 'Optional one- or two-sentence introduction shown under the title (Art Gallery article view).',
+          pt: 'Introdução opcional de uma ou duas frases mostrada por baixo do título (leitura na Galeria de Arte).',
+        },
+      },
+    },
+    {
       name: 'type',
       label: { en: 'Type', pt: 'Tipo' },
       type: 'select',
@@ -53,6 +65,47 @@ const NewsDetails: Tab = {
         pt: 'A imagem principal do artigo exibida nas páginas de listagem e no cabeçalho do artigo',
       },
     }),
+
+    {
+      name: 'mainImageCaption',
+      label: { en: 'Cover Image Caption', pt: 'Legenda da Imagem de Capa' },
+      type: 'text',
+      localized: true,
+      admin: {
+        description: {
+          en: 'Optional caption shown under the cover image in the Art Gallery article view.',
+          pt: 'Legenda opcional mostrada por baixo da imagem de capa na leitura do artigo na Galeria de Arte.',
+        },
+      },
+    },
+    {
+      name: 'mainImageCredit',
+      label: { en: 'Cover Image Credit', pt: 'Crédito da Imagem de Capa' },
+      type: 'text',
+      localized: true,
+      admin: {
+        description: {
+          en: 'E.g. "Documentary photography: Hawk Stars NGO archive • February 2025".',
+          pt: 'Ex.: "Fotografia documental: Arquivo Hawk Stars NGO • Fevereiro 2025".',
+        },
+      },
+    },
+
+    {
+      name: 'showCoverAtEnd',
+      label: {
+        en: 'Also show the cover image, uncropped, at the end of the article',
+        pt: 'Usar a imagem de capa também como fotografia inteira no fim do artigo',
+      },
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        description: {
+          en: 'In the Art Gallery article view, the cover stays at the top and the whole photo (not cropped) is added after the text.',
+          pt: 'Na leitura do artigo na Galeria de Arte, a capa mantém-se no topo e a fotografia inteira (sem cortes) é acrescentada depois do texto.',
+        },
+      },
+    },
 
     /* -------------------------------------------------------------- */
     /*  DESCRIPTION SECTION                                           */
@@ -103,14 +156,32 @@ const NewsDetails: Tab = {
     /* -------------------------------------------------------------- */
     {
       name: 'project',
-      label: { en: 'Related Project / Events', pt: 'Projeto ou Evento Relacionado' },
+      label: { en: 'Related Project / Event', pt: 'Projeto ou Evento Relacionado' },
       type: 'relationship',
       relationTo: ['hawk_projects', 'hawk_events'],
       required: false,
       admin: {
         description: {
-          en: 'Optionally link this news article to a project. The article will appear in the project page under "Related News".',
-          pt: 'Opcionalmente ligue este artigo a um projeto. O artigo aparecerá na página do projeto em "Notícias Relacionadas".',
+          en: 'Optionally link this news article to a project or event. The article will appear on that page under "Related News".',
+          pt: 'Opcionalmente ligue este artigo a um projeto ou evento. O artigo aparecerá nessa página em "Notícias Relacionadas".',
+        },
+      },
+    },
+
+    /* -------------------------------------------------------------- */
+    /*  ART GALLERY RELATIONS                                         */
+    /* -------------------------------------------------------------- */
+    {
+      name: 'galleryRelations',
+      label: { en: 'Related in the Art Gallery', pt: 'Relacionado na Galeria de Arte' },
+      type: 'relationship',
+      relationTo: ['artworks', 'artists', 'curators'],
+      hasMany: true,
+      required: false,
+      admin: {
+        description: {
+          en: 'Optional. Artworks from the catalogue, artists or curators this article is about. The article appears in their "Related News", and they are listed at the end of the article in the gallery.',
+          pt: 'Opcional. Obras do catálogo, artistas ou curadores de que o artigo fala. O artigo aparece nas "Notícias Relacionadas" deles, e eles aparecem listados no fim do artigo na galeria.',
         },
       },
     },

@@ -4,7 +4,7 @@ import {
   MetaTitleField,
   OverviewField,
 } from '@payloadcms/plugin-seo/fields';
-import { GroupField, Tab } from 'payload';
+import { GroupField } from 'payload';
 
 export const CuratorSEOFields: GroupField = {
   name: 'seo',
@@ -27,10 +27,18 @@ export const CuratorSEOFields: GroupField = {
   ],
 };
 
-export const CuratorTab: Tab = {
+// Rendered as a plain group (not a tab) so every field of the curator is on
+// one page in the admin. Same `seo` name, so the stored data is unchanged.
+export const CuratorSeoGroup: GroupField = {
   name: 'seo',
   label: 'SEO',
-  description: 'Search Engine Optimization fields For Search Engines',
+  type: 'group',
   interfaceName: 'SEO',
+  admin: {
+    description: {
+      en: 'Search engine and social media title, image and description.',
+      pt: 'Título, imagem e descrição para motores de busca e redes sociais.',
+    },
+  },
   fields: [CuratorSEOFields],
 };
