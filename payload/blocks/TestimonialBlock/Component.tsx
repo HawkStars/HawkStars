@@ -45,13 +45,15 @@ const StarRating: React.FC<{ rating: number; showRating: boolean | null; ratingL
 };
 
 const TestimonialCard: React.FC<{
-  testimonial: Testimonial;
+  testimonial?: Testimonial;
   style: string | null;
   showRatings: boolean | null;
   isDark: boolean;
   lng: Language;
 }> = ({ testimonial, style, showRatings, isDark, lng }) => {
   const { t } = useTranslation(lng, 'common');
+  if (!testimonial) return null;
+
   const { quote, author, rating = 0, featured = false } = testimonial;
 
   const cardClasses = {

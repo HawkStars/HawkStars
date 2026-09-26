@@ -33,6 +33,7 @@ const moveRadioSelection = <T,>(
         : options.length - 1
       : (currentIndex + (forward ? 1 : -1) + options.length) % options.length;
 
+  if (!options[nextIndex]) return;
   onSelect(options[nextIndex]);
 
   const group = event.currentTarget.closest('[role="radiogroup"]');

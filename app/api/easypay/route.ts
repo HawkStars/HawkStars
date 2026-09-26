@@ -248,6 +248,7 @@ async function updateContributionStatus(
 
     if (contributions.docs.length > 0) {
       const contribution = contributions.docs[0];
+      if (!contribution) return;
 
       // Cross-check before confirming. Authentication here is a single static
       // shared secret that EasyPay sends on every notification and that CI

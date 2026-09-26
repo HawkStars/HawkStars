@@ -92,7 +92,7 @@ function BadgeChip({ badge }: { badge: string }) {
   const colors = typeColors[badge] ?? typeColors.other;
   return (
     <span
-      className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wide uppercase ${colors.bg} ${colors.text}`}
+      className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wide uppercase ${colors?.bg ?? ''} ${colors?.text ?? ''}`}
     >
       {badge.replace('_', ' ')}
     </span>

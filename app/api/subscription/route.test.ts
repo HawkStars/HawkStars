@@ -194,7 +194,7 @@ describe('POST /api/subscription', () => {
       await POST(makeRequest({ value: 25, email: 'persist@example.com', name: 'Persist User' }));
 
       expect(mockPayloadCreate).toHaveBeenCalledOnce();
-      const createCall = mockPayloadCreate.mock.calls[0][0];
+      const createCall = mockPayloadCreate.mock.calls[0]?.[0];
       expect(createCall.collection).toBe('contributions');
       expect(createCall.data.value).toBe(25);
       expect(createCall.data.is_confirmed).toBe(false);

@@ -142,7 +142,7 @@ describe('POST /api/easypay (webhook)', () => {
       expect(data.success).toBe(true);
       expect(mockPayloadCreate).toHaveBeenCalledOnce();
 
-      const createCall = mockPayloadCreate.mock.calls[0][0];
+      const createCall = mockPayloadCreate.mock.calls[0]?.[0];
       expect(createCall.collection).toBe('contributions');
       expect(createCall.data.donor).toBe('Maria Silva');
       expect(createCall.data.value).toBe(50);
@@ -156,7 +156,7 @@ describe('POST /api/easypay (webhook)', () => {
       const request = makeRequest(authorisationPayload);
       await POST(request);
 
-      const createCall = mockPayloadCreate.mock.calls[0][0];
+      const createCall = mockPayloadCreate.mock.calls[0]?.[0];
       expect(createCall.data.is_anonymous).toBe(false);
     });
 
@@ -169,7 +169,7 @@ describe('POST /api/easypay (webhook)', () => {
       const request = makeRequest(anonymousPayload);
       await POST(request);
 
-      const createCall = mockPayloadCreate.mock.calls[0][0];
+      const createCall = mockPayloadCreate.mock.calls[0]?.[0];
       expect(createCall.data.donor).toBe('Anonymous');
       expect(createCall.data.is_anonymous).toBe(true);
     });
@@ -183,7 +183,7 @@ describe('POST /api/easypay (webhook)', () => {
       const request = makeRequest(payloadWithoutAuthId);
       await POST(request);
 
-      const createCall = mockPayloadCreate.mock.calls[0][0];
+      const createCall = mockPayloadCreate.mock.calls[0]?.[0];
       expect(createCall.data.extra_info).toContain('auth-001');
     });
 
@@ -191,7 +191,7 @@ describe('POST /api/easypay (webhook)', () => {
       await POST(makeRequest(authorisationPayload));
 
       expect(mockPayloadFind).toHaveBeenCalledOnce();
-      const findCall = mockPayloadFind.mock.calls[0][0];
+      const findCall = mockPayloadFind.mock.calls[0]?.[0];
       expect(findCall.collection).toBe('contributions');
       expect(findCall.where.transaction_key.equals).toBe('txn-key-abc');
       expect(findCall.limit).toBe(1);
@@ -258,7 +258,7 @@ describe('POST /api/easypay (webhook)', () => {
       expect(mockPayloadFind).toHaveBeenCalledOnce();
       expect(mockPayloadUpdate).toHaveBeenCalledOnce();
 
-      const updateCall = mockPayloadUpdate.mock.calls[0][0];
+      const updateCall = mockPayloadUpdate.mock.calls[0]?.[0];
       expect(updateCall.id).toBe('contrib-001');
       expect(updateCall.data.is_confirmed).toBe(true);
     });
@@ -269,7 +269,7 @@ describe('POST /api/easypay (webhook)', () => {
       const request = makeRequest(failedPayload);
       await POST(request);
 
-      const updateCall = mockPayloadUpdate.mock.calls[0][0];
+      const updateCall = mockPayloadUpdate.mock.calls[0]?.[0];
       expect(updateCall.data.is_confirmed).toBe(false);
     });
 
@@ -296,7 +296,7 @@ describe('POST /api/easypay (webhook)', () => {
       const request = makeRequest(transactionPayload);
       await POST(request);
 
-      const findCall = mockPayloadFind.mock.calls[0][0];
+      const findCall = mockPayloadFind.mock.calls[0]?.[0];
       expect(findCall.collection).toBe('contributions');
       expect(findCall.where.transaction_key.equals).toBe('txn-key-abc');
       expect(findCall.limit).toBe(1);
@@ -378,7 +378,7 @@ describe('POST /api/easypay (webhook)', () => {
       const request = makeRequest(baseGenericPayload);
       await POST(request);
 
-      const updateCall = mockPayloadUpdate.mock.calls[0][0];
+      const updateCall = mockPayloadUpdate.mock.calls[0]?.[0];
       expect(updateCall.data.is_confirmed).toBe(true);
     });
 
@@ -389,7 +389,7 @@ describe('POST /api/easypay (webhook)', () => {
       const request = makeRequest(failedPayload);
       await POST(request);
 
-      const updateCall = mockPayloadUpdate.mock.calls[0][0];
+      const updateCall = mockPayloadUpdate.mock.calls[0]?.[0];
       expect(updateCall.data.is_confirmed).toBe(false);
     });
 

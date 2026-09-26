@@ -42,7 +42,7 @@ export const ImageShowcaseBlock = ({
     const el = mainImageRef.current;
     if (!el) return;
     const observer = new ResizeObserver(([entry]) => {
-      setThumbnailMaxH(entry.contentRect.height);
+      setThumbnailMaxH(entry?.contentRect.height);
     });
     observer.observe(el);
     return () => observer.disconnect();

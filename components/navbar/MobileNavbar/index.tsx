@@ -49,9 +49,11 @@ const MobileNavbar: FC<MobileNavbarProps> = ({ headerInfo }) => {
         const last = focusable[focusable.length - 1];
         if (e.shiftKey && document.activeElement === first) {
           e.preventDefault();
+          if (!last) return;
           last.focus();
         } else if (!e.shiftKey && document.activeElement === last) {
           e.preventDefault();
+          if (!first) return;
           first.focus();
         }
       }

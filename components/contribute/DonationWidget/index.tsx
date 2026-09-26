@@ -194,7 +194,7 @@ export default function DonationWidget() {
   return (
     <div className='w-full max-w-105 overflow-hidden rounded-xl bg-white shadow-[0_4px_24px_rgba(0,0,0,0.12)]'>
       <DonationHeader
-        title={t(STEP_TITLE_KEYS[currentStep])}
+        title={t(STEP_TITLE_KEYS[currentStep] ?? '')}
         currentStep={currentStep}
         canAdvance={canAdvance}
         onNextStep={handleNextStep}

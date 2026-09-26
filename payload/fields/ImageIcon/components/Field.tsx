@@ -15,6 +15,8 @@ const IconSelectField: SelectFieldClientComponent = (props) => {
 
   const handleIconChange = (newValue: string | string[]) => {
     const iconValue = Array.isArray(newValue) ? newValue[0] : newValue;
+    if (!iconValue) return;
+
     setSelectedIcon(iconValue);
   };
 

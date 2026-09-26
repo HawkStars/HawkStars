@@ -39,7 +39,7 @@ const TeamInformation = ({ boardMembers, lng }: TeamInformationProps) => {
     else if (event.key === 'Home') nextIndex = 0;
     else nextIndex = lastIndex;
 
-    setCurrentSection(boardSections[nextIndex]);
+    setCurrentSection(boardSections[nextIndex] ?? 'geral');
     event.currentTarget.parentElement
       ?.querySelectorAll<HTMLButtonElement>('[role="tab"]')
       [nextIndex]?.focus();

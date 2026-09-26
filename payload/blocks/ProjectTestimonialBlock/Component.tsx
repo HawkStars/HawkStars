@@ -98,6 +98,8 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
 
     if (displayMode === 'single') {
       const img = images[0];
+
+      if (!img?.image) return;
       const mediaImage = getImagePayloadUrl(img.image);
       if (!mediaImage) return null;
 

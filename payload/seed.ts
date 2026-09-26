@@ -98,7 +98,7 @@ export async function seed(payload: Payload): Promise<void> {
   }
 
   // Helper to pick a media ID (cycles through available ones)
-  const mediaId = (index: number) => mediaIds[index % mediaIds.length];
+  const mediaId = (index: number) => mediaIds[index % mediaIds.length] ?? '1';
 
   // ── 3. Curators ───────────────────────────────────────────────────────────
   let curatorIds: string[] = [];
@@ -154,7 +154,7 @@ export async function seed(payload: Payload): Promise<void> {
       {
         title: 'Horizonte Azul',
         slug: 'horizonte-azul',
-        artist: curatorIds[0],
+        artist: curatorIds[0] ?? '1',
         image: mediaId(0),
         is_sold: false,
         year: 2024,
@@ -165,7 +165,7 @@ export async function seed(payload: Payload): Promise<void> {
       {
         title: 'Reflexos Urbanos',
         slug: 'reflexos-urbanos',
-        artist: curatorIds[1] || curatorIds[0],
+        artist: ((curatorIds.length && curatorIds[1]) || curatorIds[0]) ?? '1',
         image: mediaId(1),
         is_sold: true,
         year: 2023,
