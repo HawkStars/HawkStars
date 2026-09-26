@@ -25,7 +25,7 @@ export default async function ProposeSection({ lng, share }: { lng: Language; sh
             <li key={step} className='border-art-line bg-art-ebony border p-6'>
               <p className='font-art-serif text-art-gold-bright text-2xl'>{`0${step}.`}</p>
               <p className='text-art-text mt-3 font-semibold'>{t(`propose.step_${step}_title`)}</p>
-              <p className='art-justify text-art-muted mt-2 text-sm'>
+              <p className='text-art-muted mt-2 text-sm'>
                 {t(`propose.step_${step}_text`, { share })}
               </p>
             </li>

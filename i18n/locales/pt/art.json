@@ -9,7 +9,7 @@
     "artworks": "Obras de Arte",
     "artists": "Artistas",
     "news": "Notícias",
-    "propose": "Sou Artista / Propor Obra",
+    "propose": "Sou Artista / Propôr Obra",
     "open_menu": "Abrir menu",
     "close_menu": "Fechar menu"
   },
@@ -18,7 +18,6 @@
     "links_title": "Galeria",
     "institutional_title": "Institucional",
     "contact_title": "Contacto da Galeria",
-    "contact_note": "Para colecionadores e artistas — respondemos por email.",
     "hawkstars_site": "Site da Hawk Stars NGO",
     "transparency": "Relatórios de Transparência",
     "terms": "Termos e Condições",
@@ -30,7 +29,6 @@
   },
   "home": {
     "welcome": "Bem-vindos à Galeria de Arte Impacto Social",
-    "hero_title": "Arte que se contempla. Impacto que se constrói.",
     "previous": "Obra anterior",
     "next": "Obra seguinte",
     "go_to": "Ver obra {{n}}",
@@ -72,8 +70,8 @@
   },
   "propose": {
     "eyebrow": "Candidatura de Artistas",
-    "title": "Sou Artista, Quero Propor Obra à Curadoria",
-    "text": "A Galeria acolhe candidaturas de artistas plásticos, fotógrafos, ceramistas e artesãos contemporâneos que partilhem a visão de promoção das artes com impacto social.",
+    "title": "Sou artista, quero propôr obra à curadoria",
+    "text": "A Galeria de Arte Impacto Social recebe candidaturas de artistas plásticos e visuais e contemporâneos que partilhem a visão das artes com impacto social.",
     "step_1_title": "Dossier e Portfólio",
     "step_1_text": "Envio do portfólio, com descrição das obras e dimensões.",
     "step_2_title": "Conselho Curatorial",

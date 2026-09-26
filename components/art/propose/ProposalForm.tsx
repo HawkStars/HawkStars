@@ -114,7 +114,7 @@ export default function ProposalForm() {
               {...register('message', { required: true, maxLength: 4000 })}
             />
             <div className='sm:col-span-2'>
-              <label className='art-justify text-art-text-2 flex items-start gap-3 text-xs leading-relaxed'>
+              <label className='text-art-text-2 flex items-start gap-3 text-xs leading-relaxed'>
                 <input
                   type='checkbox'
                   aria-invalid={!!errors.consent}

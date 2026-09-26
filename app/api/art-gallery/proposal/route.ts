@@ -23,7 +23,7 @@ const proposalSchema = z.object({
   consent: z.literal(true),
 });
 
-/** "Sou artista, quero propor obra à curadoria" — saved for review and emailed to the gallery. */
+/** "Sou artista, quero propôr obra à curadoria" — saved for review and emailed to the gallery. */
 export async function POST(request: Request) {
   const { allowed, retryAfter } = checkRateLimit(`art-proposal:${getClientIp(request)}`, {
     limit: 3,

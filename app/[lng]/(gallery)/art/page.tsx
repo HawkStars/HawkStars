@@ -18,6 +18,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { SectionHeader } from '@/components/art/ui';
 import { ScrollCarousel } from '@/components/art/ui/ScrollCarousel';
+import { GalleryLogo } from '@/components/art/ui/GalleryLogo';
 import HeroCarousel, { HeroSlide } from '@/components/art/home/HeroCarousel';
 import AboutSection from '@/components/art/home/AboutSection';
 import CuratorsSection from '@/components/art/home/CuratorsSection';
@@ -76,7 +77,14 @@ export default async function GalleryHomePage(props: LanguagePageProps) {
             <span aria-hidden className='bg-art-brass h-1.5 w-1.5 rounded-full' />
             {t('home.welcome')}
           </p>
-          <h1 className='art-display mt-8 md:text-7xl'>{t('home.hero_title')}</h1>
+          <h1 className='mt-8'>
+            <GalleryLogo
+              by={t('brand.by')}
+              name={t('brand.name')}
+              tagline={t('brand.tagline')}
+              className='h-20 md:h-28'
+            />
+          </h1>
         </div>
         <div className='mt-12'>
           <HeroCarousel

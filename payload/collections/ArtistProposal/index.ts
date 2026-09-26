@@ -6,7 +6,7 @@ import { ART_CATEGORIES } from '../ArtCollection/categories';
 export const ARTIST_PROPOSAL_COLLECTION = 'artist_proposals' as const;
 
 /**
- * "Sou artista, quero propor obra à curadoria" submissions. Created by
+ * "Sou artista, quero propôr obra à curadoria" submissions. Created by
  * `/api/art-gallery/proposal`; reviewed by the curators in the admin.
  */
 export const ArtistProposal: CollectionConfig = {

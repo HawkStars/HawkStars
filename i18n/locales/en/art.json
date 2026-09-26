@@ -18,7 +18,6 @@
     "links_title": "Gallery",
     "institutional_title": "Institutional",
     "contact_title": "Gallery Contact",
-    "contact_note": "For collectors and artists — we reply by email.",
     "hawkstars_site": "Hawk Stars NGO website",
     "transparency": "Transparency Reports",
     "terms": "Terms and Conditions",
@@ -30,7 +29,6 @@
   },
   "home": {
     "welcome": "Welcome to the Social Impact Art Gallery",
-    "hero_title": "Art to contemplate. Impact to build.",
     "previous": "Previous artwork",
     "next": "Next artwork",
     "go_to": "Show artwork {{n}}",
@@ -72,8 +70,8 @@
   },
   "propose": {
     "eyebrow": "Artist Applications",
-    "title": "I'm an Artist, I Want to Propose Work to the Curators",
-    "text": "The Gallery welcomes applications from visual artists, photographers, ceramicists and contemporary craftspeople who share its vision of promoting the arts with social impact.",
+    "title": "I'm an artist, I want to propose work to the curators",
+    "text": "The Social Impact Art Gallery welcomes applications from visual and contemporary artists who share its vision of the arts with social impact.",
     "step_1_title": "Dossier & Portfolio",
     "step_1_text": "Send your portfolio, with a description of the works and their dimensions.",
     "step_2_title": "Curatorial Board",

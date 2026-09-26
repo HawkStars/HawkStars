@@ -159,9 +159,7 @@ export default function PurchaseForm({
                         : t('purchase.shipping_later')}
                     </span>
                   </span>
-                  <span className='art-justify text-art-muted text-sm'>
-                    {t(`purchase.${option}_note`)}
-                  </span>
+                  <span className='text-art-muted text-sm'>{t(`purchase.${option}_note`)}</span>
                 </span>
               </label>
             ))}
@@ -173,7 +171,7 @@ export default function PurchaseForm({
           <h2 className='font-art-serif text-art-text text-2xl' aria-hidden>
             {t('purchase.buyer_title')}
           </h2>
-          <p className='art-justify text-art-muted mt-1 text-sm'>{t('purchase.buyer_text')}</p>
+          <p className='text-art-muted mt-1 text-sm'>{t('purchase.buyer_text')}</p>
           <div className='border-art-line mt-6 grid gap-5 border-t pt-6 sm:grid-cols-2'>
             <ArtInput
               label={`${t('purchase.name')} *`}

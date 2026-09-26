@@ -4181,16 +4181,16 @@ export interface Artwork {
    */
   category?:
     | (
-        | 'drawing'
         | 'painting'
         | 'sculpture'
-        | 'photography'
-        | 'screen_printing'
+        | 'drawing'
         | 'installation'
+        | 'photography'
+        | 'artist_book'
+        | 'screen_printing'
         | 'ceramics'
         | 'tapestry'
         | 'jewelry'
-        | 'artist_book'
         | 'other'
       )
     | null;
@@ -4552,16 +4552,16 @@ export interface ArtistProposal {
   email: string;
   discipline?:
     | (
-        | 'drawing'
         | 'painting'
         | 'sculpture'
-        | 'photography'
-        | 'screen_printing'
+        | 'drawing'
         | 'installation'
+        | 'photography'
+        | 'artist_book'
+        | 'screen_printing'
         | 'ceramics'
         | 'tapestry'
         | 'jewelry'
-        | 'artist_book'
         | 'other'
       )
     | null;

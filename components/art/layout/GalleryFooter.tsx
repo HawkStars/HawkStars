@@ -45,7 +45,7 @@ export default async function GalleryFooter({ lng, settings }: GalleryFooterProp
             name={t('brand.name')}
             tagline={t('brand.tagline')}
           />
-          <p className='art-justify font-art-sans text-art-muted text-sm leading-relaxed'>
+          <p className='font-art-sans text-art-muted text-sm leading-relaxed'>
             {t('footer.about')}
           </p>
         </div>
@@ -98,7 +98,6 @@ export default async function GalleryFooter({ lng, settings }: GalleryFooterProp
               {settings.contact_phone}
             </a>
           )}
-          <p className='text-art-muted text-xs'>{t('footer.contact_note')}</p>
         </div>
       </div>
 

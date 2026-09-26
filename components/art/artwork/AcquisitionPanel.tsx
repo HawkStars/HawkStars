@@ -31,16 +31,14 @@ export default async function AcquisitionPanel({ artwork, lng, settings }: Acqui
           </span>
           <div>
             <p className='font-art-serif text-art-text text-lg'>{t('artwork.impact_title')}</p>
-            <p className='art-justify text-art-text-2 mt-1 text-sm'>
+            <p className='text-art-text-2 mt-1 text-sm'>
               {t('artwork.impact_text', { share: settings.social_impact_share })}
             </p>
           </div>
         </div>
       )}
 
-      {artwork.is_sold && (
-        <p className='art-justify text-art-text-2 mt-6 text-sm'>{t('artwork.sold_note')}</p>
-      )}
+      {artwork.is_sold && <p className='text-art-text-2 mt-6 text-sm'>{t('artwork.sold_note')}</p>}
 
       <div className='mt-6 flex flex-col gap-3'>
         {purchasable && (
