@@ -2815,6 +2815,7 @@ export interface Media {
    * For organizational purposes, specify the section of the website where this media will be used (e.g., Homepage, About Us, Gallery).
    */
   section?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -3497,6 +3498,7 @@ export interface HawkDocument {
    * Optional description of the document contents or purpose.
    */
   description?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -4135,7 +4137,6 @@ export interface User {
    */
   isAdmin?: boolean | null;
   totpSecret?: string | null;
-  hasTotp?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -4143,6 +4144,7 @@ export interface User {
   resetPasswordExpiration?: string | null;
   salt?: string | null;
   hash?: string | null;
+  resetPasswordRequestedAt?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
   sessions?:
@@ -5169,7 +5171,6 @@ export interface UsersSelect<T extends boolean = true> {
   name?: T;
   isAdmin?: T;
   totpSecret?: T;
-  hasTotp?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -5177,6 +5178,7 @@ export interface UsersSelect<T extends boolean = true> {
   resetPasswordExpiration?: T;
   salt?: T;
   hash?: T;
+  resetPasswordRequestedAt?: T;
   loginAttempts?: T;
   lockUntil?: T;
   sessions?:
@@ -5194,6 +5196,7 @@ export interface UsersSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   section?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -5214,6 +5217,7 @@ export interface DocumentsSelect<T extends boolean = true> {
   title?: T;
   folder?: T;
   description?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -7534,7 +7538,10 @@ export interface TaskSchedulePublish {
           value: string | News;
         } | null);
     global?: string | null;
-    user?: (string | null) | User;
+    user?: {
+      relationTo: 'users';
+      value: string | User;
+    } | null;
   };
   output?: unknown;
 }
