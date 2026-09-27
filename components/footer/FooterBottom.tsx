@@ -7,10 +7,10 @@ type FooterBottomProps = {
   lng: Language;
 };
 
+const currentYear = new Date().getFullYear();
+
 const FooterBottom = ({ lng }: FooterBottomProps) => {
   const { t } = useTranslation(lng, 'common');
-
-  const currentYear = new Date().getFullYear();
 
   return (
     <div className='mt-10 flex justify-center lg:mt-2 lg:border-t lg:py-4'>

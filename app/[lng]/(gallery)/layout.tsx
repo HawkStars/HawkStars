@@ -48,7 +48,9 @@ export default async function GalleryLayout(props: {
     >
       <body className='bg-art-charcoal text-art-text font-art-sans min-h-screen antialiased'>
         <AppProvider lng={lng}>
-          <GalleryNavbar />
+          <Suspense>
+            <GalleryNavbar lng={lng} />
+          </Suspense>
           <main id='main-content'>
             <Suspense fallback={null}>{props.children}</Suspense>
           </main>

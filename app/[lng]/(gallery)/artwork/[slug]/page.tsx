@@ -36,7 +36,7 @@ type ArtworkPageProps = { params: Promise<LanguageProps & { slug: string }> };
 export async function generateMetadata(props: ArtworkPageProps): Promise<Metadata> {
   const { lng, slug } = await props.params;
   const artwork = await getSingleArtwork(slug, lng);
-  if (!artwork) return {};
+  if (!artwork) return notFound();
 
   const artist = populated<Artist>(artwork.artist);
   return prepareMetadataInfo({

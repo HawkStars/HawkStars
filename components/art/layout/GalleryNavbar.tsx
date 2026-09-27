@@ -5,13 +5,13 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { LuMenu, LuPenLine, LuX } from 'react-icons/lu';
 import { useTranslation } from '@/i18n/client';
-import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { SITE_GET_URLS, transformUrl } from '@/utils/paths';
 import { cn } from '@/lib/utils';
 import LanguageSwitcher from '@/components/utils/LanguageSwitcher';
 import { GalleryLogo } from '../ui/GalleryLogo';
 import { Button } from '@/components/ui/button';
 import { PROPOSE_ANCHOR } from '../propose/constants';
+import { Language } from '@/i18n/settings';
 
 const NAV_ITEMS = [
   // `/art/news` starts with `/art`, so the home link only matches exactly.
@@ -21,8 +21,7 @@ const NAV_ITEMS = [
   { key: 'news', path: SITE_GET_URLS.gallery_news },
 ] as const;
 
-export default function GalleryNavbar() {
-  const lng = useLanguageCookie();
+export default function GalleryNavbar({ lng }: { lng: Language }) {
   const { t } = useTranslation(lng, 'art');
   const pathname = usePathname() ?? '';
   const [open, setOpen] = useState(false);

@@ -12,6 +12,8 @@ const CROWDFUNDING_PATH = '/crowdfunding';
 
 type GalleryFooterProps = { lng: Language; settings: GallerySettings };
 
+const currentYear = new Date().getFullYear();
+
 export default async function GalleryFooter({ lng, settings }: GalleryFooterProps) {
   const { t } = await getServerTranslation(lng, 'art');
 
@@ -103,7 +105,7 @@ export default async function GalleryFooter({ lng, settings }: GalleryFooterProp
 
       <div className='border-art-line mx-auto mt-14 flex max-w-7xl flex-col gap-4 border-t pt-8 md:flex-row md:items-center md:justify-between'>
         <div className='font-art-sans text-art-muted flex flex-col gap-1 text-xs'>
-          <p>{t('footer.rights', { year: new Date().getFullYear() })}</p>
+          <p>{t('footer.rights', { year: currentYear })}</p>
           <p>{t('footer.credit')}</p>
         </div>
         <p className='font-art-sans text-art-muted text-xs tracking-widest uppercase'>

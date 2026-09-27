@@ -2,6 +2,7 @@
 
 import { PT, GB, FlagComponent } from 'country-flag-icons/react/3x2';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
@@ -35,9 +36,13 @@ type LanguageSwitcherProps = {
   isFooter?: boolean;
 };
 
-const LanguageSwitcher = ({ isFooter = false }: LanguageSwitcherProps) => {
+type LanguageLinksProps = LanguageSwitcherProps & {
+  /** Serialized query string (without the leading `?`), or '' when none. */
+  search: string;
+};
+
+const LanguageLinks = ({ isFooter = false, search }: LanguageLinksProps) => {
   const lng = useLanguageCookie();
-  const searchParams = useSearchParams();
   const pathname = usePathname();
   const { t } = useTranslation(lng, 'common');
 
@@ -51,17 +56,9 @@ const LanguageSwitcher = ({ isFooter = false }: LanguageSwitcherProps) => {
       .filter((segment) => segment !== '')
       .slice(1);
 
-    let url = rest.length > 0 ? `/${newLng}/${rest.join('/')}` : `/${newLng}`;
+    const url = rest.length > 0 ? `/${newLng}/${rest.join('/')}` : `/${newLng}`;
 
-    if (searchParams.size > 0) {
-      url += '?';
-      const paramsStr: string[] = [];
-      searchParams.forEach((value, key) => paramsStr.push(`${key}=${value}`));
-
-      url += paramsStr.join('&');
-    }
-
-    return url;
+    return search ? `${url}?${search}` : url;
   };
 
   return (
@@ -95,5 +92,23 @@ const LanguageSwitcher = ({ isFooter = false }: LanguageSwitcherProps) => {
     </div>
   );
 };
+
+// `useSearchParams()` is request-time data. With `cacheComponents` enabled it
+// must sit under a <Suspense> boundary, otherwise it blocks prerendering of
+// every page that renders the navbar/footer. Isolating it here keeps the rest
+// of the switcher static.
+const LanguageLinksWithSearchParams = (props: LanguageSwitcherProps) => {
+  const searchParams = useSearchParams();
+
+  return <LanguageLinks {...props} search={searchParams.toString()} />;
+};
+
+const LanguageSwitcher = (props: LanguageSwitcherProps) => (
+  // Fallback renders the same links without the query string, so the flags
+  // are in the prerendered HTML (no layout shift) and still work pre-hydration.
+  <Suspense fallback={<LanguageLinks {...props} search='' />}>
+    <LanguageLinksWithSearchParams {...props} />
+  </Suspense>
+);
 
 export default LanguageSwitcher;

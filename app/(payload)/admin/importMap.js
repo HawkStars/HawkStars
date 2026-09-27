@@ -1,4 +1,3 @@
-import { TOTPField as TOTPField_4eaf6cb33cfb75be01716613e3c9a512 } from 'payload-totp/rsc'
 import { default as default_253012d53b276ab9680cd5ce4360cb35 } from '@/payload/components/admin/MediaListView'
 import { default as default_6a7dad889d922760d944dd930f42df41 } from '@/payload/fields/showInput'
 import { default as default_e85e31803574d1cad1b86893214d4234 } from '@/payload/fields/translateInput'
@@ -63,15 +62,11 @@ import { default as default_d49a4ffdd2cc75d82d4c892f1e79350d } from '@/payload/c
 import { default as default_0e46eff423b485d058c84b4a5a5e46cb } from '@/payload/components/admin/TranslateNavLink'
 import { default as default_86602b1dc72813c56de877a02ce02144 } from '@/payload/components/admin/WelcomeDashboard'
 import { AdminErrorBoundary as AdminErrorBoundary_e5a9e14bdbe97e70ba60697217fe7688 } from '@payloadcms/plugin-sentry/client'
-import { TOTPProvider as TOTPProvider_4eaf6cb33cfb75be01716613e3c9a512 } from 'payload-totp/rsc'
-import { TOTPSetup as TOTPSetup_4eaf6cb33cfb75be01716613e3c9a512 } from 'payload-totp/rsc'
-import { TOTPVerify as TOTPVerify_4eaf6cb33cfb75be01716613e3c9a512 } from 'payload-totp/rsc'
 import { TranslateView as TranslateView_1a545c6c2cfa4d4dff070a497b820a65 } from '@/payload/components/admin/TranslateView'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
 export const importMap = {
-  "payload-totp/rsc#TOTPField": TOTPField_4eaf6cb33cfb75be01716613e3c9a512,
   "@/payload/components/admin/MediaListView#default": default_253012d53b276ab9680cd5ce4360cb35,
   "@/payload/fields/showInput#default": default_6a7dad889d922760d944dd930f42df41,
   "@/payload/fields/translateInput#default": default_e85e31803574d1cad1b86893214d4234,
@@ -136,9 +131,6 @@ export const importMap = {
   "@/payload/components/admin/TranslateNavLink#default": default_0e46eff423b485d058c84b4a5a5e46cb,
   "@/payload/components/admin/WelcomeDashboard#default": default_86602b1dc72813c56de877a02ce02144,
   "@payloadcms/plugin-sentry/client#AdminErrorBoundary": AdminErrorBoundary_e5a9e14bdbe97e70ba60697217fe7688,
-  "payload-totp/rsc#TOTPProvider": TOTPProvider_4eaf6cb33cfb75be01716613e3c9a512,
-  "payload-totp/rsc#TOTPSetup": TOTPSetup_4eaf6cb33cfb75be01716613e3c9a512,
-  "payload-totp/rsc#TOTPVerify": TOTPVerify_4eaf6cb33cfb75be01716613e3c9a512,
   "@/payload/components/admin/TranslateView#TranslateView": TranslateView_1a545c6c2cfa4d4dff070a497b820a65,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

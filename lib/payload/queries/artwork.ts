@@ -8,6 +8,8 @@ import { ART_COLLECTION_CACHE_TAG } from '@/payload/collections/ArtCollection';
 import { ART_GALLERY_SETTINGS_SLUG } from '@/payload/globals/ArtGallerySettings/config';
 
 export const getSingleArtwork = async (slug: string, locale: Language): Promise<Artwork | null> => {
+  'use cache';
+
   try {
     const payload = await getPayloadConfig();
     const data = await payload.find({
@@ -75,6 +77,7 @@ type ArtworksFilter = {
 // The list/lookup queries below are uncached for now (`'use cache'` is kept
 // commented out, see `cacheComponents` in next.config.ts).
 export const getArtworksQuery = async (locale: Language, filter: ArtworksFilter = {}) => {
+  'use cache';
   const payload = await getPayloadConfig();
   const and: Where[] = [];
 
@@ -103,6 +106,7 @@ export const getArtworksQuery = async (locale: Language, filter: ArtworksFilter 
 
 /** Artworks flagged as featured; falls back to the latest ones when none are. */
 export const getFeaturedArtworksQuery = async (locale: Language, limit = 6) => {
+  'use cache';
   const payload = await getPayloadConfig();
   const featured = await payload.find({
     collection: 'artworks',
@@ -135,6 +139,7 @@ export const getAllArtworkImagesQuery = async (locale: Language) => {
 };
 
 export const allArtistsQuery = async (locale: Language, search?: string) => {
+  'use cache';
   const payload = await getPayloadConfig();
   return payload.find({
     collection: 'artists',
@@ -149,11 +154,13 @@ export const allArtistsQuery = async (locale: Language, search?: string) => {
 };
 
 export const allCuratorsQuery = async (locale: Language) => {
+  'use cache';
   const payload = await getPayloadConfig();
   return payload.find({ collection: 'curators', locale, sort: 'name', limit: 20, depth: 1 });
 };
 
 export const getArtworkByArtistQuery = async (artistId: string, locale: Language) => {
+  'use cache';
   const payload = await getPayloadConfig();
   return payload.find({
     collection: 'artworks',
@@ -193,6 +200,8 @@ export type GallerySettings = Pick<
 >;
 
 export const getGallerySettings = async (locale?: Language): Promise<GallerySettings> => {
+  'use cache';
+
   try {
     const payload = await getPayloadConfig();
     const settings = await payload.findGlobal({
@@ -219,6 +228,8 @@ export const getArtGalleryNewsQuery = async (
   locale: Language,
   opts: { type?: News['type']; limit?: number } = {}
 ) => {
+  'use cache';
+
   const payload = await getPayloadConfig();
   const where: Where = { showInArtGallery: { equals: true }, _status: { equals: 'published' } };
   if (opts.type) where.type = { equals: opts.type };
