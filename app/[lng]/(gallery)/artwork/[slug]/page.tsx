@@ -43,7 +43,7 @@ export async function generateMetadata(props: ArtworkPageProps): Promise<Metadat
     title: [artwork.title, artist?.name].filter(Boolean).join(' — '),
     description: richTextToPlain(artwork.synopsis, 155) || undefined,
     image: artworkImage(artwork),
-    urlPath: `/artwork/${slug}`,
+    url: `/artwork/${slug}`,
     lng,
   });
 }
@@ -171,8 +171,8 @@ export default async function ArtworkPage(props: ArtworkPageProps) {
           {(artwork.synopsis || artwork.extra) && (
             <div className='art-panel flex flex-col gap-4 p-6 md:p-8'>
               <h2 className='font-art-serif text-art-text text-2xl'>{t('artwork.synopsis')}</h2>
-              {artwork.synopsis && <ArtRichText data={artwork.synopsis} />}
-              {artwork.extra && <ArtRichText data={artwork.extra} />}
+              {artwork.synopsis && <ArtRichText data={artwork.synopsis} lng={lng} />}
+              {artwork.extra && <ArtRichText data={artwork.extra} lng={lng} />}
             </div>
           )}
         </div>

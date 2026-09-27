@@ -18,11 +18,11 @@ export async function generateMetadata(props: CuratorPageProps): Promise<Metadat
   if (!curator) return {};
 
   return prepareMetadataInfo({
-    title: curator.seo?.seo?.title || curator.name,
+    title: curator.meta?.title || curator.name,
     description:
-      curator.seo?.seo?.description || richTextToPlain(curator.description, 155) || undefined,
+      curator?.meta?.description || richTextToPlain(curator.description, 155) || undefined,
     image: curator.image,
-    urlPath: `/curator/${slug}`,
+    url: `/curator/${slug}`,
     lng,
   });
 }

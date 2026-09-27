@@ -35,5 +35,5 @@
     "postcss.config.mjs",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "_to_delete"]
+  "exclude": ["node_modules", "_to_delete", ".next"]
 }

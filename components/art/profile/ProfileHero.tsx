@@ -43,7 +43,7 @@ export default function ProfileHero({
           {subtitle && (
             <p className='text-art-text-2 text-sm tracking-wider uppercase'>{subtitle}</p>
           )}
-          {description && <ArtRichText data={description} className='mt-4 text-lg' />}
+          {description && <ArtRichText data={description} className='mt-4 text-lg' lng={lng} />}
           {links && <ProfileLinks links={links} lng={lng} />}
         </div>
       </div>

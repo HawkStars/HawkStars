@@ -26,8 +26,8 @@ export async function generateMetadata(props: GalleryArticlePageProps): Promise<
   return prepareMetadataInfo({
     title: article.meta?.title ?? article.title,
     description: article.meta?.description,
-    image: article.meta?.image ?? getImagePayloadUrl(article.mainImage)?.url,
-    urlPath: `${SITE_GET_URLS.gallery_news}/${slug}`,
+    image: getImagePayloadUrl(article.mainImage)?.url,
+    url: `${SITE_GET_URLS.gallery_news}/${slug}`,
     lng,
   });
 }
@@ -118,6 +118,7 @@ export default async function GalleryArticlePage(props: GalleryArticlePageProps)
           <ArtRichText
             data={article.details.text}
             className='art-article first-letter:font-art-serif first-letter:text-art-text mx-auto mt-14 max-w-3xl text-lg first-letter:float-left first-letter:mr-3 first-letter:text-7xl first-letter:leading-none'
+            lng={lng}
           />
         )}
 

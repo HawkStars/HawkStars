@@ -23,7 +23,7 @@ export async function generateMetadata(props: ArtistPageProps): Promise<Metadata
     description:
       artist.seo?.seo?.description || richTextToPlain(artist.description, 155) || undefined,
     image: artist.image,
-    urlPath: `/artist/${slug}`,
+    url: `/artist/${slug}`,
     lng,
   });
 }

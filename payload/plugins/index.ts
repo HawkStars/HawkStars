@@ -31,7 +31,7 @@ export const plugins: Plugin[] = [
     generateDescription: ({ doc }) => doc?.description || 'A website built with Payload CMS',
     generateImage: ({ doc }) => doc?.image || null,
     tabbedUI: true,
-    collections: ['artworks', 'hawk_events', 'hawk_projects', 'news', 'pages'],
+    collections: ['artworks', 'hawk_events', 'hawk_projects', 'news', 'pages', 'curators'],
     globals: ['events-list', 'projects-list', 'main-page', 'news-list'],
     uploadsCollection: ['media'],
     interfaceName: 'meta',

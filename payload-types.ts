@@ -4135,6 +4135,7 @@ export interface User {
    */
   isAdmin?: boolean | null;
   totpSecret?: string | null;
+  hasTotp?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -4268,7 +4269,6 @@ export interface Artwork {
     };
     [k: string]: unknown;
   } | null;
-  meta?: Meta;
   /**
    * Optional quote about the artwork, shown as "Aesthetic & Theoretical Analysis".
    */
@@ -4276,6 +4276,7 @@ export interface Artwork {
     quote?: string | null;
     author?: string | null;
   };
+  meta?: Meta;
   updatedAt: string;
   createdAt: string;
 }
@@ -4315,8 +4316,30 @@ export interface Artist {
     hasNextPage?: boolean;
     totalDocs?: number;
   };
+  seo?: SEO;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * Search engine and social media title, image and description.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SEO".
+ */
+export interface SEO {
+  seo?: SeoFields;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SeoFields".
+ */
+export interface SeoFields {
+  title?: string | null;
+  /**
+   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+   */
+  image?: (string | null) | Media;
+  description?: string | null;
 }
 /**
  * Manage the curators who oversee the HawkStars Art Gallery. Add their profiles and SEO information for their public pages. Artworks are linked to a curator from the Artwork collection.
@@ -4357,7 +4380,7 @@ export interface Curator {
     hasNextPage?: boolean;
     totalDocs?: number;
   };
-  seo?: SEO;
+  meta?: Meta;
   updatedAt: string;
   createdAt: string;
 }
@@ -5146,6 +5169,7 @@ export interface UsersSelect<T extends boolean = true> {
   name?: T;
   isAdmin?: T;
   totpSecret?: T;
+  hasTotp?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -5229,13 +5253,13 @@ export interface ArtworksSelect<T extends boolean = true> {
   featured?: T;
   synopsis?: T;
   extra?: T;
-  meta?: T | MetaSelect<T>;
   critical_note?:
     | T
     | {
         quote?: T;
         author?: T;
       };
+  meta?: T | MetaSelect<T>;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5300,6 +5324,7 @@ export interface ArtistsSelect<T extends boolean = true> {
   image?: T;
   links?: T | ProfileLinksSelect<T>;
   artworks?: T;
+  seo?: T | SEOSelect<T>;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -5318,14 +5343,15 @@ export interface ProfileLinksSelect<T extends boolean = true> {
  * via the `definition` "SEO_select".
  */
 export interface SEOSelect<T extends boolean = true> {
-  seo?: T | HawkProjectSeoFieldsSelect<T>;
+  seo?: T | SeoFieldsSelect<T>;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HawkProjectSeoFields_select".
+ * via the `definition` "SeoFields_select".
  */
-export interface HawkProjectSeoFieldsSelect<T extends boolean = true> {
+export interface SeoFieldsSelect<T extends boolean = true> {
   title?: T;
+  image?: T;
   description?: T;
 }
 /**
@@ -5340,7 +5366,7 @@ export interface CuratorsSelect<T extends boolean = true> {
   image?: T;
   links?: T | ProfileLinksSelect<T>;
   artworks?: T;
-  seo?: T | SEOSelect<T>;
+  meta?: T | MetaSelect<T>;
   updatedAt?: T;
   createdAt?: T;
 }
