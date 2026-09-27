@@ -5,7 +5,6 @@ import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
 import { cacheLife, cacheTag } from 'next/cache';
 import { ART_COLLECTION_CACHE_TAG } from '@/payload/collections/ArtCollection';
-import { CURATOR_CACHE_TAG } from '@/payload/collections/Curator';
 import { ART_GALLERY_SETTINGS_SLUG } from '@/payload/globals/ArtGallerySettings/config';
 
 export const getSingleArtwork = async (slug: string, locale: Language): Promise<Artwork | null> => {
