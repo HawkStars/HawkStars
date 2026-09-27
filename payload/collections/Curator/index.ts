@@ -12,6 +12,9 @@ const { afterChange: revalidateCurator, afterDelete: revalidateCuratorDelete } =
 
 export const Curator: CollectionConfig = {
   slug: 'curators',
+  // The list's bulk "Edit" asks editors to pick fields one by one; editing a
+  // gallery item always goes through its full page (click the title instead).
+  disableBulkEdit: true,
   access: {
     admin: authenticated,
     read: anyone,
@@ -29,10 +32,10 @@ export const Curator: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'role', 'updatedAt'],
+    defaultColumns: ['name', 'updatedAt'],
     description: {
-      en: 'Manage art curators who oversee and contribute to the HawkStars collection. Add their profiles, roles, and SEO information for their public pages.',
-      pt: 'Gira os curadores de arte que supervisionam e contribuem para a coleção HawkStars. Adicione os seus perfis, funções e informações SEO para as suas páginas públicas.',
+      en: 'Manage the curators who oversee the HawkStars Art Gallery. Add their profiles and SEO information for their public pages. Artworks are linked to a curator from the Artwork collection.',
+      pt: 'Gira os curadores que supervisionam a Galeria de Arte HawkStars. Adicione os seus perfis e informações SEO para as suas páginas públicas. As obras de arte são associadas a um curador a partir da coleção Obras de Arte.',
     },
     group: {
       ...GROUP_LABELS.artGallery,

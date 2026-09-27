@@ -45,6 +45,27 @@
   --color-gaming-danger: #ff3a5e;
   --color-gaming-success: #00e676;
 
+  /* Art Gallery sub-site theme ("museum at night", from the Stitch design).
+     Kept independent from the org palette above so restyling either never
+     cross-affects the other. */
+  --color-art-ebony: #0c0b0a;
+  --color-art-charcoal: #161514;
+  --color-art-wall: #1e1c1a;
+  --color-art-pedestal: #282522;
+  --color-art-gold: #c5a059;
+  --color-art-gold-bright: #e9c176;
+  --color-art-brass: #8c6d3b;
+  --color-art-text: #f5f2eb;
+  --color-art-text-2: #a8a298;
+  --color-art-muted: #6e685e;
+  --color-art-cream: #e8e2d5;
+  --color-art-terracotta: #d97757;
+  --color-art-line: rgba(197, 160, 89, 0.2);
+  --color-art-spotlight: rgba(235, 185, 115, 0.08);
+
+  --font-art-serif: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  --font-art-sans: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
+
   --animate-grayscale: grayscale 1s ease-in-out;
 
   --color-zinc-50: oklch(98.5% 0 0);
@@ -318,6 +339,58 @@
       pointer-events: none;
     }
   }
+
+  /* ========== ART GALLERY SECTION ========== */
+  /* Own type scale for the (gallery) route group, so it can be restyled
+     without touching the shared text-h* classes of the org site. */
+  .art-eyebrow {
+    @apply font-art-sans text-art-gold-bright text-[11px] font-semibold tracking-[0.2em] uppercase;
+  }
+
+  .art-display {
+    @apply font-art-serif text-art-text text-4xl leading-[1.1] font-normal md:text-6xl;
+  }
+
+  .art-heading {
+    @apply font-art-serif text-art-text text-3xl leading-tight font-normal md:text-4xl;
+  }
+
+  .art-panel {
+    @apply border-art-line bg-art-wall border;
+  }
+
+  /* Fixed (non-CMS) body text in the gallery: justified on both sides and
+     hyphenated at line breaks, in the page's language (<html lang>). */
+  .art-justify {
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  /* Same, for centred blocks: the last line stays centred. */
+  .art-justify-center {
+    text-align: justify;
+    text-align-last: center;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  /* Small warm spotlight above a framed artwork. */
+  .art-frame-light {
+    background-image: radial-gradient(
+      ellipse at center,
+      rgba(235, 185, 115, 0.25),
+      transparent 70%
+    );
+  }
+
+  .art-spotlight {
+    background-image: radial-gradient(
+      ellipse 60% 55% at 50% 0%,
+      rgba(235, 185, 115, 0.14),
+      transparent 70%
+    );
+  }
 }
 
 /*---break--- */
@@ -431,4 +504,48 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+/* Payload rich text rendered on the dark gallery pages: the shared paragraph/
+   heading components assume a light background, so inherit the gallery colours. */
+.art-richtext :is(p, span, li, h1, h2, h3, h4, h5, h6, strong, em) {
+  color: inherit;
+}
+
+.art-richtext :is(h1, h2, h3, h4) {
+  font-family: var(--font-art-serif);
+  color: var(--color-art-text);
+}
+
+.art-richtext :where(p) {
+  line-height: 1.8;
+}
+
+.art-richtext a {
+  color: var(--color-art-gold-bright);
+  text-decoration: underline;
+}
+
+/* Gallery article: blockquotes become the design's highlighted pull-quote box. */
+.art-article blockquote {
+  position: relative;
+  margin-block: 2.5rem;
+  border-left: 3px solid var(--color-art-gold);
+  background-color: var(--color-art-wall);
+  padding: 2rem 2.5rem;
+  font-family: var(--font-art-serif);
+  font-size: 1.35rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--color-art-gold-bright);
+}
+
+.art-article blockquote::before {
+  content: '“';
+  position: absolute;
+  top: 0.25rem;
+  right: 1.25rem;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--color-art-brass);
 }

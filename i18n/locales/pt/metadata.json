@@ -90,5 +90,14 @@
   "gaming": {
     "title": "Gaming — Esports e Programas Digitais para Jovens - ONG Hawk Stars",
     "description": "Iniciativas de gaming e esports da Hawk Stars: torneios, workshops de competências digitais e envolvimento juvenil através dos videojogos em Pinhel, Portugal."
+  },
+  "artists": {
+    "title": "Artistas — Galeria de Arte Impacto Social - ONG Hawk Stars",
+    "description": "Conheça os artistas da Galeria de Arte Impacto Social da Hawk Stars: biografias e obras disponíveis no catálogo.",
+    "keywords": ["Artistas", "Galeria de Arte", "Impacto Social", "Hawk Stars", "Pinhel"]
+  },
+  "gallery_news": {
+    "title": "Notícias — Galeria de Arte Impacto Social - ONG Hawk Stars",
+    "description": "Ensaios, exposições e atualidade da Galeria de Arte Impacto Social da Hawk Stars."
   }
 }

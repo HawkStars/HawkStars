@@ -1,4 +1,5 @@
 import { Tab } from 'payload';
+import { profileLinksField } from '../Artist/profileLinksField';
 
 const CuratorFieldsTab: Tab = {
   label: { en: 'Curator Details', pt: 'Detalhes do Curador' },
@@ -24,7 +25,18 @@ const CuratorFieldsTab: Tab = {
       unique: true,
       required: true,
     },
-    { type: 'text', name: 'location', label: { en: 'Location', pt: 'Localização' } },
+    {
+      type: 'text',
+      name: 'role',
+      label: { en: 'Role', pt: 'Função' },
+      localized: true,
+      admin: {
+        description: {
+          en: 'Shown under the name, e.g. "Visual Artist & Art Researcher".',
+          pt: 'Aparece por baixo do nome, ex.: "Artista Plástica/Visual & Investigadora".',
+        },
+      },
+    },
     {
       type: 'richText',
       name: 'description',
@@ -37,6 +49,21 @@ const CuratorFieldsTab: Tab = {
       label: { en: 'Image', pt: 'Imagem' },
       relationTo: 'media',
       required: true,
+    },
+    profileLinksField,
+    {
+      type: 'join',
+      name: 'artworks',
+      label: { en: 'Associated Artworks', pt: 'Obras Associadas' },
+      collection: 'artworks',
+      on: 'curator',
+      admin: {
+        description: {
+          en: 'Artworks curated by this curator. Add or change these from the artwork itself.',
+          pt: 'Obras curadas por este curador. Adicione ou altere a partir da própria obra de arte.',
+        },
+        defaultColumns: ['title', 'year', 'is_sold'],
+      },
     },
   ],
 };

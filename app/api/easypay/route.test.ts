@@ -1,18 +1,26 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 // vi.mock is hoisted to the top of the file - use vi.hoisted for variables referenced inside the factory
-const { mockPayloadCreate, mockPayloadFind, mockPayloadUpdate } = vi.hoisted(() => ({
-  mockPayloadCreate: vi.fn(),
-  mockPayloadFind: vi.fn(),
-  mockPayloadUpdate: vi.fn(),
-}));
+const { mockPayloadCreate, mockPayloadFind, mockPayloadUpdate, mockHandleArtOrderNotification } =
+  vi.hoisted(() => ({
+    mockPayloadCreate: vi.fn(),
+    mockPayloadFind: vi.fn(),
+    mockPayloadUpdate: vi.fn(),
+    mockHandleArtOrderNotification: vi.fn(),
+  }));
 
 vi.mock('@/lib/payload/server', () => ({
   getPayloadConfig: vi.fn().mockResolvedValue({
     create: mockPayloadCreate,
     find: mockPayloadFind,
     update: mockPayloadUpdate,
+    // No transaction key in these tests belongs to an artwork order.
+    count: vi.fn().mockResolvedValue({ totalDocs: 0 }),
   }),
+}));
+
+vi.mock('@/lib/art-gallery/orders', () => ({
+  handleArtOrderNotification: mockHandleArtOrderNotification,
 }));
 
 import { POST } from './route';
@@ -434,6 +442,56 @@ describe('POST /api/easypay (webhook)', () => {
 
       expect(response.status).toBe(200);
       expect(data.success).toBeTruthy();
+    });
+  });
+
+  describe('artwork orders (gallery EasyPay account, same endpoint)', () => {
+    const galleryNotification = {
+      id: 'notif-art',
+      key: 'art-order-key',
+      type: 'capture',
+      status: 'success',
+      messages: [],
+      date: '2026-09-23T10:00:00Z',
+    };
+
+    it('lets the art order re-check the payment for its transaction key', async () => {
+      mockHandleArtOrderNotification.mockResolvedValueOnce(true);
+
+      const response = await POST(makeRequest(galleryNotification));
+
+      expect(response.status).toBe(200);
+      expect(mockHandleArtOrderNotification).toHaveBeenCalledWith(
+        expect.anything(),
+        'art-order-key'
+      );
+      expect(mockPayloadFind).not.toHaveBeenCalled();
+      expect(mockPayloadUpdate).not.toHaveBeenCalled();
+      expect(mockPayloadCreate).not.toHaveBeenCalled();
+    });
+
+    it('accepts gallery notifications without the shared secret (they are re-verified with EasyPay)', async () => {
+      mockHandleArtOrderNotification.mockResolvedValueOnce(true);
+
+      const response = await POST(makeUnauthenticatedRequest(galleryNotification));
+
+      expect(response.status).toBe(200);
+      expect(mockHandleArtOrderNotification).toHaveBeenCalledWith(
+        expect.anything(),
+        'art-order-key'
+      );
+    });
+
+    it('still rejects donation notifications without the shared secret', async () => {
+      mockHandleArtOrderNotification.mockResolvedValueOnce(false);
+
+      const response = await POST(
+        makeUnauthenticatedRequest({ ...galleryNotification, key: 'donation-key' })
+      );
+
+      expect(response.status).toBe(401);
+      expect(mockPayloadFind).not.toHaveBeenCalled();
+      expect(mockPayloadUpdate).not.toHaveBeenCalled();
     });
   });
 });

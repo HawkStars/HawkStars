@@ -2130,6 +2130,23 @@ export type HeroBlockFeature =
     }[]
   | null;
 /**
+ * Optional. Each link is shown as a button on the public profile.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfileLinks".
+ */
+export type ProfileLinks =
+  | {
+      platform: 'website' | 'blog' | 'instagram' | 'facebook' | 'linkedin' | 'youtube' | 'tiktok' | 'other';
+      url: string;
+      /**
+       * Leave empty to use the type name (e.g. "Instagram").
+       */
+      title?: string | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
  * Titled sections for extra content (e.g. "Activities", "Outcomes")
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2440,7 +2457,10 @@ export interface Config {
     artworks: Artwork;
     'board-members': BoardMember;
     contributions: Contribution;
+    artists: Artist;
     curators: Curator;
+    art_orders: ArtOrder;
+    artist_proposals: ArtistProposal;
     hawk_projects: HawkProject;
     hawk_events: HawkEvent;
     member_projects: MemberProject;
@@ -2456,7 +2476,14 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    artists: {
+      artworks: 'artworks';
+    };
+    curators: {
+      artworks: 'artworks';
+    };
+  };
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -2464,7 +2491,10 @@ export interface Config {
     artworks: ArtworksSelect<false> | ArtworksSelect<true>;
     'board-members': BoardMembersSelect<false> | BoardMembersSelect<true>;
     contributions: ContributionsSelect<false> | ContributionsSelect<true>;
+    artists: ArtistsSelect<false> | ArtistsSelect<true>;
     curators: CuratorsSelect<false> | CuratorsSelect<true>;
+    art_orders: ArtOrdersSelect<false> | ArtOrdersSelect<true>;
+    artist_proposals: ArtistProposalsSelect<false> | ArtistProposalsSelect<true>;
     hawk_projects: HawkProjectsSelect<false> | HawkProjectsSelect<true>;
     hawk_events: HawkEventsSelect<false> | HawkEventsSelect<true>;
     member_projects: MemberProjectsSelect<false> | MemberProjectsSelect<true>;
@@ -2493,6 +2523,8 @@ export interface Config {
     'events-list': EventsList;
     settings: Setting;
     'crowdfunding-settings': CrowdfundingSetting;
+    artGallerySettings: ArtGallerySetting;
+    artGalleryNews: ArtGalleryNew;
     'payload-jobs-stats': PayloadJobsStat;
   };
   globalsSelect: {
@@ -2504,6 +2536,8 @@ export interface Config {
     'events-list': EventsListSelect<false> | EventsListSelect<true>;
     settings: SettingsSelect<false> | SettingsSelect<true>;
     'crowdfunding-settings': CrowdfundingSettingsSelect<false> | CrowdfundingSettingsSelect<true>;
+    artGallerySettings: ArtGallerySettingsSelect<false> | ArtGallerySettingsSelect<true>;
+    artGalleryNews: ArtGalleryNewsSelect<false> | ArtGalleryNewsSelect<true>;
     'payload-jobs-stats': PayloadJobsStatsSelect<false> | PayloadJobsStatsSelect<true>;
   };
   locale: 'en' | 'pt';
@@ -2516,6 +2550,7 @@ export interface Config {
       refreshInstagramToken: TaskRefreshInstagramToken;
       cleanReadNotifications: TaskCleanReadNotifications;
       importCrowdfundingSupporters: TaskImportCrowdfundingSupporters;
+      expireArtOrders: TaskExpireArtOrders;
       schedulePublish: TaskSchedulePublish;
       inline: {
         input: unknown;
@@ -4128,8 +4163,81 @@ export interface User {
 export interface Artwork {
   id: string;
   title: string;
-  slug?: string | null;
-  artist: string | Curator;
+  /**
+   * Auto-filled from the title. Edit it yourself if you want a different URL.
+   */
+  slug: string;
+  /**
+   * Generated automatically (e.g. GA-4K7Q2M) if left empty. Sent with purchases and questions about the artwork.
+   */
+  reference?: string | null;
+  /**
+   * The artist who created this artwork.
+   */
+  artist: string | Artist;
+  /**
+   * The curator responsible for including this artwork in the collection.
+   */
+  curator?: (string | null) | Curator;
+  /**
+   * The options are fixed and must stay in this order — it is the order they are shown in on the site.
+   */
+  category?:
+    | (
+        | 'painting'
+        | 'sculpture'
+        | 'drawing'
+        | 'installation'
+        | 'photography'
+        | 'artist_book'
+        | 'screen_printing'
+        | 'ceramics'
+        | 'tapestry'
+        | 'jewelry'
+        | 'other'
+      )
+    | null;
+  image: string | Media;
+  /**
+   * Photos or mock-ups of the artwork in different spaces (living room, office, gallery wall…). Shown as extra views in the artwork viewer.
+   */
+  environment_images?: (string | Media)[] | null;
+  year?: number | null;
+  /**
+   * E.g. "Oil and mineral pigments on Belgian linen".
+   */
+  technique?: string | null;
+  /**
+   * Unframed / framed: width and length. Dimensions: width, length and height (objects, sculptures…). Shown the same way on every artwork, e.g. "77 × 54,5 cm (sem moldura)".
+   */
+  dimension_type: 'unframed' | 'framed' | 'object';
+  width_cm?: number | null;
+  length_cm?: number | null;
+  height_cm?: number | null;
+  /**
+   * Base price in euros, without VAT. Without it the artwork shows "Price on request" and cannot be bought online.
+   */
+  price_value?: number | null;
+  /**
+   * Total number of copies. 1 = unique piece.
+   */
+  edition_size: number;
+  /**
+   * Goes down by one each time an online sale is confirmed. Starts equal to the edition size; adjust it by hand for sales made outside the site.
+   */
+  available_quantity?: number | null;
+  /**
+   * Optional, e.g. "signed, numbered and certified by the artist".
+   */
+  tiragem?: string | null;
+  /**
+   * Automatic: ticked when no copies remain.
+   */
+  is_sold?: boolean | null;
+  /**
+   * Featured artworks rotate in the hero of the gallery home page.
+   */
+  featured?: boolean | null;
   synopsis: {
     root: {
       type: string;
@@ -4145,13 +4253,6 @@ export interface Artwork {
     };
     [k: string]: unknown;
   };
-  image: string | Media;
-  is_sold?: boolean | null;
-  year?: number | null;
-  price: string;
-  settings?: string | null;
-  tiragem?: string | null;
-  dimensions?: string | null;
   extra?: {
     root: {
       type: string;
@@ -4168,16 +4269,23 @@ export interface Artwork {
     [k: string]: unknown;
   } | null;
   meta?: Meta;
+  /**
+   * Optional quote about the artwork, shown as "Aesthetic & Theoretical Analysis".
+   */
+  critical_note?: {
+    quote?: string | null;
+    author?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
 /**
- * Manage art curators who oversee and contribute to the HawkStars collection. Add their profiles, roles, and SEO information for their public pages.
+ * Manage the artists whose work appears in the HawkStars Art Gallery. Add their profiles and SEO information for their public pages.
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "curators".
+ * via the `definition` "artists".
  */
-export interface Curator {
+export interface Artist {
   id: string;
   name: string;
   slug: string;
@@ -4198,6 +4306,58 @@ export interface Curator {
     [k: string]: unknown;
   } | null;
   image: string | Media;
+  links?: ProfileLinks;
+  /**
+   * Artworks by this artist. Add or change these from the artwork itself.
+   */
+  artworks?: {
+    docs?: (string | Artwork)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Manage the curators who oversee the HawkStars Art Gallery. Add their profiles and SEO information for their public pages. Artworks are linked to a curator from the Artwork collection.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "curators".
+ */
+export interface Curator {
+  id: string;
+  name: string;
+  slug: string;
+  /**
+   * Shown under the name, e.g. "Visual Artist & Art Researcher".
+   */
+  role?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image: string | Media;
+  links?: ProfileLinks;
+  /**
+   * Artworks curated by this curator. Add or change these from the artwork itself.
+   */
+  artworks?: {
+    docs?: (string | Artwork)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  seo?: SEO;
   updatedAt: string;
   createdAt: string;
 }
@@ -4331,6 +4491,85 @@ export interface Contribution {
    * Payment method used in EasyPay
    */
   payment_method?: ('CC' | 'MB' | 'MBW') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Artworks bought online. Carrier orders still need the shipping quote sent to the buyer.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "art_orders".
+ */
+export interface ArtOrder {
+  id: string;
+  reference: string;
+  status: 'pending' | 'paid' | 'failed' | 'expired' | 'cancelled';
+  artwork: string | Artwork;
+  artwork_reference?: string | null;
+  delivery: 'pickup' | 'carrier';
+  buyer: {
+    name: string;
+    nif?: string | null;
+    email: string;
+    phone?: string | null;
+    address?: string | null;
+    postal_code_city?: string | null;
+  };
+  base_value: number;
+  vat_rate: number;
+  vat_value: number;
+  total: number;
+  payment_method?: ('MB' | 'MBW' | 'CC') | null;
+  /**
+   * While pending, one copy is held for the buyer until this time; after it the order expires.
+   */
+  reserved_until?: string | null;
+  paid_at?: string | null;
+  easypay_id?: string | null;
+  access_token?: string | null;
+  last_checked_at?: string | null;
+  transaction_key?: string | null;
+  easypay_response?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Artworks proposed by artists to the curatorial board through the gallery website.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artist_proposals".
+ */
+export interface ArtistProposal {
+  id: string;
+  status: 'new' | 'reviewing' | 'accepted' | 'rejected';
+  name: string;
+  email: string;
+  discipline?:
+    | (
+        | 'painting'
+        | 'sculpture'
+        | 'drawing'
+        | 'installation'
+        | 'photography'
+        | 'artist_book'
+        | 'screen_printing'
+        | 'ceramics'
+        | 'tapestry'
+        | 'jewelry'
+        | 'other'
+      )
+    | null;
+  portfolio_url?: string | null;
+  message?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4488,10 +4727,26 @@ export interface News {
    */
   title: string;
   /**
+   * Optional one- or two-sentence introduction shown under the title (Art Gallery article view).
+   */
+  lead?: string | null;
+  /**
    * The type of the news article
    */
   type: 'blog' | 'news' | 'press_release' | 'announcement' | 'other';
   mainImage?: ImageType;
+  /**
+   * Optional caption shown under the cover image in the Art Gallery article view.
+   */
+  mainImageCaption?: string | null;
+  /**
+   * E.g. "Documentary photography: Hawk Stars NGO archive • February 2025".
+   */
+  mainImageCredit?: string | null;
+  /**
+   * In the Art Gallery article view, the cover stays at the top and the whole photo (not cropped) is added after the text.
+   */
+  showCoverAtEnd?: boolean | null;
   /**
    * Main description block of the article.
    */
@@ -4514,7 +4769,7 @@ export interface News {
   };
   gallery?: MultiImageType;
   /**
-   * Optionally link this news article to a project. The article will appear in the project page under "Related News".
+   * Optionally link this news article to a project or event. The article will appear on that page under "Related News".
    */
   project?:
     | ({
@@ -4525,6 +4780,25 @@ export interface News {
         relationTo: 'hawk_events';
         value: string | HawkEvent;
       } | null);
+  /**
+   * Optional. Artworks from the catalogue, artists or curators this article is about. The article appears in their "Related News", and they are listed at the end of the article in the gallery.
+   */
+  galleryRelations?:
+    | (
+        | {
+            relationTo: 'artworks';
+            value: string | Artwork;
+          }
+        | {
+            relationTo: 'artists';
+            value: string | Artist;
+          }
+        | {
+            relationTo: 'curators';
+            value: string | Curator;
+          }
+      )[]
+    | null;
   /**
    * Optionally add references to other news articles or external links.
    */
@@ -4550,6 +4824,14 @@ export interface News {
    * The URL slug for the news article, e.g. "my-article" for www.hawkstars.com/news/my-article
    */
   slug: string;
+  /**
+   * Also list this article in the Art Gallery news feed (/art/news).
+   */
+  showInArtGallery?: boolean | null;
+  /**
+   * Short italic note at the bottom of the card in the gallery feed, e.g. "External audit approved".
+   */
+  galleryCardNote?: string | null;
   /**
    * Automatically set when the article is published
    */
@@ -4672,6 +4954,7 @@ export interface PayloadJob {
           | 'refreshInstagramToken'
           | 'cleanReadNotifications'
           | 'importCrowdfundingSupporters'
+          | 'expireArtOrders'
           | 'schedulePublish';
         taskID: string;
         input?:
@@ -4711,6 +4994,7 @@ export interface PayloadJob {
         | 'refreshInstagramToken'
         | 'cleanReadNotifications'
         | 'importCrowdfundingSupporters'
+        | 'expireArtOrders'
         | 'schedulePublish'
       )
     | null;
@@ -4761,8 +5045,20 @@ export interface PayloadLockedDocument {
         value: string | Contribution;
       } | null)
     | ({
+        relationTo: 'artists';
+        value: string | Artist;
+      } | null)
+    | ({
         relationTo: 'curators';
         value: string | Curator;
+      } | null)
+    | ({
+        relationTo: 'art_orders';
+        value: string | ArtOrder;
+      } | null)
+    | ({
+        relationTo: 'artist_proposals';
+        value: string | ArtistProposal;
       } | null)
     | ({
         relationTo: 'hawk_projects';
@@ -4913,17 +5209,33 @@ export interface DocumentsSelect<T extends boolean = true> {
 export interface ArtworksSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  reference?: T;
   artist?: T;
-  synopsis?: T;
+  curator?: T;
+  category?: T;
   image?: T;
-  is_sold?: T;
+  environment_images?: T;
   year?: T;
-  price?: T;
-  settings?: T;
+  technique?: T;
+  dimension_type?: T;
+  width_cm?: T;
+  length_cm?: T;
+  height_cm?: T;
+  price_value?: T;
+  edition_size?: T;
+  available_quantity?: T;
   tiragem?: T;
-  dimensions?: T;
+  is_sold?: T;
+  featured?: T;
+  synopsis?: T;
   extra?: T;
   meta?: T | MetaSelect<T>;
+  critical_note?:
+    | T
+    | {
+        quote?: T;
+        author?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -4978,14 +5290,107 @@ export interface ContributionsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "curators_select".
+ * via the `definition` "artists_select".
  */
-export interface CuratorsSelect<T extends boolean = true> {
+export interface ArtistsSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
   location?: T;
   description?: T;
   image?: T;
+  links?: T | ProfileLinksSelect<T>;
+  artworks?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfileLinks_select".
+ */
+export interface ProfileLinksSelect<T extends boolean = true> {
+  platform?: T;
+  url?: T;
+  title?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SEO_select".
+ */
+export interface SEOSelect<T extends boolean = true> {
+  seo?: T | HawkProjectSeoFieldsSelect<T>;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HawkProjectSeoFields_select".
+ */
+export interface HawkProjectSeoFieldsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "curators_select".
+ */
+export interface CuratorsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  role?: T;
+  description?: T;
+  image?: T;
+  links?: T | ProfileLinksSelect<T>;
+  artworks?: T;
+  seo?: T | SEOSelect<T>;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "art_orders_select".
+ */
+export interface ArtOrdersSelect<T extends boolean = true> {
+  reference?: T;
+  status?: T;
+  artwork?: T;
+  artwork_reference?: T;
+  delivery?: T;
+  buyer?:
+    | T
+    | {
+        name?: T;
+        nif?: T;
+        email?: T;
+        phone?: T;
+        address?: T;
+        postal_code_city?: T;
+      };
+  base_value?: T;
+  vat_rate?: T;
+  vat_value?: T;
+  total?: T;
+  payment_method?: T;
+  reserved_until?: T;
+  paid_at?: T;
+  easypay_id?: T;
+  access_token?: T;
+  last_checked_at?: T;
+  transaction_key?: T;
+  easypay_response?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artist_proposals_select".
+ */
+export interface ArtistProposalsSelect<T extends boolean = true> {
+  status?: T;
+  name?: T;
+  email?: T;
+  discipline?: T;
+  portfolio_url?: T;
+  message?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -6230,8 +6635,12 @@ export interface UpcomingHawkEventBlockSelect<T extends boolean = true> {
  */
 export interface NewsSelect<T extends boolean = true> {
   title?: T;
+  lead?: T;
   type?: T;
   mainImage?: T | ImageTypeSelect<T>;
+  mainImageCaption?: T;
+  mainImageCredit?: T;
+  showCoverAtEnd?: T;
   details?:
     | T
     | {
@@ -6239,6 +6648,7 @@ export interface NewsSelect<T extends boolean = true> {
       };
   gallery?: T | MultiImageTypeSelect<T>;
   project?: T;
+  galleryRelations?: T;
   references?:
     | T
     | {
@@ -6249,6 +6659,8 @@ export interface NewsSelect<T extends boolean = true> {
       };
   meta?: T | MetaSelect<T>;
   slug?: T;
+  showInArtGallery?: T;
+  galleryCardNote?: T;
   publishedAt?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -6663,6 +7075,48 @@ export interface CrowdfundingSetting {
   createdAt?: string | null;
 }
 /**
+ * Values used by the Art Gallery purchase page and contact forms.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artGallerySettings".
+ */
+export interface ArtGallerySetting {
+  id: string;
+  /**
+   * Added to the artwork price on the purchase page.
+   */
+  vat_rate: number;
+  /**
+   * Informative only (e.g. "30–40%") — shown in the gallery texts, never used in any calculation.
+   */
+  social_impact_share: string;
+  /**
+   * Receives purchase notifications, questions about artworks and artist proposals.
+   */
+  contact_email: string;
+  /**
+   * When filled, a "Phone concierge" button appears in the question panel.
+   */
+  contact_phone?: string | null;
+  /**
+   * Optional, e.g. "Pinhel & Guarda · Beira Interior, Portugal". The "Curatorial Office" box in the gallery footer only appears when this is filled in.
+   */
+  office_location?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The news articles shown in the Art Gallery feed.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artGalleryNews".
+ */
+export interface ArtGalleryNew {
+  id: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs-stats".
  */
@@ -6955,6 +7409,29 @@ export interface CrowdfundingUpdateCardSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artGallerySettings_select".
+ */
+export interface ArtGallerySettingsSelect<T extends boolean = true> {
+  vat_rate?: T;
+  social_impact_share?: T;
+  contact_email?: T;
+  contact_phone?: T;
+  office_location?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artGalleryNews_select".
+ */
+export interface ArtGalleryNewsSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs-stats_select".
  */
 export interface PayloadJobsStatsSelect<T extends boolean = true> {
@@ -6998,6 +7475,16 @@ export interface TaskCleanReadNotifications {
 export interface TaskImportCrowdfundingSupporters {
   input?: unknown;
   output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskExpireArtOrders".
+ */
+export interface TaskExpireArtOrders {
+  input?: unknown;
+  output: {
+    checked?: number | null;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

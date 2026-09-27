@@ -7,6 +7,7 @@ import {
   EasyPayTransactionNotification,
 } from '@/types/payment/easypay';
 import { captureSentryMessage } from '@/lib/sentry/logs';
+import { handleArtOrderNotification } from '@/lib/art-gallery/orders';
 
 const CONTRIBUTION_COLLECTION = 'contributions';
 
@@ -78,11 +79,25 @@ function isAuthorisedWebhook(request: Request): boolean {
  */
 export async function POST(request: Request) {
   try {
+    const body = await request.json().catch(() => null);
+
+    // 1. Art gallery sale? Donations and gallery sales (two EasyPay accounts)
+    //    notify this same endpoint; the transaction key tells them apart. A
+    //    gallery notification only triggers a re-check of that order straight
+    //    from EasyPay (its content is never trusted), so it doesn't need the
+    //    shared secret — which EasyPay may not be able to send.
+    if (typeof body?.key === 'string') {
+      const payload = await getPayloadConfig();
+      if (await handleArtOrderNotification(payload, body.key)) {
+        return Response.json({ success: true }, { status: 200 });
+      }
+    }
+
+    // 2. Otherwise it's a donation, handled from the notification itself —
+    //    which is why it must carry the shared secret.
     if (!isAuthorisedWebhook(request)) {
       return Response.json({ success: false }, { status: 401 });
     }
-
-    const body = await request.json();
 
     if (!body || !body.id) {
       return Response.json({ success: false, error: 'Invalid payload' }, { status: 400 });

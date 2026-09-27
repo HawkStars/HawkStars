@@ -79,5 +79,14 @@ export function useTranslation(lng: string, ns: string, options?: Record<string,
     requestedLng.current = lng;
     i18n.changeLanguage(lng);
   }, [lng, i18n]);
+
+  // On the server the i18next instance is a singleton shared by concurrent
+  // requests, and `changeLanguage` above is async — so a /pt page rendered
+  // right after an /en one could still be translated in English, and the
+  // browser then "corrects" it to Portuguese (a hydration mismatch). A t bound
+  // to this page's language is immune to whatever the shared instance is on.
+  if (runsOnServerSide && isSupportedLng(lng)) {
+    return { ...ret, t: i18n.getFixedT(lng, ns, options?.keyPrefix as string | undefined) };
+  }
   return ret;
 }

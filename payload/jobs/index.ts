@@ -3,9 +3,15 @@ import { refreshInstagramTokenTask } from './tasks/refreshInstagramToken';
 import { cleanReadNotificationsTask } from './cleanReadNotifications';
 import { importCrowdfundingSupportersTask } from './tasks/importCrowdfundingSupporters';
 import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
+import { expireArtOrdersTask } from './tasks/expireArtOrders';
 
 export const jobs: JobsConfig = {
-  tasks: [refreshInstagramTokenTask, cleanReadNotificationsTask, importCrowdfundingSupportersTask],
+  tasks: [
+    refreshInstagramTokenTask,
+    cleanReadNotificationsTask,
+    importCrowdfundingSupportersTask,
+    expireArtOrdersTask,
+  ],
   /**
    * Payload defaults every one of these to `Boolean(user)`, so leaving the block
    * out made `GET /api/payload-jobs/run` reachable by the regular content tier —
