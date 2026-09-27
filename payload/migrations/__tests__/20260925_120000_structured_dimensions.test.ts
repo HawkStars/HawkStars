@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseDimensions } from './20260925_120000_structured_dimensions';
+import { parseDimensions } from '../20260925_120000_structured_dimensions';
 
 describe('parseDimensions (old free-text dimensions)', () => {
   it.each([
