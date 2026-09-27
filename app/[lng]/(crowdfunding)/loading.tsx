@@ -1,5 +1,4 @@
 import { ImageMedia } from '@/payload/components/Media';
-
 import { hawkLogo } from '@/utils/models/images/logos';
 
 export default function MainHawkStarsLoading() {
