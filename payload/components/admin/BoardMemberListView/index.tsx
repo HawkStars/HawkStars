@@ -143,7 +143,7 @@ export default function BoardMemberListView(props: ListViewClientProps) {
 
     // Sort members within each group by position
     Object.keys(groups).forEach((section) => {
-      groups[section].sort((a, b) => (a.position || 0) - (b.position || 0));
+      groups[section]?.sort((a, b) => (a.position || 0) - (b.position || 0));
     });
 
     return groups;
@@ -151,7 +151,9 @@ export default function BoardMemberListView(props: ListViewClientProps) {
 
   // Order sections
   const orderedSections = useMemo(() => {
-    return sectionOrder.filter((section) => groupedMembers[section]?.length > 0);
+    return sectionOrder.filter(
+      (section) => groupedMembers[section] && groupedMembers[section]?.length > 0
+    );
   }, [groupedMembers]);
 
   return (
@@ -215,13 +217,13 @@ export default function BoardMemberListView(props: ListViewClientProps) {
                         {sectionLabels[section] || section}
                       </h2>
                       <span className='rounded-full bg-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-700 dark:text-zinc-400'>
-                        {groupedMembers[section].length}
+                        {groupedMembers[section]?.length}
                       </span>
                     </div>
 
                     {/* Members Grid */}
                     <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-                      {groupedMembers[section].map((member) => {
+                      {groupedMembers[section]?.map((member) => {
                         // Handle both populated (object) and unpopulated (string ID) cases
                         const photo =
                           member.photo && typeof member.photo === 'object'

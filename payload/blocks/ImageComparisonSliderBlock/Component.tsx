@@ -57,6 +57,7 @@ export const ImageComparisonSliderBlock = ({
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
+    if (!e.touches[0]) return;
     handleMove(e.touches[0].clientX, rect);
   };
 

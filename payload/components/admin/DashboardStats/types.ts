@@ -8,6 +8,7 @@ export type Stats = {
     artCollection: number;
     boardMembers: number;
     contributions: number;
+    artists: number;
     curators: number;
     hawkProjects: number;
     partners: number;

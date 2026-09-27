@@ -98,13 +98,13 @@ export async function seed(payload: Payload): Promise<void> {
   }
 
   // Helper to pick a media ID (cycles through available ones)
-  const mediaId = (index: number) => mediaIds[index % mediaIds.length];
+  const mediaId = (index: number) => mediaIds[index % mediaIds.length] ?? '1';
 
-  // ── 3. Curators ───────────────────────────────────────────────────────────
-  let curatorIds: string[] = [];
-  const existingCurators = await payload.count({ collection: 'curators' });
-  if (existingCurators.totalDocs === 0) {
-    const curators = [
+  // ── 3. Artists ────────────────────────────────────────────────────────────
+  let artistIds: string[] = [];
+  const existingArtists = await payload.count({ collection: 'artists' });
+  if (existingArtists.totalDocs === 0) {
+    const artists = [
       {
         name: 'Maria Silva',
         slug: 'maria-silva',
@@ -117,7 +117,52 @@ export async function seed(payload: Payload): Promise<void> {
         slug: 'joao-santos',
         location: 'Porto, Portugal',
         image: mediaId(1),
-        description: richText('João Santos é um curador de arte contemporânea.'),
+        description: richText('João Santos é um artista plástico português.'),
+      },
+    ];
+
+    for (const artist of artists) {
+      const doc = await payload.create({
+        collection: 'artists',
+        data: artist,
+        locale: 'pt',
+      });
+      artistIds.push(doc.id);
+
+      // Add English locale
+      await payload.update({
+        collection: 'artists',
+        id: doc.id,
+        locale: 'en',
+        data: {
+          description: richText(`${artist.name} is a Portuguese visual artist.`),
+        },
+      });
+    }
+
+    payload.logger.info('  ✔ Artists seeded');
+  } else {
+    const existing = await payload.find({ collection: 'artists', limit: 2 });
+    artistIds = existing.docs.map((d) => d.id);
+    payload.logger.info('  ⏭ Artists already exist, skipping');
+  }
+
+  // ── 3b. Curators ──────────────────────────────────────────────────────────
+  let curatorIds: string[] = [];
+  const existingCurators = await payload.count({ collection: 'curators' });
+  if (existingCurators.totalDocs === 0) {
+    const curators = [
+      {
+        name: 'Curador Exemplo A',
+        slug: 'curador-exemplo-a',
+        image: mediaId(2),
+        description: richText('Curador(a) de exemplo para dados de demonstração.'),
+      },
+      {
+        name: 'Curador Exemplo B',
+        slug: 'curador-exemplo-b',
+        image: mediaId(3),
+        description: richText('Curador(a) de exemplo para dados de demonstração.'),
       },
     ];
 
@@ -135,7 +180,7 @@ export async function seed(payload: Payload): Promise<void> {
         id: doc.id,
         locale: 'en',
         data: {
-          description: richText(`${curator.name} is a Portuguese visual artist and curator.`),
+          description: richText(`${curator.name}, curator of the Social Impact Art Gallery.`),
         },
       });
     }
@@ -149,28 +194,38 @@ export async function seed(payload: Payload): Promise<void> {
 
   // ── 4. Artworks ───────────────────────────────────────────────────────────
   const existingArtworks = await payload.count({ collection: 'artworks' });
-  if (existingArtworks.totalDocs === 0 && curatorIds.length > 0) {
+  if (existingArtworks.totalDocs === 0 && artistIds.length > 0) {
     const artworks = [
       {
         title: 'Horizonte Azul',
         slug: 'horizonte-azul',
-        artist: curatorIds[0],
+        artist: artistIds[0],
+        curator: curatorIds[0],
+        category: 'painting' as const,
         image: mediaId(0),
-        is_sold: false,
         year: 2024,
-        price: '€450',
-        dimensions: '60x80 cm',
+        price_value: 450,
+        edition_size: 1,
+        dimension_type: 'unframed' as const,
+        width_cm: 60,
+        length_cm: 80,
         synopsis: richText('Uma obra que explora a vastidão do oceano Atlântico.'),
       },
       {
         title: 'Reflexos Urbanos',
         slug: 'reflexos-urbanos',
-        artist: curatorIds[1] || curatorIds[0],
+        artist: artistIds[1] || artistIds[0],
+        curator: curatorIds[1] || curatorIds[0],
+        category: 'photography' as const,
         image: mediaId(1),
-        is_sold: true,
         year: 2023,
-        price: '€320',
-        dimensions: '40x50 cm',
+        price_value: 320,
+        edition_size: 20,
+        available_quantity: 0,
+        dimension_type: 'framed' as const,
+        width_cm: 40,
+        length_cm: 50,
+        tiragem: 'Assinadas e numeradas',
         synopsis: richText('Reflexos da vida urbana contemporânea em Portugal.'),
       },
     ];
@@ -188,7 +243,6 @@ export async function seed(payload: Payload): Promise<void> {
         locale: 'en',
         data: {
           title: artwork.title,
-          price: artwork.price,
           synopsis: richText(`English description for "${artwork.title}".`),
         },
       });

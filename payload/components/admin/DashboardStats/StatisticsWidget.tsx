@@ -126,6 +126,7 @@ export const StatisticsWidget: React.FC<{
           <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4'>
             <StatCard icon='🎨' label='Art Collections' value={stats.collections.artCollection} />
             <StatCard icon='👥' label='Board Members' value={stats.collections.boardMembers} />
+            <StatCard icon='🖌️' label='Artists' value={stats.collections.artists} />
             <StatCard icon='🎯' label='Curators' value={stats.collections.curators} />
             <StatCard icon='🚀' label='Hawk Projects' value={stats.collections.hawkProjects} />
             <StatCard icon='🤝' label='Partners' value={stats.collections.partners} />

@@ -49,7 +49,8 @@ export async function down({ payload, session }: MigrateDownArgs): Promise<void>
 
   payload.logger.info('Restored dropdown.version to v1 on header global documents.');
 
-  const headerVersionsCollection = payload.db.versions['_globals'].collection;
+  const headerVersionsCollection = payload.db.versions['_globals']?.collection;
+  if (!headerVersionsCollection) return;
 
   await headerVersionsCollection.updateMany(
     { 'version.globalType': 'header', 'version.columns.dropdown': { $exists: true } },

@@ -67,6 +67,8 @@ const nextConfig = {
   },
   reactStrictMode: true,
   cacheComponents: true,
+  // (`cloudflared tunnel --url http://localhost:3000`). No effect in production.
+  allowedDevOrigins: ['*.trycloudflare.com'],
   cacheMaxMemorySize: 50 * 1024 * 1024,
   images: {
     minimumCacheTTL: 43200,

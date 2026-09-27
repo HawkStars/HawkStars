@@ -2,7 +2,8 @@ import { CollectionConfig } from 'payload';
 import { authenticated } from '../../access/authenticated';
 import { authenticatedAdmin } from '../../access/authenticatedAdmin';
 import { anyone } from '../../access/anyone';
-import ArtCollectionDetails from './ArtCollectionDetails';
+import ArtCollectionFields from './ArtCollectionDetails';
+import { syncEditions } from './hooks/syncEditions';
 import { GROUP_LABELS } from '@/payload/constants';
 import { notifyArtworkChange, notifyArtworkDelete } from './hooks';
 import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
@@ -13,6 +14,9 @@ const { afterChange: revalidateArtwork, afterDelete: revalidateArtworkDelete } =
 
 export const ArtCollection: CollectionConfig = {
   slug: 'artworks',
+  // The list's bulk "Edit" asks editors to pick fields one by one; editing a
+  // gallery item always goes through its full page (click the title instead).
+  disableBulkEdit: true,
   access: {
     admin: authenticated,
     read: anyone,
@@ -26,7 +30,7 @@ export const ArtCollection: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'artist', 'year', 'is_sold'],
+    defaultColumns: ['title', 'artist', 'category', 'price_value', 'available_quantity', 'is_sold'],
     description: {
       en: 'Manage the art collection catalogue. Add new artworks with details like artist, year, medium, and sale status. These appear in the public gallery on the website.',
       pt: 'Gira o catálogo da coleção de arte. Adicione novas obras com detalhes como artista, ano, técnica e estado de venda. Estas aparecem na galeria pública do website.',
@@ -39,14 +43,9 @@ export const ArtCollection: CollectionConfig = {
       defaultLimit: 25,
     },
   },
-  fields: [
-    {
-      type: 'tabs',
-      label: 'Artwork Details',
-      tabs: [ArtCollectionDetails],
-    },
-  ],
+  fields: ArtCollectionFields,
   hooks: {
+    beforeChange: [syncEditions],
     afterChange: [notifyArtworkChange, revalidateArtwork],
     afterDelete: [notifyArtworkDelete, revalidateArtworkDelete],
   },

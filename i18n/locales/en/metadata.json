@@ -90,5 +90,13 @@
   "gaming": {
     "title": "Gaming — Esports & Digital Youth Programmes - Hawk Stars NGO",
     "description": "Hawk Stars gaming and esports initiatives: tournaments, digital skills workshops and youth engagement through gaming in Pinhel, Portugal."
+  },
+  "artists": {
+    "title": "Artists — Social Impact Art Gallery - Hawk Stars NGO",
+    "description": "Meet the artists of Hawk Stars NGO's Social Impact Art Gallery: biographies and works available in the catalogue."
+  },
+  "gallery_news": {
+    "title": "News — Social Impact Art Gallery - Hawk Stars NGO",
+    "description": "Essays, exhibitions and news from Hawk Stars NGO's Social Impact Art Gallery."
   }
 }

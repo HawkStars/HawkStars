@@ -53,6 +53,7 @@ function FitStopsBounds({ path }: { path: LatLngExpression[] }) {
     if (!L || path.length === 0) return;
 
     if (path.length === 1) {
+      if (!path[0]) return;
       map.setView(path[0], 12);
       return;
     }
@@ -151,6 +152,8 @@ function AnimatedTrain({
 
       for (let i = 0; i < phases.length; i++) {
         const phase = phases[i];
+        if (!phase) return;
+
         if (remaining <= phase.duration) {
           if (i !== lastPhaseIndex) {
             lastPhaseIndex = i;
@@ -174,6 +177,7 @@ function AnimatedTrain({
 
       // Every phase has elapsed: settle on the final stop and stop animating.
       const lastPhase = phases[phases.length - 1];
+      if (!lastPhase) return;
       setPosition(lastPhase.type === 'dwell' ? lastPhase.position : lastPhase.to);
       onFinished();
     };

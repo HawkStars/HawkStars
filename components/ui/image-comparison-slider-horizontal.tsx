@@ -97,6 +97,7 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
       };
 
       const handleTouchMove = (e: TouchEvent) => {
+        if (!e.touches[0]) return;
         handleMove(e.touches[0].clientX);
       };
 

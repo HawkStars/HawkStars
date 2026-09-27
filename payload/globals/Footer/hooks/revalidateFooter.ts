@@ -1,10 +1,10 @@
 import type { GlobalAfterChangeHook } from 'payload';
-import { revalidateTag } from 'next/cache';
+import { safeRevalidateTag } from '@/payload/utilities/safeRevalidate';
 
 export const FOOTER_CACHE_TAG = 'hawk-footer' as const;
 
 export const revalidateFooter: GlobalAfterChangeHook = ({ doc }) => {
-  revalidateTag(FOOTER_CACHE_TAG, 'max');
+  safeRevalidateTag(FOOTER_CACHE_TAG);
 
   return doc;
 };

@@ -91,7 +91,7 @@ function toDateKey(iso: string) {
 function addDays(dateKey: string, n: number): string {
   const d = new Date(dateKey + 'T12:00:00');
   d.setDate(d.getDate() + n);
-  return d.toISOString().split('T')[0];
+  return d.toISOString().split('T')[0] ?? '';
 }
 
 /** Returns every YYYY-MM-DD key between start and end (inclusive). */
@@ -100,6 +100,8 @@ function dateKeysInRange(startISO: string, endISO: string): string[] {
   const end = toDateKey(endISO);
   const keys: string[] = [];
   let cursor = start;
+
+  if (!cursor) return [];
   // Safety cap — never more than 365 days
   for (let i = 0; i <= 365; i++) {
     keys.push(cursor);
@@ -188,6 +190,7 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
           : [toDateKey(event.date)];
 
       keys.forEach((key) => {
+        if (!key) return;
         if (!map[key]) map[key] = [];
         // Avoid duplicates when the same event is registered multiple times
         if (!map[key].find((e) => e.id === event.id)) {
@@ -218,6 +221,7 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
             : [];
 
       keys.forEach((key) => {
+        if (!key) return;
         if (!map[key]) map[key] = [];
         // Avoid duplicates when the same project is registered multiple times
         if (!map[key].find((e) => e.id === project.id)) {

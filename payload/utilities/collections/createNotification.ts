@@ -16,6 +16,8 @@ export type NotificationSource =
   | 'media'
   | 'contributions'
   | 'member_projects'
+  | 'art_orders'
+  | 'artist_proposals'
   | 'login'
   | 'message'
   | 'other';
@@ -72,6 +74,16 @@ const ACTION_LABELS: Record<NotificationSource, Partial<Record<NotificationSitua
     create: 'New Member Submission',
     update: 'Member Project Confirmed',
     delete: 'Member Project Deleted',
+  },
+  art_orders: {
+    create: 'New Artwork Order',
+    update: 'Artwork Order Updated',
+    delete: 'Artwork Order Deleted',
+  },
+  artist_proposals: {
+    create: 'New Artist Proposal',
+    update: 'Artist Proposal Updated',
+    delete: 'Artist Proposal Deleted',
   },
   login: { login: 'User Logged In' },
   message: { message: 'New Message' },

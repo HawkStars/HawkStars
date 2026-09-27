@@ -90,7 +90,7 @@ export const VideoMedia: React.FC<VideoMediaProps> = (props) => {
     if (!videoRef.current || !autoPlay) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => setIsIntersecting(entry.isIntersecting),
+      ([entry]) => setIsIntersecting(entry?.isIntersecting ?? false),
       {
         threshold: 0.5,
       }

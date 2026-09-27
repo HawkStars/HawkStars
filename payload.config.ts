@@ -23,7 +23,12 @@ import { Media } from './payload/collections/Media';
 import { Documents } from './payload/collections/Documents';
 import { BoardMember } from './payload/collections/BoardMember';
 import { ContributionCollection as Contribution } from './payload/collections/Contribution';
+import { Artist } from './payload/collections/Artist';
 import { Curator } from './payload/collections/Curator';
+import { ArtOrder } from './payload/collections/ArtOrder';
+import { ArtistProposal } from './payload/collections/ArtistProposal';
+import { ArtGallerySettings } from './payload/globals/ArtGallerySettings/config';
+import { ArtGalleryNews } from './payload/globals/ArtGalleryNews/config';
 import { Partner } from './payload/collections/Partner';
 import { NewsletterSubscriber } from './payload/collections/NewsletterSubscriber';
 import { Sponsor } from './payload/collections/Sponsor';
@@ -175,7 +180,10 @@ export default buildConfig({
     ArtCollection,
     BoardMember,
     Contribution,
+    Artist,
     Curator,
+    ArtOrder,
+    ArtistProposal,
     HawkProject,
     HawkEvent,
     MemberProject,
@@ -195,6 +203,8 @@ export default buildConfig({
     EventsList,
     WebsiteSettings,
     CrowdfundingSettings,
+    ArtGallerySettings,
+    ArtGalleryNews,
   ],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
@@ -274,11 +284,10 @@ export default buildConfig({
   ],
   jobs,
   onInit: async (payload) => {
-    // Opt-in rather than "not production": NODE_ENV alone meant a staging box, a
-    // preview deploy or any dev instance on a reachable host seeded itself with
-    // admin accounts. SEED_DEV_DATA has to be set deliberately, and never in prod.
-    if (process.env.NODE_ENV === 'production') return;
-    if (process.env.SEED_DEV_DATA !== 'true') return;
+    // Demo data is opt-in: the dev `.env` can point at the shared Atlas cluster,
+    // and seeding there would insert fake curators/artworks into real data.
+    // Run with PAYLOAD_SEED=true against a local/throwaway database only.
+    if (process.env.NODE_ENV === 'production' || process.env.PAYLOAD_SEED !== 'true') return;
     await seed(payload);
   },
   upload: {

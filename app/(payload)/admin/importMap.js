@@ -56,6 +56,7 @@ import { default as default_d6f551909a59571b6b09d9dbd166a4ef } from '@/payload/g
 import { default as default_a124e7a1baf393d361b39feebeca9df4 } from '@/payload/globals/ProjectsList/components/StatsLabel'
 import { default as default_e3e0508c4af1bd54a085ab28d2517f80 } from '@/payload/globals/EventsList/components/StatsLabel'
 import { default as default_2513edc366d1d88b15e62b3a6ee5b48e } from '@/payload/globals/CrowdfundingSettings/components/ShowCrowdfundingSettingsInfo'
+import { GalleryNewsView as GalleryNewsView_3bd882a06bc817ea3117ace139818acf } from '@/payload/components/admin/GalleryNewsView'
 import { default as default_311a5f154e8b373fc453af30d4e74fc0 } from '@/payload/components/admin/avatar'
 import { default as default_91bbc66a9b3ed1dae52e0caef1a54af7 } from '@/payload/components/Logo'
 import { default as default_d49a4ffdd2cc75d82d4c892f1e79350d } from '@/payload/components/admin/DashboardStats'
@@ -128,6 +129,7 @@ export const importMap = {
   "@/payload/globals/ProjectsList/components/StatsLabel#default": default_a124e7a1baf393d361b39feebeca9df4,
   "@/payload/globals/EventsList/components/StatsLabel#default": default_e3e0508c4af1bd54a085ab28d2517f80,
   "@/payload/globals/CrowdfundingSettings/components/ShowCrowdfundingSettingsInfo#default": default_2513edc366d1d88b15e62b3a6ee5b48e,
+  "@/payload/components/admin/GalleryNewsView#GalleryNewsView": GalleryNewsView_3bd882a06bc817ea3117ace139818acf,
   "@/payload/components/admin/avatar#default": default_311a5f154e8b373fc453af30d4e74fc0,
   "@/payload/components/Logo#default": default_91bbc66a9b3ed1dae52e0caef1a54af7,
   "@/payload/components/admin/DashboardStats#default": default_d49a4ffdd2cc75d82d4c892f1e79350d,
