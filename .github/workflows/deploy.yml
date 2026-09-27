@@ -249,6 +249,9 @@ jobs:
             # non-interactively if the store layout changed).
             pnpm install --frozen-lockfile
 
+            # Update the payload admin
+            pnpm payload:regenerate
+
             # Build into a staging directory so the live .next keeps serving.
             rm -rf .next.new
             if ! NEXT_DIST_DIR=.next.new pnpm build; then
