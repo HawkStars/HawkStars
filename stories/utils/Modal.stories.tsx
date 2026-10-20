@@ -27,7 +27,9 @@ export const Default: Story = {
   render: () => (
     <Modal>
       <ModalTrigger asChild>
-        <Button variant='outline'>Open Modal</Button>
+        <Button variant='outline' aria-label='Open Modal'>
+          Open Modal
+        </Button>
       </ModalTrigger>
       <ModalContent>
         <ModalHeader>
@@ -76,7 +78,7 @@ export const WithThumbnailTrigger: Story = {
     <Modal>
       <ModalTrigger asChild>
         <button
-          aria-label='Play video'
+          aria-label='Play video - HawkStars Highlights'
           className='group relative w-80 overflow-hidden rounded-xl border shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2'
         >
           <div className='relative aspect-video bg-neutral-900'>
@@ -85,7 +87,7 @@ export const WithThumbnailTrigger: Story = {
                 <span className='ml-1 text-2xl'>▶</span>
               </div>
             </div>
-            <div className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />
+            <div className='absolute inset-0 bg-linear-to-t from-black/60 to-transparent' />
             <p className='absolute bottom-3 left-3 text-sm font-medium text-white'>
               HawkStars Highlights
             </p>
