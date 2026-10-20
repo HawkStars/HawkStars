@@ -27,7 +27,7 @@ jobs:
     # the data, only that the queries resolve.
     services:
       mongodb:
-        image: mongo:8
+        image: mongo:8.3
         ports:
           - 27017:27017
         options: >-
