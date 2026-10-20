@@ -240,7 +240,7 @@ export default buildConfig({
           transport: nodemailer.createTransport({
             service: 'gmail',
             replyTo: {
-              address: TECH_EMAIL_ADDRESS,
+              address: TECH_EMAIL_ADDRESS ?? '',
             },
             auth: {
               type: 'OAuth2',
