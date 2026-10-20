@@ -64,6 +64,8 @@ import { EventsList } from './payload/globals/EventsList/config';
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
+const TECH_EMAIL_ADDRESS = 'tech@hawkstars.org';
+
 assert(process.env.DATABASE_URI, 'DATABASE_URI environment variable is not assigned');
 assert(process.env.PAYLOAD_SECRET, 'PAYLOAD_SECRET environment variable is not assigned');
 
@@ -233,10 +235,13 @@ export default buildConfig({
   email:
     process.env.NODE_ENV === 'production'
       ? nodemailerAdapter({
-          defaultFromAddress: 'tech@hawkstars.org',
+          defaultFromAddress: TECH_EMAIL_ADDRESS,
           defaultFromName: 'HawkStarsNGO - Tech Team',
           transport: nodemailer.createTransport({
             service: 'gmail',
+            replyTo: {
+              address: TECH_EMAIL_ADDRESS,
+            },
             auth: {
               type: 'OAuth2',
               user: process.env.GOOGLE_EMAIL_USER ?? '',
