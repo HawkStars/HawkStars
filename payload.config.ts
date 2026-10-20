@@ -239,9 +239,6 @@ export default buildConfig({
           defaultFromName: 'HawkStarsNGO - Tech Team',
           transport: nodemailer.createTransport({
             service: 'gmail',
-            replyTo: {
-              address: TECH_EMAIL_ADDRESS ?? '',
-            },
             auth: {
               type: 'OAuth2',
               user: process.env.GOOGLE_EMAIL_USER ?? '',
