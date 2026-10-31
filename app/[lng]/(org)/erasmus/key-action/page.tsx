@@ -27,7 +27,7 @@ async function KeyActionContent({ lng }: { lng: string }) {
     <HawkStarsSection padding='none' cap='none'>
       <Breadcrumb t={t} lng={lng} />
       <HeroSection t={t} />
-      <div className='mx-auto max-w-275 px-4 xl:px-8'>
+      <div className='mx-auto max-w-6xl px-4 sm:px-6 lg:px-8'>
         {kaData.map((ka) => (
           <KASection key={ka.id} ka={ka} t={t} />
         ))}
@@ -44,7 +44,7 @@ export default KeyActionPage;
 // ── Breadcrumb ──
 
 const Breadcrumb = ({ t, lng }: { t: TranslationFn; lng: string }) => (
-  <nav className='bg-erasmus-blue flex items-center gap-2 px-4 py-3.5 text-[0.78rem] text-white/55 xl:px-40'>
+  <nav className='bg-erasmus-blue flex items-center gap-2 px-4 py-3.5 text-[0.78rem] text-white/55 sm:px-6 lg:px-8'>
     <Link
       href={transformUrl(lng, SITE_GET_URLS.erasmus)}
       className='hover:text-erasmus-gold text-white/55 transition-colors'
@@ -57,13 +57,13 @@ const Breadcrumb = ({ t, lng }: { t: TranslationFn; lng: string }) => (
 );
 
 const HeroSection = ({ t }: { t: TranslationFn }) => (
-  <header className='bg-erasmus-dark relative overflow-hidden px-4 pt-20 pb-0 xl:px-40'>
+  <header className='bg-erasmus-dark relative overflow-hidden px-4 pt-20 pb-0 sm:px-6 lg:px-8'>
     {/* Noise texture overlay */}
     <div className='pointer-events-none absolute inset-0 opacity-40' />
     {/* Glow */}
     <div className='pointer-events-none absolute -top-75 -right-50 h-200 w-200 rounded-full bg-[radial-gradient(circle,rgba(0,51,153,0.5)_0%,transparent_70%)]' />
 
-    <div className='relative mx-auto max-w-275'>
+    <div className='relative mx-auto max-w-6xl'>
       <div className='border-erasmus-gold/30 bg-erasmus-gold/12 text-erasmus-gold mb-8 inline-flex items-center gap-2.5 border px-4 py-1.5 text-[0.7rem] font-bold tracking-[0.2em] uppercase'>
         {t('hero_label')}
       </div>
@@ -183,7 +183,7 @@ const KASection = ({ ka, t }: { ka: KAData; t: TranslationFn }) => (
 );
 
 const ComparisonTable = ({ t }: { t: TranslationFn }) => (
-  <section className='-mx-4 bg-white px-4 py-20 xl:-mx-8 xl:px-8'>
+  <section className='-mx-4 bg-white px-4 py-20 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8'>
     <SectionEyebrow label={t('compare_tag')} />
     <h2 className='mb-10 font-serif text-[clamp(1.8rem,3vw,2.6rem)] font-semibold'>
       {t('compare_title')}
@@ -238,7 +238,7 @@ const ComparisonTable = ({ t }: { t: TranslationFn }) => (
 // ── Youthpass Banner ──
 
 const YouthpassBanner = ({ t }: { t: TranslationFn }) => (
-  <div className='bg-erasmus-blue -mx-4 grid grid-cols-1 items-center gap-8 px-8 py-16 text-white md:grid-cols-[1fr_auto] xl:-mx-8'>
+  <div className='bg-erasmus-blue -mx-4 grid grid-cols-1 items-center gap-8 px-8 py-16 text-white sm:-mx-6 md:grid-cols-[1fr_auto] lg:-mx-8'>
     <div>
       <h3 className='mb-3 font-serif text-3xl font-semibold'>{t('youthpass_title')}</h3>
       <p className='max-w-125 text-sm leading-relaxed text-white/65'>{t('youthpass_desc')}</p>

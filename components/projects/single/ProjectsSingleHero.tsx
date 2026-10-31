@@ -60,7 +60,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
   })();
 
   return (
-    <ContentSection className='bg-[#eef5f0] pt-32' spacing='tight'>
+    <ContentSection className='bg-green/5 pt-32' spacing='tight'>
       <div className='grid gap-10 md:grid-cols-2'>
         {/* Left column */}
         <div>
@@ -78,7 +78,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
           )}
 
           {/* Title */}
-          <h1 className='text-4xl font-bold md:text-5xl'>{heading}</h1>
+          <h1 className='text-display'>{heading}</h1>
 
           {/* Stats row */}
           {(hero?.participants || hero?.fundedAmount) && (

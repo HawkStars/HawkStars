@@ -10,6 +10,7 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import { SITE_GET_URLS } from '@/utils/paths';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
+import { PageLoading } from '@/components/layout';
 
 export async function generateMetadata(props: EventsArchivePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -31,7 +32,7 @@ type EventsArchivePageProps = {
 
 // Mirrors app/[lng]/(org)/projects/archive/page.tsx exactly.
 const EventsArchivePage = (props: EventsArchivePageProps) => (
-  <Suspense fallback={<></>}>
+  <Suspense fallback={<PageLoading />}>
     <EventsArchiveContent params={props.params} searchParams={props.searchParams} />
   </Suspense>
 );

@@ -3,8 +3,8 @@ import { Metadata } from 'next';
 import { LanguagePageProps } from '../types';
 import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
-import { HawkStarsSection } from '@/components/layout';
-import Link from 'next/link';
+import { HawkStarsSection, PageHero } from '@/components/layout';
+import { Button } from '@/components/ui/button';
 import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
 import { steps } from './config';
 import { SectionEyebrow } from '@/components/ui/SectionHeader';
@@ -30,13 +30,13 @@ async function HowToHelpUsContent({ lng }: { lng: string }) {
   const { t } = await getServerTranslation(lng as Language, 'how-to-help-us');
 
   return (
-    <HawkStarsSection padding='none' cap='none' className='flex-col'>
+    <>
       <HeroSection t={t} />
       <WhyJoinSection t={t} />
       <PathsSection t={t} />
       <HowItWorksSection t={t} />
       <CTASection t={t} />
-    </HawkStarsSection>
+    </>
   );
 }
 
@@ -49,41 +49,29 @@ type T = (key: string) => string;
 // ── Hero ──
 
 const HeroSection = ({ t }: { t: T }) => (
-  <header className='bg-green relative overflow-hidden px-4 py-24 lg:py-32 xl:px-40'>
-    {/* Decorative circles */}
-    <div className='pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full bg-white/5' />
-    <div className='pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-white/5' />
-
-    <div className='relative mx-auto max-w-4xl text-center'>
-      <p className='mb-6 inline-flex items-center gap-2 rounded-sm border border-white/30 bg-white/10 px-4 py-1.5 text-xs font-bold tracking-[0.2em] text-white uppercase'>
-        <span className='block h-0.5 w-5 bg-white/60' />
-        {t('hero_eyebrow')}
-      </p>
-
-      <h1 className='mb-6 text-4xl leading-tight font-bold text-white lg:text-6xl'>
+  <PageHero
+    variant='green'
+    align='center'
+    eyebrow={t('hero_eyebrow')}
+    title={
+      <>
         {t('hero_title_pre')} <span className='text-bege-dark'>{t('hero_title_highlight')}</span>
-      </h1>
-
-      <p className='mx-auto mb-10 max-w-xl text-lg leading-relaxed font-light text-white/75'>
-        {t('hero_description')}
-      </p>
-
-      <div className='flex flex-wrap justify-center gap-4'>
-        <a
-          href='#paths'
-          className='bg-bege-dark text-green inline-flex items-center gap-2 rounded-sm px-8 py-3.5 text-sm font-semibold tracking-wide transition-transform hover:-translate-y-0.5 hover:shadow-lg'
-        >
-          {t('hero_cta_explore')}
-        </a>
-        <a
-          href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t('email_subject'))}`}
-          className='inline-flex items-center gap-2 rounded-sm border border-white/35 bg-transparent px-8 py-3.5 text-sm font-semibold tracking-wide text-white transition-transform hover:-translate-y-0.5 hover:shadow-lg'
-        >
-          {t('hero_cta_contact')}
-        </a>
-      </div>
-    </div>
-  </header>
+      </>
+    }
+    description={t('hero_description')}
+    actions={
+      <>
+        <Button asChild variant='inverse' size='xl'>
+          <a href='#paths'>{t('hero_cta_explore')}</a>
+        </Button>
+        <Button asChild variant='outline-inverse' size='xl'>
+          <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t('email_subject'))}`}>
+            {t('hero_cta_contact')}
+          </a>
+        </Button>
+      </>
+    }
+  />
 );
 
 // ── Why Join ──
@@ -96,11 +84,11 @@ const whyReasons = [
 ] as const;
 
 const WhyJoinSection = ({ t }: { t: T }) => (
-  <section className='px-4 py-20 lg:py-28 xl:px-40'>
-    <div className='mx-auto max-w-5xl'>
+  <HawkStarsSection spacing='default'>
+    <div>
       <SectionTag label={t('why_tag')} />
-      <h2 className='text-h1_semibold mb-5 text-gray-900'>{t('why_title')}</h2>
-      <p className='mb-14 max-w-xl text-base leading-relaxed text-gray-500'>{t('why_lead')}</p>
+      <h2 className='text-h1_semibold mb-5 text-black'>{t('why_title')}</h2>
+      <p className='mb-14 max-w-xl text-base leading-relaxed text-black/70'>{t('why_lead')}</p>
 
       <div className='grid grid-cols-1 gap-6 sm:grid-cols-2'>
         {whyReasons.map((reason) => (
@@ -111,22 +99,22 @@ const WhyJoinSection = ({ t }: { t: T }) => (
             <span className='shrink-0 text-3xl'>{reason.icon}</span>
             <div>
               <h3 className='text-body_semibold text-green mb-1'>{t(reason.titleKey)}</h3>
-              <p className='text-sm leading-relaxed text-gray-600'>{t(reason.descKey)}</p>
+              <p className='text-sm leading-relaxed text-black/70'>{t(reason.descKey)}</p>
             </div>
           </div>
         ))}
       </div>
     </div>
-  </section>
+  </HawkStarsSection>
 );
 
 // ── Paths: Member vs Volunteer ──
 
 const PathsSection = ({ t }: { t: T }) => (
-  <section id='paths' className='bg-bege-light px-4 py-20 lg:py-28 xl:px-40'>
-    <div className='mx-auto max-w-5xl'>
+  <HawkStarsSection id='paths' spacing='default' className='bg-bege-light'>
+    <div>
       <SectionTag label={t('paths_tag')} />
-      <h2 className='text-h1_semibold mb-14 text-gray-900'>{t('paths_title')}</h2>
+      <h2 className='text-h1_semibold mb-14 text-black'>{t('paths_title')}</h2>
 
       <div className='grid grid-cols-1 gap-8 lg:grid-cols-2'>
         {/* Member card */}
@@ -137,7 +125,6 @@ const PathsSection = ({ t }: { t: T }) => (
           descKey='member_desc'
           perks={['member_perk1', 'member_perk2', 'member_perk3', 'member_perk4']}
           ctaKey='member_cta'
-          accentColor='green'
           emailSubjectKey='member_email_subject'
         />
 
@@ -149,12 +136,11 @@ const PathsSection = ({ t }: { t: T }) => (
           descKey='volunteer_desc'
           perks={['volunteer_perk1', 'volunteer_perk2', 'volunteer_perk3', 'volunteer_perk4']}
           ctaKey='volunteer_cta'
-          accentColor='green'
           emailSubjectKey='volunteer_email_subject'
         />
       </div>
     </div>
-  </section>
+  </HawkStarsSection>
 );
 
 const PathCard = ({
@@ -164,7 +150,6 @@ const PathCard = ({
   descKey,
   perks,
   ctaKey,
-  accentColor,
   emailSubjectKey,
 }: {
   t: T;
@@ -173,35 +158,33 @@ const PathCard = ({
   descKey: string;
   perks: string[];
   ctaKey: string;
-  accentColor: string;
   emailSubjectKey: string;
 }) => (
   <div className='group relative flex flex-col overflow-hidden rounded-lg bg-white shadow-sm transition-shadow hover:shadow-lg'>
     {/* Top accent bar */}
-    <div className={`h-1.5 w-full bg-${accentColor}`} />
+    <div className='bg-green h-1.5 w-full' />
 
     <div className='flex flex-1 flex-col p-8 lg:p-10'>
       <span className='mb-4 text-4xl'>{icon}</span>
-      <h3 className='text-h2_bold mb-3 text-gray-900'>{t(titleKey)}</h3>
-      <p className='mb-8 text-sm leading-relaxed text-gray-600'>{t(descKey)}</p>
+      <h3 className='text-h2_bold mb-3 text-black'>{t(titleKey)}</h3>
+      <p className='mb-8 text-sm leading-relaxed text-black/70'>{t(descKey)}</p>
 
       {/* Perks list */}
       <div className='mb-8 flex flex-col gap-3'>
         {perks.map((perkKey) => (
           <div key={perkKey} className='flex items-start gap-3'>
             <span className='text-green mt-0.5 shrink-0 text-sm'>&#10003;</span>
-            <span className='text-sm text-gray-700'>{t(perkKey)}</span>
+            <span className='text-sm text-black/80'>{t(perkKey)}</span>
           </div>
         ))}
       </div>
 
       {/* CTA */}
-      <Link
-        href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t(emailSubjectKey))}`}
-        className='bg-green mt-auto inline-flex w-full items-center justify-center gap-2 rounded-sm px-6 py-3.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 hover:shadow-lg'
-      >
-        {t(ctaKey)}
-      </Link>
+      <Button asChild size='xl' className='mt-auto w-full'>
+        <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t(emailSubjectKey))}`}>
+          {t(ctaKey)}
+        </a>
+      </Button>
     </div>
   </div>
 );
@@ -209,10 +192,10 @@ const PathCard = ({
 // ── How It Works ──
 
 const HowItWorksSection = ({ t }: { t: T }) => (
-  <section className='px-4 py-20 lg:py-28 xl:px-40'>
-    <div className='mx-auto max-w-5xl'>
+  <HawkStarsSection spacing='default'>
+    <div>
       <SectionTag label={t('how_tag')} />
-      <h2 className='text-h1_semibold mb-14 text-gray-900'>{t('how_title')}</h2>
+      <h2 className='text-h1_semibold mb-14 text-black'>{t('how_title')}</h2>
 
       <StepsBlockComponent
         numberOfColumnsPerRow={'3'}
@@ -225,30 +208,29 @@ const HowItWorksSection = ({ t }: { t: T }) => (
         blockType={'stepsBlock'}
       />
     </div>
-  </section>
+  </HawkStarsSection>
 );
 
 // ── CTA Banner ──
 
 const CTASection = ({ t }: { t: T }) => (
-  <section className='bg-green relative overflow-hidden px-4 py-20 text-center xl:px-40'>
-    <div className='pointer-events-none absolute -top-20 -left-20 h-72 w-72 rounded-full bg-white/5' />
-    <div className='pointer-events-none absolute -right-16 -bottom-16 h-56 w-56 rounded-full bg-white/5' />
-
-    <div className='relative mx-auto max-w-2xl'>
-      <h2 className='mb-4 text-3xl font-bold text-white lg:text-4xl'>{t('cta_title')}</h2>
-      <p className='mx-auto mb-10 max-w-md text-base leading-relaxed text-white/70'>
-        {t('cta_description')}
-      </p>
-      <Link
-        href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t('email_subject'))}`}
-        className='bg-bege-dark text-green inline-flex items-center gap-2 rounded-sm px-10 py-4 text-sm font-bold tracking-wide transition-transform hover:-translate-y-0.5 hover:shadow-lg'
-      >
-        {t('cta_button')}
-      </Link>
-      <p className='mt-6 text-sm text-white/50'>{CONTACT_EMAIL}</p>
-    </div>
-  </section>
+  <PageHero
+    variant='green'
+    align='center'
+    size='compact'
+    as='h2'
+    title={t('cta_title')}
+    description={t('cta_description')}
+    actions={
+      <Button asChild variant='inverse' size='xl'>
+        <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t('email_subject'))}`}>
+          {t('cta_button')}
+        </a>
+      </Button>
+    }
+  >
+    <p className='mt-6 text-center text-sm text-white/90'>{CONTACT_EMAIL}</p>
+  </PageHero>
 );
 
 // ── Shared ──

@@ -35,7 +35,9 @@ import { Metadata } from 'next';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import DonationWidget from '@/components/contribute/DonationWidget';
 import { Button } from '@/components/ui/button';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { Suspense } from 'react';
+import { PageLoading } from '@/components/layout';
 
 export async function generateMetadata(props: {
   params: Promise<{ lng: Language }>;
@@ -74,7 +76,7 @@ type DonatePageProps = { params: Promise<{ lng: Language }> };
 // but this route also had no <Suspense> above its `params` await, so it stayed
 // blocking regardless. Non-async shell + content child, same as the rest.
 const DonatePage = (props: DonatePageProps) => (
-  <Suspense fallback={<></>}>
+  <Suspense fallback={<PageLoading />}>
     <DonateContent params={props.params} />
   </Suspense>
 );
@@ -86,27 +88,29 @@ const DonateContent = async ({ params }: { params: DonatePageProps['params'] }) 
     await Promise.all([getServerTranslation(lng, 'contribute'), getChairsContribute()]);
 
   return (
-    <div className='mt-5 flex flex-col gap-5 lg:mt-10'>
+    <>
       <h1 className='sr-only'>{t('contribute_hero')}</h1>
-      <p className='text-h2_bold text-green mx-4 text-center lg:hidden'>{t('contribute_hero')}</p>
-      <HawkStarsSection padding='none' cap='none'>
-        <div className='relative max-w-full max-2xl:mx-0 max-2xl:p-0'>
-          <div className='text-green absolute top-20 left-40 hidden lg:block'>
+      <HawkStarsSection padding='none' cap='none' className='flex-col'>
+        <p className='text-h2_bold text-green px-4 py-8 text-center lg:hidden'>
+          {t('contribute_hero')}
+        </p>
+        <div className='relative max-w-full'>
+          <div className='text-green absolute top-20 left-8 hidden lg:block xl:left-[max(2rem,calc((100%-72rem)/2))]'>
             <p className='text-h1_semibold w-72'>{t('contribute_hero')}</p>
-            <Link
-              href='#form'
-              lang={lng}
-              className='text-body_semibold bg-green mt-5 flex w-fit flex-row gap-3 rounded-xl p-4 text-white'
-            >
-              {t('donate_here')}
-            </Link>
+            <Button asChild size='xl' className='mt-6'>
+              <a href='#form'>{t('donate_here')}</a>
+            </Button>
           </div>
-          <ImageMedia src={heroImage} alt={t('a11y.hero_image')} />
+          <ImageMedia src={heroImage} alt={t('a11y.hero_image')} priority />
         </div>
       </HawkStarsSection>
-      <div className='via-bege-dark flex flex-col gap-10 bg-linear-to-tr from-[#E9E9E9] from-35% to-[#E9E9E9] to-65% py-16 lg:gap-20 lg:p-20 lg:py-20'>
-        <h2 className='text-h2_light mx-4 text-center'>{t('forms_and_modalities')}</h2>
-        <div className='mx-auto flex max-w-6xl flex-col gap-10 max-lg:px-4 md:flex-row'>
+
+      <HawkStarsSection
+        spacing='default'
+        className='via-bege-dark bg-linear-to-tr from-neutral-200 from-35% to-neutral-200 to-65%'
+      >
+        <SectionHeader align='center' title={t('forms_and_modalities')} className='mb-12' />
+        <div className='flex flex-col gap-10 md:flex-row'>
           <div className='flex flex-col gap-1 md:flex-1'>
             <ImageMedia
               src={bankTransferImage}
@@ -138,151 +142,148 @@ const DonateContent = async ({ params }: { params: DonatePageProps['params'] }) 
             </p>
           </div>
         </div>
-      </div>
+      </HawkStarsSection>
 
-      <div className='my-5 flex flex-col gap-3'>
-        <h2 className='text-h2_light text-green text-center'>{t('other_modalities')}</h2>
-        <div className='mt-5 flex flex-col justify-center gap-3'>
-          <div className='flex justify-center'>
+      <HawkStarsSection spacing='default'>
+        <SectionHeader align='center' title={t('other_modalities')} className='mb-8' />
+        <div className='flex justify-center'>
+          <Button asChild size='xl'>
             <Link
               href='https://shop.hawkstars.org/'
               lang='en'
               target='_blank'
-              className='bg-green flex w-fit flex-row gap-3 rounded-xl p-4 text-white'
+              rel='noopener noreferrer'
             >
-              <ImageMedia
-                src={ShoppingCardIcon}
-                alt={t('a11y.shopping_cart')}
-                width={20}
-                height={20}
-                className='my-auto'
-              />{' '}
+              <ImageMedia src={ShoppingCardIcon} alt='' width={20} height={20} />
               {t('store')}
             </Link>
-          </div>
+          </Button>
         </div>
-        <HawkStarsSection>
-          <div className='flex flex-col gap-3 lg:gap-10'>
-            <h2 className='text-h2_bold text-green mt-10 text-center'>{t('branding.title')}</h2>
+      </HawkStarsSection>
 
-            <div className='mx-auto flex max-w-6xl flex-col gap-10 md:flex-row'>
-              <BrandingSection
-                image={exterior2}
-                altImage={
-                  'Image of the exterior of the upcoming Hawkstars building to be used for company branding'
-                }
-                title={t('brand.international_training_center.title')}
-                price={t('brand.international_training_center.price')}
-                description={t('brand.international_training_center.description')}
-              />
-              <BrandingSection
-                image={coworkingRoom}
-                altImage={'Image of the coworking room of the upcoming Hawkstars building'}
-                title={t('brand.room_branding.title')}
-                price={t('brand.room_branding.price')}
-                description={t('brand.room_branding.description')}
-              />
-            </div>
-            <Link href='mailto:geral@hawkstars.org' className='mx-auto mt-auto'>
-              <Button>{t('contact_us')}</Button>
-            </Link>
+      <HawkStarsSection spacing='default' className='bg-bege-light'>
+        <div className='flex flex-col gap-10'>
+          <SectionHeader align='center' title={t('branding.title')} />
+          <div className='flex flex-col gap-10 md:flex-row'>
+            <BrandingSection
+              image={exterior2}
+              altImage={
+                'Image of the exterior of the upcoming Hawkstars building to be used for company branding'
+              }
+              title={t('brand.international_training_center.title')}
+              price={t('brand.international_training_center.price')}
+              description={t('brand.international_training_center.description')}
+            />
+            <BrandingSection
+              image={coworkingRoom}
+              altImage={'Image of the coworking room of the upcoming Hawkstars building'}
+              title={t('brand.room_branding.title')}
+              price={t('brand.room_branding.price')}
+              description={t('brand.room_branding.description')}
+            />
           </div>
-        </HawkStarsSection>
-        <HawkStarsSection>
-          <div className='mt-10 flex flex-col gap-10 lg:mx-auto lg:w-2/3'>
-            <div className='mx-auto flex flex-1 flex-col gap-3'>
-              <h3 className='text-h2_light text-center'>{t('brand.wall_branding.title')}</h3>
-              <ImageMedia src={trainingRoom} alt={t('a11y.training_room')} className='rounded-lg' />
-              <div className='flex flex-row gap-4'>
-                <div className='text-body_semibold text-green flex w-fit flex-row gap-1 rounded-2xl p-2 lg:text-base'>
-                  <ImageMedia
-                    src={UserIcon}
-                    alt={t('a11y.user')}
-                    width={28}
-                    height={28}
-                    className='my-auto'
-                  />
-                  <p className='self-center'>{t('brand.wall_branding.price_solo')}</p>
-                </div>
-                <div className='text-body_semibold text-green flex w-fit flex-row gap-1 rounded-2xl p-2 lg:text-base'>
-                  <ImageMedia
-                    src={CompanyIcon}
-                    alt={t('a11y.company')}
-                    width={28}
-                    height={28}
-                    className='my-auto'
-                  />
-                  <p className='self-center'>{t('brand.wall_branding.price_company')}</p>
-                </div>
+          <Button asChild size='xl' className='mx-auto'>
+            <a href='mailto:geral@hawkstars.org'>{t('contact_us')}</a>
+          </Button>
+        </div>
+      </HawkStarsSection>
+
+      <HawkStarsSection spacing='default'>
+        <div className='flex flex-col gap-10 lg:mx-auto lg:w-2/3'>
+          <div className='mx-auto flex flex-1 flex-col gap-3'>
+            <h3 className='text-h2_bold text-center'>{t('brand.wall_branding.title')}</h3>
+            <ImageMedia src={trainingRoom} alt={t('a11y.training_room')} className='rounded-lg' />
+            <div className='flex flex-row gap-4'>
+              <div className='text-body_semibold text-green flex w-fit flex-row gap-1 rounded-2xl p-2 lg:text-base'>
+                <ImageMedia
+                  src={UserIcon}
+                  alt={t('a11y.user')}
+                  width={28}
+                  height={28}
+                  className='my-auto'
+                />
+                <p className='self-center'>{t('brand.wall_branding.price_solo')}</p>
               </div>
-              <p className='text-body_regular'>{t('brand.wall_branding.description')}</p>
+              <div className='text-body_semibold text-green flex w-fit flex-row gap-1 rounded-2xl p-2 lg:text-base'>
+                <ImageMedia
+                  src={CompanyIcon}
+                  alt={t('a11y.company')}
+                  width={28}
+                  height={28}
+                  className='my-auto'
+                />
+                <p className='self-center'>{t('brand.wall_branding.price_company')}</p>
+              </div>
             </div>
+            <p className='text-body_regular'>{t('brand.wall_branding.description')}</p>
           </div>
-        </HawkStarsSection>
-        <div>
-          <h3 className='text-h2_bold text-green text-center'>{t('brand.chairs.title')}</h3>
-          <ChairsSections
-            title={t('brand.chairs.types.gaming_chair')}
-            price='300€'
-            icon={<ImageMedia src={loungeChairEmpty} alt={t('a11y.chair_empty')} />}
-            iconFilled={<ImageMedia src={loungeChair} alt={t('a11y.chair_taken')} />}
-            size={60}
-            currentContributions={loungeChairs}
-          />
-          <ChairsSections
-            title={t('brand.chairs.types.simulation_chair')}
-            price='350€'
-            icon={<ImageMedia src={simulatorChairNotTaken} alt={t('a11y.chair_empty')} />}
-            iconFilled={<ImageMedia src={simulatorChairTaken} alt={t('a11y.chair_taken')} />}
-            size={2}
-            currentContributions={simulationChairs}
-          />
-
-          <ChairsSections
-            title={t('brand.chairs.types.lounge_chair')}
-            price='260€'
-            icon={
-              <ImageMedia
-                src={standardLoungeChair}
-                className='h-12 w-12'
-                alt={t('a11y.chair_empty')}
-              />
-            }
-            iconFilled={
-              <ImageMedia
-                src={standardLoungeChair}
-                className='fill-green h-12 w-12'
-                alt={t('a11y.chair_taken')}
-              />
-            }
-            size={40}
-            currentContributions={officeChairs}
-          />
-          <ChairsSections
-            title={t('brand.chairs.types.auditorium_chair')}
-            price='200€'
-            icon={
-              <ImageMedia src={standardChair} className='h-12 w-12' alt={t('a11y.chair_empty')} />
-            }
-            iconFilled={
-              <ImageMedia
-                src={standardChair}
-                className='fill-green h-12 w-12'
-                alt={t('a11y.chair_taken')}
-              />
-            }
-            size={110}
-            currentContributions={auditoriumChairs}
-          />
         </div>
-      </div>
-      <section className='bg-bege-light flex w-full flex-col gap-5 py-10' id='form'>
-        <h3 className='text-h2_bold text-green flex justify-center'>{t('helps_us_donate')}</h3>
-        <div className='mx-auto'>
+      </HawkStarsSection>
+
+      <HawkStarsSection spacing='default' className='bg-bege-light'>
+        <SectionHeader align='center' title={t('brand.chairs.title')} className='mb-8' />
+        <ChairsSections
+          title={t('brand.chairs.types.gaming_chair')}
+          price='300€'
+          icon={<ImageMedia src={loungeChairEmpty} alt={t('a11y.chair_empty')} />}
+          iconFilled={<ImageMedia src={loungeChair} alt={t('a11y.chair_taken')} />}
+          size={60}
+          currentContributions={loungeChairs}
+        />
+        <ChairsSections
+          title={t('brand.chairs.types.simulation_chair')}
+          price='350€'
+          icon={<ImageMedia src={simulatorChairNotTaken} alt={t('a11y.chair_empty')} />}
+          iconFilled={<ImageMedia src={simulatorChairTaken} alt={t('a11y.chair_taken')} />}
+          size={2}
+          currentContributions={simulationChairs}
+        />
+
+        <ChairsSections
+          title={t('brand.chairs.types.lounge_chair')}
+          price='260€'
+          icon={
+            <ImageMedia
+              src={standardLoungeChair}
+              className='h-12 w-12'
+              alt={t('a11y.chair_empty')}
+            />
+          }
+          iconFilled={
+            <ImageMedia
+              src={standardLoungeChair}
+              className='fill-green h-12 w-12'
+              alt={t('a11y.chair_taken')}
+            />
+          }
+          size={40}
+          currentContributions={officeChairs}
+        />
+        <ChairsSections
+          title={t('brand.chairs.types.auditorium_chair')}
+          price='200€'
+          icon={
+            <ImageMedia src={standardChair} className='h-12 w-12' alt={t('a11y.chair_empty')} />
+          }
+          iconFilled={
+            <ImageMedia
+              src={standardChair}
+              className='fill-green h-12 w-12'
+              alt={t('a11y.chair_taken')}
+            />
+          }
+          size={110}
+          currentContributions={auditoriumChairs}
+        />
+      </HawkStarsSection>
+
+      <HawkStarsSection spacing='default' id='form'>
+        <SectionHeader align='center' title={t('helps_us_donate')} className='mb-8' />
+        <div className='flex justify-center'>
           <DonationWidget />
         </div>
-      </section>
-    </div>
+      </HawkStarsSection>
+    </>
   );
 };
 

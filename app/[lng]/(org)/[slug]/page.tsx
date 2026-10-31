@@ -7,6 +7,7 @@ import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
 import RichText from '@/payload/components/RichText';
 import { Suspense } from 'react';
+import { PageLoading } from '@/components/layout';
 
 type PageProps = {
   params: Promise<LanguageProps & { slug: string }>;
@@ -39,7 +40,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 // it has to sit above the `params` await (a dynamic API here, since `[slug]` has
 // no `generateStaticParams`) to buy anything.
 const Index = (props: PageProps) => (
-  <Suspense fallback={<></>}>
+  <Suspense fallback={<PageLoading />}>
     <PageContent params={props.params} />
   </Suspense>
 );

@@ -6,6 +6,7 @@ import { getContributionsQuery, getSumContributions } from '@/lib/payload/querie
 import ContributionProjectGoal from '@/components/transparency/ContributionProjectGoal';
 import OrganizationContributionsTable from '@/components/transparency/OrganizationContributionsTable';
 import { Suspense } from 'react';
+import { PageLoading } from '@/components/layout';
 
 type TransparencyPageProps = LanguagePageProps & {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -22,7 +23,7 @@ export async function generateMetadata(props: TransparencyPageProps): Promise<Me
 // `params` await, so it stayed blocking. The two queries are also independent —
 // they were awaited in series for no reason.
 const TransparencyPage = (props: TransparencyPageProps) => (
-  <Suspense fallback={<></>}>
+  <Suspense fallback={<PageLoading />}>
     <TransparencyContent params={props.params} searchParams={props.searchParams} />
   </Suspense>
 );
@@ -44,10 +45,10 @@ const TransparencyContent = async ({
   if (sumContributions === null) return null;
 
   return (
-    <section className='flex flex-col gap-5 overflow-x-hidden'>
+    <>
       <ContributionProjectGoal sumContributions={sumContributions} />
       <OrganizationContributionsTable data={organizationContributions} lng={lng} />
-    </section>
+    </>
   );
 };
 

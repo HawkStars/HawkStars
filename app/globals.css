@@ -142,6 +142,21 @@
     line-height: 113%;
   }
 
+  .text-h2_semibold {
+    @apply text-2xl font-semibold lg:text-3xl;
+    line-height: 113%;
+  }
+
+  .text-h3_semibold {
+    @apply text-xl font-semibold;
+    line-height: 120%;
+  }
+
+  /* Page hero title — one per page, used by PageHero */
+  .text-display {
+    @apply text-4xl leading-tight font-bold tracking-tight text-balance lg:text-6xl;
+  }
+
   .text-body_regular {
     @apply text-base font-normal;
   }

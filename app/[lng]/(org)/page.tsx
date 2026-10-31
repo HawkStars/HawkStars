@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { Suspense } from 'react';
+import { PageLoading } from '@/components/layout';
 import { getMetadataPageInfo, prepareMetadataInfo } from '@/utils/metadata';
 import { LanguagePageProps } from './types';
 import { Language } from '@/i18n/settings';
@@ -28,7 +29,7 @@ type HomeProps = {
 
 export default function Home(props: HomeProps) {
   return (
-    <Suspense fallback={<></>}>
+    <Suspense fallback={<PageLoading />}>
       <HomeContent params={props.params} />
     </Suspense>
   );

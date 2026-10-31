@@ -12,7 +12,7 @@ type ContentSectionProps = {
  * every section shares a left edge at every breakpoint.
  *
  * Use this instead of reaching for `Section` directly. `Section`'s legacy
- * `padding='default'` (`px-4 xl:px-40`) and hand-rolled wrappers
+ * `padding='default'` (formerly `px-4 xl:px-40`) and hand-rolled wrappers
  * (`container mx-auto max-w-6xl`, bare `px-6 lg:px-12`) each produced a
  * different edge, which is what left list pages misaligned with the sections
  * above them.

@@ -7,6 +7,7 @@ const oswald = Oswald({ variable: '--font-oswald', subsets: ['latin'], display: 
 
 import Script from 'next/script';
 import { Suspense } from 'react';
+import { PageLoading } from '@/components/layout/PageLoading';
 import SkipToContent from '@/components/a11y/SkipToContent';
 import AppProvider from '@/utils/contexts/AppProvider';
 import { Language, fallbackLng, languages } from '@/i18n/settings';
@@ -76,7 +77,7 @@ async function LayoutContent({ children, lng }: { children: React.ReactNode; lng
       <MobileNavbar headerInfo={headerInfo} />
       <Navbar headerInfo={headerInfo} lng={lng as Language} />
       <main id='main-content' className='bg-body relative min-h-screen'>
-        <Suspense fallback={<></>}>{children}</Suspense>
+        <Suspense fallback={<PageLoading />}>{children}</Suspense>
       </main>
       <FooterContainer footerInfo={footerInfo} lng={lng as Language} />
     </AppProvider>

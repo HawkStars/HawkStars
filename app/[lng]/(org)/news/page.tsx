@@ -9,6 +9,7 @@ import { Metadata } from 'next';
 import NewsListComponent from '@/components/news/list/NewsListComponent';
 import NewsListHeader from '@/components/news/list/NewsListHeader';
 import { Suspense } from 'react';
+import { PageLoading } from '@/components/layout';
 
 // Mirrors components/news/constants.ts's NewsTypeLabels keys -- kept explicit
 // (rather than Object.keys(NewsTypeLabels)) so the filter's option order is
@@ -37,7 +38,7 @@ export async function generateMetadata(props: NewsPageProps): Promise<Metadata> 
 // above that await the whole route is blocking; with one, the shell prerenders
 // and only the list streams in per request.
 const NewsIndexPage = (props: NewsPageProps) => (
-  <Suspense fallback={<></>}>
+  <Suspense fallback={<PageLoading />}>
     <NewsListContent params={props.params} searchParams={props.searchParams} />
   </Suspense>
 );

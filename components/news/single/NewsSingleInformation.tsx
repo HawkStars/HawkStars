@@ -28,7 +28,7 @@ const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, refere
           </div>
           {references && references.length > 0 && (
             <div className='my-6 max-w-6xl gap-2 max-lg:mx-4'>
-              <h6 className='text-h6_bold text-green mb-4'>{t('sections.references')}</h6>
+              <h6 className='text-body_semibold text-green mb-4'>{t('sections.references')}</h6>
               {references.map((ref) => {
                 const { platform, url, id } = ref || {};
                 if (!url) return null;

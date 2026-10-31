@@ -36,7 +36,7 @@ const ArchiveListComponent = <T,>({
   return (
     <ContentSection>
       <div className='flex flex-col gap-8'>
-        <SectionHeader as='h1' title={title} titleClassName='text-h2_semibold' />
+        <SectionHeader as='h1' title={title} titleClassName='text-display' />
         {filters && filters.length > 0 && <ListFilters filters={filters} />}
         {docs.length === 0 ? (
           <p className='text-muted-foreground text-body_regular'>{emptyLabel}</p>

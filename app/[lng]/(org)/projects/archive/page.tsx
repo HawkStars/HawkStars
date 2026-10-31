@@ -10,6 +10,7 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import { SITE_GET_URLS } from '@/utils/paths';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
+import { PageLoading } from '@/components/layout';
 
 export async function generateMetadata(props: ProjectsArchivePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -33,7 +34,7 @@ type ProjectsArchivePageProps = {
 // that only opens the <Suspense> boundary, with `params`/`searchParams`
 // consumed inside it so the pagination query params stay per-request.
 const ProjectsArchivePage = (props: ProjectsArchivePageProps) => (
-  <Suspense fallback={<></>}>
+  <Suspense fallback={<PageLoading />}>
     <ProjectsArchiveContent params={props.params} searchParams={props.searchParams} />
   </Suspense>
 );

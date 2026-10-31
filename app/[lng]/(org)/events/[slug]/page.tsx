@@ -8,6 +8,7 @@ import EventPage from '@/components/events/EventPage';
 import { EventJsonLd } from '@/components/seo/JsonLd';
 import { BASE_URL, SITE_NAME } from '@/lib/constants';
 import { Suspense } from 'react';
+import { PageLoading } from '@/components/layout';
 import { getImagePayloadUrl } from '@/lib/image';
 
 // A missing document used to `return {}`, which inherits from the parent layout
@@ -39,7 +40,7 @@ type EventPageProps = { params: Promise<LanguageProps & { slug: string }> };
 // Non-async shell so the <Suspense> boundary exists before `params` — a dynamic
 // API on this route, since `[slug]` has no `generateStaticParams` — is awaited.
 const SingleEventPage = (props: EventPageProps) => (
-  <Suspense fallback={<></>}>
+  <Suspense fallback={<PageLoading />}>
     <EventContent params={props.params} />
   </Suspense>
 );

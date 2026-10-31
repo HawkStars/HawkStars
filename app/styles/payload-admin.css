@@ -5,3 +5,8 @@
 
 /* Support Payload’s dark mode toggle by adding a custom variant */
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* Brand tokens used by admin components (mirrors app/globals.css). */
+@theme {
+  --color-green: #0a7558;
+}

@@ -73,13 +73,13 @@ const DetailsStep = ({
 
   return (
     <div className='flex flex-col gap-4'>
-      <p className='text-center text-[15px] leading-relaxed text-[#333]'>
+      <p className='text-center text-[15px] leading-relaxed text-neutral-800'>
         {t('donation_widget.details.description')}
       </p>
 
       {/* Name */}
       <div>
-        <label htmlFor='donation-name' className='mb-1 block text-sm font-medium text-[#555]'>
+        <label htmlFor='donation-name' className='mb-1 block text-sm font-medium text-neutral-600'>
           {t('donation_widget.details.name_label')} <span aria-hidden='true'>*</span>
         </label>
         <input
@@ -92,14 +92,14 @@ const DetailsStep = ({
             if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
           }}
           placeholder={t('donation_widget.details.name_placeholder')}
-          className='border-disabled w-full rounded-lg border px-3 py-2.5 text-sm text-[#333] outline-hidden focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1 aria-[invalid=true]:border-[#c0392b]'
+          className='border-disabled focus-visible:border-green focus-visible:ring-green aria-[invalid=true]:border-destructive w-full rounded-lg border px-3 py-2.5 text-sm text-neutral-800 outline-hidden focus-visible:ring-2 focus-visible:ring-offset-1'
           required
           aria-required='true'
           aria-invalid={Boolean(errors.name)}
           aria-describedby={errors.name ? 'donation-name-error' : undefined}
         />
         {errors.name && (
-          <p id='donation-name-error' role='alert' className='mt-1 text-sm text-[#c0392b]'>
+          <p id='donation-name-error' role='alert' className='text-destructive mt-1 text-sm'>
             {errors.name}
           </p>
         )}
@@ -107,7 +107,7 @@ const DetailsStep = ({
 
       {/* Email */}
       <div>
-        <label htmlFor='donation-email' className='mb-1 block text-sm font-medium text-[#555]'>
+        <label htmlFor='donation-email' className='mb-1 block text-sm font-medium text-neutral-600'>
           {t('donation_widget.details.email_label')} <span aria-hidden='true'>*</span>
         </label>
         <input
@@ -120,14 +120,14 @@ const DetailsStep = ({
             if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
           }}
           placeholder={t('donation_widget.details.email_placeholder')}
-          className='border-disabled w-full rounded-lg border px-3 py-2.5 text-sm text-[#333] outline-hidden focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1 aria-[invalid=true]:border-[#c0392b]'
+          className='border-disabled focus-visible:border-green focus-visible:ring-green aria-[invalid=true]:border-destructive w-full rounded-lg border px-3 py-2.5 text-sm text-neutral-800 outline-hidden focus-visible:ring-2 focus-visible:ring-offset-1'
           required
           aria-required='true'
           aria-invalid={Boolean(errors.email)}
           aria-describedby={errors.email ? 'donation-email-error' : undefined}
         />
         {errors.email && (
-          <p id='donation-email-error' role='alert' className='mt-1 text-sm text-[#c0392b]'>
+          <p id='donation-email-error' role='alert' className='text-destructive mt-1 text-sm'>
             {errors.email}
           </p>
         )}
@@ -135,7 +135,7 @@ const DetailsStep = ({
 
       {/* Phone */}
       <fieldset className='border-0 p-0'>
-        <legend className='mb-1 block text-sm font-medium text-[#555]'>
+        <legend className='mb-1 block text-sm font-medium text-neutral-600'>
           {t('donation_widget.details.phone_label')}
         </legend>
         <div className='flex gap-2'>
@@ -144,7 +144,7 @@ const DetailsStep = ({
             type='text'
             value={phoneIndicative}
             onChange={(e) => onPhoneIndicativeChange(e.target.value)}
-            className='border-disabled w-20 rounded-lg border px-3 py-2.5 text-center text-sm text-[#333] outline-hidden focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1'
+            className='border-disabled focus-visible:border-green focus-visible:ring-green w-20 rounded-lg border px-3 py-2.5 text-center text-sm text-neutral-800 outline-hidden focus-visible:ring-2 focus-visible:ring-offset-1'
             placeholder='+351'
             aria-label={t('donation_widget.details.phone_indicative_label')}
           />
@@ -154,7 +154,7 @@ const DetailsStep = ({
             value={phoneNumber}
             onChange={(e) => onPhoneNumberChange(e.target.value.replace(/[^0-9]/g, ''))}
             placeholder={t('donation_widget.details.phone_placeholder')}
-            className='border-disabled flex-1 rounded-lg border px-3 py-2.5 text-sm text-[#333] outline-hidden focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1'
+            className='border-disabled focus-visible:border-green focus-visible:ring-green flex-1 rounded-lg border px-3 py-2.5 text-sm text-neutral-800 outline-hidden focus-visible:ring-2 focus-visible:ring-offset-1'
             aria-label={t('donation_widget.details.phone_label')}
           />
         </div>
@@ -171,9 +171,11 @@ const DetailsStep = ({
               setShowComment(e.target.checked);
               if (!e.target.checked) onCommentChange('');
             }}
-            className='h-4 w-4 cursor-pointer accent-[#c0392b]'
+            className='accent-green h-4 w-4 cursor-pointer'
           />
-          <span className='text-sm text-[#555]'>{t('donation_widget.details.write_comment')}</span>
+          <span className='text-sm text-neutral-600'>
+            {t('donation_widget.details.write_comment')}
+          </span>
         </label>
         {showComment && (
           <>
@@ -187,7 +189,7 @@ const DetailsStep = ({
               placeholder={t('donation_widget.details.comment_placeholder')}
               rows={3}
               style={{ resize: 'vertical' }}
-              className='border-disabled mt-2.5 w-full rounded-lg border px-3 py-2.5 font-[inherit] text-sm outline-hidden focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1'
+              className='border-disabled focus-visible:border-green focus-visible:ring-green mt-2.5 w-full rounded-lg border px-3 py-2.5 font-[inherit] text-sm outline-hidden focus-visible:ring-2 focus-visible:ring-offset-1'
             />
           </>
         )}
@@ -198,14 +200,14 @@ const DetailsStep = ({
         <button
           type='button'
           onClick={onBack}
-          className='border-disabled flex-1 cursor-pointer rounded-lg border bg-white py-3 text-sm font-medium text-[#333] transition-colors duration-150 hover:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-2'
+          className='border-disabled hover:border-green focus-visible:ring-green flex-1 cursor-pointer rounded-lg border bg-white py-3 text-sm font-medium text-neutral-800 transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-offset-2'
         >
           {t('donation_widget.back')}
         </button>
         <button
           type='button'
           onClick={handleNext}
-          className='flex-1 cursor-pointer rounded-lg border-none bg-linear-to-br from-[#c0392b] to-[#e74c3c] py-3 text-sm font-semibold text-white transition-opacity duration-200 focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-2'
+          className='from-green-dark to-green focus-visible:ring-green flex-1 cursor-pointer rounded-lg border-none bg-linear-to-br py-3 text-sm font-semibold text-white transition-opacity duration-200 focus-visible:ring-2 focus-visible:ring-offset-2'
         >
           {t('donation_widget.continue')}
         </button>

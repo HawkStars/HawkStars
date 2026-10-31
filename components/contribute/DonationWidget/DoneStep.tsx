@@ -20,7 +20,7 @@ const DoneStep = ({ donationState, paymentResponse, onReset }: DoneStepProps) =>
   return (
     <div className='flex flex-col items-center gap-5 py-4'>
       {/* Success icon */}
-      <div className='flex h-16 w-16 items-center justify-center rounded-full bg-[#27ae60]'>
+      <div className='bg-green flex h-16 w-16 items-center justify-center rounded-full'>
         <svg
           width='32'
           height='32'
@@ -35,8 +35,8 @@ const DoneStep = ({ donationState, paymentResponse, onReset }: DoneStepProps) =>
         </svg>
       </div>
 
-      <h3 className='text-xl font-semibold text-[#333]'>{t('donation_widget.done.title')}</h3>
-      <p className='text-center text-[15px] leading-relaxed text-[#555]'>
+      <h3 className='text-xl font-semibold text-neutral-800'>{t('donation_widget.done.title')}</h3>
+      <p className='text-center text-[15px] leading-relaxed text-neutral-600'>
         {t('donation_widget.done.description', {
           amount: activeAmount,
           frequency:
@@ -46,11 +46,11 @@ const DoneStep = ({ donationState, paymentResponse, onReset }: DoneStepProps) =>
 
       {/* Multibanco reference details */}
       {hasMBReference && (
-        <div className='w-full rounded-lg border border-[#ddd] bg-[#fafafa] p-4'>
-          <p className='mb-2 text-center text-sm font-medium text-[#333]'>
+        <div className='w-full rounded-lg border border-neutral-300 bg-neutral-50 p-4'>
+          <p className='mb-2 text-center text-sm font-medium text-neutral-800'>
             {t('donation_widget.done.mb_reference_title')}
           </p>
-          <div className='flex flex-col gap-1 text-center text-sm text-[#555]'>
+          <div className='flex flex-col gap-1 text-center text-sm text-neutral-600'>
             <span>
               {t('donation_widget.done.mb_entity')}: {String(mbEntity.entity)}
             </span>
@@ -72,7 +72,7 @@ const DoneStep = ({ donationState, paymentResponse, onReset }: DoneStepProps) =>
 
       <button
         onClick={onReset}
-        className='mt-2 cursor-pointer rounded-lg border border-[#c0392b] bg-white px-8 py-3 text-sm font-medium text-[#c0392b] transition-colors duration-150 hover:bg-[#c0392b] hover:text-white'
+        className='border-green text-green hover:bg-green mt-2 cursor-pointer rounded-lg border bg-white px-8 py-3 text-sm font-medium transition-colors duration-150 hover:text-white'
       >
         {t('donation_widget.done.make_another')}
       </button>

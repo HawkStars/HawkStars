@@ -12,6 +12,7 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import { SITE_GET_URLS } from '@/utils/paths';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
+import { PageLoading } from '@/components/layout';
 
 export async function generateMetadata(props: EventsPageProps): Promise<Metadata> {
   const params = await props.params;
@@ -37,7 +38,7 @@ type EventsPageProps = {
 // boundary has to be created before the data is requested, so the page component
 // stays non-async and passes `params` down unawaited.
 const EventsPage = (props: EventsPageProps) => (
-  <Suspense fallback={<></>}>
+  <Suspense fallback={<PageLoading />}>
     <EventsContent params={props.params} searchParams={props.searchParams} />
   </Suspense>
 );

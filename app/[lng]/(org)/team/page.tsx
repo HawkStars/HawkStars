@@ -6,6 +6,7 @@ import { getServerTranslation } from '@/i18n';
 import { getBoardMembers } from '@/lib/payload/queries/team';
 import TeamInformation from '@/components/team/TeamInformation';
 import { Suspense } from 'react';
+import { HawkStarsSection, PageHero, PageLoading } from '@/components/layout';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -21,7 +22,7 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
 // must not await — hence the non-async shell plus a content child that consumes
 // the `params` promise inside the boundary.
 const TeamPage = (props: LanguagePageProps) => (
-  <Suspense fallback={<></>}>
+  <Suspense fallback={<PageLoading />}>
     <TeamContent params={props.params} />
   </Suspense>
 );
@@ -34,18 +35,12 @@ const TeamContent = async ({ params }: { params: LanguagePageProps['params'] }) 
   ]);
 
   return (
-    <div className='mt-5 flex flex-col gap-20 px-4 max-lg:gap-8 lg:mt-10'>
-      {/* Header Section */}
-      <div className='flex flex-col gap-4 pl-4'>
-        <h1 className='text-h1_semibold text-center'>{t('title')}</h1>
-        <p className='text-body mx-auto max-w-3xl text-gray-600 lg:text-justify'>
-          {t('description')}
-        </p>
-      </div>
-      <div className='flex flex-col justify-center'>
+    <>
+      <PageHero title={t('title')} description={t('description')} />
+      <HawkStarsSection spacing='default'>
         <TeamInformation boardMembers={boardMembers} lng={lng} />
-      </div>
-    </div>
+      </HawkStarsSection>
+    </>
   );
 };
 

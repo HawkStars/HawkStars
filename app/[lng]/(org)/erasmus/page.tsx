@@ -80,12 +80,12 @@ const EUStarsSVG = () => (
 // ── Hero Section ──
 
 const HeroSection = ({ t }: SectionProps) => (
-  <header className='bg-erasmus-blue relative flex min-h-screen flex-col justify-center overflow-hidden px-4 py-24 xl:px-40'>
+  <header className='bg-erasmus-blue relative flex min-h-screen flex-col justify-center overflow-hidden px-4 py-24 sm:px-6 lg:px-8'>
     {/* Background pattern overlay */}
     <div className='absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_40%,rgba(255,204,0,0.08)_0%,transparent_70%)]' />
     <EUStarsSVG />
 
-    <div className='relative mx-auto w-full max-w-275'>
+    <div className='relative mx-auto w-full max-w-6xl'>
       <p className='text-erasmus-gold mb-6 flex items-center gap-3 text-xs font-semibold tracking-[0.25em] uppercase'>
         <span className='bg-erasmus-gold block h-0.5 w-10' />
         {t('hero_eyebrow')}
@@ -134,8 +134,8 @@ const HeroStat = ({ value, label }: { value: string; label: string }) => (
 );
 
 const FlagshipProgrammes = ({ t }: SectionProps) => (
-  <section id='programmes' className='px-4 py-24 xl:px-40'>
-    <div className='mx-auto max-w-275'>
+  <section id='programmes' className='px-4 py-24 sm:px-6 lg:px-8'>
+    <div className='mx-auto max-w-6xl'>
       <SectionTag label={t('flagship_tag')} />
       <h2 className='text-erasmus-dark mb-5 font-serif text-[clamp(2rem,4vw,3.2rem)] leading-tight font-bold'>
         {t('flagship_title')}
@@ -190,8 +190,8 @@ const FlagshipCard = ({
 // ── More Opportunities ──
 
 const MoreOpportunities = ({ t }: SectionProps) => (
-  <section className='bg-erasmus-blue px-4 py-24 text-white xl:px-40'>
-    <div className='mx-auto max-w-275'>
+  <section className='bg-erasmus-blue px-4 py-24 text-white sm:px-6 lg:px-8'>
+    <div className='mx-auto max-w-6xl'>
       <SectionTag label={t('opps_tag')} variant='gold' />
       <h2 className='mb-5 font-serif text-[clamp(2rem,4vw,3.2rem)] leading-tight font-bold text-white'>
         {t('opps_title')}
@@ -215,8 +215,8 @@ const MoreOpportunities = ({ t }: SectionProps) => (
 );
 
 const HowToApply = ({ t }: SectionProps) => (
-  <section id='apply' className='px-4 py-24 xl:px-40'>
-    <div className='mx-auto max-w-275'>
+  <section id='apply' className='px-4 py-24 sm:px-6 lg:px-8'>
+    <div className='mx-auto max-w-6xl'>
       <SectionTag label={t('apply_tag')} />
       <h2 className='text-erasmus-dark mb-5 font-serif text-[clamp(2rem,4vw,3.2rem)] leading-tight font-bold'>
         {t('apply_title')}
@@ -241,8 +241,8 @@ const HowToApply = ({ t }: SectionProps) => (
 );
 
 const Eligibility = ({ t }: SectionProps) => (
-  <section className='bg-erasmus-dark px-4 py-24 text-white xl:px-40'>
-    <div className='mx-auto max-w-275'>
+  <section className='bg-erasmus-dark px-4 py-24 text-white sm:px-6 lg:px-8'>
+    <div className='mx-auto max-w-6xl'>
       <SectionTag label={t('elig_tag')} variant='gold' />
       <h2 className='mb-10 font-serif text-[clamp(2rem,4vw,3.2rem)] leading-tight font-bold text-white'>
         {t('elig_title')}

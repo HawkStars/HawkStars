@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { LanguagePageProps } from '../types';
 import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
-import { HawkStarsSection } from '@/components/layout';
+import { PageHero, PageLoading } from '@/components/layout';
+import { Button } from '@/components/ui/button';
 import { getConfirmedMemberProjects } from '@/lib/payload/queries/memberProject';
 import { transformUrl, allUrls } from '@/utils/paths';
 import MembersShowcase from '@/components/members-corner/MembersShowcase';
@@ -17,7 +18,7 @@ export async function generateMetadata(props: LanguagePageProps): Promise<Metada
 }
 
 const MembersCornerPage = (props: LanguagePageProps) => (
-  <Suspense fallback={<></>}>
+  <Suspense fallback={<PageLoading />}>
     <MembersCornerContent params={props.params} />
   </Suspense>
 );
@@ -31,30 +32,24 @@ const MembersCornerContent = async ({ params }: { params: LanguagePageProps['par
   ]);
 
   return (
-    <HawkStarsSection padding='none' cap='none'>
-      <header className='bg-green relative overflow-hidden px-4 py-20 lg:py-28 xl:px-40'>
-        <div className='pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full bg-white/5' />
-        <div className='pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-white/5' />
-
-        <div className='relative mx-auto max-w-4xl text-center'>
-          <p className='text-bege-dark mb-4 text-sm font-bold tracking-[0.2em] uppercase'>
-            {t('hero.subtitle')}
-          </p>
-          <h1 className='mb-6 text-4xl leading-tight font-bold text-white lg:text-6xl'>
-            {t('hero.title')}
-          </h1>
-          <p className='mx-auto mb-8 max-w-2xl text-lg text-white/90'>{t('hero.description')}</p>
-          <Link
-            href={transformUrl(lng, allUrls.members_corner_submit)}
-            className='text-green inline-block rounded-md bg-white px-8 py-3 font-semibold transition-colors hover:bg-white/90'
-          >
-            {t('hero.submitCta')}
-          </Link>
-        </div>
-      </header>
+    <>
+      <PageHero
+        variant='green'
+        align='center'
+        eyebrow={t('hero.subtitle')}
+        title={t('hero.title')}
+        description={t('hero.description')}
+        actions={
+          <Button asChild variant='inverse' size='xl'>
+            <Link href={transformUrl(lng, allUrls.members_corner_submit)}>
+              {t('hero.submitCta')}
+            </Link>
+          </Button>
+        }
+      />
 
       <MembersShowcase projects={projects} t={t} lng={lng} />
-    </HawkStarsSection>
+    </>
   );
 };
 

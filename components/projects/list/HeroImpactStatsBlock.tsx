@@ -95,13 +95,9 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
                 </span>
               )}
 
-              {title && (
-                <h1 className='text-4xl leading-tight font-bold text-gray-900 lg:text-5xl xl:text-6xl'>
-                  {title}
-                </h1>
-              )}
+              {title && <h1 className='text-display text-black'>{title}</h1>}
 
-              {subtitle && <p className='text-lg text-gray-600 lg:text-xl'>{subtitle}</p>}
+              {subtitle && <p className='text-lg text-black/70 lg:text-xl'>{subtitle}</p>}
 
               {/* Impact Stats */}
               {stats && stats.length > 0 && (
@@ -116,7 +112,7 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
                             {stat.number}
                           </span>
                         </div>
-                        <p className='text-sm font-medium text-gray-700 lg:text-base'>
+                        <p className='text-sm font-medium text-black/80 lg:text-base'>
                           {stat.label}
                         </p>
                       </div>

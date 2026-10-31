@@ -11,11 +11,20 @@ const meta = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
+      options: [
+        'default',
+        'destructive',
+        'outline',
+        'secondary',
+        'inverse',
+        'outline-inverse',
+        'ghost',
+        'link',
+      ],
     },
     size: {
       control: { type: 'select' },
-      options: ['default', 'sm', 'lg', 'icon', 'icon-sm', 'icon-lg'],
+      options: ['default', 'sm', 'lg', 'xl', 'icon', 'icon-sm', 'icon-lg'],
     },
     asChild: {
       control: { type: 'boolean' },
@@ -103,4 +112,27 @@ export const Loading: Story = {
     disabled: true,
     children: 'Loading...',
   },
+};
+
+export const Inverse: Story = {
+  args: {
+    variant: 'inverse',
+    size: 'xl',
+    children: 'On green',
+  },
+  decorators: [
+    (Story) => (
+      <div className='bg-green flex gap-4 p-8'>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const OutlineInverse: Story = {
+  args: {
+    ...Inverse.args,
+    variant: 'outline-inverse',
+  },
+  decorators: Inverse.decorators,
 };

@@ -14,6 +14,7 @@ import SingleProjectReports from '@/components/projects/single/SingleProjectRepo
 import SingleProjectResults from '@/components/projects/single/SingleProjectResults';
 import SingleProjectTravelMapWrapper from '@/components/projects/single/SingleProjectTravelMapWrapper';
 import { Suspense } from 'react';
+import { PageLoading } from '@/components/layout';
 
 // A missing document used to `return {}`, which inherits from the parent layout
 // — and (org)/layout.tsx exports no metadata at all, so a mistyped slug rendered
@@ -45,7 +46,7 @@ export async function generateMetadata(props: ProjectPageProps): Promise<Metadat
 type ProjectPageProps = { params: Promise<LanguageProps & { slug: string }> };
 
 const ProjectServerPage = (props: ProjectPageProps) => (
-  <Suspense fallback={<></>}>
+  <Suspense fallback={<PageLoading />}>
     <ProjectContent params={props.params} />
   </Suspense>
 );

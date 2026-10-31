@@ -1,13 +1,5 @@
-import { ImageMedia } from '@/payload/components/Media';
-
-import { hawkLogo } from '@/utils/models/images/logos';
+import { PageLoading } from '@/components/layout/PageLoading';
 
 export default function MainHawkStarsLoading() {
-  return (
-    <div className='mx-auto mt-10 flex w-1/2 justify-center align-middle lg:mt-20'>
-      <div className='bg-bege-dark animate-pulse rounded-3xl p-4'>
-        <ImageMedia src={hawkLogo} alt='' width={200} />
-      </div>
-    </div>
-  );
+  return <PageLoading />;
 }

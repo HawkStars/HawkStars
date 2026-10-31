@@ -20,10 +20,10 @@ const NewsSingleHeroNoImage: FC<NewsSingleHeroProps> = ({ title, type, published
     : null;
 
   return (
-    <HawkStarsSection className='bg-green px-4 py-16 xl:px-40'>
-      <div className='mx-auto max-w-6xl'>
+    <HawkStarsSection spacing='tight' className='bg-green'>
+      <div>
         <HawkLabel type={type} className='mb-15' design='badge' />
-        <h1 className='text-h1_semibold text-white'>{title}</h1>
+        <h1 className='text-display text-white'>{title}</h1>
         {formattedDate && <p className='mt-3 text-sm font-light text-white/95'>{formattedDate}</p>}
       </div>
     </HawkStarsSection>

@@ -12,6 +12,7 @@ import NewsSingleHeroNoImage from '@/components/news/single/NewsSingleHeroNoImag
 import NewsSingleInformation from '@/components/news/single/NewsSingleInformation';
 import NewsSingleGallery from '@/components/news/single/NewsSingleGallery';
 import { Suspense } from 'react';
+import { PageLoading } from '@/components/layout';
 
 type NewsSlugPageProps = {
   params: Promise<LanguageProps & { slug: string }>;
@@ -47,7 +48,7 @@ export async function generateMetadata(props: NewsSlugPageProps): Promise<Metada
 // `getSingleNewsSlug` is cached. The promise is handed to a child that awaits it
 // inside the boundary instead, which is what `instant = false` was papering over.
 const NewsSlugPage = (props: NewsSlugPageProps) => (
-  <Suspense fallback={<></>}>
+  <Suspense fallback={<PageLoading />}>
     <NewsArticleContent params={props.params} />
   </Suspense>
 );

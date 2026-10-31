@@ -108,7 +108,10 @@ Defined in `globals.css` `@layer components`. Prefer these over raw Tailwind fon
 | -------------------- | --------------------------- | ----------- | ------------------------------ |
 | `text-h1_semibold`   | `text-5xl / font-semibold`  | 103%        | Page heroes, main headings     |
 | `text-h2_light`      | `text-2xl / font-light`     | 113%        | Section subtitles              |
+| `text-display`       | `text-4xl → lg:text-6xl / font-bold` | tight | Page hero title (`PageHero`, detail-page h1s) |
 | `text-h2_bold`       | `text-2xl / font-bold`      | 113%        | Section headings               |
+| `text-h2_semibold`   | `text-2xl → lg:text-3xl / font-semibold` | 113% | List/archive section headings |
+| `text-h3_semibold`   | `text-xl / font-semibold`   | 120%        | Card titles                    |
 | `text-body`          | `24px`                      | `27px`      | Lead / large body copy         |
 | `text-body_regular`  | `text-base / font-normal`   | —           | Standard paragraph text        |
 | `text-body_semibold` | `text-base / font-semibold` | —           | Emphasized inline text, labels |
@@ -153,22 +156,47 @@ import { HawkStarsSection } from '@/components/layout';
 Props via `variantProps`:
 
 - `width`: `'full'` | `'half'` (default: full)
-- `padding`: `'none'` | `'default'` (default: `default` → `px-4 xl:px-40 xl:mx-auto`)
-- All native `<div>` props including `className`
+- `padding`: `'none'` | `'default'` (default: `default` → `px-4 sm:px-6 lg:px-8`)
+- `spacing`: `'none'` | `'tight'` | `'default'` | `'loose'` — vertical rhythm. Use these instead of hand-written `py-*`.
+- `cap`: `'content'` (default — children capped at `max-w-6xl`) | `'none'` (full-bleed)
+- All native `<section>` props including `className` and `id`
 
-### `HawkStarsOffSetSection`
+**Full-bleed colour bands:** put the background on the section itself — `<HawkStarsSection spacing='default' className='bg-bege-light'>`. The background spans the viewport and the content stays on the shared 6xl column. Stack sections rather than nesting them; don't use negative margins to break out of a parent. (`HawkStarsOffSetSection` was removed — its `-mx-4 xl:-mx-40` no longer matched the gutter.)
 
-Breaks out of the parent padding to create full-bleed color bands. Use inside a `HawkStarsSection` to create a color-filled strip without changing the outer padding structure.
+Never use the legacy `xl:px-40` gutter or hand-rolled `container mx-auto max-w-*` wrappers on org pages.
+
+### `PageHero`
+
+The standard top-of-page header for org pages. Every org page starts with one, except sub-brand pages (Erasmus, gallery, gaming, crowdfunding) and image-led detail heroes.
 
 ```tsx
-import { HawkStarsOffSetSection } from '@/components/layout';
+import { PageHero } from '@/components/layout';
 
-<HawkStarsOffSetSection bgColor='bege-dark'>{/* full-bleed content */}</HawkStarsOffSetSection>;
+<PageHero title={t('title')} description={t('description')} />
+
+<PageHero
+  variant='green'
+  align='center'
+  eyebrow={t('eyebrow')}
+  title={t('title')}
+  description={t('description')}
+  actions={
+    <Button asChild variant='inverse' size='xl'>
+      <Link href={url}>{t('cta')}</Link>
+    </Button>
+  }
+/>
 ```
 
-Props:
+Props: `variant` (`'bege'` default | `'green'`), `align` (`'left'` | `'center'`), `size` (`'default'` | `'compact'` for forms/legal pages), `as` (`'h1'` default, `'h2'` when reused as an in-page banner), `eyebrow`, `description`, `actions`, `children` (rendered under the header, e.g. a progress bar).
 
-- `bgColor`: `'bege-light'` | `'bege-dark'` | `'white'` | `'green'` (default: `'white'`)
+### `PageLoading`
+
+The shared loading state for org routes. Use it as every `<Suspense>` fallback on org pages — never `fallback={<></>}`.
+
+```tsx
+<Suspense fallback={<PageLoading />}>…</Suspense>
+```
 
 ---
 
@@ -190,11 +218,15 @@ import { Button } from '@/components/ui/button';
 - `default` — green background, white text. The primary call-to-action.
 - `outline` — green border, green text, transparent background.
 - `destructive` — red background for dangerous actions.
-- `secondary` — neutral background.
+- `secondary` — bege background, dark-green text.
+- `inverse` — white background, green text. Primary CTA on a green band.
+- `outline-inverse` — white border/text. Secondary CTA on a green band.
 - `ghost` — no background, hover fill.
 - `link` — underline on hover, no background.
 
-**Sizes**: `default`, `sm`, `lg`, `icon` (square), `icon-sm`, `icon-lg`, `clear` (no sizing applied).
+**Sizes**: `default`, `sm`, `lg`, `xl` (hero / page-level CTAs), `icon` (square), `icon-sm`, `icon-lg`, `clear` (no sizing applied).
+
+Never wrap a `<Button>` in a `<Link>`/`<a>` (that nests interactive elements) — use `asChild`.
 
 Use `asChild` to render as a link or other element while keeping button styles:
 
@@ -371,7 +403,7 @@ import { cn } from '@/lib/utils';
 
 ## Variant Props (`classname-variants`)
 
-Use `variantProps` from `classname-variants/react` for components that need a small set of visual variants, following the pattern used by `Section` and `OffsetSection`:
+Use `variantProps` from `classname-variants/react` for components that need a small set of visual variants, following the pattern used by `Section`:
 
 ```tsx
 import { tw, variantProps } from 'classname-variants/react';

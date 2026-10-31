@@ -4,6 +4,7 @@ import { getMetadataPageInfo } from '@/utils/metadata';
 import { Language } from '@/i18n/settings';
 import PartnersWrapper from '@/components/partners/PartnersWrapper';
 import { Suspense } from 'react';
+import { PageLoading } from '@/components/layout';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -17,11 +18,9 @@ const PartnersPage = async (props: { params: Promise<{ lng: Language }> }) => {
   const { lng } = params;
 
   return (
-    <section>
-      <Suspense fallback={<></>}>
-        <PartnersWrapper lng={lng} />
-      </Suspense>
-    </section>
+    <Suspense fallback={<PageLoading />}>
+      <PartnersWrapper lng={lng} />
+    </Suspense>
   );
 };
 

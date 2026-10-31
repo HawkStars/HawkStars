@@ -6,6 +6,8 @@ import { ImageMedia } from '@/payload/components/Media';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
 import SectionHeader from '@/components/ui/SectionHeader';
+import { ContentSection } from '@/components/layout';
+import { cn } from '@/lib/utils';
 import { HawkEvent } from '@/payload-types';
 
 /* ================================================================== */
@@ -21,9 +23,9 @@ function Section({
   className?: string;
 }) {
   return (
-    <section className={`py-16 ${alt ? 'bg-[#eef5f0]' : 'bg-white'} ${className}`}>
-      <div className='container mx-auto max-w-6xl px-4'>{children}</div>
-    </section>
+    <ContentSection spacing='tight' className={cn(alt ? 'bg-green/5' : 'bg-white', className)}>
+      {children}
+    </ContentSection>
   );
 }
 
@@ -76,8 +78,8 @@ export default async function EventPage({ event, lng }: EventPageProps) {
               as='h1'
               title={event.heading ?? ''}
               subtitle={event.subheading ?? undefined}
-              titleClassName='text-4xl font-bold md:text-5xl'
-              subtitleClassName='mt-2 text-lg text-gray-600'
+              titleClassName='text-display'
+              subtitleClassName='mt-2 text-lg text-black/70'
             />
 
             {/* Date */}

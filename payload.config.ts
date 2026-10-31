@@ -136,10 +136,11 @@ export default buildConfig({
       graphics: {
         Logo: '@/payload/components/Logo',
       },
-      beforeDashboard: ['@/payload/components/admin/WelcomeDashboard'],
-      afterDashboard: ['@/payload/components/admin/DashboardStats'],
       afterNavLinks: ['@/payload/components/admin/TranslateNavLink'],
       views: {
+        dashboard: {
+          Component: '@/payload/components/admin/CustomDashboard',
+        },
         translate: {
           Component: '@/payload/components/admin/TranslateView#TranslateView',
           path: '/translate',

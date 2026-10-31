@@ -1,4 +1,4 @@
-import { HawkStarsSection } from '@/components/layout';
+import { HawkStarsSection, PageHero } from '@/components/layout';
 import { LanguagePageProps } from '../types';
 import { Language } from '@/i18n/settings';
 import { getServerTranslation } from '@/i18n';
@@ -61,11 +61,12 @@ async function AgendaContent({ lng }: { lng: string }) {
   };
 
   return (
-    <HawkStarsSection className='bg-bege-light gap-8 pt-10 pb-8 max-lg:px-0 max-lg:pt-0 xl:px-10!'>
-      <div className='container'>
+    <>
+      <PageHero size='compact' title={translations.title} description={translations.subtitle} />
+      <HawkStarsSection className='bg-bege-light pb-16 lg:pb-24'>
         <AgendaCalendar translations={translations} lng={lng as Language} />
-      </div>
-    </HawkStarsSection>
+      </HawkStarsSection>
+    </>
   );
 }
 

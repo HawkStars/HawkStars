@@ -48,7 +48,8 @@ Steps to add a new block:
 
 - **Client components**: Use `'use client'` directive for interactivity/hooks.
 - **Organization**: Folder-based with `index.tsx` exports.
-- **Button**: Custom `Button` with `classname-variants` in `components/utils/Button.tsx`.
+- **Button**: shadcn `Button` (`cva` variants) in `components/ui/button.tsx` — use `asChild` for links.
+- **Page structure**: `PageHero` at the top, then stacked `HawkStarsSection`s with a `spacing` prop; `PageLoading` for Suspense fallbacks. See `.claude/rules/frontend/styleguide.md`.
 - **UI primitives**: shadcn/ui components in `components/ui/` (Radix UI based).
 - **Styling**: Tailwind CSS primarily. Custom classes (e.g., `text-h1_semibold`, `bg-bege-light`) in `globals.css`.
 - **Variants**: Use `classname-variants` for component variant props.

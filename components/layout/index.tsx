@@ -1,3 +1,4 @@
 export { Section as HawkStarsSection } from './Section';
-export { OffsetSection as HawkStarsOffSetSection } from './OffsetSection';
 export { ContentSection } from './ContentSection';
+export { PageHero } from './PageHero';
+export { PageLoading } from './PageLoading';

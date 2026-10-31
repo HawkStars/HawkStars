@@ -295,13 +295,8 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
   for (let day = 1; day <= daysInMonth; day++) calendarDays.push(day);
 
   return (
-    <div className='mx-4 flex flex-col gap-8 pt-4'>
-      {/* Header */}
-      <div className='flex flex-col gap-4'>
-        <h1 className='text-3xl font-bold uppercase md:text-5xl'>{translations.title}</h1>
-        <p className='text-muted-foreground max-w-2xl'>{translations.subtitle}</p>
-      </div>
-
+    // The page title/subtitle live in the route's PageHero.
+    <div className='flex flex-col gap-8'>
       <div className='flex flex-col gap-8 lg:flex-row'>
         {/* ── Calendar grid ───────────────────────────────────────── */}
         <div className='flex-1 rounded-xl border bg-white p-4 shadow-sm md:p-6'>

@@ -73,7 +73,7 @@ const PaymentStep = ({
 
   return (
     <div className='flex flex-col gap-5'>
-      <p className='text-center text-[15px] leading-relaxed text-[#333]'>
+      <p className='text-center text-[15px] leading-relaxed text-neutral-800'>
         {t('donation_widget.payment.description')}
       </p>
 
@@ -90,13 +90,13 @@ const PaymentStep = ({
             key={method.id}
             onClick={() => handleSelectAndContinue(method.id)}
             className={cn(
-              'flex cursor-pointer items-center gap-3 rounded-lg border bg-white p-4 text-left text-sm font-medium text-[#333] transition-colors duration-150',
+              'flex cursor-pointer items-center gap-3 rounded-lg border bg-white p-4 text-left text-sm font-medium text-neutral-800 transition-colors duration-150',
               selectedMethod === method.id
                 ? 'border-green bg-green/5'
-                : 'border-[#ddd] hover:border-[#c0392b]'
+                : 'hover:border-green border-neutral-300'
             )}
           >
-            <span className='text-[#555]'>{method.icon}</span>
+            <span className='text-neutral-600'>{method.icon}</span>
             {t(method.labelKey)}
             {selectedMethod === method.id && (
               <svg
@@ -119,14 +119,14 @@ const PaymentStep = ({
       <div className='flex gap-3'>
         <button
           onClick={onBack}
-          className='flex-1 cursor-pointer rounded-lg border border-[#ddd] bg-white py-3 text-sm font-medium text-[#333] transition-colors duration-150 hover:border-[#c0392b]'
+          className='hover:border-green flex-1 cursor-pointer rounded-lg border border-neutral-300 bg-white py-3 text-sm font-medium text-neutral-800 transition-colors duration-150'
         >
           {t('donation_widget.back')}
         </button>
         <button
           onClick={handleNext}
           disabled={!selectedMethod}
-          className='flex-1 cursor-pointer rounded-lg border-none bg-linear-to-br from-[#c0392b] to-[#e74c3c] py-3 text-sm font-semibold text-white transition-opacity duration-200 disabled:cursor-not-allowed disabled:opacity-50'
+          className='from-green-dark to-green flex-1 cursor-pointer rounded-lg border-none bg-linear-to-br py-3 text-sm font-semibold text-white transition-opacity duration-200 disabled:cursor-not-allowed disabled:opacity-50'
         >
           {t('donation_widget.continue')}
         </button>

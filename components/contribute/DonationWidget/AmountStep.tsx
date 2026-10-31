@@ -70,7 +70,7 @@ const AmountStep = ({ frequency, onFrequencyChange, onHandleDonationValue }: Amo
     <div className='flex flex-col'>
       {/* Description */}
       <p
-        className='mb-6 text-center text-[15px] leading-relaxed text-[#333]'
+        className='mb-6 text-center text-[15px] leading-relaxed text-neutral-800'
         dangerouslySetInnerHTML={{ __html: t('donation_widget.amount.description') }}
       />
 
@@ -92,7 +92,7 @@ const AmountStep = ({ frequency, onFrequencyChange, onHandleDonationValue }: Amo
               onClick={() => onFrequencyChange(option)}
               onKeyDown={(e) => moveRadioSelection(e, FREQUENCIES, frequency, onFrequencyChange)}
               className={cn(
-                'cursor-pointer border-none px-6 py-2 text-sm font-medium transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-2 focus-visible:outline-hidden',
+                'focus-visible:ring-green cursor-pointer border-none px-6 py-2 text-sm font-medium transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
                 isSelected ? 'bg-green text-white' : 'text-green bg-white'
               )}
             >
@@ -128,10 +128,10 @@ const AmountStep = ({ frequency, onFrequencyChange, onHandleDonationValue }: Amo
                 moveRadioSelection(e, PRESET_AMOUNTS, selectedPreset, setCustomAmount)
               }
               className={cn(
-                'cursor-pointer rounded-lg py-3.5 text-base font-medium transition-all duration-150 focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-2 focus-visible:outline-hidden',
+                'focus-visible:ring-green cursor-pointer rounded-lg py-3.5 text-base font-medium transition-all duration-150 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
                 isSelected
                   ? 'border-green bg-green border-2 text-white'
-                  : 'hover:border-green border border-[#ddd] bg-white text-[#333]'
+                  : 'hover:border-green border border-neutral-300 bg-white text-neutral-800'
               )}
             >
               &euro;{amount}
@@ -142,10 +142,10 @@ const AmountStep = ({ frequency, onFrequencyChange, onHandleDonationValue }: Amo
 
       {/* Custom Amount */}
       <div className='relative mb-4'>
-        {/* A11Y-M5: was text-[#999] (2.85:1 on white) — now ~7:1. */}
+        {/* A11Y-M5: was #999 (2.85:1 on white) — now ~7:1. */}
         <span
           aria-hidden='true'
-          className='absolute top-1/2 left-3.5 -translate-y-1/2 text-base font-medium text-[#595959]'
+          className='absolute top-1/2 left-3.5 -translate-y-1/2 text-base font-medium text-neutral-600'
         >
           &euro;
         </span>
@@ -154,7 +154,7 @@ const AmountStep = ({ frequency, onFrequencyChange, onHandleDonationValue }: Amo
           placeholder={t('donation_widget.amount.custom_amount')}
           value={customAmount ?? ''}
           onChange={handleCustomChange}
-          className='w-full rounded-lg border border-[#ddd] py-3.5 pr-3.5 pl-8 text-base text-[#333] outline-hidden transition-colors duration-150 focus-visible:border-[#c0392b] focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-1'
+          className='focus-visible:border-green focus-visible:ring-green w-full rounded-lg border border-neutral-300 py-3.5 pr-3.5 pl-8 text-base text-neutral-800 outline-hidden transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-offset-1'
           aria-label={t('donation.custom_amount')}
         />
       </div>
@@ -163,7 +163,7 @@ const AmountStep = ({ frequency, onFrequencyChange, onHandleDonationValue }: Amo
       <button
         type='button'
         className={cn(
-          'bg-green w-full rounded-lg border-none py-4 text-base font-semibold text-white transition-[opacity,transform] duration-200 focus-visible:ring-2 focus-visible:ring-[#c0392b] focus-visible:ring-offset-2 focus-visible:outline-hidden',
+          'bg-green focus-visible:ring-green w-full rounded-lg border-none py-4 text-base font-semibold text-white transition-[opacity,transform] duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
           customAmount && customAmount > 0
             ? 'cursor-pointer opacity-100'
             : 'cursor-not-allowed opacity-50'

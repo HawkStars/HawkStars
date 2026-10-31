@@ -3,14 +3,14 @@
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { useTranslation } from '@/i18n/client';
 import { formatCurrency } from '@/lib/utils/currency';
-import MainHawkStarsLoading from '@/app/[lng]/(org)/loading';
+import { PageHero, PageLoading } from '@/components/layout';
 import dynamic from 'next/dynamic';
 
 export const PROJECT_GOAL = 900000;
 
 const ContributionProgressBar = dynamic(
   () => import('@/components/transparency/ContributionProgressBar'),
-  { loading: () => <MainHawkStarsLoading />, ssr: false }
+  { loading: () => <PageLoading />, ssr: false }
 );
 
 const ContributionProjectGoal = ({ sumContributions }: { sumContributions: number }) => {
@@ -18,15 +18,17 @@ const ContributionProjectGoal = ({ sumContributions }: { sumContributions: numbe
   const { t } = useTranslation(lng, 'transparency');
 
   return (
-    <div className='bg-bege-light flex flex-col gap-4 px-8 py-8 lg:px-40 lg:py-20'>
-      <h1 className='lg:text-h1_semibold text-h2_bold text-green text-center'>
-        {t('current_goal')}
-      </h1>
+    <PageHero
+      align='center'
+      title={t('current_goal')}
+      description={`${t('goal')}: ${formatCurrency(PROJECT_GOAL, lng)}`}
+    >
       {/* Was `${PROJECT_GOAL}€` — no grouping separators and the symbol on the
           wrong side for pt-PT, next to a ledger that formats amounts properly. */}
-      <p className='lg:text-h2_light mt-1 text-center'>{`${t('goal')}: ${formatCurrency(PROJECT_GOAL, lng)}`}</p>
-      <ContributionProgressBar sumContributions={sumContributions} projectGoal={PROJECT_GOAL} />
-    </div>
+      <div className='mt-10'>
+        <ContributionProgressBar sumContributions={sumContributions} projectGoal={PROJECT_GOAL} />
+      </div>
+    </PageHero>
   );
 };
 
