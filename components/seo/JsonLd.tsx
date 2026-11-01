@@ -10,9 +10,12 @@ type BreadcrumbItem = {
  * Organization + WebSite JSON-LD — renders once in root layout.
  */
 export function OrganizationJsonLd({ lng }: { lng: string }) {
-  const schema = [
+  // One object with a shared `@context` and an `@graph`, not a top-level array:
+  // crawlers and in-app browser scripts commonly read `data['@context']` straight
+  // off the parsed tag, which throws on an array (seen in Sentry as
+  // "r['@context'].toLowerCase" on every org page).
+  const graph = [
     {
-      '@context': 'https://schema.org',
       '@type': 'NGO',
       '@id': `${BASE_URL}/#organization`,
       name: SITE_NAME,
@@ -42,7 +45,6 @@ export function OrganizationJsonLd({ lng }: { lng: string }) {
       // Portuguese registration.
     },
     {
-      '@context': 'https://schema.org',
       '@type': 'WebSite',
       '@id': `${BASE_URL}/#website`,
       url: BASE_URL,
@@ -57,6 +59,7 @@ export function OrganizationJsonLd({ lng }: { lng: string }) {
       // search exists, with every variable declared in `query-input`.
     },
   ];
+  const schema = { '@context': 'https://schema.org', '@graph': graph };
 
   return (
     <script
