@@ -32,6 +32,11 @@ Sentry.init({
   replaysSessionSampleRate: 0,
 
   integrations: [],
+
+  // Errors thrown by browser extensions (e.g. React DevTools' backend script) are not ours.
+  ignoreErrors: ['Cannot send a message through a Bridge that has been shut down'],
+  denyUrls: [/react_devtools_backend/i, /^(chrome|moz|safari(-web)?)-extension:\/\//i],
+
   enabled: process.env.NODE_ENV === 'production',
 });
 
