@@ -70,8 +70,17 @@ export const plugins: Plugin[] = [
   }),
   mcpPlugin({
     disabled: true,
+    userCollection: 'users',
+
     collections: {
-      pages: { enabled: true },
+      pages: {
+        enabled: {
+          create: true,
+          find: true,
+          update: true,
+          delete: true,
+        },
+      },
     },
   }),
 
