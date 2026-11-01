@@ -8,6 +8,7 @@ import * as Sentry from '@sentry/nextjs';
 import { Page } from '@/payload-types';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import { cloudinaryAdapter } from '@/lib/cloudinary/adapter';
+import { mcpPlugin } from '@payloadcms/plugin-mcp';
 import { googleDriveAdapter, generateGoogleDriveURL } from '@/lib/google-drive/adapter';
 import { v2 as cloudinary } from 'cloudinary';
 import { showLocaleValuesPlugin } from './showLocaleValues';
@@ -66,6 +67,12 @@ export const plugins: Plugin[] = [
       debug: process.env.NODE_ENV === 'development',
     },
     Sentry,
+  }),
+  mcpPlugin({
+    disabled: true,
+    collections: {
+      pages: { enabled: true },
+    },
   }),
 
   /** LAST plugin cause of overrides */
