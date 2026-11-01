@@ -33,7 +33,7 @@ const Paragraph: JSXConverter<SerializedParagraphNode> = ({
     'px-10 lg:px-5',
   ];
   const margin = INDENT_CLASSES[Math.min(indent, INDENT_CLASSES.length - 1)];
-  const className = cn('text-body_regular mx-auto my-1', margin);
+  const className = cn('text-body_regular mx-auto my-1 section-container', margin);
 
   const hasBlockLevelChild = node.children?.some((child) =>
     BLOCK_LEVEL_CHILD_TYPES.has(child.type)

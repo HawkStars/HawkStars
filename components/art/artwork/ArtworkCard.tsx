@@ -96,12 +96,12 @@ export async function ArtworkCard({
           </Link>
         </h3>
         {artist && (
-          <p className='font-art-serif text-art-text-2 mt-1 text-sm italic'>
+          <p className='font-art-serif text-art-text-2 mt-1 mb-4 text-sm italic'>
             {t('catalog.by', { name: artist.name })}
           </p>
         )}
         {artwork.technique && (
-          <p className='text-art-muted border-art-line mt-4 line-clamp-2 border-b pb-4 text-sm'>
+          <p className='text-art-muted border-art-line line-clamp-2 border-b pb-4 text-sm'>
             {artwork.technique}
           </p>
         )}
