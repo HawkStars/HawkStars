@@ -1,4 +1,5 @@
 import type { PayloadHandler } from 'payload';
+import { isAdminUser } from '@/payload/access/isAdminUser';
 
 const NOTIFICATIONS_COLLECTION = 'notifications' as const;
 
@@ -12,7 +13,7 @@ const NOTIFICATIONS_COLLECTION = 'notifications' as const;
 export const getActivityLogHandler: PayloadHandler = async (req) => {
   const { payload, user } = req;
 
-  if (!user || !user.isAdmin) {
+  if (!isAdminUser(user)) {
     return Response.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -55,7 +56,7 @@ export const getActivityLogHandler: PayloadHandler = async (req) => {
 export const markNotificationsReadHandler: PayloadHandler = async (req) => {
   const { payload, user } = req;
 
-  if (!user || !user.isAdmin) {
+  if (!isAdminUser(user)) {
     return Response.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

@@ -1,6 +1,7 @@
 import type { Payload } from 'payload';
 import { getDashboardStats } from '@/lib/payload/endpoints/getDashboardStats';
 import ContentStatusWidget from '../ContentStatusWidget';
+import type { StatsError } from '../copy';
 import StatisticsWidget from '../StatisticsWidget';
 import type { Stats } from '../types';
 
@@ -13,13 +14,13 @@ import type { Stats } from '../types';
 const loadStats = async (
   payload: Payload,
   isAdmin: boolean
-): Promise<{ stats: Stats | null; error: string | null }> => {
-  if (!isAdmin) return { stats: null, error: 'Unauthorized' };
+): Promise<{ stats: Stats | null; error: StatsError | null }> => {
+  if (!isAdmin) return { stats: null, error: 'unauthorized' };
 
   try {
     return { stats: await getDashboardStats(payload), error: null };
   } catch {
-    return { stats: null, error: 'Failed to fetch statistics.' };
+    return { stats: null, error: 'fetchFailed' };
   }
 };
 

@@ -1,33 +1,32 @@
 'use client';
 
 import { formatCurrency } from '@/lib/utils/currency';
+import { useTranslation } from '@payloadcms/ui';
 import React from 'react';
+import { toDashboardLang } from '../dashboardLang';
+import { STATS_COPY, type StatsError } from './copy';
 import { StatCard, Widget, WidgetSpinner } from './Widget';
 import type { Stats } from './types';
 
 const CHAIR_TYPES = ['OFFICE_CHAIR', 'SIMULATOR_CHAIR', 'LOUNGE_CHAIR', 'AUDITORIUM_CHAIR'];
 
-const typeLabels: Record<string, string> = {
-  BANK: 'Bank Transfer',
-  CRYPTO: 'Cryptocurrency',
-  WALL_NAME_SINGULAR: 'Individual Wall Name',
-  WALL_NAME_COMPANY: 'Company Wall Name',
-  OFFICE_CHAIR: 'Office Chair',
-  SIMULATOR_CHAIR: 'Simulator Chair',
-  LOUNGE_CHAIR: 'Lounge Chair',
-  AUDITORIUM_CHAIR: 'Auditorium Chair',
-  BUILDING_NAMING: 'Building Naming',
-  TRAINING_ROOM_NAMING: 'Training Room Naming',
-};
-
 export const StatisticsWidget: React.FC<{
   stats: Stats | null;
   loading: boolean;
-  error?: string | null;
+  error?: StatsError | null;
 }> = ({ stats, loading, error }) => {
+  const { i18n } = useTranslation();
+  const { error: errorLabel, statistics: copy } = STATS_COPY[toDashboardLang(i18n.language)];
+  const typeLabel = (type: string) => copy.contributionTypes[type] || type;
+
   const body = () => {
-    if (loading) return <WidgetSpinner label='Loading statistics…' />;
-    if (error) return <p className='text-sm text-red-500'>Error: {error}</p>;
+    if (loading) return <WidgetSpinner label={copy.loading} />;
+    if (error)
+      return (
+        <p className='text-sm text-red-500'>
+          {errorLabel}: {copy.errors[error]}
+        </p>
+      );
     if (!stats || !stats.contributions) return null;
 
     const chairStats = Object.entries(stats.contributions.byType).filter(([type]) =>
@@ -42,34 +41,36 @@ export const StatisticsWidget: React.FC<{
         {/* Contribution Summary */}
         <section>
           <h4 className='mb-4 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300'>
-            💰 Contribution Summary
+            💰 {copy.contributionSummary}
           </h4>
           <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
             <StatCard
               icon='💵'
-              label='Total Donations'
+              label={copy.totalDonations}
               value={formatCurrency(stats.contributions.totalValue)}
-              subtitle={`${stats.contributions.totalCount} contributions`}
+              subtitle={copy.contributionsCount(stats.contributions.totalCount)}
               highlight
             />
             <StatCard
               icon='✅'
-              label='Confirmed'
+              label={copy.confirmed}
               value={formatCurrency(stats.contributions.confirmedValue)}
-              subtitle={`${stats.contributions.confirmedCount} confirmed`}
+              subtitle={copy.confirmedCount(stats.contributions.confirmedCount)}
               highlight
             />
             <StatCard
               icon='⏳'
-              label='Pending'
+              label={copy.pending}
               value={formatCurrency(
                 stats.contributions.totalValue - stats.contributions.confirmedValue
               )}
-              subtitle={`${stats.contributions.totalCount - stats.contributions.confirmedCount} pending`}
+              subtitle={copy.pendingCount(
+                stats.contributions.totalCount - stats.contributions.confirmedCount
+              )}
             />
             <StatCard
               icon='📈'
-              label='Avg. Contribution'
+              label={copy.average}
               value={formatCurrency(
                 stats.contributions.totalCount > 0
                   ? stats.contributions.totalValue / stats.contributions.totalCount
@@ -83,14 +84,14 @@ export const StatisticsWidget: React.FC<{
         {chairStats.length > 0 && (
           <section>
             <h4 className='mb-4 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300'>
-              🪑 Chairs by Type
+              🪑 {copy.chairsByType}
             </h4>
             <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
               {chairStats.map(([type, data]) => (
                 <StatCard
                   key={type}
                   icon='🪑'
-                  label={typeLabels[type] || type}
+                  label={typeLabel(type)}
                   value={data.count}
                   subtitle={formatCurrency(data.total)}
                 />
@@ -103,13 +104,13 @@ export const StatisticsWidget: React.FC<{
         {otherContributions.length > 0 && (
           <section>
             <h4 className='mb-4 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300'>
-              🎁 Other Contributions
+              🎁 {copy.otherContributions}
             </h4>
             <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
               {otherContributions.map(([type, data]) => (
                 <StatCard
                   key={type}
-                  label={typeLabels[type] || type}
+                  label={typeLabel(type)}
                   value={data.count}
                   subtitle={formatCurrency(data.total)}
                 />
@@ -121,18 +122,42 @@ export const StatisticsWidget: React.FC<{
         {/* Collection Counts */}
         <section>
           <h4 className='mb-4 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300'>
-            📁 Collection Counts
+            📁 {copy.collectionCounts}
           </h4>
           <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4'>
-            <StatCard icon='🎨' label='Art Collections' value={stats.collections.artCollection} />
-            <StatCard icon='👥' label='Board Members' value={stats.collections.boardMembers} />
-            <StatCard icon='🖌️' label='Artists' value={stats.collections.artists} />
-            <StatCard icon='🎯' label='Curators' value={stats.collections.curators} />
-            <StatCard icon='🚀' label='Hawk Projects' value={stats.collections.hawkProjects} />
-            <StatCard icon='🤝' label='Partners' value={stats.collections.partners} />
-            <StatCard icon='📄' label='Pages' value={stats.collections.pages} />
-            <StatCard icon='🖼️' label='Media Files' value={stats.collections.media} />
-            <StatCard icon='👤' label='Users' value={stats.collections.users} />
+            <StatCard
+              icon='🎨'
+              label={copy.collections.artCollection}
+              value={stats.collections.artCollection}
+            />
+            <StatCard
+              icon='👥'
+              label={copy.collections.boardMembers}
+              value={stats.collections.boardMembers}
+            />
+            <StatCard
+              icon='🖌️'
+              label={copy.collections.artists}
+              value={stats.collections.artists}
+            />
+            <StatCard
+              icon='🎯'
+              label={copy.collections.curators}
+              value={stats.collections.curators}
+            />
+            <StatCard
+              icon='🚀'
+              label={copy.collections.hawkProjects}
+              value={stats.collections.hawkProjects}
+            />
+            <StatCard
+              icon='🤝'
+              label={copy.collections.partners}
+              value={stats.collections.partners}
+            />
+            <StatCard icon='📄' label={copy.collections.pages} value={stats.collections.pages} />
+            <StatCard icon='🖼️' label={copy.collections.media} value={stats.collections.media} />
+            <StatCard icon='👤' label={copy.collections.users} value={stats.collections.users} />
           </div>
         </section>
       </div>
@@ -140,7 +165,7 @@ export const StatisticsWidget: React.FC<{
   };
 
   return (
-    <Widget title='Dashboard Statistics' icon='📊'>
+    <Widget title={copy.title} icon='📊'>
       {body()}
     </Widget>
   );

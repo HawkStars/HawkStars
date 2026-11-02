@@ -1,5 +1,6 @@
 import type { PayloadHandler } from 'payload';
 import totalContributionValueQuery from '@/lib/payload/endpoints/totalContributionValueQuery';
+import { isAdminUser } from '@/payload/access/isAdminUser';
 
 /**
  * GET /api/sum-contributions
@@ -10,7 +11,7 @@ import totalContributionValueQuery from '@/lib/payload/endpoints/totalContributi
  * here in the HTTP handler rather than inside the shared query function.
  */
 export const sumContributionsHandler: PayloadHandler = async (req) => {
-  if (!req.user || !req.user.isAdmin) {
+  if (!isAdminUser(req.user)) {
     return Response.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

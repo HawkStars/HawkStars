@@ -7,6 +7,7 @@ import { checkConfirmedByAdmin } from './hooks/checkConfirmedByAdmin';
 import { checkProjectUrl } from './hooks/validateProjectUrl';
 import { createRevalidateHooks } from '@/payload/utilities/revalidateCollection';
 import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
+import { isAdminUser } from '@/payload/access/isAdminUser';
 
 export const MEMBER_PROJECT_CACHE_TAG = 'member_projects' as const;
 const { afterChange: revalidateMemberProject, afterDelete: revalidateMemberProjectDelete } =
@@ -76,13 +77,15 @@ export const MemberProject: CollectionConfig = {
       },
       access: {
         create: () => false,
-        update: ({ req }) => Boolean(req.user?.isAdmin),
+        update: ({ req }) => isAdminUser(req.user),
         read: ({ req: { user } }) => Boolean(user),
       },
       hooks: {
         beforeValidate: [
           ({ data, req, operation }) =>
-            operation === 'create' && !req.user?.isAdmin ? { ...data, is_confirmed: false } : data,
+            operation === 'create' && !isAdminUser(req.user)
+              ? { ...data, is_confirmed: false }
+              : data,
         ],
       },
     },
@@ -232,7 +235,7 @@ export const MemberProject: CollectionConfig = {
               required: true,
               admin: { width: '50%' },
               access: {
-                read: ({ req }) => req.user?.isAdmin || false,
+                read: ({ req }) => isAdminUser(req.user),
               },
             },
             {
@@ -242,7 +245,7 @@ export const MemberProject: CollectionConfig = {
               required: true,
               admin: { width: '50%' },
               access: {
-                read: ({ req }) => req.user?.isAdmin || false,
+                read: ({ req }) => isAdminUser(req.user),
               },
             },
           ],

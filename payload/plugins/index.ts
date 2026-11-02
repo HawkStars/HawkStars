@@ -13,6 +13,7 @@ import { googleDriveAdapter, generateGoogleDriveURL } from '@/lib/google-drive/a
 import { v2 as cloudinary } from 'cloudinary';
 import { showLocaleValuesPlugin } from './showLocaleValues';
 import { totpPlugin } from './totp';
+import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 
 const generateTitle: GenerateTitle<Page> = ({ doc }) => {
   return doc?.title || 'Payload Website Template';
@@ -69,9 +70,19 @@ export const plugins: Plugin[] = [
     Sentry,
   }),
   mcpPlugin({
-    disabled: true,
+    disabled: false,
     userCollection: 'users',
-
+    overrideApiKeyCollection: (collection) => ({
+      ...collection,
+      access: {
+        ...collection.access,
+        admin: authenticatedAdmin,
+        read: authenticatedAdmin,
+        create: authenticatedAdmin,
+        update: authenticatedAdmin,
+        delete: authenticatedAdmin,
+      },
+    }),
     collections: {
       pages: {
         enabled: {
@@ -79,6 +90,56 @@ export const plugins: Plugin[] = [
           find: true,
           update: true,
           delete: true,
+        },
+      },
+      hawk_events: {
+        enabled: {
+          create: true,
+          find: true,
+          update: true,
+          delete: true,
+        },
+      },
+      hawk_projects: {
+        enabled: {
+          create: true,
+          find: true,
+          update: true,
+          delete: true,
+        },
+      },
+      news: {
+        enabled: {
+          create: true,
+          find: true,
+          update: true,
+          delete: true,
+        },
+      },
+    },
+    globals: {
+      'main-page': {
+        enabled: {
+          find: true,
+          update: true,
+        },
+      },
+      'events-list': {
+        enabled: {
+          find: true,
+          update: true,
+        },
+      },
+      'projects-list': {
+        enabled: {
+          find: true,
+          update: true,
+        },
+      },
+      'news-list': {
+        enabled: {
+          find: true,
+          update: true,
         },
       },
     },

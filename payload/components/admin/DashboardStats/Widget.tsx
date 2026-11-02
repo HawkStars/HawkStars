@@ -56,7 +56,7 @@ export const StatCard: React.FC<{
   </div>
 );
 
-export const WidgetSpinner: React.FC<{ label?: string }> = ({ label = 'Loading…' }) => (
+export const WidgetSpinner: React.FC<{ label: string }> = ({ label }) => (
   <div className='flex items-center gap-3 text-sm text-gray-500'>
     <div className='h-5 w-5 animate-spin rounded-full border-2 border-gray-300 border-t-blue-500' />
     {label}

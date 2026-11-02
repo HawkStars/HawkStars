@@ -1,41 +1,35 @@
 'use client';
 
+import { useTranslation } from '@payloadcms/ui';
 import React, { useCallback, useEffect, useState } from 'react';
+import { toDashboardLang } from '../dashboardLang';
+import { STATS_COPY } from './copy';
 import { Widget, WidgetSpinner } from './Widget';
 import type { ActivityEntry, ActorRef } from './types';
 
-const SITUATION_META: Record<
-  ActivityEntry['situation'],
-  { icon: string; label: string; classes: string }
-> = {
+const SITUATION_META: Record<ActivityEntry['situation'], { icon: string; classes: string }> = {
   login: {
     icon: '🔑',
-    label: 'Login',
     classes: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
   },
   create: {
     icon: '➕',
-    label: 'Created',
     classes: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
   },
   update: {
     icon: '✏️',
-    label: 'Updated',
     classes: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
   },
   delete: {
     icon: '🗑️',
-    label: 'Deleted',
     classes: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
   },
   message: {
     icon: '💬',
-    label: 'Message',
     classes: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
   },
   other: {
     icon: 'ℹ️',
-    label: 'Event',
     classes: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
   },
 };
@@ -46,21 +40,28 @@ const actorName = (actor: ActivityEntry['actor']): string | null => {
   return a.name || a.email || null;
 };
 
-const timeAgo = (iso: string): string => {
+const timeAgo = (iso: string, locale: string): string => {
   const then = new Date(iso).getTime();
   if (Number.isNaN(then)) return '';
+  const relative = new Intl.RelativeTimeFormat(locale, { numeric: 'auto', style: 'short' });
   const seconds = Math.floor((Date.now() - then) / 1000);
-  if (seconds < 60) return 'just now';
+  if (seconds < 60) return relative.format(0, 'second');
   const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}m ago`;
+  if (minutes < 60) return relative.format(-minutes, 'minute');
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
+  if (hours < 24) return relative.format(-hours, 'hour');
   const days = Math.floor(hours / 24);
-  if (days < 7) return `${days}d ago`;
-  return new Date(iso).toLocaleDateString();
+  if (days < 7) return relative.format(-days, 'day');
+  return new Date(iso).toLocaleDateString(locale);
 };
 
 export const ActivityLogWidget: React.FC = () => {
+  const { i18n } = useTranslation();
+  const {
+    intlLocale,
+    error: errorLabel,
+    activity: copy,
+  } = STATS_COPY[toDashboardLang(i18n.language)];
   const [entries, setEntries] = useState<ActivityEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -70,17 +71,17 @@ export const ActivityLogWidget: React.FC = () => {
     setError(null);
     try {
       const res = await fetch('/api/activity-log?limit=25');
-      if (!res.ok) throw new Error('Failed to fetch activity');
+      if (!res.ok) throw new Error(res.statusText);
       const data = await res.json();
 
       // GET /api/notifications returns { notifications, unreadCount, totalDocs }
       setEntries((data.notifications as ActivityEntry[]) ?? []);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error');
+    } catch {
+      setError(copy.fetchFailed);
     } finally {
       setLoading(false);
     }
-  }, [setError, setEntries, setLoading]);
+  }, [copy.fetchFailed]);
 
   useEffect(() => {
     const prepareLoad = async () => {
@@ -90,22 +91,27 @@ export const ActivityLogWidget: React.FC = () => {
   }, [load]);
 
   const body = () => {
-    if (loading) return <WidgetSpinner label='Loading activity…' />;
-    if (error) return <p className='text-sm text-red-500'>Error: {error}</p>;
-    if (entries.length === 0)
-      return <p className='text-sm text-gray-500'>No activity recorded yet.</p>;
+    if (loading) return <WidgetSpinner label={copy.loading} />;
+    if (error)
+      return (
+        <p className='text-sm text-red-500'>
+          {errorLabel}: {error}
+        </p>
+      );
+    if (entries.length === 0) return <p className='text-sm text-gray-500'>{copy.empty}</p>;
 
     return (
       <ul className='flex max-h-128 flex-col divide-y divide-gray-100 overflow-y-auto dark:divide-gray-800'>
         {entries.map((entry) => {
-          const meta = SITUATION_META[entry.situation] ?? SITUATION_META.other;
+          const situation = SITUATION_META[entry.situation] ? entry.situation : 'other';
+          const meta = SITUATION_META[situation];
           const who = actorName(entry.actor);
           const row = (
             <div className='flex items-start gap-3 py-3'>
               <span
                 className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm ${meta.classes}`}
                 aria-hidden
-                title={meta.label}
+                title={copy.situations[situation]}
               >
                 {meta.icon}
               </span>
@@ -118,7 +124,7 @@ export const ActivityLogWidget: React.FC = () => {
                     <span className='font-medium text-gray-600 dark:text-gray-300'>{who}</span>
                   )}
                   {who && <span aria-hidden>·</span>}
-                  <span>{timeAgo(entry.createdAt)}</span>
+                  <span>{timeAgo(entry.createdAt, intlLocale)}</span>
                 </p>
               </div>
             </div>
@@ -145,7 +151,7 @@ export const ActivityLogWidget: React.FC = () => {
 
   return (
     <Widget
-      title='Activity Log'
+      title={copy.title}
       icon='📜'
       action={
         <button
@@ -153,7 +159,7 @@ export const ActivityLogWidget: React.FC = () => {
           onClick={load}
           className='rounded-md border border-gray-200 px-2 py-1 text-xs text-gray-600 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800'
         >
-          ↻ Refresh
+          {copy.refresh}
         </button>
       }
     >

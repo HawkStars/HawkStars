@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 
+export const instant = false;
 /**
  * Catch-all for unmatched multi-segment paths under /[lng].
  *

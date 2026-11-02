@@ -4,6 +4,7 @@ import { authenticated } from '@/payload/access/authenticated';
 import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 import { GROUP_LABELS } from '@/payload/constants';
 import { logLoginActivity, rateLimitLogin } from './hooks';
+import { isAdminUser } from '@/payload/access/isAdminUser';
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -75,7 +76,7 @@ export const Users: CollectionConfig = {
           en: 'Admins have full access: users, settings, donations, and deleting content. Accounts without this can create, edit and publish content but not delete it.',
           pt: 'Os administradores têm acesso total: utilizadores, definições, donativos e eliminação de conteúdo. As contas sem esta opção podem criar, editar e publicar conteúdo mas não eliminá-lo.',
         },
-        condition: (_data, _siblingData, { user }) => Boolean(user?.isAdmin),
+        condition: (_data, _siblingData, { user }) => isAdminUser(user),
       },
     },
   ],

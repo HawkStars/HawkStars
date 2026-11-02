@@ -2,13 +2,15 @@ import { formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
 import React from 'react';
 import { Widget } from '../DashboardStats/Widget';
+import type { DashboardLang } from '../dashboardLang';
+import { DASHBOARD_COPY } from './copy';
 import type { DashboardDoc, UpcomingEvent } from './queries';
 
-const COLLECTION_META: Record<DashboardDoc['collection'], { icon: string; label: string }> = {
-  pages: { icon: '📄', label: 'Page' },
-  news: { icon: '📰', label: 'News' },
-  hawk_projects: { icon: '🚀', label: 'Project' },
-  hawk_events: { icon: '📅', label: 'Event' },
+const COLLECTION_ICONS: Record<DashboardDoc['collection'], string> = {
+  pages: '📄',
+  news: '📰',
+  hawk_projects: '🚀',
+  hawk_events: '📅',
 };
 
 const EmptyState: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -50,111 +52,124 @@ export const DocListWidget: React.FC<{
   docs: DashboardDoc[];
   emptyText: string;
   hrefFor: (doc: DashboardDoc) => string;
-}> = ({ title, icon, docs, emptyText, hrefFor }) => (
-  <Widget title={title} icon={icon}>
-    {docs.length === 0 ? (
-      <EmptyState>{emptyText}</EmptyState>
-    ) : (
-      <ul className='flex flex-col divide-y divide-gray-100 dark:divide-gray-800'>
-        {docs.map((doc) => {
-          const meta = COLLECTION_META[doc.collection];
-          return (
-            <li key={`${doc.collection}-${doc.id}`}>
-              <Link href={hrefFor(doc)} className={rowLinkClasses}>
-                <span aria-hidden className='text-base'>
-                  {meta.icon}
-                </span>
-                <div className='min-w-0 flex-1'>
-                  <p className='truncate text-sm font-medium text-gray-800 dark:text-gray-100'>
-                    {doc.title}
-                  </p>
-                  <p className='mt-0.5 text-xs text-gray-500 dark:text-gray-400'>
-                    {meta.label} · edited{' '}
-                    {formatDistanceToNow(new Date(doc.updatedAt), { addSuffix: true })}
-                  </p>
-                </div>
-                {doc.status === 'draft' && (
-                  <span className='shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700 dark:bg-amber-900/30 dark:text-amber-300'>
-                    Draft
+  lang: DashboardLang;
+}> = ({ title, icon, docs, emptyText, hrefFor, lang }) => {
+  const copy = DASHBOARD_COPY[lang];
+  return (
+    <Widget title={title} icon={icon}>
+      {docs.length === 0 ? (
+        <EmptyState>{emptyText}</EmptyState>
+      ) : (
+        <ul className='flex flex-col divide-y divide-gray-100 dark:divide-gray-800'>
+          {docs.map((doc) => {
+            return (
+              <li key={`${doc.collection}-${doc.id}`}>
+                <Link href={hrefFor(doc)} className={rowLinkClasses}>
+                  <span aria-hidden className='text-base'>
+                    {COLLECTION_ICONS[doc.collection]}
                   </span>
-                )}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    )}
-  </Widget>
-);
+                  <div className='min-w-0 flex-1'>
+                    <p className='truncate text-sm font-medium text-gray-800 dark:text-gray-100'>
+                      {doc.title}
+                    </p>
+                    <p className='mt-0.5 text-xs text-gray-500 dark:text-gray-400'>
+                      {copy.collections[doc.collection]} · {copy.edited}{' '}
+                      {formatDistanceToNow(new Date(doc.updatedAt), {
+                        addSuffix: true,
+                        locale: copy.dateFnsLocale,
+                      })}
+                    </p>
+                  </div>
+                  {doc.status === 'draft' && (
+                    <span className='shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700 dark:bg-amber-900/30 dark:text-amber-300'>
+                      {copy.draft}
+                    </span>
+                  )}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </Widget>
+  );
+};
 
 const dayFormatter = new Intl.DateTimeFormat('pt-PT', {
   day: '2-digit',
   timeZone: 'Europe/Lisbon',
 });
-const monthFormatter = new Intl.DateTimeFormat('en-GB', {
-  month: 'short',
-  timeZone: 'Europe/Lisbon',
-});
-const fullDateFormatter = new Intl.DateTimeFormat('en-GB', {
-  day: 'numeric',
-  month: 'short',
-  timeZone: 'Europe/Lisbon',
-});
+const eventFormatters = (lang: DashboardLang) => {
+  const { intlLocale } = DASHBOARD_COPY[lang];
+  return {
+    month: new Intl.DateTimeFormat(intlLocale, { month: 'short', timeZone: 'Europe/Lisbon' }),
+    fullDate: new Intl.DateTimeFormat(intlLocale, {
+      day: 'numeric',
+      month: 'short',
+      timeZone: 'Europe/Lisbon',
+    }),
+  };
+};
 
 export const UpcomingEventsWidget: React.FC<{
   events: UpcomingEvent[];
   hrefFor: (event: UpcomingEvent) => string;
   allHref: string;
-}> = ({ events, hrefFor, allHref }) => (
-  <Widget
-    title='Upcoming Events'
-    icon='📅'
-    action={
-      <Link
-        href={allHref}
-        className='text-xs text-gray-600 no-underline hover:underline dark:text-gray-300'
-      >
-        View all →
-      </Link>
-    }
-  >
-    {events.length === 0 ? (
-      <EmptyState>No upcoming events scheduled.</EmptyState>
-    ) : (
-      <ul className='flex flex-col gap-1'>
-        {events.map((event) => {
-          const start = new Date(event.date);
-          const end = event.endDate ? new Date(event.endDate) : null;
-          return (
-            <li key={event.id}>
-              <Link href={hrefFor(event)} className={rowLinkClasses}>
-                <div className='bg-green flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-lg text-white'>
-                  <span className='text-lg leading-none font-semibold'>
-                    {dayFormatter.format(start)}
-                  </span>
-                  <span className='text-[10px] tracking-wide uppercase'>
-                    {monthFormatter.format(start)}
-                  </span>
-                </div>
-                <div className='min-w-0 flex-1'>
-                  <p className='truncate text-sm font-medium text-gray-800 dark:text-gray-100'>
-                    {event.heading}
-                  </p>
-                  <p className='mt-0.5 truncate text-xs text-gray-500 dark:text-gray-400'>
-                    {end && end.getTime() !== start.getTime()
-                      ? `${fullDateFormatter.format(start)} – ${fullDateFormatter.format(end)}`
-                      : fullDateFormatter.format(start)}
-                    {event.location && ` · ${event.location}`}
-                  </p>
-                </div>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    )}
-  </Widget>
-);
+  lang: DashboardLang;
+}> = ({ events, hrefFor, allHref, lang }) => {
+  const copy = DASHBOARD_COPY[lang].upcomingEvents;
+  const { month: monthFormatter, fullDate: fullDateFormatter } = eventFormatters(lang);
+  return (
+    <Widget
+      title={copy.title}
+      icon='📅'
+      action={
+        <Link
+          href={allHref}
+          className='text-xs text-gray-600 no-underline hover:underline dark:text-gray-300'
+        >
+          {copy.viewAll}
+        </Link>
+      }
+    >
+      {events.length === 0 ? (
+        <EmptyState>{copy.empty}</EmptyState>
+      ) : (
+        <ul className='flex flex-col gap-1'>
+          {events.map((event) => {
+            const start = new Date(event.date);
+            const end = event.endDate ? new Date(event.endDate) : null;
+            return (
+              <li key={event.id}>
+                <Link href={hrefFor(event)} className={rowLinkClasses}>
+                  <div className='bg-green flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-lg text-white'>
+                    <span className='text-lg leading-none font-semibold'>
+                      {dayFormatter.format(start)}
+                    </span>
+                    <span className='text-[10px] tracking-wide uppercase'>
+                      {monthFormatter.format(start)}
+                    </span>
+                  </div>
+                  <div className='min-w-0 flex-1'>
+                    <p className='truncate text-sm font-medium text-gray-800 dark:text-gray-100'>
+                      {event.heading}
+                    </p>
+                    <p className='mt-0.5 truncate text-xs text-gray-500 dark:text-gray-400'>
+                      {end && end.getTime() !== start.getTime()
+                        ? `${fullDateFormatter.format(start)} – ${fullDateFormatter.format(end)}`
+                        : fullDateFormatter.format(start)}
+                      {event.location && ` · ${event.location}`}
+                    </p>
+                  </div>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </Widget>
+  );
+};
 
 export type ShortcutGroup = {
   label: string;
@@ -162,8 +177,11 @@ export type ShortcutGroup = {
 };
 
 /** Compact replacement for Payload's default grid of collection/global cards. */
-export const CollectionShortcuts: React.FC<{ groups: ShortcutGroup[] }> = ({ groups }) => (
-  <Widget title='Content' icon='🗂️'>
+export const CollectionShortcuts: React.FC<{ groups: ShortcutGroup[]; title: string }> = ({
+  groups,
+  title,
+}) => (
+  <Widget title={title} icon='🗂️'>
     <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
       {groups.map((group) => (
         <div key={group.label}>

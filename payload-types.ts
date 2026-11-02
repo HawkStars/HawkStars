@@ -2405,6 +2405,7 @@ export type BentoGridItem = {
 export interface Config {
   auth: {
     users: UserAuthOperations;
+    'payload-mcp-api-keys': PayloadMcpApiKeyAuthOperations;
   };
   blocks: {
     hero: HeroBlock;
@@ -2471,6 +2472,7 @@ export interface Config {
     news: News;
     notifications: Notification;
     'totp-attempts': TotpAttempt;
+    'payload-mcp-api-keys': PayloadMcpApiKey;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -2506,6 +2508,7 @@ export interface Config {
     news: NewsSelect<false> | NewsSelect<true>;
     notifications: NotificationsSelect<false> | NotificationsSelect<true>;
     'totp-attempts': TotpAttemptsSelect<false> | TotpAttemptsSelect<true>;
+    'payload-mcp-api-keys': PayloadMcpApiKeysSelect<false> | PayloadMcpApiKeysSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -2546,7 +2549,7 @@ export interface Config {
   widgets: {
     collections: CollectionsWidget;
   };
-  user: User;
+  user: User | PayloadMcpApiKey;
   jobs: {
     tasks: {
       refreshInstagramToken: TaskRefreshInstagramToken;
@@ -2563,6 +2566,24 @@ export interface Config {
   };
 }
 export interface UserAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
+export interface PayloadMcpApiKeyAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -4139,6 +4160,7 @@ export interface User {
    */
   isAdmin?: boolean | null;
   totpSecret?: string | null;
+  hasTotp?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -4917,6 +4939,146 @@ export interface TotpAttempt {
   lockUntil?: string | null;
 }
 /**
+ * API keys control which collections, resources, tools, and prompts MCP clients can access
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-mcp-api-keys".
+ */
+export interface PayloadMcpApiKey {
+  id: string;
+  /**
+   * The user that the API key is associated with.
+   */
+  user: string | User;
+  /**
+   * A useful label for the API key.
+   */
+  label?: string | null;
+  /**
+   * The purpose of the API key.
+   */
+  description?: string | null;
+  pages?: {
+    /**
+     * Allow clients to find pages.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create pages.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update pages.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete pages.
+     */
+    delete?: boolean | null;
+  };
+  hawkEvents?: {
+    /**
+     * Allow clients to find hawk_events.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create hawk_events.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update hawk_events.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete hawk_events.
+     */
+    delete?: boolean | null;
+  };
+  hawkProjects?: {
+    /**
+     * Allow clients to find hawk_projects.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create hawk_projects.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update hawk_projects.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete hawk_projects.
+     */
+    delete?: boolean | null;
+  };
+  news?: {
+    /**
+     * Allow clients to find news.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create news.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update news.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete news.
+     */
+    delete?: boolean | null;
+  };
+  mainPage?: {
+    /**
+     * Allow clients to find main-page global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update main-page global.
+     */
+    update?: boolean | null;
+  };
+  eventsList?: {
+    /**
+     * Allow clients to find events-list global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update events-list global.
+     */
+    update?: boolean | null;
+  };
+  projectsList?: {
+    /**
+     * Allow clients to find projects-list global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update projects-list global.
+     */
+    update?: boolean | null;
+  };
+  newsList?: {
+    /**
+     * Allow clients to find news-list global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update news-list global.
+     */
+    update?: boolean | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
+  hasAPIKey?: boolean | null;
+  collection: 'payload-mcp-api-keys';
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -5131,12 +5293,21 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'notifications';
         value: string | Notification;
+      } | null)
+    | ({
+        relationTo: 'payload-mcp-api-keys';
+        value: string | PayloadMcpApiKey;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'payload-mcp-api-keys';
+        value: string | PayloadMcpApiKey;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -5146,10 +5317,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: string;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'payload-mcp-api-keys';
+        value: string | PayloadMcpApiKey;
+      };
   key?: string | null;
   value?:
     | {
@@ -5182,6 +5358,7 @@ export interface UsersSelect<T extends boolean = true> {
   name?: T;
   isAdmin?: T;
   totpSecret?: T;
+  hasTotp?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -6734,6 +6911,77 @@ export interface TotpAttemptsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-mcp-api-keys_select".
+ */
+export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
+  user?: T;
+  label?: T;
+  description?: T;
+  pages?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  hawkEvents?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  hawkProjects?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  news?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  mainPage?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
+  eventsList?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
+  projectsList?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
+  newsList?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  enableAPIKey?: T;
+  apiKey?: T;
+  apiKeyIndex?: T;
+  hasAPIKey?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -7558,10 +7806,15 @@ export interface TaskSchedulePublish {
           value: string | News;
         } | null);
     global?: string | null;
-    user?: {
-      relationTo: 'users';
-      value: string | User;
-    } | null;
+    user?:
+      | ({
+          relationTo: 'users';
+          value: string | User;
+        } | null)
+      | ({
+          relationTo: 'payload-mcp-api-keys';
+          value: string | PayloadMcpApiKey;
+        } | null);
   };
   output?: unknown;
 }
