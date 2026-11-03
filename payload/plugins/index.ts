@@ -8,12 +8,11 @@ import * as Sentry from '@sentry/nextjs';
 import { Page } from '@/payload-types';
 import { getServerSideURL } from '@/payload/utilities/getURL';
 import { cloudinaryAdapter } from '@/lib/cloudinary/adapter';
-import { mcpPlugin } from '@payloadcms/plugin-mcp';
 import { googleDriveAdapter, generateGoogleDriveURL } from '@/lib/google-drive/adapter';
 import { v2 as cloudinary } from 'cloudinary';
 import { showLocaleValuesPlugin } from './showLocaleValues';
 import { totpPlugin } from './totp';
-import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
+import { hawkMCPPlugin } from './mcp';
 
 const generateTitle: GenerateTitle<Page> = ({ doc }) => {
   return doc?.title || 'Payload Website Template';
@@ -69,82 +68,8 @@ export const plugins: Plugin[] = [
     },
     Sentry,
   }),
-  mcpPlugin({
-    disabled: false,
-    userCollection: 'users',
-    overrideApiKeyCollection: (collection) => ({
-      ...collection,
-      access: {
-        ...collection.access,
-        admin: authenticatedAdmin,
-        read: authenticatedAdmin,
-        create: authenticatedAdmin,
-        update: authenticatedAdmin,
-        delete: authenticatedAdmin,
-      },
-    }),
-    collections: {
-      pages: {
-        enabled: {
-          create: true,
-          find: true,
-          update: true,
-          delete: true,
-        },
-      },
-      hawk_events: {
-        enabled: {
-          create: true,
-          find: true,
-          update: true,
-          delete: true,
-        },
-      },
-      hawk_projects: {
-        enabled: {
-          create: true,
-          find: true,
-          update: true,
-          delete: true,
-        },
-      },
-      news: {
-        enabled: {
-          create: true,
-          find: true,
-          update: true,
-          delete: true,
-        },
-      },
-    },
-    globals: {
-      'main-page': {
-        enabled: {
-          find: true,
-          update: true,
-        },
-      },
-      'events-list': {
-        enabled: {
-          find: true,
-          update: true,
-        },
-      },
-      'projects-list': {
-        enabled: {
-          find: true,
-          update: true,
-        },
-      },
-      'news-list': {
-        enabled: {
-          find: true,
-          update: true,
-        },
-      },
-    },
-  }),
-
+  /** MCP Plugin */
+  hawkMCPPlugin,
   /** LAST plugin cause of overrides */
   totpPlugin,
 ];

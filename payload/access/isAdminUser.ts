@@ -1,5 +1,5 @@
 import type { PayloadRequest } from 'payload';
-import type { User } from '@/payload-types';
+import type { PayloadMcpApiKey, User } from '@/payload-types';
 
 /**
  * True when the request comes from an admin *person*. `req.user` can also be an
@@ -8,4 +8,12 @@ import type { User } from '@/payload-types';
  */
 export const isAdminUser = (
   user: PayloadRequest['user'] | undefined
-): user is User & { collection: 'users' } => user?.collection === 'users' && Boolean(user.isAdmin);
+): user is User | PayloadMcpApiKey => {
+  if (!user) return false;
+  if ('isAdmin' in user) {
+    return Boolean(user.isAdmin);
+  }
+
+  const userReq = user as PayloadMcpApiKey;
+  return Boolean((userReq.user as User).isAdmin);
+};

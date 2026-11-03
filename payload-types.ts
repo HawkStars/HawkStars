@@ -4160,7 +4160,6 @@ export interface User {
    */
   isAdmin?: boolean | null;
   totpSecret?: string | null;
-  hasTotp?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -4971,10 +4970,6 @@ export interface PayloadMcpApiKey {
      * Allow clients to update pages.
      */
     update?: boolean | null;
-    /**
-     * Allow clients to delete pages.
-     */
-    delete?: boolean | null;
   };
   hawkEvents?: {
     /**
@@ -4989,10 +4984,6 @@ export interface PayloadMcpApiKey {
      * Allow clients to update hawk_events.
      */
     update?: boolean | null;
-    /**
-     * Allow clients to delete hawk_events.
-     */
-    delete?: boolean | null;
   };
   hawkProjects?: {
     /**
@@ -5007,10 +4998,6 @@ export interface PayloadMcpApiKey {
      * Allow clients to update hawk_projects.
      */
     update?: boolean | null;
-    /**
-     * Allow clients to delete hawk_projects.
-     */
-    delete?: boolean | null;
   };
   news?: {
     /**
@@ -5025,10 +5012,62 @@ export interface PayloadMcpApiKey {
      * Allow clients to update news.
      */
     update?: boolean | null;
+  };
+  partners?: {
     /**
-     * Allow clients to delete news.
+     * Allow clients to find partners.
      */
-    delete?: boolean | null;
+    find?: boolean | null;
+    /**
+     * Allow clients to create partners.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update partners.
+     */
+    update?: boolean | null;
+  };
+  media?: {
+    /**
+     * Allow clients to find media.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create media.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update media.
+     */
+    update?: boolean | null;
+  };
+  documents?: {
+    /**
+     * Allow clients to find documents.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create documents.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update documents.
+     */
+    update?: boolean | null;
+  };
+  sponsors?: {
+    /**
+     * Allow clients to find sponsors.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create sponsors.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update sponsors.
+     */
+    update?: boolean | null;
   };
   mainPage?: {
     /**
@@ -5358,7 +5397,6 @@ export interface UsersSelect<T extends boolean = true> {
   name?: T;
   isAdmin?: T;
   totpSecret?: T;
-  hasTotp?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -6923,7 +6961,6 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
         find?: T;
         create?: T;
         update?: T;
-        delete?: T;
       };
   hawkEvents?:
     | T
@@ -6931,7 +6968,6 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
         find?: T;
         create?: T;
         update?: T;
-        delete?: T;
       };
   hawkProjects?:
     | T
@@ -6939,7 +6975,6 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
         find?: T;
         create?: T;
         update?: T;
-        delete?: T;
       };
   news?:
     | T
@@ -6947,7 +6982,34 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
         find?: T;
         create?: T;
         update?: T;
-        delete?: T;
+      };
+  partners?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+      };
+  media?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+      };
+  documents?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+      };
+  sponsors?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
       };
   mainPage?:
     | T
