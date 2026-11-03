@@ -15,5 +15,5 @@ export const isAdminUser = (
   }
 
   const userReq = user as PayloadMcpApiKey;
-  return Boolean((userReq.user as User).isAdmin);
+  return Boolean((userReq.user as User)?.isAdmin) ?? false;
 };
