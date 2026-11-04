@@ -52,7 +52,7 @@ import { CrowdfundingImageBannerBlockComponent } from '@/payload/blocks/Crowdfun
 import { SectionTitleBlockComponent } from '@/payload/blocks/SectionTitleBlock/Component';
 import { SectionListBlockComponent } from '@/payload/blocks/SectionListBlock/Component';
 import Upload from '../utils/upload';
-import HorizontalLine from '@/components/ui/horizontal-line';
+import Quote from '../utils/quote';
 import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
 import { createUrlByCollection } from '@/utils/paths';
 import assert from 'assert';
@@ -245,8 +245,13 @@ const jsxConverters =
     list: List,
     listitem: ListItem,
     paragraph: Paragraph,
-    horizontalrule: <HorizontalLine />,
+    horizontalrule: (
+      <div className='rt-column'>
+        <hr className='rt-rule' />
+      </div>
+    ),
     heading: Heading,
+    quote: Quote,
     linebreak: () => <br />,
     unknown: ({ node }) => {
       if (process.env.NODE_ENV === 'production') {
@@ -263,17 +268,19 @@ const jsxConverters =
 export type RichTextProps = {
   data: DefaultTypedEditorState;
   lng: Language;
+  /** `article` turns the first paragraph into a larger lead (news articles). */
+  variant?: 'default' | 'article';
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export default function RichText(props: RichTextProps) {
   const lng = props.lng;
   const converters = useMemo(() => jsxConverters(lng), [lng]);
-  const { className, ...rest } = props;
+  const { className, variant = 'default', ...rest } = props;
 
   return (
     <ConvertRichText
       converters={converters}
-      className={cn('payload-richtext', className)}
+      className={cn('payload-richtext', { 'rt-article': variant === 'article' }, className)}
       {...rest}
     />
   );

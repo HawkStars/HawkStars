@@ -560,6 +560,33 @@
   text-decoration: underline;
 }
 
+/* The shared prose pieces (payload/components/RichText/richtext.scss) use the org
+   green and beige; swap them for the gallery's gold on dark. */
+.art-richtext :is(.rt-list > li)::marker,
+.art-richtext .rt-anchor {
+  color: var(--color-art-gold);
+}
+
+.art-richtext .rt-quote {
+  border-color: var(--color-art-gold);
+  background-color: var(--color-art-wall);
+  color: var(--color-art-gold-bright);
+  font-family: var(--font-art-serif);
+}
+
+.art-richtext .rt-check {
+  border-color: var(--color-art-gold);
+  color: var(--color-art-ebony);
+}
+
+.art-richtext .rt-check[data-checked='true'] {
+  background-color: var(--color-art-gold);
+}
+
+.art-richtext .rt-rule {
+  border-color: var(--color-art-line);
+}
+
 /* Gallery article: blockquotes become the design's highlighted pull-quote box. */
 .art-article blockquote {
   position: relative;

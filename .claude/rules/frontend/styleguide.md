@@ -126,6 +126,20 @@ Defined in `globals.css` `@layer components`. **Every heading uses one of these 
 
 ---
 
+## Rich text (Payload Lexical)
+
+`RichText` (`payload/components/RichText`) renders CMS rich text through the converters in `payload/components/utils/`. Its prose styles live in `payload/components/RichText/richtext.scss`:
+
+- **Scoped to editor text only.** Every rule targets a class the converters put on their own elements (`rt-p`, `rt-heading`, `rt-list`, `rt-quote`, `rt-figure`, `rt-rule`, `rt-text`). Never style bare `p`, `span` or `a` under `.payload-richtext` — blocks render inside rich text, and such a rule would override their typography.
+- **Layered.** The file is in `@layer components`, so utilities on a block win. Prose sets no colour or font family — it inherits, which is how the art gallery (`.art-richtext` in `globals.css`) restyles it.
+- **Reading column.** `rt-column` (≈70 characters, `max-w-2xl`, with the site gutter) for text; `rt-wide` (`max-w-4xl`) for images. Reuse `rt-column` for anything that should line up with the text, e.g. an article's references list.
+- **Alignment and indent** come from Payload as inline styles. Converters pass `style={noJustify(node)}` so `justify` falls back to `start`.
+- **Empty paragraphs render nothing** — spacing comes from the stylesheet, not from editors pressing Enter twice.
+- **`variant='article'`** makes the first paragraph a lead (news articles), unless that paragraph holds line breaks.
+- `h2`/`h3` get a slug `id` and a hover `#` link for deep-linking.
+
+---
+
 ## Cards
 
 Card utilities are in `globals.css` `@layer components`. Use them for consistent shadow and rounding.
