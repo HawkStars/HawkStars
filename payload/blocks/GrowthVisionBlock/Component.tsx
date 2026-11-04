@@ -66,7 +66,7 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
               {/* Icon image */}
               <div
                 className={cn(
-                  'relative flex flex-1 shrink-0 items-center justify-center rounded-4xl'
+                  'relative flex flex-1 shrink-0 items-center justify-center rounded-xl'
                 )}
               >
                 {img ? (
@@ -75,7 +75,7 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
                     alt={img.alt ?? ''}
                     height={300}
                     width={450}
-                    className='aspect-video rounded-2xl object-contain'
+                    className='aspect-video rounded-xl object-contain'
                   />
                 ) : (
                   <div className='h-full w-full' />

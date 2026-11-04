@@ -37,7 +37,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> =
     >
       {resolvedVariant === 'centered' && (
         <div
-          className='rounded-2xl p-12 text-center text-white'
+          className='rounded-xl p-12 text-center text-white'
           style={{ background: 'linear-gradient(135deg, #0a7558 0%, #064f39 100%)' }}
         >
           <SectionHeader
@@ -72,7 +72,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> =
 
       {resolvedVariant === 'split' && (
         <div
-          className='overflow-hidden rounded-2xl text-white'
+          className='overflow-hidden rounded-xl text-white'
           style={{ background: 'linear-gradient(135deg, #0a7558 0%, #064f39 100%)' }}
         >
           <div className='flex flex-col gap-8 p-12 lg:flex-row lg:items-center lg:justify-between'>
@@ -109,7 +109,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> =
 
       {resolvedVariant === 'image-bg' && (
         <div
-          className='relative overflow-hidden rounded-2xl bg-cover bg-center p-12 text-white'
+          className='relative overflow-hidden rounded-xl bg-cover bg-center p-12 text-white'
           style={{
             backgroundImage: bgImage?.url
               ? `url(${bgImage.url})`

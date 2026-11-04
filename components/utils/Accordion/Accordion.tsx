@@ -7,6 +7,8 @@ import { LuChevronDown } from 'react-icons/lu';
 type AccordionProps = {
   title: string;
   defaultOpen?: boolean;
+  /** Match the surrounding outline; heading levels must not skip (axe heading-order). */
+  headingLevel?: 'h3' | 'h4' | 'h5' | 'h6';
   children: ReactNode;
 };
 
@@ -14,7 +16,12 @@ type AccordionProps = {
 // keyboard and exposed no expanded state. It is now the standard accordion
 // pattern: a heading containing a <button aria-expanded aria-controls>, and a
 // labelled region for the panel.
-const Accordion = ({ title, defaultOpen = false, children }: AccordionProps) => {
+const Accordion = ({
+  title,
+  defaultOpen = false,
+  headingLevel: Heading = 'h6',
+  children,
+}: AccordionProps) => {
   const [open, setOpen] = useState<boolean>(defaultOpen);
   const id = useId();
   const buttonId = `${id}-trigger`;
@@ -22,7 +29,7 @@ const Accordion = ({ title, defaultOpen = false, children }: AccordionProps) => 
 
   return (
     <div className='flex flex-col'>
-      <h6 className='lg:text-h2_bold text-body_semibold'>
+      <Heading className='text-body_semibold'>
         <button
           type='button'
           id={buttonId}
@@ -41,13 +48,13 @@ const Accordion = ({ title, defaultOpen = false, children }: AccordionProps) => 
             })}
           />
         </button>
-      </h6>
+      </Heading>
       <div
         id={panelId}
         role='region'
         aria-labelledby={buttonId}
         hidden={!open}
-        className='lg:text-h2_light text-body_regular my-4 flex'
+        className='mt-3 flex flex-col gap-2'
       >
         {children}
       </div>

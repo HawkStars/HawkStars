@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import { DonationType, PaymentMethodOption } from './types';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
@@ -117,19 +118,18 @@ const PaymentStep = ({
 
       {/* Navigation */}
       <div className='flex gap-3'>
-        <button
-          onClick={onBack}
-          className='hover:border-green flex-1 cursor-pointer rounded-lg border border-neutral-300 bg-white py-3 text-sm font-medium text-neutral-800 transition-colors duration-150'
-        >
+        <Button type='button' variant='outline' size='lg' className='flex-1' onClick={onBack}>
           {t('donation_widget.back')}
-        </button>
-        <button
+        </Button>
+        <Button
+          type='button'
+          size='lg'
+          className='flex-1'
           onClick={handleNext}
           disabled={!selectedMethod}
-          className='from-green-dark to-green flex-1 cursor-pointer rounded-lg border-none bg-linear-to-br py-3 text-sm font-semibold text-white transition-opacity duration-200 disabled:cursor-not-allowed disabled:opacity-50'
         >
           {t('donation_widget.continue')}
-        </button>
+        </Button>
       </div>
     </div>
   );

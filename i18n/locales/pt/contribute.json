@@ -50,7 +50,8 @@
         "lounge_chair": "Cadeira Lounge Co(ffe) Working",
         "auditorium_chair": "Cadeira Móvel de Auditório/Salas Formação"
       },
-      "available_chairs": "{{taken}}/{{all}} ocupadas"
+      "available_chairs": "{{taken}}/{{all}} ocupadas",
+      "cta": "Dar nome a uma cadeira"
     }
   },
   "contribution_form": {

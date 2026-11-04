@@ -52,7 +52,7 @@ const LandingPagination: FC<LandingPaginationProps> = ({
       {hasPrevPage && (
         <Link
           href={buildHref((page ?? 1) - 1)}
-          className='rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100'
+          className='hover:bg-bege-light rounded-md border px-4 py-2 text-sm font-medium transition-colors'
         >
           ← {t('pagination.previous')}
         </Link>
@@ -63,7 +63,7 @@ const LandingPagination: FC<LandingPaginationProps> = ({
       {hasNextPage && (
         <Link
           href={buildHref((page ?? 1) + 1)}
-          className='rounded-md border px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100'
+          className='hover:bg-bege-light rounded-md border px-4 py-2 text-sm font-medium transition-colors'
         >
           {t('pagination.next')} →
         </Link>

@@ -2,11 +2,10 @@ import Link from 'next/link';
 import { SocialIcon, SocialType } from '../../utils/models/social';
 
 import { Partner } from '@/payload-types';
-import { FlagIcons } from '@/lib/flags';
 import { ImageMedia } from '@/payload/components/Media';
 import { getServerTranslation } from '@/i18n';
 import { Language, fallbackLng } from '@/i18n/settings';
-import { getPartnerInitials } from './utils';
+import { getInitials } from '@/lib/initials';
 
 type PartnerLinksProps = Pick<Partner, 'links'> & { lng: Language };
 
@@ -42,13 +41,16 @@ const PartnerLinks = async ({ links, lng }: PartnerLinksProps) => {
   );
 };
 
-const PartnerCard = async (partner: Partner & { lng?: Language }) => {
-  const { name, logo, country, links, type, lng = fallbackLng } = partner;
+type PartnerCardProps = Partner & {
+  lng?: Language;
+  /** h4 when the card sits under a country heading. */
+  headingLevel?: 'h3' | 'h4';
+};
+
+const PartnerCard = async (partner: PartnerCardProps) => {
+  const { name, logo, links, lng = fallbackLng, headingLevel: Heading = 'h3' } = partner;
   const { t } = await getServerTranslation(lng, 'partners');
 
-  // National partners are all Portuguese, so a flag on each says nothing;
-  // it only distinguishes international ones.
-  const flagIcon = type === 'international' && country ? FlagIcons[country] : undefined;
   const logoUrl = logo && typeof logo === 'object' ? logo.url : undefined;
 
   return (
@@ -69,19 +71,13 @@ const PartnerCard = async (partner: Partner & { lng?: Language }) => {
             aria-hidden='true'
             className='bg-bege-dark text-green font-display flex size-20 items-center justify-center rounded-full text-2xl font-semibold'
           >
-            {getPartnerInitials(name)}
+            {getInitials(name)}
           </span>
         )}
       </div>
 
-      <h3 className='text-body_semibold mt-auto leading-snug text-balance'>{name}</h3>
-
-      {flagIcon && (
-        <span className='text-muted-foreground flex items-center gap-1.5 text-xs'>
-          {flagIcon({ title: country, className: 'w-5 rounded-xs' })}
-          {country}
-        </span>
-      )}
+      {/* Country is shown once per group heading on the partners page, not per card. */}
+      <Heading className='text-body_semibold mt-auto leading-snug text-balance'>{name}</Heading>
 
       <PartnerLinks links={links} lng={lng} />
     </div>

@@ -34,7 +34,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps & { lng: Language 
       <div className='grid gap-8 lg:grid-cols-2'>
         {/* Map */}
         <div className='overflow-hidden rounded-xl border border-gray-200'>
-          <div className='aspect-square w-full bg-gray-200'>
+          <div className='bg-bege-dark aspect-square w-full'>
             <iframe
               width='100%'
               height='100%'

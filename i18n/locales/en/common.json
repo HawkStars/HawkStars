@@ -188,5 +188,13 @@
   "agenda": {
     "loading": "Loading events…",
     "empty": "No upcoming events."
+  },
+  "article": {
+    "share": "Share",
+    "shareOn": "Share on {{network}}",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied",
+    "moreNews": "More news",
+    "allNews": "See all news"
   }
 }

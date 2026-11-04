@@ -33,7 +33,7 @@ const FooterContainer: FC<FooterProps> = async ({ footerInfo, lng }) => {
           />
           <p className='text-sm leading-relaxed text-black/70'>{t('footer.mission')}</p>
           <div className='flex flex-wrap gap-3'>
-            <Button asChild>
+            <Button asChild variant='accent'>
               <Link href={transformUrl(lng, SITE_GET_URLS.contribute)}>{t('footer.donate')}</Link>
             </Button>
             <Button asChild variant='outline'>

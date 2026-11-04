@@ -56,7 +56,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps & { lng:
       data-blockid='newsletterSignup'
     >
       <div
-        className='rounded-2xl p-8 text-white lg:p-12'
+        className='rounded-xl p-8 text-white lg:p-12'
         style={{ background: 'linear-gradient(135deg, #0a7558 0%, #064f39 100%)' }}
       >
         <div className='mx-auto max-w-2xl text-center'>

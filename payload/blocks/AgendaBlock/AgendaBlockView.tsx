@@ -47,7 +47,7 @@ const typeColors: Record<string, { bg: string; text: string }> = {
     bg: 'bg-purple-100 dark:bg-purple-900/30',
     text: 'text-purple-700 dark:text-purple-300',
   },
-  other: { bg: 'bg-zinc-100 dark:bg-zinc-700', text: 'text-zinc-600 dark:text-zinc-400' },
+  other: { bg: 'bg-bege-dark dark:bg-zinc-700', text: 'text-zinc-600 dark:text-zinc-400' },
 };
 
 // These were pinned to 'pt-PT', so an English visitor read "set." and "de" — and
@@ -196,7 +196,7 @@ function CompactItem({ event, lng }: { event: AgendaEventItem; lng: Language }) 
   return (
     <a href={event.href} className='flex flex-col gap-2'>
       {event.badge && <BadgeChip badge={event.badge} />}
-      <div className='group relative flex items-center gap-4 rounded-lg border border-zinc-100 px-4 py-3 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/50'>
+      <div className='group border-bege-dark relative flex items-center gap-4 rounded-lg border px-4 py-3 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/50'>
         <LuCalendar className='h-4 w-4 shrink-0 text-zinc-400' />
         <span className='flex-1 font-mono text-sm text-zinc-500 dark:text-zinc-400'>{dateStr}</span>
         <span className='flex-1 font-medium text-zinc-900 group-hover:text-green-600 dark:text-zinc-100 dark:group-hover:text-green-400'>
@@ -225,7 +225,7 @@ function CardItem({
   return (
     <div className='group flex flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-800'>
       {/* Image */}
-      <div className='relative h-44 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-700'>
+      <div className='bg-bege-dark relative h-44 w-full overflow-hidden dark:bg-zinc-700'>
         {event.image?.url ? (
           <ImageMedia
             src={event.image.url}
@@ -299,10 +299,10 @@ export function AgendaBlockView({
 
   return (
     <HawkStarsSection
-      spacing='none'
+      spacing='default'
       padding='none'
       cap='none'
-      className='w-full py-12'
+      className='w-full'
       id={sectionId ?? undefined}
       data-blockid='agenda'
     >

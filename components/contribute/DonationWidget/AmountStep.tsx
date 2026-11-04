@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import { DonationType, PRESET_AMOUNTS } from './types';
 import { useState } from 'react';
 import { useTranslation } from '@/i18n/client';
@@ -160,21 +161,18 @@ const AmountStep = ({ frequency, onFrequencyChange, onHandleDonationValue }: Amo
       </div>
 
       {/* Donate Button */}
-      <button
+      <Button
         type='button'
-        className={cn(
-          'bg-green focus-visible:ring-green w-full rounded-lg border-none py-4 text-base font-semibold text-white transition-[opacity,transform] duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
-          customAmount && customAmount > 0
-            ? 'cursor-pointer opacity-100'
-            : 'cursor-not-allowed opacity-50'
-        )}
+        variant='accent'
+        size='xl'
+        className='w-full'
         onClick={handleDonateButton}
         disabled={!customAmount || customAmount <= 0}
       >
         {t('donation_widget.amount.donate')}
         {customAmount ? ` €${customAmount}` : ''}
         {frequency === 'monthly' ? ` ${t('donation_widget.amount.per_month')}` : ''}
-      </button>
+      </Button>
     </div>
   );
 };

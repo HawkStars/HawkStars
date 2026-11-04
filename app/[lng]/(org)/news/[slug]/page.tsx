@@ -11,6 +11,8 @@ import NewsSingleHero from '@/components/news/single/NewsSingleHero';
 import NewsSingleHeroNoImage from '@/components/news/single/NewsSingleHeroNoImage';
 import NewsSingleInformation from '@/components/news/single/NewsSingleInformation';
 import NewsSingleGallery from '@/components/news/single/NewsSingleGallery';
+import NewsShareBar from '@/components/news/single/NewsShareBar';
+import NewsMoreSection from '@/components/news/single/NewsMoreSection';
 import { Suspense } from 'react';
 import { PageLoading } from '@/components/layout';
 
@@ -80,7 +82,11 @@ const NewsArticleContent = async ({ params }: { params: NewsSlugPageProps['param
       )}
 
       <NewsSingleInformation {...article} />
+      <div className='rt-column pb-12'>
+        <NewsShareBar url={`${BASE_URL}/${lng}/news/${slug}`} title={title} lng={lng as Language} />
+      </div>
       <NewsSingleGallery gallery={article.gallery} />
+      <NewsMoreSection currentSlug={slug} lng={lng as Language} />
     </>
   );
 };

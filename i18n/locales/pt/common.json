@@ -188,5 +188,13 @@
   "agenda": {
     "loading": "A carregar eventos…",
     "empty": "Sem eventos próximos."
+  },
+  "article": {
+    "share": "Partilhar",
+    "shareOn": "Partilhar no {{network}}",
+    "copyLink": "Copiar ligação",
+    "linkCopied": "Ligação copiada",
+    "moreNews": "Mais notícias",
+    "allNews": "Ver todas as notícias"
   }
 }

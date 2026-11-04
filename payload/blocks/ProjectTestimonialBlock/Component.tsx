@@ -38,7 +38,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
 
   const backgroundClasses = {
     none: '',
-    light: 'bg-gray-50',
+    light: 'bg-bege-light',
     dark: 'bg-gray-900',
     brand: 'bg-green/10',
   };
@@ -104,7 +104,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
       if (!mediaImage) return null;
 
       return (
-        <div className='relative aspect-4/3 w-full overflow-hidden rounded-2xl'>
+        <div className='relative aspect-4/3 w-full overflow-hidden rounded-xl'>
           {mediaImage?.url && (
             <ImageMedia
               src={mediaImage.url}
@@ -124,7 +124,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
 
     // Slideshow mode
     return (
-      <div className='relative aspect-4/3 w-full overflow-hidden rounded-2xl'>
+      <div className='relative aspect-4/3 w-full overflow-hidden rounded-xl'>
         {images.map((img, index: number) => {
           const mediaImage = getImagePayloadUrl(img.image);
           if (!mediaImage) return null;

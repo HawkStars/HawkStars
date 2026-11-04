@@ -10,10 +10,12 @@ import { cn } from '@/lib/utils';
  * gold, and gaming/crowdfunding use their own accents.
  */
 export type SectionHeaderVariant =
-  'green' | 'blue' | 'gold' | 'gaming' | 'crowdfunding' | 'inverse';
+  'green' | 'ink' | 'blue' | 'gold' | 'gaming' | 'crowdfunding' | 'inverse';
 
 const ACCENT: Record<SectionHeaderVariant, { text: string; rule: string }> = {
   green: { text: 'text-green', rule: 'bg-green' },
+  // International / Europe content on org pages.
+  ink: { text: 'text-ink', rule: 'bg-ink' },
   blue: { text: 'text-erasmus-blue', rule: 'bg-erasmus-blue' },
   gold: { text: 'text-erasmus-gold', rule: 'bg-erasmus-gold' },
   gaming: { text: 'text-gaming-accent', rule: 'bg-gaming-accent' },

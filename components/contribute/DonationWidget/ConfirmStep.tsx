@@ -1,4 +1,5 @@
 import { DonationState, getActiveAmount } from './types';
+import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
@@ -34,7 +35,7 @@ const ConfirmStep = ({
       </p>
 
       {/* Summary */}
-      <div className='rounded-lg border border-neutral-300 bg-neutral-50 p-4'>
+      <div className='border-bege-dark bg-bege-light rounded-lg border p-4'>
         <div className='flex items-center justify-between border-b border-neutral-200 pb-3'>
           <span className='text-sm text-neutral-600'>
             {t('donation_widget.confirm.amount_label')}
@@ -95,22 +96,27 @@ const ConfirmStep = ({
 
       {/* Navigation */}
       <div className='flex gap-3'>
-        <button
+        <Button
+          type='button'
+          variant='outline'
+          size='lg'
+          className='flex-1'
           onClick={onBack}
           disabled={isSubmitting}
-          className='hover:border-green flex-1 cursor-pointer rounded-lg border border-neutral-300 bg-white py-3 text-sm font-medium text-neutral-800 transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-50'
         >
           {t('donation_widget.back')}
-        </button>
-        <button
+        </Button>
+        <Button
+          type='button'
+          size='lg'
+          className='flex-1'
           onClick={onConfirm}
           disabled={isSubmitting}
-          className='from-green-dark to-green flex-1 cursor-pointer rounded-lg border-none bg-linear-to-br py-3 text-sm font-semibold text-white transition-opacity duration-200 disabled:cursor-not-allowed disabled:opacity-50'
         >
           {isSubmitting
             ? t('donation_widget.confirm.processing')
             : t('donation_widget.confirm.confirm_button')}
-        </button>
+        </Button>
       </div>
     </div>
   );

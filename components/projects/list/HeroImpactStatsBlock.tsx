@@ -157,7 +157,7 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
             {/* Right Column - Image */}
             {((image && image.url) || video) && (
               <div>
-                <div className={cn('relative h-full min-h-75 overflow-hidden rounded-2xl')}>
+                <div className={cn('relative h-full min-h-75 overflow-hidden rounded-xl')}>
                   {!image && video && <VideoBlock videoUrl={video} blockType={'videoBlock'} />}
                   {image && (
                     <ImageMedia

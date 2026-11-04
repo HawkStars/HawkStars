@@ -113,7 +113,7 @@ const MobileNavbar: FC<MobileNavbarProps> = ({ headerInfo }) => {
       <div className='mt-auto flex flex-col gap-4 pt-6 pb-4'>
         <p className='text-eyebrow text-green'>{t('footer.menuCta')}</p>
         <div className='grid grid-cols-2 gap-3'>
-          <Button asChild size='lg'>
+          <Button asChild size='lg' variant='accent'>
             <Link
               href={transformUrl(lng, SITE_GET_URLS.contribute)}
               onClick={() => setMobileMenuOpen(false)}

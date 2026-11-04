@@ -16,9 +16,7 @@ import trainingRoom from '@/public/images/training_center/meeting_1.jpg';
 import coworkingRoom from '@/public/images/training_center/coworking_12.jpg';
 
 // chairs
-import simulatorChairNotTaken from '@/public/images/icons/contribute/simulator-empty.svg';
 import simulatorChairTaken from '@/public/images/icons/contribute/simulator-fill.svg';
-import loungeChairEmpty from '@/public/images/icons/contribute/lounge-empty.svg';
 import loungeChair from '@/public/images/icons/contribute/lounge-fill.svg';
 import standardLoungeChair from '@/public/images/icons/contribute/lounge.svg';
 import standardChair from '@/public/images/icons/contribute/standard.svg';
@@ -95,7 +93,7 @@ const DonateContent = async ({ params }: { params: DonatePageProps['params'] }) 
         description={t('page.description')}
         actions={
           <>
-            <Button asChild variant='inverse' size='xl'>
+            <Button asChild variant='accent' size='xl'>
               <a href='#form'>{t('page.donate_now')}</a>
             </Button>
             <Button asChild variant='outline-inverse' size='xl'>
@@ -196,7 +194,7 @@ const DonateContent = async ({ params }: { params: DonatePageProps['params'] }) 
             <h3 className='text-h2_bold text-center'>{t('brand.wall_branding.title')}</h3>
             <ImageMedia src={trainingRoom} alt={t('a11y.training_room')} className='rounded-lg' />
             <div className='flex flex-row gap-4'>
-              <div className='text-body_semibold text-green flex w-fit flex-row gap-1 rounded-2xl p-2 lg:text-base'>
+              <div className='text-body_semibold text-green flex w-fit flex-row gap-1 rounded-xl p-2 lg:text-base'>
                 <ImageMedia
                   src={UserIcon}
                   alt={t('a11y.user')}
@@ -206,7 +204,7 @@ const DonateContent = async ({ params }: { params: DonatePageProps['params'] }) 
                 />
                 <p className='self-center'>{t('brand.wall_branding.price_solo')}</p>
               </div>
-              <div className='text-body_semibold text-green flex w-fit flex-row gap-1 rounded-2xl p-2 lg:text-base'>
+              <div className='text-body_semibold text-green flex w-fit flex-row gap-1 rounded-xl p-2 lg:text-base'>
                 <ImageMedia
                   src={CompanyIcon}
                   alt={t('a11y.company')}
@@ -223,63 +221,42 @@ const DonateContent = async ({ params }: { params: DonatePageProps['params'] }) 
       </HawkStarsSection>
 
       <HawkStarsSection spacing='default'>
-        <SectionHeader align='center' title={t('brand.chairs.title')} className='mb-8' />
-        <ChairsSections
-          title={t('brand.chairs.types.gaming_chair')}
-          price='300€'
-          icon={<ImageMedia src={loungeChairEmpty} alt={t('a11y.chair_empty')} />}
-          iconFilled={<ImageMedia src={loungeChair} alt={t('a11y.chair_taken')} />}
-          size={60}
-          currentContributions={loungeChairs}
-        />
-        <ChairsSections
-          title={t('brand.chairs.types.simulation_chair')}
-          price='350€'
-          icon={<ImageMedia src={simulatorChairNotTaken} alt={t('a11y.chair_empty')} />}
-          iconFilled={<ImageMedia src={simulatorChairTaken} alt={t('a11y.chair_taken')} />}
-          size={2}
-          currentContributions={simulationChairs}
-        />
-
-        <ChairsSections
-          title={t('brand.chairs.types.lounge_chair')}
-          price='260€'
-          icon={
-            <ImageMedia
-              src={standardLoungeChair}
-              className='h-12 w-12'
-              alt={t('a11y.chair_empty')}
-            />
-          }
-          iconFilled={
-            <ImageMedia
-              src={standardLoungeChair}
-              className='fill-green h-12 w-12'
-              alt={t('a11y.chair_taken')}
-            />
-          }
-          size={40}
-          currentContributions={officeChairs}
-        />
-        <ChairsSections
-          title={t('brand.chairs.types.auditorium_chair')}
-          price='200€'
-          icon={
-            <ImageMedia src={standardChair} className='h-12 w-12' alt={t('a11y.chair_empty')} />
-          }
-          iconFilled={
-            <ImageMedia
-              src={standardChair}
-              className='fill-green h-12 w-12'
-              alt={t('a11y.chair_taken')}
-            />
-          }
-          size={110}
-          currentContributions={auditoriumChairs}
-        />
+        <SectionHeader align='center' title={t('brand.chairs.title')} className='mb-10' />
+        {/* Illustrations are decorative: each card names its chair type in text. */}
+        <div className='grid gap-6 md:grid-cols-2'>
+          <ChairsSections
+            title={t('brand.chairs.types.gaming_chair')}
+            price='300€'
+            icon={<ImageMedia src={loungeChair} alt='' />}
+            size={60}
+            currentContributions={loungeChairs}
+          />
+          <ChairsSections
+            title={t('brand.chairs.types.simulation_chair')}
+            price='350€'
+            icon={<ImageMedia src={simulatorChairTaken} alt='' />}
+            size={2}
+            currentContributions={simulationChairs}
+          />
+          <ChairsSections
+            title={t('brand.chairs.types.lounge_chair')}
+            price='260€'
+            icon={<ImageMedia src={standardLoungeChair} alt='' />}
+            size={40}
+            currentContributions={officeChairs}
+          />
+          <ChairsSections
+            title={t('brand.chairs.types.auditorium_chair')}
+            price='200€'
+            icon={<ImageMedia src={standardChair} alt='' />}
+            size={110}
+            currentContributions={auditoriumChairs}
+          />
+        </div>
       </HawkStarsSection>
 
-      <HawkStarsSection spacing='tight' className='bg-green text-white'>
+      {/* Ink, not green: the alternate dark band, so the page isn't all green blocks */}
+      <HawkStarsSection spacing='tight' className='bg-ink text-white'>
         <div className='flex flex-col items-center justify-between gap-5 text-center sm:flex-row sm:text-left'>
           <p className='text-h2_bold'>{t('page.store_title')}</p>
           <Button asChild variant='inverse' size='lg'>

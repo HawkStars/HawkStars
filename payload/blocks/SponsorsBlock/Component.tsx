@@ -86,7 +86,7 @@ type LogosContainerProps = {
 
 const LogosContainer: FC<LogosContainerProps> = ({ tier, sponsors }) => {
   return (
-    <div className={cn('bg-green relative min-h-90 rounded-3xl p-4')}>
+    <div className={cn('bg-green relative min-h-90 rounded-xl p-4')}>
       <h3 className='text-h2_bold text-bege-dark absolute top-4 left-5'>{tier}</h3>
       <div className='flex flex-wrap gap-6'>
         {sponsors.map((sponsor) => {
@@ -95,14 +95,14 @@ const LogosContainer: FC<LogosContainerProps> = ({ tier, sponsors }) => {
           return (
             <div
               key={sponsor.id}
-              className={`flex flex-col items-center justify-center gap-3 rounded-3xl px-6 pt-10 pb-6 text-white`}
+              className={`flex flex-col items-center justify-center gap-3 rounded-xl px-6 pt-10 pb-6 text-white`}
             >
               {logoUrl ? (
                 <div className='relative mb-3 h-24 w-full'>
                   <ImageMedia src={logoUrl} alt={sponsor.name} fill className='object-contain' />
                 </div>
               ) : (
-                <div className='mb-3 flex h-16 w-full items-center justify-center rounded bg-gray-100'>
+                <div className='bg-bege-light text-green mb-3 flex h-16 w-full items-center justify-center rounded'>
                   <span className='text-sm font-medium'>{sponsor.name.charAt(0)}</span>
                 </div>
               )}

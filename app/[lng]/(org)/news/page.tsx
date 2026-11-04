@@ -11,9 +11,8 @@ import NewsListHeader from '@/components/news/list/NewsListHeader';
 import { Suspense } from 'react';
 import { PageLoading } from '@/components/layout';
 
-// Mirrors components/news/constants.ts's NewsTypeLabels keys -- kept explicit
-// (rather than Object.keys(NewsTypeLabels)) so the filter's option order is
-// stable and independent of that map's declaration order.
+// Every value of the News `type` field, in the order the filter should list them.
+// Labels come from `label.<type>` in common.json.
 const NEWS_TYPES: News['type'][] = ['blog', 'news', 'press_release', 'announcement', 'other'];
 
 type NewsPageProps = {

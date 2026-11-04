@@ -6,6 +6,12 @@ import HawkLinkComponent from '@/components/utils/HawkLink';
 import { HeaderNavigationColumns } from '@/payload-types';
 import { LuChevronDown } from 'react-icons/lu';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { SITE_GET_URLS, transformUrl } from '@/utils/paths';
 
 /** Shared so the trigger's aria-controls and the panel's id cannot drift apart. */
 export const NAVBAR_DROPDOWN_PANEL_ID = 'navbar-dropdown-panel';
@@ -23,6 +29,11 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({
   menuKeyHovered,
   panelId = NAVBAR_DROPDOWN_PANEL_ID,
 }) => {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
+  const donateHref = transformUrl(lng, SITE_GET_URLS.contribute);
+  // On the contribute page the page itself carries the donate button.
+  const onDonatePage = usePathname() === donateHref;
   return (
     <div className='my-auto ml-auto hidden lg:block'>
       <div className='ml-auto flex gap-3'>
@@ -68,6 +79,12 @@ const DesktopNavbar: FC<DesktopNavbarProps> = ({
             );
           })}
         </div>
+        {/* The site's one standing call to action, on every page but its own */}
+        {!onDonatePage && (
+          <Button asChild variant='accent' size='sm' className='my-auto'>
+            <Link href={donateHref}>{t('footer.donate')}</Link>
+          </Button>
+        )}
         <div className='my-auto'>
           <LanguageSwitcher />
         </div>

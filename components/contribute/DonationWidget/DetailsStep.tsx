@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
@@ -197,20 +198,12 @@ const DetailsStep = ({
 
       {/* Navigation */}
       <div className='flex gap-3'>
-        <button
-          type='button'
-          onClick={onBack}
-          className='border-disabled hover:border-green focus-visible:ring-green flex-1 cursor-pointer rounded-lg border bg-white py-3 text-sm font-medium text-neutral-800 transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-offset-2'
-        >
+        <Button type='button' variant='outline' size='lg' className='flex-1' onClick={onBack}>
           {t('donation_widget.back')}
-        </button>
-        <button
-          type='button'
-          onClick={handleNext}
-          className='from-green-dark to-green focus-visible:ring-green flex-1 cursor-pointer rounded-lg border-none bg-linear-to-br py-3 text-sm font-semibold text-white transition-opacity duration-200 focus-visible:ring-2 focus-visible:ring-offset-2'
-        >
+        </Button>
+        <Button type='button' size='lg' className='flex-1' onClick={handleNext}>
           {t('donation_widget.continue')}
-        </button>
+        </Button>
       </div>
     </div>
   );

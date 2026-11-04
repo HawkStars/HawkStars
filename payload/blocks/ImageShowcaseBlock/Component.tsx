@@ -114,11 +114,11 @@ export const ImageShowcaseBlock = ({
                 src={activeImage.url}
                 alt={activeImage.alt || ''}
                 fill
-                className='rounded-2xl max-lg:object-contain'
+                className='rounded-xl max-lg:object-contain'
                 preload
                 sizes='(max-width: 1024px) 100vw, 75vw'
               />
-              <span className='absolute right-2 bottom-2 rounded-2xl bg-white p-2'>
+              <span className='absolute right-2 bottom-2 rounded-xl bg-white p-2'>
                 {activeImage.alt}
               </span>
             </>

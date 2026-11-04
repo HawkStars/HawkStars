@@ -125,7 +125,7 @@ const BentoGridBlock: React.FC<BentoGridBlockProps & { lng: Language }> = ({
             return (
               <div
                 className={cn(
-                  'group relative flex min-h-45 overflow-hidden rounded-xl md:min-h-50 md:rounded-2xl',
+                  'group relative flex min-h-45 overflow-hidden rounded-xl md:min-h-50 md:rounded-xl',
                   'col-span-1 row-span-1',
                   colSpanMd[column_size],
                   colSpanLg[column_size],

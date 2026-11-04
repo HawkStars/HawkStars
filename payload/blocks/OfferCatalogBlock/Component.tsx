@@ -57,7 +57,7 @@ export const OfferCatalogBlock: React.FC<OfferCatalogBlockProps> = ({
             {group.groupLabel && <h3 className='text-h2_bold mb-4'>{group.groupLabel}</h3>}
             <div
               className={cn(
-                'divide-y rounded-2xl border',
+                'divide-y rounded-xl border',
                 bg === 'green'
                   ? 'divide-white/15 border-white/15'
                   : 'divide-bege-dark border-bege-dark'

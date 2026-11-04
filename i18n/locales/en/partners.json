@@ -7,5 +7,12 @@
   "a11y": {
     "platformIcon": "{{platform}} icon",
     "logoAlt": "{{name}} logo"
-  }
+  },
+  "stats": {
+    "national": "National partners",
+    "international": "International partners",
+    "countries": "Countries"
+  },
+  "partner_count_one": "{{count}} partner",
+  "partner_count_other": "{{count}} partners"
 }

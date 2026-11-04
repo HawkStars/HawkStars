@@ -44,7 +44,7 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId
                 onClick={() => setOpenIndex(isOpen ? null : index)}
                 className={cn(
                   'flex w-full items-center justify-between p-6 text-left transition-colors',
-                  isOpen ? 'hover:bg-green/5' : 'hover:bg-gray-50'
+                  isOpen ? 'hover:bg-green/5' : 'hover:bg-bege-light'
                 )}
               >
                 <span
@@ -58,7 +58,7 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId
                 <div
                   className={cn(
                     'flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-all duration-300',
-                    isOpen ? 'bg-green text-white' : 'bg-gray-100 text-gray-500'
+                    isOpen ? 'bg-green text-white' : 'bg-bege-dark text-green'
                   )}
                 >
                   <LuChevronDown

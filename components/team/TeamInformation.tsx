@@ -47,45 +47,44 @@ const TeamInformation = ({ boardMembers, lng }: TeamInformationProps) => {
 
   return (
     <>
-      <div
-        role='tablist'
-        aria-label={tCommon('a11y.teamSections')}
-        className='flex justify-center gap-5 text-sm'
-      >
-        {boardSections.map((section) => {
-          const isSelected = currentSection === section;
+      {/* Segmented control: scrolls sideways on narrow screens rather than wrapping */}
+      <div className='flex justify-center overflow-x-auto'>
+        <div
+          role='tablist'
+          aria-label={tCommon('a11y.teamSections')}
+          className='bg-bege-light border-bege-dark inline-flex shrink-0 gap-1 rounded-full border p-1'
+        >
+          {boardSections.map((section) => {
+            const isSelected = currentSection === section;
 
-          return (
-            <button
-              key={section}
-              id={tabId(section)}
-              type='button'
-              role='tab'
-              aria-selected={isSelected}
-              aria-controls={PANEL_ID}
-              tabIndex={isSelected ? 0 : -1}
-              onClick={() => setCurrentSection(section)}
-              onKeyDown={handleTabKeyDown}
-              className={cn(
-                'focus-visible:ring-ring cursor-pointer transition-[border] duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
-                {
-                  'border-green border-b-2 font-medium': isSelected,
-                  'hover:text-foreground text-muted-foreground hover:border-b-2 hover:border-b-neutral-700':
-                    !isSelected,
-                }
-              )}
-            >
-              {t(sectionLabels[section])}
-            </button>
-          );
-        })}
+            return (
+              <button
+                key={section}
+                id={tabId(section)}
+                type='button'
+                role='tab'
+                aria-selected={isSelected}
+                aria-controls={PANEL_ID}
+                tabIndex={isSelected ? 0 : -1}
+                onClick={() => setCurrentSection(section)}
+                onKeyDown={handleTabKeyDown}
+                className={cn(
+                  'focus-visible:ring-green cursor-pointer rounded-full px-5 py-2 text-sm font-medium whitespace-nowrap transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
+                  isSelected ? 'bg-green text-white shadow-sm' : 'hover:text-green text-black/70'
+                )}
+              >
+                {t(sectionLabels[section])}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <div
         id={PANEL_ID}
         role='tabpanel'
         aria-labelledby={tabId(currentSection)}
-        className='mt-10 grid grid-cols-2 gap-8 md:grid-cols-3 xl:grid-cols-5'
+        className='mt-10 grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'
       >
         {currentBoardMembers.map((member) => (
           <TeamCard key={member.id} member={member} lng={lng} />

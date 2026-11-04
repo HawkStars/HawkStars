@@ -2,129 +2,81 @@
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { type JSX } from 'react';
-import { Trans } from 'react-i18next';
 import Accordion from '../utils/Accordion/Accordion';
 import { Contribution } from '@/payload-types';
+import { Button } from '@/components/ui/button';
 
 type ChairsSectionsProps = {
   title: string;
   price?: string;
+  /** Illustration of this chair type. */
   icon: JSX.Element;
-  iconFilled: JSX.Element;
   size: number;
   currentContributions: Contribution[];
 };
 
+/**
+ * One chair type in the naming campaign: what it is, what it costs, how many are taken
+ * and who named them. Replaces a row of one icon per seat (up to 110), whose donor
+ * names only appeared on hover and so never on touch screens.
+ */
 const ChairsSections = ({
   title,
   price,
   icon,
-  iconFilled,
   size,
   currentContributions = [],
 }: ChairsSectionsProps) => {
-  const missingContributionsLength = size - currentContributions.length;
-  const missingContributionsChairs = Array(missingContributionsLength).fill(null);
-  return (
-    <>
-      <div className='mx-2 my-10 flex flex-col justify-center gap-1 max-lg:px-2 lg:mx-0 lg:gap-3'>
-        <h6 className='lg:text-h2_light text-body_semibold mt-5 lg:text-center'>{title}</h6>
-        {price && (
-          <span className='text-body_semibold text-green font-black lg:text-center'>{price}</span>
-        )}
-        <ContributionsChairsDesktop
-          icon={icon}
-          iconFilled={iconFilled}
-          currentContributions={currentContributions}
-          missingContributionsChairs={missingContributionsChairs}
-        />
-        <ContributionsChairsMobile currentContributions={currentContributions} size={size} />
-      </div>
-    </>
-  );
-};
-
-type ContributionInfoSectionProps = {
-  icon: JSX.Element;
-  contributor?: string | null;
-};
-
-const ContributionInfoSection = ({ icon, contributor }: ContributionInfoSectionProps) => {
-  return (
-    <div className='group relative'>
-      {icon}
-      {contributor && (
-        <div className='bg-bege-dark absolute bottom-0 -left-12 z-50 hidden w-40 max-w-md p-2 text-center group-hover:block'>
-          {contributor}
-        </div>
-      )}
-    </div>
-  );
-};
-
-type ContributionsChairDesktopProps = Pick<
-  ChairsSectionsProps,
-  'icon' | 'iconFilled' | 'currentContributions'
-> & {
-  missingContributionsChairs: Array<unknown>;
-};
-
-const ContributionsChairsDesktop = ({
-  currentContributions,
-  missingContributionsChairs,
-  iconFilled,
-  icon,
-}: ContributionsChairDesktopProps) => {
-  return (
-    <div className='mx-auto mt-5 flex w-full flex-wrap justify-center gap-5 max-md:hidden md:w-full lg:w-2/3'>
-      {currentContributions.map((contribution: Contribution) => {
-        return (
-          <ContributionInfoSection
-            key={contribution.id}
-            contributor={contribution?.donor}
-            icon={iconFilled}
-          />
-        );
-      })}
-      {missingContributionsChairs.map((_, index) => {
-        return <ContributionInfoSection key={index} icon={icon} />;
-      })}
-    </div>
-  );
-};
-
-type ContributionsChairsMobileProps = Pick<ChairsSectionsProps, 'currentContributions'> & {
-  size: number;
-};
-
-const ContributionsChairsMobile = ({
-  currentContributions,
-  size,
-}: ContributionsChairsMobileProps) => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'contribute');
 
+  const taken = Math.min(currentContributions.length, size);
+  const percent = size > 0 ? Math.round((taken / size) * 100) : 0;
+  // Anonymous donors are counted but not listed.
+  const named = currentContributions.filter((contribution) => contribution.donor);
+
   return (
-    <div className='flex flex-col gap-2 md:hidden'>
-      <Trans
-        i18nKey={'brand.chairs.available_chairs'}
-        t={t}
-        values={{ taken: currentContributions.length, all: size }}
-      />
-      {currentContributions.length > 0 && (
-        <Accordion title={t('contributor')}>
-          {/* Anonymous donors are listed in the count only. They used to render an
-              unkeyed <></>, which React warned about. */}
-          {currentContributions
-            .filter((contribution) => contribution.donor)
-            .map((contribution) => (
-              <div key={contribution.id} className='flex w-full justify-between'>
-                <span>{contribution.donor}</span>
-                <span>{contribution.contribution_date || ''}</span>
-              </div>
-            ))}
+    <div className='card border-bege-dark flex flex-col gap-5 border p-6'>
+      <div className='flex items-start gap-4'>
+        <span className='bg-bege-light flex size-16 shrink-0 items-center justify-center rounded-xl p-2 [&_img]:max-h-12 [&_img]:w-auto'>
+          {icon}
+        </span>
+        <div className='flex flex-col gap-1'>
+          <h3 className='text-h3_semibold'>{title}</h3>
+          {price && <span className='text-green font-display text-xl font-semibold'>{price}</span>}
+        </div>
+      </div>
+
+      <div className='flex flex-col gap-2'>
+        <div
+          role='progressbar'
+          aria-valuemin={0}
+          aria-valuemax={size}
+          aria-valuenow={taken}
+          aria-label={title}
+          className='bg-bege-dark h-2.5 overflow-hidden rounded-full'
+        >
+          <div className='bg-green h-full rounded-full' style={{ width: `${percent}%` }} />
+        </div>
+        <p className='text-sm text-black/70'>
+          {t('brand.chairs.available_chairs', { taken, all: size })}
+        </p>
+      </div>
+
+      {named.length > 0 && (
+        <Accordion title={t('contributor')} headingLevel='h4'>
+          {named.map((contribution) => (
+            <div key={contribution.id} className='flex w-full justify-between gap-4 text-sm'>
+              <span>{contribution.donor}</span>
+              <span className='text-black/60'>{contribution.contribution_date || ''}</span>
+            </div>
+          ))}
         </Accordion>
       )}
+
+      <Button asChild variant='outline' className='mt-auto self-start'>
+        <a href='#form'>{t('brand.chairs.cta')}</a>
+      </Button>
     </div>
   );
 };

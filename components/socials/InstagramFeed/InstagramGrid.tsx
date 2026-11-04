@@ -47,7 +47,7 @@ function GridSkeleton({ count, columns }: { count: number; columns: 3 | 4 }) {
   return (
     <div className={cn('grid gap-1', columns === 3 ? 'grid-cols-3' : 'grid-cols-4')}>
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className='aspect-square animate-pulse bg-neutral-200 dark:bg-neutral-800' />
+        <div key={i} className='bg-bege-dark aspect-square animate-pulse dark:bg-neutral-800' />
       ))}
     </div>
   );
@@ -133,7 +133,7 @@ export default function InstagramGrid({
             href={post.permalink}
             target='_blank'
             rel='noopener noreferrer'
-            className='group relative aspect-square overflow-hidden bg-neutral-100 dark:bg-neutral-900'
+            className='group bg-bege-light relative aspect-square overflow-hidden dark:bg-neutral-900'
           >
             <ImageMedia
               src={post.imageUrl}

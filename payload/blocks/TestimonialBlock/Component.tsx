@@ -60,7 +60,7 @@ const TestimonialCard: React.FC<{
     card: `rounded-lg shadow-md border p-6 ${isDark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-200'}`,
     quote: `relative p-6 ${isDark ? 'text-white' : ''}`,
     minimal: `p-4 ${isDark ? 'text-white' : ''}`,
-    bubble: `rounded-2xl shadow-lg p-6 relative ${isDark ? 'bg-gray-800 text-white' : 'bg-white'}`,
+    bubble: `rounded-xl shadow-md p-6 relative ${isDark ? 'bg-gray-800 text-white' : 'bg-white'}`,
   };
 
   const authorImage = getImagePayloadUrl(author.avatar);
@@ -148,7 +148,7 @@ export const TestimonialBlock = ({
 
   const backgroundClasses = {
     none: '',
-    'light-gray': 'bg-gray-50',
+    'light-gray': 'bg-bege-light',
     dark: 'bg-gray-900',
     brand: 'bg-gradient-to-br from-blue-500 to-green-500',
   };

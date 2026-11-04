@@ -1,4 +1,5 @@
 import { DonationState, getActiveAmount } from './types';
+import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
@@ -46,7 +47,7 @@ const DoneStep = ({ donationState, paymentResponse, onReset }: DoneStepProps) =>
 
       {/* Multibanco reference details */}
       {hasMBReference && (
-        <div className='w-full rounded-lg border border-neutral-300 bg-neutral-50 p-4'>
+        <div className='border-bege-dark bg-bege-light w-full rounded-lg border p-4'>
           <p className='mb-2 text-center text-sm font-medium text-neutral-800'>
             {t('donation_widget.done.mb_reference_title')}
           </p>
@@ -70,12 +71,9 @@ const DoneStep = ({ donationState, paymentResponse, onReset }: DoneStepProps) =>
         </p>
       )}
 
-      <button
-        onClick={onReset}
-        className='border-green text-green hover:bg-green mt-2 cursor-pointer rounded-lg border bg-white px-8 py-3 text-sm font-medium transition-colors duration-150 hover:text-white'
-      >
+      <Button type='button' variant='outline' size='lg' className='mt-2' onClick={onReset}>
         {t('donation_widget.done.make_another')}
-      </button>
+      </Button>
     </div>
   );
 };

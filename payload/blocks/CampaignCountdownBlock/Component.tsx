@@ -66,7 +66,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps & { ln
   };
 
   const digitBgClasses = {
-    light: 'bg-gray-100',
+    light: 'bg-bege-dark',
     dark: 'bg-gray-800',
     urgent: 'bg-white/20',
   };
@@ -89,7 +89,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps & { ln
     >
       <div
         className={cn(
-          'card-lg rounded-2xl border p-8 lg:p-12',
+          'card-lg rounded-xl border p-8 lg:p-12',
           themeClasses[theme as keyof typeof themeClasses]
         )}
       >

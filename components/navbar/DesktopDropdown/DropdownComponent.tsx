@@ -113,7 +113,7 @@ const NormalLinkItem: React.FC<LinkProps> = ({ link, navbarVariant }) => {
 
       {/* Arrow indicator when no icon */}
       {!ImageElement && (
-        <div className='flex h-8 w-8 items-center justify-center rounded-md bg-gray-100 text-gray-400 transition-all duration-200 group-hover:bg-green-700 group-hover:text-white'>
+        <div className='bg-bege-light text-green flex h-8 w-8 items-center justify-center rounded-md transition-all duration-200 group-hover:bg-green-700 group-hover:text-white'>
           <svg
             className='h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5'
             fill='none'

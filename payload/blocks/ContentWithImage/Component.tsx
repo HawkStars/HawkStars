@@ -47,7 +47,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps & { lng: Lang
               width={imageInfo.width || undefined}
               height={imageInfo.height || undefined}
               className={cn({
-                'absolute object-cover lg:rounded-2xl':
+                'absolute object-cover lg:rounded-xl':
                   imageInfo.width === undefined && imageInfo.height === undefined,
               })}
               sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'

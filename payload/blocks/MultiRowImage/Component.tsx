@@ -93,7 +93,7 @@ const MultiRowImage: React.FC<MultiRowImageBlock> = ({
                 key={img.id || imgIdx}
               >
                 <ImageMedia
-                  className={cn('absolute rounded-2xl object-cover')}
+                  className={cn('absolute rounded-xl object-cover')}
                   src={imgInfo.url}
                   fill
                   alt={imgInfo.alt || ''}

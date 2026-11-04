@@ -5,7 +5,6 @@ import * as Sentry from '@sentry/nextjs';
 
 import { CustomImageProps, getImagePayloadUrl } from '@/lib/image';
 
-import { NewsTypeLabels } from '@/components/news/constants';
 import API_CLIENT_PATHS from '../constants';
 
 // --- LatestNewsBlock fetch helpers ---
@@ -56,7 +55,9 @@ const fetchLatestNews = async (
 
     return {
       heading: doc.title,
-      badge: doc.type ? NewsTypeLabels[doc.type] || doc.type : null,
+      // The type key, not a label: HawkLabel translates it via `label.<type>`. Passing the
+      // English label made that lookup miss, so the badge read "NEWS" on /pt.
+      badge: doc.type ?? null,
       date: doc.publishedAt ?? null,
       description: null,
       image: getImagePayloadUrl(doc.mainImage) ?? null,

@@ -27,7 +27,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
       data-blockid='quoteHighlight'
     >
       {style === 'centered' && (
-        <div className='bg-bege-light mx-auto max-w-4xl rounded-2xl px-8 py-12 text-center lg:px-16'>
+        <div className='bg-bege-light mx-auto max-w-4xl rounded-xl px-8 py-12 text-center lg:px-16'>
           <LuQuote className='text-green mx-auto mb-6 h-14 w-14 opacity-60' />
           <blockquote
             className={cn('mb-8 leading-relaxed font-medium text-gray-800 italic', {
@@ -58,7 +58,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
       )}
 
       {style === 'bordered' && (
-        <div className='border-green mx-auto max-w-5xl border-l-4 bg-gray-50 p-8 lg:p-12'>
+        <div className='border-green bg-bege-light mx-auto max-w-5xl border-l-4 p-8 lg:p-12'>
           <blockquote
             className={cn('mb-4 leading-relaxed font-medium', {
               'text-xl lg:text-2xl': quoteLength < 150,
@@ -88,7 +88,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
       )}
 
       {style === 'highlighted' && (
-        <div className='from-green to-bege-dark mx-auto max-w-5xl rounded-2xl bg-linear-to-br p-8 text-white lg:p-12'>
+        <div className='from-green to-bege-dark mx-auto max-w-5xl rounded-xl bg-linear-to-br p-8 text-white lg:p-12'>
           <LuQuote className='mb-6 h-12 w-12 opacity-50' />
           <blockquote
             className={cn('mb-6 leading-relaxed font-medium', {

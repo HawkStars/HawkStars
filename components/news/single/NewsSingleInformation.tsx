@@ -19,9 +19,10 @@ const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, refere
     <>
       {text && (
         <HawkStarsSection
+          spacing='tight'
           padding='none'
           cap='none'
-          className='max-w-6xl flex-col py-6 lg:mx-auto lg:px-2 lg:py-12'
+          className='max-w-6xl flex-col lg:mx-auto lg:px-2'
         >
           <RichText data={text} lng={lng} variant='article' />
           {references && references.length > 0 && (

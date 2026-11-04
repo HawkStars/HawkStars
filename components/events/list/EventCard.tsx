@@ -58,8 +58,8 @@ const EventCard = ({ event, lng }: EventCardProps) => {
         )}
 
         {event.date && (
-          <div className='text-muted-foreground mt-auto flex items-center gap-2 pt-2 text-sm font-medium'>
-            <LuCalendarDays className='size-4' />
+          <div className='text-terracotta-dark mt-auto flex items-center gap-2 pt-2 text-sm font-medium'>
+            <LuCalendarDays aria-hidden='true' className='size-4' />
             <span>{formatDateRange(event.date, event.endDate, event.isDateRange)}</span>
           </div>
         )}

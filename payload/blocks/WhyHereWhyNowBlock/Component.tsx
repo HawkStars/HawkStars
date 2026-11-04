@@ -70,7 +70,7 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
               className='flex flex-col items-center gap-6 text-center'
             >
               {/* Icon image with optional highlight value overlay */}
-              <div className='relative h-32 w-39 rounded-3xl'>
+              <div className='relative h-32 w-39 rounded-xl'>
                 {img ? (
                   <ImageMedia
                     src={img.url}
@@ -80,7 +80,7 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
                     sizes='(max-width: 768px) 100vw, 33vw'
                   />
                 ) : (
-                  <div className='h-full w-full rounded-full bg-gray-200' />
+                  <div className='bg-bege-dark h-full w-full rounded-full' />
                 )}
               </div>
 

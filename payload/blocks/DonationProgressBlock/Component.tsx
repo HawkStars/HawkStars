@@ -70,7 +70,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps & { lng:
   };
 
   const progressBgClasses = {
-    light: 'bg-gray-200',
+    light: 'bg-bege-dark',
     dark: 'bg-gray-700',
     gradient: 'bg-white/20',
   };
@@ -87,7 +87,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps & { lng:
     >
       <div
         className={cn(
-          'card-lg rounded-2xl p-8 lg:p-12',
+          'card-lg rounded-xl p-8 lg:p-12',
           themeClasses[theme as keyof typeof themeClasses]
         )}
       >

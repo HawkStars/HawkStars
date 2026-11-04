@@ -45,6 +45,22 @@ Brand colors are defined as CSS custom properties in `app/globals.css` under `@t
 | `red-dark`   | `#8b0000` | Error states                                    |
 | `linkedin`   | `#0a66c2` | LinkedIn social link                            |
 
+### Accents
+
+Three accents add contrast to the green and beige. **Each has one job** — don't use them decoratively elsewhere, or the site turns into a rainbow.
+
+| Token              | Hex       | Job                                                                 |
+| ------------------ | --------- | ------------------------------------------------------------------- |
+| `gold`             | `#f2a900` | **Act now** — donate/support buttons (`Button variant='accent'`), highlights on dark bands. Fill only: put `text-ink` on it (5.6:1). Never gold text on green (2.8:1). One gold button per view. |
+| `gold-light`       | `#fcebb3` | Pale gold tint for highlight backgrounds                            |
+| `terracotta`       | `#c2552f` | **Time and news** — fills with white text (4.5:1)                   |
+| `terracotta-dark`  | `#a3401f` | Terracotta text on light surfaces: news/event types, event dates, badges (6:1 on beige) |
+| `terracotta-light` | `#f7dcd0` | Terracotta tint                                                     |
+| `ink`              | `#1f3a68` | **International / Europe** content (`SectionHeader variant='ink'`), and the alternate dark band where a page would otherwise stack green blocks. White text 11:1. |
+| `ink-light`        | `#dce5f4` | Ink tint                                                            |
+
+Green stays the primary brand colour: default buttons, links, section rules.
+
 Add new colors as CSS variables in `globals.css` and then add Tailwind utilities via the `theme.extend.colors` config in `tailwind.config.ts`. Do not use arbitrary hex values in components — always use the defined tokens. Ask before adding them. Never have any colour as -[#hex] in the codebase which exception of the tailwind config or the css variables. This is to ensure that all colors are intentional and consistent across the project.
 
 ### Gaming sub-site theme
@@ -146,11 +162,15 @@ Card utilities are in `globals.css` `@layer components`. Use them for consistent
 
 | Class              | Rounding     | Shadow             | Use for                                   |
 | ------------------ | ------------ | ------------------ | ----------------------------------------- |
-| `card` / `card-sm` | `rounded-lg` | `shadow-sm`        | Default content cards                     |
-| `card-md`          | `rounded-lg` | `shadow-md`        | Emphasized cards                          |
-| `card-lg`          | `rounded-xl` | `shadow-lg`        | Hero/featured cards                       |
+| `card`             | `rounded-xl` | `shadow-sm`        | Default content cards                     |
+| `card-sm`          | `rounded-lg` | `shadow-sm`        | Small chips, list rows                    |
+| `card-md` / `card-lg` | `rounded-xl` | `shadow-md`     | Emphasized / featured cards               |
 | `card-hover`       | —            | hover: `shadow-md` | Add to any card that should lift on hover |
 | `card-hover-lg`    | —            | hover: `shadow-lg` | Stronger lift effect                      |
+
+One card language across the org site: **cards are `rounded-xl`** (never `2xl`/`3xl`); controls stay `rounded-md`/`rounded-lg`. Shadows have three levels: `shadow-sm` at rest, `shadow-md` raised or on hover, `shadow-lg` only for overlays (dropdowns, popovers).
+
+Surfaces are warm, never cold grey: `bg-white` and `bg-bege-light` for sections and panels, `bg-bege-dark` for chips, icon circles, progress tracks and empty-image placeholders. Don't use `gray-*`/`zinc-*`/`neutral-*` backgrounds on org pages.
 
 ```tsx
 <div className='card card-hover p-6'>{/* … */}</div>
@@ -233,6 +253,7 @@ import { Button } from '@/components/ui/button';
 **Variants** (maps to Tailwind classes defined via `cva`):
 
 - `default` — green background, white text. The primary call-to-action.
+- `accent` — gold background, ink text. Only for donate / support ("act now") actions.
 - `outline` — green border, green text, transparent background.
 - `destructive` — red background for dangerous actions.
 - `secondary` — bege background, dark-green text.

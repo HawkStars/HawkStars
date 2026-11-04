@@ -8,6 +8,20 @@
 @theme {
   --color-green: #0a7558;
   --color-green-dark: #085c45;
+
+  /* Accents — each has one job (see the styleguide's Colors section):
+     gold = "act now" (donate/support buttons, highlights on dark bands; fill only,
+            never text on green — 2.8:1), with ink text on it;
+     terracotta = time and news (types, dates, badges); -dark is the text shade
+            for light surfaces, the base is for fills with white text;
+     ink = international/Europe content and the alternate dark band. */
+  --color-gold: #f2a900;
+  --color-gold-light: #fcebb3;
+  --color-terracotta: #c2552f;
+  --color-terracotta-dark: #a3401f;
+  --color-terracotta-light: #f7dcd0;
+  --color-ink: #1f3a68;
+  --color-ink-light: #dce5f4;
   --color-disabled: #5b5b5b;
   --color-bege-dark: #fae7d0;
   --color-bege-light: #fef9f6;
@@ -197,20 +211,22 @@
   }
 
   /** Cards **/
+  /* One card language: rounded-xl everywhere; shadow-sm at rest, md raised/hover, lg for
+     overlays. card-sm keeps a tighter corner for small chips and list rows. */
   .card {
-    @apply rounded-lg bg-white shadow-sm;
+    @apply rounded-xl bg-white shadow-sm;
   }
 
   .card-sm {
-    @apply rounded-md bg-white shadow-sm;
+    @apply rounded-lg bg-white shadow-sm;
   }
 
   .card-md {
-    @apply rounded-lg bg-white shadow-md;
+    @apply rounded-xl bg-white shadow-md;
   }
 
   .card-lg {
-    @apply rounded-xl bg-white shadow-lg;
+    @apply rounded-xl bg-white shadow-md;
   }
 
   .card-hover {
@@ -407,19 +423,29 @@
   }
 
   /* Fixed (non-CMS) body text in the gallery: justified on both sides and
-     hyphenated at line breaks, in the page's language (<html lang>). */
+     hyphenated at line breaks, in the page's language (<html lang>). Phones keep
+     ordinary alignment: a ~40-character line can't absorb justification without
+     rivers of space, even hyphenated. */
   .art-justify {
-    text-align: justify;
+    text-align: start;
     hyphens: auto;
     -webkit-hyphens: auto;
+
+    @media (min-width: 48rem) {
+      text-align: justify;
+    }
   }
 
   /* Same, for centred blocks: the last line stays centred. */
   .art-justify-center {
-    text-align: justify;
-    text-align-last: center;
+    text-align: center;
     hyphens: auto;
     -webkit-hyphens: auto;
+
+    @media (min-width: 48rem) {
+      text-align: justify;
+      text-align-last: center;
+    }
   }
 
   /* Small warm spotlight above a framed artwork. */

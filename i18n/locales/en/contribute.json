@@ -50,7 +50,8 @@
         "lounge_chair": "Co(ffe) Working Lounge Chair",
         "auditorium_chair": "Mobile Chair for Auditorium/Training Rooms"
       },
-      "available_chairs": "{{taken}}/{{all}} taken"
+      "available_chairs": "{{taken}}/{{all}} taken",
+      "cta": "Name a chair"
     }
   },
   "contribution_form": {

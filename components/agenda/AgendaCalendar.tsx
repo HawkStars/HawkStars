@@ -58,7 +58,7 @@ const categoryColors: Record<string, string> = {
   erasmus: 'bg-blue-100 text-blue-800',
   local_event: 'bg-emerald-100 text-emerald-800',
   international_event: 'bg-purple-100 text-purple-800',
-  other: 'bg-gray-100 text-gray-800',
+  other: 'bg-bege-dark text-green-dark',
 };
 
 const categoryDotColors: Record<string, string> = {
@@ -363,7 +363,7 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
                   onClick={() => setSelectedDate(isSelected ? null : dateKey)}
                   className={cn(
                     'relative flex aspect-square flex-col items-center justify-start rounded-lg p-1 transition-colors md:p-2',
-                    'hover:bg-gray-50',
+                    'hover:bg-bege-light',
                     isToday(day) && 'ring-green ring-2',
                     isSelected && 'bg-green/10',
                     hasEvents && 'cursor-pointer'
@@ -504,7 +504,7 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
                             </span>
                           )}
                           {event.isDateRange && (
-                            <span className='flex items-center gap-1 rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-600'>
+                            <span className='bg-bege-dark flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium text-zinc-600'>
                               <LuCalendarDays className='h-2.5 w-2.5' />
                               {translations.multiDay}
                             </span>

@@ -171,7 +171,7 @@ const PathCard = ({
   ctaKey: string;
   emailSubjectKey: string;
 }) => (
-  <div className='group relative flex flex-col overflow-hidden rounded-lg bg-white shadow-sm transition-shadow hover:shadow-lg'>
+  <div className='group relative flex flex-col overflow-hidden rounded-lg bg-white shadow-sm transition-shadow hover:shadow-md'>
     {/* Top accent bar */}
     <div className='bg-green h-1.5 w-full' />
 
