@@ -1,6 +1,7 @@
 import { CrowdfundingSetting, Media } from '@/payload-types';
 import { TFunction } from 'i18next';
-import { Language, toIntlLocale } from '@/i18n/settings';
+import { Language } from '@/i18n/settings';
+import { formatDate } from '@/utils/date';
 
 type Props = { t: TFunction<string, string>; lng: Language } & Pick<
   CrowdfundingSetting,
@@ -10,12 +11,8 @@ type Props = { t: TFunction<string, string>; lng: Language } & Pick<
 const defaultImage = '/images/projects/3.jpeg';
 
 // Was pinned to 'pt-PT', so English visitors read "14 SET. 2026".
-const formatDate = (isoDate: string, lng: Language): string => {
-  const date = new Date(isoDate);
-  return date
-    .toLocaleDateString(toIntlLocale(lng), { day: '2-digit', month: 'short', year: 'numeric' })
-    .toUpperCase();
-};
+const formatUpdateDate = (isoDate: string, lng: Language): string =>
+  formatDate(isoDate, lng, { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase();
 
 const CrowdfundingUpdates = ({ t, updateCards, lng }: Props) => {
   if (!updateCards || updateCards.length === 0) return null;
@@ -66,7 +63,7 @@ const CrowdfundingUpdates = ({ t, updateCards, lng }: Props) => {
                   <div className='flex flex-1 flex-col p-4'>
                     <h3 className='text-sm font-bold text-white'>{card.title}</h3>
                     <p className='mt-auto pt-3 text-xs font-semibold tracking-wider text-gray-400 uppercase'>
-                      {formatDate(card.date, lng)}
+                      {formatUpdateDate(card.date, lng)}
                     </p>
                   </div>
                 </CardWrapper>

@@ -1,12 +1,13 @@
 import HawkLabel from '@/components/common/hawk-label';
 import { HawkStarsSection } from '@/components/layout';
-import { Language, toIntlLocale } from '@/i18n/settings';
+import { Language } from '@/i18n/settings';
 import { getImagePayloadUrl } from '@/lib/image';
 import { cn } from '@/lib/utils';
 
 import { News } from '@/payload-types';
 import { ImageMedia } from '@/payload/components/Media';
 import { FC } from 'react';
+import { formatDate } from '@/utils/date';
 
 type NewsSingleHeroProps = Pick<News, 'title' | 'type' | 'publishedAt'> & {
   heroImage: ReturnType<typeof getImagePayloadUrl>;
@@ -14,16 +15,7 @@ type NewsSingleHeroProps = Pick<News, 'title' | 'type' | 'publishedAt'> & {
 };
 
 const NewsSingleHero: FC<NewsSingleHeroProps> = ({ title, type, heroImage, publishedAt, lng }) => {
-  // `lng` ('pt'/'en') isn't guaranteed a valid Intl locale tag on its own —
-  // must resolve through toIntlLocale, or an unsupported value throws
-  // `RangeError: Incorrect locale information provided`. See i18n/settings.ts.
-  const formattedDate = publishedAt
-    ? new Date(publishedAt).toLocaleDateString(toIntlLocale(lng), {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      })
-    : null;
+  const formattedDate = formatDate(publishedAt, lng) || null;
 
   if (!heroImage) return null;
 

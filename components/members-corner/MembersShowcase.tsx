@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { ImageMedia } from '@/payload/components/Media';
 import type { MemberProjectDoc } from '@/lib/payload/queries/memberProject';
-import { Language, toIntlLocale } from '@/i18n/settings';
+import { Language } from '@/i18n/settings';
+import { formatDate } from '@/utils/date';
 
 type T = (key: string) => string;
 
@@ -11,20 +12,11 @@ type MembersShowcaseProps = {
   lng: Language;
 };
 
-// `timeZone: 'UTC'` pins the calendar day, so the server and the browser render
-// identical output and there is no hydration mismatch — while still formatting in
-// the active locale. A hand-rolled DD/MM/YYYY was ambiguous between pt and en.
-const formatDate = (iso: string, lng: Language) => {
-  const date = new Date(iso);
-  if (Number.isNaN(date.getTime())) return '';
-
-  return new Intl.DateTimeFormat(toIntlLocale(lng), {
-    timeZone: 'UTC',
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-  }).format(date);
-};
+// formatDate pins the site time zone, so the server and the browser render the same
+// day (no hydration mismatch), in the active locale. A hand-rolled DD/MM/YYYY was
+// ambiguous between pt and en.
+const formatShowcaseDate = (iso: string, lng: Language) =>
+  formatDate(iso, lng, { day: '2-digit', month: 'short', year: 'numeric' });
 
 const MembersShowcase = ({ projects, t, lng }: MembersShowcaseProps) => {
   if (!projects.length) {
@@ -105,7 +97,9 @@ const MemberProjectCard = ({
             <ul className='flex flex-col gap-2'>
               {project.dates.map((d, i) => (
                 <li key={i} className='flex flex-wrap items-baseline gap-x-2'>
-                  <span className='text-green font-semibold'>{formatDate(d.date, lng)}</span>
+                  <span className='text-green font-semibold'>
+                    {formatShowcaseDate(d.date, lng)}
+                  </span>
                   <span>{d.label}</span>
                   {d.link && (
                     <Link

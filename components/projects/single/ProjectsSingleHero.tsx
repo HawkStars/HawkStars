@@ -7,8 +7,6 @@ import { FlagIcon } from '@/lib/icon';
 import { getImagePayloadUrl } from '@/lib/image';
 import { formatCurrency } from '@/lib/utils/currency';
 import { HawkDocument, HawkProject, Partner } from '@/payload-types';
-import { format } from 'date-fns';
-import { pt } from 'date-fns/locale';
 import { ImageMedia } from '@/payload/components/Media';
 import { FC } from 'react';
 import { useTranslation } from '@/i18n/client';
@@ -16,6 +14,7 @@ import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Language } from '@/i18n/settings';
 import Link from 'next/link';
 import { LuDownload } from 'react-icons/lu';
+import { formatDateRange } from '@/utils/date';
 
 type ProjectsSingleHeroProps = Pick<
   HawkProject,
@@ -52,13 +51,8 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
   const badgeImage = projectBadge ? getImagePayloadUrl(projectBadge) : null;
   const infopackDoc = infopack && typeof infopack !== 'string' ? (infopack as HawkDocument) : null;
 
-  const dateLabel = (() => {
-    if (!startDate) return '';
-    if (endDate)
-      return `${format(startDate, 'd', { locale: pt })} ${t('dateRange.to')} ${format(endDate, "d 'de' MMMM 'de' yyyy", { locale: pt })}`;
-
-    return format(startDate, "d 'de' MMMM 'de' yyyy", { locale: pt });
-  })();
+  // Was always formatted with the Portuguese locale, also on /en.
+  const dateLabel = formatDateRange(startDate, endDate, lngProp ?? cookieLng);
 
   return (
     <ContentSection className='bg-green/5 pt-32' spacing='tight'>

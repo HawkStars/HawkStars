@@ -5,6 +5,7 @@ import { type JSX } from 'react';
 import Accordion from '../utils/Accordion/Accordion';
 import { Contribution } from '@/payload-types';
 import { Button } from '@/components/ui/button';
+import { formatDate } from '@/utils/date';
 
 type ChairsSectionsProps = {
   title: string;
@@ -68,7 +69,9 @@ const ChairsSections = ({
           {named.map((contribution) => (
             <div key={contribution.id} className='flex w-full justify-between gap-4 text-sm'>
               <span>{contribution.donor}</span>
-              <span className='text-black/60'>{contribution.contribution_date || ''}</span>
+              <time dateTime={contribution.contribution_date} className='text-black/60'>
+                {formatDate(contribution.contribution_date, lng)}
+              </time>
             </div>
           ))}
         </Accordion>

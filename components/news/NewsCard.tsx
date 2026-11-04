@@ -5,9 +5,10 @@ import { News } from '@/payload-types';
 import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
 import { useTranslation } from '@/i18n/client';
-import { Language, toIntlLocale } from '@/i18n/settings';
+import { Language } from '@/i18n/settings';
 import { SITE_GET_URLS, transformUrl } from '@/utils/paths';
 import logoMark from '@/public/images/logos/logo-mark.svg';
+import { formatDate } from '@/utils/date';
 
 type NewsCardProps = {
   article: Pick<News, 'id' | 'slug' | 'title' | 'type' | 'publishedAt' | 'mainImage'>;
@@ -32,13 +33,7 @@ const NewsCard = ({
   const image = getImagePayloadUrl(article.mainImage);
   const href = transformUrl(lng, `${SITE_GET_URLS.news}/${article.slug}`);
 
-  const date = article.publishedAt
-    ? new Date(article.publishedAt).toLocaleDateString(toIntlLocale(lng), {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      })
-    : null;
+  const date = formatDate(article.publishedAt, lng);
 
   return (
     <article className='h-full'>

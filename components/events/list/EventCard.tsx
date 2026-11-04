@@ -4,22 +4,13 @@ import { getImagePayloadUrl } from '@/lib/image';
 import { transformUrl, SITE_GET_URLS } from '@/utils/paths';
 import Link from 'next/link';
 import { ImageMedia } from '@/payload/components/Media';
-import { format } from 'date-fns';
+import { formatDateRange } from '@/utils/date';
 
 type EventCardProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   event: Record<string, any>;
   index: number;
   lng: string;
-};
-
-const formatDateRange = (date: string, endDate?: string | null, isDateRange?: boolean | null) => {
-  const start = format(new Date(date), 'dd MMM yyyy');
-  if (isDateRange && endDate) {
-    const end = format(new Date(endDate), 'dd MMM yyyy');
-    return `${start} — ${end}`;
-  }
-  return start;
 };
 
 const EventCard = ({ event, lng }: EventCardProps) => {
@@ -60,7 +51,9 @@ const EventCard = ({ event, lng }: EventCardProps) => {
         {event.date && (
           <div className='text-terracotta-dark mt-auto flex items-center gap-2 pt-2 text-sm font-medium'>
             <LuCalendarDays aria-hidden='true' className='size-4' />
-            <span>{formatDateRange(event.date, event.endDate, event.isDateRange)}</span>
+            <span>
+              {formatDateRange(event.date, event.isDateRange ? event.endDate : null, lng)}
+            </span>
           </div>
         )}
       </div>

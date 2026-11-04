@@ -4,8 +4,9 @@ import { LuArrowRight, LuCalendar } from 'react-icons/lu';
 import { HawkStarsSection } from '@/components/layout';
 import { ImageMedia } from '@/payload/components/Media';
 import { CustomImageProps } from '@/lib/image';
-import { Language, toIntlLocale } from '@/i18n/settings';
+import { Language } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
+import { formatDate, formatDateRange } from '@/utils/date';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -50,16 +51,8 @@ const typeColors: Record<string, { bg: string; text: string }> = {
   other: { bg: 'bg-bege-dark dark:bg-zinc-700', text: 'text-zinc-600 dark:text-zinc-400' },
 };
 
-// These were pinned to 'pt-PT', so an English visitor read "set." and "de" — and
-// this is a page-builder block, so it appears on arbitrary pages in both locales.
-function fmtDate(iso: string, lng: Language, opts?: Intl.DateTimeFormatOptions) {
-  return new Date(iso).toLocaleDateString(toIntlLocale(lng), {
-    day: 'numeric',
-    month: 'long',
-    ...opts,
-  });
-}
-
+// Dates go through utils/date: page locale (these were once pinned to 'pt-PT') and the
+// site time zone, so server and browser render the same day.
 function formatEventDate(
   date: string | null,
   lng: Language,
@@ -67,23 +60,13 @@ function formatEventDate(
   isRange?: boolean
 ): string {
   if (!date) return '';
-
-  if (!isRange || !endDate) {
-    return fmtDate(date, lng, { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
-  }
-
-  const s = new Date(date);
-  const e = new Date(endDate);
-
-  if (s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear()) {
-    // Same month: "3–5 de Maio de 2025"
-    const startDay = s.toLocaleDateString(toIntlLocale(lng), { day: 'numeric' });
-    const endFull = fmtDate(endDate, lng, { day: 'numeric', month: 'long', year: 'numeric' });
-    return `${startDay}–${endFull}`;
-  }
-
-  // Cross-month: "30 de Out – 2 de Nov de 2025"
-  return `${fmtDate(date, lng)} – ${fmtDate(endDate, lng, { day: 'numeric', month: 'long', year: 'numeric' })}`;
+  if (isRange && endDate) return formatDateRange(date, endDate, lng);
+  return formatDate(date, lng, {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 }
 
 // ─── Sub-renderers ────────────────────────────────────────────────────────────
@@ -119,21 +102,17 @@ function ListItem({
         {event.date && (
           <>
             <span className='text-3xl font-bold text-zinc-800 tabular-nums dark:text-zinc-100'>
-              {new Date(event.date).getDate()}
+              {formatDate(event.date, lng, { day: 'numeric' })}
             </span>
             <span className='text-sm font-medium text-zinc-500 uppercase dark:text-zinc-400'>
-              {new Date(event.date).toLocaleDateString(toIntlLocale(lng), { month: 'short' })}
+              {formatDate(event.date, lng, { month: 'short' })}
             </span>
             <span className='dark:text-bege-light text-xs text-gray-700'>
-              {new Date(event.date).getFullYear()}
+              {formatDate(event.date, lng, { year: 'numeric' })}
             </span>
             {event.isDateRange && event.endDate && (
               <span className='mt-1 text-xs text-gray-800 dark:text-white'>
-                →{' '}
-                {new Date(event.endDate).toLocaleDateString(toIntlLocale(lng), {
-                  day: 'numeric',
-                  month: 'short',
-                })}
+                → {formatDate(event.endDate, lng, { day: 'numeric', month: 'short' })}
               </span>
             )}
           </>

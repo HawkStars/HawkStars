@@ -7,18 +7,21 @@ import { Button } from '@/components/ui/button';
 import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
 import type { HawkEvent, HawkProject, ImageType } from '@/payload-types';
-import { Language, toIntlLocale } from '@/i18n/settings';
+import { Language } from '@/i18n/settings';
 import { getEventsByMonthAndYear } from '@/lib/payload/client-side/queries/event';
 import { useTranslation } from '@/i18n/client';
 import { fetchAgendaProjects } from '@/lib/payload/client-side/queries/projects';
+import { formatDate, formatDateRange } from '@/utils/date';
 
-const localizedDay = (isoDay: string, lng: string) =>
-  new Date(isoDay).toLocaleDateString(toIntlLocale(lng), {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
+// Through utils/date: page locale + site time zone, so server and browser agree on the day.
+const WEEKDAY_DATE: Intl.DateTimeFormatOptions = {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+};
+
+const localizedDay = (isoDay: string, lng: string) => formatDate(isoDay, lng, WEEKDAY_DATE);
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -111,35 +114,14 @@ function dateKeysInRange(startISO: string, endISO: string): string[] {
   return keys;
 }
 
-function formatDateRange(
+function formatEventRange(
   startISO: string | null | undefined,
   endISO: string | null | undefined,
   locale: string
 ): string {
-  if (!startISO && !endISO) return '';
-  if (startISO && !endISO) {
-    return new Date(startISO).toLocaleDateString(toIntlLocale(locale), {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    });
-  }
-
-  const s = startISO && new Date(startISO);
-  const e = endISO && new Date(endISO);
-  const loc = toIntlLocale(locale);
-
-  if (s && e && s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear()) {
-    const startDay = s.toLocaleDateString(loc, { day: 'numeric' });
-    const endFull = e.toLocaleDateString(loc, { day: 'numeric', month: 'long', year: 'numeric' });
-    return `${startDay}–${endFull}`;
-  }
-
-  const startFmt = s && s.toLocaleDateString(loc, { day: 'numeric', month: 'short' });
-  const endFmt =
-    e && e.toLocaleDateString(loc, { day: 'numeric', month: 'short', year: 'numeric' });
-  return `${startFmt} – ${endFmt}`;
+  if (!startISO) return endISO ? formatDate(endISO, locale, WEEKDAY_DATE) : '';
+  if (!endISO) return formatDate(startISO, locale, WEEKDAY_DATE);
+  return formatDateRange(startISO, endISO, locale);
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -450,12 +432,8 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
               <LuCalendar className='text-green h-5 w-5' />
               <h3 className='text-lg font-semibold'>
                 {selectedDate
-                  ? new Date(selectedDate + 'T12:00:00').toLocaleDateString(toIntlLocale(lng), {
-                      weekday: 'long',
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric',
-                    })
+                  ? // UTC noon keeps a YYYY-MM-DD day on that day in every zone.
+                    formatDate(`${selectedDate}T12:00:00Z`, lng, WEEKDAY_DATE)
                   : translations.title}
               </h3>
             </div>
@@ -472,7 +450,7 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
               <div className='flex flex-col gap-4'>
                 {selectedEvents.map((event) => {
                   const imageInfo = event.image ? getImagePayloadUrl(event.image) : null;
-                  const dateLabel = formatDateRange(event.date, event.endDate, lng);
+                  const dateLabel = formatEventRange(event.date, event.endDate, lng);
 
                   return (
                     <a

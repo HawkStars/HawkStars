@@ -4,7 +4,7 @@ import { getImagePayloadUrl } from '@/lib/image';
 import { transformUrl, SITE_GET_URLS } from '@/utils/paths';
 import Link from 'next/link';
 import { ImageMedia } from '@/payload/components/Media';
-import { format } from 'date-fns';
+import { formatDateRange } from '@/utils/date';
 
 type ProjectCardProps = {
   project: HawkProject;
@@ -12,20 +12,10 @@ type ProjectCardProps = {
   lng: string;
 };
 
-const formatDateRange = (startDate?: string | null, endDate?: string | null) => {
-  if (!startDate) return null;
-  const start = format(new Date(startDate), 'dd MMM yyyy');
-  if (endDate) {
-    const end = format(new Date(endDate), 'dd MMM yyyy');
-    return `${start} — ${end}`;
-  }
-  return start;
-};
-
 const ProjectCard = ({ project, index, lng }: ProjectCardProps) => {
   const image = getImagePayloadUrl(project.coverImage);
   const projectUrl = transformUrl(lng, `${SITE_GET_URLS.projects}/${project.slug}`);
-  const dateLabel = formatDateRange(project.startDate, project.endDate);
+  const dateLabel = formatDateRange(project.startDate, project.endDate, lng);
 
   return (
     <Link

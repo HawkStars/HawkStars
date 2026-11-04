@@ -3,10 +3,10 @@ import type { PaginatedDocs } from 'payload';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { LanguageProps } from '../types';
 import { getServerTranslation } from '@/i18n';
-import { toIntlLocale } from '@/i18n/settings';
 import LandingPagination from '../utils/Pagination';
 import { formatCurrency } from '@/lib/utils/currency';
 import { HawkStarsSection } from '@/components/layout';
+import { formatDate } from '@/utils/date';
 
 type OrganizationContributionsTableProps = LanguageProps & {
   data: PaginatedDocs<Contribution>;
@@ -23,11 +23,6 @@ const OrganizationContributionsTable = async ({
     getServerTranslation(lng, ['transparency', 'contribute']),
     getServerTranslation(lng, 'common'),
   ]);
-  // 'pt'/'en' aren't guaranteed valid Intl locale tags on their own for every
-  // call site, and an unsupported `lng` must never reach Intl directly (it
-  // throws `RangeError: Incorrect locale information provided`) — see
-  // i18n/settings.ts.
-  const intlLocale = toIntlLocale(lng);
 
   const { docs: contributions, hasNextPage, hasPrevPage, page, totalPages, limit } = data;
 
@@ -49,7 +44,7 @@ const OrganizationContributionsTable = async ({
               {contributions.map((contribution) => (
                 <TableRow key={contribution.id}>
                   <TableCell className='min-w-40 px-2'>
-                    {new Date(contribution.contribution_date).toLocaleDateString(intlLocale)}
+                    {formatDate(contribution.contribution_date, lng)}
                   </TableCell>
                   {/* The stored value is an enum key ('OFFICE_CHAIR', 'WALL_NAME_COMPANY').
                     The human labels existed only in the admin field component, so this

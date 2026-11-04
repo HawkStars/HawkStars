@@ -1,6 +1,3 @@
-import { format } from 'date-fns';
-import { pt } from 'date-fns/locale';
-
 import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
 import { getServerTranslation } from '@/i18n';
@@ -9,6 +6,7 @@ import SectionHeader from '@/components/ui/SectionHeader';
 import { ContentSection } from '@/components/layout';
 import { cn } from '@/lib/utils';
 import { HawkEvent } from '@/payload-types';
+import { formatDateRange } from '@/utils/date';
 
 /* ================================================================== */
 /*  Section wrapper for consistent spacing + alternating backgrounds  */
@@ -51,13 +49,8 @@ export default async function EventPage({ event, lng }: EventPageProps) {
     endDate = event.endDate ? new Date(event.endDate) : null;
   }
 
-  const dateLabel = (() => {
-    if (!startDate) return '';
-    if (endDate && event.isDateRange) {
-      return `${format(startDate, 'd', { locale: pt })} ${t('dateRange.to')} ${format(endDate, "d 'de' MMMM 'de' yyyy", { locale: pt })}`;
-    }
-    return format(startDate, "d 'de' MMMM 'de' yyyy", { locale: pt });
-  })();
+  // Was always formatted with the Portuguese locale, also on /en.
+  const dateLabel = formatDateRange(startDate, event.isDateRange ? endDate : null, lng);
 
   /* Hero image */
   const heroImage = event.image ? getImagePayloadUrl(event.image) : null;
