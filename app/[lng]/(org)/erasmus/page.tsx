@@ -129,7 +129,7 @@ const HeroSection = ({ t }: SectionProps) => (
 const HeroStat = ({ value, label }: { value: string; label: string }) => (
   <div className='text-left md:text-right'>
     <div className='text-erasmus-gold font-serif text-3xl font-bold'>{value}</div>
-    <div className='text-[0.72rem] tracking-[0.12em] text-white/50 uppercase'>{label}</div>
+    <div className='text-xs tracking-[0.12em] text-white/50 uppercase'>{label}</div>
   </div>
 );
 
@@ -168,7 +168,7 @@ const FlagshipCard = ({
     />
     <div className='mb-5 text-4xl'>{card.icon}</div>
     <span
-      className='mb-3 inline-block rounded-sm px-3 py-1 text-[0.65rem] font-bold tracking-[0.14em] text-white uppercase'
+      className='mb-3 inline-block rounded-sm px-3 py-1 text-xs font-bold tracking-[0.14em] text-white uppercase'
       style={{ background: card.accentColor }}
     >
       {t(card.badgeKey)}

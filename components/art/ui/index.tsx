@@ -40,7 +40,7 @@ export function Placard({ children, className }: { children: ReactNode; classNam
   return (
     <span
       className={cn(
-        'bg-art-ebony/85 border-art-line font-art-sans text-art-cream border px-2.5 py-1 text-[11px] tracking-wider backdrop-blur-sm',
+        'bg-art-ebony/85 border-art-line font-art-sans text-art-cream border px-2.5 py-1 text-xs tracking-wider backdrop-blur-sm',
         className
       )}
     >

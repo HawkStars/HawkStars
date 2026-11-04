@@ -1,6 +1,7 @@
 import { linkGroup } from '@/payload/fields/linkGroup';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
+import { localizedDefault } from '@/payload/utilities/localizedDefault';
 
 export const CampaignCountdownBlock: Block = {
   slug: 'campaignCountdown',
@@ -87,7 +88,7 @@ export const CampaignCountdownBlock: Block = {
       name: 'completedMessage',
       type: 'text',
       label: { en: 'Completed Message', pt: 'Mensagem de Conclusão' },
-      defaultValue: 'Campaign Ended',
+      defaultValue: localizedDefault('blocks.campaignEnded'),
       localized: true,
       admin: {
         description: {

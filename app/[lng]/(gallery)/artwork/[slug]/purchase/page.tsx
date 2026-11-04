@@ -63,13 +63,11 @@ export default async function PurchasePage(props: PurchasePageProps) {
             className='object-cover'
           />
         </div>
-        <p className='art-eyebrow text-art-brass text-center text-[10px]'>
-          {editionLabel(artwork, t)}
-        </p>
+        <p className='art-eyebrow text-art-brass text-center text-xs'>{editionLabel(artwork, t)}</p>
       </div>
       <div className='flex flex-1 flex-col gap-2'>
         <div className='flex flex-wrap items-start justify-between gap-2'>
-          {artist && <p className='art-eyebrow text-art-text-2 text-[10px]'>{artist.name}</p>}
+          {artist && <p className='art-eyebrow text-art-text-2 text-xs'>{artist.name}</p>}
           {artwork.reference && <Placard className='font-mono'>#{artwork.reference}</Placard>}
         </div>
         <h2 className='font-art-serif text-art-text text-2xl italic'>{artwork.title}</h2>

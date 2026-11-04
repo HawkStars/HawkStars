@@ -63,7 +63,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
               {/* Year badge on the center line */}
               <div className='absolute left-1/2 z-10 -translate-x-1/2'>
                 <div className='bg-green flex h-14 w-14 items-center justify-center rounded-full text-white shadow-md ring-4 ring-white'>
-                  <span className='text-[10px] leading-tight font-extrabold tracking-tight'>
+                  <span className='text-xs leading-tight font-extrabold tracking-tight'>
                     {item.year}
                   </span>
                 </div>
@@ -86,7 +86,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({
                 {/* Year dot */}
                 <div className='relative mb-8 flex justify-center'>
                   <div className='bg-green flex h-12 w-12 items-center justify-center rounded-full text-white shadow-md ring-4 ring-white'>
-                    <span className='text-[9px] leading-tight font-extrabold tracking-tight'>
+                    <span className='text-xs leading-tight font-extrabold tracking-tight'>
                       {item.year}
                     </span>
                   </div>

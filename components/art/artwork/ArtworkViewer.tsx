@@ -162,11 +162,11 @@ export default function ArtworkViewer({ title, dimensions, views, labels }: Artw
         <span aria-hidden className='absolute inset-0' />
       </div>
 
-      <p className='text-art-cream/30 pointer-events-none absolute right-4 bottom-3 text-[10px] tracking-widest uppercase'>
+      <p className='text-art-cream/30 pointer-events-none absolute right-4 bottom-3 text-xs tracking-widest uppercase'>
         {labels.protected}
       </p>
       {dimensions && (
-        <p className='text-art-muted pointer-events-none absolute top-3 right-4 flex items-center gap-2 text-[10px] tracking-widest uppercase'>
+        <p className='text-art-muted pointer-events-none absolute top-3 right-4 flex items-center gap-2 text-xs tracking-widest uppercase'>
           <span className='bg-art-gold h-1.5 w-1.5 rounded-full' />
           {dimensions}
         </p>
@@ -232,7 +232,7 @@ export default function ArtworkViewer({ title, dimensions, views, labels }: Artw
             sizes='96px'
             className='pointer-events-none object-cover'
           />
-          <span className='bg-art-ebony/80 text-art-cream absolute inset-x-0 bottom-0 truncate px-1 text-[9px] tracking-wider uppercase'>
+          <span className='bg-art-ebony/80 text-art-cream absolute inset-x-0 bottom-0 truncate px-1 text-xs tracking-wider uppercase'>
             {item.label}
           </span>
         </button>

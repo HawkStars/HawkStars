@@ -51,7 +51,7 @@ export default function GalleryNavbar({ lng }: { lng: Language }) {
                   href={transformUrl(lng, path)}
                   aria-current={active ? 'page' : undefined}
                   className={cn(
-                    'font-art-sans border-b py-1 text-[11px] font-medium tracking-[0.15em] uppercase transition-colors',
+                    'font-art-sans border-b py-1 text-xs font-medium tracking-[0.15em] uppercase transition-colors',
                     active
                       ? 'border-art-gold-bright text-art-gold-bright'
                       : 'text-art-text-2 hover:text-art-text border-transparent'

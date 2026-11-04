@@ -120,7 +120,7 @@ export default async function ArtworkPage(props: ArtworkPageProps) {
           </Link>
         )}
         {curator && (
-          <p className='art-eyebrow text-art-text-2 mt-3 text-[10px]'>
+          <p className='art-eyebrow text-art-text-2 mt-3 text-xs'>
             <Link href={curatorUrl(lng, curator)} className='hover:text-art-text'>
               {t('artwork.curated_by', { name: curator.name })}
             </Link>
@@ -162,7 +162,7 @@ export default async function ArtworkPage(props: ArtworkPageProps) {
                 “{artwork.critical_note.quote}”
               </blockquote>
               {artwork.critical_note.author && (
-                <figcaption className='art-eyebrow text-art-brass mt-4 text-right text-[10px]'>
+                <figcaption className='art-eyebrow text-art-brass mt-4 text-right text-xs'>
                   — {artwork.critical_note.author}
                 </figcaption>
               )}

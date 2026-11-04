@@ -32,7 +32,7 @@ export default async function ArtistRow({ artist, works, lng }: ArtistRowProps) 
           />
           <div>
             {disciplines.length > 0 && (
-              <p className='art-eyebrow text-[10px]'>{disciplines.join(' • ')}</p>
+              <p className='art-eyebrow text-xs'>{disciplines.join(' • ')}</p>
             )}
             <h2 className='font-art-serif text-art-text mt-2 text-3xl md:text-4xl'>
               <Link href={artistUrl(lng, artist)} className='hover:text-art-gold-bright'>

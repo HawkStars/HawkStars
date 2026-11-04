@@ -177,7 +177,13 @@
       "local_event": "Evento local",
       "international_event": "Evento internacional",
       "other": "Outro"
-    }
+    },
+    "latestNews": "Últimas Notícias",
+    "stayUpdated": "Fique a par",
+    "ourSponsors": "Os nossos patrocinadores",
+    "upcomingEvent": "Próximo evento",
+    "growingVision": "Uma visão em crescimento",
+    "whyHereWhyNow": "Porque aqui? Porque agora?"
   },
   "agenda": {
     "loading": "A carregar eventos…",

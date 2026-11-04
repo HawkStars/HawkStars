@@ -1,5 +1,6 @@
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
+import { localizedDefault } from '@/payload/utilities/localizedDefault';
 
 export const UpcomingHawkEventBlock: Block = {
   slug: 'upcomingHawkEvent',
@@ -11,7 +12,7 @@ export const UpcomingHawkEventBlock: Block = {
     {
       name: 'title',
       type: 'text',
-      defaultValue: 'Upcoming Event',
+      defaultValue: localizedDefault('blocks.upcomingEvent'),
       localized: true,
       label: { en: 'Title', pt: 'Título' },
       admin: {
@@ -53,7 +54,7 @@ export const UpcomingHawkEventBlock: Block = {
     {
       name: 'linkLabel',
       type: 'text',
-      defaultValue: 'Learn more',
+      defaultValue: localizedDefault('blocks.learnMore'),
       localized: true,
       label: { en: 'Link Label', pt: 'Rótulo do Link' },
       admin: {

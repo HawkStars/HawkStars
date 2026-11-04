@@ -496,7 +496,7 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
                           {event.type_event && (
                             <span
                               className={cn(
-                                'rounded-full px-2 py-0.5 text-[10px] font-medium uppercase',
+                                'rounded-full px-2 py-0.5 text-xs font-medium uppercase',
                                 categoryColors[event.type_event] ?? categoryColors.other
                               )}
                             >
@@ -504,7 +504,7 @@ export default function AgendaCalendar({ translations, lng }: AgendaCalendarProp
                             </span>
                           )}
                           {event.isDateRange && (
-                            <span className='flex items-center gap-1 rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium text-zinc-600'>
+                            <span className='flex items-center gap-1 rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-600'>
                               <LuCalendarDays className='h-2.5 w-2.5' />
                               {translations.multiDay}
                             </span>

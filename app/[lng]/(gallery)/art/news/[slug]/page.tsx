@@ -105,7 +105,7 @@ export default async function GalleryArticlePage(props: GalleryArticlePageProps)
                   <span className='text-art-text-2 text-sm'>{article.mainImageCaption}</span>
                 )}
                 {article.mainImageCredit && (
-                  <span className='art-eyebrow text-art-muted text-[10px]'>
+                  <span className='art-eyebrow text-art-muted text-xs'>
                     {article.mainImageCredit}
                   </span>
                 )}
@@ -137,7 +137,7 @@ export default async function GalleryArticlePage(props: GalleryArticlePageProps)
                   <span className='text-art-text-2 text-sm'>{article.mainImageCaption}</span>
                 )}
                 {article.mainImageCredit && (
-                  <span className='art-eyebrow text-art-muted text-[10px]'>
+                  <span className='art-eyebrow text-art-muted text-xs'>
                     {article.mainImageCredit}
                   </span>
                 )}

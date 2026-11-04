@@ -45,7 +45,7 @@ export default KeyActionPage;
 // ── Breadcrumb ──
 
 const Breadcrumb = ({ t, lng }: { t: TranslationFn; lng: string }) => (
-  <nav className='bg-erasmus-blue flex items-center gap-2 px-4 py-3.5 text-[0.78rem] text-white/55 sm:px-6 lg:px-8'>
+  <nav className='bg-erasmus-blue flex items-center gap-2 px-4 py-3.5 text-xs text-white/55 sm:px-6 lg:px-8'>
     <Link
       href={transformUrl(lng, SITE_GET_URLS.erasmus)}
       className='hover:text-erasmus-gold text-white/55 transition-colors'
@@ -65,7 +65,7 @@ const HeroSection = ({ t }: { t: TranslationFn }) => (
     <div className='pointer-events-none absolute -top-75 -right-50 h-200 w-200 rounded-full bg-[radial-gradient(circle,rgba(0,51,153,0.5)_0%,transparent_70%)]' />
 
     <div className='relative mx-auto max-w-6xl'>
-      <div className='border-erasmus-gold/30 bg-erasmus-gold/12 text-erasmus-gold mb-8 inline-flex items-center gap-2.5 border px-4 py-1.5 text-[0.7rem] font-bold tracking-[0.2em] uppercase'>
+      <div className='border-erasmus-gold/30 bg-erasmus-gold/12 text-erasmus-gold mb-8 inline-flex items-center gap-2.5 border px-4 py-1.5 text-xs font-bold tracking-[0.2em] uppercase'>
         {t('hero_label')}
       </div>
 
@@ -112,7 +112,7 @@ const KASection = ({ ka, t }: { ka: KAData; t: TranslationFn }) => (
       </div>
       <div className='pt-2'>
         <span
-          className='mb-4 inline-block rounded-sm px-4 py-1 text-[0.68rem] font-bold tracking-[0.18em] text-white uppercase'
+          className='mb-4 inline-block rounded-sm px-4 py-1 text-xs font-bold tracking-[0.18em] text-white uppercase'
           style={{ background: ka.color }}
         >
           {t(ka.pillKey)}
@@ -163,7 +163,7 @@ const KASection = ({ ka, t }: { ka: KAData; t: TranslationFn }) => (
       <div className='text-4xl'>{ka.whoIcon}</div>
       <div>
         <h3
-          className='mb-2.5 text-[0.7rem] font-bold tracking-[0.16em] uppercase'
+          className='mb-2.5 text-xs font-bold tracking-[0.16em] uppercase'
           style={{ color: ka.color }}
         >
           {t('who_heading')}
@@ -197,7 +197,7 @@ const ComparisonTable = ({ t }: { t: TranslationFn }) => (
             {['th_action', 'th_focus', 'th_who', 'th_duration', 'th_funding'].map((key) => (
               <th
                 key={key}
-                className='border-erasmus-dark/10 text-erasmus-muted border-b-2 px-4 py-3.5 text-left text-[0.72rem] font-bold tracking-[0.12em] uppercase'
+                className='border-erasmus-dark/10 text-erasmus-muted border-b-2 px-4 py-3.5 text-left text-xs font-bold tracking-[0.12em] uppercase'
               >
                 {t(key)}
               </th>
@@ -269,7 +269,7 @@ const BackLink = ({ t, lng }: { t: TranslationFn; lng: string }) => (
 // ── Shared Components ──
 
 const SectionEyebrow = ({ label }: { label: string }) => (
-  <p className='text-erasmus-blue mb-3 flex items-center gap-2.5 text-[0.7rem] font-bold tracking-[0.2em] uppercase'>
+  <p className='text-erasmus-blue mb-3 flex items-center gap-2.5 text-xs font-bold tracking-[0.2em] uppercase'>
     <span className='bg-erasmus-blue block h-0.5 w-7' />
     {label}
   </p>

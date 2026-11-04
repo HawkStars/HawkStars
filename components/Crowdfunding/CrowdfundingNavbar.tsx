@@ -61,7 +61,8 @@ const CrowdfundingNavbar = () => {
           >
             {t('nav.support')}
           </a>
-          <div className='my-auto ml-auto max-lg:hidden'>
+          {/* The switcher inherits its colour; this navbar sits on a near-black background. */}
+          <div className='my-auto ml-auto text-white max-lg:hidden'>
             <LanguageSwitcher />
           </div>
 

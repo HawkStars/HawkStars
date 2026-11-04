@@ -112,10 +112,10 @@ export default function PurchaseForm({
           </span>
           <div className='flex-1'>
             <p className='flex flex-wrap items-center gap-3'>
-              <span className='art-eyebrow text-art-terracotta text-[10px]'>
+              <span className='art-eyebrow text-art-terracotta text-xs'>
                 {t('purchase.impact_eyebrow')}
               </span>
-              <span className='bg-art-terracotta/15 text-art-terracotta rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase'>
+              <span className='bg-art-terracotta/15 text-art-terracotta rounded-full px-2 py-0.5 text-xs font-semibold uppercase'>
                 {t('purchase.impact_badge', { share: impactShare })}
               </span>
             </p>
@@ -258,7 +258,7 @@ export default function PurchaseForm({
         <section className='art-panel p-6 md:p-8'>
           <div className='flex items-center justify-between gap-4'>
             <h2 className='font-art-serif text-art-text text-2xl'>{t('purchase.summary_title')}</h2>
-            <span className='border-art-gold/50 text-art-gold-bright border px-2.5 py-1 text-[10px] tracking-wider uppercase'>
+            <span className='border-art-gold/50 text-art-gold-bright border px-2.5 py-1 text-xs tracking-wider uppercase'>
               {t('purchase.summary_badge')}
             </span>
           </div>

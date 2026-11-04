@@ -87,7 +87,7 @@ export default function QuestionForm({
         </a>
         {contactPhone && <> • {contactPhone}</>}
       </p>
-      <p className='text-art-muted text-center text-[11px]'>{t('question.hint')}</p>
+      <p className='text-art-muted text-center text-xs'>{t('question.hint')}</p>
     </form>
   );
 }

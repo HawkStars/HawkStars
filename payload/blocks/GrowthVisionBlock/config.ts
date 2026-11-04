@@ -1,6 +1,7 @@
 import { PayloadImageField } from '@/payload/fields/ImageType';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
+import { localizedDefault } from '@/payload/utilities/localizedDefault';
 
 export const GrowthVisionBlock: Block = {
   slug: 'growthVisionBlock',
@@ -15,7 +16,7 @@ export const GrowthVisionBlock: Block = {
       label: { en: 'Title', pt: 'Título' },
       required: true,
       localized: true,
-      defaultValue: 'Uma visão em crescimento',
+      defaultValue: localizedDefault('blocks.growingVision'),
       admin: {
         description: { en: 'Main heading for the section', pt: 'Título principal da secção' },
       },

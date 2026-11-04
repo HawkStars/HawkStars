@@ -73,7 +73,7 @@ export default async function GalleryHomePage(props: LanguagePageProps) {
     <>
       <section className='art-spotlight px-4 pt-16 pb-20 lg:px-8 lg:pt-20'>
         <div className='mx-auto flex max-w-4xl flex-col items-center text-center'>
-          <p className='border-art-line text-art-gold-bright flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-semibold tracking-[0.15em] uppercase'>
+          <p className='border-art-line text-art-gold-bright flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold tracking-[0.15em] uppercase'>
             <span aria-hidden className='bg-art-brass h-1.5 w-1.5 rounded-full' />
             {t('home.welcome')}
           </p>

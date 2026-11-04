@@ -89,7 +89,7 @@ export async function ArtworkCard({
       </Link>
 
       <div className='border-art-line bg-art-charcoal/70 mt-5 flex flex-1 flex-col border p-5'>
-        {meta && <p className='art-eyebrow text-[10px]'>{meta}</p>}
+        {meta && <p className='art-eyebrow text-xs'>{meta}</p>}
         <h3 className='font-art-serif text-art-text mt-2 text-xl'>
           <Link href={href} className='hover:text-art-gold-bright'>
             {artwork.title}
@@ -144,7 +144,7 @@ export async function ArtworkShowcaseCard({ artwork, lng }: { artwork: Artwork; 
         )}
       </Link>
       <div className='flex flex-1 flex-col px-5 pb-5'>
-        {artist && <p className='art-eyebrow text-[10px]'>{artist.name}</p>}
+        {artist && <p className='art-eyebrow text-xs'>{artist.name}</p>}
         <h3 className='font-art-serif text-art-text mt-2 text-xl italic'>{artwork.title}</h3>
         {meta && <p className='text-art-muted mt-2 text-sm'>{meta}</p>}
         <div className='border-art-line mt-auto flex items-center justify-end gap-3 border-t pt-4'>

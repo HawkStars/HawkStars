@@ -1,5 +1,6 @@
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
+import { localizedDefault } from '@/payload/utilities/localizedDefault';
 
 export const SponsorsBlock: Block = {
   slug: 'sponsorsBlock',
@@ -11,7 +12,7 @@ export const SponsorsBlock: Block = {
     {
       name: 'title',
       type: 'text',
-      defaultValue: 'Our Sponsors',
+      defaultValue: localizedDefault('blocks.ourSponsors'),
       localized: true,
       label: { en: 'Title', pt: 'Título' },
       admin: {

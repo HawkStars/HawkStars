@@ -1,6 +1,7 @@
 import { PayloadImageField } from '@/payload/fields/ImageType';
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
+import { localizedDefault } from '@/payload/utilities/localizedDefault';
 
 export const WhyHereWhyNowBlock: Block = {
   slug: 'whyHereWhyNowBlock',
@@ -14,7 +15,7 @@ export const WhyHereWhyNowBlock: Block = {
       type: 'text',
       required: true,
       localized: true,
-      defaultValue: 'Porque aqui? Porque agora?',
+      defaultValue: localizedDefault('blocks.whyHereWhyNow'),
       label: { en: 'Title', pt: 'Título' },
       admin: {
         description: { en: 'Main heading for the section', pt: 'Título principal da secção' },

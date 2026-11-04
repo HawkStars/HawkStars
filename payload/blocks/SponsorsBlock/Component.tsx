@@ -6,6 +6,8 @@ import { ImageMedia } from '@/payload/components/Media';
 import { cn } from '@/lib/utils';
 import { fetchSponsors } from '@/lib/payload/client-side/queries/sponsors';
 import { HawkStarsSection } from '@/components/layout';
+import { useTranslation } from '@/i18n/client';
+import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
 export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
   title,
@@ -14,6 +16,8 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
   limit = 12,
   sectionId,
 }) => {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'common');
   const [sponsors, setSponsors] = useState<Sponsor[]>([]);
 
   useEffect(() => {
@@ -24,7 +28,8 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
 
   const groupByTier: Record<string, Sponsor[]> = sponsors.reduce(
     (acc, sponsor) => {
-      const sponsorTier = sponsor.tier || 'Uncategorized';
+      // Was the English 'Uncategorized', shown as a tier heading on /pt too.
+      const sponsorTier = sponsor.tier || t('label.other');
       if (!acc[sponsorTier]) {
         acc[sponsorTier] = [];
       }
@@ -49,7 +54,7 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
     >
       {(title || subtitle) && (
         <div className='section-header text-center'>
-          {title && <h2 className='text-h1_semibold text-green'>{title || 'Sponsors'}</h2>}
+          {title && <h2 className='text-h1_semibold text-green'>{title}</h2>}
           {subtitle && (
             <p className='mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-gray-600'>
               {subtitle}

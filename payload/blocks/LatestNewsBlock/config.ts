@@ -1,5 +1,6 @@
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
+import { localizedDefault } from '@/payload/utilities/localizedDefault';
 
 export const LatestNewsBlock: Block = {
   slug: 'latestNews',
@@ -12,7 +13,7 @@ export const LatestNewsBlock: Block = {
       name: 'title',
       type: 'text',
       label: { en: 'Title', pt: 'Título' },
-      defaultValue: 'Latest News',
+      defaultValue: localizedDefault('blocks.latestNews'),
       localized: true,
       admin: {
         description: {
@@ -93,7 +94,7 @@ export const LatestNewsBlock: Block = {
       name: 'linkLabel',
       type: 'text',
       label: { en: 'Link Label', pt: 'Rótulo do Link' },
-      defaultValue: 'Read more',
+      defaultValue: localizedDefault('blocks.readMore'),
       localized: true,
       admin: {
         description: {

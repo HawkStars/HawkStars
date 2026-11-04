@@ -121,7 +121,7 @@ export default function CatalogFilters({
       </form>
 
       <div className='border-art-line mt-5 flex items-center justify-between gap-4 border-t pt-4'>
-        <p className='art-eyebrow text-art-text-2 flex items-center gap-2 text-[10px]'>
+        <p className='art-eyebrow text-art-text-2 flex items-center gap-2 text-xs'>
           <LuSlidersHorizontal aria-hidden />
           {categoriesLabel}
         </p>

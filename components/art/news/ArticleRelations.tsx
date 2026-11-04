@@ -66,7 +66,7 @@ export default async function ArticleRelations({ article, lng }: { article: News
                     className='aspect-square w-16 shrink-0 object-cover grayscale'
                   />
                   <span className='flex flex-col'>
-                    <span className='art-eyebrow text-[10px]'>{person.role}</span>
+                    <span className='art-eyebrow text-xs'>{person.role}</span>
                     <span className='font-art-serif text-art-text group-hover:text-art-gold-bright text-xl'>
                       {person.name}
                     </span>

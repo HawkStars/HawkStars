@@ -1,5 +1,6 @@
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
+import { localizedDefault } from '@/payload/utilities/localizedDefault';
 
 export const AgendaBlock: Block = {
   slug: 'agenda',
@@ -92,7 +93,7 @@ export const AgendaBlock: Block = {
       name: 'linkLabel',
       type: 'text',
       label: { en: 'Link Label', pt: 'Rótulo do Link' },
-      defaultValue: 'Ver mais',
+      defaultValue: localizedDefault('see_more'),
       localized: true,
       admin: {
         description: {

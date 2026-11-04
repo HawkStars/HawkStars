@@ -38,12 +38,12 @@ export default async function CuratorsSection({
                   className='border-art-line aspect-3/4 w-32 shrink-0 border object-cover grayscale sm:w-40'
                 />
                 <div className='flex flex-col gap-3'>
-                  <span className='border-art-gold/50 text-art-gold-bright w-fit border px-2 py-0.5 text-[10px] tracking-wider uppercase'>
+                  <span className='border-art-gold/50 text-art-gold-bright w-fit border px-2 py-0.5 text-xs tracking-wider uppercase'>
                     {t('home.curator_badge')}
                   </span>
                   <h3 className='font-art-serif text-art-text text-3xl'>{curator.name}</h3>
                   {curator.role && (
-                    <p className='art-eyebrow text-art-brass text-[10px]'>{curator.role}</p>
+                    <p className='art-eyebrow text-art-brass text-xs'>{curator.role}</p>
                   )}
                   <p className='text-art-text-2 leading-relaxed'>
                     {richTextToPlain(curator.description, 320)}

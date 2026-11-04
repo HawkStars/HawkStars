@@ -113,16 +113,16 @@ const ContributionsChairsMobile = ({
       />
       {currentContributions.length > 0 && (
         <Accordion title={t('contributor')}>
-          {currentContributions.map((contribution) => {
-            return contribution.donor ? (
+          {/* Anonymous donors are listed in the count only. They used to render an
+              unkeyed <></>, which React warned about. */}
+          {currentContributions
+            .filter((contribution) => contribution.donor)
+            .map((contribution) => (
               <div key={contribution.id} className='flex w-full justify-between'>
                 <span>{contribution.donor}</span>
                 <span>{contribution.contribution_date || ''}</span>
               </div>
-            ) : (
-              <></>
-            );
-          })}
+            ))}
         </Accordion>
       )}
     </div>

@@ -1,5 +1,6 @@
 import SectionID from '@/payload/fields/SectionID';
 import type { Block } from 'payload';
+import { localizedDefault } from '@/payload/utilities/localizedDefault';
 
 export const NewsletterSignupBlock: Block = {
   slug: 'newsletterSignup',
@@ -11,7 +12,7 @@ export const NewsletterSignupBlock: Block = {
     {
       name: 'title',
       type: 'text',
-      defaultValue: 'Stay Updated',
+      defaultValue: localizedDefault('blocks.stayUpdated'),
       required: true,
       localized: true,
       label: { en: 'Title', pt: 'Título' },
@@ -25,7 +26,7 @@ export const NewsletterSignupBlock: Block = {
     {
       name: 'buttonText',
       type: 'text',
-      defaultValue: 'Subscribe',
+      defaultValue: localizedDefault('blocks.subscribe'),
       localized: true,
       label: { en: 'Button Text', pt: 'Texto do Botão' },
     },

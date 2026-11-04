@@ -391,7 +391,7 @@
   /* Own type scale for the (gallery) route group, so it can be restyled
      without touching the shared text-h* classes of the org site. */
   .art-eyebrow {
-    @apply font-art-sans text-art-gold-bright text-[11px] font-semibold tracking-[0.2em] uppercase;
+    @apply font-art-sans text-art-gold-bright text-xs font-semibold tracking-[0.2em] uppercase;
   }
 
   .art-display {

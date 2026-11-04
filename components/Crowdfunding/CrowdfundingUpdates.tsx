@@ -65,7 +65,7 @@ const CrowdfundingUpdates = ({ t, updateCards, lng }: Props) => {
                   </div>
                   <div className='flex flex-1 flex-col p-4'>
                     <h3 className='text-sm font-bold text-white'>{card.title}</h3>
-                    <p className='mt-auto pt-3 text-[10px] font-semibold tracking-wider text-gray-400 uppercase'>
+                    <p className='mt-auto pt-3 text-xs font-semibold tracking-wider text-gray-400 uppercase'>
                       {formatDate(card.date, lng)}
                     </p>
                   </div>

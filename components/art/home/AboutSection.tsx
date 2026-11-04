@@ -41,8 +41,8 @@ export default async function AboutSection({ lng }: { lng: Language }) {
               <p
                 className={
                   'accent' in fact
-                    ? 'art-eyebrow text-art-terracotta text-[10px]'
-                    : 'art-eyebrow text-[10px]'
+                    ? 'art-eyebrow text-art-terracotta text-xs'
+                    : 'art-eyebrow text-xs'
                 }
               >
                 {t(fact.title)}

@@ -39,7 +39,7 @@ export default async function ArtworkSpecs({ artwork, lng }: { artwork: Artwork;
           {t('artwork.specs_title')}
         </h2>
         {artwork.reference && (
-          <p className='art-eyebrow text-art-brass text-[10px]'>
+          <p className='art-eyebrow text-art-brass text-xs'>
             {t('artwork.certificate', { ref: artwork.reference })}
           </p>
         )}
@@ -49,7 +49,7 @@ export default async function ArtworkSpecs({ artwork, lng }: { artwork: Artwork;
         <dl className='border-art-line grid gap-x-8 gap-y-5 border-b py-6 sm:grid-cols-2'>
           {specs.map((spec) => (
             <div key={spec.label} className={spec.wide ? 'sm:col-span-2' : undefined}>
-              <dt className='art-eyebrow text-art-muted text-[10px]'>{spec.label}</dt>
+              <dt className='art-eyebrow text-art-muted text-xs'>{spec.label}</dt>
               <dd className='text-art-text mt-1'>{spec.value}</dd>
             </div>
           ))}
@@ -58,8 +58,8 @@ export default async function ArtworkSpecs({ artwork, lng }: { artwork: Artwork;
 
       <div className='pt-6'>
         <div className='flex items-center justify-between gap-4'>
-          <p className='art-eyebrow text-art-muted text-[10px]'>{t('artwork.price')}</p>
-          <p className='art-eyebrow text-art-terracotta text-[10px]'>{t('artwork.transparency')}</p>
+          <p className='art-eyebrow text-art-muted text-xs'>{t('artwork.price')}</p>
+          <p className='art-eyebrow text-art-terracotta text-xs'>{t('artwork.transparency')}</p>
         </div>
         {artwork.is_sold ? (
           <p className='font-art-serif text-art-terracotta mt-3 text-3xl'>{t('artwork.sold')}</p>

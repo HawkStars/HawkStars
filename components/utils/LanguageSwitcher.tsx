@@ -73,7 +73,6 @@ const LanguageLinks = ({ isFooter = false, search }: LanguageLinksProps) => {
               href={buildLocalizedPath(value)}
               hrefLang={value}
               lang={value}
-              aria-label={t('a11y.switchToLanguage', { language: label })}
               aria-current={isCurrent ? 'true' : undefined}
               className={cn(
                 'focus-visible:ring-ring rounded-xs px-1 py-1 tracking-wide transition-opacity focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
@@ -82,7 +81,10 @@ const LanguageLinks = ({ isFooter = false, search }: LanguageLinksProps) => {
                   : 'font-medium opacity-60 hover:opacity-100'
               )}
             >
+              {/* The accessible name must start with the visible "PT"/"EN" (WCAG 2.5.3),
+                  so voice-control users can say what they see; the rest is screen-reader only. */}
               {code}
+              <span className='sr-only'> — {t('a11y.switchToLanguage', { language: label })}</span>
             </Link>
           </span>
         );

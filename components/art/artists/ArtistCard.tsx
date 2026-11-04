@@ -28,7 +28,7 @@ export async function ArtistCard({ artist, works, lng }: ArtistCardProps) {
         />
       </div>
       {disciplines.length > 0 && (
-        <p className='art-eyebrow mt-4 text-[10px]'>{disciplines.join(' • ')}</p>
+        <p className='art-eyebrow mt-4 text-xs'>{disciplines.join(' • ')}</p>
       )}
       <h3 className='font-art-serif text-art-text group-hover:text-art-gold-bright mt-2 text-2xl transition-colors'>
         {artist.name}

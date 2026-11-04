@@ -98,7 +98,7 @@ export default function OrderStatus({
 
       {order.paymentMethod === 'MB' && order.payment.entity && (
         <div className='border-art-line bg-art-ebony w-full border p-5 text-left'>
-          <p className='art-eyebrow text-[10px]'>{t('purchase.done.mb_title')}</p>
+          <p className='art-eyebrow text-xs'>{t('purchase.done.mb_title')}</p>
           <dl className='mt-4 grid grid-cols-3 gap-4'>
             <OrderValue label={t('purchase.done.entity')} value={order.payment.entity} />
             <OrderValue
