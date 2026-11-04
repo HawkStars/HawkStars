@@ -46,7 +46,7 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
     >
       {/* Header */}
       <div className={cn('mb-12 lg:mb-14', titleLocationStyles[titleLocation ?? 'center'])}>
-        {title && <h2 className='text-h1_semibold tracking-tight text-balance'>{title}</h2>}
+        {title && <h2 className='text-h1_semibold'>{title}</h2>}
       </div>
 
       {/* Phases — zigzag layout */}

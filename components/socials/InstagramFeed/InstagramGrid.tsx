@@ -113,7 +113,7 @@ export default function InstagramGrid({
 
   return (
     <div className='mx-auto max-w-6xl'>
-      <h2 className='text-h2_bold mb-8 text-center'>{t('instagram.title')}</h2>
+      <h2 className='text-h2_semibold mb-8 text-center'>{t('instagram.title')}</h2>
       <div className={cn('grid lg:gap-1', columns === 3 ? 'grid-cols-3' : 'grid-cols-4')}>
         {posts.slice(0, maxPosts).map((post) => (
           <Link

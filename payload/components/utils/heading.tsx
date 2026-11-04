@@ -4,8 +4,8 @@ import { JSXConverter } from '@payloadcms/richtext-lexical/react';
 
 const classHeadings = {
   h1: 'text-h1_semibold my-6',
-  h2: 'text-h2_bold my-6',
-  h3: 'text-h2_light my-4',
+  h2: 'text-h2_semibold my-6',
+  h3: 'text-h2_bold my-4',
   h4: 'text-xl md:text-2xl my-4',
   h5: 'text-lg md:text-xl my-3',
   h6: 'text-base md:text-lg font-light my-3',

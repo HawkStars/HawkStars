@@ -26,11 +26,7 @@ export const LogosBlock = ({
     >
       <div className='text-center'>
         {badgeText && <Badge variant='outline'>{badgeText}</Badge>}
-        {heading && (
-          <h2 className='mx-auto mt-8 mb-5 max-w-3xl text-4xl font-bold tracking-tight text-balance md:text-5xl'>
-            {heading}
-          </h2>
-        )}
+        {heading && <h2 className='text-h2_semibold mx-auto mt-8 mb-5 max-w-3xl'>{heading}</h2>}
         {description && (
           <p className='mx-auto max-w-3xl text-xl font-medium text-balance text-gray-600'>
             {description}

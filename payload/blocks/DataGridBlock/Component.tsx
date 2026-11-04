@@ -20,11 +20,7 @@ export const DataGridBlock: React.FC<DataGridBlockProps> = ({
       id={sectionId || undefined}
       data-blockid='dataGridBlock'
     >
-      {title && (
-        <h2 className='text-h2_bold mb-10 text-center tracking-tight text-balance md:mb-12'>
-          {title}
-        </h2>
-      )}
+      {title && <h2 className='text-h2_bold mb-10 text-center md:mb-12'>{title}</h2>}
       <div className='overflow-x-auto rounded-lg'>
         <table className='lg:mx-auto lg:min-w-6xl'>
           <thead>

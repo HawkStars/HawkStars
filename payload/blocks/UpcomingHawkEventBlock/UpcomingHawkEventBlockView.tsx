@@ -41,11 +41,7 @@ export const UpcomingHawkEventBlockView: React.FC<UpcomingHawkEventBlockViewProp
     >
       {(title || subtitle) && (
         <div className='section-header text-center'>
-          {title && (
-            <h2 className='mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
-              {title}
-            </h2>
-          )}
+          {title && <h2 className='text-h2_semibold mb-4'>{title}</h2>}
           {subtitle && (
             <p className='mx-auto max-w-2xl text-lg leading-relaxed text-gray-600'>{subtitle}</p>
           )}
@@ -74,7 +70,7 @@ export const UpcomingHawkEventBlockView: React.FC<UpcomingHawkEventBlockViewProp
               )}
             </div>
 
-            <h3 className='mb-2 text-2xl font-semibold lg:text-3xl'>{event.heading}</h3>
+            <h3 className='text-h2_bold mb-2'>{event.heading}</h3>
 
             {event.subheading && <p className='mb-2 text-lg text-gray-600'>{event.subheading}</p>}
 

@@ -29,11 +29,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps & { lng: Language 
       id={sectionId || undefined}
       data-blockid='mapLocation'
     >
-      {title && (
-        <h2 className='mb-10 text-center text-3xl font-bold tracking-tight text-balance lg:mb-12 lg:text-4xl'>
-          {title}
-        </h2>
-      )}
+      {title && <h2 className='text-h2_semibold mb-10 text-center lg:mb-12'>{title}</h2>}
 
       <div className='grid gap-8 lg:grid-cols-2'>
         {/* Map */}

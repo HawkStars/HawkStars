@@ -96,29 +96,32 @@ Only use inside `app/[lng]/(crowdfunding)/` and `components/Crowdfunding/`.
 
 ### Font families
 
-- **Body**: `Inter` (set on `body` in `globals.css`) — use for all body copy and UI text.
-- **Headings / Display**: `Oswald` — apply via `font-oswald` utility class. Used for section titles, display headings.
+- **Body**: `Inter` (set on `body` in `globals.css`) — use for all body copy, UI text and card titles.
+- **Display**: `Oswald` via the `font-display` utility (`--font-display` in `@theme`). It is applied by the heading classes below — reach for a `text-*` heading class rather than `font-display` directly. `font-oswald` is a legacy alias.
 - **Gaming display**: `font-magistral` — Oswald at weight 800 with Impact fallback. Only for gaming section hero text.
 
-### Custom typography classes
+### Type scale
 
-Defined in `globals.css` `@layer components`. Prefer these over raw Tailwind font utilities for consistent sizing.
+Defined in `globals.css` `@layer components`. **Every heading uses one of these classes** — never hand-roll `text-3xl font-bold` on a heading. Sizes are mobile → `lg:`.
 
-| Class                | Size / Weight               | Line height | Use for                        |
-| -------------------- | --------------------------- | ----------- | ------------------------------ |
-| `text-h1_semibold`   | `text-5xl / font-semibold`  | 103%        | Page heroes, main headings     |
-| `text-h2_light`      | `text-2xl / font-light`     | 113%        | Section subtitles              |
-| `text-display`       | `text-4xl → lg:text-6xl / font-bold` | tight | Page hero title (`PageHero`, detail-page h1s) |
-| `text-h2_bold`       | `text-2xl / font-bold`      | 113%        | Section headings               |
-| `text-h2_semibold`   | `text-2xl → lg:text-3xl / font-semibold` | 113% | List/archive section headings |
-| `text-h3_semibold`   | `text-xl / font-semibold`   | 120%        | Card titles                    |
-| `text-body`          | `24px`                      | `27px`      | Lead / large body copy         |
-| `text-body_regular`  | `text-base / font-normal`   | —           | Standard paragraph text        |
-| `text-body_semibold` | `text-base / font-semibold` | —           | Emphasized inline text, labels |
+| Class                | Font   | Size / Weight              | Line height | Use for                                                   |
+| -------------------- | ------ | -------------------------- | ----------- | --------------------------------------------------------- |
+| `text-display`       | Oswald | 40 → 64px / semibold       | 1.05        | One per page: `PageHero`, slideshow, detail-page `h1`      |
+| `text-h1_semibold`   | Oswald | 32 → 48px / semibold       | 1.1         | Large feature headings inside a page                      |
+| `text-h2_semibold`   | Oswald | 28 → 40px / semibold       | 1.15        | **Section heading** — the default `h2` of every section    |
+| `text-h2_bold`       | Oswald | 22 → 28px / semibold       | 1.2         | Sub-section heading, group labels, accordion titles        |
+| `text-h2_light`      | Inter  | 20 → 24px / light          | 1.35        | Lead / subtitle line under a heading                      |
+| `text-h3_semibold`   | Inter  | 20px / semibold            | 1.3         | Card titles                                               |
+| `text-body`          | Inter  | 20 → 24px                  | 1.45        | Large body copy                                           |
+| `text-body_regular`  | Inter  | 16px / normal              | —           | Standard paragraph text                                   |
+| `text-body_semibold` | Inter  | 16px / semibold            | —           | Emphasized inline text, labels                            |
+| `text-eyebrow`       | Inter  | 12px / bold, uppercase     | —           | Small label above a heading (`SectionEyebrow`)             |
+
+`SectionHeader` maps `as='h1' | 'h2' | 'h3'` to `text-h1_semibold` / `text-h2_semibold` / `text-h2_bold`; rich-text headings follow the same mapping. Headings already set `text-balance` and their own tracking — don't add `tracking-tight` (it crowds a condensed face). Keep body text left-aligned (no `text-justify`) and never below 12px.
 
 ```tsx
-<h1 className='text-h1_semibold'>{title}</h1>
-<p className='lg:text-h2_light text-body_regular'>{subtitle}</p>
+<h2 className='text-h2_semibold'>{title}</h2>
+<p className='text-h2_light text-black/70'>{subtitle}</p>
 ```
 
 ---
@@ -306,7 +309,7 @@ import Spinner from '@/components/utils/Spinner/Spinner';
 
 ### `SectionTitle`
 
-Standardized section heading with an optional subtitle and anchor ID, styled with `font-oswald` and a `bege-dark` bottom border.
+Standardized section heading with an optional subtitle and anchor ID, using the section-heading scale (`text-h2_semibold`) and a `bege-dark` bottom border.
 
 ```tsx
 import SectionTitle from '@/components/ui/SectionTitle';

@@ -23,8 +23,8 @@ const ACCENT: Record<SectionHeaderVariant, { text: string; rule: string }> = {
 
 const HEADING_CLASS = {
   h1: 'text-h1_semibold',
-  h2: 'text-h2_bold',
-  h3: 'text-h2_light',
+  h2: 'text-h2_semibold',
+  h3: 'text-h2_bold',
 } as const;
 
 /**
@@ -41,13 +41,7 @@ export const SectionEyebrow = ({
   variant?: SectionHeaderVariant;
   className?: string;
 }) => (
-  <p
-    className={cn(
-      'mb-3 flex items-center gap-2.5 text-[0.7rem] font-bold tracking-[0.22em] uppercase',
-      ACCENT[variant].text,
-      className
-    )}
-  >
+  <p className={cn('text-eyebrow mb-3 flex items-center gap-2.5', ACCENT[variant].text, className)}>
     <span className={cn('block h-0.5 w-7', ACCENT[variant].rule)} />
     {label}
   </p>
@@ -98,9 +92,7 @@ const SectionHeader = ({
         // so keep the accent rule alone rather than dropping the pattern.
         <span className={cn('mb-3 block h-0.5 w-7', ACCENT[variant].rule)} />
       )}
-      <Heading className={cn(HEADING_CLASS[as], 'tracking-tight text-balance', titleClassName)}>
-        {title}
-      </Heading>
+      <Heading className={cn(HEADING_CLASS[as], titleClassName)}>{title}</Heading>
       {subtitle && (
         <p
           className={cn(

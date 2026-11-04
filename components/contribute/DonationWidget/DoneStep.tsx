@@ -35,7 +35,7 @@ const DoneStep = ({ donationState, paymentResponse, onReset }: DoneStepProps) =>
         </svg>
       </div>
 
-      <h3 className='text-xl font-semibold text-neutral-800'>{t('donation_widget.done.title')}</h3>
+      <h3 className='text-h3_semibold text-neutral-800'>{t('donation_widget.done.title')}</h3>
       <p className='text-center text-[15px] leading-relaxed text-neutral-600'>
         {t('donation_widget.done.description', {
           amount: activeAmount,

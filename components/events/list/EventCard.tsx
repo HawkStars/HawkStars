@@ -43,9 +43,7 @@ const EventCard = ({ event, lng }: EventCardProps) => {
 
       {/* Content */}
       <div className='flex flex-1 flex-col justify-center gap-2'>
-        <h3 className='text-foreground text-xl font-bold tracking-tight lg:text-2xl'>
-          {event.heading}
-        </h3>
+        <h3 className='text-h3_semibold text-foreground'>{event.heading}</h3>
 
         {event.subheading && (
           <p className='text-muted-foreground text-sm font-medium tracking-wider uppercase'>

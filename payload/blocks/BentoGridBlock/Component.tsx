@@ -93,11 +93,7 @@ const BentoGridBlock: React.FC<BentoGridBlockProps & { lng: Language }> = ({
       <div className='mx-auto px-4 sm:px-6 lg:px-8'>
         {(sectionTitle || sectionDescription) && (
           <div className='mx-auto mb-8 max-w-3xl text-center md:mb-10 lg:mb-12'>
-            {sectionTitle && (
-              <h2 className='text-2xl font-semibold text-pretty sm:text-3xl lg:text-4xl'>
-                {sectionTitle}
-              </h2>
-            )}
+            {sectionTitle && <h2 className='text-h2_semibold'>{sectionTitle}</h2>}
             {sectionDescription && (
               <p className='text-muted-foreground mt-3 text-base md:mt-4 md:text-lg'>
                 {sectionDescription}

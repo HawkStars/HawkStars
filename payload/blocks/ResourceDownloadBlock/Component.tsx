@@ -119,7 +119,7 @@ const ResourceListVariation: FC<ResourceItem> = ({
         </Link>
       )}
       <div className='flex flex-col gap-2'>
-        <h3 className='text-xl font-semibold'>{title}</h3>
+        <h3 className='text-h3_semibold'>{title}</h3>
         {description && <p className='text-gray-700'>{description}</p>}
       </div>
     </div>
@@ -135,7 +135,7 @@ const ResourceCardVariation: FC<ResourceItem> = ({
 }) => {
   return (
     <div className={cn('card-sm card-hover h-full rounded-xl border border-gray-200 p-6')}>
-      <h3 className='mb-2 text-xl font-semibold'>{title}</h3>
+      <h3 className='text-h3_semibold mb-2'>{title}</h3>
       {description && <p className='mb-4 text-gray-700'>{description}</p>}
       {file && (
         <Link href={file.url || '#'} className='mt-auto' download>

@@ -307,7 +307,7 @@ export function AgendaBlockView({
         {(title || subtitle) && (
           <div className='mb-8 text-center'>
             {title && (
-              <h2 className='mb-2 text-3xl font-bold text-zinc-900 dark:text-zinc-100'>{title}</h2>
+              <h2 className='text-h2_semibold mb-2 text-zinc-900 dark:text-zinc-100'>{title}</h2>
             )}
             {subtitle && <p className='text-lg text-zinc-600 dark:text-zinc-400'>{subtitle}</p>}
           </div>

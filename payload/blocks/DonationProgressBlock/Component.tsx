@@ -97,7 +97,7 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps & { lng:
             <div className='bg-bege-light mb-4 inline-flex rounded-full p-3'>
               <LuTarget className='text-green h-6 w-6' />
             </div>
-            <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
+            <h2 className='text-h2_semibold mb-4'>{title}</h2>
             {description && (
               <p
                 className={cn(
