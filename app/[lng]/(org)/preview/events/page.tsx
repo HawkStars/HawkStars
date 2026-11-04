@@ -36,6 +36,7 @@ export default async function PreviewProjectsList(props: HomeProps) {
 
   const translations = {
     upcoming: t('upcomingEvents'),
+    current: t('currentEvents'),
     noUpcoming: t('noUpcomingEvents'),
     viewAgenda: t('viewAgenda'),
     viewAgendaDescription: t('viewAgendaDescription'),

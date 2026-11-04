@@ -68,6 +68,7 @@ const EventsContent = async ({
 
   const translations = {
     upcoming: t('upcomingEvents'),
+    current: t('currentEvents'),
     noUpcoming: t('noUpcomingEvents'),
     viewAgenda: t('viewAgenda'),
     viewAgendaDescription: t('viewAgendaDescription'),
@@ -90,12 +91,15 @@ const EventsContent = async ({
     },
   ];
 
-  if (!eventsListInformation) return null;
-
   return (
     <>
+      {/* The `events-list` global can exist without a title (e.g. never published, so
+          only an empty draft is stored). Fall back to i18n rather than rendering a
+          hero with no h1, or returning nothing at all when the global is missing. */}
       <HeroImpactStatsBlock
         {...eventsListInformation}
+        title={eventsListInformation?.title || t('heroTitle')}
+        subtitle={eventsListInformation?.subtitle || t('heroSubtitle')}
         viewAgenda={translations.viewAgenda}
         archiveUrl={SITE_GET_URLS.events_archive}
         viewArchive={translations.viewArchive}
