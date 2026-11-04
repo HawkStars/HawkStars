@@ -42,11 +42,7 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
             textAlign && textAlignClasses[textAlign as keyof typeof textAlignClasses]
           )}
         >
-          {title && (
-            <h2 className='mb-3 text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
-              {title}
-            </h2>
-          )}
+          {title && <h2 className='text-h2_semibold mb-3'>{title}</h2>}
           {subtitle && <p className={cn('text-lg opacity-80 lg:text-xl')}>{subtitle}</p>}
         </div>
       )}

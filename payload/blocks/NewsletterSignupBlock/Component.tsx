@@ -63,7 +63,7 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps & { lng:
           <div className='mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-white/10'>
             <LuMail className='h-8 w-8 text-white' />
           </div>
-          <h2 className='mb-4 text-3xl font-bold lg:text-4xl'>{title}</h2>
+          <h2 className='text-h2_semibold mb-4'>{title}</h2>
           {description && <p className='mb-8 text-lg opacity-90'>{description}</p>}
 
           {status !== 'submitted' ? (

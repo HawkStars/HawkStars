@@ -29,7 +29,7 @@ function Case() {
     <div className='w-full py-20 lg:py-40'>
       <div className='container mx-auto'>
         <div className='flex flex-col gap-10'>
-          <h2 className='font-regular text-left text-xl tracking-tighter md:text-3xl lg:max-w-xl'>
+          <h2 className='text-h2_semibold text-left lg:max-w-xl'>
             Trusted by thousands of businesses worldwide
           </h2>
           <Carousel setApi={setApi} className='w-full'>

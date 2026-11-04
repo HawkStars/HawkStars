@@ -63,6 +63,10 @@
   --color-art-line: rgba(197, 160, 89, 0.2);
   --color-art-spotlight: rgba(235, 185, 115, 0.08);
 
+  /* Org display face for page and section headings (loaded by next/font in the
+     org and crowdfunding layouts; layouts without it fall back to a narrow sans). */
+  --font-display: 'Oswald', 'Oswald Fallback', 'Arial Narrow', sans-serif;
+
   --font-art-serif: var(--font-playfair), 'Playfair Display', Georgia, serif;
   --font-art-sans: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
 
@@ -121,40 +125,54 @@
 }
 
 @layer components {
-  /** TEXT */
+  /** TEXT
+   * Display and section headings use the Oswald display face; card titles and
+   * body copy stay in Inter. Sizes step down one rank at a time:
+   *   display 40→64 · h1 32→48 · h2 section 28→40 · h2_bold 22→28 · h3 20
+   */
   .text-body {
-    font-size: 24px;
-    line-height: 27px;
-  }
-
-  .text-h1_semibold {
-    @apply text-5xl font-semibold max-sm:text-4xl;
-    line-height: 103%;
-  }
-
-  .text-h2_light {
-    @apply text-2xl font-light;
-    line-height: 113%;
-  }
-
-  .text-h2_bold {
-    @apply text-2xl font-bold;
-    line-height: 113%;
-  }
-
-  .text-h2_semibold {
-    @apply text-2xl font-semibold lg:text-3xl;
-    line-height: 113%;
-  }
-
-  .text-h3_semibold {
-    @apply text-xl font-semibold;
-    line-height: 120%;
+    @apply text-xl lg:text-2xl;
+    line-height: 1.45;
   }
 
   /* Page hero title — one per page, used by PageHero */
   .text-display {
-    @apply text-4xl leading-tight font-bold tracking-tight text-balance lg:text-6xl;
+    @apply font-display text-[2.5rem] font-semibold text-balance lg:text-[4rem];
+    line-height: 1.05;
+  }
+
+  .text-h1_semibold {
+    @apply font-display text-[2rem] font-semibold text-balance lg:text-5xl;
+    line-height: 1.1;
+  }
+
+  /* Section heading — the default h2 for every section on the page */
+  .text-h2_semibold {
+    @apply font-display text-[1.75rem] font-semibold text-balance lg:text-[2.5rem];
+    line-height: 1.15;
+  }
+
+  /* Sub-section heading — groups inside a section, accordion titles, labels */
+  .text-h2_bold {
+    @apply font-display text-[1.375rem] font-semibold lg:text-[1.75rem];
+    line-height: 1.2;
+  }
+
+  /* Lead / subtitle line under a heading */
+  .text-h2_light {
+    @apply text-xl font-light lg:text-2xl;
+    line-height: 1.35;
+  }
+
+  /* Card titles — Inter, so dense grids stay readable */
+  .text-h3_semibold {
+    @apply text-xl font-semibold;
+    line-height: 1.3;
+  }
+
+  /* Small uppercase label above a heading */
+  .text-eyebrow {
+    @apply text-xs font-bold tracking-[0.2em] uppercase;
   }
 
   .text-body_regular {
@@ -218,8 +236,9 @@
     @apply mx-auto mb-10 max-w-3xl md:mb-12 lg:mb-14;
   }
 
+  /* Legacy alias — prefer `font-display` or a text-* heading class */
   .font-oswald {
-    font-family: 'Oswald', 'sans-serif';
+    font-family: var(--font-display);
   }
 
   .cross-x {
@@ -539,6 +558,33 @@
 .art-richtext a {
   color: var(--color-art-gold-bright);
   text-decoration: underline;
+}
+
+/* The shared prose pieces (payload/components/RichText/richtext.scss) use the org
+   green and beige; swap them for the gallery's gold on dark. */
+.art-richtext :is(.rt-list > li)::marker,
+.art-richtext .rt-anchor {
+  color: var(--color-art-gold);
+}
+
+.art-richtext .rt-quote {
+  border-color: var(--color-art-gold);
+  background-color: var(--color-art-wall);
+  color: var(--color-art-gold-bright);
+  font-family: var(--font-art-serif);
+}
+
+.art-richtext .rt-check {
+  border-color: var(--color-art-gold);
+  color: var(--color-art-ebony);
+}
+
+.art-richtext .rt-check[data-checked='true'] {
+  background-color: var(--color-art-gold);
+}
+
+.art-richtext .rt-rule {
+  border-color: var(--color-art-line);
 }
 
 /* Gallery article: blockquotes become the design's highlighted pull-quote box. */

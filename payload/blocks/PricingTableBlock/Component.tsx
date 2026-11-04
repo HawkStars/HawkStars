@@ -42,11 +42,7 @@ export const PricingTableBlock = ({
       {/* Header */}
       {(title || subtitle) && (
         <div className='section-header text-center'>
-          {title && (
-            <h2 className='mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
-              {title}
-            </h2>
-          )}
+          {title && <h2 className='text-h2_semibold mb-4'>{title}</h2>}
           {subtitle && (
             <p className='mx-auto max-w-2xl text-lg leading-relaxed text-gray-600'>{subtitle}</p>
           )}
@@ -82,7 +78,7 @@ export const PricingTableBlock = ({
             )}
 
             {/* Tier Name */}
-            <h3 className='mb-2 text-2xl font-bold'>{tier.name}</h3>
+            <h3 className='text-h2_bold mb-2'>{tier.name}</h3>
 
             {/* Description */}
             {tier.description && <p className='mb-6 text-sm text-gray-600'>{tier.description}</p>}

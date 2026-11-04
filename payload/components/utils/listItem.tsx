@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import { SerializedListItemNode, SerializedListNode } from '@payloadcms/richtext-lexical';
 import { JSXConverter } from '@payloadcms/richtext-lexical/react';
+import { noJustify } from './nodeText';
 
 const ListItem: JSXConverter<SerializedListItemNode> = ({
   converters,
@@ -14,28 +15,31 @@ const ListItem: JSXConverter<SerializedListItemNode> = ({
     parent: { ...node, parent },
   });
 
-  const list = parent as SerializedListNode;
-  const indent = node.indent || 0;
-  const listType = list.listType;
-  const checked = node.checked;
+  const listType = (parent as SerializedListNode).listType;
 
-  const isCheckItem = checked !== undefined && listType === 'check';
+  // Lexical nests a list inside an otherwise empty item; that item must not show a marker.
+  const onlyHoldsList =
+    node.children.length > 0 && node.children.every((child) => child.type === 'list');
+
+  if (listType === 'check' && !onlyHoldsList) {
+    const checked = Boolean(node.checked);
+    return (
+      <li style={noJustify(node)}>
+        <input type='checkbox' className='sr-only' checked={checked} readOnly />
+        <span className='rt-check' data-checked={checked} aria-hidden='true'>
+          {checked ? '✓' : null}
+        </span>
+        <span>{children}</span>
+      </li>
+    );
+  }
 
   return (
     <li
-      className={cn('', {
-        'text-body_regular': indent === 0 && listType === 'number',
-      })}
+      className={cn('pl-1', { 'list-none': onlyHoldsList })}
+      value={listType === 'number' ? node.value : undefined}
+      style={noJustify(node)}
     >
-      {isCheckItem ? (
-        <input
-          type='checkbox'
-          className='mr-2'
-          checked={checked}
-          name={node.value?.toString()}
-          readOnly
-        />
-      ) : null}
       {children}
     </li>
   );

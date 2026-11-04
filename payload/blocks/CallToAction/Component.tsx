@@ -29,9 +29,7 @@ export const CallToActionBlock = ({
     >
       <div className='bg-muted relative flex w-full flex-col justify-between gap-8 overflow-hidden rounded-4xl border p-8 md:flex-row md:items-center md:gap-12 md:p-12'>
         <div className='flex h-full max-w-lg flex-col justify-center'>
-          <h2 className='text-4xl font-medium tracking-tighter text-balance md:text-6xl'>
-            {title}
-          </h2>
+          <h2 className='text-h1_semibold'>{title}</h2>
           {subtitle && <p className='text-muted-foreground mt-4 leading-relaxed'>{subtitle}</p>}
 
           {links && links.length > 0 && (

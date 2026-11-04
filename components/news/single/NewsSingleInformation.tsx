@@ -23,11 +23,9 @@ const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, refere
           cap='none'
           className='max-w-6xl flex-col py-6 lg:mx-auto lg:px-2 lg:py-12'
         >
-          <div className='mx-auto max-lg:flex max-lg:flex-col max-lg:gap-6 max-lg:px-3'>
-            <RichText data={text} lng={lng} />
-          </div>
+          <RichText data={text} lng={lng} variant='article' />
           {references && references.length > 0 && (
-            <div className='my-6 max-w-6xl gap-2 max-lg:mx-4'>
+            <div className='rt-column mt-12'>
               <h6 className='text-body_semibold text-green mb-4'>{t('sections.references')}</h6>
               {references.map((ref) => {
                 const { platform, url, id } = ref || {};

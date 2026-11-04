@@ -44,7 +44,7 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
       {/* Header */}
       <div className='mb-12 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between lg:mb-14'>
         <div>
-          {title && <h2 className='text-h1_semibold tracking-tight text-balance'>{title}</h2>}
+          {title && <h2 className='text-h1_semibold'>{title}</h2>}
           {subtitle && <p className='text-body_semibold mt-3 leading-relaxed'>{subtitle}</p>}
         </div>
         {badge && (

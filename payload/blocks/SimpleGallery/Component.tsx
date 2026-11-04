@@ -27,11 +27,7 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ title, description, image
       id={sectionId || undefined}
       data-blockid='simpleGallery'
     >
-      {title && (
-        <h2 className='mb-4 text-center text-4xl font-semibold tracking-tight text-balance'>
-          {title}
-        </h2>
-      )}
+      {title && <h2 className='text-h2_semibold mb-4 text-center'>{title}</h2>}
       {description && (
         <p className='text-muted-foreground mx-auto max-w-2xl text-center text-sm leading-relaxed'>
           {description.split('\n').map((line, idx) => (

@@ -30,7 +30,7 @@ const SectionTitle = ({
     sectionId={sectionId}
     variant={variant}
     className={cn('border-bege-dark border-b pb-4', className)}
-    titleClassName='font-oswald text-2xl font-bold text-black lg:text-3xl'
+    titleClassName='text-black'
     subtitleClassName='mt-1.5 text-sm text-black/70'
   />
 );

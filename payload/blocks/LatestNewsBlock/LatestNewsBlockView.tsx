@@ -59,11 +59,7 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
     >
       {(title || subtitle) && (
         <div className='section-header text-center'>
-          {title && (
-            <h2 className='mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl'>
-              {title}
-            </h2>
-          )}
+          {title && <h2 className='text-h2_semibold mb-4'>{title}</h2>}
           {subtitle && (
             <p className='mx-auto max-w-2xl text-lg leading-relaxed text-gray-600'>{subtitle}</p>
           )}
@@ -94,7 +90,7 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
               )}
             </div>
 
-            <h3 className='mb-3 text-2xl font-semibold lg:text-3xl'>{item.heading}</h3>
+            <h3 className='text-h2_bold mb-3'>{item.heading}</h3>
 
             {item.description && (
               <p className='mb-4 line-clamp-3 text-gray-700'>{item.description}</p>

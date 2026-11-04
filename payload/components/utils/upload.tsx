@@ -28,12 +28,16 @@ const Upload: JSXConverter<SerializedUploadNode> = ({ node }) => {
   const { url, alt, height, width } = value as unknown as Media;
   if (!url) return null;
 
+  // A figure on the wide column, so images can break out of the text measure.
   return (
-    <ImageMedia
-      resource={{ url, alt, height, width } as Media}
-      alt={alt}
-      pictureClassName={'flex justify-center my-4 rounded-lg'}
-    />
+    <figure className='rt-wide rt-figure'>
+      <ImageMedia
+        resource={{ url, alt, height, width } as Media}
+        alt={alt}
+        className='h-auto w-full rounded-xl'
+        sizes='(max-width: 896px) 100vw, 896px'
+      />
+    </figure>
   );
 };
 

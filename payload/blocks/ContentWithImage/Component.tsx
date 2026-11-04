@@ -57,9 +57,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps & { lng: Lang
 
         {/* Content Section */}
         <div className={cn('w-full', isImageLeft ? 'lg:order-1' : 'lg:order-2')}>
-          <h2 className='mb-5 text-3xl font-bold tracking-tight text-balance max-lg:text-center lg:text-4xl'>
-            {title}
-          </h2>
+          <h2 className='text-h2_semibold mb-5 max-lg:text-center'>{title}</h2>
           {description && <RichText data={description} lng={lng} />}
         </div>
       </div>

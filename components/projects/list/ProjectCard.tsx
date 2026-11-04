@@ -48,9 +48,7 @@ const ProjectCard = ({ project, index, lng }: ProjectCardProps) => {
 
       {/* Content */}
       <div className='flex flex-1 flex-col justify-center gap-2'>
-        <h3 className='text-foreground text-xl font-bold tracking-tight lg:text-2xl'>
-          {project.heading}
-        </h3>
+        <h3 className='text-h3_semibold text-foreground'>{project.heading}</h3>
 
         {dateLabel && (
           <div className='text-muted-foreground mt-auto flex items-center gap-2 pt-2 text-sm font-medium'>

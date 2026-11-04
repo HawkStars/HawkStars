@@ -148,7 +148,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
                     // the slide map, so a four-slide hero emitted four <h1>s.
                     const SlideHeading = index === 0 ? HeadingTag : 'h2';
                     return (
-                      <SlideHeading className='text-4xl font-bold text-white lg:text-6xl xl:text-7xl'>
+                      <SlideHeading className='text-display text-white xl:text-7xl'>
                         {slide.title}
                       </SlideHeading>
                     );

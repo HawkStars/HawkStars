@@ -33,7 +33,7 @@ const EventsList = async ({ events, lng }: EventsListProps) => {
                 <span>{String(idx + 1).padStart(2, '0')}</span>
               </div>
               <div className='flex flex-1 flex-col gap-2.5'>
-                <h3 className='text-2xl font-bold lg:text-4xl'>{project.heading}</h3>
+                <h3 className='text-h2_bold'>{project.heading}</h3>
                 <p className='text-sm font-medium uppercase'>{project.details?.text}</p>
               </div>
               <div className='flex-1'>
