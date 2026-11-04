@@ -1,11 +1,12 @@
 import { ImageMedia } from '@/payload/components/Media';
+import { LuHandshake, LuHeart, LuStar, LuUsers } from 'react-icons/lu';
 import { CrowdfundingSetting, Media } from '@/payload-types';
 import { TFunction } from 'i18next';
 
 type Props = { t: TFunction<string, string> } & Pick<CrowdfundingSetting, 'supporters'>;
 
 const tabKeys = ['godparents', 'partners', 'donors', 'community'] as const;
-const tabIcons = ['★', '🤝', '❤', '👥'] as const;
+const tabIcons = [LuStar, LuHandshake, LuHeart, LuUsers] as const;
 
 function getInitials(name: string): string {
   if (!name) return '';
@@ -35,15 +36,18 @@ const CrowdfundingPartners = ({ t, supporters }: Props) => {
             <p className='text-sm leading-relaxed text-gray-400'>{t('partners.description')}</p>
 
             <div className='mt-2 flex flex-wrap gap-2'>
-              {tabKeys.map((key, index) => (
-                <span
-                  key={key}
-                  className='flex items-center gap-1.5 rounded-full border border-white/20 px-4 py-1.5 text-xs font-semibold text-white'
-                >
-                  <span className='text-orange-500'>{tabIcons[index]}</span>
-                  {t(`partners.tabs.${key}`)}
-                </span>
-              ))}
+              {tabKeys.map((key, index) => {
+                const TabIcon = tabIcons[index];
+                return (
+                  <span
+                    key={key}
+                    className='flex items-center gap-1.5 rounded-full border border-white/20 px-4 py-1.5 text-xs font-semibold text-white'
+                  >
+                    <TabIcon aria-hidden='true' className='size-3.5 text-orange-500' />
+                    {t(`partners.tabs.${key}`)}
+                  </span>
+                );
+              })}
             </div>
           </div>
 

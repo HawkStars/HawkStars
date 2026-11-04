@@ -1,4 +1,13 @@
 import { getMetadataPageInfo } from '@/utils/metadata';
+import type { IconType } from 'react-icons';
+import {
+  LuGlobe,
+  LuGraduationCap,
+  LuHandshake,
+  LuHeartHandshake,
+  LuLandmark,
+  LuPlane,
+} from 'react-icons/lu';
 import { Metadata } from 'next';
 import { LanguagePageProps } from '../types';
 import { Language } from '@/i18n/settings';
@@ -77,10 +86,10 @@ const HeroSection = ({ t }: { t: T }) => (
 // ── Why Join ──
 
 const whyReasons = [
-  { icon: '🌍', titleKey: 'why_impact_title', descKey: 'why_impact_desc' },
-  { icon: '🤝', titleKey: 'why_community_title', descKey: 'why_community_desc' },
-  { icon: '📚', titleKey: 'why_growth_title', descKey: 'why_growth_desc' },
-  { icon: '🇪🇺', titleKey: 'why_europe_title', descKey: 'why_europe_desc' },
+  { icon: LuGlobe, titleKey: 'why_impact_title', descKey: 'why_impact_desc' },
+  { icon: LuHandshake, titleKey: 'why_community_title', descKey: 'why_community_desc' },
+  { icon: LuGraduationCap, titleKey: 'why_growth_title', descKey: 'why_growth_desc' },
+  { icon: LuPlane, titleKey: 'why_europe_title', descKey: 'why_europe_desc' },
 ] as const;
 
 const WhyJoinSection = ({ t }: { t: T }) => (
@@ -96,7 +105,9 @@ const WhyJoinSection = ({ t }: { t: T }) => (
             key={reason.titleKey}
             className='bg-bege-light group flex gap-5 rounded-lg p-8 transition-shadow hover:shadow-md'
           >
-            <span className='shrink-0 text-3xl'>{reason.icon}</span>
+            <span className='text-green flex size-12 shrink-0 items-center justify-center rounded-full bg-white'>
+              <reason.icon aria-hidden='true' className='size-6' />
+            </span>
             <div>
               <h3 className='text-body_semibold text-green mb-1'>{t(reason.titleKey)}</h3>
               <p className='text-sm leading-relaxed text-black/70'>{t(reason.descKey)}</p>
@@ -120,7 +131,7 @@ const PathsSection = ({ t }: { t: T }) => (
         {/* Member card */}
         <PathCard
           t={t}
-          icon='🏛️'
+          icon={LuLandmark}
           titleKey='member_title'
           descKey='member_desc'
           perks={['member_perk1', 'member_perk2', 'member_perk3', 'member_perk4']}
@@ -131,7 +142,7 @@ const PathsSection = ({ t }: { t: T }) => (
         {/* Volunteer card */}
         <PathCard
           t={t}
-          icon='🙌'
+          icon={LuHeartHandshake}
           titleKey='volunteer_title'
           descKey='volunteer_desc'
           perks={['volunteer_perk1', 'volunteer_perk2', 'volunteer_perk3', 'volunteer_perk4']}
@@ -145,7 +156,7 @@ const PathsSection = ({ t }: { t: T }) => (
 
 const PathCard = ({
   t,
-  icon,
+  icon: Icon,
   titleKey,
   descKey,
   perks,
@@ -153,7 +164,7 @@ const PathCard = ({
   emailSubjectKey,
 }: {
   t: T;
-  icon: string;
+  icon: IconType;
   titleKey: string;
   descKey: string;
   perks: string[];
@@ -165,7 +176,9 @@ const PathCard = ({
     <div className='bg-green h-1.5 w-full' />
 
     <div className='flex flex-1 flex-col p-8 lg:p-10'>
-      <span className='mb-4 text-4xl'>{icon}</span>
+      <span className='bg-bege-light text-green mb-5 flex size-14 items-center justify-center rounded-full'>
+        <Icon aria-hidden='true' className='size-7' />
+      </span>
       <h3 className='text-h2_bold mb-3 text-black'>{t(titleKey)}</h3>
       <p className='mb-8 text-sm leading-relaxed text-black/70'>{t(descKey)}</p>
 

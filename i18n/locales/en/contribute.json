@@ -165,5 +165,22 @@
     "unexpected_error": "An unexpected error occurred",
     "custom_amount": "Custom donation amount",
     "next_step": "Next step"
+  },
+  "page": {
+    "eyebrow": "Contribute",
+    "title": "Help build the future of Portugal's interior.",
+    "description": "Every contribution supports Hawk Stars and the International Training Center in Pinhel — through a donation, your brand, or by naming a space.",
+    "donate_now": "Donate now",
+    "see_ways": "Ways to give",
+    "donate_eyebrow": "Online donation",
+    "ways_eyebrow": "Other ways",
+    "ways_subtitle": "Prefer a direct transfer? We issue a donation invoice/receipt for every amount.",
+    "bic": "BIC/SWIFT",
+    "wallet": "Wallet (Metamask)",
+    "trust_title": "Full transparency",
+    "trust_description": "We publish every contribution received and how the project is being delivered.",
+    "trust_cta": "See transparency",
+    "naming_eyebrow": "Companies and patrons",
+    "store_title": "You can also support us through our shop."
   }
 }

@@ -37,7 +37,7 @@ const PartnersWrapper: FC<PartnersWrapperProps> = async ({ lng }) => {
         {nationalPartners.length > 0 && (
           <div id='national-partners'>
             <SectionTitle title={t('national')} sectionId='national' className='mb-8' />
-            <div className='grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-4'>
+            <div className='grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6'>
               {nationalPartners.map((partner, index) => (
                 <PartnerCard {...partner} key={index} name={t(partner.name)} lng={lng} />
               ))}
@@ -47,7 +47,7 @@ const PartnersWrapper: FC<PartnersWrapperProps> = async ({ lng }) => {
         {internationalPartners.length > 0 && (
           <div className='mt-16' id='international-partners'>
             <SectionTitle title={t('international')} sectionId='international' className='mb-8' />
-            <div className='grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-4'>
+            <div className='grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6'>
               {internationalPartners.map((partner, index) => (
                 <PartnerCard {...partner} key={index} lng={lng} />
               ))}

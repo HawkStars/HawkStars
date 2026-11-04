@@ -293,6 +293,10 @@ export function AgendaBlockView({
   // Was hardcoded to the Portuguese 'Ver mais', which shipped verbatim to /en.
   const label = linkLabel || t('see_more');
 
+  // Nothing scheduled: leave the section out rather than show a large empty box
+  // on the page (the homepage most of all). It reappears as soon as an event is added.
+  if (!loading && events.length === 0) return null;
+
   return (
     <HawkStarsSection
       spacing='none'
@@ -318,14 +322,6 @@ export function AgendaBlockView({
           <div className='flex items-center gap-3 py-8 text-zinc-500'>
             <div className='h-5 w-5 animate-spin rounded-full border-2 border-zinc-300 border-t-green-500' />
             <span className='text-sm'>{t('agenda.loading')}</span>
-          </div>
-        )}
-
-        {/* Empty state */}
-        {!loading && events.length === 0 && (
-          <div className='flex flex-col items-center gap-3 rounded-xl bg-zinc-50 py-16 text-center dark:bg-zinc-800/50'>
-            <LuCalendar className='h-10 w-10 text-zinc-300 dark:text-zinc-600' />
-            <p className='text-zinc-500 dark:text-zinc-400'>{t('agenda.empty')}</p>
           </div>
         )}
 

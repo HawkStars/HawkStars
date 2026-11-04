@@ -165,5 +165,22 @@
     "unexpected_error": "Ocorreu um erro inesperado",
     "custom_amount": "Valor de doação personalizado",
     "next_step": "Passo seguinte"
+  },
+  "page": {
+    "eyebrow": "Contribuir",
+    "title": "Ajude a construir o futuro do interior.",
+    "description": "Cada contribuição apoia a Hawk Stars e o International Training Center em Pinhel — com um donativo, com a sua marca ou dando nome a um espaço.",
+    "donate_now": "Doar agora",
+    "see_ways": "Formas de doação",
+    "donate_eyebrow": "Donativo online",
+    "ways_eyebrow": "Outras formas",
+    "ways_subtitle": "Prefere transferir diretamente? Emitimos fatura/recibo de doação para todos os valores.",
+    "bic": "BIC/SWIFT",
+    "wallet": "Carteira (Metamask)",
+    "trust_title": "Transparência total",
+    "trust_description": "Publicamos todas as contribuições recebidas e a execução do projeto.",
+    "trust_cta": "Ver transparência",
+    "naming_eyebrow": "Empresas e mecenas",
+    "store_title": "Também pode apoiar através da nossa loja."
   }
 }

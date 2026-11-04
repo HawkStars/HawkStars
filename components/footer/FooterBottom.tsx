@@ -13,10 +13,10 @@ const FooterBottom = ({ lng }: FooterBottomProps) => {
   const { t } = useTranslation(lng, 'common');
 
   return (
-    <div className='mt-10 flex justify-center lg:mt-2 lg:border-t lg:py-4'>
-      <span className='text-muted-foreground text-base'>
-        &copy; {currentYear} {t('footer.allRightsReserved')} | {t('footer.madeWithPurpose')}{' '}
-      </span>
+    <div className='border-bege-dark border-t'>
+      <p className='text-muted-foreground mx-auto max-w-6xl px-4 py-5 text-center text-sm sm:px-6 lg:px-8'>
+        &copy; {currentYear} {t('footer.allRightsReserved')} · {t('footer.madeWithPurpose')}
+      </p>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { getMetadataPageInfo } from '@/utils/metadata';
+import { LuFileBadge } from 'react-icons/lu';
 import { Metadata } from 'next';
 import { LanguagePageProps } from '../../types';
 import { Language } from '@/i18n/settings';
@@ -244,7 +245,7 @@ const YouthpassBanner = ({ t }: { t: TranslationFn }) => (
       <p className='max-w-125 text-sm leading-relaxed text-white/65'>{t('youthpass_desc')}</p>
     </div>
     <div className='bg-erasmus-gold text-erasmus-blue rounded-sm px-8 py-5 text-center text-sm font-bold whitespace-nowrap'>
-      <span className='mb-1 block text-3xl'>📄</span>
+      <LuFileBadge aria-hidden='true' className='mx-auto mb-2 size-8' />
       {t('youthpass_badge_line1')}
       <br />
       {t('youthpass_badge_line2')}

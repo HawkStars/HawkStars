@@ -63,7 +63,7 @@ export const PricingTableBlock = ({
           <div
             key={index}
             className={cn(
-              'card-lg relative flex flex-col rounded-2xl border p-8 transition-transform duration-300 hover:scale-105',
+              'card-lg card-hover-lg relative flex flex-col rounded-2xl border p-8 transition-[box-shadow,translate] duration-300 hover:-translate-y-1',
               tier.highlighted ? 'border-green ring-green ring-2 ring-offset-2' : 'border-gray-200'
             )}
           >

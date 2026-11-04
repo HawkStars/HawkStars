@@ -14,6 +14,8 @@ import {
 
 import { hawkLogo } from '@/utils/models/images/logos';
 import Socials from '@/components/utils/Socials';
+import LanguageSwitcher from '@/components/utils/LanguageSwitcher';
+import { Button } from '@/components/ui/button';
 import MobileMenuItem from './MobileMenuItem';
 import { useTranslation } from '@/i18n/client';
 import { Header } from '@/payload-types';
@@ -80,7 +82,7 @@ const MobileNavbar: FC<MobileNavbarProps> = ({ headerInfo }) => {
       role='dialog'
       aria-modal='true'
       aria-label={t('a11y.navMenu')}
-      className='fixed z-900 flex h-screen w-full flex-col gap-4 bg-white px-4 py-3 lg:hidden'
+      className='bg-bege-light fixed z-900 flex h-dvh w-full flex-col gap-4 overflow-y-auto px-4 py-3 lg:hidden'
     >
       <div className='flex py-1'>
         <Link href={transformUrl(lng, SITE_GET_URLS.home)} className='flex items-center gap-2'>
@@ -101,14 +103,37 @@ const MobileNavbar: FC<MobileNavbarProps> = ({ headerInfo }) => {
         />
       </div>
 
-      <div className='mt-5 grid grid-cols-1 gap-4'>
+      <div className='divide-bege-dark mt-4 flex flex-col divide-y'>
         {headerInfo?.columns.map((column, index) => {
           return <MobileMenuItem data={column} key={`${column.id}-${index}`} />;
         })}
       </div>
 
-      <div className='mt-auto mb-5 ml-auto'>
-        <Socials />
+      {/* Primary actions sit where the thumb is, not buried in a submenu */}
+      <div className='mt-auto flex flex-col gap-4 pt-6 pb-4'>
+        <p className='text-eyebrow text-green'>{t('footer.menuCta')}</p>
+        <div className='grid grid-cols-2 gap-3'>
+          <Button asChild size='lg'>
+            <Link
+              href={transformUrl(lng, SITE_GET_URLS.contribute)}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {t('footer.donate')}
+            </Link>
+          </Button>
+          <Button asChild size='lg' variant='outline'>
+            <Link
+              href={transformUrl(lng, SITE_GET_URLS.how_to_help_us)}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {t('footer.join')}
+            </Link>
+          </Button>
+        </div>
+        <div className='border-bege-dark flex items-center justify-between border-t pt-4'>
+          <LanguageSwitcher />
+          <Socials />
+        </div>
       </div>
     </div>
   );

@@ -30,8 +30,8 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
     if (!data.link) return null;
 
     return (
-      <div className='px-1' onClickCapture={() => setMobileMenuOpen(false)}>
-        <h6 className='mb-2 font-medium text-black'>
+      <div className='px-1 py-4' onClickCapture={() => setMobileMenuOpen(false)}>
+        <h6 className='font-display text-2xl font-medium text-black'>
           <HawkLinkComponent
             link={data.link}
             className='focus-visible:ring-ring block w-full text-left focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden'
@@ -42,15 +42,15 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
   }
 
   return (
-    <div className='px-1'>
-      <h6 className={cn('mb-2 font-medium text-black')}>
+    <div className='px-1 py-4'>
+      <h6 className='font-display text-2xl font-medium text-black'>
         <button
           type='button'
           aria-expanded={showOptions}
           aria-controls={panelId}
           onClick={() => setShowOptions(!showOptions)}
           className={cn(
-            'focus-visible:ring-ring flex w-full cursor-pointer gap-2 text-left focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
+            'focus-visible:ring-ring flex w-full cursor-pointer justify-between gap-2 text-left focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
             { 'my-auto items-center': isMultiColumn }
           )}
         >
@@ -68,12 +68,12 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
 
       <div
         id={panelId}
-        className={cn('flex-col gap-1 delay-150 ease-in-out', {
+        className={cn('mt-3 flex-col gap-1 pl-1', {
           flex: showOptions,
           hidden: !showOptions,
         })}
       >
-        <ul className='flex flex-col gap-2'>
+        <ul className='flex flex-col gap-3'>
           {visibleLinks?.map((item) => {
             const linkInfo = getLinkFieldInformation(item.link, lng);
             if (!linkInfo) return null;
@@ -84,14 +84,14 @@ const MobileMenuItem = ({ data }: MenuItemProps) => {
                   <Link
                     href={linkInfo.url}
                     target={linkInfo.newTab ? '_blank' : '_self'}
-                    className='text-gray-500 transition-colors duration-200 hover:text-gray-600'
+                    className='hover:text-green text-base text-black/70 transition-colors'
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {linkInfo.label}
                   </Link>
                 ) : (
                   <a
-                    className='text-gray-500 transition-colors duration-200 hover:text-gray-600'
+                    className='hover:text-green text-base text-black/70 transition-colors'
                     target={linkInfo.newTab ? '_blank' : '_self'}
                     rel={linkInfo.newTab ? 'noopener noreferrer' : undefined}
                     href={linkInfo.url}

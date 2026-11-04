@@ -1,6 +1,7 @@
 'use client';
 
 import { ContentSection } from '@/components/layout';
+import { LuCoins } from 'react-icons/lu';
 import { FLAG_PORTUGAL } from '@/lib/constants';
 import { FlagIcon } from '@/lib/icon';
 import { getImagePayloadUrl } from '@/lib/image';
@@ -106,7 +107,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
               )}
               {hero.fundedAmount && (
                 <div className='flex items-center gap-2'>
-                  <span className='text-xl'>💰</span>
+                  <LuCoins aria-hidden='true' className='text-green size-6 shrink-0' />
                   <div>
                     <span className='text-2xl font-bold'>{`${formatCurrency(hero.fundedAmount)}€`}</span>
                     <p className='text-sm text-gray-600'>{t('hero.funded')}</p>

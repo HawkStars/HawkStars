@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { LuHeart, LuMessageCircle, LuPlay, LuLayers } from 'react-icons/lu';
 
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import { ImageMedia } from '@/payload/components/Media';
 import { type InstagramPost, type InstagramGridProps, INSTAGRAM_PROFILE_URL } from './types';
 import { useTranslation } from '@/i18n/client';
@@ -52,6 +53,17 @@ function GridSkeleton({ count, columns }: { count: number; columns: 3 | 4 }) {
   );
 }
 
+// A video post without a thumbnail falls back to its .mp4 as `imageUrl`, which an
+// <img> cannot show — it rendered as an empty grey tile. Drop those, then trim to
+// whole rows so the grid never ends on a ragged or blank row.
+function withDisplayableImage(posts: InstagramPost[], columns: number): InstagramPost[] {
+  const displayable = posts.filter(
+    (post) => post.imageUrl && !(post.mediaType === 'VIDEO' && !post.thumbnailUrl)
+  );
+  const fullRows = Math.floor(displayable.length / columns) * columns;
+  return displayable.slice(0, fullRows || displayable.length);
+}
+
 export default function InstagramGrid({
   maxPosts = 9,
   columns = 3,
@@ -70,7 +82,7 @@ export default function InstagramGrid({
     (async () => {
       try {
         const posts = await getInstagramPosts(maxPosts);
-        if (!cancelled) setPosts(posts);
+        if (!cancelled) setPosts(withDisplayableImage(posts, columns));
       } catch (err) {
         if (!cancelled) setError(err instanceof Error ? err.message : t('errors.generic'));
       } finally {
@@ -81,7 +93,7 @@ export default function InstagramGrid({
     return () => {
       cancelled = true;
     };
-  }, [maxPosts, t]);
+  }, [maxPosts, columns, t]);
 
   if (loading) {
     return (
@@ -136,15 +148,12 @@ export default function InstagramGrid({
         ))}
       </div>
 
-      <div className='mt-4 flex justify-center'>
-        <Link
-          href={INSTAGRAM_PROFILE_URL}
-          target='_blank'
-          rel='noopener noreferrer'
-          className='rounded-lg border border-neutral-300 px-6 py-2 text-sm font-medium transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-800'
-        >
-          {t('instagram.viewMore')}
-        </Link>
+      <div className='mt-8 flex justify-center'>
+        <Button asChild variant='outline' size='lg'>
+          <Link href={INSTAGRAM_PROFILE_URL} target='_blank' rel='noopener noreferrer'>
+            {t('instagram.viewMore')}
+          </Link>
+        </Button>
       </div>
     </div>
   );

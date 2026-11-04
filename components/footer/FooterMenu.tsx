@@ -9,12 +9,10 @@ const FooterMenu = ({ data }: FooterMenuProps) => {
   const column = data.column;
 
   return (
-    <div className='flex flex-col gap-2'>
-      <h3 className='text-terciary-100 mb-1 ml-0 text-left text-base font-black lg:mb-3 lg:text-left'>
-        {column.title}
-      </h3>
+    <div className='flex flex-col gap-3'>
+      <h3 className='text-eyebrow text-green'>{column.title}</h3>
       {column.data && column.data.length > 0 ? (
-        <ul className='flex flex-col gap-2'>
+        <ul className='flex flex-col gap-2.5 text-sm'>
           {column.data.map((item) => {
             const link = item.link;
             const { visible } = link || { visible: false };
@@ -23,7 +21,10 @@ const FooterMenu = ({ data }: FooterMenuProps) => {
 
             return (
               <li key={item.id || link.label}>
-                <HawkLink link={link} />
+                <HawkLink
+                  link={link}
+                  className='hover:text-green text-black/75 transition-colors hover:underline hover:underline-offset-4'
+                />
               </li>
             );
           })}

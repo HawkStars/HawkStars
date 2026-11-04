@@ -132,6 +132,12 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
               className='absolute inset-0 bg-black'
               style={{ opacity: (overlayOpacity ?? 40) / 100 }}
             />
+            {/* Fixed scrim under the text, so white type stays legible on bright
+                photos whatever the editor sets the overlay to. */}
+            <div
+              aria-hidden='true'
+              className='absolute inset-0 bg-linear-to-t from-black/60 via-black/25 to-black/10'
+            />
 
             {/* Content */}
             <div
@@ -164,11 +170,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
                   const { url, label, newTab } = linkInfo;
                   return (
                     <div className='mt-4' key={index}>
-                      <Button
-                        size='lg'
-                        className='bg-white text-gray-900 hover:bg-gray-100'
-                        asChild
-                      >
+                      <Button size='xl' variant='inverse' asChild>
                         <a
                           href={url}
                           target={newTab ? '_blank' : '_self'}

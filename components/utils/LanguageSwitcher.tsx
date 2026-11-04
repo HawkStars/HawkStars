@@ -1,6 +1,5 @@
 'use client';
 
-import { PT, GB, FlagComponent } from 'country-flag-icons/react/3x2';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -10,27 +9,18 @@ import { Language } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
 import { cn } from '@/lib/utils';
 
-type FlagIconProps = {
-  icon: FlagComponent;
-  title: string;
+type LanguageOption = {
+  code: string;
   label: string;
   value: Language;
 };
 
-const HawkStarsIcons = [
-  {
-    icon: PT,
-    title: 'PT',
-    label: 'Português',
-    value: 'pt',
-  },
-  {
-    icon: GB,
-    title: 'EN',
-    label: 'English',
-    value: 'en',
-  },
-] as FlagIconProps[];
+// Text codes rather than flags: a flag names a country, not a language
+// (EN is not only British), and two flags read as decoration, not a control.
+const LANGUAGE_OPTIONS: LanguageOption[] = [
+  { code: 'PT', label: 'Português', value: 'pt' },
+  { code: 'EN', label: 'English', value: 'en' },
+];
 
 type LanguageSwitcherProps = {
   isFooter?: boolean;
@@ -62,31 +52,39 @@ const LanguageLinks = ({ isFooter = false, search }: LanguageLinksProps) => {
   };
 
   return (
+    // Inherits the surrounding text colour, so it works on the beige, Erasmus,
+    // gallery and crowdfunding navbars alike.
     <div
-      className={cn('relative flex flex-row gap-2 px-3', {
-        'border-r pr-3': isFooter,
+      className={cn('relative flex flex-row items-center px-3 text-sm', {
+        'mr-1 border-r border-current/20 pr-3': isFooter,
       })}
     >
-      {HawkStarsIcons.map(({ icon: Icon, title, label, value }) => {
+      {LANGUAGE_OPTIONS.map(({ code, label, value }, index) => {
         const isCurrent = lng === value;
 
         return (
-          <Link
-            key={value}
-            href={buildLocalizedPath(value)}
-            hrefLang={value}
-            lang={value}
-            aria-label={t('a11y.switchToLanguage', { language: label })}
-            aria-current={isCurrent ? 'true' : undefined}
-            className={cn(
-              'focus-visible:ring-ring flex h-4 w-6 rounded-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
-              {
-                'my-auto': isFooter,
-              }
+          <span key={value} className='flex items-center'>
+            {index > 0 && (
+              <span aria-hidden='true' className='px-1.5 opacity-40'>
+                ·
+              </span>
             )}
-          >
-            <Icon title={title} className={cn({ 'grayscale hover:grayscale-50': !isCurrent })} />
-          </Link>
+            <Link
+              href={buildLocalizedPath(value)}
+              hrefLang={value}
+              lang={value}
+              aria-label={t('a11y.switchToLanguage', { language: label })}
+              aria-current={isCurrent ? 'true' : undefined}
+              className={cn(
+                'focus-visible:ring-ring rounded-xs px-1 py-1 tracking-wide transition-opacity focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
+                isCurrent
+                  ? 'font-bold underline decoration-2 underline-offset-[6px]'
+                  : 'font-medium opacity-60 hover:opacity-100'
+              )}
+            >
+              {code}
+            </Link>
+          </span>
         );
       })}
     </div>

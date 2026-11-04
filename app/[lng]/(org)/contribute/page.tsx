@@ -2,16 +2,15 @@ import { ImageMedia } from '@/payload/components/Media';
 import Link from 'next/link';
 import { getServerTranslation } from '@/i18n';
 
-import ShoppingCardIcon from '@/public/images/icons/common/shopping_cart.svg';
+import { LuBitcoin, LuLandmark, LuShieldCheck, LuShoppingBag } from 'react-icons/lu';
 import UserIcon from '@/public/images/icons/contribute/user_single.svg';
 import CompanyIcon from '@/public/images/icons/contribute/company.svg';
 
 import ChairsSections from '@/components/contribute/ChairsSection';
+import PaymentMethodCard from '@/components/contribute/PaymentMethodCard';
+import { SITE_GET_URLS, transformUrl } from '@/utils/paths';
 
 // images
-import heroImage from '@/public/images/contribute/hero.jpg';
-import bankTransferImage from '@/public/images/contribute/bank_transfer.png';
-import cryptoTransferImage from '@/public/images/contribute/crypto_transfer.png';
 import exterior2 from '@/public/images/training_center/exterior2.jpg';
 import trainingRoom from '@/public/images/training_center/meeting_1.jpg';
 import coworkingRoom from '@/public/images/training_center/coworking_12.jpg';
@@ -37,7 +36,7 @@ import DonationWidget from '@/components/contribute/DonationWidget';
 import { Button } from '@/components/ui/button';
 import SectionHeader from '@/components/ui/SectionHeader';
 import { Suspense } from 'react';
-import { PageLoading } from '@/components/layout';
+import { PageHero, PageLoading } from '@/components/layout';
 
 export async function generateMetadata(props: {
   params: Promise<{ lng: Language }>;
@@ -89,81 +88,84 @@ const DonateContent = async ({ params }: { params: DonatePageProps['params'] }) 
 
   return (
     <>
-      <h1 className='sr-only'>{t('contribute_hero')}</h1>
-      <HawkStarsSection padding='none' cap='none' className='flex-col'>
-        <p className='text-h2_bold text-green px-4 py-8 text-center lg:hidden'>
-          {t('contribute_hero')}
-        </p>
-        <div className='relative max-w-full'>
-          <div className='text-green absolute top-20 left-8 hidden lg:block xl:left-[max(2rem,calc((100%-72rem)/2))]'>
-            <p className='text-h1_semibold w-72'>{t('contribute_hero')}</p>
-            <Button asChild size='xl' className='mt-6'>
-              <a href='#form'>{t('donate_here')}</a>
+      <PageHero
+        variant='green'
+        eyebrow={t('page.eyebrow')}
+        title={t('page.title')}
+        description={t('page.description')}
+        actions={
+          <>
+            <Button asChild variant='inverse' size='xl'>
+              <a href='#form'>{t('page.donate_now')}</a>
             </Button>
-          </div>
-          <ImageMedia src={heroImage} alt={t('a11y.hero_image')} priority />
-        </div>
-      </HawkStarsSection>
+            <Button asChild variant='outline-inverse' size='xl'>
+              <a href='#ways'>{t('page.see_ways')}</a>
+            </Button>
+          </>
+        }
+      />
 
-      <HawkStarsSection
-        spacing='default'
-        className='via-bege-dark bg-linear-to-tr from-neutral-200 from-35% to-neutral-200 to-65%'
-      >
-        <SectionHeader align='center' title={t('forms_and_modalities')} className='mb-12' />
-        <div className='flex flex-col gap-10 md:flex-row'>
-          <div className='flex flex-col gap-1 md:flex-1'>
-            <ImageMedia
-              src={bankTransferImage}
-              alt={t('a11y.bank_transfer')}
-              className='w-full rounded-lg'
-            />
-            <h3 className='text-body_semibold mt-5'>{t('options.bank_transfer')}</h3>
-            <p className='text-body_regular lg:text-justify'>{t('bank_transfer.description')}</p>
-            <div className='text-body_regular mt-1 flex flex-col gap-1 font-bold'>
-              <p>
-                IBAN: <span className=''>PT50.0036.0053.99100203412.98</span>
-              </p>
-              <p className='text-body_regular font-bold'>MPIOPTPL</p>
-            </div>
-          </div>
-          <div className='flex flex-col gap-1 md:flex-1'>
-            <ImageMedia
-              src={cryptoTransferImage}
-              alt={t('a11y.crypto_transfer')}
-              className='w-full rounded-lg'
-            />
-            <h3 className='text-body_semibold mt-5'>{t('options.crypto_transfer')}</h3>
-            <p className='text-body_regular lg:text-justify'>{t('crypto_transfer.description')}</p>
-            <p className='text-body_regular mt-2 font-bold'>
-              Metamask:{' '}
-              <span className='text-body_regular font-bold break-all'>
-                0x085036c6ec33888db0c4cc8f99791537dbc8ab97
-              </span>
-            </p>
-          </div>
-        </div>
-      </HawkStarsSection>
-
-      <HawkStarsSection spacing='default'>
-        <SectionHeader align='center' title={t('other_modalities')} className='mb-8' />
+      {/* The online form comes first: it is what most visitors came to do */}
+      <HawkStarsSection spacing='default' id='form'>
+        <SectionHeader
+          align='center'
+          eyebrow={t('page.donate_eyebrow')}
+          title={t('helps_us_donate')}
+          className='mb-10'
+        />
         <div className='flex justify-center'>
-          <Button asChild size='xl'>
-            <Link
-              href='https://shop.hawkstars.org/'
-              lang='en'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <ImageMedia src={ShoppingCardIcon} alt='' width={20} height={20} />
-              {t('store')}
-            </Link>
+          <DonationWidget />
+        </div>
+      </HawkStarsSection>
+
+      <HawkStarsSection spacing='default' id='ways' className='bg-bege-light'>
+        <SectionHeader
+          align='center'
+          eyebrow={t('page.ways_eyebrow')}
+          title={t('forms_and_modalities')}
+          subtitle={t('page.ways_subtitle')}
+          className='mb-10'
+        />
+        <div className='grid gap-6 md:grid-cols-2'>
+          <PaymentMethodCard
+            icon={LuLandmark}
+            title={t('options.bank_transfer')}
+            description={t('bank_transfer.description')}
+            details={[
+              { label: 'IBAN', value: 'PT50 0036 0053 9910 0203 4129 8' },
+              { label: t('page.bic'), value: 'MPIOPTPL' },
+            ]}
+          />
+          <PaymentMethodCard
+            icon={LuBitcoin}
+            title={t('options.crypto_transfer')}
+            description={t('crypto_transfer.description')}
+            details={[
+              { label: t('page.wallet'), value: '0x085036c6ec33888db0c4cc8f99791537dbc8ab97' },
+            ]}
+          />
+        </div>
+
+        {/* Trust signal, next to the account details */}
+        <div className='border-bege-dark mt-8 flex flex-col items-start gap-4 rounded-xl border bg-white p-6 sm:flex-row sm:items-center'>
+          <LuShieldCheck aria-hidden='true' className='text-green size-8 shrink-0' />
+          <div className='flex-1'>
+            <p className='text-body_semibold'>{t('page.trust_title')}</p>
+            <p className='text-sm text-black/70'>{t('page.trust_description')}</p>
+          </div>
+          <Button asChild variant='outline'>
+            <Link href={transformUrl(lng, SITE_GET_URLS.transparency)}>{t('page.trust_cta')}</Link>
           </Button>
         </div>
       </HawkStarsSection>
 
-      <HawkStarsSection spacing='default' className='bg-bege-light'>
+      <HawkStarsSection spacing='default'>
         <div className='flex flex-col gap-10'>
-          <SectionHeader align='center' title={t('branding.title')} />
+          <SectionHeader
+            align='center'
+            eyebrow={t('page.naming_eyebrow')}
+            title={t('branding.title')}
+          />
           <div className='flex flex-col gap-10 md:flex-row'>
             <BrandingSection
               image={exterior2}
@@ -188,7 +190,7 @@ const DonateContent = async ({ params }: { params: DonatePageProps['params'] }) 
         </div>
       </HawkStarsSection>
 
-      <HawkStarsSection spacing='default'>
+      <HawkStarsSection spacing='default' className='bg-bege-light'>
         <div className='flex flex-col gap-10 lg:mx-auto lg:w-2/3'>
           <div className='mx-auto flex flex-1 flex-col gap-3'>
             <h3 className='text-h2_bold text-center'>{t('brand.wall_branding.title')}</h3>
@@ -220,7 +222,7 @@ const DonateContent = async ({ params }: { params: DonatePageProps['params'] }) 
         </div>
       </HawkStarsSection>
 
-      <HawkStarsSection spacing='default' className='bg-bege-light'>
+      <HawkStarsSection spacing='default'>
         <SectionHeader align='center' title={t('brand.chairs.title')} className='mb-8' />
         <ChairsSections
           title={t('brand.chairs.types.gaming_chair')}
@@ -277,10 +279,20 @@ const DonateContent = async ({ params }: { params: DonatePageProps['params'] }) 
         />
       </HawkStarsSection>
 
-      <HawkStarsSection spacing='default' id='form'>
-        <SectionHeader align='center' title={t('helps_us_donate')} className='mb-8' />
-        <div className='flex justify-center'>
-          <DonationWidget />
+      <HawkStarsSection spacing='tight' className='bg-green text-white'>
+        <div className='flex flex-col items-center justify-between gap-5 text-center sm:flex-row sm:text-left'>
+          <p className='text-h2_bold'>{t('page.store_title')}</p>
+          <Button asChild variant='inverse' size='lg'>
+            <Link
+              href='https://shop.hawkstars.org/'
+              lang='en'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <LuShoppingBag aria-hidden='true' />
+              {t('store')}
+            </Link>
+          </Button>
         </div>
       </HawkStarsSection>
     </>

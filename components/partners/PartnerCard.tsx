@@ -1,89 +1,89 @@
 import Link from 'next/link';
 import { SocialIcon, SocialType } from '../../utils/models/social';
 
-import { Media, Partner } from '@/payload-types';
+import { Partner } from '@/payload-types';
 import { FlagIcons } from '@/lib/flags';
 import { ImageMedia } from '@/payload/components/Media';
 import { getServerTranslation } from '@/i18n';
 import { Language, fallbackLng } from '@/i18n/settings';
+import { getPartnerInitials } from './utils';
 
-type PartnerInfoProps = Pick<Partner, 'name' | 'links'> & { lng: Language };
+type PartnerLinksProps = Pick<Partner, 'links'> & { lng: Language };
 
-const PartnerInfo = async ({ name, links, lng }: PartnerInfoProps) => {
+const PartnerLinks = async ({ links, lng }: PartnerLinksProps) => {
   const { t } = await getServerTranslation(lng, 'partners');
+  if (!links || links.length === 0) return null;
+
   return (
-    <>
-      <h3 className='mt-auto text-center'>{name}</h3>
+    <div className='flex justify-center gap-2'>
+      {links.map((link, index) => {
+        const icon = link && SocialIcon[link.platform as SocialType];
 
-      {/* Contacts */}
-      {links && links.length > 0 && (
-        <div className='mt-auto flex justify-center gap-2 pt-2'>
-          {links.map((link, index) => {
-            const icon = link && SocialIcon[link.platform as SocialType];
-
-            return (
-              <div key={index}>
-                <Link
-                  href={link.url}
-                  className='underline'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  {icon && (
-                    <ImageMedia
-                      src={icon}
-                      alt={t('a11y.platformIcon', { platform: link.platform })}
-                      width={24}
-                      height={24}
-                    />
-                  )}
-                </Link>
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </>
+        return (
+          <Link
+            key={index}
+            href={link.url}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='opacity-70 transition-opacity hover:opacity-100'
+          >
+            {icon && (
+              <ImageMedia
+                src={icon}
+                alt={t('a11y.platformIcon', { platform: link.platform })}
+                width={22}
+                height={22}
+              />
+            )}
+          </Link>
+        );
+      })}
+    </div>
   );
 };
 
 const PartnerCard = async (partner: Partner & { lng?: Language }) => {
-  const { name, logo, country, links, lng = fallbackLng } = partner;
+  const { name, logo, country, links, type, lng = fallbackLng } = partner;
   const { t } = await getServerTranslation(lng, 'partners');
 
-  const flagIcon = country && FlagIcons[country];
-  const url = (logo as Media).url;
+  // National partners are all Portuguese, so a flag on each says nothing;
+  // it only distinguishes international ones.
+  const flagIcon = type === 'international' && country ? FlagIcons[country] : undefined;
+  const logoUrl = logo && typeof logo === 'object' ? logo.url : undefined;
 
   return (
-    <div className='border-bege-dark mb-5 flex flex-col justify-between gap-5 border-b-2 pb-5'>
-      {/* Country If exists*/}
-      {flagIcon && (
-        <div className='flex justify-center px-4 pt-2'>
-          <span className='text-green bg-bege-dark w-fit rounded-xl p-2 shadow-2xs'>
-            {flagIcon({ title: country, className: 'w-8' })}
-          </span>
-        </div>
-      )}
-
-      {/* Image */}
-      {url && (
-        <div className='flex justify-center pb-4'>
+    <div className='card card-hover border-bege-dark group flex h-full flex-col items-center gap-4 border p-5 text-center'>
+      {/* Logo area is a fixed height so a row of cards lines up with or without logos */}
+      <div className='flex h-24 w-full items-center justify-center'>
+        {logoUrl ? (
           <ImageMedia
-            src={url as string}
+            src={logoUrl}
             alt={t('a11y.logoAlt', { name })}
-            width={192}
-            height={192}
-            sizes='95vw'
-            className='w-auto rounded-t-2xl object-center px-6'
+            width={160}
+            height={96}
+            sizes='160px'
+            className='max-h-24 w-auto object-contain grayscale transition duration-300 group-hover:grayscale-0'
           />
-        </div>
+        ) : (
+          <span
+            aria-hidden='true'
+            className='bg-bege-dark text-green font-display flex size-20 items-center justify-center rounded-full text-2xl font-semibold'
+          >
+            {getPartnerInitials(name)}
+          </span>
+        )}
+      </div>
+
+      <h3 className='text-body_semibold mt-auto leading-snug text-balance'>{name}</h3>
+
+      {flagIcon && (
+        <span className='text-muted-foreground flex items-center gap-1.5 text-xs'>
+          {flagIcon({ title: country, className: 'w-5 rounded-xs' })}
+          {country}
+        </span>
       )}
 
-      <div className='flex gap-2 px-4 lg:flex-col'>
-        <div className='flex w-full justify-around lg:flex-col'>
-          <PartnerInfo name={name} links={links} lng={lng} />
-        </div>
-      </div>
+      <PartnerLinks links={links} lng={lng} />
     </div>
   );
 };

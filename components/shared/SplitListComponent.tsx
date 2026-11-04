@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { LuCalendarClock } from 'react-icons/lu';
 import type { PaginatedDocs } from 'payload';
 import { Language } from '@/i18n/settings';
 import ListFilters, { ListFilterConfig } from '@/components/utils/ListFilters';
@@ -59,7 +60,10 @@ const SplitListComponent = <T,>({
         <section>
           <h2 className='text-h2_semibold mb-6'>{upcomingLabel}</h2>
           {upcoming.length === 0 ? (
-            <p className='text-muted-foreground text-body_regular'>{noUpcoming}</p>
+            <div className='bg-bege-light border-bege-dark flex items-center gap-4 rounded-xl border px-6 py-8'>
+              <LuCalendarClock aria-hidden='true' className='text-green size-8 shrink-0' />
+              <p className='text-body_regular text-black/70'>{noUpcoming}</p>
+            </div>
           ) : (
             <div className='flex flex-col gap-6'>
               {upcoming.map((item, idx) => renderCard(item, idx))}
