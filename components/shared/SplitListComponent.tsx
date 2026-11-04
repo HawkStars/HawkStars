@@ -7,6 +7,8 @@ import { ContentSection } from '@/components/layout';
 type SplitListTranslations = {
   upcoming: string;
   noUpcoming: string;
+  // Heading for items happening right now (events only). Falls back to `upcoming`.
+  current?: string;
 };
 
 type SplitListProps<T> = {
@@ -33,7 +35,7 @@ const SplitListComponent = <T,>({
   const { upcoming, current } = items || {};
   const { docs } = current || {};
 
-  const { upcoming: upcomingLabel, noUpcoming } = translations;
+  const { upcoming: upcomingLabel, noUpcoming, current: currentLabel } = translations;
 
   return (
     <ContentSection>
@@ -41,17 +43,15 @@ const SplitListComponent = <T,>({
         {/* Type/year filters */}
         {filters && filters.length > 0 && <ListFilters filters={filters} />}
 
-        {/* Current Events */}
-        {current && (
+        {/* Current Events -- only when something is happening now. Rendering it
+            unconditionally (with the upcoming heading and empty state) duplicated
+            the upcoming section whenever nothing was on. */}
+        {docs && docs.length > 0 && (
           <section>
-            <h2 className='text-h2_semibold mb-6'>{upcomingLabel}</h2>
-            {docs?.length === 0 ? (
-              <p className='text-muted-foreground text-body_regular'>{noUpcoming}</p>
-            ) : (
-              <div className='flex flex-col gap-6'>
-                {docs?.map((item, idx) => renderCard(item, idx))}
-              </div>
-            )}
+            <h2 className='text-h2_semibold mb-6'>{currentLabel || upcomingLabel}</h2>
+            <div className='flex flex-col gap-6'>
+              {docs.map((item, idx) => renderCard(item, idx))}
+            </div>
           </section>
         )}
 
