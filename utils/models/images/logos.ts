@@ -1,4 +1,4 @@
-import hawkLogo from '@/public/images/logos/logo.webp';
+import hawkLogo from '@/public/images/logos/logo.svg';
 import euroHawkLogo from '@/public/images/logos/eurohawk.webp';
 import globalVillageLogo from '@/public/images/logos/global_village.png';
 import coFoundedEuropeanLogo from '@/public/images/logos/co-founded.png';
