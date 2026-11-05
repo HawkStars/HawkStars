@@ -26,6 +26,7 @@ export const cloudinaryAdapter = () => ({
             public_id: `media/${file.filename.replace(/\.[^/.]+$/, '')}`, // Set custom file name without extension, and it also previxed the cleaned filename with media/
             overwrite: false, // Do not overwrite if a file with the same name exists
             use_filename: true, // Use original filename
+            transformation: [{ fetch_format: 'auto', quality: 'auto' }],
           },
           (error, result) => {
             if (error) return reject(error);
