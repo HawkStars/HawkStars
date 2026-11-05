@@ -6,6 +6,7 @@ import { FC, Suspense } from 'react';
 import MainPageBanner from './MainPageBanner';
 import { hawkLogo } from '@/utils/models/images/logos';
 import RichText from '@/payload/components/RichText';
+import { PageLoading } from '@/components/layout';
 
 type MainPageWrapperProps = {
   lng: Language;
@@ -25,7 +26,7 @@ const MainPageWrapper: FC<MainPageWrapperProps> = async ({ lng }) => {
   } else {
     const banner = pageInformation.bannerFields || {};
     return (
-      <Suspense fallback={<></>}>
+      <Suspense fallback={<PageLoading />}>
         {banner && <MainPageBanner {...banner} />}
         <RichText data={pageInformation.layout} lng={lng} />
       </Suspense>

@@ -108,6 +108,7 @@ const ProjectsContent = async ({
         lng={lng}
         translations={translations}
         filters={filters}
+        archiveUrl={SITE_GET_URLS.projects_archive}
         renderCard={(project, idx) => (
           <ProjectCard key={project.id} project={project} index={idx} lng={lng} />
         )}

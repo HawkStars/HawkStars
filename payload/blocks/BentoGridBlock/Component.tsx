@@ -130,7 +130,8 @@ const BentoGridBlock: React.FC<BentoGridBlockProps & { lng: Language }> = ({
                   colSpanMd[column_size],
                   colSpanLg[column_size],
                   rowSpanLg[row_size],
-                  !imgInfo && 'bg-accent'
+                  // Warm surface per the style guide (shadcn `bg-accent` is a cold grey)
+                  !imgInfo && 'bg-bege-light border-bege-dark border'
                 )}
                 key={item.id || idx}
               >
@@ -158,6 +159,8 @@ const BentoGridBlock: React.FC<BentoGridBlockProps & { lng: Language }> = ({
                 <div
                   className={cn(
                     'relative z-10 flex h-full w-full flex-col p-4 sm:p-5 md:p-6',
+                    // Reserve the corner the pinned button sits in so it never covers text
+                    link?.label && 'pb-16 sm:pb-18 md:pb-20',
                     contentPositionMap[contentPosition]
                   )}
                 >
@@ -194,7 +197,9 @@ const BentoGridBlock: React.FC<BentoGridBlockProps & { lng: Language }> = ({
                 {/* Button — always pinned to bottom-right corner */}
                 {link?.label && (
                   <div className='absolute right-4 bottom-4 z-20 sm:right-5 sm:bottom-5 md:right-6 md:bottom-6'>
-                    <Button asChild variant={imgInfo?.url ? 'secondary' : 'default'} size='sm'>
+                    {/* One CTA style across every card: mixing beige and green buttons made
+                        the grid read as unrelated pieces. */}
+                    <Button asChild variant='default' size='sm'>
                       <Link
                         href={linkInfo?.url || '#'}
                         target={isExternalLink ? '_blank' : '_self'}

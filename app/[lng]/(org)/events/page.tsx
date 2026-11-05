@@ -109,6 +109,7 @@ const EventsContent = async ({
         lng={lng}
         translations={translations}
         filters={filters}
+        archiveUrl={SITE_GET_URLS.events_archive}
         renderCard={(event, idx) => (
           <EventCard key={event.id} event={event} index={idx} lng={lng} />
         )}

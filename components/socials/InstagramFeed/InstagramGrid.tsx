@@ -98,6 +98,8 @@ export default function InstagramGrid({
   if (loading) {
     return (
       <div className='mx-auto max-w-6xl'>
+        {/* Heading renders while loading too, so the section doesn't jump when posts arrive */}
+        <h2 className='text-h2_semibold mb-8 text-center'>{t('instagram.title')}</h2>
         <GridSkeleton count={maxPosts} columns={columns} />
       </div>
     );
@@ -126,14 +128,14 @@ export default function InstagramGrid({
   return (
     <div className='mx-auto max-w-6xl'>
       <h2 className='text-h2_semibold mb-8 text-center'>{t('instagram.title')}</h2>
-      <div className={cn('grid lg:gap-1', columns === 3 ? 'grid-cols-3' : 'grid-cols-4')}>
+      <div className={cn('grid gap-1', columns === 3 ? 'grid-cols-3' : 'grid-cols-4')}>
         {posts.slice(0, maxPosts).map((post) => (
           <Link
             key={post.id}
             href={post.permalink}
             target='_blank'
             rel='noopener noreferrer'
-            className='group bg-bege-light relative aspect-square overflow-hidden dark:bg-neutral-900'
+            className='group bg-bege-dark relative aspect-square overflow-hidden dark:bg-neutral-900'
           >
             <ImageMedia
               src={post.imageUrl}

@@ -12,7 +12,7 @@ import {
   useSetMobileNavbarOpen,
 } from '@/utils/contexts/AppProvider';
 
-import { hawkLogo } from '@/utils/models/images/logos';
+import { hawkLogoMark } from '@/utils/models/images/logos';
 import Socials from '@/components/utils/Socials';
 import LanguageSwitcher from '@/components/utils/LanguageSwitcher';
 import { Button } from '@/components/ui/button';
@@ -87,11 +87,12 @@ const MobileNavbar: FC<MobileNavbarProps> = ({ headerInfo }) => {
       <div className='flex py-1'>
         <Link href={transformUrl(lng, SITE_GET_URLS.home)} className='flex items-center gap-2'>
           <ImageMedia
-            src={hawkLogo}
+            src={hawkLogoMark}
             alt={t('a11y.logoAlt')}
             preload
-            width={150}
-            className='-mt-1'
+            width={48}
+            height={48}
+            className='size-12'
           />
         </Link>
         <button

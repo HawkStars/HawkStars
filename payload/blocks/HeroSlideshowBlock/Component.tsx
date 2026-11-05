@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { LuChevronLeft, LuChevronRight, LuPause, LuPlay } from 'react-icons/lu';
 import { useTranslation } from '@/i18n/client';
 import type { HeroSlideshowBlock as HeroSlideshowBlockProps } from '@/payload-types';
@@ -25,6 +25,8 @@ const alignmentClasses = {
   center: 'text-center items-center',
   right: 'text-right items-end',
 } as const;
+
+const SWIPE_THRESHOLD_PX = 40;
 
 const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> = (data) => {
   const HeadingTag = data.headingLevel === 'h2' ? 'h2' : 'h1';
@@ -68,6 +70,23 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
     goToSlide((currentSlide - 1 + (slides?.length || 1)) % (slides?.length || 1));
   }, [currentSlide, slides?.length, goToSlide]);
 
+  // Arrows are hidden on phones (they covered the subtitle), so swiping is the
+  // primary way to change slides there.
+  const touchStartX = useRef<number | null>(null);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0]?.clientX ?? null;
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const start = touchStartX.current;
+    const end = e.changedTouches[0]?.clientX;
+    touchStartX.current = null;
+    if (start === null || end === undefined || (slides?.length ?? 0) <= 1) return;
+    const delta = end - start;
+    if (Math.abs(delta) < SWIPE_THRESHOLD_PX) return;
+    if (delta < 0) nextSlide();
+    else prevSlide();
+  };
+
   // Respect the OS-level reduced-motion preference: no automatic movement at all.
   // Subscribed via useSyncExternalStore rather than an effect, so there is no
   // setState-during-effect and the server render has a defined snapshot.
@@ -95,6 +114,8 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
       )}
       id={sectionId || undefined}
       data-blockid='heroSlideshowBlock'
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       {/* Slides */}
       {slides.map((slide, index: number) => {
@@ -193,14 +214,14 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
         <>
           <button
             onClick={prevSlide}
-            className='absolute top-1/2 left-4 z-20 -translate-y-1/2 rounded-full bg-white/20 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/40'
+            className='absolute top-1/2 left-4 z-20 hidden -translate-y-1/2 rounded-full bg-white/20 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/40 lg:block'
             aria-label={t('a11y.prevSlide')}
           >
             <LuChevronLeft className='h-6 w-6' />
           </button>
           <button
             onClick={nextSlide}
-            className='absolute top-1/2 right-4 z-20 -translate-y-1/2 rounded-full bg-white/20 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/40'
+            className='absolute top-1/2 right-4 z-20 hidden -translate-y-1/2 rounded-full bg-white/20 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/40 lg:block'
             aria-label={t('a11y.nextSlide')}
           >
             <LuChevronRight className='h-6 w-6' />

@@ -23,8 +23,8 @@ const FooterContainer: FC<FooterProps> = async ({ footerInfo, lng }) => {
 
   return (
     <footer className='bg-bege-light border-bege-dark mt-8 border-t'>
-      <div className='mx-auto flex max-w-6xl gap-12 px-4 py-12 max-lg:flex-col sm:px-6 lg:px-8 lg:py-16'>
-        <div className='flex flex-col gap-5 lg:max-w-xs'>
+      <div className='mx-auto flex max-w-6xl gap-12 px-4 py-12 max-xl:flex-col sm:px-6 lg:px-8 lg:py-16'>
+        <div className='flex flex-col gap-5 xl:max-w-xs'>
           <ImageMedia
             className='max-w-40 object-cover'
             src={hawkLogo}

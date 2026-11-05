@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ImageMedia } from '@/payload/components/Media';
 import HamburgerIcon from '@/public/images/icons/common/hamburger.svg';
 import { useMainAppContext, useSetMobileNavbarOpen } from '../../utils/contexts/AppProvider';
-import { hawkLogo } from '@/utils/models/images/logos';
+import { hawkLogoMark } from '@/utils/models/images/logos';
 import { FC, useState } from 'react';
 import DesktopNavbar, { NAVBAR_DROPDOWN_PANEL_ID } from './DesktopNavbar';
 import { cn } from '@/lib/utils';
@@ -13,6 +13,8 @@ import { Header } from '@/payload-types';
 import { Language } from '@/i18n/settings';
 import DropdownComponent from './DesktopDropdown/DropdownComponent';
 import { MOBILE_NAVBAR_PANEL_ID } from './MobileNavbar';
+import { Button } from '@/components/ui/button';
+import { SITE_GET_URLS, transformUrl } from '@/utils/paths';
 
 type NavbarProps = {
   headerInfo: Header;
@@ -51,7 +53,14 @@ const Navbar: FC<NavbarProps> = ({ headerInfo, lng }) => {
             <div className='my-auto flex justify-center py-3'>
               <Link href={`/${lng}`} className='normal-case' aria-label={t('a11y.homeLink')}>
                 <div className='flex gap-1'>
-                  <ImageMedia src={hawkLogo} alt={t('a11y.logoAlt')} width={150} />
+                  <ImageMedia
+                    src={hawkLogoMark}
+                    alt={t('a11y.logoAlt')}
+                    width={56}
+                    height={56}
+                    preload
+                    className='size-12 lg:size-14'
+                  />
                 </div>
               </Link>
             </div>
@@ -63,10 +72,15 @@ const Navbar: FC<NavbarProps> = ({ headerInfo, lng }) => {
             />
 
             {/* NAVBAR MOBILE */}
-            <div className='my-auto ml-auto flex items-center lg:hidden'>
-              <div className='my-auto ml-auto'>
+            <div className='my-auto ml-auto flex items-center gap-3 lg:hidden'>
+              {/* Below `sm` the switcher lives only in the menu panel, freeing the bar for Doar */}
+              <div className='my-auto ml-auto hidden sm:block'>
                 <LanguageSwitcher />
               </div>
+              {/* Donate stays one tap away on phones, where most donations happen */}
+              <Button asChild size='sm' variant='accent'>
+                <Link href={transformUrl(lng, SITE_GET_URLS.contribute)}>{t('footer.donate')}</Link>
+              </Button>
               <button
                 type='button'
                 aria-label={t('a11y.openMenu')}
@@ -76,7 +90,7 @@ const Navbar: FC<NavbarProps> = ({ headerInfo, lng }) => {
                 // and some assistive tech announces nothing for it. aria-expanded
                 // still conveys the state either way.
                 aria-controls={mobileNavbarOpen ? MOBILE_NAVBAR_PANEL_ID : undefined}
-                className='cursor-pointer'
+                className='shrink-0 cursor-pointer'
                 onClick={() => setMobileMenuOpen(true)}
               >
                 <ImageMedia src={HamburgerIcon} alt='' width={32} height={32} aria-hidden='true' />
