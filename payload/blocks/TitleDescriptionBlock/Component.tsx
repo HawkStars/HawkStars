@@ -23,7 +23,7 @@ export const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
           eyebrow={eyebrow ?? undefined}
           subtitle={description ?? undefined}
           align='center'
-          subtitleClassName='text-body_regular mt-6 max-w-4xl leading-relaxed text-gray-600'
+          subtitleClassName='mt-5 max-w-2xl text-lg whitespace-pre-line'
         />
       )}
     </HawkStarsSection>

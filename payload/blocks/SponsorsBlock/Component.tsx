@@ -3,20 +3,22 @@
 import React, { FC, useEffect, useState } from 'react';
 import type { SponsorsBlock as SponsorsBlockProps, Sponsor, Media } from '@/payload-types';
 import { ImageMedia } from '@/payload/components/Media';
-import { cn } from '@/lib/utils';
 import { fetchSponsors } from '@/lib/payload/client-side/queries/sponsors';
 import { HawkStarsSection } from '@/components/layout';
 import { useTranslation } from '@/i18n/client';
+import { Language } from '@/i18n/settings';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 
-export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
+export const SponsorsBlock: React.FC<SponsorsBlockProps & { lng?: Language }> = ({
   title,
   subtitle,
   tier,
   limit = 12,
   sectionId,
+  lng: lngProp,
 }) => {
-  const lng = useLanguageCookie();
+  const cookieLng = useLanguageCookie();
+  const lng = lngProp ?? cookieLng;
   const { t } = useTranslation(lng, 'common');
   const [sponsors, setSponsors] = useState<Sponsor[]>([]);
 
@@ -26,21 +28,12 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
 
   if (!sponsors || sponsors.length === 0) return null;
 
-  const groupByTier: Record<string, Sponsor[]> = sponsors.reduce(
-    (acc, sponsor) => {
-      // Was the English 'Uncategorized', shown as a tier heading on /pt too.
-      const sponsorTier = sponsor.tier || t('label.other');
-      if (!acc[sponsorTier]) {
-        acc[sponsorTier] = [];
-      }
-      acc[sponsorTier].push(sponsor);
-      return acc;
-    },
-    {} as Record<string, Sponsor[]>
-  );
-
-  const evenTiers: string[] = Object.keys(groupByTier).filter((_, index) => index % 2 === 0);
-  const oddTiers: string[] = Object.keys(groupByTier).filter((_, index) => index % 2 !== 0);
+  // Grouped in the order the query returns them; insertion order keeps tiers stable.
+  const groupByTier = sponsors.reduce<Record<string, Sponsor[]>>((acc, sponsor) => {
+    const key = sponsor.tier || 'other';
+    (acc[key] ??= []).push(sponsor);
+    return acc;
+  }, {});
 
   return (
     <HawkStarsSection
@@ -48,32 +41,26 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps> = ({
       padding='none'
       cap='none'
       container
-      className='mx-auto max-w-7xl'
       id={sectionId || undefined}
       data-blockid='sponsorsBlock'
     >
       {(title || subtitle) && (
-        <div className='section-header text-center'>
-          {title && <h2 className='text-h1_semibold text-green'>{title}</h2>}
-          {subtitle && (
-            <p className='mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-gray-600'>
-              {subtitle}
-            </p>
-          )}
-        </div>
+        <header className='section-header text-center'>
+          {title && <h2 className='text-h2_semibold'>{title}</h2>}
+          {subtitle && <p className='text-h2_light mt-4 text-black/70'>{subtitle}</p>}
+        </header>
       )}
 
-      <div className='grid grid-cols-2 items-start gap-6 lg:gap-8'>
-        <div className='flex flex-col gap-4'>
-          {oddTiers.map((tier) => (
-            <LogosContainer key={tier} tier={tier} sponsors={groupByTier[tier] ?? []} />
-          ))}
-        </div>
-        <div className='mt-20 flex flex-col gap-4'>
-          {evenTiers.map((tier) => (
-            <LogosContainer key={tier} tier={tier} sponsors={groupByTier[tier] ?? []} />
-          ))}
-        </div>
+      {/* CSS columns keep tiers in reading order on mobile and balance them into a
+          two-column masonry on large screens. */}
+      <div className='gap-6 lg:columns-2 lg:gap-8'>
+        {Object.entries(groupByTier).map(([tierKey, tierSponsors]) => (
+          <LogosContainer
+            key={tierKey}
+            tier={t(`blocks.sponsorTiers.${tierKey}`, { defaultValue: t('label.other') })}
+            sponsors={tierSponsors}
+          />
+        ))}
       </div>
     </HawkStarsSection>
   );
@@ -84,33 +71,48 @@ type LogosContainerProps = {
   sponsors: Sponsor[];
 };
 
-const LogosContainer: FC<LogosContainerProps> = ({ tier, sponsors }) => {
-  return (
-    <div className={cn('bg-green relative min-h-90 rounded-xl p-4')}>
-      <h3 className='text-h2_bold text-bege-dark absolute top-4 left-5'>{tier}</h3>
-      <div className='flex flex-wrap gap-6'>
-        {sponsors.map((sponsor) => {
-          const logoUrl = (sponsor.logo as Media)?.url;
-
-          return (
-            <div
-              key={sponsor.id}
-              className={`flex flex-col items-center justify-center gap-3 rounded-xl px-6 pt-10 pb-6 text-white`}
-            >
+const LogosContainer: FC<LogosContainerProps> = ({ tier, sponsors }) => (
+  <section className='card mb-6 break-inside-avoid p-6 lg:mb-8 lg:p-8'>
+    <h3 className='text-h2_bold text-green mb-6'>{tier}</h3>
+    <ul className='grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3'>
+      {sponsors.map((sponsor) => {
+        const logoUrl = (sponsor.logo as Media)?.url;
+        const content = (
+          <>
+            {/* Same 64px frame for every logo so the tier reads as one even row. */}
+            <span className='relative flex h-16 w-full items-center justify-center'>
               {logoUrl ? (
-                <div className='relative mb-3 h-24 w-full'>
-                  <ImageMedia src={logoUrl} alt={sponsor.name} fill className='object-contain' />
-                </div>
+                <ImageMedia src={logoUrl} alt='' fill sizes='160px' className='object-contain' />
               ) : (
-                <div className='bg-bege-light text-green mb-3 flex h-16 w-full items-center justify-center rounded'>
-                  <span className='text-sm font-medium'>{sponsor.name.charAt(0)}</span>
-                </div>
+                <span
+                  aria-hidden
+                  className='bg-bege-dark text-green flex size-16 items-center justify-center rounded-full text-xl font-semibold'
+                >
+                  {sponsor.name.charAt(0)}
+                </span>
               )}
-              <span className='text-center text-sm font-medium'>{sponsor.name}</span>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
+            </span>
+            <span className='text-center text-sm font-medium text-black/80'>{sponsor.name}</span>
+          </>
+        );
+
+        return (
+          <li key={sponsor.id}>
+            {sponsor.website ? (
+              <a
+                href={sponsor.website}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='hover:bg-bege-light focus-visible:ring-green flex flex-col items-center gap-3 rounded-lg p-2 transition-colors focus-visible:ring-2 focus-visible:outline-hidden'
+              >
+                {content}
+              </a>
+            ) : (
+              <div className='flex flex-col items-center gap-3 p-2'>{content}</div>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+);

@@ -19,8 +19,8 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps & { lng: Lang
   const imageInfo = getImagePayloadUrl(image);
 
   const customizedHeight = image.height;
-  const height = imageInfo?.height;
-  const width = imageInfo?.width;
+  const hasIntrinsicSize = Boolean(imageInfo?.width && imageInfo?.height);
+  const shouldFill = imageInfo?.width === undefined && imageInfo?.height === undefined;
 
   return (
     <HawkStarsSection
@@ -31,33 +31,38 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps & { lng: Lang
       id={sectionId || undefined}
       data-blockid='contentWithImage'
     >
-      <div className='grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16'>
-        {/* Image Section */}
+      <div className='grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-16'>
+        {/* Image Section — rounded on every breakpoint (it was square-cornered on mobile), and a
+            4:3 frame replaces the old full-viewport-height box for images of unknown size. */}
         <div
-          className={cn('relative w-full', isImageLeft ? 'lg:order-2' : 'lg:order-1', {
-            'min-h-lvh': !customizedHeight && (!height || !width),
-          })}
+          className={cn(
+            'relative w-full overflow-hidden rounded-xl',
+            isImageLeft ? 'lg:order-2' : 'lg:order-1',
+            { 'bg-bege-dark aspect-4/3': !customizedHeight && !hasIntrinsicSize }
+          )}
           style={{ height: customizedHeight ? `${customizedHeight}px` : undefined }}
         >
           {imageInfo && (
             <ImageMedia
               src={imageInfo.url}
               alt={imageInfo.alt || ''}
-              fill={imageInfo.width === undefined && imageInfo.height === undefined}
+              fill={shouldFill}
               width={imageInfo.width || undefined}
               height={imageInfo.height || undefined}
               className={cn({
-                'absolute object-cover lg:rounded-xl':
-                  imageInfo.width === undefined && imageInfo.height === undefined,
+                'absolute inset-0 object-cover': shouldFill,
+                'h-full w-full object-cover': !shouldFill && customizedHeight,
+                'h-auto w-full': !shouldFill && !customizedHeight,
               })}
-              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+              sizes='(max-width: 1024px) 100vw, 576px'
             />
           )}
         </div>
 
         {/* Content Section */}
         <div className={cn('w-full', isImageLeft ? 'lg:order-1' : 'lg:order-2')}>
-          <h2 className='text-h2_semibold mb-5 max-lg:text-center'>{title}</h2>
+          {/* Left-aligned on mobile too, so the heading lines up with the body copy below it. */}
+          {title && <h2 className='text-h2_semibold mb-5'>{title}</h2>}
           {description && <RichText data={description} lng={lng} />}
         </div>
       </div>

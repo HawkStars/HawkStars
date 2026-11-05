@@ -6,6 +6,35 @@ import type { MapLocationBlock as MapLocationBlockProps } from '@/payload-types'
 import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
+import { cn } from '@/lib/utils';
+import type { IconType } from 'react-icons';
+
+// Links get a 44px-tall hit area without changing how the text sits in the row.
+const contactLink =
+  'text-green hover:text-green-dark inline-flex min-h-11 items-center underline-offset-4 hover:underline';
+
+const ContactRow = ({
+  icon: Icon,
+  label,
+  children,
+}: {
+  icon: IconType;
+  label: string;
+  children: React.ReactNode;
+}) => (
+  <div className='flex gap-4'>
+    <span
+      aria-hidden='true'
+      className='bg-bege-dark text-green flex h-11 w-11 shrink-0 items-center justify-center rounded-full'
+    >
+      <Icon className='h-5 w-5' />
+    </span>
+    <div className='text-body_regular min-w-0 text-black/80'>
+      <h3 className='text-body_semibold mb-1 text-black'>{label}</h3>
+      {children}
+    </div>
+  </div>
+);
 
 export const MapLocationBlock: React.FC<MapLocationBlockProps & { lng: Language }> = ({
   title,
@@ -29,68 +58,50 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps & { lng: Language 
       id={sectionId || undefined}
       data-blockid='mapLocation'
     >
-      {title && <h2 className='text-h2_semibold mb-10 text-center lg:mb-12'>{title}</h2>}
+      {title && <h2 className='text-h2_semibold section-header text-center'>{title}</h2>}
 
-      <div className='grid gap-8 lg:grid-cols-2'>
-        {/* Map */}
-        <div className='overflow-hidden rounded-xl border border-gray-200'>
-          <div className='bg-bege-dark aspect-square w-full'>
+      <div className='grid gap-6 lg:grid-cols-2 lg:gap-8'>
+        {/* Map — 4:3 on mobile so it doesn't push the contact details a full screen down. */}
+        <div className='card border-bege-dark overflow-hidden border'>
+          <div className='bg-bege-dark aspect-4/3 w-full lg:aspect-square'>
             <iframe
-              width='100%'
-              height='100%'
-              frameBorder='0'
-              style={{ border: 0 }}
+              className='h-full w-full border-0'
               src={`https://www.openstreetmap.org/export/embed.html?bbox=${longitude - 0.01},${latitude - 0.01},${longitude + 0.01},${latitude + 0.01}&layer=mapnik&marker=${latitude},${longitude}`}
+              loading='lazy'
               allowFullScreen
-              aria-label={t('a11y.mapRegion')}
+              title={t('a11y.mapRegion')}
             />
           </div>
         </div>
 
-        {/* Contact Info */}
-        <div className='space-y-6'>
-          <div className='flex gap-4'>
-            <LuMapPin className='h-6 w-6 shrink-0 text-green-600' />
-            <div>
-              <h3 className='mb-1 font-semibold'>{t('blocks.address')}</h3>
-              <p className='whitespace-pre-line text-gray-700'>{address}</p>
-            </div>
-          </div>
+        {/* Contact details as a warm panel with token-coloured icon chips. */}
+        <address className='bg-bege-light space-y-6 rounded-xl p-6 not-italic lg:p-8'>
+          <ContactRow icon={LuMapPin} label={t('blocks.address')}>
+            <p className='whitespace-pre-line'>{address}</p>
+          </ContactRow>
 
           {phone && (
-            <div className='flex gap-4'>
-              <LuPhone className='h-6 w-6 shrink-0 text-green-600' />
-              <div>
-                <h3 className='mb-1 font-semibold'>{t('blocks.phone')}</h3>
-                <a href={`tel:${phone}`} className='text-green-700 hover:underline'>
-                  {phone}
-                </a>
-              </div>
-            </div>
+            <ContactRow icon={LuPhone} label={t('blocks.phone')}>
+              <a href={`tel:${phone}`} className={contactLink}>
+                {phone}
+              </a>
+            </ContactRow>
           )}
 
           {email && (
-            <div className='flex gap-4'>
-              <LuMail className='h-6 w-6 shrink-0 text-green-600' />
-              <div>
-                <h3 className='mb-1 font-semibold'>{t('blocks.email')}</h3>
-                <a href={`mailto:${email}`} className='text-green-700 hover:underline'>
-                  {email}
-                </a>
-              </div>
-            </div>
+            <ContactRow icon={LuMail} label={t('blocks.email')}>
+              <a href={`mailto:${email}`} className={cn(contactLink, 'break-all')}>
+                {email}
+              </a>
+            </ContactRow>
           )}
 
           {hours && (
-            <div className='flex gap-4'>
-              <LuClock className='h-6 w-6 shrink-0 text-green-600' />
-              <div>
-                <h3 className='mb-1 font-semibold'>{t('blocks.hours')}</h3>
-                <p className='whitespace-pre-line text-gray-700'>{hours}</p>
-              </div>
-            </div>
+            <ContactRow icon={LuClock} label={t('blocks.hours')}>
+              <p className='whitespace-pre-line'>{hours}</p>
+            </ContactRow>
           )}
-        </div>
+        </address>
       </div>
     </HawkStarsSection>
   );

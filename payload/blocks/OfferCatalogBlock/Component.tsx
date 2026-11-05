@@ -15,6 +15,14 @@ const badgeStyles = {
   green: 'bg-white/15 text-white',
 } as const;
 
+// Rows sit on a white card on light backgrounds (it lifts off bege), and on a hairline
+// outline on green, where a white card would read as a hole in the band.
+const groupStyles = {
+  white: 'card divide-bege-dark border border-bege-dark',
+  bege: 'card divide-bege-dark',
+  green: 'rounded-xl border border-white/15 divide-white/15',
+} as const;
+
 const priceStyles = {
   white: 'text-green',
   bege: 'text-green',
@@ -45,9 +53,18 @@ export const OfferCatalogBlock: React.FC<OfferCatalogBlockProps> = ({
       data-blockid='offerCatalog'
     >
       {(title || subtitle) && (
-        <div className='mx-auto mb-12 max-w-3xl text-center lg:mb-14'>
-          {title && <h2 className='text-h1_semibold'>{title}</h2>}
-          {subtitle && <p className='text-body_semibold mt-3 leading-relaxed'>{subtitle}</p>}
+        <div className='section-header text-center'>
+          {title && <h2 className='text-h2_semibold'>{title}</h2>}
+          {subtitle && (
+            <p
+              className={cn(
+                'text-h2_light mt-4',
+                bg === 'green' ? 'text-white/90' : 'text-black/70'
+              )}
+            >
+              {subtitle}
+            </p>
+          )}
         </div>
       )}
 
@@ -55,18 +72,11 @@ export const OfferCatalogBlock: React.FC<OfferCatalogBlockProps> = ({
         {groups.map((group, groupIndex) => (
           <div key={group.id || groupIndex}>
             {group.groupLabel && <h3 className='text-h2_bold mb-4'>{group.groupLabel}</h3>}
-            <div
-              className={cn(
-                'divide-y rounded-xl border',
-                bg === 'green'
-                  ? 'divide-white/15 border-white/15'
-                  : 'divide-bege-dark border-bege-dark'
-              )}
-            >
+            <div className={cn('divide-y', groupStyles[bg])}>
               {group.items?.map((item, itemIndex) => (
                 <div
                   key={item.id || itemIndex}
-                  className='flex flex-col gap-2 px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6'
+                  className='flex flex-col gap-2 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6'
                 >
                   <div>
                     <div className='flex flex-wrap items-center gap-2'>
@@ -83,10 +93,22 @@ export const OfferCatalogBlock: React.FC<OfferCatalogBlockProps> = ({
                       )}
                     </div>
                     {item.description && (
-                      <p className='text-body_regular mt-1 opacity-90'>{item.description}</p>
+                      <p
+                        className={cn(
+                          'text-body_regular mt-1 max-w-prose',
+                          bg === 'green' ? 'text-white/90' : 'text-black/70'
+                        )}
+                      >
+                        {item.description}
+                      </p>
                     )}
                   </div>
-                  <p className={cn('text-body_semibold shrink-0 sm:text-right', priceStyles[bg])}>
+                  <p
+                    className={cn(
+                      'text-body_semibold shrink-0 tabular-nums sm:text-right',
+                      priceStyles[bg]
+                    )}
+                  >
                     {item.price}
                   </p>
                 </div>

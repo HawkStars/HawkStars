@@ -59,23 +59,32 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps & { ln
     return () => clearInterval(timer);
   }, [targetDate]);
 
+  // light: white card · dark: the ink band · urgent: terracotta, the palette's colour for time.
   const themeClasses = {
-    light: 'bg-white border-gray-200 text-gray-900',
-    dark: 'bg-black border-gray-700 text-white',
-    urgent: 'bg-gradient-to-br from-green to-bege-dark border-green text-white',
+    light: 'card-md border border-bege-dark text-black',
+    dark: 'card-md bg-ink text-white',
+    urgent: 'card-md bg-terracotta text-white',
   };
 
   const digitBgClasses = {
-    light: 'bg-bege-dark',
-    dark: 'bg-gray-800',
-    urgent: 'bg-white/20',
+    light: 'bg-bege-light text-green',
+    dark: 'bg-white/10',
+    urgent: 'bg-white/15',
   };
 
+  const iconBgClasses = {
+    light: 'bg-bege-dark text-green',
+    dark: 'bg-white/10 text-white',
+    urgent: 'bg-white/15 text-white',
+  };
+
+  const isLight = theme !== 'dark' && theme !== 'urgent';
+
   const units = [
-    { value: timeLeft.days, label: 'Days', show: showDays },
-    { value: timeLeft.hours, label: 'Hours', show: showHours },
-    { value: timeLeft.minutes, label: 'Minutes', show: showMinutes },
-    { value: timeLeft.seconds, label: 'Seconds', show: showSeconds },
+    { value: timeLeft.days, label: t('blocks.countdownDays'), show: showDays },
+    { value: timeLeft.hours, label: t('blocks.countdownHours'), show: showHours },
+    { value: timeLeft.minutes, label: t('blocks.countdownMinutes'), show: showMinutes },
+    { value: timeLeft.seconds, label: t('blocks.countdownSeconds'), show: showSeconds },
   ].filter((unit) => unit.show);
 
   return (
@@ -89,74 +98,105 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps & { ln
     >
       <div
         className={cn(
-          'card-lg rounded-xl border p-8 lg:p-12',
-          themeClasses[theme as keyof typeof themeClasses]
+          'mx-auto max-w-4xl p-6 sm:p-8 lg:p-12',
+          themeClasses[theme as keyof typeof themeClasses] ?? themeClasses.light
         )}
       >
-        {/* Header */}
-        <div className='mb-8 text-center'>
-          <div className='bg-bege-light mb-4 inline-flex rounded-full p-3'>
-            <LuClock className='text-green h-6 w-6' />
-          </div>
-          <h2 className='text-h2_semibold mb-4'>{title}</h2>
-          {description && <p className='mx-auto max-w-2xl text-lg opacity-90'>{description}</p>}
-        </div>
+        <header className='mb-8 flex flex-col items-center text-center'>
+          <span
+            className={cn(
+              'mb-4 inline-flex rounded-full p-3',
+              iconBgClasses[theme as keyof typeof iconBgClasses] ?? iconBgClasses.light
+            )}
+          >
+            <LuClock aria-hidden className='size-6' />
+          </span>
+          <h2 className='text-h2_semibold'>{title}</h2>
+          {description && (
+            <p
+              className={cn(
+                'mt-4 max-w-2xl text-lg leading-relaxed',
+                isLight ? 'text-black/70' : 'text-white'
+              )}
+            >
+              {description}
+            </p>
+          )}
+        </header>
 
         {/* Countdown or Completed Message */}
         {isComplete ? (
           <div className='mb-8 text-center'>
-            <div className='bg-bege-dark inline-flex items-center gap-2 rounded-lg px-6 py-4 text-2xl font-bold text-black'>
-              <LuCalendar className='h-8 w-8' />
+            <p className='bg-bege-dark inline-flex items-center gap-3 rounded-lg px-6 py-4 text-xl font-semibold text-black lg:text-2xl'>
+              <LuCalendar aria-hidden className='size-6 shrink-0' />
               {completedMessage || t('blocks.campaignEnded')}
-            </div>
+            </p>
           </div>
         ) : (
-          <div className='mb-8 grid grid-cols-2 gap-4 md:flex md:justify-center md:gap-6'>
-            {units.map((unit, index) => (
-              <div key={index} className='flex flex-col items-center'>
-                <div
+          // Ticks every second, so keep it out of the live-region announcements.
+          <div
+            role='timer'
+            aria-live='off'
+            className='mb-8 flex flex-wrap justify-center gap-2 sm:gap-4 lg:gap-6'
+          >
+            {units.map((unit) => (
+              <div key={unit.label} className='flex flex-col items-center gap-2'>
+                <span
                   className={cn(
-                    'mb-2 flex h-20 w-20 items-center justify-center rounded-lg text-4xl font-bold md:h-24 md:w-24 md:text-5xl',
-                    digitBgClasses[theme as keyof typeof digitBgClasses]
+                    'font-display flex size-16 items-center justify-center rounded-lg text-3xl font-semibold tabular-nums sm:size-20 sm:text-4xl lg:size-24 lg:text-5xl',
+                    digitBgClasses[theme as keyof typeof digitBgClasses] ?? digitBgClasses.light
                   )}
                 >
                   {String(unit.value).padStart(2, '0')}
-                </div>
-                <div className='text-sm font-semibold tracking-wider uppercase opacity-70'>
+                </span>
+                <span
+                  className={cn(
+                    'text-eyebrow tracking-wider',
+                    isLight ? 'text-black/60' : 'text-white'
+                  )}
+                >
                   {unit.label}
-                </div>
+                </span>
               </div>
             ))}
           </div>
         )}
 
-        {/* CTA */}
-        {links?.map((link, index) => {
-          const linkInfo = getLinkFieldInformation(link.link, lng);
-          if (!linkInfo) return null;
-          const { url, label, newTab } = linkInfo;
+        {links && links.length > 0 && (
+          <div className='flex flex-wrap justify-center gap-4'>
+            {links.map((link, index) => {
+              const linkInfo = getLinkFieldInformation(link.link, lng);
+              if (!linkInfo) return null;
+              const { url, label, newTab } = linkInfo;
+              const primary = index === 0;
 
-          return (
-            <div key={index} className='text-center'>
-              <Button
-                size='lg'
-                className={cn(
-                  'text-lg',
-                  theme === 'urgent' && 'text-green hover:bg-bege-light bg-white'
-                )}
-                asChild
-              >
-                <a
-                  href={url}
-                  target={newTab ? '_blank' : '_self'}
-                  rel={newTab ? 'noopener noreferrer' : undefined}
+              return (
+                <Button
+                  key={index}
+                  size='xl'
+                  variant={
+                    isLight
+                      ? primary
+                        ? 'default'
+                        : 'outline'
+                      : primary
+                        ? 'inverse'
+                        : 'outline-inverse'
+                  }
+                  asChild
                 >
-                  {label}
-                </a>
-              </Button>
-            </div>
-          );
-        })}
+                  <a
+                    href={url}
+                    target={newTab ? '_blank' : '_self'}
+                    rel={newTab ? 'noopener noreferrer' : undefined}
+                  >
+                    {label}
+                  </a>
+                </Button>
+              );
+            })}
+          </div>
+        )}
       </div>
     </HawkStarsSection>
   );

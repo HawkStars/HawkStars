@@ -45,6 +45,7 @@ export const UpcomingHawkEventBlock: React.FC<UpcomingHawkEventBlockProps & { ln
       subtitle={subtitle}
       linkLabel={linkLabel || t('blocks.learnMore')}
       sectionId={sectionId}
+      lng={lng}
       event={{
         heading: upcomingEvent.heading,
         subheading: upcomingEvent.subheading,
@@ -53,11 +54,14 @@ export const UpcomingHawkEventBlock: React.FC<UpcomingHawkEventBlockProps & { ln
         // rendered as the badge on a pt-default site.
         badge: upcomingEvent.type_event
           ? t(`blocks.eventTypes.${upcomingEvent.type_event}`, {
-              defaultValue: upcomingEvent.type_event,
+              defaultValue: t('label.other'),
             })
           : null,
         image: image ?? null,
         href: `/events/${upcomingEvent.slug}`,
+        date: upcomingEvent.date,
+        endDate: upcomingEvent.isDateRange ? upcomingEvent.endDate : null,
+        location: upcomingEvent.location,
       }}
     />
   );

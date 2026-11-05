@@ -42,81 +42,85 @@ export const PricingTableBlock = ({
       {/* Header */}
       {(title || subtitle) && (
         <div className='section-header text-center'>
-          {title && <h2 className='text-h2_semibold mb-4'>{title}</h2>}
-          {subtitle && (
-            <p className='mx-auto max-w-2xl text-lg leading-relaxed text-gray-600'>{subtitle}</p>
-          )}
+          {title && <h2 className='text-h2_semibold'>{title}</h2>}
+          {subtitle && <p className='text-h2_light mt-4 text-black/70'>{subtitle}</p>}
         </div>
       )}
 
       {/* Pricing Cards */}
       <div
         className={cn(
-          'grid gap-8',
+          // pt-4 leaves room for the badge that overhangs the top of a card.
+          'grid gap-6 pt-4 lg:gap-8',
           tiers.length === 1 && 'mx-auto max-w-md',
           tiers.length === 2 && 'md:grid-cols-2',
           tiers.length === 3 && 'md:grid-cols-3',
           tiers.length === 4 && 'md:grid-cols-2 lg:grid-cols-4'
         )}
       >
-        {tiers.map((tier, index) => (
-          <div
-            key={index}
-            className={cn(
-              'card-lg card-hover-lg relative flex flex-col rounded-xl border p-8 transition-[box-shadow,translate] duration-300 hover:-translate-y-1',
-              tier.highlighted ? 'border-green ring-green ring-2 ring-offset-2' : 'border-gray-200'
-            )}
-          >
-            {/* Badge */}
-            {tier.badge && (
-              <div className='absolute -top-4 left-1/2 -translate-x-1/2 transform'>
-                <span className='bg-green flex items-center gap-1 rounded-full px-4 py-1 text-sm font-semibold text-white'>
-                  <LuStar className='h-4 w-4' />
-                  {tier.badge}
-                </span>
+        {tiers.map((tier, index) => {
+          const href = resolveCtaHref(tier.buttonLink, lng);
+          return (
+            <div
+              key={tier.id || index}
+              className={cn(
+                'relative flex flex-col p-6 transition-[box-shadow,translate] duration-300 hover:-translate-y-1 lg:p-8',
+                tier.highlighted
+                  ? 'card-md card-hover-lg ring-green ring-2'
+                  : 'card card-hover border-bege-dark border'
+              )}
+            >
+              {/* Badge */}
+              {tier.badge && (
+                <div className='absolute -top-4 left-1/2 -translate-x-1/2'>
+                  <span className='bg-green flex items-center gap-1 rounded-full px-4 py-1 text-sm font-semibold whitespace-nowrap text-white'>
+                    <LuStar aria-hidden='true' className='size-4' />
+                    {tier.badge}
+                  </span>
+                </div>
+              )}
+
+              {/* Tier Name */}
+              <h3 className='text-h2_bold mb-2'>{tier.name}</h3>
+
+              {/* Description */}
+              {tier.description && (
+                <p className='text-body_regular mb-6 text-black/70'>{tier.description}</p>
+              )}
+
+              {/* Price */}
+              <div className='mb-6 flex flex-wrap items-baseline gap-x-1'>
+                <span className='text-body_semibold text-black/70'>{tier.currency}</span>
+                <span className='text-h1_semibold tabular-nums'>{tier.price}</span>
+                {tier.period && <span className='ml-1 text-black/70'>{tier.period}</span>}
               </div>
-            )}
 
-            {/* Tier Name */}
-            <h3 className='text-h2_bold mb-2'>{tier.name}</h3>
+              {/* Features */}
+              {tier.features && tier.features.length > 0 && (
+                <ul className='mb-8 flex-1 space-y-3'>
+                  {tier.features.map((item, featureIndex) => (
+                    <li key={item.id || featureIndex} className='flex items-start gap-3'>
+                      <LuCheck aria-hidden='true' className='text-green mt-0.5 size-5 shrink-0' />
+                      <span className='text-body_regular'>{item.feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
 
-            {/* Description */}
-            {tier.description && <p className='mb-6 text-sm text-gray-600'>{tier.description}</p>}
-
-            {/* Price */}
-            <div className='mb-6'>
-              <div className='flex items-baseline'>
-                <span className='text-sm font-semibold text-gray-600'>{tier.currency}</span>
-                <span className='ml-1 text-5xl font-bold'>{tier.price}</span>
-                {tier.period && <span className='ml-2 text-gray-600'>{tier.period}</span>}
-              </div>
+              {/* CTA Button — mt-auto pins it to the bottom so buttons align across cards */}
+              {href && tier.buttonText && (
+                <Button
+                  size='lg'
+                  variant={tier.highlighted ? 'default' : 'outline'}
+                  className='mt-auto w-full'
+                  asChild
+                >
+                  <a href={href}>{tier.buttonText}</a>
+                </Button>
+              )}
             </div>
-
-            {/* Features */}
-            {tier.features && tier.features.length > 0 && (
-              <ul className='mb-8 flex-1 space-y-3'>
-                {tier.features.map((item, featureIndex) => (
-                  <li key={featureIndex} className='flex items-start gap-3'>
-                    <LuCheck className='mt-0.5 h-5 w-5 shrink-0 text-green-500' />
-                    <span className='text-gray-700'>{item.feature}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            {/* CTA Button */}
-            {resolveCtaHref(tier.buttonLink, lng) && tier.buttonText && (
-              <Button
-                size='lg'
-                variant={tier.highlighted ? 'default' : 'outline'}
-                className='w-full'
-                asChild
-              >
-                <a href={resolveCtaHref(tier.buttonLink, lng)}>{tier.buttonText}</a>
-              </Button>
-            )}
-          </div>
-        ))}
+          );
+        })}
       </div>
     </HawkStarsSection>
   );

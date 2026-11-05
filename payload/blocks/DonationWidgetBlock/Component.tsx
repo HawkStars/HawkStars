@@ -12,6 +12,9 @@ export const DonationWidgetBlock: React.FC<DonationWidgetBlockProps> = ({ sectio
       padding='none'
       cap='none'
       container
+      // Warm band behind the white widget card so it reads as a raised panel rather than
+      // floating on whatever surface the previous block left behind.
+      className='bg-bege-light'
       id={sectionId || undefined}
       data-blockid='donationWidget'
     >

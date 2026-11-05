@@ -27,50 +27,47 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ title, description, image
       id={sectionId || undefined}
       data-blockid='simpleGallery'
     >
-      {title && <h2 className='text-h2_semibold mb-4 text-center'>{title}</h2>}
-      {description && (
-        <p className='text-muted-foreground mx-auto max-w-2xl text-center text-sm leading-relaxed'>
-          {description.split('\n').map((line, idx) => (
-            <React.Fragment key={idx}>
-              {line}
-              <br />
-            </React.Fragment>
-          ))}
-        </p>
+      {(title || description) && (
+        <div className='section-header text-center'>
+          {title && <h2 className='text-h2_semibold'>{title}</h2>}
+          {description && (
+            <p className='text-h2_light mt-4 whitespace-pre-line text-black/70'>{description}</p>
+          )}
+        </div>
       )}
-      <div className='mt-10'>
-        <Carousel
-          opts={{
-            align: 'start',
-            loop: true,
-          }}
-          className='mx-auto w-full max-w-6xl'
-        >
-          <CarouselContent
-            style={{
-              backfaceVisibility: 'hidden',
-            }}
-          >
-            {images.map((img, index) => {
-              const image = getImagePayloadUrl(img.image);
-              if (!image) return null;
-              return (
-                <CarouselItem key={index} className='relative min-h-dvh basis-1/2'>
+      {/* Each slide used to be `min-h-dvh` — a full screen tall regardless of the photo —
+          so on a phone one image filled the viewport and the arrows sat off-screen. Slides
+          now share one portrait ratio; a peek of the next slide on mobile hints at swiping. */}
+      <Carousel opts={{ align: 'start', loop: true }} className='w-full'>
+        <CarouselContent style={{ backfaceVisibility: 'hidden' }}>
+          {images.map((img, index) => {
+            const image = getImagePayloadUrl(img.image);
+            if (!image) return null;
+            return (
+              <CarouselItem key={img.id || index} className='basis-4/5 sm:basis-1/2 lg:basis-1/3'>
+                <div className='bg-bege-dark relative aspect-4/5 overflow-hidden rounded-xl'>
                   <ImageMedia
                     src={image.url}
                     alt={image.alt || ''}
                     loading='lazy'
                     fill
-                    className='aspect-[3.8/5] w-full rounded-xl object-cover'
+                    className='object-cover'
+                    sizes='(max-width: 640px) 80vw, (max-width: 1024px) 50vw, 33vw'
                   />
-                </CarouselItem>
-              );
-            })}
-          </CarouselContent>
-          <CarouselPrevious className='left-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50' />
-          <CarouselNext className='right-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50' />
-        </Carousel>
-      </div>
+                </div>
+              </CarouselItem>
+            );
+          })}
+        </CarouselContent>
+        <CarouselPrevious
+          variant='inverse'
+          className='left-3 size-11 shadow-md disabled:opacity-0 lg:left-4'
+        />
+        <CarouselNext
+          variant='inverse'
+          className='right-3 size-11 shadow-md disabled:opacity-0 lg:right-4'
+        />
+      </Carousel>
     </HawkStarsSection>
   );
 };

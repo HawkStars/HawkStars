@@ -27,39 +27,34 @@ export const VideoBlock: React.FC<Props> = (props) => {
   if (!videoUrl) return null;
 
   return (
-    <div
+    <figure
       className={cn(
-        'mx-auto my-8',
-        {
-          container: enableGutter,
-        },
+        'my-10 w-full',
+        enableGutter && 'mx-auto max-w-4xl px-4 sm:px-6 lg:px-0',
         className
       )}
       id={sectionId || undefined}
       data-blockid='videoBlock'
     >
-      <div className='w-full'>
-        {title && <h2 className='text-h3_semibold mb-4'>{title}</h2>}
+      {title && <h2 className='text-h2_bold mb-4'>{title}</h2>}
 
-        <div
-          className='border-border relative w-full overflow-hidden rounded-lg border'
-          style={{ paddingBottom: '56.25%' }}
-        >
-          <VideoMedia
-            src={videoUrl}
-            autoPlay={autoplay ?? false}
-            loop={loop ?? false}
-            muted={muted ?? true}
-            controls={controls ?? true}
-            title={title ?? undefined}
-            videoClassName='absolute top-0 left-0 h-full w-full'
-          />
-        </div>
-
-        {caption && (
-          <p className={cn('text-muted-foreground mt-4 text-sm', captionClassName)}>{caption}</p>
-        )}
+      <div className='bg-bege-dark relative aspect-video w-full overflow-hidden rounded-xl shadow-sm'>
+        <VideoMedia
+          src={videoUrl}
+          autoPlay={autoplay ?? false}
+          loop={loop ?? false}
+          muted={muted ?? true}
+          controls={controls ?? true}
+          title={title ?? undefined}
+          videoClassName='absolute inset-0 h-full w-full'
+        />
       </div>
-    </div>
+
+      {caption && (
+        <figcaption className={cn('text-body_regular mt-3 text-black/70', captionClassName)}>
+          {caption}
+        </figcaption>
+      )}
+    </figure>
   );
 };

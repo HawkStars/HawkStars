@@ -14,10 +14,10 @@ import { Language } from '@/i18n/settings';
 import { usePrefersReducedMotion } from '@/lib/hooks/usePrefersReducedMotion';
 
 const heightClasses = {
-  fullscreen: 'min-h-screen',
-  large: 'min-h-[700px]',
-  medium: 'min-h-[500px]',
-  small: 'min-h-[400px]',
+  fullscreen: 'min-h-svh',
+  large: 'min-h-150 lg:min-h-175',
+  medium: 'min-h-125',
+  small: 'min-h-100',
 } as const;
 
 const alignmentClasses = {
@@ -25,6 +25,16 @@ const alignmentClasses = {
   center: 'text-center items-center',
   right: 'text-right items-end',
 } as const;
+
+const ctaRowAlignment = {
+  left: 'justify-start',
+  center: 'justify-center',
+  right: 'justify-end',
+} as const;
+
+// Round glass controls over the photo; size-11 keeps every one a 44px tap target.
+const controlClasses =
+  'flex size-11 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors outline-none hover:bg-white/40 focus-visible:ring-2 focus-visible:ring-white';
 
 const SWIPE_THRESHOLD_PX = 40;
 
@@ -139,7 +149,9 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
             {bgImage?.url && (
               <ImageMedia
                 src={bgImage.url}
-                alt={bgImage.alt || slide.title || `Slide ${index + 1}`}
+                // The slide title is already read as the heading; without an editor
+                // alt the photo is decorative.
+                alt={bgImage.alt || ''}
                 fill
                 className='object-cover'
                 preload={index <= 1 ? true : false}
@@ -163,46 +175,56 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
             {/* Content */}
             <div
               className={cn(
-                'relative z-10 container mx-auto flex h-full flex-col justify-center py-16 lg:px-8',
+                'section-container relative z-10 flex h-full flex-col justify-center py-16 pb-24 lg:py-20',
                 heightClasses[height as keyof typeof heightClasses],
                 alignmentClasses[slide.textAlignment as keyof typeof alignmentClasses]
               )}
             >
-              <div className={cn('flex max-w-4xl flex-col gap-6')}>
+              <div className='flex max-w-4xl flex-col gap-5 lg:gap-6'>
                 {slide.title &&
                   (() => {
                     // One <h1> per page: the tag was computed once and rendered inside
                     // the slide map, so a four-slide hero emitted four <h1>s.
                     const SlideHeading = index === 0 ? HeadingTag : 'h2';
                     return (
-                      <SlideHeading className='text-display text-white xl:text-7xl'>
-                        {slide.title}
-                      </SlideHeading>
+                      <SlideHeading className='text-display text-white'>{slide.title}</SlideHeading>
                     );
                   })()}
 
                 {slide.subtitle && (
-                  <p className='text-lg text-white/90 lg:text-xl'>{slide.subtitle}</p>
+                  <p className='text-h2_light max-w-2xl text-white/90'>{slide.subtitle}</p>
                 )}
 
-                {slide.links?.map((link, index) => {
-                  const linkInfo = getLinkFieldInformation(link.link, lng);
-                  if (!linkInfo) return null;
-                  const { url, label, newTab } = linkInfo;
-                  return (
-                    <div className='mt-4' key={index}>
-                      <Button size='xl' variant='inverse' asChild>
-                        <a
-                          href={url}
-                          target={newTab ? '_blank' : '_self'}
-                          rel={newTab ? 'noopener noreferrer' : undefined}
+                {slide.links && slide.links.length > 0 && (
+                  <div
+                    className={cn(
+                      'mt-2 flex flex-wrap gap-3 lg:mt-4 lg:gap-4',
+                      ctaRowAlignment[slide.textAlignment as keyof typeof ctaRowAlignment]
+                    )}
+                  >
+                    {slide.links.map((link, linkIndex) => {
+                      const linkInfo = getLinkFieldInformation(link.link, lng);
+                      if (!linkInfo) return null;
+                      const { url, label, newTab } = linkInfo;
+                      return (
+                        <Button
+                          key={link.id ?? linkIndex}
+                          size='xl'
+                          variant={linkIndex === 0 ? 'inverse' : 'outline-inverse'}
+                          asChild
                         >
-                          {label}
-                        </a>
-                      </Button>
-                    </div>
-                  );
-                })}
+                          <a
+                            href={url}
+                            target={newTab ? '_blank' : '_self'}
+                            rel={newTab ? 'noopener noreferrer' : undefined}
+                          >
+                            {label}
+                          </a>
+                        </Button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -214,35 +236,52 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
         <>
           <button
             onClick={prevSlide}
-            className='absolute top-1/2 left-4 z-20 hidden -translate-y-1/2 rounded-full bg-white/20 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/40 lg:block'
+            type='button'
+            className={cn(
+              controlClasses,
+              'absolute top-1/2 left-4 z-20 hidden size-12 -translate-y-1/2 lg:flex'
+            )}
             aria-label={t('a11y.prevSlide')}
           >
-            <LuChevronLeft className='h-6 w-6' />
+            <LuChevronLeft className='size-6' aria-hidden='true' />
           </button>
           <button
             onClick={nextSlide}
-            className='absolute top-1/2 right-4 z-20 hidden -translate-y-1/2 rounded-full bg-white/20 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/40 lg:block'
+            type='button'
+            className={cn(
+              controlClasses,
+              'absolute top-1/2 right-4 z-20 hidden size-12 -translate-y-1/2 lg:flex'
+            )}
             aria-label={t('a11y.nextSlide')}
           >
-            <LuChevronRight className='h-6 w-6' />
+            <LuChevronRight className='size-6' aria-hidden='true' />
           </button>
         </>
       )}
 
       {/* Dots Navigation */}
       {showDots && slides.length > 1 && (
-        <div className='absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2'>
+        <div className='absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2'>
           {slides.map((_, index) => (
+            // The visible dot stays small; the button around it is a 44px tap target.
             <button
               key={index}
+              type='button'
               onClick={() => goToSlide(index)}
-              className={cn(
-                'h-3 w-3 rounded-full transition-all',
-                index === currentSlide ? 'w-8 bg-white' : 'bg-white/50 hover:bg-white/80'
-              )}
+              className='group flex h-11 min-w-7 items-center justify-center rounded-full px-1 outline-none focus-visible:ring-2 focus-visible:ring-white'
               aria-label={t('a11y.goToSlide', { number: index + 1 })}
               aria-current={index === currentSlide}
-            />
+            >
+              <span
+                aria-hidden='true'
+                className={cn(
+                  'block h-3 rounded-full transition-all',
+                  index === currentSlide
+                    ? 'w-8 bg-white'
+                    : 'w-3 bg-white/50 group-hover:bg-white/80'
+                )}
+              />
+            </button>
           ))}
         </div>
       )}
@@ -252,10 +291,14 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
         <button
           type='button'
           onClick={() => setIsPaused((paused) => !paused)}
-          className='absolute right-4 bottom-6 z-20 rounded-full bg-white/20 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/40'
+          className={cn(controlClasses, 'absolute right-4 bottom-4 z-20')}
           aria-label={isPaused ? t('a11y.playSlideshow') : t('a11y.pauseSlideshow')}
         >
-          {isPaused ? <LuPlay className='h-4 w-4' /> : <LuPause className='h-4 w-4' />}
+          {isPaused ? (
+            <LuPlay className='size-4' aria-hidden='true' />
+          ) : (
+            <LuPause className='size-4' aria-hidden='true' />
+          )}
         </button>
       )}
     </HawkStarsSection>

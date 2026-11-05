@@ -8,17 +8,26 @@ import { HawkStarsSection } from '@/components/layout';
 import { ImageMedia } from '@/payload/components/Media';
 import { Language } from '@/i18n/settings';
 
+// The text column is capped at max-w-4xl, so it also needs placing inside the
+// 6xl content column — `items-center` alone centred the text inside a box that
+// still sat on the left edge.
 const alignmentClasses = {
-  left: 'text-left items-start',
-  center: 'text-center items-center',
-  right: 'text-right items-end',
+  left: 'mr-auto text-left items-start',
+  center: 'mx-auto text-center items-center',
+  right: 'ml-auto text-right items-end',
+};
+
+const ctaRowAlignment = {
+  left: 'sm:justify-start',
+  center: 'sm:justify-center',
+  right: 'sm:justify-end',
 };
 
 const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock & { lng: Language }> = (
   data
 ) => {
-  const HeadingTag = data.headingLevel === 'h2' ? 'h2' : 'h1';
   if (!data) return null;
+  const HeadingTag = data.headingLevel === 'h2' ? 'h2' : 'h1';
 
   const {
     backgroundImage,
@@ -31,19 +40,19 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock & { ln
     lng,
   } = data;
 
+  const alignment = (textAlignment ?? 'center') as keyof typeof alignmentClasses;
   const bgImage = getImagePayloadUrl(backgroundImage);
 
-  const primaryCta = links && links[0]?.link;
-  const secondaryCta = links && links[1]?.link;
-  const primaryCTAInfo = primaryCta && getLinkFieldInformation(primaryCta, lng);
-  const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta, lng);
+  const ctas = (links ?? [])
+    .slice(0, 2)
+    .map((item) => (item?.link ? getLinkFieldInformation(item.link, lng) : undefined));
 
   return (
     <HawkStarsSection
       spacing='none'
       padding='none'
       cap='none'
-      className='relative min-h-150 w-full lg:min-h-175'
+      className='bg-green relative min-h-150 w-full overflow-hidden lg:min-h-175'
       id={sectionId || undefined}
       data-blockid='heroWithBackgroundImage'
     >
@@ -54,43 +63,54 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock & { ln
           fill
           src={bgImage.url}
           alt={bgImage.alt ?? ''}
+          sizes='100vw'
           preload
         />
       )}
 
-      {/* Overlay */}
+      {/* Overlay — editor-controlled darkness */}
       <div
+        aria-hidden='true'
         className='absolute inset-0 bg-black'
         style={{ opacity: (overlayOpacity ?? 50) / 100 }}
       />
+      {/* Fixed scrim so white type stays legible on bright photos at any overlay setting. */}
+      <div
+        aria-hidden='true'
+        className='absolute inset-0 bg-linear-to-t from-black/50 via-black/20 to-transparent'
+      />
 
       {/* Content */}
-      <div className='relative z-10 container mx-auto flex min-h-150 flex-col justify-center px-4 py-32 lg:min-h-175'>
-        <div
-          className={cn(
-            'flex max-w-4xl flex-col gap-6',
-            alignmentClasses[textAlignment as keyof typeof alignmentClasses]
-          )}
-        >
-          {title && (
-            <HeadingTag className='text-4xl font-bold text-white lg:text-6xl xl:text-7xl'>
-              {title}
-            </HeadingTag>
-          )}
+      <div className='section-container relative z-10 flex min-h-150 flex-col justify-center py-20 lg:min-h-175 lg:py-28'>
+        <div className={cn('flex max-w-4xl flex-col gap-5 lg:gap-6', alignmentClasses[alignment])}>
+          {title && <HeadingTag className='text-display text-white'>{title}</HeadingTag>}
 
-          {subtitle && <p className='max-w-2xl text-lg text-white/90 lg:text-xl'>{subtitle}</p>}
+          {subtitle && <p className='text-h2_light max-w-2xl text-white/90'>{subtitle}</p>}
 
-          {(primaryCTAInfo || secondaryCTAInfo) && (
-            <div className='mt-4 flex flex-col gap-4 sm:flex-row'>
-              {primaryCTAInfo && (
-                <Button size='lg' variant='secondary' asChild>
-                  <a href={primaryCTAInfo.url}>{primaryCTAInfo.label}</a>
-                </Button>
+          {ctas.some(Boolean) && (
+            <div
+              className={cn(
+                'mt-2 flex flex-col gap-3 sm:flex-row lg:mt-4',
+                ctaRowAlignment[alignment]
               )}
-              {secondaryCTAInfo && (
-                <Button size='lg' variant='outline' asChild>
-                  <a href={secondaryCTAInfo.url}>{secondaryCTAInfo.label}</a>
-                </Button>
+            >
+              {ctas.map((cta, index) =>
+                cta ? (
+                  <Button
+                    key={index}
+                    size='xl'
+                    variant={index === 0 ? 'inverse' : 'outline-inverse'}
+                    asChild
+                  >
+                    <a
+                      href={cta.url}
+                      target={cta.newTab ? '_blank' : undefined}
+                      rel={cta.newTab ? 'noopener noreferrer' : undefined}
+                    >
+                      {cta.label}
+                    </a>
+                  </Button>
+                ) : null
               )}
             </div>
           )}

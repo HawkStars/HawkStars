@@ -57,23 +57,31 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps & { lng:
     }
   }, [percentage, animateProgress, inView]);
 
+  // light: white card · dark: the ink band · gradient: the green brand band.
   const themeClasses = {
-    light: 'bg-white border border-gray-200',
-    dark: 'bg-black text-white border border-gray-700',
-    gradient: 'bg-gradient-to-br from-green to-bege-dark text-white',
+    light: 'card-md border border-bege-dark text-black',
+    dark: 'card-md bg-ink text-white',
+    gradient: 'card-md bg-linear-to-br from-green to-green-dark text-white',
   };
 
   const progressBarClasses = {
     light: 'bg-green',
-    dark: 'bg-green',
+    dark: 'bg-white',
     gradient: 'bg-white',
   };
 
   const progressBgClasses = {
     light: 'bg-bege-dark',
-    dark: 'bg-gray-700',
+    dark: 'bg-white/20',
     gradient: 'bg-white/20',
   };
+
+  const isLight = theme !== 'dark' && theme !== 'gradient';
+  const themeKey = (theme && theme in themeClasses ? theme : 'light') as keyof typeof themeClasses;
+  const mutedText = isLight ? 'text-black/60' : 'text-white/80';
+  const ctas = (links ?? [])
+    .map((link) => getLinkFieldInformation(link.link, lng))
+    .filter((info): info is NonNullable<typeof info> => Boolean(info));
 
   return (
     <HawkStarsSection
@@ -87,115 +95,121 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps & { lng:
     >
       <div
         className={cn(
-          'card-lg rounded-xl p-8 lg:p-12',
-          themeClasses[theme as keyof typeof themeClasses]
+          'mx-auto flex max-w-4xl flex-col gap-8 p-6 sm:p-8 lg:p-12',
+          themeClasses[themeKey]
         )}
       >
-        <div className='flex flex-col gap-8'>
-          {/* Header */}
-          <div className='text-center'>
-            <div className='bg-bege-light mb-4 inline-flex rounded-full p-3'>
-              <LuTarget className='text-green h-6 w-6' />
-            </div>
-            <h2 className='text-h2_semibold mb-4'>{title}</h2>
-            {description && (
-              <p
-                className={cn(
-                  'mx-auto max-w-2xl text-lg',
-                  theme === 'light' ? 'text-gray-600' : 'text-gray-300'
-                )}
-              >
-                {description}
-              </p>
+        <header className='flex flex-col items-center text-center'>
+          <span
+            className={cn(
+              'mb-4 inline-flex rounded-full p-3',
+              isLight ? 'bg-bege-dark text-green' : 'bg-white/10 text-white'
             )}
-          </div>
-
-          {/* Progress Bar */}
-          <div className='space-y-4'>
-            <div
+          >
+            <LuTarget aria-hidden className='size-6' />
+          </span>
+          <h2 className='text-h2_semibold'>{title}</h2>
+          {description && (
+            <p
               className={cn(
-                'relative h-6 w-full overflow-hidden rounded-full',
-                progressBgClasses[theme as keyof typeof progressBgClasses]
+                'mt-4 max-w-2xl text-lg leading-relaxed',
+                isLight ? 'text-black/70' : 'text-white/85'
               )}
             >
+              {description}
+            </p>
+          )}
+        </header>
+
+        <div className='flex flex-col gap-3'>
+          {/* The headline figure: how much is in, and how far along that is. */}
+          <div className='flex items-end justify-between gap-4'>
+            <div>
+              <div className={cn('text-eyebrow mb-1', mutedText)}>{t('blocks.raised')}</div>
               <div
                 className={cn(
-                  'h-full rounded-full transition-all duration-1000 ease-out',
-                  progressBarClasses[theme as keyof typeof progressBarClasses]
+                  'font-display text-4xl leading-none font-semibold lg:text-5xl',
+                  isLight && 'text-green'
                 )}
-                style={{ width: `${progress}%` }}
-              />
-              {showPercentage && (
-                <div
-                  className={cn(
-                    'absolute inset-0 flex items-center justify-center text-sm font-semibold text-gray-900 transition-colors duration-200 ease-in',
-                    {
-                      'text-white': (theme != 'gradient' && progress > 50) || theme == 'dark',
-                      'text-black': theme != 'dark' && progress <= 50,
-                    }
-                  )}
-                >
-                  {Math.round(progress)}%
-                </div>
-              )}
-            </div>
-
-            {/* Stats */}
-            <div className='flex flex-wrap justify-between gap-4'>
-              <div>
-                <div className='text-sm tracking-wide uppercase opacity-70'>
-                  {t('blocks.raised')}
-                </div>
-                <div className='text-2xl font-bold lg:text-3xl'>
-                  {formatCurrency(currentAmount, lng)}
-                </div>
-              </div>
-              <div className='text-right'>
-                <div className='text-sm tracking-wide uppercase opacity-70'>{t('blocks.goal')}</div>
-                <div className='text-2xl font-bold lg:text-3xl'>
-                  {formatCurrency(goalAmount, lng)}
-                </div>
+              >
+                {formatCurrency(currentAmount, lng)}
               </div>
             </div>
-          </div>
-
-          {/* Donor Count & CTA */}
-          <div className='flex flex-col items-center gap-4 sm:flex-row sm:justify-between'>
-            {Number(donorCount) > 0 && (
-              <div className='flex items-center gap-2 text-lg'>
-                <LuUsers className='h-5 w-5' />
-                <span>
-                  <strong>{donorCount}</strong> donors
-                </span>
+            {showPercentage && (
+              <div
+                aria-hidden
+                className='font-display text-2xl leading-none font-semibold tabular-nums lg:text-3xl'
+              >
+                {Math.round(progress)}%
               </div>
             )}
-            {links?.map((link, index) => {
-              const linkInfo = getLinkFieldInformation(link.link, lng);
-              if (!linkInfo) return null;
-              const { url, label, newTab } = linkInfo;
-              return (
-                <Button
-                  key={index}
-                  size='lg'
-                  className={cn(
-                    'group',
-                    theme === 'gradient' && 'text-green hover:bg-bege-light bg-white'
-                  )}
-                  asChild
-                >
-                  <a
-                    href={url}
-                    target={newTab ? '_blank' : '_self'}
-                    rel={newTab ? 'noopener noreferrer' : undefined}
-                  >
-                    <LuHeart className='mr-2 h-5 w-5' />
-                    {label}
-                  </a>
-                </Button>
-              );
-            })}
+          </div>
+
+          <div
+            role='progressbar'
+            aria-label={title}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(percentage)}
+            className={cn('h-3 w-full overflow-hidden rounded-full', progressBgClasses[themeKey])}
+          >
+            <div
+              className={cn(
+                'h-full rounded-full transition-[width] duration-1000 ease-out',
+                progressBarClasses[themeKey]
+              )}
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+
+          <div
+            className={cn(
+              'flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-sm',
+              mutedText
+            )}
+          >
+            {Number(donorCount) > 0 ? (
+              <span className='flex items-center gap-2'>
+                <LuUsers aria-hidden className='size-4' />
+                <span>
+                  <strong className={isLight ? 'text-black' : 'text-white'}>{donorCount}</strong>{' '}
+                  {t('blocks.donors', { count: Number(donorCount) })}
+                </span>
+              </span>
+            ) : (
+              <span />
+            )}
+            <span>
+              {t('blocks.goal')}:{' '}
+              <strong className={isLight ? 'text-black' : 'text-white'}>
+                {formatCurrency(goalAmount, lng)}
+              </strong>
+            </span>
           </div>
         </div>
+
+        {/* Donate is the "act now" action: the first CTA is the view's one gold button. */}
+        {ctas.length > 0 && (
+          <div className='flex flex-wrap justify-center gap-4'>
+            {ctas.map(({ url, label, newTab }, index) => (
+              <Button
+                key={index}
+                size='xl'
+                variant={index === 0 ? 'accent' : isLight ? 'outline' : 'outline-inverse'}
+                asChild
+              >
+                <a
+                  href={url}
+                  target={newTab ? '_blank' : '_self'}
+                  rel={newTab ? 'noopener noreferrer' : undefined}
+                >
+                  {index === 0 && <LuHeart aria-hidden className='size-5' />}
+                  {label}
+                </a>
+              </Button>
+            ))}
+          </div>
+        )}
       </div>
     </HawkStarsSection>
   );

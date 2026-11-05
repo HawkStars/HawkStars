@@ -11,6 +11,10 @@ import { Language } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
 import { usePrefersReducedMotion } from '@/lib/hooks/usePrefersReducedMotion';
 
+// 44px round controls over the image, so they're comfortable to tap on a phone.
+const navButtonClass =
+  'absolute z-20 flex size-11 items-center justify-center rounded-full bg-white/85 text-black shadow-md transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-green focus-visible:outline-none';
+
 const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: Language }> = (
   data
 ) => {
@@ -39,23 +43,26 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
   const backgroundClasses = {
     none: '',
     light: 'bg-bege-light',
-    dark: 'bg-gray-900',
+    // Ink is the palette's alternate dark band; brand is a soft green tint.
+    dark: 'bg-ink',
     brand: 'bg-green/10',
   };
 
   const textClasses = {
-    none: 'text-gray-900',
-    light: 'text-gray-900',
+    none: 'text-black',
+    light: 'text-black',
     dark: 'text-white',
-    brand: 'text-gray-900',
+    brand: 'text-black',
   };
 
   const subtitleClasses = {
-    none: 'text-gray-600',
-    light: 'text-gray-600',
-    dark: 'text-gray-300',
-    brand: 'text-gray-700',
+    none: 'text-black/70',
+    light: 'text-black/70',
+    dark: 'text-white/80',
+    brand: 'text-black/70',
   };
+
+  const isDark = backgroundColor === 'dark';
 
   const goToImage = useCallback(
     (index: number) => {
@@ -104,7 +111,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
       if (!mediaImage) return null;
 
       return (
-        <div className='relative aspect-4/3 w-full overflow-hidden rounded-xl'>
+        <div className='card-md relative aspect-4/3 w-full overflow-hidden'>
           {mediaImage?.url && (
             <ImageMedia
               src={mediaImage.url}
@@ -124,7 +131,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
 
     // Slideshow mode
     return (
-      <div className='relative aspect-4/3 w-full overflow-hidden rounded-xl'>
+      <div className='card-md relative aspect-4/3 w-full overflow-hidden'>
         {images.map((img, index: number) => {
           const mediaImage = getImagePayloadUrl(img.image);
           if (!mediaImage) return null;
@@ -158,10 +165,10 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
           <button
             type='button'
             onClick={() => setIsPlaying((playing) => !playing)}
-            className='focus-visible:ring-ring absolute top-2 right-2 z-20 rounded-full bg-white/80 p-2 shadow-md transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none'
+            className={cn(navButtonClass, 'top-2 right-2')}
             aria-label={isPlaying ? t('a11y.pauseSlideshow') : t('a11y.playSlideshow')}
           >
-            {isPlaying ? <LuPause className='h-4 w-4' /> : <LuPlay className='h-4 w-4' />}
+            {isPlaying ? <LuPause className='size-4' /> : <LuPlay className='size-4' />}
           </button>
         )}
 
@@ -169,32 +176,42 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
         {images.length > 1 && (
           <>
             <button
+              type='button'
               onClick={prevImage}
-              className='absolute top-1/2 left-2 z-20 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow-md transition-colors hover:bg-white'
+              className={cn(navButtonClass, 'top-1/2 left-2 -translate-y-1/2')}
               aria-label={t('a11y.prevImage')}
             >
-              <LuChevronLeft className='h-4 w-4' />
+              <LuChevronLeft className='size-5' />
             </button>
             <button
+              type='button'
               onClick={nextImage}
-              className='absolute top-1/2 right-2 z-20 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow-md transition-colors hover:bg-white'
+              className={cn(navButtonClass, 'top-1/2 right-2 -translate-y-1/2')}
               aria-label={t('a11y.nextImage')}
             >
-              <LuChevronRight className='h-4 w-4' />
+              <LuChevronRight className='size-5' />
             </button>
 
             {/* Dots */}
-            <div className='absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-1.5'>
+            <div className='absolute bottom-1 left-1/2 z-20 flex -translate-x-1/2'>
               {images.map((_, index) => (
                 <button
+                  type='button'
                   key={index}
                   onClick={() => goToImage(index)}
-                  className={cn(
-                    'h-2 w-2 rounded-full transition-all',
-                    index === currentImageIndex ? 'w-4 bg-white' : 'bg-white/60 hover:bg-white/80'
-                  )}
-                  aria-label={`Go to image ${index + 1}`}
-                />
+                  className='group flex h-11 w-6 items-center justify-center'
+                  aria-label={t('a11y.goToSlide', { number: index + 1 })}
+                  aria-current={index === currentImageIndex}
+                >
+                  <span
+                    className={cn(
+                      'block h-2 rounded-full shadow-sm transition-all',
+                      index === currentImageIndex
+                        ? 'w-4 bg-white'
+                        : 'w-2 bg-white/60 group-hover:bg-white/80'
+                    )}
+                  />
+                </button>
               ))}
             </div>
           </>
@@ -206,34 +223,33 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
   const testimonialContent = (
     <div className='flex flex-col justify-center'>
       {/* Quote Icon */}
-      <LuQuote className='text-green mb-4 h-10 w-10' />
+      <LuQuote
+        aria-hidden
+        className={cn('mb-4 size-10', isDark ? 'text-white/70' : 'text-green')}
+      />
 
       {/* Testimonial Text */}
       <blockquote
         className={cn(
-          'mb-8 text-xl leading-relaxed font-medium italic lg:text-2xl',
+          'mb-8 max-w-prose text-xl leading-relaxed font-medium italic lg:text-2xl',
           textClasses[backgroundColor as keyof typeof textClasses]
         )}
       >
-        {`"${testimonial}"`}
+        {`“${testimonial}”`}
       </blockquote>
 
       {/* Author Info */}
       <div className='flex items-center gap-4'>
         {profileImage?.url && (
-          <div className='relative h-14 w-14 shrink-0 overflow-hidden rounded-full'>
-            <ImageMedia
-              src={profileImage.url}
-              alt={profileImage.alt || author?.name || ''}
-              fill
-              className='object-cover'
-            />
+          <div className='bg-bege-dark relative size-14 shrink-0 overflow-hidden rounded-full'>
+            {/* Decorative: the author's name is printed right beside it. */}
+            <ImageMedia src={profileImage.url} alt='' fill sizes='56px' className='object-cover' />
           </div>
         )}
         <div>
           <div
             className={cn(
-              'text-lg font-semibold',
+              'text-h3_semibold',
               textClasses[backgroundColor as keyof typeof textClasses]
             )}
           >
@@ -270,11 +286,11 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
     >
       {/* Section Header */}
       {(title || subtitle) && (
-        <div className='section-header text-center'>
+        <header className='section-header text-center'>
           {title && (
             <h2
               className={cn(
-                'mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl',
+                'text-h2_semibold',
                 textClasses[backgroundColor as keyof typeof textClasses]
               )}
             >
@@ -284,14 +300,14 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
           {subtitle && (
             <p
               className={cn(
-                'mx-auto max-w-2xl text-lg leading-relaxed',
+                'text-h2_light mx-auto mt-4 max-w-2xl',
                 subtitleClasses[backgroundColor as keyof typeof subtitleClasses]
               )}
             >
               {subtitle}
             </p>
           )}
-        </div>
+        </header>
       )}
 
       {/* Main Content */}

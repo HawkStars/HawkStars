@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { LuFileText, LuFile, LuTable, LuImage } from 'react-icons/lu';
+import { LuDownload, LuFileText, LuFile, LuTable, LuImage } from 'react-icons/lu';
 import type { IconBaseProps } from 'react-icons';
 import type {
   ResourceDownloadBlock as ResourceDownloadBlockProps,
@@ -7,7 +7,7 @@ import type {
 } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { HawkStarsSection } from '@/components/layout';
-import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
 
@@ -52,23 +52,21 @@ export const ResourceDownloadBlock = async ({
     >
       {title && (
         <h2
-          className={cn(
-            'mb-10 max-w-1/2 text-3xl font-bold tracking-tight text-balance text-wrap lg:mb-12 lg:text-4xl',
-            {
-              'text-center': variation === 'card',
-              'pb-2 text-left': variation === 'list',
-            }
-          )}
+          className={cn('text-h2_semibold mb-10 lg:mb-12', {
+            'mx-auto max-w-3xl text-center': variation === 'card',
+            'max-w-3xl': variation !== 'card',
+          })}
         >
           {title}
         </h2>
       )}
 
       <div
-        className={cn('flex flex-col space-y-2', {
-          'flex flex-col': variation === 'list',
-          'grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4': variation === 'card',
-        })}
+        className={cn(
+          variation === 'card'
+            ? 'grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+            : 'divide-bege-dark border-bege-dark flex flex-col divide-y border-y'
+        )}
       >
         {resources.map((resource, index) => {
           const Icon = icons[resource.fileType as keyof typeof icons] || LuFile;
@@ -99,6 +97,8 @@ export const ResourceDownloadBlock = async ({
   );
 };
 
+// Download links point straight at the stored file (often a third-party host), so they
+// are plain anchors: next/link would try to client-route them.
 const ResourceListVariation: FC<ResourceItem> = ({
   icon: Icon,
   file,
@@ -107,21 +107,26 @@ const ResourceListVariation: FC<ResourceItem> = ({
   downloadLabel,
 }) => {
   return (
-    <div className={cn('border-bege-dark flex gap-2 border-b pt-2 pb-4')}>
-      {file && (
-        <Link
-          href={file?.url || '#'}
-          className='flex cursor-pointer flex-row gap-2 pt-1'
-          aria-label={`${downloadLabel}: ${title}`}
-          download
-        >
-          <Icon className='text-green h-6 w-6' />
-        </Link>
-      )}
-      <div className='flex flex-col gap-2'>
-        <h3 className='text-h3_semibold'>{title}</h3>
-        {description && <p className='text-gray-700'>{description}</p>}
+    <div className='flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:gap-6'>
+      <div className='flex flex-1 gap-4'>
+        <span className='bg-bege-dark text-green flex size-11 shrink-0 items-center justify-center rounded-full'>
+          <Icon aria-hidden='true' className='size-5' />
+        </span>
+        <div className='flex flex-col gap-1'>
+          <h3 className='text-h3_semibold'>{title}</h3>
+          {description && (
+            <p className='text-body_regular max-w-prose text-black/70'>{description}</p>
+          )}
+        </div>
       </div>
+      {file?.url && (
+        <Button asChild variant='outline' size='lg' className='self-start sm:self-center'>
+          <a href={file.url} download aria-label={`${downloadLabel}: ${title}`}>
+            <LuDownload aria-hidden='true' />
+            {downloadLabel}
+          </a>
+        </Button>
+      )}
     </div>
   );
 };
@@ -134,14 +139,19 @@ const ResourceCardVariation: FC<ResourceItem> = ({
   downloadLabel,
 }) => {
   return (
-    <div className={cn('card-sm card-hover h-full rounded-xl border border-gray-200 p-6')}>
+    <div className='card card-hover flex h-full flex-col p-6'>
+      <span className='bg-bege-dark text-green mb-4 flex size-11 items-center justify-center rounded-full'>
+        <Icon aria-hidden='true' className='size-5' />
+      </span>
       <h3 className='text-h3_semibold mb-2'>{title}</h3>
-      {description && <p className='mb-4 text-gray-700'>{description}</p>}
-      {file && (
-        <Link href={file.url || '#'} className='mt-auto' download>
-          {downloadLabel}
-          <Icon className='h-6 w-6 text-green-600' />
-        </Link>
+      {description && <p className='text-body_regular mb-6 text-black/70'>{description}</p>}
+      {file?.url && (
+        <Button asChild variant='outline' size='lg' className='mt-auto w-full'>
+          <a href={file.url} download aria-label={`${downloadLabel}: ${title}`}>
+            <LuDownload aria-hidden='true' />
+            {downloadLabel}
+          </a>
+        </Button>
       )}
     </div>
   );

@@ -1,12 +1,15 @@
 'use client';
 
+import Link from 'next/link';
 import { LuArrowRight, LuCalendar } from 'react-icons/lu';
 import { HawkStarsSection } from '@/components/layout';
 import { ImageMedia } from '@/payload/components/Media';
 import { CustomImageProps } from '@/lib/image';
+import { cn } from '@/lib/utils';
 import { Language } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
 import { formatDate, formatDateRange } from '@/utils/date';
+import { transformUrl } from '@/utils/paths';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -15,8 +18,10 @@ export type AgendaEventItem = {
   heading: string;
   subheading?: string | null;
   description?: string | null;
+  /** Type slug: an event `type_event`, 'erasmus', or 'project'. Translated for display. */
   badge: string | null;
   image?: Pick<CustomImageProps, 'url' | 'alt'> | null;
+  /** Site path without the locale prefix, e.g. `/events/slug`. */
   href: string;
   /** ISO date string — always the start/only date */
   date: string | null;
@@ -38,17 +43,14 @@ export type AgendaBlockViewProps = {
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
-const typeColors: Record<string, { bg: string; text: string }> = {
-  erasmus: { bg: 'bg-blue-100 dark:bg-blue-900/30', text: 'text-blue-700 dark:text-blue-300' },
-  local_event: {
-    bg: 'bg-green-100 dark:bg-green-900/30',
-    text: 'text-green-700 dark:text-green-300',
-  },
-  international_event: {
-    bg: 'bg-purple-100 dark:bg-purple-900/30',
-    text: 'text-purple-700 dark:text-purple-300',
-  },
-  other: { bg: 'bg-bege-dark dark:bg-zinc-700', text: 'text-zinc-600 dark:text-zinc-400' },
+// Accents keep their one job: ink marks international / Europe, terracotta marks
+// time-bound events, and green marks the NGO's own projects.
+const badgeColors: Record<string, string> = {
+  erasmus: 'bg-ink-light text-ink',
+  international_event: 'bg-ink-light text-ink',
+  local_event: 'bg-terracotta-light text-terracotta-dark',
+  project: 'bg-bege-dark text-green-dark',
+  other: 'bg-bege-dark text-black/70',
 };
 
 // Dates go through utils/date: page locale (these were once pinned to 'pt-PT') and the
@@ -71,13 +73,40 @@ function formatEventDate(
 
 // ─── Sub-renderers ────────────────────────────────────────────────────────────
 
-function BadgeChip({ badge }: { badge: string }) {
-  const colors = typeColors[badge] ?? typeColors.other;
+function BadgeChip({ badge, lng }: { badge: string; lng: Language }) {
+  const { t } = useTranslation(lng, 'common');
   return (
     <span
-      className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wide uppercase ${colors?.bg ?? ''} ${colors?.text ?? ''}`}
+      className={cn(
+        'inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wide uppercase',
+        badgeColors[badge] ?? badgeColors.other
+      )}
     >
-      {badge.replace('_', ' ')}
+      {t(`blocks.eventTypes.${badge}`, { defaultValue: t('blocks.eventTypes.other') })}
+    </span>
+  );
+}
+
+function EventDate({
+  event,
+  lng,
+  className,
+}: {
+  event: AgendaEventItem;
+  lng: Language;
+  className?: string;
+}) {
+  const dateStr = formatEventDate(event.date, lng, event.endDate, event.isDateRange);
+  if (!dateStr) return null;
+  return (
+    <span
+      className={cn(
+        'text-terracotta-dark flex items-center gap-1.5 text-sm font-medium',
+        className
+      )}
+    >
+      <LuCalendar aria-hidden className='size-3.5 shrink-0' />
+      <time dateTime={event.date ?? undefined}>{dateStr}</time>
     </span>
   );
 }
@@ -93,25 +122,23 @@ function ListItem({
   linkLabel: string;
   lng: Language;
 }) {
-  const dateStr = formatEventDate(event.date, lng, event.endDate, event.isDateRange);
-
   return (
-    <div className='flex gap-5 border-b border-zinc-100 py-6 last:border-0 dark:border-zinc-800'>
-      {/* Date column */}
-      <div className='hidden w-28 shrink-0 flex-col items-center justify-start pt-1 sm:flex'>
+    <li className='border-bege-dark flex gap-5 border-b py-6 last:border-0 lg:gap-8'>
+      {/* Date column — a calendar-leaf block: big day, small month and year */}
+      <div className='hidden w-20 shrink-0 flex-col items-center pt-1 text-center sm:flex'>
         {event.date && (
           <>
-            <span className='text-3xl font-bold text-zinc-800 tabular-nums dark:text-zinc-100'>
+            <span className='font-display text-terracotta-dark text-4xl leading-none font-semibold tabular-nums'>
               {formatDate(event.date, lng, { day: 'numeric' })}
             </span>
-            <span className='text-sm font-medium text-zinc-500 uppercase dark:text-zinc-400'>
+            <span className='text-eyebrow mt-1 text-black/70'>
               {formatDate(event.date, lng, { month: 'short' })}
             </span>
-            <span className='dark:text-bege-light text-xs text-gray-700'>
+            <span className='text-xs text-black/60'>
               {formatDate(event.date, lng, { year: 'numeric' })}
             </span>
             {event.isDateRange && event.endDate && (
-              <span className='mt-1 text-xs text-gray-800 dark:text-white'>
+              <span className='mt-1 text-xs text-black/60'>
                 → {formatDate(event.endDate, lng, { day: 'numeric', month: 'short' })}
               </span>
             )}
@@ -120,50 +147,43 @@ function ListItem({
       </div>
 
       {/* Content */}
-      <div className='flex flex-1 flex-col gap-1'>
+      <div className='flex min-w-0 flex-1 flex-col gap-1.5'>
         <div className='flex flex-wrap items-center gap-2'>
-          {event.badge && <BadgeChip badge={event.badge} />}
-          {/* Mobile date */}
-          <span className='flex items-center gap-1 text-xs text-zinc-500 sm:hidden dark:text-zinc-400'>
-            <LuCalendar className='h-3 w-3' />
-            {dateStr}
-          </span>
+          {event.badge && <BadgeChip badge={event.badge} lng={lng} />}
+          <EventDate event={event} lng={lng} className='sm:hidden' />
         </div>
 
-        <h3 className='text-lg font-semibold text-zinc-900 dark:text-zinc-100'>{event.heading}</h3>
+        <h3 className='text-h3_semibold'>{event.heading}</h3>
 
-        {event.subheading && (
-          <p className='text-sm text-zinc-600 dark:text-zinc-400'>{event.subheading}</p>
-        )}
+        {event.subheading && <p className='text-sm text-black/70'>{event.subheading}</p>}
 
         {event.description && (
-          <p className='mt-1 line-clamp-2 text-sm text-zinc-600 dark:text-zinc-400'>
+          <p className='mt-1 line-clamp-2 max-w-prose text-sm leading-relaxed text-black/70'>
             {event.description}
           </p>
         )}
 
-        <a
-          href={event.href}
-          className='mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-green-700 transition-colors hover:text-green-800 hover:underline dark:text-green-400 dark:hover:text-green-300'
+        <Link
+          href={transformUrl(lng, event.href)}
+          className='text-green hover:text-green-dark mt-1 inline-flex min-h-11 items-center gap-1.5 self-start text-sm font-medium underline-offset-4 hover:underline'
         >
           {linkLabel}
-          <LuArrowRight className='h-3.5 w-3.5' />
-        </a>
+          <LuArrowRight aria-hidden className='size-3.5' />
+        </Link>
       </div>
 
-      {/* Image */}
       {event.image?.url && (
-        <div className='relative hidden h-24 w-32 shrink-0 overflow-hidden rounded-lg md:block'>
+        <div className='bg-bege-dark relative hidden h-28 w-40 shrink-0 overflow-hidden rounded-lg md:block'>
           <ImageMedia
             src={event.image.url}
-            alt={event.image.alt || event.heading}
+            alt={event.image.alt || ''}
             fill
-            sizes='128px'
+            sizes='160px'
             className='object-cover'
           />
         </div>
       )}
-    </div>
+    </li>
   );
 }
 
@@ -173,18 +193,36 @@ function CompactItem({ event, lng }: { event: AgendaEventItem; lng: Language }) 
   const dateStr = formatEventDate(event.date, lng, event.endDate, event.isDateRange);
 
   return (
-    <a href={event.href} className='flex flex-col gap-2'>
-      {event.badge && <BadgeChip badge={event.badge} />}
-      <div className='group border-bege-dark relative flex items-center gap-4 rounded-lg border px-4 py-3 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/50'>
-        <LuCalendar className='h-4 w-4 shrink-0 text-zinc-400' />
-        <span className='flex-1 font-mono text-sm text-zinc-500 dark:text-zinc-400'>{dateStr}</span>
-        <span className='flex-1 font-medium text-zinc-900 group-hover:text-green-600 dark:text-zinc-100 dark:group-hover:text-green-400'>
-          {event.heading}
-        </span>
-
-        <LuArrowRight className='h-4 w-4 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5' />
-      </div>
-    </a>
+    <li>
+      <Link
+        href={transformUrl(lng, event.href)}
+        className='card-sm card-hover group focus-visible:ring-green flex min-h-14 items-center gap-4 px-4 py-3 focus-visible:ring-2 focus-visible:outline-hidden'
+      >
+        {/* Stacks on a phone, one row from sm up */}
+        <div className='flex min-w-0 flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:gap-4'>
+          {dateStr && (
+            <time
+              dateTime={event.date ?? undefined}
+              className='text-terracotta-dark shrink-0 text-sm font-medium tabular-nums sm:w-56'
+            >
+              {dateStr}
+            </time>
+          )}
+          <span className='group-hover:text-green min-w-0 flex-1 font-medium transition-colors'>
+            {event.heading}
+          </span>
+          {event.badge && (
+            <span className='shrink-0'>
+              <BadgeChip badge={event.badge} lng={lng} />
+            </span>
+          )}
+        </div>
+        <LuArrowRight
+          aria-hidden
+          className='group-hover:text-green size-4 shrink-0 text-black/40 transition-transform group-hover:translate-x-0.5'
+        />
+      </Link>
+    </li>
   );
 }
 
@@ -199,60 +237,52 @@ function CardItem({
   linkLabel: string;
   lng: Language;
 }) {
-  const dateStr = formatEventDate(event.date, lng, event.endDate, event.isDateRange);
-
   return (
-    <div className='group flex flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-800'>
-      {/* Image */}
-      <div className='bg-bege-dark relative h-44 w-full overflow-hidden dark:bg-zinc-700'>
+    <li className='card card-hover group focus-within:ring-green relative flex flex-col overflow-hidden focus-within:ring-2'>
+      <div className='bg-bege-dark relative aspect-video w-full overflow-hidden'>
         {event.image?.url ? (
           <ImageMedia
             src={event.image.url}
-            alt={event.image.alt || event.heading}
+            alt={event.image.alt || ''}
             fill
-            sizes='(max-width: 768px) 100vw, 33vw'
-            className='object-cover transition-transform duration-300 group-hover:scale-105'
+            sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
+            className='object-cover transition-transform duration-500 group-hover:scale-105'
           />
         ) : (
           <div className='flex h-full w-full items-center justify-center'>
-            <LuCalendar className='h-12 w-12 text-zinc-300 dark:text-zinc-600' />
+            <LuCalendar aria-hidden className='text-green/30 size-12' />
           </div>
         )}
         {event.badge && (
           <div className='absolute top-3 left-3'>
-            <BadgeChip badge={event.badge} />
+            <BadgeChip badge={event.badge} lng={lng} />
           </div>
         )}
       </div>
 
-      {/* Content */}
-      <div className='flex flex-1 flex-col gap-2 p-4'>
-        <div className='flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400'>
-          <LuCalendar className='h-3.5 w-3.5' />
-          <span>{dateStr}</span>
-        </div>
+      <div className='flex flex-1 flex-col gap-2 p-5'>
+        <EventDate event={event} lng={lng} />
 
-        <h3 className='font-semibold text-zinc-900 dark:text-zinc-100'>{event.heading}</h3>
+        <h3 className='text-h3_semibold group-hover:text-green transition-colors'>
+          {event.heading}
+        </h3>
 
-        {event.subheading && (
-          <p className='text-sm text-zinc-500 dark:text-zinc-400'>{event.subheading}</p>
-        )}
+        {event.subheading && <p className='text-sm text-black/70'>{event.subheading}</p>}
 
         {event.description && (
-          <p className='line-clamp-2 text-sm text-zinc-600 dark:text-zinc-400'>
-            {event.description}
-          </p>
+          <p className='line-clamp-2 text-sm leading-relaxed text-black/70'>{event.description}</p>
         )}
 
-        <a
-          href={event.href}
-          className='mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-medium text-green-700 transition-colors hover:text-green-800 hover:underline dark:text-green-400 dark:hover:text-green-300'
+        {/* The link's ::after covers the whole card, so the card is one big tap target. */}
+        <Link
+          href={transformUrl(lng, event.href)}
+          className='text-green mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-medium after:absolute after:inset-0 focus-visible:outline-hidden'
         >
           {linkLabel}
-          <LuArrowRight className='h-3.5 w-3.5' />
-        </a>
+          <LuArrowRight aria-hidden className='size-3.5' />
+        </Link>
       </div>
-    </div>
+    </li>
   );
 }
 
@@ -276,61 +306,60 @@ export function AgendaBlockView({
   // on the page (the homepage most of all). It reappears as soon as an event is added.
   if (!loading && events.length === 0) return null;
 
+  const hasEvents = !loading && events.length > 0;
+  // The CMS sends `null` when the editor never picked a layout; a default parameter
+  // only covers `undefined`, so the block used to render nothing at all.
+  const view = layout ?? 'list';
+
   return (
     <HawkStarsSection
       spacing='default'
       padding='none'
       cap='none'
-      className='w-full'
+      container
       id={sectionId ?? undefined}
       data-blockid='agenda'
     >
-      <div className='mx-auto w-full max-w-6xl px-4'>
-        {/* Header */}
-        {(title || subtitle) && (
-          <div className='mb-8 text-center'>
-            {title && (
-              <h2 className='text-h2_semibold mb-2 text-zinc-900 dark:text-zinc-100'>{title}</h2>
-            )}
-            {subtitle && <p className='text-lg text-zinc-600 dark:text-zinc-400'>{subtitle}</p>}
-          </div>
-        )}
+      {(title || subtitle) && (
+        <header className='section-header text-center'>
+          {title && <h2 className='text-h2_semibold'>{title}</h2>}
+          {subtitle && <p className='text-h2_light mt-4 text-black/70'>{subtitle}</p>}
+        </header>
+      )}
 
-        {/* Loading */}
-        {loading && (
-          <div className='flex items-center gap-3 py-8 text-zinc-500'>
-            <div className='h-5 w-5 animate-spin rounded-full border-2 border-zinc-300 border-t-green-500' />
-            <span className='text-sm'>{t('agenda.loading')}</span>
-          </div>
-        )}
+      {loading && (
+        <div role='status' className='flex items-center justify-center gap-3 py-12 text-black/60'>
+          <span
+            aria-hidden
+            className='border-bege-dark border-t-green size-5 animate-spin rounded-full border-2'
+          />
+          <span className='text-sm'>{t('agenda.loading')}</span>
+        </div>
+      )}
 
-        {/* List */}
-        {!loading && events.length > 0 && layout === 'list' && (
-          <>
-            {events.map((ev) => (
-              <ListItem key={ev.id} event={ev} linkLabel={label} lng={lng} />
-            ))}
-          </>
-        )}
+      {hasEvents && view === 'list' && (
+        <ul className='card mx-auto max-w-4xl px-5 lg:px-8'>
+          {events.map((ev) => (
+            <ListItem key={ev.id} event={ev} linkLabel={label} lng={lng} />
+          ))}
+        </ul>
+      )}
 
-        {/* Compact */}
-        {!loading && events.length > 0 && layout === 'compact' && (
-          <div className='flex flex-col gap-2'>
-            {events.map((ev) => (
-              <CompactItem key={ev.id} event={ev} lng={lng} />
-            ))}
-          </div>
-        )}
+      {hasEvents && view === 'compact' && (
+        <ul className='mx-auto flex max-w-4xl flex-col gap-2'>
+          {events.map((ev) => (
+            <CompactItem key={ev.id} event={ev} lng={lng} />
+          ))}
+        </ul>
+      )}
 
-        {/* Cards */}
-        {!loading && events.length > 0 && layout === 'cards' && (
-          <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
-            {events.map((ev) => (
-              <CardItem key={ev.id} event={ev} linkLabel={label} lng={lng} />
-            ))}
-          </div>
-        )}
-      </div>
+      {hasEvents && view === 'cards' && (
+        <ul className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8'>
+          {events.map((ev) => (
+            <CardItem key={ev.id} event={ev} linkLabel={label} lng={lng} />
+          ))}
+        </ul>
+      )}
     </HawkStarsSection>
   );
 }

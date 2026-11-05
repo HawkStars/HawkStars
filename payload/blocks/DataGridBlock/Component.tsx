@@ -1,5 +1,9 @@
 import type { DataGridBlock as DataGridBlockProps } from '@/payload-types';
 import { HawkStarsSection } from '@/components/layout';
+import { cn } from '@/lib/utils';
+
+const headerCell = 'text-body_semibold px-4 py-3 text-left align-bottom lg:px-6 lg:py-4';
+const bodyCell = 'text-body_regular px-4 py-3 text-left align-top lg:px-6 lg:py-4';
 
 export const DataGridBlock: React.FC<DataGridBlockProps> = ({
   title,
@@ -20,36 +24,38 @@ export const DataGridBlock: React.FC<DataGridBlockProps> = ({
       id={sectionId || undefined}
       data-blockid='dataGridBlock'
     >
-      {title && <h2 className='text-h2_bold mb-10 text-center md:mb-12'>{title}</h2>}
-      <div className='overflow-x-auto rounded-lg'>
-        <table className='lg:mx-auto lg:min-w-6xl'>
+      {title && <h2 className='text-h2_semibold section-header text-center'>{title}</h2>}
+      {/* A white card with warm row rules. The table fills the content column (the old
+          `lg:min-w-6xl` overflowed it between 1024 and 1280px) and wraps text on mobile
+          instead of forcing a sideways scroll; `overflow-x-auto` stays as a safety net. */}
+      <div className='card border-bege-dark overflow-x-auto border'>
+        <table className='w-full border-collapse'>
           <thead>
-            <tr className='bg-bege-dark border-bege-light border-b'>
-              <th className='px-6 py-4 text-center text-sm font-semibold'>{columnOneHeader}</th>
-              <th className='px-6 py-4 text-center text-sm font-semibold'>{columnTwoHeader}</th>
+            <tr className='bg-bege-dark'>
+              <th scope='col' className={headerCell}>
+                {columnOneHeader}
+              </th>
+              <th scope='col' className={headerCell}>
+                {columnTwoHeader}
+              </th>
               {hasThirdColumn && (
-                <th className='px-6 py-4 text-center text-sm font-semibold'>{columnThreeHeader}</th>
+                <th scope='col' className={headerCell}>
+                  {columnThreeHeader}
+                </th>
               )}
             </tr>
           </thead>
-          <tbody className='text-body'>
+          <tbody>
             {rows?.map((row, index) => (
-              <tr key={row.id || index}>
-                <td className='border-r-bege-dark border-r px-6 py-4 text-center text-sm'>
+              <tr
+                key={row.id || index}
+                className='border-bege-dark even:bg-bege-light border-t first:border-t-0'
+              >
+                <th scope='row' className={cn(bodyCell, 'font-semibold')}>
                   {row.columnOne}
-                </td>
-                <td
-                  className={
-                    hasThirdColumn
-                      ? 'border-r-bege-dark border-r px-6 py-4 text-center text-sm'
-                      : 'px-6 py-4 text-center text-sm'
-                  }
-                >
-                  {row.columnTwo}
-                </td>
-                {hasThirdColumn && (
-                  <td className='px-6 py-4 text-center text-sm'>{row.columnThree}</td>
-                )}
+                </th>
+                <td className={bodyCell}>{row.columnTwo}</td>
+                {hasThirdColumn && <td className={bodyCell}>{row.columnThree}</td>}
               </tr>
             ))}
           </tbody>

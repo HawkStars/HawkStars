@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import { LuMail } from 'react-icons/lu';
 import { PiCheckCircleThin } from 'react-icons/pi';
 import type { NewsletterSignupBlock as NewsletterSignupBlockProps } from '@/payload-types';
@@ -17,6 +17,10 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps & { lng:
   lng,
 }) => {
   const { t } = useTranslation(lng, 'common');
+  // Unique per instance: a page with two signup blocks used to share one hard-coded id,
+  // so the second label pointed at the first input.
+  const inputId = useId();
+  const errorId = `${inputId}-error`;
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'submitted' | 'error'>('idle');
 
@@ -55,24 +59,22 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps & { lng:
       id={sectionId || undefined}
       data-blockid='newsletterSignup'
     >
-      <div
-        className='rounded-xl p-8 text-white lg:p-12'
-        style={{ background: 'linear-gradient(135deg, #0a7558 0%, #064f39 100%)' }}
-      >
+      {/* Gradient from tokens (green → green-dark) instead of an inline hex gradient. */}
+      <div className='from-green to-green-dark rounded-xl bg-linear-135 px-6 py-10 text-white shadow-md sm:px-8 lg:p-12'>
         <div className='mx-auto max-w-2xl text-center'>
-          <div className='mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-white/10'>
-            <LuMail className='h-8 w-8 text-white' />
+          <div className='mb-4 inline-flex size-14 items-center justify-center rounded-full bg-white/10 lg:size-16'>
+            <LuMail aria-hidden='true' className='size-7 text-white lg:size-8' />
           </div>
           <h2 className='text-h2_semibold mb-4'>{title}</h2>
-          {description && <p className='mb-8 text-lg opacity-90'>{description}</p>}
+          {description && <p className='text-h2_light mb-8 text-white/90'>{description}</p>}
 
           {status !== 'submitted' ? (
             <form onSubmit={handleSubmit} className='flex flex-col gap-3 sm:flex-row'>
-              <label htmlFor='newsletter-email' className='sr-only'>
+              <label htmlFor={inputId} className='sr-only'>
                 {t('newsletter.emailLabel')}
               </label>
               <input
-                id='newsletter-email'
+                id={inputId}
                 type='email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -80,15 +82,10 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps & { lng:
                 required
                 disabled={status === 'submitting'}
                 aria-invalid={status === 'error'}
-                aria-describedby={status === 'error' ? 'newsletter-error' : undefined}
-                className='flex-1 rounded-lg border-0 bg-black/20 px-6 py-3 text-lg text-white placeholder-white/90 backdrop-blur-sm focus:bg-white/20 focus:ring-2 focus-visible:ring-white focus-visible:outline-hidden disabled:opacity-60'
+                aria-describedby={status === 'error' ? errorId : undefined}
+                className='h-12 min-w-0 flex-1 rounded-md border border-white/30 bg-white/10 px-4 text-base text-white placeholder:text-white/70 focus:bg-white/15 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-hidden disabled:opacity-60'
               />
-              <Button
-                type='submit'
-                size='lg'
-                disabled={status === 'submitting'}
-                className='text-green bg-white font-semibold hover:bg-white/90 disabled:opacity-60'
-              >
+              <Button type='submit' variant='inverse' size='xl' disabled={status === 'submitting'}>
                 {buttonText || t('blocks.subscribe')}
               </Button>
             </form>
@@ -97,18 +94,18 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps & { lng:
               role='status'
               className='flex items-center justify-center gap-3 rounded-lg bg-white/15 p-4'
             >
-              <PiCheckCircleThin className='h-6 w-6 text-white' />
+              <PiCheckCircleThin aria-hidden='true' className='size-6 text-white' />
               <span className='text-lg font-semibold text-white'>{t('newsletter.thankYou')}</span>
             </div>
           )}
 
           {status === 'error' && (
-            <p id='newsletter-error' role='alert' className='mt-3 text-sm font-medium text-white'>
+            <p id={errorId} role='alert' className='mt-3 text-sm font-medium text-white'>
               {t('newsletter.error')}
             </p>
           )}
 
-          <p className='mt-4 text-sm opacity-90'>{t('newsletter.privacyNotice')}</p>
+          <p className='mt-4 text-sm text-white/90'>{t('newsletter.privacyNotice')}</p>
         </div>
       </div>
     </HawkStarsSection>

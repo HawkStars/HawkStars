@@ -2,13 +2,14 @@
 
 import React from 'react';
 import { LuCalendar, LuArrowRight } from 'react-icons/lu';
-import HawkLabel from '@/components/common/hawk-label';
+import Link from 'next/link';
 import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
 import { CustomImageProps } from '@/lib/image';
 import { Language } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
 import { formatDate } from '@/utils/date';
+import { transformUrl } from '@/utils/paths';
 
 export type LatestNewsItem = {
   heading: string;
@@ -16,6 +17,7 @@ export type LatestNewsItem = {
   date: string | null;
   description: string | null;
   image: Pick<CustomImageProps, 'url' | 'alt'> | null | undefined;
+  /** Site path without the locale prefix, e.g. `/news/slug`. */
   href: string;
 };
 
@@ -48,54 +50,68 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
       data-blockid='latestNews'
     >
       {(title || subtitle) && (
-        <div className='section-header text-center'>
-          {title && <h2 className='text-h2_semibold mb-4'>{title}</h2>}
-          {subtitle && (
-            <p className='mx-auto max-w-2xl text-lg leading-relaxed text-gray-600'>{subtitle}</p>
-          )}
-        </div>
+        <header className='section-header text-center'>
+          {title && <h2 className='text-h2_semibold'>{title}</h2>}
+          {subtitle && <p className='text-h2_light mt-4 text-black/70'>{subtitle}</p>}
+        </header>
       )}
 
-      <div className='overflow-hidden rounded-xl'>
-        <div className='flex flex-col md:flex-row'>
-          {item.image?.url && (
-            <div className='relative min-h-96 w-full shrink-0 md:h-auto md:w-1/3'>
-              <ImageMedia
-                src={item.image.url}
-                alt={item.image.alt || item.heading}
-                fill
-                className='object-contain'
-              />
-            </div>
+      {/* One featured story: the whole card is the link (via the CTA's ::after). */}
+      <article className='card card-hover group focus-within:ring-green relative mx-auto flex max-w-5xl flex-col overflow-hidden focus-within:ring-2 md:flex-row'>
+        {item.image?.url && (
+          <div className='bg-bege-dark relative aspect-4/3 w-full shrink-0 overflow-hidden md:aspect-auto md:min-h-80 md:w-2/5'>
+            <ImageMedia
+              src={item.image.url}
+              alt={item.image.alt || ''}
+              fill
+              sizes='(max-width: 768px) 100vw, 40vw'
+              className='object-cover object-top transition-transform duration-500 group-hover:scale-105'
+            />
+          </div>
+        )}
+
+        <div className='flex flex-1 flex-col justify-center gap-3 p-6 md:p-10'>
+          <div className='flex flex-wrap items-center gap-x-3 gap-y-1'>
+            {item.badge && (
+              <span className='text-eyebrow text-terracotta-dark'>
+                {t(`label.${item.badge}`, {
+                  defaultValue: t(`blocks.eventTypes.${item.badge}`, {
+                    defaultValue: t('label.other'),
+                  }),
+                })}
+              </span>
+            )}
+            {item.date && (
+              <time
+                dateTime={item.date}
+                className='text-terracotta-dark flex items-center gap-1.5 text-sm font-medium'
+              >
+                <LuCalendar aria-hidden='true' className='size-4' />
+                {formatDate(item.date, lng)}
+              </time>
+            )}
+          </div>
+
+          <h3 className='text-h2_bold group-hover:text-green transition-colors'>{item.heading}</h3>
+
+          {item.description && (
+            <p className='line-clamp-3 max-w-prose leading-relaxed text-black/70'>
+              {item.description}
+            </p>
           )}
 
-          <div className='flex flex-1 flex-col justify-center p-6 md:p-10'>
-            <div className='mb-3 flex flex-wrap items-start gap-3 lg:flex-col'>
-              {item.badge && <HawkLabel type={item.badge} variant='terracotta' design='badge' />}
-              {item.date && (
-                <div className='text-terracotta-dark flex items-center gap-1.5 text-sm font-medium'>
-                  <LuCalendar aria-hidden='true' className='h-4 w-4' />
-                  {formatDate(item.date, lng)}
-                </div>
-              )}
-            </div>
-
-            <h3 className='text-h2_bold mb-3'>{item.heading}</h3>
-
-            {item.description && (
-              <p className='mb-4 line-clamp-3 text-gray-700'>{item.description}</p>
-            )}
-
-            <a
-              href={item.href}
-              className='text-green mt-2 inline-flex items-center gap-2 font-medium transition-colors hover:underline'
-            >
-              {linkLabel || t('blocks.readMore')}
-              <LuArrowRight className='h-4 w-4' />
-            </a>
-          </div>
+          <Link
+            href={transformUrl(lng, item.href)}
+            className='text-green mt-2 inline-flex min-h-11 items-center gap-2 self-start font-medium underline-offset-4 group-hover:underline after:absolute after:inset-0 focus-visible:outline-hidden'
+          >
+            {linkLabel || t('blocks.readMore')}
+            <LuArrowRight
+              aria-hidden
+              className='size-4 transition-transform group-hover:translate-x-0.5'
+            />
+          </Link>
         </div>
-      </div>
+      </article>
     </HawkStarsSection>
   );
 };

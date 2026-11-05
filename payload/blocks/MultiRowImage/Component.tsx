@@ -5,48 +5,50 @@ import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
 import React from 'react';
 
-const gridColumn = {
-  2: 'grid-cols-2',
-  3: 'grid-cols-3',
-  4: 'grid-cols-4',
-  5: 'grid-cols-5',
-  6: 'grid-cols-6',
-  7: 'grid-cols-7',
-  8: 'grid-cols-8',
-  9: 'grid-cols-9',
-  10: 'grid-cols-10',
-  11: 'grid-cols-11',
-  12: 'grid-cols-12',
+// Full `lg:` class literals: the old `lg:${gridColumn[n]}` template string was invisible
+// to Tailwind's scanner and only worked when another file happened to use the same class.
+const gridColumnLg = {
+  2: 'lg:grid-cols-2',
+  3: 'lg:grid-cols-3',
+  4: 'lg:grid-cols-4',
+  5: 'lg:grid-cols-5',
+  6: 'lg:grid-cols-6',
+  7: 'lg:grid-cols-7',
+  8: 'lg:grid-cols-8',
+  9: 'lg:grid-cols-9',
+  10: 'lg:grid-cols-10',
+  11: 'lg:grid-cols-11',
+  12: 'lg:grid-cols-12',
 };
 
-const rowSpan = {
-  1: 'row-span-1',
-  2: 'row-span-2',
-  3: 'row-span-3',
-  4: 'row-span-4',
-  5: 'row-span-5',
-  6: 'row-span-6',
-  7: 'row-span-7',
-  8: 'row-span-8',
-  9: 'row-span-9',
-  10: 'row-span-10',
-  11: 'row-span-11',
-  12: 'row-span-12',
+const rowSpanLg = {
+  1: 'lg:row-span-1',
+  2: 'lg:row-span-2',
+  3: 'lg:row-span-3',
+  4: 'lg:row-span-4',
+  5: 'lg:row-span-5',
+  6: 'lg:row-span-6',
+  7: 'lg:row-span-7',
+  8: 'lg:row-span-8',
+  9: 'lg:row-span-9',
+  10: 'lg:row-span-10',
+  11: 'lg:row-span-11',
+  12: 'lg:row-span-12',
 } as const;
 
-const colSpan = {
-  1: 'col-span-1',
-  2: 'col-span-2',
-  3: 'col-span-3',
-  4: 'col-span-4',
-  5: 'col-span-5',
-  6: 'col-span-6',
-  7: 'col-span-7',
-  8: 'col-span-8',
-  9: 'col-span-9',
-  10: 'col-span-10',
-  11: 'col-span-11',
-  12: 'col-span-12',
+const colSpanLg = {
+  1: 'lg:col-span-1',
+  2: 'lg:col-span-2',
+  3: 'lg:col-span-3',
+  4: 'lg:col-span-4',
+  5: 'lg:col-span-5',
+  6: 'lg:col-span-6',
+  7: 'lg:col-span-7',
+  8: 'lg:col-span-8',
+  9: 'lg:col-span-9',
+  10: 'lg:col-span-10',
+  11: 'lg:col-span-11',
+  12: 'lg:col-span-12',
 } as const;
 
 const MultiRowImage: React.FC<MultiRowImageBlock> = ({
@@ -60,17 +62,16 @@ const MultiRowImage: React.FC<MultiRowImageBlock> = ({
   if (!rowInfo) return null;
   return (
     <HawkStarsSection
-      spacing='none'
+      spacing='tight'
       padding='none'
       cap='none'
       container
-      className='pb-16'
       id={sectionId || undefined}
       data-blockid='multiRowImage'
     >
       <div className='relative'>
         <div
-          className={cn(`grid grid-flow-dense lg:${gridColumn[numberColumns]}`)}
+          className={cn('grid grid-flow-dense grid-cols-1', gridColumnLg[numberColumns])}
           style={{
             rowGap: `${rowGap}px`,
             columnGap: `${columnGap}px`,
@@ -84,19 +85,18 @@ const MultiRowImage: React.FC<MultiRowImageBlock> = ({
             return (
               <div
                 className={cn(
-                  `relative aspect-video h-full w-full grow max-lg:col-span-1! max-lg:row-span-1!`,
-                  {
-                    [`${colSpan[column_size]}`]: column_size,
-                    [`${rowSpan[row_size]}`]: row_size,
-                  }
+                  'bg-bege-dark relative aspect-video h-full w-full grow overflow-hidden rounded-xl',
+                  column_size && colSpanLg[column_size],
+                  row_size && rowSpanLg[row_size]
                 )}
                 key={img.id || imgIdx}
               >
                 <ImageMedia
-                  className={cn('absolute rounded-xl object-cover')}
+                  className='object-cover'
                   src={imgInfo.url}
                   fill
                   alt={imgInfo.alt || ''}
+                  sizes='(max-width: 1024px) 100vw, 50vw'
                 />
               </div>
             );

@@ -19,10 +19,23 @@ const backgroundStyles = {
   green: 'bg-green text-white',
 } as const;
 
+// On white sections the cards take the warm tint so they still read as cards.
 const cardBackgroundStyles = {
-  white: 'bg-white',
+  white: 'bg-bege-light',
   bege: 'bg-white',
-  green: 'bg-green/80',
+  green: 'bg-white/10 shadow-none',
+} as const;
+
+const valueStyles = {
+  white: 'text-green',
+  bege: 'text-green',
+  green: 'text-white',
+} as const;
+
+const descriptionStyles = {
+  white: 'text-black/70',
+  bege: 'text-black/70',
+  green: 'text-white',
 } as const;
 
 const hoverBorderStyles = {
@@ -73,7 +86,8 @@ export const StatsBlock = ({
           <div
             key={stat.id || index}
             className={cn(
-              'flex w-full flex-col rounded-xl border border-transparent p-6 shadow-sm transition-all duration-200 hover:shadow-md lg:p-8',
+              'card card-hover flex w-full flex-col border border-transparent p-6 transition-[box-shadow,border-color] duration-200',
+              columns === '5' ? 'lg:p-6' : 'lg:p-8',
               cardBackgroundStyles[background as keyof typeof cardBackgroundStyles],
               hoverBorderStyles[hoverBorderColor as keyof typeof hoverBorderStyles]
             )}
@@ -92,7 +106,9 @@ export const StatsBlock = ({
             {stat.title && (
               <h3
                 className={cn(
-                  'text-3xl font-bold lg:text-4xl',
+                  // The number is the hero of the card: display face, brand colour.
+                  'text-h1_semibold',
+                  valueStyles[background as keyof typeof valueStyles],
                   alignmentStyles[(stat.titleAlign || 'center') as keyof typeof alignmentStyles]
                 )}
               >
@@ -102,7 +118,8 @@ export const StatsBlock = ({
             {stat.description && (
               <p
                 className={cn(
-                  'mt-2 text-sm opacity-85 lg:text-base',
+                  'mt-3 text-sm leading-relaxed lg:text-base',
+                  descriptionStyles[background as keyof typeof descriptionStyles],
                   alignmentStyles[
                     (stat.descriptionAlign || 'center') as keyof typeof alignmentStyles
                   ]
@@ -117,7 +134,7 @@ export const StatsBlock = ({
 
       {/* CTA Buttons */}
       {links && links.length > 0 && (
-        <div className='mt-10 flex flex-wrap justify-center gap-4'>
+        <div className='mt-10 flex flex-wrap justify-center gap-4 lg:mt-14'>
           {links.map(({ link }, i) => (
             <CMSLink
               key={i}

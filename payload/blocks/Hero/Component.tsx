@@ -2,6 +2,7 @@ import { LuExpand, LuGlobe, LuMoveRight, LuRocket, LuWrench } from 'react-icons/
 import type { HeroBlock } from '@/payload-types';
 
 import { Button } from '@/components/ui/button';
+import { SectionEyebrow } from '@/components/ui/SectionHeader';
 import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
 import { getLinkFieldInformation } from '@/utils/page';
@@ -16,13 +17,15 @@ const iconMap = {
 };
 
 const HeroBlock: React.FC<HeroBlock & { lng: Language }> = (data) => {
-  const HeadingTag = data.headingLevel === 'h2' ? 'h2' : 'h1';
   if (!data) return null;
   const { badge, heading, ctaLink, headerImage, features = [], sectionId, lng } = data;
 
-  const bgImage = getImagePayloadUrl(headerImage);
+  const HeadingTag = data.headingLevel === 'h2' ? 'h2' : 'h1';
+  // Feature titles sit one level below the hero heading.
+  const FeatureHeadingTag = HeadingTag === 'h1' ? 'h2' : 'h3';
 
-  const linkInfo = getLinkFieldInformation(ctaLink, lng);
+  const bgImage = getImagePayloadUrl(headerImage);
+  const linkInfo = ctaLink ? getLinkFieldInformation(ctaLink, lng) : undefined;
 
   return (
     <HawkStarsSection
@@ -30,6 +33,7 @@ const HeroBlock: React.FC<HeroBlock & { lng: Language }> = (data) => {
       padding='none'
       cap='none'
       container
+      className='bg-bege-light'
       id={sectionId || undefined}
       data-blockid='hero'
     >
@@ -43,47 +47,44 @@ const HeroBlock: React.FC<HeroBlock & { lng: Language }> = (data) => {
             className='mb-6 aspect-square'
           />
         )}
-        {badge && (
-          <span className='text-muted-foreground mb-4 block text-sm font-medium tracking-widest uppercase md:text-base'>
-            {badge}
-          </span>
-        )}
-        {heading && (
-          <HeadingTag className='text-4xl font-semibold tracking-tight text-balance lg:text-6xl'>
-            {heading}
-          </HeadingTag>
-        )}
+        {badge && <SectionEyebrow label={badge} />}
+        {heading && <HeadingTag className='text-display'>{heading}</HeadingTag>}
         {linkInfo && (
-          <Button className='mt-10' size='lg' asChild={!!ctaLink}>
-            {ctaLink && (
-              <a href={linkInfo.url}>
-                {linkInfo.label}
-                <LuMoveRight className='ml-2' />
-              </a>
-            )}
+          <Button className='mt-10' size='xl' asChild>
+            <a
+              href={linkInfo.url}
+              target={linkInfo.newTab ? '_blank' : undefined}
+              rel={linkInfo.newTab ? 'noopener noreferrer' : undefined}
+            >
+              {linkInfo.label}
+              <LuMoveRight aria-hidden='true' />
+            </a>
           </Button>
         )}
       </div>
       {features && features.length > 0 && (
-        <div className='bg-border mt-16 grid gap-px overflow-hidden rounded-xl border md:mt-20 md:grid-cols-2 lg:grid-cols-4'>
+        <ul className='mt-14 grid gap-4 sm:grid-cols-2 md:mt-20 lg:grid-cols-4 lg:gap-6'>
           {features.map((feature, index) => {
             const IconComponent = iconMap[feature.icon as keyof typeof iconMap] || LuGlobe;
             return (
-              <div
-                key={index}
-                className='bg-background flex flex-col gap-4 p-6 transition-colors md:p-8'
-              >
-                <IconComponent className='text-green size-7 shrink-0' />
-                <div className='space-y-1.5'>
-                  <h2 className='text-base font-semibold'>{feature.title}</h2>
-                  <p className='text-muted-foreground text-sm leading-relaxed md:text-base'>
-                    {feature.description}
-                  </p>
+              <li key={feature.id ?? index} className='card flex flex-col gap-4 p-6 md:p-8'>
+                <span className='bg-bege-dark text-green flex size-12 shrink-0 items-center justify-center rounded-full'>
+                  <IconComponent className='size-6' aria-hidden='true' />
+                </span>
+                <div className='space-y-2'>
+                  <FeatureHeadingTag className='text-h3_semibold'>
+                    {feature.title}
+                  </FeatureHeadingTag>
+                  {feature.description && (
+                    <p className='text-body_regular leading-relaxed text-black/70'>
+                      {feature.description}
+                    </p>
+                  )}
                 </div>
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ul>
       )}
     </HawkStarsSection>
   );

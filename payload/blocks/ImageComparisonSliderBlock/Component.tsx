@@ -75,19 +75,25 @@ export const ImageComparisonSliderBlock = ({
       id={sectionId || undefined}
       data-blockid='imageComparisonSlider'
     >
-      {title && <h2 className='text-h2_semibold mb-10 text-center lg:mb-12'>{title}</h2>}
+      {title && <h2 className='text-h2_semibold section-header text-center'>{title}</h2>}
 
       <div
-        className='relative mx-auto max-w-4xl overflow-hidden rounded-xl select-none'
+        className='relative mx-auto max-w-4xl overflow-hidden rounded-xl shadow-sm select-none'
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleMouseUp}
       >
-        <div className='relative aspect-video w-full'>
+        <div className='bg-bege-dark relative aspect-4/3 w-full sm:aspect-video'>
           {/* After Image (Full) */}
-          <ImageMedia src={after.url || ''} alt={after.alt || ''} fill className='object-cover' />
+          <ImageMedia
+            src={after.url || ''}
+            alt={after.alt || ''}
+            fill
+            className='object-cover'
+            sizes='(max-width: 896px) 100vw, 896px'
+          />
 
           {/* Before Image (Clipped) */}
           <div
@@ -99,10 +105,12 @@ export const ImageComparisonSliderBlock = ({
               alt={before.alt || ''}
               fill
               className='object-cover'
+              sizes='(max-width: 896px) 100vw, 896px'
             />
           </div>
 
-          {/* Slider */}
+          {/* Slider — a 44px-wide hit area centred on the divider, so the handle is
+              comfortably grabbable on touch; the visible line stays 4px. */}
           <div
             role='slider'
             tabIndex={0}
@@ -111,35 +119,35 @@ export const ImageComparisonSliderBlock = ({
             aria-valuenow={Math.round(sliderPosition)}
             aria-label={t('a11y.comparisonSlider')}
             onKeyDown={handleKeyDown}
-            className='card-lg focus-visible:ring-ring absolute top-0 bottom-0 w-1 cursor-ew-resize bg-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden'
+            className='group absolute top-0 bottom-0 w-11 -translate-x-1/2 cursor-ew-resize touch-pan-y focus-visible:outline-hidden'
             style={{ left: `${sliderPosition}%` }}
             onMouseDown={handleMouseDown}
             onTouchStart={() => setIsDragging(true)}
           >
-            <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform'>
-              <div className='card-lg flex h-12 w-12 items-center justify-center rounded-full bg-white'>
-                <svg
-                  className='h-6 w-6 rotate-90 text-gray-700'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2}
-                    d='M8 9l4-4 4 4m0 6l-4 4-4-4'
-                  />
-                </svg>
-              </div>
+            <div className='absolute inset-y-0 left-1/2 w-1 -translate-x-1/2 bg-white shadow-md' />
+            <div className='group-focus-visible:ring-green absolute top-1/2 left-1/2 flex size-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md group-focus-visible:ring-2 group-focus-visible:ring-offset-2'>
+              <svg
+                aria-hidden='true'
+                className='text-green size-6 rotate-90'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M8 9l4-4 4 4m0 6l-4 4-4-4'
+                />
+              </svg>
             </div>
           </div>
 
           {/* Labels */}
-          <div className='pointer-events-none absolute top-4 left-4 rounded-lg bg-black/50 px-3 py-1 text-sm font-semibold text-white'>
+          <div className='pointer-events-none absolute top-4 left-4 rounded-md bg-black/60 px-3 py-1 text-sm font-semibold text-white'>
             {beforeText}
           </div>
-          <div className='pointer-events-none absolute top-4 right-4 rounded-lg bg-black/50 px-3 py-1 text-sm font-semibold text-white'>
+          <div className='pointer-events-none absolute top-4 right-4 rounded-md bg-black/60 px-3 py-1 text-sm font-semibold text-white'>
             {afterText}
           </div>
         </div>

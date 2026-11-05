@@ -20,6 +20,8 @@ type CMSLinkType = {
     relationTo: 'pages' | 'hawk_projects';
     value: Page | HawkProject | string | number;
   } | null;
+  /** Optional in-page anchor (the link field's "Section ID"), without the `#`. */
+  section?: string | null;
   size?: ButtonProps['size'] | null;
   type?: 'custom' | 'reference' | null;
   url?: string | null;
@@ -35,6 +37,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     label,
     newTab,
     reference,
+    section,
     size: sizeFromProps,
     url,
     lng,
@@ -50,8 +53,9 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
           ? reference.value
           : undefined;
 
-    href = slug ? createUrlByCollection(reference.relationTo, lng, slug) : undefined;
+    href = slug ? createUrlByCollection(reference.relationTo, lng, slug, section) : undefined;
   } else {
+    // Custom URLs carry their own anchor, as in getLinkFieldInformation (utils/page.ts).
     href = url?.startsWith('/') ? `/${lng}${url}` : url;
   }
 

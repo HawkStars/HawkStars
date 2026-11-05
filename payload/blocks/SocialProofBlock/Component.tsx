@@ -19,6 +19,8 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
 }) => {
   if (!stats || stats.length === 0) return null;
 
+  const isDark = backgroundColor === 'gradient';
+
   const bgClasses = {
     white: 'bg-white',
     gray: 'bg-bege-light',
@@ -38,41 +40,63 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
       {(title || subtitle) && (
         <div
           className={cn(
-            'mb-10 md:mb-12',
+            'mb-10 md:mb-12 lg:mb-14',
             textAlign && textAlignClasses[textAlign as keyof typeof textAlignClasses]
           )}
         >
-          {title && <h2 className='text-h2_semibold mb-3'>{title}</h2>}
-          {subtitle && <p className={cn('text-lg opacity-80 lg:text-xl')}>{subtitle}</p>}
-        </div>
-      )}
-      <div className='grid grid-cols-2 md:grid-cols-4'>
-        {stats.map((stat, index) => (
-          <div
-            key={index}
-            className={cn(
-              'flex flex-col items-center justify-center px-6 py-8 text-center',
-              index !== stats.length - 1 && [
-                'border-r border-b md:border-b-0',
-                backgroundColor === 'gradient' ? 'border-white/20' : 'border-gray-200',
-                index % 2 !== 1 ? '' : 'md:border-r-0',
-              ]
-            )}
-          >
-            <div className='mb-2 text-4xl font-extrabold tracking-tight lg:text-5xl'>
-              {stat.value}
-            </div>
-            <div
+          {title && <h2 className='text-h2_semibold'>{title}</h2>}
+          {subtitle && (
+            <p
               className={cn(
-                'max-w-[120px] text-xs leading-snug font-semibold tracking-wider uppercase',
-                backgroundColor === 'gradient' ? 'opacity-75' : 'text-gray-500'
+                'text-h2_light mt-4 max-w-2xl',
+                textAlign === 'center' && 'mx-auto',
+                textAlign === 'right' && 'ml-auto',
+                isDark ? 'text-white/85' : 'text-black/70'
               )}
             >
-              {stat.label}
-            </div>
-          </div>
-        ))}
-      </div>
+              {subtitle}
+            </p>
+          )}
+        </div>
+      )}
+      <ul className='grid grid-cols-2 md:grid-cols-4'>
+        {stats.map((stat, index) => {
+          const isLast = index === stats.length - 1;
+          const lastRowStart = (n: number) => stats.length - (stats.length % n || n);
+          return (
+            <li
+              key={stat.id ?? index}
+              className={cn(
+                'flex flex-col items-center justify-center gap-2 px-4 py-8 text-center lg:px-6',
+                isDark ? 'border-white/20' : 'border-bege-dark',
+                // Hairline dividers between cells only — never on the outer edge — for the
+                // 2-column mobile grid and the 4-column grid from md up.
+                index % 2 === 0 && !isLast && 'border-r',
+                index < lastRowStart(2) && 'border-b',
+                index % 4 !== 3 && !isLast ? 'md:border-r' : 'md:border-r-0',
+                index < lastRowStart(4) ? 'md:border-b' : 'md:border-b-0'
+              )}
+            >
+              <span
+                className={cn(
+                  'font-display text-5xl leading-none font-semibold lg:text-6xl',
+                  !isDark && 'text-green'
+                )}
+              >
+                {stat.value}
+              </span>
+              <span
+                className={cn(
+                  'text-eyebrow max-w-40 leading-snug',
+                  isDark ? 'text-white/80' : 'text-black/60'
+                )}
+              >
+                {stat.label}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
     </HawkStarsSection>
   );
 };

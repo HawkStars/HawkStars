@@ -31,7 +31,8 @@ function toProjectToAgendaItem(project: HawkProject): AgendaEventItem {
     heading: project.heading ?? '',
     subheading: null,
     description: project.details?.text ?? null,
-    badge: 'Project',
+    // Slug, translated by the view (was the English literal 'Project' on /pt too).
+    badge: 'project',
     image: image ? image : null,
     href: `/projects/${project.slug}`,
     date: project.startDate ?? null,

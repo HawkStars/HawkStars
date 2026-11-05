@@ -94,7 +94,9 @@
     "goToToday": "Go to today",
     "calendarDayEmpty": "{{date}}, no events",
     "calendarDay_one": "{{date}}, {{count}} event",
-    "calendarDay_other": "{{date}}, {{count}} events"
+    "calendarDay_other": "{{date}}, {{count}} events",
+    "opensInNewTab": "opens in a new tab",
+    "timeline": "Timeline"
   },
   "footer": {
     "designedBy": "Designed by",
@@ -176,14 +178,31 @@
     "eventTypes": {
       "local_event": "Local event",
       "international_event": "International event",
-      "other": "Other"
+      "other": "Other",
+      "erasmus": "Erasmus+",
+      "project": "Project"
     },
     "latestNews": "Latest News",
     "stayUpdated": "Stay updated",
     "ourSponsors": "Our sponsors",
     "upcomingEvent": "Upcoming event",
     "growingVision": "A growing vision",
-    "whyHereWhyNow": "Why here? Why now?"
+    "whyHereWhyNow": "Why here? Why now?",
+    "countdownDays": "Days",
+    "countdownHours": "Hours",
+    "countdownMinutes": "Minutes",
+    "countdownSeconds": "Seconds",
+    "donors_one": "donor",
+    "donors_other": "donors",
+    "sponsorTiers": {
+      "exclusive": "Exclusive",
+      "diamond": "Diamond",
+      "platinum": "Platinum",
+      "gold": "Gold",
+      "silver": "Silver",
+      "bronze": "Bronze",
+      "other": "Other"
+    }
   },
   "agenda": {
     "loading": "Loading events…",

@@ -5,6 +5,7 @@ import * as migration_20260719_000000_remove_content_status from './20260719_000
 import * as migration_20260921_120000_rename_curators_to_artists from './20260921_120000_rename_curators_to_artists';
 import * as migration_20260923_120000_artwork_numeric_price from './20260923_120000_artwork_numeric_price';
 import * as migration_20260925_120000_structured_dimensions from './20260925_120000_structured_dimensions';
+import * as migration_20261105_120000_localize_link_labels from './20261105_120000_localize_link_labels';
 
 // Payload runs these in array order, so this list must stay chronological by
 // the migration name's timestamp — it previously ran 152949 before 000000 on
@@ -44,5 +45,10 @@ export const migrations = [
     up: migration_20260925_120000_structured_dimensions.up,
     down: migration_20260925_120000_structured_dimensions.down,
     name: '20260925_120000_structured_dimensions',
+  },
+  {
+    up: migration_20261105_120000_localize_link_labels.up,
+    down: migration_20261105_120000_localize_link_labels.down,
+    name: '20261105_120000_localize_link_labels',
   },
 ];

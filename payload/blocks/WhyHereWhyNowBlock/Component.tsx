@@ -11,6 +11,12 @@ const backgroundStyles = {
   green: 'bg-green text-white',
 } as const;
 
+const subtitleStyles = {
+  white: 'text-black/70',
+  bege: 'text-black/70',
+  green: 'text-white/85',
+} as const;
+
 const badgeStyles = {
   white: 'text-green',
   bege: 'text-green',
@@ -42,10 +48,12 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
       data-blockid='whyHereWhyNowBlock'
     >
       {/* Header */}
-      <div className='mb-12 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between lg:mb-14'>
-        <div>
-          {title && <h2 className='text-h1_semibold'>{title}</h2>}
-          {subtitle && <p className='text-body_semibold mt-3 leading-relaxed'>{subtitle}</p>}
+      {/* Section heading on the section scale (was h1-sized), lead line on the subtitle scale
+          and capped at a readable width. */}
+      <div className='mb-10 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between md:mb-12 lg:mb-14'>
+        <div className='max-w-3xl'>
+          {title && <h2 className='text-h2_semibold'>{title}</h2>}
+          {subtitle && <p className={cn('text-h2_light mt-3', subtitleStyles[bg])}>{subtitle}</p>}
         </div>
         {badge && (
           <span className={cn('text-body_semibold shrink-0 italic', badgeStyles[bg])}>{badge}</span>
@@ -55,7 +63,7 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
       {/* Challenges Grid */}
       <div
         className={cn(
-          'mx-auto grid max-w-6xl gap-8',
+          'mx-auto grid max-w-6xl gap-x-8 gap-y-10',
           challenges.length <= 2 && 'grid-cols-1 sm:grid-cols-2',
           challenges.length === 3 && 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
           challenges.length >= 4 && 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
@@ -67,7 +75,7 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
           return (
             <div
               key={challenge.id || index}
-              className='flex flex-col items-center gap-6 text-center'
+              className='flex flex-col items-center gap-5 text-center'
             >
               {/* Icon image with optional highlight value overlay */}
               <div className='relative h-32 w-39 rounded-xl'>
@@ -80,12 +88,12 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
                     sizes='(max-width: 768px) 100vw, 33vw'
                   />
                 ) : (
-                  <div className='bg-bege-dark h-full w-full rounded-full' />
+                  <div className='bg-bege-dark mx-auto aspect-square h-full rounded-full' />
                 )}
               </div>
 
               {/* Label */}
-              <p className='text-body_semibold max-w-50 text-center leading-snug'>
+              <p className='text-body_semibold max-w-56 leading-snug text-balance'>
                 {challenge.label}
               </p>
             </div>

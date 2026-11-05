@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { useTranslation } from '@/i18n/client';
 import { Language } from '@/i18n/settings';
 import { HawkStarsSection } from '@/components/layout';
+import { Button } from '@/components/ui/button';
 import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
 
@@ -23,21 +24,43 @@ type Testimonial = {
   id?: string | null;
 };
 
-const StarRating: React.FC<{ rating: number; showRating: boolean | null; ratingLabel: string }> = ({
-  rating,
-  showRating,
-  ratingLabel,
-}) => {
+type CardStyle = NonNullable<TestimonialBlockProps['style']>;
+
+// `card` and `bubble` are white surfaces on any band; `quote` and `minimal` sit directly on
+// the section background and take its text colour.
+const SURFACE_STYLES: CardStyle[] = ['card', 'bubble'];
+
+const cardClasses: Record<CardStyle, string> = {
+  card: 'card p-6 lg:p-8',
+  quote: 'relative p-6',
+  minimal: 'p-4',
+  bubble: 'card-md relative p-6 lg:p-8',
+};
+
+const StarRating: React.FC<{
+  rating: number;
+  showRating: boolean | null;
+  ratingLabel: string;
+  onLight: boolean;
+}> = ({ rating, showRating, ratingLabel, onLight }) => {
   if (!showRating) return null;
 
   return (
     // The rating was conveyed entirely through icon colour, so it reached no one
     // using a screen reader.
-    <div role='img' aria-label={ratingLabel} className='mb-3 flex items-center gap-1'>
+    <div role='img' aria-label={ratingLabel} className='mb-4 flex items-center gap-1'>
       {Array.from({ length: 5 }, (_, i) => (
         <LuStar
           key={i}
-          className={cn('h-4 w-4', i < rating ? 'text-green fill-current' : 'text-gray-500')}
+          aria-hidden
+          className={cn(
+            'size-4',
+            i < rating
+              ? cn('fill-current', onLight ? 'text-green' : 'text-white')
+              : onLight
+                ? 'text-black/20'
+                : 'text-white/30'
+          )}
         />
       ))}
     </div>
@@ -50,33 +73,34 @@ const TestimonialCard: React.FC<{
   showRatings: boolean | null;
   isDark: boolean;
   lng: Language;
-}> = ({ testimonial, style, showRatings, isDark, lng }) => {
+  className?: string;
+}> = ({ testimonial, style, showRatings, isDark, lng, className }) => {
   const { t } = useTranslation(lng, 'common');
   if (!testimonial) return null;
 
   const { quote, author, rating = 0, featured = false } = testimonial;
-
-  const cardClasses = {
-    card: `rounded-lg shadow-md border p-6 ${isDark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-200'}`,
-    quote: `relative p-6 ${isDark ? 'text-white' : ''}`,
-    minimal: `p-4 ${isDark ? 'text-white' : ''}`,
-    bubble: `rounded-xl shadow-md p-6 relative ${isDark ? 'bg-gray-800 text-white' : 'bg-white'}`,
-  };
+  const cardStyle = (style ?? 'card') as CardStyle;
+  const onLight = !isDark || SURFACE_STYLES.includes(cardStyle);
 
   const authorImage = getImagePayloadUrl(author.avatar);
 
   return (
-    <div
+    <figure
       className={cn(
-        cardClasses[(style ?? 'card') as keyof typeof cardClasses],
-        featured && 'ring-opacity-50 ring-green ring-2',
-        'h-full'
+        'flex h-full flex-col',
+        cardClasses[cardStyle] ?? cardClasses.card,
+        onLight ? 'text-black' : 'text-white',
+        featured && 'ring-green ring-2',
+        className
       )}
     >
-      {/* Quote Icon for quote style */}
-      {style === 'quote' && <LuQuote className='text-green mb-4 h-8 w-8' />}
+      {cardStyle === 'quote' && (
+        <LuQuote
+          aria-hidden
+          className={cn('mb-4 size-8', onLight ? 'text-green' : 'text-white/80')}
+        />
+      )}
 
-      {/* Rating */}
       {/* `rating || 1` turned both null and 0 into a one-star score the editor never
           entered. No rating means render nothing. */}
       {typeof rating === 'number' && rating > 0 && (
@@ -84,53 +108,71 @@ const TestimonialCard: React.FC<{
           rating={rating}
           showRating={showRatings}
           ratingLabel={t('a11y.starRating', { rating })}
+          onLight={onLight}
         />
       )}
 
-      {/* Quote */}
       <blockquote
-        className={cn('mb-6', style === 'quote' && 'text-lg italic', featured && 'text-lg')}
+        className={cn(
+          'mb-6 flex-1 leading-relaxed',
+          cardStyle === 'quote' || featured ? 'text-lg' : 'text-body_regular',
+          cardStyle === 'quote' && 'italic',
+          onLight ? 'text-black/80' : 'text-white/90'
+        )}
       >
-        {style !== 'quote' && '"'}
+        {cardStyle !== 'quote' && '“'}
         {quote}
-        {style !== 'quote' && '"'}
+        {cardStyle !== 'quote' && '”'}
       </blockquote>
 
-      {/* Author */}
-      <div className='flex items-center gap-3'>
+      <figcaption className='flex items-center gap-3'>
         {authorImage && (
-          <div className='relative h-10 w-10 shrink-0 overflow-hidden rounded-full'>
-            <ImageMedia src={authorImage?.url} alt={author.name} fill className='object-cover' />
+          <div className='bg-bege-dark relative size-12 shrink-0 overflow-hidden rounded-full'>
+            <ImageMedia src={authorImage?.url} alt='' fill sizes='48px' className='object-cover' />
           </div>
         )}
         <div>
-          <div className={cn('font-semibold', isDark ? 'text-white' : 'text-gray-900')}>
-            {author.name}
-          </div>
+          <div className='text-body_semibold'>{author.name}</div>
           {(author.title || author.company) && (
-            <div className={cn('text-sm', isDark ? 'text-gray-300' : 'text-gray-600')}>
+            <div className={cn('text-sm', onLight ? 'text-black/60' : 'text-white/70')}>
               {author.title}
               {author.title && author.company && ` ${t('at')} `}
               {author.company}
             </div>
           )}
         </div>
-      </div>
+      </figcaption>
 
-      {/* Bubble tail for bubble style */}
-      {style === 'bubble' && (
+      {cardStyle === 'bubble' && (
         <div
+          aria-hidden
           className={cn(
-            'absolute bottom-0 left-6 translate-y-full transform',
+            'absolute bottom-0 left-8 translate-y-full',
             'h-0 w-0 border-t-10 border-r-10 border-l-10',
-            'border-r-transparent border-l-transparent',
-            isDark ? 'border-t-gray-800' : 'border-t-white'
+            'border-t-white border-r-transparent border-l-transparent'
           )}
         />
       )}
-    </div>
+    </figure>
   );
 };
+
+const backgroundClasses = {
+  none: '',
+  'light-gray': 'bg-bege-light',
+  // The two dark bands from the palette: ink as the alternate band, green as the brand one.
+  dark: 'bg-ink text-white',
+  brand: 'bg-green text-white',
+} as const;
+
+const layoutClasses = {
+  single: 'grid grid-cols-1 mx-auto max-w-3xl',
+  'two-cols': 'grid grid-cols-1 md:grid-cols-2',
+  'three-cols': 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+  carousel: 'grid grid-cols-1',
+  // Real masonry: cards keep their own height and flow down the columns.
+  masonry: 'columns-1 md:columns-2 lg:columns-3 [&>*]:mb-6 lg:[&>*]:mb-8',
+} as const;
 
 export const TestimonialBlock = ({
   title,
@@ -146,21 +188,6 @@ export const TestimonialBlock = ({
   const { t } = useTranslation(lng, 'common');
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const backgroundClasses = {
-    none: '',
-    'light-gray': 'bg-bege-light',
-    dark: 'bg-gray-900',
-    brand: 'bg-gradient-to-br from-blue-500 to-green-500',
-  };
-
-  const layoutClasses = {
-    single: 'grid-cols-1',
-    'two-cols': 'grid-cols-1 md:grid-cols-2',
-    'three-cols': 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
-    carousel: 'grid-cols-1',
-    masonry: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
-  };
-
   const isDark = backgroundColor === 'dark' || backgroundColor === 'brand';
 
   const nextSlide = () => {
@@ -175,6 +202,8 @@ export const TestimonialBlock = ({
     return null;
   }
 
+  const arrowVariant = isDark ? 'outline-inverse' : 'outline';
+
   return (
     <HawkStarsSection
       spacing='default'
@@ -185,112 +214,84 @@ export const TestimonialBlock = ({
       id={sectionId || undefined}
       data-blockid='testimonialBlock'
     >
-      {/* Header */}
       {(title || subtitle) && (
-        <div className='section-header text-center'>
-          {title && (
-            <h2
-              className={cn(
-                'mb-4 text-3xl font-bold tracking-tight text-balance lg:text-4xl',
-                isDark ? 'text-white' : 'text-gray-900'
-              )}
-            >
-              {title}
-            </h2>
-          )}
+        <header className='section-header text-center'>
+          {title && <h2 className='text-h2_semibold'>{title}</h2>}
           {subtitle && (
-            <p
-              className={cn(
-                'text-lg leading-relaxed lg:text-xl',
-                isDark ? 'text-gray-300' : 'text-gray-600'
-              )}
-            >
+            <p className={cn('text-h2_light mt-4', isDark ? 'text-white/85' : 'text-black/70')}>
               {subtitle}
             </p>
           )}
-        </div>
+        </header>
       )}
 
-      {/* Testimonials */}
       {layout === 'carousel' ? (
-        <div className='relative'>
-          <div className='mx-auto max-w-4xl'>
-            <TestimonialCard
-              lng={lng}
-              testimonial={testimonials[currentSlide]}
-              style={style}
-              showRatings={showRatings}
-              isDark={isDark}
-            />
-          </div>
+        <div className='mx-auto max-w-4xl'>
+          <TestimonialCard
+            lng={lng}
+            testimonial={testimonials[currentSlide]}
+            style={style}
+            showRatings={showRatings}
+            isDark={isDark}
+          />
 
+          {/* Controls sit under the card rather than over it, so they never cover the
+              quote on a phone and every target is at least 44px. */}
           {testimonials.length > 1 && (
-            <>
-              <button
+            <div className='mt-8 flex items-center justify-center gap-2'>
+              <Button
+                variant={arrowVariant}
+                size='icon-lg'
+                className='size-11 rounded-full'
                 onClick={prevSlide}
-                className={cn(
-                  'absolute top-1/2 left-0 -translate-y-1/2 transform',
-                  'flex h-10 w-10 items-center justify-center rounded-full',
-                  'card-lg card-hover-lg',
-                  isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
-                )}
                 aria-label={t('a11y.prevSlide')}
               >
-                <LuChevronLeft className='h-5 w-5' />
-              </button>
-              <button
-                onClick={nextSlide}
-                className={cn(
-                  'absolute top-1/2 right-0 -translate-y-1/2 transform',
-                  'flex h-10 w-10 items-center justify-center rounded-full',
-                  'card-lg card-hover-lg',
-                  isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
-                )}
-                aria-label={t('a11y.nextSlide')}
-              >
-                <LuChevronRight className='h-5 w-5' />
-              </button>
-
-              {/* Dots indicator */}
-              <div className='mt-8 flex justify-center gap-2'>
+                <LuChevronLeft className='size-5' />
+              </Button>
+              <div className='flex items-center'>
                 {testimonials.map((_, index) => (
                   <button
+                    type='button'
                     aria-label={t('a11y.goToSlide', { number: index + 1 })}
                     aria-current={index === currentSlide}
                     key={index}
                     onClick={() => setCurrentSlide(index)}
-                    className={cn(
-                      'h-2 w-2 rounded-full transition-colors',
-                      index === currentSlide
-                        ? isDark
-                          ? 'bg-white'
-                          : 'bg-gray-900'
-                        : isDark
-                          ? 'bg-gray-600'
-                          : 'bg-gray-400'
-                    )}
-                  />
+                    className='group flex h-11 w-6 items-center justify-center'
+                  >
+                    <span
+                      className={cn(
+                        'block h-2 rounded-full transition-all',
+                        index === currentSlide
+                          ? cn('w-5', isDark ? 'bg-white' : 'bg-green')
+                          : cn('w-2', isDark ? 'bg-white/40' : 'bg-black/20')
+                      )}
+                    />
+                  </button>
                 ))}
               </div>
-            </>
+              <Button
+                variant={arrowVariant}
+                size='icon-lg'
+                className='size-11 rounded-full'
+                onClick={nextSlide}
+                aria-label={t('a11y.nextSlide')}
+              >
+                <LuChevronRight className='size-5' />
+              </Button>
+            </div>
           )}
         </div>
       ) : (
-        <div
-          className={cn(
-            'grid gap-6 lg:gap-8',
-            layout && layoutClasses[layout],
-            layout === 'masonry' && 'auto-rows-auto'
-          )}
-        >
+        <div className={cn('gap-6 lg:gap-8', layoutClasses[layout ?? 'three-cols'])}>
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
               lng={lng}
-              key={index}
+              key={testimonial.id ?? index}
               testimonial={testimonial}
               style={style}
               showRatings={showRatings}
               isDark={isDark}
+              className={layout === 'masonry' ? 'h-auto break-inside-avoid' : undefined}
             />
           ))}
         </div>

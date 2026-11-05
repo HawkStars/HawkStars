@@ -60,6 +60,7 @@ export const Vertical: Story = {
     id: '1',
     blockName: 'TimelineBlock',
     blockType: 'timeline',
+    lng: 'en',
   },
 };
 

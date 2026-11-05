@@ -7,7 +7,9 @@ export const SectionListBlockComponent: React.FC<SectionListBlockProps> = ({
   ordered,
   sectionId,
 }) => {
-  const listItems = (items ?? []).map((item) => ({
+  if (!items || items.length === 0) return null;
+
+  const listItems = items.map((item) => ({
     label: item.label,
     description: item.description ?? undefined,
   }));
@@ -24,6 +26,8 @@ export const SectionListBlockComponent: React.FC<SectionListBlockProps> = ({
         items={listItems}
         sectionId={sectionId ?? undefined}
         ordered={ordered ?? false}
+        // Keep list copy to a readable line length on wide screens.
+        className='max-w-3xl'
       />
     </HawkStarsSection>
   );

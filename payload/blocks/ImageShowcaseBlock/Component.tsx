@@ -10,6 +10,7 @@ import { useTranslation } from '@/i18n/client';
 import { Language } from '@/i18n/settings';
 import { usePrefersReducedMotion } from '@/lib/hooks/usePrefersReducedMotion';
 import { LuPause, LuPlay } from 'react-icons/lu';
+import { Button } from '@/components/ui/button';
 
 const TICK_INTERVAL = 50;
 
@@ -92,14 +93,16 @@ export const ImageShowcaseBlock = ({
     >
       {autoplay && !prefersReducedMotion && imageCount > 1 && (
         <div className='mb-2 flex justify-end'>
-          <button
+          <Button
             type='button'
+            variant='secondary'
+            size='icon'
             onClick={() => setAutoplayState((paused) => !paused)}
-            className='focus-visible:ring-ring rounded-full bg-black/10 p-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden'
+            className='size-11 rounded-full'
             aria-label={autoplayState ? t('a11y.pauseSlideshow') : t('a11y.playSlideshow')}
           >
-            {autoplayState ? <LuPause className='h-4 w-4' /> : <LuPlay className='h-4 w-4' />}
-          </button>
+            {autoplayState ? <LuPause /> : <LuPlay />}
+          </Button>
         </div>
       )}
 
@@ -107,20 +110,25 @@ export const ImageShowcaseBlock = ({
         {/* Main showcased image */}
         {/* `min-h` beats a smaller `max-h` in CSS, so max-h-120 never applied and the
             stage was unconditionally ≥720px — far below the fold on phones. */}
-        <div ref={mainImageRef} className='relative max-h-180 min-h-80 w-full rounded-xl'>
+        <div
+          ref={mainImageRef}
+          className='bg-bege-light relative max-h-180 min-h-80 w-full overflow-hidden rounded-xl'
+        >
           {activeImage && (
             <>
               <ImageMedia
                 src={activeImage.url}
                 alt={activeImage.alt || ''}
                 fill
-                className='rounded-xl max-lg:object-contain'
+                className='object-cover max-lg:object-contain'
                 preload
                 sizes='(max-width: 1024px) 100vw, 75vw'
               />
-              <span className='absolute right-2 bottom-2 rounded-xl bg-white p-2'>
-                {activeImage.alt}
-              </span>
+              {activeImage.alt && (
+                <span className='card-sm text-body_regular absolute right-3 bottom-3 max-w-[calc(100%-1.5rem)] px-3 py-1.5'>
+                  {activeImage.alt}
+                </span>
+              )}
             </>
           )}
         </div>
@@ -128,7 +136,7 @@ export const ImageShowcaseBlock = ({
         {/* Thumbnail grid */}
         <div
           className={cn(
-            'flex gap-2 max-lg:flex-nowrap max-lg:overflow-x-auto lg:grid lg:auto-rows-min lg:gap-3 lg:overflow-y-auto',
+            'flex gap-2 max-lg:flex-nowrap max-lg:overflow-x-auto max-lg:py-1 lg:grid lg:auto-rows-min lg:gap-3 lg:overflow-y-auto lg:p-1',
             {
               'lg:grid-cols-1': gridColumns === '1',
               'lg:grid-cols-2': gridColumns === '2',
@@ -154,10 +162,13 @@ export const ImageShowcaseBlock = ({
                 onClick={() => handleImageClick(index)}
                 aria-label={t('a11y.goToSlide', { number: index + 1 })}
                 aria-current={isActive}
-                className={cn('relative aspect-square w-full min-w-15 overflow-hidden rounded-lg', {
-                  'animate-grayscale': hasTransition,
-                  'grayscale-100': !hasTransition,
-                })}
+                className={cn(
+                  'bg-bege-dark focus-visible:ring-green relative aspect-square w-20 shrink-0 overflow-hidden rounded-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden lg:w-full',
+                  {
+                    'animate-grayscale': hasTransition,
+                    'grayscale-100': !hasTransition,
+                  }
+                )}
                 style={{
                   animationDirection: isActive ? 'normal' : isUpcoming ? 'reverse' : '',
                   animationDuration: `${duration}ms`,
@@ -168,7 +179,7 @@ export const ImageShowcaseBlock = ({
                   alt={image.alt || ''}
                   fill
                   className='object-cover'
-                  sizes='100vw'
+                  sizes='(max-width: 1024px) 80px, 12vw'
                 />
               </button>
             );

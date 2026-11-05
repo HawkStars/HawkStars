@@ -94,7 +94,9 @@
     "goToToday": "Ir para hoje",
     "calendarDayEmpty": "{{date}}, sem eventos",
     "calendarDay_one": "{{date}}, {{count}} evento",
-    "calendarDay_other": "{{date}}, {{count}} eventos"
+    "calendarDay_other": "{{date}}, {{count}} eventos",
+    "opensInNewTab": "abre num novo separador",
+    "timeline": "Cronologia"
   },
   "footer": {
     "designedBy": "Concebido por",
@@ -176,14 +178,31 @@
     "eventTypes": {
       "local_event": "Evento local",
       "international_event": "Evento internacional",
-      "other": "Outro"
+      "other": "Outro",
+      "erasmus": "Erasmus+",
+      "project": "Projeto"
     },
     "latestNews": "Últimas Notícias",
     "stayUpdated": "Fique a par",
     "ourSponsors": "Os nossos patrocinadores",
     "upcomingEvent": "Próximo evento",
     "growingVision": "Uma visão em crescimento",
-    "whyHereWhyNow": "Porque aqui? Porque agora?"
+    "whyHereWhyNow": "Porque aqui? Porque agora?",
+    "countdownDays": "Dias",
+    "countdownHours": "Horas",
+    "countdownMinutes": "Minutos",
+    "countdownSeconds": "Segundos",
+    "donors_one": "doador",
+    "donors_other": "doadores",
+    "sponsorTiers": {
+      "exclusive": "Exclusivo",
+      "diamond": "Diamante",
+      "platinum": "Platina",
+      "gold": "Ouro",
+      "silver": "Prata",
+      "bronze": "Bronze",
+      "other": "Outros"
+    }
   },
   "agenda": {
     "loading": "A carregar eventos…",

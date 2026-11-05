@@ -1,6 +1,5 @@
 import React from 'react';
 import type { AccordionBlock as AccordionBlockProps } from '@/payload-types';
-import { cn } from '@/lib/utils';
 import {
   Accordion,
   AccordionContent,
@@ -8,6 +7,22 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { HawkStarsSection } from '@/components/layout';
+
+// Warm `bege-dark` hairlines instead of cold grey; the open item picks up the brand green.
+const variantStyles = {
+  default: {
+    container: '',
+    item: 'border-b border-bege-dark data-[state=open]:border-green',
+  },
+  bordered: {
+    container: 'overflow-hidden rounded-xl border border-bege-dark bg-white',
+    item: 'border-b border-bege-dark last:border-b-0',
+  },
+  separated: {
+    container: 'space-y-3',
+    item: 'mx-0 rounded-xl border border-bege-dark bg-white shadow-sm transition-shadow data-[state=open]:border-green data-[state=open]:shadow-md',
+  },
+} as const;
 
 export const AccordionBlock: React.FC<AccordionBlockProps> = ({
   title,
@@ -25,22 +40,18 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
     .map((item, index) => (item.defaultOpen ? `item-${index}` : null))
     .filter(Boolean) as string[];
 
-  const variantStyles = {
-    default: {
-      container: '',
-      item: 'border-b border-gray-200 data-[state=open]:border-green',
-    },
-    bordered: {
-      container: 'rounded-lg border border-gray-200 overflow-hidden',
-      item: 'border-b border-gray-200 last:border-b-0',
-    },
-    separated: {
-      container: 'space-y-3',
-      item: 'rounded-lg border border-gray-200 bg-white shadow-sm data-[state=open]:border-green data-[state=open]:shadow-md',
-    },
-  };
-
   const styles = variantStyles[variant as keyof typeof variantStyles] || variantStyles.default;
+
+  const renderedItems = items.map((item, index) => (
+    <AccordionItem key={item.id || index} value={`item-${index}`} className={styles.item}>
+      <AccordionTrigger className='hover:text-green data-[state=open]:text-green text-h3_semibold min-h-11 px-4 font-semibold hover:no-underline'>
+        {item.title}
+      </AccordionTrigger>
+      <AccordionContent className='text-body_regular max-w-prose px-4 leading-relaxed text-black/80'>
+        {item.content && <p className='whitespace-pre-line'>{item.content}</p>}
+      </AccordionContent>
+    </AccordionItem>
+  ));
 
   return (
     <HawkStarsSection
@@ -53,30 +64,16 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
     >
       {(title || description) && (
         <div className='section-header text-center'>
-          {title && <h2 className='text-h2_semibold mb-4'>{title}</h2>}
-          {description && (
-            <p className='mx-auto max-w-2xl text-lg leading-relaxed text-gray-600'>{description}</p>
-          )}
+          {title && <h2 className='text-h2_semibold'>{title}</h2>}
+          {description && <p className='text-h2_light mt-4 text-black/70'>{description}</p>}
         </div>
       )}
 
-      <div className='mx-auto'>
+      {/* A 3xl column keeps answers at a readable line length instead of spanning the page. */}
+      <div className='mx-auto max-w-3xl'>
         {allowMultiple ? (
           <Accordion type='multiple' defaultValue={defaultOpenItems} className={styles.container}>
-            {items.map((item, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className={cn(styles.item, variant === 'separated' && 'mx-0')}
-              >
-                <AccordionTrigger className='hover:text-green data-[state=open]:text-green px-4 text-left text-base font-semibold hover:no-underline lg:text-lg'>
-                  {item.title}
-                </AccordionTrigger>
-                <AccordionContent className='px-4 text-gray-700'>
-                  {item.content && <p className='whitespace-pre-wrap'>{item.content}</p>}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
+            {renderedItems}
           </Accordion>
         ) : (
           <Accordion
@@ -85,20 +82,7 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
             collapsible
             className={styles.container}
           >
-            {items.map((item, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className={cn(styles.item, variant === 'separated' && 'mx-0')}
-              >
-                <AccordionTrigger className='hover:text-green data-[state=open]:text-green px-4 text-left text-base font-semibold hover:no-underline lg:text-lg'>
-                  {item.title}
-                </AccordionTrigger>
-                <AccordionContent className='px-4 text-gray-700'>
-                  {item.content && <p className='whitespace-pre-wrap'>{item.content}</p>}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
+            {renderedItems}
           </Accordion>
         )}
       </div>

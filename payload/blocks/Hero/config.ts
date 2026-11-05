@@ -48,7 +48,11 @@ export const Hero: Block = {
         description: { en: 'Main heading text', pt: 'Texto do título principal' },
       },
     },
-    link({ name: 'ctaLink', description: 'Call-to-action button information' }),
+    link({
+      name: 'ctaLink',
+      description: 'Call-to-action button information',
+      localizedLabel: true,
+    }),
     PayloadImageField({
       name: 'headerImage',
       label: 'Header Image',

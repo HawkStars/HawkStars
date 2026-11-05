@@ -1,11 +1,57 @@
 import React from 'react';
 import type { CTABannerBlock as CTABannerBlockProps } from '@/payload-types';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 import { getLinkFieldInformation } from '@/utils/page';
 import { HawkStarsSection } from '@/components/layout';
 import SectionHeader from '@/components/ui/SectionHeader';
+import { ImageMedia } from '@/payload/components/Media';
 import { Language } from '@/i18n/settings';
+
+// Brand band shared by every variant (and the image variant's no-image fallback).
+const GREEN_BAND = 'bg-linear-to-br from-green to-green-dark';
+const PANEL = 'relative overflow-hidden rounded-xl text-white shadow-md';
+const PANEL_PADDING = 'px-6 py-10 sm:px-10 sm:py-12 lg:p-16';
+
+type LinkInformation = NonNullable<ReturnType<typeof getLinkFieldInformation>>;
+
+type CTAButtonsProps = {
+  primary?: LinkInformation | '' | null;
+  secondary?: LinkInformation | '' | null;
+  className?: string;
+};
+
+/** Primary + secondary CTA pair. Both sit on a dark band, so they use the inverse variants. */
+const CTAButtons = ({ primary, secondary, className }: CTAButtonsProps) => {
+  if (!primary && !secondary) return null;
+  return (
+    <div className={cn('flex flex-col gap-3 sm:flex-row sm:gap-4', className)}>
+      {primary && (
+        <Button size='xl' variant='inverse' asChild>
+          <a
+            href={primary.url}
+            target={primary.newTab ? '_blank' : undefined}
+            rel={primary.newTab ? 'noopener noreferrer' : undefined}
+          >
+            {primary.label}
+          </a>
+        </Button>
+      )}
+      {secondary && (
+        <Button size='xl' variant='outline-inverse' asChild>
+          <a
+            href={secondary.url}
+            target={secondary.newTab ? '_blank' : undefined}
+            rel={secondary.newTab ? 'noopener noreferrer' : undefined}
+          >
+            {secondary.label}
+          </a>
+        </Button>
+      )}
+    </div>
+  );
+};
 
 export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> = ({
   title,
@@ -36,108 +82,70 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> =
       data-blockid='ctaBanner'
     >
       {resolvedVariant === 'centered' && (
-        <div
-          className='rounded-xl p-12 text-center text-white'
-          style={{ background: 'linear-gradient(135deg, #0a7558 0%, #064f39 100%)' }}
-        >
-          <SectionHeader
-            title={title}
-            variant='inverse'
-            align='center'
-            className='mb-4'
-            titleClassName='text-3xl font-extrabold lg:text-4xl'
-          />
+        <div className={cn(PANEL, GREEN_BAND, PANEL_PADDING, 'text-center')}>
+          <SectionHeader title={title} variant='inverse' align='center' />
           {description && (
-            <p className='mx-auto mb-8 max-w-2xl text-lg opacity-90'>{description}</p>
+            <p className='mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-white/90'>
+              {description}
+            </p>
           )}
-          <div className='flex flex-col justify-center gap-4 sm:flex-row'>
-            {primaryCTAInfo && (
-              <Button size='lg' variant='secondary' asChild>
-                <a href={primaryCTAInfo.url}>{primaryCTAInfo.label}</a>
-              </Button>
-            )}
-            {secondaryCTAInfo && (
-              <Button
-                size='lg'
-                variant='outline'
-                className='border-white/40 text-black! hover:bg-white/10'
-                asChild
-              >
-                <a href={secondaryCTAInfo.url}>{secondaryCTAInfo.label}</a>
-              </Button>
-            )}
-          </div>
+          <CTAButtons
+            primary={primaryCTAInfo}
+            secondary={secondaryCTAInfo}
+            className='mt-8 justify-center'
+          />
         </div>
       )}
 
       {resolvedVariant === 'split' && (
         <div
-          className='overflow-hidden rounded-xl text-white'
-          style={{ background: 'linear-gradient(135deg, #0a7558 0%, #064f39 100%)' }}
+          className={cn(
+            PANEL,
+            GREEN_BAND,
+            PANEL_PADDING,
+            'flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12'
+          )}
         >
-          <div className='flex flex-col gap-8 p-12 lg:flex-row lg:items-center lg:justify-between'>
-            <div className='flex-1'>
-              <SectionHeader
-                title={title}
-                variant='inverse'
-                align='center'
-                className='mb-4'
-                titleClassName='text-3xl font-bold lg:text-4xl'
-              />
-              {description && <p className='text-lg opacity-90'>{description}</p>}
-            </div>
-            <div className='flex flex-col gap-4 sm:flex-row lg:shrink-0'>
-              {primaryCTAInfo && (
-                <Button size='lg' variant='secondary' asChild>
-                  <a href={primaryCTAInfo.url}>{primaryCTAInfo.label}</a>
-                </Button>
-              )}
-              {secondaryCTAInfo && (
-                <Button
-                  size='lg'
-                  variant='outline'
-                  className='border-white/40 text-black! hover:bg-white/10'
-                  asChild
-                >
-                  <a href={secondaryCTAInfo.url}>{secondaryCTAInfo.label}</a>
-                </Button>
-              )}
-            </div>
+          <div className='max-w-2xl flex-1'>
+            <SectionHeader title={title} variant='inverse' />
+            {description && (
+              <p className='mt-4 text-lg leading-relaxed text-white/90'>{description}</p>
+            )}
           </div>
+          <CTAButtons
+            primary={primaryCTAInfo}
+            secondary={secondaryCTAInfo}
+            className='lg:shrink-0'
+          />
         </div>
       )}
 
       {resolvedVariant === 'image-bg' && (
-        <div
-          className='relative overflow-hidden rounded-xl bg-cover bg-center p-12 text-white'
-          style={{
-            backgroundImage: bgImage?.url
-              ? `url(${bgImage.url})`
-              : 'linear-gradient(135deg, #0a7558 0%, #FAE7D0 100%)',
-          }}
-        >
-          <div className='absolute inset-0 bg-black/50' />
-          <div className='relative z-10 text-center'>
-            <SectionHeader
-              title={title}
-              variant='inverse'
-              align='center'
-              className='mb-4'
-              titleClassName='text-3xl font-bold lg:text-4xl'
+        <div className={cn(PANEL, GREEN_BAND, PANEL_PADDING, 'text-center')}>
+          {bgImage?.url && (
+            <>
+              <ImageMedia
+                src={bgImage.url}
+                alt=''
+                fill
+                sizes='(min-width: 1280px) 1200px, 100vw'
+                className='object-cover'
+              />
+              <div aria-hidden='true' className='absolute inset-0 bg-black/55' />
+            </>
+          )}
+          <div className='relative z-10'>
+            <SectionHeader title={title} variant='inverse' align='center' />
+            {description && (
+              <p className='mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-white/90'>
+                {description}
+              </p>
+            )}
+            <CTAButtons
+              primary={primaryCTAInfo}
+              secondary={secondaryCTAInfo}
+              className='mt-8 justify-center'
             />
-            {description && <p className='mx-auto mb-8 max-w-2xl text-lg'>{description}</p>}
-            <div className='flex flex-col justify-center gap-4 sm:flex-row'>
-              {primaryCTAInfo && (
-                <Button size='lg' variant='default' asChild>
-                  <a href={primaryCTAInfo.url}>{primaryCTAInfo.label}</a>
-                </Button>
-              )}
-              {secondaryCTAInfo && (
-                <Button size='lg' variant='secondary' asChild>
-                  <a href={secondaryCTAInfo.url}>{secondaryCTAInfo.label}</a>
-                </Button>
-              )}
-            </div>
           </div>
         </div>
       )}

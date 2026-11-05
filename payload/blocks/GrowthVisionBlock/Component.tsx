@@ -17,10 +17,12 @@ const phaseNameStyles = {
   green: 'text-white',
 } as const;
 
+// Plain alignment: the old `ml-40`/`mr-40` offsets pushed the title off the shared content
+// column that every other section lines up on.
 const titleLocationStyles = {
-  left: 'text-left ml-40 max-lg:ml-1',
+  left: 'text-left',
   center: 'text-center',
-  right: 'text-right mr-40 max-lg:mr-1',
+  right: 'text-right',
 } as const;
 
 export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
@@ -44,69 +46,63 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
       id={sectionId || undefined}
       data-blockid='growthVisionBlock'
     >
-      {/* Header */}
-      <div className={cn('mb-12 lg:mb-14', titleLocationStyles[titleLocation ?? 'center'])}>
-        {title && <h2 className='text-h1_semibold'>{title}</h2>}
-      </div>
+      {title && (
+        <h2
+          className={cn(
+            'text-h2_semibold mb-10 md:mb-12 lg:mb-14',
+            titleLocationStyles[titleLocation ?? 'center']
+          )}
+        >
+          {title}
+        </h2>
+      )}
 
-      {/* Phases — zigzag layout */}
-      <div className='mx-auto flex max-w-5xl flex-col gap-12 lg:gap-16'>
+      {/* Phases — zigzag on desktop, stacked image-then-text on mobile. Text stays
+          left-aligned on both so the item lists scan down one edge. */}
+      <ol className='mx-auto flex max-w-5xl flex-col gap-12 lg:gap-16'>
         {phases.map((phase, index) => {
           const isEven = index % 2 === 0;
           const img = getImagePayloadUrl(phase.icon);
 
           return (
-            <div
+            <li
               key={phase.id || index}
               className={cn(
-                'relative z-10 flex flex-col items-center gap-6 lg:flex-row lg:items-start lg:gap-12',
+                'flex flex-col gap-6 lg:flex-row lg:items-center lg:gap-12',
                 !isEven && 'lg:flex-row-reverse'
               )}
             >
-              {/* Icon image */}
-              <div
-                className={cn(
-                  'relative flex flex-1 shrink-0 items-center justify-center rounded-xl'
-                )}
-              >
-                {img ? (
+              {img && (
+                <div className='flex flex-1 items-center justify-center'>
                   <ImageMedia
                     src={img.url}
                     alt={img.alt ?? ''}
                     height={300}
                     width={450}
-                    className='aspect-video rounded-xl object-contain'
+                    className='aspect-video h-auto w-full max-w-md rounded-xl object-contain'
                   />
-                ) : (
-                  <div className='h-full w-full' />
-                )}
-              </div>
+                </div>
+              )}
+              {!img && <div aria-hidden='true' className='hidden flex-1 lg:block' />}
 
-              {/* Content */}
-              <div
-                className={cn(
-                  'text-h2_bold flex-1 pt-5 text-center lg:text-left',
-                  !isEven && 'lg:text-right'
-                )}
-              >
-                <h3 className={cn('text-h2_bold mb-3 lg:text-start', phaseNameStyles[bg])}>
-                  {phase.phaseName}
-                </h3>
-                <ul className={cn('text-body_regular space-y-1', !isEven && 'lg:ml-auto')}>
+              <div className='flex-1'>
+                <h3 className={cn('text-h2_bold mb-4', phaseNameStyles[bg])}>{phase.phaseName}</h3>
+                <ul className='text-body_regular max-w-prose space-y-2'>
                   {phase.items?.map((item, itemIndex) => (
-                    <li
-                      key={item.id || itemIndex}
-                      className={cn('flex list-none items-start justify-center lg:justify-start')}
-                    >
-                      <span className='text-sm opacity-90'>{item.text}</span>
+                    <li key={item.id || itemIndex} className='flex items-start gap-3'>
+                      <span
+                        aria-hidden='true'
+                        className='mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-current opacity-60'
+                      />
+                      <span className='opacity-90'>{item.text}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-            </div>
+            </li>
           );
         })}
-      </div>
+      </ol>
     </HawkStarsSection>
   );
 };

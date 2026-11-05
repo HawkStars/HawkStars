@@ -11,32 +11,32 @@ export const GlobalVillageBannerBlockComponent: React.FC<GlobalVillageBannerBloc
   text,
   sectionId,
 }) => {
+  if (!text) return null;
+
   return (
     <HawkStarsSection
-      spacing='none'
-      padding='none'
-      cap='none'
-      className='bg-green'
+      spacing='loose'
+      className='bg-green relative overflow-hidden'
       id={sectionId || undefined}
       data-blockid='globalVillageBanner'
     >
-      <div className='relative mx-auto max-w-6xl px-3 py-24 lg:px-40 lg:py-40'>
-        <p className='whitespace-pre-line text-white'>{text}</p>
-        <ImageMedia
-          src={starPng}
-          alt=''
-          width={starPng.width}
-          height={starPng.height}
-          className='absolute top-2 right-4 lg:top-10 lg:right-20 xl:right-10'
-        />
-        <ImageMedia
-          src={gridPng}
-          alt=''
-          width={gridPng.width}
-          height={gridPng.height}
-          className='absolute bottom-4 left-4 lg:bottom-10 lg:left-20 xl:left-10'
-        />
-      </div>
+      {/* Decorative marks sit in the band's corners, scaled down on phones so they
+          never run into the text. */}
+      <ImageMedia
+        src={starPng}
+        alt=''
+        width={starPng.width}
+        height={starPng.height}
+        className='pointer-events-none absolute top-4 right-4 w-10 lg:top-10 lg:right-10 lg:w-auto'
+      />
+      <ImageMedia
+        src={gridPng}
+        alt=''
+        width={gridPng.width}
+        height={gridPng.height}
+        className='pointer-events-none absolute bottom-4 left-4 w-8 lg:bottom-10 lg:left-10 lg:w-auto'
+      />
+      <p className='text-body relative mx-auto max-w-3xl whitespace-pre-line text-white'>{text}</p>
     </HawkStarsSection>
   );
 };
