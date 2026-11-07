@@ -106,8 +106,41 @@ export const hawkMCPPlugin = mcpPlugin({
         delete: false,
       },
     },
+    art_orders: {
+      enabled: false,
+    },
+    artist_proposals: {
+      enabled: false,
+    },
+    artworks: {
+      enabled: false,
+    },
+    users: {
+      enabled: false,
+    },
+    newsletter_subscribers: {
+      enabled: false,
+    },
+    member_projects: {
+      enabled: false,
+    },
   },
   globals: {
+    'crowdfunding-settings': {
+      description: 'Settings for the crowdfunding page feature of the website.',
+      enabled: {
+        find: true,
+        update: true,
+      },
+    },
+    artGallerySettings: {
+      description: 'Settings for the art gallery page feature of the website.',
+      enabled: false,
+    },
+    artGalleryNews: {
+      description: 'Settings for the art gallery news page feature of the website.',
+      enabled: false,
+    },
     'main-page': {
       description: 'Main/Index page of the website.',
       enabled: {
