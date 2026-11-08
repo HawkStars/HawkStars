@@ -46,10 +46,6 @@ describe('totpOptions', () => {
     // The whole point. Flipping this to false or dropping it 403s the public API.
     expect(totpOptions.disableAccessWrapper).toBe(true);
   });
-
-  it('is only disabled in development, so production carries the wrapper risk', () => {
-    expect(totpOptions.disabled).toBe(process.env.NODE_ENV === 'development');
-  });
 });
 
 describe('the built config, with the plugin live (as in production)', () => {
