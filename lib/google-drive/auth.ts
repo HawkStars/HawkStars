@@ -1,4 +1,4 @@
-import { auth, drive } from '@googleapis/drive';
+import { auth, drive, type drive_v3 } from '@googleapis/drive';
 
 export function getAuth() {
   const oauth2Client = new auth.OAuth2({
@@ -12,6 +12,14 @@ export function getAuth() {
   return oauth2Client;
 }
 
-export function getDrive() {
-  return drive({ version: 'v3', auth: getAuth() });
+/**
+ * One Drive client per process. The OAuth2 client caches the access token it gets from the
+ * refresh token and renews it only when it expires; building a new client per call (as this
+ * used to) forced a token refresh round-trip on every upload, delete and workbook sync.
+ */
+let driveClient: drive_v3.Drive | undefined;
+
+export function getDrive(): drive_v3.Drive {
+  driveClient ??= drive({ version: 'v3', auth: getAuth() });
+  return driveClient;
 }

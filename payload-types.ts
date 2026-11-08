@@ -5070,6 +5070,16 @@ export interface PayloadMcpApiKey {
      */
     update?: boolean | null;
   };
+  crowdfundingSettings?: {
+    /**
+     * Allow clients to find crowdfunding-settings global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update crowdfunding-settings global.
+     */
+    update?: boolean | null;
+  };
   mainPage?: {
     /**
      * Allow clients to find main-page global.
@@ -7011,6 +7021,12 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
     | {
         find?: T;
         create?: T;
+        update?: T;
+      };
+  crowdfundingSettings?:
+    | T
+    | {
+        find?: T;
         update?: T;
       };
   mainPage?:

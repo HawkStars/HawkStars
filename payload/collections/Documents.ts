@@ -3,6 +3,7 @@ import { GROUP_LABELS } from '../constants';
 import { anyone } from '../access/anyone';
 import { authenticatedAdmin } from '../access/authenticatedAdmin';
 import { authenticated } from '../access/authenticated';
+import { moveDocumentDriveFile } from '../hooks/moveDocumentDriveFile';
 
 export const Documents: CollectionConfig = {
   slug: 'documents',
@@ -13,10 +14,9 @@ export const Documents: CollectionConfig = {
     singular: { en: 'Document', pt: 'Documento' },
     plural: { en: 'Documents', pt: 'Documentos' },
   },
-  // Was previously unset, which defaults every operation to public — these
-  // files are downloaded from public-facing pages (see ResourceDownloadBlock)
-  // so read stays public, but metadata create/update/delete now require an
-  // editor/admin account instead of being open to anyone.
+  // Files are downloaded from public-facing pages (see ResourceDownloadBlock),
+  // so read stays public. Any account can create and edit; delete is admin-only
+  // because it also removes the file from Google Drive permanently.
   access: {
     admin: authenticated,
     read: anyone,
@@ -53,6 +53,9 @@ export const Documents: CollectionConfig = {
     ],
     disableLocalStorage: true,
     bulkUpload: true,
+  },
+  hooks: {
+    afterChange: [moveDocumentDriveFile],
   },
   fields: [
     {

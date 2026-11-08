@@ -67,6 +67,7 @@ const nextConfig = {
   },
   reactStrictMode: true,
   cacheComponents: true,
+  partialPrefetching: true,
   // (`cloudflared tunnel --url http://localhost:3000`). No effect in production.
   allowedDevOrigins: ['*.trycloudflare.com'],
   cacheMaxMemorySize: 50 * 1024 * 1024,
@@ -89,7 +90,7 @@ const nextConfig = {
       { protocol: 'https', hostname: '*.cdninstagram.com' },
       { protocol: 'https', hostname: '*.fbcdn.net' },
     ],
-    qualities: [75, 80, 90],
+    qualities: [50, 75, 80, 90],
     deviceSizes: [320, 640, 1200, 2048],
     // loader: 'custom',
     // loaderFile: './payload/components/Media/ImageMedia/cloudinaryLoader.ts',
