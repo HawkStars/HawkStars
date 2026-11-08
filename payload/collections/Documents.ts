@@ -4,6 +4,7 @@ import { anyone } from '../access/anyone';
 import { authenticatedAdmin } from '../access/authenticatedAdmin';
 import { authenticated } from '../access/authenticated';
 import { moveDocumentDriveFile } from '../hooks/moveDocumentDriveFile';
+import { DOCUMENT_URL_ALLOW_LIST } from './uploadAllowList';
 
 export const Documents: CollectionConfig = {
   slug: 'documents',
@@ -53,6 +54,8 @@ export const Documents: CollectionConfig = {
     ],
     disableLocalStorage: true,
     bulkUpload: true,
+    // Creating from a URL (MCP `createDocuments`, admin "Paste URL") may only fetch from these hosts.
+    pasteURL: { allowList: DOCUMENT_URL_ALLOW_LIST },
   },
   hooks: {
     afterChange: [moveDocumentDriveFile],

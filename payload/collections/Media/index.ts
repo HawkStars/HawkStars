@@ -4,6 +4,7 @@ import { GROUP_LABELS } from '../../constants';
 import { anyone } from '../../access/anyone';
 import { authenticatedAdmin } from '../../access/authenticatedAdmin';
 import { authenticated } from '../../access/authenticated';
+import { MEDIA_URL_ALLOW_LIST } from '../uploadAllowList';
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -55,6 +56,8 @@ export const Media: CollectionConfig = {
     disableLocalStorage: true,
     bulkUpload: true,
     displayPreview: true,
+    // Creating from a URL (MCP `createMedia`, admin "Paste URL") may only fetch from these hosts.
+    pasteURL: { allowList: MEDIA_URL_ALLOW_LIST },
     // File-size capping isn't a per-collection `upload` option in this
     // Payload version — it's the root `buildConfig({ upload: { limits } })`
     // busboy setting (payload.config.ts), which applies to every upload

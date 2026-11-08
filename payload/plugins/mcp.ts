@@ -1,5 +1,6 @@
 import { mcpPlugin } from '@payloadcms/plugin-mcp';
 import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
+import { uploadFileTool } from './mcpUploadTool';
 
 export const hawkMCPPlugin = mcpPlugin({
   disabled: false,
@@ -15,6 +16,12 @@ export const hawkMCPPlugin = mcpPlugin({
       delete: authenticatedAdmin,
     },
   }),
+
+  mcp: {
+    // Base64 upload for files that are not online anywhere. Off by default: tick
+    // "Upload File" under Tools on an API key to enable it for that key.
+    tools: [uploadFileTool],
+  },
 
   collections: {
     pages: {
@@ -80,7 +87,15 @@ export const hawkMCPPlugin = mcpPlugin({
       enabled: false,
     },
     media: {
-      description: 'Media files uploaded to the website. Using Cloudinary as the storage provider.',
+      description:
+        'Images used across the website, stored on Cloudinary. ' +
+        'To add an image, call create with: `alt` (required, describes the image for accessibility), ' +
+        '`filename` (with extension, e.g. "volunteers-pinhel.jpg") and `url` (a public HTTPS link ' +
+        'to the image file). The server downloads the file from `url`; raw file contents cannot be ' +
+        'sent. Allowed types: JPEG, PNG, WebP, AVIF, GIF. Allowed source hosts: hawkstars.org, ' +
+        'drive.google.com, lh3.googleusercontent.com, res.cloudinary.com, images.unsplash.com — ' +
+        'other hosts are rejected. Images wider than 2560px are scaled down. ' +
+        'Update changes metadata (e.g. `alt`) only; it cannot replace the image.',
       enabled: {
         create: true,
         find: true,
@@ -89,7 +104,16 @@ export const hawkMCPPlugin = mcpPlugin({
       },
     },
     documents: {
-      description: 'Documents uploaded to the website. Using Google Drive as the storage provider.',
+      description:
+        'Downloadable files (PDF, Word, Excel, PowerPoint, CSV) linked from the website, stored on ' +
+        'Google Drive. To add one, call create with: `title` (required), `filename` (with extension, ' +
+        'e.g. "annual-report-2025.pdf"), `url` (a public HTTPS link to the file) and optionally ' +
+        '`folder` (general, projects, events or reports) and `description`. The server downloads ' +
+        'the file from `url`; raw file contents cannot be sent. Allowed source hosts: hawkstars.org, ' +
+        'drive.google.com, docs.google.com — other hosts are rejected. A Google Drive file must be ' +
+        'shared as "anyone with the link" and given as a direct download link ' +
+        '(https://drive.google.com/uc?export=download&id=<FILE_ID>). ' +
+        'Update changes metadata only; changing `folder` moves the file in Drive.',
       enabled: {
         create: true,
         find: true,

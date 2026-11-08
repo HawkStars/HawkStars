@@ -5120,6 +5120,12 @@ export interface PayloadMcpApiKey {
      */
     update?: boolean | null;
   };
+  'payload-mcp-tool'?: {
+    /**
+     * Upload a file from its base64-encoded contents. Use collection "media" for images (JPEG, PNG, WebP, AVIF, GIF; requires `alt`) or "documents" for PDF, Word, Excel, PowerPoint or CSV files (requires `title`, optional `folder` and `description`). Maximum 10 MB. Prefer createMedia/createDocuments with a `url` when the file is already online — it avoids sending the whole file through MCP. Returns the new entry id and its public URL.
+     */
+    uploadFile?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
   enableAPIKey?: boolean | null;
@@ -7052,6 +7058,11 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
     | {
         find?: T;
         update?: T;
+      };
+  'payload-mcp-tool'?:
+    | T
+    | {
+        uploadFile?: T;
       };
   updatedAt?: T;
   createdAt?: T;
