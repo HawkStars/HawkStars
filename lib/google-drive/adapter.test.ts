@@ -103,6 +103,14 @@ describe('handleUpload', () => {
 });
 
 describe('handleDelete', () => {
+  it('never deletes a linked file', async () => {
+    await googleDriveAdapter().handleDelete({
+      filename: FILE_ID,
+      doc: { source: 'linked' },
+    } as unknown as Parameters<HandleDelete>[0]);
+    expect(drive.files.delete).not.toHaveBeenCalled();
+  });
+
   it('skips legacy filenames that are not Drive IDs', async () => {
     await googleDriveAdapter().handleDelete(deleteArgs('report.pdf'));
     expect(drive.files.delete).not.toHaveBeenCalled();

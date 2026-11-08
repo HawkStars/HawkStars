@@ -12,7 +12,7 @@ const DEFAULT_FOLDER = 'general';
  * Drive's own permission ID for the "anyone with the link" grant, so it can be revoked
  * without listing permissions first.
  */
-const ANYONE_WITH_LINK_PERMISSION_ID = 'anyoneWithLink';
+export const ANYONE_WITH_LINK_PERMISSION_ID = 'anyoneWithLink';
 
 /**
  * Every document folder lives at the root of the account's My Drive (`root` is Drive's alias for
@@ -31,7 +31,7 @@ const ROOT_FOLDER_ID = 'root';
 const escapeDriveQueryValue = (value: string) => value.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 
 /** HTTP status of a googleapis (gaxios) error, if it has one. */
-function getErrorStatus(error: unknown): number | undefined {
+export function getErrorStatus(error: unknown): number | undefined {
   if (typeof error !== 'object' || error === null) return undefined;
   const { status, code } = error as { status?: unknown; code?: unknown };
   if (typeof status === 'number') return status;
@@ -165,10 +165,14 @@ export const googleDriveAdapter = () => ({
     }
   },
 
-  async handleDelete({ filename }: Parameters<HandleDelete>[0]) {
+  async handleDelete({ filename, doc }: Parameters<HandleDelete>[0]) {
     // filename holds the Google Drive file ID. Documents saved before Drive was configured
     // (or whose upload failed) still carry the original name — nothing to delete in Drive.
     if (!filename || !isGoogleDriveFileId(filename)) return;
+
+    // A linked file lives in someone else's Drive folder and is only referenced by this entry.
+    // Deleting the entry (or replacing its file) must never delete the original.
+    if ((doc as { source?: string | null } | undefined)?.source === 'linked') return;
 
     const drive = getDrive();
     try {

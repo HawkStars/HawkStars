@@ -1,10 +1,7 @@
-import type { MCPPluginConfig } from '@payloadcms/plugin-mcp';
 import type { PayloadRequest } from 'payload';
 import { z } from 'zod';
 import { captureException } from '@/lib/sentry/cli-client';
-
-type MCPTool = NonNullable<NonNullable<MCPPluginConfig['mcp']>['tools']>[number];
-type ToolResult = { content: Array<{ type: 'text'; text: string }> };
+import { text, type MCPTool, type ToolResult } from './mcpToolUtils';
 
 /**
  * Largest decoded file the tool accepts. Base64 adds ~33%, so a 10 MB file is a ~13.4 MB
@@ -78,8 +75,6 @@ type UploadArgs = {
   folder?: (typeof DOCUMENT_FOLDERS)[number];
   description?: string;
 };
-
-const text = (message: string): ToolResult => ({ content: [{ type: 'text', text: message }] });
 
 /**
  * Decode a base64 payload (optionally a data URL) into a Buffer, rejecting anything that is not

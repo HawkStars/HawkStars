@@ -5,6 +5,8 @@ import { authenticatedAdmin } from '../access/authenticatedAdmin';
 import { authenticated } from '../access/authenticated';
 import { moveDocumentDriveFile } from '../hooks/moveDocumentDriveFile';
 import { DOCUMENT_URL_ALLOW_LIST } from './uploadAllowList';
+import { DOCUMENT_MIME_TYPES } from './documentMimeTypes';
+import { setDocumentSource } from '../hooks/setDocumentSource';
 
 export const Documents: CollectionConfig = {
   slug: 'documents',
@@ -42,22 +44,17 @@ export const Documents: CollectionConfig = {
   },
   upload: {
     staticDir: 'documents',
-    mimeTypes: [
-      'application/pdf',
-      'application/msword',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'application/vnd.ms-excel',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'application/vnd.ms-powerpoint',
-      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-      'text/csv',
-    ],
+    mimeTypes: DOCUMENT_MIME_TYPES,
     disableLocalStorage: true,
     bulkUpload: true,
+    // Linked Drive files (source: 'linked') are created without an upload. setDocumentSource
+    // still rejects any other create that has no file.
+    filesRequiredOnCreate: false,
     // Creating from a URL (MCP `createDocuments`, admin "Paste URL") may only fetch from these hosts.
     pasteURL: { allowList: DOCUMENT_URL_ALLOW_LIST },
   },
   hooks: {
+    beforeChange: [setDocumentSource],
     afterChange: [moveDocumentDriveFile],
   },
   fields: [
@@ -87,6 +84,24 @@ export const Documents: CollectionConfig = {
         description: {
           en: 'Optional folder path for organization.',
           pt: 'Pasta opcional para organização.',
+        },
+      },
+    },
+    {
+      name: 'source',
+      label: { en: 'Source', pt: 'Origem' },
+      type: 'select',
+      defaultValue: 'uploaded',
+      options: [
+        { label: { en: 'Uploaded', pt: 'Carregado' }, value: 'uploaded' },
+        { label: { en: 'Linked from Drive', pt: 'Ligado do Drive' }, value: 'linked' },
+      ],
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+        description: {
+          en: 'Linked files stay in their original Drive folder: deleting this entry does not delete the file.',
+          pt: 'Ficheiros ligados ficam na pasta original do Drive: apagar esta entrada não apaga o ficheiro.',
         },
       },
     },

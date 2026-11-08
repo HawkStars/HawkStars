@@ -21,6 +21,8 @@ export const moveDocumentDriveFile: CollectionAfterChangeHook<HawkDocument> = as
   req,
 }) => {
   if (operation !== 'update') return doc;
+  // Linked files stay in their original Drive folder; `folder` only categorises the entry.
+  if (doc.source === 'linked') return doc;
   if (req.context?.skipCloudStorage || req.file) return doc;
   if (!doc.filename || doc.filename !== previousDoc?.filename) return doc;
   if ((doc.folder ?? null) === (previousDoc?.folder ?? null)) return doc;

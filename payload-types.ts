@@ -3518,6 +3518,10 @@ export interface HawkDocument {
    */
   folder?: ('general' | 'projects' | 'events' | 'reports') | null;
   /**
+   * Linked files stay in their original Drive folder: deleting this entry does not delete the file.
+   */
+  source?: ('uploaded' | 'linked') | null;
+  /**
    * Optional description of the document contents or purpose.
    */
   description?: string | null;
@@ -5125,6 +5129,14 @@ export interface PayloadMcpApiKey {
      * Upload a file from its base64-encoded contents. Use collection "media" for images (JPEG, PNG, WebP, AVIF, GIF; requires `alt`) or "documents" for PDF, Word, Excel, PowerPoint or CSV files (requires `title`, optional `folder` and `description`). Maximum 10 MB. Prefer createMedia/createDocuments with a `url` when the file is already online — it avoids sending the whole file through MCP. Returns the new entry id and its public URL.
      */
     uploadFile?: boolean | null;
+    /**
+     * List the files and subfolders inside a Google Drive folder the HawkStars account can access, to find files to link as website documents without copying them. Pass a folder ID or link (omit for the account's My Drive root). Each file shows whether it is `linkable` (allowed type: PDF, Word, Excel, PowerPoint, CSV) and `isPublic` (shared as "anyone with the link"). Google Docs/Sheets/Slides are not linkable until exported. Use `nextPageToken` for more results. Then call linkDriveDocument with a file id.
+     */
+    listDriveFolder?: boolean | null;
+    /**
+     * Add an existing Google Drive file to the website's documents WITHOUT copying it: the entry points at the file where it already is, and deleting the entry never deletes the file. Pass a Drive file ID or link (find them with listDriveFolder). The file must be PDF, Word, Excel, PowerPoint or CSV and shared as "anyone with the link"; set makePublic: true to have the server share it (needs edit rights). Linking a file that is already linked returns the existing entry. Returns the entry id and public download URL.
+     */
+    linkDriveDocument?: boolean | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -5460,6 +5472,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface DocumentsSelect<T extends boolean = true> {
   title?: T;
   folder?: T;
+  source?: T;
   description?: T;
   _objectKey?: T;
   updatedAt?: T;
@@ -7063,6 +7076,8 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
     | T
     | {
         uploadFile?: T;
+        listDriveFolder?: T;
+        linkDriveDocument?: T;
       };
   updatedAt?: T;
   createdAt?: T;

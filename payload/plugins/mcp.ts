@@ -1,6 +1,7 @@
 import { mcpPlugin } from '@payloadcms/plugin-mcp';
 import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 import { uploadFileTool } from './mcpUploadTool';
+import { linkDriveDocumentTool, listDriveFolderTool } from './mcpDriveTools';
 
 export const hawkMCPPlugin = mcpPlugin({
   disabled: false,
@@ -18,9 +19,11 @@ export const hawkMCPPlugin = mcpPlugin({
   }),
 
   mcp: {
-    // Base64 upload for files that are not online anywhere. Off by default: tick
-    // "Upload File" under Tools on an API key to enable it for that key.
-    tools: [uploadFileTool],
+    // Custom tools are off by default: tick each one under Tools on an API key to enable it.
+    // - uploadFile: base64 upload for files that are not online anywhere.
+    // - listDriveFolder / linkDriveDocument: add files that already live in other Drive
+    //   folders as documents without copying them.
+    tools: [uploadFileTool, listDriveFolderTool, linkDriveDocumentTool],
   },
 
   collections: {
