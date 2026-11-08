@@ -17,6 +17,7 @@ import { OrganizationJsonLd } from '@/components/seo/JsonLd';
 import { GA_MEASUREMENT_ID } from '@/lib/constants';
 import Navbar from '@/components/navbar/Navbar';
 import FooterContainer from '@/components/footer/Footer';
+import { MotionObserver } from '@/components/ui/motion/MotionObserver';
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -41,6 +42,7 @@ export default async function RootLayout(props: {
         <OrganizationJsonLd lng={lng || 'pt'} />
       </head>
       <body>
+        <MotionObserver />
         <Suspense fallback={<></>}>
           <SkipToContent lng={lng} />
         </Suspense>

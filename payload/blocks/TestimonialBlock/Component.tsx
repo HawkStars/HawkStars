@@ -216,9 +216,16 @@ export const TestimonialBlock = ({
     >
       {(title || subtitle) && (
         <header className='section-header text-center'>
-          {title && <h2 className='text-h2_semibold'>{title}</h2>}
+          {title && (
+            <h2 data-reveal='up' className='text-h2_semibold'>
+              {title}
+            </h2>
+          )}
           {subtitle && (
-            <p className={cn('text-h2_light mt-4', isDark ? 'text-white/85' : 'text-black/70')}>
+            <p
+              data-reveal='up'
+              className={cn('text-h2_light mt-4', isDark ? 'text-white/85' : 'text-black/70')}
+            >
               {subtitle}
             </p>
           )}
@@ -282,7 +289,10 @@ export const TestimonialBlock = ({
           )}
         </div>
       ) : (
-        <div className={cn('gap-6 lg:gap-8', layoutClasses[layout ?? 'three-cols'])}>
+        <div
+          data-reveal-stagger='up'
+          className={cn('gap-6 lg:gap-8', layoutClasses[layout ?? 'three-cols'])}
+        >
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
               lng={lng}

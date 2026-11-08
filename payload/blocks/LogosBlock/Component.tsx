@@ -29,8 +29,16 @@ export const LogosBlock = ({
     >
       <header className='section-header flex flex-col items-center text-center'>
         {badgeText && <SectionEyebrow label={badgeText} />}
-        {heading && <h2 className='text-h2_semibold'>{heading}</h2>}
-        {description && <p className='text-h2_light mt-4 max-w-2xl text-black/70'>{description}</p>}
+        {heading && (
+          <h2 data-reveal='up' className='text-h2_semibold'>
+            {heading}
+          </h2>
+        )}
+        {description && (
+          <p data-reveal='up' className='text-h2_light mt-4 max-w-2xl text-black/70'>
+            {description}
+          </p>
+        )}
         {buttonText && buttonLink && (
           <Button size='lg' className='mt-8' asChild>
             {isInternal ? (
@@ -46,7 +54,10 @@ export const LogosBlock = ({
 
       {/* Every logo sits in the same 160×64 frame and is scaled to fit, so wide wordmarks
           and square crests read at the same visual weight. */}
-      <ul className='mx-auto grid max-w-5xl grid-cols-2 place-items-center gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-10'>
+      <ul
+        data-reveal-stagger='scale'
+        className='mx-auto grid max-w-5xl grid-cols-2 place-items-center gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-10'
+      >
         {logos?.map((logo) => (
           <li key={logo.id || logo.name} className='relative h-14 w-full max-w-40 lg:h-16'>
             <ImageMedia

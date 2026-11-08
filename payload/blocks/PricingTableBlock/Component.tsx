@@ -42,13 +42,22 @@ export const PricingTableBlock = ({
       {/* Header */}
       {(title || subtitle) && (
         <div className='section-header text-center'>
-          {title && <h2 className='text-h2_semibold'>{title}</h2>}
-          {subtitle && <p className='text-h2_light mt-4 text-black/70'>{subtitle}</p>}
+          {title && (
+            <h2 data-reveal='up' className='text-h2_semibold'>
+              {title}
+            </h2>
+          )}
+          {subtitle && (
+            <p data-reveal='up' className='text-h2_light mt-4 text-black/70'>
+              {subtitle}
+            </p>
+          )}
         </div>
       )}
 
       {/* Pricing Cards */}
       <div
+        data-reveal-stagger='up'
         className={cn(
           // pt-4 leaves room for the badge that overhangs the top of a card.
           'grid gap-6 pt-4 lg:gap-8',

@@ -57,6 +57,7 @@ const StepsBlockComponent: React.FC<StepsBlock> = ({
 
   return (
     <ol
+      data-reveal-stagger='up'
       className={cn(
         'grid grid-cols-1 sm:grid-cols-2',
         stepsColumnClasses[numberOfColumnsPerRow ?? '3']

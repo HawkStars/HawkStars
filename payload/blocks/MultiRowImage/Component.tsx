@@ -71,6 +71,7 @@ const MultiRowImage: React.FC<MultiRowImageBlock> = ({
     >
       <div className='relative'>
         <div
+          data-reveal-stagger='scale'
           className={cn('grid grid-flow-dense grid-cols-1', gridColumnLg[numberColumns])}
           style={{
             rowGap: `${rowGap}px`,

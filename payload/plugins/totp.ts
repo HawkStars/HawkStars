@@ -21,7 +21,6 @@ export const totpOptions: PayloadTOTPConfig = {
     digits: 6,
     period: 30,
   },
-  disabled: process.env.NODE_ENV === 'development',
 
   // MUST stay true. Without it the plugin maps over EVERY collection and global
   // and replaces `access.read` (and create/update/delete/readVersions/unlock)

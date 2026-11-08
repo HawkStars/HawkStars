@@ -48,6 +48,7 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
     >
       {title && (
         <h2
+          data-reveal='up'
           className={cn(
             'text-h2_semibold mb-10 md:mb-12 lg:mb-14',
             titleLocationStyles[titleLocation ?? 'center']
@@ -59,7 +60,7 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
 
       {/* Phases — zigzag on desktop, stacked image-then-text on mobile. Text stays
           left-aligned on both so the item lists scan down one edge. */}
-      <ol className='mx-auto flex max-w-5xl flex-col gap-12 lg:gap-16'>
+      <ol data-reveal-stagger='up' className='mx-auto flex max-w-5xl flex-col gap-12 lg:gap-16'>
         {phases.map((phase, index) => {
           const isEven = index % 2 === 0;
           const img = getImagePayloadUrl(phase.icon);

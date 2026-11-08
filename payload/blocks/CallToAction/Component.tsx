@@ -29,7 +29,9 @@ export const CallToActionBlock = ({
     >
       <div className='bg-bege-light border-bege-dark relative flex w-full flex-col justify-between gap-8 overflow-hidden rounded-xl border p-6 shadow-sm sm:p-8 md:flex-row md:items-center md:gap-12 lg:p-12'>
         <div className='flex h-full max-w-xl flex-col justify-center'>
-          <h2 className='text-h2_semibold'>{title}</h2>
+          <h2 data-reveal='up' className='text-h2_semibold'>
+            {title}
+          </h2>
           {subtitle && <p className='mt-4 text-lg leading-relaxed text-black/70'>{subtitle}</p>}
 
           {links && links.length > 0 && (

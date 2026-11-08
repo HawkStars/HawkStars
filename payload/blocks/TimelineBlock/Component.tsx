@@ -7,6 +7,7 @@ import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
+import { Reveal } from '@/components/ui/motion';
 
 const yearBadge =
   'bg-green flex items-center justify-center rounded-full text-xs leading-tight font-bold text-white shadow-md ring-4 ring-white';
@@ -34,19 +35,25 @@ export const TimelineBlock: React.FC<TimelineBlockProps & { lng: Language }> = (
       id={sectionId || undefined}
       data-blockid={blockType}
     >
-      {title && <h2 className='text-h2_semibold section-header text-center'>{title}</h2>}
+      {title && (
+        <Reveal as='h2' className='text-h2_semibold section-header text-center'>
+          {title}
+        </Reveal>
+      )}
 
       {orientation === 'vertical' && (
         // Mobile: a single rail down the left with cards beside it (the old alternating
         // 5/12 columns left ~100px of text at 375px). From `lg:` it alternates either side.
         <div className='relative'>
-          <div
-            aria-hidden='true'
-            className='bg-green/20 absolute top-0 bottom-0 left-7 w-px -translate-x-1/2 lg:left-1/2'
+          <Reveal
+            from='draw-y'
+            className='bg-green/30 absolute top-0 bottom-0 left-7 w-0.5 origin-top -translate-x-1/2 lg:left-1/2'
           />
           <ol>
             {items.map((item, index) => (
-              <li
+              <Reveal
+                as='li'
+                from={index % 2 === 0 ? 'left' : 'right'}
                 key={item.id || index}
                 className={cn(
                   'relative mb-10 pl-20 last:mb-0 lg:mb-16 lg:flex lg:pl-0',
@@ -54,7 +61,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps & { lng: Language }> = (
                 )}
               >
                 <div className={cn('lg:w-5/12', index % 2 === 0 ? 'lg:pr-14' : 'lg:pl-14')}>
-                  <article className='card-md overflow-hidden'>
+                  <article className='card-md card-hover-lg overflow-hidden transition-[translate,box-shadow] duration-300 hover:-translate-y-1'>
                     <div className='bg-bege-light border-bege-dark border-b px-5 py-3 lg:px-6'>
                       <h3 className='text-h3_semibold'>{item.title}</h3>
                     </div>
@@ -68,7 +75,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps & { lng: Language }> = (
                             resource={item.image}
                             alt={item.title}
                             fill
-                            className='object-cover'
+                            className='object-cover transition-transform duration-700 hover:scale-105'
                           />
                         </div>
                       )}
@@ -80,7 +87,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps & { lng: Language }> = (
                 <div className='absolute top-0 left-7 z-10 -translate-x-1/2 lg:left-1/2'>
                   <div className={cn(yearBadge, 'h-14 w-14')}>{item.year}</div>
                 </div>
-              </li>
+              </Reveal>
             ))}
           </ol>
         </div>
@@ -96,8 +103,11 @@ export const TimelineBlock: React.FC<TimelineBlockProps & { lng: Language }> = (
         >
           <div className='relative w-max'>
             {/* Horizontal connecting line through the year dots */}
-            <div aria-hidden='true' className='bg-green/20 absolute top-10 right-0 left-0 h-px' />
-            <ol className='flex'>
+            <Reveal
+              from='draw-x'
+              className='bg-green/30 absolute top-10 right-0 left-0 h-0.5 origin-left'
+            />
+            <Reveal as='ol' stagger className='flex'>
               {items.map((item, index) => (
                 <li key={item.id || index} className='w-72 shrink-0 snap-start p-4'>
                   <div className='relative mb-8 flex justify-center'>
@@ -113,7 +123,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps & { lng: Language }> = (
                   </article>
                 </li>
               ))}
-            </ol>
+            </Reveal>
           </div>
         </div>
       )}

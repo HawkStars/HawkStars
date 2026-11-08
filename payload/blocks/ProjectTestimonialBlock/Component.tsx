@@ -289,6 +289,7 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
         <header className='section-header text-center'>
           {title && (
             <h2
+              data-reveal='up'
               className={cn(
                 'text-h2_semibold',
                 textClasses[backgroundColor as keyof typeof textClasses]

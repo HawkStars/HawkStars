@@ -23,9 +23,13 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId
       id={sectionId || undefined}
       data-blockid='faq'
     >
-      {title && <h2 className='text-h2_semibold section-header text-center'>{title}</h2>}
+      {title && (
+        <h2 data-reveal='up' className='text-h2_semibold section-header text-center'>
+          {title}
+        </h2>
+      )}
 
-      <div className='mx-auto max-w-3xl space-y-4'>
+      <div data-reveal-stagger='up' className='mx-auto max-w-3xl space-y-4'>
         {items.map((item, index) => {
           const isOpen = openIndex === index;
           return (

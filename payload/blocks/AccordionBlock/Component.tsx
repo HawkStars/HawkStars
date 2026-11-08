@@ -64,8 +64,16 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
     >
       {(title || description) && (
         <div className='section-header text-center'>
-          {title && <h2 className='text-h2_semibold'>{title}</h2>}
-          {description && <p className='text-h2_light mt-4 text-black/70'>{description}</p>}
+          {title && (
+            <h2 data-reveal='up' className='text-h2_semibold'>
+              {title}
+            </h2>
+          )}
+          {description && (
+            <p data-reveal='up' className='text-h2_light mt-4 text-black/70'>
+              {description}
+            </p>
+          )}
         </div>
       )}
 

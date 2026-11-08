@@ -58,7 +58,11 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps & { lng: Language 
       id={sectionId || undefined}
       data-blockid='mapLocation'
     >
-      {title && <h2 className='text-h2_semibold section-header text-center'>{title}</h2>}
+      {title && (
+        <h2 data-reveal='up' className='text-h2_semibold section-header text-center'>
+          {title}
+        </h2>
+      )}
 
       <div className='grid gap-6 lg:grid-cols-2 lg:gap-8'>
         {/* Map — 4:3 on mobile so it doesn't push the contact details a full screen down. */}

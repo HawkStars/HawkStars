@@ -52,8 +52,16 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
           and capped at a readable width. */}
       <div className='mb-10 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between md:mb-12 lg:mb-14'>
         <div className='max-w-3xl'>
-          {title && <h2 className='text-h2_semibold'>{title}</h2>}
-          {subtitle && <p className={cn('text-h2_light mt-3', subtitleStyles[bg])}>{subtitle}</p>}
+          {title && (
+            <h2 data-reveal='up' className='text-h2_semibold'>
+              {title}
+            </h2>
+          )}
+          {subtitle && (
+            <p data-reveal='up' className={cn('text-h2_light mt-3', subtitleStyles[bg])}>
+              {subtitle}
+            </p>
+          )}
         </div>
         {badge && (
           <span className={cn('text-body_semibold shrink-0 italic', badgeStyles[bg])}>{badge}</span>
@@ -62,6 +70,7 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
 
       {/* Challenges Grid */}
       <div
+        data-reveal-stagger='up'
         className={cn(
           'mx-auto grid max-w-6xl gap-x-8 gap-y-10',
           challenges.length <= 2 && 'grid-cols-1 sm:grid-cols-2',

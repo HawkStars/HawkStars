@@ -54,7 +54,11 @@ export const OfferCatalogBlock: React.FC<OfferCatalogBlockProps> = ({
     >
       {(title || subtitle) && (
         <div className='section-header text-center'>
-          {title && <h2 className='text-h2_semibold'>{title}</h2>}
+          {title && (
+            <h2 data-reveal='up' className='text-h2_semibold'>
+              {title}
+            </h2>
+          )}
           {subtitle && (
             <p
               className={cn(
@@ -68,7 +72,7 @@ export const OfferCatalogBlock: React.FC<OfferCatalogBlockProps> = ({
         </div>
       )}
 
-      <div className='mx-auto flex max-w-4xl flex-col gap-10'>
+      <div data-reveal-stagger='up' className='mx-auto flex max-w-4xl flex-col gap-10'>
         {groups.map((group, groupIndex) => (
           <div key={group.id || groupIndex}>
             {group.groupLabel && <h3 className='text-h2_bold mb-4'>{group.groupLabel}</h3>}

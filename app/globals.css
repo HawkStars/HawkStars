@@ -89,6 +89,15 @@
   --animate-logo-enter: logo-enter 0.6s ease-out both;
   --animate-logo-shine: logo-shine 2.2s ease-in-out 0.4s infinite;
   --animate-loading-bar: loading-bar 1.4s ease-in-out infinite;
+  /* Landing page (components/home) */
+  --animate-ken-burns: ken-burns 28s ease-in-out infinite alternate;
+  --animate-rise: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-marquee: marquee 45s linear infinite;
+  --animate-marquee-reverse: marquee 45s linear infinite reverse;
+  --animate-spin-slow: spin 80s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-twinkle: twinkle 3.2s ease-in-out infinite;
+  --animate-scroll-cue: scroll-cue 2.2s ease-in-out infinite;
 
   --color-zinc-50: oklch(98.5% 0 0);
   --color-neutral-50: oklch(98.5% 0 0);
@@ -131,6 +140,203 @@
   }
   100% {
     transform: translateX(300%);
+  }
+}
+
+@keyframes ken-burns {
+  from {
+    transform: scale(1.05) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.18) translate3d(-2%, -2%, 0);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.6em);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* Tracks hold their content twice, so -50% lands exactly on the seam. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes scroll-cue {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/*
+ * Scroll reveal — see components/ui/motion. `MotionObserver` adds `motion-ready`
+ * to <html> and `data-revealed` to elements as they enter the viewport. Hidden
+ * state only applies under `motion-ready`, so content is never stuck invisible
+ * without JS. Reveals are animations with `backwards` fill (not transitions), so
+ * once finished they leave the element's own transform/transition untouched —
+ * hover lifts on revealed cards keep working. Elements already on screen when
+ * motion switches on get `data-revealed='instant'`, which matches none of the
+ * animation rules below, so they simply stay visible.
+ */
+.motion-ready [data-reveal]:not([data-revealed]),
+.motion-ready [data-reveal-stagger]:not([data-revealed]) > * {
+  opacity: 0;
+}
+
+.motion-ready [data-reveal][data-revealed=''],
+.motion-ready [data-reveal-stagger][data-revealed=''] > * {
+  animation: reveal-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  animation-delay: calc(var(--reveal-delay, 0ms) + var(--reveal-i, 0) * 110ms);
+}
+
+/* Stagger order for up to 12 children (more than that share the last step). */
+.motion-ready [data-reveal-stagger] > :nth-child(2) {
+  --reveal-i: 1;
+}
+.motion-ready [data-reveal-stagger] > :nth-child(3) {
+  --reveal-i: 2;
+}
+.motion-ready [data-reveal-stagger] > :nth-child(4) {
+  --reveal-i: 3;
+}
+.motion-ready [data-reveal-stagger] > :nth-child(5) {
+  --reveal-i: 4;
+}
+.motion-ready [data-reveal-stagger] > :nth-child(6) {
+  --reveal-i: 5;
+}
+.motion-ready [data-reveal-stagger] > :nth-child(7) {
+  --reveal-i: 6;
+}
+.motion-ready [data-reveal-stagger] > :nth-child(8) {
+  --reveal-i: 7;
+}
+.motion-ready [data-reveal-stagger] > :nth-child(9) {
+  --reveal-i: 8;
+}
+.motion-ready [data-reveal-stagger] > :nth-child(10) {
+  --reveal-i: 9;
+}
+.motion-ready [data-reveal-stagger] > :nth-child(11) {
+  --reveal-i: 10;
+}
+.motion-ready [data-reveal-stagger] > :nth-child(12) {
+  --reveal-i: 11;
+}
+.motion-ready [data-reveal-stagger] > :nth-child(n + 13) {
+  --reveal-i: 12;
+}
+
+/* A revealed element right after another (heading → subtitle) trails it slightly. */
+.motion-ready [data-reveal][data-revealed=''] + [data-reveal][data-revealed=''] {
+  animation-delay: calc(var(--reveal-delay, 0ms) + 120ms);
+}
+
+.motion-ready [data-reveal='left'][data-revealed=''],
+.motion-ready [data-reveal-stagger='left'][data-revealed=''] > * {
+  animation-name: reveal-left;
+}
+.motion-ready [data-reveal='right'][data-revealed=''],
+.motion-ready [data-reveal-stagger='right'][data-revealed=''] > * {
+  animation-name: reveal-right;
+}
+.motion-ready [data-reveal='scale'][data-revealed=''],
+.motion-ready [data-reveal-stagger='scale'][data-revealed=''] > * {
+  animation-name: reveal-scale;
+}
+.motion-ready [data-reveal='draw'][data-revealed=''] {
+  animation-name: reveal-draw-y;
+  animation-duration: 1.8s;
+}
+@media (min-width: 64rem) {
+  .motion-ready [data-reveal='draw'][data-revealed=''] {
+    animation-name: reveal-draw-x;
+  }
+}
+.motion-ready [data-reveal='draw-y'][data-revealed=''],
+.motion-ready [data-reveal='draw-x'][data-revealed=''] {
+  animation-name: reveal-draw-y;
+  animation-duration: 1.8s;
+}
+.motion-ready [data-reveal='draw-x'][data-revealed=''] {
+  animation-name: reveal-draw-x;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    translate: 0 2.5rem;
+  }
+}
+@keyframes reveal-left {
+  from {
+    opacity: 0;
+    translate: -2.5rem 0;
+  }
+}
+@keyframes reveal-right {
+  from {
+    opacity: 0;
+    translate: 2.5rem 0;
+  }
+}
+@keyframes reveal-scale {
+  from {
+    opacity: 0;
+    scale: 0.94;
+  }
+}
+@keyframes reveal-draw-y {
+  from {
+    scale: 1 0;
+  }
+}
+@keyframes reveal-draw-x {
+  from {
+    scale: 0 1;
   }
 }
 

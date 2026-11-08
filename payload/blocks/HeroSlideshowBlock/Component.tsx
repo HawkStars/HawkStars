@@ -153,7 +153,7 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
                 // alt the photo is decorative.
                 alt={bgImage.alt || ''}
                 fill
-                className='object-cover'
+                className='animate-ken-burns object-cover'
                 preload={index <= 1 ? true : false}
                 data-blockid={`heroSlideshowBlock-backgroundImage-${index}`}
                 sizes='100vw'
@@ -171,6 +171,11 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
               aria-hidden='true'
               className='absolute inset-0 bg-linear-to-t from-black/60 via-black/25 to-black/10'
             />
+            {/* Brand tint, the same green-to-ink wash as the landing page hero. */}
+            <div
+              aria-hidden='true'
+              className='from-green-dark/40 to-ink/40 absolute inset-0 bg-linear-to-br via-transparent'
+            />
 
             {/* Content */}
             <div
@@ -180,7 +185,15 @@ const HeroSlideshowBlock: React.FC<HeroSlideshowBlockProps & { lng: Language }> 
                 alignmentClasses[slide.textAlignment as keyof typeof alignmentClasses]
               )}
             >
-              <div className='flex max-w-4xl flex-col gap-5 lg:gap-6'>
+              {/* The rise animation is only applied to the active slide, so it replays
+                  each time a slide comes in. */}
+              <div
+                className={cn(
+                  'flex max-w-4xl flex-col gap-5 lg:gap-6',
+                  index === currentSlide &&
+                    '*:animate-rise [&>*:nth-child(2)]:[animation-delay:200ms] [&>*:nth-child(3)]:[animation-delay:400ms]'
+                )}
+              >
                 {slide.title &&
                   (() => {
                     // One <h1> per page: the tag was computed once and rendered inside

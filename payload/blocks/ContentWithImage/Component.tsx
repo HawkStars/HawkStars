@@ -35,8 +35,9 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps & { lng: Lang
         {/* Image Section — rounded on every breakpoint (it was square-cornered on mobile), and a
             4:3 frame replaces the old full-viewport-height box for images of unknown size. */}
         <div
+          data-reveal={isImageLeft ? 'right' : 'left'}
           className={cn(
-            'relative w-full overflow-hidden rounded-xl',
+            'group relative w-full overflow-hidden rounded-xl shadow-md',
             isImageLeft ? 'lg:order-2' : 'lg:order-1',
             { 'bg-bege-dark aspect-4/3': !customizedHeight && !hasIntrinsicSize }
           )}
@@ -50,6 +51,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps & { lng: Lang
               width={imageInfo.width || undefined}
               height={imageInfo.height || undefined}
               className={cn({
+                'transition-transform duration-[2s] group-hover:scale-105': true,
                 'absolute inset-0 object-cover': shouldFill,
                 'h-full w-full object-cover': !shouldFill && customizedHeight,
                 'h-auto w-full': !shouldFill && !customizedHeight,
@@ -60,7 +62,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps & { lng: Lang
         </div>
 
         {/* Content Section */}
-        <div className={cn('w-full', isImageLeft ? 'lg:order-1' : 'lg:order-2')}>
+        <div data-reveal='up' className={cn('w-full', isImageLeft ? 'lg:order-1' : 'lg:order-2')}>
           {/* Left-aligned on mobile too, so the heading lines up with the body copy below it. */}
           {title && <h2 className='text-h2_semibold mb-5'>{title}</h2>}
           {description && <RichText data={description} lng={lng} />}

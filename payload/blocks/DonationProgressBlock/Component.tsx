@@ -108,7 +108,9 @@ export const DonationProgressBlock: React.FC<DonationProgressBlockProps & { lng:
           >
             <LuTarget aria-hidden className='size-6' />
           </span>
-          <h2 className='text-h2_semibold'>{title}</h2>
+          <h2 data-reveal='up' className='text-h2_semibold'>
+            {title}
+          </h2>
           {description && (
             <p
               className={cn(

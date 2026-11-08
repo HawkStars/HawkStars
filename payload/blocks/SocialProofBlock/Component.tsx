@@ -44,7 +44,11 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
             textAlign && textAlignClasses[textAlign as keyof typeof textAlignClasses]
           )}
         >
-          {title && <h2 className='text-h2_semibold'>{title}</h2>}
+          {title && (
+            <h2 data-reveal='up' className='text-h2_semibold'>
+              {title}
+            </h2>
+          )}
           {subtitle && (
             <p
               className={cn(
@@ -59,7 +63,7 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
           )}
         </div>
       )}
-      <ul className='grid grid-cols-2 md:grid-cols-4'>
+      <ul data-reveal-stagger='scale' className='grid grid-cols-2 md:grid-cols-4'>
         {stats.map((stat, index) => {
           const isLast = index === stats.length - 1;
           const lastRowStart = (n: number) => stats.length - (stats.length % n || n);

@@ -8,6 +8,7 @@ import { GA_MEASUREMENT_ID } from '@/lib/constants';
 import { getGallerySettings } from '@/lib/payload/queries/artwork';
 import GalleryNavbar from '@/components/art/layout/GalleryNavbar';
 import GalleryFooter from '@/components/art/layout/GalleryFooter';
+import { MotionObserver } from '@/components/ui/motion/MotionObserver';
 
 const playfair = Playfair_Display({
   variable: '--font-playfair',
@@ -47,6 +48,7 @@ export default async function GalleryLayout(props: {
       className={`${playfair.variable} ${jakarta.variable} bg-art-charcoal`}
     >
       <body className='bg-art-charcoal text-art-text font-art-sans min-h-screen antialiased'>
+        <MotionObserver />
         <AppProvider lng={lng}>
           <Suspense>
             <GalleryNavbar lng={lng} />

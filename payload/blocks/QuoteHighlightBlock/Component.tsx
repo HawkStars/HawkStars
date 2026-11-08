@@ -62,7 +62,7 @@ export const QuoteHighlightBlock: React.FC<QuoteHighlightBlockProps> = ({
       id={sectionId || undefined}
       data-blockid='quoteHighlight'
     >
-      <figure className={cn('mx-auto', containerStyles[variant])}>
+      <figure data-reveal='scale' className={cn('mx-auto', containerStyles[variant])}>
         {variant !== 'bordered' && (
           <LuQuote
             aria-hidden='true'

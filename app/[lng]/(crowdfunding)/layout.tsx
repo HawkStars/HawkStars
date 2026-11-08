@@ -9,6 +9,7 @@ import SkipToContent from '@/components/a11y/SkipToContent';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 import { getMetadataPageInfo } from '@/utils/metadata';
+import { MotionObserver } from '@/components/ui/motion/MotionObserver';
 
 const inter = Inter({ variable: '--font-inter', subsets: ['latin'], display: 'swap' });
 const oswald = Oswald({ variable: '--font-oswald', subsets: ['latin'], display: 'swap' });
@@ -48,6 +49,7 @@ export default async function CrowdfundingLayout(props: {
       data-scroll-behavior='smooth'
     >
       <body className='bg-crowdfunding-bg'>
+        <MotionObserver />
         <Suspense fallback={<></>}>
           <LayoutContent lng={lng}>{children}</LayoutContent>
         </Suspense>

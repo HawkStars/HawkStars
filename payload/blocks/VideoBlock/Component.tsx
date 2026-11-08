@@ -36,7 +36,11 @@ export const VideoBlock: React.FC<Props> = (props) => {
       id={sectionId || undefined}
       data-blockid='videoBlock'
     >
-      {title && <h2 className='text-h2_bold mb-4'>{title}</h2>}
+      {title && (
+        <h2 data-reveal='up' className='text-h2_bold mb-4'>
+          {title}
+        </h2>
+      )}
 
       <div className='bg-bege-dark relative aspect-video w-full overflow-hidden rounded-xl shadow-sm'>
         <VideoMedia

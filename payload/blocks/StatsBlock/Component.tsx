@@ -5,6 +5,7 @@ import { getIcon } from '@/lib/icon';
 import { CMSLink } from '@/payload/components/Link';
 import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';
+import { AnimatedValue, Reveal } from '@/components/ui/motion';
 
 const columnsClass = {
   '2': 'grid-cols-1 sm:grid-cols-2',
@@ -79,14 +80,16 @@ export const StatsBlock = ({
       data-blockid='statsBlock'
     >
       {/* Stats Grid */}
-      <div
+      <Reveal
+        stagger
+        from='scale'
         className={cn('grid gap-6 lg:gap-8', columnsClass[columns as keyof typeof columnsClass])}
       >
         {stats.map((stat, index) => (
           <div
             key={stat.id || index}
             className={cn(
-              'card card-hover flex w-full flex-col border border-transparent p-6 transition-[box-shadow,border-color] duration-200',
+              'card card-hover flex w-full flex-col border border-transparent p-6 transition-[box-shadow,border-color,translate] duration-300 hover:-translate-y-1',
               columns === '5' ? 'lg:p-6' : 'lg:p-8',
               cardBackgroundStyles[background as keyof typeof cardBackgroundStyles],
               hoverBorderStyles[hoverBorderColor as keyof typeof hoverBorderStyles]
@@ -112,7 +115,7 @@ export const StatsBlock = ({
                   alignmentStyles[(stat.titleAlign || 'center') as keyof typeof alignmentStyles]
                 )}
               >
-                {stat.title}
+                <AnimatedValue value={stat.title} />
               </h3>
             )}
             {stat.description && (
@@ -130,7 +133,7 @@ export const StatsBlock = ({
             )}
           </div>
         ))}
-      </div>
+      </Reveal>
 
       {/* CTA Buttons */}
       {links && links.length > 0 && (

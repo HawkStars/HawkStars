@@ -27,6 +27,7 @@ export const GlobalVillageAboutSectionBlockComponent: React.FC<
           data-blockid='globalVillageAboutSection'
         >
           <SectionHeader
+            reveal
             title={heading}
             subtitle={description ?? undefined}
             align='center'
@@ -43,7 +44,10 @@ export const GlobalVillageAboutSectionBlockComponent: React.FC<
         id={heading ? undefined : sectionId || undefined}
         data-blockid={heading ? undefined : 'globalVillageAboutSection'}
       >
-        <div className='grid gap-6 md:grid-cols-2 lg:auto-cols-fr lg:grid-flow-col lg:grid-cols-none lg:gap-8'>
+        <div
+          data-reveal-stagger='up'
+          className='grid gap-6 md:grid-cols-2 lg:auto-cols-fr lg:grid-flow-col lg:grid-cols-none lg:gap-8'
+        >
           {sections.map((section, index) => {
             const imageData = section.sectionImage
               ? getImagePayloadUrl(section.sectionImage)

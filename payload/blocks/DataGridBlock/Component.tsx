@@ -24,7 +24,11 @@ export const DataGridBlock: React.FC<DataGridBlockProps> = ({
       id={sectionId || undefined}
       data-blockid='dataGridBlock'
     >
-      {title && <h2 className='text-h2_semibold section-header text-center'>{title}</h2>}
+      {title && (
+        <h2 data-reveal='up' className='text-h2_semibold section-header text-center'>
+          {title}
+        </h2>
+      )}
       {/* A white card with warm row rules. The table fills the content column (the old
           `lg:min-w-6xl` overflowed it between 1024 and 1280px) and wraps text on mobile
           instead of forcing a sideways scroll; `overflow-x-auto` stays as a safety net. */}
@@ -45,7 +49,7 @@ export const DataGridBlock: React.FC<DataGridBlockProps> = ({
               )}
             </tr>
           </thead>
-          <tbody>
+          <tbody data-reveal-stagger='up'>
             {rows?.map((row, index) => (
               <tr
                 key={row.id || index}

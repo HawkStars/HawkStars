@@ -59,7 +59,7 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock & { ln
       {/* Background Image */}
       {bgImage && bgImage.url && (
         <ImageMedia
-          className='absolute inset-0 object-cover'
+          className='animate-ken-burns absolute inset-0 object-cover'
           fill
           src={bgImage.url}
           alt={bgImage.alt ?? ''}
@@ -79,18 +79,29 @@ const HeroWithBackgroundImageBlock: React.FC<HeroWithBackgroundImageBlock & { ln
         aria-hidden='true'
         className='absolute inset-0 bg-linear-to-t from-black/50 via-black/20 to-transparent'
       />
+      {/* Brand tint, the same green-to-ink wash as the landing page hero. */}
+      <div
+        aria-hidden='true'
+        className='from-green-dark/40 to-ink/40 absolute inset-0 bg-linear-to-br via-transparent'
+      />
 
       {/* Content */}
       <div className='section-container relative z-10 flex min-h-150 flex-col justify-center py-20 lg:min-h-175 lg:py-28'>
         <div className={cn('flex max-w-4xl flex-col gap-5 lg:gap-6', alignmentClasses[alignment])}>
-          {title && <HeadingTag className='text-display text-white'>{title}</HeadingTag>}
+          {title && (
+            <HeadingTag className='text-display animate-rise text-white'>{title}</HeadingTag>
+          )}
 
-          {subtitle && <p className='text-h2_light max-w-2xl text-white/90'>{subtitle}</p>}
+          {subtitle && (
+            <p className='text-h2_light animate-rise max-w-2xl text-white/90 [animation-delay:200ms]'>
+              {subtitle}
+            </p>
+          )}
 
           {ctas.some(Boolean) && (
             <div
               className={cn(
-                'mt-2 flex flex-col gap-3 sm:flex-row lg:mt-4',
+                'animate-rise mt-2 flex flex-col gap-3 [animation-delay:400ms] sm:flex-row lg:mt-4',
                 ctaRowAlignment[alignment]
               )}
             >

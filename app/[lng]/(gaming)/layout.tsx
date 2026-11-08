@@ -8,6 +8,7 @@ import GamingFooter from '@/components/gaming/GamingFooter';
 import { fallbackLng, languages, Language } from '@/i18n/settings';
 import { Suspense } from 'react';
 import SkipToContent from '@/components/a11y/SkipToContent';
+import { MotionObserver } from '@/components/ui/motion/MotionObserver';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -46,6 +47,7 @@ export default async function GamingLayout(props: {
   return (
     <html lang={lng} className={`${inter.variable}`} data-scroll-behavior='smooth'>
       <body className='bg-gaming-bg text-gaming-text font-[Inter,sans-serif] antialiased'>
+        <MotionObserver />
         {/* Background ambient effects */}
         <div className='pointer-events-none fixed inset-0 z-0'>
           {/* Top-left cyan glow */}

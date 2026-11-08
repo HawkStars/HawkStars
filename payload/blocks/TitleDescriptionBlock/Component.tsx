@@ -19,6 +19,7 @@ export const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
     >
       {title && (
         <SectionHeader
+          reveal
           title={title}
           eyebrow={eyebrow ?? undefined}
           subtitle={description ?? undefined}

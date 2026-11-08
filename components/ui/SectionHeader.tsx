@@ -65,6 +65,8 @@ type SectionHeaderProps = {
   className?: string;
   titleClassName?: string;
   subtitleClassName?: string;
+  /** Animate the header in on scroll (see `components/ui/motion`). */
+  reveal?: boolean;
 };
 
 const SectionHeader = ({
@@ -78,6 +80,7 @@ const SectionHeader = ({
   className,
   titleClassName,
   subtitleClassName,
+  reveal,
 }: SectionHeaderProps) => {
   const Heading = as;
   const centered = align === 'center';
@@ -85,6 +88,7 @@ const SectionHeader = ({
   return (
     <div
       id={sectionId || undefined}
+      data-reveal={reveal ? 'up' : undefined}
       className={cn('flex flex-col', centered && 'items-center text-center', className)}
     >
       {eyebrow ? (

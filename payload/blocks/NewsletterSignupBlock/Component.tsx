@@ -60,7 +60,10 @@ export const NewsletterSignupBlock: React.FC<NewsletterSignupBlockProps & { lng:
       data-blockid='newsletterSignup'
     >
       {/* Gradient from tokens (green → green-dark) instead of an inline hex gradient. */}
-      <div className='from-green to-green-dark rounded-xl bg-linear-135 px-6 py-10 text-white shadow-md sm:px-8 lg:p-12'>
+      <div
+        data-reveal='scale'
+        className='from-green to-green-dark rounded-xl bg-linear-135 px-6 py-10 text-white shadow-md sm:px-8 lg:p-12'
+      >
         <div className='mx-auto max-w-2xl text-center'>
           <div className='mb-4 inline-flex size-14 items-center justify-center rounded-full bg-white/10 lg:size-16'>
             <LuMail aria-hidden='true' className='size-7 text-white lg:size-8' />

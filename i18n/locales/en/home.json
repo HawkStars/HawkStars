@@ -1,0 +1,164 @@
+{
+  "hero": {
+    "eyebrow": "Pinhel · Portugal · Since 2015",
+    "title_line1": "Think global.",
+    "title_line2": "Act local.",
+    "description": "Hawk Stars is an NGO for Education, Innovation and Social Development. We connect young people from the heart of Portugal with Europe — through Erasmus+, humanitarian action, culture and a training centre we are building in Pinhel.",
+    "cta_primary": "Get involved",
+    "cta_donate": "Donate",
+    "scroll": "Scroll to discover",
+    "ring_label": "Europe's stars around the Hawk Stars mark"
+  },
+  "marquee": {
+    "erasmus": "Erasmus+",
+    "mobility": "Youth mobility",
+    "solidarity": "Solidarity",
+    "humanitarian": "Humanitarian aid",
+    "culture": "Culture & art",
+    "innovation": "Social innovation",
+    "village": "Global Village",
+    "education": "Non-formal education"
+  },
+  "mission": {
+    "eyebrow": "Who we are",
+    "title": "A group of friends from Pinhel, thinking at the scale of Europe",
+    "body": "Our main objective is to promote and develop social, cultural, digital, artistic and youth competencies, and to foster lifelong learning through international projects and non-formal education — for locals and for everyone who comes to visit.",
+    "body_2": "Blue and yellow are the colours of our city and of the European Union. The Hawk embraces the world, from the global to the local.",
+    "values_title": "What moves us",
+    "values": {
+      "solidarity": {
+        "title": "Solidarity",
+        "description": "From people to people."
+      },
+      "identity": {
+        "title": "Identity",
+        "description": "Common sense and respect for cultural diversity."
+      },
+      "sense": {
+        "title": "Sense",
+        "description": "Ethics, integrity and transparency."
+      }
+    },
+    "image_alt": "The PINHEL letters in front of the castle"
+  },
+  "pillars": {
+    "eyebrow": "What we do",
+    "title": "Four ways we create impact",
+    "learn_more": "Learn more",
+    "erasmus": {
+      "title": "Erasmus+ & youth mobility",
+      "description": "Youth exchanges, volunteering with the European Solidarity Corps, traineeships and cooperation partnerships across Europe.",
+      "image_alt": "Participants of a youth exchange on a boat"
+    },
+    "village": {
+      "title": "Global Village",
+      "description": "Turning a vacant building in Pinhel's historic centre into an International Training Centre for learning, culture and social innovation.",
+      "image_alt": "Render of the International Training Centre"
+    },
+    "humanitarian": {
+      "title": "Humanitarian action",
+      "description": "When the war in Ukraine began, we filled trucks. Solidarity is where our story restarted — and it stays at our core.",
+      "image_alt": "Volunteers sorting humanitarian aid in a warehouse"
+    },
+    "culture": {
+      "title": "Art & culture",
+      "description": "A social-impact art gallery, festivals and events that bring international artists and audiences to the Beira Interior.",
+      "image_alt": "A summer evening with project participants"
+    }
+  },
+  "impact": {
+    "eyebrow": "Together for Ukraine · 2022",
+    "title": "One district. One cause. 90 tonnes of hope.",
+    "description": "In the spring of 2022, the founders of EuroHawk reunited with partners and the firefighters of the Guarda district to send humanitarian aid to Ukraine. This is what solidarity looked like.",
+    "cta": "Read our story",
+    "stats": {
+      "tons": "tonnes of material delivered",
+      "km": "kilometres travelled",
+      "people": "people involved",
+      "brigades": "fire brigades",
+      "institutions": "public & private institutions",
+      "value": "estimated operation value"
+    },
+    "units": {
+      "tons": "t",
+      "km": "km",
+      "value": "€"
+    }
+  },
+  "timeline": {
+    "eyebrow": "Our journey",
+    "title": "From EuroHawk to Hawk Stars",
+    "items": {
+      "eurohawk": {
+        "year": "2015",
+        "title": "EuroHawk is born",
+        "description": "A youth association formed entirely by young people from Pinhel — version 1.0 of Hawk Stars."
+      },
+      "festival": {
+        "year": "2017",
+        "title": "Hawk Festival",
+        "description": "Around 1,400 festival-goers a day, 500 campers and 27 artists — a cultural milestone for the Guarda district."
+      },
+      "ukraine": {
+        "year": "2022",
+        "title": "Together for Ukraine",
+        "description": "The founders reconnect to send 5 trucks of humanitarian aid across 30,342 km."
+      },
+      "foundation": {
+        "year": "2023",
+        "title": "Hawk Stars is founded",
+        "description": "Officially established on 8 August 2023 as an NGO for Education, Innovation and Social Development."
+      },
+      "future": {
+        "year": "2024 →",
+        "title": "A 30-year vision",
+        "description": "Building the Pinhel Global Village International Training Centre — a hub for social innovation."
+      }
+    }
+  },
+  "village": {
+    "eyebrow": "Flagship project",
+    "title": "Pinhel Global Village",
+    "description": "We are transforming a vacant building in the historic centre of Pinhel into a multidisciplinary centre for training, social innovation, culture, gaming and digital creation — bringing the world to the Beira Interior.",
+    "badge": "30-year project",
+    "features": {
+      "training": "Training rooms",
+      "cowork": "Coworking",
+      "studio": "Recording studio",
+      "gaming": "Gaming room",
+      "restaurant": "Restaurant"
+    },
+    "cta": "Support the campaign",
+    "cta_secondary": "Our history",
+    "image_alt": "Exterior render of the International Training Centre",
+    "image_alt_2": "Coworking space in the International Training Centre"
+  },
+  "gallery": {
+    "eyebrow": "Moments",
+    "title": "Life inside our projects",
+    "cta": "See all projects",
+    "image_alt": "Photo from a Hawk Stars project"
+  },
+  "involve": {
+    "eyebrow": "Join us",
+    "title": "Be part of something bigger",
+    "description": "Hawk Stars is built by people who believe in community, culture and positive change. There is a place for you.",
+    "member": {
+      "title": "Become a member",
+      "description": "Vote in the General Assembly, help shape our strategy and represent Hawk Stars at home and abroad."
+    },
+    "volunteer": {
+      "title": "Volunteer",
+      "description": "Join local and international activities, take part in youth exchanges and earn a Youthpass."
+    },
+    "donate": {
+      "title": "Donate",
+      "description": "Fund the Training Centre and our humanitarian work. Every contribution is published transparently."
+    },
+    "erasmus": {
+      "title": "Find an opportunity",
+      "description": "Explore Erasmus+, the European Solidarity Corps and other EU programmes for young people."
+    },
+    "contact": "Or just write to us:"
+  }
+}

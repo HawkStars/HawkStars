@@ -75,7 +75,11 @@ export const ImageComparisonSliderBlock = ({
       id={sectionId || undefined}
       data-blockid='imageComparisonSlider'
     >
-      {title && <h2 className='text-h2_semibold section-header text-center'>{title}</h2>}
+      {title && (
+        <h2 data-reveal='up' className='text-h2_semibold section-header text-center'>
+          {title}
+        </h2>
+      )}
 
       <div
         className='relative mx-auto max-w-4xl overflow-hidden rounded-xl shadow-sm select-none'

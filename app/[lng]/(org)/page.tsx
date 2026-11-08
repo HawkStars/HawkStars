@@ -1,42 +1,16 @@
 import { Metadata } from 'next';
-import { Suspense } from 'react';
-import { PageLoading } from '@/components/layout';
-import { getMetadataPageInfo, prepareMetadataInfo } from '@/utils/metadata';
-import { LanguagePageProps } from './types';
+import { getMetadataPageInfo } from '@/utils/metadata';
 import { Language } from '@/i18n/settings';
-import { getMainPageInformation } from '@/lib/payload/main-page';
-import MainPageWrapper from '@/components/main-page/MainPageWrapper';
+import { HomeLanding } from '@/components/home';
+import { LanguagePageProps } from './types';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
-  const params = await props.params;
-  const { lng } = params;
-  const pageInformation = await getMainPageInformation(lng as Language);
-  if (pageInformation && pageInformation.meta)
-    return prepareMetadataInfo({
-      ...pageInformation.meta,
-      image: pageInformation.meta.image?.value,
-      url: '/',
-      lng: lng as Language,
-    });
-
-  const metadataPage = getMetadataPageInfo(lng as Language, 'home');
-  return metadataPage;
+  const { lng } = await props.params;
+  return getMetadataPageInfo(lng as Language, 'home');
 }
 
-type HomeProps = {
-  params: Promise<{ lng: Language }>;
-};
-
-export default function Home(props: HomeProps) {
-  return (
-    <Suspense fallback={<PageLoading />}>
-      <HomeContent params={props.params} />
-    </Suspense>
-  );
-}
-
-async function HomeContent({ params }: { params: Promise<{ lng: Language }> }) {
-  const { lng } = await params;
-
-  return <MainPageWrapper lng={lng} />;
+/** Static landing page — content lives in `i18n/locales/{pt,en}/home.json`, not in Payload. */
+export default async function Home(props: LanguagePageProps) {
+  const { lng } = await props.params;
+  return <HomeLanding lng={lng as Language} />;
 }

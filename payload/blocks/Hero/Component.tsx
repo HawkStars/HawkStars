@@ -44,30 +44,43 @@ const HeroBlock: React.FC<HeroBlock & { lng: Language }> = (data) => {
             alt={bgImage.alt || ''}
             height={48}
             width={48}
-            className='mb-6 aspect-square'
+            className='animate-float mb-6 aspect-square'
           />
         )}
-        {badge && <SectionEyebrow label={badge} />}
-        {heading && <HeadingTag className='text-display'>{heading}</HeadingTag>}
+        {badge && <SectionEyebrow label={badge} className='animate-rise' />}
+        {heading && (
+          <HeadingTag className='text-display animate-rise [animation-delay:150ms]'>
+            {heading}
+          </HeadingTag>
+        )}
         {linkInfo && (
-          <Button className='mt-10' size='xl' asChild>
+          <Button className='animate-rise group mt-10 [animation-delay:350ms]' size='xl' asChild>
             <a
               href={linkInfo.url}
               target={linkInfo.newTab ? '_blank' : undefined}
               rel={linkInfo.newTab ? 'noopener noreferrer' : undefined}
             >
               {linkInfo.label}
-              <LuMoveRight aria-hidden='true' />
+              <LuMoveRight
+                aria-hidden='true'
+                className='transition-transform group-hover:translate-x-1'
+              />
             </a>
           </Button>
         )}
       </div>
       {features && features.length > 0 && (
-        <ul className='mt-14 grid gap-4 sm:grid-cols-2 md:mt-20 lg:grid-cols-4 lg:gap-6'>
+        <ul
+          data-reveal-stagger='up'
+          className='mt-14 grid gap-4 sm:grid-cols-2 md:mt-20 lg:grid-cols-4 lg:gap-6'
+        >
           {features.map((feature, index) => {
             const IconComponent = iconMap[feature.icon as keyof typeof iconMap] || LuGlobe;
             return (
-              <li key={feature.id ?? index} className='card flex flex-col gap-4 p-6 md:p-8'>
+              <li
+                key={feature.id ?? index}
+                className='card card-hover flex flex-col gap-4 p-6 transition-[translate,box-shadow] duration-300 hover:-translate-y-1 md:p-8'
+              >
                 <span className='bg-bege-dark text-green flex size-12 shrink-0 items-center justify-center rounded-full'>
                   <IconComponent className='size-6' aria-hidden='true' />
                 </span>

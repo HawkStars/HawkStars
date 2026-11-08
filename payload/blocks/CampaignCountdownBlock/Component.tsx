@@ -111,7 +111,9 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps & { ln
           >
             <LuClock aria-hidden className='size-6' />
           </span>
-          <h2 className='text-h2_semibold'>{title}</h2>
+          <h2 data-reveal='up' className='text-h2_semibold'>
+            {title}
+          </h2>
           {description && (
             <p
               className={cn(
@@ -135,6 +137,7 @@ export const CampaignCountdownBlock: React.FC<CampaignCountdownBlockProps & { ln
         ) : (
           // Ticks every second, so keep it out of the live-region announcements.
           <div
+            data-reveal-stagger='scale'
             role='timer'
             aria-live='off'
             className='mb-8 flex flex-wrap justify-center gap-2 sm:gap-4 lg:gap-6'

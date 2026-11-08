@@ -29,9 +29,15 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ title, description, image
     >
       {(title || description) && (
         <div className='section-header text-center'>
-          {title && <h2 className='text-h2_semibold'>{title}</h2>}
+          {title && (
+            <h2 data-reveal='up' className='text-h2_semibold'>
+              {title}
+            </h2>
+          )}
           {description && (
-            <p className='text-h2_light mt-4 whitespace-pre-line text-black/70'>{description}</p>
+            <p data-reveal='up' className='text-h2_light mt-4 whitespace-pre-line text-black/70'>
+              {description}
+            </p>
           )}
         </div>
       )}

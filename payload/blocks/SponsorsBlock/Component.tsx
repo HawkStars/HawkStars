@@ -46,14 +46,22 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps & { lng?: Language }> = 
     >
       {(title || subtitle) && (
         <header className='section-header text-center'>
-          {title && <h2 className='text-h2_semibold'>{title}</h2>}
-          {subtitle && <p className='text-h2_light mt-4 text-black/70'>{subtitle}</p>}
+          {title && (
+            <h2 data-reveal='up' className='text-h2_semibold'>
+              {title}
+            </h2>
+          )}
+          {subtitle && (
+            <p data-reveal='up' className='text-h2_light mt-4 text-black/70'>
+              {subtitle}
+            </p>
+          )}
         </header>
       )}
 
       {/* CSS columns keep tiers in reading order on mobile and balance them into a
           two-column masonry on large screens. */}
-      <div className='gap-6 lg:columns-2 lg:gap-8'>
+      <div data-reveal-stagger='up' className='gap-6 lg:columns-2 lg:gap-8'>
         {Object.entries(groupByTier).map(([tierKey, tierSponsors]) => (
           <LogosContainer
             key={tierKey}
@@ -74,7 +82,7 @@ type LogosContainerProps = {
 const LogosContainer: FC<LogosContainerProps> = ({ tier, sponsors }) => (
   <section className='card mb-6 break-inside-avoid p-6 lg:mb-8 lg:p-8'>
     <h3 className='text-h2_bold text-green mb-6'>{tier}</h3>
-    <ul className='grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3'>
+    <ul data-reveal-stagger='scale' className='grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3'>
       {sponsors.map((sponsor) => {
         const logoUrl = (sponsor.logo as Media)?.url;
         const content = (

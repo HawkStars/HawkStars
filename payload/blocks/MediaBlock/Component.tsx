@@ -14,7 +14,12 @@ export const MediaBlock: React.FC<MediaBlockProps> = (props) => {
   if (!image) return null;
 
   return (
-    <figure className='rt-wide rt-figure' id={sectionId || undefined} data-blockid='mediaBlock'>
+    <figure
+      data-reveal='scale'
+      className='rt-wide rt-figure'
+      id={sectionId || undefined}
+      data-blockid='mediaBlock'
+    >
       <ImageMedia
         resource={media}
         alt={image.alt ?? ''}

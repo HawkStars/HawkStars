@@ -83,7 +83,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> =
     >
       {resolvedVariant === 'centered' && (
         <div className={cn(PANEL, GREEN_BAND, PANEL_PADDING, 'text-center')}>
-          <SectionHeader title={title} variant='inverse' align='center' />
+          <SectionHeader reveal title={title} variant='inverse' align='center' />
           {description && (
             <p className='mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-white/90'>
               {description}
@@ -107,7 +107,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> =
           )}
         >
           <div className='max-w-2xl flex-1'>
-            <SectionHeader title={title} variant='inverse' />
+            <SectionHeader reveal title={title} variant='inverse' />
             {description && (
               <p className='mt-4 text-lg leading-relaxed text-white/90'>{description}</p>
             )}
@@ -129,13 +129,13 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> =
                 alt=''
                 fill
                 sizes='(min-width: 1280px) 1200px, 100vw'
-                className='object-cover'
+                className='animate-ken-burns object-cover'
               />
               <div aria-hidden='true' className='absolute inset-0 bg-black/55' />
             </>
           )}
           <div className='relative z-10'>
-            <SectionHeader title={title} variant='inverse' align='center' />
+            <SectionHeader reveal title={title} variant='inverse' align='center' />
             {description && (
               <p className='mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-white/90'>
                 {description}

@@ -52,6 +52,7 @@ export const ResourceDownloadBlock = async ({
     >
       {title && (
         <h2
+          data-reveal='up'
           className={cn('text-h2_semibold mb-10 lg:mb-12', {
             'mx-auto max-w-3xl text-center': variation === 'card',
             'max-w-3xl': variation !== 'card',
@@ -62,6 +63,7 @@ export const ResourceDownloadBlock = async ({
       )}
 
       <div
+        data-reveal-stagger='up'
         className={cn(
           variation === 'card'
             ? 'grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'

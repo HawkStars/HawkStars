@@ -103,7 +103,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
                 <div className='flex items-center gap-2'>
                   <LuCoins aria-hidden='true' className='text-green size-6 shrink-0' />
                   <div>
-                    <span className='text-2xl font-bold'>{`${formatCurrency(hero.fundedAmount)}€`}</span>
+                    <span className='text-2xl font-bold'>{formatCurrency(hero.fundedAmount)}</span>
                     <p className='text-sm text-gray-600'>{t('hero.funded')}</p>
                   </div>
                 </div>
