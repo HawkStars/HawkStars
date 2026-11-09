@@ -46,6 +46,12 @@ describe('formatDateRange', () => {
     );
   });
 
+  it('uses plain spaces, so server and browser output match on hydration', () => {
+    expect(formatDateRange('2026-07-30T12:00:00Z', '2026-08-02T12:00:00Z', 'pt')).not.toMatch(
+      /[\u2009\u202f]/
+    );
+  });
+
   it('falls back to one date without an end, or on the same day', () => {
     expect(formatDateRange('2026-07-10T12:00:00Z', null, 'pt')).toBe('10 de julho de 2026');
     expect(formatDateRange('2026-07-10T09:00:00Z', '2026-07-10T18:00:00Z', 'pt')).toBe(

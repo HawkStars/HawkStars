@@ -5,6 +5,7 @@ import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
 import { GROUP_LABELS } from '@/payload/constants';
 import { logLoginActivity, rateLimitLogin } from './hooks';
 import { isAdminUser } from '@/payload/access/isAdminUser';
+// import payload from 'payload';
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -79,6 +80,25 @@ export const Users: CollectionConfig = {
         condition: (_data, _siblingData, { user }) => isAdminUser(user),
       },
     },
+    // {
+    //   name: 'permissions_collection',
+    //   label: { en: 'Permissions', pt: 'Permissões' },
+    //   type: 'array',
+    //   minRows: 0,
+    //   fields: [
+    //     {
+    //       name: 'collectionRef',
+    //       type: 'relationship',
+    //       relationTo: [payload.collections], // 1. The '*' wildcard automatically links to ALL registered collections
+    //       required: true,
+    //       label: 'Select Collection',
+    //       admin: {
+    //         width: '50%',
+    //         condition: (data, siblingData) => siblingData?.type === 'collection',
+    //       },
+    //     },
+    //   ],
+    // },
   ],
   timestamps: true,
 };

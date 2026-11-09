@@ -5,6 +5,7 @@ import { authenticated } from '../access/authenticated';
 import { authenticatedAdmin } from '../access/authenticatedAdmin';
 import { GROUP_LABELS } from '../constants';
 import { createRevalidateHooks } from '../utilities/revalidateCollection';
+import { geocodeButton } from '../fields/GeocodeButton';
 
 export const PARTNER_CACHE_TAG = 'partners' as const;
 const { afterChange: revalidatePartner, afterDelete: revalidatePartnerDelete } =
@@ -74,6 +75,52 @@ export const Partner: CollectionConfig = {
         },
         { label: { en: 'Erasmus + Partner', pt: 'Parceiro Erasmus +' }, value: 'erasmus_partner' },
         { label: { en: 'Other', pt: 'Outro' }, value: 'other' },
+      ],
+    },
+    {
+      type: 'group',
+      name: 'location',
+      label: { en: 'Map location', pt: 'Localização no mapa' },
+      admin: {
+        description: {
+          en: 'Optional. Partners with coordinates get a pin on the partners page map; partners without them are simply not shown on the map.',
+          pt: 'Opcional. Os parceiros com coordenadas aparecem com um marcador no mapa da página de parceiros; os que não as têm simplesmente não aparecem no mapa.',
+        },
+      },
+      fields: [
+        {
+          type: 'text',
+          name: 'address',
+          label: { en: 'City / address', pt: 'Cidade / morada' },
+          admin: {
+            description: {
+              en: 'e.g. "Pinhel, Portugal". Use "Find coordinates" to fill latitude and longitude.',
+              pt: 'ex: "Pinhel, Portugal". Use o botão "Find coordinates" para preencher a latitude e a longitude.',
+            },
+          },
+        },
+        geocodeButton({ sourceField: 'address' }),
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'latitude',
+              label: { en: 'Latitude', pt: 'Latitude' },
+              type: 'number',
+              min: -90,
+              max: 90,
+              admin: { width: '50%', step: 0.000001 },
+            },
+            {
+              name: 'longitude',
+              label: { en: 'Longitude', pt: 'Longitude' },
+              type: 'number',
+              min: -180,
+              max: 180,
+              admin: { width: '50%', step: 0.000001 },
+            },
+          ],
+        },
       ],
     },
     { ...SocialLinksField },

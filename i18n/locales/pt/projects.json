@@ -59,5 +59,9 @@
     "distance": "{{distance}} km",
     "distances": "Distâncias",
     "totalDistance": "Distância total"
+  },
+  "dates": {
+    "activity": "Datas da atividade",
+    "project": "Duração do projeto"
   }
 }

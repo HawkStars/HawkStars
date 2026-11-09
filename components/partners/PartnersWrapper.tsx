@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 import { HawkStarsSection, PageHero } from '@/components/layout';
 import SectionTitle from '@/components/ui/SectionTitle';
 import PartnerCard from './PartnerCard';
+import PartnersMap, { PartnerPin } from './PartnersMap';
 
 type PartnersWrapperProps = {
   lng: Language;
@@ -41,6 +42,24 @@ const PartnersWrapper: FC<PartnersWrapperProps> = async ({ lng }) => {
     const code = CountryCodes[country];
     return (code && regionNames.of(code)) || country;
   };
+
+  // Only partners with both coordinates get a pin; the rest just stay off the map.
+  const pins: PartnerPin[] = partners.flatMap((partner) => {
+    const { latitude, longitude } = partner.location ?? {};
+    if (typeof latitude !== 'number' || typeof longitude !== 'number') return [];
+    const logo = partner.logo && typeof partner.logo === 'object' ? partner.logo.url : null;
+    return [
+      {
+        id: partner.id,
+        name: partner.type === 'national' ? t(partner.name) : partner.name,
+        countryLabel: countryLabel(partner.country),
+        logoUrl: logo ?? null,
+        type: partner.type,
+        latitude,
+        longitude,
+      },
+    ];
+  });
 
   const stats = [
     { value: nationalPartners.length, label: t('stats.national'), color: 'text-green' },
@@ -85,6 +104,24 @@ const PartnersWrapper: FC<PartnersWrapperProps> = async ({ lng }) => {
   return (
     <>
       {hero}
+      {pins.length > 0 && (
+        <HawkStarsSection spacing='default' id='partners-map'>
+          <div>
+            <SectionTitle title={t('map.title')} sectionId='map' className='mb-4' />
+            <ul className='text-eyebrow mb-6 flex flex-wrap gap-x-6 gap-y-2 text-black/70'>
+              <li className='flex items-center gap-2'>
+                <span aria-hidden='true' className='bg-green size-3 rounded-full' />
+                {t('stats.national')}
+              </li>
+              <li className='flex items-center gap-2'>
+                <span aria-hidden='true' className='bg-ink size-3 rounded-full' />
+                {t('stats.international')}
+              </li>
+            </ul>
+            <PartnersMap pins={pins} lng={lng} />
+          </div>
+        </HawkStarsSection>
+      )}
       <HawkStarsSection spacing='default'>
         {nationalPartners.length > 0 && (
           <div id='national-partners'>

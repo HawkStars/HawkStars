@@ -61,5 +61,7 @@ export const formatDateRange = (
 
   const fmt = formatter(lng, options);
   if (fmt.format(from) === fmt.format(to)) return fmt.format(from);
-  return fmt.formatRange(from, to);
+  // Node's ICU puts thin spaces (U+2009) around the range dash where browsers use plain
+  // spaces, so a server-rendered range would not match the hydrated one.
+  return fmt.formatRange(from, to).replace(/[\u2009\u202f]/g, ' ');
 };

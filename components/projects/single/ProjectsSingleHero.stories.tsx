@@ -33,6 +33,8 @@ export const Default: Story = {
     location: 'Pinhel, Portugal',
     startDate: '2024-09-01',
     endDate: '2025-06-30',
+    projectStartDate: '2024-06-01',
+    projectEndDate: '2025-11-30',
     partnersInformation,
     hero: {
       participants: 36,

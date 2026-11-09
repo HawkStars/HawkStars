@@ -5,6 +5,7 @@ import { transformUrl, SITE_GET_URLS } from '@/utils/paths';
 import Link from 'next/link';
 import { ImageMedia } from '@/payload/components/Media';
 import { formatDateRange } from '@/utils/date';
+import { getServerTranslation } from '@/i18n';
 
 type ProjectCardProps = {
   project: HawkProject;
@@ -12,10 +13,19 @@ type ProjectCardProps = {
   lng: string;
 };
 
-const ProjectCard = ({ project, index, lng }: ProjectCardProps) => {
+const ProjectCard = async ({ project, index, lng }: ProjectCardProps) => {
+  const { t } = await getServerTranslation(lng, 'projects');
   const image = getImagePayloadUrl(project.coverImage);
   const projectUrl = transformUrl(lng, `${SITE_GET_URLS.projects}/${project.slug}`);
-  const dateLabel = formatDateRange(project.startDate, project.endDate, lng);
+  const activityLabel = formatDateRange(project.startDate, project.endDate, lng);
+  const durationLabel = formatDateRange(project.projectStartDate, project.projectEndDate, lng);
+  // Only label the dates when there are two ranges to tell apart.
+  const dateRows = durationLabel
+    ? [
+        { label: t('dates.activity'), value: activityLabel },
+        { label: t('dates.project'), value: durationLabel },
+      ].filter((row) => row.value)
+    : [{ label: null, value: activityLabel }].filter((row) => row.value);
 
   return (
     <Link
@@ -40,10 +50,17 @@ const ProjectCard = ({ project, index, lng }: ProjectCardProps) => {
       <div className='flex flex-1 flex-col justify-center gap-2'>
         <h3 className='text-h3_semibold text-foreground'>{project.heading}</h3>
 
-        {dateLabel && (
-          <div className='text-muted-foreground mt-auto flex items-center gap-2 pt-2 text-sm font-medium'>
-            <LuCalendarDays className='size-4' />
-            <span>{dateLabel}</span>
+        {dateRows.length > 0 && (
+          <div className='text-muted-foreground mt-auto flex flex-col gap-1 pt-2 text-sm font-medium'>
+            {dateRows.map(({ label, value }) => (
+              <p key={label ?? 'dates'} className='flex items-center gap-2'>
+                <LuCalendarDays aria-hidden='true' className='size-4 shrink-0' />
+                <span>
+                  {label && <span className='text-foreground'>{label}: </span>}
+                  {value}
+                </span>
+              </p>
+            ))}
           </div>
         )}
       </div>

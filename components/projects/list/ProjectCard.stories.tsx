@@ -54,6 +54,18 @@ export const SingleDate: Story = {
   },
 };
 
+export const WithProjectDuration: Story = {
+  args: {
+    project: {
+      ...baseProject,
+      projectStartDate: '2024-06-01',
+      projectEndDate: '2025-11-30',
+    } as unknown as HawkProject,
+    index: 2,
+    lng: 'en',
+  },
+};
+
 export const NoImage: Story = {
   args: {
     project: {

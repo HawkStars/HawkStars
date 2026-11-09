@@ -14,5 +14,9 @@
     "countries": "Countries"
   },
   "partner_count_one": "{{count}} partner",
-  "partner_count_other": "{{count}} partners"
+  "partner_count_other": "{{count}} partners",
+  "map": {
+    "title": "Where our partners are",
+    "label": "Map of partner organisations"
+  }
 }

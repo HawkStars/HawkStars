@@ -33,9 +33,6 @@ const HawkProjectPartnersInformation: Tab = {
           label: { en: 'Partners', pt: 'Parceiros' },
           type: 'relationship',
           relationTo: 'partners',
-          filterOptions: {
-            partnership: { equals: 'erasmus_partner' },
-          },
           required: true,
           admin: {
             description: {

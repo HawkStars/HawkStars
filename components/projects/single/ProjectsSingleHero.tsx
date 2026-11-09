@@ -1,7 +1,7 @@
 'use client';
 
 import { ContentSection } from '@/components/layout';
-import { LuCoins } from 'react-icons/lu';
+import { LuCalendarDays, LuCoins } from 'react-icons/lu';
 import { FLAG_PORTUGAL } from '@/lib/constants';
 import { FlagIcon } from '@/lib/icon';
 import { getImagePayloadUrl } from '@/lib/image';
@@ -27,6 +27,8 @@ type ProjectsSingleHeroProps = Pick<
   | 'location'
   | 'startDate'
   | 'endDate'
+  | 'projectStartDate'
+  | 'projectEndDate'
   | 'infopack'
   | 'coverImage'
 > & { lng?: Language };
@@ -40,6 +42,8 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
   beneficiary,
   startDate,
   endDate,
+  projectStartDate,
+  projectEndDate,
   location,
   infopack,
   lng: lngProp,
@@ -52,7 +56,12 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
   const infopackDoc = infopack && typeof infopack !== 'string' ? (infopack as HawkDocument) : null;
 
   // Was always formatted with the Portuguese locale, also on /en.
-  const dateLabel = formatDateRange(startDate, endDate, lngProp ?? cookieLng);
+  const lng = lngProp ?? cookieLng;
+  // The activity (with participants) sits inside the wider project period.
+  const dateRows = [
+    { label: t('dates.project'), value: formatDateRange(projectStartDate, projectEndDate, lng) },
+    { label: t('dates.activity'), value: formatDateRange(startDate, endDate, lng) },
+  ].filter((row) => row.value);
 
   return (
     <ContentSection className='bg-green/5 pt-32' spacing='tight'>
@@ -111,24 +120,22 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
             </div>
           )}
 
-          {/* Date */}
-          {dateLabel && (
-            <div className='mt-4 flex items-center gap-2'>
-              <svg
-                className='h-5 w-5 text-gray-600'
-                fill='none'
-                stroke='currentColor'
-                viewBox='0 0 24 24'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                  d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'
-                />
-              </svg>
-              <span className='text-lg font-semibold'>{dateLabel}</span>
-            </div>
+          {/* Dates */}
+          {dateRows.length > 0 && (
+            <dl className='mt-4 flex flex-col gap-3 sm:flex-row sm:gap-8'>
+              {dateRows.map(({ label, value }) => (
+                <div key={label} className='flex items-start gap-2'>
+                  <LuCalendarDays
+                    aria-hidden='true'
+                    className='text-green mt-0.5 size-5 shrink-0'
+                  />
+                  <div className='flex flex-col'>
+                    <dt className='text-sm text-gray-600'>{label}</dt>
+                    <dd className='text-lg font-semibold'>{value}</dd>
+                  </div>
+                </div>
+              ))}
+            </dl>
           )}
 
           {/* Country flags */}

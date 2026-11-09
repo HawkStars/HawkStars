@@ -156,11 +156,14 @@ export const HawkProject: CollectionConfig = {
       // Filtered and/or sorted on by the public list queries; an unindexed sort
       // on a growing collection uses Mongo's blocking sort, which hard-errors at 32MB.
       index: true,
-      label: { en: 'Start Date', pt: 'Data de Início' },
+      label: { en: 'Activity start date', pt: 'Data de início da atividade' },
       type: 'date',
       admin: {
         position: 'sidebar',
-        description: { en: 'Start date of the project', pt: 'Data de início do projeto' },
+        description: {
+          en: 'First day of the activity itself — the period with participants (e.g. the exchange or training week). Not the full project; use "Project duration" below for that.',
+          pt: 'Primeiro dia da atividade em si — o período com participantes (ex: a semana do intercâmbio ou da formação). Não é o projeto completo; para isso use "Duração do projeto" abaixo.',
+        },
       },
       required: false,
     },
@@ -169,16 +172,49 @@ export const HawkProject: CollectionConfig = {
       // Filtered and/or sorted on by the public list queries; an unindexed sort
       // on a growing collection uses Mongo's blocking sort, which hard-errors at 32MB.
       index: true,
-      label: { en: 'End Date', pt: 'Data de Fim' },
+      label: { en: 'Activity end date', pt: 'Data de fim da atividade' },
       type: 'date',
       admin: {
         position: 'sidebar',
         description: {
-          en: 'End date of the project. Optional Value if it is just a single day for the project',
-          pt: 'Data de fim do projeto. Valor opcional se for apenas um único dia.',
+          en: 'Last day of the activity with participants. Leave empty if the activity is a single day.',
+          pt: 'Último dia da atividade com participantes. Deixe vazio se a atividade for de um único dia.',
         },
       },
       required: false,
+    },
+    {
+      name: 'projectStartDate',
+      label: { en: 'Project duration — start', pt: 'Duração do projeto — início' },
+      type: 'date',
+      required: false,
+      admin: {
+        position: 'sidebar',
+        description: {
+          en: 'Start of the whole project, including preparation and pre-work before the activity. Optional.',
+          pt: 'Início do projeto completo, incluindo a preparação e o trabalho prévio antes da atividade. Opcional.',
+        },
+      },
+    },
+    {
+      name: 'projectEndDate',
+      label: { en: 'Project duration — end', pt: 'Duração do projeto — fim' },
+      type: 'date',
+      required: false,
+      admin: {
+        position: 'sidebar',
+        description: {
+          en: 'End of the whole project, including follow-up and dissemination after the activity. Optional.',
+          pt: 'Fim do projeto completo, incluindo o acompanhamento e a disseminação depois da atividade. Opcional.',
+        },
+      },
+      validate: (value, { siblingData, req }) => {
+        const start = (siblingData as { projectStartDate?: string | null }).projectStartDate;
+        if (!value || !start || new Date(value) >= new Date(start)) return true;
+        return req.i18n?.language === 'pt'
+          ? 'O fim do projeto tem de ser igual ou posterior ao início do projeto.'
+          : 'The project end date must be on or after the project start date.';
+      },
     },
     {
       name: 'infopack',

@@ -4024,13 +4024,21 @@ export interface HawkProject {
    */
   location?: string | null;
   /**
-   * Start date of the project
+   * First day of the activity itself — the period with participants (e.g. the exchange or training week). Not the full project; use "Project duration" below for that.
    */
   startDate?: string | null;
   /**
-   * End date of the project. Optional Value if it is just a single day for the project
+   * Last day of the activity with participants. Leave empty if the activity is a single day.
    */
   endDate?: string | null;
+  /**
+   * Start of the whole project, including preparation and pre-work before the activity. Optional.
+   */
+  projectStartDate?: string | null;
+  /**
+   * End of the whole project, including follow-up and dissemination after the activity. Optional.
+   */
+  projectEndDate?: string | null;
   /**
    * Optional infopack document related to the project.
    */
@@ -4113,6 +4121,17 @@ export interface Partner {
   country: string;
   type: 'national' | 'international';
   partnership: 'local_entity' | 'government_entity' | 'erasmus_partner' | 'other';
+  /**
+   * Optional. Partners with coordinates get a pin on the partners page map; partners without them are simply not shown on the map.
+   */
+  location?: {
+    /**
+     * e.g. "Pinhel, Portugal". Use "Find coordinates" to fill latitude and longitude.
+     */
+    address?: string | null;
+    latitude?: number | null;
+    longitude?: number | null;
+  };
   /**
    * Social Media Links for this entry
    */
@@ -5737,6 +5756,8 @@ export interface HawkProjectsSelect<T extends boolean = true> {
   location?: T;
   startDate?: T;
   endDate?: T;
+  projectStartDate?: T;
+  projectEndDate?: T;
   infopack?: T;
   project_type?: T;
   updatedAt?: T;
@@ -5964,6 +5985,13 @@ export interface PartnersSelect<T extends boolean = true> {
   country?: T;
   type?: T;
   partnership?: T;
+  location?:
+    | T
+    | {
+        address?: T;
+        latitude?: T;
+        longitude?: T;
+      };
   links?:
     | T
     | {
