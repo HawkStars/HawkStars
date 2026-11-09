@@ -122,7 +122,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
 
           {/* Dates */}
           {dateRows.length > 0 && (
-            <dl className='mt-4 flex flex-col gap-3 sm:flex-row sm:gap-8'>
+            <div className='mt-4 flex flex-col gap-3 sm:flex-row sm:gap-8'>
               {dateRows.map(({ label, value }) => (
                 <div key={label} className='flex items-start gap-2'>
                   <LuCalendarDays
@@ -135,7 +135,7 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
                   </div>
                 </div>
               ))}
-            </dl>
+            </div>
           )}
 
           {/* Country flags */}
