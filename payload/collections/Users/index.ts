@@ -1,4 +1,4 @@
-import type { CollectionConfig, Option, OptionObject } from 'payload';
+import type { CollectionConfig, OptionObject } from 'payload';
 
 import { authenticated } from '@/payload/access/authenticated';
 import { authenticatedAdmin } from '@/payload/access/authenticatedAdmin';
@@ -73,14 +73,14 @@ const collectionsToRef = (): OptionObject[] => {
     });
 };
 
-const globalsToRef = (): OptionObject[] => {
-  return Object.keys(payload.globals)
-    .filter((global) => !IGNORE_GLOBALS.includes(global))
-    .map((global) => {
-      const label = GLOBALS_LABELS[global as keyof typeof GLOBALS_LABELS];
-      return { label, value: global };
-    });
-};
+// const globalsToRef = (): OptionObject[] => {
+//   return Object.keys(payload.globals)
+//     .filter((global) => !IGNORE_GLOBALS.includes(global))
+//     .map((global) => {
+//       const label = GLOBALS_LABELS[global as keyof typeof GLOBALS_LABELS];
+//       return { label, value: global };
+//     });
+// };
 
 export const Users: CollectionConfig = {
   slug: 'users',
