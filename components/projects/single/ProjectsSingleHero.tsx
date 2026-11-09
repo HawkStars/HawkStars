@@ -129,10 +129,10 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
                     aria-hidden='true'
                     className='text-green mt-0.5 size-5 shrink-0'
                   />
-                  <div className='flex flex-col'>
+                  <dl className='flex flex-col'>
                     <dt className='text-sm text-gray-600'>{label}</dt>
                     <dd className='text-lg font-semibold'>{value}</dd>
-                  </div>
+                  </dl>
                 </div>
               ))}
             </div>

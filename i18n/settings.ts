@@ -7,7 +7,7 @@ export type Language = (typeof languages)[number];
 
 function getOptions(lng = fallbackLng, ns: string | string[] = defaultNS) {
   return {
-    debug: process.env.NODE_ENV === 'development',
+    debug: false,
     supportedLngs: languages,
     fallbackLng,
     lng,
