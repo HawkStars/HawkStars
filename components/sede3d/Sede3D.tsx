@@ -93,13 +93,13 @@ const Sede3D = () => {
   const total = rooms.reduce((sum, r) => sum + r.area, 0);
 
   return (
-    <div className='bg-bege-light relative h-[calc(100svh-5rem)] min-h-[34rem] w-full overflow-hidden'>
+    <div className='bg-bege-light relative h-[calc(100svh-5rem)] min-h-136 w-full overflow-hidden'>
       <div
         ref={containerRef}
         className='absolute inset-0'
         aria-label='Modelo 3D interativo da sede'
       />
-      <div ref={labelsRef} className='pointer-events-none absolute inset-0 z-[5]' />
+      <div ref={labelsRef} className='pointer-events-none absolute inset-0 z-5' />
       {!ready && (
         <p className='text-body_regular absolute inset-0 grid place-items-center text-black/60'>
           A carregar o modelo 3D…

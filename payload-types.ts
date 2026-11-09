@@ -4182,6 +4182,18 @@ export interface User {
    * Admins have full access: users, settings, donations, and deleting content. Accounts without this can create, edit and publish content but not delete it.
    */
   isAdmin?: boolean | null;
+  permissions_collection?:
+    | {
+        collectionRef?:
+          | {
+              collectionRef: string;
+              permission: {};
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
   totpSecret?: string | null;
   hasTotp?: boolean | null;
   updatedAt: string;
@@ -5444,6 +5456,18 @@ export interface PayloadMigration {
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
   isAdmin?: T;
+  permissions_collection?:
+    | T
+    | {
+        collectionRef?:
+          | T
+          | {
+              collectionRef?: T;
+              permission?: T | {};
+              id?: T;
+            };
+        id?: T;
+      };
   totpSecret?: T;
   hasTotp?: T;
   updatedAt?: T;
