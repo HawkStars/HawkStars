@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { SerializedHeadingNode } from '@payloadcms/richtext-lexical';
 import { JSXConverter } from '@payloadcms/richtext-lexical/react';
-import { getNodeText, noJustify, slugifyHeading } from './nodeText';
+import { getNodeText, proseStyle, slugifyHeading } from './nodeText';
 
 // Same rank mapping as SectionHeader. More space above than below, so a heading
 // sits with the text it introduces rather than the paragraph before it.
@@ -34,7 +34,7 @@ const Heading: JSXConverter<SerializedHeadingNode> = ({ converters, node, nodesT
     <Tag
       id={id}
       className={cn('rt-column rt-heading first:mt-0', classHeadings[Tag])}
-      style={noJustify(node)}
+      style={proseStyle(node)}
     >
       {children}
       {id && (

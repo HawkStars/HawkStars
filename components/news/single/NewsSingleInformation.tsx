@@ -18,12 +18,7 @@ const NewsSingleInformation: FC<NewsSingleInformationProps> = ({ details, refere
   return (
     <>
       {text && (
-        <HawkStarsSection
-          spacing='tight'
-          padding='none'
-          cap='none'
-          className='max-w-6xl flex-col lg:mx-auto lg:px-2'
-        >
+        <HawkStarsSection spacing='tight' padding='none' cap='none' column='default'>
           <RichText data={text} lng={lng} variant='article' />
           {references && references.length > 0 && (
             <div className='rt-column mt-12'>

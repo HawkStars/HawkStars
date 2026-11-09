@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { SerializedListItemNode, SerializedListNode } from '@payloadcms/richtext-lexical';
 import { JSXConverter } from '@payloadcms/richtext-lexical/react';
-import { noJustify } from './nodeText';
+import { proseStyle } from './nodeText';
 
 const ListItem: JSXConverter<SerializedListItemNode> = ({
   converters,
@@ -24,7 +24,7 @@ const ListItem: JSXConverter<SerializedListItemNode> = ({
   if (listType === 'check' && !onlyHoldsList) {
     const checked = Boolean(node.checked);
     return (
-      <li style={noJustify(node)}>
+      <li style={proseStyle(node)}>
         <input type='checkbox' className='sr-only' checked={checked} readOnly />
         <span className='rt-check' data-checked={checked} aria-hidden='true'>
           {checked ? '✓' : null}
@@ -38,7 +38,7 @@ const ListItem: JSXConverter<SerializedListItemNode> = ({
     <li
       className={cn('pl-1', { 'list-none': onlyHoldsList })}
       value={listType === 'number' ? node.value : undefined}
-      style={noJustify(node)}
+      style={proseStyle(node)}
     >
       {children}
     </li>

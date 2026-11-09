@@ -4,12 +4,27 @@ import type { CSSProperties } from 'react';
 type TextBearingNode = { type: string; text?: string; children?: TextBearingNode[] };
 
 /**
- * Payload turns an element's alignment into an inline `text-align`, and lets a
- * converter's own `style` win. Justified text opens rivers of space between words
- * (worst on mobile), so justify falls back to start; other alignments pass through.
+ * Payload turns an element's alignment and indent into inline styles on whatever the
+ * converter returns, and lets the converter's own `style` win. We override both:
+ * - justified text opens rivers of space between words (worst on mobile), so it falls
+ *   back to start; other alignments pass through;
+ * - indent arrives as `padding-inline-start: 40px` per level, which would replace the
+ *   column's start (`--rt-start`), so it is added to it instead.
+ * List items are skipped for indent, as Payload does: their nesting is the indent.
  */
-export const noJustify = (node: { format?: unknown }): CSSProperties | undefined =>
-  node.format === 'justify' ? { textAlign: 'start' } : undefined;
+export const proseStyle = (node: {
+  type?: string;
+  format?: unknown;
+  indent?: unknown;
+}): CSSProperties | undefined => {
+  const style: CSSProperties = {};
+  if (node.format === 'justify') style.textAlign = 'start';
+  const indent = Number(node.indent) || 0;
+  if (indent > 0 && node.type !== 'listitem') {
+    style.paddingInlineStart = `calc(var(--rt-start, 0px) + ${indent * 2.5}rem)`;
+  }
+  return Object.keys(style).length ? style : undefined;
+};
 
 /** Plain text of a Lexical node and everything under it. */
 export const getNodeText = (node: TextBearingNode): string => {

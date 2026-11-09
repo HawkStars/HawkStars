@@ -12,7 +12,7 @@ type ArtRichTextProps = {
 export function ArtRichText({ data, className, lng }: ArtRichTextProps) {
   return (
     <div className={cn('art-richtext text-art-text-2 font-art-sans', className)}>
-      <RichText data={data} lng={lng} />
+      <RichText data={data} lng={lng} embedded />
     </div>
   );
 }

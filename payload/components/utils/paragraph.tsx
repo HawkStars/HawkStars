@@ -1,6 +1,6 @@
 import { SerializedParagraphNode } from '@payloadcms/richtext-lexical';
 import { JSXConverter } from '@payloadcms/richtext-lexical/react';
-import { noJustify } from './nodeText';
+import { proseStyle } from './nodeText';
 
 // Node types that render block-level HTML and are therefore invalid inside a <p>.
 // If a paragraph contains any of these (e.g. a horizontal rule), we must not wrap
@@ -30,7 +30,7 @@ const Paragraph: JSXConverter<SerializedParagraphNode> = ({
   // Payload applies the editor's alignment and indent as inline styles.
   const Wrapper = hasBlockLevelChild ? 'div' : 'p';
   return (
-    <Wrapper className='rt-column rt-text rt-p' style={noJustify(node)}>
+    <Wrapper className='rt-column rt-text rt-p' style={proseStyle(node)}>
       {children}
     </Wrapper>
   );

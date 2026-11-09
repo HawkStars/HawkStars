@@ -270,17 +270,26 @@ export type RichTextProps = {
   lng: Language;
   /** `article` turns the first paragraph into a larger lead (news articles). */
   variant?: 'default' | 'article';
+  /**
+   * Set when the rich text sits inside a block, card or panel that already has its own
+   * column: the prose then fills that container instead of the site column.
+   */
+  embedded?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export default function RichText(props: RichTextProps) {
   const lng = props.lng;
   const converters = useMemo(() => jsxConverters(lng), [lng]);
-  const { className, variant = 'default', ...rest } = props;
+  const { className, variant = 'default', embedded = false, ...rest } = props;
 
   return (
     <ConvertRichText
       converters={converters}
-      className={cn('payload-richtext', { 'rt-article': variant === 'article' }, className)}
+      className={cn(
+        'payload-richtext',
+        { 'rt-article': variant === 'article', 'rt-embedded': embedded },
+        className
+      )}
       {...rest}
     />
   );

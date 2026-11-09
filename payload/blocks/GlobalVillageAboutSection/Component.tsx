@@ -71,7 +71,12 @@ export const GlobalVillageAboutSectionBlockComponent: React.FC<
                   {section.title && <h3 className='text-h3_semibold'>{section.title}</h3>}
 
                   {section.content && (
-                    <RichText data={section.content} className='text-body_regular' lng={lng} />
+                    <RichText
+                      data={section.content}
+                      className='text-body_regular'
+                      lng={lng}
+                      embedded
+                    />
                   )}
                 </div>
               </article>

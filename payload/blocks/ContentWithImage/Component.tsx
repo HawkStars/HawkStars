@@ -65,7 +65,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps & { lng: Lang
         <div data-reveal='up' className={cn('w-full', isImageLeft ? 'lg:order-1' : 'lg:order-2')}>
           {/* Left-aligned on mobile too, so the heading lines up with the body copy below it. */}
           {title && <h2 className='text-h2_semibold mb-5'>{title}</h2>}
-          {description && <RichText data={description} lng={lng} />}
+          {description && <RichText data={description} lng={lng} embedded />}
         </div>
       </div>
     </HawkStarsSection>

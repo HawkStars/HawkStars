@@ -9,18 +9,46 @@
  * Colour and font family are inherited, never set, for the same reason.
  */
 @layer components {
-  .payload-richtext {
-    @apply max-w-dvw;
-  }
-
-  /* Reading column: ~70 characters at the body size, with the site gutter on small screens */
-  .rt-column {
-    @apply mx-auto w-full max-w-2xl px-4 sm:px-6 lg:px-0;
-  }
-
-  /* Wider column for images, so they can break out of the text measure */
+  /* Every top-level element sits on the site column (same 72rem cap and gutter as
+     HawkStarsSection) and holds its text to a readable measure. Below `lg` the measure
+     starts at the column's left edge; on desktop it is centred in the column.
+     `--rt-start` is where the content begins, so lists and indents can build on it. */
+  .rt-column,
   .rt-wide {
-    @apply mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-0;
+    --rt-gutter: 1rem;
+    --rt-measure: 42rem; /* ~70 characters at the body size */
+    --rt-start: var(--rt-gutter);
+    margin-inline: auto;
+    width: 100%;
+    max-width: calc(72rem + 2 * var(--rt-gutter));
+    padding-left: var(--rt-start);
+    padding-right: max(
+      var(--rt-gutter),
+      min(100%, 72rem + 2 * var(--rt-gutter)) - var(--rt-start) - var(--rt-measure)
+    );
+
+    @variant sm {
+      --rt-gutter: 1.5rem;
+    }
+
+    @variant lg {
+      --rt-gutter: 2rem;
+      --rt-start: max(
+        var(--rt-gutter),
+        (min(100%, 72rem + 2 * var(--rt-gutter)) - var(--rt-measure)) / 2
+      );
+    }
+  }
+
+  /* Images may run wider than the text */
+  .rt-wide {
+    --rt-measure: 56rem;
+  }
+
+  /* Rich text inside a block or panel: the block already sets the column */
+  .rt-embedded :is(.rt-column, .rt-wide) {
+    --rt-gutter: 0px;
+    --rt-measure: 100%;
   }
 
   /* Inline content shared by paragraphs and list items */
@@ -74,7 +102,8 @@
   }
 
   .rt-list {
-    @apply mb-5 space-y-2 pl-10 sm:pl-12 lg:pl-6;
+    @apply mb-5 space-y-2;
+    padding-left: calc(var(--rt-start, 0px) + 1.5rem);
 
     & > li::marker {
       @apply text-green;
