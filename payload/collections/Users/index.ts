@@ -40,29 +40,29 @@ const IGNORE_COLLECTIONS = [
   'payload-migrations',
   'payload-preferences',
 ];
-const IGNORE_GLOBALS = [
-  'crowdfunding-settings',
-  'artGallerySettings',
-  'artGalleryNews',
-  'main-page',
-  'events-list',
-  'projects-list',
-  'news-list',
-  'header',
-  'footer',
-];
+// const IGNORE_GLOBALS = [
+//   'crowdfunding-settings',
+//   'artGallerySettings',
+//   'artGalleryNews',
+//   'main-page',
+//   'events-list',
+//   'projects-list',
+//   'news-list',
+//   'header',
+//   'footer',
+// ];
 
-const GLOBALS_LABELS = {
-  'crowdfunding-settings': 'Crowdfunding Settings',
-  artGallerySettings: 'Art Gallery Settings',
-  artGalleryNews: 'Art Gallery News',
-  'main-page': 'Main Page',
-  'events-list': 'Events List',
-  'projects-list': 'Projects List',
-  'news-list': 'News List',
-  header: 'Header',
-  footer: 'Footer',
-};
+// const GLOBALS_LABELS = {
+//   'crowdfunding-settings': 'Crowdfunding Settings',
+//   artGallerySettings: 'Art Gallery Settings',
+//   artGalleryNews: 'Art Gallery News',
+//   'main-page': 'Main Page',
+//   'events-list': 'Events List',
+//   'projects-list': 'Projects List',
+//   'news-list': 'News List',
+//   header: 'Header',
+//   footer: 'Footer',
+// };
 
 const collectionsToRef = (): OptionObject[] => {
   return Object.keys(payload.collections)
