@@ -7,7 +7,7 @@ import { FLOORS, ROOMS, type FloorView } from './data';
 import type { SedeScene } from './scene';
 
 const DEFAULT_HINT: Record<FloorView, string> = {
-  ext: 'Rua inclinada: o edifício novo assenta cerca de 1,8 m acima do antigo. Escolhe um piso para cortar as paredes e ver o interior.',
+  ext: 'A travessa sobe ao longo do edifício: a entrada do átrio fica ao nível do piso 1 do edifício antigo e o edifício novo assenta cerca de 2,2 m acima. Escolhe um piso para cortar as paredes e ver o interior.',
   '0': 'Toca num espaço para aproximar a câmara.',
   '1': 'Toca num espaço para aproximar a câmara.',
   '2': 'Toca num espaço para aproximar a câmara.',
@@ -229,9 +229,9 @@ const Sede3D = () => {
               </output>
             </label>
             <p className='hidden text-xs leading-relaxed text-black/60 md:block'>
-              Reconstrução aproximada a partir das plantas e renders do projeto. Medidas estimadas:
-              cerca de 36 × 11 m, pé-direito de 3,4 m, edifício novo cerca de 1,8 m acima do antigo
-              (rua inclinada). Orientação do sol aproximada.
+              Reconstrução a partir das plantas, cortes e renders do projeto. As plantas não têm
+              cotas: as medidas são estimadas (cerca de 36 × 11 m, 3,4 m entre pisos). Orientação do
+              sol aproximada.
             </p>
           </div>
         </aside>

@@ -6,7 +6,7 @@ import { FOOTER_CACHE_TAG } from '@/payload/globals/Footer/hooks/revalidateFoote
 
 const getHeaderQuery = async (lng: Language) => {
   'use cache';
-  cacheLife('weeks');
+  cacheLife('days');
   cacheTag(HEADER_CACHE_TAG);
 
   const payload = await getPayloadConfig();
@@ -24,7 +24,7 @@ const getHeaderQuery = async (lng: Language) => {
 
 const getFooterQuery = async (lng: Language) => {
   'use cache';
-  cacheLife('weeks');
+  cacheLife('days');
   cacheTag(FOOTER_CACHE_TAG);
 
   const payload = await getPayloadConfig();

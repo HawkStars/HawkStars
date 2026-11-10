@@ -2,22 +2,28 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import {
+  ATRIUM,
+  ATRIUM_FP,
   FH,
   GLASS_ROOF,
   L_EAVE,
   L_RIDGE,
-  LFP,
   LV,
-  MFP,
+  LX,
+  LZ,
+  P,
   PL,
-  R2FP,
+  R,
+  R0_FP,
+  R1_SLAB,
+  R2_FP,
   R_ROOF,
-  RFP,
   ROOMS,
-  RTOP,
+  RU_FP,
   X,
   Z,
   rect,
+  terrain,
   type FloorView,
   type Pt,
   type Vec3,
@@ -69,12 +75,13 @@ type Opening = {
   hi?: number;
   door?: 'glass' | 'wood';
 };
-type Zone = 'L' | 'M' | 'R';
+/** Section planes: one per building zone, plus the ground and neighbours. */
+type Zone = 'L' | 'M' | 'R' | 'G';
 type GroupKey =
   'L0' | 'L1' | 'L2' | 'Lroof' | 'M0' | 'M1' | 'Mroof' | 'R0' | 'R1' | 'R2' | 'Rroof' | 'context';
 
 const SKY = 0xe6eef0;
-const CENTER = new THREE.Vector3(18, 3, 5.5);
+const CENTER = new THREE.Vector3(18, 5, 5.5);
 const TW = 0.6; // old stone walls
 const TI = 0.15; // partitions
 const TN = 0.3; // new walls
@@ -86,27 +93,28 @@ const VIEWS: Record<
 > = {
   ext: {
     show: ['L0', 'L1', 'L2', 'Lroof', 'M0', 'M1', 'Mroof', 'R0', 'R1', 'R2', 'Rroof'],
-    cut: { L: 1e4, M: 1e4, R: 1e4 },
-    cam: [-10, 22, 42],
-    target: [18, 5, 5.5],
+    cut: { L: 1e4, M: 1e4, R: 1e4, G: 1e4 },
+    cam: [-10, 24, 42],
+    target: [18, 6, 5.5],
   },
+  // Restaurant level, plus the new building's half-buried floor; the ground is cut with it.
   '0': {
     show: ['L0', 'M0', 'R0'],
-    cut: { L: 1.7, M: PL + 1.4, R: PL + 1.7 },
+    cut: { L: 1.7, M: 1.7, R: PL + 1.7, G: PL + 1.7 },
     cam: [17, 40, 34],
-    target: [18, 0, 5.2],
+    target: [18, 1, 5.2],
   },
   '1': {
     show: ['L0', 'L1', 'M0', 'M1', 'R0', 'R1'],
-    cut: { L: LV.L[1] + 1.7, M: LV.R[1] + 1.4, R: LV.R[1] + 1.7 },
+    cut: { L: LV.L[1] + 1.7, M: LV.L[1] + 1.7, R: LV.R[1] + 1.7, G: 1e4 },
     cam: [17, 44, 34],
-    target: [18, 3.5, 5.2],
+    target: [18, 4.5, 5.2],
   },
   '2': {
     show: ['L0', 'L1', 'L2', 'M0', 'M1', 'R0', 'R1', 'R2'],
-    cut: { L: LV.L[2] + 0.45, M: LV.R[2] + 1.0, R: LV.R[2] + 1.7 },
+    cut: { L: LV.L[2] + 0.45, M: 1e4, R: LV.R[2] + 1.7, G: 1e4 },
     cam: [17, 48, 34],
-    target: [18, 7, 5.2],
+    target: [18, 8, 5.2],
   },
 };
 
@@ -158,7 +166,8 @@ export function createSedeScene({
   const envTarget = pmrem.fromScene(new RoomEnvironment(), 0.04);
   scene.environment = envTarget.texture;
 
-  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 500);
+  // A near plane of 0.5 m (the camera never gets closer than 6 m) keeps depth precision high.
+  const camera = new THREE.PerspectiveCamera(38, 1, 0.5, 500);
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.08;
@@ -171,8 +180,9 @@ export function createSedeScene({
     L: new THREE.Plane(new THREE.Vector3(0, -1, 0), 1e4),
     M: new THREE.Plane(new THREE.Vector3(0, -1, 0), 1e4),
     R: new THREE.Plane(new THREE.Vector3(0, -1, 0), 1e4),
+    G: new THREE.Plane(new THREE.Vector3(0, -1, 0), 1e4),
   };
-  const zoneMats = (zone: Zone) => ({
+  const zoneMats = (zone: Exclude<Zone, 'G'>) => ({
     wall: std(0xeeebe5, {
       roughness: 0.95,
       clippingPlanes: [clipPlanes[zone]],
@@ -193,7 +203,6 @@ export function createSedeScene({
       opacity: 0.32,
       depthWrite: false,
       clippingPlanes: [clipPlanes[zone]],
-      side: THREE.DoubleSide,
     }),
   });
   const Zm = { L: zoneMats('L'), M: zoneMats('M'), R: zoneMats('R') };
@@ -221,7 +230,7 @@ export function createSedeScene({
         g.fillStyle = `rgb(${v},${v - 4},${v - 10})`;
         g.fillRect(x + 1 + ((y / 16) % 2) * 4, y + 1, 13, 13);
       }
-  }, 40);
+  });
 
   const transparent = (color: number, opacity: number) =>
     new THREE.MeshStandardMaterial({
@@ -269,10 +278,14 @@ export function createSedeScene({
     panel: std(0x1d2a52, { roughness: 0.3, metalness: 0.5 }),
     greenRoof: std(0x6f9a4a, { roughness: 1 }),
     plinth: std(0xd8d2c6, { roughness: 1 }),
-    neighbor: std(0xe7e2da, { roughness: 1 }),
-    neighborRoof: std(0xb8775a, { roughness: 1 }),
+    neighbor: std(0xe7e2da, {
+      roughness: 1,
+      clippingPlanes: [clipPlanes.G],
+      side: THREE.DoubleSide,
+    }),
+    neighborRoof: std(0xb8775a, { roughness: 1, clippingPlanes: [clipPlanes.G] }),
     tile: std(0xffffff, { map: tileTex, roughness: 0.8, side: THREE.DoubleSide }),
-    cobble: std(0xffffff, { map: cobbleTex, roughness: 1 }),
+    cobble: std(0xffffff, { map: cobbleTex, roughness: 1, clippingPlanes: [clipPlanes.G] }),
     railGlass: transparent(0xbfdbe6, 0.25),
     tintYellow: transparent(0xf2c94c, 0.55),
     tintBlue: transparent(0x5b8fd6, 0.5),
@@ -659,9 +672,11 @@ export function createSedeScene({
         pane.scale.set(o.b - o.a, o.hi - o.lo, 0.03);
         pane.position.set(mid, (o.lo + o.hi) / 2, 0);
         g.add(pane);
-        if (o.window) box(o.a, o.b, o.lo - 0.04, o.lo, M.frame, t + 0.04);
+        // Sill and lintel stand proud of the wall. Sharing a plane with the wall faces
+        // around the opening makes the two surfaces flicker as the camera moves (z-fighting).
+        if (o.window) box(o.a, o.b, o.lo - 0.03, o.lo + 0.03, M.frame, t + 0.06);
         else {
-          box(o.a, o.b, o.hi, o.hi + 0.06, M.frame, 0.1);
+          box(o.a, o.b, o.hi - 0.06, o.hi, M.frame, 0.1);
           box(mid - 0.02, mid + 0.02, o.lo, o.hi, M.frame, 0.08);
         }
       }
@@ -671,9 +686,11 @@ export function createSedeScene({
     box(cur, L, 0, h);
     group.add(g);
   };
-  /** A horizontal slab whose top face sits at y. */
-  const poly = (group: G3, pts: Pt[], y: number, th: number, mat: Mat) => {
-    const sh = new THREE.Shape(pts.map(([x, z]) => new THREE.Vector2(x, -z)));
+  /** A horizontal slab whose top face sits at y, optionally with openings. */
+  const poly = (group: G3, pts: Pt[], y: number, th: number, mat: Mat, holes: Pt[][] = []) => {
+    const ring = (r: Pt[]) => r.map(([x, z]) => new THREE.Vector2(x, -z));
+    const sh = new THREE.Shape(ring(pts));
+    holes.forEach((h) => sh.holes.push(new THREE.Path(ring(h))));
     const geo = new THREE.ExtrudeGeometry(sh, { depth: th, bevelEnabled: false });
     geo.rotateX(-Math.PI / 2);
     const m = shadow(new THREE.Mesh(geo, mat));
@@ -683,247 +700,243 @@ export function createSedeScene({
 
   const WL = Zm.L.wall;
   const GL = Zm.L.glass;
-  const win = (at: number, axis: 'x' | 'z', w = 1.0, lo = 0.9, hi = 2.4): Opening => ({
+  const win = (at: number, axis: 'x' | 'z', w = 1.1, lo = 0.9, hi = 2.4): Opening => ({
     [axis]: at,
     w,
     lo,
     hi,
   });
+  const fwin = (f: number, w = 1.2, lo = 0.9, hi = 2.6): Opening => ({ f, w, lo, hi });
+  /** Walls along a polyline given in plan pixels. */
+  const wallLine = (group: G3, mat: Mat, pts: Pt[], y0: number, h: number, t: number) => {
+    for (let i = 0; i < pts.length - 1; i++)
+      wall(group, mat, X(pts[i][0]), Z(pts[i][1]), X(pts[i + 1][0]), Z(pts[i + 1][1]), y0, h, t);
+  };
+  const E = Math.PI / 2; // a chair turned to face east (+x)
+  const W = -Math.PI / 2;
+  const N = Math.PI; // facing north (−z)
 
   // =========================================================
   // OLD BUILDING — restaurant, cowork, attic
   // =========================================================
-  poly(G.L0, LFP, 0.02, 0.2, M.wood);
-  wall(G.L0, WL, 0, 0, 11.2, 0, 0, FH, TW, [win(4.2, 'x', 1.0, 1.0)], GL);
+  // Wall centre lines, 0.3 m inside the outer faces.
+  const lw = 0.3;
+  const le = LX - 0.3;
+  const ln = 0.4;
+  const ls = LZ - 0.3;
+  /** Floor slabs stop inside the walls, so their edges never show on the façade. */
+  const LIN = rect(0.15, 0.15, LX - 0.15, LZ - 0.15);
+
+  // ----- Piso 0: restaurant -----
+  poly(G.L0, LIN, 0.02, 0.2, M.wood);
+  wall(G.L0, WL, lw, ln, le, ln, 0, FH, 0.8);
+  // street side: half-buried towards the atrium, so one high window only
+  wall(G.L0, WL, lw, ls, le, ls, 0, FH, TW, [win(X(322), 'x', 1.4, 1.5, 2.7)], GL);
+  // end façade on the square: the main door between two windows
   wall(
     G.L0,
     WL,
-    0,
-    11.2,
-    11.2,
-    11.2,
+    lw,
+    ln,
+    lw,
+    ls,
     0,
     FH,
     TW,
-    [win(2.0, 'x'), { x: 5.4, w: 1.2, door: 'wood' }, win(9.6, 'x')],
+    [win(Z(157), 'z'), { z: Z(268), w: 1.6, hi: 2.5, door: 'wood' }, win(Z(385), 'z', 1.2)],
     GL
   );
+  wall(G.L0, WL, le, ln, le, ls, 0, FH, TW, [{ z: Z(272), w: 1.3, door: 'glass' }], GL);
+  // kitchen / corridor / WC
+  wall(G.L0, WL, X(378), Z(242), X(512), Z(242), 0, FH, TI);
+  wall(G.L0, WL, X(378), Z(310), X(512), Z(310), 0, FH, TI, [{ x: X(478), w: 0.9 }]);
+  wall(G.L0, WL, X(378), Z(310), X(378), Z(470), 0, FH, TI);
+  // dining room
+  obj(fg.L0, 0, 0.02, 0).box(M.green, X(235), 0.25, Z(86), 6.3, 0.5, 0.45);
+  for (const px of [135, 233, 335]) {
+    F.table(fg.L0, X(px), 0.02, Z(118), 1.4, 0.9, 0, M.white);
+    F.chair(fg.L0, X(px) - 0.35, 0.02, Z(152), N, M.oak);
+    F.chair(fg.L0, X(px) + 0.35, 0.02, Z(152), N, M.oak);
+  }
+  for (const px of [180, 290]) {
+    const x = X(px);
+    const z = Z(205);
+    F.table(fg.L0, x, 0.02, z, 1.2, 1.4, 0, M.white);
+    for (const dz of [-0.35, 0.35]) {
+      F.chair(fg.L0, x - 0.95, 0.02, z + dz, E, M.oak);
+      F.chair(fg.L0, x + 0.95, 0.02, z + dz, W, M.oak);
+    }
+  }
+  F.roundTable(fg.L0, X(300), 0.02, Z(335), 0.6, M.white);
+  for (let k = 0; k < 4; k++) {
+    const a = (k * Math.PI) / 2 + 0.6;
+    F.chair(fg.L0, X(300) + Math.cos(a) * 0.95, 0.02, Z(335) + Math.sin(a) * 0.95, -a - E, M.oak);
+  }
+  F.table(fg.L0, X(180), 0.02, Z(348), 0.9, 0.6, 0, M.white);
+  F.chair(fg.L0, X(180) - 0.75, 0.02, Z(348), E, M.oak);
+  F.chair(fg.L0, X(180) + 0.75, 0.02, Z(348), W, M.oak);
+  for (const px of [148, 322]) {
+    F.roundTable(fg.L0, X(px), 0.02, Z(428), 0.65, M.white);
+    for (const a of [-2.6, -1.57, -0.55]) {
+      F.chair(fg.L0, X(px) + Math.cos(a) * 1.0, 0.02, Z(428) + Math.sin(a) * 1.0, -a - E, M.oak);
+    }
+  }
+  F.table(fg.L0, X(236), 0.02, Z(432), 0.6, 0.8, 0, M.white);
+  // kitchen: counters along two walls and a serving counter towards the room
+  obj(fg.L0, 0, 0.02, 0)
+    .box(M.black, X(452), 0.45, Z(92), 2.6, 0.9, 0.65)
+    .box(M.steel, X(452), 0.91, Z(92), 2.6, 0.03, 0.66)
+    .box(M.black, X(497), 0.45, Z(172), 0.65, 0.9, 3.3)
+    .box(M.steel, X(497), 0.91, Z(172), 0.66, 0.03, 3.3)
+    .box(M.white, X(389), 0.55, Z(160), 0.55, 1.1, 3.9)
+    .box(M.oak, X(389), 1.12, Z(160), 0.7, 0.05, 4.0)
+    .box(M.white, X(410), 0.55, Z(230), 1.2, 1.1, 0.5)
+    .box(M.oak, X(410), 1.12, Z(230), 1.3, 0.05, 0.6);
+  // WC: three cabins and a washbasin counter
+  for (const py of [378, 412, 452]) F.toilet(fg.L0, X(396), 0.02, Z(py), E);
+  for (const py of [395, 432]) obj(fg.L0, X(416), 0, Z(py)).box(WL, 0, 1.0, 0, 1.7, 2.0, 0.05);
+  obj(fg.L0, X(500), 0.02, Z(365))
+    .box(M.white, 0, 0.82, 0, 0.5, 0.08, 1.5)
+    .box(M.porcelain, 0, 0.88, -0.35, 0.36, 0.05, 0.36)
+    .box(M.porcelain, 0, 0.88, 0.35, 0.36, 0.05, 0.36);
+
+  // ----- Piso 1: cowork -----
+  const yL1 = LV.L[1];
+  const y1 = yL1 + 0.02;
+  poly(G.L1, LIN, y1, 0.32, M.wood);
+  wall(G.L1, WL, lw, ln, le, ln, yL1, FH, 0.8);
+  wall(G.L1, WL, lw, ls, le, ls, yL1, FH, TW, [win(X(200), 'x', 1.2), win(X(322), 'x', 1.4)], GL);
   wall(
-    G.L0,
+    G.L1,
     WL,
-    0,
-    0,
-    0,
-    11.2,
-    0,
+    lw,
+    ln,
+    lw,
+    ls,
+    yL1,
     FH,
     TW,
-    [win(2.2, 'z'), { z: 5.5, w: 1.6, door: 'glass' }, win(8.0, 'z')],
+    [160, 270, 385].map((py) => win(Z(py), 'z')),
     GL
   );
+  // two double doors straight onto the atrium
   wall(
-    G.L0,
+    G.L1,
     WL,
-    11.2,
-    0,
-    11.2,
-    11.2,
-    0,
+    le,
+    ln,
+    le,
+    ls,
+    yL1,
     FH,
     TW,
     [
-      { z: 5.3, w: 1.6, door: 'glass' },
-      { z: 8.6, w: 1.0 },
+      { z: Z(150), w: 1.3, hi: 2.3, door: 'glass' },
+      { z: Z(270), w: 1.3, hi: 2.3, door: 'glass' },
     ],
     GL
   );
-  wall(G.L0, WL, X(325), 0.9, X(325), 3.9, 0, FH, TI);
-  wall(G.L0, WL, X(325), 6.6, X(325), 10.9, 0, FH, TI, [{ z: 7.0, w: 0.9 }]);
-  wall(G.L0, WL, X(325), 6.6, 10.9, 6.6, 0, FH, TI);
-  // restaurant
-  for (const px of [112, 205, 296]) {
-    F.bench(fg.L0, X(px), 0.02, 1.2, 1.8, 0.6, 0, M.green);
-    F.table(fg.L0, X(px), 0.02, 2.1, 1.5, 0.8, 0, M.oak);
-    F.chair(fg.L0, X(px) - 0.4, 0.02, 2.85, Math.PI, M.blueDark);
-    F.chair(fg.L0, X(px) + 0.4, 0.02, 2.85, Math.PI, M.blueDark);
-  }
-  for (const [px, py] of [
-    [152, 400],
-    [249, 400],
-  ]) {
-    const x = X(px);
-    const z = Z(py);
-    F.table(fg.L0, x, 0.02, z, 1.1, 1.1, 0, M.oak);
-    F.chair(fg.L0, x - 0.75, 0.02, z, Math.PI / 2, M.blueDark);
-    F.chair(fg.L0, x + 0.75, 0.02, z, -Math.PI / 2, M.blueDark);
-    F.chair(fg.L0, x, 0.02, z - 0.75, 0, M.blueDark);
-    F.chair(fg.L0, x, 0.02, z + 0.75, Math.PI, M.blueDark);
-  }
-  const roundSets: [number, number, Mat][] = [
-    [120, 600, M.green],
-    [285, 600, M.green],
-    [258, 512, M.green],
-    [150, 520, M.oak],
-  ];
-  for (const [px, py, top] of roundSets) {
-    const x = X(px);
-    const z = Z(py);
-    F.roundTable(fg.L0, x, 0.02, z, 0.55, top);
-    for (let k = 0; k < 4; k++) {
-      const a = (k * Math.PI) / 2 + 0.4;
-      F.chair(
-        fg.L0,
-        x + Math.cos(a) * 0.9,
-        0.02,
-        z + Math.sin(a) * 0.9,
-        -a - Math.PI / 2,
-        M.blueDark
-      );
-    }
-  }
-  for (const [px, py] of [
-    [110, 372],
-    [195, 352],
-    [180, 488],
-    [205, 545],
-    [255, 590],
-    [275, 525],
-    [120, 520],
-  ])
-    F.plant(fg.L0, X(px), 0.02, Z(py), 0.8);
-  // kitchen
-  obj(fg.L0, 0, 0.02, 0)
-    .box(M.black, X(395), 0.45, 1.25, 3.0, 0.9, 0.65)
-    .box(M.steel, X(395), 0.91, 1.25, 3.0, 0.03, 0.66)
-    .box(M.white, X(335), 0.55, 2.6, 0.6, 1.1, 2.4)
-    .box(M.oak, X(335), 1.12, 2.6, 0.75, 0.05, 2.5)
-    .box(M.white, X(430), 1.0, 3.6, 0.65, 2.0, 0.65);
-  // WC
-  for (const py of [515, 555, 595]) F.toilet(fg.L0, X(340), 0.02, Z(py), Math.PI / 2);
-  for (const py of [520, 560])
-    obj(fg.L0, X(330) + 0.75, 0, Z(py) + 0.4).box(WL, 0, 1.0, 0, 1.5, 2.0, 0.05);
-  obj(fg.L0, X(430), 0.02, 8.6)
-    .box(M.white, 0, 0.82, 0, 0.5, 0.08, 2.2)
-    .box(M.porcelain, 0, 0.88, -0.5, 0.36, 0.05, 0.36)
-    .box(M.porcelain, 0, 0.88, 0.5, 0.36, 0.05, 0.36);
-
-  // Piso 1 — cowork
-  const yL1 = LV.L[1];
-  poly(G.L1, LFP, yL1 + 0.02, 0.32, M.wood);
-  wall(G.L1, WL, 0, 0, 11.2, 0, yL1, FH, TW, [win(2.6, 'x')], GL);
-  wall(
-    G.L1,
-    WL,
-    0,
-    11.2,
-    11.2,
-    11.2,
-    yL1,
-    FH,
-    TW,
-    [2.0, 4.6, 7.2, 9.6].map((x) => win(x, 'x')),
-    GL
-  );
-  wall(
-    G.L1,
-    WL,
-    0,
-    0,
-    0,
-    11.2,
-    yL1,
-    FH,
-    TW,
-    [4.6, 6.6, 9.2].map((z) => win(z, 'z')),
-    GL
-  );
-  wall(
-    G.L1,
-    WL,
-    11.2,
-    0,
-    11.2,
-    11.2,
-    yL1,
-    FH,
-    TW,
-    [win(4.6, 'z', 1.0, 0.6, 2.6), win(9.0, 'z', 1.0, 0.6, 2.6)],
-    GL
-  );
-  wall(G.L1, WL, 0.3, Z(392), 10.9, Z(392), yL1, FH, TI, [
-    { x: 3.6, w: 0.9, door: 'wood' },
-    { x: 6.0, w: 1.0 },
-    { x: 8.0, w: 0.9, door: 'wood' },
+  wall(G.L1, WL, X(270), Z(190), X(512), Z(190), yL1, FH, TI, [
+    { x: X(460), w: 1.2, door: 'wood' },
   ]);
-  wall(G.L1, WL, X(230), 0.3, X(230), Z(392), yL1, FH, TI);
-  wall(G.L1, WL, X(320), 0.3, X(320), Z(392), yL1, FH, TI);
-  const y1 = yL1 + 0.02;
+  wall(G.L1, WL, X(270), Z(78), X(270), Z(190), yL1, FH, TI);
+  wall(G.L1, WL, X(371), Z(78), X(371), Z(190), yL1, FH, TI);
   for (const [px, py] of [
-    [135, 455],
-    [262, 455],
-    [135, 572],
-    [262, 572],
+    [155, 267],
+    [300, 267],
+    [158, 398],
+    [300, 398],
   ]) {
     const x = X(px);
     const z = Z(py);
-    F.desk(fg.L1, x, y1, z, 2.4, 1.4, 0, M.blue);
+    F.desk(fg.L1, x, y1, z, 2.4, 1.55, 0, M.white);
     for (const dx of [-0.6, 0.6]) {
-      F.monitor(fg.L1, x + dx, y1, z - 0.25);
-      F.monitor(fg.L1, x + dx, y1, z + 0.25, Math.PI);
-      F.officeChair(fg.L1, x + dx, y1, z - 1.0, 0, dx < 0 ? M.yellow : M.blue);
-      F.officeChair(fg.L1, x + dx, y1, z + 1.0, Math.PI, dx < 0 ? M.blue : M.yellow);
+      F.monitor(fg.L1, x + dx, y1, z - 0.3);
+      F.monitor(fg.L1, x + dx, y1, z + 0.3, N);
+      F.officeChair(fg.L1, x + dx, y1, z - 1.1, 0, M.blue);
+      F.officeChair(fg.L1, x + dx, y1, z + 1.1, N, M.blue);
     }
   }
-  F.roundTable(fg.L1, X(370), y1, Z(455), 0.55, M.green);
-  F.table(fg.L1, X(368), y1, Z(520), 1.3, 1.0, 0, M.black);
-  F.shelf(fg.L1, X(390), y1, 10.6, 2.6, 1.6);
-  F.table(fg.L1, X(160), y1, Z(325), 2.6, 1.1, 0, M.blue);
-  for (const dx of [-0.8, 0, 0.8]) {
-    F.officeChair(fg.L1, X(160) + dx, y1, Z(325) - 0.8, 0, M.yellow);
-    F.officeChair(fg.L1, X(160) + dx, y1, Z(325) + 0.8, Math.PI, M.blue);
+  F.roundTable(fg.L1, X(425), y1, Z(262), 0.7, M.white);
+  for (let k = 0; k < 4; k++) {
+    const a = (k * Math.PI) / 2 + 0.78;
+    F.officeChair(fg.L1, X(425) + Math.cos(a), y1, Z(262) + Math.sin(a), -a - E, M.blue);
   }
-  F.table(fg.L1, X(385), y1, Z(318), 1.6, 0.8, 0, M.blue);
-  F.officeChair(fg.L1, X(385), y1, Z(318) + 0.7, Math.PI, M.blue);
-  F.stair(fg.L1, X(240), 0.5, X(312), 3.3, yL1, LV.L[2], '-z');
-  F.trackLight(fg.L1, 1.0, 10.0, 6.0, LV.L[2] - 0.32);
-  F.trackLight(fg.L1, 1.0, 10.0, 9.0, LV.L[2] - 0.32);
+  // the two yellow phone booths
+  for (const [px, py, w, d] of [
+    [301, 151, 1.3, 1.8],
+    [424, 338, 1.65, 1.3],
+  ])
+    obj(fg.L1, X(px), y1, Z(py))
+      .box(M.yellow, 0, 1.1, 0, w, 2.2, d)
+      .box(M.black, 0, 2.23, 0, w + 0.06, 0.06, d + 0.06);
+  // meeting table (open to the room) and the closed office
+  obj(fg.L1, X(175), y1, Z(135))
+    .cyl(M.white, 0, 0.73, 0, 2.9, 0.04, 1.3)
+    .cyl(M.black, 0, 0.36, 0, 0.12, 0.72, 0.12);
+  for (const dx of [-0.8, 0, 0.8]) {
+    F.officeChair(fg.L1, X(175) + dx, y1, Z(135) - 0.95, 0, M.blue);
+    F.officeChair(fg.L1, X(175) + dx, y1, Z(135) + 0.95, N, M.blue);
+  }
+  F.officeChair(fg.L1, X(175) - 1.75, y1, Z(135), E, M.blue);
+  F.officeChair(fg.L1, X(175) + 1.75, y1, Z(135), W, M.blue);
+  F.table(fg.L1, X(432), y1, Z(108), 2.0, 0.9, 0, M.white);
+  for (const dx of [-0.5, 0.5]) {
+    F.officeChair(fg.L1, X(432) + dx, y1, Z(108) + 0.8, N, M.blue);
+  }
+  obj(fg.L1, 0, y1, 0)
+    .box(M.white, X(500), 0.45, Z(457), 0.9, 0.9, 0.6)
+    .box(M.steel, X(500), 0.91, Z(457), 0.9, 0.03, 0.6)
+    .box(M.oak, X(407), 1.0, Z(435), 0.6, 2.0, 1.7);
+  F.stair(fg.L1, X(330), Z(85), X(368), Z(190), yL1, LV.L[2], '-z');
+  F.trackLight(fg.L1, 1.0, 10.0, Z(300), LV.L[2] - 0.32);
+  F.trackLight(fg.L1, 1.0, 10.0, Z(420), LV.L[2] - 0.32);
 
-  // Piso 2 — attic
+  // ----- Piso 2: attic kitchenette under the roof -----
   const yL2 = LV.L[2];
-  poly(G.L2, LFP, yL2 + 0.02, 0.32, M.oak);
+  const y2 = yL2 + 0.02;
+  poly(G.L2, LIN, y2, 0.32, M.oak);
   for (const [a, b, c, d] of [
-    [0, 0, 11.2, 0],
-    [0, 11.2, 11.2, 11.2],
-    [0, 0, 0, 11.2],
-    [11.2, 0, 11.2, 11.2],
+    [lw, ln, le, ln],
+    [lw, ls, le, ls],
+    [lw, ln, lw, ls],
+    [le, ln, le, ls],
   ])
     wall(G.L2, WL, a, b, c, d, yL2, L_EAVE - yL2, TW);
-  const y2 = yL2 + 0.02;
+  wallLine(
+    G.L2,
+    WL,
+    [
+      [190, 78],
+      [190, 238],
+      [440, 238],
+      [440, 78],
+    ],
+    yL2,
+    2.2,
+    TI
+  );
   obj(fg.L2, 0, y2, 0)
-    .box(M.white, 5.0, 0.45, Z(425), 4.4, 0.9, 0.62)
-    .box(M.yellow, 5.0, 0.92, Z(425), 4.4, 0.04, 0.64)
-    .box(M.yellow, X(160), 0.45, Z(400), 0.62, 0.9, 1.6);
-  F.table(fg.L2, 5.2, y2, 6.6, 2.2, 0.9, 0, M.oak);
-  for (const dx of [-0.7, 0.7]) {
-    F.chair(fg.L2, 5.2 + dx, y2, 5.9, 0, M.yellow);
-    F.chair(fg.L2, 5.2 + dx, y2, 7.3, Math.PI, M.blue);
-  }
-  F.sofa(fg.L2, 5.4, y2, 9.4, 2.2, Math.PI, M.blueDark);
-  F.rug(fg.L2, 5.4, y2, 8.6, 1.5, 0.9, M.rugBeige);
+    .box(M.white, X(210), 0.45, Z(160), 0.6, 0.9, 2.5)
+    .box(M.yellow, X(210), 0.92, Z(160), 0.62, 0.04, 2.5)
+    .box(M.white, X(275), 0.45, Z(220), 3.9, 0.9, 0.6)
+    .box(M.yellow, X(275), 0.92, Z(220), 3.9, 0.04, 0.62);
+  for (const px of [262, 320]) F.chair(fg.L2, X(px), y2, Z(196), 0, M.white);
+  for (const py of [132, 182]) F.chair(fg.L2, X(238), y2, Z(py), W, M.white);
 
-  // Roof — hipped at the street end, gable against the neighbour
+  // ----- Roof: hipped at the street end, gable against the neighbour -----
   {
     const o = 0.45;
     const e = L_EAVE;
     const r = L_RIDGE;
-    const xm = 5.6;
-    const zr = 5.6;
+    const xm = LX / 2;
+    const zr = LZ / 2;
     const A: Vec3 = [-o, e, 0];
     const B: Vec3 = [xm, r, 0];
     const Cc: Vec3 = [xm, r, zr];
-    const D: Vec3 = [-o, e, 11.2 + o];
-    const A2: Vec3 = [11.2 + o, e, 0];
-    const D2: Vec3 = [11.2 + o, e, 11.2 + o];
+    const D: Vec3 = [-o, e, LZ + o];
+    const A2: Vec3 = [LX + o, e, 0];
+    const D2: Vec3 = [LX + o, e, LZ + o];
     const tris: Vec3[][] = [
       [A, B, Cc],
       [A, Cc, D],
@@ -936,11 +949,8 @@ export function createSedeScene({
     tris.forEach((t, i) =>
       t.forEach((p) => {
         pos.push(...p);
-        uv.push(
-          ...(i < 4
-            ? [p[2] / 2, Math.hypot(p[0] - xm, p[1] - r) / 2]
-            : [p[0] / 2, Math.hypot(p[2] - zr, p[1] - r) / 2])
-        );
+        const along = i < 4 ? Math.hypot(p[0] - xm, p[1] - r) : Math.hypot(p[2] - zr, p[1] - r);
+        uv.push((i < 4 ? p[2] : p[0]) / 2, along / 2);
       })
     );
     const geo = new THREE.BufferGeometry();
@@ -951,371 +961,611 @@ export function createSedeScene({
     const gg = new THREE.BufferGeometry();
     gg.setAttribute(
       'position',
-      new THREE.Float32BufferAttribute([0, e, 0.02, 11.2, e, 0.02, xm, r - 0.1, 0.02], 3)
+      new THREE.Float32BufferAttribute([0, e, 0.02, LX, e, 0.02, xm, r - 0.1, 0.02], 3)
     );
     gg.computeVertexNormals();
     G.Lroof.add(shadow(new THREE.Mesh(gg, WL)));
     obj(fg.Lroof, 0, 0, 0)
-      .box(M.white, 5.6, e - 0.08, 11.2 + o - 0.05, 12.0, 0.16, 0.1)
-      .box(M.white, -o + 0.05, e - 0.08, 5.6, 0.1, 0.16, 11.2 + o);
-    obj(G.Lroof, 8.4, 0, 0.7)
-      .box(WL, 0, 9.4, 0, 0.8, 4.2, 0.8)
-      .box(M.frame, 0, 11.55, 0, 0.95, 0.1, 0.95);
+      .box(M.white, xm, e - 0.08, LZ + o - 0.05, LX + 2 * o, 0.16, 0.1)
+      .box(M.white, -o + 0.05, e - 0.08, LZ / 2, 0.1, 0.16, LZ + o);
+    // chimney on the street side, next to the atrium
+    obj(G.Lroof, X(450), 0, Z(486))
+      .box(WL, 0, 9.2, 0, 1.4, 4.4, 0.6)
+      .box(M.frame, 0, 11.45, 0, 1.5, 0.1, 0.7);
+    // solar panels on the east slope
     const slope = Math.atan2(r - e, xm + o);
-    for (let i = 0; i < 2; i++)
-      for (let j = 0; j < 3; j++) {
-        const cx = 9.0 + i * 1.15;
-        const y = e + (11.2 + o - cx) * Math.tan(slope) + 0.1;
-        obj(G.Lroof, cx, y, 0.9 + j * 1.75).box(M.panel, 0, 0, 0, 1.05, 0.04, 1.65, 0, 0, -slope);
-      }
+    for (let j = 0; j < 4; j++) {
+      const cx = LX - 0.9;
+      const y = e + (LX + o - cx) * Math.tan(slope) + 0.1;
+      obj(G.Lroof, cx, y, 1.0 + j * 1.9).box(M.panel, 0, 0, 0, 1.9, 0.04, 1.75, 0, 0, -slope);
+    }
   }
 
   // =========================================================
-  // ATRIUM — entrance, stairs, raised platform, gallery
+  // ATRIUM — at the old building's first-floor level
   // =========================================================
   const WM = Zm.M.wall;
-  poly(G.M0, MFP, 0.02, 0.2, M.patio);
-  wall(G.M0, WM, 11.2, 0, 19.2, 0, 0, GLASS_ROOF, TW);
-  wall(G.M0, WM, 19.2, 0, 19.4, 1.3, 0, GLASS_ROOF, TN);
-  wall(
-    G.M0,
+  const stairWell = R(598, 250, 648, 392);
+  // The ground under the atrium, cut open only for the stair down to the restaurant.
+  poly(G.M0, ATRIUM_FP, ATRIUM - 0.2, ATRIUM - 0.2, Zm.M.dark, [R(545, 245, 650, 395)]);
+  poly(fg.M0, R(545, 245, 650, 395), 0.02, 0.1, M.concrete);
+  F.stair(fg.M0, X(598), Z(250), X(648), Z(392), 0, ATRIUM, '-z', M.concrete);
+
+  poly(G.M1, ATRIUM_FP, ATRIUM + 0.02, 0.22, M.patio, [stairWell]);
+  // perimeter: neighbour wall to the north, street wall with the entrance to the south
+  wallLine(
+    G.M1,
     WM,
-    11.2,
-    11.2,
-    19.4,
-    11.2,
+    [
+      [540, 50],
+      [854, 48],
+      [860, 92],
+      [990, 80],
+    ],
     0,
     GLASS_ROOF,
-    TW,
+    TN
+  );
+  wall(
+    G.M1,
+    WM,
+    LX,
+    ls,
+    X(1010),
+    ls,
+    0,
+    GLASS_ROOF,
+    TN,
     [
-      { x: X(670), w: 2.0, hi: 3.0, door: 'glass' },
-      ...[12.4, 14.0, 15.6, 17.2, 18.6].map((x) => win(x, 'x', 1.1, 7.4, 8.5)),
+      { x: X(766), w: 1.9, lo: ATRIUM, hi: ATRIUM + 2.6, door: 'glass' },
+      ...[600, 680, 860, 940].map((px) => win(X(px), 'x', 1.3, ATRIUM + 3.0, ATRIUM + 3.9)),
     ],
     Zm.M.glass
   );
-  poly(G.M0, rect(15.6, 2.5, 19.4, 6.4), PL, PL, M.concrete);
-  F.stair(fg.M0, 15.6, 6.4, 16.8, 9.0, 0, PL, '-z');
-  F.railing(fg.M0, 15.6, 2.5, 15.6, 6.4, PL);
-  F.railing(fg.M0, 16.8, 6.4, 19.4, 6.4, PL);
-  F.sofa(fg.M0, 18.6, PL, 4.6, 2.0, -Math.PI / 2, M.blue);
-  F.chair(fg.M0, 17.0, PL, 5.4, Math.PI / 2, M.yellow);
-  F.chair(fg.M0, 17.0, PL, 3.8, Math.PI / 2, M.yellow);
-  F.roundTable(fg.M0, 17.8, PL, 4.6, 0.35, M.white, 0.45);
-  F.plant(fg.M0, 18.9, PL, 6.0, 1.2);
-  F.planter(fg.M0, 13.0, 0.02, 1.6, 3.0, 1.8);
-  F.planter(fg.M0, 12.4, 0.02, 6.2, 1.6, 3.4);
-  for (const [x, z] of [
-    [13.8, 9.3],
-    [15.0, 10.2],
-    [13.6, 10.5],
+  wall(G.M1, WM, X(1010), ls, X(1048), Z(472), 0, GLASS_ROOF, TN);
+  const ya = ATRIUM + 0.02;
+  F.railing(fg.M1, X(598), Z(250), X(598), Z(392), ATRIUM);
+  F.railing(fg.M1, X(648), Z(250), X(648), Z(392), ATRIUM);
+  F.railing(fg.M1, X(598), Z(250), X(648), Z(250), ATRIUM);
+  // reception desk by the entrance
+  obj(fg.M1, 0, ya, 0)
+    .box(M.white, X(620), 0.55, Z(394), 3.7, 1.1, 0.5)
+    .box(M.oak, X(620), 1.12, Z(394), 3.8, 0.05, 0.6)
+    .box(M.white, X(693), 0.55, Z(428), 0.5, 1.1, 1.8)
+    .box(M.oak, X(693), 1.12, Z(428), 0.6, 0.05, 1.9);
+  F.officeChair(fg.M1, X(650), ya, Z(430), N, M.blue);
+  // WC block against the neighbour wall: five cabins, washbasins, one accessible WC
+  wall(G.M1, WM, X(655), Z(182), X(845), Z(182), ATRIUM, 2.7, TI, [{ x: X(690), w: 0.9 }]);
+  wall(G.M1, WM, X(655), Z(55), X(655), Z(182), ATRIUM, 2.7, TI);
+  wall(G.M1, WM, X(845), Z(55), X(845), Z(110), ATRIUM, 2.7, TI);
+  wallLine(
+    G.M1,
+    WM,
+    [
+      [845, 110],
+      [925, 110],
+      [925, 196],
+      [845, 196],
+      [845, 182],
+    ],
+    ATRIUM,
+    2.7,
+    TI
+  );
+  wall(
+    G.M1,
+    WM,
+    X(655),
+    Z(122),
+    X(845),
+    Z(122),
+    ATRIUM,
+    2.2,
+    0.05,
+    [675, 712, 748, 785, 822].map((px) => ({ x: X(px), w: 0.7 }))
+  );
+  for (const px of [693, 730, 767, 803])
+    obj(fg.M1, X(px), ya, Z(88)).box(WM, 0, 1.1, 0, 0.05, 2.2, 1.6);
+  for (const px of [675, 712, 748, 785, 822]) F.toilet(fg.M1, X(px), ya, Z(76), 0);
+  F.toilet(fg.M1, X(905), ya, Z(170), N);
+  obj(fg.M1, X(770), ya, Z(170))
+    .box(M.white, 0, 0.82, 0, 2.2, 0.08, 0.5)
+    .box(M.porcelain, -0.6, 0.88, 0, 0.36, 0.05, 0.36)
+    .box(M.porcelain, 0.1, 0.88, 0, 0.36, 0.05, 0.36)
+    .box(M.porcelain, 0.8, 0.88, 0, 0.36, 0.05, 0.36);
+  // wooden stair up to the platform and the training rooms
+  F.stair(fg.M1, X(835), Z(215), X(940), Z(275), ATRIUM, LV.R[1], '+x', M.oak);
+  // planting, bistro tables and lounge chairs
+  F.planter(fg.M1, X(596), ya, Z(100), 2.2, 1.6);
+  F.planter(fg.M1, X(755), ya, Z(222), 2.6, 0.9);
+  for (const [px, py] of [
+    [705, 300],
+    [770, 335],
+    [705, 368],
   ]) {
-    F.roundTable(fg.M0, x, 0.02, z, 0.38, M.white);
-    F.chair(fg.M0, x + 0.6, 0.02, z, -Math.PI / 2, M.white);
-    F.chair(fg.M0, x - 0.6, 0.02, z, Math.PI / 2, M.white);
+    F.roundTable(fg.M1, X(px), ya, Z(py), 0.38, M.white);
+    F.chair(fg.M1, X(px) + 0.62, ya, Z(py), W, M.white);
+    F.chair(fg.M1, X(px) - 0.62, ya, Z(py), E, M.white);
   }
-  F.chair(fg.M0, 17.6, 0.02, 7.6, Math.PI, M.blue);
-  F.chair(fg.M0, 18.8, 0.02, 7.6, Math.PI, M.yellow);
-  F.pouf(fg.M0, 18.2, 0.02, 7.3, 0.2, M.yellow);
-  F.plant(fg.M0, 11.9, 0.02, 10.5, 1.3);
-  F.tree(fg.M0, 13.2, 0.82, 1.6, 0.5);
-  // gallery
-  poly(G.M1, rect(11.6, 0.3, 19.3, 2.4), LV.R[1], 0.3, M.concrete);
-  F.railing(fg.M1, 11.6, 2.4, 13.0, 2.4, LV.R[1]);
-  F.railing(fg.M1, 11.6, 0.3, 11.6, 2.4, LV.R[1]);
-  F.stair(fg.M1, 13.0, 2.45, 18.4, 3.4, PL, LV.R[1], '-x', M.frame);
-  for (const x of [12.2, 14.2, 16.2, 18.2])
-    obj(fg.M1, x, LV.R[1], 0.55).box(M.black, 0, 1.3, 0, 1.0, 0.7, 0.05);
+  F.chair(fg.M1, X(815), ya, Z(318), E, M.blue);
+  F.chair(fg.M1, X(815), ya, Z(372), E, M.yellow);
+  F.pouf(fg.M1, X(832), ya, Z(345), 0.2, M.yellow);
+  F.plant(fg.M1, X(560), ya, Z(455), 1.2);
+  F.plant(fg.M1, X(835), ya, Z(455), 1.2);
   for (let i = 0; i < 5; i++)
-    obj(fg.M1, 12.4 + i * 1.6, GLASS_ROOF - 1.3, 4.6)
+    obj(fg.M1, X(600) + i * 1.9, GLASS_ROOF - 1.3, Z(300))
       .cyl(M.leaf2, 0, 0, 0, 0.35, 0.3, 0.35)
       .cyl(M.frame, 0, 0.65, 0, 0.01, 1.0, 0.01);
   // coloured glass roof
   {
-    const nx = 7;
-    const nz = 6;
-    const x0 = 11.2;
-    const x1 = 22.4;
+    const nx = 8;
+    const nz = 5;
+    const x0 = LX;
+    const x1 = X(1008);
+    const z0 = 0.3;
     const w = (x1 - x0) / nx;
-    const d = 11.2 / nz;
+    const d = (LZ - z0) / nz;
     const tint: Record<string, Mat> = {
       y: M.tintYellow,
       b: M.tintBlue,
       g: M.tintGreen,
       '.': M.railGlass,
     };
-    const pattern = ['....y..', '.y..bb.', 'g...y..', '..b...g', '.y..g..', '...y..b'];
+    const pattern = ['....y...', '.y..bb.g', 'g...y...', '..b...g.', '.y..g..y'];
     for (let i = 0; i < nx; i++)
       for (let j = 0; j < nz; j++) {
         const m = new THREE.Mesh(UNIT.box, tint[pattern[j][i]]);
         m.scale.set(w - 0.06, 0.03, d - 0.06);
-        m.position.set(x0 + w * (i + 0.5), GLASS_ROOF, d * (j + 0.5));
+        m.position.set(x0 + w * (i + 0.5), GLASS_ROOF, z0 + d * (j + 0.5));
         G.Mroof.add(m);
       }
     const fr = obj(G.Mroof, 0, 0, 0);
     for (let i = 0; i <= nx; i++)
-      fr.box(M.white, x0 + w * i, GLASS_ROOF - 0.12, 5.6, 0.08, 0.22, 11.2);
+      fr.box(M.white, x0 + w * i, GLASS_ROOF - 0.12, (z0 + LZ) / 2, 0.08, 0.22, LZ - z0);
     for (let j = 0; j <= nz; j++)
-      fr.box(M.white, (x0 + x1) / 2, GLASS_ROOF - 0.12, d * j, x1 - x0, 0.22, 0.08);
+      fr.box(M.white, (x0 + x1) / 2, GLASS_ROOF - 0.12, z0 + d * j, x1 - x0, 0.22, 0.08);
   }
 
   // =========================================================
-  // NEW BUILDING — gaming, recording, auditorium, lounge
+  // NEW BUILDING — gaming + recording, training rooms, top floor
   // =========================================================
   const WR = Zm.R.wall;
+  const DR = Zm.R.dark;
   const GR = Zm.R.glass;
-  poly(G.R0, RFP, PL, PL, M.plinth);
-  poly(G.R0, RFP, PL + 0.02, 0.05, M.greyFloor);
-  const rWalls = (
+  const polyWalls = (
     g: G3,
+    mat: Mat,
+    pts: Pt[],
     y: number,
-    open: Partial<Record<'n' | 'e' | 's' | 's2' | 'w', Opening[]>>
-  ) => {
-    wall(g, WR, 19.4, 1.3, 35.8, -0.3, y, FH, TN, open.n, GR);
-    wall(g, WR, 35.8, -0.3, 36.2, 9.0, y, FH, TN, open.e, GR);
-    wall(g, WR, 36.2, 9.0, 23.2, 11.1, y, FH, TN, open.s, GR);
-    wall(g, WR, 23.2, 11.1, 19.4, 11.2, y, FH, TN, open.s2, GR);
-    wall(g, WR, 19.4, 11.2, 19.4, 1.3, y, FH, TN, open.w, GR);
-  };
-  const fwin = (f: number, w = 1.2, lo = 0.9, hi = 2.6): Opening => ({ f, w, lo, hi });
-  rWalls(G.R0, PL, {
-    s: [fwin(0.2), fwin(0.62)],
-    s2: [{ f: 0.5, w: 1.4, hi: 2.6, door: 'glass' }],
-    w: [{ z: 4.45, w: 3.4, hi: 2.8 }],
-  });
-  wall(G.R0, Zm.R.dark, 29.6, 0.6, 30.0, 9.5, PL, FH, TI, [{ f: 0.62, w: 1.0, door: 'wood' }]);
+    h: number,
+    t: number,
+    open: Record<number, Opening[]> = {}
+  ) =>
+    pts.forEach(([ax, az], i) => {
+      const [bx, bz] = pts[(i + 1) % pts.length];
+      wall(g, mat, ax, az, bx, bz, y, h, t, open[i] ?? [], GR);
+    });
+
+  // ----- Piso 0: half-buried; its west end is the box that carries the atrium platform -----
   const r0 = PL + 0.02;
+  poly(G.R0, R0_FP, r0, 0.3, M.greyFloor);
+  // edge 6 is the west wall: the stair from the atrium comes down through it
+  polyWalls(G.R0, WR, R0_FP, PL, FH, TN, { 6: [{ z: Z(436), w: 1.3, lo: ATRIUM - PL, hi: 3.3 }] });
+  F.stair(fg.R0, X(870), Z(410), X(940), Z(462), PL, ATRIUM, '-x', M.concrete);
+  // corridor along the street side
+  wallLine(
+    G.R0,
+    WR,
+    [
+      [870, 400],
+      [990, 400],
+    ],
+    PL,
+    FH,
+    TI
+  );
+  wallLine(
+    G.R0,
+    WR,
+    [
+      [1028, 402],
+      [1200, 372],
+      [1262, 362],
+    ],
+    PL,
+    FH,
+    TI
+  );
+  // zig-zag acoustic wall between the gaming room and the studio, then the studio lobby
+  wallLine(
+    G.R0,
+    DR,
+    [
+      [1262, 78],
+      [1300, 150],
+      [1290, 215],
+      [1312, 240],
+      [1285, 300],
+      [1270, 348],
+    ],
+    PL,
+    FH,
+    0.3
+  );
+  wallLine(
+    G.R0,
+    DR,
+    [
+      [1335, 320],
+      [1370, 300],
+      [1455, 292],
+      [1485, 320],
+      [1540, 320],
+    ],
+    PL,
+    FH,
+    0.3
+  );
+  wallLine(
+    G.R0,
+    DR,
+    [
+      [1270, 348],
+      [1335, 320],
+    ],
+    PL,
+    FH,
+    TI
+  );
+  // green chroma-key corner
   poly(
     fg.R0,
+    P([
+      [934, 104],
+      [1250, 82],
+      [1250, 110],
+      [1002, 126],
+      [1012, 258],
+      [952, 264],
+    ]),
+    r0 + 0.02,
+    0.02,
+    M.chroma
+  );
+  wallLine(
+    fg.R0,
+    M.chroma,
     [
-      [30.0, 0.6],
-      [35.6, 0.0],
-      [36.0, 9.0],
-      [30.2, 9.6],
+      [940, 106],
+      [958, 262],
     ],
+    PL,
+    2.6,
+    0.05
+  );
+  wallLine(
+    fg.R0,
+    M.chroma,
+    [
+      [940, 104],
+      [1250, 82],
+    ],
+    PL,
+    2.6,
+    0.05
+  );
+  // long table for twelve
+  F.table(fg.R0, X(1118), r0, Z(176), 6.2, 1.4, -0.08, M.white);
+  for (let i = 0; i < 5; i++) {
+    const x = X(1020) + i * 1.2;
+    const zs = -0.08 * (x - X(1118));
+    F.officeChair(fg.R0, x, r0, Z(176) - 1.05 + zs, 0, M.white);
+    F.officeChair(fg.R0, x, r0, Z(176) + 1.05 + zs, N, M.white);
+  }
+  F.officeChair(fg.R0, X(982), r0, Z(186), E, M.white);
+  F.officeChair(fg.R0, X(1254), r0, Z(166), W, M.white);
+  // screen partition, round table with poufs, armchairs, two simulators
+  wallLine(
+    fg.R0,
+    M.black,
+    [
+      [1045, 345],
+      [1050, 300],
+      [1085, 270],
+      [1135, 265],
+    ],
+    PL,
+    2.0,
+    0.08
+  );
+  F.screenWall(fg.R0, X(1066), r0, Z(286), 1.0, -0.72, 0.6, 1.4);
+  F.screenWall(fg.R0, X(1110), r0, Z(269), 1.0, -0.1, 0.6, 1.4);
+  F.roundTable(fg.R0, X(1103), r0, Z(322), 0.45, M.white, 0.45);
+  for (const [px, py] of [
+    [1155, 305],
+    [1150, 338],
+    [1135, 360],
+    [1105, 372],
+    [1080, 370],
+  ])
+    F.pouf(fg.R0, X(px), r0, Z(py), 0.24, M.yellow);
+  for (const [px, py] of [
+    [1238, 240],
+    [1228, 275],
+    [1215, 305],
+  ])
+    F.beanbag(fg.R0, X(px), r0, Z(py));
+  for (const py of [318, 356]) {
+    F.officeChair(fg.R0, X(930), r0, Z(py), W, M.purple);
+    obj(fg.R0, X(897), r0, Z(py))
+      .box(M.black, 0, 0.4, 0, 0.5, 0.8, 0.75)
+      .box(M.screen, 0.1, 1.15, 0, 0.05, 0.5, 0.8);
+  }
+  // studio: dark wood floor, drums, corner vocal booth in glass, control desk, guitars
+  poly(
+    fg.R0,
+    P([
+      [1275, 62],
+      [1528, 50],
+      [1536, 318],
+      [1486, 318],
+      [1456, 290],
+      [1370, 298],
+      [1320, 322],
+      [1290, 300],
+      [1316, 240],
+      [1296, 215],
+      [1306, 150],
+    ]),
     r0 + 0.02,
     0.02,
     M.woodDark
   );
-  poly(fg.R0, rect(X(820), Z(310), X(890), Z(460)), r0 + 0.02, 0.02, M.chroma);
-  obj(fg.R0, X(822), r0, Z(385)).box(M.chroma, 0, 1.2, 0, 0.06, 2.4, 4.2);
-  F.table(fg.R0, X(982), r0, Z(388), 5.6, 1.2, 0, M.oak);
-  for (let i = 0; i < 5; i++) {
-    const x = X(890) + 0.55 + i * 1.1;
-    F.officeChair(fg.R0, x, r0, Z(388) - 0.9, 0, M.white);
-    F.officeChair(fg.R0, x, r0, Z(388) + 0.9, Math.PI, M.white);
-    F.monitor(fg.R0, x, r0, Z(388) - 0.2);
-  }
-  for (const [px, py] of [
-    [1088, 435],
-    [1085, 467],
-    [1062, 500],
-  ])
-    F.beanbag(fg.R0, X(px), r0, Z(py));
-  F.roundTable(fg.R0, X(970), r0, Z(512), 0.5, M.yellow, 0.45);
-  for (let k = 0; k < 6; k++) {
-    const a = (k / 6) * Math.PI * 2;
-    F.pouf(fg.R0, X(970) + Math.cos(a), r0, Z(512) + Math.sin(a), 0.24, M.yellow);
-  }
-  F.officeChair(fg.R0, X(810), r0, Z(500), Math.PI / 2, M.purple);
-  F.officeChair(fg.R0, X(810), r0, Z(540), Math.PI / 2, M.purple);
-  F.table(fg.R0, X(785), r0, Z(520), 0.7, 2.2, 0, M.black);
-  F.monitor(fg.R0, X(778), r0, Z(500), Math.PI / 2);
-  F.monitor(fg.R0, X(778), r0, Z(540), Math.PI / 2);
-  F.screenWall(fg.R0, 23.5, r0, 10.4, 3.2, Math.PI + 0.16, 1.0, 1.5);
-  F.drums(fg.R0, X(1205), r0, Z(345));
-  F.table(fg.R0, X(1240), r0, Z(505), 2.2, 0.9, -0.15, M.black, 0.8);
-  obj(fg.R0, X(1240), r0, Z(505), -0.15)
-    .box(M.screen, -0.6, 0.98, -0.25, 0.55, 0.32, 0.03)
-    .box(M.screen, 0.6, 0.98, -0.25, 0.55, 0.32, 0.03)
-    .box(M.steel, 0, 0.82, 0.1, 1.4, 0.04, 0.45);
-  F.officeChair(fg.R0, X(1240), r0, Z(505) + 0.9, Math.PI - 0.15, M.black);
-  obj(fg.R0, X(1285), r0, Z(450)).box(M.black, 0, 0.75, 0, 0.5, 1.5, 1.6);
-  obj(fg.R0, X(1300), r0, Z(325))
-    .box(M.railGlass, -0.9, 1.25, 0.6, 0.04, 2.5, 1.6, 0, 0.4, 0)
-    .box(M.railGlass, 0.3, 1.25, 1.3, 2.0, 2.5, 0.04);
-  for (const x of [33.0, 33.4, 33.8])
-    obj(fg.R0, x, r0, 8.2)
+  F.drums(fg.R0, X(1345), r0, Z(115));
+  obj(fg.R0, X(1345), r0, Z(115)).cyl(M.rugBeige, 0, 0.03, 0, 2.6, 0.02, 2.2);
+  wallLine(
+    fg.R0,
+    M.railGlass,
+    [
+      [1395, 58],
+      [1425, 100],
+      [1490, 140],
+      [1530, 128],
+    ],
+    PL,
+    2.6,
+    0.04
+  );
+  for (const px of [1470, 1488, 1506])
+    obj(fg.R0, X(px), r0, Z(178))
       .box(M.black, 0, 0.55, 0, 0.12, 0.9, 0.3)
       .box(M.woodDark, 0, 0.1, 0, 0.3, 0.2, 0.3);
+  F.table(fg.R0, X(1412), r0, Z(326), 1.8, 0.8, 0.05, M.black, 0.8);
+  obj(fg.R0, X(1412), r0, Z(326), 0.05)
+    .box(M.screen, -0.45, 0.98, -0.2, 0.5, 0.32, 0.03)
+    .box(M.screen, 0.45, 0.98, -0.2, 0.5, 0.32, 0.03)
+    .box(M.steel, 0, 0.82, 0.1, 1.2, 0.04, 0.4);
+  F.officeChair(fg.R0, X(1418), r0, Z(352), N, M.black);
 
-  // Piso 1 — auditorium
+  // ----- Piso 1: two training rooms; the slab also forms the platform inside the atrium -----
   const yR1 = LV.R[1];
-  poly(G.R1, RFP, yR1 + 0.02, 0.32, M.concrete);
-  rWalls(G.R1, yR1, {
-    s: [fwin(0.15, 1.2, 0.9, 2.7), fwin(0.4, 1.2, 0.9, 2.7), fwin(0.65, 1.2, 0.9, 2.7)],
-    w: [{ z: 1.9, w: 1.1, hi: 2.3, door: 'glass' }],
-    e: [fwin(0.5, 2.4, 0.9, 2.7)],
-  });
   const ra = yR1 + 0.02;
-  for (let c = 0; c < 9; c++)
-    for (let r = 0; r < 9; r++) {
-      const x = 24.6 + c * 0.95;
-      const z = 2.4 + r * 0.82 + (c % 2) * 0.2;
-      if (z > 9.4 - (x - 24) * 0.12) continue;
-      F.chair(fg.R1, x, ra, z, -Math.PI / 2, (c + r) % 2 ? M.yellow : M.blue);
-    }
-  obj(fg.R1, 34.6, ra, 4.4).box(M.white, 0, 1.6, 0, 0.05, 1.8, 3.2);
-  obj(fg.R1, 29.0, LV.R[2] - 0.5, 4.4)
-    .box(M.black, 0, 0, 0, 0.45, 0.18, 0.4)
-    .box(M.black, 0, 0.25, 0, 0.05, 0.4, 0.05);
-  F.officeChair(fg.R1, 34.0, ra, 2.0, Math.PI / 2, M.black);
-  F.stair(fg.R1, X(870), Z(300), X(1010), Z(355), yR1, LV.R[2], '+x');
-  F.plant(fg.R1, 20.2, ra, 10.5, 1.1);
-
-  // Piso 2 — lounge, meeting room, terrace
-  const yR2 = LV.R[2];
-  poly(G.R2, RTOP, yR2 + 0.02, 0.32, M.greyFloor);
-  poly(
-    G.R2,
-    [
-      [19.4, 1.3],
-      [22.4, 1.0],
-      [22.4, 11.15],
-      [19.4, 11.2],
-    ],
-    yR2 + 0.02,
-    0.32,
-    M.plinth
-  );
-  wall(G.R2, WR, 22.4, 1.0, 35.8, -0.3, yR2, FH, TN, [fwin(0.15, 2.6, 0.6, 2.8)], GR);
-  wall(G.R2, WR, 35.8, -0.3, 36.1, 6.7, yR2, FH, TN, [fwin(0.5, 3.2, 0.6, 2.8)], GR);
-  wall(
-    G.R2,
+  poly(G.R1, R1_SLAB, ra, 0.34, M.concrete);
+  // edges: 0 north, 1 east, 2 street, 3 west (towards the atrium)
+  polyWalls(G.R1, WR, RU_FP, yR1, FH, TN, {
+    2: [fwin(0.23, 2.3), fwin(0.58, 2.3)],
+    3: [{ f: 0.725, w: 1.1, hi: 2.3, door: 'glass' }],
+  });
+  wall(G.R1, WR, X(1264), Z(76), X(1310), Z(395), yR1, FH, TI, [{ f: 0.3, w: 1.0, door: 'wood' }]);
+  wall(G.R1, WR, X(1005), Z(208), X(1266), Z(165), yR1, FH, TI, [
+    { f: 0.14, w: 1.0, door: 'wood' },
+  ]);
+  wallLine(
+    G.R1,
     WR,
-    36.1,
-    6.7,
-    22.6,
-    8.0,
-    yR2,
+    [
+      [1000, 157],
+      [1158, 150],
+    ],
+    yR1,
     FH,
-    TN,
-    [
-      { f: 0.25, w: 4.0, hi: 2.8, door: 'glass' },
-      fwin(0.6, 4.0, 0.2, 2.8),
-      fwin(0.88, 1.6, 0.6, 2.8),
-    ],
-    GR
+    TI
   );
-  wall(G.R2, WR, 22.6, 8.0, 22.4, 1.0, yR2, FH, TN, [fwin(0.55, 4.2, 0.4, 2.9)], GR);
+  F.stair(fg.R1, X(1000), Z(95), X(1150), Z(146), yR1, LV.R[2], '+x', M.oak);
+  for (let c = 0; c < 4; c++)
+    for (let r = 0; r < 8; r++) {
+      const py = 250 + r * 23.5;
+      F.chair(fg.R1, X(1045 + c * 46 + (py - 250) * 0.18), ra, Z(py), E, M.white);
+    }
+  F.chair(fg.R1, X(1272), ra, Z(270), W, M.blue);
+  F.chair(fg.R1, X(1282), ra, Z(300), W, M.blue);
+  for (let c = 0; c < 4; c++)
+    for (let r = 0; r < 9; r++) {
+      const py = 112 + r * 27;
+      F.chair(fg.R1, X(1298 + c * 47 + (py - 112) * 0.15), ra, Z(py), E, M.white);
+    }
+  F.chair(fg.R1, X(1500), ra, Z(200), W, M.blue);
+  F.chair(fg.R1, X(1510), ra, Z(228), W, M.blue);
+  // platform: the gaming room's roof, with the sofa seen in the renders
+  F.railing(fg.R1, X(868), Z(278), X(868), Z(405), yR1);
+  F.railing(fg.R1, X(868), Z(405), X(1046), Z(405), yR1);
+  F.railing(fg.R1, X(930), Z(100), X(946), Z(213), yR1);
+  F.railing(fg.R1, X(868), Z(278), X(950), Z(270), yR1);
+  F.sofa(fg.R1, X(935), ra, Z(345), 2.0, W, M.blue);
+  F.chair(fg.R1, X(895), ra, Z(305), E, M.yellow);
+  F.chair(fg.R1, X(895), ra, Z(385), E, M.yellow);
+  F.plant(fg.R1, X(975), ra, Z(385), 1.3);
+
+  // ----- Piso 2: set back from the street behind a terrace -----
+  const yR2 = LV.R[2];
+  const rl = yR2 + 0.02;
+  poly(G.R2, RU_FP, rl, 0.34, M.greyFloor, [R(1004, 94, 1200, 146)]);
+  // edges: 0 north, 1 east, 2 street, 3 glazed corner (street), 4 west
+  polyWalls(G.R2, WR, R2_FP, yR2, FH, TN, {
+    1: [fwin(0.5, 2.2, 0.6, 2.8)],
+    2: [fwin(0.3, 2.4, 0.6, 2.8), fwin(0.72, 2.4, 0.6, 2.8)],
+    3: [{ f: 0.5, w: 3.9, hi: 2.8, door: 'glass' }],
+    4: [fwin(0.2, 2.4, 0.3, 2.8)],
+  });
   wall(
     G.R2,
     WR,
-    X(1245),
-    -0.05,
-    X(1245) + 0.1,
-    6.85,
+    X(1405),
+    Z(52),
+    X(1408),
+    Z(314),
     yR2,
     FH,
     TI,
-    [{ f: 0.75, w: 1.0, door: 'glass' }],
+    [{ f: 0.1, w: 0.9, door: 'glass' }],
     GR
   );
-  F.railing(fg.R2, 36.2, 9.0, 23.2, 11.1, yR2);
-  F.railing(fg.R2, 23.2, 11.1, 19.4, 11.2, yR2);
-  F.railing(fg.R2, 19.4, 11.2, 19.4, 1.3, yR2);
-  const rl = yR2 + 0.02;
-  F.rug(fg.R2, X(1015), rl, Z(455), 2.6, 1.6, M.rugBlue, 0.3);
-  F.rug(fg.R2, X(1110), rl, Z(445), 2.0, 1.2, M.rugBeige, -0.2);
-  obj(fg.R2, X(945), rl, Z(400))
-    .box(M.oak, 0, 0.22, -0.5, 2.6, 0.44, 0.7)
-    .box(M.oak, -1.0, 0.22, 0.4, 0.7, 0.44, 1.6)
-    .box(M.blue, -0.4, 0.55, -0.55, 0.6, 0.3, 0.3)
-    .box(M.yellow, 0.4, 0.55, -0.55, 0.6, 0.3, 0.3);
-  const loungeChairs: [number, number, Mat, number][] = [
-    [1045, 395, M.yellow, 0.6],
-    [1065, 415, M.blue, 2.4],
-    [995, 440, M.yellow, 4.1],
-    [1030, 495, M.blue, 1.3],
-    [1065, 470, M.yellow, 5.2],
-  ];
-  for (const [px, py, m, ry] of loungeChairs) F.chair(fg.R2, X(px), rl, Z(py), ry, m);
-  F.beanbag(fg.R2, X(1180), rl, Z(385), M.blue);
-  F.beanbag(fg.R2, X(1195), rl, Z(425), M.blue);
-  F.beanbag(fg.R2, X(930), rl, Z(475), M.blue);
-  F.pouf(fg.R2, X(935), rl, Z(520), 0.3, M.yellow);
-  obj(fg.R2, X(1165), rl, Z(337)).box(M.woodDark, 0, 1.0, 0, 3.6, 0.06, 0.3);
-  F.table(fg.R2, X(1165), rl, Z(505), 1.6, 0.5, -0.1, M.oak, 0.9);
-  F.stair(fg.R2, X(870), Z(300), X(1050), Z(355), yR1, yR2, '+x', M.oak, false);
-  obj(fg.R2, X(1300), rl, Z(445))
-    .cyl(M.white, 0, 0.73, 0, 1.2, 0.04, 3.0)
+  wallLine(
+    G.R2,
+    WR,
+    [
+      [1000, 150],
+      [1210, 146],
+    ],
+    yR2,
+    FH,
+    TI
+  );
+  for (const px of [1140, 1185, 1228, 1268, 1312, 1352])
+    for (const py of [192, 228, 262, 295, 325]) {
+      if (py > 372 - (px - 1044) * 0.176) continue;
+      F.chair(fg.R2, X(px), rl, Z(py), W, M.white);
+    }
+  obj(fg.R2, 0, rl, 0)
+    .box(M.white, X(1090), 0.45, Z(178), 2.7, 0.9, 0.4)
+    .box(M.white, X(1043), 0.45, Z(215), 0.4, 0.9, 1.5)
+    .box(M.oak, X(1322), 1.05, Z(126), 3.3, 0.05, 0.4)
+    .box(M.black, X(1322), 0.52, Z(126), 3.2, 1.0, 0.06);
+  obj(fg.R2, X(1478), rl, Z(190))
+    .cyl(M.white, 0, 0.73, 0, 1.3, 0.04, 3.2)
     .cyl(M.black, 0, 0.36, 0, 0.12, 0.72, 0.12);
-  for (const dz of [-1.0, -0.35, 0.35, 1.0]) {
-    F.officeChair(fg.R2, X(1300) - 0.95, rl, Z(445) + dz, Math.PI / 2, M.blueDark);
-    F.officeChair(fg.R2, X(1300) + 0.95, rl, Z(445) + dz, -Math.PI / 2, M.blueDark);
+  for (const dz of [-1.05, -0.35, 0.35, 1.05]) {
+    F.officeChair(fg.R2, X(1478) - 1.0, rl, Z(190) + dz, E, M.blueDark);
+    F.officeChair(fg.R2, X(1478) + 1.0, rl, Z(190) + dz, W, M.blueDark);
   }
-  F.screenWall(fg.R2, X(1300), rl, 0.15, 1.6, 0, 0.9, 1.4);
-  for (const x of [24.5, 28.5, 32.5]) F.plant(fg.R2, x, rl, 9.6 - (x - 24) * 0.12, 1.0);
+  F.railing(fg.R2, X(1554), Z(380), X(1050), Z(468), yR2);
+  F.railing(fg.R2, X(1050), Z(468), X(1044), Z(378), yR2);
+  for (const px of [1120, 1300, 1480]) F.plant(fg.R2, X(px), rl, Z(440 - (px - 1050) * 0.17), 1.0);
 
-  // Roof — green roof with solar panels
-  poly(G.Rroof, R2FP, R_ROOF, 0.35, M.slabEdge);
+  // ----- Roof: green roof with solar panels -----
+  poly(G.Rroof, R2_FP, R_ROOF, 0.35, M.slabEdge);
   poly(
     G.Rroof,
-    [
-      [22.7, 1.25],
-      [35.5, 0.0],
-      [35.8, 6.4],
-      [22.9, 7.7],
-    ],
+    P([
+      [1004, 98],
+      [1528, 54],
+      [1536, 284],
+      [1216, 336],
+      [1052, 364],
+    ]),
     R_ROOF + 0.12,
     0.12,
     M.greenRoof
   );
   for (let i = 0; i < 3; i++)
     for (let j = 0; j < 2; j++)
-      obj(fg.Rroof, 25.2 + i * 3.6, R_ROOF + 0.55, 2.6 + j * 2.6 - i * 0.25, -0.09)
+      obj(fg.Rroof, X(1130) + i * 3.6, R_ROOF + 0.55, Z(130) + j * 2.6 - i * 0.3, -0.08)
         .box(M.panel, 0, 0, 0, 3.0, 0.05, 1.8, -0.35, 0, 0)
         .box(M.steel, 0, -0.25, 0.5, 2.8, 0.5, 0.05);
-  R2FP.forEach(([ax, az], i) => {
-    const [bx, bz] = R2FP[(i + 1) % R2FP.length];
-    wall(G.Rroof, WR, ax, az, bx, bz, R_ROOF, 0.5, TN);
-  });
+  polyWalls(G.Rroof, WR, R2_FP, R_ROOF, 0.5, TN);
 
   // =========================================================
-  // GROUND, STREET AND NEIGHBOURS
+  // STREET AND NEIGHBOURS
   // =========================================================
   {
-    const geo = new THREE.PlaneGeometry(140, 140, 70, 70);
-    geo.rotateX(-Math.PI / 2);
-    const p = geo.attributes.position;
-    for (let i = 0; i < p.count; i++) {
-      const x = p.getX(i) + 18;
-      const t = THREE.MathUtils.clamp((x - 14) / 9, 0, 1);
-      const far = THREE.MathUtils.clamp((x - 23) / 30, 0, 1) * 1.2;
-      p.setY(i, t * t * (3 - 2 * t) * PL + far - 0.02);
+    // The street climbs along x only, so the ground is built from strips that are each
+    // planar, with the buildings' footprint left out (rooms sit below street level).
+    const lerp = (pts: Pt[], x: number) => {
+      for (let i = 0; i < pts.length - 1; i++) {
+        const [xa, za] = pts[i];
+        const [xb, zb] = pts[i + 1];
+        if (x <= xb) return za + ((zb - za) * (x - xa)) / (xb - xa || 1);
+      }
+      return pts[pts.length - 1][1];
+    };
+    const xEnd = X(1554);
+    const north: Pt[] = [
+      [0, 0],
+      [X(856), 0],
+      [X(862), Z(90)],
+      [X(1542), Z(36)],
+      [xEnd, Z(36)],
+    ];
+    const south: Pt[] = [
+      [0, LZ],
+      [X(1010), LZ],
+      [xEnd, Z(380)],
+    ];
+    const xs = [-70, 0, 1, X(766), X(856), X(862), X(1010), xEnd, X(766) + 20, 110];
+    const pos: number[] = [];
+    const uv: number[] = [];
+    const quad = (a: number, b: number, z1a: number, z2a: number, z1b: number, z2b: number) => {
+      const ha = terrain(a) - 0.02;
+      const hb = terrain(b) - 0.02;
+      const v: Vec3[] = [
+        [a, ha, z1a],
+        [a, ha, z2a],
+        [b, hb, z2b],
+        [a, ha, z1a],
+        [b, hb, z2b],
+        [b, hb, z1b],
+      ];
+      v.forEach((p) => {
+        pos.push(...p);
+        uv.push(p[0] / 3, p[2] / 3);
+      });
+    };
+    for (let i = 0; i < xs.length - 1; i++) {
+      const a = xs[i];
+      const b = xs[i + 1];
+      if (b <= 0 || a >= xEnd) quad(a, b, -70, 90, -70, 90);
+      else {
+        quad(a, b, -70, lerp(north, a), -70, lerp(north, b));
+        quad(a, b, lerp(south, a), 90, lerp(south, b), 90);
+      }
     }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+    geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
     geo.computeVertexNormals();
     const ground = new THREE.Mesh(geo, M.cobble);
-    ground.position.set(18, 0, 5.5);
     ground.receiveShadow = true;
     root.add(ground);
+
     const nb = (x0: number, z0: number, x1: number, z1: number, h: number, roof = true) => {
-      const y = THREE.MathUtils.clamp((x0 - 14) / 9, 0, 1) * PL;
+      const y = terrain(x0);
+      const hh = h + terrain(x1) - y;
       obj(G.context, (x0 + x1) / 2, y, (z0 + z1) / 2).box(
         M.neighbor,
         0,
-        h / 2,
+        hh / 2,
         0,
         x1 - x0,
-        h,
+        hh,
         z1 - z0
       );
       if (roof)
-        obj(G.context, (x0 + x1) / 2, y + h, (z0 + z1) / 2)
+        obj(G.context, (x0 + x1) / 2, y + hh, (z0 + z1) / 2)
           .box(M.neighborRoof, 0, 0.6, 0, x1 - x0 + 0.5, 1.2, z1 - z0 + 0.5)
           .box(M.neighborRoof, 0, 1.45, 0, (x1 - x0) * 0.6, 0.5, (z1 - z0) * 0.5);
     };
-    nb(0, -12, 12, -0.3, 7.2);
-    nb(12.5, -9, 22, -0.3, 6.5);
-    nb(22.5, -10, 37, -0.6, 7.0);
-    nb(37.5, -2, 48, 9, 9.0, false);
-    nb(2, 22, 17, 31, 4.6);
-    nb(24, 23, 40, 33, 5.0);
+    nb(0, -12, 11.5, -0.2, 5.0);
+    nb(12.5, -9, 18.6, -0.2, 3.6);
+    nb(19.4, -10, 36, -0.5, 6.0);
+    nb(38, -2, 48, 9, 5.0, false);
+    nb(2, 34, 17, 43, 4.6);
+    nb(24, 35, 40, 45, 5.0);
     for (const [x, z] of [
       [-6, 14],
-      [44, 15],
+      [44, 16],
       [8, -18],
     ])
-      F.tree(G.context, x, 0, z, 1.0);
+      F.tree(G.context, x, terrain(x), z, 1.0);
   }
 
   flushInstances();
@@ -1408,7 +1658,7 @@ export function createSedeScene({
     const dir = new THREE.Vector3(...conf.cam).sub(tgt).normalize();
     const L = layout();
     const t = Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
-    const portrait = L.freeH > L.freeW * 1.1 && v !== 'ext';
+    const portrait = L.w < NARROW && v !== 'ext';
     // On tall screens look along the building, so its 36 m run uses the screen's height.
     if (portrait) dir.applyAxisAngle(up, -Math.PI / 2 + 0.25);
     const d = portrait
