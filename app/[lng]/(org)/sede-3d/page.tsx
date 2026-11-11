@@ -1,15 +1,19 @@
 import { Metadata } from 'next';
 import Sede3D from '@/components/sede3d/Sede3D';
+import { getMetadataPageInfo } from '@/utils/metadata';
+import { Language } from '@/i18n/settings';
+import { LanguagePageProps } from '../types';
 
 /**
- * Preview of the future headquarters as an interactive 3D model.
- * Shared by link only: kept out of search engines, the sitemap and the navigation.
+ * Preview of the future headquarters (the Global Village building) as an
+ * interactive 3D model. Public and indexable — localized title/description,
+ * canonical, hreflang and `index, follow` come from metadata.json — and listed
+ * in the sitemap, but not in the navigation.
  */
-export const metadata: Metadata = {
-  title: 'Sede HawkStars em 3D',
-  description: 'Modelo 3D aproximado da futura sede da Associação HawkStars em Pinhel.',
-  robots: { index: false, follow: false, googleBot: { index: false, follow: false } },
-};
+export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
+  const { lng } = await props.params;
+  return getMetadataPageInfo(lng as Language, 'sede3d');
+}
 
 const Sede3DPage = () => <Sede3D />;
 

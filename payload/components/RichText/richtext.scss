@@ -153,3 +153,57 @@
     @apply border-bege-dark my-12 border-t-2;
   }
 }
+
+/* Rhythm between blocks. Each block is a full-width section with its own vertical
+ * padding, so two blocks in a row used to stack both paddings (~190px on desktop),
+ * and a divider an editor dropped between them added another 48px of margin.
+ *
+ * Unlayered on purpose: these must beat the blocks' own `py-*` utilities, which a
+ * rule in the components layer cannot. Scoped to direct children of the rich text
+ * root, so blocks nested elsewhere are untouched.
+ *
+ * "Plain" = a block that sits on the page background: no `bg-*` fill, or white.
+ * Coloured bands (green, bege…) keep both paddings — the colour change is the gap.
+ */
+.payload-richtext {
+  /* A rich-text page stacks many sections, so each one steps down a size from
+     HawkStarsSection's spacing: `default` (py-16/20/24) → 40/48/64px, `loose`
+     (py-20/28/32) → 64/80/96px. A colour change now reads as 128px on desktop
+     instead of 192px. Matched on the lg token both spacings always carry. */
+  > [data-blockid]:is(.lg\:py-24) {
+    padding-block: 2.5rem;
+    @variant md {
+      padding-block: 3rem;
+    }
+    @variant lg {
+      padding-block: 4rem;
+    }
+  }
+
+  > [data-blockid]:is(.lg\:py-32) {
+    padding-block: 4rem;
+    @variant md {
+      padding-block: 5rem;
+    }
+    @variant lg {
+      padding-block: 6rem;
+    }
+  }
+
+  /* Two plain blocks in a row share one padding instead of two. (More specific than
+     the rules above, so it wins.) */
+  > :is([data-blockid]:not([class*='bg-']), [data-blockid].bg-white)
+    + :is([data-blockid]:not([class*='bg-']), [data-blockid].bg-white),
+  > :is([data-blockid]:not([class*='bg-']), [data-blockid].bg-white)
+    + .rt-p:has(> .rt-column:only-child > .rt-rule:only-child)
+    + :is([data-blockid]:not([class*='bg-']), [data-blockid].bg-white) {
+    padding-top: 0;
+  }
+
+  /* A lone divider between two full-width sections only adds space: the section
+     edges already separate them. Dividers inside running text are kept. */
+  > [data-blockid]
+    + .rt-p:has(> .rt-column:only-child > .rt-rule:only-child):has(+ [data-blockid]) {
+    display: none;
+  }
+}

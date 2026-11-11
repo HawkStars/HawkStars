@@ -28,6 +28,10 @@ const Heading: JSXConverter<SerializedHeadingNode> = ({ converters, node, nodesT
   const Tag = node.tag;
   if (!(Tag in classHeadings)) return <>{children}</>;
 
+  // An empty heading (an editor's leftover line) still carried its top margin —
+  // up to 64px of blank space between blocks. Headings hold only inline text.
+  if (!getNodeText(node).trim()) return null;
+
   const id = ANCHORED.has(Tag) ? slugifyHeading(getNodeText(node)) || undefined : undefined;
 
   return (
