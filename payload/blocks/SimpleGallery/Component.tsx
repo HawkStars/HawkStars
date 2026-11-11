@@ -12,6 +12,7 @@ import { SimpleGallery as SimpleGalleryProps } from '@/payload-types';
 import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 // No defaults for `title`/`description`: they used to fall back to English
 // interior-design placeholder copy ("Beautiful Interiors.", "Explore our curated
@@ -28,18 +29,14 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ title, description, image
       data-blockid='simpleGallery'
     >
       {(title || description) && (
-        <div className='section-header text-center'>
-          {title && (
-            <h2 data-reveal='up' className='text-h2_semibold'>
-              {title}
-            </h2>
-          )}
-          {description && (
-            <p data-reveal='up' className='text-h2_light mt-4 whitespace-pre-line text-black/70'>
-              {description}
-            </p>
-          )}
-        </div>
+        <SectionHeader
+          reveal
+          align='center'
+          title={title}
+          subtitle={description}
+          subtitleClassName='whitespace-pre-line'
+          className='section-header'
+        />
       )}
       {/* Each slide used to be `min-h-dvh` — a full screen tall regardless of the photo —
           so on a phone one image filled the viewport and the arrows sat off-screen. Slides

@@ -1,6 +1,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import type { OfferCatalogBlock as OfferCatalogBlockProps } from '@/payload-types';
 
 const backgroundStyles = {
@@ -53,23 +54,15 @@ export const OfferCatalogBlock: React.FC<OfferCatalogBlockProps> = ({
       data-blockid='offerCatalog'
     >
       {(title || subtitle) && (
-        <div className='section-header text-center'>
-          {title && (
-            <h2 data-reveal='up' className='text-h2_semibold'>
-              {title}
-            </h2>
-          )}
-          {subtitle && (
-            <p
-              className={cn(
-                'text-h2_light mt-4',
-                bg === 'green' ? 'text-white/90' : 'text-black/70'
-              )}
-            >
-              {subtitle}
-            </p>
-          )}
-        </div>
+        <SectionHeader
+          reveal
+          align='center'
+          title={title}
+          subtitle={subtitle}
+          variant={bg === 'green' ? 'inverse' : 'green'}
+          subtitleClassName={cn(bg === 'green' && 'text-white/85')}
+          className='section-header'
+        />
       )}
 
       <div data-reveal-stagger='up' className='mx-auto flex max-w-4xl flex-col gap-10'>

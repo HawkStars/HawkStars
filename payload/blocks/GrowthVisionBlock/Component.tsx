@@ -4,6 +4,7 @@ import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
 import type { GrowthVisionBlock as GrowthVisionBlockType } from '@/payload-types';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 const backgroundStyles = {
   white: 'bg-white text-black',
@@ -47,15 +48,13 @@ export const GrowthVisionBlock: React.FC<GrowthVisionBlockType> = ({
       data-blockid='growthVisionBlock'
     >
       {title && (
-        <h2
-          data-reveal='up'
-          className={cn(
-            'text-h2_semibold mb-10 md:mb-12 lg:mb-14',
-            titleLocationStyles[titleLocation ?? 'center']
-          )}
-        >
-          {title}
-        </h2>
+        <SectionHeader
+          reveal
+          title={title}
+          align={titleLocation === 'center' ? 'center' : 'left'}
+          variant={bg === 'green' ? 'inverse' : 'green'}
+          className={cn('mb-10 md:mb-12 lg:mb-14', titleLocationStyles[titleLocation ?? 'center'])}
+        />
       )}
 
       {/* Phases — zigzag on desktop, stacked image-then-text on mobile. Text stays

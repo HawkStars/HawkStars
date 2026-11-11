@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { useTranslation } from '@/i18n/client';
 import { Language } from '@/i18n/settings';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/button';
 import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
@@ -215,21 +216,15 @@ export const TestimonialBlock = ({
       data-blockid='testimonialBlock'
     >
       {(title || subtitle) && (
-        <header className='section-header text-center'>
-          {title && (
-            <h2 data-reveal='up' className='text-h2_semibold'>
-              {title}
-            </h2>
-          )}
-          {subtitle && (
-            <p
-              data-reveal='up'
-              className={cn('text-h2_light mt-4', isDark ? 'text-white/85' : 'text-black/70')}
-            >
-              {subtitle}
-            </p>
-          )}
-        </header>
+        <SectionHeader
+          reveal
+          align='center'
+          title={title}
+          subtitle={subtitle}
+          variant={isDark ? 'inverse' : 'green'}
+          subtitleClassName={cn(isDark && 'text-white/85')}
+          className='section-header'
+        />
       )}
 
       {layout === 'carousel' ? (

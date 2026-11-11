@@ -7,6 +7,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 // Warm `bege-dark` hairlines instead of cold grey; the open item picks up the brand green.
 const variantStyles = {
@@ -63,18 +64,13 @@ export const AccordionBlock: React.FC<AccordionBlockProps> = ({
       data-blockid='accordion'
     >
       {(title || description) && (
-        <div className='section-header text-center'>
-          {title && (
-            <h2 data-reveal='up' className='text-h2_semibold'>
-              {title}
-            </h2>
-          )}
-          {description && (
-            <p data-reveal='up' className='text-h2_light mt-4 text-black/70'>
-              {description}
-            </p>
-          )}
-        </div>
+        <SectionHeader
+          reveal
+          align='center'
+          title={title}
+          subtitle={description}
+          className='section-header'
+        />
       )}
 
       {/* A 3xl column keeps answers at a readable line length instead of spanning the page. */}

@@ -7,6 +7,7 @@ import Link from 'next/link';
 import React from 'react';
 import { getLinkFieldInformation } from '@/utils/page';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { Language } from '@/i18n/settings';
 
 const gridColumnLg = {
@@ -92,18 +93,13 @@ const BentoGridBlock: React.FC<BentoGridBlockProps & { lng: Language }> = ({
     >
       <div className='mx-auto px-4 sm:px-6 lg:px-8'>
         {(sectionTitle || sectionDescription) && (
-          <div className='mx-auto mb-8 max-w-3xl text-center md:mb-10 lg:mb-12'>
-            {sectionTitle && (
-              <h2 data-reveal='up' className='text-h2_semibold'>
-                {sectionTitle}
-              </h2>
-            )}
-            {sectionDescription && (
-              <p className='text-muted-foreground mt-3 text-base md:mt-4 md:text-lg'>
-                {sectionDescription}
-              </p>
-            )}
-          </div>
+          <SectionHeader
+            reveal
+            align='center'
+            title={sectionTitle}
+            subtitle={sectionDescription}
+            className='section-header'
+          />
         )}
 
         <div
@@ -130,7 +126,7 @@ const BentoGridBlock: React.FC<BentoGridBlockProps & { lng: Language }> = ({
             return (
               <div
                 className={cn(
-                  'group relative flex min-h-45 overflow-hidden rounded-xl md:min-h-50 md:rounded-xl',
+                  'group card card-hover relative flex min-h-45 overflow-hidden md:min-h-50',
                   'col-span-1 row-span-1',
                   colSpanMd[column_size],
                   colSpanLg[column_size],
@@ -153,7 +149,7 @@ const BentoGridBlock: React.FC<BentoGridBlockProps & { lng: Language }> = ({
                     {/* Overlay */}
                     <div
                       className={cn(
-                        'absolute inset-0 transition-opacity duration-300',
+                        'absolute inset-0 transition-opacity duration-300 group-hover:opacity-80',
                         overlayOpacityMap[overlayOpacity]
                       )}
                     />
@@ -178,9 +174,9 @@ const BentoGridBlock: React.FC<BentoGridBlockProps & { lng: Language }> = ({
                   >
                     {title && (
                       <h3
-                        className={cn('text-lg font-semibold sm:text-xl lg:text-2xl', {
+                        className={cn('text-h3_semibold lg:text-2xl', {
                           'text-white': imgInfo?.url,
-                          'text-foreground': !imgInfo?.url,
+                          'group-hover:text-green text-black transition-colors': !imgInfo?.url,
                         })}
                       >
                         {title}
@@ -190,7 +186,7 @@ const BentoGridBlock: React.FC<BentoGridBlockProps & { lng: Language }> = ({
                       <p
                         className={cn('line-clamp-2 text-sm sm:line-clamp-3 md:text-base', {
                           'text-white/90': imgInfo?.url,
-                          'text-muted-foreground': !imgInfo?.url,
+                          'text-black/70': !imgInfo?.url,
                         })}
                       >
                         {description}

@@ -7,6 +7,7 @@ import type {
 } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/button';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
@@ -51,15 +52,12 @@ export const ResourceDownloadBlock = async ({
       data-blockid='resourceDownload'
     >
       {title && (
-        <h2
-          data-reveal='up'
-          className={cn('text-h2_semibold mb-10 lg:mb-12', {
-            'mx-auto max-w-3xl text-center': variation === 'card',
-            'max-w-3xl': variation !== 'card',
-          })}
-        >
-          {title}
-        </h2>
+        <SectionHeader
+          reveal
+          title={title}
+          align={variation === 'card' ? 'center' : 'left'}
+          className={cn('mb-10 max-w-3xl lg:mb-12', variation === 'card' && 'mx-auto')}
+        />
       )}
 
       <div

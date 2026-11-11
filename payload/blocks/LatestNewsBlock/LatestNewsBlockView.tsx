@@ -5,6 +5,7 @@ import { LuCalendar, LuArrowRight } from 'react-icons/lu';
 import Link from 'next/link';
 import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { CustomImageProps } from '@/lib/image';
 import { Language } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
@@ -50,10 +51,13 @@ export const LatestNewsBlockView: React.FC<LatestNewsBlockViewProps> = ({
       data-blockid='latestNews'
     >
       {(title || subtitle) && (
-        <header className='section-header text-center'>
-          {title && <h2 className='text-h2_semibold'>{title}</h2>}
-          {subtitle && <p className='text-h2_light mt-4 text-black/70'>{subtitle}</p>}
-        </header>
+        <SectionHeader
+          reveal
+          align='center'
+          title={title}
+          subtitle={subtitle}
+          className='section-header'
+        />
       )}
 
       {/* One featured story: the whole card is the link (via the CTA's ::after). */}

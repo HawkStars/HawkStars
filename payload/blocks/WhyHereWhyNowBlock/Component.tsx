@@ -4,6 +4,7 @@ import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
 import { WhyHereWhyNowBlock as WhyHereWhyNowBlockProps } from '@/payload-types';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 const backgroundStyles = {
   white: 'bg-white text-black',
@@ -51,18 +52,14 @@ export const WhyHereWhyNowBlock: React.FC<WhyHereWhyNowBlockProps> = ({
       {/* Section heading on the section scale (was h1-sized), lead line on the subtitle scale
           and capped at a readable width. */}
       <div className='mb-10 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between md:mb-12 lg:mb-14'>
-        <div className='max-w-3xl'>
-          {title && (
-            <h2 data-reveal='up' className='text-h2_semibold'>
-              {title}
-            </h2>
-          )}
-          {subtitle && (
-            <p data-reveal='up' className={cn('text-h2_light mt-3', subtitleStyles[bg])}>
-              {subtitle}
-            </p>
-          )}
-        </div>
+        <SectionHeader
+          reveal
+          title={title}
+          subtitle={subtitle}
+          variant={bg === 'green' ? 'inverse' : 'green'}
+          subtitleClassName={subtitleStyles[bg]}
+          className='max-w-3xl'
+        />
         {badge && (
           <span className={cn('text-body_semibold shrink-0 italic', badgeStyles[bg])}>{badge}</span>
         )}

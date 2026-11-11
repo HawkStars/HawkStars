@@ -14,6 +14,7 @@ import { VideoBlock } from '@/payload/blocks/VideoBlock/Component';
 import { cn } from '@/lib/utils';
 import { ImageType, LinkGroupItem } from '@/payload-types';
 import { HawkStarsSection } from '@/components/layout';
+import { SectionEyebrow } from '@/components/ui/SectionHeader';
 import { transformUrl, SITE_GET_URLS } from '@/utils/paths';
 
 type HeroImpactStatsBlockProps = {
@@ -58,128 +59,128 @@ const HeroImpactStatsBlock: React.FC<HeroImpactStatsBlockProps> = (data) => {
   const primaryCTAInfo = primaryCta && getLinkFieldInformation(primaryCta, lng);
   const secondaryCTAInfo = secondaryCta && getLinkFieldInformation(secondaryCta, lng);
 
+  const hasMedia = Boolean(image?.url || video);
+
   return (
-    <HawkStarsSection className='bg-bege-light mb-6 gap-8' padding='none' cap='none' spacing='none'>
-      <section
-        className='w-full bg-linear-to-br from-green-50 to-blue-50 py-16 lg:py-24'
-        id={sectionId || undefined}
-      >
-        <div className='container mx-auto px-4'>
-          <div className='grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16'>
-            {/* Left Column - Content */}
-            <div className='space-y-8'>
-              {(viewAgenda || (archiveUrl && viewArchive)) && (
-                <div className='flex flex-wrap gap-3'>
-                  {viewAgenda && (
-                    <Button asChild size='sm' variant='outline'>
-                      <Link href={transformUrl(lng, SITE_GET_URLS.agenda)}>
-                        <LuCalendarDays className='size-4' />
-                        {viewAgenda}
-                      </Link>
-                    </Button>
-                  )}
-                  {archiveUrl && viewArchive && (
-                    <Button asChild size='sm' variant='outline'>
-                      <Link href={transformUrl(lng, archiveUrl)}>
-                        <LuArchive className='size-4' />
-                        {viewArchive}
-                      </Link>
-                    </Button>
-                  )}
+    <HawkStarsSection
+      spacing='default'
+      className='bg-bege-light relative isolate overflow-hidden'
+      id={sectionId || undefined}
+    >
+      <div
+        aria-hidden='true'
+        className='animate-float bg-bege-dark/60 absolute -top-32 -right-32 -z-10 size-96 rounded-full'
+      />
+
+      <div className={cn('grid gap-10 lg:items-center lg:gap-16', hasMedia && 'lg:grid-cols-2')}>
+        {/* Left Column - Content */}
+        <div className='flex flex-col gap-6'>
+          {badge && <SectionEyebrow label={badge} className='mb-0' />}
+
+          {title && <h1 className='text-display'>{title}</h1>}
+
+          {subtitle && <p className='text-h2_light max-w-2xl text-black/70'>{subtitle}</p>}
+
+          {/* Impact Stats */}
+          {stats && stats.length > 0 && (
+            <dl className='grid grid-cols-2 gap-4'>
+              {stats.map((stat, index) => (
+                <div key={index} className='card flex flex-col gap-1 bg-white p-5'>
+                  <dt className='order-2 text-sm font-medium text-black/70'>{stat.label}</dt>
+                  <dd className='text-green order-1 flex items-center gap-2'>
+                    {stat.icon && getIcon(stat.icon)}
+                    <span className='font-display text-3xl leading-none font-semibold tabular-nums lg:text-4xl'>
+                      {stat.number}
+                    </span>
+                  </dd>
                 </div>
+              ))}
+            </dl>
+          )}
+
+          {/* CTA Buttons */}
+          {(primaryCTAInfo || secondaryCTAInfo) && (
+            <div className='flex flex-col gap-3 sm:flex-row'>
+              {primaryCTAInfo && (
+                <Button size='lg' asChild>
+                  <a
+                    href={primaryCTAInfo.url}
+                    target={primaryCTAInfo.newTab ? '_blank' : undefined}
+                    rel={primaryCTAInfo.newTab ? 'noopener noreferrer' : undefined}
+                  >
+                    {primaryCTAInfo.label}
+                  </a>
+                </Button>
               )}
-
-              {badge && (
-                <span className='bg-green inline-block rounded-full px-4 py-1.5 text-sm font-semibold text-white'>
-                  {badge}
-                </span>
-              )}
-
-              {title && <h1 className='text-display text-black'>{title}</h1>}
-
-              {subtitle && <p className='text-lg text-black/70 lg:text-xl'>{subtitle}</p>}
-
-              {/* Impact Stats */}
-              {stats && stats.length > 0 && (
-                <div className='grid grid-cols-2 gap-6'>
-                  {stats.map((stat, index) => {
-                    const IconComponent = stat.icon ? getIcon(stat.icon) : null;
-                    return (
-                      <div key={index} className='space-y-2'>
-                        <div className='flex items-center gap-3'>
-                          {IconComponent}
-                          <span className='text-3xl font-bold text-green-600 lg:text-4xl'>
-                            {stat.number}
-                          </span>
-                        </div>
-                        <p className='text-sm font-medium text-black/80 lg:text-base'>
-                          {stat.label}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-
-              {/* CTA Buttons */}
-              {(primaryCTAInfo || secondaryCTAInfo) && (
-                <div className='flex flex-col gap-4 sm:flex-row'>
-                  {primaryCTAInfo && (
-                    <Button
-                      size='lg'
-                      className='bg-green-700 text-white hover:bg-green-800'
-                      asChild
-                    >
-                      <a
-                        href={primaryCTAInfo.url}
-                        target={primaryCTAInfo.newTab ? '_blank' : undefined}
-                        rel={primaryCTAInfo.newTab ? 'noopener noreferrer' : undefined}
-                      >
-                        {primaryCTAInfo.label}
-                      </a>
-                    </Button>
-                  )}
-                  {secondaryCTAInfo && (
-                    <Button size='lg' variant='outline' asChild>
-                      <a
-                        href={secondaryCTAInfo.url}
-                        target={secondaryCTAInfo.newTab ? '_blank' : undefined}
-                        rel={secondaryCTAInfo.newTab ? 'noopener noreferrer' : undefined}
-                      >
-                        {secondaryCTAInfo.label}
-                      </a>
-                    </Button>
-                  )}
-                </div>
+              {secondaryCTAInfo && (
+                <Button size='lg' variant='outline' asChild>
+                  <a
+                    href={secondaryCTAInfo.url}
+                    target={secondaryCTAInfo.newTab ? '_blank' : undefined}
+                    rel={secondaryCTAInfo.newTab ? 'noopener noreferrer' : undefined}
+                  >
+                    {secondaryCTAInfo.label}
+                  </a>
+                </Button>
               )}
             </div>
+          )}
 
-            {/* Right Column - Image */}
-            {((image && image.url) || video) && (
-              <div>
-                <div className={cn('relative h-full min-h-75 overflow-hidden rounded-xl')}>
-                  {!image && video && (
-                    <VideoBlock
-                      videoUrl={video}
-                      blockType={'videoBlock'}
-                      enableGutter={false}
-                      className='my-0'
-                    />
-                  )}
-                  {image && (
-                    <ImageMedia
-                      resource={heroImage}
-                      alt={image.alt || t('a11y.impactAlt')}
-                      className='absolute h-full w-full object-cover'
-                      fill
-                    />
-                  )}
-                </div>
-              </div>
+          {/* Agenda / archive utility links */}
+          {(viewAgenda || (archiveUrl && viewArchive)) && (
+            <div className='flex flex-wrap gap-x-6 gap-y-2'>
+              {viewAgenda && (
+                <Link
+                  href={transformUrl(lng, SITE_GET_URLS.agenda)}
+                  className='text-green inline-flex items-center gap-2 text-sm font-semibold underline-offset-4 hover:underline'
+                >
+                  <LuCalendarDays aria-hidden='true' className='size-4' />
+                  {viewAgenda}
+                </Link>
+              )}
+              {archiveUrl && viewArchive && (
+                <Link
+                  href={transformUrl(lng, archiveUrl)}
+                  className='text-green inline-flex items-center gap-2 text-sm font-semibold underline-offset-4 hover:underline'
+                >
+                  <LuArchive aria-hidden='true' className='size-4' />
+                  {viewArchive}
+                </Link>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Right Column - Image */}
+        {hasMedia && (
+          <div
+            className={cn(
+              'card-md relative overflow-hidden',
+              // The video embed sets its own 16:9 frame; a photo fills the column.
+              image && 'aspect-4/3 lg:aspect-auto lg:h-full lg:min-h-96'
+            )}
+          >
+            {!image && video && (
+              <VideoBlock
+                videoUrl={video}
+                blockType={'videoBlock'}
+                enableGutter={false}
+                className='my-0'
+              />
+            )}
+            {image && (
+              <ImageMedia
+                resource={heroImage}
+                alt={image.alt || t('a11y.impactAlt')}
+                className='object-cover'
+                fill
+                preload
+                sizes='(min-width: 1024px) 560px, 100vw'
+              />
             )}
           </div>
-        </div>
-      </section>
+        )}
+      </div>
     </HawkStarsSection>
   );
 };

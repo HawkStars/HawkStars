@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { SectionEyebrow } from '@/components/ui/SectionHeader';
+import SectionHeader from '@/components/ui/SectionHeader';
 import type { LogosBlock as LogosBlockType } from '@/payload-types';
 import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
@@ -28,17 +28,13 @@ export const LogosBlock = ({
       data-blockid='logosBlock'
     >
       <header className='section-header flex flex-col items-center text-center'>
-        {badgeText && <SectionEyebrow label={badgeText} />}
-        {heading && (
-          <h2 data-reveal='up' className='text-h2_semibold'>
-            {heading}
-          </h2>
-        )}
-        {description && (
-          <p data-reveal='up' className='text-h2_light mt-4 max-w-2xl text-black/70'>
-            {description}
-          </p>
-        )}
+        <SectionHeader
+          reveal
+          align='center'
+          eyebrow={badgeText}
+          title={heading}
+          subtitle={description}
+        />
         {buttonText && buttonLink && (
           <Button size='lg' className='mt-8' asChild>
             {isInternal ? (

@@ -215,5 +215,9 @@
     "linkCopied": "Ligação copiada",
     "moreNews": "Mais notícias",
     "allNews": "Ver todas as notícias"
+  },
+  "newsList": {
+    "empty": "Ainda não há artigos aqui.",
+    "emptyHint": "Experimente outro tipo, ou volte em breve para novas histórias."
   }
 }

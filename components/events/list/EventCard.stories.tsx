@@ -1,7 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { HawkEvent } from '@/payload-types';
 import EventCard from './EventCard';
 
 const baseEvent = {
+  id: '1',
+  type_event: 'local_event',
+  location: 'Pinhel, Portugal',
+  createdAt: '2026-01-01T00:00:00.000Z',
+  updatedAt: '2026-01-01T00:00:00.000Z',
   slug: 'festival-cultural-pinhel',
   heading: 'Festival Cultural de Pinhel',
   subheading: 'Cultura e comunidade',
@@ -16,7 +22,7 @@ const baseEvent = {
       'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=400&fit=crop',
     alt: 'Festival',
   },
-};
+} as HawkEvent;
 
 const meta = {
   title: 'Pages/Events/Event Card',
@@ -65,9 +71,25 @@ export const NoImage: Story = {
       heading: 'Reunião Geral de Associados',
       subheading: null,
       description: 'Reunião anual para todos os associados da Associação HawkStars.',
-      image: undefined,
+      image: { imageType: 'none' },
     },
     index: 2,
     lng: 'en',
+  },
+};
+
+export const Featured: Story = {
+  decorators: [
+    (Story) => (
+      <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
+        <Story />
+      </div>
+    ),
+  ],
+  args: {
+    event: baseEvent,
+    index: 0,
+    lng: 'en',
+    featured: true,
   },
 };

@@ -5,6 +5,7 @@ import type { SponsorsBlock as SponsorsBlockProps, Sponsor, Media } from '@/payl
 import { ImageMedia } from '@/payload/components/Media';
 import { fetchSponsors } from '@/lib/payload/client-side/queries/sponsors';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { useTranslation } from '@/i18n/client';
 import { Language } from '@/i18n/settings';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
@@ -45,18 +46,13 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps & { lng?: Language }> = 
       data-blockid='sponsorsBlock'
     >
       {(title || subtitle) && (
-        <header className='section-header text-center'>
-          {title && (
-            <h2 data-reveal='up' className='text-h2_semibold'>
-              {title}
-            </h2>
-          )}
-          {subtitle && (
-            <p data-reveal='up' className='text-h2_light mt-4 text-black/70'>
-              {subtitle}
-            </p>
-          )}
-        </header>
+        <SectionHeader
+          reveal
+          align='center'
+          title={title}
+          subtitle={subtitle}
+          className='section-header'
+        />
       )}
 
       {/* CSS columns keep tiers in reading order on mobile and balance them into a

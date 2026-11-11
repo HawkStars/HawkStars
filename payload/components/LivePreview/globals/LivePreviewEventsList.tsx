@@ -55,8 +55,14 @@ export const LivePreviewEventsList: React.FC<LivePreviewEventsListProps> = ({
         items={events}
         lng={lng}
         translations={translations}
-        renderCard={(event, idx) => (
-          <EventCard key={event.id} event={event} index={idx} lng={lng} />
+        renderCard={(event, idx, featured) => (
+          <EventCard
+            key={event.id}
+            event={event}
+            index={idx}
+            lng={lng as Language}
+            featured={featured}
+          />
         )}
       />
     </>

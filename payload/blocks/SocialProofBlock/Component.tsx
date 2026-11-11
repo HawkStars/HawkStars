@@ -2,6 +2,7 @@ import React from 'react';
 import type { SocialProofBlock as SocialProofBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 const textAlignClasses = {
   left: 'text-left',
@@ -24,7 +25,7 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
   const bgClasses = {
     white: 'bg-white',
     gray: 'bg-bege-light',
-    gradient: 'bg-gradient-to-br from-green to-green-dark text-white',
+    gradient: 'bg-linear-to-br from-green to-green-dark text-white',
   };
 
   return (
@@ -38,30 +39,19 @@ export const SocialProofBlock: React.FC<SocialProofBlockProps> = ({
       data-blockid='socialProof'
     >
       {(title || subtitle) && (
-        <div
+        <SectionHeader
+          reveal
+          title={title}
+          subtitle={subtitle}
+          align={textAlign === 'center' ? 'center' : 'left'}
+          variant={isDark ? 'inverse' : 'green'}
+          subtitleClassName={cn('max-w-2xl', isDark && 'text-white/85')}
           className={cn(
             'mb-10 md:mb-12 lg:mb-14',
+            textAlign === 'right' && 'items-end text-right',
             textAlign && textAlignClasses[textAlign as keyof typeof textAlignClasses]
           )}
-        >
-          {title && (
-            <h2 data-reveal='up' className='text-h2_semibold'>
-              {title}
-            </h2>
-          )}
-          {subtitle && (
-            <p
-              className={cn(
-                'text-h2_light mt-4 max-w-2xl',
-                textAlign === 'center' && 'mx-auto',
-                textAlign === 'right' && 'ml-auto',
-                isDark ? 'text-white/85' : 'text-black/70'
-              )}
-            >
-              {subtitle}
-            </p>
-          )}
-        </div>
+        />
       )}
       <ul data-reveal-stagger='scale' className='grid grid-cols-2 md:grid-cols-4'>
         {stats.map((stat, index) => {

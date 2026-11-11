@@ -89,7 +89,9 @@ const EventsArchiveContent = async ({
       t={commonT}
       url={SITE_GET_URLS.events_archive}
       filters={filters}
-      renderCard={(event, idx) => <EventCard key={event.id} event={event} index={idx} lng={lng} />}
+      renderCard={(event, idx) => (
+        <EventCard key={event.id} event={event} index={idx} lng={lng as Language} />
+      )}
     />
   );
 };

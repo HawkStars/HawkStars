@@ -1,5 +1,6 @@
 import type { DataGridBlock as DataGridBlockProps } from '@/payload-types';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { cn } from '@/lib/utils';
 
 const headerCell = 'text-body_semibold px-4 py-3 text-left align-bottom lg:px-6 lg:py-4';
@@ -24,11 +25,7 @@ export const DataGridBlock: React.FC<DataGridBlockProps> = ({
       id={sectionId || undefined}
       data-blockid='dataGridBlock'
     >
-      {title && (
-        <h2 data-reveal='up' className='text-h2_semibold section-header text-center'>
-          {title}
-        </h2>
-      )}
+      {title && <SectionHeader reveal align='center' title={title} className='section-header' />}
       {/* A white card with warm row rules. The table fills the content column (the old
           `lg:min-w-6xl` overflowed it between 1024 and 1280px) and wraps text on mobile
           instead of forcing a sideways scroll; `overflow-x-auto` stays as a safety net. */}

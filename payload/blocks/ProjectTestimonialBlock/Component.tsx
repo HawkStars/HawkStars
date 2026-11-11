@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { Language } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
 import { usePrefersReducedMotion } from '@/lib/hooks/usePrefersReducedMotion';
@@ -286,29 +287,16 @@ const ProjectTestimonialBlock: React.FC<ProjectTestimonialBlockProps & { lng: La
     >
       {/* Section Header */}
       {(title || subtitle) && (
-        <header className='section-header text-center'>
-          {title && (
-            <h2
-              data-reveal='up'
-              className={cn(
-                'text-h2_semibold',
-                textClasses[backgroundColor as keyof typeof textClasses]
-              )}
-            >
-              {title}
-            </h2>
-          )}
-          {subtitle && (
-            <p
-              className={cn(
-                'text-h2_light mx-auto mt-4 max-w-2xl',
-                subtitleClasses[backgroundColor as keyof typeof subtitleClasses]
-              )}
-            >
-              {subtitle}
-            </p>
-          )}
-        </header>
+        <SectionHeader
+          reveal
+          align='center'
+          title={title}
+          subtitle={subtitle}
+          variant={backgroundColor === 'dark' ? 'inverse' : 'green'}
+          titleClassName={textClasses[backgroundColor as keyof typeof textClasses]}
+          subtitleClassName={subtitleClasses[backgroundColor as keyof typeof subtitleClasses]}
+          className='section-header'
+        />
       )}
 
       {/* Main Content */}

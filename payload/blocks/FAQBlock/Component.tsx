@@ -5,6 +5,7 @@ import { LuChevronDown } from 'react-icons/lu';
 import type { FAQBlock as FAQBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -23,11 +24,7 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({ title, items = [], sectionId
       id={sectionId || undefined}
       data-blockid='faq'
     >
-      {title && (
-        <h2 data-reveal='up' className='text-h2_semibold section-header text-center'>
-          {title}
-        </h2>
-      )}
+      {title && <SectionHeader reveal align='center' title={title} className='section-header' />}
 
       <div data-reveal-stagger='up' className='mx-auto max-w-3xl space-y-4'>
         {items.map((item, index) => {

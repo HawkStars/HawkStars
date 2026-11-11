@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { LuArrowRight, LuCalendar } from 'react-icons/lu';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { ImageMedia } from '@/payload/components/Media';
 import { CustomImageProps } from '@/lib/image';
 import { cn } from '@/lib/utils';
@@ -321,10 +322,13 @@ export function AgendaBlockView({
       data-blockid='agenda'
     >
       {(title || subtitle) && (
-        <header className='section-header text-center'>
-          {title && <h2 className='text-h2_semibold'>{title}</h2>}
-          {subtitle && <p className='text-h2_light mt-4 text-black/70'>{subtitle}</p>}
-        </header>
+        <SectionHeader
+          reveal
+          align='center'
+          title={title}
+          subtitle={subtitle}
+          className='section-header'
+        />
       )}
 
       {loading && (

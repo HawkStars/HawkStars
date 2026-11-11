@@ -3,6 +3,7 @@ import { LuCheck, LuStar } from 'react-icons/lu';
 import type { PricingTableBlock as PricingTableBlockProps } from '@/payload-types';
 import { cn } from '@/lib/utils';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/button';
 import { isHttpUrl } from '@/utils/paths';
 import { Language } from '@/i18n/settings';
@@ -41,18 +42,13 @@ export const PricingTableBlock = ({
     >
       {/* Header */}
       {(title || subtitle) && (
-        <div className='section-header text-center'>
-          {title && (
-            <h2 data-reveal='up' className='text-h2_semibold'>
-              {title}
-            </h2>
-          )}
-          {subtitle && (
-            <p data-reveal='up' className='text-h2_light mt-4 text-black/70'>
-              {subtitle}
-            </p>
-          )}
-        </div>
+        <SectionHeader
+          reveal
+          align='center'
+          title={title}
+          subtitle={subtitle}
+          className='section-header'
+        />
       )}
 
       {/* Pricing Cards */}

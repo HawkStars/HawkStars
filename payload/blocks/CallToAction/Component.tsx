@@ -6,6 +6,7 @@ import { CMSLink } from '@/payload/components/Link';
 import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { Language } from '@/i18n/settings';
 
 export const CallToActionBlock = ({
@@ -29,10 +30,7 @@ export const CallToActionBlock = ({
     >
       <div className='bg-bege-light border-bege-dark relative flex w-full flex-col justify-between gap-8 overflow-hidden rounded-xl border p-6 shadow-sm sm:p-8 md:flex-row md:items-center md:gap-12 lg:p-12'>
         <div className='flex h-full max-w-xl flex-col justify-center'>
-          <h2 data-reveal='up' className='text-h2_semibold'>
-            {title}
-          </h2>
-          {subtitle && <p className='mt-4 text-lg leading-relaxed text-black/70'>{subtitle}</p>}
+          <SectionHeader reveal title={title} subtitle={subtitle} />
 
           {links && links.length > 0 && (
             <div className='mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4'>

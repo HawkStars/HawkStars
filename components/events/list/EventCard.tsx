@@ -1,66 +1,46 @@
-import { Media } from '@/payload-types';
-import { LuCalendarDays } from 'react-icons/lu';
-import { getImagePayloadUrl } from '@/lib/image';
+'use client';
+
+import { LuCalendarDays, LuMapPin } from 'react-icons/lu';
+import { HawkEvent } from '@/payload-types';
 import { transformUrl, SITE_GET_URLS } from '@/utils/paths';
-import Link from 'next/link';
-import { ImageMedia } from '@/payload/components/Media';
-import { formatDateRange } from '@/utils/date';
+import { formatDate, formatDateRange } from '@/utils/date';
+import { useTranslation } from '@/i18n/client';
+import { Language } from '@/i18n/settings';
+import ListingCard, { ListingMeta } from '@/components/shared/ListingCard';
 
 type EventCardProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  event: Record<string, any>;
+  event: HawkEvent;
   index: number;
-  lng: string;
+  lng: Language;
+  /** Wide card spanning the grid row — the first item of a list. */
+  featured?: boolean;
 };
 
-const EventCard = ({ event, lng }: EventCardProps) => {
-  const image = getImagePayloadUrl(event.image) as Media | null;
-  const eventUrl = transformUrl(lng, `${SITE_GET_URLS.events}/${event.slug}`);
+/** Event teaser on the shared `ListingCard`, with a calendar tile for the start date. */
+const EventCard = ({ event, index, lng, featured = false }: EventCardProps) => {
+  const { t } = useTranslation(lng, 'events');
+  const dateLabel = formatDateRange(event.date, event.isDateRange ? event.endDate : null, lng);
+  const day = formatDate(event.date, lng, { day: 'numeric' });
+  const month = formatDate(event.date, lng, { month: 'short' }).replace('.', '');
+
+  const meta: ListingMeta[] = [];
+  if (dateLabel) meta.push({ icon: LuCalendarDays, text: dateLabel, dateTime: event.date });
+  if (event.location) meta.push({ icon: LuMapPin, text: event.location });
 
   return (
-    <Link href={eventUrl} className='group relative flex flex-col gap-5 pb-6 sm:flex-row sm:gap-8'>
-      {/* Image */}
-      {image?.url && (
-        <div className='relative h-48 w-full shrink-0 overflow-hidden rounded-lg sm:h-52 sm:w-64 lg:w-72'>
-          <ImageMedia
-            resource={event.image}
-            alt={event.heading ?? image.alt ?? ''}
-            fill
-            className='object-cover'
-            sizes='(max-width: 640px) 100vw, 288px'
-          />
-        </div>
-      )}
-
-      {/* Content */}
-      <div className='flex flex-1 flex-col justify-center gap-2'>
-        <h3 className='text-h3_semibold text-foreground'>{event.heading}</h3>
-
-        {event.subheading && (
-          <p className='text-muted-foreground text-sm font-medium tracking-wider uppercase'>
-            {event.subheading}
-          </p>
-        )}
-
-        {event.description && (
-          <p className='text-muted-foreground line-clamp-2 text-sm leading-relaxed lg:text-base'>
-            {event.description}
-          </p>
-        )}
-
-        {event.date && (
-          <div className='text-terracotta-dark mt-auto flex items-center gap-2 pt-2 text-sm font-medium'>
-            <LuCalendarDays aria-hidden='true' className='size-4' />
-            <span>
-              {formatDateRange(event.date, event.isDateRange ? event.endDate : null, lng)}
-            </span>
-          </div>
-        )}
-      </div>
-
-      {/* Bottom line — grows left to right on hover */}
-      <span className='bg-primary absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100' />
-    </Link>
+    <ListingCard
+      href={transformUrl(lng, `${SITE_GET_URLS.events}/${event.slug}`)}
+      title={event.heading}
+      image={event.image}
+      badge={event.type_event ? t(`types.${event.type_event}`) : null}
+      dateChip={day && month ? { day, month } : null}
+      meta={meta}
+      description={event.description}
+      ctaLabel={t('viewEvent')}
+      featured={featured}
+      preload={index === 0}
+      headingLevel='h3'
+    />
   );
 };
 

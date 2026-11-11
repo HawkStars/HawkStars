@@ -92,7 +92,7 @@ const ProjectsArchiveContent = async ({
       url={SITE_GET_URLS.projects_archive}
       filters={filters}
       renderCard={(project, idx) => (
-        <ProjectCard key={project.id} project={project} index={idx} lng={lng} />
+        <ProjectCard key={project.id} project={project} index={idx} lng={lng as Language} />
       )}
     />
   );

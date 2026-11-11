@@ -5,6 +5,7 @@ import type { ImageComparisonSliderBlock as ImageComparisonSliderBlockProps } fr
 import { getImagePayloadUrl } from '@/lib/image';
 import { ImageMedia } from '@/payload/components/Media';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { useTranslation } from '@/i18n/client';
 import { Language } from '@/i18n/settings';
 
@@ -75,11 +76,7 @@ export const ImageComparisonSliderBlock = ({
       id={sectionId || undefined}
       data-blockid='imageComparisonSlider'
     >
-      {title && (
-        <h2 data-reveal='up' className='text-h2_semibold section-header text-center'>
-          {title}
-        </h2>
-      )}
+      {title && <SectionHeader reveal align='center' title={title} className='section-header' />}
 
       <div
         className='relative mx-auto max-w-4xl overflow-hidden rounded-xl shadow-sm select-none'

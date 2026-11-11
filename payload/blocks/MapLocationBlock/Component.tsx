@@ -4,6 +4,7 @@ import React from 'react';
 import { LuMapPin, LuPhone, LuMail, LuClock } from 'react-icons/lu';
 import type { MapLocationBlock as MapLocationBlockProps } from '@/payload-types';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { Language } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
 import { cn } from '@/lib/utils';
@@ -58,11 +59,7 @@ export const MapLocationBlock: React.FC<MapLocationBlockProps & { lng: Language 
       id={sectionId || undefined}
       data-blockid='mapLocation'
     >
-      {title && (
-        <h2 data-reveal='up' className='text-h2_semibold section-header text-center'>
-          {title}
-        </h2>
-      )}
+      {title && <SectionHeader reveal align='center' title={title} className='section-header' />}
 
       <div className='grid gap-6 lg:grid-cols-2 lg:gap-8'>
         {/* Map — 4:3 on mobile so it doesn't push the contact details a full screen down. */}

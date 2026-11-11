@@ -5,6 +5,7 @@ import { ImageMedia } from '@/payload/components/Media';
 import { cn } from '@/lib/utils';
 import { getImagePayloadUrl } from '@/lib/image';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { Language } from '@/i18n/settings';
 
 export const ContentWithImageBlock: React.FC<ContentWithImageProps & { lng: Language }> = ({
@@ -64,7 +65,7 @@ export const ContentWithImageBlock: React.FC<ContentWithImageProps & { lng: Lang
         {/* Content Section */}
         <div data-reveal='up' className={cn('w-full', isImageLeft ? 'lg:order-1' : 'lg:order-2')}>
           {/* Left-aligned on mobile too, so the heading lines up with the body copy below it. */}
-          {title && <h2 className='text-h2_semibold mb-5'>{title}</h2>}
+          {title && <SectionHeader title={title} className='mb-5' />}
           {description && <RichText data={description} lng={lng} embedded />}
         </div>
       </div>

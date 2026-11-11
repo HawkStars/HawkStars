@@ -78,3 +78,26 @@ export const NoImage: Story = {
     lng: 'en',
   },
 };
+
+export const Featured: Story = {
+  decorators: [
+    (Story) => (
+      <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
+        <Story />
+      </div>
+    ),
+  ],
+  args: {
+    project: {
+      ...baseProject,
+      project_type: 'youth_exchange',
+      location: 'Pinhel, Portugal',
+      details: {
+        text: 'Young people from five countries explore how artificial intelligence shapes their daily lives, through workshops, debates and creative challenges.',
+      },
+    } as unknown as HawkProject,
+    index: 0,
+    lng: 'en',
+    featured: true,
+  },
+};

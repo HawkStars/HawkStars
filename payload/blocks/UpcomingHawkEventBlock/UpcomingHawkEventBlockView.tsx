@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { LuArrowRight, LuCalendar, LuMapPin } from 'react-icons/lu';
 import { HawkStarsSection } from '@/components/layout';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { ImageMedia } from '@/payload/components/Media';
 import { CustomImageProps } from '@/lib/image';
 import { Language } from '@/i18n/settings';
@@ -57,10 +58,13 @@ export const UpcomingHawkEventBlockView: React.FC<UpcomingHawkEventBlockViewProp
       data-blockid='upcomingHawkEvent'
     >
       {(title || subtitle) && (
-        <header className='section-header text-center'>
-          {title && <h2 className='text-h2_semibold'>{title}</h2>}
-          {subtitle && <p className='text-h2_light mt-4 text-black/70'>{subtitle}</p>}
-        </header>
+        <SectionHeader
+          reveal
+          align='center'
+          title={title}
+          subtitle={subtitle}
+          className='section-header'
+        />
       )}
 
       {/* One featured event: the whole card is the link (via the CTA's ::after). */}

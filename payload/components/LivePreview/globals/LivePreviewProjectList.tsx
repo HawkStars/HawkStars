@@ -55,8 +55,14 @@ export const LivePreviewProjectList: React.FC<LivePreviewProjectListProps> = ({
         items={projects}
         lng={lng}
         translations={translations}
-        renderCard={(project, idx) => (
-          <ProjectCard key={project.id} project={project} index={idx} lng={lng} />
+        renderCard={(project, idx, featured) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            index={idx}
+            lng={lng as Language}
+            featured={featured}
+          />
         )}
       />
     </>

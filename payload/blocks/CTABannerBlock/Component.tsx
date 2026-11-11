@@ -14,6 +14,20 @@ const GREEN_BAND = 'bg-linear-to-br from-green to-green-dark';
 const PANEL = 'relative overflow-hidden rounded-xl text-white shadow-md';
 const PANEL_PADDING = 'px-6 py-10 sm:px-10 sm:py-12 lg:p-16';
 
+/** The soft floating circles of the home page's green band (`HomeInvolve`). */
+const BandOrbs = () => (
+  <>
+    <div
+      aria-hidden='true'
+      className='animate-float pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-white/5'
+    />
+    <div
+      aria-hidden='true'
+      className='animate-float pointer-events-none absolute -bottom-32 -left-16 size-80 rounded-full bg-white/5 [animation-delay:2s]'
+    />
+  </>
+);
+
 type LinkInformation = NonNullable<ReturnType<typeof getLinkFieldInformation>>;
 
 type CTAButtonsProps = {
@@ -82,7 +96,8 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> =
       data-blockid='ctaBanner'
     >
       {resolvedVariant === 'centered' && (
-        <div className={cn(PANEL, GREEN_BAND, PANEL_PADDING, 'text-center')}>
+        <div className={cn(PANEL, GREEN_BAND, PANEL_PADDING, 'isolate text-center')}>
+          <BandOrbs />
           <SectionHeader reveal title={title} variant='inverse' align='center' />
           {description && (
             <p className='mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-white/90'>
@@ -103,10 +118,11 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> =
             PANEL,
             GREEN_BAND,
             PANEL_PADDING,
-            'flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12'
+            'isolate flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12'
           )}
         >
-          <div className='max-w-2xl flex-1'>
+          <BandOrbs />
+          <div className='relative max-w-2xl flex-1'>
             <SectionHeader reveal title={title} variant='inverse' />
             {description && (
               <p className='mt-4 text-lg leading-relaxed text-white/90'>{description}</p>
@@ -115,7 +131,7 @@ export const CTABannerBlock: React.FC<CTABannerBlockProps & { lng: Language }> =
           <CTAButtons
             primary={primaryCTAInfo}
             secondary={secondaryCTAInfo}
-            className='lg:shrink-0'
+            className='relative lg:shrink-0'
           />
         </div>
       )}

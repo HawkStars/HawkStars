@@ -50,12 +50,12 @@ export const SectionEyebrow = ({
 );
 
 type SectionHeaderProps = {
-  /** Heading text. */
-  title: string;
+  /** Heading text. CMS blocks may only carry a subtitle, so it can be empty. */
+  title?: string | null;
   /** Small uppercase label above the title. Omit for a bare heading. */
-  eyebrow?: string;
+  eyebrow?: string | null;
   /** Supporting line below the title. */
-  subtitle?: string;
+  subtitle?: string | null;
   /** Heading level — one `h1` per page; sections default to `h2`. */
   as?: keyof typeof HEADING_CLASS;
   align?: 'left' | 'center';
@@ -98,7 +98,7 @@ const SectionHeader = ({
         // so keep the accent rule alone rather than dropping the pattern.
         <span className={cn('mb-3 block h-0.5 w-7', ACCENT[variant].rule)} />
       )}
-      <Heading className={cn(HEADING_CLASS[as], titleClassName)}>{title}</Heading>
+      {title && <Heading className={cn(HEADING_CLASS[as], titleClassName)}>{title}</Heading>}
       {subtitle && (
         <p
           className={cn(
