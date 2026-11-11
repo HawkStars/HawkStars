@@ -14,6 +14,7 @@ const meta = {
   tags: ['autodocs'],
   args: {
     lng: 'en',
+    year: 2026,
   },
   decorators: [
     (Story) => (
