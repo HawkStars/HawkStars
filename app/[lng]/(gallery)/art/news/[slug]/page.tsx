@@ -7,7 +7,7 @@ import { LanguageProps } from '@/components/types';
 import { prepareMetadataInfo } from '@/utils/metadata';
 import { SITE_GET_URLS, transformUrl } from '@/utils/paths';
 import { BASE_URL } from '@/lib/constants';
-import { getImagePayloadUrl } from '@/lib/image';
+import { getImagePayloadUrl, getMetaImage } from '@/lib/image';
 import { getSingleNewsSlug } from '@/lib/payload/queries/news';
 import { ImageMedia } from '@/payload/components/Media';
 import { ArticleJsonLd } from '@/components/seo/JsonLd';
@@ -26,7 +26,7 @@ export async function generateMetadata(props: GalleryArticlePageProps): Promise<
   return prepareMetadataInfo({
     title: article.meta?.title ?? article.title,
     description: article.meta?.description,
-    image: getImagePayloadUrl(article.mainImage)?.url,
+    image: getMetaImage(article.meta) ?? getImagePayloadUrl(article.mainImage)?.url,
     url: `${SITE_GET_URLS.gallery_news}/${slug}`,
     lng,
   });

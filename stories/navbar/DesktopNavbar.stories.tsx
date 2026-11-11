@@ -1,6 +1,7 @@
 import DesktopNavbar from '@/components/navbar/DesktopNavbar';
 import AppProvider from '@/utils/contexts/AppProvider';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import type { NavbarMenu } from '@/components/navbar/useNavbarMenu';
 import type {
   HeaderNavigationColumns,
   NavbarDropdown,
@@ -118,6 +119,20 @@ const dropdownsOnlyColumns: HeaderNavigationColumns = [
   },
 ];
 
+/** Static menu state: the real one lives in `Navbar` (`useNavbarMenu`). */
+const makeMenu = (openMenu: string | null = null): NavbarMenu => ({
+  openMenu,
+  lastMenu: openMenu,
+  hoverOpen: () => {},
+  open: () => {},
+  toggle: () => {},
+  hoverOther: () => {},
+  cancelPending: () => {},
+  scheduleClose: () => {},
+  keepOpen: () => {},
+  close: () => {},
+});
+
 const meta = {
   title: 'Layout/Header/Desktop Navbar',
   component: DesktopNavbar,
@@ -129,8 +144,7 @@ const meta = {
   },
   tags: ['autodocs'],
   args: {
-    handleHoverMenu: () => {},
-    menuKeyHovered: null,
+    menu: makeMenu(),
     columns: mixedColumns,
   },
   decorators: [
@@ -165,6 +179,6 @@ export const DropdownsOnly: Story = {
 export const WithHoveredMenu: Story = {
   args: {
     columns: dropdownsOnlyColumns,
-    menuKeyHovered: 'about',
+    menu: makeMenu('about'),
   },
 };

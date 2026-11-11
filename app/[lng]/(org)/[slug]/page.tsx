@@ -2,6 +2,7 @@ import { SITE_NAME } from '@/lib/constants';
 import { Metadata } from 'next';
 import { getSinglePageSlug } from '@/lib/payload/queries/page';
 import { prepareMetadataInfo } from '@/utils/metadata';
+import { getMetaImage } from '@/lib/image';
 import { Language } from '@/i18n/settings';
 import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
@@ -31,6 +32,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   return prepareMetadataInfo({
     title: pageInformation.meta?.title || pageInformation.title,
     description: pageInformation.meta?.description,
+    image: getMetaImage(pageInformation.meta),
     url: `/${slug}`,
     lng: lng as Language,
   });

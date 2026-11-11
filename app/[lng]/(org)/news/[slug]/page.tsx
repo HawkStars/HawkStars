@@ -4,7 +4,7 @@ import { Language } from '@/i18n/settings';
 import { getSingleNewsSlug } from '@/lib/payload/queries/news';
 import { prepareMetadataInfo } from '@/utils/metadata';
 import { LanguageProps } from '@/components/types';
-import { getImagePayloadUrl } from '@/lib/image';
+import { getImagePayloadUrl, getMetaImage } from '@/lib/image';
 import { ArticleJsonLd } from '@/components/seo/JsonLd';
 import { BASE_URL, SITE_NAME } from '@/lib/constants';
 import NewsSingleHero from '@/components/news/single/NewsSingleHero';
@@ -39,7 +39,7 @@ export async function generateMetadata(props: NewsSlugPageProps): Promise<Metada
     title: article.meta?.title ?? article.title,
     description: article.meta?.description,
     // SEO override (a Media upload) first, then the article's own ImageType hero.
-    image: article.mainImage,
+    image: getMetaImage(article.meta) ?? article.mainImage,
     url: `/news/${slug}`,
     lng: lng as Language,
   });

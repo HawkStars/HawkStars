@@ -3,6 +3,7 @@ import { LanguageProps } from '@/components/types';
 import { notFound } from 'next/navigation';
 import { Language } from '@/i18n/settings';
 import { prepareMetadataInfo } from '@/utils/metadata';
+import { getMetaImage } from '@/lib/image';
 import { Metadata } from 'next';
 import { getSingleProjectsQuery } from '@/lib/payload/queries/projects';
 import NewsSingleGallery from '@/components/news/single/NewsSingleGallery';
@@ -37,7 +38,7 @@ export async function generateMetadata(props: ProjectPageProps): Promise<Metadat
   return prepareMetadataInfo({
     title: seoTitle,
     description: seoDescription,
-    image: project.coverImage,
+    image: getMetaImage(project.meta) ?? project.coverImage,
     url: `/projects/${slug}`,
     lng: lng as Language,
   });

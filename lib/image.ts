@@ -81,4 +81,20 @@ const createOGImageUrl = (
   return undefined;
 };
 
-export { getImagePayloadUrl, createOGImageUrl };
+/**
+ * The SEO plugin's share image (`meta.image`). `uploadsCollection` is an array in
+ * the plugin config, so Payload stores it polymorphically as
+ * `{ relationTo: 'media', value }`; `value` is only a usable `Media` document once
+ * populated (depth ≥ 1). Returns undefined for an unset or unpopulated image, so
+ * callers can fall back to their own cover image.
+ */
+const getMetaImage = (
+  meta?: {
+    image?: { relationTo: string; value: string | Media } | null;
+  } | null
+): Media | undefined => {
+  const value = meta?.image?.value;
+  return value && typeof value === 'object' && value.url ? value : undefined;
+};
+
+export { getImagePayloadUrl, createOGImageUrl, getMetaImage };

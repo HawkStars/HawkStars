@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getServerTranslation } from '@/i18n';
 import { LanguageProps } from '@/components/types';
 import { prepareMetadataInfo } from '@/utils/metadata';
+import { getMetaImage } from '@/lib/image';
 import { getArtworkByCuratorQuery, getSingleCuratorQuery } from '@/lib/payload/queries/artwork';
 import { SectionHeader } from '@/components/art/ui';
 import ProfileHero from '@/components/art/profile/ProfileHero';
@@ -21,7 +22,7 @@ export async function generateMetadata(props: CuratorPageProps): Promise<Metadat
     title: curator.meta?.title || curator.name,
     description:
       curator?.meta?.description || richTextToPlain(curator.description, 155) || undefined,
-    image: curator.image,
+    image: getMetaImage(curator.meta) ?? curator.image,
     url: `/curator/${slug}`,
     lng,
   });
