@@ -19,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 // with every collection it reads, so publishing still updates it immediately.
 async function buildSitemap(): Promise<MetadataRoute.Sitemap> {
   'use cache';
-  cacheLife('hours');
+  cacheLife('days');
   cacheTag(
     'pages',
     NEWS_CACHE_TAG,

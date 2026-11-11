@@ -55,9 +55,9 @@ export const getRelatedNewsQuery = async (
   relatedId: string,
   locale: Language
 ): Promise<PaginatedDocs<News>> => {
-  // 'use cache';
-  // cacheLife('hours');
-  // cacheTag(NEWS_CACHE_TAG);
+  'use cache';
+  cacheLife('hours');
+  cacheTag(NEWS_CACHE_TAG);
 
   const payload = await getPayloadConfig();
 
