@@ -12,14 +12,28 @@ import LanguageSwitcher from '../utils/LanguageSwitcher';
 import Socials from '../utils/Socials';
 import { Button } from '@/components/ui/button';
 import { SITE_GET_URLS, transformUrl } from '@/utils/paths';
+import { cacheLife } from 'next/cache';
 
 type FooterProps = {
   footerInfo: Footer;
   lng: Language;
 };
 
+// Reading the clock is synchronous I/O, which `cacheComponents` forbids while
+// prerendering (it aborts the render). Inside a cache scope the value is
+// captured into the static shell instead, and `hours` keeps a long-running
+// server from showing last year's date for more than an hour after New Year.
+const getCopyrightYear = async () => {
+  'use cache';
+  cacheLife('hours');
+  return new Date().getFullYear();
+};
+
 const FooterContainer: FC<FooterProps> = async ({ footerInfo, lng }) => {
-  const { t } = await getServerTranslation(lng, 'common');
+  const [{ t }, year] = await Promise.all([
+    getServerTranslation(lng, 'common'),
+    getCopyrightYear(),
+  ]);
 
   return (
     <footer className='bg-bege-light border-bege-dark mt-8 border-t'>
@@ -57,7 +71,7 @@ const FooterContainer: FC<FooterProps> = async ({ footerInfo, lng }) => {
           </nav>
         )}
       </div>
-      <FooterBottom lng={lng} />
+      <FooterBottom lng={lng} year={year} />
     </footer>
   );
 };
