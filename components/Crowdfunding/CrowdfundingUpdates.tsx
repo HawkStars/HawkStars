@@ -1,96 +1,94 @@
-import { CrowdfundingSetting, Media } from '@/payload-types';
 import { TFunction } from 'i18next';
+import { LuArrowUpRight } from 'react-icons/lu';
+import { CrowdfundingSetting } from '@/payload-types';
 import { Language } from '@/i18n/settings';
 import { formatDate } from '@/utils/date';
+import { ImageMedia } from '@/payload/components/Media';
+import { CfSection, Container, Highlight, SectionEyebrow } from './ui';
 
 type Props = { t: TFunction<string, string>; lng: Language } & Pick<
   CrowdfundingSetting,
   'updateCards'
 >;
 
-const defaultImage = '/images/projects/3.jpeg';
-
-// Was pinned to 'pt-PT', so English visitors read "14 SET. 2026".
-const formatUpdateDate = (isoDate: string, lng: Language): string =>
-  formatDate(isoDate, lng, { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase();
+const FALLBACK_IMAGE = '/images/training_center/cowork1.jpg';
+const CARD_CLASS =
+  'group bg-crowdfunding-surface border-crowdfunding-line hover:border-crowdfunding-accent/40 flex h-full flex-col overflow-hidden rounded-xl border transition-colors';
 
 const CrowdfundingUpdates = ({ t, updateCards, lng }: Props) => {
   if (!updateCards || updateCards.length === 0) return null;
 
+  // Newest first, whatever order editors added them in.
+  const cards = [...updateCards].sort((a, b) => b.date.localeCompare(a.date));
+
   return (
-    <section id='updates' className='bg-crowdfunding-surface-alt w-full py-16'>
-      <div className='mx-auto max-w-7xl px-4 lg:px-8'>
-        <div className='flex flex-col gap-10 lg:flex-row lg:items-start'>
-          <div className='flex shrink-0 flex-col gap-4 lg:w-72'>
-            <span className='flex items-center gap-2 text-xs font-semibold tracking-widest text-orange-500 uppercase'>
-              <span className='inline-block h-2 w-2 rounded-full bg-orange-500' />
-              {t('updates.badge')}
-            </span>
-            <h2 className='font-oswald text-2xl font-bold text-white lg:text-3xl'>
-              {t('updates.title_prefix')}{' '}
-              <span className='text-orange-500'>{t('updates.title_highlight')}</span>
+    <CfSection id='updates'>
+      <Container>
+        <div className='mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between'>
+          <div className='flex max-w-2xl flex-col gap-5'>
+            <SectionEyebrow>{t('updates.badge')}</SectionEyebrow>
+            <h2 className='text-h2_semibold text-white'>
+              {t('updates.title_prefix')} <Highlight>{t('updates.title_highlight')}</Highlight>
             </h2>
-            <p className='text-sm leading-relaxed text-gray-400'>{t('updates.description')}</p>
-            <button className='mt-2 flex w-fit items-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10'>
-              {t('updates.cta_all')}
-            </button>
           </div>
-
-          <div className='flex flex-1 gap-4 overflow-x-auto pb-4'>
-            {updateCards.map((card) => {
-              const imageUrl =
-                card.image && typeof card.image === 'object'
-                  ? (card.image as Media)?.url || defaultImage
-                  : defaultImage;
-
-              const CardWrapper = card.instagramUrl ? 'a' : 'div';
-              const linkProps = card.instagramUrl
-                ? { href: card.instagramUrl, target: '_blank' as const, rel: 'noopener noreferrer' }
-                : {};
-
-              return (
-                <CardWrapper
-                  key={card.id}
-                  {...linkProps}
-                  className='bg-crowdfunding-surface flex w-56 shrink-0 flex-col overflow-hidden rounded-2xl border border-white/10 transition hover:border-orange-500/30'
-                >
-                  <div className='relative h-36 w-full overflow-hidden'>
-                    <div
-                      className='h-full w-full bg-cover bg-center'
-                      style={{ backgroundImage: `url('${imageUrl}')` }}
-                    />
-                  </div>
-                  <div className='flex flex-1 flex-col p-4'>
-                    <h3 className='text-sm font-bold text-white'>{card.title}</h3>
-                    <p className='mt-auto pt-3 text-xs font-semibold tracking-wider text-gray-400 uppercase'>
-                      {formatUpdateDate(card.date, lng)}
-                    </p>
-                  </div>
-                </CardWrapper>
-              );
-            })}
-
-            <div className='flex shrink-0 items-center'>
-              {/* Decorative, same as the FAQ chevron: no onClick, no href. */}
-              <span
-                aria-hidden='true'
-                className='flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white'
-              >
-                <svg
-                  className='h-5 w-5'
-                  fill='none'
-                  stroke='currentColor'
-                  viewBox='0 0 24 24'
-                  strokeWidth={2}
-                >
-                  <path strokeLinecap='round' strokeLinejoin='round' d='M9 5l7 7-7 7' />
-                </svg>
-              </span>
-            </div>
-          </div>
+          <p className='text-crowdfunding-muted max-w-md text-sm leading-relaxed'>
+            {t('updates.description')}
+          </p>
         </div>
-      </div>
-    </section>
+
+        <ul className='-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 lg:mx-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0'>
+          {cards.map((card, index) => {
+            const body = (
+              <>
+                <div className='relative aspect-4/3 w-full overflow-hidden'>
+                  <ImageMedia
+                    resource={
+                      typeof card.image === 'object' && card.image ? card.image : FALLBACK_IMAGE
+                    }
+                    alt=''
+                    fill
+                    sizes='(min-width: 1024px) 25vw, 75vw'
+                    className='object-cover transition-transform duration-500 group-hover:scale-105'
+                  />
+                </div>
+                <div className='flex flex-1 flex-col gap-3 p-5'>
+                  <time dateTime={card.date} className='text-eyebrow text-crowdfunding-accent'>
+                    {formatDate(card.date, lng, {
+                      day: '2-digit',
+                      month: 'short',
+                      year: 'numeric',
+                    })}
+                  </time>
+                  <h3 className='font-semibold text-white'>{card.title}</h3>
+                  {card.instagramUrl && (
+                    <span className='text-crowdfunding-muted mt-auto inline-flex items-center gap-1 text-xs'>
+                      {t('updates.instagram')}
+                      <LuArrowUpRight aria-hidden='true' className='size-3.5' />
+                    </span>
+                  )}
+                </div>
+              </>
+            );
+            return (
+              <li key={card.id ?? index} className='w-72 shrink-0 snap-start lg:w-auto'>
+                {card.instagramUrl ? (
+                  <a
+                    href={card.instagramUrl}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className={CARD_CLASS}
+                  >
+                    {body}
+                  </a>
+                ) : (
+                  <div className={CARD_CLASS}>{body}</div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </Container>
+    </CfSection>
   );
 };
 

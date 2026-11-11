@@ -1,6 +1,8 @@
 export { default as CrowdfundingHero } from './CrowdfundingHero';
 export { default as CrowdfundingVideo } from './CrowdfundingVideo';
 export { default as CrowdfundingAbout } from './CrowdfundingAbout';
+export { default as CrowdfundingSpaces } from './CrowdfundingSpaces';
+export { default as CrowdfundingPageContent } from './CrowdfundingPageContent';
 export { default as CrowdfundingTransparency } from './CrowdfundingTransparency';
 export { default as CrowdfundingRewards } from './CrowdfundingRewards';
 export { default as CrowdfundingUpdates } from './CrowdfundingUpdates';

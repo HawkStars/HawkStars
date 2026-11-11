@@ -1,123 +1,202 @@
 {
   "hero": {
-    "badge": "Campanha Pública de Crowdfunding",
+    "badge": "Campanha pública · Pinhel",
     "title_prefix": "Ajuda-nos a construir o",
     "title_suffix": "em Pinhel",
-    "subtitle": "Estamos a transformar um edifício devoluto no centro histórico de Pinhel num centro multidisciplinar de formação, inovação social, cultura, gaming e criação digital.",
+    "subtitle": "Estamos a transformar um edifício devoluto no centro histórico de Pinhel num centro internacional de formação, incubação, cultura, tecnologia e cooperação.",
     "cta_support": "Apoiar Agora",
     "cta_video": "Ver o Vídeo",
-    "disclaimer": "Campanha pública com metas faseadas, compromisso de transparência e várias formas de apoio.",
-    "tags": {
-      "location": "Pinhel",
-      "education": "Educação",
-      "innovation": "Inovação Social"
-    },
+    "cta_rewards": "Ver Recompensas",
+    "disclaimer": "Campanha oficial no GoFundMe, com metas faseadas e compromisso de transparência sobre cada euro.",
     "stats": {
       "raised_label": "Angariado até agora",
-      "percentage_label": "da meta da campanha",
-      "campaign_goal_label": "Meta da Campanha Atual",
-      "project_goal_label": "Meta Global do Projeto",
-      "last_update_label": "Última Atualização",
-      "last_update_date": "18 de janeiro de 2025"
+      "of_goal": "{{percentage}}% da meta de {{goal}}",
+      "progress_label": "Progresso da campanha",
+      "works_marker": "{{amount}} · arranque da obra",
+      "campaign_goal_label": "Meta da campanha",
+      "project_goal_label": "Investimento total do projeto",
+      "supporters_label": "Apoiantes",
+      "last_update_label": "Última atualização"
     }
   },
   "video": {
-    "badge": "Vídeo Documentário",
+    "badge": "Vídeo da Campanha",
     "overlay_line1": "Do Interior",
     "overlay_line2": "Para o Futuro",
     "title": "Vê porque é que este projeto precisa de nascer agora",
     "description": "O Global Village não é uma ideia abstrata. É uma resposta concreta para dar nova vida a um edifício devoluto em Pinhel e criar um espaço de formação, cultura, inovação e comunidade.",
-    "tagline_label": "Legenda Curta",
-    "tagline_value": "Do interior para o futuro.",
-    "cta_support": "Quero Apoiar Este Projeto",
+    "cta_support": "Quero Apoiar",
     "cta_share": "Partilhar Campanha",
-    "player_title": "Vídeo",
+    "player_title": "Vídeo da campanha Global Village",
     "play": "Reproduzir vídeo"
   },
   "about": {
     "badge": "Sobre o Projeto",
-    "title": "O que é o Global Village?",
-    "description": "O Global Village – International Training Center quer criar, em Pinhel, uma infraestrutura capaz de juntar formação, empreendedorismo, cultura, criatividade, tecnologia e participação comunitária num só lugar.",
-    "tagline": "Mais do que reabilitar um espaço, queremos abrir novas possibilidades para o território.",
-    "features": {
-      "formacao": {
-        "title": "Formação",
-        "description": "Workshops, aprendizagens práticas, residências e desenvolvimento de competências."
+    "title_prefix": "Mais do que reabilitar um edifício:",
+    "title_highlight": "abrir possibilidades para o interior.",
+    "description": "O Global Village – International Training Center (GV-ITC) é uma plataforma de serviços em Pinhel: formação, incubação de projetos, redes de cooperação e implementação no território.",
+    "description_2": "É promovido pela Hawk Stars, associação para a Educação, Inovação e Desenvolvimento Social fundada em Pinhel em 2022. Think Global, Act Local.",
+    "commitments": {
+      "empower": {
+        "title": "Capacitar o talento que já existe",
+        "description": "Jovens, pessoas em situação vulnerável, empreendedores, associações e agentes locais."
+      },
+      "attract": {
+        "title": "Atrair e fixar pessoas e projetos",
+        "description": "Ideias, negócios e projetos que criem emprego e novas dinâmicas económicas e sociais no interior."
+      },
+      "connect": {
+        "title": "Criar redes de cooperação",
+        "description": "Entre comunidade, empresas, escolas, universidades, municípios, incubadoras, mentores e parceiros internacionais."
+      }
+    },
+    "track_record": {
+      "founded": { "value": "2022", "label": "Fundada em Pinhel" },
+      "youth": { "value": "282", "label": "Jovens e técnicos em mobilidade internacional" },
+      "nationalities": { "value": "24", "label": "Nacionalidades envolvidas" },
+      "partners": { "value": "32", "label": "Parceiros internacionais" }
+    }
+  },
+  "spaces": {
+    "badge": "O Que Vamos Construir",
+    "title_prefix": "Um edifício devoluto no centro histórico,",
+    "title_highlight": "de volta à vida.",
+    "description": "O projeto de arquitetura reabilita um conjunto edificado junto ao Largo General Castro, parado há uma década, num espaço inclusivo e acessível a todos.",
+    "footnote": "Inclui ainda a Galeria de Arte “Impacto Social”, um Mini-FabLab e o escritório da Hawk Stars. Imagens: renders do projeto de arquitetura.",
+    "items": {
+      "training": {
+        "title": "Salas de Formação",
+        "description": "Três salas equipadas para formação, workshops e programas internacionais."
+      },
+      "auditorium": {
+        "title": "Auditório",
+        "description": "Conferências, apresentações e eventos abertos à comunidade."
       },
       "coworking": {
-        "title": "Coworking e Incubação",
-        "description": "Espaço para ideias crescerem, projetos nascerem e talento ficar no interior."
-      },
-      "cultura": {
-        "title": "Cultura e Artes",
-        "description": "Galeria Social, programação cultural e valorização de artistas e criadores."
+        "title": "Coworking e Incubadora",
+        "description": "Dois espaços para empreendedores e start-ups criarem negócio no território."
       },
       "gaming": {
-        "title": "Gaming e Digital",
-        "description": "Gaming Hub, conteúdos digitais e competências tecnológicas para novos percursos."
+        "title": "Sala Tecnológica e Gaming Hub",
+        "description": "E-sports, IA, robótica, criação de conteúdos e streaming."
       },
-      "comunidade": {
-        "title": "Comunidade e Internacionalização",
-        "description": "Um espaço pensado para jovens, residentes, parceiros e participantes internacionais."
+      "studio": {
+        "title": "Estúdio de Gravação",
+        "description": "Produção de áudio e música para artistas, criadores e projetos educativos."
       },
-      "reabilitacao": {
-        "title": "Reabilitação Urbana",
-        "description": "Dar nova vida a um edifício devoluto e reforçar a identidade de Pinhel."
+      "cafe": {
+        "title": "Anti-Café",
+        "description": "Um café acolhedor para encontros informais, networking e eventos culturais."
       }
     }
   },
   "transparency": {
     "badge": "Transparência",
-    "title": "Cada contributo ajuda a desbloquear a próxima fase",
-    "description": "A campanha atual está focada numa primeira meta de 100.000€, pensada para ajudar a desbloquear licenciamento, preparação do imóvel, arranque da primeira fase da obra e fundo de maneio. O projeto global é apresentado com um custo estimado de 900.000€.",
-    "cta_money": "Ver como o dinheiro será aplicado",
-    "raised_label": "Angariado Até Agora",
-    "campaign_goal_label": "Meta da Campanha Atual",
-    "percentage_label": "% da meta",
-    "project_goal_label": "Meta Global do Projeto",
-    "project_total_label": "Projeto total",
-    "last_update_label": "Última Atualização",
-    "last_update_date": "18 de janeiro de 2025"
+    "title_prefix": "Cada contributo desbloqueia",
+    "title_highlight": "a próxima fase.",
+    "description": "O Global Village cresce por etapas. Não pedimos que financies tudo: a campanha atual tem uma primeira meta de {{campaignGoal}}, o passo que põe em marcha um projeto com um investimento total de {{projectGoal}}. A obra estrutural começa a partir dos primeiros 40.000 €.",
+    "uses_title": "Para onde vão os primeiros {{campaignGoal}}",
+    "uses": {
+      "licensing": "Licenciamento final e licenças de construção",
+      "engineering": "Projeto de especialidades de engenharia",
+      "works": "1.ª fase da obra: demolições e preparação para a reconstrução",
+      "communication": "Comunicação da campanha e do projeto",
+      "working_capital": "Fundo de maneio para o arranque das operações"
+    },
+    "cta_money": "Ver o relatório de aplicação dos fundos",
+    "timeline_title": "Fases do projeto",
+    "now": "Agora",
+    "status": {
+      "done": "Concluída",
+      "current": "Em curso",
+      "next": "Por iniciar"
+    },
+    "timeline": {
+      "design": {
+        "title": "Ideia, viabilidade e projeto de arquitetura",
+        "period": "2019 – 2023 · Pedido de Informação Prévia aprovado pela Câmara Municipal de Pinhel"
+      },
+      "launch": {
+        "title": "Lançamento público, parceiros e especialidades",
+        "period": "2024 – 2025 · Primeiros projetos de mobilidade, prospeção de parceiros e doadores"
+      },
+      "campaign": {
+        "title": "Crowdfunding e licenciamento final",
+        "period": "2026 · Campanha pública, orçamentos e convite à apresentação de propostas"
+      },
+      "works": {
+        "title": "1.ª fase da obra",
+        "period": "Final de 2026 – 2027 · Demolições e preparação para a reconstrução"
+      },
+      "build": {
+        "title": "Construção e equipamento por blocos",
+        "period": "2027 – 2031 · Bloco A, conector e Bloco B"
+      }
+    }
   },
   "rewards": {
-    "badge": "Rewards e Modalidades",
-    "title_prefix": "Escolhe a forma de participação que faz",
+    "badge": "Recompensas e Modalidades",
+    "title_prefix": "Escolhe a forma de apoio que faz",
     "title_highlight": "mais sentido para ti.",
-    "description": "Desde apoios simbólicos a experiências únicas e apoios premium. Cada contributo aproxima o Global Village de se tornar realidade.",
-    "how_to_badge": "Como Contribuir",
-    "cta_all": "Ver Todas as Modalidades",
+    "description": "De um simples obrigado a deixar o teu nome numa parede, numa cadeira ou numa sala do edifício. Os valores indicados são a partir de.",
+    "how_to_badge": "Como reclamar a tua recompensa",
+    "cta_all": "Contribuir no GoFundMe",
+    "cta_claim": "Reclamar Recompensa",
     "steps": {
-      "step1": "Escolhe a modalidade de apoio",
-      "step2": "Faz o contributo na plataforma ou por contacto direto",
-      "step3": "Recebe confirmação e acompanhamento da campanha"
+      "step1": "Escolhe a recompensa que queres",
+      "step2": "Contribui com o valor correspondente no GoFundMe",
+      "step3": "Escreve-nos para {{email}} para a reclamar"
     }
   },
   "updates": {
     "badge": "Atualizações da Campanha",
     "title_prefix": "Acompanha a campanha",
-    "title_highlight": "em tempo real.",
+    "title_highlight": "passo a passo.",
     "description": "Metas, bastidores, novos apoios e próximos passos. Uma campanha viva, construída contigo.",
-    "cta_all": "Ver Todas as Atualizações"
+    "instagram": "Ver no Instagram"
   },
   "business": {
-    "badge": "Apoio Empresarial e Possível Enquadramento em Mecenato",
-    "title_prefix": "Participe num projeto que transforma território e gera",
-    "title_highlight": "impacto real.",
-    "description": "Associe a sua empresa ou fundação a um projeto de educação, inovação, cultura e juventude, com impacto duradouro em Pinhel.",
+    "badge": "Empresas e Mecenato",
+    "title_prefix": "Associe a sua marca a um projeto que",
+    "title_highlight": "transforma o território.",
+    "description": "Naming de salas e espaços, paredes de patrocinadores, parcerias de marca e mecenato. Fale connosco para encontrarmos a modalidade certa para a sua empresa ou fundação.",
     "cta": "Falar Sobre Apoio Empresarial",
     "disclaimer": "Os benefícios fiscais não são garantidos. Donativos sem contrapartidas comerciais podem enquadrar-se no Estatuto dos Benefícios Fiscais. Fale connosco para avaliar a modalidade.",
     "benefits": {
       "impact": {
-        "title": "Impacto",
+        "title": "Impacto real",
         "description": "Educação, juventude, cultura e inovação que revitalizam o interior."
       },
       "reputation": {
-        "title": "Reputação",
-        "description": "Uma iniciativa pública, visível e com vocação transformadora para o território."
+        "title": "Visibilidade permanente",
+        "description": "O nome da sua marca numa sala, numa parede ou no próprio centro."
       },
       "transparency": {
-        "title": "Rigor e Transparência",
-        "description": "Apoios analisados caso a caso, com total transparência sobre a aplicação dos fundos."
+        "title": "Rigor e transparência",
+        "description": "Apoios analisados caso a caso, com informação clara sobre a aplicação dos fundos."
+      }
+    }
+  },
+  "other_ways": {
+    "title": "Outras formas de apoiar",
+    "description": "Nem todo o apoio passa pela plataforma. Estas iniciativas da Hawk Stars também revertem para o Global Village.",
+    "items": {
+      "gallery": {
+        "figure": "40%",
+        "title": "Galeria de Arte Impacto Social",
+        "description": "De cada obra vendida revertem para o projeto (salvo exceções).",
+        "cta": "Visitar a galeria"
+      },
+      "shop": {
+        "figure": "25–50%",
+        "title": "Loja Online",
+        "description": "Do valor de cada produto vendido, com a percentagem indicada em cada envio."
+      },
+      "direct": {
+        "figure": "100%",
+        "title": "Doação direta",
+        "description": "Doe diretamente à Hawk Stars, sem passar pela plataforma de crowdfunding.",
+        "cta": "Fazer uma doação"
       }
     }
   },
@@ -126,35 +205,7 @@
     "title_prefix": "Pessoas e entidades que",
     "title_highlight": "acreditam",
     "title_suffix": "neste projeto.",
-    "description": "Uma rede crescente de padrinhos, parceiros, doadores e comunidade que já está a fazer acontecer.",
-    "tabs": {
-      "godparents": "Padrinhos",
-      "partners": "Parceiros",
-      "donors": "Doadores",
-      "community": "Comunidade"
-    },
-    "entities": {
-      "hawk_stars": {
-        "name": "Hawk Stars",
-        "subtitle": "ONG para Educação, Inovação & Desenvolvimento Social"
-      },
-      "ipdj": {
-        "name": "IPDJ",
-        "subtitle": "Instituto Português do Desporto e Juventude, I.P."
-      },
-      "politecnico": {
-        "name": "Politécnico da Guarda",
-        "subtitle": ""
-      },
-      "camara": {
-        "name": "Câmara Municipal de Pinhel",
-        "subtitle": ""
-      },
-      "guarda": {
-        "name": "Guarda",
-        "subtitle": "A Guarda por si."
-      }
-    },
+    "description": "O nosso mural de doadores: uma rede crescente de pessoas, empresas e instituições que já estão a fazer acontecer. Obrigado!",
     "no_supporters": "Em breve, os nossos apoiantes aparecerão aqui."
   },
   "faq": {
@@ -162,52 +213,53 @@
     "title_line1": "Tira as tuas dúvidas.",
     "title_highlight": "A transparência",
     "title_line2": "é a nossa promessa.",
-    "description_prefix": "Reunimos aqui as respostas às perguntas mais comuns sobre a campanha e sobre o projeto",
+    "description": "Não encontras a resposta? Escreve-nos para fundraising@hawkstars.org.",
     "items": {
       "how_to_support": {
         "question": "Como posso apoiar?",
-        "answer": "Podes contribuir através da nossa campanha de crowdfunding, fazer uma doação direta, apoiar como empresa ou comprar na nossa loja solidária."
-      },
-      "other_ways": {
-        "question": "Há formas de doar fora da plataforma?",
-        "answer": "Sim. Podes fazer uma transferência bancária, doar por MBWay ou falar connosco sobre apoio empresarial e mecenato."
-      },
-      "rewards": {
-        "question": "Como funcionam os rewards?",
-        "answer": "Cada modalidade de apoio tem uma recompensa associada. Vais receber todos os detalhes após o teu contributo."
+        "answer": "Contribuindo na campanha oficial no GoFundMe, partilhando-a com quem acredita no futuro do interior, apoiando como empresa ou através da Galeria de Arte e da loja solidária da Hawk Stars."
       },
       "goal_not_met": {
         "question": "O que acontece se a meta não for atingida?",
-        "answer": "Cada euro angariado será aplicado no arranque do projeto. A campanha é tudo-ou-nada; se não atingirmos a meta, os fundos são devolvidos."
+        "answer": "O projeto avança por fases. Cada euro angariado é aplicado nos primeiros passos técnicos e operacionais (licenciamento, especialidades, arranque da obra), e a obra estrutural começa a partir dos primeiros 40.000 €."
+      },
+      "other_ways": {
+        "question": "Há formas de doar fora da plataforma?",
+        "answer": "Sim. Podes fazer uma doação direta à Hawk Stars, comprar na Galeria de Arte Impacto Social ou na loja online, ou falar connosco sobre apoio empresarial e mecenato."
+      },
+      "rewards": {
+        "question": "Como funcionam as recompensas?",
+        "answer": "Escolhe a recompensa, contribui com o valor correspondente no GoFundMe e escreve-nos para fundraising@hawkstars.org. Combinamos contigo os detalhes da entrega ou da experiência."
       },
       "transparency": {
-        "question": "Como funciona a transparência?",
-        "answer": "Publicamos atualizações regulares, relatórios sobre o uso dos fundos e marcos do projeto. Acompanha tudo na secção Updates."
+        "question": "Como acompanho a aplicação dos fundos?",
+        "answer": "Atualizamos regularmente o valor angariado, as fases do projeto e as novidades nesta página e nas nossas redes sociais."
       },
       "companies": {
         "question": "Há modalidades para empresas?",
-        "answer": "Sim. Oferecemos opções de naming, parcerias, mecenato e benefícios de visibilidade. Fala connosco para saber mais."
+        "answer": "Sim: naming de salas e espaços, paredes com logótipos, parcerias de marca e mecenato. Fala connosco para encontrarmos a melhor opção."
       },
       "abroad": {
         "question": "Posso apoiar a partir do estrangeiro?",
-        "answer": "Sim. A plataforma aceita contribuições internacionais e disponibilizamos comprovativo de doação."
+        "answer": "Sim. O GoFundMe aceita contribuições de vários países e moedas."
       },
       "receipt": {
         "question": "Como recebo comprovativo?",
-        "answer": "Recebes automaticamente por email após o contributo. Para donativos e apoios empresariais, emitimos recibo para efeitos fiscais."
+        "answer": "O GoFundMe envia um recibo por email após o contributo. Para donativos e apoios empresariais com fins fiscais, contacta-nos para emitirmos o recibo da Hawk Stars."
       }
     }
   },
   "cta": {
-    "title_line1": "O futuro do interior",
-    "title_highlight": "também se constrói assim.",
-    "description": "Cada contributo ajuda a transformar visão em espaço real, comunidade em movimento e território em oportunidade.",
+    "title_line1": "O futuro do interior não se escreve sozinho.",
+    "title_highlight": "Escreve-se connosco.",
+    "description": "Cada contributo ajuda a transformar um edifício devoluto num lugar de oportunidades para Pinhel. Co-cria connosco.",
     "cta_support": "Apoiar Agora",
     "cta_share": "Partilhar Campanha",
     "cta_team": "Falar com a Equipa"
   },
   "nav": {
     "about": "Sobre",
+    "spaces": "O Espaço",
     "rewards": "Recompensas",
     "transparency": "Transparência",
     "faq": "FAQ",

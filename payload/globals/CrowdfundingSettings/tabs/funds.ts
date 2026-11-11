@@ -74,22 +74,6 @@ const CrowdfundingSettingsFundsTab: Tab = {
       localized: true,
       required: false,
     },
-    {
-      name: 'weeklyIncrease',
-      type: 'text',
-      label: {
-        pt: 'Aumento Semanal (texto)',
-        en: 'Weekly Increase (text)',
-      },
-      admin: {
-        description: {
-          en: 'Short label shown next to the raised amount to indicate weekly growth (e.g. "+2.3% esta semana").',
-          pt: 'Rótulo curto mostrado ao lado do valor angariado para indicar o crescimento semanal (ex: "+2.3% esta semana").',
-        },
-      },
-      localized: true,
-      required: false,
-    },
   ],
 };
 

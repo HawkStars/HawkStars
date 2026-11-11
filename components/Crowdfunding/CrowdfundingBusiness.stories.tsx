@@ -29,12 +29,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    lng: 'en',
     businessCtaUrl: 'https://hawkstars.org/partners',
   },
 };
 
 export const NoCtaUrl: Story = {
   args: {
+    lng: 'en',
     businessCtaUrl: null,
   },
 };

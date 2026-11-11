@@ -4,18 +4,7 @@ import React from 'react';
 import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { CrowdfundingSetting } from '@/payload-types';
 import { Language } from '@/i18n/settings';
-import {
-  CrowdfundingHero,
-  CrowdfundingVideo,
-  CrowdfundingAbout,
-  CrowdfundingTransparency,
-  CrowdfundingRewards,
-  CrowdfundingUpdates,
-  CrowdfundingBusiness,
-  CrowdfundingPartners,
-  CrowdfundingFAQ,
-  CrowdfundingCTA,
-} from '@/components/Crowdfunding';
+import CrowdfundingPageContent from '@/components/Crowdfunding/CrowdfundingPageContent';
 import { useTranslation } from '@/i18n/client';
 
 type LivePreviewCrowdfundingPageProps = {
@@ -39,18 +28,5 @@ export const LivePreviewCrowdfundingPage: React.FC<LivePreviewCrowdfundingPagePr
 
   if (!data) return null;
 
-  return (
-    <div className='bg-crowdfunding-bg flex flex-col'>
-      <CrowdfundingHero {...data} t={t} lng={lng} />
-      <CrowdfundingVideo {...data} t={t} />
-      <CrowdfundingAbout {...data} t={t} />
-      <CrowdfundingTransparency {...data} t={t} lng={lng} />
-      <CrowdfundingRewards {...data} t={t} />
-      <CrowdfundingUpdates {...data} t={t} lng={lng} />
-      <CrowdfundingBusiness {...data} t={t} />
-      <CrowdfundingPartners {...data} t={t} />
-      <CrowdfundingFAQ {...data} t={t} />
-      <CrowdfundingCTA {...data} t={t} />
-    </div>
-  );
+  return <CrowdfundingPageContent settings={data} t={t} lng={lng} />;
 };

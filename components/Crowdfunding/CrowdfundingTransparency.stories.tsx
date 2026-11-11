@@ -54,11 +54,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     lng: 'en',
-    raisedAmount: 42500,
     campaignGoal: 100000,
     projectGoal: 250000,
-    weeklyIncrease: '+2.3% this week',
-    lastUpdateDate: 'March 2025',
     phases,
     transparencyDocUrl: 'https://hawkstars.org/transparency.pdf',
   },

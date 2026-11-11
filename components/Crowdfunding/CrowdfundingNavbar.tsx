@@ -13,8 +13,9 @@ const MOBILE_MENU_ID = 'crowdfunding-mobile-menu';
 
 const NAV_LINKS = [
   { key: 'about', href: '#about' },
-  { key: 'rewards', href: '#rewards' },
+  { key: 'spaces', href: '#spaces' },
   { key: 'transparency', href: '#transparency' },
+  { key: 'rewards', href: '#rewards' },
   { key: 'faq', href: '#faq' },
 ] as const;
 
@@ -24,7 +25,7 @@ const CrowdfundingNavbar = () => {
   const { t } = useTranslation(lng, 'crowdfunding');
 
   return (
-    <nav className='bg-crowdfunding-bg sticky top-0 z-50 border-b border-white/10'>
+    <nav className='bg-crowdfunding-bg/85 border-crowdfunding-line sticky top-0 z-50 border-b backdrop-blur-md'>
       <div className='mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:px-8'>
         {/* Logo */}
         <Link href={`/${lng}`} className='flex items-center' aria-label={t('a11y.homeLink')}>
@@ -57,7 +58,7 @@ const CrowdfundingNavbar = () => {
           {/* Support CTA */}
           <a
             href='#rewards'
-            className='rounded-full bg-orange-700 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-orange-800'
+            className='bg-crowdfunding-accent-strong rounded-full px-5 py-2 text-sm font-semibold text-white transition hover:brightness-110'
           >
             {t('nav.support')}
           </a>

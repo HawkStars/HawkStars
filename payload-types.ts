@@ -2336,6 +2336,26 @@ export type CrowdfundingUpdateCard =
     }[]
   | null;
 /**
+ * Campaign phases shown in the timeline section. Add one per phase, in order.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CrowdfundingPhase".
+ */
+export type CrowdfundingPhase =
+  | {
+      /**
+       * E.g. "Fase 1: Campanha de Angariação de Fundos".
+       */
+      title: string;
+      /**
+       * Short description of the phase, shown in the timeline section (e.g. "Março 2024 - Dezembro 2024").
+       */
+      description?: string | null;
+      completed: boolean;
+      id?: string | null;
+    }[]
+  | null;
+/**
  * Supported timezones in IANA format.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -7502,30 +7522,10 @@ export interface CrowdfundingSetting {
    * Displayed date of the last statistics update (e.g. "Março 2025").
    */
   lastUpdateDate?: string | null;
-  /**
-   * Short label shown next to the raised amount to indicate weekly growth (e.g. "+2.3% esta semana").
-   */
-  weeklyIncrease?: string | null;
   supporters?: CrowdfundingSupporter;
   rewardTiers?: CrowdfundingRewardTier;
   updateCards?: CrowdfundingUpdateCard;
-  /**
-   * Campaign phases shown in the timeline section. Add one per phase, in order.
-   */
-  phases?:
-    | {
-        /**
-         * E.g. "Fase 1: Campanha de Angariação de Fundos".
-         */
-        title: string;
-        /**
-         * Short description of the phase, shown in the timeline section (e.g. "Março 2024 - Dezembro 2024").
-         */
-        description?: string | null;
-        completed: boolean;
-        id?: string | null;
-      }[]
-    | null;
+  phases?: CrowdfundingPhase;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -7804,18 +7804,10 @@ export interface CrowdfundingSettingsSelect<T extends boolean = true> {
   campaignGoal?: T;
   projectGoal?: T;
   lastUpdateDate?: T;
-  weeklyIncrease?: T;
   supporters?: T | CrowdfundingSupporterSelect<T>;
   rewardTiers?: T | CrowdfundingRewardTierSelect<T>;
   updateCards?: T | CrowdfundingUpdateCardSelect<T>;
-  phases?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        completed?: T;
-        id?: T;
-      };
+  phases?: T | CrowdfundingPhaseSelect<T>;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -7861,6 +7853,16 @@ export interface CrowdfundingUpdateCardSelect<T extends boolean = true> {
   title?: T;
   date?: T;
   instagramUrl?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CrowdfundingPhase_select".
+ */
+export interface CrowdfundingPhaseSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  completed?: T;
   id?: T;
 }
 /**

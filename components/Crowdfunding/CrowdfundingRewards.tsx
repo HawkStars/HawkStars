@@ -1,159 +1,132 @@
-import React from 'react';
-import { CrowdfundingSetting } from '@/payload-types';
 import { TFunction } from 'i18next';
+import { LuBuilding2, LuHeart, LuMail, LuMapPin, LuTrophy } from 'react-icons/lu';
+import { CrowdfundingSetting } from '@/payload-types';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { CfSection, Container, Glow, Highlight, SectionEyebrow } from './ui';
 
 type Props = { t: TFunction<string, string> } & Pick<
   CrowdfundingSetting,
   'supportUrl' | 'rewardTiers'
 >;
 
-const iconMap: Record<string, React.ReactNode> = {
-  heart: (
-    <svg className='h-8 w-8' fill='currentColor' viewBox='0 0 20 20'>
-      <path d='M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z' />
-    </svg>
-  ),
-  building: (
-    <svg
-      className='h-8 w-8'
-      fill='none'
-      stroke='currentColor'
-      viewBox='0 0 24 24'
-      strokeWidth={1.5}
-    >
-      <path
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        d='M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z'
-      />
-    </svg>
-  ),
-  location: (
-    <svg className='h-8 w-8' fill='currentColor' viewBox='0 0 20 20'>
-      <path
-        fillRule='evenodd'
-        d='M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z'
-        clipRule='evenodd'
-      />
-    </svg>
-  ),
-  trophy: (
-    <svg
-      className='h-8 w-8'
-      fill='none'
-      stroke='currentColor'
-      viewBox='0 0 24 24'
-      strokeWidth={1.5}
-    >
-      <path
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        d='M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M18.75 4.236c.982.143 1.954.317 2.916.52A6.003 6.003 0 0016.27 9.728M18.75 4.236V4.5c0 2.108-.966 3.99-2.48 5.228m0 0a6.023 6.023 0 01-7.54 0'
-      />
-    </svg>
-  ),
-};
+const ICONS = {
+  heart: LuHeart,
+  building: LuBuilding2,
+  location: LuMapPin,
+  trophy: LuTrophy,
+} as const;
 
-const stepKeys = ['step1', 'step2', 'step3'] as const;
+const STEPS = ['step1', 'step2', 'step3'] as const;
+
+/** Address donors write to in order to claim a reward (rewards catalogue 2026, last page). */
+const FUNDRAISING_EMAIL = 'fundraising@hawkstars.org';
 
 const CrowdfundingRewards = ({ t, supportUrl, rewardTiers }: Props) => {
+  const tiers = rewardTiers ?? [];
+
   return (
-    <section id='rewards' className='bg-crowdfunding-bg w-full py-16'>
-      <div className='mx-auto max-w-7xl px-4 lg:px-8'>
-        <div className='mb-12 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between'>
-          <div className='flex-1'>
-            <span className='flex items-center gap-2 text-xs font-semibold tracking-widest text-orange-500 uppercase'>
-              <span className='inline-block h-2 w-2 rounded-full bg-orange-500' />
-              {t('rewards.badge')}
-            </span>
-            <h2 className='font-oswald mt-4 text-2xl font-bold text-white lg:text-3xl'>
-              {t('rewards.title_prefix')}{' '}
-              <span className='text-orange-500'>{t('rewards.title_highlight')}</span>
+    <CfSection id='rewards' alt>
+      <Glow className='-top-40 left-1/3 size-136 opacity-20' />
+      <Container>
+        <div className='mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between'>
+          <div className='flex max-w-2xl flex-col gap-5'>
+            <SectionEyebrow>{t('rewards.badge')}</SectionEyebrow>
+            <h2 className='text-h2_semibold text-white'>
+              {t('rewards.title_prefix')} <Highlight>{t('rewards.title_highlight')}</Highlight>
             </h2>
           </div>
-          <p className='max-w-md text-sm leading-relaxed text-gray-400 lg:mt-10'>
+          <p className='text-crowdfunding-muted max-w-md text-sm leading-relaxed'>
             {t('rewards.description')}
           </p>
         </div>
 
-        {rewardTiers && rewardTiers.length > 0 && (
-          <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
-            {rewardTiers.map((tier) => (
-              <div
-                key={tier.id}
-                className='bg-crowdfunding-surface flex flex-col rounded-2xl border border-white/10 p-6 transition hover:border-orange-500/30'
+        {tiers.length > 0 && (
+          <Tabs defaultValue='tier-0' className='gap-6'>
+            <TabsList className='h-auto w-full justify-start gap-2 overflow-x-auto rounded-none bg-transparent p-0'>
+              {tiers.map((tier, index) => {
+                const Icon = ICONS[tier.icon ?? 'heart'] ?? LuHeart;
+                return (
+                  <TabsTrigger
+                    key={tier.id ?? index}
+                    value={`tier-${index}`}
+                    className='border-crowdfunding-line text-crowdfunding-muted data-[state=active]:border-crowdfunding-accent data-[state=active]:bg-crowdfunding-accent/10 focus-visible:ring-crowdfunding-accent/50 h-11 flex-none cursor-pointer rounded-full border px-5 hover:text-white data-[state=active]:text-white data-[state=active]:shadow-none'
+                  >
+                    <Icon aria-hidden='true' />
+                    {tier.title}
+                  </TabsTrigger>
+                );
+              })}
+            </TabsList>
+
+            {tiers.map((tier, index) => (
+              <TabsContent
+                key={tier.id ?? index}
+                value={`tier-${index}`}
+                forceMount
+                className='data-[state=inactive]:hidden'
               >
-                <div className='mb-3 text-orange-500'>
-                  {iconMap[tier.icon || 'heart'] || iconMap.heart}
-                </div>
-                <h3 className='text-sm font-bold text-white uppercase'>{tier.title}</h3>
-                {tier.subtitle && <p className='mb-4 text-xs text-gray-400'>{tier.subtitle}</p>}
-                {tier.items && tier.items.length > 0 && (
-                  <div className='flex flex-col gap-2'>
-                    {tier.items.map((item) => (
-                      <div key={item.id} className='flex items-start gap-2 text-sm'>
-                        <svg
-                          className='mt-0.5 h-3 w-3 shrink-0 text-orange-500'
-                          fill='currentColor'
-                          viewBox='0 0 20 20'
-                        >
-                          <path d='M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z' />
-                        </svg>
-                        <span className='text-gray-300'>
-                          {item.price && <strong className='text-white'>{item.price}</strong>}
-                          {item.price ? ' ' : ''}
-                          {item.label}
-                        </span>
-                      </div>
-                    ))}
+                <div className='bg-crowdfunding-surface border-crowdfunding-line rounded-xl border p-6 lg:p-8'>
+                  <div className='mb-6 flex flex-col gap-1'>
+                    <h3 className='text-h2_bold text-white'>{tier.title}</h3>
+                    {tier.subtitle && <p className='text-crowdfunding-muted'>{tier.subtitle}</p>}
                   </div>
-                )}
-              </div>
+                  <ul className='grid gap-x-8 md:grid-cols-2'>
+                    {(tier.items ?? []).map((item, itemIndex) => (
+                      <li
+                        key={item.id ?? itemIndex}
+                        className='border-crowdfunding-line flex items-baseline gap-4 border-t py-4'
+                      >
+                        <span className='font-display text-crowdfunding-accent w-24 shrink-0 text-xl font-semibold'>
+                          {item.price || '—'}
+                        </span>
+                        <span className='text-sm leading-relaxed text-white/85'>{item.label}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </TabsContent>
             ))}
-          </div>
+          </Tabs>
         )}
 
-        <div className='bg-crowdfunding-surface mt-12 rounded-2xl border border-white/10 p-6'>
-          <span className='flex items-center gap-2 text-xs font-semibold tracking-widest text-orange-500 uppercase'>
-            <span className='inline-block h-2 w-2 rounded-full bg-orange-500' />
-            {t('rewards.how_to_badge')}
-          </span>
-
-          <div className='mt-6 flex flex-col flex-wrap items-center gap-4 lg:flex-row'>
-            {stepKeys.map((stepKey, index) => (
-              <React.Fragment key={stepKey}>
-                <div className='flex items-center gap-3 max-lg:w-full'>
-                  <div className='flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-orange-500 text-sm font-bold text-orange-500'>
+        <div className='mt-10 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center'>
+          <div>
+            <h3 className='text-eyebrow text-crowdfunding-muted'>{t('rewards.how_to_badge')}</h3>
+            <ol className='mt-4 grid gap-4 md:grid-cols-3'>
+              {STEPS.map((step, index) => (
+                <li key={step} className='flex items-start gap-3'>
+                  <span className='border-crowdfunding-accent text-crowdfunding-accent flex size-8 shrink-0 items-center justify-center rounded-full border text-sm font-semibold'>
                     {index + 1}
-                  </div>
-                  <p className='text-sm text-gray-300'>{t(`rewards.steps.${stepKey}`)}</p>
-                </div>
-                {index < stepKeys.length - 1 && (
-                  <svg
-                    className='hidden h-4 w-4 shrink-0 text-gray-600 lg:block'
-                    fill='currentColor'
-                    viewBox='0 0 20 20'
-                  >
-                    <path
-                      fillRule='evenodd'
-                      d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z'
-                      clipRule='evenodd'
-                    />
-                  </svg>
-                )}
-              </React.Fragment>
-            ))}
-
-            <a
-              href={supportUrl || '#support'}
-              className='clear-both ml-auto flex items-center gap-2 rounded-full bg-orange-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-800'
-            >
-              {t('rewards.cta_all')}
-            </a>
+                  </span>
+                  <p className='pt-1 text-sm text-white/85'>
+                    {t(`rewards.steps.${step}`, { email: FUNDRAISING_EMAIL })}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <div className='flex flex-wrap gap-3'>
+            <Button asChild variant='crowdfunding' size='lg'>
+              <a
+                href={supportUrl || '#support'}
+                target={supportUrl ? '_blank' : undefined}
+                rel='noopener noreferrer'
+              >
+                <LuHeart aria-hidden='true' />
+                {t('rewards.cta_all')}
+              </a>
+            </Button>
+            <Button asChild variant='crowdfunding-outline' size='lg'>
+              <a href={`mailto:${FUNDRAISING_EMAIL}`}>
+                <LuMail aria-hidden='true' />
+                {t('rewards.cta_claim')}
+              </a>
+            </Button>
           </div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </CfSection>
   );
 };
 

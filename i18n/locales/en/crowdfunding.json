@@ -1,213 +1,268 @@
 {
   "hero": {
-    "badge": "Public Crowdfunding Campaign",
+    "badge": "Public campaign · Pinhel",
     "title_prefix": "Help us build the",
     "title_suffix": "in Pinhel",
-    "subtitle": "We are transforming a vacant building in the historic centre of Pinhel into a multidisciplinary centre for training, social innovation, culture, gaming and digital creation.",
+    "subtitle": "We are turning a vacant building in the historic centre of Pinhel into an international centre for training, incubation, culture, technology and cooperation.",
     "cta_support": "Support Now",
     "cta_video": "Watch the Video",
-    "disclaimer": "Public campaign with phased goals, a commitment to transparency and various forms of support.",
-    "tags": {
-      "location": "Pinhel",
-      "education": "Education",
-      "innovation": "Social Innovation"
-    },
+    "cta_rewards": "See Rewards",
+    "disclaimer": "Official campaign on GoFundMe, with phased goals and a commitment to transparency about every euro.",
     "stats": {
       "raised_label": "Raised so far",
-      "percentage_label": "of the campaign goal",
-      "campaign_goal_label": "Current Campaign Goal",
-      "project_goal_label": "Global Project Goal",
-      "last_update_label": "Last Update",
-      "last_update_date": "January 18, 2025"
+      "of_goal": "{{percentage}}% of the {{goal}} goal",
+      "progress_label": "Campaign progress",
+      "works_marker": "{{amount}} · works begin",
+      "campaign_goal_label": "Campaign goal",
+      "project_goal_label": "Total project investment",
+      "supporters_label": "Supporters",
+      "last_update_label": "Last update"
     }
   },
   "video": {
-    "badge": "Documentary Video",
+    "badge": "Campaign Video",
     "overlay_line1": "From the Interior",
     "overlay_line2": "To the Future",
     "title": "See why this project needs to happen now",
-    "description": "Global Village is not an abstract idea. It is a concrete response to breathe new life into a vacant building in Pinhel and create a space for training, culture, innovation and community.",
-    "tagline_label": "Short Tagline",
-    "tagline_value": "From the interior to the future.",
-    "cta_support": "I Want to Support This Project",
-    "cta_share": "Share Campaign",
-    "player_title": "Video",
+    "description": "Global Village is not an abstract idea. It is a concrete response that breathes new life into a vacant building in Pinhel and creates a space for training, culture, innovation and community.",
+    "cta_support": "I Want to Support",
+    "cta_share": "Share the Campaign",
+    "player_title": "Global Village campaign video",
     "play": "Play video"
   },
   "about": {
     "badge": "About the Project",
-    "title": "What is Global Village?",
-    "description": "Global Village – International Training Center aims to create, in Pinhel, an infrastructure capable of bringing together training, entrepreneurship, culture, creativity, technology and community participation in one place.",
-    "tagline": "More than rehabilitating a space, we want to open new possibilities for the territory.",
-    "features": {
-      "formacao": {
-        "title": "Training",
-        "description": "Workshops, practical learning, residencies and skills development."
+    "title_prefix": "More than restoring a building:",
+    "title_highlight": "opening possibilities for inland Portugal.",
+    "description": "Global Village – International Training Center (GV-ITC) is a service platform in Pinhel: training, project incubation, cooperation networks and on-the-ground implementation.",
+    "description_2": "It is promoted by Hawk Stars, an association for Education, Innovation and Social Development founded in Pinhel in 2022. Think Global, Act Local.",
+    "commitments": {
+      "empower": {
+        "title": "Empower the talent already here",
+        "description": "Young people, people in vulnerable situations, entrepreneurs, associations and local actors."
+      },
+      "attract": {
+        "title": "Attract and retain people and projects",
+        "description": "Ideas, businesses and projects that create jobs and new economic and social dynamics inland."
+      },
+      "connect": {
+        "title": "Build cooperation networks",
+        "description": "Between community, companies, schools, universities, municipalities, incubators, mentors and international partners."
+      }
+    },
+    "track_record": {
+      "founded": { "value": "2022", "label": "Founded in Pinhel" },
+      "youth": {
+        "value": "282",
+        "label": "Young people and youth workers in international mobility"
+      },
+      "nationalities": { "value": "24", "label": "Nationalities involved" },
+      "partners": { "value": "32", "label": "International partners" }
+    }
+  },
+  "spaces": {
+    "badge": "What We Will Build",
+    "title_prefix": "A vacant building in the historic centre,",
+    "title_highlight": "brought back to life.",
+    "description": "The architectural project restores a group of buildings next to Largo General Castro, standing still for a decade, into an inclusive space accessible to everyone.",
+    "footnote": "It also includes the “Social Impact” Art Gallery, a Mini-FabLab and the Hawk Stars office. Images: renders from the architectural project.",
+    "items": {
+      "training": {
+        "title": "Training Rooms",
+        "description": "Three equipped rooms for training, workshops and international programmes."
+      },
+      "auditorium": {
+        "title": "Auditorium",
+        "description": "Conferences, presentations and events open to the community."
       },
       "coworking": {
-        "title": "Coworking & Incubation",
-        "description": "A space for ideas to grow, projects to be born and talent to stay in the region."
-      },
-      "cultura": {
-        "title": "Culture & Arts",
-        "description": "Social Gallery, cultural programming and promotion of artists and creators."
+        "title": "Coworking and Incubator",
+        "description": "Two spaces where entrepreneurs and start-ups can build businesses in the region."
       },
       "gaming": {
-        "title": "Gaming & Digital",
-        "description": "Gaming Hub, digital content and technological skills for new career paths."
+        "title": "Tech Room and Gaming Hub",
+        "description": "E-sports, AI, robotics, content creation and streaming."
       },
-      "comunidade": {
-        "title": "Community & Internationalisation",
-        "description": "A space designed for young people, residents, partners and international participants."
+      "studio": {
+        "title": "Recording Studio",
+        "description": "Audio and music production for artists, creators and educational projects."
       },
-      "reabilitacao": {
-        "title": "Urban Rehabilitation",
-        "description": "Bringing new life to a vacant building and reinforcing Pinhel's identity."
+      "cafe": {
+        "title": "Anti-Café",
+        "description": "A welcoming café for informal meetings, networking and cultural events."
       }
     }
   },
   "transparency": {
     "badge": "Transparency",
-    "title": "Every contribution helps unlock the next phase",
-    "description": "The current campaign is focused on a first goal of €100,000, designed to help unlock licensing, property preparation, the start of the first phase of construction and working capital. The global project is presented with an estimated cost of €900,000.",
-    "cta_money": "See how the money will be used →",
-    "raised_label": "Raised So Far",
-    "campaign_goal_label": "Current Campaign Goal",
-    "percentage_label": "% of goal",
-    "project_goal_label": "Global Project Goal",
-    "project_total_label": "Total project",
-    "last_update_label": "Last Update",
-    "last_update_date": "January 18, 2025"
+    "title_prefix": "Every contribution unlocks",
+    "title_highlight": "the next phase.",
+    "description": "Global Village grows step by step. We are not asking you to fund everything: this campaign has a first goal of {{campaignGoal}}, the step that sets in motion a project with a total investment of {{projectGoal}}. Structural works begin once the first €40,000 is raised.",
+    "uses_title": "Where the first {{campaignGoal}} goes",
+    "uses": {
+      "licensing": "Final licensing and building permits",
+      "engineering": "Specialist engineering designs",
+      "works": "Phase 1 of the works: demolition and preparation for reconstruction",
+      "communication": "Campaign and project communication",
+      "working_capital": "Working capital to start operations"
+    },
+    "cta_money": "See the funds report",
+    "timeline_title": "Project phases",
+    "now": "Now",
+    "status": {
+      "done": "Completed",
+      "current": "In progress",
+      "next": "Not started"
+    },
+    "timeline": {
+      "design": {
+        "title": "Idea, feasibility and architectural design",
+        "period": "2019 – 2023 · Prior information request approved by Pinhel City Council"
+      },
+      "launch": {
+        "title": "Public launch, partners and engineering",
+        "period": "2024 – 2025 · First mobility projects, partner and donor outreach"
+      },
+      "campaign": {
+        "title": "Crowdfunding and final licensing",
+        "period": "2026 · Public campaign, quotes and call for proposals"
+      },
+      "works": {
+        "title": "Phase 1 of the works",
+        "period": "Late 2026 – 2027 · Demolition and preparation for reconstruction"
+      },
+      "build": {
+        "title": "Construction and fit-out by block",
+        "period": "2027 – 2031 · Block A, connector and Block B"
+      }
+    }
   },
   "rewards": {
-    "badge": "Rewards & Tiers",
-    "title_prefix": "Choose the form of participation that makes",
-    "title_highlight": "the most sense for you.",
-    "description": "From symbolic support to unique experiences and premium support. Every contribution brings Global Village closer to becoming a reality.",
-    "how_to_badge": "How to Contribute",
-    "cta_all": "View All Tiers →",
+    "badge": "Rewards and Tiers",
+    "title_prefix": "Choose the way of supporting that",
+    "title_highlight": "makes most sense to you.",
+    "description": "From a simple thank-you to putting your name on a wall, a chair or a room of the building. Amounts shown are starting prices.",
+    "how_to_badge": "How to claim your reward",
+    "cta_all": "Contribute on GoFundMe",
+    "cta_claim": "Claim a Reward",
     "steps": {
-      "step1": "Choose your support tier",
-      "step2": "Make your contribution on the platform or by direct contact",
-      "step3": "Receive confirmation and campaign updates"
+      "step1": "Choose the reward you want",
+      "step2": "Contribute the matching amount on GoFundMe",
+      "step3": "Email us at {{email}} to claim it"
     }
   },
   "updates": {
     "badge": "Campaign Updates",
     "title_prefix": "Follow the campaign",
-    "title_highlight": "in real time.",
-    "description": "Goals, behind the scenes, new support and next steps. A living campaign, built with you.",
-    "cta_all": "View All Updates →"
+    "title_highlight": "step by step.",
+    "description": "Milestones, behind the scenes, new supporters and next steps. A living campaign, built with you.",
+    "instagram": "View on Instagram"
   },
   "business": {
-    "badge": "Business Support & Possible Patronage Framework",
-    "title_prefix": "Join a project that transforms territory and generates",
-    "title_highlight": "real impact.",
-    "description": "Associate your company or foundation with a project in education, innovation, culture and youth, with lasting impact in Pinhel.",
-    "cta": "Talk About Business Support →",
-    "disclaimer": "Tax benefits are not guaranteed. Donations without commercial consideration may fall under the Tax Benefits Statute. Contact us to evaluate your options.",
+    "badge": "Companies and Sponsorship",
+    "title_prefix": "Associate your brand with a project that",
+    "title_highlight": "transforms the region.",
+    "description": "Room and space naming, sponsor walls, brand partnerships and patronage. Talk to us to find the right option for your company or foundation.",
+    "cta": "Talk About Corporate Support",
+    "disclaimer": "Tax benefits are not guaranteed. Donations without commercial consideration may qualify under the Portuguese Tax Benefits Statute. Talk to us to assess your option.",
     "benefits": {
       "impact": {
-        "title": "Impact",
-        "description": "Education, youth, culture and innovation that revitalise the interior."
+        "title": "Real impact",
+        "description": "Education, youth, culture and innovation that revitalise inland Portugal."
       },
       "reputation": {
-        "title": "Reputation",
-        "description": "A public initiative, visible and with a transformative vocation for the territory."
+        "title": "Permanent visibility",
+        "description": "Your brand's name on a room, a wall or the centre itself."
       },
       "transparency": {
-        "title": "Rigour & Transparency",
-        "description": "Support analysed case by case, with full transparency on the use of funds."
+        "title": "Rigour and transparency",
+        "description": "Support assessed case by case, with clear information on how funds are used."
+      }
+    }
+  },
+  "other_ways": {
+    "title": "Other ways to support",
+    "description": "Not all support goes through the platform. These Hawk Stars initiatives also feed into Global Village.",
+    "items": {
+      "gallery": {
+        "figure": "40%",
+        "title": "Social Impact Art Gallery",
+        "description": "Of every artwork sold goes to the project (with some exceptions).",
+        "cta": "Visit the gallery"
+      },
+      "shop": {
+        "figure": "25–50%",
+        "title": "Online Shop",
+        "description": "Of the price of each product sold, with the percentage stated on every order."
+      },
+      "direct": {
+        "figure": "100%",
+        "title": "Direct donation",
+        "description": "Donate directly to Hawk Stars, without going through the crowdfunding platform.",
+        "cta": "Make a donation"
       }
     }
   },
   "partners": {
     "badge": "Already Supported By",
-    "title_prefix": "People and organisations that",
+    "title_prefix": "People and organisations who",
     "title_highlight": "believe",
     "title_suffix": "in this project.",
-    "description": "A growing network of patrons, partners, donors and community already making it happen.",
-    "tabs": {
-      "godparents": "Patrons",
-      "partners": "Partners",
-      "donors": "Donors",
-      "community": "Community"
-    },
-    "entities": {
-      "hawk_stars": {
-        "name": "Hawk Stars",
-        "subtitle": "NGO for Education, Innovation & Social Development"
-      },
-      "ipdj": {
-        "name": "IPDJ",
-        "subtitle": "Portuguese Institute for Sport and Youth, I.P."
-      },
-      "politecnico": {
-        "name": "Polytechnic of Guarda",
-        "subtitle": ""
-      },
-      "camara": {
-        "name": "Municipality of Pinhel",
-        "subtitle": ""
-      },
-      "guarda": {
-        "name": "Guarda",
-        "subtitle": "Guarda for itself."
-      }
-    },
+    "description": "Our donors wall: a growing network of people, companies and institutions already making it happen. Thank you!",
     "no_supporters": "Our supporters will appear here soon."
   },
   "faq": {
     "badge": "Frequently Asked Questions",
-    "title_line1": "Get your questions answered.",
+    "title_line1": "Clear your doubts.",
     "title_highlight": "Transparency",
     "title_line2": "is our promise.",
-    "description_prefix": "We have gathered here the answers to the most common questions about the campaign and the project",
+    "description": "Can't find the answer? Write to us at fundraising@hawkstars.org.",
     "items": {
       "how_to_support": {
         "question": "How can I support?",
-        "answer": "You can contribute through our crowdfunding campaign, make a direct donation, support as a company or buy from our solidarity shop."
-      },
-      "other_ways": {
-        "question": "Are there ways to donate outside the platform?",
-        "answer": "Yes. You can make a bank transfer, donate via MBWay or talk to us about business support and patronage."
-      },
-      "rewards": {
-        "question": "How do the rewards work?",
-        "answer": "Each support tier has an associated reward. You will receive all the details after your contribution."
+        "answer": "By contributing to the official GoFundMe campaign, sharing it with people who believe in the future of inland Portugal, supporting as a company, or through the Hawk Stars Art Gallery and charity shop."
       },
       "goal_not_met": {
         "question": "What happens if the goal is not reached?",
-        "answer": "Every euro raised will be applied to the project launch. The campaign is all-or-nothing; if we do not reach the goal, funds are returned."
+        "answer": "The project moves forward in phases. Every euro raised goes into the first technical and operational steps (licensing, engineering, start of works), and structural works begin once the first €40,000 is raised."
+      },
+      "other_ways": {
+        "question": "Can I donate outside the platform?",
+        "answer": "Yes. You can donate directly to Hawk Stars, buy from the Social Impact Art Gallery or the online shop, or talk to us about corporate support and patronage."
+      },
+      "rewards": {
+        "question": "How do rewards work?",
+        "answer": "Choose a reward, contribute the matching amount on GoFundMe and email us at fundraising@hawkstars.org. We will arrange the delivery or experience details with you."
       },
       "transparency": {
-        "question": "How does transparency work?",
-        "answer": "We publish regular updates, reports on the use of funds and project milestones. Follow everything in the Updates section."
+        "question": "How can I follow how the funds are used?",
+        "answer": "We regularly update the amount raised, the project phases and the news on this page and on our social media."
       },
       "companies": {
         "question": "Are there options for companies?",
-        "answer": "Yes. We offer naming options, partnerships, patronage and visibility benefits. Contact us to find out more."
+        "answer": "Yes: room and space naming, logo walls, brand partnerships and patronage. Talk to us to find the best option."
       },
       "abroad": {
         "question": "Can I support from abroad?",
-        "answer": "Yes. The platform accepts international contributions and we provide a donation receipt."
+        "answer": "Yes. GoFundMe accepts contributions from many countries and currencies."
       },
       "receipt": {
-        "question": "How do I receive my receipt?",
-        "answer": "You will receive it automatically by email after your contribution. For donations and business support, we issue a receipt for tax purposes."
+        "question": "How do I get a receipt?",
+        "answer": "GoFundMe emails you a receipt after your contribution. For donations and corporate support for tax purposes, contact us and Hawk Stars will issue a receipt."
       }
     }
   },
   "cta": {
-    "title_line1": "The future of the interior",
-    "title_highlight": "is also built like this.",
-    "description": "Every contribution helps transform vision into real space, community into movement and territory into opportunity.",
-    "cta_support": "Support Now →",
-    "cta_share": "Share Campaign →",
-    "cta_team": "Talk to the Team →"
+    "title_line1": "The future of inland Portugal isn't written alone.",
+    "title_highlight": "It's written with us.",
+    "description": "Every contribution helps turn a vacant building into a place of opportunity for Pinhel. Co-create with us.",
+    "cta_support": "Support Now",
+    "cta_share": "Share the Campaign",
+    "cta_team": "Talk to the Team"
   },
   "nav": {
     "about": "About",
+    "spaces": "The Space",
     "rewards": "Rewards",
     "transparency": "Transparency",
     "faq": "FAQ",

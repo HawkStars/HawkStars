@@ -1,32 +1,15 @@
-import type { Metadata } from 'next';
 import { Language } from '@/i18n/settings';
-import CrowdfundingHero from '@/components/Crowdfunding/CrowdfundingHero';
-import CrowdfundingVideo from '@/components/Crowdfunding/CrowdfundingVideo';
-import CrowdfundingAbout from '@/components/Crowdfunding/CrowdfundingAbout';
-import CrowdfundingTransparency from '@/components/Crowdfunding/CrowdfundingTransparency';
-import CrowdfundingRewards from '@/components/Crowdfunding/CrowdfundingRewards';
-import CrowdfundingUpdates from '@/components/Crowdfunding/CrowdfundingUpdates';
-import CrowdfundingBusiness from '@/components/Crowdfunding/CrowdfundingBusiness';
-import CrowdfundingPartners from '@/components/Crowdfunding/CrowdfundingPartners';
-import CrowdfundingFAQ from '@/components/Crowdfunding/CrowdfundingFAQ';
-import CrowdfundingCTA from '@/components/Crowdfunding/CrowdfundingCTA';
+import CrowdfundingPageContent from '@/components/Crowdfunding/CrowdfundingPageContent';
 import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
 import { getServerTranslation } from '@/i18n';
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: 'Crowdfunding | Global Village by Hawk Stars',
-    description:
-      'Ajuda-nos a construir o Global Village em Pinhel. Campanha pública de crowdfunding para transformar um edifício devoluto num centro multidisciplinar.',
-  };
-}
+// Metadata comes from the (crowdfunding) layout, localised via metadata.json. This
+// page used to override it with a Portuguese literal, so /en showed a PT title.
+
+export const instant = false;
 
 const CrowdfundingPage = async (props: { params: Promise<{ lng: Language }> }) => {
   const { lng } = await props.params;
-  return <CrowdfundingContent lng={lng} />;
-};
-
-async function CrowdfundingContent({ lng }: { lng: Language }) {
   const [{ t }, settings] = await Promise.all([
     getServerTranslation(lng, 'crowdfunding'),
     getCrowdfundingSettings(lng),
@@ -34,20 +17,7 @@ async function CrowdfundingContent({ lng }: { lng: Language }) {
 
   if (!settings) return null;
 
-  return (
-    <div className='bg-crowdfunding-bg flex flex-col'>
-      <CrowdfundingHero lng={lng} {...settings} t={t} />
-      <CrowdfundingVideo {...settings} t={t} />
-      <CrowdfundingAbout {...settings} t={t} />
-      <CrowdfundingTransparency lng={lng} {...settings} t={t} />
-      <CrowdfundingRewards {...settings} t={t} />
-      <CrowdfundingUpdates {...settings} t={t} lng={lng} />
-      <CrowdfundingBusiness {...settings} t={t} />
-      <CrowdfundingPartners {...settings} t={t} />
-      <CrowdfundingFAQ {...settings} t={t} />
-      <CrowdfundingCTA {...settings} t={t} />
-    </div>
-  );
-}
+  return <CrowdfundingPageContent settings={settings} t={t} lng={lng} />;
+};
 
 export default CrowdfundingPage;

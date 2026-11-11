@@ -102,9 +102,18 @@ Only use inside `app/[lng]/(crowdfunding)/` and `components/Crowdfunding/`.
 
 | Token                      | Usage                                    |
 | -------------------------- | ---------------------------------------- |
-| `crowdfunding-bg`          | Dark page background (`#0d0d0d`)         |
-| `crowdfunding-surface`     | Card/panel background (`#1a1a1a`)        |
-| `crowdfunding-surface-alt` | Alternate section background (`#111111`) |
+| `crowdfunding-bg`            | Plum-black page background (`#140a10`)                         |
+| `crowdfunding-surface`       | Card/panel background (`#211219`)                              |
+| `crowdfunding-surface-alt`   | Alternate section background (`#1a0e14`)                       |
+| `crowdfunding-line`          | Hairline borders (white 10%)                                   |
+| `crowdfunding-accent`        | Orange text, icons and progress on dark (`#ff7a2f`, 7:1)       |
+| `crowdfunding-accent-strong` | Button fill with white text (`#c2410c`, 5.2:1)                 |
+| `crowdfunding-glow`          | Decorative orange glow orbs only (`Glow` in `components/Crowdfunding/ui.tsx`) |
+| `crowdfunding-muted`         | Secondary body text (`#b8a9b1`)                                |
+
+The palette follows the Global Village 2026 campaign artwork (rewards catalogue). Buttons use
+`Button variant='crowdfunding' | 'crowdfunding-outline'`; sections use `CfSection`, `SectionEyebrow`
+and `Highlight` from `components/Crowdfunding/ui.tsx`.
 
 ---
 

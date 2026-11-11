@@ -43,9 +43,16 @@
   --color-erasmus-sport: #f0b97a;
 
   /* Crowdfunding theme */
-  --color-crowdfunding-bg: #0d0d0d;
-  --color-crowdfunding-surface: #1a1a1a;
-  --color-crowdfunding-surface-alt: #111111;
+  /* Matches the Global Village 2026 campaign identity (rewards catalogue,
+     presentation): deep plum-black with a warm orange glow. */
+  --color-crowdfunding-bg: #140a10;
+  --color-crowdfunding-surface: #211219;
+  --color-crowdfunding-surface-alt: #1a0e14;
+  --color-crowdfunding-line: rgba(255, 255, 255, 0.1);
+  --color-crowdfunding-accent: #ff7a2f; /* text/progress on dark — 7:1 on bg */
+  --color-crowdfunding-accent-strong: #c2410c; /* button fill — 5.2:1 with white */
+  --color-crowdfunding-glow: #ff6a13;
+  --color-crowdfunding-muted: #b8a9b1;
 
   /* Gaming theme */
   --color-gaming-bg: #0a0a0f;

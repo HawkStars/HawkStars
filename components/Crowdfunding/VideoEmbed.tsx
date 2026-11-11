@@ -1,8 +1,10 @@
 'use client';
 
 import { useCallback, useState } from 'react';
+import { LuPlay } from 'react-icons/lu';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
+import { ImageMedia, VideoMedia } from '@/payload/components/Media';
 
 type Props = {
   videoUrl: string;
@@ -12,100 +14,51 @@ type Props = {
 };
 
 /**
- * Converts a YouTube or Vimeo URL into an embeddable URL.
- * Returns null if the URL format is not recognised.
+ * Poster first, player on click — the iframe (and its third-party requests) only
+ * loads once the visitor asks for it. Playback itself goes through `VideoMedia`,
+ * which handles YouTube/Vimeo/direct URLs.
  */
-function toEmbedUrl(url: string): string | null {
-  // YouTube: youtube.com/watch?v=ID, youtu.be/ID, youtube.com/embed/ID
-  const ytMatch = url.match(
-    /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
-  );
-  if (ytMatch) {
-    return `https://www.youtube-nocookie.com/embed/${ytMatch[1]}?autoplay=1&rel=0`;
-  }
-
-  // Vimeo: vimeo.com/ID, player.vimeo.com/video/ID
-  const vimeoMatch = url.match(/(?:vimeo\.com\/|player\.vimeo\.com\/video\/)(\d+)/);
-  if (vimeoMatch) {
-    return `https://player.vimeo.com/video/${vimeoMatch[1]}?autoplay=1`;
-  }
-
-  return null;
-}
-
 export const VideoEmbed = ({ videoUrl, thumbnailUrl, overlayLine1, overlayLine2 }: Props) => {
   const lng = useLanguageCookie();
   const { t } = useTranslation(lng, 'crowdfunding');
   const [playing, setPlaying] = useState(false);
-
-  const embedUrl = toEmbedUrl(videoUrl);
-
-  const handlePlay = useCallback(() => {
-    if (embedUrl) {
-      setPlaying(true);
-    } else {
-      // Fallback: open in new tab if URL format is not embeddable
-      window.open(videoUrl, '_blank', 'noopener,noreferrer');
-    }
-  }, [embedUrl, videoUrl]);
+  const play = useCallback(() => setPlaying(true), []);
 
   return (
-    <div className='bg-crowdfunding-surface relative aspect-video w-full overflow-hidden rounded-2xl'>
-      {playing && embedUrl ? (
-        <iframe
-          src={embedUrl}
-          className='absolute inset-0 h-full w-full'
-          allow='autoplay; encrypted-media; picture-in-picture'
-          allowFullScreen
+    <div className='bg-crowdfunding-surface border-crowdfunding-line relative aspect-video w-full overflow-hidden rounded-xl border shadow-lg'>
+      {playing ? (
+        <VideoMedia
+          src={videoUrl}
+          autoPlay
+          controls
           title={t('video.player_title')}
+          videoClassName='h-full w-full'
         />
       ) : (
-        <>
-          <div
-            className='absolute inset-0 bg-cover bg-center'
-            style={{ backgroundImage: `url('${thumbnailUrl}')` }}
+        <button
+          type='button'
+          onClick={play}
+          aria-label={t('video.play')}
+          className='group absolute inset-0 cursor-pointer text-left'
+        >
+          <ImageMedia
+            src={thumbnailUrl}
+            alt=''
+            fill
+            sizes='(min-width: 1024px) 60vw, 100vw'
+            className='object-cover'
           />
-          <div className='absolute inset-0 bg-black/30' />
-
-          <div className='absolute right-6 bottom-12 left-6'>
-            <p className='font-oswald text-2xl font-bold text-white uppercase lg:text-3xl'>
-              {overlayLine1}
-            </p>
-            <p className='font-oswald text-2xl font-bold text-orange-500 uppercase lg:text-3xl'>
-              {overlayLine2}
-            </p>
-          </div>
-
-          <div className='absolute inset-0 flex items-center justify-center'>
-            <button
-              onClick={handlePlay}
-              className='flex h-16 w-16 items-center justify-center rounded-full backdrop-blur-sm transition'
-              aria-label={t('video.play')}
-            >
-              <svg className='ml-1 h-16 w-16 text-white' fill='currentColor' viewBox='0 0 20 20'>
-                <path
-                  fillRule='evenodd'
-                  d='M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z'
-                  clipRule='evenodd'
-                />
-              </svg>
-            </button>
-          </div>
-
-          <div className='absolute right-0 bottom-0 left-0 bg-black/50 px-4 py-2'>
-            <div className='flex items-center gap-3 text-sm text-white'>
-              <svg className='h-4 w-4' fill='currentColor' viewBox='0 0 20 20'>
-                <path
-                  fillRule='evenodd'
-                  d='M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z'
-                  clipRule='evenodd'
-                />
-              </svg>
-              <span>0:00 / 3:24</span>
-              <div className='flex-1' />
-            </div>
-          </div>
-        </>
+          <span className='from-crowdfunding-bg/90 absolute inset-0 bg-linear-to-t to-transparent' />
+          <span className='absolute inset-0 flex items-center justify-center'>
+            <span className='bg-crowdfunding-accent-strong flex size-20 items-center justify-center rounded-full text-white shadow-[0_0_60px_-10px_var(--color-crowdfunding-glow)] transition-transform group-hover:scale-110'>
+              <LuPlay aria-hidden='true' className='ml-1 size-8 fill-current' />
+            </span>
+          </span>
+          <span className='font-display absolute bottom-6 left-6 flex flex-col text-2xl font-semibold uppercase lg:text-3xl'>
+            <span className='text-white'>{overlayLine1}</span>
+            <span className='text-crowdfunding-accent'>{overlayLine2}</span>
+          </span>
+        </button>
       )}
     </div>
   );

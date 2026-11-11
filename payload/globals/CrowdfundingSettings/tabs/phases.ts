@@ -10,6 +10,9 @@ const CrowdfundingSettingsPhasesTab: Tab = {
     {
       name: 'phases',
       type: 'array',
+      // Also makes the MCP schema accept row ids, so a second locale can be written
+      // onto the same rows instead of replacing them.
+      interfaceName: 'CrowdfundingPhase',
       admin: {
         description: {
           en: 'Campaign phases shown in the timeline section. Add one per phase, in order.',

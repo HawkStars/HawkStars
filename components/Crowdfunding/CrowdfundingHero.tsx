@@ -1,12 +1,26 @@
-import { Language } from '@/i18n/settings';
-import { formatCurrency } from '@/lib/utils/currency';
-import { CrowdfundingSetting, Media } from '@/payload-types';
+import { LuHeart, LuMapPin, LuPlay, LuUsers } from 'react-icons/lu';
 import { TFunction } from 'i18next';
+import { Language } from '@/i18n/settings';
+import { CrowdfundingSetting } from '@/payload-types';
+import { ImageMedia } from '@/payload/components/Media';
+import { Button } from '@/components/ui/button';
+import { Container, Glow, ProgressBar } from './ui';
+import { formatEuro } from '@/lib/utils/currency';
+import { getPercentage, WORKS_START_AMOUNT } from './utils';
 
 type Props = { t: TFunction<string, string>; lng: Language } & Pick<
   CrowdfundingSetting,
-  'raisedAmount' | 'campaignGoal' | 'projectGoal' | 'heroImage' | 'lastUpdateDate' | 'supportUrl'
+  | 'raisedAmount'
+  | 'campaignGoal'
+  | 'projectGoal'
+  | 'heroImage'
+  | 'lastUpdateDate'
+  | 'supportUrl'
+  | 'videoUrl'
+  | 'supporters'
 >;
+
+const FALLBACK_HERO = '/images/training_center/exterior1.jpg';
 
 const CrowdfundingHero = ({
   t,
@@ -16,172 +30,143 @@ const CrowdfundingHero = ({
   heroImage,
   lastUpdateDate,
   supportUrl,
+  videoUrl,
+  supporters,
   lng,
 }: Props) => {
-  const percentage = Math.round(((raisedAmount ?? 0) / (campaignGoal ?? 1)) * 100);
-
-  const heroImageUrl = typeof heroImage === 'object' ? (heroImage as Media)?.url : null;
-  const heroImageFinalUrl = heroImageUrl || '/images/projects/1.jpeg';
-
-  const tags = [
-    { key: 'location', icon: 'pin' },
-    { key: 'education', icon: 'book' },
-    { key: 'innovation', icon: 'star' },
-  ] as const;
+  const raised = raisedAmount ?? 0;
+  const percentage = getPercentage(raised, campaignGoal);
+  const supporterCount = supporters?.length ?? 0;
+  const markers =
+    campaignGoal && WORKS_START_AMOUNT < campaignGoal
+      ? [
+          {
+            at: (WORKS_START_AMOUNT / campaignGoal) * 100,
+            label: t('hero.stats.works_marker', { amount: formatEuro(WORKS_START_AMOUNT, lng) }),
+          },
+        ]
+      : [];
 
   return (
-    <section className='bg-crowdfunding-bg relative w-full overflow-hidden'>
-      <div
-        className='absolute inset-0 bg-cover bg-center opacity-30'
-        style={{ backgroundImage: `url('${heroImageFinalUrl}')` }}
-      />
-      <div className='from-crowdfunding-bg via-crowdfunding-bg/80 absolute inset-0 bg-linear-to-r to-transparent' />
+    <section className='bg-crowdfunding-bg relative isolate w-full overflow-hidden'>
+      <div className='absolute inset-0 -z-10'>
+        <ImageMedia
+          resource={typeof heroImage === 'object' && heroImage ? heroImage : FALLBACK_HERO}
+          alt=''
+          fill
+          preload
+          sizes='100vw'
+          className='object-cover opacity-35'
+        />
+        <div className='from-crowdfunding-bg via-crowdfunding-bg/85 to-crowdfunding-bg/30 absolute inset-0 bg-linear-to-r' />
+        <div className='from-crowdfunding-bg absolute inset-x-0 bottom-0 h-40 bg-linear-to-t to-transparent' />
+      </div>
+      <Glow className='-top-40 -right-40 size-144' />
+      <Glow className='-bottom-60 -left-40 size-112 opacity-20' />
 
-      <div className='relative mx-auto flex max-w-7xl flex-col gap-8 px-4 py-16 lg:flex-row lg:items-center lg:gap-12 lg:px-8 lg:py-24'>
-        {/* Left content */}
-        <div className='flex flex-1 flex-col gap-6'>
-          <span className='font-oswald w-fit rounded bg-orange-700 px-3 py-1 text-xs font-bold tracking-widest text-white uppercase'>
+      <Container className='grid gap-12 py-16 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-16 lg:py-28'>
+        <div className='flex flex-col gap-6'>
+          <p className='text-eyebrow text-crowdfunding-accent flex items-center gap-2'>
+            <LuMapPin aria-hidden='true' className='size-4' />
             {t('hero.badge')}
-          </span>
+          </p>
 
-          <h1 className='font-oswald text-4xl leading-tight font-bold text-white lg:text-6xl'>
-            {t('hero.title_prefix')} <span className='text-orange-500'>Global Village</span>{' '}
+          <h1 className='text-display text-white'>
+            {t('hero.title_prefix')}{' '}
+            <span className='text-crowdfunding-accent'>Global Village</span>{' '}
             {t('hero.title_suffix')}
           </h1>
 
-          <p className='max-w-xl text-base leading-relaxed text-gray-300 lg:text-lg'>
-            {t('hero.subtitle')}
-          </p>
+          <p className='text-h2_light text-crowdfunding-muted max-w-xl'>{t('hero.subtitle')}</p>
 
-          <div className='flex flex-wrap gap-3'>
-            <a
-              href={supportUrl || '#support'}
-              className='flex items-center gap-2 rounded-full bg-orange-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600'
-            >
-              <svg className='h-4 w-4' fill='currentColor' viewBox='0 0 20 20'>
-                <path d='M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z' />
-              </svg>
-              {t('hero.cta_support')}
-            </a>
-            <a
-              href='#video'
-              className='flex items-center gap-2 rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10'
-            >
-              <svg className='h-4 w-4' fill='currentColor' viewBox='0 0 20 20'>
-                <path
-                  fillRule='evenodd'
-                  d='M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z'
-                  clipRule='evenodd'
-                />
-              </svg>
-              {t('hero.cta_video')}
-            </a>
-          </div>
-
-          <div className='flex items-start gap-2 text-sm text-gray-400'>
-            <svg
-              className='mt-0.5 h-4 w-4 shrink-0 text-orange-500'
-              fill='currentColor'
-              viewBox='0 0 20 20'
-            >
-              <path
-                fillRule='evenodd'
-                d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
-                clipRule='evenodd'
-              />
-            </svg>
-            <span>{t('hero.disclaimer')}</span>
-          </div>
-
-          <div className='flex flex-wrap gap-2'>
-            {tags.map(({ key, icon }) => (
-              <span
-                key={key}
-                className='flex items-center gap-1.5 rounded-full border border-white/20 px-4 py-1.5 text-sm text-white'
+          <div className='flex flex-wrap gap-3 pt-2'>
+            <Button asChild variant='crowdfunding' size='xl'>
+              <a
+                href={supportUrl || '#rewards'}
+                target={supportUrl ? '_blank' : undefined}
+                rel='noopener noreferrer'
               >
-                {icon === 'pin' && (
-                  <svg className='h-3 w-3 text-orange-500' fill='currentColor' viewBox='0 0 20 20'>
-                    <path
-                      fillRule='evenodd'
-                      d='M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z'
-                      clipRule='evenodd'
-                    />
-                  </svg>
-                )}
-                {icon === 'book' && (
-                  <svg
-                    className='h-3 w-3 text-orange-500'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'
-                    />
-                  </svg>
-                )}
-                {icon === 'star' && (
-                  <svg className='h-3 w-3 text-orange-500' fill='currentColor' viewBox='0 0 20 20'>
-                    <path d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z' />
-                  </svg>
-                )}
-                {t(`hero.tags.${key}`)}
-              </span>
-            ))}
+                <LuHeart aria-hidden='true' />
+                {t('hero.cta_support')}
+              </a>
+            </Button>
+            {videoUrl ? (
+              <Button asChild variant='crowdfunding-outline' size='xl'>
+                <a href='#video'>
+                  <LuPlay aria-hidden='true' />
+                  {t('hero.cta_video')}
+                </a>
+              </Button>
+            ) : (
+              <Button asChild variant='crowdfunding-outline' size='xl'>
+                <a href='#rewards'>{t('hero.cta_rewards')}</a>
+              </Button>
+            )}
           </div>
+
+          <p className='text-crowdfunding-muted max-w-xl text-sm'>{t('hero.disclaimer')}</p>
         </div>
 
-        {/* Right - Funding stats card */}
-        <div className='bg-crowdfunding-surface/90 w-full rounded-2xl border border-white/10 p-6 backdrop-blur-sm lg:w-105'>
-          <p className='mb-1 text-xs font-semibold tracking-wider text-gray-400 uppercase'>
-            {t('hero.stats.raised_label')}
+        {/* Funding card */}
+        <div className='bg-crowdfunding-surface/80 border-crowdfunding-line relative rounded-xl border p-6 shadow-lg backdrop-blur-md lg:p-8'>
+          <p className='text-eyebrow text-crowdfunding-muted'>{t('hero.stats.raised_label')}</p>
+          <p className='font-display mt-2 text-5xl font-semibold text-white lg:text-6xl'>
+            {formatEuro(raised, lng)}
           </p>
-          <div className='flex items-baseline gap-3 max-lg:flex-wrap'>
-            <h2 className='text-4xl font-bold text-white max-lg:w-full'>
-              {formatCurrency(raisedAmount ?? 0, lng)}
-            </h2>
-            <span className='text-lg font-bold text-orange-500'>{percentage}%</span>
-            <span className='text-xs text-gray-400'>{t('hero.stats.percentage_label')}</span>
-          </div>
+          <p className='text-crowdfunding-muted mt-2 text-sm'>
+            {t('hero.stats.of_goal', {
+              percentage,
+              goal: formatEuro(campaignGoal ?? 0, lng),
+            })}
+          </p>
 
-          <div className='mt-4 h-2 w-full overflow-hidden rounded-full bg-white/10'>
-            <div
-              className='h-full rounded-full bg-orange-500 transition-all duration-1000'
-              style={{ width: `${percentage}%` }}
+          <div className='mt-6 mb-10'>
+            <ProgressBar
+              percentage={percentage}
+              markers={markers}
+              label={t('hero.stats.progress_label')}
             />
           </div>
 
-          <div className='mt-6 grid grid-cols-3 gap-4 border-t border-white/10 pt-4 max-lg:grid-cols-2 max-md:grid-cols-1'>
+          <dl className='border-crowdfunding-line grid grid-cols-2 gap-x-4 gap-y-5 border-t pt-6'>
             <div>
-              <p className='text-xs font-semibold tracking-wider text-gray-400 uppercase'>
+              <dt className='text-crowdfunding-muted text-xs'>
                 {t('hero.stats.campaign_goal_label')}
-              </p>
-              <p className='mt-1 text-lg font-bold text-white'>
-                {formatCurrency(campaignGoal ?? 0, lng)}
-              </p>
+              </dt>
+              <dd className='mt-1 text-lg font-semibold text-white'>
+                {formatEuro(campaignGoal ?? 0, lng)}
+              </dd>
             </div>
             <div>
-              <p className='text-xs font-semibold tracking-wider text-gray-400 uppercase'>
+              <dt className='text-crowdfunding-muted text-xs'>
                 {t('hero.stats.project_goal_label')}
-              </p>
-              <p className='mt-1 text-lg font-bold text-white'>
-                {formatCurrency(projectGoal ?? 0, lng)}
-              </p>
+              </dt>
+              <dd className='mt-1 text-lg font-semibold text-white'>
+                {formatEuro(projectGoal ?? 0, lng)}
+              </dd>
             </div>
-            <div>
-              <p className='text-xs font-semibold tracking-wider text-gray-400 uppercase'>
-                {t('hero.stats.last_update_label')}
-              </p>
-              <p className='mt-1 text-sm font-medium text-white'>
-                {lastUpdateDate || t('hero.stats.last_update_date')}
-              </p>
-            </div>
-          </div>
+            {supporterCount > 0 && (
+              <div>
+                <dt className='text-crowdfunding-muted text-xs'>
+                  {t('hero.stats.supporters_label')}
+                </dt>
+                <dd className='mt-1 flex items-center gap-2 text-lg font-semibold text-white'>
+                  <LuUsers aria-hidden='true' className='text-crowdfunding-accent size-4' />
+                  {supporterCount}
+                </dd>
+              </div>
+            )}
+            {lastUpdateDate && (
+              <div>
+                <dt className='text-crowdfunding-muted text-xs'>
+                  {t('hero.stats.last_update_label')}
+                </dt>
+                <dd className='mt-1 text-lg font-semibold text-white'>{lastUpdateDate}</dd>
+              </div>
+            )}
+          </dl>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

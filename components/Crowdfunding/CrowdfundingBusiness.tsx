@@ -1,114 +1,137 @@
-import { CrowdfundingSetting } from '@/payload-types';
 import { TFunction } from 'i18next';
+import Link from 'next/link';
+import {
+  LuArrowRight,
+  LuBadgeCheck,
+  LuBuilding2,
+  LuHandCoins,
+  LuInfo,
+  LuPalette,
+  LuShoppingBag,
+  LuSprout,
+} from 'react-icons/lu';
+import { Language } from '@/i18n/settings';
+import { cn } from '@/lib/utils';
+import { CrowdfundingSetting } from '@/payload-types';
+import { Button } from '@/components/ui/button';
+import { SITE_GET_URLS, transformUrl } from '@/utils/paths';
+import { CfSection, Container, Glow, Highlight, SectionEyebrow } from './ui';
 
-type Props = { t: TFunction<string, string> } & Pick<CrowdfundingSetting, 'businessCtaUrl'>;
+type Props = { t: TFunction<string, string>; lng: Language } & Pick<
+  CrowdfundingSetting,
+  'businessCtaUrl'
+>;
 
-const benefitIcons = [
-  <svg
-    key='impact'
-    className='h-12 w-12'
-    fill='none'
-    stroke='currentColor'
-    viewBox='0 0 24 24'
-    strokeWidth={1.5}
-  >
-    <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
-      d='M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418'
-    />
-  </svg>,
-  <svg
-    key='reputation'
-    className='h-12 w-12'
-    fill='none'
-    stroke='currentColor'
-    viewBox='0 0 24 24'
-    strokeWidth={1.5}
-  >
-    <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
-      d='M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.562.562 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z'
-    />
-  </svg>,
-  <svg
-    key='transparency'
-    className='h-12 w-12'
-    fill='none'
-    stroke='currentColor'
-    viewBox='0 0 24 24'
-    strokeWidth={1.5}
-  >
-    <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
-      d='M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z'
-    />
-  </svg>,
+const BENEFITS = [
+  { key: 'impact', Icon: LuSprout },
+  { key: 'reputation', Icon: LuBadgeCheck },
+  { key: 'transparency', Icon: LuBuilding2 },
 ] as const;
 
-const benefitKeys = ['impact', 'reputation', 'transparency'] as const;
+/**
+ * Ways to support outside the crowdfunding platform ("Lista de Rewards Doadores",
+ * May 2026). The online shop has no public URL yet, so it renders without a link.
+ */
+const OTHER_WAYS = [
+  { key: 'gallery', Icon: LuPalette, path: SITE_GET_URLS.gallery },
+  { key: 'shop', Icon: LuShoppingBag, path: null },
+  { key: 'direct', Icon: LuHandCoins, path: SITE_GET_URLS.contribute },
+] as const;
 
-const CrowdfundingBusiness = ({ businessCtaUrl, t }: Props) => {
-  return (
-    <section className='bg-crowdfunding-bg w-full py-16'>
-      <div className='mx-auto max-w-7xl px-4 lg:px-8'>
-        <div className='bg-crowdfunding-surface rounded-2xl border border-white/10 p-8 lg:p-12'>
-          <div className='flex flex-col gap-10 lg:flex-row lg:items-start'>
-            <div className='flex-1'>
-              <span className='flex items-center gap-2 text-xs font-semibold tracking-widest text-orange-500 uppercase'>
-                <span className='inline-block h-2 w-2 rounded-full bg-orange-500' />
-                {t('business.badge')}
-              </span>
-              <h2 className='font-oswald mt-4 text-2xl font-bold text-white lg:text-3xl'>
-                {t('business.title_prefix')}{' '}
-                <span className='text-orange-500'>{t('business.title_highlight')}</span>
-              </h2>
-              <p className='mt-4 text-sm leading-relaxed text-gray-400'>
-                {t('business.description')}
-              </p>
-              <a
-                href={businessCtaUrl || '#support'}
-                className='mt-6 inline-flex items-center gap-2 rounded-full bg-orange-800 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600'
-              >
-                {t('business.cta')}
-              </a>
-            </div>
+const CrowdfundingBusiness = ({ businessCtaUrl, t, lng }: Props) => (
+  <CfSection id='business'>
+    <Glow className='-top-20 -left-40 size-120 opacity-25' />
+    <Container>
+      <div className='bg-crowdfunding-surface border-crowdfunding-line relative overflow-hidden rounded-xl border p-6 lg:p-12'>
+        <Glow className='-right-32 -bottom-32 size-80 opacity-30' />
+        <div className='relative grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16'>
+          <div className='flex flex-col gap-5'>
+            <SectionEyebrow>{t('business.badge')}</SectionEyebrow>
+            <h2 className='text-h2_semibold text-white'>
+              {t('business.title_prefix')} <Highlight>{t('business.title_highlight')}</Highlight>
+            </h2>
+            <p className='text-crowdfunding-muted leading-relaxed'>{t('business.description')}</p>
+            <Button asChild variant='crowdfunding' size='lg' className='w-fit'>
+              <a href={businessCtaUrl || 'mailto:fundraising@hawkstars.org'}>{t('business.cta')}</a>
+            </Button>
+          </div>
 
-            <div className='flex flex-1 flex-col gap-6 lg:flex-row'>
-              {benefitKeys.map((key, index) => (
-                <div key={key} className='flex flex-1 flex-col items-center text-center'>
-                  <div className='mb-3 text-orange-500'>{benefitIcons[index]}</div>
-                  <h3 className='mb-2 text-sm font-bold text-white uppercase'>
+          <ul className='flex flex-col gap-6'>
+            {BENEFITS.map(({ key, Icon }) => (
+              <li key={key} className='flex gap-4'>
+                <span className='bg-crowdfunding-accent/10 text-crowdfunding-accent flex size-11 shrink-0 items-center justify-center rounded-full'>
+                  <Icon aria-hidden='true' className='size-5' />
+                </span>
+                <div>
+                  <h3 className='font-semibold text-white'>
                     {t(`business.benefits.${key}.title`)}
                   </h3>
-                  <p className='text-xs leading-relaxed text-gray-400'>
+                  <p className='text-crowdfunding-muted mt-1 text-sm leading-relaxed'>
                     {t(`business.benefits.${key}.description`)}
                   </p>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          <div className='bg-crowdfunding-bg mt-8 flex items-start gap-3 rounded-xl border border-white/10 px-5 py-3'>
-            <svg
-              className='mt-0.5 h-4 w-4 shrink-0 text-gray-500'
-              fill='currentColor'
-              viewBox='0 0 20 20'
-            >
-              <path
-                fillRule='evenodd'
-                d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
-                clipRule='evenodd'
-              />
-            </svg>
-            <p className='text-xs leading-relaxed text-gray-400'>{t('business.disclaimer')}</p>
-          </div>
+              </li>
+            ))}
+          </ul>
         </div>
+
+        <p className='border-crowdfunding-line text-crowdfunding-muted relative mt-10 flex items-start gap-3 border-t pt-6 text-xs leading-relaxed'>
+          <LuInfo aria-hidden='true' className='mt-0.5 size-4 shrink-0' />
+          {t('business.disclaimer')}
+        </p>
       </div>
-    </section>
-  );
-};
+
+      <div className='mt-16'>
+        <h3 className='text-h2_bold text-white'>{t('other_ways.title')}</h3>
+        <p className='text-crowdfunding-muted mt-2 max-w-2xl text-sm'>
+          {t('other_ways.description')}
+        </p>
+        <ul className='mt-8 grid gap-4 md:grid-cols-3'>
+          {OTHER_WAYS.map(({ key, Icon, path }) => {
+            const content = (
+              <>
+                <Icon aria-hidden='true' className='text-crowdfunding-accent size-6' />
+                <span className='font-display text-crowdfunding-accent text-3xl font-semibold'>
+                  {t(`other_ways.items.${key}.figure`)}
+                </span>
+                <span className='font-semibold text-white'>
+                  {t(`other_ways.items.${key}.title`)}
+                </span>
+                <span className='text-crowdfunding-muted text-sm leading-relaxed'>
+                  {t(`other_ways.items.${key}.description`)}
+                </span>
+                {path && (
+                  <span className='text-crowdfunding-accent mt-auto inline-flex items-center gap-1 pt-2 text-sm font-semibold'>
+                    {t(`other_ways.items.${key}.cta`)}
+                    <LuArrowRight
+                      aria-hidden='true'
+                      className='size-4 transition-transform group-hover:translate-x-1'
+                    />
+                  </span>
+                )}
+              </>
+            );
+            const cardClass =
+              'group bg-crowdfunding-surface-alt border-crowdfunding-line flex h-full flex-col gap-2 rounded-xl border p-6 transition-colors';
+            return (
+              <li key={key}>
+                {path ? (
+                  <Link
+                    href={transformUrl(lng, path)}
+                    className={cn(cardClass, 'hover:border-crowdfunding-accent/40')}
+                  >
+                    {content}
+                  </Link>
+                ) : (
+                  <div className={cardClass}>{content}</div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </Container>
+  </CfSection>
+);
 
 export default CrowdfundingBusiness;

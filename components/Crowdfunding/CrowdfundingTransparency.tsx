@@ -1,172 +1,165 @@
+import { TFunction } from 'i18next';
+import { LuArrowUpRight, LuCheck } from 'react-icons/lu';
 import { Language } from '@/i18n/settings';
-import { formatCurrency } from '@/lib/utils/currency';
 import { cn } from '@/lib/utils';
 import { CrowdfundingSetting } from '@/payload-types';
-import { TFunction } from 'i18next';
+import { CfSection, Container, Glow, Highlight, SectionEyebrow } from './ui';
+import { formatEuro } from '@/lib/utils/currency';
 
 type Props = { t: TFunction<string, string>; lng: Language } & Pick<
   CrowdfundingSetting,
-  | 'raisedAmount'
-  | 'campaignGoal'
-  | 'projectGoal'
-  | 'weeklyIncrease'
-  | 'lastUpdateDate'
-  | 'phases'
-  | 'transparencyDocUrl'
+  'campaignGoal' | 'projectGoal' | 'phases' | 'transparencyDocUrl'
 >;
+
+type PhaseStatus = 'done' | 'current' | 'next';
+type TimelineItem = { id: string; title: string; period?: string | null; status: PhaseStatus };
+
+/** What the first campaign goal pays for (Global Village 2026 presentation, cover + §3). */
+const FUND_USES = [
+  'licensing',
+  'engineering',
+  'works',
+  'communication',
+  'working_capital',
+] as const;
+
+/**
+ * Fallback timeline while the "Campaign Phases" tab in Payload is empty. Source:
+ * "FASES DO PROJETO" and the 2026–2036 schedule in the 2026 presentation (§7.2).
+ */
+const FALLBACK_TIMELINE: { key: string; status: PhaseStatus }[] = [
+  { key: 'design', status: 'done' },
+  { key: 'launch', status: 'done' },
+  { key: 'campaign', status: 'current' },
+  { key: 'works', status: 'next' },
+  { key: 'build', status: 'next' },
+];
+
+const getTimeline = (
+  phases: CrowdfundingSetting['phases'],
+  t: TFunction<string, string>
+): TimelineItem[] => {
+  if (phases && phases.length > 0) {
+    const firstOpen = phases.findIndex((phase) => !phase.completed);
+    return phases.map((phase, index) => ({
+      id: phase.id ?? String(index),
+      title: phase.title,
+      period: phase.description,
+      status: phase.completed ? 'done' : index === firstOpen ? 'current' : 'next',
+    }));
+  }
+  return FALLBACK_TIMELINE.map(({ key, status }) => ({
+    id: key,
+    title: t(`transparency.timeline.${key}.title`),
+    period: t(`transparency.timeline.${key}.period`),
+    status,
+  }));
+};
 
 const CrowdfundingTransparency = ({
   t,
-  raisedAmount,
   campaignGoal,
   projectGoal,
-  weeklyIncrease,
-  lastUpdateDate,
   phases,
   transparencyDocUrl,
   lng,
 }: Props) => {
-  const phaseKeys = phases;
-  const percentage = Math.round((raisedAmount / campaignGoal) * 100);
+  const timeline = getTimeline(phases, t);
 
   return (
-    <section id='transparency' className='bg-crowdfunding-surface-alt w-full py-16'>
-      <div className='mx-auto max-w-7xl px-4 lg:px-8'>
-        <div className='flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-16'>
-          {/* Left text */}
-          <div className='flex-1'>
-            <span className='flex items-center gap-2 text-xs font-semibold tracking-widest text-orange-500 uppercase'>
-              <span className='inline-block h-2 w-2 rounded-full bg-orange-500' />
-              {t('transparency.badge')}
-            </span>
-            <h2 className='font-oswald mt-4 text-2xl font-bold text-white lg:text-3xl'>
-              {t('transparency.title')}
-            </h2>
-            <p className='mt-4 text-sm leading-relaxed text-gray-400'>
-              {t('transparency.description')}
-            </p>
-            {transparencyDocUrl ? (
-              <a
-                href={transparencyDocUrl}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='mt-4 inline-block text-sm font-semibold text-orange-500 transition hover:text-orange-400'
-              >
-                {t('transparency.cta_money')}
-              </a>
-            ) : (
-              <span className='mt-4 inline-block text-sm font-semibold text-orange-500'>
-                {t('transparency.cta_money')}
-              </span>
-            )}
+    <CfSection id='transparency'>
+      <Glow className='-right-40 bottom-0 size-120 opacity-25' />
+      <Container className='grid gap-14 lg:grid-cols-2 lg:gap-20'>
+        <div className='flex flex-col gap-5'>
+          <SectionEyebrow>{t('transparency.badge')}</SectionEyebrow>
+          <h2 className='text-h2_semibold text-white'>
+            {t('transparency.title_prefix')}{' '}
+            <Highlight>{t('transparency.title_highlight')}</Highlight>
+          </h2>
+          <p className='text-crowdfunding-muted leading-relaxed'>
+            {t('transparency.description', {
+              campaignGoal: formatEuro(campaignGoal ?? 0, lng),
+              projectGoal: formatEuro(projectGoal ?? 0, lng),
+            })}
+          </p>
+
+          <div className='bg-crowdfunding-surface border-crowdfunding-line mt-4 rounded-xl border p-6'>
+            <h3 className='text-h3_semibold text-white'>
+              {t('transparency.uses_title', { campaignGoal: formatEuro(campaignGoal ?? 0, lng) })}
+            </h3>
+            <ul className='mt-4 flex flex-col gap-3'>
+              {FUND_USES.map((key) => (
+                <li key={key} className='flex items-start gap-3 text-sm text-white/85'>
+                  <span className='bg-crowdfunding-accent/15 text-crowdfunding-accent mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full'>
+                    <LuCheck aria-hidden='true' className='size-3' />
+                  </span>
+                  {t(`transparency.uses.${key}`)}
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Right stats */}
-          <div className='bg-crowdfunding-surface flex-1 rounded-2xl border border-white/10 p-6'>
-            <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
-              <div>
-                <p className='text-xs font-semibold tracking-wider text-gray-400 uppercase'>
-                  {t('transparency.raised_label')}
-                </p>
-                <p className='mt-1 text-2xl font-bold text-white'>
-                  {formatCurrency(raisedAmount ?? 0, lng)}
-                </p>
-                <p className='mt-1 flex items-center gap-1 text-xs text-green-500'>
-                  <svg className='h-3 w-3' fill='currentColor' viewBox='0 0 20 20'>
-                    <path
-                      fillRule='evenodd'
-                      d='M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z'
-                      clipRule='evenodd'
-                    />
-                  </svg>
-                  {weeklyIncrease || 0}
-                </p>
-              </div>
-              <div>
-                <p className='text-xs font-semibold tracking-wider text-gray-400 uppercase'>
-                  {t('transparency.campaign_goal_label')}
-                </p>
-                <p className='mt-1 text-2xl font-bold text-white'>
-                  {formatCurrency(campaignGoal ?? 0, lng)}
-                </p>
-                <p className='mt-1 text-xs text-gray-400'>
-                  {percentage}
-                  {t('transparency.percentage_label')}
-                </p>
-              </div>
-              <div>
-                <p className='text-xs font-semibold tracking-wider text-gray-400 uppercase'>
-                  {t('transparency.project_goal_label')}
-                </p>
-                <p className='mt-1 text-2xl font-bold text-white'>
-                  {formatCurrency(projectGoal ?? 0, lng)}
-                </p>
-                <p className='mt-1 text-xs text-gray-400'>
-                  {t('transparency.project_total_label')}
-                </p>
-              </div>
-              <div>
-                <p className='text-xs font-semibold tracking-wider text-gray-400 uppercase'>
-                  {t('transparency.last_update_label')}
-                </p>
-                <div className='mt-1 flex items-center gap-2'>
-                  <svg
-                    className='h-5 w-5 text-orange-500'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                    strokeWidth={1.5}
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5'
-                    />
-                  </svg>
-                  <p className='text-sm font-medium text-white'>
-                    {lastUpdateDate || t('transparency.last_update_date')}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className='mt-5 h-2 w-full overflow-hidden rounded-full bg-white/10'>
-              <div
-                className='h-full rounded-full bg-orange-500 transition-all duration-1000'
-                style={{ width: `${percentage}%` }}
-              />
-            </div>
-
-            {phaseKeys && phaseKeys?.length > 0 && (
-              <div className='mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3'>
-                {phaseKeys.map((phase, index) => (
-                  <div
-                    key={phase.id}
-                    className='bg-crowdfunding-bg flex flex-col gap-3 rounded-xl border border-white/10 px-4 py-3'
-                  >
-                    <div className='flex'>
-                      <div
-                        className={cn(
-                          'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-sm font-bold',
-                          { 'border-orange-500 text-orange-500': !phase.completed },
-                          { 'border-green text-green': phase.completed }
-                        )}
-                      >
-                        {index + 1}
-                      </div>
-                      <p className='my-auto ml-2 text-sm font-bold text-white'>{phase.title}</p>
-                    </div>
-                    <div>
-                      <p className='text-xs text-gray-400'>{phase.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          {transparencyDocUrl && (
+            <a
+              href={transparencyDocUrl}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='text-crowdfunding-accent inline-flex w-fit items-center gap-1 text-sm font-semibold underline-offset-4 hover:underline'
+            >
+              {t('transparency.cta_money')}
+              <LuArrowUpRight aria-hidden='true' className='size-4' />
+            </a>
+          )}
         </div>
-      </div>
-    </section>
+
+        <div>
+          <h3 className='text-h2_bold text-white'>{t('transparency.timeline_title')}</h3>
+          <ol className='mt-8 flex flex-col'>
+            {timeline.map((item, index) => (
+              <li key={item.id} className='relative flex gap-5 pb-8 last:pb-0'>
+                {index < timeline.length - 1 && (
+                  <span
+                    aria-hidden='true'
+                    className={cn(
+                      'absolute top-9 bottom-0 left-4.25 w-px',
+                      item.status === 'done' ? 'bg-crowdfunding-accent/60' : 'bg-white/15'
+                    )}
+                  />
+                )}
+                <span
+                  className={cn(
+                    'relative flex size-9 shrink-0 items-center justify-center rounded-full border text-sm font-semibold',
+                    item.status === 'done' &&
+                      'border-crowdfunding-accent bg-crowdfunding-accent text-crowdfunding-bg',
+                    item.status === 'current' &&
+                      'border-crowdfunding-accent text-crowdfunding-accent bg-crowdfunding-bg ring-crowdfunding-accent/20 ring-4',
+                    item.status === 'next' && 'bg-crowdfunding-bg border-white/20 text-white/60'
+                  )}
+                >
+                  {item.status === 'done' ? (
+                    <LuCheck aria-hidden='true' className='size-4' />
+                  ) : (
+                    index + 1
+                  )}
+                </span>
+                <div className='flex flex-col gap-1 pt-1.5'>
+                  <p className='flex flex-wrap items-center gap-2 font-semibold text-white'>
+                    {item.title}
+                    {item.status === 'current' && (
+                      <span className='bg-crowdfunding-accent-strong rounded-full px-2.5 py-0.5 text-xs font-semibold text-white'>
+                        {t('transparency.now')}
+                      </span>
+                    )}
+                  </p>
+                  {item.period && <p className='text-crowdfunding-muted text-sm'>{item.period}</p>}
+                  <span className='sr-only'>{t(`transparency.status.${item.status}`)}</span>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </Container>
+    </CfSection>
   );
 };
 

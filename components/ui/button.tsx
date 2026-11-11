@@ -30,6 +30,11 @@ const buttonVariants = cva(
           'rounded-none border border-art-gold/60 text-art-gold-bright hover:border-art-gold-bright hover:bg-art-gold-bright/10 focus-visible:ring-art-gold-bright/50',
         'art-ghost':
           'rounded-none px-0 text-art-gold-bright hover:text-art-text focus-visible:ring-art-gold-bright/50',
+        // Crowdfunding sub-site (dark plum theme) — only for app/[lng]/(crowdfunding) and components/Crowdfunding.
+        crowdfunding:
+          'rounded-full bg-crowdfunding-accent-strong text-white font-semibold shadow-[0_10px_30px_-10px_var(--color-crowdfunding-glow)] hover:brightness-110 focus-visible:ring-crowdfunding-accent/50',
+        'crowdfunding-outline':
+          'rounded-full border border-white/25 text-white font-semibold hover:border-white/50 hover:bg-white/5 focus-visible:ring-crowdfunding-accent/50',
       },
       // Primary actions are at least 44px tall (lg/xl) so they are comfortable to tap.
       size: {
@@ -45,6 +50,10 @@ const buttonVariants = cva(
         art: 'min-h-11 px-6 py-3 font-art-sans text-xs font-semibold tracking-[0.15em] uppercase whitespace-normal text-center',
       },
     },
+    // Sizes set `rounded-md` after the variant; keep the crowdfunding pills round.
+    compoundVariants: [
+      { variant: ['crowdfunding', 'crowdfunding-outline'], className: 'rounded-full' },
+    ],
     defaultVariants: {
       variant: 'default',
       size: 'default',

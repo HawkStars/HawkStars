@@ -1,113 +1,77 @@
-import { ImageMedia } from '@/payload/components/Media';
-import { LuHandshake, LuHeart, LuStar, LuUsers } from 'react-icons/lu';
-import { CrowdfundingSetting, Media } from '@/payload-types';
 import { TFunction } from 'i18next';
+import { CrowdfundingSetting } from '@/payload-types';
+import { ImageMedia } from '@/payload/components/Media';
+import { CfSection, Container, Highlight, SectionEyebrow } from './ui';
 
 type Props = { t: TFunction<string, string> } & Pick<CrowdfundingSetting, 'supporters'>;
 
-const tabKeys = ['godparents', 'partners', 'donors', 'community'] as const;
-const tabIcons = [LuStar, LuHandshake, LuHeart, LuUsers] as const;
-
-function getInitials(name: string): string {
-  if (!name) return '';
-  return name
+const getInitials = (name: string) =>
+  name
     .split(/\s+/)
+    .filter(Boolean)
     .slice(0, 2)
-    .map((w) => w[0])
+    .map((word) => word[0])
     .join('')
     .toUpperCase();
-}
 
+/** Online donors wall. The contributed `value` is internal and intentionally not rendered. */
 const CrowdfundingPartners = ({ t, supporters }: Props) => {
+  const list = supporters ?? [];
+  // Entities first: logos read better at the top of the wall.
+  const sorted = [...list].sort(
+    (a, b) => Number(b.type === 'entity') - Number(a.type === 'entity')
+  );
+
   return (
-    <section id='supporters' className='bg-crowdfunding-surface-alt w-full py-16'>
-      <div className='mx-auto max-w-7xl px-4 lg:px-8'>
-        <div className='flex flex-col gap-10 lg:flex-row lg:items-start'>
-          <div className='flex shrink-0 flex-col gap-4 lg:w-80'>
-            <span className='flex items-center gap-2 text-xs font-semibold tracking-widest text-orange-500 uppercase'>
-              <span className='inline-block h-2 w-2 rounded-full bg-orange-500' />
-              {t('partners.badge')}
-            </span>
-            <h2 className='font-oswald text-2xl font-bold text-white lg:text-3xl'>
-              {t('partners.title_prefix')}{' '}
-              <span className='text-orange-500'>{t('partners.title_highlight')}</span>{' '}
+    <CfSection id='supporters' alt>
+      <Container>
+        <div className='mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between'>
+          <div className='flex max-w-2xl flex-col gap-5'>
+            <SectionEyebrow>{t('partners.badge')}</SectionEyebrow>
+            <h2 className='text-h2_semibold text-white'>
+              {t('partners.title_prefix')} <Highlight>{t('partners.title_highlight')}</Highlight>{' '}
               {t('partners.title_suffix')}
             </h2>
-            <p className='text-sm leading-relaxed text-gray-400'>{t('partners.description')}</p>
-
-            <div className='mt-2 flex flex-wrap gap-2'>
-              {tabKeys.map((key, index) => {
-                const TabIcon = tabIcons[index];
-                return (
-                  <span
-                    key={key}
-                    className='flex items-center gap-1.5 rounded-full border border-white/20 px-4 py-1.5 text-xs font-semibold text-white'
-                  >
-                    <TabIcon aria-hidden='true' className='size-3.5 text-orange-500' />
-                    {t(`partners.tabs.${key}`)}
-                  </span>
-                );
-              })}
-            </div>
           </div>
-
-          <div className='flex flex-1 flex-wrap justify-center gap-4 lg:justify-start'>
-            {(supporters ?? []).length > 0 ? (
-              supporters?.map((supporter) => {
-                const logoMedia =
-                  typeof supporter.logo === 'object' ? (supporter.logo as Media) : null;
-                const logoUrl = logoMedia?.url ?? null;
-
-                return (
-                  <div
-                    key={supporter.id}
-                    className='bg-crowdfunding-surface flex h-32 w-44 shrink-0 flex-col items-center justify-center rounded-2xl border border-orange-500/30 p-4 text-center'
-                  >
-                    {logoUrl ? (
-                      <ImageMedia
-                        src={logoUrl}
-                        alt={supporter.name}
-                        width={48}
-                        height={48}
-                        className='mb-2 h-12 w-12 rounded-full object-cover'
-                      />
-                    ) : (
-                      <div className='mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/20 text-sm font-bold text-orange-500'>
-                        {supporter.type === 'person' ? (
-                          <svg
-                            className='h-5 w-5'
-                            fill='none'
-                            stroke='currentColor'
-                            viewBox='0 0 24 24'
-                            strokeWidth={1.5}
-                          >
-                            <path
-                              strokeLinecap='round'
-                              strokeLinejoin='round'
-                              d='M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z'
-                            />
-                          </svg>
-                        ) : (
-                          <span className='text-orange-400'>{getInitials(supporter.name)}</span>
-                        )}
-                      </div>
-                    )}
-                    <p className='text-sm font-bold text-white'>{supporter.name}</p>
-                    {supporter.value && (
-                      <p className='mt-0.5 text-xs leading-tight text-gray-400'>
-                        {supporter.value}
-                      </p>
-                    )}
-                  </div>
-                );
-              })
-            ) : (
-              <p className='text-sm text-gray-400'>{t('partners.no_supporters')}</p>
-            )}
-          </div>
+          <p className='text-crowdfunding-muted max-w-md text-sm leading-relaxed'>
+            {t('partners.description')}
+          </p>
         </div>
-      </div>
-    </section>
+
+        {sorted.length > 0 ? (
+          <ul className='grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5'>
+            {sorted.map((supporter, index) => (
+              <li
+                key={supporter.id ?? index}
+                className='bg-crowdfunding-surface border-crowdfunding-line flex items-center gap-3 rounded-xl border p-3'
+              >
+                {typeof supporter.logo === 'object' && supporter.logo ? (
+                  <ImageMedia
+                    resource={supporter.logo}
+                    alt=''
+                    width={40}
+                    height={40}
+                    className='size-10 shrink-0 rounded-full bg-white object-contain'
+                  />
+                ) : (
+                  <span
+                    aria-hidden='true'
+                    className='bg-crowdfunding-accent/15 text-crowdfunding-accent flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-semibold'
+                  >
+                    {getInitials(supporter.name)}
+                  </span>
+                )}
+                <span className='min-w-0 text-sm leading-tight font-medium text-white'>
+                  {supporter.name}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className='text-crowdfunding-muted text-sm'>{t('partners.no_supporters')}</p>
+        )}
+      </Container>
+    </CfSection>
   );
 };
 
