@@ -20,7 +20,7 @@ import {
   LinkJSXConverter,
   RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react';
-import { useMemo, type ComponentType } from 'react';
+import { useMemo, type ComponentProps, type ComponentType } from 'react';
 
 import { CallToActionBlock } from '@/payload/blocks/CallToAction/Component';
 
@@ -58,10 +58,7 @@ import { ValuesGridBlock } from '@/payload/blocks/ValuesGridBlock/Component';
 import { Sede3DCtaBlock } from '@/payload/blocks/Sede3DCtaBlock/Component';
 import { PageHeroBlock } from '@/payload/blocks/PageHeroBlock/Component';
 import { ContactChannelsBlock } from '@/payload/blocks/ContactChannelsBlock/Component';
-// Lazy: LongDocumentBlock renders RichText itself, so a static import would be circular.
-const LongDocumentBlock = dynamic(() =>
-  import('@/payload/blocks/LongDocumentBlock/Component').then((m) => m.LongDocumentBlock)
-);
+import { LongDocumentBlock } from '@/payload/blocks/LongDocumentBlock/Component';
 import { createUrlByCollection } from '@/utils/paths';
 import assert from 'assert';
 import { Language } from '@/i18n/settings';
@@ -214,7 +211,7 @@ const getBlockComponents = (): Record<string, ComponentType<any>> => ({
   sede3dCta: Sede3DCtaBlock,
   pageHero: PageHeroBlock,
   contactChannels: ContactChannelsBlock,
-  longDocument: LongDocumentBlock,
+  longDocument: LongDocumentWithText,
 });
 
 // Turn one registry entry into a block converter: render the component with the
@@ -289,6 +286,19 @@ export type RichTextProps = {
    */
   embedded?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
+
+/**
+ * LongDocumentBlock holds a nested rich-text field. RichText renders it here and hands
+ * it to the block, so the block never imports RichText (that import was circular).
+ */
+function LongDocumentWithText(props: ComponentProps<typeof LongDocumentBlock>) {
+  return (
+    <LongDocumentBlock
+      {...props}
+      renderContent={(data) => <RichText data={data} lng={props.lng} embedded />}
+    />
+  );
+}
 
 export default function RichText(props: RichTextProps) {
   const lng = props.lng;

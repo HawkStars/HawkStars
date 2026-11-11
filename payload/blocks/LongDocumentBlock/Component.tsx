@@ -3,7 +3,6 @@ import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import type { LongDocumentBlock as LongDocumentBlockProps } from '@/payload-types';
 import { HawkStarsSection } from '@/components/layout';
 import SectionHeader from '@/components/ui/SectionHeader';
-import RichText from '@/payload/components/RichText';
 import { getNodeText, slugifyHeading } from '@/payload/components/utils/nodeText';
 import { cn } from '@/lib/utils';
 import { Language } from '@/i18n/settings';
@@ -22,7 +21,13 @@ const getContents = (content: LongDocumentBlockProps['content']) =>
     })
     .filter((item) => item.id);
 
-export const LongDocumentBlock: React.FC<LongDocumentBlockProps & { lng: Language }> = ({
+type Props = LongDocumentBlockProps & {
+  lng: Language;
+  /** Renders the rich-text content; supplied by RichText, which owns the converters. */
+  renderContent?: (content: DefaultTypedEditorState) => React.ReactNode;
+};
+
+export const LongDocumentBlock: React.FC<Props> = ({
   eyebrow,
   title,
   note,
@@ -32,6 +37,7 @@ export const LongDocumentBlock: React.FC<LongDocumentBlockProps & { lng: Languag
   background,
   sectionId,
   lng,
+  renderContent,
 }) => {
   if (!content) return null;
   const contents = showContents === false ? [] : getContents(content);
@@ -74,7 +80,7 @@ export const LongDocumentBlock: React.FC<LongDocumentBlockProps & { lng: Languag
         )}
 
         <article className='card max-w-3xl bg-white p-6 lg:p-10 [&_h2]:scroll-mt-28'>
-          <RichText data={content as DefaultTypedEditorState} lng={lng} embedded />
+          {renderContent?.(content as DefaultTypedEditorState)}
           {footnote && (
             <p className='border-bege-dark mt-10 border-t pt-6 text-sm text-black/60'>{footnote}</p>
           )}

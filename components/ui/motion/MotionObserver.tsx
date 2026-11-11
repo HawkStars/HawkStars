@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 
 const SELECTOR = '[data-reveal], [data-reveal-stagger]';
+const UNREVEALED = '[data-reveal]:not([data-revealed]), [data-reveal-stagger]:not([data-revealed])';
 const READY_CLASS = 'motion-ready';
 /** Give up waiting for hydration after this long and mark the element anyway. */
 const HYDRATION_WAIT_MS = 10_000;
@@ -53,9 +54,22 @@ export const MotionObserver = () => {
     let intersection: IntersectionObserver | undefined;
     let mutations: MutationObserver | undefined;
     let retryTimer: number | undefined;
+    let sweepFrame: number | undefined;
+    let onScroll: (() => void) | undefined;
     const startedAt = performance.now();
     /** Elements waiting for hydration, with the `data-revealed` value they should get. */
     const pending = new Map<Element, string>();
+    let ready = false;
+
+    // `motion-ready` is what hides unrevealed elements, so it must wait until everything
+    // already on screen carries `data-revealed='instant'` — switching it on earlier hid
+    // those elements for a moment and made the page flicker.
+    const markReadyWhenSettled = () => {
+      if (ready) return;
+      for (const value of pending.values()) if (value === 'instant') return;
+      ready = true;
+      root.classList.add(READY_CLASS);
+    };
 
     const flushPending = () => {
       retryTimer = undefined;
@@ -67,6 +81,7 @@ export const MotionObserver = () => {
           pending.delete(el);
         }
       });
+      markReadyWhenSettled();
       if (pending.size > 0) retryTimer = window.setTimeout(flushPending, RETRY_MS);
     };
 
@@ -102,11 +117,14 @@ export const MotionObserver = () => {
       };
 
       // Already visible when motion switches on: show as-is rather than hide-then-animate.
+      // Skip unrendered nodes — e.g. the `<div hidden id="S:…">` copies React's streaming
+      // leaves behind — which are never hydrated and would hold `motion-ready` back.
       document.querySelectorAll(SELECTOR).forEach((el) => {
+        if (el.getClientRects().length === 0) return;
         if (el.getBoundingClientRect().top < window.innerHeight) reveal(el, 'instant');
       });
       scan(document);
-      root.classList.add(READY_CLASS);
+      markReadyWhenSettled();
 
       mutations = new MutationObserver((records) => {
         for (const record of records) {
@@ -116,11 +134,38 @@ export const MotionObserver = () => {
         }
       });
       mutations.observe(document.body, { childList: true, subtree: true });
+
+      // Safety net for the observer: an element React moved into place after streaming
+      // (out of its hidden `S:` container) could be missed by the IntersectionObserver and
+      // stay at opacity 0 forever. Once per frame while scrolling, reveal anything still
+      // unrevealed that has reached the viewport.
+      const sweep = () => {
+        sweepFrame = undefined;
+        const bottom = window.innerHeight - 40;
+        document.querySelectorAll(UNREVEALED).forEach((el) => {
+          if (pending.has(el) || el.getClientRects().length === 0) return;
+          const rect = el.getBoundingClientRect();
+          if (rect.top < bottom && rect.bottom > 0) {
+            io.unobserve(el);
+            reveal(el, '');
+          }
+        });
+      };
+      onScroll = () => {
+        if (sweepFrame === undefined) sweepFrame = window.requestAnimationFrame(sweep);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
     });
 
     return () => {
       cancel();
       window.clearTimeout(retryTimer);
+      if (sweepFrame !== undefined) window.cancelAnimationFrame(sweepFrame);
+      if (onScroll) {
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
+      }
       pending.clear();
       mutations?.disconnect();
       intersection?.disconnect();
