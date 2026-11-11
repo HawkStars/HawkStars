@@ -38,9 +38,11 @@ export const VideoEmbed = ({ videoUrl, thumbnailUrl, overlayLine1, overlayLine2 
         <button
           type='button'
           onClick={play}
-          aria-label={t('video.play')}
           className='group absolute inset-0 cursor-pointer text-left'
         >
+          {/* No aria-label: it would replace the visible overlay text as the button's
+              name (axe label-content-name-mismatch). The play hint is prepended instead. */}
+          <span className='sr-only'>{t('video.play')}</span>
           <ImageMedia
             src={thumbnailUrl}
             alt=''
