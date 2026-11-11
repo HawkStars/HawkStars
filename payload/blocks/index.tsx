@@ -7,6 +7,7 @@ import { CrowdfundingImageBannerBlock } from './CrowdfundingImageBanner/config';
 import { GlobalVillageBannerBlock } from './GlobalVillageBanner/config';
 import { SectionTitleBlock } from './SectionTitleBlock/config';
 import { SectionListBlock } from './SectionListBlock/config';
+import { PageHeroBlock } from './PageHeroBlock/config';
 
 // ── Content ──────────────────────────────────────────────────
 import { AccordionBlock } from './AccordionBlock/config';
@@ -16,6 +17,8 @@ import { QuoteHighlightBlock } from './QuoteHighlightBlock/config';
 import { TimelineBlock } from './TimelineBlock/config';
 import TitleDescriptionBlock from './TitleDescriptionBlock/config';
 import { WhyHereWhyNowBlock } from './WhyHereWhyNowBlock/config';
+import { ValuesGridBlock } from './ValuesGridBlock/config';
+import { LongDocumentBlock } from './LongDocumentBlock/config';
 import { GrowthVisionBlock } from './GrowthVisionBlock/config';
 import { GlobalVillageAboutSectionBlock } from './GlobalVillageAboutSection/config';
 
@@ -36,6 +39,8 @@ import { NewsletterSignupBlock } from './NewsletterSignupBlock/config';
 import { OfferCatalogBlock } from './OfferCatalogBlock/config';
 import { PricingTableBlock } from './PricingTableBlock/config';
 import { ResourceDownloadBlock } from './ResourceDownloadBlock/config';
+import { Sede3DCtaBlock } from './Sede3DCtaBlock/config';
+import { ContactChannelsBlock } from './ContactChannelsBlock/config';
 
 // ── Social & Testimonials ────────────────────────────────────
 import { LogosBlock } from './LogosBlock/config';
@@ -61,6 +66,7 @@ const DefaultBlocks = [
   GlobalVillageBannerBlock,
   SectionTitleBlock,
   SectionListBlock,
+  PageHeroBlock,
 
   // Content
   AccordionBlock,
@@ -70,6 +76,8 @@ const DefaultBlocks = [
   TimelineBlock,
   TitleDescriptionBlock,
   WhyHereWhyNowBlock,
+  ValuesGridBlock,
+  LongDocumentBlock,
   GrowthVisionBlock,
   GlobalVillageAboutSectionBlock,
   StepsConfigBlock,
@@ -91,6 +99,8 @@ const DefaultBlocks = [
   OfferCatalogBlock,
   PricingTableBlock,
   ResourceDownloadBlock,
+  Sede3DCtaBlock,
+  ContactChannelsBlock,
 
   // Social & Testimonials
   LogosBlock,

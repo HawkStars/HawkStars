@@ -57,7 +57,10 @@ export const Header: GlobalConfig = {
         link({
           localizedLabel: true,
           condition: (_, siblingData) => siblingData.isMultiColumn === false,
-          description: 'Use this field if you want to have a single link without dropdown',
+          description: {
+            en: 'Use this field for a single link without a dropdown',
+            pt: 'Use este campo para um link simples, sem menu suspenso',
+          },
         }),
         {
           name: 'dropdown',
@@ -103,10 +106,10 @@ export const Header: GlobalConfig = {
               unique: true,
               localized: false,
               validate: (value: string | undefined | null) => {
-                if (!value || value.length === 0) return 'Key is required';
-                // regex to check for only lowercase letters and no spaces
+                if (!value || value.length === 0) return 'Key is required / A chave é obrigatória';
+                // Letters and hyphens only: the key becomes a DOM id / data-testid.
                 if (!/^[a-zA-Z\-]+$/.test(value))
-                  return 'Key needs to be always lowercase letters with no spaces';
+                  return 'Use only letters and hyphens, no spaces / Use apenas letras e hífenes, sem espaços';
 
                 return true;
               },

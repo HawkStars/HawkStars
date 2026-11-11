@@ -1,0 +1,86 @@
+{
+  "hero": {
+    "eyebrow": "Why we are here",
+    "title_pre": "Pinhel and the",
+    "title_highlight": "Beiras e Serra da Estrela",
+    "description": "An ageing, sparsely populated region with few opportunities for young people — and, for exactly that reason, the right place to prove that Portugal's interior can be a home for talent and innovation.",
+    "cta_village": "Discover the Global Village"
+  },
+  "region": {
+    "eyebrow": "The region in numbers",
+    "title": "Beiras e Serra da Estrela",
+    "subtitle": "One of the least densely populated and oldest regions in the country.",
+    "stats": {
+      "population": "inhabitants in the region (2021 Census)",
+      "density": "inhabitants per km²",
+      "ageing": "ageing index — the national average is 182.4%",
+      "youthUnemployment": "youth unemployment"
+    }
+  },
+  "themes": {
+    "eyebrow": "Challenges and responses",
+    "title": "What the data tells us — and what we do about it",
+    "challenge": "The challenge",
+    "response": "Our response",
+    "items": {
+      "demography": {
+        "title": "Population",
+        "facts": [
+          "33.1% of people are 65 or older",
+          "Birth rate of 6.0‰",
+          "Population change of −0.9% (2011–2023)"
+        ],
+        "challenge": "The region loses people every year and struggles to attract new residents and skilled workers, and to keep its young people.",
+        "response": "The Global Village offers coworking, training and culture to attract young people, digital nomads, entrepreneurs, artists and families, and reverse the decline."
+      },
+      "education": {
+        "title": "Education and training",
+        "facts": [
+          "13.8% have higher education — the national average is 19.9%",
+          "Secondary completion below the national average"
+        ],
+        "challenge": "Grade repetition and drop-out rates remain high, holding back economic and social development in rural areas.",
+        "response": "Non-formal education and vocational training, with Erasmus+ and the European Solidarity Corps, to support 600 young people in Global Village projects by 2035."
+      },
+      "economy": {
+        "title": "Economy and jobs",
+        "facts": [
+          "Employment rate of 50.0% — the national average is 55.3%",
+          "Youth unemployment of 23.4%",
+          "Mostly micro and small businesses"
+        ],
+        "challenge": "An economy dominated by traditional sectors, with little diversification or innovation.",
+        "response": "Incubate 10 startups and support 20 innovative projects in 10 years, creating 4–5 direct and 30–50 indirect jobs (SDG 8)."
+      },
+      "culture": {
+        "title": "Culture and tourism",
+        "facts": [
+          "€107.8 municipal spending on culture and sport per person",
+          "Rural tourism is growing"
+        ],
+        "challenge": "Limited capacity to invest in cultural programmes, despite a rich heritage and growing tourism.",
+        "response": "Space for events, exhibitions, artist residencies and regional products, strengthening Pinhel as a cultural destination and reviving its historic centre."
+      }
+    }
+  },
+  "pinhel": {
+    "eyebrow": "Our home",
+    "title": "Pinhel, the falcon city",
+    "text": "Pinhel mirrors the region's challenges: low density, an ageing population and a very local economy. But it is also home to leading companies and to cultural, historical and natural potential still waiting to be tapped.",
+    "stats": {
+      "population": "inhabitants (2023)",
+      "density": "inhabitants per km²",
+      "elderly": "of residents are 65+",
+      "companies": "companies (2022)",
+      "wage": "average monthly earnings (2021)",
+      "beds": "tourist beds (2023)"
+    },
+    "potential_title": "Where the potential is",
+    "potential_text": "Companies like Comunilog (training), Five Bioenergy (biogas), SPIP/Fly (precision engineering for aviation) and EuroAmêndoa (nuts) show it is possible to grow from here. Rural tourism can bring in digital projects, young ideas and communities of digital nomads."
+  },
+  "sede": {
+    "title": "See what the Global Village will look like",
+    "description": "Explore in 3D the building that will host training, coworking, incubation, gaming and culture in the heart of Pinhel."
+  },
+  "sources": "Sources: INE — Regional, Education and Business Statistics (2023); 2021 Census; CCDR-C (2023); Office for Strategy and Studies (GEE); Turismo de Portugal. Analysis by the Hawk Stars team."
+}

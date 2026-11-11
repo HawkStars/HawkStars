@@ -1,0 +1,63 @@
+{
+  "list": {
+    "eyebrow": "Accountability",
+    "title_pre": "Our",
+    "title_highlight": "impact",
+    "description": "Every year we show what we did, with whom and with what resources. Hawk Stars' numbers, highlights and accounts, year by year.",
+    "latest": "Latest report",
+    "all": "All reports",
+    "read": "Read the report",
+    "empty": "Impact reports will be published here soon.",
+    "reports_cta": "Official reports and accounts"
+  },
+  "detail": {
+    "eyebrow": "Impact report",
+    "numbers_eyebrow": "The year in numbers",
+    "numbers_title": "Impact in {{year}}",
+    "highlights_eyebrow": "Highlights",
+    "highlights_title": "What we did in {{year}}",
+    "finances_eyebrow": "Accounts",
+    "finances_title": "Where the money went",
+    "finances_description": "Summary of the accounts approved by the General Assembly. Full detail is in the accounts report.",
+    "income": "Income",
+    "expenses": "Expenses",
+    "balance": "Balance carried forward",
+    "documents_eyebrow": "Documents",
+    "documents_title": "Official documents for {{year}}",
+    "back": "All reports",
+    "other_years": "Other years"
+  },
+  "documents": {
+    "activityReport": "Activity report",
+    "accountsReport": "Accounts report",
+    "fiscalCouncilOpinion": "Fiscal council opinion",
+    "activityPlan": "Activity plan and budget",
+    "download": "Download",
+    "unavailable": "Coming soon"
+  },
+  "reports": {
+    "eyebrow": "Transparency",
+    "title": "Reports and accounts",
+    "description": "The documents approved by the General Assembly: activity reports, accounts, fiscal council opinions, and activity plans and budgets.",
+    "governance_title": "How they are approved",
+    "governance_text": "The Board presents the activity report, accounts, plan and budget; the Fiscal Council gives its opinion; the members' General Assembly discusses and votes. Only then are they published here.",
+    "year": "Year",
+    "impact_link": "See {{year}} impact",
+    "transparency_cta": "See donations and spending",
+    "empty": "The first reports will be published here soon.",
+    "steps": {
+      "1": {
+        "title": "Board",
+        "description": "Prepares the activity report, accounts and the proposed plan and budget."
+      },
+      "2": {
+        "title": "Fiscal Council",
+        "description": "Reviews the accounts and issues an independent opinion."
+      },
+      "3": {
+        "title": "General Assembly",
+        "description": "Members discuss and vote. Approved documents are published."
+      }
+    }
+  }
+}

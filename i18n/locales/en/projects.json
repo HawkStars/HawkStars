@@ -69,5 +69,9 @@
   "dates": {
     "activity": "Activity dates",
     "project": "Project duration"
+  },
+  "testimonials": {
+    "title": "In their own words",
+    "subtitle": "What volunteers and Erasmus+ participants say after travelling, learning and growing with us."
   }
 }

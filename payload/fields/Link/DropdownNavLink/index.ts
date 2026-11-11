@@ -4,7 +4,11 @@ import { PayloadIconOrImage } from '../../ImageIcon';
 
 export const dropdownNavLink: ArrayField = {
   name: 'dropdownNavLink',
-  label: 'Dropdown Navigation Links',
+  label: { en: 'Dropdown Navigation Links', pt: 'Links do Menu Suspenso' },
+  labels: {
+    singular: { en: 'Link', pt: 'Link' },
+    plural: { en: 'Links', pt: 'Links' },
+  },
   type: 'array',
   interfaceName: 'DropdownNavLink',
   admin: {
@@ -57,6 +61,12 @@ export const dropdownNavLink: ArrayField = {
       label: { en: 'Description', pt: 'Descrição' },
       type: 'text',
       localized: true,
+      admin: {
+        description: {
+          en: 'One short line shown under the link. Write it in the language selected at the top of the editor.',
+          pt: 'Uma linha curta mostrada por baixo do link. Escreva-a na língua selecionada no topo do editor.',
+        },
+      },
     },
     link({ localizedLabel: true }),
     PayloadIconOrImage(),

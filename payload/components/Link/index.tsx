@@ -5,7 +5,7 @@ import React from 'react';
 
 import type { HawkProject, Page } from '@/payload-types';
 import { cn } from '@/lib/utils';
-import { createUrlByCollection, isHttpUrl } from '@/utils/paths';
+import { createUrlByCollection, isLinkUrl } from '@/utils/paths';
 import { Language } from '@/i18n/settings';
 
 type ButtonProps = VariantProps<typeof buttonVariants>;
@@ -55,15 +55,17 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
     href = slug ? createUrlByCollection(reference.relationTo, lng, slug, section) : undefined;
   } else {
-    // Custom URLs carry their own anchor, as in getLinkFieldInformation (utils/page.ts).
-    href = url?.startsWith('/') ? `/${lng}${url}` : url;
+    // A site-relative custom URL gets the Section ID field appended, unless the URL
+    // already carries its own anchor — same rule as getLinkFieldInformation (utils/page.ts).
+    const anchor = section && url?.startsWith('/') && !url.includes('#') ? `#${section}` : '';
+    href = url?.startsWith('/') ? `/${lng}${url}${anchor}` : url;
   }
 
   if (!href) return null;
 
   // Custom URLs are editor-supplied free text; `javascript:` here would execute
   // same-origin. Site-relative and in-page links are fine.
-  if (!href.startsWith('/') && !href.startsWith('#') && !isHttpUrl(href)) return null;
+  if (!href.startsWith('/') && !href.startsWith('#') && !isLinkUrl(href)) return null;
 
   const size = appearance === 'link' ? 'clear' : sizeFromProps;
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {};

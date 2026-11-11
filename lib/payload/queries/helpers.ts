@@ -20,10 +20,10 @@ type SlugQueryOptions = {
 /**
  * The only collections with `versions.drafts` enabled, and therefore the only ones
  * whose documents carry a `_status` field. Keep in sync with the `versions` key on
- * Pages, News and HawkProject — filtering `_status` anywhere else silently returns
+ * Pages, News, HawkProject and ImpactReport — filtering `_status` anywhere else silently returns
  * nothing.
  */
-const DRAFT_COLLECTIONS = new Set<string>(['pages', 'news', 'hawk_projects']);
+const DRAFT_COLLECTIONS = new Set<string>(['pages', 'news', 'hawk_projects', 'impact_reports']);
 
 export const hasDrafts = (collection: string) => DRAFT_COLLECTIONS.has(collection);
 

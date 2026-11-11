@@ -1,65 +1,116 @@
 {
-  "title": "History of HawkStars",
-  "beginning": "The history of Hawk Stars - Association for Education, Innovation, and Social Development begins in 2015 with what can be considered its version 1.0, through EuroHawk - Falcons of Europe Youth Association, This Youth Association, exclusively formed by young people from Pinhel, where Hawk Stars also holds Its headquarters.",
-  "euro_hawk": "Eurohawk, Constituting the 1.0 Version of the Hawk Stars NGO, witnessed Its zenith between 2015 and 2017. During this phase, it organised various conferences, debates, and food donation for families and institutions in need in Pinhel. Additionally, It facilitated the Pparticipation of approximately 20 Portugueese Youths in various Erasmus+ Projects across other European Countries. A notworthy initiative during this period was the organisation of the Erasmus+ program titled 'Survival - Standing United in Rural Villages with Innovation and Values,' engaging 35 young individuals from seven European Countries. The pinnacle of Eurohawk's endeavors was marked by the Hawk Festival in 2017, a cultural milestone for the youth in the Guarda District, attracting as average of 1400 daily festival-goers and 500 permanent campers, featuring around 27 artists. Despite these accomplishments, Eurohawk officially dissolved at the end of 2018 due to a lack of activity, shifting circumstances, and the fullfillment of its 100% youth-oriented objective.",
-  "euro_hawk_2": "Although The Founders of Eurohawk, The 1.0 Version of the Hawk Stars NGO, were not directly involved in associative activities for several years, they remainted connected to various social initiatives in Pinhel and the Guarda Distrist.  They also collaborated with several national organizations which shared the same objectives in the youth and European affairs.",
-  "hawk_stars": "On February 24, 2022, with the beginning of the Russia-Ukraine military conflict, the founders of Eurohawk (V1.0) reconnected. Leveaging their past experience with the Fnee - National Federation of European Studies, Eurohawk collaborated with NAPEEC - Associative Nucleus for European Studies in Coimbra, and AJFF - Youth Association of Figueira da Foz and together they organized the initiative 'Together for Ukraine - Let's Fill a Truck From Guarda with Humanitarian Aid.' FNEE collaborated with the Federation of Firefighters of the Guarda District, without which the following results would not have been possible: 'The humanitarian action event involved (...) about 90 people, including organizers, partners, volunteers, and friends who collaborated until the final goal was achieved. 18 public and/or private institutions. 23 fire brigades. 7 international institutions. 5 trucks. 6 drivers. 30,342 km traveled. €24,500 - estimated value of the operation, via contributors and requested carriers. About 90 tons of material was delivered to Ukraine. Thousands of humanitarian contributions throughout the district!'",
-  "humanitary": "The humanitarian action event involved around 90 people, including those responsible for the organization, partners, volunteers and friends who collaborated until the final objective was achieved. 18 institutions, public and/or private. 23 fire brigades. 7 International institutions. 5 trucks. 6 drivers. 30,342km traveled. €24,500 - estimated value of the operation, via contributors and requested carriers. Around 90 Tons of material delivered to Ukraine. Thousands of humanitarian contributions throughout the District! <report/>",
-  "foundation": "Inspired by the success of this solidarity activity for Ukraine in April 2022, prominently connected to the foundation and activities of EuroHawk (V1.0) and the National Federation of European Studies, decided to establish Hawk Stars - Association (NGO) for Education, Innovation, and Social Development. This was officially confirmed on August 8, 2023.",
-  "foundation_heading": "The same group of friends from the Pinhel",
-  "presentation": "Hawk Stars presents itself to the public as a long-term project (30 years) and is currently in the process of capacity building and recognition as a public utility institution. It plans to launch its first major short/medium-term project (3/7 years) to the public in January 2024, involving the construction of the International Training Center of Pinhel Global Village. The goal is to develop a hub for social innovation. Hawk Stars, with a young identity, presents itself in Blue and Yellow, the colors of the City in which we are based and the colors of the European Union, embracing the world with our Falcon - The Hawk, from the global to the local. Glocal - Think Global - Act Local.",
-  "urls": {
-    "eurohawks": "Useful links about the Version 1.0 of Hawk Stars (EuroHawk - Falcons of Europe Youth Association):",
-    "fnee": "Useful links about the activities in Ukraine promoted by the National Federation of European Studies (FNNE)."
+  "hero": {
+    "eyebrow": "Our story",
+    "title_pre": "From EuroHawk to",
+    "title_highlight": "Hawk Stars",
+    "description": "A group of friends from Pinhel who started a youth association in 2015, drove five trucks of humanitarian aid to Ukraine in 2022 and, that same year, founded an NGO for education, innovation and social development.",
+    "cta_about": "Who we are",
+    "cta_village": "The Global Village"
   },
-  "about_hawkstars": "About HawkStars",
-  "about_globalvillage": "About Global Village",
-  "humanitarian": {
-    "people": {
-      "label": "people",
-      "description": "including organizers, partners, volunteers and friends who collaborated until the final goal was achieved"
-    },
-    "institutions": {
-      "label": "institutions",
-      "description": "public and/or private"
-    },
-    "fireBrigades": {
-      "label": "fire brigades",
-      "description": ""
-    },
-    "internationalInstitutions": {
-      "label": "institutions",
-      "description": "international"
-    },
-    "trucks": {
-      "label": "trucks"
-    },
-    "drivers": {
-      "label": "drivers"
-    },
-    "operationValue": {
-      "description": "estimated value of the operation"
-    },
-    "distanceTraveled": {
-      "description": "traveled"
-    },
-    "deliveredTons": {
-      "title": "90 tons",
-      "description": "of material delivered to Ukraine"
-    },
-    "contributions": {
-      "title": "Thousands",
-      "description": "of humanitarian contributions throughout the District"
+  "timeline": {
+    "eyebrow": "Milestones",
+    "title": "Our journey",
+    "items": {
+      "2015": {
+        "year": "2015",
+        "title": "EuroHawk is born",
+        "description": "Young people from Pinhel found EuroHawk – Falcons of Europe Youth Association, version 1.0 of Hawk Stars."
+      },
+      "2016": {
+        "year": "2015–17",
+        "title": "Conferences, solidarity and Erasmus+",
+        "description": "Debates, food drives for families and charities in Pinhel, around 20 young people sent on Erasmus+ projects, and the “Survival” project with 35 young people from 7 countries."
+      },
+      "2017": {
+        "year": "2017",
+        "title": "Hawk Festival",
+        "description": "A festival by and for young people: around 1,400 visitors a day, 500 campers and 27 artists — a cultural milestone in the Guarda district."
+      },
+      "2018": {
+        "year": "2018",
+        "title": "FNEE and the end of a chapter",
+        "description": "In January, EuroHawk co-founds the National Federation of European Studies. At the end of the year it is dissolved, its youth-only goal fulfilled."
+      },
+      "2022a": {
+        "year": "Feb 2022",
+        "title": "Together for Ukraine",
+        "description": "EuroHawk's founders come together again and, through the FNEE, send five trucks of humanitarian aid to Ukraine."
+      },
+      "2022b": {
+        "year": "Apr 2022",
+        "title": "Hawk Stars is founded",
+        "description": "Hawk Stars – Association (NGO) for Education, Innovation and Social Development is born, officially confirmed on 8 August 2023."
+      },
+      "today": {
+        "year": "Today",
+        "title": "From local to global",
+        "description": "282 young people and youth workers from 24 nationalities in international mobility, 32 international partners, and the Global Village under way."
+      }
     }
   },
-  "history": {
-    "checkReport": "Check the report here.",
-    "alt": {
-      "euroHawkLogo": "EuroHawk logo",
-      "hawkStarsLogo": "Hawk Stars logo",
-      "foundation": "foundation of Hawk Stars",
-      "humanitarian": "humanitarian aid",
-      "hero": "hero image"
+  "eurohawk": {
+    "eyebrow": "Version 1.0",
+    "title": "EuroHawk – Falcons of Europe Youth Association",
+    "beginning": "The story of Hawk Stars – Association for Education, Innovation and Social Development begins in 2015 with what can be called its version 1.0: EuroHawk – Falcons of Europe Youth Association, a youth association made up, at the time, only of young people from Pinhel, where Hawk Stars has its headquarters today.",
+    "activity": "EuroHawk was at its peak between 2015 and 2017. It organised conferences and debates, food drives for families in need and local charities, sent around 20 young Portuguese people to Erasmus+ projects across Europe, and ran its own Erasmus+ project, “Survival – Standing United in Rural Villages with Innovation and Values”, which brought together 35 young people from 7 European countries.",
+    "festival": "Its last big event was Hawk Festival 2017: an eclectic festival organised by and for young people, with the support of local businesses, Pinhel City Council and Glow Moments. EuroHawk was dissolved at the end of 2018, due to lack of activity and having fulfilled its youth-only purpose.",
+    "after": "Even without direct association activity for some years, EuroHawk's founders stayed involved in social initiatives in Pinhel and the Guarda district, and in national organisations working on youth and European affairs.",
+    "festival_stats": {
+      "visitors": "visitors a day",
+      "campers": "permanent campers",
+      "artists": "artists on stage"
     }
+  },
+  "ukraine": {
+    "eyebrow": "24 February 2022",
+    "title": "Together for Ukraine",
+    "description": "When the war in Ukraine began, EuroHawk's founders came together again. Through the FNEE – National Federation of European Studies, which EuroHawk co-founded in 2018 with NAPEEC (Coimbra) and AJFF (Figueira da Foz), they organised “Together for Ukraine – Let's fill a truck from Guarda with humanitarian aid”, with the support of the Guarda District Fire Brigades Federation.",
+    "report": "Read the full report",
+    "stats": {
+      "people": "people involved across organisers, partners, volunteers and friends",
+      "institutions": "public and private institutions",
+      "fireBrigades": "fire brigades",
+      "international": "international institutions",
+      "trucks": "trucks",
+      "drivers": "drivers",
+      "distance": "kilometres travelled",
+      "value": "estimated value of the operation"
+    },
+    "highlights": {
+      "tons": { "title": "≈ 90 tonnes", "description": "of supplies delivered to Ukraine" },
+      "contributions": {
+        "title": "Thousands",
+        "description": "of humanitarian contributions across the Guarda district"
+      }
+    }
+  },
+  "foundation": {
+    "eyebrow": "April 2022",
+    "title": "Hawk Stars is born",
+    "text": "After this solidarity campaign, the same group of friends from Pinhel — involved in founding EuroHawk and the National Federation of European Studies — decided to found Hawk Stars – Association (NGO) for Education, Innovation and Social Development. Its founding was officially confirmed on 8 August 2023.",
+    "identity": "With a young identity, Hawk Stars wears blue and yellow — the colours of Pinhel and of the European Union — and embraces the world with its hawk: Think Global, Act Local."
+  },
+  "today": {
+    "eyebrow": "Today",
+    "title": "A 30-year project",
+    "text": "Hawk Stars is a long-term project. Its first major pillar is the Global Village – International Training Center in Pinhel: a hub for training, social innovation, coworking and culture to regenerate Portugal's interior.",
+    "stats": {
+      "youth": "young people and youth workers in mobility",
+      "nationalities": "nationalities",
+      "partners": "international partners"
+    }
+  },
+  "press": {
+    "eyebrow": "In the press",
+    "title": "Learn more",
+    "eurohawk": "EuroHawk and Hawk Festival",
+    "ukraine": "Together for Ukraine"
+  },
+  "alt": {
+    "euroHawkLogo": "EuroHawk logo",
+    "hawkStarsLogo": "Hawk Stars logo",
+    "foundation": "Goods collected in a solidarity drive",
+    "humanitarian": "Trucks from the Together for Ukraine humanitarian operation",
+    "village": "Illustration of the Global Village in Pinhel"
   }
 }

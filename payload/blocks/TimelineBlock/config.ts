@@ -10,6 +10,18 @@ export const TimelineBlock: Block = {
   },
   fields: [
     {
+      name: 'eyebrow',
+      type: 'text',
+      localized: true,
+      label: { en: 'Eyebrow', pt: 'Sobretítulo' },
+      admin: {
+        description: {
+          en: 'Small uppercase label above the title (optional)',
+          pt: 'Pequeno rótulo em maiúsculas acima do título (opcional)',
+        },
+      },
+    },
+    {
       name: 'title',
       type: 'text',
       localized: true,
@@ -66,6 +78,18 @@ export const TimelineBlock: Block = {
         { label: { en: 'Horizontal', pt: 'Horizontal' }, value: 'horizontal' },
       ],
       defaultValue: 'vertical',
+    },
+    {
+      name: 'highlightLast',
+      type: 'checkbox',
+      label: { en: 'Highlight the last milestone', pt: 'Destacar o último marco' },
+      defaultValue: false,
+      admin: {
+        description: {
+          en: 'Shows the final item as the current chapter (green card).',
+          pt: 'Mostra o último item como o capítulo atual (cartão verde).',
+        },
+      },
     },
     SectionID,
   ],

@@ -34,7 +34,7 @@ export const plugins: Plugin[] = [
     tabbedUI: true,
     collections: ['artworks', 'hawk_events', 'hawk_projects', 'news', 'pages', 'curators'],
     globals: ['events-list', 'projects-list', 'main-page', 'news-list'],
-    uploadsCollection: ['media'],
+    uploadsCollection: 'media',
     interfaceName: 'meta',
   }),
   cloudStoragePlugin({

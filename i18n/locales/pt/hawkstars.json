@@ -1,65 +1,116 @@
 {
-  "title": "História da HawkStars",
-  "beginning": "A história da Hawk Stars - Associação para Educação, Inovação e Desenvolvimento Social começa em 2015, com aquilo que se pode conisderar a sua versão 1.0, através da EuroHawk - Associação Juvenil Falcões da Europa, uma associação juvenil e constituída há data apenas por jovens do Concelho de Pinhel, onde hoje, também a Hawk Stars tem a sua sede.",
-  "euro_hawk": "A EuroHawk, versão 1.0 da ONG Hawk Stars, teve o seu auge de atividade entre 2015 e 2017, com a realização de: várias conferências e debates; recolhas alimentares diversas para familias carenciadas e IPPS's do concelho de Pinhel; o envio de cerca de 20 jovens portugueses a diversos projetos Erasmus+ em vários países europeus; a organização como beneficiário do um programa Erasmus+ com o título “Survival - Standing United in Rural Villages with Innovation and Values” que contou com a participação de 35 jovens de 7 países europeus; e, o seu último grande evento foi o Hawk Festival, 2017, que teve uma média diária de 1400 festivaleiros e 500 campistas permanentes, tendo sido um festival eclético, com cerca de 27 artistas, e um marco cultural da juventude no Distrito da Guarda desse ano. Um festival organizado por jovens e para jovens, que teve há época a colaboração de várias empresas locais, da Câmara Municipal de Pinhel, e a parceria de organização da Glow Moments. A EuroHawk foi oficialmente extinta, por falta de atividade, contexto e esgotamento do seu objetivo 100% juvenil, no final de 2018.",
-  "euro_hawk_2": "Embora sem atividade associativa de forma direta durante alguns anos, os fundadores da EuroHawk, versão 1.0 da Hawk Stars NGO, estiveram sempre ligados a várias atividades sociais no concelho de Pinhel e no Distrito da Guarda, mas também em diversas organizações nacionais que partilham de objetivos na área da juventude e dos assuntos europeus.",
-  "hawk_stars": "A 24 de Fevereiro de 2022, com o ínicio do conflito militar Rússia-Ucránia, um grupo de amigos de Pinhel, que antes tinham sido fundadores da EuroHawk (V1.0), juntou-se novamente, onde através da da FNEE - Federação Nacional dos Estudos Europeus, da qual a EuroHawk foi fundadora em Janeiro de 2018, juntamente com outras duas organizações (o NAPEEC - Núcleo Associativo para os Estudos Europeus em Coimbra, e a AJFF - Associção Juvenil da Figueira da Foz) organizou a iniciativa “Juntos pela Ucrânia - Vamos encher um Camião da Guarda com Ajuda Humanitária”. A FNEE contou com a colaboração da Federação dos Bombeiros do Distrito da Guarda, sem a qual não teria sido possível os resultados que a seguir se citam em números:",
-  "humanitary": "O evento de ação humanitária envolveu cerca de 90 pessoas entre responsáveis pela organização, parceiros, voluntários e amigos que colaboraram até o objetivo final estar cumprido. 18 instituições, públicas e/ou privadas. 23 corporações de bombeiros. 7 Instituições internacionais. 5 camiões. 6 motoristas. 30.342km percorridos. 24.500€ - valor estimado da operação, via contribuidores e transportadoras requisitadas. Cerca de 90 Toneladas de material entregues na Ucrânia. Milhares de contribuições humanitárias em todo o Distrito! <report/>",
-  "foundation": "Dos quais se destaca, em segundo lugar, a ligação à fundação e atividades da EuroHawk  (V1.0) e da Federação Nacional dos Estudos Europeus, decidiram após esta atividade solidária para com a Ucrânia, em Abril de 2022, fundar a HAWK STARS - ASSOCIAÇÃO (ONG/NGO) PARA A EDUCAÇÃO, INOVAÇÃO E DESENVOLVIMENTO SOCIAL, o que se veio oficialmente a confirmar a 8 de Agosto de 2023.",
-  "foundation_heading": "O mesmo grupo de amigos, originários do Concelho de Pinhel",
-  "presentation": "A Hawk Stars apresenta-se ao público como um projeto de longo prazo (a 30 anos), estando neste momento no seu processo de capacitação e reconhecimento como instituição de utilidade pública, tendo previsto o lançamento ao público em Janeiro de 2024 do seu primeiro grande projeto de curto/médio prazo (3/7 anos), com a construção do International Training Center em Pinhel - a nossa Global Village, cujo o objetivo é um desenvolvimento de um pólo de inovação social. A Hawk Stars com uma identidade jovem apresenta-se a Azul e Amarelo, as cores da Cidade em que temos sede e as cores da União Europeia, abraçando o mundo com o nosso Falcão - O Hawk, do global para o local. Glocal - Think Global - Act Local.",
-  "urls": {
-    "eurohawks": "Links úteis sobre a Versão 1.0 da Hawk Stars (A EuroHawk - Associação Juvenil Falcões da Europa):",
-    "fnee": "Links úteis sobre a atividade da Ucrânia promovida através da (FNNE) Federação Nacional dos Estudos Europeus:"
+  "hero": {
+    "eyebrow": "A nossa história",
+    "title_pre": "De EuroHawk a",
+    "title_highlight": "Hawk Stars",
+    "description": "Um grupo de amigos de Pinhel que começou com uma associação juvenil em 2015, levou cinco camiões de ajuda humanitária à Ucrânia em 2022 e fundou, nesse mesmo ano, uma ONG para a educação, a inovação e o desenvolvimento social.",
+    "cta_about": "Quem somos",
+    "cta_village": "The Global Village"
   },
-  "about_hawkstars": "Sobre a Hawk Stars",
-  "about_globalvillage": "Sobre the Global Village",
-  "humanitarian": {
-    "people": {
-      "label": "pessoas",
-      "description": "entre responsáveis pela organização, parceiros, voluntários e amigos que colaboraram até o objetivo final estar cumprido"
-    },
-    "institutions": {
-      "label": "instituições",
-      "description": "públicas e/ou privadas"
-    },
-    "fireBrigades": {
-      "label": "corporações",
-      "description": "de bombeiros"
-    },
-    "internationalInstitutions": {
-      "label": "instituições",
-      "description": "internacionais"
-    },
-    "trucks": {
-      "label": "caminhões"
-    },
-    "drivers": {
-      "label": "motoristas"
-    },
-    "operationValue": {
-      "description": "valor estimado da operação"
-    },
-    "distanceTraveled": {
-      "description": "percorridos"
-    },
-    "deliveredTons": {
-      "title": "90 toneladas",
-      "description": "de material entregues na Ucrânia"
-    },
-    "contributions": {
-      "title": "Milhares",
-      "description": "de contribuições humanitárias em todo o Distrito"
+  "timeline": {
+    "eyebrow": "Marcos",
+    "title": "O nosso percurso",
+    "items": {
+      "2015": {
+        "year": "2015",
+        "title": "Nasce a EuroHawk",
+        "description": "Jovens do concelho de Pinhel fundam a EuroHawk – Associação Juvenil Falcões da Europa, a versão 1.0 da Hawk Stars."
+      },
+      "2016": {
+        "year": "2015–17",
+        "title": "Conferências, solidariedade e Erasmus+",
+        "description": "Debates, recolhas alimentares para famílias e IPSS de Pinhel, cerca de 20 jovens enviados para projetos Erasmus+ e o projeto “Survival”, com 35 jovens de 7 países."
+      },
+      "2017": {
+        "year": "2017",
+        "title": "Hawk Festival",
+        "description": "Um festival feito por jovens e para jovens: cerca de 1400 festivaleiros por dia, 500 campistas e 27 artistas — um marco cultural do Distrito da Guarda."
+      },
+      "2018": {
+        "year": "2018",
+        "title": "FNEE e o fim de um ciclo",
+        "description": "Em janeiro, a EuroHawk cofunda a Federação Nacional dos Estudos Europeus. No final do ano é extinta, cumprido o seu objetivo 100% juvenil."
+      },
+      "2022a": {
+        "year": "Fev 2022",
+        "title": "Juntos pela Ucrânia",
+        "description": "Os fundadores da EuroHawk voltam a juntar-se e, através da FNEE, enviam cinco camiões de ajuda humanitária para a Ucrânia."
+      },
+      "2022b": {
+        "year": "Abr 2022",
+        "title": "Fundação da Hawk Stars",
+        "description": "Nasce a Hawk Stars – Associação (ONG) para a Educação, Inovação e Desenvolvimento Social, oficialmente confirmada a 8 de agosto de 2023."
+      },
+      "today": {
+        "year": "Hoje",
+        "title": "Do local para o global",
+        "description": "282 jovens e técnicos de juventude de 24 nacionalidades em mobilidade internacional, 32 parceiros internacionais e o Global Village em construção."
+      }
     }
   },
-  "history": {
-    "checkReport": "Consultar o relatório aqui.",
-    "alt": {
-      "euroHawkLogo": "logótipo EuroHawk",
-      "hawkStarsLogo": "logótipo da Hawk Stars",
-      "foundation": "fundação da Hawk Stars",
-      "humanitarian": "ajuda humanitária",
-      "hero": "imagem de destaque"
+  "eurohawk": {
+    "eyebrow": "Versão 1.0",
+    "title": "EuroHawk – Associação Juvenil Falcões da Europa",
+    "beginning": "A história da Hawk Stars – Associação para a Educação, Inovação e Desenvolvimento Social começa em 2015, com aquilo que se pode considerar a sua versão 1.0: a EuroHawk – Associação Juvenil Falcões da Europa, uma associação juvenil constituída, à data, apenas por jovens do concelho de Pinhel, onde hoje também a Hawk Stars tem a sua sede.",
+    "activity": "A EuroHawk teve o seu auge entre 2015 e 2017, com várias conferências e debates, recolhas alimentares para famílias carenciadas e IPSS do concelho de Pinhel, o envio de cerca de 20 jovens portugueses para projetos Erasmus+ em vários países europeus e a organização, como beneficiária, do projeto Erasmus+ “Survival – Standing United in Rural Villages with Innovation and Values”, que reuniu 35 jovens de 7 países europeus.",
+    "festival": "O seu último grande evento foi o Hawk Festival 2017: um festival eclético, organizado por jovens e para jovens, com a colaboração de empresas locais, da Câmara Municipal de Pinhel e da Glow Moments. A EuroHawk foi extinta no final de 2018, por falta de atividade e por ter esgotado o seu objetivo 100% juvenil.",
+    "after": "Mesmo sem atividade associativa direta durante alguns anos, os fundadores da EuroHawk mantiveram-se ligados a atividades sociais no concelho de Pinhel e no Distrito da Guarda, e a organizações nacionais dedicadas à juventude e aos assuntos europeus.",
+    "festival_stats": {
+      "visitors": "festivaleiros por dia",
+      "campers": "campistas permanentes",
+      "artists": "artistas em palco"
     }
+  },
+  "ukraine": {
+    "eyebrow": "24 de fevereiro de 2022",
+    "title": "Juntos pela Ucrânia",
+    "description": "Com o início da guerra na Ucrânia, os fundadores da EuroHawk voltaram a juntar-se. Através da FNEE – Federação Nacional dos Estudos Europeus, que a EuroHawk cofundou em 2018 com o NAPEEC (Coimbra) e a AJFF (Figueira da Foz), organizaram a iniciativa “Juntos pela Ucrânia – Vamos encher um Camião da Guarda com Ajuda Humanitária”, com a colaboração da Federação dos Bombeiros do Distrito da Guarda.",
+    "report": "Ver o relatório completo",
+    "stats": {
+      "people": "pessoas envolvidas entre organização, parceiros, voluntários e amigos",
+      "institutions": "instituições públicas e privadas",
+      "fireBrigades": "corporações de bombeiros",
+      "international": "instituições internacionais",
+      "trucks": "camiões",
+      "drivers": "motoristas",
+      "distance": "quilómetros percorridos",
+      "value": "valor estimado da operação"
+    },
+    "highlights": {
+      "tons": { "title": "≈ 90 toneladas", "description": "de material entregue na Ucrânia" },
+      "contributions": {
+        "title": "Milhares",
+        "description": "de contribuições humanitárias em todo o Distrito da Guarda"
+      }
+    }
+  },
+  "foundation": {
+    "eyebrow": "Abril de 2022",
+    "title": "Nasce a Hawk Stars",
+    "text": "Depois desta ação solidária, o mesmo grupo de amigos de Pinhel — ligados à fundação da EuroHawk e da Federação Nacional dos Estudos Europeus — decidiu fundar a Hawk Stars – Associação (ONG) para a Educação, Inovação e Desenvolvimento Social. A fundação foi oficialmente confirmada a 8 de agosto de 2023.",
+    "identity": "Com uma identidade jovem, a Hawk Stars veste-se de azul e amarelo — as cores de Pinhel e da União Europeia — e abraça o mundo com o seu falcão: Think Global, Act Local."
+  },
+  "today": {
+    "eyebrow": "Hoje",
+    "title": "Um projeto a 30 anos",
+    "text": "A Hawk Stars apresenta-se como um projeto de longo prazo. O seu primeiro grande eixo é o Global Village – International Training Center, em Pinhel: um polo de formação, inovação social, coworking e cultura para regenerar o Interior de Portugal.",
+    "stats": {
+      "youth": "jovens e técnicos de juventude em mobilidade",
+      "nationalities": "nacionalidades",
+      "partners": "parceiros internacionais"
+    }
+  },
+  "press": {
+    "eyebrow": "Na imprensa",
+    "title": "Saber mais",
+    "eurohawk": "EuroHawk e Hawk Festival",
+    "ukraine": "Juntos pela Ucrânia"
+  },
+  "alt": {
+    "euroHawkLogo": "Logótipo da EuroHawk",
+    "hawkStarsLogo": "Logótipo da Hawk Stars",
+    "foundation": "Bens recolhidos numa ação solidária",
+    "humanitarian": "Camiões da operação humanitária Juntos pela Ucrânia",
+    "village": "Ilustração do Global Village em Pinhel"
   }
 }

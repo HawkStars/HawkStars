@@ -82,18 +82,22 @@ const createOGImageUrl = (
 };
 
 /**
- * The SEO plugin's share image (`meta.image`). `uploadsCollection` is an array in
- * the plugin config, so Payload stores it polymorphically as
- * `{ relationTo: 'media', value }`; `value` is only a usable `Media` document once
- * populated (depth ≥ 1). Returns undefined for an unset or unpopulated image, so
- * callers can fall back to their own cover image.
+ * The SEO plugin's share image (`meta.image`): a plain upload relation to `media`,
+ * only a usable `Media` document once populated (depth ≥ 1).
+ *
+ * `uploadsCollection` was briefly configured as an array, which makes Payload store
+ * the image polymorphically as `{ relationTo, value }`. Documents saved in that window
+ * may still carry that shape, so both are accepted. Returns undefined for an unset or
+ * unpopulated image, so callers can fall back to their own cover image.
  */
 const getMetaImage = (
   meta?: {
-    image?: { relationTo: string; value: string | Media } | null;
+    image?: string | Media | { relationTo: string; value: string | Media } | null;
   } | null
 ): Media | undefined => {
-  const value = meta?.image?.value;
+  const image = meta?.image;
+  if (!image || typeof image !== 'object') return undefined;
+  const value = 'relationTo' in image ? image.value : image;
   return value && typeof value === 'object' && value.url ? value : undefined;
 };
 

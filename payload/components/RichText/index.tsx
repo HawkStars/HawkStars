@@ -54,6 +54,14 @@ import { SectionListBlockComponent } from '@/payload/blocks/SectionListBlock/Com
 import Upload from '../utils/upload';
 import Quote from '../utils/quote';
 import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
+import { ValuesGridBlock } from '@/payload/blocks/ValuesGridBlock/Component';
+import { Sede3DCtaBlock } from '@/payload/blocks/Sede3DCtaBlock/Component';
+import { PageHeroBlock } from '@/payload/blocks/PageHeroBlock/Component';
+import { ContactChannelsBlock } from '@/payload/blocks/ContactChannelsBlock/Component';
+// Lazy: LongDocumentBlock renders RichText itself, so a static import would be circular.
+const LongDocumentBlock = dynamic(() =>
+  import('@/payload/blocks/LongDocumentBlock/Component').then((m) => m.LongDocumentBlock)
+);
 import { createUrlByCollection } from '@/utils/paths';
 import assert from 'assert';
 import { Language } from '@/i18n/settings';
@@ -202,6 +210,11 @@ const getBlockComponents = (): Record<string, ComponentType<any>> => ({
   sectionTitleBlock: SectionTitleBlockComponent,
   sectionListBlock: SectionListBlockComponent,
   stepsBlock: StepsBlockComponent,
+  valuesGrid: ValuesGridBlock,
+  sede3dCta: Sede3DCtaBlock,
+  pageHero: PageHeroBlock,
+  contactChannels: ContactChannelsBlock,
+  longDocument: LongDocumentBlock,
 });
 
 // Turn one registry entry into a block converter: render the component with the

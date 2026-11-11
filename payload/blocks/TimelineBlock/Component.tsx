@@ -8,14 +8,17 @@ import { HawkStarsSection } from '@/components/layout';
 import { Language } from '@/i18n/settings';
 import { useTranslation } from '@/i18n/client';
 import { Reveal } from '@/components/ui/motion';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 const yearBadge =
   'bg-green flex items-center justify-center rounded-full text-xs leading-tight font-bold text-white shadow-md ring-4 ring-white';
 
 export const TimelineBlock: React.FC<TimelineBlockProps & { lng: Language }> = ({
+  eyebrow,
   title,
   items = [],
   orientation = 'vertical',
+  highlightLast,
   sectionId,
   blockType = 'timeline',
   lng,
@@ -26,6 +29,8 @@ export const TimelineBlock: React.FC<TimelineBlockProps & { lng: Language }> = (
     return null;
   }
 
+  const lastIndex = items.length - 1;
+
   return (
     <HawkStarsSection
       spacing='default'
@@ -35,60 +40,109 @@ export const TimelineBlock: React.FC<TimelineBlockProps & { lng: Language }> = (
       id={sectionId || undefined}
       data-blockid={blockType}
     >
-      {title && (
-        <Reveal as='h2' className='text-h2_semibold section-header text-center'>
-          {title}
-        </Reveal>
+      {(title || eyebrow) && (
+        <SectionHeader
+          reveal
+          align='center'
+          eyebrow={eyebrow}
+          title={title}
+          className='mb-12 lg:mb-20'
+        />
       )}
 
       {orientation === 'vertical' && (
-        // Mobile: a single rail down the left with cards beside it (the old alternating
-        // 5/12 columns left ~100px of text at 375px). From `lg:` it alternates either side.
+        // Mobile: one rail on the left, the year as an eyebrow inside each card.
+        // `lg:`: the rail moves to the centre, cards alternate sides and the year is set
+        // large on the opposite side, so the dates read as a column of their own.
         <div className='relative'>
           <Reveal
             from='draw-y'
-            className='bg-green/30 absolute top-0 bottom-0 left-7 w-0.5 origin-top -translate-x-1/2 lg:left-1/2'
+            className='from-green/10 via-green/40 to-green/10 absolute top-2 bottom-2 left-3 w-0.5 origin-top -translate-x-1/2 bg-linear-to-b lg:left-1/2'
           />
-          <ol>
-            {items.map((item, index) => (
-              <Reveal
-                as='li'
-                from={index % 2 === 0 ? 'left' : 'right'}
-                key={item.id || index}
-                className={cn(
-                  'relative mb-10 pl-20 last:mb-0 lg:mb-16 lg:flex lg:pl-0',
-                  index % 2 === 0 ? 'lg:justify-start' : 'lg:justify-end'
-                )}
-              >
-                <div className={cn('lg:w-5/12', index % 2 === 0 ? 'lg:pr-14' : 'lg:pl-14')}>
-                  <article className='card-md card-hover-lg overflow-hidden transition-[translate,box-shadow] duration-300 hover:-translate-y-1'>
-                    <div className='bg-bege-light border-bege-dark border-b px-5 py-3 lg:px-6'>
-                      <h3 className='text-h3_semibold'>{item.title}</h3>
-                    </div>
-                    <div className='p-5 lg:p-6'>
-                      <p className='text-body_regular leading-relaxed text-black/80'>
+          <ol className='flex flex-col gap-8 lg:gap-14'>
+            {items.map((item, index) => {
+              const left = index % 2 === 0;
+              const current = Boolean(highlightLast) && index === lastIndex;
+              return (
+                <Reveal
+                  as='li'
+                  from={left ? 'left' : 'right'}
+                  key={item.id || index}
+                  className='relative pl-10 lg:grid lg:grid-cols-2 lg:items-center lg:gap-24 lg:pl-0'
+                >
+                  {/* Marker on the rail */}
+                  <span
+                    aria-hidden='true'
+                    className={cn(
+                      'absolute top-6 left-3 z-10 flex -translate-x-1/2 items-center justify-center rounded-full ring-4 ring-white lg:top-1/2 lg:left-1/2 lg:-translate-y-1/2',
+                      current ? 'bg-green size-6' : 'bg-green size-4'
+                    )}
+                  >
+                    {current && (
+                      <span className='bg-green absolute inset-0 animate-ping rounded-full opacity-40' />
+                    )}
+                  </span>
+
+                  {/* Big year, opposite the card (desktop only; the card repeats it for mobile). */}
+                  <p
+                    aria-hidden='true'
+                    className={cn(
+                      'font-display hidden text-6xl leading-none font-semibold lg:block xl:text-7xl',
+                      current ? 'text-green' : 'text-green/80',
+                      left ? 'lg:order-2 lg:text-left' : 'lg:order-1 lg:text-right'
+                    )}
+                  >
+                    {item.year}
+                  </p>
+
+                  <article
+                    className={cn(
+                      'group overflow-hidden rounded-xl border transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg',
+                      left ? 'lg:order-1' : 'lg:order-2',
+                      current
+                        ? 'bg-green border-green text-white shadow-md'
+                        : 'border-bege-dark bg-white shadow-sm'
+                    )}
+                  >
+                    {item.image && (
+                      <div className='bg-bege-dark relative h-44 w-full overflow-hidden'>
+                        <ImageMedia
+                          resource={item.image}
+                          alt={item.title}
+                          fill
+                          sizes='(min-width: 1024px) 40vw, 100vw'
+                          className='object-cover transition-transform duration-700 group-hover:scale-105'
+                        />
+                      </div>
+                    )}
+                    <div
+                      className={cn(
+                        'border-l-4 p-5 lg:p-7',
+                        current ? 'border-bege-dark' : 'border-green'
+                      )}
+                    >
+                      <p
+                        className={cn(
+                          'text-eyebrow mb-2',
+                          current ? 'text-bege-dark' : 'text-green'
+                        )}
+                      >
+                        <time>{item.year}</time>
+                      </p>
+                      <h3 className='text-h2_bold'>{item.title}</h3>
+                      <p
+                        className={cn(
+                          'text-body_regular mt-3 leading-relaxed',
+                          current ? 'text-white/90' : 'text-black/75'
+                        )}
+                      >
                         {item.description}
                       </p>
-                      {item.image && (
-                        <div className='bg-bege-dark relative mt-4 h-48 w-full overflow-hidden rounded-lg'>
-                          <ImageMedia
-                            resource={item.image}
-                            alt={item.title}
-                            fill
-                            className='object-cover transition-transform duration-700 hover:scale-105'
-                          />
-                        </div>
-                      )}
                     </div>
                   </article>
-                </div>
-
-                {/* Year badge on the rail */}
-                <div className='absolute top-0 left-7 z-10 -translate-x-1/2 lg:left-1/2'>
-                  <div className={cn(yearBadge, 'h-14 w-14')}>{item.year}</div>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              );
+            })}
           </ol>
         </div>
       )}

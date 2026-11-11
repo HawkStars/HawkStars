@@ -1,0 +1,63 @@
+{
+  "list": {
+    "eyebrow": "Prestação de contas",
+    "title_pre": "O nosso",
+    "title_highlight": "impacto",
+    "description": "Todos os anos mostramos o que fizemos, com quem e com que recursos. Números, destaques e contas da Hawk Stars, ano a ano.",
+    "latest": "Relatório mais recente",
+    "all": "Todos os relatórios",
+    "read": "Ler o relatório",
+    "empty": "Os relatórios de impacto vão ser publicados aqui em breve.",
+    "reports_cta": "Relatórios e contas oficiais"
+  },
+  "detail": {
+    "eyebrow": "Relatório de impacto",
+    "numbers_eyebrow": "O ano em números",
+    "numbers_title": "Impacto em {{year}}",
+    "highlights_eyebrow": "Destaques",
+    "highlights_title": "O que fizemos em {{year}}",
+    "finances_eyebrow": "Contas",
+    "finances_title": "Para onde foi o dinheiro",
+    "finances_description": "Resumo das contas aprovadas em Assembleia Geral. O detalhe completo está no relatório de contas.",
+    "income": "Receitas",
+    "expenses": "Despesas",
+    "balance": "Saldo para o ano seguinte",
+    "documents_eyebrow": "Documentos",
+    "documents_title": "Documentos oficiais de {{year}}",
+    "back": "Todos os relatórios",
+    "other_years": "Outros anos"
+  },
+  "documents": {
+    "activityReport": "Relatório de atividades",
+    "accountsReport": "Relatório de contas",
+    "fiscalCouncilOpinion": "Parecer do Conselho Fiscal",
+    "activityPlan": "Plano de atividades e orçamento",
+    "download": "Descarregar",
+    "unavailable": "Em breve"
+  },
+  "reports": {
+    "eyebrow": "Transparência",
+    "title": "Relatórios e contas",
+    "description": "Os documentos aprovados em Assembleia Geral: relatórios de atividades, relatórios de contas, pareceres do Conselho Fiscal e planos de atividades e orçamento.",
+    "governance_title": "Como são aprovados",
+    "governance_text": "A Direção apresenta o relatório de atividades e contas e o plano de atividades e orçamento; o Conselho Fiscal emite o seu parecer; a Assembleia Geral de sócios discute e vota. Só depois são publicados aqui.",
+    "year": "Ano",
+    "impact_link": "Ver impacto de {{year}}",
+    "transparency_cta": "Ver donativos e execução",
+    "empty": "Os primeiros relatórios vão ser publicados aqui em breve.",
+    "steps": {
+      "1": {
+        "title": "Direção",
+        "description": "Prepara o relatório de atividades e contas e a proposta de plano e orçamento."
+      },
+      "2": {
+        "title": "Conselho Fiscal",
+        "description": "Analisa as contas e emite um parecer independente."
+      },
+      "3": {
+        "title": "Assembleia Geral",
+        "description": "Os sócios discutem e votam. Os documentos aprovados são publicados."
+      }
+    }
+  }
+}

@@ -8,6 +8,7 @@ import { getServerSideURL } from '@/payload/utilities/getURL';
 import PayloadLucideIcon from '@/payload/fields/ImageIcon/payload-lucide-icon';
 import { GROUP_LABELS } from '@/payload/constants';
 import { createRevalidateGlobalHook } from '@/payload/utilities/revalidateGlobal';
+import { testimonialsField } from '@/payload/blocks/TestimonialBlock/config';
 
 export const ProjectsList: GlobalConfig = {
   slug: 'projects-list',
@@ -133,6 +134,42 @@ export const ProjectsList: GlobalConfig = {
       },
     }),
     SectionID,
+    {
+      name: 'testimonials',
+      type: 'group',
+      interfaceName: 'ProjectsListTestimonials',
+      label: {
+        en: 'Volunteer & Erasmus+ testimonials',
+        pt: 'Testemunhos de voluntários e Erasmus+',
+      },
+      admin: {
+        description: {
+          en: 'Shown at the end of the projects page. Leave the list empty to hide the section.',
+          pt: 'Mostrados no fim da página de projetos. Deixe a lista vazia para esconder a secção.',
+        },
+      },
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          localized: true,
+          label: { en: 'Title', pt: 'Título' },
+          admin: {
+            description: {
+              en: 'Leave empty for the default ("In their own words").',
+              pt: 'Deixe vazio para o texto por omissão ("Na primeira pessoa").',
+            },
+          },
+        },
+        {
+          name: 'subtitle',
+          type: 'text',
+          localized: true,
+          label: { en: 'Subtitle', pt: 'Subtítulo' },
+        },
+        { ...testimonialsField, name: 'items', minRows: 0, required: false },
+      ],
+    },
   ],
   versions: {
     drafts: {

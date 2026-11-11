@@ -20,6 +20,7 @@ type Testimonial = {
     company?: string | null | undefined;
     avatar?: ImageType;
   };
+  tag?: string | null;
   rating?: number | null;
   featured?: boolean | null;
   id?: string | null;
@@ -79,7 +80,7 @@ const TestimonialCard: React.FC<{
   const { t } = useTranslation(lng, 'common');
   if (!testimonial) return null;
 
-  const { quote, author, rating = 0, featured = false } = testimonial;
+  const { quote, author, tag, rating = 0, featured = false } = testimonial;
   const cardStyle = (style ?? 'card') as CardStyle;
   const onLight = !isDark || SURFACE_STYLES.includes(cardStyle);
 
@@ -100,6 +101,17 @@ const TestimonialCard: React.FC<{
           aria-hidden
           className={cn('mb-4 size-8', onLight ? 'text-green' : 'text-white/80')}
         />
+      )}
+
+      {tag && (
+        <p
+          className={cn(
+            'text-eyebrow mb-4 w-fit rounded-full px-3 py-1',
+            onLight ? 'bg-green/10 text-green' : 'bg-white/15 text-white'
+          )}
+        >
+          {tag}
+        </p>
       )}
 
       {/* `rating || 1` turned both null and 0 into a one-star score the editor never

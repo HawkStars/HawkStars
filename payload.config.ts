@@ -45,6 +45,7 @@ import { Notification } from './payload/collections/Notification';
 import { Footer } from './payload/globals/Footer/config';
 import { Header } from './payload/globals/Header/config';
 import { Pages } from './payload/collections/Pages';
+import { ImpactReport } from './payload/collections/ImpactReport';
 import { plugins } from './payload/plugins';
 import { HawkProject } from './payload/collections/HawkProject';
 import { MainPage } from './payload/globals/MainPage/config';
@@ -194,6 +195,7 @@ export default buildConfig({
     NewsletterSubscriber,
     Sponsor,
     Pages,
+    ImpactReport,
     News,
     Notification,
   ],

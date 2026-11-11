@@ -1,5 +1,5 @@
 import type { Condition, Description, Field, GroupField } from 'payload';
-import { isHttpUrl } from '@/utils/paths';
+import { isLinkUrl } from '@/utils/paths';
 
 type LinkTypeProps = {
   localizedLabel?: boolean;
@@ -70,6 +70,7 @@ export const link = (props?: LinkTypeProps) => {
           {
             name: 'visible',
             type: 'checkbox',
+            label: { en: 'Visible', pt: 'Visível' },
             defaultValue: true,
             admin: {
               style: { alignSelf: 'center' },
@@ -111,9 +112,11 @@ export const link = (props?: LinkTypeProps) => {
       required: true,
       validate: (value: string | string[] | null | undefined) => {
         if (typeof value !== 'string' || value.length === 0) return true;
-        if (value.startsWith('/')) return true;
-        if (isHttpUrl(value)) return true;
-        return 'Enter a site-relative path (/about) or a full http(s):// URL.';
+        // Site-relative path, in-page anchor (also used as a placeholder on hidden links)
+        // or a full http(s) URL. Anything else (javascript:, data:…) is rejected.
+        if (value.startsWith('/') || value.startsWith('#')) return true;
+        if (isLinkUrl(value)) return true;
+        return 'Enter a site-relative path (/about), an anchor (#section), a full http(s):// URL, mailto: or tel:. / Introduza um caminho do site (/about), uma âncora (#secao), um URL http(s):// completo, mailto: ou tel:.';
       },
     },
   ];

@@ -43,6 +43,11 @@ import type {
   SectionListBlock as SectionListBlockProps,
   SectionTitleBlock as SectionTitleBlockProps,
   StepsBlock as StepsBlockProps,
+  ValuesGridBlock as ValuesGridBlockProps,
+  Sede3DCtaBlock as Sede3DCtaBlockProps,
+  PageHeroBlock as PageHeroBlockProps,
+  ContactChannelsBlock as ContactChannelsBlockProps,
+  LongDocumentBlock as LongDocumentBlockProps,
 } from '@/payload-types';
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical';
 
@@ -93,4 +98,9 @@ export type BlockNodeTypes = SerializedBlockNode<
   | SectionListBlockProps
   | SectionTitleBlockProps
   | StepsBlockProps
+  | ValuesGridBlockProps
+  | Sede3DCtaBlockProps
+  | PageHeroBlockProps
+  | ContactChannelsBlockProps
+  | LongDocumentBlockProps
 >;

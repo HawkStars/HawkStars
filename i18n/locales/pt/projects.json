@@ -69,5 +69,9 @@
   "dates": {
     "activity": "Datas da atividade",
     "project": "Duração do projeto"
+  },
+  "testimonials": {
+    "title": "Na primeira pessoa",
+    "subtitle": "O que dizem os voluntários e participantes Erasmus+ que viajaram, aprenderam e cresceram connosco."
   }
 }

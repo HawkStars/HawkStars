@@ -106,5 +106,21 @@
   "sede3d": {
     "title": "3D Headquarters — The Future Global Village in Pinhel - Hawk Stars NGO",
     "description": "Explore in 3D the future Hawk Stars headquarters and the Global Village – International Training Center in Pinhel: floors, training rooms, coworking and the spaces of the building."
+  },
+  "impact": {
+    "title": "Impact Reports — Our Impact Year by Year - Hawk Stars NGO",
+    "description": "Hawk Stars' numbers, highlights and accounts, year by year: young people in mobility, Erasmus+ projects, partners and where the money went."
+  },
+  "reports": {
+    "title": "Reports and Accounts — Transparency - Hawk Stars NGO",
+    "description": "Hawk Stars activity reports, accounts, fiscal council opinions and activity plans, as approved by the General Assembly."
+  },
+  "pinhel": {
+    "title": "Pinhel and the Region — Why We Are Here - Hawk Stars NGO",
+    "description": "Data on Pinhel and the Beiras e Serra da Estrela region: ageing, education, jobs and tourism — and how the Global Village responds."
+  },
+  "press": {
+    "title": "Press and Media Kit - Hawk Stars NGO",
+    "description": "Hawk Stars media kit: boilerplate, key facts, logos, brand colours, press coverage and a contact for journalists."
   }
 }

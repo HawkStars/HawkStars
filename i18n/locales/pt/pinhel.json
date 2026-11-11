@@ -1,0 +1,86 @@
+{
+  "hero": {
+    "eyebrow": "Porque estamos aqui",
+    "title_pre": "Pinhel e as",
+    "title_highlight": "Beiras e Serra da Estrela",
+    "description": "Um território envelhecido, de baixa densidade e com poucas oportunidades para os jovens — e, por isso mesmo, o lugar certo para provar que o Interior pode ser um espaço de talento e inovação.",
+    "cta_village": "Conhecer o Global Village"
+  },
+  "region": {
+    "eyebrow": "A região em números",
+    "title": "Beiras e Serra da Estrela",
+    "subtitle": "Uma das regiões menos densas e mais envelhecidas do país.",
+    "stats": {
+      "population": "habitantes na região (Censos 2021)",
+      "density": "habitantes por km²",
+      "ageing": "índice de envelhecimento — a média nacional é 182,4%",
+      "youthUnemployment": "desemprego jovem"
+    }
+  },
+  "themes": {
+    "eyebrow": "Desafios e respostas",
+    "title": "O que os dados nos dizem — e o que fazemos com isso",
+    "challenge": "O desafio",
+    "response": "A nossa resposta",
+    "items": {
+      "demography": {
+        "title": "Demografia",
+        "facts": [
+          "33,1% da população tem 65 ou mais anos",
+          "Natalidade de 6,0‰",
+          "Crescimento populacional de −0,9% (2011–2023)"
+        ],
+        "challenge": "A região perde população todos os anos e tem dificuldade em atrair novos residentes, mão de obra qualificada e manter os jovens.",
+        "response": "O Global Village oferece coworking, formação e cultura para atrair jovens, nómadas digitais, empreendedores, artistas e famílias, e contrariar o declínio populacional."
+      },
+      "education": {
+        "title": "Educação e formação",
+        "facts": [
+          "13,8% com ensino superior — a média nacional é 19,9%",
+          "Conclusão do secundário abaixo da média nacional"
+        ],
+        "challenge": "As taxas de retenção e abandono continuam elevadas, o que compromete o desenvolvimento económico e social das zonas rurais.",
+        "response": "Educação não formal e formação profissional, com Erasmus+ e o Corpo Europeu de Solidariedade, para capacitar 600 jovens em projetos do Global Village até 2035."
+      },
+      "economy": {
+        "title": "Economia e emprego",
+        "facts": [
+          "Taxa de emprego de 50,0% — a média nacional é 55,3%",
+          "Desemprego jovem de 23,4%",
+          "Maioria de micro e pequenas empresas"
+        ],
+        "challenge": "Uma economia dominada por setores tradicionais, com pouca diversificação e inovação.",
+        "response": "Incubar 10 startups e apoiar 20 projetos inovadores em 10 anos, criando 4 a 5 empregos diretos e 30 a 50 indiretos (ODS 8)."
+      },
+      "culture": {
+        "title": "Cultura e turismo",
+        "facts": [
+          "107,8 € de despesa municipal em cultura e desporto por habitante",
+          "Turismo rural em crescimento"
+        ],
+        "challenge": "Pouca capacidade de investimento em programas culturais, apesar de um património rico e de um turismo em expansão.",
+        "response": "Espaços para eventos, exposições, residências artísticas e produtos regionais, que reforçam Pinhel como destino cultural e revitalizam o centro histórico."
+      }
+    }
+  },
+  "pinhel": {
+    "eyebrow": "A nossa casa",
+    "title": "Pinhel, a cidade falcão",
+    "text": "Pinhel é um espelho claro dos desafios da região: baixa densidade, envelhecimento e uma economia muito local. Mas é também um concelho com empresas de referência e um potencial cultural, histórico e paisagístico por explorar.",
+    "stats": {
+      "population": "habitantes (2023)",
+      "density": "habitantes por km²",
+      "elderly": "da população com 65+ anos",
+      "companies": "empresas (2022)",
+      "wage": "ganho médio mensal (2021)",
+      "beds": "camas turísticas (2023)"
+    },
+    "potential_title": "Onde está o potencial",
+    "potential_text": "Empresas como a Comunilog (formação), a Five Bioenergy (biogás), a SPIP/Fly (mecânica de precisão para aeronáutica) e a EuroAmêndoa (frutos secos) mostram que é possível crescer a partir daqui. O turismo rural pode atrair projetos digitais, ideias jovens e comunidades de nómadas digitais."
+  },
+  "sede": {
+    "title": "Vê como vai ser o Global Village",
+    "description": "Explora em 3D o edifício que vai acolher formação, coworking, incubação, gaming e cultura no centro de Pinhel."
+  },
+  "sources": "Fontes: INE — Estatísticas Regionais, Educação e Empresas (2023); Censos 2021; CCDR-C (2023); Gabinete de Estratégia e Estudos; Turismo de Portugal. Análise da equipa Hawk Stars."
+}

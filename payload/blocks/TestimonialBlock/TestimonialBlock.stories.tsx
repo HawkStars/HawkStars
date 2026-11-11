@@ -40,6 +40,7 @@ const sampleTestimonials = [
   {
     quote:
       'This platform has transformed the way we work. The features are intuitive and powerful.',
+    tag: 'Erasmus+ · Armenia 2025',
     author: {
       name: 'Sarah Johnson',
       title: 'CEO',

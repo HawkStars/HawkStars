@@ -19,7 +19,12 @@ export default function HawkLinkComponent({ link, className, children }: HawkLin
           {children ?? link.label}
         </InternalHawkLink>
       ) : (
-        <ExternalHawkLink href={link.url} newTab={link.newTab} className={className}>
+        <ExternalHawkLink
+          href={link.url}
+          newTab={link.newTab}
+          className={className}
+          section={link.section}
+        >
           {children ?? link.label}
         </ExternalHawkLink>
       )}

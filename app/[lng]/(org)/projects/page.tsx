@@ -13,6 +13,7 @@ import { SITE_GET_URLS } from '@/utils/paths';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 import { PageLoading } from '@/components/layout';
+import { TestimonialBlock } from '@/payload/blocks/TestimonialBlock/Component';
 
 export async function generateMetadata(props: EventsPageProps): Promise<Metadata> {
   const params = await props.params;
@@ -118,6 +119,19 @@ const ProjectsContent = async ({
             featured={featured}
           />
         )}
+      />
+      {/* Volunteer and Erasmus+ testimonials, edited on the Projects List global. */}
+      <TestimonialBlock
+        blockType='testimonialBlock'
+        lng={lng as Language}
+        sectionId='testemunhos'
+        title={projectListInformation.testimonials?.title || t('testimonials.title')}
+        subtitle={projectListInformation.testimonials?.subtitle || t('testimonials.subtitle')}
+        testimonials={projectListInformation.testimonials?.items ?? []}
+        layout='masonry'
+        style='card'
+        showRatings={false}
+        backgroundColor='light-gray'
       />
     </>
   );

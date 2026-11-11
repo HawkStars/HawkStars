@@ -1,0 +1,75 @@
+{
+  "hero": {
+    "eyebrow": "Imprensa",
+    "title": "Media kit",
+    "description": "Tudo o que precisas para escrever sobre a Hawk Stars: apresentação pronta a usar, factos principais, logótipos, cores da marca e cobertura anterior.",
+    "contact": "Contactar a equipa"
+  },
+  "about": {
+    "eyebrow": "Apresentação",
+    "title": "Sobre a Hawk Stars",
+    "short_label": "Versão curta",
+    "long_label": "Versão longa",
+    "short": "A Hawk Stars é uma associação (ONG) para a Educação, Inovação e Desenvolvimento Social, fundada em 2022 em Pinhel, no interior de Portugal. Através de educação não formal, mobilidade Erasmus+ e projetos de inovação social, quer transformar o Interior num espaço de talento e oportunidades.",
+    "long": "A Hawk Stars – Associação para a Educação, Inovação e Desenvolvimento Social nasceu em 2022, em Pinhel, depois de os fundadores da associação juvenil EuroHawk (2015–2018) terem enviado cinco camiões de ajuda humanitária para a Ucrânia. Desde então, envolveu 282 jovens e técnicos de juventude de 24 nacionalidades em projetos de mobilidade internacional, organizou formações Erasmus+ em Pinhel e Almeida e construiu uma rede de 32 parceiros internacionais. O seu grande projeto é o Global Village – International Training Center: um polo de formação, coworking, incubação, tecnologia e cultura no centro histórico de Pinhel. Lema: Think Global, Act Local.",
+    "copy": "Copiar",
+    "copied": "Copiado"
+  },
+  "facts": {
+    "eyebrow": "Factos principais",
+    "title": "Em resumo",
+    "items": {
+      "name": {
+        "label": "Nome oficial",
+        "value": "Hawk Stars – Associação para a Educação, Inovação e Desenvolvimento Social"
+      },
+      "founded": {
+        "label": "Fundação",
+        "value": "Abril de 2022 (constituição oficial a 8 de agosto de 2023)"
+      },
+      "hq": { "label": "Sede", "value": "Pinhel, Guarda, Portugal" },
+      "nif": { "label": "NIF", "value": "517 105 594" },
+      "motto": { "label": "Lema", "value": "Think Global, Act Local" },
+      "impact": {
+        "label": "Impacto",
+        "value": "282 jovens e técnicos de 24 nacionalidades · 32 parceiros internacionais"
+      }
+    }
+  },
+  "logos": {
+    "eyebrow": "Marca",
+    "title": "Logótipos",
+    "subtitle": "Usa os logótipos sem os alterar, com espaço à volta e sobre fundos que garantam contraste.",
+    "download": "Descarregar",
+    "items": {
+      "full": "Logótipo completo",
+      "mark": "Símbolo",
+      "village": "Global Village",
+      "eu": "Cofinanciado pela União Europeia"
+    }
+  },
+  "colors": {
+    "title": "Cores",
+    "items": {
+      "green": "Verde Hawk — cor principal",
+      "bege": "Bege — fundos quentes",
+      "light": "Bege claro — fundos de página",
+      "gold": "Dourado — chamadas à ação",
+      "ink": "Azul tinta — temas europeus"
+    }
+  },
+  "coverage": {
+    "eyebrow": "Na imprensa",
+    "title": "Cobertura",
+    "groups": {
+      "hawkstars": "Hawk Stars",
+      "ukraine": "Juntos pela Ucrânia (2022)",
+      "eurohawk": "EuroHawk e Hawk Festival (2015–2018)"
+    }
+  },
+  "cta": {
+    "title": "Vais escrever sobre nós?",
+    "description": "Para entrevistas, fotografias em alta resolução ou visitas a Pinhel, fala connosco.",
+    "email_subject": "Pedido de imprensa"
+  }
+}

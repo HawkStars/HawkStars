@@ -28,6 +28,19 @@ export type SectionListBlockItem = {
   id?: string | null;
 }[];
 /**
+ * Small label/value tiles under the header, e.g. "Version — 1.0".
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PageHeroFact".
+ */
+export type PageHeroFact =
+  | {
+      label: string;
+      value: string;
+      id?: string | null;
+    }[]
+  | null;
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AccordionBlockItem".
  */
@@ -73,324 +86,6 @@ export type WhyHereWhyNowChallenge = {
    * Description text below the icon (e.g., "Inversão da pirâmide demográfica")
    */
   label: string;
-  id?: string | null;
-}[];
-/**
- * List of goals/milestones for this phase
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "GrowthVisionPhaseItem".
- */
-export type GrowthVisionPhaseItem = {
-  /**
-   * Goal or milestone description
-   */
-  text: string;
-  id?: string | null;
-}[];
-/**
- * Growth phases with their respective goals
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "GrowthVisionPhase".
- */
-export type GrowthVisionPhase = {
-  icon: ImageType;
-  /**
-   * Phase name (e.g., "Curto prazo (até 2026)")
-   */
-  phaseName: string;
-  items: GrowthVisionPhaseItem;
-  id?: string | null;
-}[];
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "GlobalVillageAboutSectionItem".
- */
-export type GlobalVillageAboutSectionItem =
-  | {
-      title?: string | null;
-      content: {
-        root: {
-          type: string;
-          children: {
-            type: any;
-            version: number;
-            [k: string]: unknown;
-          }[];
-          direction: ('ltr' | 'rtl') | null;
-          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-          indent: number;
-          version: number;
-        };
-        [k: string]: unknown;
-      };
-      sectionImage?: ImageType;
-      id?: string | null;
-    }[]
-  | null;
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "StepsBlockItem".
- */
-export type StepsBlockItem = {
-  /**
-   * Title of the step
-   */
-  title: string;
-  /**
-   * Description of the step
-   */
-  description: string;
-  id?: string | null;
-}[];
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageShowcaseBlockImage".
- */
-export type ImageShowcaseBlockImage = {
-  image: ImageType;
-  /**
-   * Shown over the image. Leave empty for no caption — the alt text stays for screen readers only.
-   */
-  caption?: string | null;
-  id?: string | null;
-}[];
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MultiRowImageContent".
- */
-export type MultiRowImageContent = {
-  image?: ImageType;
-  /**
-   * Select the size of the image based on the grid columns. 1 to 6 columns.
-   */
-  column_size: '1' | '2' | '3' | '4' | '5' | '6';
-  /**
-   * Select the size of the image based on the grid rows. 1 to 6 rows.
-   */
-  row_size: '1' | '2' | '3' | '4' | '5' | '6';
-  id?: string | null;
-}[];
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MultiRowImageRow".
- */
-export type MultiRowImageRow = {
-  images: MultiRowImageContent;
-  id?: string | null;
-}[];
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SimpleGalleryBlockImage".
- */
-export type SimpleGalleryBlockImage = {
-  image?: ImageType;
-  id?: string | null;
-}[];
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "OfferCatalogItem".
- */
-export type OfferCatalogItem = {
-  /**
-   * e.g. "Sala de Formação 1", "Pacote 2 dias casal"
-   */
-  name: string;
-  /**
-   * Optional extra detail (e.g. size options, what is included)
-   */
-  description?: string | null;
-  /**
-   * Free text so ranges/prefixes work, e.g. "Desde 250 €", "40.000 €"
-   */
-  price: string;
-  /**
-   * Optional badge text (e.g. "Exclusivo", "Mais Popular")
-   */
-  badge?: string | null;
-  id?: string | null;
-}[];
-/**
- * Categories of offers (e.g. "Naming Walls", "Rewilding Portugal")
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "OfferCatalogGroup".
- */
-export type OfferCatalogGroup = {
-  groupLabel: string;
-  items: OfferCatalogItem;
-  id?: string | null;
-}[];
-/**
- * Pricing tiers (up to 4)
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PricingTableBlockTier".
- */
-export type PricingTableBlockTier =
-  | {
-      /**
-       * Tier name (e.g., "Bronze", "Silver", "Gold")
-       */
-      name: string;
-      /**
-       * Price amount
-       */
-      price: number;
-      /**
-       * Currency symbol
-       */
-      currency?: string | null;
-      /**
-       * Billing period (e.g., "/month", "/year", "one-time")
-       */
-      period?: string | null;
-      /**
-       * Brief description of this tier
-       */
-      description?: string | null;
-      features?: PricingTableBlockTierFeature;
-      /**
-       * CTA button text
-       */
-      buttonText?: string | null;
-      /**
-       * CTA button URL
-       */
-      buttonLink?: string | null;
-      /**
-       * Mark this tier as featured/recommended
-       */
-      highlighted?: boolean | null;
-      /**
-       * Optional badge text (e.g., "Most Popular", "Best Value")
-       */
-      badge?: string | null;
-      id?: string | null;
-    }[]
-  | null;
-/**
- * List of features included in this tier
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PricingTableBlockTierFeature".
- */
-export type PricingTableBlockTierFeature =
-  | {
-      feature: string;
-      id?: string | null;
-    }[]
-  | null;
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ResourceItem".
- */
-export type ResourceItem =
-  | {
-      /**
-       * A descriptive title for the resource.
-       */
-      title: string;
-      /**
-       * A brief description of the resource.
-       */
-      description?: string | null;
-      file: string | HawkDocument;
-      /**
-       * Optional - Used to determine the icon displayed for the resource.
-       */
-      fileType?: ('pdf' | 'doc' | 'xls' | 'image' | 'other') | null;
-      id?: string | null;
-    }[]
-  | null;
-/**
- * Partner logos
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LogosBlockLogo".
- */
-export type LogosBlockLogo = {
-  name: string;
-  /**
-   * Logo image URL
-   */
-  logo: string;
-  id?: string | null;
-}[];
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ProjectTestimonialBlockImage".
- */
-export type ProjectTestimonialBlockImage = {
-  image: ImageType;
-  id?: string | null;
-}[];
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SocialProofBlockStat".
- */
-export type SocialProofBlockStat =
-  | {
-      /**
-       * Number or stat (e.g., "500+", "95%")
-       */
-      value: string;
-      label: string;
-      id?: string | null;
-    }[]
-  | null;
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TestimonialBlockItem".
- */
-export type TestimonialBlockItem = {
-  /**
-   * The testimonial quote or review
-   */
-  quote: string;
-  author: {
-    /**
-     * Author full name
-     */
-    name: string;
-    /**
-     * Job title or role
-     */
-    title?: string | null;
-    /**
-     * Company or organization
-     */
-    company?: string | null;
-    avatar?: ImageType;
-  };
-  /**
-   * Star rating (1-5 stars)
-   */
-  rating?: number | null;
-  /**
-   * Mark as featured testimonial (larger display)
-   */
-  featured?: boolean | null;
-  id?: string | null;
-}[];
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "DataGridBlockRow".
- */
-export type DataGridBlockRow = {
-  /**
-   * Value for the first column
-   */
-  columnOne: string;
-  /**
-   * Value for the second column
-   */
-  columnTwo: string;
-  /**
-   * Optional value for the third column
-   */
-  columnThree?: string | null;
   id?: string | null;
 }[];
 /**
@@ -1945,6 +1640,364 @@ export type LucideIcon =
     )
   | null;
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ValuesGridItem".
+ */
+export type ValuesGridItem = {
+  icon?: LucideIcon;
+  title: string;
+  description?: string | null;
+  id?: string | null;
+}[];
+/**
+ * List of goals/milestones for this phase
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GrowthVisionPhaseItem".
+ */
+export type GrowthVisionPhaseItem = {
+  /**
+   * Goal or milestone description
+   */
+  text: string;
+  id?: string | null;
+}[];
+/**
+ * Growth phases with their respective goals
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GrowthVisionPhase".
+ */
+export type GrowthVisionPhase = {
+  icon: ImageType;
+  /**
+   * Phase name (e.g., "Curto prazo (até 2026)")
+   */
+  phaseName: string;
+  items: GrowthVisionPhaseItem;
+  id?: string | null;
+}[];
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GlobalVillageAboutSectionItem".
+ */
+export type GlobalVillageAboutSectionItem =
+  | {
+      title?: string | null;
+      content: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
+      sectionImage?: ImageType;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StepsBlockItem".
+ */
+export type StepsBlockItem = {
+  /**
+   * Title of the step
+   */
+  title: string;
+  /**
+   * Description of the step
+   */
+  description: string;
+  id?: string | null;
+}[];
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageShowcaseBlockImage".
+ */
+export type ImageShowcaseBlockImage = {
+  image: ImageType;
+  /**
+   * Shown over the image. Leave empty for no caption — the alt text stays for screen readers only.
+   */
+  caption?: string | null;
+  id?: string | null;
+}[];
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MultiRowImageContent".
+ */
+export type MultiRowImageContent = {
+  image?: ImageType;
+  /**
+   * Select the size of the image based on the grid columns. 1 to 6 columns.
+   */
+  column_size: '1' | '2' | '3' | '4' | '5' | '6';
+  /**
+   * Select the size of the image based on the grid rows. 1 to 6 rows.
+   */
+  row_size: '1' | '2' | '3' | '4' | '5' | '6';
+  id?: string | null;
+}[];
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MultiRowImageRow".
+ */
+export type MultiRowImageRow = {
+  images: MultiRowImageContent;
+  id?: string | null;
+}[];
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SimpleGalleryBlockImage".
+ */
+export type SimpleGalleryBlockImage = {
+  image?: ImageType;
+  id?: string | null;
+}[];
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OfferCatalogItem".
+ */
+export type OfferCatalogItem = {
+  /**
+   * e.g. "Sala de Formação 1", "Pacote 2 dias casal"
+   */
+  name: string;
+  /**
+   * Optional extra detail (e.g. size options, what is included)
+   */
+  description?: string | null;
+  /**
+   * Free text so ranges/prefixes work, e.g. "Desde 250 €", "40.000 €"
+   */
+  price: string;
+  /**
+   * Optional badge text (e.g. "Exclusivo", "Mais Popular")
+   */
+  badge?: string | null;
+  id?: string | null;
+}[];
+/**
+ * Categories of offers (e.g. "Naming Walls", "Rewilding Portugal")
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OfferCatalogGroup".
+ */
+export type OfferCatalogGroup = {
+  groupLabel: string;
+  items: OfferCatalogItem;
+  id?: string | null;
+}[];
+/**
+ * Pricing tiers (up to 4)
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingTableBlockTier".
+ */
+export type PricingTableBlockTier =
+  | {
+      /**
+       * Tier name (e.g., "Bronze", "Silver", "Gold")
+       */
+      name: string;
+      /**
+       * Price amount
+       */
+      price: number;
+      /**
+       * Currency symbol
+       */
+      currency?: string | null;
+      /**
+       * Billing period (e.g., "/month", "/year", "one-time")
+       */
+      period?: string | null;
+      /**
+       * Brief description of this tier
+       */
+      description?: string | null;
+      features?: PricingTableBlockTierFeature;
+      /**
+       * CTA button text
+       */
+      buttonText?: string | null;
+      /**
+       * CTA button URL
+       */
+      buttonLink?: string | null;
+      /**
+       * Mark this tier as featured/recommended
+       */
+      highlighted?: boolean | null;
+      /**
+       * Optional badge text (e.g., "Most Popular", "Best Value")
+       */
+      badge?: string | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * List of features included in this tier
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingTableBlockTierFeature".
+ */
+export type PricingTableBlockTierFeature =
+  | {
+      feature: string;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ResourceItem".
+ */
+export type ResourceItem =
+  | {
+      /**
+       * A descriptive title for the resource.
+       */
+      title: string;
+      /**
+       * A brief description of the resource.
+       */
+      description?: string | null;
+      file: string | HawkDocument;
+      /**
+       * Optional - Used to determine the icon displayed for the resource.
+       */
+      fileType?: ('pdf' | 'doc' | 'xls' | 'image' | 'other') | null;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * Short tags shown under the text, e.g. "3 training rooms", "Coworking", "Gaming hub".
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Sede3DCtaHighlight".
+ */
+export type Sede3DCtaHighlight =
+  | {
+      label: string;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactChannel".
+ */
+export type ContactChannel = {
+  icon?: LucideIcon;
+  label: string;
+  value: string;
+  /**
+   * tel:112, mailto:geral@hawkstars.org?subject=…, a site path (/contribute) or an https:// URL.
+   */
+  href: string;
+  id?: string | null;
+}[];
+/**
+ * Partner logos
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogosBlockLogo".
+ */
+export type LogosBlockLogo = {
+  name: string;
+  /**
+   * Logo image URL
+   */
+  logo: string;
+  id?: string | null;
+}[];
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectTestimonialBlockImage".
+ */
+export type ProjectTestimonialBlockImage = {
+  image: ImageType;
+  id?: string | null;
+}[];
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SocialProofBlockStat".
+ */
+export type SocialProofBlockStat =
+  | {
+      /**
+       * Number or stat (e.g., "500+", "95%")
+       */
+      value: string;
+      label: string;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialBlockItem".
+ */
+export type TestimonialBlockItem = {
+  /**
+   * The testimonial quote or review
+   */
+  quote: string;
+  author: {
+    /**
+     * Author full name
+     */
+    name: string;
+    /**
+     * Job title or role
+     */
+    title?: string | null;
+    /**
+     * Company or organization
+     */
+    company?: string | null;
+    avatar?: ImageType;
+  };
+  /**
+   * Optional context shown on the card, e.g. "Erasmus+ · Armenia 2025" or "Volunteer".
+   */
+  tag?: string | null;
+  /**
+   * Star rating (1-5 stars)
+   */
+  rating?: number | null;
+  /**
+   * Mark as featured testimonial (larger display)
+   */
+  featured?: boolean | null;
+  id?: string | null;
+}[];
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DataGridBlockRow".
+ */
+export type DataGridBlockRow = {
+  /**
+   * Value for the first column
+   */
+  columnOne: string;
+  /**
+   * Value for the second column
+   */
+  columnTwo: string;
+  /**
+   * Optional value for the third column
+   */
+  columnThree?: string | null;
+  id?: string | null;
+}[];
+/**
  * List of stat cards to display
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2191,6 +2244,46 @@ export type HawkEventObjectiveItem =
     }[]
   | null;
 /**
+ * The year in numbers, e.g. "40+" young people sent abroad.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImpactReportStat".
+ */
+export type ImpactReportStat =
+  | {
+      icon?: LucideIcon;
+      value: string;
+      label: string;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * Shown as a timeline, in the order listed here.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImpactReportHighlight".
+ */
+export type ImpactReportHighlight =
+  | {
+      date: string;
+      title: string;
+      description: string;
+      image?: ImageType;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImpactReportMoneyLine".
+ */
+export type ImpactReportMoneyLine =
+  | {
+      label: string;
+      amount: number;
+      id?: string | null;
+    }[]
+  | null;
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DropdownNavLink".
  */
@@ -2205,6 +2298,9 @@ export type DropdownNavLink =
        */
       visible?: boolean | null;
       imagePosition?: ('top' | 'center' | 'bottom' | '') | null;
+      /**
+       * One short line shown under the link. Write it in the language selected at the top of the editor.
+       */
       description?: string | null;
       link: LinkField;
       imageIcon?: ImageIcon;
@@ -2439,6 +2535,7 @@ export interface Config {
     globalVillageBanner: GlobalVillageBannerBlock;
     sectionTitleBlock: SectionTitleBlock;
     sectionListBlock: SectionListBlock;
+    pageHero: PageHeroBlock;
     accordion: AccordionBlock;
     contentWithImage: ContentWithImageBlock;
     faq: FAQBlock;
@@ -2446,6 +2543,8 @@ export interface Config {
     timeline: TimelineBlock;
     titleDescriptionBlock: TitleDescriptionBlock;
     whyHereWhyNowBlock: WhyHereWhyNowBlock;
+    valuesGrid: ValuesGridBlock;
+    longDocument: LongDocumentBlock;
     growthVisionBlock: GrowthVisionBlock;
     globalVillageAboutSection: GlobalVillageAboutSectionBlock;
     stepsBlock: StepsBlock;
@@ -2463,6 +2562,8 @@ export interface Config {
     offerCatalog: OfferCatalogBlock;
     pricingTable: PricingTableBlock;
     resourceDownload: ResourceDownloadBlock;
+    sede3dCta: Sede3DCtaBlock;
+    contactChannels: ContactChannelsBlock;
     logosBlock: LogosBlock;
     projectTestimonialBlock: ProjectTestimonialBlock;
     socialProof: SocialProofBlock;
@@ -2493,6 +2594,7 @@ export interface Config {
     newsletter_subscribers: NewsletterSubscriber;
     sponsors: Sponsor;
     pages: Page;
+    impact_reports: ImpactReport;
     news: News;
     notifications: Notification;
     'totp-attempts': TotpAttempt;
@@ -2529,6 +2631,7 @@ export interface Config {
     newsletter_subscribers: NewsletterSubscribersSelect<false> | NewsletterSubscribersSelect<true>;
     sponsors: SponsorsSelect<false> | SponsorsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    impact_reports: ImpactReportsSelect<false> | ImpactReportsSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
     notifications: NotificationsSelect<false> | NotificationsSelect<true>;
     'totp-attempts': TotpAttemptsSelect<false> | TotpAttemptsSelect<true>;
@@ -2733,6 +2836,7 @@ export interface Page {
         | GlobalVillageBannerBlock
         | SectionTitleBlock
         | SectionListBlock
+        | PageHeroBlock
         | AccordionBlock
         | ContentWithImageBlock
         | FAQBlock
@@ -2740,6 +2844,8 @@ export interface Page {
         | TimelineBlock
         | TitleDescriptionBlock
         | WhyHereWhyNowBlock
+        | ValuesGridBlock
+        | LongDocumentBlock
         | GrowthVisionBlock
         | GlobalVillageAboutSectionBlock
         | StepsBlock
@@ -2757,6 +2863,8 @@ export interface Page {
         | OfferCatalogBlock
         | PricingTableBlock
         | ResourceDownloadBlock
+        | Sede3DCtaBlock
+        | ContactChannelsBlock
         | LogosBlock
         | ProjectTestimonialBlock
         | SocialProofBlock
@@ -2958,6 +3066,74 @@ export interface SectionListBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PageHeroBlock".
+ */
+export interface PageHeroBlock {
+  /**
+   * Small uppercase label above the title (optional)
+   */
+  eyebrow?: string | null;
+  /**
+   * The page's main heading. Use one Page Hero per page, at the top.
+   */
+  title: string;
+  description?: string | null;
+  variant: 'green' | 'bege';
+  align: 'left' | 'center';
+  links?: LinkGroupItem;
+  /**
+   * Optional file from Documents (stored on Google Drive), shown as the first button.
+   */
+  document?: (string | null) | HawkDocument;
+  documentLabel?: string | null;
+  facts?: PageHeroFact;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pageHero';
+}
+/**
+ * Upload and manage documents such as PDFs, spreadsheets, and other files used throughout the website.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents".
+ */
+export interface HawkDocument {
+  id: string;
+  /**
+   * A descriptive title for the document.
+   */
+  title: string;
+  /**
+   * Optional folder path for organization.
+   */
+  folder?: ('general' | 'projects' | 'events' | 'reports') | null;
+  /**
+   * Linked files stay in their original Drive folder: deleting this entry does not delete the file.
+   */
+  source?: ('uploaded' | 'linked') | null;
+  /**
+   * Optional description of the document contents or purpose.
+   */
+  description?: string | null;
+  _objectKey?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AccordionBlock".
  */
 export interface AccordionBlock {
@@ -3055,9 +3231,17 @@ export interface QuoteHighlightBlock {
  * via the `definition` "TimelineBlock".
  */
 export interface TimelineBlock {
+  /**
+   * Small uppercase label above the title (optional)
+   */
+  eyebrow?: string | null;
   title?: string | null;
   items?: TimelineBlockItem;
   orientation?: ('vertical' | 'horizontal') | null;
+  /**
+   * Shows the final item as the current chapter (green card).
+   */
+  highlightLast?: boolean | null;
   /**
    * Unique identifier for the section (used for anchor links)
    */
@@ -3114,6 +3298,72 @@ export interface WhyHereWhyNowBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'whyHereWhyNowBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ValuesGridBlock".
+ */
+export interface ValuesGridBlock {
+  /**
+   * Small uppercase label above the title (optional)
+   */
+  eyebrow?: string | null;
+  title?: string | null;
+  subtitle?: string | null;
+  columns: '2' | '3' | '4';
+  background: 'white' | 'bege' | 'green';
+  /**
+   * Used on cards without an icon
+   */
+  numbered?: boolean | null;
+  items: ValuesGridItem;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'valuesGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LongDocumentBlock".
+ */
+export interface LongDocumentBlock {
+  eyebrow?: string | null;
+  title?: string | null;
+  /**
+   * Optional highlighted note above the text, e.g. "The official version is in Portuguese."
+   */
+  note?: string | null;
+  /**
+   * Use Heading 2 for each section: they become the table of contents.
+   */
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  footnote?: string | null;
+  showContents?: boolean | null;
+  background: 'bege' | 'white';
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'longDocument';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3530,41 +3780,47 @@ export interface ResourceDownloadBlock {
   blockType: 'resourceDownload';
 }
 /**
- * Upload and manage documents such as PDFs, spreadsheets, and other files used throughout the website.
- *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "documents".
+ * via the `definition` "Sede3DCtaBlock".
  */
-export interface HawkDocument {
-  id: string;
+export interface Sede3DCtaBlock {
   /**
-   * A descriptive title for the document.
+   * Small label above the title. Leave empty for the default ("Explore in 3D").
    */
+  eyebrow?: string | null;
   title: string;
-  /**
-   * Optional folder path for organization.
-   */
-  folder?: ('general' | 'projects' | 'events' | 'reports') | null;
-  /**
-   * Linked files stay in their original Drive folder: deleting this entry does not delete the file.
-   */
-  source?: ('uploaded' | 'linked') | null;
-  /**
-   * Optional description of the document contents or purpose.
-   */
   description?: string | null;
-  _objectKey?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
+  highlights?: Sede3DCtaHighlight;
+  /**
+   * Leave empty for the default ("Explore the building in 3D").
+   */
+  buttonLabel?: string | null;
+  image?: ImageType;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sede3dCta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactChannelsBlock".
+ */
+export interface ContactChannelsBlock {
+  eyebrow?: string | null;
+  title: string;
+  description?: string | null;
+  background: 'ink' | 'green' | 'bege';
+  channels: ContactChannel;
+  /**
+   * Unique identifier for the section (used for anchor links)
+   */
+  sectionId?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactChannels';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3950,10 +4206,7 @@ export interface Meta {
   /**
    * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
    */
-  image?: {
-    relationTo: 'media';
-    value: string | Media;
-  } | null;
+  image?: (string | null) | Media;
 }
 /**
  * Manage HawkStars projects and events. Add project details, images, and descriptions. Each project gets its own public page based on its slug.
@@ -4827,6 +5080,65 @@ export interface Sponsor {
   createdAt: string;
 }
 /**
+ * One report per year: impact numbers, highlights, accounts and official documents. Shown on /impact and /reports once published.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "impact_reports".
+ */
+export interface ImpactReport {
+  id: string;
+  /**
+   * The year this report covers. Also its URL: /impact/2025.
+   */
+  year: number;
+  title: string;
+  /**
+   * Two or three sentences on the year, shown at the top and on the report card.
+   */
+  summary?: string | null;
+  coverImage?: ImageType;
+  stats?: ImpactReportStat;
+  highlights?: ImpactReportHighlight;
+  finances?: ImpactReportFinances;
+  documents?: ImpactReportDocuments;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImpactReportFinances".
+ */
+export interface ImpactReportFinances {
+  income?: number | null;
+  expenses?: number | null;
+  closingBalance?: number | null;
+  incomeLines?: ImpactReportMoneyLine;
+  expenseLines?: ImpactReportMoneyLine;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImpactReportDocuments".
+ */
+export interface ImpactReportDocuments {
+  /**
+   * Pick the PDF from Documents (upload it there first, folder "Reports").
+   */
+  activityReport?: (string | null) | HawkDocument;
+  /**
+   * Pick the PDF from Documents (upload it there first, folder "Reports").
+   */
+  accountsReport?: (string | null) | HawkDocument;
+  /**
+   * Pick the PDF from Documents (upload it there first, folder "Reports").
+   */
+  fiscalCouncilOpinion?: (string | null) | HawkDocument;
+  /**
+   * Pick the PDF from Documents (upload it there first, folder "Reports").
+   */
+  activityPlan?: (string | null) | HawkDocument;
+}
+/**
  * Write and publish news articles for the HawkStars website. Save as Draft while editing and Publish when ready to go live.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5412,6 +5724,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'impact_reports';
+        value: string | ImpactReport;
       } | null)
     | ({
         relationTo: 'news';
@@ -6096,6 +6412,7 @@ export interface PagesSelect<T extends boolean = true> {
         globalVillageBanner?: T | GlobalVillageBannerBlockSelect<T>;
         sectionTitleBlock?: T | SectionTitleBlockSelect<T>;
         sectionListBlock?: T | SectionListBlockSelect<T>;
+        pageHero?: T | PageHeroBlockSelect<T>;
         accordion?: T | AccordionBlockSelect<T>;
         contentWithImage?: T | ContentWithImageBlockSelect<T>;
         faq?: T | FAQBlockSelect<T>;
@@ -6103,6 +6420,8 @@ export interface PagesSelect<T extends boolean = true> {
         timeline?: T | TimelineBlockSelect<T>;
         titleDescriptionBlock?: T | TitleDescriptionBlockSelect<T>;
         whyHereWhyNowBlock?: T | WhyHereWhyNowBlockSelect<T>;
+        valuesGrid?: T | ValuesGridBlockSelect<T>;
+        longDocument?: T | LongDocumentBlockSelect<T>;
         growthVisionBlock?: T | GrowthVisionBlockSelect<T>;
         globalVillageAboutSection?: T | GlobalVillageAboutSectionBlockSelect<T>;
         stepsBlock?: T | StepsBlockSelect<T>;
@@ -6120,6 +6439,8 @@ export interface PagesSelect<T extends boolean = true> {
         offerCatalog?: T | OfferCatalogBlockSelect<T>;
         pricingTable?: T | PricingTableBlockSelect<T>;
         resourceDownload?: T | ResourceDownloadBlockSelect<T>;
+        sede3dCta?: T | Sede3DCtaBlockSelect<T>;
+        contactChannels?: T | ContactChannelsBlockSelect<T>;
         logosBlock?: T | LogosBlockSelect<T>;
         projectTestimonialBlock?: T | ProjectTestimonialBlockSelect<T>;
         socialProof?: T | SocialProofBlockSelect<T>;
@@ -6270,6 +6591,33 @@ export interface SectionListBlockItemSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PageHeroBlock_select".
+ */
+export interface PageHeroBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  description?: T;
+  variant?: T;
+  align?: T;
+  links?: T | LinkGroupItemSelect<T>;
+  document?: T;
+  documentLabel?: T;
+  facts?: T | PageHeroFactSelect<T>;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PageHeroFact_select".
+ */
+export interface PageHeroFactSelect<T extends boolean = true> {
+  label?: T;
+  value?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AccordionBlock_select".
  */
 export interface AccordionBlockSelect<T extends boolean = true> {
@@ -6344,9 +6692,11 @@ export interface QuoteHighlightBlockSelect<T extends boolean = true> {
  * via the `definition` "TimelineBlock_select".
  */
 export interface TimelineBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
   title?: T;
   items?: T | TimelineBlockItemSelect<T>;
   orientation?: T;
+  highlightLast?: T;
   sectionId?: T;
   id?: T;
   blockName?: T;
@@ -6396,6 +6746,48 @@ export interface WhyHereWhyNowChallengeSelect<T extends boolean = true> {
   icon?: T | ImageTypeSelect<T>;
   label?: T;
   id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ValuesGridBlock_select".
+ */
+export interface ValuesGridBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  subtitle?: T;
+  columns?: T;
+  background?: T;
+  numbered?: T;
+  items?: T | ValuesGridItemSelect<T>;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ValuesGridItem_select".
+ */
+export interface ValuesGridItemSelect<T extends boolean = true> {
+  icon?: T;
+  title?: T;
+  description?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LongDocumentBlock_select".
+ */
+export interface LongDocumentBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  note?: T;
+  content?: T;
+  footnote?: T;
+  showContents?: T;
+  background?: T;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6758,6 +7150,54 @@ export interface ResourceItemSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Sede3DCtaBlock_select".
+ */
+export interface Sede3DCtaBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  description?: T;
+  highlights?: T | Sede3DCtaHighlightSelect<T>;
+  buttonLabel?: T;
+  image?: T | ImageTypeSelect<T>;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Sede3DCtaHighlight_select".
+ */
+export interface Sede3DCtaHighlightSelect<T extends boolean = true> {
+  label?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactChannelsBlock_select".
+ */
+export interface ContactChannelsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  description?: T;
+  background?: T;
+  channels?: T | ContactChannelSelect<T>;
+  sectionId?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactChannel_select".
+ */
+export interface ContactChannelSelect<T extends boolean = true> {
+  icon?: T;
+  label?: T;
+  value?: T;
+  href?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "LogosBlock_select".
  */
 export interface LogosBlockSelect<T extends boolean = true> {
@@ -6884,6 +7324,7 @@ export interface TestimonialBlockItemSelect<T extends boolean = true> {
         company?: T;
         avatar?: T | ImageTypeSelect<T>;
       };
+  tag?: T;
   rating?: T;
   featured?: T;
   id?: T;
@@ -6997,6 +7438,74 @@ export interface UpcomingHawkEventBlockSelect<T extends boolean = true> {
   sectionId?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "impact_reports_select".
+ */
+export interface ImpactReportsSelect<T extends boolean = true> {
+  year?: T;
+  title?: T;
+  summary?: T;
+  coverImage?: T | ImageTypeSelect<T>;
+  stats?: T | ImpactReportStatSelect<T>;
+  highlights?: T | ImpactReportHighlightSelect<T>;
+  finances?: T | ImpactReportFinancesSelect<T>;
+  documents?: T | ImpactReportDocumentsSelect<T>;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImpactReportStat_select".
+ */
+export interface ImpactReportStatSelect<T extends boolean = true> {
+  icon?: T;
+  value?: T;
+  label?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImpactReportHighlight_select".
+ */
+export interface ImpactReportHighlightSelect<T extends boolean = true> {
+  date?: T;
+  title?: T;
+  description?: T;
+  image?: T | ImageTypeSelect<T>;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImpactReportFinances_select".
+ */
+export interface ImpactReportFinancesSelect<T extends boolean = true> {
+  income?: T;
+  expenses?: T;
+  closingBalance?: T;
+  incomeLines?: T | ImpactReportMoneyLineSelect<T>;
+  expenseLines?: T | ImpactReportMoneyLineSelect<T>;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImpactReportMoneyLine_select".
+ */
+export interface ImpactReportMoneyLineSelect<T extends boolean = true> {
+  label?: T;
+  amount?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImpactReportDocuments_select".
+ */
+export interface ImpactReportDocumentsSelect<T extends boolean = true> {
+  activityReport?: T;
+  accountsReport?: T;
+  fiscalCouncilOpinion?: T;
+  activityPlan?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -7418,10 +7927,25 @@ export interface ProjectsList {
    * Unique identifier for the section (used for anchor links)
    */
   sectionId?: string | null;
+  testimonials?: ProjectsListTestimonials;
   meta?: Meta;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * Shown at the end of the projects page. Leave the list empty to hide the section.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectsListTestimonials".
+ */
+export interface ProjectsListTestimonials {
+  /**
+   * Leave empty for the default ("In their own words").
+   */
+  title?: string | null;
+  subtitle?: string | null;
+  items?: TestimonialBlockItem;
 }
 /**
  * Configure the events list page header information.
@@ -7740,6 +8264,7 @@ export interface ProjectsListSelect<T extends boolean = true> {
   stats?: T | ProjectsListStatsItemSelect<T>;
   links?: T | LinkGroupItemSelect<T>;
   sectionId?: T;
+  testimonials?: T | ProjectsListTestimonialsSelect<T>;
   meta?: T | MetaSelect<T>;
   _status?: T;
   updatedAt?: T;
@@ -7755,6 +8280,15 @@ export interface ProjectsListStatsItemSelect<T extends boolean = true> {
   number?: T;
   label?: T;
   id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProjectsListTestimonials_select".
+ */
+export interface ProjectsListTestimonialsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  items?: T | TestimonialBlockItemSelect<T>;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

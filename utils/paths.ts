@@ -33,6 +33,16 @@ export const SITE_GET_URLS = {
   gaming: '/gaming',
   team: '/team',
   terms: '/store/terms',
+  impact: '/impact',
+  reports: '/reports',
+  pinhel: '/pinhel',
+  press: '/press',
+} as const;
+
+/** CMS pages (Pages collection) that code links to; their content lives in Payload. */
+export const CMS_PAGE_URLS = {
+  about: '/ong',
+  village: '/village',
 } as const;
 
 export const allUrls = {
@@ -126,6 +136,10 @@ export const routes = [
   { url: SITE_GET_URLS.agenda, priority: 0.7 },
   { url: SITE_GET_URLS.news, priority: 0.6 },
   { url: SITE_GET_URLS.terms, priority: 0.3 },
+  { url: SITE_GET_URLS.impact, priority: 0.7 },
+  { url: SITE_GET_URLS.reports, priority: 0.6 },
+  { url: SITE_GET_URLS.pinhel, priority: 0.6 },
+  { url: SITE_GET_URLS.press, priority: 0.5 },
 ] as MetadataRoute[];
 
 // z.url() alone accepts schemes like javascript:, data: and vbscript:, which
@@ -135,6 +149,21 @@ export const isHttpUrl = (value: string) => {
   try {
     const { protocol } = new URL(value);
     return protocol === 'http:' || protocol === 'https:';
+  } catch {
+    return false;
+  }
+};
+
+/**
+ * A URL a CMS editor may use as a link target: http(s), plus `mailto:` and `tel:` for
+ * contact buttons. Anything else (javascript:, data:, vbscript:…) is rejected, as in
+ * `isHttpUrl`. Use `isHttpUrl` where only a web resource makes sense (images, embeds).
+ */
+export const isLinkUrl = (value: string) => {
+  if (isHttpUrl(value)) return true;
+  try {
+    const { protocol } = new URL(value);
+    return protocol === 'mailto:' || protocol === 'tel:';
   } catch {
     return false;
   }

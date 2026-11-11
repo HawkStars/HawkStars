@@ -16,11 +16,15 @@ export const getLinkFieldInformation = (
   if (link.type === 'custom') {
     if (!link.url) return undefined;
 
+    // A site-relative path is an in-app route: prefix the locale and let callers use
+    // next/link for it (client-side navigation) instead of a full page reload.
+    const relative = link.url.startsWith('/');
+    const anchor = relative && link.section && !link.url.includes('#') ? `#${link.section}` : '';
     return {
-      url: link.url.startsWith('/') ? `/${lng}${link.url}` : link.url,
+      url: relative ? `/${lng}${link.url}${anchor}` : link.url,
       newTab: link.newTab,
-      label: link.label,
-      internal: false,
+      label: link.label?.trim(),
+      internal: relative,
     };
   }
 
@@ -37,7 +41,7 @@ export const getLinkFieldInformation = (
     return {
       url: href,
       newTab: link.newTab,
-      label: link.label,
+      label: link.label?.trim(),
       internal: true,
     };
   }
