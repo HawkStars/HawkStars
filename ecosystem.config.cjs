@@ -29,10 +29,18 @@ module.exports = {
       restart_delay: 2000,
       watch: false,
       ignore_watch: ['node_modules', '.next', '.git', 'logs', 'public'],
-      // Sized for a 4 GB box with Mongo alongside. Above this the kernel OOM
-      // killer tends to arrive before PM2 does, which kills the worker
-      // uncleanly instead of restarting it.
-      max_memory_restart: '1024M',
+      // The VPS has 8 GB (≈6 GB available with Mongo running). The old 1024M cap
+      // was sized for a 4 GB box and sat *below* the app's normal working set
+      // (Next + Payload + the in-process `use cache` LRU), so PM2 recycled the
+      // worker every couple of minutes — 2,600+ restarts, ~107s uptime. Every
+      // recycle was a request stall (single instance) plus a cold cache, which
+      // showed up as random 5–16s TTFB on any route, even fully static ones.
+      //
+      // The V8 heap is capped below the PM2 limit so the GC works hard before
+      // PM2 ever has to kill anything; PM2 is now a leak backstop, not the
+      // steady-state memory manager.
+      node_args: '--max-old-space-size=2048',
+      max_memory_restart: '2560M',
       // nginx holds proxied requests for up to 180s (`proxy_read_timeout`), so
       // PM2's 1.6s default cut in-flight requests on every reload.
       kill_timeout: 10000,

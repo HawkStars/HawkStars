@@ -1,9 +1,9 @@
 import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
-import { findPublishedBySlug } from './helpers';
+import { currentTimeBucket, findPublishedBySlug } from './helpers';
 import { HawkEvent } from '@/payload-types';
 import { PaginatedDocs, Where } from 'payload';
-import { customDateRangeQuery, currentTimeBucket } from '@/lib/utils/date';
+import { customDateRangeQuery } from '@/lib/utils/date';
 import { cacheLife, cacheTag } from 'next/cache';
 import { HAWK_EVENT_CACHE_TAG } from '@/payload/collections/HawkEvent';
 
@@ -53,7 +53,7 @@ const getHawkEventsSplitByDate = async (
   locale: Language,
   opts: { preview?: boolean } & HawkEventFilterOpts = {}
 ): Promise<SplitHawkEventsResult> =>
-  getHawkEventsSplitByDateCached(locale, currentTimeBucket(), opts);
+  getHawkEventsSplitByDateCached(locale, await currentTimeBucket(), opts);
 
 const getHawkEventsSplitByDateCached = async (
   locale: Language,
@@ -150,7 +150,7 @@ const getUpcomingEvents = async (
 const getPastEvents = async (
   locale: Language,
   opts: { preview?: boolean; page?: number; limit?: number } & HawkEventFilterOpts = {}
-) => getPastEventsAt(locale, currentTimeBucket(), opts);
+) => getPastEventsAt(locale, await currentTimeBucket(), opts);
 
 const getPastEventsAt = async (
   locale: Language,

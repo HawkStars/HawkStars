@@ -73,6 +73,28 @@ const findGlobalBySlug = async <TSlug extends GlobalSlug>(
   });
 };
 
+/**
+ * Hour-granular "now", passed as an argument to the cached date-bucketed queries
+ * (events, projects) so their cache entries roll over every hour instead of pinning
+ * a stale "now" for the whole cache window.
+ *
+ * The clock is read inside its own `'use cache'` scope on purpose. Under
+ * `cacheComponents`, a bare `new Date()` in a server component is an unstable value
+ * and fails prerendering ("Next.js encountered the unstable value `new Date()`
+ * while prerendering") — the error that flooded the dev console on /projects and
+ * /events. Wrapping it in `connection()` instead would make those routes fully
+ * dynamic again. Caching it keeps them prerenderable; the short `revalidate`
+ * means the bucket lags the real hour boundary by at most ~5 minutes.
+ *
+ * Lives here rather than in `lib/utils/date.ts` because that module is imported
+ * by client components, and a `'use cache'` function must stay server-only.
+ */
+export const currentTimeBucket = async (): Promise<string> => {
+  'use cache';
+  cacheLife({ stale: 300, revalidate: 300, expire: 3600 });
+  return `${new Date().toISOString().slice(0, 13)}:00:00.000Z`;
+};
+
 const findPublishedCached = async <TSlug extends CollectionSlug>(
   collection: TSlug,
   slug: string,

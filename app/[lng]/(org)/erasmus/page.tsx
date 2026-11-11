@@ -9,6 +9,7 @@ import { applySteps, eligibilityItems, flagshipCards, opportunityCards } from '.
 import StepsBlockComponent from '@/payload/blocks/StepsBlock/Component';
 import NavbarVariant from '@/components/navbar/NavbarVariant';
 import { SectionEyebrow } from '@/components/ui/SectionHeader';
+import { SITE_GET_URLS, transformUrl } from '@/utils/paths';
 
 export async function generateMetadata(props: LanguagePageProps): Promise<Metadata> {
   const params = await props.params;
@@ -31,7 +32,7 @@ async function ErasmusContent({ lng }: { lng: string }) {
       <HeroSection t={t} />
       <FlagshipProgrammes t={t} />
       <MoreOpportunities t={t} />
-      <HowToApply t={t} />
+      <HowToApply t={t} lng={lng} />
       <Eligibility t={t} />
       <CTABanner t={t} />
     </HawkStarsSection>
@@ -214,7 +215,7 @@ const MoreOpportunities = ({ t }: SectionProps) => (
   </section>
 );
 
-const HowToApply = ({ t }: SectionProps) => (
+const HowToApply = ({ t, lng }: SectionProps & { lng: string }) => (
   <section id='apply' className='px-4 py-24 sm:px-6 lg:px-8'>
     <div className='mx-auto max-w-6xl'>
       <SectionTag label={t('apply_tag')} />
@@ -236,6 +237,21 @@ const HowToApply = ({ t }: SectionProps) => (
         sectionId='apply-steps'
         blockType='stepsBlock'
       />
+
+      <div className='border-erasmus-blue/10 bg-bege-light mt-14 flex flex-col items-start justify-between gap-6 rounded-sm border p-8 sm:flex-row sm:items-center'>
+        <div>
+          <h3 className='text-erasmus-dark mb-1 font-serif text-xl font-bold'>
+            {t('apply_join_title')}
+          </h3>
+          <p className='text-erasmus-muted text-sm leading-relaxed'>{t('apply_join_desc')}</p>
+        </div>
+        <Link
+          href={transformUrl(lng, SITE_GET_URLS.erasmus_join)}
+          className='bg-erasmus-blue text-erasmus-gold inline-flex shrink-0 items-center gap-2 rounded-sm px-7 py-3 text-sm font-semibold tracking-wide transition-transform hover:-translate-y-0.5 hover:shadow-lg'
+        >
+          {t('apply_join_cta')} →
+        </Link>
+      </div>
     </div>
   </section>
 );

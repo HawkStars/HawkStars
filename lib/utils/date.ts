@@ -19,11 +19,4 @@ const customDateRangeQuery = (reference: Date | string = new Date()) => {
   return { startOfDay, endOfDay, now: nowIso };
 };
 
-/**
- * Hour-granular cache key. Passed as an argument to a cached query so the entry rolls
- * over every hour — matching `cacheLife('hours')` — instead of pinning a stale
- * "now" for the whole window. Returns a full ISO timestamp truncated to the hour.
- */
-const currentTimeBucket = () => `${new Date().toISOString().slice(0, 13)}:00:00.000Z`;
-
-export { customDateRangeQuery, currentTimeBucket };
+export { customDateRangeQuery };

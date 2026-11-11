@@ -2,8 +2,7 @@ import { cacheLife, cacheTag } from 'next/cache';
 import { HawkProject } from '@/payload-types';
 import { getPayloadConfig } from '../server';
 import { Language } from '@/i18n/settings';
-import { currentTimeBucket } from '@/lib/utils/date';
-import { findPublishedBySlug } from './helpers';
+import { currentTimeBucket, findPublishedBySlug } from './helpers';
 import { PaginatedDocs, Where } from 'payload';
 import { HAWK_PROJECT_CACHE_TAG } from '@/payload/collections/HawkProject';
 
@@ -48,7 +47,8 @@ const buildProjectFilterConditions = (
 export const getProjectsSplitByDate = async (
   locale: Language,
   opts?: ProjectFilterOpts
-): Promise<SplitProjectsResult> => getProjectsSplitByDateAt(locale, currentTimeBucket(), opts);
+): Promise<SplitProjectsResult> =>
+  getProjectsSplitByDateAt(locale, await currentTimeBucket(), opts);
 
 // `now` arrives as an argument computed outside this cached scope, so it is part of
 // the cache key and rolls over hourly. Previously this called `connection()`, which
@@ -86,7 +86,8 @@ const getProjectsSplitByDateAt = async (
 export const getPastProjectsQuery = async (
   locale: Language,
   opts?: { page?: number; limit?: number } & ProjectFilterOpts
-): Promise<PaginatedDocs<HawkProject>> => getPastProjectsAt(locale, currentTimeBucket(), opts);
+): Promise<PaginatedDocs<HawkProject>> =>
+  getPastProjectsAt(locale, await currentTimeBucket(), opts);
 
 const getPastProjectsAt = async (
   locale: Language,
