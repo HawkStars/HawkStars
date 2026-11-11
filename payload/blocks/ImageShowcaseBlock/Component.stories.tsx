@@ -116,12 +116,46 @@ const sampleImages = [
   },
 ];
 
+const captions = [
+  'Volunteers setting up the summer camp in Pinhel',
+  'Morning workshop with the Erasmus+ group',
+  undefined,
+  'Closing ceremony at the castle',
+];
+
+const captionedImages = sampleImages.map((img, index) => ({
+  ...img,
+  caption: captions[index % captions.length],
+}));
+
 export const Default: Story = {
   args: {
     blockType: 'imageShowcase',
-    images: sampleImages,
+    title: 'Moments from the field',
+    description: 'A look at the people and places behind our projects this year.',
+    images: captionedImages,
     transitionDuration: 5000,
-    gridColumns: '1',
+    autoplay: true,
+    lng: 'en',
+  },
+};
+
+export const WithoutHeader: Story = {
+  args: {
+    blockType: 'imageShowcase',
+    images: captionedImages,
+    transitionDuration: 5000,
+    autoplay: true,
+    lng: 'en',
+  },
+};
+
+export const NoAutoplay: Story = {
+  args: {
+    blockType: 'imageShowcase',
+    images: captionedImages,
+    autoplay: false,
+    lng: 'en',
   },
 };
 
@@ -130,14 +164,7 @@ export const FastTransition: Story = {
     blockType: 'imageShowcase',
     images: sampleImages,
     transitionDuration: 2000,
-  },
-};
-
-export const SlowTransition: Story = {
-  args: {
-    blockType: 'imageShowcase',
-    images: sampleImages,
-    transitionDuration: 10000,
+    lng: 'en',
   },
 };
 
@@ -146,13 +173,6 @@ export const TwoImages: Story = {
     blockType: 'imageShowcase',
     images: sampleImages.slice(0, 2),
     transitionDuration: 5000,
-  },
-};
-
-export const FourImages: Story = {
-  args: {
-    blockType: 'imageShowcase',
-    images: sampleImages.slice(0, 4),
-    transitionDuration: 5000,
+    lng: 'en',
   },
 };

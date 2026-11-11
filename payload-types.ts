@@ -150,6 +150,10 @@ export type StepsBlockItem = {
  */
 export type ImageShowcaseBlockImage = {
   image: ImageType;
+  /**
+   * Shown over the image. Leave empty for no caption — the alt text stays for screen readers only.
+   */
+  caption?: string | null;
   id?: string | null;
 }[];
 /**
@@ -3205,19 +3209,23 @@ export interface ImageComparisonSliderBlock {
  * via the `definition` "ImageShowcaseBlock".
  */
 export interface ImageShowcaseBlock {
+  /**
+   * Optional heading above the showcase.
+   */
+  title?: string | null;
+  /**
+   * Optional supporting text below the title.
+   */
+  description?: string | null;
   images: ImageShowcaseBlockImage;
   /**
-   * Time in milliseconds for each image to transition from grayscale to color (default: 5000ms)
+   * How long each image stays on screen during autoplay (default: 5000ms).
    */
   transitionDuration?: number | null;
   /**
-   * Whether the image showcase should automatically transition between images.
+   * Advance through the images automatically. Pauses while the visitor hovers or focuses the showcase.
    */
   autoplay?: boolean | null;
-  /**
-   * Number of columns to display in the thumbnail grid (default: 2). Note: For best results, use images with a 1:1 aspect ratio.
-   */
-  gridColumns?: ('1' | '2') | null;
   /**
    * Unique identifier for the section (used for anchor links)
    */
@@ -6488,10 +6496,11 @@ export interface ImageComparisonSliderBlockSelect<T extends boolean = true> {
  * via the `definition` "ImageShowcaseBlock_select".
  */
 export interface ImageShowcaseBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
   images?: T | ImageShowcaseBlockImageSelect<T>;
   transitionDuration?: T;
   autoplay?: T;
-  gridColumns?: T;
   sectionId?: T;
   id?: T;
   blockName?: T;
@@ -6502,6 +6511,7 @@ export interface ImageShowcaseBlockSelect<T extends boolean = true> {
  */
 export interface ImageShowcaseBlockImageSelect<T extends boolean = true> {
   image?: T | ImageTypeSelect<T>;
+  caption?: T;
   id?: T;
 }
 /**

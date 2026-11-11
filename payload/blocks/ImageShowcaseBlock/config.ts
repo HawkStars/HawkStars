@@ -14,6 +14,30 @@ export const ImageShowcaseBlock: Block = {
   },
   fields: [
     {
+      name: 'title',
+      type: 'text',
+      label: { en: 'Title', pt: 'Título' },
+      localized: true,
+      admin: {
+        description: {
+          en: 'Optional heading above the showcase.',
+          pt: 'Título opcional acima da montra.',
+        },
+      },
+    },
+    {
+      name: 'description',
+      type: 'textarea',
+      label: { en: 'Description', pt: 'Descrição' },
+      localized: true,
+      admin: {
+        description: {
+          en: 'Optional supporting text below the title.',
+          pt: 'Texto de apoio opcional abaixo do título.',
+        },
+      },
+    },
+    {
       name: 'images',
       type: 'array',
       interfaceName: 'ImageShowcaseBlockImage',
@@ -29,19 +53,33 @@ export const ImageShowcaseBlock: Block = {
           RowLabel: '@/payload/components/admin/GenericArrayRowLabel',
         },
       },
-      fields: [PayloadImageField({ label: 'Image', name: 'image', required: true })],
+      fields: [
+        PayloadImageField({ label: 'Image', name: 'image', required: true }),
+        {
+          name: 'caption',
+          type: 'text',
+          label: { en: 'Caption', pt: 'Legenda' },
+          localized: true,
+          admin: {
+            description: {
+              en: 'Shown over the image. Leave empty for no caption — the alt text stays for screen readers only.',
+              pt: 'Mostrada sobre a imagem. Deixe vazio para não ter legenda — o texto alternativo fica só para leitores de ecrã.',
+            },
+          },
+        },
+      ],
     },
     {
       name: 'transitionDuration',
       type: 'number',
-      label: { en: 'Transition Duration (ms)', pt: 'Duração da Transição (ms)' },
+      label: { en: 'Time per Image (ms)', pt: 'Tempo por Imagem (ms)' },
       defaultValue: 5000,
       min: 1000,
       max: 30000,
       admin: {
         description: {
-          en: 'Time in milliseconds for each image to transition from grayscale to color (default: 5000ms)',
-          pt: 'Tempo em milissegundos para cada imagem transitar de escala de cinzas para cor (padrão: 5000ms)',
+          en: 'How long each image stays on screen during autoplay (default: 5000ms).',
+          pt: 'Quanto tempo cada imagem fica no ecrã durante a reprodução automática (padrão: 5000ms).',
         },
       },
     },
@@ -52,24 +90,8 @@ export const ImageShowcaseBlock: Block = {
       defaultValue: true,
       admin: {
         description: {
-          en: 'Whether the image showcase should automatically transition between images.',
-          pt: 'Se a montra de imagens deve transitar automaticamente entre imagens.',
-        },
-      },
-    },
-    {
-      name: 'gridColumns',
-      type: 'select',
-      label: { en: 'Grid Columns', pt: 'Colunas da Grelha' },
-      defaultValue: '2',
-      options: [
-        { label: { en: '1 Column', pt: '1 Coluna' }, value: '1' },
-        { label: { en: '2 Columns', pt: '2 Colunas' }, value: '2' },
-      ],
-      admin: {
-        description: {
-          en: 'Number of columns to display in the thumbnail grid (default: 2). Note: For best results, use images with a 1:1 aspect ratio.',
-          pt: 'Número de colunas a exibir na grelha de miniaturas (padrão: 2). Nota: Para melhores resultados, use imagens com proporção 1:1.',
+          en: 'Advance through the images automatically. Pauses while the visitor hovers or focuses the showcase.',
+          pt: 'Avançar pelas imagens automaticamente. Pausa enquanto o visitante passa o rato ou foca a montra.',
         },
       },
     },

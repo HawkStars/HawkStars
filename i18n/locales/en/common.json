@@ -88,6 +88,7 @@
     "starRating": "{{rating}} out of 5 stars",
     "prevImage": "Previous image",
     "nextImage": "Next image",
+    "imageOf": "Image {{current}} of {{total}}",
     "mapRegion": "Map showing our location",
     "previousMonth": "Previous month",
     "nextMonth": "Next month",
