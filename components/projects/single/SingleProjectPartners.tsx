@@ -1,17 +1,23 @@
 'use client';
 
-import { HawkProject, Media, Partner } from '@/payload-types';
 import { FC } from 'react';
+import { HawkProject, Media, Partner } from '@/payload-types';
 import { ImageMedia } from '@/payload/components/Media';
 import { ContentSection } from '@/components/layout';
 import { hawkLogo } from '@/utils/models/images/logos';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Language } from '@/i18n/settings';
+import { FlagIcon } from '@/lib/icon';
+import { FLAG_PORTUGAL } from '@/lib/constants';
 import SectionHeader from '@/components/ui/SectionHeader';
 
 type SingleProjectPartnersProps = Pick<HawkProject, 'partnersInformation'> & { lng?: Language };
 
+const LOGO_CARD =
+  'card card-hover group flex flex-col items-center gap-3 bg-white p-5 text-center transition-[translate,box-shadow] duration-300 hover:-translate-y-1';
+
+/** Hawk Stars first, then every partner organisation, each in a logo card with its flag. */
 const SingleProjectPartners: FC<SingleProjectPartnersProps> = ({
   partnersInformation,
   lng: lngProp,
@@ -19,47 +25,49 @@ const SingleProjectPartners: FC<SingleProjectPartnersProps> = ({
   const cookieLng = useLanguageCookie();
   const { t } = useTranslation(lngProp ?? cookieLng, 'projects');
   const { partners } = partnersInformation || {};
-  return (
-    <>
-      {partners && partners.length > 0 && (
-        <ContentSection>
-          <SectionHeader
-            title={t('sections.partners')}
-            className='mb-8'
-            titleClassName='text-4xl font-bold'
-          />
-          <div className='flex flex-wrap justify-between gap-4'>
-            <div className='relative h-32 w-32'>
-              <ImageMedia
-                src={hawkLogo}
-                alt=''
-                fill
-                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                className='items-center object-contain'
-              />
-            </div>
-            {partners.map((partner) => {
-              const { logo, name } = partner.partner as Partner;
-              const logoUrl = logo ? (logo as Media).url : null;
-              if (!logoUrl) return null;
+  if (!partners || partners.length === 0) return null;
 
-              return (
-                <div className='relative h-32 w-32' key={partner.id}>
+  return (
+    <ContentSection className='bg-bege-light'>
+      <SectionHeader title={t('sections.partners')} className='mb-8' />
+      <ul className='grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5'>
+        <li className={LOGO_CARD}>
+          <div className='relative h-20 w-full'>
+            <ImageMedia
+              src={hawkLogo}
+              alt='Hawk Stars'
+              fill
+              sizes='200px'
+              className='object-contain'
+            />
+          </div>
+          <FlagIcon country={FLAG_PORTUGAL} />
+        </li>
+        {partners.map((entry) => {
+          const { logo, name, country } = entry.partner as Partner;
+          const logoUrl = logo ? (logo as Media).url : null;
+
+          return (
+            <li key={entry.id} className={LOGO_CARD}>
+              <div className='relative flex h-20 w-full items-center justify-center'>
+                {logoUrl ? (
                   <ImageMedia
-                    key={partner.id}
                     src={logoUrl}
                     alt={t('a11y.logoAlt', { name })}
                     fill
-                    sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                    className='items-center object-contain'
+                    sizes='200px'
+                    className='object-contain grayscale-25 transition group-hover:grayscale-0'
                   />
-                </div>
-              );
-            })}
-          </div>
-        </ContentSection>
-      )}
-    </>
+                ) : (
+                  <span className='text-body_semibold text-black/80'>{name}</span>
+                )}
+              </div>
+              <FlagIcon country={country} />
+            </li>
+          );
+        })}
+      </ul>
+    </ContentSection>
   );
 };
 

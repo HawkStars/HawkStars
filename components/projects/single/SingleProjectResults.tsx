@@ -1,47 +1,47 @@
+import { FC } from 'react';
 import { ContentSection } from '@/components/layout';
 import { getImagePayloadUrl } from '@/lib/image';
 import { HawkProject } from '@/payload-types';
 import { ImageMedia } from '@/payload/components/Media';
-import { FC } from 'react';
 import { getServerTranslation } from '@/i18n';
 import { Language } from '@/i18n/settings';
+import { cn } from '@/lib/utils';
 import SectionHeader from '@/components/ui/SectionHeader';
 
-type SingleProjectReportsProps = Pick<HawkProject, 'results'> & { lng: Language };
+type SingleProjectResultsProps = Pick<HawkProject, 'results'> & { lng: Language };
 
-const SingleProjectReports: FC<SingleProjectReportsProps> = async ({ results, lng }) => {
+const SingleProjectResults: FC<SingleProjectResultsProps> = async ({ results, lng }) => {
+  if (!results?.text) return null;
+
   const { t } = await getServerTranslation(lng, 'projects');
-  const img = getImagePayloadUrl(results?.resultsImage);
-
-  const hasResults = results && results.text;
+  const img = getImagePayloadUrl(results.resultsImage);
 
   return (
-    <>
-      {hasResults && (
-        <ContentSection>
-          <SectionHeader
-            title={t('sections.results')}
-            className='mb-8'
-            titleClassName='text-4xl font-bold'
-          />
-          <div className='grid items-start gap-10 md:grid-cols-3'>
-            {results.text && (
-              <p className='col-span-2 text-base leading-relaxed text-gray-800'>{results.text}</p>
-            )}
-            {img && (
-              <ImageMedia
-                resource={results?.resultsImage}
-                alt={img.alt || t('a11y.resultsAlt')}
-                width={600}
-                height={400}
-                className='rounded-lg object-cover'
-              />
-            )}
+    <ContentSection>
+      <SectionHeader title={t('sections.results')} className='mb-8' />
+      <div className={cn('grid items-start gap-10', img?.url && 'lg:grid-cols-12')}>
+        <p
+          className={cn(
+            'text-body_regular max-w-3xl leading-relaxed whitespace-pre-line text-black/80 lg:text-lg',
+            img?.url && 'lg:col-span-7'
+          )}
+        >
+          {results.text}
+        </p>
+        {img?.url && (
+          <div className='card-md bg-bege-dark relative aspect-4/3 overflow-hidden lg:col-span-5'>
+            <ImageMedia
+              resource={results.resultsImage}
+              alt={img.alt || t('a11y.resultsAlt')}
+              fill
+              sizes='(min-width: 1024px) 460px, 100vw'
+              className='object-cover'
+            />
           </div>
-        </ContentSection>
-      )}
-    </>
+        )}
+      </div>
+    </ContentSection>
   );
 };
 
-export default SingleProjectReports;
+export default SingleProjectResults;

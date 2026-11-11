@@ -61,11 +61,11 @@ const ProjectContent = async ({ params }: { params: ProjectPageProps['params'] }
   return (
     <div>
       <ProjectsSingleHero {...project} lng={lng} />
+      <SingleProjectPhases details={project.details} lng={lng} />
       <SingleProjectTravelMapWrapper {...project} lng={lng} />
-      <SingleProjectPhases details={project.details} />
-      <SingleProjectPartners partnersInformation={project.partnersInformation} lng={lng} />
       <SingleProjectObjectives objectives={project.objectives} lng={lng} />
       <SingleProjectResults results={project.results} lng={lng} />
+      <SingleProjectPartners partnersInformation={project.partnersInformation} lng={lng} />
       <SingleProjectReports {...project} lng={lng} />
       <NewsSingleGallery gallery={project.gallery} />
     </div>

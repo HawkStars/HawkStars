@@ -13,5 +13,25 @@
     "AUDITORIUM_CHAIR": "Auditorium chair",
     "BUILDING_NAMING": "Name on the building",
     "TRAINING_ROOM_NAMING": "Training room name"
-  }
+  },
+  "eyebrow": "Transparency",
+  "title": "Every euro, in the open",
+  "description": "Follow the progress towards our current project goal and see every confirmed contribution, by type.",
+  "summary": {
+    "raised": "Raised so far",
+    "of_goal": "of a {{goal}} goal",
+    "remaining": "Still to raise",
+    "contributions": "Confirmed contributions",
+    "breakdown": "By contribution type",
+    "progress_label": "{{percent}} of the goal raised",
+    "goal_reached": "Goal reached"
+  },
+  "families": {
+    "donation": "Donations",
+    "wall": "Name on the wall",
+    "chair": "Chairs",
+    "naming": "Naming rights"
+  },
+  "contributions_subtitle": "Every confirmed contribution, newest first.",
+  "empty": "No confirmed contributions yet."
 }

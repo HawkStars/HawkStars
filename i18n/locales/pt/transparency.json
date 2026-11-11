@@ -13,5 +13,25 @@
     "AUDITORIUM_CHAIR": "Cadeira de auditório",
     "BUILDING_NAMING": "Nome no edifício",
     "TRAINING_ROOM_NAMING": "Nome da sala de formação"
-  }
+  },
+  "eyebrow": "Transparência",
+  "title": "Cada euro, à vista de todos",
+  "description": "Acompanhe o progresso rumo ao objetivo do projeto atual e veja cada contribuição confirmada, por tipo.",
+  "summary": {
+    "raised": "Angariado até agora",
+    "of_goal": "de um objetivo de {{goal}}",
+    "remaining": "Falta angariar",
+    "contributions": "Contribuições confirmadas",
+    "breakdown": "Por tipo de contribuição",
+    "progress_label": "{{percent}} do objetivo angariado",
+    "goal_reached": "Objetivo atingido"
+  },
+  "families": {
+    "donation": "Donativos",
+    "wall": "Nome na parede",
+    "chair": "Cadeiras",
+    "naming": "Direitos de nome"
+  },
+  "contributions_subtitle": "Todas as contribuições confirmadas, das mais recentes para as mais antigas.",
+  "empty": "Ainda não há contribuições confirmadas."
 }

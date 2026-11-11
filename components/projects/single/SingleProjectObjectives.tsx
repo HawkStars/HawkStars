@@ -1,7 +1,8 @@
 'use client';
 
-import { HawkProject } from '@/payload-types';
 import { FC } from 'react';
+import { LuCheck } from 'react-icons/lu';
+import { HawkProject } from '@/payload-types';
 import { ImageMedia } from '@/payload/components/Media';
 import { getImagePayloadUrl } from '@/lib/image';
 import { ContentSection } from '@/components/layout';
@@ -12,54 +13,56 @@ import SectionHeader from '@/components/ui/SectionHeader';
 
 type SingleProjectObjectivesProps = Pick<HawkProject, 'objectives'> & { lng?: Language };
 
+/** Objectives as a checklist of cards, with the optional illustration beside the intro. */
 const SingleProjectObjectives: FC<SingleProjectObjectivesProps> = ({
   objectives,
   lng: lngProp,
 }) => {
   const cookieLng = useLanguageCookie();
   const { t } = useTranslation(lngProp ?? cookieLng, 'projects');
-  return (
-    <>
-      {objectives &&
-        (objectives.introduction || (objectives.items && objectives.items.length > 0)) && (
-          <ContentSection>
-            <SectionHeader
-              title={t('sections.objectives')}
-              className='mb-8'
-              titleClassName='text-4xl font-bold'
-            />
-            {objectives.introduction && (
-              <p className='mb-6 text-base leading-relaxed text-gray-800'>
-                {objectives.introduction}
-              </p>
-            )}
-            {objectives.items && objectives.items.length > 0 && (
-              <ul className='list-disc space-y-4 pl-6 text-gray-800'>
-                {objectives.items.map((item, i) => (
-                  <li key={i} className='leading-relaxed'>
-                    {item.text}
-                  </li>
-                ))}
-              </ul>
-            )}
+  const { introduction, items, objectivesImage } = objectives || {};
+  const hasItems = Boolean(items && items.length > 0);
+  if (!introduction && !hasItems) return null;
 
-            {objectives.objectivesImage &&
-              (() => {
-                const img = getImagePayloadUrl(objectives.objectivesImage);
-                return img?.url ? (
-                  <div className='relative my-4 h-40 w-full'>
-                    <ImageMedia
-                      fill
-                      resource={objectives.objectivesImage}
-                      alt={img.alt || t('a11y.objectivesAlt')}
-                      className='rounded-lg object-contain'
-                    />
-                  </div>
-                ) : null;
-              })()}
-          </ContentSection>
+  const img = getImagePayloadUrl(objectivesImage);
+
+  return (
+    <ContentSection className='bg-bege-light'>
+      <div className='grid gap-8 lg:grid-cols-12 lg:items-center'>
+        <div className={img?.url ? 'lg:col-span-8' : 'lg:col-span-12'}>
+          <SectionHeader title={t('sections.objectives')} />
+          {introduction && (
+            <p className='text-body_regular mt-6 max-w-3xl leading-relaxed whitespace-pre-line text-black/80 lg:text-lg'>
+              {introduction}
+            </p>
+          )}
+        </div>
+        {img?.url && (
+          <div className='relative h-40 w-full lg:col-span-4 lg:h-48'>
+            <ImageMedia
+              fill
+              resource={objectivesImage}
+              alt={img.alt || t('a11y.objectivesAlt')}
+              sizes='(min-width: 1024px) 360px, 100vw'
+              className='object-contain'
+            />
+          </div>
         )}
-    </>
+      </div>
+
+      {hasItems && (
+        <ul className='mt-10 grid gap-4 md:grid-cols-2'>
+          {items?.map((item, i) => (
+            <li key={item.id ?? i} className='card flex items-start gap-4 bg-white p-5 lg:p-6'>
+              <span className='bg-green flex size-8 shrink-0 items-center justify-center rounded-full text-white'>
+                <LuCheck aria-hidden='true' className='size-4' />
+              </span>
+              <p className='text-body_regular leading-relaxed text-black/80'>{item.text}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </ContentSection>
   );
 };
 

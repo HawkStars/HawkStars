@@ -1,20 +1,22 @@
 'use client';
 
-import { ContentSection } from '@/components/layout';
-import { LuCalendarDays, LuCoins } from 'react-icons/lu';
+import { FC } from 'react';
+import Link from 'next/link';
+import { LuArrowLeft, LuCalendarDays, LuCoins, LuDownload, LuUsers } from 'react-icons/lu';
+import { HawkStarsSection } from '@/components/layout';
+import { SectionEyebrow } from '@/components/ui/SectionHeader';
+import { Button } from '@/components/ui/button';
 import { FLAG_PORTUGAL } from '@/lib/constants';
 import { FlagIcon } from '@/lib/icon';
 import { getImagePayloadUrl } from '@/lib/image';
 import { formatCurrency } from '@/lib/utils/currency';
 import { HawkDocument, HawkProject, Partner } from '@/payload-types';
-import { ImageMedia } from '@/payload/components/Media';
-import { FC } from 'react';
+import { ImageMedia, VideoMedia } from '@/payload/components/Media';
 import { useTranslation } from '@/i18n/client';
 import { useLanguageCookie } from '@/utils/contexts/AppProvider';
 import { Language } from '@/i18n/settings';
-import Link from 'next/link';
-import { LuDownload } from 'react-icons/lu';
 import { formatDateRange } from '@/utils/date';
+import { SITE_GET_URLS, transformUrl } from '@/utils/paths';
 
 type ProjectsSingleHeroProps = Pick<
   HawkProject,
@@ -31,8 +33,16 @@ type ProjectsSingleHeroProps = Pick<
   | 'projectEndDate'
   | 'infopack'
   | 'coverImage'
-> & { lng?: Language };
+> &
+  Partial<Pick<HawkProject, 'project_type'>> & { lng?: Language };
 
+// The detail labels are stored with a trailing colon for the old inline layout.
+const stripColon = (label: string) => label.replace(/:\s*$/, '');
+
+/**
+ * Project page header: a warm band with the type eyebrow, title, impact stats and dates on
+ * the left, and the media plus an "official details" card on the right.
+ */
 const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
   hero,
   heading,
@@ -46,101 +56,118 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
   projectEndDate,
   location,
   infopack,
+  coverImage,
+  project_type,
   lng: lngProp,
 }) => {
   const cookieLng = useLanguageCookie();
-  const { t } = useTranslation(lngProp ?? cookieLng, 'projects');
-  const { projectBadge } = hero || {};
+  const lng = lngProp ?? cookieLng;
+  const { t } = useTranslation(lng, 'projects');
+  const { projectBadge, participants, fundedAmount, videoUrl } = hero || {};
   const { partners } = partnersInformation || {};
   const badgeImage = projectBadge ? getImagePayloadUrl(projectBadge) : null;
+  const cover = coverImage ? getImagePayloadUrl(coverImage) : null;
   const infopackDoc = infopack && typeof infopack !== 'string' ? (infopack as HawkDocument) : null;
 
-  // Was always formatted with the Portuguese locale, also on /en.
-  const lng = lngProp ?? cookieLng;
   // The activity (with participants) sits inside the wider project period.
   const dateRows = [
     { label: t('dates.project'), value: formatDateRange(projectStartDate, projectEndDate, lng) },
     { label: t('dates.activity'), value: formatDateRange(startDate, endDate, lng) },
   ].filter((row) => row.value);
 
+  const stats = [
+    participants
+      ? { icon: LuUsers, value: String(participants), label: t('hero.participants') }
+      : null,
+    fundedAmount
+      ? { icon: LuCoins, value: formatCurrency(fundedAmount), label: t('hero.funded') }
+      : null,
+  ].filter((stat) => stat !== null);
+
+  const details = [
+    { label: t('details.actionType'), value: actionType },
+    { label: t('details.reference'), value: referenceNumber },
+    { label: t('details.beneficiary'), value: beneficiary },
+    { label: t('details.location'), value: location },
+  ].filter((row) => row.value);
+
+  const hasAside = Boolean(videoUrl || cover?.url || details.length > 0 || infopackDoc?.url);
+
   return (
-    <ContentSection className='bg-green/5 pt-32' spacing='tight'>
-      <div className='grid gap-10 md:grid-cols-2'>
+    <HawkStarsSection
+      spacing='default'
+      className='bg-bege-light relative isolate overflow-hidden pt-24 lg:pt-32'
+    >
+      <div
+        aria-hidden='true'
+        className='animate-float bg-bege-dark/60 absolute -top-32 -right-32 -z-10 size-96 rounded-full'
+      />
+
+      <Link
+        href={transformUrl(lng, SITE_GET_URLS.projects)}
+        className='text-green mb-8 inline-flex items-center gap-2 text-sm font-semibold underline-offset-4 hover:underline'
+      >
+        <LuArrowLeft aria-hidden='true' className='size-4' />
+        {t('allProjects')}
+      </Link>
+
+      <div className={hasAside ? 'grid gap-10 lg:grid-cols-12 lg:gap-12' : undefined}>
         {/* Left column */}
-        <div>
-          {/* Badge */}
+        <div className='flex flex-col gap-6 lg:col-span-7'>
           {badgeImage?.url && (
-            <div className='mb-4'>
-              <ImageMedia
-                resource={projectBadge}
-                alt={badgeImage.alt || t('a11y.badgeAlt')}
-                width={120}
-                height={120}
-                className='object-contain'
-              />
-            </div>
+            <ImageMedia
+              resource={projectBadge}
+              alt={badgeImage.alt || t('a11y.badgeAlt')}
+              width={96}
+              height={96}
+              className='size-24 object-contain'
+            />
           )}
 
-          {/* Title */}
-          <h1 className='text-display'>{heading}</h1>
+          <div>
+            {project_type && <SectionEyebrow label={t(`types.${project_type}`)} className='mb-4' />}
+            <h1 className='text-display'>{heading}</h1>
+          </div>
 
-          {/* Stats row */}
-          {(hero?.participants || hero?.fundedAmount) && (
-            <div className='mt-6 flex flex-wrap items-center gap-8' data-project-stats>
-              {hero.participants && (
-                <div className='flex items-center gap-2'>
-                  <svg
-                    className='h-6 w-6 text-gray-600'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'
-                    />
-                  </svg>
-                  <div>
-                    <span className='text-2xl font-bold'>{hero.participants}</span>
-                    <p className='text-sm text-gray-600'>{t('hero.participants')}</p>
-                  </div>
-                </div>
-              )}
-              {hero.fundedAmount && (
-                <div className='flex items-center gap-2'>
-                  <LuCoins aria-hidden='true' className='text-green size-6 shrink-0' />
-                  <div>
-                    <span className='text-2xl font-bold'>{formatCurrency(hero.fundedAmount)}</span>
-                    <p className='text-sm text-gray-600'>{t('hero.funded')}</p>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Dates */}
-          {dateRows.length > 0 && (
-            <div className='mt-4 flex flex-col gap-3 sm:flex-row sm:gap-8'>
-              {dateRows.map(({ label, value }) => (
-                <div key={label} className='flex items-start gap-2'>
-                  <LuCalendarDays
-                    aria-hidden='true'
-                    className='text-green mt-0.5 size-5 shrink-0'
-                  />
-                  <dl className='flex flex-col'>
-                    <dt className='text-sm text-gray-600'>{label}</dt>
-                    <dd className='text-lg font-semibold'>{value}</dd>
-                  </dl>
+          {stats.length > 0 && (
+            <dl className='grid gap-4 min-[420px]:grid-cols-2 sm:max-w-lg' data-project-stats>
+              {stats.map(({ icon: Icon, value, label }) => (
+                <div key={label} className='card flex min-w-0 flex-col gap-1 bg-white p-5'>
+                  <dt className='order-2 text-sm font-medium text-black/70'>{label}</dt>
+                  <dd className='text-green order-1 flex items-center gap-2'>
+                    <Icon aria-hidden='true' className='size-5 shrink-0' />
+                    <span className='font-display text-2xl leading-none font-semibold whitespace-nowrap tabular-nums sm:text-3xl'>
+                      {value}
+                    </span>
+                  </dd>
                 </div>
               ))}
-            </div>
+            </dl>
           )}
 
-          {/* Country flags */}
+          {dateRows.length > 0 && (
+            <dl className='flex flex-col gap-4 sm:flex-row sm:gap-10'>
+              {dateRows.map(({ label, value }) => (
+                // dt/dd must be direct children of the group div, so the icon lives
+                // inside the dt and is pinned to the left of the pair.
+                <div key={label} className='relative min-h-10 pl-13'>
+                  <dt className='text-eyebrow text-black/60'>
+                    <span
+                      aria-hidden='true'
+                      className='bg-bege-dark text-terracotta-dark absolute top-0 left-0 flex size-10 items-center justify-center rounded-full'
+                    >
+                      <LuCalendarDays className='size-5' />
+                    </span>
+                    {label}
+                  </dt>
+                  <dd className='text-body_semibold mt-1'>{value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+
           {partners && partners.length > 0 && (
-            <div className='mt-6 flex flex-wrap gap-3'>
+            <div className='flex flex-wrap gap-3'>
               <FlagIcon country={FLAG_PORTUGAL} />
               {partners.map((c, i) => (
                 <FlagIcon key={i} country={(c.partner as Partner).country} />
@@ -149,65 +176,60 @@ const ProjectsSingleHero: FC<ProjectsSingleHeroProps> = ({
           )}
         </div>
 
-        {/* Right column: video + metadata */}
-        <div className='flex flex-col gap-4'>
-          {/* Video */}
-          {hero?.videoUrl && (
-            <div className='aspect-video w-full overflow-hidden rounded-lg bg-black'>
-              <iframe
-                src={hero.videoUrl}
-                className='h-full w-full'
-                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                allowFullScreen
-                title={t('a11y.videoTitle')}
-              />
-            </div>
-          )}
+        {/* Right column: media + official details */}
+        {hasAside && (
+          <div className='flex flex-col gap-6 lg:col-span-5'>
+            {videoUrl ? (
+              <div className='card-md relative aspect-video w-full overflow-hidden bg-black'>
+                <VideoMedia
+                  src={videoUrl}
+                  controls
+                  title={t('a11y.videoTitle')}
+                  videoClassName='absolute inset-0 h-full w-full'
+                />
+              </div>
+            ) : (
+              cover?.url && (
+                <div className='card-md bg-bege-dark relative aspect-4/3 w-full overflow-hidden'>
+                  <ImageMedia
+                    resource={coverImage}
+                    alt={cover.alt || heading || ''}
+                    fill
+                    preload
+                    sizes='(min-width: 1024px) 460px, 100vw'
+                    className='object-cover'
+                  />
+                </div>
+              )
+            )}
 
-          {/* Metadata */}
-          <div className='space-y-1 text-sm text-gray-700'>
-            {heading && (
-              <p>
-                <span className='font-semibold'>{t('details.name')}</span> {heading}
-              </p>
-            )}
-            {actionType && (
-              <p>
-                <span className='font-semibold'>{t('details.actionType')}</span> {actionType}
-              </p>
-            )}
-            {referenceNumber && (
-              <p>
-                <span className='font-semibold'>{t('details.reference')}</span> {referenceNumber}
-              </p>
-            )}
-            {beneficiary && (
-              <p>
-                <span className='font-semibold'>{t('details.beneficiary')}</span> {beneficiary}
-              </p>
-            )}
-            {location && (
-              <p>
-                <span className='font-semibold'>{t('details.location')}</span> {location}
-              </p>
+            {(details.length > 0 || infopackDoc?.url) && (
+              <div className='card bg-white p-6'>
+                <h2 className='text-eyebrow text-green mb-4'>{t('sections.details')}</h2>
+                {details.length > 0 && (
+                  <dl className='divide-bege-dark divide-y text-sm'>
+                    {details.map(({ label, value }) => (
+                      <div key={label} className='flex flex-col gap-0.5 py-3 first:pt-0 last:pb-0'>
+                        <dt className='text-black/60'>{stripColon(label)}</dt>
+                        <dd className='font-medium break-words'>{value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+                {infopackDoc?.url && (
+                  <Button asChild className='mt-6 w-full sm:w-auto'>
+                    <a href={infopackDoc.url} target='_blank' rel='noopener noreferrer' download>
+                      <LuDownload aria-hidden='true' />
+                      {t('details.downloadInfopack')}
+                    </a>
+                  </Button>
+                )}
+              </div>
             )}
           </div>
-
-          {infopackDoc?.url && (
-            <Link
-              href={infopackDoc.url}
-              target='_blank'
-              rel='noopener noreferrer'
-              download
-              className='bg-primary text-primary-foreground hover:bg-primary/90 mt-2 inline-flex w-fit items-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition-colors'
-            >
-              <LuDownload className='h-4 w-4' />
-              {t('details.downloadInfopack')}
-            </Link>
-          )}
-        </div>
+        )}
       </div>
-    </ContentSection>
+    </HawkStarsSection>
   );
 };
 

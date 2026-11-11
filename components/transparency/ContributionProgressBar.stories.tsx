@@ -1,5 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import ContributionProgressBar from './ContributionProgressBar';
+import { PROJECT_GOAL } from './config';
+import { makeTotals, SAMPLE_TOTALS } from './storyData';
+
+const toSegments = (totals: typeof SAMPLE_TOTALS) =>
+  totals.map(({ type, sum }) => ({ type, value: sum, label: type }));
 
 const meta = {
   title: 'Pages/Transparency/Contribution Progress Bar',
@@ -8,10 +13,6 @@ const meta = {
     layout: 'fullscreen',
   },
   tags: ['autodocs'],
-  argTypes: {
-    sumContributions: { control: 'number' },
-    projectGoal: { control: 'number' },
-  },
   decorators: [
     (Story) => (
       <div className='bg-bege-light px-8 py-12'>
@@ -26,35 +27,39 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    sumContributions: 250000,
-    projectGoal: 900000,
+    segments: toSegments(SAMPLE_TOTALS),
+    projectGoal: PROJECT_GOAL,
+    label: '26% of the goal raised',
   },
 };
 
 export const Empty: Story = {
   args: {
-    sumContributions: 0,
-    projectGoal: 900000,
+    segments: toSegments(makeTotals({})),
+    projectGoal: PROJECT_GOAL,
+    label: '0% of the goal raised',
   },
 };
 
-export const HalfwayThere: Story = {
+export const SingleType: Story = {
   args: {
-    sumContributions: 450000,
-    projectGoal: 900000,
+    segments: toSegments(makeTotals({ BANK: 450000 })),
+    projectGoal: PROJECT_GOAL,
+    label: '50% of the goal raised',
   },
 };
 
 export const GoalReached: Story = {
   args: {
-    sumContributions: 900000,
-    projectGoal: 900000,
-  },
-};
-
-export const SmallGoal: Story = {
-  args: {
-    sumContributions: 750,
-    projectGoal: 1000,
+    segments: toSegments(
+      makeTotals({
+        BANK: 400000,
+        WALL_NAME_COMPANY: 200000,
+        OFFICE_CHAIR: 150000,
+        BUILDING_NAMING: 150000,
+      })
+    ),
+    projectGoal: PROJECT_GOAL,
+    label: '100% of the goal raised',
   },
 };

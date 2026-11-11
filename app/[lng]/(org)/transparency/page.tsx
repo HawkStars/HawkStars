@@ -2,7 +2,10 @@ import { Metadata } from 'next';
 import { LanguagePageProps } from '../types';
 import { getMetadataPageInfo } from '@/utils/metadata';
 import { Language } from '@/i18n/settings';
-import { getContributionsQuery, getSumContributions } from '@/lib/payload/queries/contribution';
+import {
+  getContributionsQuery,
+  getContributionTotalsByType,
+} from '@/lib/payload/queries/contribution';
 import ContributionProjectGoal from '@/components/transparency/ContributionProjectGoal';
 import OrganizationContributionsTable from '@/components/transparency/OrganizationContributionsTable';
 import { Suspense } from 'react';
@@ -36,17 +39,15 @@ const TransparencyContent = async ({
   searchParams: TransparencyPageProps['searchParams'];
 }) => {
   const requestedPage = Math.max(1, Number((await searchParams)?.page) || 1);
-  const [{ lng }, sumContributions, organizationContributions] = await Promise.all([
+  const [{ lng }, totals, organizationContributions] = await Promise.all([
     params,
-    getSumContributions(),
+    getContributionTotalsByType(),
     getContributionsQuery(requestedPage),
   ]);
 
-  if (sumContributions === null) return null;
-
   return (
     <>
-      <ContributionProjectGoal sumContributions={sumContributions} />
+      <ContributionProjectGoal totals={totals} />
       <OrganizationContributionsTable data={organizationContributions} lng={lng} />
     </>
   );

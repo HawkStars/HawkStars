@@ -17,7 +17,8 @@ import {
 } from '@/components/ui/map';
 import type { LatLngExpression } from 'leaflet';
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { LuRotateCw, LuTrainFront } from 'react-icons/lu';
+import { LuHouse, LuRotateCw, LuTrainFront } from 'react-icons/lu';
+import { cn } from '@/lib/utils';
 import { useMap } from 'react-leaflet';
 import SectionHeader from '@/components/ui/SectionHeader';
 
@@ -194,8 +195,15 @@ function AnimatedTrain({
   return (
     <MapMarker
       position={position}
-      icon={<LuTrainFront className='text-primary size-6 drop-shadow' />}
-      iconAnchor={[12, 12]}
+      icon={
+        <span className='relative flex size-9 items-center justify-center'>
+          <span className='bg-green/30 absolute inset-0 animate-ping rounded-full' />
+          <span className='bg-green relative flex size-9 items-center justify-center rounded-full text-white shadow-md ring-3 ring-white'>
+            <LuTrainFront className='size-4.5' />
+          </span>
+        </span>
+      }
+      iconAnchor={[18, 18]}
       interactive={false}
       keyboard={false}
       zIndexOffset={1000}
@@ -203,7 +211,7 @@ function AnimatedTrain({
   );
 }
 
-/** Corner button that replays the train animation from the first stop. */
+/** Floating button on the map that replays the train animation from the first stop. */
 function RouteReplayControl({
   onReplay,
   isFinished,
@@ -216,14 +224,16 @@ function RouteReplayControl({
   return (
     <Button
       type='button'
-      size='icon-sm'
-      variant={isFinished ? 'default' : 'secondary'}
-      aria-label={label}
-      title={label}
-      className='absolute top-1 right-1 z-1000 border'
+      size='sm'
+      variant={isFinished ? 'default' : 'outline'}
+      className={cn(
+        'absolute bottom-3 left-3 z-1000 shadow-md',
+        !isFinished && 'hover:bg-bege-light bg-white'
+      )}
       onClick={onReplay}
     >
-      <LuRotateCw />
+      <LuRotateCw aria-hidden='true' />
+      {label}
     </Button>
   );
 }
@@ -234,36 +244,146 @@ type RouteLeg = {
   distanceKm: number;
 };
 
-/** Side legend listing the distance of every leg of the route, plus the total. */
-function RouteDistanceList({
+type StopState = 'reached' | 'next' | 'upcoming';
+
+/**
+ * Stop state while the train runs: stops before the leading edge are reached, the one
+ * the train is heading to is "next", the rest are still to come.
+ */
+const getStopState = (index: number, visibleLegCount: number, isFinished: boolean): StopState => {
+  if (isFinished || index < visibleLegCount) return 'reached';
+  return index === visibleLegCount ? 'next' : 'upcoming';
+};
+
+/** Map pin for one stop: a gold house for the departure, numbered pins after it. */
+function StopPin({ index, state }: { index: number; state: StopState }) {
+  if (index === 0) {
+    return (
+      <span className='bg-gold text-ink flex size-8 items-center justify-center rounded-full shadow-md ring-3 ring-white'>
+        <LuHouse className='size-4' />
+      </span>
+    );
+  }
+  return (
+    <span
+      className={cn(
+        'flex size-7 items-center justify-center rounded-full text-xs font-bold shadow-md ring-3 ring-white',
+        state === 'reached' ? 'bg-green text-white' : 'border-green text-green border-2 bg-white'
+      )}
+    >
+      {index}
+    </span>
+  );
+}
+
+/**
+ * The itinerary beside the map: total distance up top, then every stop on a vertical
+ * line with the distance of the leg that follows it. Stops fill in as the train reaches
+ * them, so the list and the animation tell the same story.
+ */
+function RouteItinerary({
+  stops,
   legs,
   totalDistanceKm,
-  title,
-  totalLabel,
-  formatDistance,
+  visibleLegCount,
+  isFinished,
 }: {
+  stops: DiscoverEuStop[];
   legs: RouteLeg[];
   totalDistanceKm: number;
-  title: string;
-  totalLabel: string;
-  formatDistance: (distanceKm: number) => string;
+  visibleLegCount: number;
+  isFinished: boolean;
 }) {
+  const lng = useLanguageCookie();
+  const { t } = useTranslation(lng, 'projects');
+  const km = (distanceKm: number) =>
+    t('map.distance', { distance: distanceKm.toLocaleString(lng === 'en' ? 'en-US' : 'pt-PT') });
+
+  // Keep the stop the train is heading to in view. Scrolls the panel only (never the
+  // page), and only when the panel actually scrolls, i.e. on desktop.
+  const scrollRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const panel = scrollRef.current;
+    const target = panel?.querySelector<HTMLElement>(`[data-stop='${visibleLegCount}']`);
+    if (!panel || !target || panel.scrollHeight <= panel.clientHeight) return;
+    panel.scrollTo({
+      top: Math.max(target.offsetTop - panel.clientHeight / 2, 0),
+      behavior: 'smooth',
+    });
+  }, [visibleLegCount]);
+
   return (
-    <aside className='w-full shrink-0 rounded-xl border p-4 lg:w-64'>
-      <h3 className='mb-3 text-sm font-semibold'>{title}</h3>
-      <ul className='space-y-2'>
-        {legs.map((leg, index) => (
-          <li key={index} className='flex items-center justify-between gap-3 text-sm'>
-            <span className='text-muted-foreground truncate'>
-              {leg.fromCity} → {leg.toCity}
-            </span>
-            <span className='font-medium whitespace-nowrap'>{formatDistance(leg.distanceKm)}</span>
-          </li>
-        ))}
-      </ul>
-      <div className='mt-3 flex items-center justify-between border-t pt-3 text-sm font-semibold'>
-        <span>{totalLabel}</span>
-        <span>{formatDistance(totalDistanceKm)}</span>
+    <aside className='card border-bege-dark flex w-full flex-col border bg-white lg:h-120 lg:w-80 lg:shrink-0'>
+      <div className='border-bege-dark bg-bege-light flex items-end justify-between gap-4 rounded-t-xl border-b p-5'>
+        <div>
+          <p className='text-eyebrow text-black/60'>{t('map.totalDistance')}</p>
+          <p className='font-display text-green mt-1 text-3xl leading-none font-semibold tabular-nums'>
+            {km(totalDistanceKm)}
+          </p>
+        </div>
+        <p className='text-sm font-medium text-black/60'>
+          {t('map.stops', { count: stops.length })}
+        </p>
+      </div>
+
+      <div ref={scrollRef} className='relative flex-1 overflow-y-auto p-5'>
+        <h3 className='text-eyebrow text-green mb-4'>{t('map.itinerary')}</h3>
+        <ol>
+          {stops.map((stop, index) => {
+            const state = getStopState(index, visibleLegCount, isFinished);
+            const leg = legs[index];
+            const isLast = index === stops.length - 1;
+
+            return (
+              <li key={stop.id ?? `${stop.city}-${index}`} data-stop={index} className='flex gap-3'>
+                <div className='flex flex-col items-center'>
+                  <span
+                    className={cn(
+                      'flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors duration-500',
+                      index === 0 && 'bg-gold text-ink',
+                      index > 0 && state === 'reached' && 'bg-green text-white',
+                      index > 0 && state === 'next' && 'border-green text-green border-2 bg-white',
+                      index > 0 && state === 'upcoming' && 'bg-bege-dark text-black/50'
+                    )}
+                  >
+                    {index === 0 ? <LuHouse aria-hidden='true' className='size-3.5' /> : index}
+                  </span>
+                  {!isLast && (
+                    <span
+                      aria-hidden='true'
+                      className={cn(
+                        'my-1 w-0.5 flex-1 rounded-full transition-colors duration-500',
+                        index < visibleLegCount - 1 || isFinished ? 'bg-green' : 'bg-bege-dark'
+                      )}
+                    />
+                  )}
+                </div>
+                <div className={cn('flex flex-col', !isLast && 'pb-4')}>
+                  <span
+                    className={cn(
+                      'text-body_semibold leading-7 transition-colors duration-500',
+                      state === 'upcoming' && 'text-black/50'
+                    )}
+                  >
+                    {stop.city}
+                  </span>
+                  {index === 0 && (
+                    <span className='text-xs text-black/60'>{t('map.departure')}</span>
+                  )}
+                  {state === 'next' && index > 0 && (
+                    <span className='text-green text-xs font-semibold'>{t('map.next')}</span>
+                  )}
+                  {leg && (
+                    <span className='mt-1 inline-flex w-fit items-center gap-1.5 text-xs text-black/60 tabular-nums'>
+                      <LuTrainFront aria-hidden='true' className='size-3.5' />
+                      {km(leg.distanceKm)}
+                    </span>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ol>
       </div>
     </aside>
   );
@@ -328,88 +448,95 @@ function TravelRoute({
 
   const center = path[0] ?? FALLBACK_CENTER;
 
+  // A round trip ends where it started; skip the last pin so it doesn't cover the house.
+  const [firstLat, firstLng] = path[0] ?? [];
+  const isRoundTrip =
+    path.length > 2 &&
+    path[path.length - 1]?.[0] === firstLat &&
+    path[path.length - 1]?.[1] === firstLng;
+
   return (
-    <ContentSection className='bg-bege-dark'>
-      <div>
-        <SectionHeader
-          title={t('sections.travelRoute')}
-          className='mb-4'
-          titleClassName='text-4xl font-bold'
-        />
-        <div className='flex flex-col gap-4 lg:flex-row'>
-          <div className='h-120 w-full overflow-hidden rounded-xl border lg:flex-1'>
-            <Map center={center} zoom={5} scrollWheelZoom={false}>
-              <MapTileLayer />
-              <MapZoomControl />
-              {path.length > 1 && (
-                <RouteReplayControl
-                  onReplay={handleReplay}
-                  isFinished={isFinished}
-                  label={t('map.replay')}
+    <ContentSection>
+      <SectionHeader title={t('sections.travelRoute')} className='mb-8' />
+      <div className='flex flex-col gap-5 lg:flex-row'>
+        <div className='card-md border-bege-dark relative h-96 w-full overflow-hidden border sm:h-110 lg:h-120 lg:flex-1'>
+          <Map center={center} zoom={5} scrollWheelZoom={false} className='rounded-none'>
+            <MapTileLayer />
+            <MapZoomControl className='top-3 left-3' />
+            {path.length > 1 && (
+              <RouteReplayControl
+                onReplay={handleReplay}
+                isFinished={isFinished}
+                label={t('map.replay')}
+              />
+            )}
+            <FitStopsBounds path={path} />
+
+            {/* The whole trip as a faint guide, then the travelled legs drawn over it. */}
+            {path.length > 1 && (
+              <MapPolyline
+                positions={path}
+                color='var(--color-green)'
+                weight={3}
+                opacity={0.3}
+                dashArray='2 8'
+                lineCap='round'
+              />
+            )}
+            {legs.map((_leg, index) => {
+              if (index >= visibleLegCount) return null;
+
+              return (
+                <MapPolyline
+                  key={`leg-${index}`}
+                  positions={[path[index], path[index + 1]]}
+                  color='var(--color-green)'
+                  weight={4}
+                  opacity={0.9}
+                  lineCap='round'
                 />
-              )}
-              <FitStopsBounds path={path} />
+              );
+            })}
 
-              {legs.map((_leg, index) => {
-                if (index >= visibleLegCount) return null;
+            {validStops.map((stop, index) => {
+              if (isRoundTrip && index === validStops.length - 1 && index > 0) return null;
+              const state = getStopState(index, visibleLegCount, isFinished);
 
-                return (
-                  <MapPolyline
-                    key={`leg-${index}`}
-                    positions={[path[index], path[index + 1]]}
-                    color='var(--color-primary)'
-                    weight={3}
-                    opacity={0.8}
-                    dashArray='8 8'
-                  />
-                );
-              })}
+              return (
+                <MapMarker
+                  key={stop.id ?? `${stop.city}-${index}`}
+                  position={[stop.latitude as number, stop.longitude as number]}
+                  icon={<StopPin index={index} state={state} />}
+                  iconAnchor={index === 0 ? [16, 16] : [14, 14]}
+                  zIndexOffset={index === 0 ? 500 : 0}
+                >
+                  <MapTooltip side='top'>
+                    <p className='font-semibold'>{stop.city}</p>
+                  </MapTooltip>
+                </MapMarker>
+              );
+            })}
 
-              {path.length > 1 && (
-                <AnimatedTrain
-                  path={path}
-                  replayToken={replayToken}
-                  onArrive={handleArrive}
-                  onFinished={handleFinished}
-                />
-              )}
-
-              {validStops.map((stop, index) => {
-                // A stop only appears once the leg leading to it has been
-                // revealed (the first two stops are visible from the start).
-                if (index > visibleLegCount) return null;
-
-                return (
-                  <MapMarker
-                    key={stop.id ?? `${stop.city}-${index}`}
-                    position={[stop.latitude as number, stop.longitude as number]}
-                    icon={
-                      <span className='bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-full text-xs font-bold shadow-md'>
-                        {index + 1}
-                      </span>
-                    }
-                  >
-                    <MapTooltip permanent side='top'>
-                      <div className='text-center'>
-                        <p className='font-semibold'>{stop.city}</p>
-                      </div>
-                    </MapTooltip>
-                  </MapMarker>
-                );
-              })}
-            </Map>
-          </div>
-
-          {legs.length > 0 && (
-            <RouteDistanceList
-              legs={legs}
-              totalDistanceKm={totalDistanceKm}
-              title={t('map.distances')}
-              totalLabel={t('map.totalDistance')}
-              formatDistance={(distanceKm) => t('map.distance', { distance: distanceKm })}
-            />
-          )}
+            {path.length > 1 && (
+              <AnimatedTrain
+                path={path}
+                replayToken={replayToken}
+                onArrive={handleArrive}
+                onFinished={handleFinished}
+              />
+            )}
+          </Map>
         </div>
+
+        {legs.length > 0 && (
+          <RouteItinerary
+            stops={validStops}
+            legs={legs}
+            totalDistanceKm={totalDistanceKm}
+            visibleLegCount={visibleLegCount}
+            isFinished={isFinished}
+          />
+        )}
       </div>
     </ContentSection>
   );

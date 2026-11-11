@@ -40,7 +40,9 @@
     "results": "Results",
     "objectives": "Objectives",
     "relatedNews": "Related News",
-    "travelRoute": "Travel Route"
+    "travelRoute": "Travel Route",
+    "about": "About the project",
+    "details": "Project details"
   },
   "a11y": {
     "badgeAlt": "Project badge",
@@ -58,7 +60,11 @@
     "replay": "Replay route",
     "distance": "{{distance}} km",
     "distances": "Distances",
-    "totalDistance": "Total distance"
+    "totalDistance": "Total distance",
+    "itinerary": "Itinerary",
+    "stops": "{{count}} stops",
+    "departure": "Departure",
+    "next": "Next stop"
   },
   "dates": {
     "activity": "Activity dates",

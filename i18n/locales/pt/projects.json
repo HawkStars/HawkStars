@@ -40,7 +40,9 @@
     "results": "Resultados",
     "objectives": "Objetivos",
     "relatedNews": "Notícias Relacionadas",
-    "travelRoute": "Rota de Viagem"
+    "travelRoute": "Rota de Viagem",
+    "about": "Sobre o projeto",
+    "details": "Detalhes do projeto"
   },
   "a11y": {
     "badgeAlt": "Emblema do projeto",
@@ -58,7 +60,11 @@
     "replay": "Repetir rota",
     "distance": "{{distance}} km",
     "distances": "Distâncias",
-    "totalDistance": "Distância total"
+    "totalDistance": "Distância total",
+    "itinerary": "Itinerário",
+    "stops": "{{count}} paragens",
+    "departure": "Partida",
+    "next": "Próxima paragem"
   },
   "dates": {
     "activity": "Datas da atividade",

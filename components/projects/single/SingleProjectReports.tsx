@@ -2,7 +2,8 @@
 
 import { FlagIcon } from '@/lib/icon';
 import { HawkProject, Partner } from '@/payload-types';
-import Link from 'next/link';
+import { LuArrowUpRight } from 'react-icons/lu';
+import { Button } from '@/components/ui/button';
 import { ImageMedia } from '@/payload/components/Media';
 import { coFoundedEuropeanLogoBlue } from '@/utils/models/images/logos';
 import { FC } from 'react';
@@ -34,6 +35,31 @@ const ICONS = {
   other: GoLink,
 } as const;
 
+type DisseminationLinkProps = {
+  url?: string | null;
+  label?: string | null;
+  platform?: keyof typeof ICONS | null;
+};
+
+/** One outbound report/post link: platform icon + label, as an outline button. */
+const DisseminationLink = ({ url, label, platform }: DisseminationLinkProps) => {
+  if (!url) return null;
+  const Icon: IconType = platform ? ICONS[platform] : LuArrowUpRight;
+  return (
+    <Button asChild variant='outline' size='sm'>
+      <a
+        href={url}
+        target='_blank'
+        rel='noopener noreferrer'
+        aria-label={label ? undefined : (platform ?? url)}
+      >
+        <Icon aria-hidden='true' />
+        {label}
+      </a>
+    </Button>
+  );
+};
+
 type SingleProjectReportsProps = Pick<
   HawkProject,
   'otherDisseminationFields' | 'partnersInformation' | 'hawkStarsInformation'
@@ -59,95 +85,50 @@ const SingleProjectReports: FC<SingleProjectReportsProps> = ({
     return null;
   }
 
+  const hawkDocs = documents?.filter((doc) => doc.url) ?? [];
+  const rows = [
+    ...(hawkDocs.length > 0 ? [{ key: 'hawk', country: FLAG_PORTUGAL, links: hawkDocs }] : []),
+    ...(partners ?? [])
+      .map((p) => ({
+        key: p.id ?? (p.partner as Partner).id,
+        country: (p.partner as Partner).country,
+        links: (p.reports ?? []).filter((report) => report.url),
+      }))
+      .filter((row) => row.links.length > 0),
+  ];
+
   return (
-    <ContentSection className='bg-bege-dark'>
-      <SectionHeader
-        title={t('sections.dissemination')}
-        className='mb-8'
-        titleClassName='text-4xl font-bold'
-      />
-      <div className='flex flex-col gap-3'>
-        {partners?.map((p) => {
-          const partner = p.partner as Partner;
-          const reports = p.reports || [];
-
-          if (!reports || reports.length === 0) return null;
-
-          return (
-            <div className='space-y-4' key={p.id}>
-              <div key={partner.id} className='flex gap-4 max-lg:flex-col'>
-                <FlagIcon country={partner.country} />
-                <div className='flex flex-wrap gap-2'>
-                  {reports &&
-                    reports.map((report, j) => {
-                      const { url, label, platform } = report;
-                      if (!url) return null;
-                      const Icon = platform ? (ICONS[platform] as IconType) : null;
-
-                      return (
-                        <Link
-                          key={j}
-                          href={url}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          className='rounded-full bg-amber-400 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-500'
-                        >
-                          {label ? <span>{label}</span> : Icon ? <Icon size={24} /> : null}
-                        </Link>
-                      );
-                    })}
-                </div>
-              </div>
+    <ContentSection>
+      <SectionHeader title={t('sections.dissemination')} className='mb-8' />
+      <div className='flex flex-col gap-4'>
+        {rows.map((row) => (
+          <div
+            key={row.key}
+            className='card border-bege-dark flex flex-col gap-4 border bg-white p-5 sm:flex-row sm:items-center'
+          >
+            <FlagIcon country={row.country} />
+            <div className='flex flex-wrap gap-2'>
+              {row.links.map((link, j) => (
+                <DisseminationLink key={link.id ?? j} {...link} />
+              ))}
             </div>
-          );
-        })}
-        {hawkStarsInformation && (
-          <>
-            <div className='flex gap-4 max-lg:flex-col'>
-              <FlagIcon country={FLAG_PORTUGAL} />
-              {hawkStarsInformation.documents?.map((doc, j) => {
-                const { url, label, platform } = doc;
-                if (!url) return null;
-                const Icon = platform ? (ICONS[platform] as IconType) : null;
-
-                return (
-                  <Link
-                    key={j}
-                    href={url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='rounded-full bg-amber-400 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-500'
-                  >
-                    {label ? <span>{label}</span> : Icon ? <Icon size={24} /> : null}
-                  </Link>
-                );
-              })}
-            </div>
-          </>
-        )}
-
-        <div className='flex flex-wrap gap-3'>
-          <div className='relative aspect-auto h-auto w-40'>
-            <ImageMedia
-              className='absolute'
-              src={coFoundedEuropeanLogoBlue}
-              alt={t('a11y.euFunded')}
-              fill
-              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-            />
           </div>
+        ))}
 
-          {otherDisseminationFields?.reports?.map((report, j) => (
-            <Link
-              key={j}
-              href={report.url}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='rounded-full bg-amber-400 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-500'
-            >
-              {report.label}
-            </Link>
-          ))}
+        <div className='bg-bege-light flex flex-col gap-5 rounded-xl p-5 sm:flex-row sm:items-center'>
+          <ImageMedia
+            src={coFoundedEuropeanLogoBlue}
+            alt={t('a11y.euFunded')}
+            width={180}
+            className='h-auto w-44 shrink-0'
+          />
+          {reports && reports.length > 0 && (
+            <div className='flex flex-wrap gap-2'>
+              {reports.map((report, j) => (
+                <DisseminationLink key={report.id ?? j} url={report.url} label={report.label} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </ContentSection>
