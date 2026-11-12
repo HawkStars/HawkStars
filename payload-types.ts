@@ -5519,6 +5519,16 @@ export interface PayloadMcpApiKey {
      */
     update?: boolean | null;
   };
+  footer?: {
+    /**
+     * Allow clients to find footer global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update footer global.
+     */
+    update?: boolean | null;
+  };
   'payload-mcp-tool'?: {
     /**
      * Upload a file from its base64-encoded contents. Use collection "media" for images (JPEG, PNG, WebP, AVIF, GIF; requires `alt`) or "documents" for PDF, Word, Excel, PowerPoint or CSV files (requires `title`, optional `folder` and `description`). Maximum 10 MB. Prefer createMedia/createDocuments with a `url` when the file is already online — it avoids sending the whole file through MCP. Returns the new entry id and its public URL.
@@ -7695,6 +7705,12 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
         update?: T;
       };
   header?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
+  footer?:
     | T
     | {
         find?: T;

@@ -224,7 +224,12 @@ export const hawkMCPPlugin = mcpPlugin({
       },
     },
     footer: {
-      enabled: false,
+      description:
+        'Footer navigation. `columns` is an array of `{ column: { title, data } }`; `title` is localized and `data` is a list of `{ link }` items ({ type: "custom", url: "/path" } or a reference) with a localized `label`. Labels are per `locale`; array rows are shared between locales, so keep their ids.',
+      enabled: {
+        find: true,
+        update: true,
+      },
     },
     settings: {
       enabled: false,

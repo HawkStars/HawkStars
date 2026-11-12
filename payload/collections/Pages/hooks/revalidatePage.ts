@@ -1,6 +1,6 @@
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, Payload } from 'payload';
 
-import { safeRevalidatePath } from '@/payload/utilities/safeRevalidate';
+import { safeRevalidatePath, safeRevalidateTag } from '@/payload/utilities/safeRevalidate';
 
 import type { Page } from '@/payload-types';
 import { languages } from '@/i18n/settings';
@@ -13,6 +13,11 @@ const pathsForSlug = (slug: Page['slug']) =>
   languages.map((lng) => (slug === 'home' ? `/${lng}` : `/${lng}/${slug}`));
 
 const revalidateSlug = (payload: Payload, slug: Page['slug'], reason: string) => {
+  // The page data itself sits in a `'use cache'` entry tagged `pages:<slug>`
+  // (`findPublishedCached` in lib/payload/queries/helpers.ts). Revalidating the
+  // path alone re-renders the route from that still-cached data, so an edit would
+  // stay invisible until the entry's `cacheLife` ran out.
+  safeRevalidateTag(`pages:${slug}`);
   for (const path of pathsForSlug(slug)) {
     payload.logger.info(`Revalidating ${reason} at path: ${path}`);
     safeRevalidatePath(path, 'page');
