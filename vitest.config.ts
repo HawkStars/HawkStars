@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config';
+import { configDefaults, defineConfig } from 'vitest/config';
 import path from 'path';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
@@ -18,6 +18,9 @@ export default defineConfig({
         test: {
           environment: 'node',
           globals: true,
+          // `.claude/worktrees/` holds full checkouts of other branches (git-ignored):
+          // without this their copies of the tests run too, against stale code.
+          exclude: [...configDefaults.exclude, '.claude/**'],
         },
       },
       {
