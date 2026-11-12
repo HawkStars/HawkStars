@@ -71,6 +71,23 @@ jobs:
       - name: Test Pipeline
         run: pnpm test
 
+      - name: Cache Build Artifacts
+        uses: actions/cache@v4
+        with:
+          # Next.js build cache only. The pnpm store is already cached by setup-node
+          # (`cache: pnpm`), so no package-manager directory belongs here.
+          path: |
+            ${{ github.workspace }}/.next/cache
+          # Generate a new cache whenever packages or source files change.
+          # node_modules is excluded: install has already run, so hashing it is slow
+          # and adds nothing the lockfile hash doesn't already capture.
+          key: >-
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx',
+            '!**/node_modules/**', '!.next/**') }}
+          # If source files changed but packages didn't, rebuild from a prior cache.
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
+
       - name: Build
         run: pnpm build
         env:
@@ -252,6 +269,13 @@ jobs:
 
             # Build into a staging directory so the live .next keeps serving.
             rm -rf .next.new
+
+            # Seed the staging build with the previous build cache so next build is incremental.
+            if [ -d .next/cache ]; then
+              mkdir -p .next.new
+              cp -a .next/cache .next.new/cache
+            fi
+
             if ! NEXT_DIST_DIR=.next.new pnpm build; then
               echo "::error::build failed — leaving the running deployment untouched"
               rm -rf .next.new
