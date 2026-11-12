@@ -5445,6 +5445,20 @@ export interface PayloadMcpApiKey {
      */
     update?: boolean | null;
   };
+  impactReports?: {
+    /**
+     * Allow clients to find impact_reports.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create impact_reports.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update impact_reports.
+     */
+    update?: boolean | null;
+  };
   crowdfundingSettings?: {
     /**
      * Allow clients to find crowdfunding-settings global.
@@ -5492,6 +5506,16 @@ export interface PayloadMcpApiKey {
     find?: boolean | null;
     /**
      * Allow clients to update news-list global.
+     */
+    update?: boolean | null;
+  };
+  header?: {
+    /**
+     * Allow clients to find header global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update header global.
      */
     update?: boolean | null;
   };
@@ -7633,6 +7657,13 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
         create?: T;
         update?: T;
       };
+  impactReports?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+      };
   crowdfundingSettings?:
     | T
     | {
@@ -7658,6 +7689,12 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
         update?: T;
       };
   newsList?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
+  header?:
     | T
     | {
         find?: T;
