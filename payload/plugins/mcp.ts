@@ -151,6 +151,21 @@ export const hawkMCPPlugin = mcpPlugin({
     member_projects: {
       enabled: false,
     },
+    impact_reports: {
+      description:
+        'Annual impact reports (one per year), shown on /impact, /impact/<year> and /reports. ' +
+        'Fields: `year` (number, unique), localized `title` and `summary`, `stats` (icon, value, ' +
+        'label), `highlights` (date, title, description), `finances` (income, expenses, ' +
+        'closingBalance, incomeLines and expenseLines of { label, amount }) and `documents` ' +
+        '(activityReport, accountsReport, fiscalCouncilOpinion, activityPlan: ids from Documents). ' +
+        'Set `_status: "published"` to make a report public. Localized text is per `locale`.',
+      enabled: {
+        create: true,
+        find: true,
+        update: true,
+        delete: false,
+      },
+    },
   },
   globals: {
     'crowdfunding-settings': {
@@ -198,7 +213,15 @@ export const hawkMCPPlugin = mcpPlugin({
       },
     },
     header: {
-      enabled: false,
+      description:
+        'Main navigation (top menu). `columns` is an array; a dropdown column has ' +
+        '`isMultiColumn: true` and `dropdown.links.dropdownNavLink` items with a `link` ' +
+        '({ type: "custom", url: "/path" } or a reference), localized `label` and `description`. ' +
+        'Labels are per `locale`; array rows are shared between locales, so keep their ids.',
+      enabled: {
+        find: true,
+        update: true,
+      },
     },
     footer: {
       enabled: false,
