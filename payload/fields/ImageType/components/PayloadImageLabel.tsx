@@ -1,12 +1,20 @@
+import { getTranslation } from '@payloadcms/translations';
 import { FieldLabelServerProps, GroupField, GroupFieldClient } from 'payload';
 
-const PayloadImageLabel = ({ field }: FieldLabelServerProps<GroupField, GroupFieldClient>) => {
+/**
+ * Label for `PayloadImageField` groups. The label may be a plain string or a
+ * per-language object ({ en, pt }), so it is resolved for the admin's language.
+ */
+const PayloadImageLabel = ({
+  field,
+  i18n,
+}: FieldLabelServerProps<GroupField, GroupFieldClient>) => {
   const { label } = field;
   if (!label) return null;
-  // Get the platform name or use a fallback
+
   return (
     <div className='undeline text-lg' style={{ textTransform: 'capitalize' }}>
-      {label as string}
+      {getTranslation(label, i18n)}
     </div>
   );
 };

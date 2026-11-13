@@ -20,7 +20,7 @@ const t = ((key: string, opts?: { page?: number; total?: number }) => {
     'pagination.pageOf': `Page ${opts?.page} of ${opts?.total}`,
   };
   return strings[key] ?? key;
-}) as TFunction<string, undefined>;
+}) as unknown as TFunction<string, undefined>;
 
 const paginate = (
   docs: DemoItem[],
