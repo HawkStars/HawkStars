@@ -30,6 +30,8 @@ export const SITE_GET_URLS = {
   transparency: '/transparency',
   crowdfunding: '/crowdfunding',
   sede3d: '/sede-3d',
+  /** Test page for the Blender model: noindex, blocked in robots.txt, not in the sitemap. */
+  sedeBlender: '/sede-blender',
   gaming: '/gaming',
   team: '/team',
   terms: '/store/terms',
