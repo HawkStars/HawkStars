@@ -2,8 +2,10 @@
 
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { Button } from '@/components/ui/button';
+import RoomCard from './RoomCard';
+import WalkMinimap from './WalkMinimap';
 import type { TrainingRoomSign } from './trainingRoomSigns';
-import type { SpotId, WalkthroughScene } from './walkthroughScene';
+import type { Interaction, Pose, SpotId, WalkMap, WalkthroughScene } from './walkthroughScene';
 
 const MODEL_URL = '/models/sede-revit.glb';
 const JOYSTICK_RADIUS = 48;
@@ -24,7 +26,8 @@ type Props = {
 
 /**
  * First-person walk through the architect's model of the headquarters: walk with the keyboard
- * or the on-screen joystick, look with the mouse or by dragging, and jump between floors.
+ * or the on-screen joystick, look with the mouse or by dragging, jump between floors, open the
+ * rooms' info points and use the minimap to go anywhere.
  */
 const SedeWalkthrough = ({ signs }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,6 +38,10 @@ const SedeWalkthrough = ({ signs }: Props) => {
   const [started, setStarted] = useState(false);
   const [locked, setLocked] = useState(false);
   const [room, setRoom] = useState<string | null>(null);
+  const [aim, setAim] = useState<string | null>(null);
+  const [opened, setOpened] = useState<Interaction | null>(null);
+  const [map, setMap] = useState<WalkMap | null>(null);
+  const [pose, setPose] = useState<Pose | null>(null);
   const [knob, setKnob] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -48,10 +55,16 @@ const SedeWalkthrough = ({ signs }: Props) => {
         url: MODEL_URL,
         signs,
         onProgress: setProgress,
-        onLoad: () => setStatus('ready'),
+        onLoad: (m) => {
+          setMap(m);
+          setStatus('ready');
+        },
         onError: () => setStatus('error'),
         onRoom: setRoom,
         onLockChange: setLocked,
+        onAim: setAim,
+        onInteract: setOpened,
+        onPose: setPose,
       });
       sceneRef.current = scene;
     });
@@ -62,9 +75,10 @@ const SedeWalkthrough = ({ signs }: Props) => {
     };
   }, [signs]);
 
-  // number keys jump between the teleport points
+  // number keys jump between the teleport points; Esc closes an open card
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpened(null);
       const i = Number(e.key) - 1;
       if (Number.isInteger(i) && SPOTS[i]) sceneRef.current?.goTo(SPOTS[i].id);
     };
@@ -72,12 +86,23 @@ const SedeWalkthrough = ({ signs }: Props) => {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  const canLock = () => window.matchMedia('(pointer: fine)').matches;
+
   const start = () => {
     setStarted(true);
-    if (window.matchMedia('(pointer: fine)').matches) sceneRef.current?.lock();
+    if (canLock()) sceneRef.current?.lock();
+  };
+
+  const resume = () => {
+    setOpened(null);
+    if (canLock()) sceneRef.current?.lock();
   };
 
   const goTo = (id: SpotId) => sceneRef.current?.goTo(id);
+  const goToRoom = (id: string) => {
+    setOpened(null);
+    sceneRef.current?.goToRoom(id);
+  };
 
   const stickMove = (e: ReactPointerEvent<HTMLDivElement>) => {
     const origin = stickOrigin.current;
@@ -98,6 +123,8 @@ const SedeWalkthrough = ({ signs }: Props) => {
     sceneRef.current?.setJoystick(0, 0);
   };
 
+  const walking = status === 'ready' && started;
+
   return (
     <div className='bg-bege-light relative h-[calc(100svh-5rem)] min-h-136 w-full overflow-hidden select-none'>
       <div
@@ -117,16 +144,20 @@ const SedeWalkthrough = ({ signs }: Props) => {
         </p>
       )}
 
-      {/* crosshair */}
-      {status === 'ready' && started && (
+      {/* crosshair: a ring when it is on something that opens */}
+      {walking && (
         <span
           aria-hidden='true'
-          className='pointer-events-none absolute top-1/2 left-1/2 size-1.5 -translate-1/2 rounded-full bg-white/80 ring-1 ring-black/30'
+          className={
+            aim
+              ? 'pointer-events-none absolute top-1/2 left-1/2 size-5 -translate-1/2 rounded-full border-2 border-white shadow-sm ring-1 ring-black/30'
+              : 'pointer-events-none absolute top-1/2 left-1/2 size-1.5 -translate-1/2 rounded-full bg-white/80 ring-1 ring-black/30'
+          }
         />
       )}
 
       {/* where you are */}
-      {status === 'ready' && started && room && (
+      {walking && room && (
         <p
           aria-live='polite'
           className='card-sm pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 bg-white/90 px-4 py-2 text-sm font-semibold shadow-sm'
@@ -148,15 +179,18 @@ const SedeWalkthrough = ({ signs }: Props) => {
               <li className='pointer-coarse:hidden'>
                 <b>Rato</b> para olhar à volta, <b>Esc</b> para largar o rato
               </li>
+              <li className='pointer-coarse:hidden'>
+                Aponta para um <b>ⓘ</b> ou para uma placa e carrega em <b>E</b> (ou clica)
+              </li>
               <li className='hidden pointer-coarse:list-item'>
                 <b>Joystick</b> em baixo à esquerda para andar
               </li>
               <li className='hidden pointer-coarse:list-item'>
-                <b>Arrasta</b> no ecrã para olhar à volta
+                <b>Arrasta</b> no ecrã para olhar à volta, <b>toca</b> num ⓘ para saber mais
               </li>
               <li>
-                <b>Botões dos pisos</b> (ou teclas 1–5) para saltar de piso. As escadas também se
-                sobem a pé.
+                <b>Mapa</b> e botões dos pisos (ou teclas 1–5) para ir a qualquer sala. As escadas
+                também se sobem a pé.
               </li>
             </ul>
             <Button size='lg' className='mt-6 w-full' onClick={start}>
@@ -167,7 +201,7 @@ const SedeWalkthrough = ({ signs }: Props) => {
       )}
 
       {/* floors */}
-      {status === 'ready' && started && !locked && (
+      {walking && !locked && !opened && (
         <nav
           aria-label='Ir para'
           className='card border-bege-dark bg-bege-light/95 absolute top-16 left-4 z-10 flex flex-col gap-1 border p-2 shadow-md md:top-4'
@@ -184,24 +218,43 @@ const SedeWalkthrough = ({ signs }: Props) => {
               {s.label}
             </Button>
           ))}
-          <Button
-            size='sm'
-            className='mt-1 pointer-coarse:hidden'
-            onClick={() => sceneRef.current?.lock()}
-          >
+          <Button size='sm' className='mt-1 pointer-coarse:hidden' onClick={resume}>
             Continuar
           </Button>
         </nav>
       )}
 
-      {status === 'ready' && started && locked && (
+      {/* minimap: always visible on larger screens, follows the visitor */}
+      {walking && map && (
+        <WalkMinimap
+          map={map}
+          pose={pose}
+          room={room}
+          onGo={goToRoom}
+          className={
+            locked
+              ? 'pointer-events-none absolute right-4 bottom-4 z-10 hidden w-80 opacity-90 md:block'
+              : 'absolute right-4 bottom-4 z-10 hidden w-80 md:block'
+          }
+        />
+      )}
+
+      {walking && locked && (
         <p className='pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-4 py-1.5 text-xs text-white'>
-          Esc para largar o rato e escolher um piso · teclas 1–5 para saltar
+          {aim ? (
+            <>
+              <b>E</b> ou clique · {aim}
+            </>
+          ) : (
+            'Esc para largar o rato e escolher um piso · teclas 1–5 para saltar'
+          )}
         </p>
       )}
 
+      {opened && <RoomCard {...opened} onClose={() => setOpened(null)} onResume={resume} />}
+
       {/* touch joystick */}
-      {status === 'ready' && started && (
+      {walking && (
         <div
           role='presentation'
           className='absolute bottom-8 left-8 z-10 hidden size-32 touch-none place-items-center rounded-full border-2 border-white/70 bg-black/20 pointer-coarse:grid'

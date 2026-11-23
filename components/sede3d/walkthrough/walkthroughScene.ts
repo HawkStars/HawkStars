@@ -1,9 +1,8 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
-import { Octree } from 'three/examples/jsm/math/Octree.js';
-import { Capsule } from 'three/examples/jsm/math/Capsule.js';
 import type { TrainingRoomSign } from './trainingRoomSigns';
+import { buildCollision, createWalker, extraOf, EYE, groupOf } from './walker';
 
 /**
  * First-person walkthrough of the architect's Revit model (public/models/sede-revit.glb, built
@@ -12,24 +11,42 @@ import type { TrainingRoomSign } from './trainingRoomSigns';
  * The GLB carries everything the walk needs as glTF extras:
  *   - every node: `grupo` (edificio | porta | mobiliario | envolvente | terreno) and `piso`;
  *   - room floors: `sala`, the room name shown on screen;
- *   - empties `spot:<id>` (`visita: 'spot'`, `dir`) for the floor buttons and
- *     `sign:<roomId>` (`visita: 'sign'`, `normal`) for the training-room panels.
+ *   - empties `spot:<id>` (`visita: 'spot'`, `dir`) for the floor buttons,
+ *     `sign:<roomId>` (`visita: 'sign'`, `sala`, `normal`) for the training-room panels,
+ *     `info:<roomId>` (`visita: 'info'`, `sala`, `area`, `piso`) for the room info points, and
+ *     `mapa` (`visita: 'mapa'`, `x`, `y`) with the plan axes used by the minimap.
  *
- * The walker is a capsule 1.75 m tall that collides with walls, windows, railings and
- * neighbouring buildings, climbs steps up to 35 cm, falls with gravity and cannot push its head
- * through a ceiling. Doors and furniture are not solid, so every doorway is open and rooms stay
- * walkable. Import dynamically: three.js must never run on the server.
+ * The walker itself (collision, stairs, gravity) lives in walker.ts. Import this module
+ * dynamically: three.js must never run on the server.
  */
 export type SpotId = 'entrada' | 'piso0' | 'piso1' | 'formacao' | 'piso2';
 
+/** A room of the building, from its info point. */
+export type RoomInfo = { id: string; name: string; area: number; floor: string };
+
+/** What the visitor opened: a room's info point, or a training-room sign. */
+export type Interaction = { room: RoomInfo; sign: TrainingRoomSign | null };
+
+/** Plan of one floor for the minimap, in SVG units (metres, y down). */
+export type FloorPlan = {
+  floor: string;
+  rooms: { id: string | null; name: string; d: string }[];
+  /** Walls and glass cut 1.2 m above the floor, as one stroked path. */
+  walls: string;
+};
+export type WalkMap = { floors: FloorPlan[]; viewBox: [number, number, number, number] };
+/** Where the visitor is on the plan, facing `heading` (radians, clockwise from plan up). */
+export type Pose = { x: number; y: number; heading: number; floor: string | null };
+
 export type WalkthroughScene = {
   goTo: (id: SpotId) => void;
+  goToRoom: (id: string) => void;
   /** Mouse look with pointer lock. Must be called from a click handler. */
   lock: () => void;
   /** Joystick input from the UI, x to the right and y forwards, each in −1…1. */
   setJoystick: (x: number, y: number) => void;
-  /** Feet position in the model (metres above the 623.50 m datum in y). */
-  getPosition: () => { x: number; y: number; z: number };
+  /** Open whatever is under the crosshair. */
+  interact: () => void;
   dispose: () => void;
 };
 
@@ -38,54 +55,35 @@ type Options = {
   url: string;
   signs: TrainingRoomSign[];
   onProgress: (fraction: number) => void;
-  onLoad: () => void;
+  onLoad: (map: WalkMap) => void;
   onError: () => void;
   onRoom: (room: string | null) => void;
   onLockChange: (locked: boolean) => void;
+  /** The label of what the crosshair is on (null: nothing to open). */
+  onAim: (label: string | null) => void;
+  onInteract: (what: Interaction) => void;
+  onPose: (pose: Pose) => void;
 };
 
-type Extras = {
-  grupo?: string;
-  sala?: string;
-  visita?: 'spot' | 'sign';
-  id?: string;
-  dir?: [number, number, number];
-  normal?: [number, number, number];
-};
+type Vec3 = [number, number, number];
 
 const SKY = 0xe6eef0;
-const EYE = 1.62;
-const HEIGHT = 1.75;
-const RADIUS = 0.25;
-const STEP = 0.35;
-const WALK = 1.6;
-const RUN = 3.4;
-const GRAVITY = 9.8;
 const LOOK = 0.0022;
 const DRAG_LOOK = 0.005;
-
-/** Groups the walker passes through. */
-const PASSABLE_GROUPS = new Set(['porta', 'mobiliario']);
-/** Surroundings materials that are not solid: overhead wires, lamp heads, tree crowns. */
-const PASSABLE_SURROUNDINGS = new Set(['preto', 'lanterna', 'vidro_lanterna', 'copa', 'sebe']);
-
-const extrasOf = (o: THREE.Object3D) => o.userData as Extras;
-
-/** The group a node belongs to, from the glTF extras on it or on an ancestor. */
-const groupOf = (o: THREE.Object3D): string | undefined => {
-  for (let n: THREE.Object3D | null = o; n; n = n.parent) {
-    if (extrasOf(n).grupo) return extrasOf(n).grupo;
-  }
-  return undefined;
-};
-
-const isSolid = (mesh: THREE.Mesh, grupo: string | undefined) => {
-  if (grupo && PASSABLE_GROUPS.has(grupo)) return false;
-  const name = ([] as THREE.Material[]).concat(mesh.material)[0]?.name ?? '';
-  return !(grupo === 'envolvente' && PASSABLE_SURROUNDINGS.has(name));
-};
+const AIM_RANGE = 9;
+const MAP_CUT = 1.2;
+const BRAND_GREEN = '#0a7558';
 
 const yawFor = (dir: THREE.Vector3) => Math.atan2(-dir.x, -dir.z);
+const salaOf = (o: THREE.Object3D) => extraOf(o, 'sala') as string | undefined;
+const pisoOf = (o: THREE.Object3D) => extraOf(o, 'piso') as string | undefined;
+/** Every texture a material uses (colour, normal, roughness…). */
+const texturesOf = (m: THREE.Material) =>
+  Object.values(m).filter(
+    (v): v is THREE.Texture => (v as THREE.Texture | null)?.isTexture === true
+  );
+const materialName = (mesh: THREE.Mesh) =>
+  ([] as THREE.Material[]).concat(mesh.material)[0]?.name ?? '';
 
 // ---------- Training room signs ----------
 
@@ -105,7 +103,7 @@ const drawSign = (sign: TrainingRoomSign, images: (HTMLImageElement | null)[]) =
   const { width: w, height: h } = canvas;
   g.fillStyle = '#ffffff';
   g.fillRect(0, 0, w, h);
-  g.fillStyle = '#0a7558'; // brand green
+  g.fillStyle = BRAND_GREEN;
   g.fillRect(0, 0, w, 26);
   g.fillStyle = '#1f3a68'; // ink
   g.font = '600 96px Oswald, "Arial Narrow", sans-serif';
@@ -148,7 +146,7 @@ const makeSign = (sign: TrainingRoomSign, renderer: THREE.WebGLRenderer) => {
   panel.position.z = 0.012;
   const back = new THREE.Mesh(
     new THREE.BoxGeometry(PANEL_W + 0.08, PANEL_H + 0.08, 0.02),
-    new THREE.MeshStandardMaterial({ color: 0x0a7558, roughness: 0.5 })
+    new THREE.MeshStandardMaterial({ color: BRAND_GREEN, roughness: 0.5 })
   );
   const group = new THREE.Group();
   group.add(panel, back);
@@ -157,6 +155,130 @@ const makeSign = (sign: TrainingRoomSign, renderer: THREE.WebGLRenderer) => {
     texture.needsUpdate = true;
   });
   return group;
+};
+
+// ---------- Info points ----------
+
+const infoTexture = () => {
+  const c = document.createElement('canvas');
+  c.width = c.height = 128;
+  const g = c.getContext('2d');
+  if (g) {
+    g.fillStyle = 'rgba(255,255,255,0.95)';
+    g.beginPath();
+    g.arc(64, 64, 62, 0, Math.PI * 2);
+    g.fill();
+    g.fillStyle = BRAND_GREEN;
+    g.beginPath();
+    g.arc(64, 64, 54, 0, Math.PI * 2);
+    g.fill();
+    g.fillStyle = '#ffffff';
+    g.font = '700 78px Georgia, serif';
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    g.fillText('i', 64, 68);
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+};
+
+// ---------- Minimap ----------
+
+const r2 = (n: number) => Math.round(n * 100) / 100;
+
+/** Plans of every floor: room floors (their upward faces) and a horizontal cut of the walls. */
+const buildMap = (
+  root: THREE.Object3D,
+  axisX: THREE.Vector3,
+  axisY: THREE.Vector3,
+  rooms: Map<string, RoomInfo>
+): WalkMap => {
+  const plan = (p: THREE.Vector3): [number, number] => [r2(p.dot(axisX)), r2(-p.dot(axisY))];
+  const bounds = new THREE.Box2();
+  const floorMeshes: THREE.Mesh[] = [];
+  const wallMeshes: THREE.Mesh[] = [];
+  root.traverse((o) => {
+    const mesh = o as THREE.Mesh;
+    if (!mesh.isMesh) return;
+    if (salaOf(mesh)) floorMeshes.push(mesh);
+    else if (
+      groupOf(mesh) === 'edificio' &&
+      ['parede', 'madeira', 'vidro'].includes(materialName(mesh))
+    )
+      wallMeshes.push(mesh);
+  });
+
+  const a = new THREE.Vector3();
+  const b = new THREE.Vector3();
+  const c = new THREE.Vector3();
+  const n = new THREE.Vector3();
+  const edge = new THREE.Vector3();
+  const triangles = (
+    mesh: THREE.Mesh,
+    each: (a: THREE.Vector3, b: THREE.Vector3, c: THREE.Vector3) => void
+  ) => {
+    const pos = mesh.geometry.attributes.position;
+    const index = mesh.geometry.index;
+    const count = index ? index.count : pos.count;
+    const at = (v: THREE.Vector3, i: number) =>
+      v.fromBufferAttribute(pos, index ? index.getX(i) : i).applyMatrix4(mesh.matrixWorld);
+    for (let i = 0; i < count; i += 3) each(at(a, i), at(b, i + 1), at(c, i + 2));
+  };
+
+  // room floors, grouped by floor; each floor's cut height is 1.2 m above its highest room
+  const byFloor = new Map<string, { rooms: FloorPlan['rooms']; top: number }>();
+  for (const mesh of floorMeshes) {
+    const floor = pisoOf(mesh) ?? '?';
+    const name = salaOf(mesh) ?? '';
+    const box = new THREE.Box3().setFromObject(mesh);
+    let d = '';
+    triangles(mesh, (p, q, r) => {
+      n.subVectors(q, p).cross(edge.subVectors(r, p));
+      if (n.y <= 0 || n.y < 0.9 * n.length() || p.y < box.max.y - 0.05) return;
+      const pts = [p, q, r].map(plan);
+      pts.forEach(([x, y]) => bounds.expandByPoint(new THREE.Vector2(x, y)));
+      d += `M${pts[0]}L${pts[1]}L${pts[2]}Z`;
+    });
+    const entry = byFloor.get(floor) ?? { rooms: [], top: -Infinity };
+    const id = [...rooms.values()].find((r) => r.name === name)?.id ?? null;
+    entry.rooms.push({ id, name, d });
+    entry.top = Math.max(entry.top, box.max.y);
+    byFloor.set(floor, entry);
+  }
+
+  const floors: FloorPlan[] = [...byFloor.entries()]
+    .sort(([x], [y]) => x.localeCompare(y))
+    .map(([floor, { rooms: floorRooms, top }]) => {
+      const h = top + MAP_CUT;
+      let walls = '';
+      const cut: [number, number][] = [];
+      for (const mesh of wallMeshes) {
+        triangles(mesh, (p, q, r) => {
+          cut.length = 0;
+          for (const [u, v] of [
+            [p, q],
+            [q, r],
+            [r, p],
+          ] as const) {
+            if (u.y < h !== v.y < h) cut.push(plan(u.clone().lerp(v, (h - u.y) / (v.y - u.y))));
+          }
+          if (cut.length === 2) walls += `M${cut[0]}L${cut[1]}`;
+        });
+      }
+      return { floor, rooms: floorRooms, walls };
+    });
+
+  const pad = 1.5;
+  return {
+    floors,
+    viewBox: [
+      r2(bounds.min.x - pad),
+      r2(bounds.min.y - pad),
+      r2(bounds.max.x - bounds.min.x + 2 * pad),
+      r2(bounds.max.y - bounds.min.y + 2 * pad),
+    ],
+  };
 };
 
 export function createWalkthroughScene({
@@ -168,6 +290,9 @@ export function createWalkthroughScene({
   onError,
   onRoom,
   onLockChange,
+  onAim,
+  onInteract,
+  onPose,
 }: Options): WalkthroughScene {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -178,6 +303,7 @@ export function createWalkthroughScene({
   renderer.domElement.style.display = 'block';
   renderer.domElement.style.touchAction = 'none';
   container.appendChild(renderer.domElement);
+  const maxAnisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(SKY);
@@ -207,70 +333,52 @@ export function createWalkthroughScene({
   });
   scene.add(sun, sun.target);
 
-  // ---------- walker state ----------
-  const feet = new THREE.Vector3();
+  // ---------- state ----------
+  let walker: ReturnType<typeof createWalker> | null = null;
+  let octree: ReturnType<typeof buildCollision> | null = null;
   let yaw = 0;
   let pitch = 0;
-  let vy = 0;
-  let ready = false;
   let currentRoom: string | null = null;
-  const octree = new Octree();
-  const capsule = new Capsule();
+  let currentFloor: string | null = null;
   const keys = new Set<string>();
   const joystick = new THREE.Vector2();
   const spots = new Map<string, { feet: THREE.Vector3; yaw: number }>();
+  const rooms = new Map<string, RoomInfo & { at: THREE.Vector3 }>();
   const roomFloors: THREE.Object3D[] = [];
+  /** Things the crosshair can open. */
+  const targets: { object: THREE.Object3D; label: string; open: () => Interaction }[] = [];
+  const mapAxes = { x: new THREE.Vector3(1, 0, 0), y: new THREE.Vector3(0, 0, -1) };
+  let lowest = -20;
 
-  const setCapsule = (p: THREE.Vector3) => {
-    capsule.start.set(p.x, p.y + STEP + RADIUS, p.z);
-    capsule.end.set(p.x, p.y + HEIGHT - RADIUS, p.z);
-    capsule.radius = RADIUS;
-  };
-
-  // Downward ray against both faces of every triangle (the terrain's winding is not reliable).
-  const ray = new THREE.Ray();
-  const DOWN = new THREE.Vector3(0, -1, 0);
-  const hitPoint = new THREE.Vector3();
-  const rayTris: THREE.Triangle[] = [];
-  const floorBelow = (origin: THREE.Vector3, maxDrop: number) => {
-    ray.set(origin, DOWN);
-    rayTris.length = 0;
-    octree.getRayTriangles(ray, rayTris);
-    let best = Infinity;
-    for (const t of rayTris) {
-      if (ray.intersectTriangle(t.a, t.b, t.c, false, hitPoint)) {
-        const d = origin.y - hitPoint.y;
-        if (d >= 0 && d < best) best = d;
-      }
-    }
-    return best <= maxDrop ? origin.y - best : null;
+  const floorRay = new THREE.Raycaster(undefined, new THREE.Vector3(0, -1, 0), 0, 2);
+  const floorUnderfoot = () => {
+    if (!walker) return null;
+    const { feet } = walker;
+    floorRay.ray.origin.set(feet.x, feet.y + 0.5, feet.z);
+    return floorRay.intersectObjects(roomFloors, false)[0]?.object ?? null;
   };
 
-  const roomRay = new THREE.Raycaster(undefined, DOWN, 0, 2);
-  const roomBelow = () => {
-    roomRay.ray.origin.set(feet.x, feet.y + 0.5, feet.z);
-    const hit = roomRay.intersectObjects(roomFloors, false)[0];
-    return hit ? (groupSala(hit.object) ?? null) : null;
-  };
-  const groupSala = (o: THREE.Object3D): string | undefined => {
-    for (let n: THREE.Object3D | null = o; n; n = n.parent)
-      if (extrasOf(n).sala) return extrasOf(n).sala;
-    return undefined;
-  };
+  const roomByName = (name: string) => [...rooms.values()].find((r) => r.name === name) ?? null;
+  const publicRoom = ({ id, name, area, floor }: RoomInfo): RoomInfo => ({ id, name, area, floor });
 
   const goTo = (id: SpotId) => {
     const spot = spots.get(id);
-    if (!spot || !ready) return;
-    feet.copy(spot.feet);
-    const floor = floorBelow(feet.clone().add(new THREE.Vector3(0, 0.6, 0)), 6);
-    if (floor !== null) feet.y = floor;
+    if (!spot || !walker) return;
+    walker.place(spot.feet);
     yaw = spot.yaw;
     pitch = 0;
-    vy = 0;
+  };
+
+  const goToRoom = (id: string) => {
+    const room = rooms.get(id);
+    if (!room || !walker) return;
+    walker.place(room.at);
+    pitch = 0;
   };
 
   // ---------- loading ----------
   let disposed = false;
+  const dot = infoTexture();
   new GLTFLoader().load(
     url,
     (gltf) => {
@@ -279,65 +387,99 @@ export function createWalkthroughScene({
       scene.add(root);
       root.updateMatrixWorld(true);
       const building = new THREE.Box3();
-      const v = new THREE.Vector3();
-      const anchors: { id: string; center: THREE.Vector3; normal: THREE.Vector3 }[] = [];
+      const anchors: {
+        sala: string;
+        id: string;
+        center: THREE.Vector3;
+        normal: THREE.Vector3;
+        /** Clear width of the wall there, in metres (the panel shrinks to fit). */
+        width: number;
+      }[] = [];
       root.traverse((o) => {
-        const extras = extrasOf(o);
-        if (extras.visita === 'spot' && extras.id && extras.dir) {
+        const extras = o.userData;
+        if (extras.visita === 'spot') {
           spots.set(extras.id, {
             feet: o.getWorldPosition(new THREE.Vector3()),
-            yaw: yawFor(new THREE.Vector3(...extras.dir)),
+            yaw: yawFor(new THREE.Vector3(...(extras.dir as Vec3))),
           });
         }
-        if (extras.visita === 'sign' && extras.id && extras.normal) {
+        if (extras.visita === 'sign') {
           anchors.push({
             id: extras.id,
+            sala: extras.sala,
             center: o.getWorldPosition(new THREE.Vector3()),
-            normal: new THREE.Vector3(...extras.normal),
+            normal: new THREE.Vector3(...(extras.normal as Vec3)),
+            width: typeof extras.width === 'number' ? extras.width : PANEL_W,
           });
+        }
+        if (extras.visita === 'info') {
+          rooms.set(extras.id, {
+            id: extras.id,
+            name: extras.sala,
+            area: extras.area,
+            floor: extras.piso,
+            at: o.getWorldPosition(new THREE.Vector3()),
+          });
+        }
+        if (extras.visita === 'mapa') {
+          mapAxes.x.set(...(extras.x as Vec3));
+          mapAxes.y.set(...(extras.y as Vec3));
         }
         const mesh = o as THREE.Mesh;
         if (!mesh.isMesh) return;
-        const grupo = groupOf(mesh);
-        if (groupSala(mesh)) roomFloors.push(mesh);
-        const transparent = ([] as THREE.Material[])
-          .concat(mesh.material)
-          .some((m) => m.transparent);
+        if (salaOf(mesh)) roomFloors.push(mesh);
+        const materials = ([] as THREE.Material[]).concat(mesh.material);
+        const transparent = materials.some((m) => m.transparent);
+        // floors are seen at grazing angles: keep their textures sharp
+        materials.forEach((m) => texturesOf(m).forEach((t) => (t.anisotropy = maxAnisotropy)));
         mesh.castShadow = !transparent;
         mesh.receiveShadow = true;
-        if (grupo === 'edificio') building.expandByObject(mesh);
-        if (!isSolid(mesh, grupo)) return;
-        // the mesh's triangles, in world space, go into the collision octree
-        const pos = mesh.geometry.attributes.position;
-        const index = mesh.geometry.index;
-        const count = index ? index.count : pos.count;
-        const vertex = (i: number) =>
-          v
-            .fromBufferAttribute(pos, index ? index.getX(i) : i)
-            .applyMatrix4(mesh.matrixWorld)
-            .clone();
-        for (let i = 0; i < count; i += 3) {
-          octree.addTriangle(new THREE.Triangle(vertex(i), vertex(i + 1), vertex(i + 2)));
-        }
+        if (groupOf(mesh) === 'edificio') building.expandByObject(mesh);
       });
-      octree.build();
+      octree = buildCollision(root);
+      walker = createWalker(octree);
+      lowest = octree.box ? octree.box.min.y - 5 : -20;
 
       const center = building.getCenter(new THREE.Vector3());
       sun.position.copy(center).add(new THREE.Vector3(-60, 80, 40));
       sun.target.position.copy(center);
 
+      for (const room of rooms.values()) {
+        const sprite = new THREE.Sprite(
+          new THREE.SpriteMaterial({ map: dot, transparent: true, depthWrite: false })
+        );
+        sprite.scale.setScalar(0.3);
+        sprite.position.copy(room.at);
+        sprite.userData.baseY = room.at.y;
+        scene.add(sprite);
+        const sign = signs.find((s) =>
+          anchors.some((a) => a.id === s.roomId && a.sala === room.name)
+        );
+        targets.push({
+          object: sprite,
+          label: room.name,
+          open: () => ({ room: publicRoom(room), sign: sign ?? null }),
+        });
+      }
       for (const anchor of anchors) {
         const sign = signs.find((s) => s.roomId === anchor.id);
         if (!sign) continue;
         const panel = makeSign(sign, renderer);
         panel.position.copy(anchor.center);
+        panel.scale.setScalar(Math.min(1, anchor.width / PANEL_W));
         panel.lookAt(anchor.center.clone().add(anchor.normal));
         scene.add(panel);
+        const room = roomByName(anchor.sala);
+        if (room)
+          targets.push({
+            object: panel,
+            label: sign.name,
+            open: () => ({ room: publicRoom(room), sign }),
+          });
       }
 
-      ready = true;
       goTo('entrada');
-      onLoad();
+      onLoad(buildMap(root, mapAxes.x, mapAxes.y, rooms));
     },
     (e) => {
       if (e.total) onProgress(e.loaded / e.total);
@@ -347,6 +489,30 @@ export function createWalkthroughScene({
     }
   );
 
+  // ---------- aiming ----------
+  const aimRay = new THREE.Raycaster();
+  aimRay.far = AIM_RANGE;
+  const CENTRE = new THREE.Vector2();
+  let aimed: (typeof targets)[number] | null = null;
+  /** The target along a ray from the camera through ndc, unless a wall is in front of it. */
+  const pick = (ndc: THREE.Vector2) => {
+    aimRay.setFromCamera(ndc, camera);
+    const hit = aimRay.intersectObjects(
+      targets.map((t) => t.object),
+      true
+    )[0];
+    if (!hit || !octree) return null;
+    const wall = octree.rayIntersect(aimRay.ray);
+    if (wall && wall.distance < hit.distance - 0.05) return null;
+    return targets.find((t) => t.object === hit.object || t.object === hit.object.parent) ?? null;
+  };
+  const interact = (target = aimed) => {
+    if (!target) return;
+    if (document.pointerLockElement === canvas) document.exitPointerLock();
+    keys.clear();
+    onInteract(target.open());
+  };
+
   // ---------- input ----------
   const canvas = renderer.domElement;
   const onKey = (down: boolean) => (e: KeyboardEvent) => {
@@ -354,6 +520,7 @@ export function createWalkthroughScene({
     if (tag === 'INPUT' || tag === 'TEXTAREA') return;
     if (down) keys.add(e.code);
     else keys.delete(e.code);
+    if (down && e.code === 'KeyE') interact();
     if (down && e.code.startsWith('Arrow')) e.preventDefault();
   };
   const onKeyDown = onKey(true);
@@ -367,11 +534,20 @@ export function createWalkthroughScene({
     pitch -= e.movementY * LOOK;
     clampPitch();
   };
-  // drag to look (touch, or mouse without pointer lock)
-  const drags = new Map<number, { x: number; y: number }>();
+  const onMouseDown = () => {
+    if (document.pointerLockElement === canvas) interact();
+  };
+  // drag to look (touch, or mouse without pointer lock); a short tap opens what is under it
+  const drags = new Map<number, { x: number; y: number; x0: number; y0: number; t: number }>();
   const onPointerDown = (e: PointerEvent) => {
     if (document.pointerLockElement === canvas) return;
-    drags.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    drags.set(e.pointerId, {
+      x: e.clientX,
+      y: e.clientY,
+      x0: e.clientX,
+      y0: e.clientY,
+      t: e.timeStamp,
+    });
     canvas.setPointerCapture(e.pointerId);
   };
   const onPointerMove = (e: PointerEvent) => {
@@ -380,10 +556,22 @@ export function createWalkthroughScene({
     yaw += (e.clientX - last.x) * DRAG_LOOK;
     pitch += (e.clientY - last.y) * DRAG_LOOK;
     clampPitch();
-    drags.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    last.x = e.clientX;
+    last.y = e.clientY;
   };
   const onPointerUp = (e: PointerEvent) => {
+    const d = drags.get(e.pointerId);
     drags.delete(e.pointerId);
+    if (!d || e.type === 'pointercancel') return;
+    if (Math.hypot(e.clientX - d.x0, e.clientY - d.y0) > 8 || e.timeStamp - d.t > 350) return;
+    const r = canvas.getBoundingClientRect();
+    const tapped = pick(
+      new THREE.Vector2(
+        ((e.clientX - r.left) / r.width) * 2 - 1,
+        -((e.clientY - r.top) / r.height) * 2 + 1
+      )
+    );
+    if (tapped) interact(tapped);
   };
   const onLock = () => {
     keys.clear();
@@ -395,93 +583,72 @@ export function createWalkthroughScene({
   window.addEventListener('blur', onBlur);
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('pointerlockchange', onLock);
+  canvas.addEventListener('mousedown', onMouseDown);
   canvas.addEventListener('pointerdown', onPointerDown);
   canvas.addEventListener('pointermove', onPointerMove);
   canvas.addEventListener('pointerup', onPointerUp);
   canvas.addEventListener('pointercancel', onPointerUp);
 
-  // ---------- movement ----------
-  const prev = new THREE.Vector3();
-  const move = new THREE.Vector3();
-  const probe = new THREE.Vector3();
-
-  const step = (dt: number) => {
-    const f =
-      (keys.has('KeyW') || keys.has('ArrowUp') ? 1 : 0) -
-      (keys.has('KeyS') || keys.has('ArrowDown') ? 1 : 0) +
-      joystick.y;
-    const r =
-      (keys.has('KeyD') || keys.has('ArrowRight') ? 1 : 0) -
-      (keys.has('KeyA') || keys.has('ArrowLeft') ? 1 : 0) +
-      joystick.x;
-    const speed = keys.has('ShiftLeft') || keys.has('ShiftRight') ? RUN : WALK;
-    move.set(r * Math.cos(yaw) - f * Math.sin(yaw), 0, -r * Math.sin(yaw) - f * Math.cos(yaw));
-    if (move.lengthSq() > 1) move.normalize();
-    move.multiplyScalar(speed * dt);
-
-    // horizontal move, then push out of walls (horizontally only)
-    prev.copy(feet);
-    feet.add(move);
-    for (let i = 0; i < 3; i++) {
-      setCapsule(feet);
-      const hit = octree.capsuleIntersect(capsule);
-      if (!hit) break;
-      if (hit.normal.y < -0.6) {
-        feet.copy(prev); // ceiling
-        break;
-      }
-      const h = Math.hypot(hit.normal.x, hit.normal.z);
-      if (h < 0.2) break;
-      feet.x += (hit.normal.x / h) * hit.depth;
-      feet.z += (hit.normal.z / h) * hit.depth;
-    }
-
-    // floor: step up onto anything lower than STEP, otherwise fall
-    probe.set(feet.x, feet.y + STEP + 0.3, feet.z);
-    const floor = floorBelow(probe, 80);
-    if (floor !== null && floor > feet.y + STEP + 0.01) {
-      feet.x = prev.x; // too high to step onto
-      feet.z = prev.z;
-    } else if (floor !== null && floor >= feet.y - 0.02) {
-      feet.y += (floor - feet.y) * Math.min(1, dt * 18);
-      vy = 0;
-    } else {
-      const target = floor ?? feet.y - 1;
-      if (vy === 0 && feet.y - target < 0.4) {
-        feet.y = target; // walking down stairs
-      } else {
-        vy -= GRAVITY * dt;
-        feet.y = Math.max(target, feet.y + vy * dt);
-        if (feet.y === target) vy = 0;
-      }
-    }
-    // a head that would end up inside a slab after stepping up is not allowed
-    setCapsule(feet);
-    const after = octree.capsuleIntersect(capsule);
-    if (after && after.normal.y < -0.6) feet.copy(prev);
-  };
-
+  // ---------- loop ----------
   const clock = new THREE.Clock();
-  let roomTimer = 0;
+  let slow = 0;
+  let lastAimLabel: string | null = null;
   renderer.setAnimationLoop(() => {
-    // Fixed 20 ms sub-steps: the same walking speed on slow devices, and never more than one
-    // capsule radius per step (no tunnelling through thin walls).
     const dt = Math.min(0.25, clock.getDelta());
-    if (ready) {
-      const n = Math.max(1, Math.ceil(dt / 0.02));
-      for (let i = 0; i < n; i++) step(dt / n);
-      roomTimer += dt;
-      if (roomTimer > 0.25) {
-        roomTimer = 0;
-        const room = roomBelow();
-        if (room !== currentRoom) {
-          currentRoom = room;
-          onRoom(room);
-        }
+    const t = clock.elapsedTime;
+    if (walker) {
+      const forward =
+        (keys.has('KeyW') || keys.has('ArrowUp') ? 1 : 0) -
+        (keys.has('KeyS') || keys.has('ArrowDown') ? 1 : 0) +
+        joystick.y;
+      const right =
+        (keys.has('KeyD') || keys.has('ArrowRight') ? 1 : 0) -
+        (keys.has('KeyA') || keys.has('ArrowLeft') ? 1 : 0) +
+        joystick.x;
+      walker.advance(dt, yaw, {
+        forward,
+        right,
+        run: keys.has('ShiftLeft') || keys.has('ShiftRight'),
+      });
+      // never leave the visitor falling forever below the model
+      if (walker.feet.y < lowest) goTo('entrada');
+      camera.position.set(walker.feet.x, walker.feet.y + EYE, walker.feet.z);
+    }
+    camera.rotation.set(pitch, yaw, 0);
+
+    for (const target of targets) {
+      if ((target.object as THREE.Sprite).isSprite) {
+        target.object.position.y = target.object.userData.baseY + Math.sin(t * 2) * 0.03;
+        target.object.scale.setScalar(target === aimed ? 0.38 : 0.3);
       }
     }
-    camera.position.set(feet.x, feet.y + EYE, feet.z);
-    camera.rotation.set(pitch, yaw, 0);
+
+    slow += dt;
+    if (walker && slow > 0.1) {
+      slow = 0;
+      aimed = pick(CENTRE);
+      const label = aimed?.label ?? null;
+      if (label !== lastAimLabel) {
+        lastAimLabel = label;
+        onAim(label);
+      }
+      const floorMesh = floorUnderfoot();
+      const room = floorMesh ? (salaOf(floorMesh) ?? null) : null;
+      if (room !== currentRoom) {
+        currentRoom = room;
+        onRoom(room);
+      }
+      if (floorMesh) currentFloor = pisoOf(floorMesh) ?? currentFloor;
+      const { feet } = walker;
+      // heading on the plan: 0 is plan up (+y), clockwise positive
+      const look = new THREE.Vector3(-Math.sin(yaw), 0, -Math.cos(yaw));
+      onPose({
+        x: r2(feet.dot(mapAxes.x)),
+        y: r2(-feet.dot(mapAxes.y)),
+        heading: Math.atan2(look.dot(mapAxes.x), look.dot(mapAxes.y)),
+        floor: currentFloor,
+      });
+    }
     renderer.render(scene, camera);
   });
 
@@ -498,13 +665,14 @@ export function createWalkthroughScene({
 
   return {
     goTo,
+    goToRoom,
     lock: () => {
       canvas.requestPointerLock();
     },
     setJoystick: (x, y) => {
       joystick.set(x, y);
     },
-    getPosition: () => ({ x: feet.x, y: feet.y, z: feet.z }),
+    interact: () => interact(),
     dispose: () => {
       disposed = true;
       observer.disconnect();
@@ -517,13 +685,14 @@ export function createWalkthroughScene({
       if (document.pointerLockElement === canvas) document.exitPointerLock();
       scene.traverse((o) => {
         const mesh = o as THREE.Mesh;
-        if (!mesh.isMesh) return;
-        mesh.geometry.dispose();
+        if (!mesh.isMesh && !(o as THREE.Sprite).isSprite) return;
+        mesh.geometry?.dispose();
         ([] as THREE.Material[]).concat(mesh.material).forEach((m) => {
-          (m as THREE.MeshStandardMaterial).map?.dispose();
+          texturesOf(m).forEach((t) => t.dispose());
           m.dispose();
         });
       });
+      dot.dispose();
       envTarget.dispose();
       pmrem.dispose();
       renderer.dispose();
