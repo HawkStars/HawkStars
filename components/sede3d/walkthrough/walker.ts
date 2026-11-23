@@ -66,8 +66,9 @@ export const buildCollision = (root: THREE.Object3D) => {
   return octree.build();
 };
 
-/** Forward and right in −1…1 (keyboard and joystick summed), and whether to run. */
-export type MoveInput = { forward: number; right: number; run: boolean };
+/** Forward and right in −1…1 (keyboard and joystick summed), whether to run, and a speed factor
+ * the visitor can set (slower or faster walking). */
+export type MoveInput = { forward: number; right: number; run: boolean; speed?: number };
 
 export type Walker = ReturnType<typeof createWalker>;
 
@@ -136,7 +137,7 @@ export const createWalker = (octree: Octree) => {
     const { forward: f, right: r } = input;
     move.set(r * Math.cos(yaw) - f * Math.sin(yaw), 0, -r * Math.sin(yaw) - f * Math.cos(yaw));
     if (move.lengthSq() > 1) move.normalize();
-    move.multiplyScalar((input.run ? RUN : WALK) * dt);
+    move.multiplyScalar((input.run ? RUN : WALK) * (input.speed ?? 1) * dt);
 
     // horizontal move, then push out of walls (horizontally only)
     prev.copy(feet);

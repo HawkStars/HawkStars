@@ -56,6 +56,10 @@ export type WalkthroughScene = {
   interact: () => void;
   /** Show or hide the door leaves (every doorway can be walked through either way). */
   setDoorsVisible: (visible: boolean) => void;
+  /** On-screen movement buttons: forward (−1…1) and turn (−1…1, positive to the left). */
+  setControls: (forward: number, turn: number) => void;
+  /** Walking speed factor (1 is normal). */
+  setSpeed: (factor: number) => void;
   dispose: () => void;
 };
 
@@ -78,6 +82,8 @@ type Vec3 = [number, number, number];
 
 const SKY = 0xe6eef0;
 const LOOK = 0.0022;
+/** Turning with the arrow keys or the on-screen buttons, in radians per second. */
+const TURN = 1.6;
 const DRAG_LOOK = 0.005;
 const AIM_RANGE = 9;
 const MAP_CUT = 1.2;
@@ -325,6 +331,28 @@ export function createWalkthroughScene({
   let currentFloor: string | null = null;
   const keys = new Set<string>();
   const joystick = new THREE.Vector2();
+  const controls = { forward: 0, turn: 0 };
+  let speed = 1;
+  // click (or tap) on a floor to walk there
+  let target: THREE.Vector3 | null = null;
+  let targetBest = Infinity;
+  let targetStuck = 0;
+  const marker = new THREE.Mesh(
+    new THREE.RingGeometry(0.16, 0.24, 40),
+    new THREE.MeshBasicMaterial({
+      color: BRAND_GREEN,
+      transparent: true,
+      opacity: 0.85,
+      depthWrite: false,
+    })
+  );
+  marker.rotation.x = -Math.PI / 2;
+  marker.visible = false;
+  scene.add(marker);
+  const stopWalking = () => {
+    target = null;
+    marker.visible = false;
+  };
   const spots = new Map<string, { feet: THREE.Vector3; yaw: number }>();
   const rooms = new Map<string, RoomInfo & { at: THREE.Vector3 }>();
   const roomFloors: THREE.Object3D[] = [];
@@ -355,6 +383,7 @@ export function createWalkthroughScene({
   const goTo = (id: SpotId) => {
     const spot = spots.get(id);
     if (!spot || !walker) return;
+    stopWalking();
     walker.place(spot.feet);
     yaw = spot.yaw;
     pitch = 0;
@@ -363,6 +392,7 @@ export function createWalkthroughScene({
   const goToRoom = (id: string) => {
     const room = rooms.get(id);
     if (!room || !walker) return;
+    stopWalking();
     walker.place(room.at);
     pitch = 0;
   };
@@ -500,6 +530,7 @@ export function createWalkthroughScene({
     else keys.delete(e.code);
     if (down && e.code === 'KeyE') interact();
     if (down && e.code.startsWith('Arrow')) e.preventDefault();
+    if (down && /^(Key[WASD]|Arrow)/.test(e.code)) stopWalking();
   };
   const onKeyDown = onKey(true);
   const onKeyUp = onKey(false);
@@ -549,7 +580,28 @@ export function createWalkthroughScene({
         -((e.clientY - r.top) / r.height) * 2 + 1
       )
     );
-    if (tapped) interact(tapped);
+    if (tapped) {
+      interact(tapped);
+      return;
+    }
+    walkTowards(aimRay.ray);
+  };
+  const triNormal = new THREE.Vector3();
+  /** Walk to the floor point under the ray (stopping half a metre short of a wall). */
+  const walkTowards = (r: THREE.Ray) => {
+    if (!octree || !walker) return;
+    const hit = octree.rayIntersect(r);
+    if (!hit || hit.distance > 40) return;
+    hit.triangle.getNormal(triNormal);
+    const p = hit.position.clone();
+    if (Math.abs(triNormal.y) < 0.7) p.addScaledVector(r.direction, -0.5);
+    const floor = walker.floorBelow(p.clone().setY(p.y + 0.5), 3);
+    if (floor === null) return;
+    target = new THREE.Vector3(p.x, floor, p.z);
+    targetBest = Infinity;
+    targetStuck = 0;
+    marker.position.set(p.x, floor + 0.03, p.z);
+    marker.visible = true;
   };
   const onLock = () => {
     keys.clear();
@@ -574,18 +626,42 @@ export function createWalkthroughScene({
   renderer.setAnimationLoop(() => {
     const dt = Math.min(0.25, clock.getDelta());
     if (walker) {
-      const forward =
+      // arrows: up and down walk, left and right turn (no mouse needed); A and D step sideways
+      const turn =
+        (keys.has('ArrowLeft') ? 1 : 0) - (keys.has('ArrowRight') ? 1 : 0) + controls.turn;
+      let forward =
         (keys.has('KeyW') || keys.has('ArrowUp') ? 1 : 0) -
         (keys.has('KeyS') || keys.has('ArrowDown') ? 1 : 0) +
-        joystick.y;
-      const right =
-        (keys.has('KeyD') || keys.has('ArrowRight') ? 1 : 0) -
-        (keys.has('KeyA') || keys.has('ArrowLeft') ? 1 : 0) +
-        joystick.x;
+        joystick.y +
+        controls.forward;
+      const right = (keys.has('KeyD') ? 1 : 0) - (keys.has('KeyA') ? 1 : 0) + joystick.x;
+      yaw += turn * TURN * dt;
+      if (target && (forward || right || turn)) stopWalking();
+      if (target) {
+        // walk to the clicked spot, turning towards it on the way
+        const dx = target.x - walker.feet.x;
+        const dz = target.z - walker.feet.z;
+        const dist = Math.hypot(dx, dz);
+        if (dist < 0.3) {
+          stopWalking();
+        } else {
+          let diff = Math.atan2(-dx, -dz) - yaw;
+          diff = Math.atan2(Math.sin(diff), Math.cos(diff));
+          yaw += Math.sign(diff) * Math.min(Math.abs(diff), TURN * 1.5 * dt);
+          forward = Math.abs(diff) < 0.5 ? Math.min(1, dist) : 0;
+          if (dist < targetBest - 0.02) {
+            targetBest = dist;
+            targetStuck = 0;
+          } else if ((targetStuck += dt) > 1.5) {
+            stopWalking(); // blocked (a wall, a railing): stop rather than push
+          }
+        }
+      }
       walker.advance(dt, yaw, {
         forward,
         right,
         run: keys.has('ShiftLeft') || keys.has('ShiftRight'),
+        speed,
       });
       // never leave the visitor falling forever below the model
       if (walker.feet.y < lowest) goTo('entrada');
@@ -643,6 +719,14 @@ export function createWalkthroughScene({
       joystick.set(x, y);
     },
     interact: () => interact(),
+    setControls: (forward, turn) => {
+      controls.forward = forward;
+      controls.turn = turn;
+      if (forward || turn) stopWalking();
+    },
+    setSpeed: (factor) => {
+      speed = factor;
+    },
     setDoorsVisible: (visible) => {
       doorsVisible = visible;
       doors.forEach((d) => (d.visible = visible));

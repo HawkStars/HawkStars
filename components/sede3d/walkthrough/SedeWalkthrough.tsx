@@ -3,7 +3,16 @@
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
+import { floorLabel } from './floors';
+import MoveButtons from './MoveButtons';
 import { cn } from '@/lib/utils';
 import RoomPanel from './RoomPanel';
 import WalkMinimap from './WalkMinimap';
@@ -12,6 +21,11 @@ import type { Pose, RoomInfo, SpotId, WalkMap, WalkthroughScene } from './walkth
 
 const MODEL_URL = '/models/sede-revit.glb';
 const JOYSTICK_RADIUS = 48;
+const SPEEDS: { label: string; factor: number }[] = [
+  { label: 'Devagar', factor: 0.6 },
+  { label: 'Normal', factor: 1 },
+  { label: 'Depressa', factor: 1.6 },
+];
 
 /** Arrival points; their positions come from the `spot:<id>` nodes in the model. */
 const SPOTS: { id: SpotId; label: string }[] = [
@@ -46,6 +60,9 @@ const SedeWalkthrough = ({ signs }: Props) => {
   // doors start hidden, so every doorway reads as a way through
   const [showDoors, setShowDoors] = useState(false);
   const [rooms, setRooms] = useState<RoomInfo[]>([]);
+  // accessibility: on-screen movement buttons and walking speed
+  const [moveButtons, setMoveButtons] = useState(false);
+  const [speed, setSpeed] = useState(1);
   const [map, setMap] = useState<WalkMap | null>(null);
   const [pose, setPose] = useState<Pose | null>(null);
   const [knob, setKnob] = useState({ x: 0, y: 0 });
@@ -100,6 +117,10 @@ const SedeWalkthrough = ({ signs }: Props) => {
   useEffect(() => {
     sceneRef.current?.setDoorsVisible(showDoors);
   }, [showDoors]);
+
+  useEffect(() => {
+    sceneRef.current?.setSpeed(speed);
+  }, [speed]);
 
   const canLock = () => window.matchMedia('(pointer: fine)').matches;
 
@@ -191,7 +212,12 @@ const SedeWalkthrough = ({ signs }: Props) => {
             <h1 className='text-h2_bold mt-1'>Percorre a sede HawkStars</h1>
             <ul className='mt-4 flex flex-col gap-1.5 text-sm text-black/70'>
               <li className='pointer-coarse:hidden'>
-                <b>W A S D</b> ou setas para andar, <b>Shift</b> para correr
+                <b>W A S D</b> ou <b>↑ ↓</b> para andar, <b>← →</b> para rodar, <b>Shift</b> para
+                correr
+              </li>
+              <li>
+                <b>Clica</b> (ou toca) no chão para ires até lá; no menu há botões de movimento, a
+                velocidade e a lista de todas as salas
               </li>
               <li className='pointer-coarse:hidden'>
                 <b>Rato</b> para olhar à volta, <b>Esc</b> para largar o rato
@@ -255,6 +281,52 @@ const SedeWalkthrough = ({ signs }: Props) => {
               onCheckedChange={setShowDoors}
             />
           </div>
+          <div className='flex items-center justify-between gap-3 px-3 pt-1'>
+            <Label htmlFor='walk-buttons' className='text-sm'>
+              Botões de movimento
+            </Label>
+            <Switch
+              id='walk-buttons'
+              aria-label='Botões de movimento no ecrã'
+              checked={moveButtons}
+              onCheckedChange={setMoveButtons}
+            />
+          </div>
+          <div className='px-3 pt-1'>
+            <p id='walk-speed' className='text-sm'>
+              Velocidade
+            </p>
+            <div role='group' aria-labelledby='walk-speed' className='mt-1 flex gap-1'>
+              {SPEEDS.map((sp) => (
+                <Button
+                  key={sp.label}
+                  size='sm'
+                  variant={speed === sp.factor ? 'default' : 'outline'}
+                  aria-pressed={speed === sp.factor}
+                  className='flex-1 px-2'
+                  onClick={() => setSpeed(sp.factor)}
+                >
+                  {sp.label}
+                </Button>
+              ))}
+            </div>
+          </div>
+          <div className='px-3 pt-2'>
+            <Select onValueChange={goToRoom}>
+              <SelectTrigger aria-label='Ir para uma sala' className='h-9 bg-white text-sm'>
+                <SelectValue placeholder='Ir para uma sala…' />
+              </SelectTrigger>
+              <SelectContent>
+                {[...rooms]
+                  .sort((a, b) => a.floor.localeCompare(b.floor) || a.name.localeCompare(b.name))
+                  .map((r) => (
+                    <SelectItem key={r.id} value={r.id}>
+                      {floorLabel(r.floor)} · {r.name}
+                    </SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
+          </div>
           <Button size='sm' className='mt-1 pointer-coarse:hidden' onClick={resume}>
             Continuar
           </Button>
@@ -286,6 +358,17 @@ const SedeWalkthrough = ({ signs }: Props) => {
             'Esc para largar o rato e escolher um piso · 1–5 para saltar · I informação da sala'
           )}
         </p>
+      )}
+
+      {/* on-screen movement buttons (accessibility option) */}
+      {walking && moveButtons && (
+        <MoveButtons
+          onChange={(f, t) => sceneRef.current?.setControls(f, t)}
+          className={cn(
+            'absolute bottom-6 left-1/2 z-10 -translate-x-1/2 md:right-[22rem] md:left-auto md:translate-x-0',
+            locked && 'pointer-events-none opacity-60'
+          )}
+        />
       )}
 
       {/* touch joystick */}
