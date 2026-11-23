@@ -16,7 +16,7 @@ export default function robots(): MetadataRoute.Robots {
           'CCBot',
         ],
         allow: '/',
-        disallow: ['/admin', '/api', '/*/preview'],
+        disallow: ['/admin', '/api', '/*/preview', '/*/sede-blender', '/models/'],
       },
     ],
     sitemap: 'https://hawkstars.org/sitemap.xml',
