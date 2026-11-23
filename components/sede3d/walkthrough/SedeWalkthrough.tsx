@@ -2,10 +2,13 @@
 
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { Button } from '@/components/ui/button';
-import RoomCard from './RoomCard';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { cn } from '@/lib/utils';
+import RoomPanel from './RoomPanel';
 import WalkMinimap from './WalkMinimap';
 import type { TrainingRoomSign } from './trainingRoomSigns';
-import type { Interaction, Pose, SpotId, WalkMap, WalkthroughScene } from './walkthroughScene';
+import type { Pose, RoomInfo, SpotId, WalkMap, WalkthroughScene } from './walkthroughScene';
 
 const MODEL_URL = '/models/sede-revit.glb';
 const JOYSTICK_RADIUS = 48;
@@ -26,8 +29,8 @@ type Props = {
 
 /**
  * First-person walk through the architect's model of the headquarters: walk with the keyboard
- * or the on-screen joystick, look with the mouse or by dragging, jump between floors, open the
- * rooms' info points and use the minimap to go anywhere.
+ * or the on-screen joystick, look with the mouse or by dragging, jump between floors, read about
+ * the room you are in (a panel that opens and closes) and use the minimap to go anywhere.
  */
 const SedeWalkthrough = ({ signs }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -39,7 +42,10 @@ const SedeWalkthrough = ({ signs }: Props) => {
   const [locked, setLocked] = useState(false);
   const [room, setRoom] = useState<string | null>(null);
   const [aim, setAim] = useState<string | null>(null);
-  const [opened, setOpened] = useState<Interaction | null>(null);
+  const [expanded, setExpanded] = useState(false);
+  // doors start hidden, so every doorway reads as a way through
+  const [showDoors, setShowDoors] = useState(false);
+  const [rooms, setRooms] = useState<RoomInfo[]>([]);
   const [map, setMap] = useState<WalkMap | null>(null);
   const [pose, setPose] = useState<Pose | null>(null);
   const [knob, setKnob] = useState({ x: 0, y: 0 });
@@ -55,17 +61,19 @@ const SedeWalkthrough = ({ signs }: Props) => {
         url: MODEL_URL,
         signs,
         onProgress: setProgress,
-        onLoad: (m) => {
+        onLoad: (m, r) => {
           setMap(m);
+          setRooms(r);
           setStatus('ready');
         },
         onError: () => setStatus('error'),
         onRoom: setRoom,
         onLockChange: setLocked,
         onAim: setAim,
-        onInteract: setOpened,
+        onInteract: () => setExpanded(true),
         onPose: setPose,
       });
+      scene.setDoorsVisible(false);
       sceneRef.current = scene;
     });
     return () => {
@@ -75,16 +83,23 @@ const SedeWalkthrough = ({ signs }: Props) => {
     };
   }, [signs]);
 
-  // number keys jump between the teleport points; Esc closes an open card
+  // number keys jump between the teleport points; I opens or closes the room panel
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpened(null);
+      const tag = (e.target as HTMLElement | null)?.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+      if (e.code === 'KeyI') setExpanded((x) => !x);
+      if (e.code === 'KeyP') setShowDoors((x) => !x);
       const i = Number(e.key) - 1;
       if (Number.isInteger(i) && SPOTS[i]) sceneRef.current?.goTo(SPOTS[i].id);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, []);
+
+  useEffect(() => {
+    sceneRef.current?.setDoorsVisible(showDoors);
+  }, [showDoors]);
 
   const canLock = () => window.matchMedia('(pointer: fine)').matches;
 
@@ -94,15 +109,11 @@ const SedeWalkthrough = ({ signs }: Props) => {
   };
 
   const resume = () => {
-    setOpened(null);
     if (canLock()) sceneRef.current?.lock();
   };
 
   const goTo = (id: SpotId) => sceneRef.current?.goTo(id);
-  const goToRoom = (id: string) => {
-    setOpened(null);
-    sceneRef.current?.goToRoom(id);
-  };
+  const goToRoom = (id: string) => sceneRef.current?.goToRoom(id);
 
   const stickMove = (e: ReactPointerEvent<HTMLDivElement>) => {
     const origin = stickOrigin.current;
@@ -124,6 +135,8 @@ const SedeWalkthrough = ({ signs }: Props) => {
   };
 
   const walking = status === 'ready' && started;
+  const current = rooms.find((r) => r.name === room) ?? null;
+  const currentSign = signs.find((s) => s.roomId === current?.signId) ?? null;
 
   return (
     <div className='bg-bege-light relative h-[calc(100svh-5rem)] min-h-136 w-full overflow-hidden select-none'>
@@ -156,14 +169,18 @@ const SedeWalkthrough = ({ signs }: Props) => {
         />
       )}
 
-      {/* where you are */}
-      {walking && room && (
-        <p
-          aria-live='polite'
-          className='card-sm pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 bg-white/90 px-4 py-2 text-sm font-semibold shadow-sm'
-        >
-          {room}
-        </p>
+      {/* where you are: a bar that opens into the room's details */}
+      {walking && current && (
+        <RoomPanel
+          room={current}
+          sign={currentSign}
+          expanded={expanded}
+          onToggle={() => setExpanded((x) => !x)}
+          className={cn(
+            'absolute top-4 left-1/2 z-10 -translate-x-1/2',
+            locked && 'pointer-events-none'
+          )}
+        />
       )}
 
       {/* start screen */}
@@ -180,13 +197,21 @@ const SedeWalkthrough = ({ signs }: Props) => {
                 <b>Rato</b> para olhar à volta, <b>Esc</b> para largar o rato
               </li>
               <li className='pointer-coarse:hidden'>
-                Aponta para um <b>ⓘ</b> ou para uma placa e carrega em <b>E</b> (ou clica)
+                <b>I</b> abre ou fecha a informação da sala; aponta para uma placa e carrega em{' '}
+                <b>E</b> para ver os parceiros
               </li>
               <li className='hidden pointer-coarse:list-item'>
                 <b>Joystick</b> em baixo à esquerda para andar
               </li>
               <li className='hidden pointer-coarse:list-item'>
-                <b>Arrasta</b> no ecrã para olhar à volta, <b>toca</b> num ⓘ para saber mais
+                <b>Arrasta</b> no ecrã para olhar à volta; toca no nome da sala para saber mais
+              </li>
+              <li>
+                As <b>portas</b> estão escondidas para veres por onde se passa; mostra-as no menu
+                <span className='pointer-coarse:hidden'>
+                  {' '}
+                  ou com a tecla <b>P</b>
+                </span>
               </li>
               <li>
                 <b>Mapa</b> e botões dos pisos (ou teclas 1–5) para ir a qualquer sala. As escadas
@@ -201,7 +226,7 @@ const SedeWalkthrough = ({ signs }: Props) => {
       )}
 
       {/* floors */}
-      {walking && !locked && !opened && (
+      {walking && !locked && (
         <nav
           aria-label='Ir para'
           className='card border-bege-dark bg-bege-light/95 absolute top-16 left-4 z-10 flex flex-col gap-1 border p-2 shadow-md md:top-4'
@@ -218,6 +243,18 @@ const SedeWalkthrough = ({ signs }: Props) => {
               {s.label}
             </Button>
           ))}
+          <div className='border-bege-dark mt-1 flex items-center justify-between gap-3 border-t px-3 pt-2'>
+            <Label htmlFor='walk-doors' className='text-sm'>
+              Mostrar portas
+              <span className='ml-1 text-xs text-black/40 pointer-coarse:hidden'>P</span>
+            </Label>
+            <Switch
+              id='walk-doors'
+              aria-label='Mostrar portas'
+              checked={showDoors}
+              onCheckedChange={setShowDoors}
+            />
+          </div>
           <Button size='sm' className='mt-1 pointer-coarse:hidden' onClick={resume}>
             Continuar
           </Button>
@@ -246,12 +283,10 @@ const SedeWalkthrough = ({ signs }: Props) => {
               <b>E</b> ou clique · {aim}
             </>
           ) : (
-            'Esc para largar o rato e escolher um piso · teclas 1–5 para saltar'
+            'Esc para largar o rato e escolher um piso · 1–5 para saltar · I informação da sala'
           )}
         </p>
       )}
-
-      {opened && <RoomCard {...opened} onClose={() => setOpened(null)} onResume={resume} />}
 
       {/* touch joystick */}
       {walking && (

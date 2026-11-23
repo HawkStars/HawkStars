@@ -22,9 +22,16 @@ import { buildCollision, createWalker, extraOf, EYE, groupOf } from './walker';
 export type SpotId = 'entrada' | 'piso0' | 'piso1' | 'formacao' | 'piso2';
 
 /** A room of the building, from its info point. */
-export type RoomInfo = { id: string; name: string; area: number; floor: string };
+export type RoomInfo = {
+  id: string;
+  name: string;
+  area: number;
+  floor: string;
+  /** The training-room sign in this room, if any (TrainingRoomSign.roomId). */
+  signId: string | null;
+};
 
-/** What the visitor opened: a room's info point, or a training-room sign. */
+/** What the visitor opened: a training-room sign, and the room it is in. */
 export type Interaction = { room: RoomInfo; sign: TrainingRoomSign | null };
 
 /** Plan of one floor for the minimap, in SVG units (metres, y down). */
@@ -45,8 +52,10 @@ export type WalkthroughScene = {
   lock: () => void;
   /** Joystick input from the UI, x to the right and y forwards, each in −1…1. */
   setJoystick: (x: number, y: number) => void;
-  /** Open whatever is under the crosshair. */
+  /** Open the sign under the crosshair. */
   interact: () => void;
+  /** Show or hide the door leaves (every doorway can be walked through either way). */
+  setDoorsVisible: (visible: boolean) => void;
   dispose: () => void;
 };
 
@@ -55,7 +64,7 @@ type Options = {
   url: string;
   signs: TrainingRoomSign[];
   onProgress: (fraction: number) => void;
-  onLoad: (map: WalkMap) => void;
+  onLoad: (map: WalkMap, rooms: RoomInfo[]) => void;
   onError: () => void;
   onRoom: (room: string | null) => void;
   onLockChange: (locked: boolean) => void;
@@ -155,32 +164,6 @@ const makeSign = (sign: TrainingRoomSign, renderer: THREE.WebGLRenderer) => {
     texture.needsUpdate = true;
   });
   return group;
-};
-
-// ---------- Info points ----------
-
-const infoTexture = () => {
-  const c = document.createElement('canvas');
-  c.width = c.height = 128;
-  const g = c.getContext('2d');
-  if (g) {
-    g.fillStyle = 'rgba(255,255,255,0.95)';
-    g.beginPath();
-    g.arc(64, 64, 62, 0, Math.PI * 2);
-    g.fill();
-    g.fillStyle = BRAND_GREEN;
-    g.beginPath();
-    g.arc(64, 64, 54, 0, Math.PI * 2);
-    g.fill();
-    g.fillStyle = '#ffffff';
-    g.font = '700 78px Georgia, serif';
-    g.textAlign = 'center';
-    g.textBaseline = 'middle';
-    g.fillText('i', 64, 68);
-  }
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
 };
 
 // ---------- Minimap ----------
@@ -345,6 +328,8 @@ export function createWalkthroughScene({
   const spots = new Map<string, { feet: THREE.Vector3; yaw: number }>();
   const rooms = new Map<string, RoomInfo & { at: THREE.Vector3 }>();
   const roomFloors: THREE.Object3D[] = [];
+  const doors: THREE.Object3D[] = [];
+  let doorsVisible = true;
   /** Things the crosshair can open. */
   const targets: { object: THREE.Object3D; label: string; open: () => Interaction }[] = [];
   const mapAxes = { x: new THREE.Vector3(1, 0, 0), y: new THREE.Vector3(0, 0, -1) };
@@ -359,7 +344,13 @@ export function createWalkthroughScene({
   };
 
   const roomByName = (name: string) => [...rooms.values()].find((r) => r.name === name) ?? null;
-  const publicRoom = ({ id, name, area, floor }: RoomInfo): RoomInfo => ({ id, name, area, floor });
+  const publicRoom = ({ id, name, area, floor, signId }: RoomInfo): RoomInfo => ({
+    id,
+    name,
+    area,
+    floor,
+    signId,
+  });
 
   const goTo = (id: SpotId) => {
     const spot = spots.get(id);
@@ -378,7 +369,6 @@ export function createWalkthroughScene({
 
   // ---------- loading ----------
   let disposed = false;
-  const dot = infoTexture();
   new GLTFLoader().load(
     url,
     (gltf) => {
@@ -418,6 +408,7 @@ export function createWalkthroughScene({
             name: extras.sala,
             area: extras.area,
             floor: extras.piso,
+            signId: null,
             at: o.getWorldPosition(new THREE.Vector3()),
           });
         }
@@ -428,6 +419,10 @@ export function createWalkthroughScene({
         const mesh = o as THREE.Mesh;
         if (!mesh.isMesh) return;
         if (salaOf(mesh)) roomFloors.push(mesh);
+        if (groupOf(mesh) === 'porta') {
+          doors.push(mesh);
+          mesh.visible = doorsVisible;
+        }
         const materials = ([] as THREE.Material[]).concat(mesh.material);
         const transparent = materials.some((m) => m.transparent);
         // floors are seen at grazing angles: keep their textures sharp
@@ -445,21 +440,7 @@ export function createWalkthroughScene({
       sun.target.position.copy(center);
 
       for (const room of rooms.values()) {
-        const sprite = new THREE.Sprite(
-          new THREE.SpriteMaterial({ map: dot, transparent: true, depthWrite: false })
-        );
-        sprite.scale.setScalar(0.3);
-        sprite.position.copy(room.at);
-        sprite.userData.baseY = room.at.y;
-        scene.add(sprite);
-        const sign = signs.find((s) =>
-          anchors.some((a) => a.id === s.roomId && a.sala === room.name)
-        );
-        targets.push({
-          object: sprite,
-          label: room.name,
-          open: () => ({ room: publicRoom(room), sign: sign ?? null }),
-        });
+        room.signId = anchors.find((a) => a.sala === room.name)?.id ?? null;
       }
       for (const anchor of anchors) {
         const sign = signs.find((s) => s.roomId === anchor.id);
@@ -479,7 +460,7 @@ export function createWalkthroughScene({
       }
 
       goTo('entrada');
-      onLoad(buildMap(root, mapAxes.x, mapAxes.y, rooms));
+      onLoad(buildMap(root, mapAxes.x, mapAxes.y, rooms), [...rooms.values()].map(publicRoom));
     },
     (e) => {
       if (e.total) onProgress(e.loaded / e.total);
@@ -507,10 +488,7 @@ export function createWalkthroughScene({
     return targets.find((t) => t.object === hit.object || t.object === hit.object.parent) ?? null;
   };
   const interact = (target = aimed) => {
-    if (!target) return;
-    if (document.pointerLockElement === canvas) document.exitPointerLock();
-    keys.clear();
-    onInteract(target.open());
+    if (target) onInteract(target.open());
   };
 
   // ---------- input ----------
@@ -595,7 +573,6 @@ export function createWalkthroughScene({
   let lastAimLabel: string | null = null;
   renderer.setAnimationLoop(() => {
     const dt = Math.min(0.25, clock.getDelta());
-    const t = clock.elapsedTime;
     if (walker) {
       const forward =
         (keys.has('KeyW') || keys.has('ArrowUp') ? 1 : 0) -
@@ -615,13 +592,6 @@ export function createWalkthroughScene({
       camera.position.set(walker.feet.x, walker.feet.y + EYE, walker.feet.z);
     }
     camera.rotation.set(pitch, yaw, 0);
-
-    for (const target of targets) {
-      if ((target.object as THREE.Sprite).isSprite) {
-        target.object.position.y = target.object.userData.baseY + Math.sin(t * 2) * 0.03;
-        target.object.scale.setScalar(target === aimed ? 0.38 : 0.3);
-      }
-    }
 
     slow += dt;
     if (walker && slow > 0.1) {
@@ -673,6 +643,10 @@ export function createWalkthroughScene({
       joystick.set(x, y);
     },
     interact: () => interact(),
+    setDoorsVisible: (visible) => {
+      doorsVisible = visible;
+      doors.forEach((d) => (d.visible = visible));
+    },
     dispose: () => {
       disposed = true;
       observer.disconnect();
@@ -685,14 +659,13 @@ export function createWalkthroughScene({
       if (document.pointerLockElement === canvas) document.exitPointerLock();
       scene.traverse((o) => {
         const mesh = o as THREE.Mesh;
-        if (!mesh.isMesh && !(o as THREE.Sprite).isSprite) return;
+        if (!mesh.isMesh) return;
         mesh.geometry?.dispose();
         ([] as THREE.Material[]).concat(mesh.material).forEach((m) => {
           texturesOf(m).forEach((t) => t.dispose());
           m.dispose();
         });
       });
-      dot.dispose();
       envTarget.dispose();
       pmrem.dispose();
       renderer.dispose();
