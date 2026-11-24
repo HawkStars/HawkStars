@@ -29,6 +29,7 @@ export const SITE_GET_URLS = {
   members_corner: '/members-corner',
   transparency: '/transparency',
   crowdfunding: '/crowdfunding',
+  global_village: '/global-village',
   sede3d: '/sede-3d',
   gaming: '/gaming',
   team: '/team',
@@ -113,7 +114,7 @@ type MetadataRoute = {
 export const routes = [
   { url: SITE_GET_URLS.home, priority: 1 },
   { url: SITE_GET_URLS.team, priority: 0.3 },
-  { url: SITE_GET_URLS.crowdfunding, priority: 1 },
+  { url: SITE_GET_URLS.global_village, priority: 1 },
   { url: SITE_GET_URLS.sede3d, priority: 0.6 },
   { url: SITE_GET_URLS.gaming, priority: 0.3 },
   { url: SITE_GET_URLS.partners, priority: 0.3 },

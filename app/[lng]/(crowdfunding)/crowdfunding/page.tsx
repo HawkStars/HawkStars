@@ -2,9 +2,20 @@ import { Language } from '@/i18n/settings';
 import CrowdfundingPageContent from '@/components/Crowdfunding/CrowdfundingPageContent';
 import { getCrowdfundingSettings } from '@/lib/payload/queries/globals/crowdfundingSettings';
 import { getServerTranslation } from '@/i18n';
+import { Metadata } from 'next';
+import { getMetadataPageInfo } from '@/utils/metadata';
 
-// Metadata comes from the (crowdfunding) layout, localised via metadata.json. This
-// page used to override it with a Portuguese literal, so /en showed a PT title.
+// Localised title/description from metadata.json, but kept out of search results:
+// /global-village carries the same campaign and is the page we want indexed.
+export async function generateMetadata(props: {
+  params: Promise<{ lng: Language }>;
+}): Promise<Metadata> {
+  const { lng } = await props.params;
+  return {
+    ...getMetadataPageInfo(lng, 'crowdfunding'),
+    robots: { index: false, follow: true },
+  };
+}
 
 export const instant = false;
 

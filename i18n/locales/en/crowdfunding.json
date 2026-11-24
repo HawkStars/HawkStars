@@ -276,5 +276,19 @@
   },
   "share": {
     "copied": "Link copied!"
+  },
+  "village": {
+    "manifesto": "The Project",
+    "comparison": "The transformation",
+    "before": "Before",
+    "after": "After",
+    "challenges": "The challenge",
+    "opportunities": "The opportunity",
+    "proposal": "Our proposal",
+    "vision": "Roadmap",
+    "gallery": "The future building",
+    "impact": "Expected impact",
+    "location": "Pinhel, Portugal",
+    "join": "Join us"
   }
 }
