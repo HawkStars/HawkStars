@@ -13,13 +13,14 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { floorLabel } from './floors';
+import LogoPreview, { NO_LOGO_TRIAL, type LogoTrial } from './LogoPreview';
 import MoveButtons from './MoveButtons';
 import { cn } from '@/lib/utils';
 import RoomPanel from './RoomPanel';
 import WalkMinimap from './WalkMinimap';
-import { useRoomyScreen } from '../useRoomyScreen';
-import type { TrainingRoomSign } from './trainingRoomSigns';
+import type { BuildingSign, TrainingRoomSign } from './trainingRoomSigns';
 import type { Pose, RoomInfo, SpotId, WalkMap, WalkthroughScene } from './walkthroughScene';
+import { useRoomyScreen } from '../useRoomyScreen';
 
 const MODEL_URL = '/models/sede-revit.glb';
 const JOYSTICK_RADIUS = 48;
@@ -41,6 +42,8 @@ const SPOTS: { id: SpotId; label: string }[] = [
 type Props = {
   /** Names and logos shown in the two training rooms. */
   signs: TrainingRoomSign[];
+  /** The façade sign (the training centre's name, open for naming). */
+  building: BuildingSign;
 };
 
 /**
@@ -48,7 +51,7 @@ type Props = {
  * or the on-screen joystick, look with the mouse or by dragging, jump between floors, read about
  * the room you are in (a panel that opens and closes) and use the minimap to go anywhere.
  */
-const SedeWalkthrough = ({ signs }: Props) => {
+const SedeWalkthrough = ({ signs, building }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<WalkthroughScene | null>(null);
   const stickOrigin = useRef<{ id: number; x: number; y: number } | null>(null);
@@ -77,6 +80,8 @@ const SedeWalkthrough = ({ signs }: Props) => {
   const [map, setMap] = useState<WalkMap | null>(null);
   const [pose, setPose] = useState<Pose | null>(null);
   const [knob, setKnob] = useState({ x: 0, y: 0 });
+  // a logo tried on a training room wall (kept here so it stays while the menu is closed)
+  const [logo, setLogo] = useState<LogoTrial>(NO_LOGO_TRIAL);
 
   useEffect(() => {
     let disposed = false;
@@ -88,6 +93,7 @@ const SedeWalkthrough = ({ signs }: Props) => {
         container,
         url: MODEL_URL,
         signs,
+        building,
         onProgress: setProgress,
         onLoad: (m, r) => {
           setMap(m);
@@ -109,7 +115,7 @@ const SedeWalkthrough = ({ signs }: Props) => {
       scene?.dispose();
       sceneRef.current = null;
     };
-  }, [signs]);
+  }, [signs, building]);
 
   // number keys jump between the teleport points; I opens or closes the room panel
   useEffect(() => {
@@ -132,6 +138,24 @@ const SedeWalkthrough = ({ signs }: Props) => {
   useEffect(() => {
     sceneRef.current?.setSpeed(speed);
   }, [speed]);
+
+  useEffect(() => {
+    if (status !== 'ready') return;
+    const trying = Boolean(logo.url || logo.name.trim());
+    sceneRef.current?.previewNaming(
+      trying
+        ? { target: logo.target, url: logo.url, name: logo.name.trim(), width: logo.width }
+        : null
+    );
+  }, [logo, status]);
+
+  // each chosen file gets an object URL; free it when another file replaces it or on leaving
+  useEffect(() => {
+    const { url } = logo;
+    return () => {
+      if (url) URL.revokeObjectURL(url);
+    };
+  }, [logo.url]); // eslint-disable-line react-hooks/exhaustive-deps -- only the URL matters
 
   const canLock = () => window.matchMedia('(pointer: fine)').matches;
 
@@ -266,7 +290,7 @@ const SedeWalkthrough = ({ signs }: Props) => {
       {walking && !locked && (
         <nav
           aria-label='Ir para'
-          className='card border-bege-dark bg-bege-light/95 absolute top-16 left-4 z-10 flex max-h-[calc(100%-5rem)] flex-col gap-1 overflow-y-auto border p-2 shadow-md md:top-4 md:max-h-[calc(100%-2rem)]'
+          className='card border-bege-dark bg-bege-light/95 absolute top-16 left-4 z-10 flex max-h-[calc(100%-5rem)] w-72 flex-col gap-1 overflow-y-auto border p-2 shadow-md md:top-4 md:max-h-[calc(100%-2rem)]'
         >
           <button
             type='button'
@@ -366,6 +390,31 @@ const SedeWalkthrough = ({ signs }: Props) => {
               Continuar
             </Button>
           </div>
+          <div className='px-3 pt-2'>
+            <Select onValueChange={goToRoom}>
+              <SelectTrigger aria-label='Ir para uma sala' className='h-9 bg-white text-sm'>
+                <SelectValue placeholder='Ir para uma sala…' />
+              </SelectTrigger>
+              <SelectContent>
+                {[...rooms]
+                  .sort((a, b) => a.floor.localeCompare(b.floor) || a.name.localeCompare(b.name))
+                  .map((r) => (
+                    <SelectItem key={r.id} value={r.id}>
+                      {floorLabel(r.floor)} · {r.name}
+                    </SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <LogoPreview
+            value={logo}
+            onChange={setLogo}
+            onView={(target, where) => sceneRef.current?.viewSign(target, where)}
+            className='border-bege-dark mt-1 border-t px-3 pt-2'
+          />
+          <Button size='sm' className='mt-1 pointer-coarse:hidden' onClick={resume}>
+            Continuar
+          </Button>
         </nav>
       )}
 
@@ -401,7 +450,7 @@ const SedeWalkthrough = ({ signs }: Props) => {
         <MoveButtons
           onChange={(f, t) => sceneRef.current?.setControls(f, t)}
           className={cn(
-            'absolute bottom-6 left-1/2 z-10 -translate-x-1/2 md:right-[22rem] md:left-auto md:translate-x-0',
+            'absolute bottom-6 left-1/2 z-10 -translate-x-1/2 md:right-88 md:left-auto md:translate-x-0',
             locked && 'pointer-events-none opacity-60'
           )}
         />

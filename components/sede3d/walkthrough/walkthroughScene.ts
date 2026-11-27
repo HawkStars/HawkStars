@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
-import type { TrainingRoomSign } from './trainingRoomSigns';
+import type { BuildingSign, TrainingRoomSign } from './trainingRoomSigns';
+import { makeFacadeSign, makePlaque, type Board, type BoardContent } from './namingSigns';
 import { buildCollision, createWalker, extraOf, EYE, groupOf } from './walker';
 
 /**
@@ -13,6 +14,9 @@ import { buildCollision, createWalker, extraOf, EYE, groupOf } from './walker';
  *   - room floors: `sala`, the room name shown on screen;
  *   - empties `spot:<id>` (`visita: 'spot'`, `dir`) for the floor buttons,
  *     `sign:<roomId>` (`visita: 'sign'`, `sala`, `normal`) for the training-room panels,
+ *     `plaque:<roomId>` (`visita: 'plaque'`, `sala`, `normal`, `standing`) for the naming
+ *     plaques by the training rooms' doors (on the wall, or on a stand at its foot),
+ *     `facade:edificio` (`visita: 'facade'`, `normal`, `width`, `height`) for the building's sign,
  *     `info:<roomId>` (`visita: 'info'`, `sala`, `area`, `piso`) for the room info points, and
  *     `mapa` (`visita: 'mapa'`, `x`, `y`) with the plan axes used by the minimap.
  *
@@ -60,13 +64,30 @@ export type WalkthroughScene = {
   setControls: (forward: number, turn: number) => void;
   /** Walking speed factor (1 is normal). */
   setSpeed: (factor: number) => void;
+  /**
+   * Naming trial: show a name and a logo (any URL, e.g. an object URL of a local file) where a
+   * sponsor's would go. For a training room, the logo is painted on the room's front wall
+   * (`width` metres wide, the room's sign hidden meanwhile) and the door plaque shows the name
+   * and logo; for the building, the façade sign does. `null` puts everything back.
+   */
+  previewNaming: (trial: NamingTrial | null) => void;
+  /**
+   * Stand where a naming trial shows: in front of a training room's front wall (`'sala'`) or of
+   * its door plaque (`'porta'`); across the street from the façade sign for the building.
+   */
+  viewSign: (target: NamingTarget, where?: 'sala' | 'porta') => void;
   dispose: () => void;
 };
+
+export type NamingTarget = TrainingRoomSign['roomId'] | 'edificio';
+export type NamingTrial = { target: NamingTarget; url: string | null; name: string; width: number };
 
 type Options = {
   container: HTMLElement;
   url: string;
   signs: TrainingRoomSign[];
+  /** The façade sign's default content (the training centre's name today). */
+  building: BuildingSign;
   onProgress: (fraction: number) => void;
   onLoad: (map: WalkMap, rooms: RoomInfo[]) => void;
   onError: () => void;
@@ -231,7 +252,8 @@ const buildMap = (
     });
     const entry = byFloor.get(floor) ?? { rooms: [], top: -Infinity };
     const id = [...rooms.values()].find((r) => r.name === name)?.id ?? null;
-    entry.rooms.push({ id, name, d });
+    // a slab's second material (its sides) has no top face: nothing to draw
+    if (d) entry.rooms.push({ id, name, d });
     entry.top = Math.max(entry.top, box.max.y);
     byFloor.set(floor, entry);
   }
@@ -274,6 +296,7 @@ export function createWalkthroughScene({
   container,
   url,
   signs,
+  building: buildingSign,
   onProgress,
   onLoad,
   onError,
@@ -371,6 +394,44 @@ export function createWalkthroughScene({
     return floorRay.intersectObjects(roomFloors, false)[0]?.object ?? null;
   };
 
+  // signs by room id, with what the logo preview needs
+  const signWalls = new Map<
+    string,
+    { panel: THREE.Object3D; center: THREE.Vector3; normal: THREE.Vector3; maxWidth: number }
+  >();
+  const logoMaterial = new THREE.MeshStandardMaterial({
+    transparent: true,
+    roughness: 0.7,
+    polygonOffset: true,
+    polygonOffsetFactor: -2,
+  });
+  const logoDecal = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), logoMaterial);
+  logoDecal.visible = false;
+  scene.add(logoDecal);
+  let logoRequest = 0;
+  let modelRoot: THREE.Object3D | null = null;
+  // naming boards, with what they show by default
+  const plaques = new Map<
+    string,
+    { board: Board; content: BoardContent; at: THREE.Vector3; normal: THREE.Vector3 }
+  >();
+  let facade: {
+    board: Board;
+    content: BoardContent;
+    center: THREE.Vector3;
+    normal: THREE.Vector3;
+  } | null = null;
+  const boardAnchors: {
+    kind: 'plaque' | 'facade';
+    id: string;
+    sala: string;
+    at: THREE.Vector3;
+    normal: THREE.Vector3;
+    standing: boolean;
+    width: number;
+    height: number;
+  }[] = [];
+
   const roomByName = (name: string) => [...rooms.values()].find((r) => r.name === name) ?? null;
   const publicRoom = ({ id, name, area, floor, signId }: RoomInfo): RoomInfo => ({
     id,
@@ -404,6 +465,7 @@ export function createWalkthroughScene({
     (gltf) => {
       if (disposed) return;
       const root = gltf.scene;
+      modelRoot = root;
       scene.add(root);
       root.updateMatrixWorld(true);
       const building = new THREE.Box3();
@@ -421,6 +483,18 @@ export function createWalkthroughScene({
           spots.set(extras.id, {
             feet: o.getWorldPosition(new THREE.Vector3()),
             yaw: yawFor(new THREE.Vector3(...(extras.dir as Vec3))),
+          });
+        }
+        if (extras.visita === 'plaque' || extras.visita === 'facade') {
+          boardAnchors.push({
+            kind: extras.visita,
+            id: extras.id,
+            sala: extras.sala ?? '',
+            at: o.getWorldPosition(new THREE.Vector3()),
+            normal: new THREE.Vector3(...(extras.normal as Vec3)).normalize(),
+            standing: extras.standing === true,
+            width: typeof extras.width === 'number' ? extras.width : 3.6,
+            height: typeof extras.height === 'number' ? extras.height : 0.9,
           });
         }
         if (extras.visita === 'sign') {
@@ -476,6 +550,12 @@ export function createWalkthroughScene({
         const sign = signs.find((s) => s.roomId === anchor.id);
         if (!sign) continue;
         const panel = makeSign(sign, renderer);
+        signWalls.set(anchor.id, {
+          panel,
+          center: anchor.center.clone(),
+          normal: anchor.normal.clone().normalize(),
+          maxWidth: anchor.width,
+        });
         panel.position.copy(anchor.center);
         panel.scale.setScalar(Math.min(1, anchor.width / PANEL_W));
         panel.lookAt(anchor.center.clone().add(anchor.normal));
@@ -487,6 +567,36 @@ export function createWalkthroughScene({
             label: sign.name,
             open: () => ({ room: publicRoom(room), sign }),
           });
+      }
+
+      // naming: a plaque by each training room's door, the sign on the façade
+      for (const a of boardAnchors) {
+        if (a.kind === 'plaque') {
+          const sign = signs.find((x) => x.roomId === a.id);
+          const content: BoardContent = {
+            name: sign?.name ?? '',
+            text: '',
+            logo: sign?.logos[0]?.logo.url ?? null,
+          };
+          const board = makePlaque(a.sala, renderer, a.standing);
+          board.object.position.copy(a.at);
+          board.object.lookAt(a.at.clone().add(a.normal.clone().setY(0)));
+          scene.add(board.object);
+          board.show(content);
+          plaques.set(a.id, { board, content, at: a.at.clone(), normal: a.normal.clone() });
+        } else {
+          const content: BoardContent = {
+            name: buildingSign.name,
+            text: buildingSign.text,
+            logo: buildingSign.logo?.logo.url ?? null,
+          };
+          const board = makeFacadeSign(a.width, a.height, renderer);
+          board.object.position.copy(a.at);
+          board.object.lookAt(a.at.clone().add(a.normal));
+          scene.add(board.object);
+          board.show(content);
+          facade = { board, content, center: a.at.clone(), normal: a.normal.clone() };
+        }
       }
 
       goTo('entrada');
@@ -726,6 +836,102 @@ export function createWalkthroughScene({
     },
     setSpeed: (factor) => {
       speed = factor;
+    },
+    previewNaming: (trial) => {
+      const request = ++logoRequest;
+      // back to the defaults first
+      signWalls.forEach((w) => (w.panel.visible = true));
+      logoDecal.visible = false;
+      plaques.forEach((p) => p.board.show(p.content));
+      facade?.board.show(facade.content);
+      if (!trial) return;
+      if (trial.target === 'edificio') {
+        if (facade)
+          facade.board.show({
+            name: trial.name || facade.content.name,
+            text: trial.name ? '' : facade.content.text,
+            logo: trial.url ?? facade.content.logo,
+          });
+        return;
+      }
+      const plaque = plaques.get(trial.target);
+      plaque?.board.show({
+        name: trial.name || plaque.content.name,
+        text: '',
+        logo: trial.url ?? plaque.content.logo,
+      });
+      const wall = signWalls.get(trial.target);
+      if (!wall || !trial.url) return;
+      loadImage(trial.url).then((img) => {
+        if (!img || request !== logoRequest || disposed) return;
+        const aspect = (img.naturalHeight || 1) / (img.naturalWidth || 1);
+        // fit the wall: no wider than its clear width, no taller than 2.2 m
+        const w = Math.min(trial.width, wall.maxWidth, 2.2 / aspect);
+        // a new texture per image: WebGL2 storage is sized once, so swapping the image of an
+        // existing texture for one of another size does not show
+        logoMaterial.map?.dispose();
+        const texture = new THREE.Texture(img);
+        texture.colorSpace = THREE.SRGBColorSpace;
+        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        texture.needsUpdate = true;
+        logoMaterial.map = texture;
+        logoMaterial.needsUpdate = true;
+        logoDecal.scale.set(w, w * aspect, 1);
+        logoDecal.position.copy(wall.center).addScaledVector(wall.normal, 0.01);
+        logoDecal.lookAt(wall.center.clone().add(wall.normal));
+        logoDecal.visible = true;
+        wall.panel.visible = false;
+      });
+    },
+    viewSign: (target, where = 'sala') => {
+      if (!walker) return;
+      stopWalking();
+      if (target !== 'edificio' && where === 'porta') {
+        const plaque = plaques.get(target);
+        if (!plaque) return;
+        const flat = plaque.normal.clone().setY(0).normalize();
+        // back from the plaque as far as the corridor allows (up to 2.2 m)
+        const eyeAt = plaque.at.clone().setY(plaque.at.y + 0.05);
+        const ahead = new THREE.Raycaster(eyeAt.clone().addScaledVector(flat, 0.05), flat, 0, 2.6);
+        const free = modelRoot ? ahead.intersectObject(modelRoot, true)[0]?.distance : undefined;
+        const back = Math.max(0.9, Math.min(2.2, (free ?? 2.6) - 0.4));
+        walker.place(
+          plaque.at
+            .clone()
+            .setY(plaque.at.y + 0.2)
+            .addScaledVector(flat, back)
+        );
+        yaw = yawFor(flat.clone().negate());
+        pitch = -0.1;
+        return;
+      }
+      if (target === 'edificio') {
+        if (!facade) return;
+        // on the street below the sign, as far back as the houses across the travessa allow,
+        // looking up at it
+        const flat = facade.normal.clone().setY(0).normalize();
+        const ahead = new THREE.Raycaster(
+          facade.center.clone().addScaledVector(flat, 0.3),
+          flat,
+          0,
+          14
+        );
+        const across = modelRoot ? ahead.intersectObject(modelRoot, true)[0]?.distance : undefined;
+        const back = Math.max(3, Math.min(12, (across ?? 14) - 1.0));
+        const p = facade.center.clone().addScaledVector(flat, back);
+        const street = walker.floorBelow(p, 30);
+        if (street !== null) p.y = street;
+        walker.place(p);
+        yaw = yawFor(flat.clone().negate());
+        pitch = Math.atan2(facade.center.y - (walker.feet.y + EYE), back);
+        return;
+      }
+      const wall = signWalls.get(target);
+      if (!wall) return;
+      const flat = wall.normal.clone().setY(0).normalize();
+      walker.place(wall.center.clone().addScaledVector(flat, 4.5));
+      yaw = yawFor(flat.clone().negate());
+      pitch = 0;
     },
     setDoorsVisible: (visible) => {
       doorsVisible = visible;
