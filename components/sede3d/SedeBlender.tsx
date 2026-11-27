@@ -1,8 +1,10 @@
 'use client';
 
+import { LuChevronDown } from 'react-icons/lu';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useRoomyScreen } from './useRoomyScreen';
 import type { BlenderView, SedeBlenderScene } from './blenderScene';
 
 const MODEL_URL = '/models/sede-blender.glb';
@@ -42,6 +44,11 @@ const SedeBlender = () => {
   const [view, setView] = useState<BlenderView>('ext');
   const [furniture, setFurniture] = useState(true);
   const [context, setContext] = useState(true);
+  // the panel folds down to its title; it starts open only on a big screen
+  const roomy = useRoomyScreen();
+  // null until the visitor opens or folds it themselves
+  const [menuChoice, setMenuChoice] = useState<boolean | null>(null);
+  const menuOpen = menuChoice ?? roomy;
 
   useEffect(() => {
     let disposed = false;
@@ -66,7 +73,7 @@ const SedeBlender = () => {
   }, []);
 
   return (
-    <div className='bg-bege-light relative h-[calc(100svh-5rem)] min-h-136 w-full overflow-hidden'>
+    <div className='bg-bege-light relative h-[calc(100svh-5rem)] min-h-72 w-full overflow-hidden'>
       <div
         ref={containerRef}
         className='absolute inset-0'
@@ -86,56 +93,81 @@ const SedeBlender = () => {
       <div className='pointer-events-none absolute inset-0 z-10 mx-auto flex w-full max-w-6xl flex-col justify-end px-4 py-4 sm:px-6 md:justify-start md:py-8 lg:px-8'>
         <aside
           aria-label='Controlos do modelo'
-          className='card border-bege-dark bg-bege-light/95 pointer-events-auto flex w-full flex-col gap-4 border p-4 shadow-md backdrop-blur md:w-80 md:p-6'
+          className={cn(
+            'card border-bege-dark bg-bege-light/95 pointer-events-auto flex w-full flex-col gap-4 border p-4 shadow-md backdrop-blur md:w-80 md:p-6',
+            !menuOpen && 'py-2 md:py-3'
+          )}
         >
           <div>
-            <p className='text-eyebrow text-green'>Modelo Blender · teste</p>
-            <h1 className='text-h2_bold mt-1'>Sede HawkStars</h1>
-            <p className='mt-2 text-sm text-black/60'>
+            <div className='flex items-start justify-between gap-3'>
+              <div>
+                <p className='text-eyebrow text-green'>Modelo Blender · teste</p>
+                <h1 className='text-h2_bold mt-1 max-md:text-xl'>Sede HawkStars</h1>
+              </div>
+              <button
+                type='button'
+                aria-expanded={menuOpen}
+                aria-controls='blender-menu'
+                aria-label={menuOpen ? 'Esconder controlos' : 'Mostrar controlos'}
+                onClick={() => setMenuChoice(!menuOpen)}
+                className='border-bege-dark grid size-9 place-items-center rounded-full border bg-white'
+              >
+                <LuChevronDown
+                  aria-hidden='true'
+                  className={cn(
+                    'size-4 shrink-0 transition-transform max-md:-scale-y-100',
+                    menuOpen && 'rotate-180'
+                  )}
+                />
+              </button>
+            </div>
+            <p className={cn('mt-2 text-sm text-black/60', !menuOpen && 'hidden')}>
               Edifício, mobiliário e envolvente, assentes no levantamento topográfico da Travessa do
               Portão Norte.
             </p>
           </div>
 
-          <div
-            role='group'
-            aria-label='Piso'
-            className='border-bege-dark grid grid-cols-4 gap-1 rounded-lg border bg-white p-1'
-          >
-            {VIEWS.map((v) => (
-              <Button
-                key={v.id}
-                size='sm'
-                variant={view === v.id ? 'default' : 'ghost'}
-                aria-pressed={view === v.id}
-                disabled={status !== 'ready'}
-                onClick={() => {
-                  setView(v.id);
-                  sceneRef.current?.setView(v.id);
-                }}
-              >
-                {v.label}
-              </Button>
-            ))}
-          </div>
+          <div id='blender-menu' className={cn('flex flex-col gap-4', !menuOpen && 'hidden')}>
+            <div
+              role='group'
+              aria-label='Piso'
+              className='border-bege-dark grid grid-cols-4 gap-1 rounded-lg border bg-white p-1'
+            >
+              {VIEWS.map((v) => (
+                <Button
+                  key={v.id}
+                  size='sm'
+                  variant={view === v.id ? 'default' : 'ghost'}
+                  aria-pressed={view === v.id}
+                  disabled={status !== 'ready'}
+                  onClick={() => {
+                    setView(v.id);
+                    sceneRef.current?.setView(v.id);
+                  }}
+                >
+                  {v.label}
+                </Button>
+              ))}
+            </div>
 
-          <div className='flex flex-wrap gap-2'>
-            <Toggle
-              label='Mobiliário'
-              pressed={furniture}
-              onChange={(on) => {
-                setFurniture(on);
-                sceneRef.current?.setFurniture(on);
-              }}
-            />
-            <Toggle
-              label='Envolvente'
-              pressed={context}
-              onChange={(on) => {
-                setContext(on);
-                sceneRef.current?.setContext(on);
-              }}
-            />
+            <div className='flex flex-wrap gap-2'>
+              <Toggle
+                label='Mobiliário'
+                pressed={furniture}
+                onChange={(on) => {
+                  setFurniture(on);
+                  sceneRef.current?.setFurniture(on);
+                }}
+              />
+              <Toggle
+                label='Envolvente'
+                pressed={context}
+                onChange={(on) => {
+                  setContext(on);
+                  sceneRef.current?.setContext(on);
+                }}
+              />
+            </div>
           </div>
         </aside>
       </div>
