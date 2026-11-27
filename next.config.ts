@@ -32,9 +32,13 @@ const isProd = process.env.NODE_ENV === 'production';
 //
 // Note frame-src previously had no openstreetmap.org entry at all, so the
 // MapLocationBlock's embed was being blocked outright.
+//
+// 'wasm-unsafe-eval' lets WebAssembly compile (it does not allow JS eval): the 3D model at
+// /sede-3d is Draco-compressed and three.js decodes it with the Draco WASM decoder in a
+// blob: worker (decoder files in public/models/draco/).
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} blob: https://www.googletagmanager.com https://www.google-analytics.com https://upload-widget.cloudinary.com https://*.cloudinary.com https://www.instagram.com https://*.cdninstagram.com https://browser.sentry-cdn.com;
+  script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'${isDev ? " 'unsafe-eval'" : ''} blob: https://www.googletagmanager.com https://www.google-analytics.com https://upload-widget.cloudinary.com https://*.cloudinary.com https://www.instagram.com https://*.cdninstagram.com https://browser.sentry-cdn.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   img-src 'self' blob: data: https://res.cloudinary.com https://images.unsplash.com https://*.cdninstagram.com https://*.fbcdn.net https://*.basemaps.cartocdn.com https://*.tile.openstreetmap.org https://drive.google.com https://www.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://www.google.com https://www.google.pt;
   font-src 'self' https://fonts.gstatic.com data:;
