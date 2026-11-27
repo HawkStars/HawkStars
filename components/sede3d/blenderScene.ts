@@ -88,6 +88,7 @@ export function createSedeBlenderScene({
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.shadowMap.autoUpdate = false;
+  const anisotropy = Math.min(coarse ? 4 : 8, renderer.capabilities.getMaxAnisotropy());
   renderer.domElement.style.display = 'block';
   renderer.domElement.style.touchAction = 'none';
   container.appendChild(renderer.domElement);
@@ -271,6 +272,10 @@ export function createSedeBlenderScene({
         if (mesh.isMesh) {
           const mats = ([] as THREE.Material[]).concat(mesh.material);
           const transparent = mats.some((m) => m.transparent);
+          // roofs and paving are seen at grazing angles: anisotropic filtering keeps them sharp
+          for (const m of mats as THREE.MeshStandardMaterial[]) {
+            for (const tex of [m.map, m.normalMap]) if (tex) tex.anisotropy = anisotropy;
+          }
           // only the building casts shadows; furniture and trees are too small to matter here
           const grupo = (o.parent?.userData.grupo ?? o.userData.grupo) as string | undefined;
           mesh.castShadow = !transparent && grupo !== 'mobiliario';
