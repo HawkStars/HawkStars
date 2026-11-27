@@ -1,5 +1,6 @@
 'use client';
 
+import { LuChevronDown } from 'react-icons/lu';
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -16,6 +17,7 @@ import MoveButtons from './MoveButtons';
 import { cn } from '@/lib/utils';
 import RoomPanel from './RoomPanel';
 import WalkMinimap from './WalkMinimap';
+import { useRoomyScreen } from '../useRoomyScreen';
 import type { TrainingRoomSign } from './trainingRoomSigns';
 import type { Pose, RoomInfo, SpotId, WalkMap, WalkthroughScene } from './walkthroughScene';
 
@@ -57,6 +59,15 @@ const SedeWalkthrough = ({ signs }: Props) => {
   const [room, setRoom] = useState<string | null>(null);
   const [aim, setAim] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
+  // the menu folds into a single button; it starts open only on a big screen
+  const roomy = useRoomyScreen();
+  // null until the visitor opens or folds it themselves
+  const [menuChoice, setMenuChoice] = useState<boolean | null>(null);
+  const menuOpen = menuChoice ?? roomy;
+  // on a small screen, fold the menu away once a destination is picked
+  const foldIfSmall = () => {
+    if (!roomy) setMenuChoice(false);
+  };
   // doors start hidden, so every doorway reads as a way through
   const [showDoors, setShowDoors] = useState(false);
   const [rooms, setRooms] = useState<RoomInfo[]>([]);
@@ -160,7 +171,7 @@ const SedeWalkthrough = ({ signs }: Props) => {
   const currentSign = signs.find((s) => s.roomId === current?.signId) ?? null;
 
   return (
-    <div className='bg-bege-light relative h-[calc(100svh-5rem)] min-h-136 w-full overflow-hidden select-none'>
+    <div className='bg-bege-light relative h-[calc(100svh-5rem)] min-h-72 w-full overflow-hidden select-none'>
       <div
         ref={containerRef}
         className='absolute inset-0'
@@ -255,81 +266,106 @@ const SedeWalkthrough = ({ signs }: Props) => {
       {walking && !locked && (
         <nav
           aria-label='Ir para'
-          className='card border-bege-dark bg-bege-light/95 absolute top-16 left-4 z-10 flex flex-col gap-1 border p-2 shadow-md md:top-4'
+          className='card border-bege-dark bg-bege-light/95 absolute top-16 left-4 z-10 flex max-h-[calc(100%-5rem)] flex-col gap-1 overflow-y-auto border p-2 shadow-md md:top-4 md:max-h-[calc(100%-2rem)]'
         >
-          {SPOTS.map((s, i) => (
-            <Button
-              key={s.id}
-              size='sm'
-              variant='ghost'
-              className='justify-start'
-              onClick={() => goTo(s.id)}
-            >
-              <span className='w-4 text-black/40 tabular-nums pointer-coarse:hidden'>{i + 1}</span>
-              {s.label}
-            </Button>
-          ))}
-          <div className='border-bege-dark mt-1 flex items-center justify-between gap-3 border-t px-3 pt-2'>
-            <Label htmlFor='walk-doors' className='text-sm'>
-              Mostrar portas
-              <span className='ml-1 text-xs text-black/40 pointer-coarse:hidden'>P</span>
-            </Label>
-            <Switch
-              id='walk-doors'
-              aria-label='Mostrar portas'
-              checked={showDoors}
-              onCheckedChange={setShowDoors}
+          <button
+            type='button'
+            aria-expanded={menuOpen}
+            aria-controls='walk-menu'
+            onClick={() => setMenuChoice(!menuOpen)}
+            className='flex items-center justify-between gap-3 rounded-md px-3 py-1.5 text-sm font-medium'
+          >
+            Menu
+            <LuChevronDown
+              aria-hidden='true'
+              className={cn('size-4 shrink-0 transition-transform', menuOpen && 'rotate-180')}
             />
-          </div>
-          <div className='flex items-center justify-between gap-3 px-3 pt-1'>
-            <Label htmlFor='walk-buttons' className='text-sm'>
-              Botões de movimento
-            </Label>
-            <Switch
-              id='walk-buttons'
-              aria-label='Botões de movimento no ecrã'
-              checked={moveButtons}
-              onCheckedChange={setMoveButtons}
-            />
-          </div>
-          <div className='px-3 pt-1'>
-            <p id='walk-speed' className='text-sm'>
-              Velocidade
-            </p>
-            <div role='group' aria-labelledby='walk-speed' className='mt-1 flex gap-1'>
-              {SPEEDS.map((sp) => (
-                <Button
-                  key={sp.label}
-                  size='sm'
-                  variant={speed === sp.factor ? 'default' : 'outline'}
-                  aria-pressed={speed === sp.factor}
-                  className='flex-1 px-2'
-                  onClick={() => setSpeed(sp.factor)}
-                >
-                  {sp.label}
-                </Button>
-              ))}
+          </button>
+          <div id='walk-menu' className={cn('flex flex-col gap-1', !menuOpen && 'hidden')}>
+            {SPOTS.map((s, i) => (
+              <Button
+                key={s.id}
+                size='sm'
+                variant='ghost'
+                className='justify-start'
+                onClick={() => {
+                  goTo(s.id);
+                  foldIfSmall();
+                }}
+              >
+                <span className='w-4 text-black/40 tabular-nums pointer-coarse:hidden'>
+                  {i + 1}
+                </span>
+                {s.label}
+              </Button>
+            ))}
+            <div className='border-bege-dark mt-1 flex items-center justify-between gap-3 border-t px-3 pt-2'>
+              <Label htmlFor='walk-doors' className='text-sm'>
+                Mostrar portas
+                <span className='ml-1 text-xs text-black/40 pointer-coarse:hidden'>P</span>
+              </Label>
+              <Switch
+                id='walk-doors'
+                aria-label='Mostrar portas'
+                checked={showDoors}
+                onCheckedChange={setShowDoors}
+              />
             </div>
+            <div className='flex items-center justify-between gap-3 px-3 pt-1'>
+              <Label htmlFor='walk-buttons' className='text-sm'>
+                Botões de movimento
+              </Label>
+              <Switch
+                id='walk-buttons'
+                aria-label='Botões de movimento no ecrã'
+                checked={moveButtons}
+                onCheckedChange={setMoveButtons}
+              />
+            </div>
+            <div className='px-3 pt-1'>
+              <p id='walk-speed' className='text-sm'>
+                Velocidade
+              </p>
+              <div role='group' aria-labelledby='walk-speed' className='mt-1 flex gap-1'>
+                {SPEEDS.map((sp) => (
+                  <Button
+                    key={sp.label}
+                    size='sm'
+                    variant={speed === sp.factor ? 'default' : 'outline'}
+                    aria-pressed={speed === sp.factor}
+                    className='flex-1 px-2'
+                    onClick={() => setSpeed(sp.factor)}
+                  >
+                    {sp.label}
+                  </Button>
+                ))}
+              </div>
+            </div>
+            <div className='px-3 pt-2'>
+              <Select
+                onValueChange={(id) => {
+                  goToRoom(id);
+                  foldIfSmall();
+                }}
+              >
+                <SelectTrigger aria-label='Ir para uma sala' className='h-9 bg-white text-sm'>
+                  <SelectValue placeholder='Ir para uma sala…' />
+                </SelectTrigger>
+                <SelectContent>
+                  {[...rooms]
+                    .sort((a, b) => a.floor.localeCompare(b.floor) || a.name.localeCompare(b.name))
+                    .map((r) => (
+                      <SelectItem key={r.id} value={r.id}>
+                        {floorLabel(r.floor)} · {r.name}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <Button size='sm' className='mt-1 pointer-coarse:hidden' onClick={resume}>
+              Continuar
+            </Button>
           </div>
-          <div className='px-3 pt-2'>
-            <Select onValueChange={goToRoom}>
-              <SelectTrigger aria-label='Ir para uma sala' className='h-9 bg-white text-sm'>
-                <SelectValue placeholder='Ir para uma sala…' />
-              </SelectTrigger>
-              <SelectContent>
-                {[...rooms]
-                  .sort((a, b) => a.floor.localeCompare(b.floor) || a.name.localeCompare(b.name))
-                  .map((r) => (
-                    <SelectItem key={r.id} value={r.id}>
-                      {floorLabel(r.floor)} · {r.name}
-                    </SelectItem>
-                  ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <Button size='sm' className='mt-1 pointer-coarse:hidden' onClick={resume}>
-            Continuar
-          </Button>
         </nav>
       )}
 
@@ -342,8 +378,8 @@ const SedeWalkthrough = ({ signs }: Props) => {
           onGo={goToRoom}
           className={
             locked
-              ? 'pointer-events-none absolute right-4 bottom-4 z-10 hidden w-80 opacity-90 md:block'
-              : 'absolute right-4 bottom-4 z-10 hidden w-80 md:block'
+              ? 'pointer-events-none absolute right-4 bottom-4 z-10 hidden w-80 opacity-90 md:block [@media(max-height:36rem)]:hidden'
+              : 'absolute right-4 bottom-4 z-10 hidden w-80 md:block [@media(max-height:36rem)]:hidden'
           }
         />
       )}
