@@ -17,7 +17,7 @@ import MoveButtons from './MoveButtons';
 import { cn } from '@/lib/utils';
 import RoomPanel from './RoomPanel';
 import WalkMinimap from './WalkMinimap';
-import type { TrainingRoomSign } from './trainingRoomSigns';
+import type { BuildingSign, TrainingRoomSign } from './trainingRoomSigns';
 import type { Pose, RoomInfo, SpotId, WalkMap, WalkthroughScene } from './walkthroughScene';
 
 const MODEL_URL = '/models/sede-revit.glb';
@@ -40,6 +40,8 @@ const SPOTS: { id: SpotId; label: string }[] = [
 type Props = {
   /** Names and logos shown in the two training rooms. */
   signs: TrainingRoomSign[];
+  /** The façade sign (the training centre's name, open for naming). */
+  building: BuildingSign;
 };
 
 /**
@@ -47,7 +49,7 @@ type Props = {
  * or the on-screen joystick, look with the mouse or by dragging, jump between floors, read about
  * the room you are in (a panel that opens and closes) and use the minimap to go anywhere.
  */
-const SedeWalkthrough = ({ signs }: Props) => {
+const SedeWalkthrough = ({ signs, building }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<WalkthroughScene | null>(null);
   const stickOrigin = useRef<{ id: number; x: number; y: number } | null>(null);
@@ -80,6 +82,7 @@ const SedeWalkthrough = ({ signs }: Props) => {
         container,
         url: MODEL_URL,
         signs,
+        building,
         onProgress: setProgress,
         onLoad: (m, r) => {
           setMap(m);
@@ -101,7 +104,7 @@ const SedeWalkthrough = ({ signs }: Props) => {
       scene?.dispose();
       sceneRef.current = null;
     };
-  }, [signs]);
+  }, [signs, building]);
 
   // number keys jump between the teleport points; I opens or closes the room panel
   useEffect(() => {
@@ -126,7 +129,13 @@ const SedeWalkthrough = ({ signs }: Props) => {
   }, [speed]);
 
   useEffect(() => {
-    if (status === 'ready') sceneRef.current?.previewLogo(logo.room, logo.url, logo.width);
+    if (status !== 'ready') return;
+    const trying = Boolean(logo.url || logo.name.trim());
+    sceneRef.current?.previewNaming(
+      trying
+        ? { target: logo.target, url: logo.url, name: logo.name.trim(), width: logo.width }
+        : null
+    );
   }, [logo, status]);
 
   // each chosen file gets an object URL; free it when another file replaces it or on leaving
@@ -345,7 +354,7 @@ const SedeWalkthrough = ({ signs }: Props) => {
           <LogoPreview
             value={logo}
             onChange={setLogo}
-            onView={(r) => sceneRef.current?.viewSign(r)}
+            onView={(target, where) => sceneRef.current?.viewSign(target, where)}
             className='border-bege-dark mt-1 border-t px-3 pt-2'
           />
           <Button size='sm' className='mt-1 pointer-coarse:hidden' onClick={resume}>

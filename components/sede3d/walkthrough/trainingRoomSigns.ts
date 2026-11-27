@@ -59,3 +59,15 @@ export const MOCK_TRAINING_ROOM_SIGNS: TrainingRoomSign[] = [
     ],
   },
 ];
+
+/**
+ * The sign on the building's façade (naming of the training centre). MOCK DATA, like the room
+ * signs: a placeholder that invites sponsors, until a named partner comes from Payload.
+ */
+export type BuildingSign = { name: string; text: string; logo: SignLogo | null };
+
+export const MOCK_BUILDING_SIGN: BuildingSign = {
+  name: 'HawkStars Training Center',
+  text: 'Naming disponível · o nome da sua marca aqui',
+  logo: logo('hawkstars', 'Associação HawkStars', '/images/logos/logo.svg', 'Associação HawkStars'),
+};
