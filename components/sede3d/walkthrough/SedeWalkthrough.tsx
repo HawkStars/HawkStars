@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { floorLabel } from './floors';
+import LogoPreview, { NO_LOGO_TRIAL, type LogoTrial } from './LogoPreview';
 import MoveButtons from './MoveButtons';
 import { cn } from '@/lib/utils';
 import RoomPanel from './RoomPanel';
@@ -66,6 +67,8 @@ const SedeWalkthrough = ({ signs }: Props) => {
   const [map, setMap] = useState<WalkMap | null>(null);
   const [pose, setPose] = useState<Pose | null>(null);
   const [knob, setKnob] = useState({ x: 0, y: 0 });
+  // a logo tried on a training room wall (kept here so it stays while the menu is closed)
+  const [logo, setLogo] = useState<LogoTrial>(NO_LOGO_TRIAL);
 
   useEffect(() => {
     let disposed = false;
@@ -121,6 +124,18 @@ const SedeWalkthrough = ({ signs }: Props) => {
   useEffect(() => {
     sceneRef.current?.setSpeed(speed);
   }, [speed]);
+
+  useEffect(() => {
+    if (status === 'ready') sceneRef.current?.previewLogo(logo.room, logo.url, logo.width);
+  }, [logo, status]);
+
+  // each chosen file gets an object URL; free it when another file replaces it or on leaving
+  useEffect(() => {
+    const { url } = logo;
+    return () => {
+      if (url) URL.revokeObjectURL(url);
+    };
+  }, [logo.url]); // eslint-disable-line react-hooks/exhaustive-deps -- only the URL matters
 
   const canLock = () => window.matchMedia('(pointer: fine)').matches;
 
@@ -255,7 +270,7 @@ const SedeWalkthrough = ({ signs }: Props) => {
       {walking && !locked && (
         <nav
           aria-label='Ir para'
-          className='card border-bege-dark bg-bege-light/95 absolute top-16 left-4 z-10 flex flex-col gap-1 border p-2 shadow-md md:top-4'
+          className='card border-bege-dark bg-bege-light/95 absolute top-16 left-4 z-10 flex max-h-[calc(100%-5rem)] w-72 flex-col gap-1 overflow-y-auto border p-2 shadow-md md:top-4 md:max-h-[calc(100%-2rem)]'
         >
           {SPOTS.map((s, i) => (
             <Button
@@ -327,6 +342,12 @@ const SedeWalkthrough = ({ signs }: Props) => {
               </SelectContent>
             </Select>
           </div>
+          <LogoPreview
+            value={logo}
+            onChange={setLogo}
+            onView={(r) => sceneRef.current?.viewSign(r)}
+            className='border-bege-dark mt-1 border-t px-3 pt-2'
+          />
           <Button size='sm' className='mt-1 pointer-coarse:hidden' onClick={resume}>
             Continuar
           </Button>

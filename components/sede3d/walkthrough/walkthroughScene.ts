@@ -60,6 +60,14 @@ export type WalkthroughScene = {
   setControls: (forward: number, turn: number) => void;
   /** Walking speed factor (1 is normal). */
   setSpeed: (factor: number) => void;
+  /**
+   * Try a logo on a training room's front wall: the image (any URL, e.g. an object URL of a
+   * local file) is painted on the wall where the room's sign hangs, `width` metres wide, and the
+   * sign is hidden meanwhile. `null` puts the sign back.
+   */
+  previewLogo: (roomId: TrainingRoomSign['roomId'], url: string | null, width: number) => void;
+  /** Stand in front of a training room's sign wall, facing it. */
+  viewSign: (roomId: TrainingRoomSign['roomId']) => void;
   dispose: () => void;
 };
 
@@ -231,7 +239,8 @@ const buildMap = (
     });
     const entry = byFloor.get(floor) ?? { rooms: [], top: -Infinity };
     const id = [...rooms.values()].find((r) => r.name === name)?.id ?? null;
-    entry.rooms.push({ id, name, d });
+    // a slab's second material (its sides) has no top face: nothing to draw
+    if (d) entry.rooms.push({ id, name, d });
     entry.top = Math.max(entry.top, box.max.y);
     byFloor.set(floor, entry);
   }
@@ -371,6 +380,22 @@ export function createWalkthroughScene({
     return floorRay.intersectObjects(roomFloors, false)[0]?.object ?? null;
   };
 
+  // signs by room id, with what the logo preview needs
+  const signWalls = new Map<
+    string,
+    { panel: THREE.Object3D; center: THREE.Vector3; normal: THREE.Vector3; maxWidth: number }
+  >();
+  const logoMaterial = new THREE.MeshStandardMaterial({
+    transparent: true,
+    roughness: 0.7,
+    polygonOffset: true,
+    polygonOffsetFactor: -2,
+  });
+  const logoDecal = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), logoMaterial);
+  logoDecal.visible = false;
+  scene.add(logoDecal);
+  let logoRequest = 0;
+
   const roomByName = (name: string) => [...rooms.values()].find((r) => r.name === name) ?? null;
   const publicRoom = ({ id, name, area, floor, signId }: RoomInfo): RoomInfo => ({
     id,
@@ -476,6 +501,12 @@ export function createWalkthroughScene({
         const sign = signs.find((s) => s.roomId === anchor.id);
         if (!sign) continue;
         const panel = makeSign(sign, renderer);
+        signWalls.set(anchor.id, {
+          panel,
+          center: anchor.center.clone(),
+          normal: anchor.normal.clone().normalize(),
+          maxWidth: anchor.width,
+        });
         panel.position.copy(anchor.center);
         panel.scale.setScalar(Math.min(1, anchor.width / PANEL_W));
         panel.lookAt(anchor.center.clone().add(anchor.normal));
@@ -726,6 +757,44 @@ export function createWalkthroughScene({
     },
     setSpeed: (factor) => {
       speed = factor;
+    },
+    previewLogo: (roomId, url, width) => {
+      const wall = signWalls.get(roomId);
+      const request = ++logoRequest;
+      signWalls.forEach((w) => (w.panel.visible = true));
+      if (!wall || !url) {
+        logoDecal.visible = false;
+        return;
+      }
+      loadImage(url).then((img) => {
+        if (!img || request !== logoRequest || disposed) return;
+        const aspect = (img.naturalHeight || 1) / (img.naturalWidth || 1);
+        // fit the wall: no wider than its clear width, no taller than 2.2 m
+        const w = Math.min(width, wall.maxWidth, 2.2 / aspect);
+        // a new texture per image: WebGL2 storage is sized once, so swapping the image of an
+        // existing texture for one of another size does not show
+        logoMaterial.map?.dispose();
+        const texture = new THREE.Texture(img);
+        texture.colorSpace = THREE.SRGBColorSpace;
+        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        texture.needsUpdate = true;
+        logoMaterial.map = texture;
+        logoMaterial.needsUpdate = true;
+        logoDecal.scale.set(w, w * aspect, 1);
+        logoDecal.position.copy(wall.center).addScaledVector(wall.normal, 0.01);
+        logoDecal.lookAt(wall.center.clone().add(wall.normal));
+        logoDecal.visible = true;
+        wall.panel.visible = false;
+      });
+    },
+    viewSign: (roomId) => {
+      const wall = signWalls.get(roomId);
+      if (!wall || !walker) return;
+      stopWalking();
+      const flat = wall.normal.clone().setY(0).normalize();
+      walker.place(wall.center.clone().addScaledVector(flat, 4.5));
+      yaw = yawFor(flat.clone().negate());
+      pitch = 0;
     },
     setDoorsVisible: (visible) => {
       doorsVisible = visible;
