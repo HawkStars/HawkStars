@@ -64,8 +64,7 @@ const SedeBlender = () => {
   // the panel folds down to its title; it starts open only on a big screen
   const roomy = useRoomyScreen();
   // null until the visitor opens or folds it themselves
-  const [menuChoice, setMenuChoice] = useState<boolean | null>(null);
-  const menuOpen = menuChoice ?? roomy;
+  const [menuChoice] = useState<boolean | null>(null);
   const [hour, setHour] = useState(15);
 
   const viewRef = useRef<FloorView>('ext');
