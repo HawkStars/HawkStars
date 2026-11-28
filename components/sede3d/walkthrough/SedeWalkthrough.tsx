@@ -1,5 +1,6 @@
 'use client';
 
+import { LuChevronDown } from 'react-icons/lu';
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -12,12 +13,14 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { floorLabel } from './floors';
+import LogoPreview, { NO_LOGO_TRIAL, type LogoTrial } from './LogoPreview';
 import MoveButtons from './MoveButtons';
 import { cn } from '@/lib/utils';
 import RoomPanel from './RoomPanel';
 import WalkMinimap from './WalkMinimap';
-import type { TrainingRoomSign } from './trainingRoomSigns';
+import type { BuildingSign, TrainingRoomSign } from './trainingRoomSigns';
 import type { Pose, RoomInfo, SpotId, WalkMap, WalkthroughScene } from './walkthroughScene';
+import { useRoomyScreen } from '../useRoomyScreen';
 
 const MODEL_URL = '/models/sede-revit.glb';
 const JOYSTICK_RADIUS = 48;
@@ -39,6 +42,8 @@ const SPOTS: { id: SpotId; label: string }[] = [
 type Props = {
   /** Names and logos shown in the two training rooms. */
   signs: TrainingRoomSign[];
+  /** The façade sign (the training centre's name, open for naming). */
+  building: BuildingSign;
 };
 
 /**
@@ -46,7 +51,7 @@ type Props = {
  * or the on-screen joystick, look with the mouse or by dragging, jump between floors, read about
  * the room you are in (a panel that opens and closes) and use the minimap to go anywhere.
  */
-const SedeWalkthrough = ({ signs }: Props) => {
+const SedeWalkthrough = ({ signs, building }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<WalkthroughScene | null>(null);
   const stickOrigin = useRef<{ id: number; x: number; y: number } | null>(null);
@@ -57,6 +62,15 @@ const SedeWalkthrough = ({ signs }: Props) => {
   const [room, setRoom] = useState<string | null>(null);
   const [aim, setAim] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
+  // the menu folds into a single button; it starts open only on a big screen
+  const roomy = useRoomyScreen();
+  // null until the visitor opens or folds it themselves
+  const [menuChoice, setMenuChoice] = useState<boolean | null>(null);
+  const menuOpen = menuChoice ?? roomy;
+  // on a small screen, fold the menu away once a destination is picked
+  const foldIfSmall = () => {
+    if (!roomy) setMenuChoice(false);
+  };
   // doors start hidden, so every doorway reads as a way through
   const [showDoors, setShowDoors] = useState(false);
   const [rooms, setRooms] = useState<RoomInfo[]>([]);
@@ -66,6 +80,8 @@ const SedeWalkthrough = ({ signs }: Props) => {
   const [map, setMap] = useState<WalkMap | null>(null);
   const [pose, setPose] = useState<Pose | null>(null);
   const [knob, setKnob] = useState({ x: 0, y: 0 });
+  // a logo tried on a training room wall (kept here so it stays while the menu is closed)
+  const [logo, setLogo] = useState<LogoTrial>(NO_LOGO_TRIAL);
 
   useEffect(() => {
     let disposed = false;
@@ -77,6 +93,7 @@ const SedeWalkthrough = ({ signs }: Props) => {
         container,
         url: MODEL_URL,
         signs,
+        building,
         onProgress: setProgress,
         onLoad: (m, r) => {
           setMap(m);
@@ -98,7 +115,7 @@ const SedeWalkthrough = ({ signs }: Props) => {
       scene?.dispose();
       sceneRef.current = null;
     };
-  }, [signs]);
+  }, [signs, building]);
 
   // number keys jump between the teleport points; I opens or closes the room panel
   useEffect(() => {
@@ -121,6 +138,24 @@ const SedeWalkthrough = ({ signs }: Props) => {
   useEffect(() => {
     sceneRef.current?.setSpeed(speed);
   }, [speed]);
+
+  useEffect(() => {
+    if (status !== 'ready') return;
+    const trying = Boolean(logo.url || logo.name.trim());
+    sceneRef.current?.previewNaming(
+      trying
+        ? { target: logo.target, url: logo.url, name: logo.name.trim(), width: logo.width }
+        : null
+    );
+  }, [logo, status]);
+
+  // each chosen file gets an object URL; free it when another file replaces it or on leaving
+  useEffect(() => {
+    const { url } = logo;
+    return () => {
+      if (url) URL.revokeObjectURL(url);
+    };
+  }, [logo.url]); // eslint-disable-line react-hooks/exhaustive-deps -- only the URL matters
 
   const canLock = () => window.matchMedia('(pointer: fine)').matches;
 
@@ -160,7 +195,7 @@ const SedeWalkthrough = ({ signs }: Props) => {
   const currentSign = signs.find((s) => s.roomId === current?.signId) ?? null;
 
   return (
-    <div className='bg-bege-light relative h-[calc(100svh-5rem)] min-h-136 w-full overflow-hidden select-none'>
+    <div className='bg-bege-light relative h-[calc(100svh-5rem)] min-h-72 w-full overflow-hidden select-none'>
       <div
         ref={containerRef}
         className='absolute inset-0'
@@ -255,61 +290,105 @@ const SedeWalkthrough = ({ signs }: Props) => {
       {walking && !locked && (
         <nav
           aria-label='Ir para'
-          className='card border-bege-dark bg-bege-light/95 absolute top-16 left-4 z-10 flex flex-col gap-1 border p-2 shadow-md md:top-4'
+          className='card border-bege-dark bg-bege-light/95 absolute top-16 left-4 z-10 flex max-h-[calc(100%-5rem)] w-72 flex-col gap-1 overflow-y-auto border p-2 shadow-md md:top-4 md:max-h-[calc(100%-2rem)]'
         >
-          {SPOTS.map((s, i) => (
-            <Button
-              key={s.id}
-              size='sm'
-              variant='ghost'
-              className='justify-start'
-              onClick={() => goTo(s.id)}
-            >
-              <span className='w-4 text-black/40 tabular-nums pointer-coarse:hidden'>{i + 1}</span>
-              {s.label}
-            </Button>
-          ))}
-          <div className='border-bege-dark mt-1 flex items-center justify-between gap-3 border-t px-3 pt-2'>
-            <Label htmlFor='walk-doors' className='text-sm'>
-              Mostrar portas
-              <span className='ml-1 text-xs text-black/40 pointer-coarse:hidden'>P</span>
-            </Label>
-            <Switch
-              id='walk-doors'
-              aria-label='Mostrar portas'
-              checked={showDoors}
-              onCheckedChange={setShowDoors}
+          <button
+            type='button'
+            aria-expanded={menuOpen}
+            aria-controls='walk-menu'
+            onClick={() => setMenuChoice(!menuOpen)}
+            className='flex items-center justify-between gap-3 rounded-md px-3 py-1.5 text-sm font-medium'
+          >
+            Menu
+            <LuChevronDown
+              aria-hidden='true'
+              className={cn('size-4 shrink-0 transition-transform', menuOpen && 'rotate-180')}
             />
-          </div>
-          <div className='flex items-center justify-between gap-3 px-3 pt-1'>
-            <Label htmlFor='walk-buttons' className='text-sm'>
-              Botões de movimento
-            </Label>
-            <Switch
-              id='walk-buttons'
-              aria-label='Botões de movimento no ecrã'
-              checked={moveButtons}
-              onCheckedChange={setMoveButtons}
-            />
-          </div>
-          <div className='px-3 pt-1'>
-            <p id='walk-speed' className='text-sm'>
-              Velocidade
-            </p>
-            <div role='group' aria-labelledby='walk-speed' className='mt-1 flex gap-1'>
-              {SPEEDS.map((sp) => (
-                <Button
-                  key={sp.label}
-                  size='sm'
-                  variant={speed === sp.factor ? 'default' : 'outline'}
-                  aria-pressed={speed === sp.factor}
-                  className='flex-1 px-2'
-                  onClick={() => setSpeed(sp.factor)}
-                >
-                  {sp.label}
-                </Button>
-              ))}
+          </button>
+          <div id='walk-menu' className={cn('flex flex-col gap-1', !menuOpen && 'hidden')}>
+            {SPOTS.map((s, i) => (
+              <Button
+                key={s.id}
+                size='sm'
+                variant='ghost'
+                className='justify-start'
+                onClick={() => {
+                  goTo(s.id);
+                  foldIfSmall();
+                }}
+              >
+                <span className='w-4 text-black/40 tabular-nums pointer-coarse:hidden'>
+                  {i + 1}
+                </span>
+                {s.label}
+              </Button>
+            ))}
+            <div className='border-bege-dark mt-1 flex items-center justify-between gap-3 border-t px-3 pt-2'>
+              <Label htmlFor='walk-doors' className='text-sm'>
+                Mostrar portas
+                <span className='ml-1 text-xs text-black/40 pointer-coarse:hidden'>P</span>
+              </Label>
+              <Switch
+                id='walk-doors'
+                aria-label='Mostrar portas'
+                checked={showDoors}
+                onCheckedChange={setShowDoors}
+              />
             </div>
+            <div className='flex items-center justify-between gap-3 px-3 pt-1'>
+              <Label htmlFor='walk-buttons' className='text-sm'>
+                Botões de movimento
+              </Label>
+              <Switch
+                id='walk-buttons'
+                aria-label='Botões de movimento no ecrã'
+                checked={moveButtons}
+                onCheckedChange={setMoveButtons}
+              />
+            </div>
+            <div className='px-3 pt-1'>
+              <p id='walk-speed' className='text-sm'>
+                Velocidade
+              </p>
+              <div role='group' aria-labelledby='walk-speed' className='mt-1 flex gap-1'>
+                {SPEEDS.map((sp) => (
+                  <Button
+                    key={sp.label}
+                    size='sm'
+                    variant={speed === sp.factor ? 'default' : 'outline'}
+                    aria-pressed={speed === sp.factor}
+                    className='flex-1 px-2'
+                    onClick={() => setSpeed(sp.factor)}
+                  >
+                    {sp.label}
+                  </Button>
+                ))}
+              </div>
+            </div>
+            <div className='px-3 pt-2'>
+              <Select
+                onValueChange={(id) => {
+                  goToRoom(id);
+                  foldIfSmall();
+                }}
+              >
+                <SelectTrigger aria-label='Ir para uma sala' className='h-9 bg-white text-sm'>
+                  <SelectValue placeholder='Ir para uma sala…' />
+                </SelectTrigger>
+                <SelectContent>
+                  {[...rooms]
+                    .sort((a, b) => a.floor.localeCompare(b.floor) || a.name.localeCompare(b.name))
+                    .map((r) => (
+                      <SelectItem key={r.id} value={r.id}>
+                        {floorLabel(r.floor)} · {r.name}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <Button size='sm' className='mt-1 pointer-coarse:hidden' onClick={resume}>
+              Continuar
+            </Button>
           </div>
           <div className='px-3 pt-2'>
             <Select onValueChange={goToRoom}>
@@ -327,6 +406,12 @@ const SedeWalkthrough = ({ signs }: Props) => {
               </SelectContent>
             </Select>
           </div>
+          <LogoPreview
+            value={logo}
+            onChange={setLogo}
+            onView={(target, where) => sceneRef.current?.viewSign(target, where)}
+            className='border-bege-dark mt-1 border-t px-3 pt-2'
+          />
           <Button size='sm' className='mt-1 pointer-coarse:hidden' onClick={resume}>
             Continuar
           </Button>
@@ -342,8 +427,8 @@ const SedeWalkthrough = ({ signs }: Props) => {
           onGo={goToRoom}
           className={
             locked
-              ? 'pointer-events-none absolute right-4 bottom-4 z-10 hidden w-80 opacity-90 md:block'
-              : 'absolute right-4 bottom-4 z-10 hidden w-80 md:block'
+              ? 'pointer-events-none absolute right-4 bottom-4 z-10 hidden w-80 opacity-90 md:block [@media(max-height:36rem)]:hidden'
+              : 'absolute right-4 bottom-4 z-10 hidden w-80 md:block [@media(max-height:36rem)]:hidden'
           }
         />
       )}
@@ -365,7 +450,7 @@ const SedeWalkthrough = ({ signs }: Props) => {
         <MoveButtons
           onChange={(f, t) => sceneRef.current?.setControls(f, t)}
           className={cn(
-            'absolute bottom-6 left-1/2 z-10 -translate-x-1/2 md:right-[22rem] md:left-auto md:translate-x-0',
+            'absolute bottom-6 left-1/2 z-10 -translate-x-1/2 md:right-88 md:left-auto md:translate-x-0',
             locked && 'pointer-events-none opacity-60'
           )}
         />

@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import SedeWalkthrough from '@/components/sede3d/walkthrough/SedeWalkthrough';
-import { MOCK_TRAINING_ROOM_SIGNS } from '@/components/sede3d/walkthrough/trainingRoomSigns';
+import {
+  MOCK_BUILDING_SIGN,
+  MOCK_TRAINING_ROOM_SIGNS,
+} from '@/components/sede3d/walkthrough/trainingRoomSigns';
 import { SITE_NAME } from '@/lib/constants';
 
 /**
@@ -21,6 +24,8 @@ export const metadata: Metadata = {
   },
 };
 
-const SedeWalkthroughPage = () => <SedeWalkthrough signs={MOCK_TRAINING_ROOM_SIGNS} />;
+const SedeWalkthroughPage = () => (
+  <SedeWalkthrough signs={MOCK_TRAINING_ROOM_SIGNS} building={MOCK_BUILDING_SIGN} />
+);
 
 export default SedeWalkthroughPage;

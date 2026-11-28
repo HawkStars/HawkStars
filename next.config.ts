@@ -32,9 +32,17 @@ const isProd = process.env.NODE_ENV === 'production';
 //
 // Note frame-src previously had no openstreetmap.org entry at all, so the
 // MapLocationBlock's embed was being blocked outright.
+//
+// connect-src carries blob: and data: in every environment: three.js's GLTFLoader decodes
+// the textures embedded in the 3D models by fetch()ing blob: URLs, so without it (as it was
+// outside production) every texture failed and the models rendered untextured.
+//
+// 'wasm-unsafe-eval' lets WebAssembly compile (it does not allow JS eval): the 3D model at
+// /sede-3d is Draco-compressed and three.js decodes it with the Draco WASM decoder in a
+// blob: worker (decoder files in public/models/draco/).
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} blob: https://www.googletagmanager.com https://www.google-analytics.com https://upload-widget.cloudinary.com https://*.cloudinary.com https://www.instagram.com https://*.cdninstagram.com https://browser.sentry-cdn.com;
+  script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'${isDev ? " 'unsafe-eval'" : ''} blob: https://www.googletagmanager.com https://www.google-analytics.com https://upload-widget.cloudinary.com https://*.cloudinary.com https://www.instagram.com https://*.cdninstagram.com https://browser.sentry-cdn.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   img-src 'self' blob: data: https://res.cloudinary.com https://images.unsplash.com https://*.cdninstagram.com https://*.fbcdn.net https://*.basemaps.cartocdn.com https://*.tile.openstreetmap.org https://drive.google.com https://www.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://www.google.com https://www.google.pt;
   font-src 'self' https://fonts.gstatic.com data:;
@@ -43,7 +51,7 @@ const cspHeader = `
   form-action 'self';
   frame-ancestors 'self';
   frame-src 'self' https://www.openstreetmap.org https://www.instagram.com/ https://upload-widget.cloudinary.com https://www.youtube.com https://www.youtube-nocookie.com/;
-  connect-src 'self' *.google-analytics.com *.analytics.google.com https://stats.g.doubleclick.net *.de.sentry.io https://browser.sentry-cdn.com ${isProd ? 'https://*.googleapis.com *.google.com https://*.gstatic.com data: blob:' : 'http://127.0.0.1:54321'};
+  connect-src 'self' *.google-analytics.com *.analytics.google.com https://stats.g.doubleclick.net *.de.sentry.io https://browser.sentry-cdn.com blob: data: ${isProd ? 'https://*.googleapis.com *.google.com https://*.gstatic.com' : 'http://127.0.0.1:54321'};
   media-src 'self' https://www.youtube.com;
   block-all-mixed-content;
   upgrade-insecure-requests;
@@ -69,7 +77,7 @@ const nextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   // (`cloudflared tunnel --url http://localhost:3000`). No effect in production.
-  allowedDevOrigins: ['*.trycloudflare.com'],
+  allowedDevOrigins: ['*.trycloudflare.com', '*.ngrok-free.dev', '*.ngrok-free.app', '*.ngrok.app'],
   cacheMaxMemorySize: 50 * 1024 * 1024,
   images: {
     minimumCacheTTL: 43200,

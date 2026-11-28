@@ -21,6 +21,8 @@ const eslintConfig = defineConfig([
     'storybook-static/**',
     // generated MSW worker
     'public/mockServiceWorker.js',
+    // vendored three.js Draco decoder (used by /sede-3d)
+    'public/models/draco/**',
     // staging area for files pending `git rm`
     '_to_delete/**',
   ]),

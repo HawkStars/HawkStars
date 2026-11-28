@@ -1,0 +1,5 @@
+- remove the main global page no longer needed.
+- add a cache for the build on the ci cd.
+- ver se os testominals é por projeto ou na lista de projetos
+- mostrar ao Angelo como usar o sheets para meter o resto das pessoas
+- mudar agenda para algo mais interessante

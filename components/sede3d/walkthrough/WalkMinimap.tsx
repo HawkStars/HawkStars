@@ -51,9 +51,10 @@ const WalkMinimap = ({ map, pose, room, onGo, className }: Props) => {
         role='img'
         aria-label={`Planta do ${floorLabel(plan.floor)}`}
       >
-        {plan.rooms.map((r) => (
+        {plan.rooms.map((r, i) => (
           <path
-            key={`${r.name}-${r.d.length}`}
+            // a room's floor can be several meshes (one per material), even with equal outlines
+            key={`${r.name}-${i}`}
             d={r.d}
             className={cn(
               'stroke-[0.05]',
