@@ -4,7 +4,6 @@ import { FiChevronDown, FiMaximize } from 'react-icons/fi';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { useRoomyScreen } from './useRoomyScreen';
 import type { SedeBlenderScene } from './blenderScene';
 
 import { FLOORS, ROOMS, type FloorView } from './data';
@@ -61,10 +60,7 @@ const SedeBlender = () => {
   const [furniture, setFurniture] = useState(true);
   const [labels, setLabels] = useState(true);
   const [context, setContext] = useState(true);
-  // the panel folds down to its title; it starts open only on a big screen
-  const roomy = useRoomyScreen();
-  // null until the visitor opens or folds it themselves
-  const [menuChoice] = useState<boolean | null>(null);
+
   const [hour, setHour] = useState(15);
 
   const viewRef = useRef<FloorView>('ext');
